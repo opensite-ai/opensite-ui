@@ -1,0 +1,129 @@
+{
+  "name": "@opensite/ui",
+  "version": "0.0.1",
+  "description": "TODO",
+  "keywords": [
+    "react",
+    "performance",
+    "pagespeed",
+    "tree-shakeable",
+    "ui",
+    "shadcn",
+    "tailwind"
+  ],
+  "homepage": "https://github.com/opensite-ai/opensite-ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opensite-ai/opensite-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/opensite-ai/opensite-ui/issues"
+  },
+  "author": "OpenSite AI (https://opensite.ai)",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.js",
+      "require": "./dist/core.cjs"
+    },
+    "./inputs": {
+      "types": "./dist/inputs.d.ts",
+      "import": "./dist/inputs.js",
+      "require": "./dist/inputs.cjs"
+    },
+    "./validation": {
+      "types": "./dist/validation.d.ts",
+      "import": "./dist/validation.js",
+      "require": "./dist/validation.cjs"
+    },
+    "./validation/valibot": {
+      "types": "./dist/validation-valibot.d.ts",
+      "import": "./dist/validation-valibot.js",
+      "require": "./dist/validation-valibot.cjs"
+    },
+    "./validation/rules": {
+      "types": "./dist/validation-rules.d.ts",
+      "import": "./dist/validation-rules.js",
+      "require": "./dist/validation-rules.cjs"
+    },
+    "./validation/utils": {
+      "types": "./dist/validation-utils.d.ts",
+      "import": "./dist/validation-utils.js",
+      "require": "./dist/validation-utils.cjs"
+    },
+    "./upload": {
+      "types": "./dist/upload.d.ts",
+      "import": "./dist/upload.js",
+      "require": "./dist/upload.cjs"
+    },
+    "./integration": {
+      "types": "./dist/integration.d.ts",
+      "import": "./dist/integration.js",
+      "require": "./dist/integration.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:ci": "./scripts/test-ci-silent.sh",
+    "type-check": "tsc --noEmit",
+    "size": "bash -c 'size-limit --silent 2>/dev/null'",
+    "prepublishOnly": "pnpm run build && pnpm run test:ci"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^11.2.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^4.0.10",
+    "@vitest/ui": "^4.0.10",
+    "happy-dom": "^20.0.10",
+    "jsdom": "^27.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "size-limit": "^11.1.6",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^4.0.10"
+  },
+  "dependencies": {
+    "@opensite/hooks": "^0.1.0"
+  },
+  "optionalDependencies": {
+    "@legendapp/state": "^3.0.0-beta.42",
+    "valibot": "^1.2.0"
+  },
+  "packageManager": "pnpm@9.14.4",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
