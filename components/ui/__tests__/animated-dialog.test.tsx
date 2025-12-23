@@ -27,7 +27,7 @@ describe("AnimatedDialog", () => {
     render(
       <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
         Test Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     expect(screen.getByText("Test Content")).toBeInTheDocument();
   });
@@ -36,52 +36,72 @@ describe("AnimatedDialog", () => {
     render(
       <AnimatedDialog open={false} onOpenChange={mockOnOpenChange}>
         Test Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     expect(screen.queryByText("Test Content")).not.toBeInTheDocument();
   });
 
   it("renders title when provided", () => {
     render(
-      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange} title="Test Title">
+      <AnimatedDialog
+        open={true}
+        onOpenChange={mockOnOpenChange}
+        title="Test Title"
+      >
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders eyebrow when provided", () => {
     render(
-      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange} eyebrow="Test Eyebrow">
+      <AnimatedDialog
+        open={true}
+        onOpenChange={mockOnOpenChange}
+        eyebrow="Test Eyebrow"
+      >
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     expect(screen.getByText("Test Eyebrow")).toBeInTheDocument();
   });
 
   it("renders description when provided", () => {
     render(
-      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange} description="Test Description">
+      <AnimatedDialog
+        open={true}
+        onOpenChange={mockOnOpenChange}
+        description="Test Description"
+      >
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom header when provided", () => {
     render(
-      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange} header={<div>Custom Header</div>}>
+      <AnimatedDialog
+        open={true}
+        onOpenChange={mockOnOpenChange}
+        header={<div>Custom Header</div>}
+      >
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     expect(screen.getByText("Custom Header")).toBeInTheDocument();
   });
 
   it("renders footer when provided", () => {
     render(
-      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange} footer={<div>Footer Content</div>}>
+      <AnimatedDialog
+        open={true}
+        onOpenChange={mockOnOpenChange}
+        footer={<div>Footer Content</div>}
+      >
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     expect(screen.getByText("Footer Content")).toBeInTheDocument();
   });
@@ -90,7 +110,7 @@ describe("AnimatedDialog", () => {
     const { container } = render(
       <AnimatedDialog open={true} onOpenChange={mockOnOpenChange} size="sm">
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     const dialog = container.querySelector('[role="dialog"]');
     expect(dialog?.className).toContain("max-w-md");
@@ -101,7 +121,7 @@ describe("AnimatedDialog", () => {
     render(
       <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
 
     const closeButton = screen.getByRole("button", { name: /close/i });
@@ -114,7 +134,7 @@ describe("AnimatedDialog", () => {
     const { container } = render(
       <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     const dialog = container.querySelector('[role="dialog"]');
     expect(dialog?.className).toContain("bg-background");
@@ -126,21 +146,21 @@ describe("AnimatedDialog", () => {
     const { container } = render(
       <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     const dialog = container.querySelector('[role="dialog"]');
     expect(dialog?.className).toContain("my-12");
     expect(dialog?.className).toContain("md:my-20");
   });
 
-  it("ensures close button maintains circular shape with flex-shrink-0", () => {
+  it("ensures close button maintains circular shape with shrink-0", () => {
     render(
       <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
         Content
-      </AnimatedDialog>
+      </AnimatedDialog>,
     );
     const closeButton = screen.getByRole("button", { name: /close/i });
-    expect(closeButton.className).toContain("flex-shrink-0");
+    expect(closeButton.className).toContain("shrink-0");
     expect(closeButton.className).toContain("rounded-full");
     expect(closeButton.className).toContain("h-10");
     expect(closeButton.className).toContain("w-10");
