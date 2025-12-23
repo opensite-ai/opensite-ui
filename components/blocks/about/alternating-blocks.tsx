@@ -93,8 +93,8 @@ export function AlternatingBlocks({
 
               <div
                 className={cn(
-                  "aspect-[4/3] overflow-hidden rounded-lg border",
-                  section.mediaLeft ? "md:order-1" : ""
+                  "aspect-4/3 overflow-hidden rounded-lg border",
+                  section.mediaLeft ? "md:order-1" : "",
                 )}
               >
                 <div className="flex h-full w-full items-center justify-center">

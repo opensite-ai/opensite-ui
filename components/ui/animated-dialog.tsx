@@ -119,9 +119,9 @@ export function AnimatedDialog({
             aria-labelledby={title ? titleId : undefined}
             aria-describedby={description ? descriptionId : undefined}
             className={cn(
-              "relative z-[60] mx-auto my-12 flex w-[92vw] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-background p-6 shadow-2xl ring-1 ring-border/10 md:my-20 md:p-12",
+              "relative z-60 mx-auto my-12 flex w-[92vw] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-background p-6 shadow-2xl ring-1 ring-border/10 md:my-20 md:p-12",
               sizeStyles[size],
-              className
+              className,
             )}
           >
             {/* Header */}
@@ -158,7 +158,7 @@ export function AnimatedDialog({
               <button
                 type="button"
                 aria-label="Close dialog"
-                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-foreground text-background transition hover:bg-foreground/80 md:h-11 md:w-11"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition hover:bg-foreground/80 md:h-11 md:w-11"
                 onClick={() => onOpenChange(false)}
               >
                 <svg
@@ -184,7 +184,7 @@ export function AnimatedDialog({
               <div
                 className={cn(
                   "mt-8 flex-1 min-h-0 overflow-y-auto pr-2 md:mt-10",
-                  contentClassName
+                  contentClassName,
                 )}
               >
                 {children}

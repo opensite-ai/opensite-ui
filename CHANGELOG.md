@@ -7,23 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.3] - 2025-12-23
 
-### Breaking Changes ⚠️
-
-#### Category-Based Directory Structure
+### Category-Based Directory Structure
 
 Import paths have changed for all blocks to support hundreds of content-specific blocks through category-based organization.
 
 **Before:**
+
 ```tsx
 import { AlternatingBlocks } from "@opensite/ui/blocks/alternating-blocks";
 ```
 
 **After:**
+
 ```tsx
 import { AlternatingBlocks } from "@opensite/ui/blocks/about/alternating-blocks";
 ```
 
 **New Directory Structure:**
+
 - `components/blocks/about/` - Company story, mission, history
 - `components/blocks/features/` - Product/service features
 - `components/blocks/cta/` - Call-to-action sections
@@ -48,6 +49,7 @@ import { AlternatingBlocks } from "@opensite/ui/blocks/about/alternating-blocks"
 The AlternatingBlocks component has been refactored to use the Section component for consistency.
 
 **New Props:**
+
 - `title?: string` - Section title (optional)
 - `subtitle?: string` - Section subtitle/eyebrow (optional)
 - `background?: SectionBackground` - Background variant (default: "white")
@@ -55,6 +57,7 @@ The AlternatingBlocks component has been refactored to use the Section component
 - `contentClassName?: string` - Additional CSS classes for content container
 
 **Before:**
+
 ```tsx
 <AlternatingBlocks
   className="custom-class"
@@ -63,6 +66,7 @@ The AlternatingBlocks component has been refactored to use the Section component
 ```
 
 **After:**
+
 ```tsx
 <AlternatingBlocks
   title="Our Journey"
@@ -82,6 +86,7 @@ The AlternatingBlocks component has been refactored to use the Section component
 AnimatedDialog now includes polished default styles while remaining fully customizable.
 
 **Changes:**
+
 - Changed background from `bg-card` to `bg-background` for better theme integration
 - Increased padding from `p-4 md:p-10` to `p-6 md:p-12` for more spacious feel
 - Increased viewport margins from `my-10 md:my-16` to `my-12 md:my-20` for better mobile/desktop spacing
@@ -92,6 +97,7 @@ AnimatedDialog now includes polished default styles while remaining fully custom
 - Changed title color from `text-card-foreground` to `text-foreground` for consistency
 
 **Default Styles:**
+
 - Background uses theme background color for proper contrast
 - Generous padding (p-6 on mobile, p-12 on desktop) for spacious feel
 - Proper viewport spacing (my-12 on mobile, my-20 on desktop)
@@ -105,12 +111,14 @@ AnimatedDialog now includes polished default styles while remaining fully custom
 Fixed `showOverlay` prop having no visible effect due to double opacity bug.
 
 **Root Cause:**
+
 - Overlay gradient used alpha values in Tailwind classes (`from-foreground/70 via-foreground/50 to-foreground/80`)
 - PLUS inline `style={{ opacity: overlayOpacity }}`
 - Effective opacity was too weak (0.42, 0.3, 0.48)
 - Wrong color variable (`foreground` for text, not overlays)
 
 **Fix:**
+
 ```tsx
 // Before
 <div
@@ -132,6 +140,7 @@ Fixed `showOverlay` prop having no visible effect due to double opacity bug.
 Fixed `style` prop support not being explicit in the interface.
 
 **Changes:**
+
 - Made `style?: React.CSSProperties` explicit in SectionProps interface
 - Destructured and explicitly passed to `<section>` element
 - Updated documentation
@@ -159,6 +168,7 @@ Fixed `style` prop support not being explicit in the interface.
 #### For Consumers
 
 1. **Update imports** - Add category to block import paths:
+
    ```tsx
    // Old
    import { AlternatingBlocks } from "@opensite/ui/blocks/alternating-blocks";
@@ -168,6 +178,7 @@ Fixed `style` prop support not being explicit in the interface.
    ```
 
 2. **Review AlternatingBlocks usage** - Consider using new Section props:
+
    ```tsx
    <AlternatingBlocks
      title="Optional Title"      // NEW
