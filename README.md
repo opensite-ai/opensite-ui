@@ -1,4 +1,4 @@
-![Opensite Semantic UI](https://octane.cdn.ing/api/v1/images/transform?url=https://cdn.ing/assets/i/r/285961/d0ywv2g2scl7x3nnuho5nk7hwb8v/banner-short.png&q=90)
+![Opensite Semantic UI](https://octane.cdn.ing/api/v1/images/transform?url=https://cdn.ing/assets/i/r/285962/rjrtx8dtbh6y34ae0h9li9v0xfw9/banner-short.png&q=90)
 
 # @opensite/ui
 
