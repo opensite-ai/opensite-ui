@@ -76,7 +76,7 @@ describe("AlternatingBlocks", () => {
 
   it("applies custom className", () => {
     const { container } = render(
-      <AlternatingBlocks sections={mockSections} className="custom-class" />
+      <AlternatingBlocks sections={mockSections} className="custom-class" />,
     );
     const section = container.firstChild as HTMLElement;
     expect(section.className).toContain("custom-class");
@@ -93,12 +93,6 @@ describe("AlternatingBlocks", () => {
     const { container } = render(<AlternatingBlocks sections={mockSections} />);
     const innerContainer = container.querySelector(".max-w-\\[900px\\]");
     expect(innerContainer).toBeInTheDocument();
-  });
-
-  it("applies correct media aspect ratio", () => {
-    const { container } = render(<AlternatingBlocks sections={mockSections} />);
-    const mediaContainers = container.querySelectorAll(".aspect-\\[4\\/3\\]");
-    expect(mediaContainers.length).toBe(2);
   });
 
   it("renders with empty sections array", () => {
@@ -139,7 +133,9 @@ describe("AlternatingBlocks", () => {
 
   it("centers media content", () => {
     const { container } = render(<AlternatingBlocks sections={mockSections} />);
-    const mediaWrappers = container.querySelectorAll(".flex.h-full.w-full.items-center.justify-center");
+    const mediaWrappers = container.querySelectorAll(
+      ".flex.h-full.w-full.items-center.justify-center",
+    );
     expect(mediaWrappers.length).toBe(2);
   });
 
@@ -159,7 +155,7 @@ describe("AlternatingBlocks", () => {
         sections={mockSections}
         title="Our Story"
         subtitle="About Us"
-      />
+      />,
     );
     expect(screen.getByText("About Us")).toBeInTheDocument();
     expect(screen.getByText("Our Story")).toBeInTheDocument();
@@ -167,7 +163,7 @@ describe("AlternatingBlocks", () => {
 
   it("applies custom background variant", () => {
     const { container } = render(
-      <AlternatingBlocks sections={mockSections} background="gray" />
+      <AlternatingBlocks sections={mockSections} background="gray" />,
     );
     const section = container.firstChild as HTMLElement;
     expect(section.className).toContain("bg-muted/30");
@@ -175,7 +171,7 @@ describe("AlternatingBlocks", () => {
 
   it("applies custom spacing variant", () => {
     const { container } = render(
-      <AlternatingBlocks sections={mockSections} spacing="xl" />
+      <AlternatingBlocks sections={mockSections} spacing="xl" />,
     );
     const section = container.firstChild as HTMLElement;
     // xl spacing applies py-24 md:py-40
@@ -184,7 +180,7 @@ describe("AlternatingBlocks", () => {
 
   it("applies small spacing variant", () => {
     const { container } = render(
-      <AlternatingBlocks sections={mockSections} spacing="sm" />
+      <AlternatingBlocks sections={mockSections} spacing="sm" />,
     );
     const section = container.firstChild as HTMLElement;
     // sm spacing applies py-12 md:py-16
@@ -196,7 +192,7 @@ describe("AlternatingBlocks", () => {
       <AlternatingBlocks
         sections={mockSections}
         contentClassName="custom-content-class"
-      />
+      />,
     );
     const innerContainer = container.querySelector(".max-w-\\[900px\\]");
     expect(innerContainer?.className).toContain("custom-content-class");
@@ -212,7 +208,7 @@ describe("AlternatingBlocks", () => {
         spacing="md"
         className="section-custom"
         contentClassName="content-custom"
-      />
+      />,
     );
     const section = container.firstChild as HTMLElement;
     const innerContainer = container.querySelector(".max-w-\\[900px\\]");

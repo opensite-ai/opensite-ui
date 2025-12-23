@@ -7,7 +7,7 @@ describe("PageHeroBanner", () => {
     render(
       <PageHeroBanner imageUrl="test.jpg">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     expect(screen.getByText("Hero Title")).toBeInTheDocument();
   });
@@ -16,7 +16,7 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     const image = container.querySelector("img");
     expect(image).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner videoUrl="test.mp4">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     const video = container.querySelector("video");
     expect(video).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg" minHeight="600px">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     const hero = container.firstChild as HTMLElement;
     expect(hero.style.minHeight).toBe("600px");
@@ -48,9 +48,9 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
-    const overlay = container.querySelector('.bg-gradient-to-b');
+    const overlay = container.querySelector(".bg-linear-to-b");
     expect(overlay).toBeInTheDocument();
   });
 
@@ -58,7 +58,7 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg" showOverlay={false}>
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     const overlays = container.querySelectorAll('[style*="linear-gradient"]');
     expect(overlays.length).toBe(0);
@@ -68,9 +68,11 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg" overlayOpacity={0.8}>
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
-    const overlay = container.querySelector('[style*="opacity"]') as HTMLElement;
+    const overlay = container.querySelector(
+      '[style*="opacity"]',
+    ) as HTMLElement;
     expect(overlay?.style.opacity).toBe("0.8");
   });
 
@@ -78,7 +80,7 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg" className="custom-class">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     expect(container.firstChild).toHaveClass("custom-class");
   });
@@ -87,7 +89,7 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     const image = container.querySelector("img");
     expect(image).toHaveAttribute("loading", "eager");
@@ -97,7 +99,7 @@ describe("PageHeroBanner", () => {
     const { container } = render(
       <PageHeroBanner imageUrl="test.jpg" loading="lazy">
         <h1>Hero Title</h1>
-      </PageHeroBanner>
+      </PageHeroBanner>,
     );
     const image = container.querySelector("img");
     expect(image).toHaveAttribute("loading", "lazy");
