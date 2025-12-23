@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AnimatedDialog } from "../animated-dialog";
@@ -108,5 +108,41 @@ describe("AnimatedDialog", () => {
     await user.click(closeButton);
 
     expect(mockOnOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it("applies default background and padding styles", () => {
+    const { container } = render(
+      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
+        Content
+      </AnimatedDialog>
+    );
+    const dialog = container.querySelector('[role="dialog"]');
+    expect(dialog?.className).toContain("bg-background");
+    expect(dialog?.className).toContain("p-6");
+    expect(dialog?.className).toContain("md:p-12");
+  });
+
+  it("applies proper viewport spacing on mobile and desktop", () => {
+    const { container } = render(
+      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
+        Content
+      </AnimatedDialog>
+    );
+    const dialog = container.querySelector('[role="dialog"]');
+    expect(dialog?.className).toContain("my-12");
+    expect(dialog?.className).toContain("md:my-20");
+  });
+
+  it("ensures close button maintains circular shape with flex-shrink-0", () => {
+    render(
+      <AnimatedDialog open={true} onOpenChange={mockOnOpenChange}>
+        Content
+      </AnimatedDialog>
+    );
+    const closeButton = screen.getByRole("button", { name: /close/i });
+    expect(closeButton.className).toContain("flex-shrink-0");
+    expect(closeButton.className).toContain("rounded-full");
+    expect(closeButton.className).toContain("h-10");
+    expect(closeButton.className).toContain("w-10");
   });
 });

@@ -75,9 +75,13 @@ export interface SectionProps extends HTMLAttributes<HTMLElement> {
    */
   spacing?: SectionSpacing;
   /**
-   * Additional CSS classes
+   * Additional CSS classes (can override spacing and background styles)
    */
   className?: string;
+  /**
+   * Inline styles (React.CSSProperties)
+   */
+  style?: React.CSSProperties;
 }
 
 /**
@@ -182,4 +186,38 @@ export interface PageHeroBannerProps extends HTMLAttributes<HTMLDivElement> {
    * @default "4xl"
    */
   contentMaxWidth?: ContainerMaxWidth;
+}
+
+/**
+ * Block Types - Content-Specific UI Blocks
+ */
+
+/**
+ * Props for AlternatingBlocks component
+ */
+export interface AlternatingBlockSection {
+  /**
+   * Content node to display (text, headings, etc.)
+   */
+  content: ReactNode;
+  /**
+   * Media node to display (image, video, icon, etc.)
+   */
+  media: ReactNode;
+  /**
+   * Whether to place media on the left side
+   * @default false (media on right)
+   */
+  mediaLeft?: boolean;
+}
+
+export interface AlternatingBlocksProps {
+  /**
+   * Array of sections to display with alternating layout
+   */
+  sections: AlternatingBlockSection[];
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
 }

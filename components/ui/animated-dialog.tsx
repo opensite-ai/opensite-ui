@@ -119,13 +119,13 @@ export function AnimatedDialog({
             aria-labelledby={title ? titleId : undefined}
             aria-describedby={description ? descriptionId : undefined}
             className={cn(
-              "relative z-[60] mx-auto my-10 flex w-[92vw] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-card p-4 shadow-2xl ring-1 ring-border/10 md:my-16 md:p-10",
+              "relative z-[60] mx-auto my-12 flex w-[92vw] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-background p-6 shadow-2xl ring-1 ring-border/10 md:my-20 md:p-12",
               sizeStyles[size],
               className
             )}
           >
             {/* Header */}
-            <div className="flex items-start justify-between gap-6">
+            <div className="flex items-start justify-between gap-8">
               {header ? (
                 header
               ) : (
@@ -138,7 +138,7 @@ export function AnimatedDialog({
                   {title ? (
                     <h2
                       id={titleId}
-                      className="text-2xl font-semibold text-card-foreground md:text-4xl"
+                      className="text-2xl font-semibold text-foreground md:text-4xl"
                     >
                       {title}
                     </h2>
@@ -158,7 +158,7 @@ export function AnimatedDialog({
               <button
                 type="button"
                 aria-label="Close dialog"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-background transition hover:bg-foreground/80"
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-foreground text-background transition hover:bg-foreground/80 md:h-11 md:w-11"
                 onClick={() => onOpenChange(false)}
               >
                 <svg
@@ -183,7 +183,7 @@ export function AnimatedDialog({
             {children ? (
               <div
                 className={cn(
-                  "mt-6 flex-1 min-h-0 overflow-y-auto pr-2",
+                  "mt-8 flex-1 min-h-0 overflow-y-auto pr-2 md:mt-10",
                   contentClassName
                 )}
               >
@@ -192,7 +192,7 @@ export function AnimatedDialog({
             ) : null}
 
             {/* Footer */}
-            {footer ? <div className="mt-6">{footer}</div> : null}
+            {footer ? <div className="mt-8 md:mt-10">{footer}</div> : null}
           </motion.div>
         </div>
       ) : null}

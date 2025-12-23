@@ -76,6 +76,16 @@
       "import": "./dist/popover.js",
       "require": "./dist/popover.cjs"
     },
+    "./blocks/about/alternating-blocks": {
+      "types": "./dist/alternating-blocks.d.ts",
+      "import": "./dist/alternating-blocks.js",
+      "require": "./dist/alternating-blocks.cjs"
+    },
+    "./registry": {
+      "types": "./dist/registry.d.ts",
+      "import": "./dist/registry.js",
+      "require": "./dist/registry.cjs"
+    },
     "./utils": {
       "types": "./dist/utils.d.ts",
       "import": "./dist/utils.js",

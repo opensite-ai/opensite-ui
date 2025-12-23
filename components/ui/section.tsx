@@ -50,6 +50,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       subtitle,
       children,
       className,
+      style,
       background = "white",
       spacing = "lg",
       ...props
@@ -65,6 +66,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           spacingStyles[spacing],
           className
         )}
+        style={style}
         {...props}
       >
         <Container>

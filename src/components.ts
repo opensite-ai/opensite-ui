@@ -29,6 +29,9 @@ export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
 export { Badge } from "../components/ui/badge";
 export { Popover, PopoverTrigger, PopoverContent } from "../components/ui/popover";
 
+// Content-specific blocks
+export { AlternatingBlocks } from "../components/blocks/about/alternating-blocks";
+
 // Re-export types for convenience
 export type {
   ContainerProps,
@@ -39,4 +42,6 @@ export type {
   AnimatedDialogProps,
   AnimatedDialogSize,
   PageHeroBannerProps,
+  AlternatingBlocksProps,
+  AlternatingBlockSection,
 } from "./types/index";

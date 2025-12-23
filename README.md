@@ -100,7 +100,7 @@ import { Section } from "@opensite/ui/components/section";
 
 ### AnimatedDialog
 
-Animated modal dialog component using framer-motion.
+Animated modal dialog component using framer-motion with polished default styles.
 
 ```tsx
 import { AnimatedDialog } from "@opensite/ui/components/animated-dialog";
@@ -139,6 +139,13 @@ function MyComponent() {
 - `className?: string` - Additional CSS classes for container
 - `contentClassName?: string` - Additional CSS classes for content area
 
+**Default Styles:**
+- Background uses theme background color for proper contrast
+- Generous padding (p-6 on mobile, p-12 on desktop) for spacious feel
+- Proper viewport spacing (my-12 on mobile, my-20 on desktop)
+- Close button with circular background that maintains shape on all screen sizes
+- Smooth framer-motion animations with backdrop blur
+
 ### PageHeroBanner
 
 Hero banner component with image or video background support.
@@ -171,18 +178,120 @@ import { PageHeroBanner } from "@opensite/ui/components/page-hero-banner";
 - `className?: string` - Additional CSS classes
 - All standard div attributes
 
+### Button
+
+Interactive button component with multiple variants and sizes.
+
+```tsx
+import { Button } from "@opensite/ui/components/button";
+
+<Button variant="default" size="md">
+  Click Me
+</Button>
+```
+
+**Props:**
+- `variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"` (default: "default")
+- `size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg"` (default: "default")
+- `asChild?: boolean` - Render as child component using Radix Slot (default: false)
+- All standard button attributes
+
 ### shadcn/ui Components
 
 Additional components from shadcn/ui are available:
 
 ```tsx
-import { Button } from "@opensite/ui/components/button";
 import { Card, CardHeader, CardContent, CardFooter } from "@opensite/ui/components/card";
 import { Badge } from "@opensite/ui/components/badge";
 import { Popover, PopoverTrigger, PopoverContent } from "@opensite/ui/components/popover";
 ```
 
+### Content-Specific Blocks
+
+Pre-configured, reusable UI blocks for common content patterns.
+
+#### AlternatingBlocks
+
+Display content sections with alternating left/right media placement. Uses the Section component for consistent spacing, backgrounds, and optional titles. Located in the `about` category.
+
+```tsx
+import { AlternatingBlocks } from "@opensite/ui/blocks/about/alternating-blocks";
+
+<AlternatingBlocks
+  title="Our Journey"
+  subtitle="About Us"
+  background="gray"
+  spacing="xl"
+  sections={[
+    {
+      content: (
+        <div>
+          <h3 className="mb-3 text-2xl font-semibold">Our Story</h3>
+          <p className="text-muted-foreground">Started in 2018...</p>
+        </div>
+      ),
+      media: <img src="story.jpg" alt="Our story" />,
+      mediaLeft: false
+    },
+    {
+      content: <div>...</div>,
+      media: <img src="mission.jpg" alt="Our mission" />,
+      mediaLeft: true
+    }
+  ]}
+/>
+```
+
+**Props:**
+- `sections: AlternatingBlockSection[]` - Array of content sections (required)
+  - `content: ReactNode` - Content to display (text, headings, etc.)
+  - `media: ReactNode` - Media to display (image, video, icon, etc.)
+  - `mediaLeft?: boolean` - Place media on left side (default: false)
+- `title?: string` - Section title (optional)
+- `subtitle?: string` - Section subtitle/eyebrow (optional)
+- `background?: SectionBackground` - Background variant ("white" | "gray" | "accent", default: "white")
+- `spacing?: SectionSpacing` - Vertical spacing ("none" | "sm" | "md" | "lg" | "xl", default: "lg")
+- `className?: string` - Additional CSS classes for Section wrapper
+- `contentClassName?: string` - Additional CSS classes for content container
+
+**Note:** Blocks are now organized by category. Import path includes category: `@opensite/ui/blocks/[category]/[block-name]`
+
+### Block Registry
+
+Semantic registry for AI-driven component selection. Maps semantic concepts to available UI blocks.
+
+```tsx
+import {
+  BLOCK_REGISTRY,
+  getBlocksBySemanticTag,
+  getBlocksByCategory,
+  searchBlocks
+} from "@opensite/ui/registry";
+
+// Get blocks by semantic tag
+const aboutBlocks = getBlocksBySemanticTag("about");
+
+// Get blocks by category
+const featureBlocks = getBlocksByCategory("features");
+
+// Search blocks
+const results = searchBlocks("alternating");
+```
+
+**Available Functions:**
+- `getBlocksBySemanticTag(tag: string)` - Find blocks matching semantic tag
+- `getBlocksByCategory(category: BlockCategory)` - Find blocks in category
+- `getBlockById(id: string)` - Get specific block by ID
+- `getAllBlocks()` - Get all registered blocks
+- `getAllCategories()` - Get all available categories
+- `searchBlocks(query: string)` - Search blocks by name/description/tags
+
+**Block Categories:**
+- about, features, cta, testimonials, services, hero, footer, header, pricing, team, stats, faq, contact, gallery, timeline, process, benefits, comparison
+
 ## Styling
+
+For comprehensive styling documentation including all CSS variables, theming guides, and customization examples, see [STYLES.md](./docs/STYLES.md).
 
 ### CSS Variables
 
@@ -243,6 +352,10 @@ import type {
   SectionSpacing,
   AnimatedDialogProps,
   PageHeroBannerProps,
+  AlternatingBlocksProps,
+  AlternatingBlockSection,
+  BlockRegistryEntry,
+  BlockCategory,
 } from "@opensite/ui/types";
 ```
 
