@@ -1,3 +1,5 @@
+![Opensite Semantic UI](https://octane.cdn.ing/api/v1/images/transform?url=https://cdn.ing/assets/i/r/285961/d0ywv2g2scl7x3nnuho5nk7hwb8v/banner-short.png&q=90)
+
 # @opensite/ui
 
 Foundational UI component library for the OpenSite Semantic Site Builder ecosystem. Provides tree-shakable, performance-optimized components with abstract styling support.
