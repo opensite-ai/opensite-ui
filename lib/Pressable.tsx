@@ -4,7 +4,7 @@ import * as React from "react";
 import { type VariantProps } from "class-variance-authority";
 import { cn } from "./utils";
 import { useNavigation } from "./useNavigation";
-import { buttonVariants } from "../components/ui/button";
+import { buttonVariants } from "./button-variants";
 
 type FallbackComponentType = "span" | "div" | "button";
 
