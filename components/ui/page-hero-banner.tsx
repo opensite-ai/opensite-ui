@@ -79,7 +79,7 @@ export function PageHeroBanner({
       {/* Gradient overlay */}
       {showOverlay && (
         <div
-          className="absolute inset-0 bg-linear-to-b from-black via-black to-black"
+          className="absolute inset-0 bg-gradient-to-b from-black via-black to-black"
           style={{ opacity: overlayOpacity }}
         />
       )}
