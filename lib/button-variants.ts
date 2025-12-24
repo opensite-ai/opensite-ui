@@ -49,11 +49,11 @@ const baseStyles = [
   "text-sm",
   // Border radius
   "rounded-[var(--button-radius,var(--radius,0.375rem))]",
-  // Smooth transition - slower and smoother default
-  "transition-[var(--button-transition,all_250ms_cubic-bezier(0.4,0,0.2,1))]",
-  // Box shadow (master level)
-  "shadow-[var(--button-shadow,none)]",
-  "hover:shadow-[var(--button-shadow-hover,var(--button-shadow,none))]",
+  // Smooth transition - using [transition:...] to set full shorthand property (not just transition-property)
+  "[transition:var(--button-transition,all_250ms_cubic-bezier(0.4,0,0.2,1))]",
+  // Box shadow (master level) - using [box-shadow:...] for complex multi-value shadows
+  "[box-shadow:var(--button-shadow,none)]",
+  "hover:[box-shadow:var(--button-shadow-hover,var(--button-shadow,none))]",
   // Disabled state
   "disabled:pointer-events-none disabled:opacity-50",
   // SVG handling
@@ -73,11 +73,11 @@ export const buttonVariants = cva(baseStyles, {
         "text-[var(--button-default-fg,hsl(var(--primary-foreground)))]",
         "border-[length:var(--button-default-border-width,0px)]",
         "border-[color:var(--button-default-border,transparent)]",
-        "shadow-[var(--button-default-shadow,var(--button-shadow,none))]",
+        "[box-shadow:var(--button-default-shadow,var(--button-shadow,none))]",
         "hover:bg-[var(--button-default-hover-bg,hsl(var(--primary)/0.9))]",
         "hover:text-[var(--button-default-hover-fg,var(--button-default-fg,hsl(var(--primary-foreground))))]",
         "hover:border-[color:var(--button-default-hover-border,var(--button-default-border,transparent))]",
-        "hover:shadow-[var(--button-default-shadow-hover,var(--button-shadow-hover,var(--button-default-shadow,var(--button-shadow,none))))]",
+        "hover:[box-shadow:var(--button-default-shadow-hover,var(--button-shadow-hover,var(--button-default-shadow,var(--button-shadow,none))))]",
       ].join(" "),
 
       // Destructive variant - full customization
@@ -86,11 +86,11 @@ export const buttonVariants = cva(baseStyles, {
         "text-[var(--button-destructive-fg,white)]",
         "border-[length:var(--button-destructive-border-width,0px)]",
         "border-[color:var(--button-destructive-border,transparent)]",
-        "shadow-[var(--button-destructive-shadow,var(--button-shadow,none))]",
+        "[box-shadow:var(--button-destructive-shadow,var(--button-shadow,none))]",
         "hover:bg-[var(--button-destructive-hover-bg,hsl(var(--destructive)/0.9))]",
         "hover:text-[var(--button-destructive-hover-fg,var(--button-destructive-fg,white))]",
         "hover:border-[color:var(--button-destructive-hover-border,var(--button-destructive-border,transparent))]",
-        "hover:shadow-[var(--button-destructive-shadow-hover,var(--button-shadow-hover,var(--button-destructive-shadow,var(--button-shadow,none))))]",
+        "hover:[box-shadow:var(--button-destructive-shadow-hover,var(--button-shadow-hover,var(--button-destructive-shadow,var(--button-shadow,none))))]",
         "focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
         "dark:bg-destructive/60",
       ].join(" "),
@@ -101,11 +101,11 @@ export const buttonVariants = cva(baseStyles, {
         "text-[var(--button-outline-fg,inherit)]",
         "border-[length:var(--button-outline-border-width,1px)]",
         "border-[color:var(--button-outline-border,hsl(var(--border)))]",
-        "shadow-[var(--button-outline-shadow,var(--button-shadow,0_1px_2px_0_rgb(0_0_0/0.05)))]",
+        "[box-shadow:var(--button-outline-shadow,var(--button-shadow,0_1px_2px_0_rgb(0_0_0/0.05)))]",
         "hover:bg-[var(--button-outline-hover-bg,hsl(var(--accent)))]",
         "hover:text-[var(--button-outline-hover-fg,hsl(var(--accent-foreground)))]",
         "hover:border-[color:var(--button-outline-hover-border,var(--button-outline-border,hsl(var(--border))))]",
-        "hover:shadow-[var(--button-outline-shadow-hover,var(--button-shadow-hover,var(--button-outline-shadow,var(--button-shadow,none))))]",
+        "hover:[box-shadow:var(--button-outline-shadow-hover,var(--button-shadow-hover,var(--button-outline-shadow,var(--button-shadow,none))))]",
         "dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
       ].join(" "),
 
@@ -115,11 +115,11 @@ export const buttonVariants = cva(baseStyles, {
         "text-[var(--button-secondary-fg,hsl(var(--secondary-foreground)))]",
         "border-[length:var(--button-secondary-border-width,0px)]",
         "border-[color:var(--button-secondary-border,transparent)]",
-        "shadow-[var(--button-secondary-shadow,var(--button-shadow,none))]",
+        "[box-shadow:var(--button-secondary-shadow,var(--button-shadow,none))]",
         "hover:bg-[var(--button-secondary-hover-bg,hsl(var(--secondary)/0.8))]",
         "hover:text-[var(--button-secondary-hover-fg,var(--button-secondary-fg,hsl(var(--secondary-foreground))))]",
         "hover:border-[color:var(--button-secondary-hover-border,var(--button-secondary-border,transparent))]",
-        "hover:shadow-[var(--button-secondary-shadow-hover,var(--button-shadow-hover,var(--button-secondary-shadow,var(--button-shadow,none))))]",
+        "hover:[box-shadow:var(--button-secondary-shadow-hover,var(--button-shadow-hover,var(--button-secondary-shadow,var(--button-shadow,none))))]",
       ].join(" "),
 
       // Ghost variant - full customization
@@ -128,11 +128,11 @@ export const buttonVariants = cva(baseStyles, {
         "text-[var(--button-ghost-fg,inherit)]",
         "border-[length:var(--button-ghost-border-width,0px)]",
         "border-[color:var(--button-ghost-border,transparent)]",
-        "shadow-[var(--button-ghost-shadow,var(--button-shadow,none))]",
+        "[box-shadow:var(--button-ghost-shadow,var(--button-shadow,none))]",
         "hover:bg-[var(--button-ghost-hover-bg,hsl(var(--accent)))]",
         "hover:text-[var(--button-ghost-hover-fg,hsl(var(--accent-foreground)))]",
         "hover:border-[color:var(--button-ghost-hover-border,var(--button-ghost-border,transparent))]",
-        "hover:shadow-[var(--button-ghost-shadow-hover,var(--button-shadow-hover,var(--button-ghost-shadow,var(--button-shadow,none))))]",
+        "hover:[box-shadow:var(--button-ghost-shadow-hover,var(--button-shadow-hover,var(--button-ghost-shadow,var(--button-shadow,none))))]",
         "dark:hover:bg-accent/50",
       ].join(" "),
 
@@ -142,10 +142,10 @@ export const buttonVariants = cva(baseStyles, {
         "text-[var(--button-link-fg,hsl(var(--primary)))]",
         "border-[length:var(--button-link-border-width,0px)]",
         "border-[color:var(--button-link-border,transparent)]",
-        "shadow-[var(--button-link-shadow,none)]",
+        "[box-shadow:var(--button-link-shadow,none)]",
         "hover:bg-[var(--button-link-hover-bg,transparent)]",
         "hover:text-[var(--button-link-hover-fg,var(--button-link-fg,hsl(var(--primary))))]",
-        "hover:shadow-[var(--button-link-shadow-hover,none)]",
+        "hover:[box-shadow:var(--button-link-shadow-hover,none)]",
         "underline-offset-4 hover:underline",
       ].join(" "),
     },
