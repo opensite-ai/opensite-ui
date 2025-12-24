@@ -15,6 +15,8 @@
 
 import { AlternatingBlocks } from "../../components/blocks/about/alternating-blocks";
 import type { AlternatingBlocksProps } from "../../components/blocks/about/alternating-blocks";
+import { MediaHoverCtas } from "../../components/blocks/cta/media-hover-ctas";
+import type { MediaHoverCtasProps } from "../../components/blocks/cta/media-hover-ctas";
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
 
@@ -100,6 +102,61 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       content: <div>...</div>,
       media: <img src="..." alt="..." />,
       mediaLeft: true
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "media-hover-ctas": {
+    id: "media-hover-ctas",
+    name: "Media Hover CTAs",
+    description:
+      "Display CTA cards that reveal background imagery or color on hover. Ideal for mission/vision tiles, service highlights, or campaign prompts.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "hover",
+      "media",
+      "cards",
+      "grid",
+      "image-hover",
+      "tiles",
+      "mission",
+      "vision",
+    ],
+    category: "cta",
+    component: MediaHoverCtas,
+    props: "MediaHoverCtasProps",
+    exampleUsage: `
+<MediaHoverCtas
+  items={[
+    {
+      content: (
+        <div className="flex max-w-sm flex-col gap-4">
+          <span className="text-sm font-semibold uppercase tracking-wide text-primary">
+            Our Mission
+          </span>
+          <p className="text-muted-foreground">
+            Deliver remarkable experiences with thoughtful design.
+          </p>
+        </div>
+      ),
+      onHoverImgSrc: "/images/mission.jpg",
+      altText: "Our Mission"
+    },
+    {
+      content: (
+        <div className="flex max-w-sm flex-col gap-4">
+          <span className="text-sm font-semibold uppercase tracking-wide text-primary">
+            Our Vision
+          </span>
+          <p className="text-muted-foreground">
+            Build the future of adaptive customer experiences.
+          </p>
+        </div>
+      ),
+      initialBackgroundColor: "var(--brand-100)",
+      onHoverBackgroundColor: "var(--brand-900)"
     }
   ]}
 />
@@ -219,6 +276,8 @@ export function searchBlocks(query: string): BlockRegistryEntry[] {
     (block) =>
       block.name.toLowerCase().includes(lowercaseQuery) ||
       block.description.toLowerCase().includes(lowercaseQuery) ||
-      block.semanticTags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
+      block.semanticTags.some((tag) =>
+        tag.toLowerCase().includes(lowercaseQuery)
+      )
   );
 }

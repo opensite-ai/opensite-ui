@@ -256,6 +256,52 @@ import { AlternatingBlocks } from "@opensite/ui/blocks/about/alternating-blocks"
 
 **Note:** Blocks are now organized by category. Import path includes category: `@opensite/ui/blocks/[category]/[block-name]`
 
+#### MediaHoverCtas
+
+Two-column CTA grid that reveals background imagery or color on hover. Located in the `cta` category.
+
+```tsx
+import { MediaHoverCtas } from "@opensite/ui/blocks/cta/media-hover-ctas";
+
+<MediaHoverCtas
+  items={[
+    {
+      content: (
+        <div>
+          <h3 className="mb-3 text-xl font-semibold">Our Mission</h3>
+          <p className="text-muted-foreground">Deliver remarkable experiences.</p>
+        </div>
+      ),
+      onHoverImgSrc: "/images/mission.jpg",
+      altText: "Our Mission"
+    },
+    {
+      content: (
+        <div>
+          <h3 className="mb-3 text-xl font-semibold">Our Vision</h3>
+          <p className="text-muted-foreground">Build the future of our industry.</p>
+        </div>
+      ),
+      initialBackgroundColor: "var(--brand-100)",
+      onHoverBackgroundColor: "var(--brand-900)"
+    }
+  ]}
+/>
+```
+
+**Props:**
+- `items?: MediaHoverCtaItem[]` - Array of CTA items (default: [])
+  - `content?: ReactNode` - Content to render inside the card
+  - `onHoverImgSrc?: string` - Image URL to reveal on hover
+  - `imgHoverClassName?: string` - Additional classes for hover image
+  - `altText?: string` - Alt text for hover image (leave empty for decorative)
+  - `cardHref?: string` - Optional href to make the card a link
+  - `initialBackgroundColor?: string` - CSS color value or variable for base background
+  - `onHoverBackgroundColor?: string` - CSS color value or variable for hover background (ignored when hover image is used)
+- `sectionClassName?: string` - Additional classes for section wrapper
+- `gridClassName?: string` - Additional classes for grid container
+- `optixFlowConfig?: { apiKey: string; compression?: number }` - Optional Optix Flow config for `@page-speed/img`
+
 ### Block Registry
 
 Semantic registry for AI-driven component selection. Maps semantic concepts to available UI blocks.

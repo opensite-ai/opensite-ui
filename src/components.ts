@@ -25,13 +25,29 @@ export { PageHeroBanner } from "../components/ui/page-hero-banner";
 
 // shadcn UI components
 export { Button } from "../components/ui/button";
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "../components/ui/card";
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "../components/ui/card";
 export { Badge } from "../components/ui/badge";
-export { Popover, PopoverTrigger, PopoverContent } from "../components/ui/popover";
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "../components/ui/popover";
 export { DynamicIcon } from "../components/ui/dynamic-icon";
+
+// Navigation components
+export { Pressable } from "../lib/Pressable";
+export type { PressableProps } from "../lib/Pressable";
 
 // Content-specific blocks
 export { AlternatingBlocks } from "../components/blocks/about/alternating-blocks";
+export { MediaHoverCtas } from "../components/blocks/cta/media-hover-ctas";
 
 // Re-export types for convenience
 export type {
@@ -45,4 +61,7 @@ export type {
   PageHeroBannerProps,
   AlternatingBlocksProps,
   AlternatingBlockSection,
+  MediaHoverCtasProps,
+  MediaHoverCtaItem,
+  MediaHoverCtaType,
 } from "./types/index";

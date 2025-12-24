@@ -21,6 +21,9 @@
 // Re-export all components
 export * from "./components";
 
+// Re-export hooks
+export * from "../lib/hooks";
+
 // Re-export types
 export type * from "./types/index";
 

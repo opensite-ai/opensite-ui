@@ -290,3 +290,63 @@ export interface FeatureShowcaseProps {
    */
   stretchMediaOnMobile?: boolean;
 }
+
+/**
+ * Props for MediaHoverCtas component
+ */
+export interface MediaHoverCtaItem {
+  /**
+   * Content to render inside the CTA card.
+   */
+  content?: ReactNode;
+  /**
+   * Image URL to reveal on hover (optional).
+   */
+  onHoverImgSrc?: string;
+  /**
+   * Additional classes for the hover image.
+   */
+  imgHoverClassName?: string;
+  /**
+   * Alt text for the hover image (leave empty for decorative images).
+   */
+  altText?: string;
+  /**
+   * Optional href to make the card a link.
+   */
+  cardHref?: string;
+  /**
+   * Initial background color (CSS color value or CSS variable).
+   * Example: "#111" or "var(--brand-900)".
+   */
+  initialBackgroundColor?: string;
+  /**
+   * Hover background color (CSS color value or CSS variable).
+   * Applied only when onHoverImgSrc is not provided.
+   */
+  onHoverBackgroundColor?: string;
+}
+
+export type MediaHoverCtaType = MediaHoverCtaItem;
+
+export interface MediaHoverCtasProps {
+  /**
+   * Additional classes for the section wrapper.
+   */
+  sectionClassName?: string;
+  /**
+   * Additional classes for the grid container.
+   */
+  gridClassName?: string;
+  /**
+   * CTA items to render.
+   */
+  items?: MediaHoverCtaItem[];
+  /**
+   * Optional Optix Flow configuration for @page-speed/img.
+   */
+  optixFlowConfig?: {
+    apiKey: string;
+    compression?: number;
+  };
+}
