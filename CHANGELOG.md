@@ -5,6 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.4] - 2025-12-23
+
+### Fixed
+
+#### PageHeroBanner Overlay Rendering
+
+Fixed critical bug where overlay was not rendering at all due to typo in Tailwind class name.
+
+**Root Cause:**
+- Line 82 had `bg-linear-to-b` instead of `bg-gradient-to-b`
+- Invalid Tailwind class prevented gradient overlay from rendering
+- Affected all PageHeroBanner components with `showOverlay={true}` (default)
+
+**Fix:**
+```tsx
+// Before (broken)
+<div className="absolute inset-0 bg-linear-to-b from-black via-black to-black" />
+
+// After (working)
+<div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
+```
+
+**Impact:**
+- PageHeroBanner overlays now render correctly
+- Default `overlayOpacity={0.6}` provides proper darkening for text readability
+- Gradient overlay properly covers image/video backgrounds
+
+**Test Updates:**
+- Updated test expectation from `.bg-linear-to-b` to `.bg-gradient-to-b`
+- All 69 tests passing
+
+### Documentation
+
+Added guidance on required Tailwind configuration for consuming applications in `docs/STYLES.md`:
+- Color mappings (`hsl(var(--primary))` pattern)
+- Border radius mappings
+- Content path including `@opensite/ui` distribution files
+- Dark mode configuration
+
 ## [0.0.3] - 2025-12-23
 
 ### Category-Based Directory Structure

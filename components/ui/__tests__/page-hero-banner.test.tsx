@@ -50,7 +50,7 @@ describe("PageHeroBanner", () => {
         <h1>Hero Title</h1>
       </PageHeroBanner>,
     );
-    const overlay = container.querySelector(".bg-linear-to-b");
+    const overlay = container.querySelector(".bg-gradient-to-b");
     expect(overlay).toBeInTheDocument();
   });
 
