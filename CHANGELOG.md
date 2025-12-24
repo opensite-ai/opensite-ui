@@ -5,6 +5,166 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.5] - 2025-12-23
+
+### Added
+
+#### FeatureShowcase Component - Interactive Feature Carousel
+
+New content-specific block component for showcasing product features in an interactive carousel format.
+
+**Features:**
+- Carousel-based layout with smooth navigation
+- Content and media side-by-side display (responsive)
+- Mobile height equalization for consistent appearance
+- Comprehensive className customization props
+- Navigation arrows with customizable styling
+- Support for any ReactNode content and media
+- Mobile-first responsive design (column → row)
+
+**Import Path:**
+```tsx
+import { FeatureShowcase } from "@opensite/ui/blocks/features/feature-showcase";
+```
+
+**Example Usage:**
+```tsx
+<FeatureShowcase
+  items={[
+    {
+      content: (
+        <div>
+          <span className="text-sm font-medium text-primary">
+            DESIGNED TO HELP YOU GROW
+          </span>
+          <h3 className="text-3xl font-bold">Powerful Analytics</h3>
+          <p className="text-muted-foreground">
+            Track every metric that matters with real-time dashboards.
+          </p>
+        </div>
+      ),
+      mediaComponent: <img src="/analytics.jpg" alt="Analytics" />
+    }
+  ]}
+/>
+```
+
+**Customization Props:**
+- `className` - Outer container styles
+- `carouselClassName` - Carousel wrapper styles
+- `slideClassName` - Individual slide styles
+- `contentClassName` - Content area styles
+- `mediaClassName` - Media area styles
+- `arrowClassName` - Navigation arrow styles
+- `equalizeOnMobile` - Equalize slide heights on mobile (default: true)
+- `stretchMediaOnMobile` - Stretch media to fill height on mobile (default: true)
+
+#### Custom Icon System - Tree-Shakable Icon Components
+
+Implemented manual icon component system to replace lucide-react dependency, reducing bundle size and improving tree-shaking.
+
+**Changes:**
+- Created `icons/` directory with custom icon components
+- ArrowLeft and ArrowRight icons implemented with lucide-compatible API
+- Icons accept standard props: `size`, `className`, `strokeWidth`, and all SVG attributes
+- Updated carousel component to use custom icons
+- Removed lucide-react from dependencies (saves ~400KB)
+
+**Icon Props:**
+```tsx
+export interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string;  // default: 24
+}
+```
+
+**Usage Example:**
+```tsx
+import { ArrowLeft, ArrowRight } from "@opensite/ui/icons/arrow-left";
+
+<ArrowLeft size={20} className="text-primary" strokeWidth={2} />
+```
+
+**Pattern for Future Icons:**
+All future icons should follow this pattern for consistency and tree-shaking benefits.
+
+### Enhanced
+
+#### Button Component - Custom Border Radius Support
+
+Button component now respects the `--button-radius` CSS variable through Tailwind configuration.
+
+**Changes:**
+- Updated Button component to use `rounded-button` instead of hardcoded `rounded-md`
+- Consuming applications must add `button: "var(--button-radius)"` to Tailwind borderRadius config
+- Allows full customization of button border radius via CSS variables
+- Applied to all button size variants (sm, default, lg)
+
+**Example Tailwind Config:**
+```js
+borderRadius: {
+  lg: "var(--radius)",
+  md: "calc(var(--radius) - 2px)",
+  sm: "calc(var(--radius) - 4px)",
+  button: "var(--button-radius)",
+},
+```
+
+**CSS Variable:**
+```css
+--button-radius: var(--radius-2xl); /* or any valid CSS value */
+```
+
+#### PageHeroBanner Component - Enhanced Customization
+
+Added two new props for greater control over overlay and content positioning.
+
+**New Props:**
+- `overlayClassName?: string` - Custom className for gradient overlay
+  - Allows full customization of overlay gradient for accessibility
+  - Enables color-specific overlays that maintain proper contrast
+  - Merged with default overlay classes
+
+- `contentClassName?: string` - Custom className for content Container
+  - Allows overriding vertical alignment (e.g., `items-start`, `items-end`)
+  - Enables custom positioning of hero content
+  - Merged with default content classes
+
+**Example Usage:**
+```tsx
+<PageHeroBanner
+  imageUrl="/hero.jpg"
+  overlayClassName="bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"
+  contentClassName="items-start pt-32"
+>
+  <h1>Custom positioned content with accessible overlay</h1>
+</PageHeroBanner>
+```
+
+### Fixed
+
+#### Test Infrastructure and Carousel Imports
+
+Fixed test failures and import issues in carousel component to ensure all tests pass reliably.
+
+**Changes:**
+- Fixed carousel.tsx imports to use relative paths instead of TypeScript aliases
+  - Changed `@/lib/utils` to `../../lib/utils`
+  - Changed `@/components/ui/button` to `./button`
+- Added browser API mocks to test setup for components using carousel
+  - Added `window.matchMedia` mock for embla-carousel media query support
+  - Added `ResizeObserver` mock for height equalization features
+  - Added `IntersectionObserver` mock for lazy loading support
+
+**Impact:**
+- All 86 tests now pass reliably in CI/CD environments
+- Feature showcase tests (17 tests) work correctly
+- Existing carousel-dependent tests remain stable
+
+### Documentation
+
+- Updated `docs/STYLES.md` with button radius mapping in Tailwind configuration example
+- Added guidance on required Tailwind borderRadius configuration for Button component
+
 ## [0.0.4] - 2025-12-23
 
 ### Fixed

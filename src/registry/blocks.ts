@@ -15,6 +15,8 @@
 
 import { AlternatingBlocks } from "../../components/blocks/about/alternating-blocks";
 import type { AlternatingBlocksProps } from "../../components/blocks/about/alternating-blocks";
+import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
+import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
 
 export interface BlockRegistryEntry<T = any> {
   id: string;
@@ -98,6 +100,65 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       content: <div>...</div>,
       media: <img src="..." alt="..." />,
       mediaLeft: true
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-showcase": {
+    id: "feature-showcase",
+    name: "Feature Showcase Carousel",
+    description:
+      "Display feature content with media in an interactive carousel format. Each slide shows feature content alongside images or videos with smooth navigation. Features mobile height equalization for consistent appearance.",
+    semanticTags: [
+      "features",
+      "carousel",
+      "showcase",
+      "slider",
+      "highlights",
+      "product-features",
+      "capabilities",
+      "interactive",
+      "media-gallery",
+    ],
+    category: "features",
+    component: FeatureShowcase,
+    props: "FeatureShowcaseProps",
+    exampleUsage: `
+<FeatureShowcase
+  items={[
+    {
+      content: (
+        <div>
+          <span className="text-sm font-medium text-primary mb-2 block">
+            DESIGNED TO HELP YOU GROW
+          </span>
+          <h3 className="mb-4 text-3xl font-bold tracking-tight">
+            Powerful Analytics
+          </h3>
+          <p className="text-muted-foreground leading-relaxed">
+            Track every metric that matters with real-time dashboards
+            and comprehensive reporting tools.
+          </p>
+        </div>
+      ),
+      mediaComponent: <img src="..." alt="Analytics Dashboard" className="rounded-lg" />
+    },
+    {
+      content: (
+        <div>
+          <span className="text-sm font-medium text-primary mb-2 block">
+            SEAMLESS INTEGRATION
+          </span>
+          <h3 className="mb-4 text-3xl font-bold tracking-tight">
+            Connect Anywhere
+          </h3>
+          <p className="text-muted-foreground leading-relaxed">
+            Integrate with your favorite tools and platforms in seconds.
+          </p>
+        </div>
+      ),
+      mediaComponent: <img src="..." alt="Integrations" className="rounded-lg" />
     }
   ]}
 />

@@ -31,6 +31,8 @@ export function PageHeroBanner({
   showOverlay = true,
   overlayOpacity = 0.6,
   contentMaxWidth = "4xl",
+  overlayClassName,
+  contentClassName,
   style,
   ...props
 }: PageHeroBannerProps) {
@@ -79,7 +81,10 @@ export function PageHeroBanner({
       {/* Gradient overlay */}
       {showOverlay && (
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black via-black to-black"
+          className={cn(
+            "absolute inset-0 bg-gradient-to-b from-black via-black to-black",
+            overlayClassName
+          )}
           style={{ opacity: overlayOpacity }}
         />
       )}
@@ -87,7 +92,7 @@ export function PageHeroBanner({
       {/* Content */}
       <Container
         maxWidth={contentMaxWidth}
-        className="relative h-full flex items-center"
+        className={cn("relative h-full flex items-center", contentClassName)}
         style={{ minHeight }}
       >
         <div className="relative text-background drop-shadow-lg py-16 md:py-24">

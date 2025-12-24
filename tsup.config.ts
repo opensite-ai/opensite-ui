@@ -13,6 +13,7 @@ export default defineConfig({
     badge: "components/ui/badge.tsx",
     popover: "components/ui/popover.tsx",
     "alternating-blocks": "src/alternating-blocks.ts",
+    "feature-showcase": "src/feature-showcase.ts",
     registry: "src/registry.ts",
     utils: "lib/utils.ts",
     types: "src/types/index.ts",

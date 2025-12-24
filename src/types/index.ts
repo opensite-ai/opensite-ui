@@ -186,6 +186,16 @@ export interface PageHeroBannerProps extends HTMLAttributes<HTMLDivElement> {
    * @default "4xl"
    */
   contentMaxWidth?: ContainerMaxWidth;
+  /**
+   * Custom className for the gradient overlay
+   * Allows customization of overlay gradient for accessibility
+   */
+  overlayClassName?: string;
+  /**
+   * Custom className for the content Container
+   * Allows overriding vertical alignment (e.g., items-start, items-end)
+   */
+  contentClassName?: string;
 }
 
 /**
@@ -220,4 +230,63 @@ export interface AlternatingBlocksProps {
    * Additional CSS classes
    */
   className?: string;
+}
+
+/**
+ * Props for FeatureShowcase component
+ */
+export interface FeatureShowcaseItem {
+  /**
+   * Content node to display (text, headings, etc.)
+   */
+  content: ReactNode;
+  /**
+   * Media node to display (image, video, etc.)
+   */
+  mediaComponent: ReactNode;
+}
+
+export interface FeatureShowcaseProps {
+  /**
+   * Array of feature items to display in carousel
+   */
+  items: FeatureShowcaseItem[];
+  /**
+   * Optional children to render above the carousel (e.g., section title)
+   */
+  children?: ReactNode;
+  /**
+   * Additional CSS classes for the outer container
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the carousel wrapper
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for each slide container
+   */
+  slideClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the media area
+   */
+  mediaClassName?: string;
+  /**
+   * Additional CSS classes for navigation arrows
+   */
+  arrowClassName?: string;
+  /**
+   * Whether to equalize slide heights on mobile
+   * @default true
+   */
+  equalizeOnMobile?: boolean;
+  /**
+   * Whether to stretch media to fill available height on mobile
+   * @default true
+   */
+  stretchMediaOnMobile?: boolean;
 }
