@@ -143,53 +143,125 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
   /* ============================================
-     BUTTONS
+     BUTTONS - COMPREHENSIVE CUSTOMIZATION
      ============================================ */
 
-  /* Button Heights */
-  --button-height-sm: 2rem;     /* 32px */
-  --button-height-md: 2.25rem;  /* 36px */
-  --button-height-lg: 2.5rem;   /* 40px */
+  /* -----------------------------------------
+     MASTER BUTTON STYLES (apply to all variants)
+     ----------------------------------------- */
 
-  /* Button Padding */
-  --button-padding-x-sm: 0.75rem;  /* 12px */
-  --button-padding-x-md: 1rem;     /* 16px */
-  --button-padding-x-lg: 1.5rem;   /* 24px */
+  /* Typography */
+  --button-font-family: inherit;           /* Font family */
+  --button-font-weight: 500;               /* Font weight (medium) */
+  --button-letter-spacing: 0;              /* Letter spacing */
+  --button-line-height: 1.25;              /* Line height */
+  --button-text-transform: none;           /* Text transform (none, uppercase, lowercase, capitalize) */
 
-  /* Button Border Radius (inherits from --radius by default) */
-  --button-radius: var(--radius-md);
+  /* Layout & Sizing */
+  --button-radius: var(--radius-md);       /* Border radius */
 
-  /* Button Variant Colors - Default */
+  /* Transitions - smooth and slower for better UX */
+  --button-transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Box Shadow (master level - applies to all variants unless overridden) */
+  --button-shadow: none;                   /* Default box shadow */
+  --button-shadow-hover: none;             /* Hover box shadow */
+
+  /* -----------------------------------------
+     SIZE VARIANTS
+     ----------------------------------------- */
+
+  /* Small Size */
+  --button-height-sm: 2rem;                /* 32px */
+  --button-padding-x-sm: 0.75rem;          /* 12px horizontal */
+  --button-padding-y-sm: 0.25rem;          /* 4px vertical */
+
+  /* Medium Size (default) */
+  --button-height-md: 2.25rem;             /* 36px */
+  --button-padding-x-md: 1rem;             /* 16px horizontal */
+  --button-padding-y-md: 0.5rem;           /* 8px vertical */
+
+  /* Large Size */
+  --button-height-lg: 2.5rem;              /* 40px */
+  --button-padding-x-lg: 1.5rem;           /* 24px horizontal */
+  --button-padding-y-lg: 0.5rem;           /* 8px vertical */
+
+  /* -----------------------------------------
+     DEFAULT (PRIMARY) VARIANT
+     ----------------------------------------- */
   --button-default-bg: hsl(var(--primary));
   --button-default-fg: hsl(var(--primary-foreground));
+  --button-default-border: transparent;
+  --button-default-border-width: 0px;
+  --button-default-shadow: none;           /* Override master shadow */
   --button-default-hover-bg: hsl(var(--primary) / 0.9);
+  --button-default-hover-fg: hsl(var(--primary-foreground));
+  --button-default-hover-border: transparent;
+  --button-default-shadow-hover: none;     /* Override master hover shadow */
 
-  /* Button Variant Colors - Destructive */
+  /* -----------------------------------------
+     DESTRUCTIVE VARIANT
+     ----------------------------------------- */
   --button-destructive-bg: hsl(var(--destructive));
   --button-destructive-fg: white;
+  --button-destructive-border: transparent;
+  --button-destructive-border-width: 0px;
+  --button-destructive-shadow: none;
   --button-destructive-hover-bg: hsl(var(--destructive) / 0.9);
+  --button-destructive-hover-fg: white;
+  --button-destructive-hover-border: transparent;
+  --button-destructive-shadow-hover: none;
 
-  /* Button Variant Colors - Outline */
+  /* -----------------------------------------
+     OUTLINE VARIANT
+     ----------------------------------------- */
   --button-outline-bg: hsl(var(--background));
   --button-outline-fg: inherit;
   --button-outline-border: hsl(var(--border));
   --button-outline-border-width: 1px;
+  --button-outline-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --button-outline-hover-bg: hsl(var(--accent));
   --button-outline-hover-fg: hsl(var(--accent-foreground));
+  --button-outline-hover-border: hsl(var(--border));
+  --button-outline-shadow-hover: none;
 
-  /* Button Variant Colors - Secondary */
+  /* -----------------------------------------
+     SECONDARY VARIANT
+     ----------------------------------------- */
   --button-secondary-bg: hsl(var(--secondary));
   --button-secondary-fg: hsl(var(--secondary-foreground));
+  --button-secondary-border: transparent;
+  --button-secondary-border-width: 0px;
+  --button-secondary-shadow: none;
   --button-secondary-hover-bg: hsl(var(--secondary) / 0.8);
+  --button-secondary-hover-fg: hsl(var(--secondary-foreground));
+  --button-secondary-hover-border: transparent;
+  --button-secondary-shadow-hover: none;
 
-  /* Button Variant Colors - Ghost */
+  /* -----------------------------------------
+     GHOST VARIANT
+     ----------------------------------------- */
   --button-ghost-bg: transparent;
   --button-ghost-fg: inherit;
+  --button-ghost-border: transparent;
+  --button-ghost-border-width: 0px;
+  --button-ghost-shadow: none;
   --button-ghost-hover-bg: hsl(var(--accent));
   --button-ghost-hover-fg: hsl(var(--accent-foreground));
+  --button-ghost-hover-border: transparent;
+  --button-ghost-shadow-hover: none;
 
-  /* Button Variant Colors - Link */
+  /* -----------------------------------------
+     LINK VARIANT
+     ----------------------------------------- */
+  --button-link-bg: transparent;
   --button-link-fg: hsl(var(--primary));
+  --button-link-border: transparent;
+  --button-link-border-width: 0px;
+  --button-link-shadow: none;
+  --button-link-hover-bg: transparent;
+  --button-link-hover-fg: hsl(var(--primary));
+  --button-link-shadow-hover: none;
 
   /* ============================================
      ANIMATIONS & TRANSITIONS
@@ -383,78 +455,159 @@ module.exports = {
 
 ## Component-Specific Styling
 
-### Button Component
+### Button & Pressable Components
 
-The Button component supports extensive customization through CSS variables for complete control over appearance:
+Both the `Button` and `Pressable` components share the same comprehensive styling system through CSS variables. This allows for complete control over appearance across your entire application.
 
 ```tsx
 import { Button } from "@opensite/ui/components/button";
+import { Pressable } from "@opensite/ui/lib/pressable";
 
-// Using variant and size props
+// Using variant and size props (works identically for both components)
 <Button variant="default" size="default">Default Button</Button>
-<Button variant="destructive" size="lg">Large Destructive</Button>
-<Button variant="outline" size="sm">Small Outline</Button>
-<Button variant="outline" size="md">Medium Outline</Button>
-<Button variant="ghost">Ghost Button</Button>
-<Button variant="link">Link Button</Button>
+<Pressable href="/about" variant="outline" size="lg" asButton>Link as Button</Pressable>
 ```
 
-**Available Sizes:**
-- `sm` - Small button (32px height, 12px padding)
-- `md` - Medium button (36px height, 16px padding)
-- `default` - Default button (same as md)
-- `lg` - Large button (40px height, 24px padding)
-- `icon`, `icon-sm`, `icon-lg` - Square icon buttons
+#### Master Button Variables (Apply to All Variants)
 
-**Size Customization Variables:**
-- `--button-height-sm` - Small button height (default: 2rem)
-- `--button-height-md` - Medium button height (default: 2.25rem)
-- `--button-height-lg` - Large button height (default: 2.5rem)
-- `--button-padding-x-sm` - Small button horizontal padding (default: 0.75rem)
-- `--button-padding-x-md` - Medium button horizontal padding (default: 1rem)
-- `--button-padding-x-lg` - Large button horizontal padding (default: 1.5rem)
-- `--button-radius` - Button border radius (default: var(--radius-md))
+These variables control the base styling for all button variants:
 
-**Default Variant Color Variables:**
-- `--button-default-bg` - Background color (default: hsl(var(--primary)))
-- `--button-default-fg` - Text color (default: hsl(var(--primary-foreground)))
-- `--button-default-hover-bg` - Hover background (default: hsl(var(--primary) / 0.9))
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-font-family` | `inherit` | Font family for button text |
+| `--button-font-weight` | `500` | Font weight (medium) |
+| `--button-letter-spacing` | `0` | Letter spacing |
+| `--button-line-height` | `1.25` | Line height |
+| `--button-text-transform` | `none` | Text transform (none, uppercase, lowercase, capitalize) |
+| `--button-radius` | `var(--radius-md)` | Border radius |
+| `--button-transition` | `all 250ms cubic-bezier(0.4, 0, 0.2, 1)` | Transition timing (smooth and slower) |
+| `--button-shadow` | `none` | Default box shadow for all buttons |
+| `--button-shadow-hover` | `none` | Hover box shadow for all buttons |
 
-**Destructive Variant Color Variables:**
-- `--button-destructive-bg` - Background color (default: hsl(var(--destructive)))
-- `--button-destructive-fg` - Text color (default: white)
-- `--button-destructive-hover-bg` - Hover background (default: hsl(var(--destructive) / 0.9))
+#### Size Variables
 
-**Outline Variant Color Variables:**
-- `--button-outline-bg` - Background color (default: hsl(var(--background)))
-- `--button-outline-fg` - Text color (default: inherit)
-- `--button-outline-border` - Border color (default: hsl(var(--border)))
-- `--button-outline-border-width` - Border width (default: 1px)
-- `--button-outline-hover-bg` - Hover background (default: hsl(var(--accent)))
-- `--button-outline-hover-fg` - Hover text color (default: hsl(var(--accent-foreground)))
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-height-sm` | `2rem` (32px) | Small button height |
+| `--button-height-md` | `2.25rem` (36px) | Medium button height |
+| `--button-height-lg` | `2.5rem` (40px) | Large button height |
+| `--button-padding-x-sm` | `0.75rem` (12px) | Small horizontal padding |
+| `--button-padding-x-md` | `1rem` (16px) | Medium horizontal padding |
+| `--button-padding-x-lg` | `1.5rem` (24px) | Large horizontal padding |
+| `--button-padding-y-sm` | `0.25rem` (4px) | Small vertical padding |
+| `--button-padding-y-md` | `0.5rem` (8px) | Medium vertical padding |
+| `--button-padding-y-lg` | `0.5rem` (8px) | Large vertical padding |
 
-**Secondary Variant Color Variables:**
-- `--button-secondary-bg` - Background color (default: hsl(var(--secondary)))
-- `--button-secondary-fg` - Text color (default: hsl(var(--secondary-foreground)))
-- `--button-secondary-hover-bg` - Hover background (default: hsl(var(--secondary) / 0.8))
+**Available Sizes:** `sm`, `md`, `default` (same as md), `lg`, `icon`, `icon-sm`, `icon-lg`
 
-**Ghost Variant Color Variables:**
-- `--button-ghost-bg` - Background color (default: transparent)
-- `--button-ghost-fg` - Text color (default: inherit)
-- `--button-ghost-hover-bg` - Hover background (default: hsl(var(--accent)))
-- `--button-ghost-hover-fg` - Hover text color (default: hsl(var(--accent-foreground)))
+#### Per-Variant Variables
 
-**Link Variant Color Variables:**
-- `--button-link-fg` - Text color (default: hsl(var(--primary)))
+Each variant has a complete, consistent set of customization variables:
 
-**Example: Customizing Outline Button**
+**Default (Primary) Variant:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-default-bg` | `hsl(var(--primary))` | Background color |
+| `--button-default-fg` | `hsl(var(--primary-foreground))` | Text color |
+| `--button-default-border` | `transparent` | Border color |
+| `--button-default-border-width` | `0px` | Border width |
+| `--button-default-shadow` | `none` | Box shadow (overrides master) |
+| `--button-default-hover-bg` | `hsl(var(--primary) / 0.9)` | Hover background |
+| `--button-default-hover-fg` | `hsl(var(--primary-foreground))` | Hover text color |
+| `--button-default-hover-border` | `transparent` | Hover border color |
+| `--button-default-shadow-hover` | `none` | Hover box shadow |
+
+**Destructive Variant:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-destructive-bg` | `hsl(var(--destructive))` | Background color |
+| `--button-destructive-fg` | `white` | Text color |
+| `--button-destructive-border` | `transparent` | Border color |
+| `--button-destructive-border-width` | `0px` | Border width |
+| `--button-destructive-shadow` | `none` | Box shadow |
+| `--button-destructive-hover-bg` | `hsl(var(--destructive) / 0.9)` | Hover background |
+| `--button-destructive-hover-fg` | `white` | Hover text color |
+| `--button-destructive-hover-border` | `transparent` | Hover border color |
+| `--button-destructive-shadow-hover` | `none` | Hover box shadow |
+
+**Outline Variant:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-outline-bg` | `hsl(var(--background))` | Background color |
+| `--button-outline-fg` | `inherit` | Text color |
+| `--button-outline-border` | `hsl(var(--border))` | Border color |
+| `--button-outline-border-width` | `1px` | Border width |
+| `--button-outline-shadow` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` | Box shadow |
+| `--button-outline-hover-bg` | `hsl(var(--accent))` | Hover background |
+| `--button-outline-hover-fg` | `hsl(var(--accent-foreground))` | Hover text color |
+| `--button-outline-hover-border` | `hsl(var(--border))` | Hover border color |
+| `--button-outline-shadow-hover` | `none` | Hover box shadow |
+
+**Secondary Variant:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-secondary-bg` | `hsl(var(--secondary))` | Background color |
+| `--button-secondary-fg` | `hsl(var(--secondary-foreground))` | Text color |
+| `--button-secondary-border` | `transparent` | Border color |
+| `--button-secondary-border-width` | `0px` | Border width |
+| `--button-secondary-shadow` | `none` | Box shadow |
+| `--button-secondary-hover-bg` | `hsl(var(--secondary) / 0.8)` | Hover background |
+| `--button-secondary-hover-fg` | `hsl(var(--secondary-foreground))` | Hover text color |
+| `--button-secondary-hover-border` | `transparent` | Hover border color |
+| `--button-secondary-shadow-hover` | `none` | Hover box shadow |
+
+**Ghost Variant:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-ghost-bg` | `transparent` | Background color |
+| `--button-ghost-fg` | `inherit` | Text color |
+| `--button-ghost-border` | `transparent` | Border color |
+| `--button-ghost-border-width` | `0px` | Border width |
+| `--button-ghost-shadow` | `none` | Box shadow |
+| `--button-ghost-hover-bg` | `hsl(var(--accent))` | Hover background |
+| `--button-ghost-hover-fg` | `hsl(var(--accent-foreground))` | Hover text color |
+| `--button-ghost-hover-border` | `transparent` | Hover border color |
+| `--button-ghost-shadow-hover` | `none` | Hover box shadow |
+
+**Link Variant:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `--button-link-bg` | `transparent` | Background color |
+| `--button-link-fg` | `hsl(var(--primary))` | Text color |
+| `--button-link-border` | `transparent` | Border color |
+| `--button-link-border-width` | `0px` | Border width |
+| `--button-link-shadow` | `none` | Box shadow |
+| `--button-link-hover-bg` | `transparent` | Hover background |
+| `--button-link-hover-fg` | `hsl(var(--primary))` | Hover text color |
+| `--button-link-shadow-hover` | `none` | Hover box shadow |
+
+#### Example: Complete Button Customization
+
 ```css
 :root {
-  /* Custom outline button with primary border and hover */
+  /* Master button typography */
+  --button-font-family: 'Inter', sans-serif;
+  --button-font-weight: 600;
+  --button-letter-spacing: 0.025em;
+  --button-text-transform: uppercase;
+
+  /* Smooth, slower transitions */
+  --button-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Global hover shadow effect */
+  --button-shadow-hover: 0 4px 12px rgb(0 0 0 / 0.15);
+
+  /* Custom outline button with primary border and lift effect */
   --button-outline-border: hsl(var(--primary));
   --button-outline-border-width: 2px;
-  --button-outline-hover-bg: hsl(var(--primary) / 0.1);
-  --button-outline-hover-fg: hsl(var(--primary));
+  --button-outline-hover-bg: hsl(var(--primary));
+  --button-outline-hover-fg: white;
+  --button-outline-hover-border: hsl(var(--primary));
+  --button-outline-shadow-hover: 0 6px 20px hsl(var(--primary) / 0.3);
+
+  /* Custom default button with shadow */
+  --button-default-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  --button-default-shadow-hover: 0 8px 24px hsl(var(--primary) / 0.4);
 }
 ```
 
