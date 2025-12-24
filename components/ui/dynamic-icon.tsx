@@ -1,31 +1,30 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "../../lib/utils"
+import { cn } from "../../lib/utils";
 
 interface DynamicIconProps {
   /**
    * Icon name in format: prefix/name or prefix:name
    * Examples: "lucide/home", "mdi:account", "heroicons/check"
    */
-  name: string
+  name: string;
   /**
    * Icon size in pixels
    * @default 28
    */
-  size?: number
+  size?: number;
   /**
    * Icon color - accepts any valid CSS color or "currentColor"
-   * @default "currentColor"
    */
-  color?: string
+  color?: string;
   /**
    * Additional CSS classes
    */
-  className?: string
+  className?: string;
   /**
    * Alt text for accessibility
    */
-  alt?: string
+  alt?: string;
 }
 
 /**
@@ -47,23 +46,35 @@ interface DynamicIconProps {
 export function DynamicIcon({
   name,
   size = 28,
-  color = "currentColor",
+  color,
   className,
   alt,
 }: DynamicIconProps) {
-  const separator = name.includes("/") ? "/" : ":"
-  const [prefix, iconName] = name.split(separator)
-  const encodedColor = encodeURIComponent(color)
-  const url = `https://icons.opensite.ai/api/icon/${prefix}/${iconName}?format=svg&width=${size}&height=${size}&color=${encodedColor}`
+  const payload = React.useMemo(() => {
+    const separator = name.includes("/") ? "/" : ":";
+    const [prefix, iconName] = name.split(separator);
+    const encodedColor = getEncodedColor(color);
+    const baseUrl = `https://icons.opensite.ai/api/icon/${prefix}/${iconName}?format=svg&width=${size}&height=${size}&`;
+
+    return {
+      url: encodedColor ? `${baseUrl}color=${encodedColor}` : baseUrl,
+      iconName,
+    };
+  }, [name, size, color]);
 
   return (
     <img
-      src={url}
-      alt={alt || iconName}
+      src={payload?.url}
+      alt={alt || payload?.iconName}
       width={size}
       height={size}
       loading="lazy"
       className={cn("inline-block", className)}
     />
-  )
+  );
 }
+
+const getEncodedColor = (color: string | undefined): string | undefined => {
+  if (!color) return undefined;
+  return encodeURIComponent(color);
+};
