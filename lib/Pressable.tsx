@@ -208,6 +208,17 @@ export const Pressable = React.forwardRef<
       className
     );
 
+    const dataProps = Object.fromEntries(
+      Object.entries(props).filter(([key]) => key.startsWith("data-"))
+    );
+    const buttonDataAttributes = shouldApplyButtonStyles
+      ? {
+          "data-slot": "button",
+          "data-variant": variant ?? "default",
+          "data-size": size ?? "default",
+        }
+      : {};
+
     // Build common props
     const commonProps = {
       className: combinedClassName,
@@ -215,9 +226,8 @@ export const Pressable = React.forwardRef<
       "aria-label": ariaLabel,
       "aria-describedby": ariaDescribedby,
       id,
-      ...Object.fromEntries(
-        Object.entries(props).filter(([key]) => key.startsWith("data-"))
-      ),
+      ...dataProps,
+      ...buttonDataAttributes,
     };
 
     // Render link

@@ -193,11 +193,11 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --button-default-fg: hsl(var(--primary-foreground));
   --button-default-border: transparent;
   --button-default-border-width: 0px;
-  --button-default-shadow: none;           /* Override master shadow */
+  --button-default-shadow: var(--button-shadow);
   --button-default-hover-bg: hsl(var(--primary) / 0.9);
   --button-default-hover-fg: hsl(var(--primary-foreground));
   --button-default-hover-border: transparent;
-  --button-default-shadow-hover: none;     /* Override master hover shadow */
+  --button-default-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
      DESTRUCTIVE VARIANT
@@ -206,11 +206,11 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --button-destructive-fg: white;
   --button-destructive-border: transparent;
   --button-destructive-border-width: 0px;
-  --button-destructive-shadow: none;
+  --button-destructive-shadow: var(--button-shadow);
   --button-destructive-hover-bg: hsl(var(--destructive) / 0.9);
   --button-destructive-hover-fg: white;
   --button-destructive-hover-border: transparent;
-  --button-destructive-shadow-hover: none;
+  --button-destructive-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
      OUTLINE VARIANT
@@ -219,11 +219,11 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --button-outline-fg: inherit;
   --button-outline-border: hsl(var(--border));
   --button-outline-border-width: 1px;
-  --button-outline-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --button-outline-shadow: var(--button-shadow);
   --button-outline-hover-bg: hsl(var(--accent));
   --button-outline-hover-fg: hsl(var(--accent-foreground));
   --button-outline-hover-border: hsl(var(--border));
-  --button-outline-shadow-hover: none;
+  --button-outline-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
      SECONDARY VARIANT
@@ -232,11 +232,11 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --button-secondary-fg: hsl(var(--secondary-foreground));
   --button-secondary-border: transparent;
   --button-secondary-border-width: 0px;
-  --button-secondary-shadow: none;
+  --button-secondary-shadow: var(--button-shadow);
   --button-secondary-hover-bg: hsl(var(--secondary) / 0.8);
   --button-secondary-hover-fg: hsl(var(--secondary-foreground));
   --button-secondary-hover-border: transparent;
-  --button-secondary-shadow-hover: none;
+  --button-secondary-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
      GHOST VARIANT
@@ -245,11 +245,11 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --button-ghost-fg: inherit;
   --button-ghost-border: transparent;
   --button-ghost-border-width: 0px;
-  --button-ghost-shadow: none;
+  --button-ghost-shadow: var(--button-shadow);
   --button-ghost-hover-bg: hsl(var(--accent));
   --button-ghost-hover-fg: hsl(var(--accent-foreground));
   --button-ghost-hover-border: transparent;
-  --button-ghost-shadow-hover: none;
+  --button-ghost-shadow-hover: var(--button-shadow-hover);
 
   /* -----------------------------------------
      LINK VARIANT
@@ -258,10 +258,10 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --button-link-fg: hsl(var(--primary));
   --button-link-border: transparent;
   --button-link-border-width: 0px;
-  --button-link-shadow: none;
+  --button-link-shadow: var(--button-shadow);
   --button-link-hover-bg: transparent;
   --button-link-hover-fg: hsl(var(--primary));
-  --button-link-shadow-hover: none;
+  --button-link-shadow-hover: var(--button-shadow-hover);
 
   /* ============================================
      ANIMATIONS & TRANSITIONS
@@ -511,11 +511,11 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-default-fg` | `hsl(var(--primary-foreground))` | Text color |
 | `--button-default-border` | `transparent` | Border color |
 | `--button-default-border-width` | `0px` | Border width |
-| `--button-default-shadow` | `none` | Box shadow (overrides master) |
+| `--button-default-shadow` | `var(--button-shadow)` | Box shadow (inherits master) |
 | `--button-default-hover-bg` | `hsl(var(--primary) / 0.9)` | Hover background |
 | `--button-default-hover-fg` | `hsl(var(--primary-foreground))` | Hover text color |
 | `--button-default-hover-border` | `transparent` | Hover border color |
-| `--button-default-shadow-hover` | `none` | Hover box shadow |
+| `--button-default-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Destructive Variant:**
 | Variable | Default | Description |
@@ -524,11 +524,11 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-destructive-fg` | `white` | Text color |
 | `--button-destructive-border` | `transparent` | Border color |
 | `--button-destructive-border-width` | `0px` | Border width |
-| `--button-destructive-shadow` | `none` | Box shadow |
+| `--button-destructive-shadow` | `var(--button-shadow)` | Box shadow (inherits master) |
 | `--button-destructive-hover-bg` | `hsl(var(--destructive) / 0.9)` | Hover background |
 | `--button-destructive-hover-fg` | `white` | Hover text color |
 | `--button-destructive-hover-border` | `transparent` | Hover border color |
-| `--button-destructive-shadow-hover` | `none` | Hover box shadow |
+| `--button-destructive-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Outline Variant:**
 | Variable | Default | Description |
@@ -537,11 +537,11 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-outline-fg` | `inherit` | Text color |
 | `--button-outline-border` | `hsl(var(--border))` | Border color |
 | `--button-outline-border-width` | `1px` | Border width |
-| `--button-outline-shadow` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` | Box shadow |
+| `--button-outline-shadow` | `var(--button-shadow)` | Box shadow (inherits master) |
 | `--button-outline-hover-bg` | `hsl(var(--accent))` | Hover background |
 | `--button-outline-hover-fg` | `hsl(var(--accent-foreground))` | Hover text color |
 | `--button-outline-hover-border` | `hsl(var(--border))` | Hover border color |
-| `--button-outline-shadow-hover` | `none` | Hover box shadow |
+| `--button-outline-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Secondary Variant:**
 | Variable | Default | Description |
@@ -550,11 +550,11 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-secondary-fg` | `hsl(var(--secondary-foreground))` | Text color |
 | `--button-secondary-border` | `transparent` | Border color |
 | `--button-secondary-border-width` | `0px` | Border width |
-| `--button-secondary-shadow` | `none` | Box shadow |
+| `--button-secondary-shadow` | `var(--button-shadow)` | Box shadow (inherits master) |
 | `--button-secondary-hover-bg` | `hsl(var(--secondary) / 0.8)` | Hover background |
 | `--button-secondary-hover-fg` | `hsl(var(--secondary-foreground))` | Hover text color |
 | `--button-secondary-hover-border` | `transparent` | Hover border color |
-| `--button-secondary-shadow-hover` | `none` | Hover box shadow |
+| `--button-secondary-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Ghost Variant:**
 | Variable | Default | Description |
@@ -563,11 +563,11 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-ghost-fg` | `inherit` | Text color |
 | `--button-ghost-border` | `transparent` | Border color |
 | `--button-ghost-border-width` | `0px` | Border width |
-| `--button-ghost-shadow` | `none` | Box shadow |
+| `--button-ghost-shadow` | `var(--button-shadow)` | Box shadow (inherits master) |
 | `--button-ghost-hover-bg` | `hsl(var(--accent))` | Hover background |
 | `--button-ghost-hover-fg` | `hsl(var(--accent-foreground))` | Hover text color |
 | `--button-ghost-hover-border` | `transparent` | Hover border color |
-| `--button-ghost-shadow-hover` | `none` | Hover box shadow |
+| `--button-ghost-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Link Variant:**
 | Variable | Default | Description |
@@ -576,10 +576,10 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-link-fg` | `hsl(var(--primary))` | Text color |
 | `--button-link-border` | `transparent` | Border color |
 | `--button-link-border-width` | `0px` | Border width |
-| `--button-link-shadow` | `none` | Box shadow |
+| `--button-link-shadow` | `var(--button-shadow)` | Box shadow (inherits master) |
 | `--button-link-hover-bg` | `transparent` | Hover background |
 | `--button-link-hover-fg` | `hsl(var(--primary))` | Hover text color |
-| `--button-link-shadow-hover` | `none` | Hover box shadow |
+| `--button-link-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 #### Example: Complete Button Customization
 
