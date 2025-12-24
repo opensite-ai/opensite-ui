@@ -27,7 +27,7 @@ describe("Button", () => {
     const { container } = render(<Button size="sm">Small</Button>);
     const button = container.firstChild as HTMLElement;
     expect(button.getAttribute("data-size")).toBe("sm");
-    expect(button.className).toContain("h-8");
+    expect(button.className).toContain("h-[var(--button-height-sm,2rem)]");
   });
 
   it("applies custom className", () => {
@@ -71,7 +71,7 @@ describe("Button", () => {
   });
 
   it("applies all size variants correctly", () => {
-    const sizes = ["default", "sm", "lg", "icon", "icon-sm", "icon-lg"] as const;
+    const sizes = ["default", "sm", "md", "lg", "icon", "icon-sm", "icon-lg"] as const;
 
     sizes.forEach((size) => {
       const { container } = render(<Button size={size}>Test</Button>);

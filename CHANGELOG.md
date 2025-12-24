@@ -5,6 +5,194 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.6] - 2025-12-23
+
+### Added
+
+#### DynamicIcon Component - API-Driven Icon Rendering
+
+New lightweight icon component that dynamically loads SVG icons from the icons.opensite.ai API.
+
+**Features:**
+- Fetches SVGs from https://icons.opensite.ai API (15+ icon collections)
+- Native browser lazy loading via `loading="lazy"` attribute
+- Accepts both `prefix/name` and `prefix:name` format
+- Customizable size and color via URL parameters
+- Minimal bundle size - no icon library dependencies
+- Zero runtime overhead - standard `<img>` element
+
+**Import Path:**
+```tsx
+import { DynamicIcon } from "@opensite/ui/components/dynamic-icon";
+// Or from components barrel
+import { DynamicIcon } from "@opensite/ui/components";
+```
+
+**Example Usage:**
+```tsx
+<DynamicIcon name="lucide/home" size={24} color="currentColor" />
+<DynamicIcon name="mdi:account" size={32} color="#ff0000" />
+<DynamicIcon name="heroicons/check" size={28} color="hsl(var(--primary))" />
+```
+
+**Props:**
+- `name: string` - Icon name in format: prefix/name or prefix:name
+- `size?: number` - Icon size in pixels (default: 28)
+- `color?: string` - Icon color - accepts any valid CSS color (default: "currentColor")
+- `className?: string` - Additional CSS classes
+- `alt?: string` - Alt text for accessibility
+
+**Compatibility:**
+DynamicIcon is fully compatible with production environments using external-svg-loader. The two systems are independent:
+- DynamicIcon uses `<img src="">` for simple icon display
+- external-svg-loader uses `<svg data-src="">` for inline SVG manipulation
+- No conflicts or interference between systems
+
+### Enhanced
+
+#### Button Component - Medium Size Variant
+
+Added missing 'md' size variant to button component, providing better granularity between 'sm' and 'default' sizes.
+
+**New Size Variant:**
+```tsx
+<Button size="md">Medium Button</Button>
+```
+
+**Size System:**
+- `sm` - 32px height (2rem)
+- `md` - 36px height (2.25rem) - NEW
+- `default` - 36px height (2.25rem)
+- `lg` - 40px height (2.5rem)
+
+#### Button Component - Comprehensive CSS Variable System
+
+Completely rebuilt button styling system to support full customization via CSS variables without inline styles.
+
+**Changes:**
+- Replaced all hardcoded heights with CSS variables
+- Replaced all hardcoded padding with CSS variables
+- Added comprehensive color override variables for all variants
+- All button properties now customizable via CSS variables with fallbacks
+
+**CSS Variables Added (35+ variables):**
+
+Button Heights:
+```css
+--button-height-sm: 2rem;       /* 32px */
+--button-height-md: 2.25rem;    /* 36px */
+--button-height-lg: 2.5rem;     /* 40px */
+```
+
+Button Padding:
+```css
+--button-padding-x-sm: 0.75rem;  /* 12px */
+--button-padding-x-md: 1rem;     /* 16px */
+--button-padding-x-lg: 1.5rem;   /* 24px */
+```
+
+Button Border Radius:
+```css
+--button-radius: var(--radius-2xl);
+```
+
+**Variant Color Variables:**
+
+Each variant now has dedicated CSS variables for complete customization:
+
+**Default Variant:**
+- `--button-default-bg` - Background color
+- `--button-default-fg` - Text color
+- `--button-default-hover-bg` - Hover background color
+
+**Destructive Variant:**
+- `--button-destructive-bg` - Background color
+- `--button-destructive-fg` - Text color
+- `--button-destructive-hover-bg` - Hover background color
+
+**Outline Variant:**
+- `--button-outline-bg` - Background color
+- `--button-outline-fg` - Text color
+- `--button-outline-border` - Border color
+- `--button-outline-border-width` - Border width
+- `--button-outline-hover-bg` - Hover background color
+- `--button-outline-hover-fg` - Hover text color
+
+**Secondary Variant:**
+- `--button-secondary-bg` - Background color
+- `--button-secondary-fg` - Text color
+- `--button-secondary-hover-bg` - Hover background color
+
+**Ghost Variant:**
+- `--button-ghost-bg` - Background color (transparent)
+- `--button-ghost-fg` - Text color
+- `--button-ghost-hover-bg` - Hover background color
+- `--button-ghost-hover-fg` - Hover text color
+
+**Link Variant:**
+- `--button-link-fg` - Text color
+
+**Example Customization:**
+```css
+/* Custom outline button with primary border and unique hover */
+:root {
+  --button-outline-border: hsl(var(--primary));
+  --button-outline-border-width: 2px;
+  --button-outline-hover-bg: hsl(var(--primary) / 0.1);
+  --button-outline-hover-fg: hsl(var(--primary));
+}
+```
+
+**Technical Implementation:**
+Uses Tailwind arbitrary values with CSS variables and fallbacks:
+```tsx
+"h-[var(--button-height-md,2.25rem)]"
+```
+
+This pattern enables:
+- Full CSS variable override capability
+- Fallback values when variables not defined
+- No inline styles required
+- Clean separation of concerns
+
+### Fixed
+
+#### Button Component - CSS Variable Integration
+
+Fixed bug where button height and padding CSS variables were defined but not applied to the button component.
+
+**Root Cause:**
+- Variables existed in CSS but component used hardcoded Tailwind classes
+- Only border-radius was properly integrated
+
+**Fix:**
+- Replaced all hardcoded heights (`h-8`, `h-9`, `h-10`) with CSS variable pattern
+- Replaced all hardcoded padding (`px-3`, `px-4`, `px-6`) with CSS variable pattern
+- Applied to all size variants (sm, md, default, lg, icon variants)
+
+#### Prototype CSS Variables - Incorrect Padding Values
+
+Fixed incorrect button padding values in prototype globals.css that were 5-8x too large.
+
+**Root Cause:**
+- `--button-padding-x-sm` was `4rem` instead of `0.75rem`
+- `--button-padding-x-md` was `4rem` instead of `1rem`
+- `--button-padding-x-lg` was `8rem` instead of `1.5rem`
+
+**Impact:**
+- Buttons would have been unusably wide if variables were applied
+- Now matches intended 12px/16px/24px padding design
+
+### Documentation
+
+- Updated `docs/STYLES.md` with comprehensive button CSS variable documentation
+- Added all 35+ button CSS variables to style template
+- Added examples for button variant customization
+- Added customization example for outline button variant
+- Documented new 'md' size variant
+- Updated prototype `globals.css` with corrected padding values and all button color variables
+- Kept CSS variable templates in sync between documentation and prototype
+
 ## [0.0.5] - 2025-12-23
 
 ### Added

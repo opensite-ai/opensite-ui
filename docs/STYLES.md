@@ -152,12 +152,44 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --button-height-lg: 2.5rem;   /* 40px */
 
   /* Button Padding */
-  --button-padding-x-sm: 0.75rem;
-  --button-padding-x-md: 1rem;
-  --button-padding-x-lg: 1.5rem;
+  --button-padding-x-sm: 0.75rem;  /* 12px */
+  --button-padding-x-md: 1rem;     /* 16px */
+  --button-padding-x-lg: 1.5rem;   /* 24px */
 
   /* Button Border Radius (inherits from --radius by default) */
   --button-radius: var(--radius-md);
+
+  /* Button Variant Colors - Default */
+  --button-default-bg: hsl(var(--primary));
+  --button-default-fg: hsl(var(--primary-foreground));
+  --button-default-hover-bg: hsl(var(--primary) / 0.9);
+
+  /* Button Variant Colors - Destructive */
+  --button-destructive-bg: hsl(var(--destructive));
+  --button-destructive-fg: white;
+  --button-destructive-hover-bg: hsl(var(--destructive) / 0.9);
+
+  /* Button Variant Colors - Outline */
+  --button-outline-bg: hsl(var(--background));
+  --button-outline-fg: inherit;
+  --button-outline-border: hsl(var(--border));
+  --button-outline-border-width: 1px;
+  --button-outline-hover-bg: hsl(var(--accent));
+  --button-outline-hover-fg: hsl(var(--accent-foreground));
+
+  /* Button Variant Colors - Secondary */
+  --button-secondary-bg: hsl(var(--secondary));
+  --button-secondary-fg: hsl(var(--secondary-foreground));
+  --button-secondary-hover-bg: hsl(var(--secondary) / 0.8);
+
+  /* Button Variant Colors - Ghost */
+  --button-ghost-bg: transparent;
+  --button-ghost-fg: inherit;
+  --button-ghost-hover-bg: hsl(var(--accent));
+  --button-ghost-hover-fg: hsl(var(--accent-foreground));
+
+  /* Button Variant Colors - Link */
+  --button-link-fg: hsl(var(--primary));
 
   /* ============================================
      ANIMATIONS & TRANSITIONS
@@ -353,27 +385,78 @@ module.exports = {
 
 ### Button Component
 
-The Button component supports extensive customization through CSS variables:
+The Button component supports extensive customization through CSS variables for complete control over appearance:
 
 ```tsx
 import { Button } from "@opensite/ui/components/button";
 
 // Using variant and size props
-<Button variant="default">Default Button</Button>
+<Button variant="default" size="default">Default Button</Button>
 <Button variant="destructive" size="lg">Large Destructive</Button>
 <Button variant="outline" size="sm">Small Outline</Button>
+<Button variant="outline" size="md">Medium Outline</Button>
 <Button variant="ghost">Ghost Button</Button>
 <Button variant="link">Link Button</Button>
 ```
 
-**Affected CSS Variables:**
-- `--primary` - Default button background
-- `--primary-foreground` - Default button text
-- `--destructive` - Destructive button background
-- `--secondary` - Secondary button background
-- `--accent` - Ghost/outline button hover states
-- `--button-radius` - Button border radius
-- `--shadow-xs` - Outline button shadow
+**Available Sizes:**
+- `sm` - Small button (32px height, 12px padding)
+- `md` - Medium button (36px height, 16px padding)
+- `default` - Default button (same as md)
+- `lg` - Large button (40px height, 24px padding)
+- `icon`, `icon-sm`, `icon-lg` - Square icon buttons
+
+**Size Customization Variables:**
+- `--button-height-sm` - Small button height (default: 2rem)
+- `--button-height-md` - Medium button height (default: 2.25rem)
+- `--button-height-lg` - Large button height (default: 2.5rem)
+- `--button-padding-x-sm` - Small button horizontal padding (default: 0.75rem)
+- `--button-padding-x-md` - Medium button horizontal padding (default: 1rem)
+- `--button-padding-x-lg` - Large button horizontal padding (default: 1.5rem)
+- `--button-radius` - Button border radius (default: var(--radius-md))
+
+**Default Variant Color Variables:**
+- `--button-default-bg` - Background color (default: hsl(var(--primary)))
+- `--button-default-fg` - Text color (default: hsl(var(--primary-foreground)))
+- `--button-default-hover-bg` - Hover background (default: hsl(var(--primary) / 0.9))
+
+**Destructive Variant Color Variables:**
+- `--button-destructive-bg` - Background color (default: hsl(var(--destructive)))
+- `--button-destructive-fg` - Text color (default: white)
+- `--button-destructive-hover-bg` - Hover background (default: hsl(var(--destructive) / 0.9))
+
+**Outline Variant Color Variables:**
+- `--button-outline-bg` - Background color (default: hsl(var(--background)))
+- `--button-outline-fg` - Text color (default: inherit)
+- `--button-outline-border` - Border color (default: hsl(var(--border)))
+- `--button-outline-border-width` - Border width (default: 1px)
+- `--button-outline-hover-bg` - Hover background (default: hsl(var(--accent)))
+- `--button-outline-hover-fg` - Hover text color (default: hsl(var(--accent-foreground)))
+
+**Secondary Variant Color Variables:**
+- `--button-secondary-bg` - Background color (default: hsl(var(--secondary)))
+- `--button-secondary-fg` - Text color (default: hsl(var(--secondary-foreground)))
+- `--button-secondary-hover-bg` - Hover background (default: hsl(var(--secondary) / 0.8))
+
+**Ghost Variant Color Variables:**
+- `--button-ghost-bg` - Background color (default: transparent)
+- `--button-ghost-fg` - Text color (default: inherit)
+- `--button-ghost-hover-bg` - Hover background (default: hsl(var(--accent)))
+- `--button-ghost-hover-fg` - Hover text color (default: hsl(var(--accent-foreground)))
+
+**Link Variant Color Variables:**
+- `--button-link-fg` - Text color (default: hsl(var(--primary)))
+
+**Example: Customizing Outline Button**
+```css
+:root {
+  /* Custom outline button with primary border and hover */
+  --button-outline-border: hsl(var(--primary));
+  --button-outline-border-width: 2px;
+  --button-outline-hover-bg: hsl(var(--primary) / 0.1);
+  --button-outline-hover-fg: hsl(var(--primary));
+}
+```
 
 ### Container Component
 

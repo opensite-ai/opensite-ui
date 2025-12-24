@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -75,6 +75,11 @@
       "types": "./dist/popover.d.ts",
       "import": "./dist/popover.js",
       "require": "./dist/popover.cjs"
+    },
+    "./components/dynamic-icon": {
+      "types": "./dist/dynamic-icon.d.ts",
+      "import": "./dist/dynamic-icon.js",
+      "require": "./dist/dynamic-icon.cjs"
     },
     "./blocks/about/alternating-blocks": {
       "types": "./dist/alternating-blocks.d.ts",

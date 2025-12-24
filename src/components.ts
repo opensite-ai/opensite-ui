@@ -28,6 +28,7 @@ export { Button } from "../components/ui/button";
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "../components/ui/card";
 export { Badge } from "../components/ui/badge";
 export { Popover, PopoverTrigger, PopoverContent } from "../components/ui/popover";
+export { DynamicIcon } from "../components/ui/dynamic-icon";
 
 // Content-specific blocks
 export { AlternatingBlocks } from "../components/blocks/about/alternating-blocks";

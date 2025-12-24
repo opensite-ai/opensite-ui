@@ -12,6 +12,7 @@ export default defineConfig({
     card: "components/ui/card.tsx",
     badge: "components/ui/badge.tsx",
     popover: "components/ui/popover.tsx",
+    "dynamic-icon": "components/ui/dynamic-icon.tsx",
     "alternating-blocks": "src/alternating-blocks.ts",
     "feature-showcase": "src/feature-showcase.ts",
     registry: "src/registry.ts",
