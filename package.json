@@ -111,6 +111,11 @@
       "import": "./dist/feature-showcase.js",
       "require": "./dist/feature-showcase.cjs"
     },
+    "./blocks/team/team-media-showcase": {
+      "types": "./dist/team-media-showcase.d.ts",
+      "import": "./dist/team-media-showcase.js",
+      "require": "./dist/team-media-showcase.cjs"
+    },
     "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
