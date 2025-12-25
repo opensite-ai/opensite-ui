@@ -22,6 +22,21 @@ import type { FeatureShowcaseProps } from "../../components/blocks/features/feat
 import { TeamMediaShowcase } from "../../components/blocks/team/team-media-showcase";
 import type { TeamMediaShowcaseProps } from "../../components/blocks/team/team-media-showcase";
 
+// Footer components
+import { FooterLinksGrid } from "../../components/blocks/footers/footer-links-grid";
+import { FooterSocialNewsletter } from "../../components/blocks/footers/footer-social-newsletter";
+import { FooterSocialApps } from "../../components/blocks/footers/footer-social-apps";
+import { FooterSimpleCentered } from "../../components/blocks/footers/footer-simple-centered";
+import { FooterBrandDescription } from "../../components/blocks/footers/footer-brand-description";
+import { FooterNewsletterGrid } from "../../components/blocks/footers/footer-newsletter-grid";
+import { FooterCtaBanner } from "../../components/blocks/footers/footer-cta-banner";
+import { FooterContactCard } from "../../components/blocks/footers/footer-contact-card";
+import { FooterBackgroundCard } from "../../components/blocks/footers/footer-background-card";
+import { FooterAnimatedSocial } from "../../components/blocks/footers/footer-animated-social";
+import { FooterNewsletterMinimal } from "../../components/blocks/footers/footer-newsletter-minimal";
+import { FooterCtaSocial } from "../../components/blocks/footers/footer-cta-social";
+import { FooterNavSocial } from "../../components/blocks/footers/footer-nav-social";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -274,7 +289,386 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 />
     `.trim(),
   },
-  // Add more blocks here following this pattern
+  // Footer blocks
+  "footer-links-grid": {
+    id: "footer-links-grid",
+    name: "Footer Links Grid",
+    description:
+      "A multi-column footer with logo, navigation links, and legal information. Features a responsive grid layout with customizable navigation sections, company branding, and bottom legal links. Ideal for corporate websites, SaaS products, and marketing sites that need organized footer navigation.",
+    semanticTags: [
+      "footer",
+      "navigation",
+      "links",
+      "multi-column",
+      "grid",
+      "corporate",
+      "legal",
+      "sitemap",
+      "branding",
+    ],
+    category: "footer",
+    component: FooterLinksGrid,
+    props: "FooterLinksGridProps",
+    exampleUsage: `
+<FooterLinksGrid
+  logo={{
+    src: "https://example.com/logo.png",
+    alt: "Company Logo",
+    title: "Company Name",
+    url: "/"
+  }}
+  tagline="Components made easy."
+  menuItems={[
+    {
+      title: "Product",
+      links: [
+        { text: "Overview", url: "#" },
+        { text: "Pricing", url: "#" }
+      ]
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "footer-social-newsletter": {
+    id: "footer-social-newsletter",
+    name: "Footer Social Newsletter",
+    description:
+      "A footer with social icons, navigation links, and newsletter signup. Features prominent social media icons in circular buttons, multi-column navigation, and an email newsletter subscription form. Ideal for community-focused products, SaaS platforms, and businesses that prioritize social engagement and email marketing.",
+    semanticTags: [
+      "footer",
+      "social",
+      "newsletter",
+      "subscription",
+      "email",
+      "community",
+      "icons",
+      "navigation",
+    ],
+    category: "footer",
+    component: FooterSocialNewsletter,
+    props: "FooterSocialNewsletterProps",
+    exampleUsage: `
+<FooterSocialNewsletter
+  socialLinks={[
+    { icon: "simple-icons/discord", href: "#", label: "Discord" },
+    { icon: "simple-icons/x", href: "#", label: "X (Twitter)" }
+  ]}
+  newsletterLabel="Subscribe to our newsletter"
+/>
+    `.trim(),
+  },
+  "footer-social-apps": {
+    id: "footer-social-apps",
+    name: "Footer Social Apps",
+    description:
+      "A footer with social icons, navigation links, and mobile app download links. Features prominent social media icons and mobile app store links in circular buttons, along with multi-column navigation. Ideal for products with mobile apps, community-focused platforms, and businesses that want to highlight their cross-platform presence.",
+    semanticTags: [
+      "footer",
+      "social",
+      "mobile",
+      "apps",
+      "download",
+      "android",
+      "ios",
+      "app-store",
+      "navigation",
+    ],
+    category: "footer",
+    component: FooterSocialApps,
+    props: "FooterSocialAppsProps",
+    exampleUsage: `
+<FooterSocialApps
+  socialLinks={[
+    { icon: "simple-icons/discord", href: "#", label: "Discord" }
+  ]}
+  appLinks={[
+    { icon: "mdi/android", href: "#", label: "Android" },
+    { icon: "mdi/apple", href: "#", label: "iOS" }
+  ]}
+/>
+    `.trim(),
+  },
+  "footer-simple-centered": {
+    id: "footer-simple-centered",
+    name: "Footer Simple Centered",
+    description:
+      "A clean, minimal footer with logo, sitemap, and legal links. Features a simple two-column sitemap layout with company branding and bottom legal links. Ideal for corporate websites, landing pages, and products that prefer a clean, uncluttered footer design without social media or newsletter elements.",
+    semanticTags: [
+      "footer",
+      "minimal",
+      "simple",
+      "clean",
+      "sitemap",
+      "corporate",
+      "legal",
+      "centered",
+    ],
+    category: "footer",
+    component: FooterSimpleCentered,
+    props: "FooterSimpleCenteredProps",
+    exampleUsage: `
+<FooterSimpleCentered
+  tagline="Components made easy."
+  sitemap={[
+    {
+      title: "Company",
+      links: [
+        { title: "About Us", href: "#" },
+        { title: "Careers", href: "#" }
+      ]
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "footer-brand-description": {
+    id: "footer-brand-description",
+    name: "Footer Brand Description",
+    description:
+      "A footer with logo, description, social icons, and navigation. Features a prominent brand section with logo, description, and social links on the left, with multi-column navigation on the right. Ideal for brand-focused websites, startups, and businesses that want to emphasize their identity and social presence in the footer.",
+    semanticTags: [
+      "footer",
+      "brand",
+      "description",
+      "social",
+      "identity",
+      "startup",
+      "navigation",
+      "about",
+    ],
+    category: "footer",
+    component: FooterBrandDescription,
+    props: "FooterBrandDescriptionProps",
+    exampleUsage: `
+<FooterBrandDescription
+  description="A collection of components for your startup business or side project."
+  socialLinks={[
+    { icon: "simple-icons/instagram", href: "#", label: "Instagram" }
+  ]}
+/>
+    `.trim(),
+  },
+  "footer-newsletter-grid": {
+    id: "footer-newsletter-grid",
+    name: "Footer Newsletter Grid",
+    description:
+      "A comprehensive footer with logo, social icons, navigation, and newsletter. Features a full-width grid layout with brand section (logo, description, social icons), multi-column navigation, and a prominent newsletter signup form. Ideal for content-heavy websites, SaaS products, and businesses that prioritize email marketing and social engagement.",
+    semanticTags: [
+      "footer",
+      "newsletter",
+      "grid",
+      "social",
+      "comprehensive",
+      "email",
+      "marketing",
+      "subscription",
+    ],
+    category: "footer",
+    component: FooterNewsletterGrid,
+    props: "FooterNewsletterGridProps",
+    exampleUsage: `
+<FooterNewsletterGrid
+  description="A collection of 100+ responsive HTML templates."
+  newsletterTitle="Newsletter"
+  newsletterPlaceholder="Email"
+/>
+    `.trim(),
+  },
+  "footer-cta-banner": {
+    id: "footer-cta-banner",
+    name: "Footer CTA Banner",
+    description:
+      "A dark-themed footer with prominent CTA banner, navigation, and newsletter. Features a full-width call-to-action banner at the top with heading, description, and button, followed by multi-column navigation, newsletter signup, and social links. Ideal for SaaS products, marketing sites, and businesses that want to drive conversions directly from the footer.",
+    semanticTags: [
+      "footer",
+      "cta",
+      "banner",
+      "dark",
+      "conversion",
+      "marketing",
+      "newsletter",
+      "call-to-action",
+    ],
+    category: "footer",
+    component: FooterCtaBanner,
+    props: "FooterCtaBannerProps",
+    exampleUsage: `
+<FooterCtaBanner
+  ctaHeading="Ready to get started?"
+  ctaDescription="Join thousands of satisfied customers."
+  ctaButtonText="Get Started"
+/>
+    `.trim(),
+  },
+  "footer-contact-card": {
+    id: "footer-contact-card",
+    name: "Footer Contact Card",
+    description:
+      "A footer with large heading, contact information, and social links. Features a prominent heading, contact details (email, phone, address), social media icons, and horizontal navigation. Ideal for service businesses, agencies, and professional websites that want to emphasize contact information and make it easy for visitors to get in touch.",
+    semanticTags: [
+      "footer",
+      "contact",
+      "card",
+      "email",
+      "phone",
+      "address",
+      "social",
+      "professional",
+      "agency",
+    ],
+    category: "footer",
+    component: FooterContactCard,
+    props: "FooterContactCardProps",
+    exampleUsage: `
+<FooterContactCard
+  heading="Let's work together"
+  email="hello@example.com"
+  phone="+1 (555) 123-4567"
+  address="123 Main Street, San Francisco, CA"
+/>
+    `.trim(),
+  },
+  "footer-background-card": {
+    id: "footer-background-card",
+    name: "Footer Background Card",
+    description:
+      "A footer with background image and floating contact card. Features a full-width background image with a floating card containing profile image, personal message, CTA button, navigation links, and contact information. Ideal for creative professionals, agencies, portfolios, and businesses that want a visually striking footer with a personal touch.",
+    semanticTags: [
+      "footer",
+      "background",
+      "image",
+      "card",
+      "creative",
+      "portfolio",
+      "agency",
+      "personal",
+      "visual",
+    ],
+    category: "footer",
+    component: FooterBackgroundCard,
+    props: "FooterBackgroundCardProps",
+    exampleUsage: `
+<FooterBackgroundCard
+  backgroundImage="https://example.com/bg.jpg"
+  profileImage="https://example.com/profile.jpg"
+  tagline="Let's Connect"
+  personalMessage="I'm passionate about creating beautiful components."
+  ctaText="Schedule a call"
+/>
+    `.trim(),
+  },
+  "footer-animated-social": {
+    id: "footer-animated-social",
+    name: "Footer Animated Social",
+    description:
+      "An animated footer with Framer Motion effects and social links. Features smooth entrance animations, a prominent heading with CTA button, animated social links with hover effects, and a clean separator. Ideal for modern websites, portfolios, and creative projects that want to add visual polish and interactivity to their footer.",
+    semanticTags: [
+      "footer",
+      "animated",
+      "motion",
+      "social",
+      "modern",
+      "interactive",
+      "creative",
+      "portfolio",
+    ],
+    category: "footer",
+    component: FooterAnimatedSocial,
+    props: "FooterAnimatedSocialProps",
+    exampleUsage: `
+<FooterAnimatedSocial
+  heading="Connect with Me"
+  description="No commitments. Just a quick chat to see if we click."
+  ctaText="Get in Touch"
+  socialLinks={[
+    { name: "Instagram", href: "#" },
+    { name: "X (Twitter)", href: "#" }
+  ]}
+/>
+    `.trim(),
+  },
+  "footer-newsletter-minimal": {
+    id: "footer-newsletter-minimal",
+    name: "Footer Newsletter Minimal",
+    description:
+      "A dark-themed minimal footer with newsletter and animated logo. Features a clean layout with main heading, support email, navigation columns, newsletter signup form, and a large animated brand logo. Ideal for modern SaaS products, creative agencies, and businesses that want a sophisticated, dark-themed footer with strong visual branding.",
+    semanticTags: [
+      "footer",
+      "newsletter",
+      "minimal",
+      "dark",
+      "animated",
+      "logo",
+      "saas",
+      "sophisticated",
+    ],
+    category: "footer",
+    component: FooterNewsletterMinimal,
+    props: "FooterNewsletterMinimalProps",
+    exampleUsage: `
+<FooterNewsletterMinimal
+  heading="Unlock 800+ blocks now"
+  supportEmail="hi@example.com"
+  newsletterLabel="Sign up for newsletter :"
+/>
+    `.trim(),
+  },
+  "footer-cta-social": {
+    id: "footer-cta-social",
+    name: "Footer CTA Social",
+    description:
+      "A centered CTA footer with decorative lines and social icons. Features a centered layout with decorative gradient lines, pre-heading text, large heading, description, prominent CTA button, social media icons, and contact email. Ideal for landing pages, marketing sites, and businesses that want a conversion-focused footer with strong visual appeal.",
+    semanticTags: [
+      "footer",
+      "cta",
+      "social",
+      "centered",
+      "conversion",
+      "landing",
+      "marketing",
+      "decorative",
+    ],
+    category: "footer",
+    component: FooterCtaSocial,
+    props: "FooterCtaSocialProps",
+    exampleUsage: `
+<FooterCtaSocial
+  preHeading="Let's connect"
+  heading="You want to scale faster? Try Opensite today."
+  description="Join thousands of companies already using our platform."
+  buttonText="Get Started Now"
+/>
+    `.trim(),
+  },
+  "footer-nav-social": {
+    id: "footer-nav-social",
+    name: "Footer Nav Social",
+    description:
+      "A comprehensive footer with logo, navigation, newsletter, and social links. Features a logo with navigation sections, a newsletter signup form with heading and description, social media icons, and legal links. Ideal for SaaS products, corporate websites, and businesses that want a complete footer with all essential elements organized in a clean, professional layout.",
+    semanticTags: [
+      "footer",
+      "navigation",
+      "social",
+      "newsletter",
+      "comprehensive",
+      "professional",
+      "corporate",
+      "complete",
+    ],
+    category: "footer",
+    component: FooterNavSocial,
+    props: "FooterNavSocialProps",
+    exampleUsage: `
+<FooterNavSocial
+  newsletterHeading="Stay Updated"
+  newsletterDescription="Subscribe to our newsletter for the latest updates."
+  socialLinks={[
+    { icon: "simple-icons/instagram", href: "#", label: "Instagram" }
+  ]}
+/>
+    `.trim(),
+  },
 };
 
 /**
