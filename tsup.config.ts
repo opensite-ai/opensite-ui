@@ -12,6 +12,7 @@ const clientEntryNames = new Set([
   "use-navigation",
   "media-hover-ctas",
   "feature-showcase",
+  "team-media-showcase",
   "components",
   "index",
 ]);
@@ -53,6 +54,7 @@ const allEntries = {
   "alternating-blocks": "src/alternating-blocks.ts",
   "media-hover-ctas": "src/media-hover-ctas.ts",
   "feature-showcase": "src/feature-showcase.ts",
+  "team-media-showcase": "src/team-media-showcase.ts",
   registry: "src/registry.ts",
   utils: "lib/utils.ts",
   types: "src/types/index.ts",

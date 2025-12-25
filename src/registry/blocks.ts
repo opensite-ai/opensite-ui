@@ -19,6 +19,8 @@ import { MediaHoverCtas } from "../../components/blocks/cta/media-hover-ctas";
 import type { MediaHoverCtasProps } from "../../components/blocks/cta/media-hover-ctas";
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
+import { TeamMediaShowcase } from "../../components/blocks/team/team-media-showcase";
+import type { TeamMediaShowcaseProps } from "../../components/blocks/team/team-media-showcase";
 
 export interface BlockRegistryEntry<T = any> {
   id: string;
@@ -216,6 +218,57 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
         </div>
       ),
       mediaComponent: <img src="..." alt="Integrations" className="rounded-lg" />
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-media-showcase": {
+    id: "team-media-showcase",
+    name: "Team Media Showcase",
+    description:
+      "Display team members in a responsive grid with full-bleed background images and hover effects. Each card shows the member's name and role with an optional action element that appears on hover. Ideal for team pages, about sections, or leadership showcases.",
+    semanticTags: [
+      "team",
+      "members",
+      "staff",
+      "people",
+      "leadership",
+      "about",
+      "grid",
+      "cards",
+      "hover",
+      "image-background",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamMediaShowcase,
+    props: "TeamMediaShowcaseProps",
+    exampleUsage: `
+<TeamMediaShowcase
+  listEyebrow="Our Team"
+  background="white"
+  verticalMargin="lg"
+  items={[
+    {
+      imageSrc: "/team/john-doe.jpg",
+      name: "John Doe",
+      role: "CEO & Founder",
+      action: (
+        <Button variant="outline" className="text-white border-white">
+          View Profile
+        </Button>
+      )
+    },
+    {
+      imageSrc: "/team/jane-smith.jpg",
+      name: "Jane Smith",
+      role: "CTO"
+    },
+    {
+      imageSrc: "/team/bob-wilson.jpg",
+      name: "Bob Wilson",
+      role: "Head of Design"
     }
   ]}
 />
