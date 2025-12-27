@@ -112,9 +112,7 @@ export function CarouselIconSidebar({
                   <DynamicIcon name={activeItem.icon} size={24} />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <h2 className="text-3xl font-medium">
-                    {activeItem.title}
-                  </h2>
+                  <h2 className="text-3xl font-medium">{activeItem.title}</h2>
                   <p className="mb-4 text-base text-muted-foreground">
                     {activeItem.description}
                   </p>
@@ -130,7 +128,7 @@ export function CarouselIconSidebar({
               <CarouselContent>
                 {items.map((image, index) => (
                   <CarouselItem key={index} className="h-full">
-                    <div className="aspect-[2/1] h-full w-full">
+                    <div className="aspect-2/1 h-full w-full">
                       <Img
                         src={image.src}
                         alt={image.title}

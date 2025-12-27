@@ -204,7 +204,7 @@ export function FooterSocialApps({
           <div className="mt-24 border-t pt-8">
             <div className="flex flex-col justify-between gap-4 text-center text-sm font-medium text-muted-foreground md:flex-row md:text-left">
               <p>{copyright}</p>
-              <a
+              <Pressable
                 href="https://opensite.ai"
                 className="hover:text-primary"
                 target="_blank"

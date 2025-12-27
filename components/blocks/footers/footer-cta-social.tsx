@@ -85,7 +85,7 @@ export function FooterCtaSocial({
           </p>
 
           {/* CTA Button */}
-          <a
+          <Pressable
             href={buttonUrl}
             className="group relative mt-4 inline-flex items-center gap-2 rounded-lg border bg-background px-8 py-4 text-base font-medium transition-all hover:bg-muted"
           >
@@ -101,7 +101,7 @@ export function FooterCtaSocial({
           <div className="flex items-center gap-6 pt-8">
             {socialLinks.map((link, idx) => (
               <React.Fragment key={idx}>
-                <a
+                <Pressable
                   href={link.url}
                   className="text-muted-foreground transition-colors hover:text-foreground"
                   aria-label={link.label}
@@ -117,7 +117,7 @@ export function FooterCtaSocial({
 
           {/* Support Email */}
           <p className="pt-2 text-sm text-muted-foreground md:text-base">
-            <a
+            <Pressable
               href={`mailto:${email}`}
               className="transition-colors hover:text-foreground"
             >
@@ -127,8 +127,10 @@ export function FooterCtaSocial({
 
           {/* Attribution */}
           <div className="mt-8 border-t pt-8 text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} Opensite AI. All rights reserved.</p>
-            <a
+            <p>
+              © {new Date().getFullYear()} Opensite AI. All rights reserved.
+            </p>
+            <Pressable
               href="https://opensite.ai"
               className="mt-2 inline-block hover:text-foreground"
               target="_blank"

@@ -28,16 +28,46 @@ export interface CarouselScaleFocusProps {
 }
 
 const defaultImages: CarouselScaleFocusImage[] = [
-  { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Gallery image 1" },
-  { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Gallery image 2" },
-  { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Gallery image 3" },
-  { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Gallery image 4" },
-  { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Gallery image 5" },
-  { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Gallery image 6" },
-  { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Gallery image 7" },
-  { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Gallery image 8" },
-  { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Gallery image 9" },
-  { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Gallery image 10" },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    alt: "Gallery image 1",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    alt: "Gallery image 2",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    alt: "Gallery image 3",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+    alt: "Gallery image 4",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+    alt: "Gallery image 5",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    alt: "Gallery image 6",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    alt: "Gallery image 7",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    alt: "Gallery image 8",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+    alt: "Gallery image 9",
+  },
+  {
+    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+    alt: "Gallery image 10",
+  },
 ];
 
 /**
@@ -90,7 +120,7 @@ export function CarouselScaleFocus({
     <section className={cn("overflow-hidden py-32", className)}>
       <div className="container md:px-45">
         <Carousel
-          className="mx-auto w-full max-w-[50rem] [&>div:nth-child(1)]:md:overflow-visible"
+          className="mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible"
           setApi={setApi}
           opts={{
             startIndex: 1,
@@ -101,7 +131,7 @@ export function CarouselScaleFocus({
               <CarouselItem key={`carousel-img-${index}`}>
                 <div
                   className={cn(
-                    "aspect-[4/3] max-w-[50rem] overflow-hidden rounded-[0.75rem] transition-all duration-300",
+                    "aspect-4/3 max-w-200 overflow-hidden rounded-[0.75rem] transition-all duration-300",
                     current === index + 1
                       ? "scale-100 opacity-100"
                       : "scale-70 opacity-40"
@@ -120,16 +150,16 @@ export function CarouselScaleFocus({
           </CarouselContent>
           <div className="mt-4 hidden md:block">
             <CarouselPrevious
-              className="size-10 max-[767px]:static max-[767px]:translate-y-0 md:left-[-6.25rem] md:size-14 lg:left-[-9.9375rem] lg:size-14 [&>svg]:!size-6"
+              className="size-10 max-[767px]:static max-[767px]:translate-y-0 md:-left-25 md:size-14 lg:-left-39.75 lg:size-14 [&>svg]:size-6!"
               variant="default"
             />
             <CarouselNext
-              className="size-10 max-[767px]:static max-[767px]:translate-y-0 md:right-[-6.25rem] md:size-14 lg:right-[-9.9375rem] lg:size-14 [&>svg]:!size-6"
+              className="size-10 max-[767px]:static max-[767px]:translate-y-0 md:-right-25 md:size-14 lg:-right-39.75 lg:size-14 [&>svg]:size-6!"
               variant="default"
             />
           </div>
         </Carousel>
-        <div className="mx-auto mt-10 flex w-full max-w-[33.9375rem] items-center justify-center">
+        <div className="mx-auto mt-10 flex w-full max-w-135.75 items-center justify-center">
           {Array.from({ length: count }).map((_, index) => (
             <button
               aria-label={`Go to slide ${index + 1}`}

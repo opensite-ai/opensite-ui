@@ -7,11 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 
 export interface ServiceHoverCarouselItem {
   id: string;
@@ -38,64 +34,80 @@ const defaultItems: ServiceHoverCarouselItem[] = [
     id: "1",
     title: "Custom Web Development",
     price: "$1,500",
-    image: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    image:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
     tag: "Tailored Solutions",
   },
   {
     id: "2",
     title: "Mobile App Development",
     price: "$2,000",
-    image: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+    image:
+      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
     tag: "iOS & Android",
   },
   {
     id: "3",
     title: "Cloud Solutions",
     price: "$3,000",
-    image: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    image:
+      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
     tag: "Scalable Infrastructure",
   },
   {
     id: "4",
     title: "UI/UX Design",
     price: "$1,200",
-    image: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    image:
+      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
     tag: "User-Centric Design",
   },
   {
     id: "5",
     title: "E-Commerce Platforms",
     price: "$2,500",
-    image: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+    image:
+      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
     tag: "Seamless Shopping",
   },
   {
     id: "6",
     title: "AI & Machine Learning",
     price: "$5,000",
-    image: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    image:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
     tag: "Smart Automation",
   },
   {
     id: "7",
     title: "DevOps Services",
     price: "$2,800",
-    image: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+    image:
+      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
     tag: "Efficient Workflows",
   },
   {
     id: "8",
     title: "Cybersecurity Solutions",
     price: "$4,000",
-    image: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    hoverImage: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    image:
+      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+    hoverImage:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
     tag: "Secure Systems",
   },
 ];
@@ -245,9 +257,9 @@ export function ServiceHoverCarousel({
           </CarouselContent>
         </Carousel>
 
-        <div className="absolute bottom-0 left-1/2 h-[2px] w-[240px] -translate-x-1/2 rounded bg-gray-200">
+        <div className="absolute bottom-0 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200">
           <div
-            className="h-[2px] rounded bg-black transition-transform duration-300 ease-out"
+            className="h-0.5 rounded bg-black transition-transform duration-300 ease-out"
             style={{
               width: `${progressIndicatorWidth}px`,
               transform: `translateX(${progressOffset}px)`,

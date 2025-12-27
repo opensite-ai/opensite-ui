@@ -31,7 +31,8 @@ const defaultItems: ExpandableCaseStudyItem[] = [
     id: "item-1",
     title: "Case study 1",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    image:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
     logo: "https://cdn.ing/assets/i/r/285986/5ivxh3ivywsmm6uslf3te38r6tg1/logo-dark.png",
     company: "Company Name",
     badges: ["Commercial", "Multiloan"],
@@ -40,7 +41,8 @@ const defaultItems: ExpandableCaseStudyItem[] = [
     id: "item-2",
     title: "Case study 2",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    image:
+      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
     logo: "https://cdn.ing/assets/i/r/285986/5ivxh3ivywsmm6uslf3te38r6tg1/logo-dark.png",
     company: "Company Name",
     badges: ["Enterprise"],
@@ -49,7 +51,8 @@ const defaultItems: ExpandableCaseStudyItem[] = [
     id: "item-3",
     title: "Case study 3",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    image:
+      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
     logo: "https://cdn.ing/assets/i/r/285986/5ivxh3ivywsmm6uslf3te38r6tg1/logo-dark.png",
     company: "Company Name",
     badges: ["Startup"],
@@ -91,12 +94,12 @@ export function ExpandableCaseStudyCards({
   return (
     <section className={cn("py-32", className)}>
       <div className="container">
-        <div className="flex flex-col gap-5 lg:aspect-[1336/420] lg:flex-row">
+        <div className="flex flex-col gap-5 lg:aspect-1336/420 lg:flex-row">
           {items.map((item) => (
             <div
               key={item.id}
               data-state={selection === item.id ? "open" : "closed"}
-              className='group max-lg:w-full max-lg:flex-1 max-md:h-[200px] md:max-lg:aspect-[1336/420] lg:transform-gpu lg:transition-all lg:data-[state="closed"]:w-[20%] lg:data-[state="closed"]:duration-500 lg:data-[state="open"]:w-[60%] lg:data-[state="open"]:duration-400'
+              className='group max-lg:w-full max-lg:flex-1 max-md:h-[200px] md:max-lg:aspect-1336/420 lg:transform-gpu lg:transition-all lg:data-[state="closed"]:w-[20%] lg:data-[state="closed"]:duration-500 lg:data-[state="open"]:w-[60%] lg:data-[state="open"]:duration-400'
               onMouseEnter={() => {
                 setSelection(item.id);
               }}
@@ -117,7 +120,7 @@ export function ExpandableCaseStudyCards({
                       />
                     </div>
                   </div>
-                  <div className="absolute inset-y-[25%] left-[50%] flex aspect-[389/420] h-[50%] items-center justify-center max-lg:hidden">
+                  <div className="absolute inset-y-[25%] left-[50%] flex aspect-389/420 h-[50%] items-center justify-center max-lg:hidden">
                     <Img
                       src={item.logo}
                       alt={item.company}
@@ -127,12 +130,16 @@ export function ExpandableCaseStudyCards({
                     />
                   </div>
                   <div className="absolute top-[50%] left-[50%] flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent max-lg:hidden">
-                    <DynamicIcon name="lucide/plus" size={32} className="text-accent-foreground" />
+                    <DynamicIcon
+                      name="lucide/plus"
+                      size={32}
+                      className="text-accent-foreground"
+                    />
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 hidden h-[50%] bg-gradient-to-t from-primary from-50% to-transparent lg:block"></div>
+                  <div className="absolute inset-x-0 bottom-0 hidden h-[50%] bg-linear-to-t from-primary from-50% to-transparent lg:block"></div>
                 </div>
                 <div className="relative flex flex-col justify-between gap-4 md:absolute md:inset-0 md:max-lg:inset-x-[50%] md:max-lg:w-[50%]">
-                  <div className='flex h-[80px] items-center gap-2 p-4 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
+                  <div className='flex h-20 items-center gap-2 p-4 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0'>
                     {item.badges?.map((badge, idx) => (
                       <Badge key={idx} variant="secondary">
                         {badge}

@@ -7,11 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 
 export interface TestimonialCarouselItem {
   id: string;
@@ -41,7 +37,8 @@ const defaultItems: TestimonialCarouselItem[] = [
     quote:
       "Their team transformed our vision into a seamless, user-friendly app. The attention to detail and commitment to quality is unmatched!",
     author: "Sarah",
-    image: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    image:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
     bgColor: "bg-green-300",
   },
   {
@@ -50,7 +47,8 @@ const defaultItems: TestimonialCarouselItem[] = [
     quote:
       "From ideation to deployment, they delivered a robust solution that scaled with our business. Truly a partner in our growth journey.",
     author: "James",
-    image: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    image:
+      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
     bgColor: "bg-orange-300",
   },
   {
@@ -59,7 +57,8 @@ const defaultItems: TestimonialCarouselItem[] = [
     quote:
       "Their expertise in cloud solutions helped us optimize our operations and reduce costs significantly. Highly recommend their services!",
     author: "Emily",
-    image: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    image:
+      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
     bgColor: "bg-purple-300",
   },
   {
@@ -68,7 +67,8 @@ const defaultItems: TestimonialCarouselItem[] = [
     quote:
       "The team's ability to understand complex requirements and deliver on time is exceptional. They made the development process stress-free.",
     author: "Michael",
-    image: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+    image:
+      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
     bgColor: "bg-green-300",
   },
   {
@@ -77,7 +77,8 @@ const defaultItems: TestimonialCarouselItem[] = [
     quote:
       "Their innovative approach to software development has been a game-changer for our organization. We couldn't be happier with the results!",
     author: "Laura",
-    image: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+    image:
+      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
     bgColor: "bg-orange-300",
   },
 ];
@@ -150,12 +151,8 @@ export function TestimonialCarouselCards({
         <div className="flex flex-col items-start justify-between gap-6 px-4 lg:flex-row lg:px-10">
           <div className="flex flex-col justify-between lg:h-[460px] lg:w-[445px] lg:pr-10">
             <div className="flex flex-col gap-4">
-              <h2 className="text-3xl font-semibold lg:text-4xl">
-                {heading}
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                {description}
-              </p>
+              <h2 className="text-3xl font-semibold lg:text-4xl">{heading}</h2>
+              <p className="text-lg text-muted-foreground">{description}</p>
             </div>
 
             <div className="hidden justify-start gap-4 lg:flex">
@@ -229,9 +226,9 @@ export function TestimonialCarouselCards({
               </CarouselContent>
             </Carousel>
 
-            <div className="absolute bottom-4 left-1/2 h-[2px] w-[240px] -translate-x-1/2 rounded bg-gray-200">
+            <div className="absolute bottom-4 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200">
               <div
-                className="h-[2px] rounded bg-primary transition-transform duration-300 ease-out"
+                className="h-0.5 rounded bg-primary transition-transform duration-300 ease-out"
                 style={{
                   width: `${progressIndicatorWidth}px`,
                   transform: `translateX(${progressOffset}px)`,

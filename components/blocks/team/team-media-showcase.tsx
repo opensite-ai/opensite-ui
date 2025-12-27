@@ -126,30 +126,35 @@ interface TeamMemberBackgroundImageCardProps
 const TeamMemberBackgroundImageCard = React.forwardRef<
   HTMLDivElement,
   TeamMemberBackgroundImageCardProps
->(({ className, imageUrl, imageAlt, children, optixFlowConfig, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "group h-[400px] relative w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-lg",
-        "transition-all duration-300 ease-in-out",
-        className
-      )}
-      {...props}
-    >
-      <Img
-        src={imageUrl}
-        alt={imageAlt}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
-        optixFlowConfig={optixFlowConfig}
-      />
+>(
+  (
+    { className, imageUrl, imageAlt, children, optixFlowConfig, ...props },
+    ref
+  ) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "group h-[400px] relative w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-lg",
+          "transition-all duration-300 ease-in-out",
+          className
+        )}
+        {...props}
+      >
+        <Img
+          src={imageUrl}
+          alt={imageAlt}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+          optixFlowConfig={optixFlowConfig}
+        />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"></div>
 
-      {children}
-    </div>
-  );
-});
+        {children}
+      </div>
+    );
+  }
+);
 TeamMemberBackgroundImageCard.displayName = "TeamMemberBackgroundImageCard";
 
 /**
@@ -190,22 +195,30 @@ export function TeamMediaShowcase({
   optixFlowConfig,
 }: TeamMediaShowcaseProps): React.JSX.Element {
   return (
-    <Section background={background} spacing={verticalMargin} className={className}>
+    <Section
+      background={background}
+      spacing={verticalMargin}
+      className={className}
+    >
       <Container>
         {children}
 
         <div className="space-y-12">
           <div className="space-y-6">
-            {listEyebrow && typeof listEyebrow === "string" && listEyebrow.trim() !== "" && (
-              <div className="text-md pt-8 uppercase text-dark-charcoal/70 tracking-[0.2em] font-semibold">
-                {listEyebrow}
-              </div>
-            )}
+            {listEyebrow &&
+              typeof listEyebrow === "string" &&
+              listEyebrow.trim() !== "" && (
+                <div className="text-md pt-8 uppercase text-dark-charcoal/70 tracking-[0.2em] font-semibold">
+                  {listEyebrow}
+                </div>
+              )}
             <div className={gridClassName}>
               {items.map((member, idx) => {
                 const imageAlt =
                   member.imageAlt ||
-                  (member.name && typeof member.name === "string" && member.name.trim() !== ""
+                  (member.name &&
+                  typeof member.name === "string" &&
+                  member.name.trim() !== ""
                     ? member.name
                     : `member-${idx}`);
 
@@ -230,7 +243,9 @@ export function TeamMediaShowcase({
                           {member.role &&
                             typeof member.role === "string" &&
                             member.role.trim() !== "" && (
-                              <p className="text-sm text-white/80">{member.role}</p>
+                              <p className="text-sm text-white/80">
+                                {member.role}
+                              </p>
                             )}
                         </div>
                       </div>

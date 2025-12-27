@@ -142,7 +142,10 @@ export function FooterNavSocial({
           <div className="grid gap-10 lg:grid-cols-2">
             {/* Left Column - Logo and Navigation */}
             <div>
-              <Pressable href={logo.url} className="mb-8 flex items-center gap-2">
+              <Pressable
+                href={logo.url}
+                className="mb-8 flex items-center gap-2"
+              >
                 <Img
                   src={logo.src}
                   alt={logo.alt}
@@ -158,7 +161,10 @@ export function FooterNavSocial({
                     <ul className="space-y-3 text-sm text-muted-foreground">
                       {section.links.map((link, linkIdx) => (
                         <li key={linkIdx}>
-                          <Pressable href={link.href} className="hover:text-primary">
+                          <Pressable
+                            href={link.href}
+                            className="hover:text-primary"
+                          >
                             {link.name}
                           </Pressable>
                         </li>
@@ -172,7 +178,9 @@ export function FooterNavSocial({
             {/* Right Column - Newsletter and Social */}
             <div className="flex flex-col justify-between">
               <div className="mb-8">
-                <h3 className="mb-2 text-lg font-semibold">{newsletterHeading}</h3>
+                <h3 className="mb-2 text-lg font-semibold">
+                  {newsletterHeading}
+                </h3>
                 <p className="mb-4 text-sm text-muted-foreground">
                   {newsletterDescription}
                 </p>
@@ -195,7 +203,7 @@ export function FooterNavSocial({
                 <ul className="flex items-center gap-4">
                   {socialLinks.map((social, idx) => (
                     <li key={idx}>
-                      <a
+                      <Pressable
                         href={social.href}
                         aria-label={social.label}
                         className="text-muted-foreground transition-colors hover:text-primary"
@@ -213,7 +221,7 @@ export function FooterNavSocial({
           <div className="mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
               <p>{copyright}</p>
-              <a
+              <Pressable
                 href="https://opensite.ai"
                 className="hover:text-primary"
                 target="_blank"

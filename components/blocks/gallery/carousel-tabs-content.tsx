@@ -34,7 +34,7 @@ const defaultItems: CarouselTabsContentItem[] = [
   {
     title: (
       <>
-        <span className="bg-gradient-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
+        <span className="bg-linear-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
           Explore Our
         </span>
         <br />
@@ -53,13 +53,14 @@ const defaultItems: CarouselTabsContentItem[] = [
       </>
     ),
     note: "Comprehensive documentation and dedicated support channels are available to assist you.",
-    image: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    image:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
     category: "Features",
   },
   {
     title: (
       <>
-        <span className="bg-gradient-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
+        <span className="bg-linear-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
           Solutions for
         </span>
         <br />
@@ -81,13 +82,14 @@ const defaultItems: CarouselTabsContentItem[] = [
       </>
     ),
     note: "Leverage our expertise in integration and custom development for specific needs.",
-    image: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    image:
+      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
     category: "Solutions",
   },
   {
     title: (
       <>
-        <span className="bg-gradient-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
+        <span className="bg-linear-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
           Building the
         </span>
         <br />
@@ -106,12 +108,14 @@ const defaultItems: CarouselTabsContentItem[] = [
           <li>Expanded third-party integration ecosystem.</li>
         </ul>
         <p>
-          We&apos;re constantly evolving based on user feedback and industry trends.
+          We&apos;re constantly evolving based on user feedback and industry
+          trends.
         </p>
       </>
     ),
     note: "Our dedicated R&D team is focused on delivering cutting-edge solutions.",
-    image: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    image:
+      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
     category: "Roadmap",
   },
 ];

@@ -153,7 +153,7 @@ export function FooterBackgroundCard({
               <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
                 {personalMessage}
               </p>
-              <a
+              <Pressable
                 href={ctaUrl}
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
               >
@@ -170,7 +170,7 @@ export function FooterBackgroundCard({
                 <ul className="space-y-3">
                   {menu.links.map((link, index) => (
                     <li key={index}>
-                      <a
+                      <Pressable
                         href={link.url}
                         className="border-b border-transparent text-muted-foreground transition-all duration-300 ease-in-out hover:border-primary hover:text-primary"
                       >
@@ -201,7 +201,7 @@ export function FooterBackgroundCard({
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
             <div className="flex flex-col gap-2 text-sm text-muted-foreground md:flex-row md:items-center md:gap-4">
               <p>{copyright}</p>
-              <a
+              <Pressable
                 href="https://opensite.ai"
                 className="hover:text-primary"
                 target="_blank"
@@ -212,7 +212,7 @@ export function FooterBackgroundCard({
             </div>
             <div className="flex gap-4">
               {bottomLinks.map((link, idx) => (
-                <a
+                <Pressable
                   key={idx}
                   href={link.url}
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"

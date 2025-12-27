@@ -169,12 +169,17 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
+type CarouselControlProps = Omit<
+  React.ComponentProps<typeof Pressable>,
+  "children"
+>;
+
 function CarouselPrevious({
   className,
   variant = "outline",
   size = "icon",
   ...props
-}: React.ComponentProps<typeof Pressable>) {
+}: CarouselControlProps) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
@@ -205,7 +210,7 @@ function CarouselNext({
   variant = "outline",
   size = "icon",
   ...props
-}: React.ComponentProps<typeof Pressable>) {
+}: CarouselControlProps) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (

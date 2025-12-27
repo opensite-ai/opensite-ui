@@ -104,14 +104,16 @@ export function FooterNewsletterMinimal({
             </p>
             <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
               <p>Get Support : </p>
-              <Pressable href={`mailto:${supportEmail}`}>{supportEmail}</Pressable>
+              <Pressable href={`mailto:${supportEmail}`}>
+                {supportEmail}
+              </Pressable>
             </div>
           </div>
           <div className="grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base">
             <ul className="space-y-1">
               {navLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Pressable
                     href={item.href}
                     className="tracking-tight text-foreground hover:text-foreground/30"
                   >
@@ -123,7 +125,7 @@ export function FooterNewsletterMinimal({
             <ul className="space-y-1">
               {socialLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Pressable
                     href={item.href}
                     className="group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30"
                   >
@@ -160,7 +162,7 @@ export function FooterNewsletterMinimal({
             <ul className="space-y-1">
               {footerLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Pressable
                     href={item.href}
                     className="group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30"
                   >
@@ -186,7 +188,7 @@ export function FooterNewsletterMinimal({
         </div>
         <div className="mt-8 text-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Opensite AI. All rights reserved.</p>
-          <a
+          <Pressable
             href="https://opensite.ai"
             className="mt-2 inline-block hover:text-foreground"
             target="_blank"

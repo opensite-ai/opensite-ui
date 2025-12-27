@@ -113,9 +113,7 @@ export function CarouselIconTabs({
     <section className={cn("py-32", className)}>
       <div className="container">
         <div className="mb-20 flex flex-col items-center justify-center gap-8">
-          <h1 className="text-4xl">
-            {heading}
-          </h1>
+          <h1 className="text-4xl">{heading}</h1>
 
           <Badge
             variant="secondary"
@@ -131,7 +129,7 @@ export function CarouselIconTabs({
                 <Img
                   src={item.img}
                   alt={item.title}
-                  className="aspect-square h-full w-full object-cover md:aspect-[2/1]"
+                  className="aspect-square h-full w-full object-cover md:aspect-2/1"
                   loading="lazy"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -163,7 +161,7 @@ export function CarouselIconTabs({
                     "text-lg hover:text-muted-foreground",
                     index + 1 === current
                       ? "text-muted-foreground"
-                      : "text-muted-foreground/50",
+                      : "text-muted-foreground/50"
                   )}
                 >
                   {section.text}

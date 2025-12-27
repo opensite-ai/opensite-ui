@@ -125,7 +125,7 @@ export function FooterSimpleCentered({
                     <ul className="space-y-3 text-base font-medium text-muted-foreground">
                       {section.links.map((link) => (
                         <li key={link.title}>
-                          <a
+                          <Pressable
                             href={link.href}
                             className="text-base whitespace-nowrap hover:text-accent-foreground"
                           >
@@ -142,7 +142,7 @@ export function FooterSimpleCentered({
           <div className="flex flex-col items-baseline justify-between gap-8 border-t border-border pt-8 md:flex-row md:gap-16">
             <div className="flex flex-col gap-2 text-xs text-muted-foreground sm:flex-row sm:items-center sm:gap-4 sm:text-sm">
               <span>{copyright}</span>
-              <a
+              <Pressable
                 href="https://opensite.ai"
                 className="hover:text-accent-foreground"
                 target="_blank"
@@ -153,7 +153,11 @@ export function FooterSimpleCentered({
             </div>
             <div className="flex flex-col items-start gap-4 text-xs text-muted-foreground sm:text-sm md:flex-row lg:items-center">
               {bottomLinks.map((link, idx) => (
-                <Pressable key={idx} href={link.href} className="hover:text-accent-foreground">
+                <Pressable
+                  key={idx}
+                  href={link.href}
+                  className="hover:text-accent-foreground"
+                >
                   {link.text}
                 </Pressable>
               ))}

@@ -144,16 +144,20 @@ export function FooterCtaBanner({
   optixFlowConfig,
 }: FooterCtaBannerProps): React.JSX.Element {
   return (
-    <section className={cn("dark bg-background py-16 text-foreground", className)}>
+    <section
+      className={cn("dark bg-background py-16 text-foreground", className)}
+    >
       <div className="container">
         <footer>
           {/* CTA Banner */}
           <div className="mb-16 rounded-lg bg-primary/10 p-8 text-center md:p-12">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">{ctaHeading}</h2>
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+              {ctaHeading}
+            </h2>
             <p className="mx-auto mb-6 max-w-2xl text-muted-foreground">
               {ctaDescription}
             </p>
-            <a
+            <Pressable
               href={ctaButtonUrl}
               className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
             >
@@ -165,7 +169,10 @@ export function FooterCtaBanner({
           <div className="grid gap-10 lg:grid-cols-5">
             {/* Brand Section */}
             <div className="lg:col-span-2">
-              <Pressable href={logo.url} className="mb-6 flex items-center gap-2">
+              <Pressable
+                href={logo.url}
+                className="mb-6 flex items-center gap-2"
+              >
                 <Img
                   src={logo.src}
                   alt={logo.alt}
@@ -193,7 +200,7 @@ export function FooterCtaBanner({
               <ul className="flex items-center gap-4">
                 {socialLinks.map((social, idx) => (
                   <li key={idx}>
-                    <a
+                    <Pressable
                       href={social.href}
                       aria-label={social.label}
                       className="text-muted-foreground transition-colors hover:text-foreground"
@@ -212,7 +219,10 @@ export function FooterCtaBanner({
                 <ul className="space-y-3 text-sm text-muted-foreground">
                   {section.links.map((link, linkIdx) => (
                     <li key={linkIdx}>
-                      <Pressable href={link.href} className="hover:text-foreground">
+                      <Pressable
+                        href={link.href}
+                        className="hover:text-foreground"
+                      >
                         {link.name}
                       </Pressable>
                     </li>
@@ -226,7 +236,7 @@ export function FooterCtaBanner({
           <div className="mt-16 flex flex-col justify-between gap-4 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
               <p>{copyright}</p>
-              <a
+              <Pressable
                 href="https://opensite.ai"
                 className="hover:text-foreground"
                 target="_blank"

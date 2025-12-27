@@ -194,7 +194,10 @@ export function FooterNewsletterGrid({
               </div>
               <p className="mt-1 text-xs font-medium text-muted-foreground">
                 {privacyText}
-                <Pressable href={privacyLinkUrl} className="ml-1 text-primary hover:underline">
+                <Pressable
+                  href={privacyLinkUrl}
+                  className="ml-1 text-primary hover:underline"
+                >
                   {privacyLinkText}
                 </Pressable>
               </p>
@@ -207,7 +210,7 @@ export function FooterNewsletterGrid({
                 {copyright}
               </p>
             </div>
-            <a
+            <Pressable
               href="https://opensite.ai"
               className="hover:text-primary"
               target="_blank"
