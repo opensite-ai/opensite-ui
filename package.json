@@ -176,12 +176,92 @@
       "import": "./dist/footer-cta-social.js",
       "require": "./dist/footer-cta-social.cjs"
     },
-    "./blocks/footers/footer-nav-social": {
-      "types": "./dist/footer-nav-social.d.ts",
-      "import": "./dist/footer-nav-social.js",
-      "require": "./dist/footer-nav-social.cjs"
-    },
-    "./registry": {
+        "./blocks/footers/footer-nav-social": {
+          "types": "./dist/footer-nav-social.d.ts",
+          "import": "./dist/footer-nav-social.js",
+          "require": "./dist/footer-nav-social.cjs"
+        },
+        "./blocks/gallery/expandable-case-study-cards": {
+          "types": "./dist/expandable-case-study-cards.d.ts",
+          "import": "./dist/expandable-case-study-cards.js",
+          "require": "./dist/expandable-case-study-cards.cjs"
+        },
+        "./blocks/gallery/carousel-badge-cards": {
+          "types": "./dist/carousel-badge-cards.d.ts",
+          "import": "./dist/carousel-badge-cards.js",
+          "require": "./dist/carousel-badge-cards.cjs"
+        },
+        "./blocks/gallery/carousel-gradient-overlay": {
+          "types": "./dist/carousel-gradient-overlay.d.ts",
+          "import": "./dist/carousel-gradient-overlay.js",
+          "require": "./dist/carousel-gradient-overlay.cjs"
+        },
+        "./blocks/gallery/carousel-demo-link": {
+          "types": "./dist/carousel-demo-link.d.ts",
+          "import": "./dist/carousel-demo-link.js",
+          "require": "./dist/carousel-demo-link.cjs"
+        },
+        "./blocks/gallery/auto-scroll-carousel": {
+          "types": "./dist/auto-scroll-carousel.d.ts",
+          "import": "./dist/auto-scroll-carousel.js",
+          "require": "./dist/auto-scroll-carousel.cjs"
+        },
+        "./blocks/gallery/carousel-sidebar-resources": {
+          "types": "./dist/carousel-sidebar-resources.d.ts",
+          "import": "./dist/carousel-sidebar-resources.js",
+          "require": "./dist/carousel-sidebar-resources.cjs"
+        },
+        "./blocks/gallery/carousel-icon-tabs": {
+          "types": "./dist/carousel-icon-tabs.d.ts",
+          "import": "./dist/carousel-icon-tabs.js",
+          "require": "./dist/carousel-icon-tabs.cjs"
+        },
+        "./blocks/gallery/testimonial-carousel-cards": {
+          "types": "./dist/testimonial-carousel-cards.d.ts",
+          "import": "./dist/testimonial-carousel-cards.js",
+          "require": "./dist/testimonial-carousel-cards.cjs"
+        },
+        "./blocks/gallery/carousel-icon-sidebar": {
+          "types": "./dist/carousel-icon-sidebar.d.ts",
+          "import": "./dist/carousel-icon-sidebar.js",
+          "require": "./dist/carousel-icon-sidebar.cjs"
+        },
+        "./blocks/gallery/carousel-gradient-text": {
+          "types": "./dist/carousel-gradient-text.d.ts",
+          "import": "./dist/carousel-gradient-text.js",
+          "require": "./dist/carousel-gradient-text.cjs"
+        },
+        "./blocks/gallery/service-hover-carousel": {
+          "types": "./dist/service-hover-carousel.d.ts",
+          "import": "./dist/service-hover-carousel.js",
+          "require": "./dist/service-hover-carousel.cjs"
+        },
+        "./blocks/gallery/carousel-tabs-content": {
+          "types": "./dist/carousel-tabs-content.d.ts",
+          "import": "./dist/carousel-tabs-content.js",
+          "require": "./dist/carousel-tabs-content.cjs"
+        },
+        "./blocks/gallery/carousel-scale-focus": {
+          "types": "./dist/carousel-scale-focus.d.ts",
+          "import": "./dist/carousel-scale-focus.js",
+          "require": "./dist/carousel-scale-focus.cjs"
+        },
+        "./blocks/gallery/masonry-motion-grid": {
+          "types": "./dist/masonry-motion-grid.d.ts",
+          "import": "./dist/masonry-motion-grid.js",
+          "require": "./dist/masonry-motion-grid.cjs"
+        },
+        "./blocks/gallery/blur-vignette-grid": {
+          "types": "./dist/blur-vignette-grid.d.ts",
+          "import": "./dist/blur-vignette-grid.js",
+          "require": "./dist/blur-vignette-grid.cjs"
+        },
+        "./blocks/gallery/interior-carousel": {
+          "types": "./dist/interior-carousel.d.ts",
+          "import": "./dist/interior-carousel.js",
+          "require": "./dist/interior-carousel.cjs"
+        },
+        "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
@@ -246,6 +326,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.2.0",
     "tailwind-merge": "^3.4.0",
