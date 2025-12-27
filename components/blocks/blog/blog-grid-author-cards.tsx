@@ -72,7 +72,8 @@ const defaultPosts: BlogPost[] = [
 
 const defaultProps: Partial<BlogGridAuthorCardsProps> = {
   title: "Blog",
-  description: "Insights, tutorials, and thoughts on modern software development",
+  description:
+    "Insights, tutorials, and thoughts on modern software development",
   posts: defaultPosts,
   viewAllText: "View all posts",
   viewAllHref: "#",
@@ -121,7 +122,7 @@ export function BlogGridAuthorCards({
               <div>
                 <Badge variant="secondary">{post.label}</Badge>
               </div>
-              <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium break-words md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
+              <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
                 {post.title}
               </div>
               <div className="mb-4 line-clamp-2 text-sm text-muted-foreground md:mb-5 md:text-base">
@@ -130,7 +131,10 @@ export function BlogGridAuthorCards({
               <div className="flex items-center gap-2">
                 <Avatar className="size-12">
                   {post.authorAvatar && <AvatarImage src={post.authorAvatar} />}
-                  <AvatarFallback>{post.authorInitials || post.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+                  <AvatarFallback>
+                    {post.authorInitials ||
+                      post.author.slice(0, 2).toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col gap-px">
                   <span className="text-xs font-medium">{post.author}</span>
@@ -143,11 +147,7 @@ export function BlogGridAuthorCards({
           ))}
         </div>
         <div className="mt-8 flex flex-col items-center py-2 md:hidden">
-          <Pressable
-            href={viewAllHref}
-            asButton
-            className="w-full sm:w-fit"
-          >
+          <Pressable href={viewAllHref} asButton className="w-full sm:w-fit">
             {viewAllText}
           </Pressable>
         </div>

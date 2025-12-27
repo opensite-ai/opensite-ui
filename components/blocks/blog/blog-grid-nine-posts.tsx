@@ -134,7 +134,8 @@ const defaultPosts: BlogPost[] = [
 
 const defaultProps: Partial<BlogGridNinePostsProps> = {
   title: "Blog",
-  description: "Insights, tutorials, and thoughts on modern software development",
+  description:
+    "Insights, tutorials, and thoughts on modern software development",
   posts: defaultPosts,
   ctaText: "View all posts",
   ctaHref: "#",
@@ -183,7 +184,7 @@ export function BlogGridNinePosts({
               <div>
                 <Badge variant="secondary">{post.label}</Badge>
               </div>
-              <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium break-words md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
+              <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-2xl lg:pt-4 lg:text-3xl">
                 {post.title}
               </div>
               <div className="mb-4 line-clamp-2 text-sm text-muted-foreground md:mb-5 md:text-base">

@@ -261,8 +261,12 @@ export function BlogFilteredResults({
   loadMoreText = defaultProps.loadMoreText,
   optixFlowConfig,
 }: BlogFilteredResultsProps) {
-  const [visibleCount, setVisibleCount] = useState(postsPerPage || POSTS_PER_PAGE);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(["all"]);
+  const [visibleCount, setVisibleCount] = useState(
+    postsPerPage || POSTS_PER_PAGE
+  );
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    "all",
+  ]);
 
   const handleCategoryChange = useCallback(
     (categoryValue: string, checked: boolean) => {
@@ -307,10 +311,10 @@ export function BlogFilteredResults({
 
   return (
     <section className={cn("pb-32", className)}>
-      <div className="bg-muted bg-[length:3.125rem_3.125rem] bg-repeat">
+      <div className="bg-muted bg-size-[3.125rem_3.125rem] bg-repeat">
         <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
-            <div className="flex w-full max-w-[36rem] flex-col gap-8">
+            <div className="flex w-full max-w-xl flex-col gap-8">
               {breadcrumb && <BreadcrumbBlog breadcrumb={breadcrumb} />}
               <div className="flex w-full flex-col gap-5">
                 <h1 className="text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl">
@@ -324,7 +328,7 @@ export function BlogFilteredResults({
           </div>
 
           {primaryPost && (
-            <div className="w-full max-w-[27.5rem]">
+            <div className="w-full max-w-110">
               <BlogCard post={primaryPost} optixFlowConfig={optixFlowConfig} />
             </div>
           )}

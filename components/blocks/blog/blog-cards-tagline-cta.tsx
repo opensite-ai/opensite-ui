@@ -5,12 +5,7 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "../../ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 
@@ -120,7 +115,7 @@ export function BlogCardsTaglineCta({
               key={post.id}
               className="grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0"
             >
-              <div className="aspect-16/9 w-full">
+              <div className="aspect-video w-full">
                 <Pressable
                   href={post.url}
                   className="transition-opacity duration-200 fade-in hover:opacity-70"
@@ -147,7 +142,11 @@ export function BlogCardsTaglineCta({
                   className="flex items-center text-foreground hover:underline"
                 >
                   Read more
-                  <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="ml-2"
+                  />
                 </Pressable>
               </CardFooter>
             </Card>

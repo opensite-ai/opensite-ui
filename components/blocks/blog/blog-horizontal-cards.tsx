@@ -117,7 +117,7 @@ export function BlogHorizontalCards({
                     <Img
                       src={post.image}
                       alt={post.title}
-                      className="aspect-16/9 w-full rounded-lg object-cover object-center sm:w-[260px]"
+                      className="aspect-video w-full rounded-lg object-cover object-center sm:w-[260px]"
                       optixFlowConfig={optixFlowConfig}
                     />
                   </Pressable>
@@ -141,7 +141,11 @@ export function BlogHorizontalCards({
                     className="inline-flex items-center text-primary hover:underline"
                   >
                     Read more
-                    <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2 size-4" />
+                    <DynamicIcon
+                      name="lucide/arrow-right"
+                      size={16}
+                      className="ml-2 size-4"
+                    />
                   </Pressable>
                 </div>
               </div>
@@ -158,7 +162,11 @@ export function BlogHorizontalCards({
             className="w-full sm:w-auto"
           >
             {buttonText}
-            <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2 size-4" />
+            <DynamicIcon
+              name="lucide/arrow-right"
+              size={16}
+              className="ml-2 size-4"
+            />
           </Pressable>
         </div>
       </div>
