@@ -125,6 +125,15 @@ import { BlogMasonryFeatured } from "../../components/blocks/blog/blog-masonry-f
 import { BlogHorizontalTimeline } from "../../components/blocks/blog/blog-horizontal-timeline";
 import { BlogGridNinePosts } from "../../components/blocks/blog/blog-grid-nine-posts";
 
+// Article components
+import { ArticleHeroProse } from "../../components/blocks/article/article-hero-prose";
+import { ArticleSidebarSticky } from "../../components/blocks/article/article-sidebar-sticky";
+import { ArticleTocSidebar } from "../../components/blocks/article/article-toc-sidebar";
+import { ArticleBreadcrumbSocial } from "../../components/blocks/article/article-breadcrumb-social";
+import { ArticleCompactToc } from "../../components/blocks/article/article-compact-toc";
+import { ArticleChaptersAuthor } from "../../components/blocks/article/article-chapters-author";
+import { ArticleSplitAnimated } from "../../components/blocks/article/article-split-animated";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -156,7 +165,8 @@ export type BlockCategory =
   | "benefits"
   | "comparison"
   | "background-pattern-hero"
-  | "blog";
+  | "blog"
+  | "article";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -3145,6 +3155,238 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   description="Browse all our articles"
   ctaText="View all posts"
   ctaHref="/blog"
+/>
+    `.trim(),
+  },
+  "article-hero-prose": {
+    id: "article-hero-prose",
+    name: "Article Hero Prose",
+    description:
+      "A full-width article layout featuring a prominent hero image, author information with avatar, and rich prose content including alerts, tables, blockquotes, and lists. Ideal for long-form blog posts and articles that need visual hierarchy with a strong opening image and detailed content sections.",
+    semanticTags: [
+      "article",
+      "blog-post",
+      "hero",
+      "prose",
+      "long-form",
+      "author",
+      "avatar",
+      "tables",
+      "alerts",
+      "blockquotes",
+    ],
+    category: "article",
+    component: ArticleHeroProse,
+    props: "ArticleHeroProseProps",
+    exampleUsage: `
+<ArticleHeroProse
+  post={{
+    title: "Designing websites faster with Opensite AI",
+    authorName: "John Doe",
+    image: "/images/hero.jpg",
+    pubDate: new Date(),
+    description: "A step-by-step guide to building modern websites.",
+    authorImage: "/images/author.jpg"
+  }}
+/>
+    `.trim(),
+  },
+  "article-sidebar-sticky": {
+    id: "article-sidebar-sticky",
+    name: "Article Sidebar Sticky",
+    description:
+      "A two-column article layout with a sticky sidebar containing author information and a back navigation link. The main content area features prose styling with images and blockquotes. Perfect for documentation-style articles or blog posts where persistent author attribution and navigation are important.",
+    semanticTags: [
+      "article",
+      "blog-post",
+      "sidebar",
+      "sticky",
+      "author",
+      "navigation",
+      "prose",
+      "two-column",
+      "documentation",
+    ],
+    category: "article",
+    component: ArticleSidebarSticky,
+    props: "ArticleSidebarStickyProps",
+    exampleUsage: `
+<ArticleSidebarSticky
+  title="The Art of Modern Web Development"
+  authorName="Sarah Johnson"
+  authorImage="/images/author.jpg"
+  publishDate="December 15, 2024"
+  backHref="/blog"
+  backText="Back to Blog"
+/>
+    `.trim(),
+  },
+  "article-toc-sidebar": {
+    id: "article-toc-sidebar",
+    name: "Article TOC Sidebar",
+    description:
+      "An article layout with a sticky table of contents sidebar that highlights the active section as users scroll. Includes a CTA card in the sidebar, category badge, author info, and IntersectionObserver-based section tracking. Ideal for technical tutorials, guides, and long-form content that benefits from easy navigation.",
+    semanticTags: [
+      "article",
+      "blog-post",
+      "toc",
+      "table-of-contents",
+      "sidebar",
+      "sticky",
+      "navigation",
+      "tutorial",
+      "guide",
+      "cta",
+    ],
+    category: "article",
+    component: ArticleTocSidebar,
+    props: "ArticleTocSidebarProps",
+    exampleUsage: `
+<ArticleTocSidebar
+  title="Building Scalable Applications"
+  description="Learn modern architectural patterns."
+  authorName="Alex Chen"
+  sections={[
+    { id: "introduction", title: "Introduction" },
+    { id: "getting-started", title: "Getting Started" }
+  ]}
+  ctaTitle="Ready to build?"
+  ctaButtonText="Get Started"
+/>
+    `.trim(),
+  },
+  "article-breadcrumb-social": {
+    id: "article-breadcrumb-social",
+    name: "Article Breadcrumb Social",
+    description:
+      "A comprehensive article layout featuring breadcrumb navigation, social sharing buttons, a sticky table of contents sidebar, and a floating back-to-top button. Includes author information with role, read time, and IntersectionObserver-based section tracking. Perfect for content-heavy articles that need robust navigation and sharing capabilities.",
+    semanticTags: [
+      "article",
+      "blog-post",
+      "breadcrumb",
+      "social-sharing",
+      "toc",
+      "back-to-top",
+      "navigation",
+      "author",
+      "read-time",
+    ],
+    category: "article",
+    component: ArticleBreadcrumbSocial,
+    props: "ArticleBreadcrumbSocialProps",
+    exampleUsage: `
+<ArticleBreadcrumbSocial
+  title="Mastering Performance Optimization"
+  authorName="Emily Rodriguez"
+  authorRole="Senior Engineer"
+  publishDate="January 10, 2025"
+  readTime="15 min read"
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" }
+  ]}
+  shareUrls={{ twitter: "#", linkedin: "#" }}
+/>
+    `.trim(),
+  },
+  "article-compact-toc": {
+    id: "article-compact-toc",
+    name: "Article Compact TOC",
+    description:
+      "A compact, mobile-friendly article layout with a collapsible table of contents, breadcrumb navigation, and inline social sharing buttons. Features a centered content area with author info, read time, and publication date. Ideal for research papers, studies, and articles that need a clean, focused reading experience on all devices.",
+    semanticTags: [
+      "article",
+      "blog-post",
+      "toc",
+      "collapsible",
+      "mobile-friendly",
+      "compact",
+      "breadcrumb",
+      "social-sharing",
+      "research",
+    ],
+    category: "article",
+    component: ArticleCompactToc,
+    props: "ArticleCompactTocProps",
+    exampleUsage: `
+<ArticleCompactToc
+  title="Understanding User Behavior"
+  authorName="Dr. Michael Chen"
+  publishDate="January 12, 2025"
+  readTime="18 min read"
+  sections={[
+    { id: "introduction", title: "Introduction" },
+    { id: "methodology", title: "Methodology" }
+  ]}
+/>
+    `.trim(),
+  },
+  "article-chapters-author": {
+    id: "article-chapters-author",
+    name: "Article Chapters Author",
+    description:
+      "A book-style article layout with numbered chapters navigation in a sticky sidebar, detailed author bio with social links, and a conclusion CTA card. Features breadcrumb navigation, centered title section, and IntersectionObserver-based chapter tracking. Perfect for comprehensive guides, tutorials, and educational content organized into distinct chapters.",
+    semanticTags: [
+      "article",
+      "blog-post",
+      "chapters",
+      "book-style",
+      "author-bio",
+      "social-links",
+      "sidebar",
+      "guide",
+      "tutorial",
+      "educational",
+    ],
+    category: "article",
+    component: ArticleChaptersAuthor,
+    props: "ArticleChaptersAuthorProps",
+    exampleUsage: `
+<ArticleChaptersAuthor
+  title="A Comprehensive Guide to Design Patterns"
+  subtitle="Master essential patterns every engineer should know"
+  chapters={[
+    { id: "chapter-1", number: 1, title: "The Foundation" },
+    { id: "chapter-2", number: 2, title: "Building Blocks" }
+  ]}
+  author={{
+    name: "Jessica Williams",
+    role: "Principal Engineer",
+    image: "/images/author.jpg",
+    bio: "15+ years of experience in software architecture."
+  }}
+/>
+    `.trim(),
+  },
+  "article-split-animated": {
+    id: "article-split-animated",
+    name: "Article Split Animated",
+    description:
+      "A visually striking split-layout article preview with Framer Motion animations. Features a large image on one side with a gradient overlay and category badge, and article details on the other side including title, description, author info, and CTA button. Ideal for featured article sections, hero posts, and content that needs to make a strong visual impact.",
+    semanticTags: [
+      "article",
+      "blog-post",
+      "split-layout",
+      "animated",
+      "framer-motion",
+      "featured",
+      "hero",
+      "visual-impact",
+      "cta",
+    ],
+    category: "article",
+    component: ArticleSplitAnimated,
+    props: "ArticleSplitAnimatedProps",
+    exampleUsage: `
+<ArticleSplitAnimated
+  title="The Evolution of Design Systems"
+  description="Explore how design systems have transformed..."
+  image="/images/featured.jpg"
+  authorName="David Park"
+  authorRole="Design Lead"
+  category="Design"
+  ctaText="Read Full Article"
+  ctaHref="/article/design-systems"
 />
     `.trim(),
   },
