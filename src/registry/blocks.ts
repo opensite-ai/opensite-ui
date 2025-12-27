@@ -37,6 +37,24 @@ import { FooterNewsletterMinimal } from "../../components/blocks/footers/footer-
 import { FooterCtaSocial } from "../../components/blocks/footers/footer-cta-social";
 import { FooterNavSocial } from "../../components/blocks/footers/footer-nav-social";
 
+// Gallery components
+import { ExpandableCaseStudyCards } from "../../components/blocks/gallery/expandable-case-study-cards";
+import { CarouselBadgeCards } from "../../components/blocks/gallery/carousel-badge-cards";
+import { CarouselGradientOverlay } from "../../components/blocks/gallery/carousel-gradient-overlay";
+import { CarouselDemoLink } from "../../components/blocks/gallery/carousel-demo-link";
+import { AutoScrollCarousel } from "../../components/blocks/gallery/auto-scroll-carousel";
+import { CarouselSidebarResources } from "../../components/blocks/gallery/carousel-sidebar-resources";
+import { CarouselIconTabs } from "../../components/blocks/gallery/carousel-icon-tabs";
+import { TestimonialCarouselCards } from "../../components/blocks/gallery/testimonial-carousel-cards";
+import { CarouselIconSidebar } from "../../components/blocks/gallery/carousel-icon-sidebar";
+import { CarouselGradientText } from "../../components/blocks/gallery/carousel-gradient-text";
+import { ServiceHoverCarousel } from "../../components/blocks/gallery/service-hover-carousel";
+import { CarouselTabsContent } from "../../components/blocks/gallery/carousel-tabs-content";
+import { CarouselScaleFocus } from "../../components/blocks/gallery/carousel-scale-focus";
+import { MasonryMotionGrid } from "../../components/blocks/gallery/masonry-motion-grid";
+import { BlurVignetteGrid } from "../../components/blocks/gallery/blur-vignette-grid";
+import { InteriorCarousel } from "../../components/blocks/gallery/interior-carousel";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -665,6 +683,520 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   newsletterDescription="Subscribe to our newsletter for the latest updates."
   socialLinks={[
     { icon: "simple-icons/instagram", href: "#", label: "Instagram" }
+  ]}
+/>
+    `.trim(),
+  },
+  // Gallery blocks
+  "expandable-case-study-cards": {
+    id: "expandable-case-study-cards",
+    name: "Expandable Case Study Cards",
+    description:
+      "A gallery of expandable case study cards with hover effects. Each card expands on hover to reveal additional details including title, description, and badge. Features smooth width transitions and gradient overlays. Ideal for portfolios, case studies, project showcases, and work samples where you want to highlight multiple items with progressive disclosure.",
+    semanticTags: [
+      "gallery",
+      "case-study",
+      "portfolio",
+      "expandable",
+      "hover",
+      "cards",
+      "projects",
+      "work",
+      "showcase",
+    ],
+    category: "gallery",
+    component: ExpandableCaseStudyCards,
+    props: "ExpandableCaseStudyCardsProps",
+    exampleUsage: `
+<ExpandableCaseStudyCards
+  items={[
+    {
+      id: "1",
+      title: "Brand Redesign",
+      description: "Complete visual identity overhaul",
+      image: "/images/project1.jpg",
+      badge: "Branding"
+    },
+    {
+      id: "2",
+      title: "E-commerce Platform",
+      description: "Full-stack development",
+      image: "/images/project2.jpg",
+      badge: "Development"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-badge-cards": {
+    id: "carousel-badge-cards",
+    name: "Carousel Badge Cards",
+    description:
+      "A carousel gallery with badge labels and descriptions on each card. Features navigation buttons, smooth transitions, and cards with category badges. Ideal for product showcases, feature highlights, blog posts, or any content that benefits from categorization and horizontal browsing.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "badges",
+      "cards",
+      "navigation",
+      "products",
+      "features",
+      "categories",
+    ],
+    category: "gallery",
+    component: CarouselBadgeCards,
+    props: "CarouselBadgeCardsProps",
+    exampleUsage: `
+<CarouselBadgeCards
+  heading="Featured Products"
+  description="Explore our latest offerings"
+  items={[
+    {
+      id: "1",
+      title: "Product Name",
+      description: "Product description here",
+      image: "/images/product1.jpg",
+      badge: "New"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-gradient-overlay": {
+    id: "carousel-gradient-overlay",
+    name: "Carousel Gradient Overlay",
+    description:
+      "A carousel with gradient overlay cards and dot indicators. Features smooth transitions, gradient text overlays on images, and progress dot navigation. Ideal for hero sections, featured content, image galleries, or any visual content that needs elegant text overlays.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "gradient",
+      "overlay",
+      "dots",
+      "hero",
+      "featured",
+      "images",
+    ],
+    category: "gallery",
+    component: CarouselGradientOverlay,
+    props: "CarouselGradientOverlayProps",
+    exampleUsage: `
+<CarouselGradientOverlay
+  heading="Our Work"
+  items={[
+    {
+      id: "1",
+      title: "Project Title",
+      description: "Brief description",
+      image: "/images/work1.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-demo-link": {
+    id: "carousel-demo-link",
+    name: "Carousel Demo Link",
+    description:
+      "A carousel with a prominent demo link in the header section. Features navigation buttons, external demo link, and cards with images and descriptions. Ideal for product demos, feature showcases, or any content where you want to drive users to a live demo or external resource.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "demo",
+      "link",
+      "cta",
+      "products",
+      "features",
+      "external",
+    ],
+    category: "gallery",
+    component: CarouselDemoLink,
+    props: "CarouselDemoLinkProps",
+    exampleUsage: `
+<CarouselDemoLink
+  heading="Product Features"
+  description="See what we can do"
+  demoLink={{ text: "View Demo", href: "/demo" }}
+  items={[
+    {
+      id: "1",
+      title: "Feature Name",
+      description: "Feature description",
+      image: "/images/feature1.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "auto-scroll-carousel": {
+    id: "auto-scroll-carousel",
+    name: "Auto Scroll Carousel",
+    description:
+      "A continuously auto-scrolling carousel with staggered image layout. Features automatic scrolling using embla-carousel-auto-scroll, alternating vertical offsets for visual interest, and smooth infinite loop. Ideal for client logos, partner showcases, image galleries, or any content that benefits from passive browsing.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "auto-scroll",
+      "infinite",
+      "logos",
+      "partners",
+      "clients",
+      "staggered",
+    ],
+    category: "gallery",
+    component: AutoScrollCarousel,
+    props: "AutoScrollCarouselProps",
+    exampleUsage: `
+<AutoScrollCarousel
+  images={[
+    { src: "/images/logo1.png", alt: "Client 1" },
+    { src: "/images/logo2.png", alt: "Client 2" },
+    { src: "/images/logo3.png", alt: "Client 3" }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-sidebar-resources": {
+    id: "carousel-sidebar-resources",
+    name: "Carousel Sidebar Resources",
+    description:
+      "A carousel with a sidebar resource list in a three-column layout. Features categorized resource links alongside image carousel. Ideal for documentation, resource libraries, learning platforms, or any content that combines visual browsing with organized link navigation.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "sidebar",
+      "resources",
+      "links",
+      "documentation",
+      "learning",
+      "three-column",
+    ],
+    category: "gallery",
+    component: CarouselSidebarResources,
+    props: "CarouselSidebarResourcesProps",
+    exampleUsage: `
+<CarouselSidebarResources
+  heading="Resources"
+  resources={[
+    { title: "Getting Started", href: "/docs/start", icon: "lucide/book-open" },
+    { title: "API Reference", href: "/docs/api", icon: "lucide/code" }
+  ]}
+  images={[
+    { src: "/images/doc1.jpg", alt: "Documentation" }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-icon-tabs": {
+    id: "carousel-icon-tabs",
+    name: "Carousel Icon Tabs",
+    description:
+      "A carousel with icon-based tab navigation and animated indicator. Features icon tabs that sync with carousel slides, animated underline indicator, and slide counter. Ideal for feature showcases, product tours, or any content that benefits from categorized visual navigation.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "tabs",
+      "icons",
+      "navigation",
+      "features",
+      "animated",
+      "indicator",
+    ],
+    category: "gallery",
+    component: CarouselIconTabs,
+    props: "CarouselIconTabsProps",
+    exampleUsage: `
+<CarouselIconTabs
+  items={[
+    {
+      id: "1",
+      title: "Dashboard",
+      icon: "lucide/layout-dashboard",
+      image: "/images/dashboard.jpg"
+    },
+    {
+      id: "2",
+      title: "Analytics",
+      icon: "lucide/bar-chart",
+      image: "/images/analytics.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "testimonial-carousel-cards": {
+    id: "testimonial-carousel-cards",
+    name: "Testimonial Carousel Cards",
+    description:
+      "A testimonial carousel with image and quote panels in a two-panel layout. Features customer photos alongside their testimonials, progress bar indicator, and navigation buttons. Ideal for customer testimonials, reviews, success stories, or any social proof content.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "testimonials",
+      "quotes",
+      "reviews",
+      "social-proof",
+      "customers",
+      "two-panel",
+    ],
+    category: "gallery",
+    component: TestimonialCarouselCards,
+    props: "TestimonialCarouselCardsProps",
+    exampleUsage: `
+<TestimonialCarouselCards
+  items={[
+    {
+      id: "1",
+      quote: "This product changed our workflow completely.",
+      author: "Jane Doe",
+      role: "CEO at Company",
+      image: "/images/testimonial1.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-icon-sidebar": {
+    id: "carousel-icon-sidebar",
+    name: "Carousel Icon Sidebar",
+    description:
+      "A carousel with a dynamic icon sidebar panel in a two-column layout. Features a muted sidebar showing active slide details with icon, title, and description. Ideal for feature tours, product showcases, or any content that benefits from contextual sidebar information.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "sidebar",
+      "icons",
+      "two-column",
+      "features",
+      "contextual",
+      "details",
+    ],
+    category: "gallery",
+    component: CarouselIconSidebar,
+    props: "CarouselIconSidebarProps",
+    exampleUsage: `
+<CarouselIconSidebar
+  items={[
+    {
+      id: "1",
+      title: "Feature One",
+      description: "Description of feature one",
+      icon: "lucide/zap",
+      image: "/images/feature1.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-gradient-text": {
+    id: "carousel-gradient-text",
+    name: "Carousel Gradient Text",
+    description:
+      "A carousel with gradient overlay text and expanding pill indicators. Features a two-column layout with animated pill indicators that expand on active state. Ideal for portfolio showcases, project galleries, or any visual content with elegant text overlays.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "gradient",
+      "text",
+      "pills",
+      "indicators",
+      "portfolio",
+      "animated",
+    ],
+    category: "gallery",
+    component: CarouselGradientText,
+    props: "CarouselGradientTextProps",
+    exampleUsage: `
+<CarouselGradientText
+  items={[
+    {
+      id: "1",
+      title: "Project Name",
+      subtitle: "Category",
+      image: "/images/project1.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "service-hover-carousel": {
+    id: "service-hover-carousel",
+    name: "Service Hover Carousel",
+    description:
+      "A carousel of service cards with hover image swap effect. Features portrait cards with primary/secondary image swap on hover, badges, and call-to-action buttons. Ideal for service showcases, team members, product cards, or any content that benefits from reveal-on-hover interactions.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "services",
+      "hover",
+      "image-swap",
+      "cards",
+      "portrait",
+      "interactive",
+    ],
+    category: "gallery",
+    component: ServiceHoverCarousel,
+    props: "ServiceHoverCarouselProps",
+    exampleUsage: `
+<ServiceHoverCarousel
+  heading="Our Services"
+  items={[
+    {
+      id: "1",
+      title: "Web Development",
+      description: "Custom web solutions",
+      primaryImage: "/images/service1.jpg",
+      secondaryImage: "/images/service1-hover.jpg",
+      badge: "Popular"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-tabs-content": {
+    id: "carousel-tabs-content",
+    name: "Carousel Tabs Content",
+    description:
+      "A carousel with animated tab navigation synced to slides. Features a tab bar with animated underline indicator that follows the active slide. Ideal for categorized content, product features, or any content that benefits from tab-based navigation with visual previews.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "tabs",
+      "animated",
+      "underline",
+      "categories",
+      "navigation",
+      "synced",
+    ],
+    category: "gallery",
+    component: CarouselTabsContent,
+    props: "CarouselTabsContentProps",
+    exampleUsage: `
+<CarouselTabsContent
+  items={[
+    {
+      id: "1",
+      title: "Overview",
+      content: "Overview content here",
+      image: "/images/overview.jpg"
+    },
+    {
+      id: "2",
+      title: "Features",
+      content: "Features content here",
+      image: "/images/features.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-scale-focus": {
+    id: "carousel-scale-focus",
+    name: "Carousel Scale Focus",
+    description:
+      "A carousel with scale and opacity focus effect on the active slide. Features active slide at full scale/opacity with adjacent slides scaled down and faded. Ideal for hero carousels, featured content, image galleries, or any content where you want to emphasize the current item.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "scale",
+      "focus",
+      "opacity",
+      "hero",
+      "featured",
+      "emphasis",
+    ],
+    category: "gallery",
+    component: CarouselScaleFocus,
+    props: "CarouselScaleFocusProps",
+    exampleUsage: `
+<CarouselScaleFocus
+  images={[
+    { src: "/images/hero1.jpg", alt: "Hero 1" },
+    { src: "/images/hero2.jpg", alt: "Hero 2" },
+    { src: "/images/hero3.jpg", alt: "Hero 3" }
+  ]}
+/>
+    `.trim(),
+  },
+  "masonry-motion-grid": {
+    id: "masonry-motion-grid",
+    name: "Masonry Motion Grid",
+    description:
+      "An animated masonry grid layout with Framer Motion animations. Features a 4-column grid with staggered heights and alternating animation directions on scroll. Ideal for image galleries, portfolios, photo collections, or any visual content that benefits from dynamic, Pinterest-style layouts.",
+    semanticTags: [
+      "gallery",
+      "masonry",
+      "grid",
+      "animated",
+      "motion",
+      "pinterest",
+      "photos",
+      "portfolio",
+    ],
+    category: "gallery",
+    component: MasonryMotionGrid,
+    props: "MasonryMotionGridProps",
+    exampleUsage: `
+<MasonryMotionGrid
+  images={[
+    { src: "/images/photo1.jpg", alt: "Photo 1" },
+    { src: "/images/photo2.jpg", alt: "Photo 2" },
+    { src: "/images/photo3.jpg", alt: "Photo 3" }
+  ]}
+/>
+    `.trim(),
+  },
+  "blur-vignette-grid": {
+    id: "blur-vignette-grid",
+    name: "Blur Vignette Grid",
+    description:
+      "A grid gallery with animated blur vignette effect on hover. Features a 5-column grid with varying column spans and CSS blur mask effect that reveals on interaction. Ideal for artistic galleries, photography portfolios, or any visual content that benefits from dramatic hover effects.",
+    semanticTags: [
+      "gallery",
+      "grid",
+      "blur",
+      "vignette",
+      "hover",
+      "artistic",
+      "photography",
+      "dramatic",
+    ],
+    category: "gallery",
+    component: BlurVignetteGrid,
+    props: "BlurVignetteGridProps",
+    exampleUsage: `
+<BlurVignetteGrid
+  images={[
+    { src: "/images/art1.jpg", alt: "Artwork 1", colSpan: 2 },
+    { src: "/images/art2.jpg", alt: "Artwork 2", colSpan: 1 }
+  ]}
+/>
+    `.trim(),
+  },
+  "interior-carousel": {
+    id: "interior-carousel",
+    name: "Interior Carousel",
+    description:
+      "A looping two-up carousel layout with semi-transparent navigation overlays. Features portrait images displayed two at a time with elegant navigation controls. Ideal for interior design galleries, real estate showcases, product photography, or any content that benefits from side-by-side image comparison.",
+    semanticTags: [
+      "gallery",
+      "carousel",
+      "interior",
+      "two-up",
+      "portrait",
+      "real-estate",
+      "design",
+      "comparison",
+    ],
+    category: "gallery",
+    component: InteriorCarousel,
+    props: "InteriorCarouselProps",
+    exampleUsage: `
+<InteriorCarousel
+  images={[
+    { src: "/images/interior1.jpg", alt: "Living Room" },
+    { src: "/images/interior2.jpg", alt: "Kitchen" },
+    { src: "/images/interior3.jpg", alt: "Bedroom" }
   ]}
 />
     `.trim(),
