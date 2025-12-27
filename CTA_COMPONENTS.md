@@ -1,0 +1,1618 @@
+```tsx
+import { ArrowRight, Book, ChevronRight, File } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+interface Cta3Props {
+  className?: string;
+}
+
+const Cta3 = ({ className }: Cta3Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="grid grid-cols-1 flex-col gap-10 rounded-lg border p-6 shadow-sm lg:grid-cols-2 lg:px-20 lg:py-16">
+          <div>
+            <h4 className="mb-2 text-2xl font-bold lg:text-4xl">
+              Call To Action
+            </h4>
+            <p className="text-muted-foreground">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Architecto illo praesentium nisi, accusantium quae.
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-2 sm:flex-row">
+              <Button className="w-full sm:w-auto">
+                Get Started
+                <ArrowRight className="ml-2 size-4" />
+              </Button>
+              <Button variant="outline" className="w-full sm:w-auto">
+                Contact Sales
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <a href="#">
+              <Card className="flex flex-row items-center justify-between gap-2 px-6 py-4 shadow-none hover:bg-accent">
+                <div className="flex items-start gap-2">
+                  <File className="size-4" />
+                  <div>
+                    <h5 className="mb-2 leading-4 font-medium">
+                      Documentation
+                    </h5>
+                    <p className="text-sm text-muted-foreground">
+                      Lorem ipsum dolor, sit amet consectetur.
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="size-6" />
+              </Card>
+            </a>
+            <a href="#">
+              <Card className="flex flex-row items-center justify-between gap-2 px-6 py-4 shadow-none hover:bg-accent">
+                <div className="flex items-start gap-2">
+                  <Book className="size-4" />
+                  <div>
+                    <h5 className="mb-2 leading-4 font-medium">
+                      Getting Started
+                    </h5>
+                    <p className="text-sm text-muted-foreground">
+                      Lorem ipsum dolor, sit amet consectetur.
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="size-6" />
+              </Card>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta3 };
+
+```
+
+```tsx
+import { ArrowRight, Check } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta4Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonUrl?: string;
+  items?: string[];
+  className?: string;
+}
+
+const defaultItems = [
+  "Easy Integration",
+  "24/7 Support",
+  "Customizable Design",
+  "Scalable Performance",
+  "Hundreds of Blocks",
+];
+
+const Cta4 = ({
+  title = "Call to Action",
+  description = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto illo praesentium nisi, accusantium quae.",
+  buttonText = "Get Started",
+  buttonUrl = "https://shadcnblocks.com",
+  items = defaultItems,
+  className,
+}: Cta4Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container mx-auto">
+        <div className="flex justify-center">
+          <div className="max-w-5xl">
+            <div className="flex flex-col items-start justify-between gap-8 rounded-lg bg-muted px-6 py-10 md:flex-row lg:px-20 lg:py-16">
+              <div className="md:w-1/2">
+                <h4 className="mb-1 text-2xl font-bold md:text-3xl">{title}</h4>
+                <p className="text-muted-foreground">{description}</p>
+                <Button className="mt-6" asChild>
+                  <a href={buttonUrl} target="_blank">
+                    {buttonText} <ArrowRight className="size-4" />
+                  </a>
+                </Button>
+              </div>
+              <div className="md:w-1/3">
+                <ul className="flex flex-col space-y-2 text-sm font-medium">
+                  {items.map((item, idx) => (
+                    <li className="flex items-center" key={idx}>
+                      <Check className="mr-4 size-4 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta4 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta5Props {
+  className?: string;
+}
+
+const Cta5 = ({ className }: Cta5Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="flex w-full flex-col overflow-hidden rounded-lg bg-muted md:rounded-xl lg:flex-row lg:items-center">
+          <div className="w-full shrink-0 self-stretch lg:w-1/2">
+            <img
+              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+              alt="placeholder hero"
+              className="aspect-3/2 w-full rounded-t-md object-cover md:rounded-t-none md:rounded-l-md"
+            />
+          </div>
+          <div className="w-full shrink-0 px-4 py-6 md:p-8 lg:w-1/2 lg:px-16">
+            <h3 className="mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
+              Call to Action
+            </h3>
+            <p className="mb-8 text-muted-foreground lg:text-lg">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig
+              doloremque mollitia fugiat omnis! Porro facilis quo animi
+              consequatur. Explicabo.
+            </p>
+            <Button>Get Started</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta5 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta6Props {
+  className?: string;
+}
+
+const Cta6 = ({ className }: Cta6Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="max-w-full overflow-hidden border-y border-border bg-accent pt-10 md:pt-16 lg:pt-20">
+        <div className="relative container flex flex-col md:flex-row md:space-x-12">
+          <div className="mb-[18rem] md:mb-28 md:w-2/3 lg:shrink-0 xl:mb-20 xl:w-1/2">
+            <h3 className="mb-3 text-4xl font-semibold md:mb-4 md:text-5xl lg:mb-6">
+              Call to Action
+            </h3>
+            <p className="mb-8 text-muted-foreground lg:text-lg">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig
+              doloremque mollitia fugiat omnis! Porro facilis quo animi
+              consequatur. Explicabo.
+            </p>
+            <Button>Get Started</Button>
+          </div>
+          <div className="absolute right-1/2 bottom-0 mr-6 h-min w-[110%] max-w-md translate-x-1/2 md:-right-36 md:mr-0 md:w-3/4 md:max-w-xl md:translate-x-0 lg:mt-auto xl:relative xl:right-0 xl:h-full xl:w-full xl:max-w-full">
+            <div className="relative aspect-8/5 h-full min-h-[16rem] w-full">
+              <div className="absolute top-0 right-0 z-40 flex aspect-3/5 w-3/5 -translate-x-[24%] translate-y-[24%] -rotate-[30deg] justify-center overflow-clip rounded-3xl bg-background shadow-lg shadow-foreground/20 md:max-xl:-translate-x-[8%] md:max-xl:translate-y-[16%]"></div>
+              <div className="absolute top-0 right-0 z-40 flex aspect-3/5 w-3/5 -translate-x-[16%] translate-y-[8%] -rotate-[15deg] justify-center overflow-clip rounded-3xl bg-background shadow-xl shadow-foreground/20 md:max-xl:-translate-x-[6%] md:max-xl:translate-y-[6%]"></div>
+              <div className="absolute top-0 right-0 z-40 flex aspect-3/5 w-3/5 items-center justify-center overflow-clip rounded-3xl bg-background shadow-2xl shadow-foreground/20"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta6 };
+
+```
+
+```tsx
+import { Check } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta7Props {
+  className?: string;
+}
+
+const Cta7 = ({ className }: Cta7Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="relative rounded-xl border border-border bg-accent px-6 py-8 2xl:grid 2xl:grid-cols-2 2xl:px-14 2xl:py-10">
+          <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+            <svg
+              fill="none"
+              width={404}
+              height={384}
+              viewBox="0 0 404 384"
+              aria-hidden="true"
+              className="absolute top-full left-full -translate-x-2/3 -translate-y-1/2 rotate-[60deg]"
+            >
+              <defs>
+                <pattern
+                  x={0}
+                  y={0}
+                  id="dots"
+                  width={16}
+                  height={16}
+                  patternUnits="userSpaceOnUse"
+                >
+                  <circle
+                    cx={2}
+                    cy={2}
+                    r={2}
+                    fill="currentColor"
+                    className="text-border"
+                  />
+                </pattern>
+              </defs>
+              <rect fill="url(#dots)" width={400} height={400} />
+            </svg>
+          </div>
+          <div className="relative mb-12 2xl:mb-0">
+            <h3 className="mb-6 text-2xl font-semibold md:mb-8 md:text-4xl lg:mb-12">
+              Call to Action
+            </h3>
+            <p className="mb-6 text-xs tracking-widest text-muted-foreground uppercase">
+              Experience the Difference
+            </p>
+            <ul className="grid gap-x-8 gap-y-4 text-muted-foreground md:grid-cols-2">
+              <li className="flex items-center gap-2">
+                <Check className="size-5 text-foreground" />
+                Easy Integration
+              </li>
+              <li className="flex items-center gap-2">
+                <Check className="size-5 text-foreground" />
+                24/7 Support
+              </li>
+              <li className="flex items-center gap-2">
+                <Check className="size-5 text-foreground" />
+                Customizable Design
+              </li>
+              <li className="flex items-center gap-2">
+                <Check className="size-5 text-foreground" />
+                Regular Updates
+              </li>
+            </ul>
+          </div>
+          <div className="relative flex items-end 2xl:justify-end">
+            <Button size="lg">Get Started</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta7 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta10Props {
+  heading: string;
+  description: string;
+  buttons?: {
+    primary?: {
+      text: string;
+      url: string;
+    };
+    secondary?: {
+      text: string;
+      url: string;
+    };
+  };
+  className?: string;
+}
+
+const Cta10 = ({
+  heading = "Call to Action",
+  description = "Build faster with our collection of pre-built blocks. Speed up your development and ship features in record time.",
+  buttons = {
+    primary: {
+      text: "Buy Now",
+      url: "https://www.shadcnblocks.com",
+    },
+  },
+  className,
+}: Cta10Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="flex w-full flex-col gap-16 overflow-hidden rounded-lg bg-accent p-8 md:rounded-xl lg:flex-row lg:items-center lg:p-12">
+          <div className="flex-1">
+            <h3 className="mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
+              {heading}
+            </h3>
+            <p className="max-w-xl text-muted-foreground lg:text-lg">
+              {description}
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            {buttons.secondary && (
+              <Button variant="outline" asChild>
+                <a href={buttons.secondary.url}>{buttons.secondary.text}</a>
+              </Button>
+            )}
+            {buttons.primary && (
+              <Button asChild variant="default" size="lg">
+                <a href={buttons.primary.url}>{buttons.primary.text}</a>
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta10 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+interface Cta11Props {
+  heading?: string;
+  description?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  className?: string;
+}
+
+const Cta11 = ({
+  heading = "Call to Action",
+  description = "Build faster with our collection of pre-built blocks. Speed up your development and ship features in record time.",
+  imageSrc = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+  imageAlt = "Call to action image",
+  className,
+}: Cta11Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="flex w-full flex-col gap-16 overflow-hidden rounded-lg bg-accent p-8 md:rounded-xl lg:flex-row lg:items-center lg:p-12">
+          <div className="flex-1">
+            <h3 className="mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
+              {heading}
+            </h3>
+            <p className="max-w-xl text-muted-foreground lg:text-lg">
+              {description}
+            </p>
+          </div>
+          <div className="shrink-0">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row sm:items-center">
+              <div className="relative h-32 w-32 overflow-hidden rounded-lg sm:h-40 sm:w-40">
+                <img src={imageSrc} alt={imageAlt} className="object-cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta11 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta12Props {
+  heading: string;
+  description: string;
+  buttons?: {
+    primary?: {
+      text: string;
+      url: string;
+      className?: string;
+    };
+    secondary?: {
+      text: string;
+      url: string;
+    };
+  };
+  className?: string;
+}
+
+const Cta12 = ({
+  heading = "Call to Action",
+  description = "Build faster with our collection of pre-built blocks. Speed up your development and ship features in record time.",
+  buttons = {
+    primary: {
+      text: "Buy Now",
+      url: "https://www.shadcnblocks.com",
+    },
+    secondary: {
+      text: "Contact Us",
+      url: "https://www.shadcnblocks.com",
+    },
+  },
+  className,
+}: Cta12Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="rounded-lg bg-accent p-8 md:rounded-xl lg:p-12">
+          <div className="mx-auto max-w-4xl text-center">
+            <h3 className="mb-4 text-3xl font-semibold md:text-5xl lg:mb-6 lg:text-6xl">
+              {heading}
+            </h3>
+            <p className="mb-8 text-lg font-medium text-muted-foreground lg:text-xl">
+              {description}
+            </p>
+            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+              {buttons.primary && (
+                <Button size="lg" className="w-full sm:w-auto" asChild>
+                  <a href={buttons.primary.url}>{buttons.primary.text}</a>
+                </Button>
+              )}
+              {buttons.secondary && (
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                  asChild
+                >
+                  <a href={buttons.secondary.url}>{buttons.secondary.text}</a>
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta12 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta13Props {
+  heading: string;
+  description: string;
+  buttons?: {
+    primary?: {
+      text: string;
+      url: string;
+      className?: string;
+    };
+    secondary?: {
+      text: string;
+      url: string;
+    };
+  };
+  className?: string;
+}
+
+const Cta13 = ({
+  heading = "Call to Action",
+  description = "Build faster with our collection of pre-built blocks. Speed up your development and ship features in record time.",
+  buttons = {
+    primary: {
+      text: "Buy Now",
+      url: "https://www.shadcnblocks.com",
+    },
+    secondary: {
+      text: "Contact Us",
+      url: "https://www.shadcnblocks.com",
+    },
+  },
+  className,
+}: Cta13Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="rounded-lg bg-accent p-8 md:rounded-xl lg:p-12">
+          <div className="max-w-4xl">
+            <h3 className="mb-4 text-3xl font-semibold md:text-5xl lg:mb-6 lg:text-6xl">
+              {heading}
+            </h3>
+            <p className="mb-8 text-lg font-medium text-muted-foreground lg:text-xl">
+              {description}
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+              {buttons.primary && (
+                <Button size="lg" className="w-full sm:w-auto" asChild>
+                  <a href={buttons.primary.url}>{buttons.primary.text}</a>
+                </Button>
+              )}
+              {buttons.secondary && (
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                  asChild
+                >
+                  <a href={buttons.secondary.url}>{buttons.secondary.text}</a>
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta13 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta14Props {
+  className?: string;
+}
+
+const Cta14 = ({ className }: Cta14Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="flex h-[620px] items-center justify-center overflow-hidden rounded-2xl bg-[linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0)),url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/pawel-czerwinski-O4fAgtXLRwI-unsplash.jpg')] bg-cover bg-center">
+          <div className="flex flex-col gap-8 p-4 text-center">
+            <h2 className="text-5xl font-bold text-primary-foreground">
+              Start your free trial today.
+            </h2>
+            <p className="text-lg text-primary-foreground">
+              Start with a 14-day free trial. No credit card required. No setup
+              fees. Cancel anytime.
+            </p>
+            <div className="flex flex-col justify-center gap-2 sm:flex-row">
+              <Button size="lg" variant="default">
+                Get Started
+              </Button>
+              <Button size="lg" variant="secondary">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta14 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta15Props {
+  className?: string;
+}
+
+const Cta15 = ({ className }: Cta15Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-20 overflow-hidden rounded-2xl border bg-[radial-gradient(ellipse_30%_60%_at_100%_80%,var(--color-gray-200),transparent)] pt-20 sm:pl-16 lg:flex-row lg:bg-[radial-gradient(ellipse_50%_80%_at_40%_120%,var(--color-gray-200),transparent)] lg:pl-20">
+          <div className="lg:texlf mx-auto max-w-md px-4 text-center md:px-0 lg:mx-0 lg:pb-20 lg:text-left">
+            <p className="mb-6 font-medium">Ready to get started?</p>
+            <h2 className="mb-6 text-4xl font-bold md:text-5xl">
+              Start your free trial today.
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Start with a 14-day free trial. No credit card required. No setup
+              fees. Cancel anytime.
+            </p>
+            <div className="mt-6 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+              <Button>Get Started</Button>
+              <Button variant="outline">Learn More</Button>
+            </div>
+          </div>
+          <div className="relative w-full pl-4 sm:pl-0">
+            <div className="absolute -bottom-8 -left-8 -z-10 h-4/5 w-4/5 rounded-tl-2xl rounded-br-2xl bg-stone-900/20 blur-2xl"></div>
+            <img
+              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/pawel-czerwinski-O4fAgtXLRwI-unsplash.jpg"
+              alt="placeholder"
+              className="relative z-10 h-full max-h-[400px] w-full rounded-tl-2xl rounded-br-2xl object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta15 };
+
+```
+
+```tsx
+import { Zap } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta16Props {
+  className?: string;
+}
+
+const Cta16 = ({ className }: Cta16Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="flex h-[620px] items-center justify-center bg-[linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/simone-hutsch-xOLhD-qfoRI-unsplash.jpg')] bg-cover bg-center">
+        <div className="container">
+          <div className="flex flex-col gap-8 p-4 text-center text-primary-foreground">
+            <div className="flex items-center justify-center gap-2 text-2xl font-medium">
+              <Zap className="h-full w-7" /> Faster
+            </div>
+            <h2 className="text-5xl font-bold">Build your website faster.</h2>
+            <div className="flex flex-col justify-center gap-2 sm:flex-row">
+              <Button size="lg" variant="secondary">
+                Get Started
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-0 bg-background/20 backdrop-blur-sm hover:bg-background/30 hover:text-primary-foreground"
+              >
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta16 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta17Props {
+  className?: string;
+}
+
+const Cta17 = ({ className }: Cta17Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="flex items-center justify-center border bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/circles.svg')] bg-cover bg-center py-20 text-center md:p-20">
+        <div className="container">
+          <div className="mx-auto max-w-3xl">
+            <h1 className="mb-4 text-3xl font-semibold text-balance md:text-5xl">
+              Start building your websites faster
+            </h1>
+            <p className="md:text-lg">
+              Try our tools and services to build your website faster. Start
+              with a 14-day free trial. No credit card required. No setup fees.
+              Cancel anytime.
+            </p>
+            <div className="mt-11 flex flex-col justify-center gap-2 sm:flex-row">
+              <Button size="lg">Get Started</Button>
+              <Button size="lg" variant="outline">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta17 };
+
+```
+
+```tsx
+import { Play } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta18Props {
+  className?: string;
+}
+
+const Cta18 = ({ className }: Cta18Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container overflow-hidden">
+        <div className="relative mx-auto flex max-w-7xl flex-col justify-between gap-6 overflow-hidden rounded-xl border bg-muted/50 md:flex-row">
+          <div className="max-w-xl self-center p-6 md:p-12">
+            <h2 className="text-3xl font-semibold md:text-4xl">
+              Explore Our Platform
+            </h2>
+            <p className="mt-4 text-muted-foreground md:text-lg">
+              Discover the full potential of our platform. Try our interactive
+              demo or watch a comprehensive walkthrough today.
+            </p>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Button>Try Demo</Button>
+              <Button variant="outline">
+                Watch Video
+                <Play className="ml-2" />
+              </Button>
+            </div>
+          </div>
+          <div className="relative ml-6 max-h-96 md:mt-8 md:ml-0">
+            <img
+              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg"
+              alt="placeholder"
+              className="absolute -bottom-12 left-4 h-48 -translate-x-1/2 -rotate-[120deg]"
+            />
+            <img
+              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+              alt="placeholder"
+              className="z-10 aspect-video h-full w-full rounded-tl-xl border-t border-l object-cover pt-3.5 pl-3.5 backdrop-blur-sm"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta18 };
+
+```
+
+```tsx
+import { FileCode, Layers } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
+interface Cta19Props {
+  className?: string;
+}
+
+const Cta19 = ({ className }: Cta19Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="flex flex-col rounded-xl border lg:flex-row">
+          <div className="grow px-8 py-8 lg:px-16">
+            <Badge variant="outline">Get Started</Badge>
+            <div className="mt-4 max-w-xl">
+              <h2 className="text-3xl font-semibold md:text-4xl">
+                Transform your workflow with our enterprise solution
+              </h2>
+              <p className="mt-4 text-muted-foreground md:text-lg">
+                Our platform streamlines complex operations at scale, providing
+                comprehensive insights and intelligent automation capabilities.
+                Achieve greater efficiency and productivity with our proven
+                enterprise tools.
+              </p>
+            </div>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Button>Start free trial</Button>
+              <Button variant="outline">Schedule demo</Button>
+            </div>
+          </div>
+          <div className="flex grow basis-5/12 flex-col justify-between border-t lg:border-t-0 lg:border-l">
+            <a
+              href="#"
+              className="flex h-full items-center px-9 py-6 transition-colors hover:bg-muted/50 lg:justify-center"
+            >
+              <div className="flex gap-4">
+                <FileCode
+                  className="size-8 shrink-0 md:size-10"
+                  strokeWidth={1.5}
+                />
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-lg font-semibold md:text-xl">
+                    Documentation
+                  </h3>
+                  <p className="max-w-lg text-muted-foreground md:text-lg">
+                    Learn more about our platform&apos;s features and
+                    capabilities.
+                  </p>
+                </div>
+              </div>
+            </a>
+            <Separator />
+            <a
+              href="#"
+              className="flex h-full items-center px-9 py-6 transition-colors hover:bg-muted/50 lg:justify-center"
+            >
+              <div className="flex gap-4">
+                <Layers
+                  className="size-8 shrink-0 md:size-10"
+                  strokeWidth={1.5}
+                />
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-lg font-semibold md:text-xl">
+                    Interactive Demo
+                  </h3>
+                  <p className="max-w-lg text-muted-foreground md:text-lg">
+                    Experience our platform firsthand with an interactive
+                    demonstration of key features.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta19 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
+interface Cta20Props {
+  className?: string;
+}
+
+const Cta20 = ({ className }: Cta20Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div>
+          <p className="text-center text-sm">Transform your business today.</p>
+          <div className="mt-4 flex items-center justify-between gap-4">
+            <Separator className="shrink" />
+            <Button size="lg">Get Started</Button>
+            <Separator className="shrink" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta20 };
+
+```
+
+```tsx
+import { ArrowRight } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta21Props {
+  className?: string;
+}
+
+const Cta21 = ({ className }: Cta21Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="relative h-[300px] overflow-hidden rounded-xl md:h-[500px]">
+          <img
+            src="https://images.unsplash.com/photo-1507623457503-9743b35aea95?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="placeholder"
+            className="h-full w-full bg-bottom object-cover"
+          />
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-8 p-6">
+            <h2 className="text-center text-2xl font-semibold md:text-4xl">
+              Innovation. Control. Success.
+            </h2>
+            <Button size="lg">
+              Get Started Now
+              <ArrowRight className="ml-2" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta21 };
+
+```
+
+```tsx
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { FaApple, FaGooglePlay } from "react-icons/fa";
+import { z } from "zod";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+const formSchema = z
+  .object({
+    email: z.email({ error: "Invalid email address" }),
+  })
+  .required({ email: true });
+
+interface Cta22Props {
+  className?: string;
+}
+
+const Cta22 = ({ className }: Cta22Props) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+          <div className="dark relative h-[350px] overflow-hidden rounded-xl bg-background text-white md:col-span-2">
+            <div className="flex h-full flex-row p-4 sm:p-8 md:p-12">
+              <div className="relative z-10 w-full self-center px-2 text-center sm:w-auto sm:flex-1 sm:px-0 md:text-left">
+                <h1 className="mb-4 text-3xl font-bold sm:mb-6 sm:text-2xl md:text-3xl">
+                  Download the notes app of tomorrow today.
+                </h1>
+                <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 md:justify-start">
+                  <Button>
+                    <FaApple />
+                    <span>Download for iOS</span>
+                  </Button>
+                  <Button variant="outline" className="border border-white">
+                    <FaGooglePlay />
+                    <span>Download for Android</span>
+                  </Button>
+                </div>
+              </div>
+              {/* Phone section */}
+              <div className="relative z-10 hidden md:block">
+                <div className="absolute top-0 left-1/2 h-[120%] w-[69%] -translate-x-1/2 overflow-hidden rounded-t-[32px]">
+                  <img
+                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-7-tall.svg"
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="relative z-10 h-[350px] overflow-hidden">
+                  <img
+                    className="h-[600px] w-auto max-w-none"
+                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/mockups/phone-2.png"
+                    width={340}
+                    height={600}
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden h-[350px] items-center justify-center rounded-xl bg-muted p-6 sm:flex sm:p-8 md:p-12">
+            <div className="w-full">
+              <h2 className="mb-2 text-xl font-semibold sm:text-2xl">
+                Subscribe to our weekly newsletter
+              </h2>
+              <p className="mb-6 text-sm text-muted-foreground">
+                Lorem ipsum dolor sit amet consectetur adipiscing elidolor
+                mattis sit phasellus.
+              </p>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+                  <div className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              type="email"
+                              id="emailInput"
+                              placeholder="Enter your email"
+                              className="w-full bg-background focus-visible:ring-0 focus-visible:ring-offset-0"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit" className="w-full">
+                      Subscribe <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta22 };
+
+```
+
+```tsx
+import { ArrowRight, CheckCircle, Mail } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+interface Cta23Props {
+  className?: string;
+}
+
+const Cta23 = ({ className }: Cta23Props) => {
+  return (
+    <section className={cn("bg-muted py-32", className)}>
+      <div className="container">
+        <div className="flex flex-col items-start md:items-center">
+          {/* Badge */}
+          <Badge>
+            <Mail className="mr-2 h-4 w-4" />
+            Stay Informed
+          </Badge>
+
+          {/* Heading */}
+          <h4 className="mt-4 text-2xl font-semibold tracking-tight md:text-center md:text-3xl xl:text-4xl">
+            Subscribe to our newsletter
+          </h4>
+
+          {/* Description */}
+          <p className="mt-2 text-lg font-medium text-muted-foreground md:text-center xl:text-xl">
+            Get the <span className="text-primary">latest updates</span>,{" "}
+            <span className="text-primary">tips</span>, and{" "}
+            <span className="text-primary">exclusive</span> offers from AlignUI.
+          </p>
+
+          {/* Form */}
+          <form className="mt-5 flex w-full flex-col gap-2 md:w-auto xl:mt-8 xl:gap-3">
+            <div className="group relative flex w-full items-center gap-2 rounded-lg px-3 md:w-[416px]">
+              <Input
+                type="email"
+                required
+                placeholder="Enter your email..."
+                className="bg-background"
+              />
+              <Button type="submit" aria-label="Submit form">
+                <ArrowRight className="h-3 w-3" />
+              </Button>
+            </div>
+          </form>
+
+          {/* Features */}
+          <div className="mt-5 flex flex-wrap gap-4 md:justify-center xl:mt-8 xl:gap-7">
+            <div className="flex items-center gap-2 text-sm xl:text-base">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              Weekly updates
+            </div>
+            <div className="flex items-center gap-2 text-sm xl:text-base">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              Exclusive content
+            </div>
+            <div className="flex items-center gap-2 text-sm xl:text-base">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              Early access for features
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta23 };
+
+```
+
+```tsx
+import { ArrowUpRight, BookOpen, Zap } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta26Props {
+  className?: string;
+}
+
+const Cta26 = ({ className }: Cta26Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <div className="relative h-96 overflow-hidden rounded-xl border border-border">
+          <img
+            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/full-width-backgrounds/andrew-kliatskyi-LYZxo7oVFOI-unsplash.webp"
+            alt="placeholder"
+            className="hidden h-full w-full object-cover dark:block"
+          />
+          <img
+            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/full-width-backgrounds/denis96-gmsf4Zo2-rY-unsplash.webp"
+            alt="placeholder"
+            className="h-full w-full object-cover dark:hidden"
+          />
+          <div className="absolute inset-0 bg-radial from-background to-background/50 lg:to-transparent" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-8 p-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-semibold md:text-5xl">
+                Try it free
+              </h2>
+              <p className="text-lg text-muted-foreground md:text-xl">
+                Experience our platform and discover how it can transform your
+                workflow
+              </p>
+            </div>
+            <Button size="lg">
+              Get started
+              <ArrowUpRight className="size-4" />
+            </Button>
+          </div>
+        </div>
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <a
+            href="#"
+            className="flex flex-col items-start gap-8 rounded-xl border border-border bg-muted/50 px-10 py-8 transition-transform hover:-translate-y-0.5"
+          >
+            <span className="grid size-12 place-items-center rounded-lg border border-border">
+              <Zap className="size-5" />
+            </span>
+            <div className="flex flex-col gap-1">
+              <h3 className="text-2xl font-medium md:text-3xl">
+                Instant setup
+              </h3>
+              <p className="text-muted-foreground">
+                Get up and running in minutes with our guided onboarding
+              </p>
+            </div>
+          </a>
+          <a
+            href="#"
+            className="flex flex-col items-start gap-8 rounded-xl border border-border bg-muted/50 px-10 py-8 transition-transform hover:-translate-y-0.5"
+          >
+            <span className="grid size-12 place-items-center rounded-lg border border-border">
+              <BookOpen className="size-5" />
+            </span>
+            <div className="flex flex-col gap-1">
+              <h3 className="text-2xl font-medium md:text-3xl">
+                Documentation
+              </h3>
+              <p className="text-muted-foreground">
+                Comprehensive guides and tutorials to help you succeed
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta26 };
+
+```
+
+```tsx
+import {
+  ArrowRight,
+  Clock,
+  FileText,
+  Lock,
+  MessageSquare,
+  Paperclip,
+  Presentation,
+  Shield,
+  Users,
+} from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+const list = [
+  {
+    icon: Lock,
+    text: "Enterprise-grade SSO integration",
+  },
+  {
+    icon: FileText,
+    text: "Flexible billing and invoicing",
+  },
+  {
+    icon: Shield,
+    text: "Comprehensive security assessment",
+  },
+  {
+    icon: Paperclip,
+    text: "Custom service-level agreement",
+  },
+  {
+    icon: Users,
+    text: "Personalized account management",
+  },
+  {
+    icon: Presentation,
+    text: "Hands-on onboarding sessions",
+  },
+  {
+    icon: Clock,
+    text: "SLA-backed priority assistance",
+  },
+  {
+    icon: MessageSquare,
+    text: "Real-time chat with support team",
+  },
+];
+
+const List = () => {
+  return (
+    <ul
+      className={cn(
+        "grid max-w-[36.25rem] grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2",
+      )}
+    >
+      {list.map((item, i) => (
+        <li key={`cta-item-${i}`} className="flex items-center gap-3">
+          <item.icon className="size-5 stroke-white" />
+          <div className="text-sm text-white">{item.text}</div>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+interface Cta28Props {
+  className?: string;
+}
+
+const Cta28 = ({ className }: Cta28Props) => {
+  return (
+    <section
+      className={cn("dark bg-background py-32 text-foreground", className)}
+    >
+      <div className="container">
+        <div className="relative grid grid-cols-1 overflow-hidden rounded-[0.75rem] px-8 pt-10 pb-12 xl:grid-cols-2 xl:px-15.5 xl:pb-15.5">
+          <div className="flex flex-col gap-6 md:gap-9">
+            <p className="font-serif text-4xl md:text-6xl lg:text-7xl">
+              <span className="block">Enterprise:</span>A solution for all
+            </p>
+            <p className="text-lg md:text-xl lg:text-2xl">
+              Empower every teammate — and produce more videos!
+            </p>
+            <List />
+            <div>
+              <Button size="lg" className="w-full md:w-fit">
+                Get in touch to discover more!
+                <ArrowRight />
+              </Button>
+            </div>
+          </div>
+          <div className="hidden xl:block">
+            <div className="absolute top-0 right-0 h-[40.9375rem] w-[36.875rem]">
+              <div className="absolute top-0 right-0 aspect-[1.15] w-[14.375rem] opacity-60">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/fabian-centeno-njeVb6E3XB8-unsplash.jpg"
+                  alt=""
+                  className="size-full object-cover object-center"
+                />
+              </div>
+              <div className="absolute top-50 right-0 z-10 aspect-[0.709248555] w-[17.5rem] overflow-hidden rounded-tl-md">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jason-goodman-ZJlfUi5rTDU-unsplash.jpg"
+                  alt=""
+                  className="size-full object-cover object-center"
+                />
+              </div>
+              <div className="absolute top-60 right-0 aspect-[1.353211009] w-[36.875rem] overflow-hidden rounded-tl-2xl opacity-25">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/redd-f-5U_28ojjgms-unsplash.jpg"
+                  alt=""
+                  className="size-full object-cover object-center"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta28 };
+
+```
+
+```tsx
+import { ArrowRight } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta31Props {
+  className?: string;
+}
+
+const Cta31 = ({ className }: Cta31Props) => {
+  return (
+    <section className={cn("overflow-hidden py-32", className)}>
+      <div className="relative container">
+        <h1 className="mx-auto max-w-4xl bg-gradient-to-r from-primary/60 via-primary to-primary/60 bg-clip-text text-center text-4xl font-semibold text-transparent lg:text-6xl">
+          Solutions for <br /> Modern Businesses
+        </h1>
+        <p className="mt-4 text-center text-lg lg:mt-10">
+          Transform your workflow with cutting-edge technology
+        </p>
+        <div className="relative z-10 mt-8 flex justify-center lg:mt-16">
+          <Button size="lg">
+            Explore Our Solutions
+            <ArrowRight />
+          </Button>
+        </div>
+        <div className="inset-0 -z-10 flex justify-center lg:absolute">
+          <div className="relative -top-8 flex justify-between sm:-top-20 lg:-top-0 lg:w-full">
+            <div className="relative -left-20 min-h-44 min-w-[460px] translate-x-28 scale-80 sm:translate-x-0 lg:min-h-[292px] lg:scale-90 xl:scale-100">
+              <span className="absolute right-0 -bottom-5 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-3.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute right-24 bottom-1 flex size-20 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-20.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute right-44 bottom-7 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-6.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute right-44 bottom-28 flex size-20 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-8.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute bottom-4 left-24 flex size-20 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-9.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute bottom-24 left-20 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-21.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+            </div>
+            <div className="relative -right-20 min-h-44 min-w-[460px] -translate-x-28 scale-80 sm:translate-x-0 lg:min-h-[292px] lg:scale-90 xl:scale-100">
+              <span className="absolute -bottom-5 left-0 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-12.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute bottom-1 left-24 flex size-20 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-13.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute bottom-7 left-44 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-14.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute bottom-28 left-44 flex size-20 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-15.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute right-24 bottom-4 flex size-20 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-17.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+              <span className="absolute right-20 bottom-24 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
+                <img
+                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-19.svg"
+                  alt="logo"
+                  className="brightness-0 invert-0 dark:invert"
+                />
+              </span>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta31 };
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+interface Cta32Props {
+  heading: string;
+  highlightHeading: string;
+  description: string;
+  buttons?: {
+    primary?: { text: string; url: string };
+    secondary?: { text: string; url: string };
+  };
+  stats: { label: string; description: string }[];
+  className?: string;
+}
+
+const Cta32 = ({
+  heading = "Supercharge your ",
+  highlightHeading = "workflow today",
+  description = "Automate repetitive tasks, gain real-time insights, and collaborate seamlessly with your team. Optimizing your operations in just a few clicks.",
+  buttons = {
+    primary: {
+      text: "Get Started",
+      url: "https://www.shadcnblocks.com",
+    },
+    secondary: {
+      text: "Learn More",
+      url: "https://www.shadcnblocks.com",
+    },
+  },
+  stats = [
+    { label: "99.9%", description: "system uptime guaranteed" },
+    { label: "10k+", description: "companies using our platform" },
+    { label: "1M+", description: "automated tasks run daily" },
+  ],
+  className,
+}: Cta32Props) => {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="relative z-10 container grid border-2 border-dashed border-muted p-0 md:grid-cols-2">
+        <div className="relative m-2 flex flex-col justify-center gap-6 overflow-hidden rounded-lg border border-primary bg-background/70 p-8 backdrop-blur-sm lg:m-8">
+          {/* Pattern background */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-100">
+            <img
+              alt="pattern"
+              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/square-alt-grid.svg"
+              className="[mask-image:radial-gradient(circle_at_top_right,black,transparent_100%)]"
+            />
+          </div>
+          <div className="relative z-10">
+            <h2 className="text-3xl font-bold tracking-tight">
+              {heading}
+              <span className="text-primary">{highlightHeading}</span>
+            </h2>
+            <p className="mt-2 text-muted-foreground">{description}</p>
+          </div>
+
+          <div className="relative z-10 flex gap-4">
+            {buttons.primary && (
+              <Button asChild>
+                <a href={buttons.primary.url}>{buttons.primary.text}</a>
+              </Button>
+            )}
+            {buttons.secondary && (
+              <Button variant="outline" asChild>
+                <a href={buttons.secondary.url}>{buttons.secondary.text}</a>
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="grid border-t-2 border-dashed border-muted md:border-t-0 md:border-l-2">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="border-b-2 border-dashed border-muted p-6 last:border-0"
+            >
+              <p className="text-2xl font-bold text-primary">{stat.label}</p>
+              <p className="text-sm text-muted-foreground">
+                {stat.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Cta32 };
+
+```
