@@ -111,6 +111,20 @@ import { CircuitBoardFadeCenter } from "../../components/blocks/background-patte
 import { GridDotsBasic } from "../../components/blocks/background-pattern-hero/grid-dots-basic";
 import { GridDotsFadeCenter } from "../../components/blocks/background-pattern-hero/grid-dots-fade-center";
 
+// Blog components
+import { BlogGridAuthorCards } from "../../components/blocks/blog/blog-grid-author-cards";
+import { BlogCardsTaglineCta } from "../../components/blocks/blog/blog-cards-tagline-cta";
+import { BlogCardsReadTime } from "../../components/blocks/blog/blog-cards-read-time";
+import { BlogCategoryOverlay } from "../../components/blocks/blog/blog-category-overlay";
+import { BlogFeaturedPopular } from "../../components/blocks/blog/blog-featured-popular";
+import { BlogRelatedArticles } from "../../components/blocks/blog/blog-related-articles";
+import { BlogTechInsights } from "../../components/blocks/blog/blog-tech-insights";
+import { BlogHorizontalCards } from "../../components/blocks/blog/blog-horizontal-cards";
+import { BlogFilteredResults } from "../../components/blocks/blog/blog-filtered-results";
+import { BlogMasonryFeatured } from "../../components/blocks/blog/blog-masonry-featured";
+import { BlogHorizontalTimeline } from "../../components/blocks/blog/blog-horizontal-timeline";
+import { BlogGridNinePosts } from "../../components/blocks/blog/blog-grid-nine-posts";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -141,7 +155,8 @@ export type BlockCategory =
   | "process"
   | "benefits"
   | "comparison"
-  | "background-pattern-hero";
+  | "background-pattern-hero"
+  | "blog";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -2772,6 +2787,365 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     <h1>Your Hero Content</h1>
   </div>
 </GridDotsFadeCenter>
+    `.trim(),
+  },
+
+  // Blog components
+  "blog-grid-author-cards": {
+    id: "blog-grid-author-cards",
+    name: "Blog Grid Author Cards",
+    description:
+      "A responsive blog grid layout displaying posts with author avatars, category badges, and publication dates. Features a 3-column grid on large screens with hover effects on images. Ideal for blog listing pages that emphasize author attribution and content categorization.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "grid",
+      "author",
+      "avatar",
+      "category",
+      "badge",
+      "cards",
+      "listing",
+    ],
+    category: "blog",
+    component: BlogGridAuthorCards,
+    props: "BlogGridAuthorCardsProps",
+    exampleUsage: `
+<BlogGridAuthorCards
+  title="Blog"
+  description="Insights, tutorials, and thoughts on modern software development"
+  posts={[
+    {
+      id: "post-1",
+      title: "The Future of Web Development",
+      summary: "Explore the latest trends...",
+      label: "Web Development",
+      author: "Sarah Chen",
+      published: "15 Jan 2024",
+      href: "#",
+      image: "/images/post1.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "blog-cards-tagline-cta": {
+    id: "blog-cards-tagline-cta",
+    name: "Blog Cards Tagline CTA",
+    description:
+      "A centered blog section with tagline badge, heading, description, and CTA button above a 3-column card grid. Each card features an image, title, summary, and 'Read more' link. Perfect for marketing-focused blog sections that need a strong call-to-action alongside content previews.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "cards",
+      "tagline",
+      "cta",
+      "marketing",
+      "grid",
+      "centered",
+    ],
+    category: "blog",
+    component: BlogCardsTaglineCta,
+    props: "BlogCardsTaglineCtaProps",
+    exampleUsage: `
+<BlogCardsTaglineCta
+  tagline="Our Blog"
+  title="Latest Articles"
+  description="Stay updated with our latest insights"
+  ctaText="View All Posts"
+  ctaHref="/blog"
+/>
+    `.trim(),
+  },
+  "blog-cards-read-time": {
+    id: "blog-cards-read-time",
+    name: "Blog Cards Read Time",
+    description:
+      "A blog card grid featuring author avatars, read time badges, and separator lines. Each card displays an image, title, summary, author info, and estimated reading time. Includes a centered header with icon badge and 'View All Blogs' CTA button. Ideal for content-heavy blogs that want to show reading commitment upfront.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "cards",
+      "read-time",
+      "author",
+      "avatar",
+      "badge",
+      "grid",
+    ],
+    category: "blog",
+    component: BlogCardsReadTime,
+    props: "BlogCardsReadTimeProps",
+    exampleUsage: `
+<BlogCardsReadTime
+  title="Blog"
+  description="Discover our latest articles"
+  ctaText="View All Blogs"
+  ctaHref="/blog"
+/>
+    `.trim(),
+  },
+  "blog-category-overlay": {
+    id: "blog-category-overlay",
+    name: "Blog Category Overlay",
+    description:
+      "A blog grid with category badges overlaid on images using a glassmorphism effect. Features a centered header section with tagline, title, description, and 'View All' link. Each card shows the post image, category overlay, title, date with calendar icon, and 'Read more' link. Great for visually categorized content with modern styling.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "cards",
+      "category",
+      "overlay",
+      "glassmorphism",
+      "grid",
+      "modern",
+    ],
+    category: "blog",
+    component: BlogCategoryOverlay,
+    props: "BlogCategoryOverlayProps",
+    exampleUsage: `
+<BlogCategoryOverlay
+  tagline="Blog"
+  title="Latest News"
+  description="Stay informed with our updates"
+  viewAllText="View All"
+  viewAllHref="/blog"
+/>
+    `.trim(),
+  },
+  "blog-featured-popular": {
+    id: "blog-featured-popular",
+    name: "Blog Featured Popular",
+    description:
+      "A two-tier blog layout with a large featured post at the top and a 'Popular Posts' grid below. The featured post displays side-by-side image and content on desktop. Popular posts show in a 3-column grid with images, category badges, titles, and descriptions. Perfect for highlighting editorial picks alongside trending content.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "featured",
+      "popular",
+      "trending",
+      "editorial",
+      "grid",
+      "two-tier",
+    ],
+    category: "blog",
+    component: BlogFeaturedPopular,
+    props: "BlogFeaturedPopularProps",
+    exampleUsage: `
+<BlogFeaturedPopular
+  title="Featured Article"
+  popularTitle="Popular Posts"
+  featuredPost={{
+    title: "The Future of AI",
+    description: "Exploring what's next...",
+    category: "Technology",
+    href: "#",
+    image: "/images/featured.jpg"
+  }}
+/>
+    `.trim(),
+  },
+  "blog-related-articles": {
+    id: "blog-related-articles",
+    name: "Blog Related Articles",
+    description:
+      "A compact related articles section with a 4-column grid layout. Each article displays category, title, description, and date in a text-only format without images. Features a header with title and 'See all articles' button. Ideal for sidebar widgets or end-of-article related content suggestions.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "related",
+      "sidebar",
+      "widget",
+      "text-only",
+      "grid",
+      "compact",
+    ],
+    category: "blog",
+    component: BlogRelatedArticles,
+    props: "BlogRelatedArticlesProps",
+    exampleUsage: `
+<BlogRelatedArticles
+  title="Related Articles"
+  ctaText="See all articles"
+  ctaHref="/blog"
+/>
+    `.trim(),
+  },
+  "blog-tech-insights": {
+    id: "blog-tech-insights",
+    name: "Blog Tech Insights",
+    description:
+      "A dark-themed tech blog section with a featured post and secondary posts list. The featured post displays a large image with title and author info. Secondary posts appear in a bordered list with thumbnails and content snippets. Includes a header with title, description, and 'Read More' CTA button. Perfect for technology-focused blogs with a modern, professional aesthetic.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "tech",
+      "dark-theme",
+      "featured",
+      "list",
+      "professional",
+      "modern",
+    ],
+    category: "blog",
+    component: BlogTechInsights,
+    props: "BlogTechInsightsProps",
+    exampleUsage: `
+<BlogTechInsights
+  title="Tech Insights"
+  description="Latest technology news and analysis"
+  ctaText="Read More"
+  ctaHref="/blog"
+/>
+    `.trim(),
+  },
+  "blog-horizontal-cards": {
+    id: "blog-horizontal-cards",
+    name: "Blog Horizontal Cards",
+    description:
+      "A blog layout with horizontal card orientation featuring side-by-side image and content. Each card displays a thumbnail, category badge, author, date, title, summary, and 'Read more' link. Includes a centered header with tagline badge, heading, and description, plus a bottom CTA button. Ideal for content-rich blogs that need more space for article summaries.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "horizontal",
+      "cards",
+      "side-by-side",
+      "content-rich",
+      "summary",
+    ],
+    category: "blog",
+    component: BlogHorizontalCards,
+    props: "BlogHorizontalCardsProps",
+    exampleUsage: `
+<BlogHorizontalCards
+  tagline="Our Blog"
+  title="Latest Articles"
+  description="Explore our content"
+  ctaText="View All"
+  ctaHref="/blog"
+/>
+    `.trim(),
+  },
+  "blog-filtered-results": {
+    id: "blog-filtered-results",
+    name: "Blog Filtered Results",
+    description:
+      "A comprehensive blog page with breadcrumb navigation, featured primary post, category filtering, and paginated results. Features a muted background header section with title, description, and primary post card. The main section includes checkbox-based category filters and a 'Load More' button for pagination. Perfect for full blog listing pages with advanced filtering capabilities.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "filter",
+      "category",
+      "pagination",
+      "breadcrumb",
+      "featured",
+      "listing",
+    ],
+    category: "blog",
+    component: BlogFilteredResults,
+    props: "BlogFilteredResultsProps",
+    exampleUsage: `
+<BlogFilteredResults
+  title="Best Blog Articles"
+  description="The best blog content"
+  allBlogsTitle="All Blogs"
+  categories={[
+    { label: "All", value: "all" },
+    { label: "Technology", value: "technology" }
+  ]}
+/>
+    `.trim(),
+  },
+  "blog-masonry-featured": {
+    id: "blog-masonry-featured",
+    name: "Blog Masonry Featured",
+    description:
+      "A masonry-style blog grid with a large featured post spanning two columns and rows, surrounded by smaller post cards. The featured post includes a full description while secondary posts show only title and metadata. Features a centered title heading and hover effects on images. Ideal for visually dynamic blog layouts that highlight a primary article.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "masonry",
+      "featured",
+      "grid",
+      "dynamic",
+      "visual",
+      "highlight",
+    ],
+    category: "blog",
+    component: BlogMasonryFeatured,
+    props: "BlogMasonryFeaturedProps",
+    exampleUsage: `
+<BlogMasonryFeatured
+  title="Latest Articles"
+/>
+    `.trim(),
+  },
+  "blog-horizontal-timeline": {
+    id: "blog-horizontal-timeline",
+    name: "Blog Horizontal Timeline",
+    description:
+      "A timeline-style blog layout with large images alongside content cards in a horizontal arrangement. Each post features a rounded image, title, uppercase date, description, and animated 'Read' button with arrow icon. Posts are separated by borders creating a timeline effect. Perfect for chronological content presentation or editorial storytelling.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "timeline",
+      "horizontal",
+      "chronological",
+      "editorial",
+      "storytelling",
+    ],
+    category: "blog",
+    component: BlogHorizontalTimeline,
+    props: "BlogHorizontalTimelineProps",
+    exampleUsage: `
+<BlogHorizontalTimeline
+  posts={[
+    {
+      title: "Our Journey Begins",
+      date: "January 2024",
+      description: "The story of how we started...",
+      href: "#",
+      image: "/images/post1.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "blog-grid-nine-posts": {
+    id: "blog-grid-nine-posts",
+    name: "Blog Grid Nine Posts",
+    description:
+      "A comprehensive blog grid layout displaying 9 posts with author avatars, category badges, and publication dates. Features a 3-column grid on large screens with hover effects on images. Includes a mobile-only CTA button at the bottom. Ideal for blog archive pages that need to display many articles at once with full author attribution and content categorization.",
+    semanticTags: [
+      "blog",
+      "posts",
+      "articles",
+      "grid",
+      "archive",
+      "author",
+      "avatar",
+      "category",
+      "nine-posts",
+    ],
+    category: "blog",
+    component: BlogGridNinePosts,
+    props: "BlogGridNinePostsProps",
+    exampleUsage: `
+<BlogGridNinePosts
+  title="Blog Archive"
+  description="Browse all our articles"
+  ctaText="View all posts"
+  ctaHref="/blog"
+/>
     `.trim(),
   },
 };
