@@ -134,6 +134,24 @@ import { ArticleCompactToc } from "../../components/blocks/article/article-compa
 import { ArticleChaptersAuthor } from "../../components/blocks/article/article-chapters-author";
 import { ArticleSplitAnimated } from "../../components/blocks/article/article-split-animated";
 
+// FAQ components
+import { FaqSimpleAccordion } from "../../components/blocks/faq/faq-simple-accordion";
+import { FaqStaticList } from "../../components/blocks/faq/faq-static-list";
+import { FaqCenteredAccordion } from "../../components/blocks/faq/faq-centered-accordion";
+import { FaqBadgeSupport } from "../../components/blocks/faq/faq-badge-support";
+import { FaqNumberedList } from "../../components/blocks/faq/faq-numbered-list";
+import { FaqNumberedGrid } from "../../components/blocks/faq/faq-numbered-grid";
+import { FaqSplitHelp } from "../../components/blocks/faq/faq-split-help";
+import { FaqCategorizedSections } from "../../components/blocks/faq/faq-categorized-sections";
+import { FaqMutedCards } from "../../components/blocks/faq/faq-muted-cards";
+import { FaqBorderedBadge } from "../../components/blocks/faq/faq-bordered-badge";
+import { FaqGradientCategories } from "../../components/blocks/faq/faq-gradient-categories";
+import { FaqSidebarNavigation } from "../../components/blocks/faq/faq-sidebar-navigation";
+import { FaqCardCategories } from "../../components/blocks/faq/faq-card-categories";
+import { FaqIconBenefits } from "../../components/blocks/faq/faq-icon-benefits";
+import { FaqRoundedCards } from "../../components/blocks/faq/faq-rounded-cards";
+import { FaqProfileSidebar } from "../../components/blocks/faq/faq-profile-sidebar";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -3387,6 +3405,501 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   category="Design"
   ctaText="Read Full Article"
   ctaHref="/article/design-systems"
+/>
+    `.trim(),
+  },
+
+  // FAQ Components
+  "faq-simple-accordion": {
+    id: "faq-simple-accordion",
+    name: "Simple Accordion FAQ",
+    description:
+      "A clean, minimal FAQ section with collapsible accordion items. Features a bold heading followed by expandable question-answer pairs with smooth animations. Best suited for straightforward FAQ pages where users need quick access to common questions without visual clutter.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "collapsible",
+      "help",
+      "support",
+      "minimal",
+      "simple",
+    ],
+    category: "faq",
+    component: FaqSimpleAccordion,
+    props: "FaqSimpleAccordionProps",
+    exampleUsage: `
+<FaqSimpleAccordion
+  heading="Frequently asked questions"
+  items={[
+    { id: "1", question: "What is your return policy?", answer: "We offer a 30-day return policy..." },
+    { id: "2", question: "How do I track my order?", answer: "You can track your order..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-static-list": {
+    id: "faq-static-list",
+    name: "Static List FAQ",
+    description:
+      "A non-interactive FAQ layout displaying all questions and answers in a vertical list format. Each Q&A pair is separated by a border, making it easy to scan through all content at once. Ideal for shorter FAQ sections where users benefit from seeing all information without clicking.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "list",
+      "static",
+      "help",
+      "support",
+      "simple",
+      "readable",
+    ],
+    category: "faq",
+    component: FaqStaticList,
+    props: "FaqStaticListProps",
+    exampleUsage: `
+<FaqStaticList
+  heading="Frequently asked questions"
+  items={[
+    { question: "What is your return policy?", answer: "We offer a 30-day return policy..." },
+    { question: "How do I track my order?", answer: "You can track your order..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-centered-accordion": {
+    id: "faq-centered-accordion",
+    name: "Centered Accordion FAQ",
+    description:
+      "A centered FAQ section with a prominent heading, descriptive subtext, and collapsible accordion items. The centered layout creates visual hierarchy and draws attention to the content. Perfect for landing pages or dedicated FAQ sections that need a polished, professional appearance.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "centered",
+      "help",
+      "support",
+      "professional",
+      "landing-page",
+    ],
+    category: "faq",
+    component: FaqCenteredAccordion,
+    props: "FaqCenteredAccordionProps",
+    exampleUsage: `
+<FaqCenteredAccordion
+  heading="Frequently asked questions"
+  description="Find answers to common questions about our products."
+  items={[
+    { id: "1", question: "What is your return policy?", answer: "We offer a 30-day return policy..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-badge-support": {
+    id: "faq-badge-support",
+    name: "Badge Header FAQ with Support CTA",
+    description:
+      "A comprehensive FAQ section featuring a badge label, centered heading with description, accordion items, and a dedicated support call-to-action section at the bottom. The separator and contact button encourage users to reach out if they can't find their answer. Ideal for customer service pages.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "badge",
+      "support",
+      "contact",
+      "help",
+      "customer-service",
+      "cta",
+    ],
+    category: "faq",
+    component: FaqBadgeSupport,
+    props: "FaqBadgeSupportProps",
+    exampleUsage: `
+<FaqBadgeSupport
+  badge="FAQ"
+  heading="Frequently asked questions"
+  description="Find answers to common questions."
+  supportText="Still have questions?"
+  supportLinkText="Contact support"
+  supportLinkUrl="/contact"
+/>
+    `.trim(),
+  },
+
+  "faq-numbered-list": {
+    id: "faq-numbered-list",
+    name: "Numbered List FAQ",
+    description:
+      "A centered FAQ layout with numbered question cards. Each item displays a sequential number badge alongside the question and answer in a bordered card format. The badge header and centered layout create a structured, organized appearance. Great for step-by-step guides or prioritized FAQs.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "numbered",
+      "list",
+      "cards",
+      "badge",
+      "centered",
+      "organized",
+      "steps",
+    ],
+    category: "faq",
+    component: FaqNumberedList,
+    props: "FaqNumberedListProps",
+    exampleUsage: `
+<FaqNumberedList
+  badge="FAQ"
+  heading="Frequently asked questions"
+  description="Find answers to common questions."
+  items={[
+    { question: "What is your return policy?", answer: "We offer a 30-day return policy..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-numbered-grid": {
+    id: "faq-numbered-grid",
+    name: "Two-Column Numbered Grid FAQ",
+    description:
+      "A responsive two-column grid layout displaying numbered FAQ cards. Features a centered header section with heading and description, followed by numbered question-answer cards arranged in a grid. Maximizes space efficiency while maintaining readability. Ideal for pages with many FAQs.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "numbered",
+      "grid",
+      "two-column",
+      "cards",
+      "responsive",
+      "organized",
+    ],
+    category: "faq",
+    component: FaqNumberedGrid,
+    props: "FaqNumberedGridProps",
+    exampleUsage: `
+<FaqNumberedGrid
+  heading="Frequently asked questions"
+  description="Find answers to common questions."
+  items={[
+    { question: "What is your return policy?", answer: "We offer a 30-day return policy..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-split-help": {
+    id: "faq-split-help",
+    name: "Split Layout FAQ with Help Section",
+    description:
+      "A two-column FAQ layout with the heading and description on the left, accordion items on the right, and a prominent help banner at the bottom. The split design creates visual interest while the help section provides a clear path to support. Perfect for product pages or documentation sites.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "split",
+      "two-column",
+      "help",
+      "support",
+      "cta",
+      "banner",
+    ],
+    category: "faq",
+    component: FaqSplitHelp,
+    props: "FaqSplitHelpProps",
+    exampleUsage: `
+<FaqSplitHelp
+  heading="Frequently asked questions"
+  description="Find answers to common questions."
+  helpHeading="Still have questions?"
+  helpDescription="Our support team is here to help."
+  helpButtonText="Contact Support"
+  helpButtonUrl="/contact"
+/>
+    `.trim(),
+  },
+
+  "faq-categorized-sections": {
+    id: "faq-categorized-sections",
+    name: "Categorized Sections FAQ",
+    description:
+      "An organized FAQ layout with multiple category sections, each containing its own accordion group. Categories are displayed vertically with clear section headings. Ideal for comprehensive FAQ pages covering different topics like General, Billing, and Support in distinct sections.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "categories",
+      "sections",
+      "organized",
+      "comprehensive",
+      "topics",
+    ],
+    category: "faq",
+    component: FaqCategorizedSections,
+    props: "FaqCategorizedSectionsProps",
+    exampleUsage: `
+<FaqCategorizedSections
+  heading="Frequently asked questions"
+  categories={[
+    { title: "General", items: [{ id: "1", question: "What is this?", answer: "..." }] },
+    { title: "Billing", items: [{ id: "2", question: "How do I pay?", answer: "..." }] }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-muted-cards": {
+    id: "faq-muted-cards",
+    name: "Muted Background Cards FAQ",
+    description:
+      "A bold FAQ section with accordion items displayed as muted background cards. Each question expands within its own card container, creating clear visual separation between items. The muted styling provides a softer, more approachable appearance. Great for modern, minimalist designs.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "cards",
+      "muted",
+      "modern",
+      "minimal",
+      "soft",
+    ],
+    category: "faq",
+    component: FaqMutedCards,
+    props: "FaqMutedCardsProps",
+    exampleUsage: `
+<FaqMutedCards
+  heading="Frequently asked questions"
+  items={[
+    { id: "1", question: "What is your return policy?", answer: "We offer a 30-day return policy..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-bordered-badge": {
+    id: "faq-bordered-badge",
+    name: "Bordered Badge FAQ",
+    description:
+      "A centered FAQ section featuring a badge with help icon, prominent heading, description, and bordered accordion cards. The icon-enhanced badge adds visual interest while bordered cards create clear item separation. Ideal for help centers or knowledge base pages.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "badge",
+      "icon",
+      "bordered",
+      "cards",
+      "help-center",
+      "knowledge-base",
+    ],
+    category: "faq",
+    component: FaqBorderedBadge,
+    props: "FaqBorderedBadgeProps",
+    exampleUsage: `
+<FaqBorderedBadge
+  badge="FAQ"
+  heading="Frequently asked questions"
+  description="Find answers to common questions."
+  items={[
+    { id: "1", question: "What is your return policy?", answer: "We offer a 30-day return policy..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-gradient-categories": {
+    id: "faq-gradient-categories",
+    name: "Gradient Background Categorized FAQ",
+    description:
+      "A visually striking FAQ section with a gradient background container housing categorized accordion groups in a two-column grid. The gradient styling adds depth and visual interest while categories keep content organized. Perfect for SaaS products or modern web applications.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "categories",
+      "gradient",
+      "two-column",
+      "modern",
+      "saas",
+      "styled",
+    ],
+    category: "faq",
+    component: FaqGradientCategories,
+    props: "FaqGradientCategoriesProps",
+    exampleUsage: `
+<FaqGradientCategories
+  heading="Frequently asked questions"
+  categories={[
+    { title: "General", items: [{ id: "1", question: "What is this?", answer: "..." }] },
+    { title: "Billing", items: [{ id: "2", question: "How do I pay?", answer: "..." }] }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-sidebar-navigation": {
+    id: "faq-sidebar-navigation",
+    name: "Sidebar Navigation FAQ",
+    description:
+      "An interactive FAQ layout with a sticky sidebar navigation for category filtering. Clicking a category smoothly scrolls to that section while highlighting the active category in the sidebar. Ideal for extensive FAQ pages with many categories where quick navigation is essential.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "sidebar",
+      "navigation",
+      "categories",
+      "sticky",
+      "interactive",
+      "scroll",
+    ],
+    category: "faq",
+    component: FaqSidebarNavigation,
+    props: "FaqSidebarNavigationProps",
+    exampleUsage: `
+<FaqSidebarNavigation
+  heading="Frequently asked questions"
+  categories={[
+    { id: "general", title: "General", items: [{ id: "1", question: "What is this?", answer: "..." }] },
+    { id: "billing", title: "Billing", items: [{ id: "2", question: "How do I pay?", answer: "..." }] }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-card-categories": {
+    id: "faq-card-categories",
+    name: "Card-Based Categorized FAQ",
+    description:
+      "A categorized FAQ layout with each category displayed in its own card container, arranged in a responsive grid. Features a subtle plus-pattern background for visual texture. Each card has a header and accordion content. Great for visually separating different FAQ topics.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "cards",
+      "categories",
+      "grid",
+      "pattern",
+      "organized",
+      "visual",
+    ],
+    category: "faq",
+    component: FaqCardCategories,
+    props: "FaqCardCategoriesProps",
+    exampleUsage: `
+<FaqCardCategories
+  heading="Frequently asked questions"
+  categories={[
+    { title: "General", items: [{ id: "1", question: "What is this?", answer: "..." }] },
+    { title: "Billing", items: [{ id: "2", question: "How do I pay?", answer: "..." }] }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-icon-benefits": {
+    id: "faq-icon-benefits",
+    name: "Icon Benefits Grid",
+    description:
+      "A benefits-focused section displaying feature cards with icons in a responsive grid. Each card features a circular icon container, title, and description. While not a traditional FAQ, it answers 'why choose us' questions through benefit highlights. Ideal for feature showcases or value propositions.",
+    semanticTags: [
+      "faq",
+      "benefits",
+      "features",
+      "icons",
+      "grid",
+      "cards",
+      "why-choose-us",
+      "value-proposition",
+      "showcase",
+    ],
+    category: "faq",
+    component: FaqIconBenefits,
+    props: "FaqIconBenefitsProps",
+    exampleUsage: `
+<FaqIconBenefits
+  heading="Why choose us?"
+  description="Discover the benefits of using our platform."
+  benefits={[
+    { icon: "zap", iconPrefix: "lucide", title: "Fast Performance", description: "Optimized for speed..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-rounded-cards": {
+    id: "faq-rounded-cards",
+    name: "Rounded Cards FAQ",
+    description:
+      "A polished FAQ section with accordion items displayed as rounded cards within a muted container. The rounded styling and layered card design create a modern, friendly appearance. The container provides visual grouping while individual cards maintain clear separation.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "cards",
+      "rounded",
+      "modern",
+      "friendly",
+      "polished",
+      "container",
+    ],
+    category: "faq",
+    component: FaqRoundedCards,
+    props: "FaqRoundedCardsProps",
+    exampleUsage: `
+<FaqRoundedCards
+  heading="Frequently asked questions"
+  description="Find answers to common questions."
+  items={[
+    { id: "1", question: "What is your return policy?", answer: "We offer a 30-day return policy..." }
+  ]}
+/>
+    `.trim(),
+  },
+
+  "faq-profile-sidebar": {
+    id: "faq-profile-sidebar",
+    name: "Profile Sidebar FAQ",
+    description:
+      "A two-column FAQ layout with a sticky sidebar featuring a support representative profile, contact information, and CTA button. The personal touch of showing a team member builds trust while providing easy access to support. Perfect for customer-focused businesses wanting to humanize their help section.",
+    semanticTags: [
+      "faq",
+      "questions",
+      "answers",
+      "accordion",
+      "sidebar",
+      "profile",
+      "support",
+      "contact",
+      "personal",
+      "trust",
+      "human",
+    ],
+    category: "faq",
+    component: FaqProfileSidebar,
+    props: "FaqProfileSidebarProps",
+    exampleUsage: `
+<FaqProfileSidebar
+  heading="Frequently asked questions"
+  profileImage="/images/support-rep.jpg"
+  profileName="Sarah Johnson"
+  profileRole="Customer Success Manager"
+  contactButtonText="Contact Support"
+  contactButtonUrl="/contact"
 />
     `.trim(),
   },
