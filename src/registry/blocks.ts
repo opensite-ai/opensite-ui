@@ -152,6 +152,83 @@ import { FaqIconBenefits } from "../../components/blocks/faq/faq-icon-benefits";
 import { FaqRoundedCards } from "../../components/blocks/faq/faq-rounded-cards";
 import { FaqProfileSidebar } from "../../components/blocks/faq/faq-profile-sidebar";
 
+// Hero components
+import { HeroBadgeImageSplit } from "../../components/blocks/hero/hero-badge-image-split";
+import { HeroImageLeftContent } from "../../components/blocks/hero/hero-image-left-content";
+import { HeroCenteredImageGrid } from "../../components/blocks/hero/hero-centered-image-grid";
+import { HeroCenteredScreenshot } from "../../components/blocks/hero/hero-centered-screenshot";
+import { HeroPatternBadgeLogos } from "../../components/blocks/hero/hero-pattern-badge-logos";
+import { HeroLogoCenteredScreenshot } from "../../components/blocks/hero/hero-logo-centered-screenshot";
+import { HeroPatternLogoTechStack } from "../../components/blocks/hero/hero-pattern-logo-tech-stack";
+import { HeroAnnouncementBadge } from "../../components/blocks/hero/hero-announcement-badge";
+import { HeroTechCarousel } from "../../components/blocks/hero/hero-tech-carousel";
+import { HeroSimpleCenteredImage } from "../../components/blocks/hero/hero-simple-centered-image";
+import { HeroPlatformFeaturesGrid } from "../../components/blocks/hero/hero-platform-features-grid";
+import { HeroSpiralPatternCards } from "../../components/blocks/hero/hero-spiral-pattern-cards";
+import { HeroSplitSpiralShapes } from "../../components/blocks/hero/hero-split-spiral-shapes";
+import { HeroSplitGeometricShapes } from "../../components/blocks/hero/hero-split-geometric-shapes";
+import { HeroCommunitySurveyCta } from "../../components/blocks/hero/hero-community-survey-cta";
+import { HeroMarketplaceScatteredImages } from "../../components/blocks/hero/hero-marketplace-scattered-images";
+import { HeroBadgeShadowOverlay } from "../../components/blocks/hero/hero-badge-shadow-overlay";
+import { HeroVideoBackgroundDark } from "../../components/blocks/hero/hero-video-background-dark";
+import { HeroGridPatternEfficiency } from "../../components/blocks/hero/hero-grid-pattern-efficiency";
+import { HeroDashedBorderFeatures } from "../../components/blocks/hero/hero-dashed-border-features";
+import { HeroDesignCarouselPortfolio } from "../../components/blocks/hero/hero-design-carousel-portfolio";
+import { HeroGradientClientFocused } from "../../components/blocks/hero/hero-gradient-client-focused";
+import { HeroPremiumSplitAvatars } from "../../components/blocks/hero/hero-premium-split-avatars";
+import { HeroUiLibraryShowcase } from "../../components/blocks/hero/hero-ui-library-showcase";
+import { HeroFullscreenBackgroundImage } from "../../components/blocks/hero/hero-fullscreen-background-image";
+import { HeroFullscreenLogoCta } from "../../components/blocks/hero/hero-fullscreen-logo-cta";
+import { HeroGradientAvatarsRating } from "../../components/blocks/hero/hero-gradient-avatars-rating";
+import { HeroTaskTimerAnimated } from "../../components/blocks/hero/hero-task-timer-animated";
+import { HeroAiPoweredCarousel } from "../../components/blocks/hero/hero-ai-powered-carousel";
+import { HeroAdCampaignExpert } from "../../components/blocks/hero/hero-ad-campaign-expert";
+import { HeroAdaptableProductGrid } from "../../components/blocks/hero/hero-adaptable-product-grid";
+import { HeroPresentationPlatformVideo } from "../../components/blocks/hero/hero-presentation-platform-video";
+import { HeroGridPatternSolutions } from "../../components/blocks/hero/hero-grid-pattern-solutions";
+import { HeroCrmStreamlined } from "../../components/blocks/hero/hero-crm-streamlined";
+import { HeroBillingPlatformLogos } from "../../components/blocks/hero/hero-billing-platform-logos";
+import { HeroSoftwareGrowthVideoDialog } from "../../components/blocks/hero/hero-software-growth-video-dialog";
+import { HeroConversionVideoPlay } from "../../components/blocks/hero/hero-conversion-video-play";
+import { HeroDesignShowcaseLogos } from "../../components/blocks/hero/hero-design-showcase-logos";
+import { HeroVideoOverlayStars } from "../../components/blocks/hero/hero-video-overlay-stars";
+import { HeroProductivityLauncherVideo } from "../../components/blocks/hero/hero-productivity-launcher-video";
+import { HeroHiringAnimatedText } from "../../components/blocks/hero/hero-hiring-animated-text";
+import { HeroSplitImageNewsletter } from "../../components/blocks/hero/hero-split-image-newsletter";
+import { HeroCenteredGradientCta } from "../../components/blocks/hero/hero-centered-gradient-cta";
+import { HeroStatsSocialProof } from "../../components/blocks/hero/hero-stats-social-proof";
+import { HeroFeatureCardsGrid } from "../../components/blocks/hero/hero-feature-cards-grid";
+import { HeroTestimonialImageGrid } from "../../components/blocks/hero/hero-testimonial-image-grid";
+import { HeroDesignSystem3d } from "../../components/blocks/hero/hero-design-system-3d";
+import { HeroArchitectureFullscreen } from "../../components/blocks/hero/hero-architecture-fullscreen";
+import { HeroInnovationImageGrid } from "../../components/blocks/hero/hero-innovation-image-grid";
+import { HeroVideoDialogGradient } from "../../components/blocks/hero/hero-video-dialog-gradient";
+import { HeroMinimalCenteredDark } from "../../components/blocks/hero/hero-minimal-centered-dark";
+import { HeroProductShowcaseFloating } from "../../components/blocks/hero/hero-product-showcase-floating";
+import { HeroSaasDashboardPreview } from "../../components/blocks/hero/hero-saas-dashboard-preview";
+import { HeroTherapyTestimonialGrid } from "../../components/blocks/hero/hero-therapy-testimonial-grid";
+import { HeroMentalHealthTeam } from "../../components/blocks/hero/hero-mental-health-team";
+import { HeroMentorshipVideoSplit } from "../../components/blocks/hero/hero-mentorship-video-split";
+import { HeroBusinessOperationsMosaic } from "../../components/blocks/hero/hero-business-operations-mosaic";
+import { HeroAgencyAnimatedImages } from "../../components/blocks/hero/hero-agency-animated-images";
+import { HeroWelcomeAsymmetricImages } from "../../components/blocks/hero/hero-welcome-asymmetric-images";
+import { HeroStartupLaunchCta } from "../../components/blocks/hero/hero-startup-launch-cta";
+import { HeroEnterpriseSecurity } from "../../components/blocks/hero/hero-enterprise-security";
+import { HeroCreativeStudioStacked } from "../../components/blocks/hero/hero-creative-studio-stacked";
+import { HeroDigitalAgencyFullscreen } from "../../components/blocks/hero/hero-digital-agency-fullscreen";
+import { HeroCustomerSupportLayered } from "../../components/blocks/hero/hero-customer-support-layered";
+import { HeroSharedInboxLayered } from "../../components/blocks/hero/hero-shared-inbox-layered";
+import { HeroConversationIntelligence } from "../../components/blocks/hero/hero-conversation-intelligence";
+import { HeroBusinessCarouselDots } from "../../components/blocks/hero/hero-business-carousel-dots";
+import { HeroDeveloperToolsCode } from "../../components/blocks/hero/hero-developer-tools-code";
+import { HeroEcommerceProductShowcase } from "../../components/blocks/hero/hero-ecommerce-product-showcase";
+import { HeroMobileAppDownload } from "../../components/blocks/hero/hero-mobile-app-download";
+import { HeroPricingComparison } from "../../components/blocks/hero/hero-pricing-comparison";
+import { HeroNewsletterMinimal } from "../../components/blocks/hero/hero-newsletter-minimal";
+import { HeroComingSoonCountdown } from "../../components/blocks/hero/hero-coming-soon-countdown";
+import { HeroEventRegistration } from "../../components/blocks/hero/hero-event-registration";
+import { HeroPortfolioCreative } from "../../components/blocks/hero/hero-portfolio-creative";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -3902,6 +3979,832 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   contactButtonUrl="/contact"
 />
     `.trim(),
+  },
+
+  // Hero components
+  "hero-badge-image-split": {
+    id: "hero-badge-image-split",
+    name: "Badge Image Split Hero",
+    description: "A split-layout hero section with a badge, headline, description, and CTA buttons on the left, and a large featured image on the right. Includes a logo bar showing trusted companies. Perfect for SaaS products and business landing pages.",
+    semanticTags: ["hero", "landing", "split", "badge", "image", "cta", "logos", "trust", "saas", "business"],
+    category: "hero",
+    component: HeroBadgeImageSplit,
+    props: "HeroBadgeImageSplitProps",
+    exampleUsage: `<HeroBadgeImageSplit />`.trim(),
+  },
+
+  "hero-image-left-content": {
+    id: "hero-image-left-content",
+    name: "Image Left Content Hero",
+    description: "A hero section with a large image on the left and content on the right, featuring headline, description, and CTA buttons. Great for showcasing products or services with visual emphasis.",
+    semanticTags: ["hero", "landing", "split", "image", "content", "cta", "product", "visual"],
+    category: "hero",
+    component: HeroImageLeftContent,
+    props: "HeroImageLeftContentProps",
+    exampleUsage: `<HeroImageLeftContent />`.trim(),
+  },
+
+  "hero-centered-image-grid": {
+    id: "hero-centered-image-grid",
+    name: "Centered Image Grid Hero",
+    description: "A centered hero section with headline and description above a grid of images. Ideal for portfolios, galleries, or showcasing multiple products or team members.",
+    semanticTags: ["hero", "centered", "grid", "images", "gallery", "portfolio", "showcase"],
+    category: "hero",
+    component: HeroCenteredImageGrid,
+    props: "HeroCenteredImageGridProps",
+    exampleUsage: `<HeroCenteredImageGrid />`.trim(),
+  },
+
+  "hero-centered-screenshot": {
+    id: "hero-centered-screenshot",
+    name: "Centered Screenshot Hero",
+    description: "A centered hero with headline, description, and CTA buttons above a large product screenshot. Perfect for SaaS products, apps, and software landing pages.",
+    semanticTags: ["hero", "centered", "screenshot", "product", "saas", "app", "software", "demo"],
+    category: "hero",
+    component: HeroCenteredScreenshot,
+    props: "HeroCenteredScreenshotProps",
+    exampleUsage: `<HeroCenteredScreenshot />`.trim(),
+  },
+
+  "hero-pattern-badge-logos": {
+    id: "hero-pattern-badge-logos",
+    name: "Pattern Badge Logos Hero",
+    description: "A hero section with a decorative background pattern, badge, headline, and a row of trusted company logos. Great for establishing credibility and trust.",
+    semanticTags: ["hero", "pattern", "badge", "logos", "trust", "credibility", "companies", "partners"],
+    category: "hero",
+    component: HeroPatternBadgeLogos,
+    props: "HeroPatternBadgeLogosProps",
+    exampleUsage: `<HeroPatternBadgeLogos />`.trim(),
+  },
+
+  "hero-logo-centered-screenshot": {
+    id: "hero-logo-centered-screenshot",
+    name: "Logo Centered Screenshot Hero",
+    description: "A centered hero featuring a logo, headline, description, and a large centered screenshot. Includes trusted company logos below. Ideal for product launches.",
+    semanticTags: ["hero", "logo", "centered", "screenshot", "product", "launch", "trust", "logos"],
+    category: "hero",
+    component: HeroLogoCenteredScreenshot,
+    props: "HeroLogoCenteredScreenshotProps",
+    exampleUsage: `<HeroLogoCenteredScreenshot />`.trim(),
+  },
+
+  "hero-pattern-logo-tech-stack": {
+    id: "hero-pattern-logo-tech-stack",
+    name: "Pattern Logo Tech Stack Hero",
+    description: "A hero section with a background pattern, logo, headline, and a visual display of technology stack icons. Perfect for developer tools and technical products.",
+    semanticTags: ["hero", "pattern", "logo", "tech", "stack", "developer", "tools", "technical", "icons"],
+    category: "hero",
+    component: HeroPatternLogoTechStack,
+    props: "HeroPatternLogoTechStackProps",
+    exampleUsage: `<HeroPatternLogoTechStack />`.trim(),
+  },
+
+  "hero-announcement-badge": {
+    id: "hero-announcement-badge",
+    name: "Announcement Badge Hero",
+    description: "A hero section featuring an announcement badge at the top, followed by headline, description, and CTA buttons. Great for product launches and announcements.",
+    semanticTags: ["hero", "announcement", "badge", "launch", "news", "update", "cta"],
+    category: "hero",
+    component: HeroAnnouncementBadge,
+    props: "HeroAnnouncementBadgeProps",
+    exampleUsage: `<HeroAnnouncementBadge />`.trim(),
+  },
+
+  "hero-tech-carousel": {
+    id: "hero-tech-carousel",
+    name: "Tech Carousel Hero",
+    description: "A hero section with a carousel of technology logos or partner brands. Features headline, description, and auto-scrolling logo carousel. Perfect for showcasing integrations.",
+    semanticTags: ["hero", "carousel", "tech", "logos", "partners", "integrations", "brands", "auto-scroll"],
+    category: "hero",
+    component: HeroTechCarousel,
+    props: "HeroTechCarouselProps",
+    exampleUsage: `<HeroTechCarousel />`.trim(),
+  },
+
+  "hero-simple-centered-image": {
+    id: "hero-simple-centered-image",
+    name: "Simple Centered Image Hero",
+    description: "A minimal centered hero with headline, description, CTA buttons, and a single featured image below. Clean and straightforward design for any landing page.",
+    semanticTags: ["hero", "simple", "centered", "image", "minimal", "clean", "landing"],
+    category: "hero",
+    component: HeroSimpleCenteredImage,
+    props: "HeroSimpleCenteredImageProps",
+    exampleUsage: `<HeroSimpleCenteredImage />`.trim(),
+  },
+
+  "hero-platform-features-grid": {
+    id: "hero-platform-features-grid",
+    name: "Platform Features Grid Hero",
+    description: "A hero section showcasing platform features in a grid layout with icons and descriptions. Includes headline and CTA. Perfect for feature-rich products.",
+    semanticTags: ["hero", "platform", "features", "grid", "icons", "product", "showcase"],
+    category: "hero",
+    component: HeroPlatformFeaturesGrid,
+    props: "HeroPlatformFeaturesGridProps",
+    exampleUsage: `<HeroPlatformFeaturesGrid />`.trim(),
+  },
+
+  "hero-spiral-pattern-cards": {
+    id: "hero-spiral-pattern-cards",
+    name: "Spiral Pattern Cards Hero",
+    description: "A creative hero with a spiral background pattern and floating feature cards. Unique visual design for creative agencies and innovative products.",
+    semanticTags: ["hero", "spiral", "pattern", "cards", "creative", "innovative", "visual", "agency"],
+    category: "hero",
+    component: HeroSpiralPatternCards,
+    props: "HeroSpiralPatternCardsProps",
+    exampleUsage: `<HeroSpiralPatternCards />`.trim(),
+  },
+
+  "hero-split-spiral-shapes": {
+    id: "hero-split-spiral-shapes",
+    name: "Split Spiral Shapes Hero",
+    description: "A split-layout hero with content on one side and decorative spiral shapes on the other. Artistic and modern design for creative businesses.",
+    semanticTags: ["hero", "split", "spiral", "shapes", "artistic", "modern", "creative", "design"],
+    category: "hero",
+    component: HeroSplitSpiralShapes,
+    props: "HeroSplitSpiralShapesProps",
+    exampleUsage: `<HeroSplitSpiralShapes />`.trim(),
+  },
+
+  "hero-split-geometric-shapes": {
+    id: "hero-split-geometric-shapes",
+    name: "Split Geometric Shapes Hero",
+    description: "A split-layout hero featuring geometric shapes and patterns alongside content. Modern and professional design for tech companies.",
+    semanticTags: ["hero", "split", "geometric", "shapes", "modern", "professional", "tech", "patterns"],
+    category: "hero",
+    component: HeroSplitGeometricShapes,
+    props: "HeroSplitGeometricShapesProps",
+    exampleUsage: `<HeroSplitGeometricShapes />`.trim(),
+  },
+
+  "hero-community-survey-cta": {
+    id: "hero-community-survey-cta",
+    name: "Community Survey CTA Hero",
+    description: "A hero section focused on community engagement with a survey or feedback CTA. Includes headline, description, and prominent call-to-action for user participation.",
+    semanticTags: ["hero", "community", "survey", "feedback", "engagement", "cta", "participation"],
+    category: "hero",
+    component: HeroCommunitySurveyCta,
+    props: "HeroCommunitySurveyCtaProps",
+    exampleUsage: `<HeroCommunitySurveyCta />`.trim(),
+  },
+
+  "hero-marketplace-scattered-images": {
+    id: "hero-marketplace-scattered-images",
+    name: "Marketplace Scattered Images Hero",
+    description: "A hero section with scattered product images creating a marketplace feel. Dynamic layout showcasing multiple items or categories.",
+    semanticTags: ["hero", "marketplace", "scattered", "images", "products", "dynamic", "ecommerce", "shop"],
+    category: "hero",
+    component: HeroMarketplaceScatteredImages,
+    props: "HeroMarketplaceScatteredImagesProps",
+    exampleUsage: `<HeroMarketplaceScatteredImages />`.trim(),
+  },
+
+  "hero-badge-shadow-overlay": {
+    id: "hero-badge-shadow-overlay",
+    name: "Badge Shadow Overlay Hero",
+    description: "A hero with a badge, headline, and content overlaid on a shadowed background image. Creates depth and visual interest for impactful landing pages.",
+    semanticTags: ["hero", "badge", "shadow", "overlay", "background", "depth", "impactful", "landing"],
+    category: "hero",
+    component: HeroBadgeShadowOverlay,
+    props: "HeroBadgeShadowOverlayProps",
+    exampleUsage: `<HeroBadgeShadowOverlay />`.trim(),
+  },
+
+  "hero-video-background-dark": {
+    id: "hero-video-background-dark",
+    name: "Video Background Dark Hero",
+    description: "A dark-themed hero with a video background, headline, and CTA buttons. Creates an immersive experience for media-rich landing pages.",
+    semanticTags: ["hero", "video", "background", "dark", "immersive", "media", "cinematic", "landing"],
+    category: "hero",
+    component: HeroVideoBackgroundDark,
+    props: "HeroVideoBackgroundDarkProps",
+    exampleUsage: `<HeroVideoBackgroundDark />`.trim(),
+  },
+
+  "hero-grid-pattern-efficiency": {
+    id: "hero-grid-pattern-efficiency",
+    name: "Grid Pattern Efficiency Hero",
+    description: "A hero section with a grid pattern background emphasizing efficiency and productivity. Clean design for business and productivity tools.",
+    semanticTags: ["hero", "grid", "pattern", "efficiency", "productivity", "business", "tools", "clean"],
+    category: "hero",
+    component: HeroGridPatternEfficiency,
+    props: "HeroGridPatternEfficiencyProps",
+    exampleUsage: `<HeroGridPatternEfficiency />`.trim(),
+  },
+
+  "hero-dashed-border-features": {
+    id: "hero-dashed-border-features",
+    name: "Dashed Border Features Hero",
+    description: "A hero with dashed border decorations and feature highlights. Unique visual style that draws attention to key features.",
+    semanticTags: ["hero", "dashed", "border", "features", "unique", "decorative", "highlights"],
+    category: "hero",
+    component: HeroDashedBorderFeatures,
+    props: "HeroDashedBorderFeaturesProps",
+    exampleUsage: `<HeroDashedBorderFeatures />`.trim(),
+  },
+
+  "hero-design-carousel-portfolio": {
+    id: "hero-design-carousel-portfolio",
+    name: "Design Carousel Portfolio Hero",
+    description: "A portfolio-style hero with a carousel showcasing design work or projects. Perfect for creative agencies and designers.",
+    semanticTags: ["hero", "design", "carousel", "portfolio", "creative", "agency", "projects", "showcase"],
+    category: "hero",
+    component: HeroDesignCarouselPortfolio,
+    props: "HeroDesignCarouselPortfolioProps",
+    exampleUsage: `<HeroDesignCarouselPortfolio />`.trim(),
+  },
+
+  "hero-gradient-client-focused": {
+    id: "hero-gradient-client-focused",
+    name: "Gradient Client Focused Hero",
+    description: "A hero with gradient background focused on client success stories or testimonials. Builds trust through social proof.",
+    semanticTags: ["hero", "gradient", "client", "focused", "testimonials", "trust", "social-proof", "success"],
+    category: "hero",
+    component: HeroGradientClientFocused,
+    props: "HeroGradientClientFocusedProps",
+    exampleUsage: `<HeroGradientClientFocused />`.trim(),
+  },
+
+  "hero-premium-split-avatars": {
+    id: "hero-premium-split-avatars",
+    name: "Premium Split Avatars Hero",
+    description: "A premium split-layout hero featuring user avatars and social proof. Shows real users to build credibility and trust.",
+    semanticTags: ["hero", "premium", "split", "avatars", "social-proof", "users", "credibility", "trust"],
+    category: "hero",
+    component: HeroPremiumSplitAvatars,
+    props: "HeroPremiumSplitAvatarsProps",
+    exampleUsage: `<HeroPremiumSplitAvatars />`.trim(),
+  },
+
+  "hero-ui-library-showcase": {
+    id: "hero-ui-library-showcase",
+    name: "UI Library Showcase Hero",
+    description: "A hero designed to showcase UI components or design systems. Features component previews and documentation links.",
+    semanticTags: ["hero", "ui", "library", "showcase", "components", "design-system", "documentation", "developer"],
+    category: "hero",
+    component: HeroUiLibraryShowcase,
+    props: "HeroUiLibraryShowcaseProps",
+    exampleUsage: `<HeroUiLibraryShowcase />`.trim(),
+  },
+
+  "hero-fullscreen-background-image": {
+    id: "hero-fullscreen-background-image",
+    name: "Fullscreen Background Image Hero",
+    description: "A fullscreen hero with a background image, overlay, and centered content. Creates an immersive first impression.",
+    semanticTags: ["hero", "fullscreen", "background", "image", "overlay", "immersive", "impactful", "landing"],
+    category: "hero",
+    component: HeroFullscreenBackgroundImage,
+    props: "HeroFullscreenBackgroundImageProps",
+    exampleUsage: `<HeroFullscreenBackgroundImage />`.trim(),
+  },
+
+  "hero-fullscreen-logo-cta": {
+    id: "hero-fullscreen-logo-cta",
+    name: "Fullscreen Logo CTA Hero",
+    description: "A fullscreen hero featuring a prominent logo and call-to-action. Minimal and focused design for brand-centric landing pages.",
+    semanticTags: ["hero", "fullscreen", "logo", "cta", "minimal", "brand", "focused", "landing"],
+    category: "hero",
+    component: HeroFullscreenLogoCta,
+    props: "HeroFullscreenLogoCtaProps",
+    exampleUsage: `<HeroFullscreenLogoCta />`.trim(),
+  },
+
+  "hero-gradient-avatars-rating": {
+    id: "hero-gradient-avatars-rating",
+    name: "Gradient Avatars Rating Hero",
+    description: "A hero with gradient background, user avatars, and star ratings. Combines visual appeal with social proof elements.",
+    semanticTags: ["hero", "gradient", "avatars", "rating", "stars", "social-proof", "reviews", "trust"],
+    category: "hero",
+    component: HeroGradientAvatarsRating,
+    props: "HeroGradientAvatarsRatingProps",
+    exampleUsage: `<HeroGradientAvatarsRating />`.trim(),
+  },
+
+  "hero-task-timer-animated": {
+    id: "hero-task-timer-animated",
+    name: "Task Timer Animated Hero",
+    description: "An animated hero featuring a task timer or countdown element. Dynamic and engaging for productivity apps.",
+    semanticTags: ["hero", "task", "timer", "animated", "countdown", "productivity", "dynamic", "engaging"],
+    category: "hero",
+    component: HeroTaskTimerAnimated,
+    props: "HeroTaskTimerAnimatedProps",
+    exampleUsage: `<HeroTaskTimerAnimated />`.trim(),
+  },
+
+  "hero-ai-powered-carousel": {
+    id: "hero-ai-powered-carousel",
+    name: "AI Powered Carousel Hero",
+    description: "A hero showcasing AI-powered features with a carousel of capabilities. Perfect for AI products and machine learning tools.",
+    semanticTags: ["hero", "ai", "powered", "carousel", "machine-learning", "features", "technology", "innovation"],
+    category: "hero",
+    component: HeroAiPoweredCarousel,
+    props: "HeroAiPoweredCarouselProps",
+    exampleUsage: `<HeroAiPoweredCarousel />`.trim(),
+  },
+
+  "hero-ad-campaign-expert": {
+    id: "hero-ad-campaign-expert",
+    name: "Ad Campaign Expert Hero",
+    description: "A hero designed for advertising and marketing services. Features campaign metrics and expert positioning.",
+    semanticTags: ["hero", "ad", "campaign", "marketing", "advertising", "expert", "metrics", "agency"],
+    category: "hero",
+    component: HeroAdCampaignExpert,
+    props: "HeroAdCampaignExpertProps",
+    exampleUsage: `<HeroAdCampaignExpert />`.trim(),
+  },
+
+  "hero-adaptable-product-grid": {
+    id: "hero-adaptable-product-grid",
+    name: "Adaptable Product Grid Hero",
+    description: "A flexible hero with an adaptable product grid layout. Showcases multiple products or features in a responsive grid.",
+    semanticTags: ["hero", "adaptable", "product", "grid", "flexible", "responsive", "showcase", "features"],
+    category: "hero",
+    component: HeroAdaptableProductGrid,
+    props: "HeroAdaptableProductGridProps",
+    exampleUsage: `<HeroAdaptableProductGrid />`.trim(),
+  },
+
+  "hero-presentation-platform-video": {
+    id: "hero-presentation-platform-video",
+    name: "Presentation Platform Video Hero",
+    description: "A split-layout hero with video content on the right and presentation platform messaging on the left. Ideal for video conferencing and presentation tools.",
+    semanticTags: ["hero", "presentation", "platform", "video", "split", "conferencing", "tools", "communication"],
+    category: "hero",
+    component: HeroPresentationPlatformVideo,
+    props: "HeroPresentationPlatformVideoProps",
+    exampleUsage: `<HeroPresentationPlatformVideo />`.trim(),
+  },
+
+  "hero-grid-pattern-solutions": {
+    id: "hero-grid-pattern-solutions",
+    name: "Grid Pattern Solutions Hero",
+    description: "A hero with grid pattern background and centered content showcasing business solutions. Professional design for B2B services.",
+    semanticTags: ["hero", "grid", "pattern", "solutions", "business", "b2b", "professional", "services"],
+    category: "hero",
+    component: HeroGridPatternSolutions,
+    props: "HeroGridPatternSolutionsProps",
+    exampleUsage: `<HeroGridPatternSolutions />`.trim(),
+  },
+
+  "hero-crm-streamlined": {
+    id: "hero-crm-streamlined",
+    name: "CRM Streamlined Hero",
+    description: "A streamlined hero for CRM and sales tools. Features split layout with product image and CRM-focused messaging.",
+    semanticTags: ["hero", "crm", "streamlined", "sales", "tools", "split", "product", "business"],
+    category: "hero",
+    component: HeroCrmStreamlined,
+    props: "HeroCrmStreamlinedProps",
+    exampleUsage: `<HeroCrmStreamlined />`.trim(),
+  },
+
+  "hero-billing-platform-logos": {
+    id: "hero-billing-platform-logos",
+    name: "Billing Platform Logos Hero",
+    description: "A hero for billing and payment platforms featuring trusted company logos in a carousel. Builds trust for fintech products.",
+    semanticTags: ["hero", "billing", "platform", "logos", "payment", "fintech", "trust", "carousel"],
+    category: "hero",
+    component: HeroBillingPlatformLogos,
+    props: "HeroBillingPlatformLogosProps",
+    exampleUsage: `<HeroBillingPlatformLogos />`.trim(),
+  },
+
+  "hero-software-growth-video-dialog": {
+    id: "hero-software-growth-video-dialog",
+    name: "Software Growth Video Dialog Hero",
+    description: "A hero focused on software growth with a video dialog modal. Features scattered images and growth-focused messaging.",
+    semanticTags: ["hero", "software", "growth", "video", "dialog", "modal", "saas", "startup"],
+    category: "hero",
+    component: HeroSoftwareGrowthVideoDialog,
+    props: "HeroSoftwareGrowthVideoDialogProps",
+    exampleUsage: `<HeroSoftwareGrowthVideoDialog />`.trim(),
+  },
+
+  "hero-conversion-video-play": {
+    id: "hero-conversion-video-play",
+    name: "Conversion Video Play Hero",
+    description: "A conversion-focused hero with a prominent video play button and brand logos. Designed to drive engagement and conversions.",
+    semanticTags: ["hero", "conversion", "video", "play", "engagement", "logos", "cta", "marketing"],
+    category: "hero",
+    component: HeroConversionVideoPlay,
+    props: "HeroConversionVideoPlayProps",
+    exampleUsage: `<HeroConversionVideoPlay />`.trim(),
+  },
+
+  "hero-design-showcase-logos": {
+    id: "hero-design-showcase-logos",
+    name: "Design Showcase Logos Hero",
+    description: "A hero showcasing design work with trusted design team logos. Perfect for design agencies and creative studios.",
+    semanticTags: ["hero", "design", "showcase", "logos", "agency", "creative", "studio", "portfolio"],
+    category: "hero",
+    component: HeroDesignShowcaseLogos,
+    props: "HeroDesignShowcaseLogosProps",
+    exampleUsage: `<HeroDesignShowcaseLogos />`.trim(),
+  },
+
+  "hero-video-overlay-stars": {
+    id: "hero-video-overlay-stars",
+    name: "Video Overlay Stars Hero",
+    description: "A hero with video overlay, star rating, and testimonial. Combines video content with social proof elements.",
+    semanticTags: ["hero", "video", "overlay", "stars", "rating", "testimonial", "social-proof", "reviews"],
+    category: "hero",
+    component: HeroVideoOverlayStars,
+    props: "HeroVideoOverlayStarsProps",
+    exampleUsage: `<HeroVideoOverlayStars />`.trim(),
+  },
+
+  "hero-productivity-launcher-video": {
+    id: "hero-productivity-launcher-video",
+    name: "Productivity Launcher Video Hero",
+    description: "A hero for productivity apps with video background and download buttons. Features app store badges and launcher-style design.",
+    semanticTags: ["hero", "productivity", "launcher", "video", "download", "app", "mobile", "desktop"],
+    category: "hero",
+    component: HeroProductivityLauncherVideo,
+    props: "HeroProductivityLauncherVideoProps",
+    exampleUsage: `<HeroProductivityLauncherVideo />`.trim(),
+  },
+
+  "hero-hiring-animated-text": {
+    id: "hero-hiring-animated-text",
+    name: "Hiring Animated Text Hero",
+    description: "A hero for hiring platforms with animated rotating text. Dynamic design that showcases different job roles or skills.",
+    semanticTags: ["hero", "hiring", "animated", "text", "jobs", "recruitment", "careers", "dynamic"],
+    category: "hero",
+    component: HeroHiringAnimatedText,
+    props: "HeroHiringAnimatedTextProps",
+    exampleUsage: `<HeroHiringAnimatedText />`.trim(),
+  },
+
+  "hero-split-image-newsletter": {
+    id: "hero-split-image-newsletter",
+    name: "Split Image Newsletter Hero",
+    description: "A split-layout hero with image and newsletter signup form. Perfect for content creators and newsletter-focused businesses.",
+    semanticTags: ["hero", "split", "image", "newsletter", "signup", "email", "content", "subscription"],
+    category: "hero",
+    component: HeroSplitImageNewsletter,
+    props: "HeroSplitImageNewsletterProps",
+    exampleUsage: `<HeroSplitImageNewsletter />`.trim(),
+  },
+
+  "hero-centered-gradient-cta": {
+    id: "hero-centered-gradient-cta",
+    name: "Centered Gradient CTA Hero",
+    description: "A centered hero with gradient background and prominent CTA. Features highlight badges and feature callouts.",
+    semanticTags: ["hero", "centered", "gradient", "cta", "features", "highlights", "modern", "vibrant"],
+    category: "hero",
+    component: HeroCenteredGradientCta,
+    props: "HeroCenteredGradientCtaProps",
+    exampleUsage: `<HeroCenteredGradientCta />`.trim(),
+  },
+
+  "hero-stats-social-proof": {
+    id: "hero-stats-social-proof",
+    name: "Stats Social Proof Hero",
+    description: "A hero featuring prominent statistics and social proof elements. Includes dashboard image and key metrics display.",
+    semanticTags: ["hero", "stats", "social-proof", "metrics", "dashboard", "numbers", "credibility", "data"],
+    category: "hero",
+    component: HeroStatsSocialProof,
+    props: "HeroStatsSocialProofProps",
+    exampleUsage: `<HeroStatsSocialProof />`.trim(),
+  },
+
+  "hero-feature-cards-grid": {
+    id: "hero-feature-cards-grid",
+    name: "Feature Cards Grid Hero",
+    description: "A hero with feature cards arranged in a grid layout. Each card has an icon and description for key features.",
+    semanticTags: ["hero", "feature", "cards", "grid", "icons", "benefits", "showcase", "product"],
+    category: "hero",
+    component: HeroFeatureCardsGrid,
+    props: "HeroFeatureCardsGridProps",
+    exampleUsage: `<HeroFeatureCardsGrid />`.trim(),
+  },
+
+  "hero-testimonial-image-grid": {
+    id: "hero-testimonial-image-grid",
+    name: "Testimonial Image Grid Hero",
+    description: "A hero combining testimonials with an image grid layout. Shows customer feedback alongside visual content.",
+    semanticTags: ["hero", "testimonial", "image", "grid", "reviews", "customers", "feedback", "social-proof"],
+    category: "hero",
+    component: HeroTestimonialImageGrid,
+    props: "HeroTestimonialImageGridProps",
+    exampleUsage: `<HeroTestimonialImageGrid />`.trim(),
+  },
+
+  "hero-design-system-3d": {
+    id: "hero-design-system-3d",
+    name: "Design System 3D Hero",
+    description: "A hero showcasing design systems with 3D perspective images. Modern and innovative design for design tool products.",
+    semanticTags: ["hero", "design-system", "3d", "perspective", "modern", "innovative", "tools", "creative"],
+    category: "hero",
+    component: HeroDesignSystem3d,
+    props: "HeroDesignSystem3dProps",
+    exampleUsage: `<HeroDesignSystem3d />`.trim(),
+  },
+
+  "hero-architecture-fullscreen": {
+    id: "hero-architecture-fullscreen",
+    name: "Architecture Fullscreen Hero",
+    description: "A fullscreen hero with architecture or real estate imagery. Features overlay content for property or construction businesses.",
+    semanticTags: ["hero", "architecture", "fullscreen", "real-estate", "property", "construction", "overlay", "immersive"],
+    category: "hero",
+    component: HeroArchitectureFullscreen,
+    props: "HeroArchitectureFullscreenProps",
+    exampleUsage: `<HeroArchitectureFullscreen />`.trim(),
+  },
+
+  "hero-innovation-image-grid": {
+    id: "hero-innovation-image-grid",
+    name: "Innovation Image Grid Hero",
+    description: "A hero focused on innovation with an image grid layout. Showcases innovative products or research visually.",
+    semanticTags: ["hero", "innovation", "image", "grid", "research", "technology", "showcase", "modern"],
+    category: "hero",
+    component: HeroInnovationImageGrid,
+    props: "HeroInnovationImageGridProps",
+    exampleUsage: `<HeroInnovationImageGrid />`.trim(),
+  },
+
+  "hero-video-dialog-gradient": {
+    id: "hero-video-dialog-gradient",
+    name: "Video Dialog Gradient Hero",
+    description: "A hero with gradient background and video dialog modal. Combines visual appeal with video content engagement.",
+    semanticTags: ["hero", "video", "dialog", "gradient", "modal", "engagement", "media", "modern"],
+    category: "hero",
+    component: HeroVideoDialogGradient,
+    props: "HeroVideoDialogGradientProps",
+    exampleUsage: `<HeroVideoDialogGradient />`.trim(),
+  },
+
+  "hero-minimal-centered-dark": {
+    id: "hero-minimal-centered-dark",
+    name: "Minimal Centered Dark Hero",
+    description: "A minimal dark-themed centered hero with beta badge. Clean and focused design for product launches.",
+    semanticTags: ["hero", "minimal", "centered", "dark", "beta", "launch", "clean", "focused"],
+    category: "hero",
+    component: HeroMinimalCenteredDark,
+    props: "HeroMinimalCenteredDarkProps",
+    exampleUsage: `<HeroMinimalCenteredDark />`.trim(),
+  },
+
+  "hero-product-showcase-floating": {
+    id: "hero-product-showcase-floating",
+    name: "Product Showcase Floating Hero",
+    description: "A hero with floating stats cards around a product showcase. Dynamic design highlighting key metrics and features.",
+    semanticTags: ["hero", "product", "showcase", "floating", "stats", "cards", "metrics", "dynamic"],
+    category: "hero",
+    component: HeroProductShowcaseFloating,
+    props: "HeroProductShowcaseFloatingProps",
+    exampleUsage: `<HeroProductShowcaseFloating />`.trim(),
+  },
+
+  "hero-saas-dashboard-preview": {
+    id: "hero-saas-dashboard-preview",
+    name: "SaaS Dashboard Preview Hero",
+    description: "A hero featuring a SaaS dashboard preview with email signup. Perfect for software products showing their interface.",
+    semanticTags: ["hero", "saas", "dashboard", "preview", "email", "signup", "software", "product"],
+    category: "hero",
+    component: HeroSaasDashboardPreview,
+    props: "HeroSaasDashboardPreviewProps",
+    exampleUsage: `<HeroSaasDashboardPreview />`.trim(),
+  },
+
+  "hero-therapy-testimonial-grid": {
+    id: "hero-therapy-testimonial-grid",
+    name: "Therapy Testimonial Grid Hero",
+    description: "A hero for therapy and wellness services with testimonial grid. Features calming design and client feedback.",
+    semanticTags: ["hero", "therapy", "testimonial", "grid", "wellness", "health", "mental-health", "calming"],
+    category: "hero",
+    component: HeroTherapyTestimonialGrid,
+    props: "HeroTherapyTestimonialGridProps",
+    exampleUsage: `<HeroTherapyTestimonialGrid />`.trim(),
+  },
+
+  "hero-mental-health-team": {
+    id: "hero-mental-health-team",
+    name: "Mental Health Team Hero",
+    description: "A dark-themed hero showcasing mental health professionals. Features team images and supportive messaging.",
+    semanticTags: ["hero", "mental-health", "team", "professionals", "dark", "support", "wellness", "healthcare"],
+    category: "hero",
+    component: HeroMentalHealthTeam,
+    props: "HeroMentalHealthTeamProps",
+    exampleUsage: `<HeroMentalHealthTeam />`.trim(),
+  },
+
+  "hero-mentorship-video-split": {
+    id: "hero-mentorship-video-split",
+    name: "Mentorship Video Split Hero",
+    description: "A split-layout hero for mentorship platforms with video preview. Features career growth messaging and video CTA.",
+    semanticTags: ["hero", "mentorship", "video", "split", "career", "growth", "education", "coaching"],
+    category: "hero",
+    component: HeroMentorshipVideoSplit,
+    props: "HeroMentorshipVideoSplitProps",
+    exampleUsage: `<HeroMentorshipVideoSplit />`.trim(),
+  },
+
+  "hero-business-operations-mosaic": {
+    id: "hero-business-operations-mosaic",
+    name: "Business Operations Mosaic Hero",
+    description: "A hero with mosaic image layout for business operations. Features asymmetric grid and professional messaging.",
+    semanticTags: ["hero", "business", "operations", "mosaic", "grid", "professional", "agency", "corporate"],
+    category: "hero",
+    component: HeroBusinessOperationsMosaic,
+    props: "HeroBusinessOperationsMosaicProps",
+    exampleUsage: `<HeroBusinessOperationsMosaic />`.trim(),
+  },
+
+  "hero-agency-animated-images": {
+    id: "hero-agency-animated-images",
+    name: "Agency Animated Images Hero",
+    description: "A hero for agencies with animated image transitions. Dynamic visual design showcasing creative work.",
+    semanticTags: ["hero", "agency", "animated", "images", "creative", "dynamic", "transitions", "portfolio"],
+    category: "hero",
+    component: HeroAgencyAnimatedImages,
+    props: "HeroAgencyAnimatedImagesProps",
+    exampleUsage: `<HeroAgencyAnimatedImages />`.trim(),
+  },
+
+  "hero-welcome-asymmetric-images": {
+    id: "hero-welcome-asymmetric-images",
+    name: "Welcome Asymmetric Images Hero",
+    description: "A welcoming hero with asymmetric image layout. Features staggered images and friendly messaging.",
+    semanticTags: ["hero", "welcome", "asymmetric", "images", "friendly", "staggered", "modern", "landing"],
+    category: "hero",
+    component: HeroWelcomeAsymmetricImages,
+    props: "HeroWelcomeAsymmetricImagesProps",
+    exampleUsage: `<HeroWelcomeAsymmetricImages />`.trim(),
+  },
+
+  "hero-startup-launch-cta": {
+    id: "hero-startup-launch-cta",
+    name: "Startup Launch CTA Hero",
+    description: "A hero designed for startup launches with prominent CTA. Features launch badge, user avatars, and growth messaging.",
+    semanticTags: ["hero", "startup", "launch", "cta", "badge", "avatars", "growth", "funding"],
+    category: "hero",
+    component: HeroStartupLaunchCta,
+    props: "HeroStartupLaunchCtaProps",
+    exampleUsage: `<HeroStartupLaunchCta />`.trim(),
+  },
+
+  "hero-enterprise-security": {
+    id: "hero-enterprise-security",
+    name: "Enterprise Security Hero",
+    description: "A hero focused on enterprise security features. Includes security badges, feature cards, and trust logos.",
+    semanticTags: ["hero", "enterprise", "security", "features", "trust", "compliance", "badges", "b2b"],
+    category: "hero",
+    component: HeroEnterpriseSecurity,
+    props: "HeroEnterpriseSecurityProps",
+    exampleUsage: `<HeroEnterpriseSecurity />`.trim(),
+  },
+
+  "hero-creative-studio-stacked": {
+    id: "hero-creative-studio-stacked",
+    name: "Creative Studio Stacked Hero",
+    description: "A hero for creative studios with stacked image layout. Features video CTA and design-focused messaging.",
+    semanticTags: ["hero", "creative", "studio", "stacked", "images", "video", "design", "agency"],
+    category: "hero",
+    component: HeroCreativeStudioStacked,
+    props: "HeroCreativeStudioStackedProps",
+    exampleUsage: `<HeroCreativeStudioStacked />`.trim(),
+  },
+
+  "hero-digital-agency-fullscreen": {
+    id: "hero-digital-agency-fullscreen",
+    name: "Digital Agency Fullscreen Hero",
+    description: "A fullscreen hero for digital agencies with background image. Features location info and scroll indicator.",
+    semanticTags: ["hero", "digital", "agency", "fullscreen", "background", "location", "immersive", "creative"],
+    category: "hero",
+    component: HeroDigitalAgencyFullscreen,
+    props: "HeroDigitalAgencyFullscreenProps",
+    exampleUsage: `<HeroDigitalAgencyFullscreen />`.trim(),
+  },
+
+  "hero-customer-support-layered": {
+    id: "hero-customer-support-layered",
+    name: "Customer Support Layered Hero",
+    description: "A hero for customer support platforms with layered image design. Features support messaging and dashboard previews.",
+    semanticTags: ["hero", "customer", "support", "layered", "helpdesk", "service", "dashboard", "saas"],
+    category: "hero",
+    component: HeroCustomerSupportLayered,
+    props: "HeroCustomerSupportLayeredProps",
+    exampleUsage: `<HeroCustomerSupportLayered />`.trim(),
+  },
+
+  "hero-shared-inbox-layered": {
+    id: "hero-shared-inbox-layered",
+    name: "Shared Inbox Layered Hero",
+    description: "A hero for shared inbox and email tools with layered screenshots. Features inbox organization messaging.",
+    semanticTags: ["hero", "shared", "inbox", "layered", "email", "collaboration", "team", "communication"],
+    category: "hero",
+    component: HeroSharedInboxLayered,
+    props: "HeroSharedInboxLayeredProps",
+    exampleUsage: `<HeroSharedInboxLayered />`.trim(),
+  },
+
+  "hero-conversation-intelligence": {
+    id: "hero-conversation-intelligence",
+    name: "Conversation Intelligence Hero",
+    description: "A hero for conversation intelligence and sales tools. Features gradient background and centered screenshot.",
+    semanticTags: ["hero", "conversation", "intelligence", "sales", "ai", "analytics", "gradient", "saas"],
+    category: "hero",
+    component: HeroConversationIntelligence,
+    props: "HeroConversationIntelligenceProps",
+    exampleUsage: `<HeroConversationIntelligence />`.trim(),
+  },
+
+  "hero-business-carousel-dots": {
+    id: "hero-business-carousel-dots",
+    name: "Business Carousel Dots Hero",
+    description: "A business hero with image carousel and dot navigation. Features premium badge and professional messaging.",
+    semanticTags: ["hero", "business", "carousel", "dots", "navigation", "premium", "professional", "enterprise"],
+    category: "hero",
+    component: HeroBusinessCarouselDots,
+    props: "HeroBusinessCarouselDotsProps",
+    exampleUsage: `<HeroBusinessCarouselDots />`.trim(),
+  },
+
+  "hero-developer-tools-code": {
+    id: "hero-developer-tools-code",
+    name: "Developer Tools Code Hero",
+    description: "A hero for developer tools featuring a terminal/code preview. Shows CLI commands and developer-focused messaging.",
+    semanticTags: ["hero", "developer", "tools", "code", "terminal", "cli", "programming", "technical"],
+    category: "hero",
+    component: HeroDeveloperToolsCode,
+    props: "HeroDeveloperToolsCodeProps",
+    exampleUsage: `<HeroDeveloperToolsCode />`.trim(),
+  },
+
+  "hero-ecommerce-product-showcase": {
+    id: "hero-ecommerce-product-showcase",
+    name: "Ecommerce Product Showcase Hero",
+    description: "A hero for ecommerce with product image grid. Features new collection badge and shopping statistics.",
+    semanticTags: ["hero", "ecommerce", "product", "showcase", "shopping", "retail", "collection", "store"],
+    category: "hero",
+    component: HeroEcommerceProductShowcase,
+    props: "HeroEcommerceProductShowcaseProps",
+    exampleUsage: `<HeroEcommerceProductShowcase />`.trim(),
+  },
+
+  "hero-mobile-app-download": {
+    id: "hero-mobile-app-download",
+    name: "Mobile App Download Hero",
+    description: "A hero for mobile apps with download buttons. Features app store badges, phone mockup, and ratings.",
+    semanticTags: ["hero", "mobile", "app", "download", "ios", "android", "phone", "ratings"],
+    category: "hero",
+    component: HeroMobileAppDownload,
+    props: "HeroMobileAppDownloadProps",
+    exampleUsage: `<HeroMobileAppDownload />`.trim(),
+  },
+
+  "hero-pricing-comparison": {
+    id: "hero-pricing-comparison",
+    name: "Pricing Comparison Hero",
+    description: "A hero featuring pricing tiers comparison. Shows starter, pro, and enterprise plans with feature lists.",
+    semanticTags: ["hero", "pricing", "comparison", "plans", "tiers", "subscription", "saas", "features"],
+    category: "hero",
+    component: HeroPricingComparison,
+    props: "HeroPricingComparisonProps",
+    exampleUsage: `<HeroPricingComparison />`.trim(),
+  },
+
+  "hero-newsletter-minimal": {
+    id: "hero-newsletter-minimal",
+    name: "Newsletter Minimal Hero",
+    description: "A minimal hero focused on newsletter signup. Clean design with email input and subscriber count.",
+    semanticTags: ["hero", "newsletter", "minimal", "signup", "email", "subscription", "clean", "focused"],
+    category: "hero",
+    component: HeroNewsletterMinimal,
+    props: "HeroNewsletterMinimalProps",
+    exampleUsage: `<HeroNewsletterMinimal />`.trim(),
+  },
+
+  "hero-coming-soon-countdown": {
+    id: "hero-coming-soon-countdown",
+    name: "Coming Soon Countdown Hero",
+    description: "A dark-themed hero with countdown timer for launches. Features email signup and social links.",
+    semanticTags: ["hero", "coming-soon", "countdown", "launch", "timer", "dark", "teaser", "anticipation"],
+    category: "hero",
+    component: HeroComingSoonCountdown,
+    props: "HeroComingSoonCountdownProps",
+    exampleUsage: `<HeroComingSoonCountdown />`.trim(),
+  },
+
+  "hero-event-registration": {
+    id: "hero-event-registration",
+    name: "Event Registration Hero",
+    description: "A hero for event registration with date badge. Features speaker count, workshop info, and venue location.",
+    semanticTags: ["hero", "event", "registration", "conference", "workshop", "speakers", "venue", "date"],
+    category: "hero",
+    component: HeroEventRegistration,
+    props: "HeroEventRegistrationProps",
+    exampleUsage: `<HeroEventRegistration />`.trim(),
+  },
+
+  "hero-portfolio-creative": {
+    id: "hero-portfolio-creative",
+    name: "Portfolio Creative Hero",
+    description: "A hero for creative portfolios with profile and project grid. Features social links and personal branding.",
+    semanticTags: ["hero", "portfolio", "creative", "profile", "projects", "personal", "designer", "freelancer"],
+    category: "hero",
+    component: HeroPortfolioCreative,
+    props: "HeroPortfolioCreativeProps",
+    exampleUsage: `<HeroPortfolioCreative />`.trim(),
   },
 };
 
