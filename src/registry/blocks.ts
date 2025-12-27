@@ -15,6 +15,20 @@
 
 import { AlternatingBlocks } from "../../components/blocks/about/alternating-blocks";
 import type { AlternatingBlocksProps } from "../../components/blocks/about/alternating-blocks";
+import { AboutMissionFeatures } from "../../components/blocks/about/about-mission-features";
+import { AboutStatsShowcase } from "../../components/blocks/about/about-stats-showcase";
+import { AboutCompanyProfile } from "../../components/blocks/about/about-company-profile";
+import { AboutVisionGallery } from "../../components/blocks/about/about-vision-gallery";
+import { AboutDeveloperStory } from "../../components/blocks/about/about-developer-story";
+import { AboutStoryGallery } from "../../components/blocks/about/about-story-gallery";
+import { AboutStreamlineTeam } from "../../components/blocks/about/about-streamline-team";
+import { AboutDeveloperProfile } from "../../components/blocks/about/about-developer-profile";
+import { AboutStartupTeam } from "../../components/blocks/about/about-startup-team";
+import { AboutMinimalStory } from "../../components/blocks/about/about-minimal-story";
+import { AboutStoryHero } from "../../components/blocks/about/about-story-hero";
+import { AboutStatsSidebar } from "../../components/blocks/about/about-stats-sidebar";
+import { AboutInteractiveTabs } from "../../components/blocks/about/about-interactive-tabs";
+import { AboutMissionDualImage } from "../../components/blocks/about/about-mission-dual-image";
 import { MediaHoverCtas } from "../../components/blocks/cta/media-hover-ctas";
 import type { MediaHoverCtasProps } from "../../components/blocks/cta/media-hover-ctas";
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
@@ -139,6 +153,442 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       mediaLeft: true
     }
   ]}
+/>
+    `.trim(),
+  },
+  "about-mission-features": {
+    id: "about-mission-features",
+    name: "About Mission Features",
+    description:
+      "A mission-focused about section featuring a hero title, description, main image, mission statement with background image, and a grid of feature cards with icons. Ideal for company about pages that want to highlight their mission and core values.",
+    semanticTags: [
+      "about",
+      "mission",
+      "features",
+      "values",
+      "company",
+      "icons",
+      "cards",
+      "hero",
+      "image-grid",
+    ],
+    category: "about",
+    component: AboutMissionFeatures,
+    props: "AboutMissionFeaturesProps",
+    exampleUsage: `
+<AboutMissionFeatures
+  title="About Us"
+  description="We make it easy to build customer portals and internal tools."
+  missionLabel="OUR MISSION"
+  missionText="We believe building software should be insanely easy."
+  mainImage={{ src: "/images/team.jpg", alt: "Our team" }}
+  features={[
+    { icon: "lucide/files", title: "Being radically open", description: "..." },
+    { icon: "lucide/settings", title: "Optimizing for empowerment", description: "..." }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-stats-showcase": {
+    id: "about-stats-showcase",
+    name: "About Stats Showcase",
+    description:
+      "A comprehensive about section featuring a hero with image grid, statistics display, trusted company logos, and benefit cards with testimonials. Perfect for showcasing company achievements, social proof, and key metrics in a visually engaging layout.",
+    semanticTags: [
+      "about",
+      "stats",
+      "statistics",
+      "metrics",
+      "logos",
+      "testimonials",
+      "benefits",
+      "social-proof",
+      "achievements",
+    ],
+    category: "about",
+    component: AboutStatsShowcase,
+    props: "AboutStatsShowcaseProps",
+    exampleUsage: `
+<AboutStatsShowcase
+  title="Our Background"
+  description="Discover how our solution simplifies complex processes."
+  stats={[
+    { value: "21M", label: "Global Reach of Users" },
+    { value: "12+", label: "Years of Expertise" }
+  ]}
+  logosTitle="Trusted by leading product teams worldwide."
+/>
+    `.trim(),
+  },
+  "about-company-profile": {
+    id: "about-company-profile",
+    name: "About Company Profile",
+    description:
+      "A company profile section with main image, breakout card with CTA, secondary image, trusted company logos, and an achievements section with key metrics. Ideal for corporate about pages that need to establish credibility and showcase accomplishments.",
+    semanticTags: [
+      "about",
+      "company",
+      "profile",
+      "achievements",
+      "metrics",
+      "logos",
+      "corporate",
+      "cta",
+      "credibility",
+    ],
+    category: "about",
+    component: AboutCompanyProfile,
+    props: "AboutCompanyProfileProps",
+    exampleUsage: `
+<AboutCompanyProfile
+  title="About Us"
+  description="A passionate team dedicated to creating innovative solutions."
+  breakout={{
+    title: "Hundreds of blocks at Opensite AI",
+    description: "Providing businesses with effective tools.",
+    buttonText: "Discover more",
+    buttonUrl: "#"
+  }}
+  achievements={[
+    { label: "Companies", value: "300+" },
+    { label: "Happy Customers", value: "99%" }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-vision-gallery": {
+    id: "about-vision-gallery",
+    name: "About Vision Gallery",
+    description:
+      "A vision-focused about section with hero title, image gallery grid, two-column vision/creators content, and a team CTA banner. Perfect for companies wanting to share their story, vision, and invite visitors to join their team.",
+    semanticTags: [
+      "about",
+      "vision",
+      "gallery",
+      "images",
+      "story",
+      "team",
+      "cta",
+      "creators",
+      "two-column",
+    ],
+    category: "about",
+    component: AboutVisionGallery,
+    props: "AboutVisionGalleryProps",
+    exampleUsage: `
+<AboutVisionGallery
+  title="About Us"
+  subtitle="Meet our team and discover our values."
+  visionTitle="Our Vision"
+  visionContent="What if you could create custom software without code?"
+  ctaTitle="Part of Our Global Team"
+  ctaButtonText="Get to know the team"
+/>
+    `.trim(),
+  },
+  "about-developer-story": {
+    id: "about-developer-story",
+    name: "About Developer Story",
+    description:
+      "A developer-focused about section with hero title, dual CTAs, logo showcase, statistics bar, and a story section with image. Ideal for developer tools, SaaS platforms, and tech companies targeting technical audiences.",
+    semanticTags: [
+      "about",
+      "developer",
+      "story",
+      "tech",
+      "saas",
+      "logos",
+      "stats",
+      "cta",
+      "technical",
+    ],
+    category: "about",
+    component: AboutDeveloperStory,
+    props: "AboutDeveloperStoryProps",
+    exampleUsage: `
+<AboutDeveloperStory
+  title="Developer-Focused Solutions for Modern Teams"
+  description="We build tools that developers love."
+  primaryCta={{ text: "Get Started", url: "#" }}
+  stats={[
+    { value: "200+", label: "Projects Completed" },
+    { value: "50+", label: "Happy Clients" }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-story-gallery": {
+    id: "about-story-gallery",
+    name: "About Story Gallery",
+    description:
+      "A minimal story section with centered title, descriptive content, and a multi-image gallery grid. Perfect for companies wanting to share their journey with visual storytelling in a clean, focused layout.",
+    semanticTags: [
+      "about",
+      "story",
+      "gallery",
+      "images",
+      "minimal",
+      "journey",
+      "narrative",
+      "visual",
+    ],
+    category: "about",
+    component: AboutStoryGallery,
+    props: "AboutStoryGalleryProps",
+    exampleUsage: `
+<AboutStoryGallery
+  title="Our Story"
+  description="We started with a vision to transform how businesses build software."
+  images={[
+    { src: "/images/story1.jpg", alt: "Our beginning" },
+    { src: "/images/story2.jpg", alt: "Growth phase" }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-streamline-team": {
+    id: "about-streamline-team",
+    name: "About Streamline Team",
+    description:
+      "A streamlined about section with overlapping image layout, feature list with icons, and a team CTA banner. Ideal for showcasing workflow benefits and inviting visitors to join the team in a modern, visually appealing design.",
+    semanticTags: [
+      "about",
+      "streamline",
+      "team",
+      "features",
+      "workflow",
+      "icons",
+      "cta",
+      "modern",
+      "overlapping",
+    ],
+    category: "about",
+    component: AboutStreamlineTeam,
+    props: "AboutStreamlineTeamProps",
+    exampleUsage: `
+<AboutStreamlineTeam
+  title="Streamline Your Workflow"
+  description="Our platform helps teams work smarter, not harder."
+  features={[
+    { icon: "lucide/zap", title: "Lightning Fast", description: "Build in minutes." },
+    { icon: "lucide/shield", title: "Enterprise Security", description: "Bank-grade security." }
+  ]}
+  teamCta={{ text: "Join Our Team", url: "#" }}
+/>
+    `.trim(),
+  },
+  "about-developer-profile": {
+    id: "about-developer-profile",
+    name: "About Developer Profile",
+    description:
+      "A developer portfolio-style profile section with avatar, name, role, social links, bio, skills tags, and contact CTA. Perfect for personal portfolios, team member spotlights, or founder profiles on company about pages.",
+    semanticTags: [
+      "about",
+      "developer",
+      "profile",
+      "portfolio",
+      "skills",
+      "social",
+      "bio",
+      "personal",
+      "founder",
+    ],
+    category: "about",
+    component: AboutDeveloperProfile,
+    props: "AboutDeveloperProfileProps",
+    exampleUsage: `
+<AboutDeveloperProfile
+  name="Alex Johnson"
+  role="Full-Stack Developer"
+  bio="I'm a passionate developer with 8+ years of experience."
+  skills={["React", "TypeScript", "Node.js", "Python"]}
+  socialLinks={[
+    { icon: "lucide/github", url: "#", label: "GitHub" }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-startup-team": {
+    id: "about-startup-team",
+    name: "About Startup Team",
+    description:
+      "A SaaS startup-style about section with sticky sidebar navigation, main content area, and a team member grid with avatars and social links. Ideal for startup about pages that need organized navigation and team introductions.",
+    semanticTags: [
+      "about",
+      "startup",
+      "team",
+      "sidebar",
+      "navigation",
+      "saas",
+      "members",
+      "avatars",
+      "social",
+    ],
+    category: "about",
+    component: AboutStartupTeam,
+    props: "AboutStartupTeamProps",
+    exampleUsage: `
+<AboutStartupTeam
+  title="Building the Future of Software Development"
+  description="We're a team of passionate builders."
+  sidebarLinks={[
+    { label: "About Us", href: "#about", isActive: true },
+    { label: "Our Team", href: "#team" }
+  ]}
+  teamMembers={[
+    { name: "Sarah Chen", role: "CEO & Co-Founder" }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-minimal-story": {
+    id: "about-minimal-story",
+    name: "About Minimal Story",
+    description:
+      "A minimal, author-focused story section with avatar, author info, title, narrative content, and optional featured image. Perfect for founder stories, company origin narratives, or personal brand about pages.",
+    semanticTags: [
+      "about",
+      "minimal",
+      "story",
+      "author",
+      "founder",
+      "narrative",
+      "personal",
+      "origin",
+    ],
+    category: "about",
+    component: AboutMinimalStory,
+    props: "AboutMinimalStoryProps",
+    exampleUsage: `
+<AboutMinimalStory
+  title="Our Story"
+  content="Every great company starts with a simple idea."
+  author={{
+    name: "Jordan Mitchell",
+    role: "Founder & CEO"
+  }}
+/>
+    `.trim(),
+  },
+  "about-story-hero": {
+    id: "about-story-hero",
+    name: "About Story Hero",
+    description:
+      "A story section with hero image, subtitle, title, narrative content, and team info card. Ideal for company story pages that want to combine visual impact with detailed narrative and team highlights.",
+    semanticTags: [
+      "about",
+      "story",
+      "hero",
+      "image",
+      "narrative",
+      "team",
+      "visual",
+      "impact",
+    ],
+    category: "about",
+    component: AboutStoryHero,
+    props: "AboutStoryHeroProps",
+    exampleUsage: `
+<AboutStoryHero
+  title="Our Story"
+  subtitle="Building the future, one line of code at a time"
+  content="We started with a bold idea..."
+  teamInfo={{
+    title: "50+ Team Members",
+    description: "Working across 12 countries"
+  }}
+/>
+    `.trim(),
+  },
+  "about-stats-sidebar": {
+    id: "about-stats-sidebar",
+    name: "About Stats Sidebar",
+    description:
+      "A stats-focused about section with sticky sidebar title/description, stats grid with icons, and feature list. Perfect for showcasing company metrics and key differentiators in a scannable, organized layout.",
+    semanticTags: [
+      "about",
+      "stats",
+      "sidebar",
+      "metrics",
+      "features",
+      "icons",
+      "sticky",
+      "organized",
+    ],
+    category: "about",
+    component: AboutStatsSidebar,
+    props: "AboutStatsSidebarProps",
+    exampleUsage: `
+<AboutStatsSidebar
+  title="Why Choose Us"
+  description="We've built a platform that scales with your needs."
+  stats={[
+    { icon: "lucide/users", value: "10M+", label: "Active Users" },
+    { icon: "lucide/globe", value: "150+", label: "Countries" }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-interactive-tabs": {
+    id: "about-interactive-tabs",
+    name: "About Interactive Tabs",
+    description:
+      "An interactive about section with tabbed navigation, dynamic content switching, and optional images per tab. Ideal for showcasing multiple aspects of a company (work, process, values) in an engaging, space-efficient format.",
+    semanticTags: [
+      "about",
+      "interactive",
+      "tabs",
+      "navigation",
+      "dynamic",
+      "work",
+      "process",
+      "values",
+    ],
+    category: "about",
+    component: AboutInteractiveTabs,
+    props: "AboutInteractiveTabsProps",
+    exampleUsage: `
+<AboutInteractiveTabs
+  title="Discover Our Story"
+  subtitle="Learn more about who we are"
+  tabs={[
+    {
+      id: "work",
+      label: "Our Work",
+      content: {
+        title: "Crafting Digital Experiences",
+        description: "We create beautiful, functional products."
+      }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "about-mission-dual-image": {
+    id: "about-mission-dual-image",
+    name: "About Mission Dual Image",
+    description:
+      "A mission/vision section with dual content blocks, CTA button, and a two-column image layout with offset positioning. Perfect for companies wanting to clearly communicate their mission and vision with strong visual support.",
+    semanticTags: [
+      "about",
+      "mission",
+      "vision",
+      "dual-image",
+      "cta",
+      "offset",
+      "two-column",
+      "visual",
+    ],
+    category: "about",
+    component: AboutMissionDualImage,
+    props: "AboutMissionDualImageProps",
+    exampleUsage: `
+<AboutMissionDualImage
+  missionTitle="Our Mission"
+  missionContent="To democratize software development."
+  visionTitle="Our Vision"
+  visionContent="A world where every idea can become reality."
+  cta={{ text: "Join Our Journey", url: "#" }}
 />
     `.trim(),
   },
