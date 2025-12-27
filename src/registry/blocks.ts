@@ -69,6 +69,48 @@ import { MasonryMotionGrid } from "../../components/blocks/gallery/masonry-motio
 import { BlurVignetteGrid } from "../../components/blocks/gallery/blur-vignette-grid";
 import { InteriorCarousel } from "../../components/blocks/gallery/interior-carousel";
 
+// Background Pattern Hero components
+import { RadialGradientTop } from "../../components/blocks/background-pattern-hero/radial-gradient-top";
+import { RadialGradientBottom } from "../../components/blocks/background-pattern-hero/radial-gradient-bottom";
+import { GridBasic } from "../../components/blocks/background-pattern-hero/grid-basic";
+import { GridFadeTopLeft } from "../../components/blocks/background-pattern-hero/grid-fade-top-left";
+import { GridFadeTopRight } from "../../components/blocks/background-pattern-hero/grid-fade-top-right";
+import { GridFadeTop } from "../../components/blocks/background-pattern-hero/grid-fade-top";
+import { GridFadeBottom } from "../../components/blocks/background-pattern-hero/grid-fade-bottom";
+import { GridFadeBottomLeft } from "../../components/blocks/background-pattern-hero/grid-fade-bottom-left";
+import { GridFadeBottomRight } from "../../components/blocks/background-pattern-hero/grid-fade-bottom-right";
+import { GridFadeCenter } from "../../components/blocks/background-pattern-hero/grid-fade-center";
+import { DiagonalCrossBasic } from "../../components/blocks/background-pattern-hero/diagonal-cross-basic";
+import { DiagonalCrossFadeTopLeft } from "../../components/blocks/background-pattern-hero/diagonal-cross-fade-top-left";
+import { DiagonalCrossFadeTopRight } from "../../components/blocks/background-pattern-hero/diagonal-cross-fade-top-right";
+import { DiagonalCrossFadeTop } from "../../components/blocks/background-pattern-hero/diagonal-cross-fade-top";
+import { DiagonalCrossFadeBottom } from "../../components/blocks/background-pattern-hero/diagonal-cross-fade-bottom";
+import { DiagonalCrossFadeBottomLeft } from "../../components/blocks/background-pattern-hero/diagonal-cross-fade-bottom-left";
+import { DiagonalCrossFadeBottomRight } from "../../components/blocks/background-pattern-hero/diagonal-cross-fade-bottom-right";
+import { DiagonalCrossFadeCenter } from "../../components/blocks/background-pattern-hero/diagonal-cross-fade-center";
+import { DashedGridBasic } from "../../components/blocks/background-pattern-hero/dashed-grid-basic";
+import { DashedGridFadeTopLeft } from "../../components/blocks/background-pattern-hero/dashed-grid-fade-top-left";
+import { DashedGridFadeTopRight } from "../../components/blocks/background-pattern-hero/dashed-grid-fade-top-right";
+import { DashedGridFadeTop } from "../../components/blocks/background-pattern-hero/dashed-grid-fade-top";
+import { DashedGridFadeBottom } from "../../components/blocks/background-pattern-hero/dashed-grid-fade-bottom";
+import { DashedGridFadeBottomLeft } from "../../components/blocks/background-pattern-hero/dashed-grid-fade-bottom-left";
+import { DashedGridFadeBottomRight } from "../../components/blocks/background-pattern-hero/dashed-grid-fade-bottom-right";
+import { DashedGridFadeCenter } from "../../components/blocks/background-pattern-hero/dashed-grid-fade-center";
+import { GradientGlowTop } from "../../components/blocks/background-pattern-hero/gradient-glow-top";
+import { GradientGlowBottom } from "../../components/blocks/background-pattern-hero/gradient-glow-bottom";
+import { SpotlightLeft } from "../../components/blocks/background-pattern-hero/spotlight-left";
+import { SpotlightRight } from "../../components/blocks/background-pattern-hero/spotlight-right";
+import { CircuitBoardBasic } from "../../components/blocks/background-pattern-hero/circuit-board-basic";
+import { CircuitBoardFadeTopLeft } from "../../components/blocks/background-pattern-hero/circuit-board-fade-top-left";
+import { CircuitBoardFadeTopRight } from "../../components/blocks/background-pattern-hero/circuit-board-fade-top-right";
+import { CircuitBoardFadeTop } from "../../components/blocks/background-pattern-hero/circuit-board-fade-top";
+import { CircuitBoardFadeBottom } from "../../components/blocks/background-pattern-hero/circuit-board-fade-bottom";
+import { CircuitBoardFadeBottomLeft } from "../../components/blocks/background-pattern-hero/circuit-board-fade-bottom-left";
+import { CircuitBoardFadeBottomRight } from "../../components/blocks/background-pattern-hero/circuit-board-fade-bottom-right";
+import { CircuitBoardFadeCenter } from "../../components/blocks/background-pattern-hero/circuit-board-fade-center";
+import { GridDotsBasic } from "../../components/blocks/background-pattern-hero/grid-dots-basic";
+import { GridDotsFadeCenter } from "../../components/blocks/background-pattern-hero/grid-dots-fade-center";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -98,7 +140,8 @@ export type BlockCategory =
   | "timeline"
   | "process"
   | "benefits"
-  | "comparison";
+  | "comparison"
+  | "background-pattern-hero";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -1649,6 +1692,1086 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     { src: "/images/interior3.jpg", alt: "Bedroom" }
   ]}
 />
+    `.trim(),
+  },
+  "radial-gradient-top": {
+    id: "radial-gradient-top",
+    name: "Radial Gradient Top",
+    description:
+      "A hero section with a radial gradient background emanating from the top center. Creates a dramatic primary-colored glow effect that fades into the background. Ideal for landing pages and hero sections that need visual depth and focus.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "gradient",
+      "radial",
+      "glow",
+      "top",
+      "landing",
+      "dramatic",
+    ],
+    category: "background-pattern-hero",
+    component: RadialGradientTop,
+    props: "RadialGradientTopProps",
+    exampleUsage: `
+<RadialGradientTop>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</RadialGradientTop>
+    `.trim(),
+  },
+  "radial-gradient-bottom": {
+    id: "radial-gradient-bottom",
+    name: "Radial Gradient Bottom",
+    description:
+      "A hero section with a radial gradient background emanating from the bottom center. Creates a dramatic primary-colored glow effect rising from below. Ideal for sections that need grounding visual weight at the bottom.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "gradient",
+      "radial",
+      "glow",
+      "bottom",
+      "grounding",
+      "dramatic",
+    ],
+    category: "background-pattern-hero",
+    component: RadialGradientBottom,
+    props: "RadialGradientBottomProps",
+    exampleUsage: `
+<RadialGradientBottom>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</RadialGradientBottom>
+    `.trim(),
+  },
+  "grid-basic": {
+    id: "grid-basic",
+    name: "Grid Basic",
+    description:
+      "A hero section with a simple grid line pattern background. Features evenly spaced horizontal and vertical lines creating a clean grid effect. Ideal for tech, engineering, or data-focused landing pages.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "lines",
+      "tech",
+      "engineering",
+      "data",
+      "clean",
+    ],
+    category: "background-pattern-hero",
+    component: GridBasic,
+    props: "GridBasicProps",
+    exampleUsage: `
+<GridBasic>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridBasic>
+    `.trim(),
+  },
+  "grid-fade-top-left": {
+    id: "grid-fade-top-left",
+    name: "Grid Fade Top Left",
+    description:
+      "A hero section with a grid pattern that fades from the top-left corner. The grid lines are most visible in the top-left and gradually fade toward the opposite corner. Ideal for asymmetric layouts or when content is positioned toward the bottom-right.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "fade",
+      "top-left",
+      "asymmetric",
+      "corner",
+      "gradient-mask",
+    ],
+    category: "background-pattern-hero",
+    component: GridFadeTopLeft,
+    props: "GridFadeTopLeftProps",
+    exampleUsage: `
+<GridFadeTopLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridFadeTopLeft>
+    `.trim(),
+  },
+  "grid-fade-top-right": {
+    id: "grid-fade-top-right",
+    name: "Grid Fade Top Right",
+    description:
+      "A hero section with a grid pattern that fades from the top-right corner. The grid lines are most visible in the top-right and gradually fade toward the opposite corner. Ideal for asymmetric layouts or when content is positioned toward the bottom-left.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "fade",
+      "top-right",
+      "asymmetric",
+      "corner",
+      "gradient-mask",
+    ],
+    category: "background-pattern-hero",
+    component: GridFadeTopRight,
+    props: "GridFadeTopRightProps",
+    exampleUsage: `
+<GridFadeTopRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridFadeTopRight>
+    `.trim(),
+  },
+  "grid-fade-top": {
+    id: "grid-fade-top",
+    name: "Grid Fade Top",
+    description:
+      "A hero section with a grid pattern that fades from the top edge. The grid lines are most visible at the top and gradually fade toward the bottom. Ideal for hero sections where content is centered or positioned below.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "fade",
+      "top",
+      "edge",
+      "centered",
+      "gradient-mask",
+    ],
+    category: "background-pattern-hero",
+    component: GridFadeTop,
+    props: "GridFadeTopProps",
+    exampleUsage: `
+<GridFadeTop>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridFadeTop>
+    `.trim(),
+  },
+  "grid-fade-bottom": {
+    id: "grid-fade-bottom",
+    name: "Grid Fade Bottom",
+    description:
+      "A hero section with a grid pattern that fades from the bottom edge. The grid lines are most visible at the bottom and gradually fade toward the top. Ideal for sections that need visual grounding or when content is positioned above.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "fade",
+      "bottom",
+      "edge",
+      "grounding",
+      "gradient-mask",
+    ],
+    category: "background-pattern-hero",
+    component: GridFadeBottom,
+    props: "GridFadeBottomProps",
+    exampleUsage: `
+<GridFadeBottom>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridFadeBottom>
+    `.trim(),
+  },
+  "grid-fade-bottom-left": {
+    id: "grid-fade-bottom-left",
+    name: "Grid Fade Bottom Left",
+    description:
+      "A hero section with a grid pattern that fades from the bottom-left corner. The grid lines are most visible in the bottom-left and gradually fade toward the opposite corner. Ideal for asymmetric layouts or when content is positioned toward the top-right.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "fade",
+      "bottom-left",
+      "asymmetric",
+      "corner",
+      "gradient-mask",
+    ],
+    category: "background-pattern-hero",
+    component: GridFadeBottomLeft,
+    props: "GridFadeBottomLeftProps",
+    exampleUsage: `
+<GridFadeBottomLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridFadeBottomLeft>
+    `.trim(),
+  },
+  "grid-fade-bottom-right": {
+    id: "grid-fade-bottom-right",
+    name: "Grid Fade Bottom Right",
+    description:
+      "A hero section with a grid pattern that fades from the bottom-right corner. The grid lines are most visible in the bottom-right and gradually fade toward the opposite corner. Ideal for asymmetric layouts or when content is positioned toward the top-left.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "fade",
+      "bottom-right",
+      "asymmetric",
+      "corner",
+      "gradient-mask",
+    ],
+    category: "background-pattern-hero",
+    component: GridFadeBottomRight,
+    props: "GridFadeBottomRightProps",
+    exampleUsage: `
+<GridFadeBottomRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridFadeBottomRight>
+    `.trim(),
+  },
+  "grid-fade-center": {
+    id: "grid-fade-center",
+    name: "Grid Fade Center",
+    description:
+      "A hero section with a grid pattern that fades from the center outward. The grid lines are most visible in the center and gradually fade toward the edges. Ideal for centered content layouts that need a focused background effect.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "fade",
+      "center",
+      "focused",
+      "centered",
+      "gradient-mask",
+    ],
+    category: "background-pattern-hero",
+    component: GridFadeCenter,
+    props: "GridFadeCenterProps",
+    exampleUsage: `
+<GridFadeCenter>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridFadeCenter>
+    `.trim(),
+  },
+  "diagonal-cross-basic": {
+    id: "diagonal-cross-basic",
+    name: "Diagonal Cross Basic",
+    description:
+      "A hero section with a diagonal cross-hatch pattern background. Features intersecting 45-degree lines creating an X-pattern grid effect. Ideal for modern, dynamic landing pages with a geometric aesthetic.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "geometric",
+      "modern",
+      "dynamic",
+      "x-pattern",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossBasic,
+    props: "DiagonalCrossBasicProps",
+    exampleUsage: `
+<DiagonalCrossBasic>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossBasic>
+    `.trim(),
+  },
+  "diagonal-cross-fade-top-left": {
+    id: "diagonal-cross-fade-top-left",
+    name: "Diagonal Cross Fade Top Left",
+    description:
+      "A hero section with a diagonal cross-hatch pattern that fades from the top-left corner. The pattern is most visible in the top-left and gradually fades toward the opposite corner. Ideal for asymmetric layouts with geometric styling.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "fade",
+      "top-left",
+      "asymmetric",
+      "geometric",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossFadeTopLeft,
+    props: "DiagonalCrossFadeTopLeftProps",
+    exampleUsage: `
+<DiagonalCrossFadeTopLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossFadeTopLeft>
+    `.trim(),
+  },
+  "diagonal-cross-fade-top-right": {
+    id: "diagonal-cross-fade-top-right",
+    name: "Diagonal Cross Fade Top Right",
+    description:
+      "A hero section with a diagonal cross-hatch pattern that fades from the top-right corner. The pattern is most visible in the top-right and gradually fades toward the opposite corner. Ideal for asymmetric layouts with geometric styling.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "fade",
+      "top-right",
+      "asymmetric",
+      "geometric",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossFadeTopRight,
+    props: "DiagonalCrossFadeTopRightProps",
+    exampleUsage: `
+<DiagonalCrossFadeTopRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossFadeTopRight>
+    `.trim(),
+  },
+  "diagonal-cross-fade-top": {
+    id: "diagonal-cross-fade-top",
+    name: "Diagonal Cross Fade Top",
+    description:
+      "A hero section with a diagonal cross-hatch pattern that fades from the top edge. The pattern is most visible at the top and gradually fades toward the bottom. Ideal for hero sections with geometric styling where content is centered or below.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "fade",
+      "top",
+      "edge",
+      "geometric",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossFadeTop,
+    props: "DiagonalCrossFadeTopProps",
+    exampleUsage: `
+<DiagonalCrossFadeTop>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossFadeTop>
+    `.trim(),
+  },
+  "diagonal-cross-fade-bottom": {
+    id: "diagonal-cross-fade-bottom",
+    name: "Diagonal Cross Fade Bottom",
+    description:
+      "A hero section with a diagonal cross-hatch pattern that fades from the bottom edge. The pattern is most visible at the bottom and gradually fades toward the top. Ideal for sections with geometric styling that need visual grounding.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "fade",
+      "bottom",
+      "edge",
+      "geometric",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossFadeBottom,
+    props: "DiagonalCrossFadeBottomProps",
+    exampleUsage: `
+<DiagonalCrossFadeBottom>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossFadeBottom>
+    `.trim(),
+  },
+  "diagonal-cross-fade-bottom-left": {
+    id: "diagonal-cross-fade-bottom-left",
+    name: "Diagonal Cross Fade Bottom Left",
+    description:
+      "A hero section with a diagonal cross-hatch pattern that fades from the bottom-left corner. The pattern is most visible in the bottom-left and gradually fades toward the opposite corner. Ideal for asymmetric layouts with geometric styling.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "fade",
+      "bottom-left",
+      "asymmetric",
+      "geometric",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossFadeBottomLeft,
+    props: "DiagonalCrossFadeBottomLeftProps",
+    exampleUsage: `
+<DiagonalCrossFadeBottomLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossFadeBottomLeft>
+    `.trim(),
+  },
+  "diagonal-cross-fade-bottom-right": {
+    id: "diagonal-cross-fade-bottom-right",
+    name: "Diagonal Cross Fade Bottom Right",
+    description:
+      "A hero section with a diagonal cross-hatch pattern that fades from the bottom-right corner. The pattern is most visible in the bottom-right and gradually fades toward the opposite corner. Ideal for asymmetric layouts with geometric styling.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "fade",
+      "bottom-right",
+      "asymmetric",
+      "geometric",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossFadeBottomRight,
+    props: "DiagonalCrossFadeBottomRightProps",
+    exampleUsage: `
+<DiagonalCrossFadeBottomRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossFadeBottomRight>
+    `.trim(),
+  },
+  "diagonal-cross-fade-center": {
+    id: "diagonal-cross-fade-center",
+    name: "Diagonal Cross Fade Center",
+    description:
+      "A hero section with a diagonal cross-hatch pattern that fades from the center outward. The pattern is most visible in the center and gradually fades toward the edges. Ideal for centered content layouts with geometric styling.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "diagonal",
+      "cross",
+      "fade",
+      "center",
+      "focused",
+      "geometric",
+    ],
+    category: "background-pattern-hero",
+    component: DiagonalCrossFadeCenter,
+    props: "DiagonalCrossFadeCenterProps",
+    exampleUsage: `
+<DiagonalCrossFadeCenter>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DiagonalCrossFadeCenter>
+    `.trim(),
+  },
+  "dashed-grid-basic": {
+    id: "dashed-grid-basic",
+    name: "Dashed Grid Basic",
+    description:
+      "A hero section with a dashed grid line pattern background. Features evenly spaced dashed horizontal and vertical lines creating a subtle grid effect. Ideal for technical, blueprint-style, or minimalist landing pages.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "technical",
+      "blueprint",
+      "minimalist",
+      "subtle",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridBasic,
+    props: "DashedGridBasicProps",
+    exampleUsage: `
+<DashedGridBasic>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridBasic>
+    `.trim(),
+  },
+  "dashed-grid-fade-top-left": {
+    id: "dashed-grid-fade-top-left",
+    name: "Dashed Grid Fade Top Left",
+    description:
+      "A hero section with a dashed grid pattern that fades from the top-left corner. The dashed lines are most visible in the top-left and gradually fade toward the opposite corner. Ideal for asymmetric layouts with a technical aesthetic.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "fade",
+      "top-left",
+      "asymmetric",
+      "technical",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridFadeTopLeft,
+    props: "DashedGridFadeTopLeftProps",
+    exampleUsage: `
+<DashedGridFadeTopLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridFadeTopLeft>
+    `.trim(),
+  },
+  "dashed-grid-fade-top-right": {
+    id: "dashed-grid-fade-top-right",
+    name: "Dashed Grid Fade Top Right",
+    description:
+      "A hero section with a dashed grid pattern that fades from the top-right corner. The dashed lines are most visible in the top-right and gradually fade toward the opposite corner. Ideal for asymmetric layouts with a technical aesthetic.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "fade",
+      "top-right",
+      "asymmetric",
+      "technical",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridFadeTopRight,
+    props: "DashedGridFadeTopRightProps",
+    exampleUsage: `
+<DashedGridFadeTopRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridFadeTopRight>
+    `.trim(),
+  },
+  "dashed-grid-fade-top": {
+    id: "dashed-grid-fade-top",
+    name: "Dashed Grid Fade Top",
+    description:
+      "A hero section with a dashed grid pattern that fades from the top edge. The dashed lines are most visible at the top and gradually fade toward the bottom. Ideal for hero sections with a technical aesthetic where content is centered or below.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "fade",
+      "top",
+      "edge",
+      "technical",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridFadeTop,
+    props: "DashedGridFadeTopProps",
+    exampleUsage: `
+<DashedGridFadeTop>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridFadeTop>
+    `.trim(),
+  },
+  "dashed-grid-fade-bottom": {
+    id: "dashed-grid-fade-bottom",
+    name: "Dashed Grid Fade Bottom",
+    description:
+      "A hero section with a dashed grid pattern that fades from the bottom edge. The dashed lines are most visible at the bottom and gradually fade toward the top. Ideal for sections with a technical aesthetic that need visual grounding.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "fade",
+      "bottom",
+      "edge",
+      "technical",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridFadeBottom,
+    props: "DashedGridFadeBottomProps",
+    exampleUsage: `
+<DashedGridFadeBottom>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridFadeBottom>
+    `.trim(),
+  },
+  "dashed-grid-fade-bottom-left": {
+    id: "dashed-grid-fade-bottom-left",
+    name: "Dashed Grid Fade Bottom Left",
+    description:
+      "A hero section with a dashed grid pattern that fades from the bottom-left corner. The dashed lines are most visible in the bottom-left and gradually fade toward the opposite corner. Ideal for asymmetric layouts with a technical aesthetic.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "fade",
+      "bottom-left",
+      "asymmetric",
+      "technical",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridFadeBottomLeft,
+    props: "DashedGridFadeBottomLeftProps",
+    exampleUsage: `
+<DashedGridFadeBottomLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridFadeBottomLeft>
+    `.trim(),
+  },
+  "dashed-grid-fade-bottom-right": {
+    id: "dashed-grid-fade-bottom-right",
+    name: "Dashed Grid Fade Bottom Right",
+    description:
+      "A hero section with a dashed grid pattern that fades from the bottom-right corner. The dashed lines are most visible in the bottom-right and gradually fade toward the opposite corner. Ideal for asymmetric layouts with a technical aesthetic.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "fade",
+      "bottom-right",
+      "asymmetric",
+      "technical",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridFadeBottomRight,
+    props: "DashedGridFadeBottomRightProps",
+    exampleUsage: `
+<DashedGridFadeBottomRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridFadeBottomRight>
+    `.trim(),
+  },
+  "dashed-grid-fade-center": {
+    id: "dashed-grid-fade-center",
+    name: "Dashed Grid Fade Center",
+    description:
+      "A hero section with a dashed grid pattern that fades from the center outward. The dashed lines are most visible in the center and gradually fade toward the edges. Ideal for centered content layouts with a technical aesthetic.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "dashed",
+      "grid",
+      "fade",
+      "center",
+      "focused",
+      "technical",
+    ],
+    category: "background-pattern-hero",
+    component: DashedGridFadeCenter,
+    props: "DashedGridFadeCenterProps",
+    exampleUsage: `
+<DashedGridFadeCenter>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</DashedGridFadeCenter>
+    `.trim(),
+  },
+  "gradient-glow-top": {
+    id: "gradient-glow-top",
+    name: "Gradient Glow Top",
+    description:
+      "A hero section with a glowing gradient orb positioned at the top. Features a blurred primary-colored circle creating a soft ambient glow effect. Ideal for modern, atmospheric landing pages with a premium feel.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "glow",
+      "gradient",
+      "orb",
+      "top",
+      "atmospheric",
+      "premium",
+    ],
+    category: "background-pattern-hero",
+    component: GradientGlowTop,
+    props: "GradientGlowTopProps",
+    exampleUsage: `
+<GradientGlowTop>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GradientGlowTop>
+    `.trim(),
+  },
+  "gradient-glow-bottom": {
+    id: "gradient-glow-bottom",
+    name: "Gradient Glow Bottom",
+    description:
+      "A hero section with a glowing gradient orb positioned at the bottom. Features a blurred primary-colored circle creating a soft ambient glow effect from below. Ideal for sections that need visual grounding with a premium atmospheric feel.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "glow",
+      "gradient",
+      "orb",
+      "bottom",
+      "atmospheric",
+      "premium",
+    ],
+    category: "background-pattern-hero",
+    component: GradientGlowBottom,
+    props: "GradientGlowBottomProps",
+    exampleUsage: `
+<GradientGlowBottom>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GradientGlowBottom>
+    `.trim(),
+  },
+  "spotlight-left": {
+    id: "spotlight-left",
+    name: "Spotlight Left",
+    description:
+      "A hero section with a spotlight glow effect from the left side. Features a blurred primary-colored circle creating a directional ambient light effect. Ideal for asymmetric layouts where content is positioned on the right.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "spotlight",
+      "glow",
+      "left",
+      "directional",
+      "asymmetric",
+      "ambient",
+    ],
+    category: "background-pattern-hero",
+    component: SpotlightLeft,
+    props: "SpotlightLeftProps",
+    exampleUsage: `
+<SpotlightLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</SpotlightLeft>
+    `.trim(),
+  },
+  "spotlight-right": {
+    id: "spotlight-right",
+    name: "Spotlight Right",
+    description:
+      "A hero section with a spotlight glow effect from the right side. Features a blurred primary-colored circle creating a directional ambient light effect. Ideal for asymmetric layouts where content is positioned on the left.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "spotlight",
+      "glow",
+      "right",
+      "directional",
+      "asymmetric",
+      "ambient",
+    ],
+    category: "background-pattern-hero",
+    component: SpotlightRight,
+    props: "SpotlightRightProps",
+    exampleUsage: `
+<SpotlightRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</SpotlightRight>
+    `.trim(),
+  },
+  "circuit-board-basic": {
+    id: "circuit-board-basic",
+    name: "Circuit Board Basic",
+    description:
+      "A hero section with a circuit board pattern background. Features interconnected lines and nodes creating a tech-inspired PCB aesthetic. Ideal for technology, electronics, or engineering-focused landing pages.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "tech",
+      "electronics",
+      "pcb",
+      "engineering",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardBasic,
+    props: "CircuitBoardBasicProps",
+    exampleUsage: `
+<CircuitBoardBasic>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardBasic>
+    `.trim(),
+  },
+  "circuit-board-fade-top-left": {
+    id: "circuit-board-fade-top-left",
+    name: "Circuit Board Fade Top Left",
+    description:
+      "A hero section with a circuit board pattern that fades from the top-left corner. The pattern is most visible in the top-left and gradually fades toward the opposite corner. Ideal for asymmetric tech-focused layouts.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "fade",
+      "top-left",
+      "asymmetric",
+      "tech",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardFadeTopLeft,
+    props: "CircuitBoardFadeTopLeftProps",
+    exampleUsage: `
+<CircuitBoardFadeTopLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardFadeTopLeft>
+    `.trim(),
+  },
+  "circuit-board-fade-top-right": {
+    id: "circuit-board-fade-top-right",
+    name: "Circuit Board Fade Top Right",
+    description:
+      "A hero section with a circuit board pattern that fades from the top-right corner. The pattern is most visible in the top-right and gradually fades toward the opposite corner. Ideal for asymmetric tech-focused layouts.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "fade",
+      "top-right",
+      "asymmetric",
+      "tech",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardFadeTopRight,
+    props: "CircuitBoardFadeTopRightProps",
+    exampleUsage: `
+<CircuitBoardFadeTopRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardFadeTopRight>
+    `.trim(),
+  },
+  "circuit-board-fade-top": {
+    id: "circuit-board-fade-top",
+    name: "Circuit Board Fade Top",
+    description:
+      "A hero section with a circuit board pattern that fades from the top edge. The pattern is most visible at the top and gradually fades toward the bottom. Ideal for hero sections with a tech aesthetic where content is centered or below.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "fade",
+      "top",
+      "edge",
+      "tech",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardFadeTop,
+    props: "CircuitBoardFadeTopProps",
+    exampleUsage: `
+<CircuitBoardFadeTop>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardFadeTop>
+    `.trim(),
+  },
+  "circuit-board-fade-bottom": {
+    id: "circuit-board-fade-bottom",
+    name: "Circuit Board Fade Bottom",
+    description:
+      "A hero section with a circuit board pattern that fades from the bottom edge. The pattern is most visible at the bottom and gradually fades toward the top. Ideal for sections with a tech aesthetic that need visual grounding.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "fade",
+      "bottom",
+      "edge",
+      "tech",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardFadeBottom,
+    props: "CircuitBoardFadeBottomProps",
+    exampleUsage: `
+<CircuitBoardFadeBottom>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardFadeBottom>
+    `.trim(),
+  },
+  "circuit-board-fade-bottom-left": {
+    id: "circuit-board-fade-bottom-left",
+    name: "Circuit Board Fade Bottom Left",
+    description:
+      "A hero section with a circuit board pattern that fades from the bottom-left corner. The pattern is most visible in the bottom-left and gradually fades toward the opposite corner. Ideal for asymmetric tech-focused layouts.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "fade",
+      "bottom-left",
+      "asymmetric",
+      "tech",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardFadeBottomLeft,
+    props: "CircuitBoardFadeBottomLeftProps",
+    exampleUsage: `
+<CircuitBoardFadeBottomLeft>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardFadeBottomLeft>
+    `.trim(),
+  },
+  "circuit-board-fade-bottom-right": {
+    id: "circuit-board-fade-bottom-right",
+    name: "Circuit Board Fade Bottom Right",
+    description:
+      "A hero section with a circuit board pattern that fades from the bottom-right corner. The pattern is most visible in the bottom-right and gradually fades toward the opposite corner. Ideal for asymmetric tech-focused layouts.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "fade",
+      "bottom-right",
+      "asymmetric",
+      "tech",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardFadeBottomRight,
+    props: "CircuitBoardFadeBottomRightProps",
+    exampleUsage: `
+<CircuitBoardFadeBottomRight>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardFadeBottomRight>
+    `.trim(),
+  },
+  "circuit-board-fade-center": {
+    id: "circuit-board-fade-center",
+    name: "Circuit Board Fade Center",
+    description:
+      "A hero section with a circuit board pattern that fades from the center outward. The pattern is most visible in the center and gradually fades toward the edges. Ideal for centered content layouts with a tech aesthetic.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "circuit",
+      "board",
+      "fade",
+      "center",
+      "focused",
+      "tech",
+    ],
+    category: "background-pattern-hero",
+    component: CircuitBoardFadeCenter,
+    props: "CircuitBoardFadeCenterProps",
+    exampleUsage: `
+<CircuitBoardFadeCenter>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</CircuitBoardFadeCenter>
+    `.trim(),
+  },
+  "grid-dots-basic": {
+    id: "grid-dots-basic",
+    name: "Grid Dots Basic",
+    description:
+      "A hero section with a grid pattern featuring dots at intersections. Combines thin grid lines with circular nodes at each crossing point. Ideal for data visualization, network, or connection-themed landing pages.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "dots",
+      "nodes",
+      "network",
+      "data",
+      "connection",
+    ],
+    category: "background-pattern-hero",
+    component: GridDotsBasic,
+    props: "GridDotsBasicProps",
+    exampleUsage: `
+<GridDotsBasic>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridDotsBasic>
+    `.trim(),
+  },
+  "grid-dots-fade-center": {
+    id: "grid-dots-fade-center",
+    name: "Grid Dots Fade Center",
+    description:
+      "A hero section with a grid-dots pattern that fades from the center outward. The pattern is most visible in the center and gradually fades toward the edges. Ideal for centered content layouts with a network or connection theme.",
+    semanticTags: [
+      "hero",
+      "background",
+      "pattern",
+      "grid",
+      "dots",
+      "fade",
+      "center",
+      "network",
+      "connection",
+    ],
+    category: "background-pattern-hero",
+    component: GridDotsFadeCenter,
+    props: "GridDotsFadeCenterProps",
+    exampleUsage: `
+<GridDotsFadeCenter>
+  <div className="text-center">
+    <h1>Your Hero Content</h1>
+  </div>
+</GridDotsFadeCenter>
     `.trim(),
   },
 };
