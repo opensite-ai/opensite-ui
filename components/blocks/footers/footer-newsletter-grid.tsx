@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -135,14 +136,14 @@ export function FooterNewsletterGrid({
           <div className="grid grid-cols-4 justify-between gap-10 lg:grid-cols-6 lg:text-left">
             <div className="col-span-4 flex w-full flex-col gap-6 lg:col-span-2">
               <div className="flex items-center gap-2 lg:justify-start">
-                <a href={logo.url}>
+                <Pressable href={logo.url}>
                   <Img
                     src={logo.src}
                     alt={logo.alt}
                     className="h-8"
                     optixFlowConfig={optixFlowConfig}
                   />
-                </a>
+                </Pressable>
                 <h2 className="text-xl font-semibold">{logo.title}</h2>
               </div>
               <p className="text-muted-foreground">{description}</p>
@@ -152,9 +153,9 @@ export function FooterNewsletterGrid({
                     key={idx}
                     className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
                   >
-                    <a href={social.href} aria-label={social.label}>
+                    <Pressable href={social.href} aria-label={social.label}>
                       <DynamicIcon name={social.icon} size={24} />
-                    </a>
+                    </Pressable>
                   </li>
                 ))}
               </ul>
@@ -168,7 +169,7 @@ export function FooterNewsletterGrid({
                       key={linkIdx}
                       className="font-medium hover:text-primary"
                     >
-                      <a href={link.href}>{link.name}</a>
+                      <Pressable href={link.href}>{link.name}</Pressable>
                     </li>
                   ))}
                 </ul>
@@ -193,9 +194,9 @@ export function FooterNewsletterGrid({
               </div>
               <p className="mt-1 text-xs font-medium text-muted-foreground">
                 {privacyText}
-                <a href={privacyLinkUrl} className="ml-1 text-primary hover:underline">
+                <Pressable href={privacyLinkUrl} className="ml-1 text-primary hover:underline">
                   {privacyLinkText}
-                </a>
+                </Pressable>
               </p>
             </div>
           </div>
@@ -213,7 +214,7 @@ export function FooterNewsletterGrid({
               rel="noopener noreferrer"
             >
               AI Website and Automation Platform by Opensite
-            </a>
+            </Pressable>
           </div>
         </footer>
       </div>

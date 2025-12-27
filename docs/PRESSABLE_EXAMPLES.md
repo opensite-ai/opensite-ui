@@ -131,6 +131,41 @@ Renders as an `<a>` tag styled like a ShadCN button with proper flex layout for 
 </Pressable>
 ```
 
+### Social Media Icon Links
+
+```tsx
+{socialLinks.map((social, idx) => (
+  <li key={idx} className="font-medium hover:text-primary">
+    <Pressable href={social.href} aria-label={social.label}>
+      <DynamicIcon name={social.icon} size={20} />
+    </Pressable>
+  </li>
+))}
+```
+
+### Footer Navigation Links
+
+```tsx
+{footerLinks.map((link, idx) => (
+  <li key={idx} className="hover:text-primary">
+    <Pressable href={link.href}>{link.name}</Pressable>
+  </li>
+))}
+```
+
+### Logo Link with Image
+
+```tsx
+<Pressable href={logo.url}>
+  <Img
+    src={logo.src}
+    alt={logo.alt}
+    className="h-10"
+    optixFlowConfig={optixFlowConfig}
+  />
+</Pressable>
+```
+
 ## Button (No Link)
 
 ```tsx
@@ -148,6 +183,47 @@ Renders:
 
 ```html
 <button type="button" class="...button-classes">Click Me</button>
+```
+
+### Carousel Navigation Buttons
+
+```tsx
+<Pressable
+  size="icon"
+  variant="outline"
+  onClick={() => carouselApi?.scrollPrev()}
+  disabled={!canScrollPrev}
+  className="rounded-full"
+  asButton
+>
+  <DynamicIcon name="lucide/arrow-left" size={20} />
+</Pressable>
+
+<Pressable
+  size="icon"
+  variant="outline"
+  onClick={() => carouselApi?.scrollNext()}
+  disabled={!canScrollNext}
+  className="rounded-full"
+  asButton
+>
+  <DynamicIcon name="lucide/arrow-right" size={20} />
+</Pressable>
+```
+
+### Newsletter Submit Button
+
+```tsx
+<Pressable
+  onClick={(e) => {
+    e.preventDefault();
+    handleSubmit();
+  }}
+  variant="default"
+  asButton
+>
+  Subscribe
+</Pressable>
 ```
 
 ## Internal URL Normalization

@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Navigation link configuration
@@ -103,7 +104,7 @@ export function FooterNewsletterMinimal({
             </p>
             <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
               <p>Get Support : </p>
-              <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+              <Pressable href={`mailto:${supportEmail}`}>{supportEmail}</Pressable>
             </div>
           </div>
           <div className="grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base">
@@ -115,7 +116,7 @@ export function FooterNewsletterMinimal({
                     className="tracking-tight text-foreground hover:text-foreground/30"
                   >
                     {item.label}
-                  </a>
+                  </Pressable>
                 </li>
               ))}
             </ul>
@@ -132,7 +133,7 @@ export function FooterNewsletterMinimal({
                       size={14}
                       className="text-foreground group-hover:text-muted-foreground/50"
                     />
-                  </a>
+                  </Pressable>
                 </li>
               ))}
             </ul>
@@ -164,7 +165,7 @@ export function FooterNewsletterMinimal({
                     className="group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30"
                   >
                     {item.label}
-                  </a>
+                  </Pressable>
                 </li>
               ))}
             </ul>
@@ -192,7 +193,7 @@ export function FooterNewsletterMinimal({
             rel="noopener noreferrer"
           >
             AI Website and Automation Platform by Opensite
-          </a>
+          </Pressable>
         </div>
       </div>
     </section>

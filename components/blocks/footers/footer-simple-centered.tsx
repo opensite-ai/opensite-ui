@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Sitemap section configuration
@@ -129,7 +130,7 @@ export function FooterSimpleCentered({
                             className="text-base whitespace-nowrap hover:text-accent-foreground"
                           >
                             {link.title}
-                          </a>
+                          </Pressable>
                         </li>
                       ))}
                     </ul>
@@ -148,13 +149,13 @@ export function FooterSimpleCentered({
                 rel="noopener noreferrer"
               >
                 AI Website and Automation Platform by Opensite
-              </a>
+              </Pressable>
             </div>
             <div className="flex flex-col items-start gap-4 text-xs text-muted-foreground sm:text-sm md:flex-row lg:items-center">
               {bottomLinks.map((link, idx) => (
-                <a key={idx} href={link.href} className="hover:text-accent-foreground">
+                <Pressable key={idx} href={link.href} className="hover:text-accent-foreground">
                   {link.text}
-                </a>
+                </Pressable>
               ))}
             </div>
           </div>

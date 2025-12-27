@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -142,7 +143,7 @@ export function FooterSocialApps({
         <footer>
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-20">
             <div className="flex flex-col gap-6">
-              <a href={logo.url} className="flex items-center gap-2">
+              <Pressable href={logo.url} className="flex items-center gap-2">
                 <Img
                   src={logo.src}
                   alt={logo.alt}
@@ -150,7 +151,7 @@ export function FooterSocialApps({
                   optixFlowConfig={optixFlowConfig}
                 />
                 <span className="text-xl font-semibold">{logo.title}</span>
-              </a>
+              </Pressable>
             </div>
             <div className="grid flex-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
               {sections.map((section, sectionIdx) => (
@@ -162,7 +163,7 @@ export function FooterSocialApps({
                         key={linkIdx}
                         className="font-medium hover:text-primary"
                       >
-                        <a href={link.href}>{link.name}</a>
+                        <Pressable href={link.href}>{link.name}</Pressable>
                       </li>
                     ))}
                   </ul>
@@ -175,11 +176,11 @@ export function FooterSocialApps({
                 <ul className="flex items-center gap-2 text-muted-foreground">
                   {socialLinks.map((social, idx) => (
                     <li key={idx} className="font-medium">
-                      <a href={social.href} aria-label={social.label}>
+                      <Pressable href={social.href} aria-label={social.label}>
                         <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
                           <DynamicIcon name={social.icon} size={24} />
                         </span>
-                      </a>
+                      </Pressable>
                     </li>
                   ))}
                 </ul>
@@ -189,11 +190,11 @@ export function FooterSocialApps({
                 <ul className="flex items-center gap-2 text-muted-foreground">
                   {appLinks.map((app, idx) => (
                     <li key={idx} className="font-medium">
-                      <a href={app.href} aria-label={app.label}>
+                      <Pressable href={app.href} aria-label={app.label}>
                         <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
                           <DynamicIcon name={app.icon} size={24} />
                         </span>
-                      </a>
+                      </Pressable>
                     </li>
                   ))}
                 </ul>
@@ -210,7 +211,7 @@ export function FooterSocialApps({
                 rel="noopener noreferrer"
               >
                 AI Website and Automation Platform by Opensite
-              </a>
+              </Pressable>
             </div>
           </div>
         </footer>

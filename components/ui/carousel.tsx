@@ -4,7 +4,7 @@ import useEmblaCarousel, {
 } from "embla-carousel-react";
 
 import { cn } from "../../lib/utils";
-import { Button } from "./button";
+import { Pressable } from "../../lib/Pressable";
 import { DynamicIcon } from "./dynamic-icon";
 
 type CarouselApi = UseEmblaCarouselType[1];
@@ -174,11 +174,11 @@ function CarouselPrevious({
   variant = "outline",
   size = "icon",
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Pressable>) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
-    <Button
+    <Pressable
       data-slot="carousel-previous"
       variant={variant}
       size={size}
@@ -191,11 +191,12 @@ function CarouselPrevious({
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
+      asButton
       {...props}
     >
       <DynamicIcon name="lucide/arrow-left" />
       <span className="sr-only">Previous slide</span>
-    </Button>
+    </Pressable>
   );
 }
 
@@ -204,11 +205,11 @@ function CarouselNext({
   variant = "outline",
   size = "icon",
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Pressable>) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (
-    <Button
+    <Pressable
       data-slot="carousel-next"
       variant={variant}
       size={size}
@@ -221,11 +222,12 @@ function CarouselNext({
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
+      asButton
       {...props}
     >
       <DynamicIcon name="lucide/arrow-right" />
       <span className="sr-only">Next slide</span>
-    </Button>
+    </Pressable>
   );
 }
 

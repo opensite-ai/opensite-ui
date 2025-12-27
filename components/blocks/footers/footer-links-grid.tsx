@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Menu item structure for footer navigation sections
@@ -120,7 +121,7 @@ export function FooterLinksGrid({
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
             <div className="col-span-2 mb-8 lg:mb-0">
               <div className="flex items-center gap-2 lg:justify-start">
-                <a href={logo.url} className="flex items-center gap-2">
+                <Pressable href={logo.url} className="flex items-center gap-2">
                   <Img
                     src={logo.src}
                     alt={logo.alt}
@@ -128,7 +129,7 @@ export function FooterLinksGrid({
                     optixFlowConfig={optixFlowConfig}
                   />
                   <span className="text-xl font-semibold">{logo.title}</span>
-                </a>
+                </Pressable>
               </div>
               <p className="mt-4 font-bold">{tagline}</p>
             </div>
@@ -141,7 +142,7 @@ export function FooterLinksGrid({
                       key={linkIdx}
                       className="font-medium hover:text-primary"
                     >
-                      <a href={link.url}>{link.text}</a>
+                      <Pressable href={link.url}>{link.text}</Pressable>
                     </li>
                   ))}
                 </ul>
@@ -151,19 +152,17 @@ export function FooterLinksGrid({
           <div className="mt-24 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
               <p>{copyright}</p>
-              <a
+              <Pressable
                 href="https://opensite.ai"
                 className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 AI Website and Automation Platform by Opensite
-              </a>
+              </Pressable>
             </div>
             <ul className="flex gap-4">
               {bottomLinks.map((link, linkIdx) => (
                 <li key={linkIdx} className="underline hover:text-primary">
-                  <a href={link.url}>{link.text}</a>
+                  <Pressable href={link.url}>{link.text}</Pressable>
                 </li>
               ))}
             </ul>

@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -141,7 +142,7 @@ export function FooterNavSocial({
           <div className="grid gap-10 lg:grid-cols-2">
             {/* Left Column - Logo and Navigation */}
             <div>
-              <a href={logo.url} className="mb-8 flex items-center gap-2">
+              <Pressable href={logo.url} className="mb-8 flex items-center gap-2">
                 <Img
                   src={logo.src}
                   alt={logo.alt}
@@ -149,7 +150,7 @@ export function FooterNavSocial({
                   optixFlowConfig={optixFlowConfig}
                 />
                 <span className="text-xl font-semibold">{logo.title}</span>
-              </a>
+              </Pressable>
               <div className="grid gap-8 sm:grid-cols-3">
                 {sections.map((section, sectionIdx) => (
                   <div key={sectionIdx}>
@@ -157,9 +158,9 @@ export function FooterNavSocial({
                     <ul className="space-y-3 text-sm text-muted-foreground">
                       {section.links.map((link, linkIdx) => (
                         <li key={linkIdx}>
-                          <a href={link.href} className="hover:text-primary">
+                          <Pressable href={link.href} className="hover:text-primary">
                             {link.name}
-                          </a>
+                          </Pressable>
                         </li>
                       ))}
                     </ul>
@@ -200,7 +201,7 @@ export function FooterNavSocial({
                         className="text-muted-foreground transition-colors hover:text-primary"
                       >
                         <DynamicIcon name={social.icon} size={20} />
-                      </a>
+                      </Pressable>
                     </li>
                   ))}
                 </ul>
@@ -219,14 +220,14 @@ export function FooterNavSocial({
                 rel="noopener noreferrer"
               >
                 AI Website and Automation Platform by Opensite
-              </a>
+              </Pressable>
             </div>
             <ul className="flex gap-4">
               {legalLinks.map((link, idx) => (
                 <li key={idx}>
-                  <a href={link.href} className="hover:text-primary">
+                  <Pressable href={link.href} className="hover:text-primary">
                     {link.name}
-                  </a>
+                  </Pressable>
                 </li>
               ))}
             </ul>

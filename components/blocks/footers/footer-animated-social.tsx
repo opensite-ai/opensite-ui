@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -105,7 +106,7 @@ export function FooterAnimatedSocial({
                     className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
                   >
                     {ctaText}
-                  </a>
+                  </Pressable>
                 </motion.div>
               </div>
 
@@ -135,7 +136,7 @@ export function FooterAnimatedSocial({
                             size={24}
                             className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                           />
-                        </a>
+                        </Pressable>
                       </motion.div>
                     ))}
                   </div>

@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -132,7 +133,7 @@ export function FooterSocialNewsletter({
     <section className={cn("py-32", className)}>
       <div className="container">
         <footer>
-          <a href={logo.url} className="flex items-center gap-2">
+          <Pressable href={logo.url} className="flex items-center gap-2">
             <Img
               src={logo.src}
               alt={logo.alt}
@@ -140,7 +141,7 @@ export function FooterSocialNewsletter({
               optixFlowConfig={optixFlowConfig}
             />
             <span className="text-xl font-semibold">{logo.title}</span>
-          </a>
+          </Pressable>
           <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4">
             {sections.map((section, sectionIdx) => (
               <div key={sectionIdx}>
@@ -151,7 +152,7 @@ export function FooterSocialNewsletter({
                       key={linkIdx}
                       className="font-medium hover:text-primary"
                     >
-                      <a href={link.href}>{link.name}</a>
+                      <Pressable href={link.href}>{link.name}</Pressable>
                     </li>
                   ))}
                 </ul>
@@ -161,11 +162,11 @@ export function FooterSocialNewsletter({
               <ul className="mb-10 flex items-center gap-2 text-muted-foreground">
                 {socialLinks.map((social, idx) => (
                   <li key={idx} className="font-medium">
-                    <a href={social.href} aria-label={social.label}>
+                    <Pressable href={social.href} aria-label={social.label}>
                       <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
                         <DynamicIcon name={social.icon} size={24} />
                       </span>
-                    </a>
+                    </Pressable>
                   </li>
                 ))}
               </ul>
@@ -180,18 +181,23 @@ export function FooterSocialNewsletter({
                     placeholder={newsletterPlaceholder}
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                   />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+                  <Pressable
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // Newsletter submission logic would go here
+                    }}
+                    variant="default"
+                    size="default"
+                    asButton
                   >
                     {newsletterButtonText}
-                  </button>
+                  </Pressable>
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">
                   By submitting, you agree to our
-                  <a href={privacyLinkUrl} className="ml-1 text-primary hover:underline">
+                  <Pressable href={privacyLinkUrl} className="ml-1 text-primary hover:underline">
                     {privacyLinkText}
-                  </a>
+                  </Pressable>
                 </p>
               </div>
             </div>
@@ -199,14 +205,12 @@ export function FooterSocialNewsletter({
           <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
               <p>{copyright}</p>
-              <a
+              <Pressable
                 href="https://opensite.ai"
                 className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 AI Website and Automation Platform by Opensite
-              </a>
+              </Pressable>
             </div>
           </div>
         </footer>

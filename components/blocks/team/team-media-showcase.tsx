@@ -168,7 +168,7 @@ TeamMemberBackgroundImageCard.displayName = "TeamMemberBackgroundImageCard";
  *       imageSrc: "/team/john.jpg",
  *       name: "John Doe",
  *       role: "CEO",
- *       action: <Button>View Profile</Button>
+ *       action: <Pressable href="/team/john" variant="default" asButton>View Profile</Pressable>
  *     },
  *     {
  *       imageSrc: "/team/jane.jpg",

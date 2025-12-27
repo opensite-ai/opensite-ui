@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { Button } from "../../ui/button";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
+import { Pressable } from "../../../lib/Pressable";
 import type { CarouselApi } from "../../ui/carousel";
 import {
   Carousel,
@@ -168,24 +168,26 @@ export function ServiceHoverCarousel({
             <h2 className="text-3xl font-semibold md:text-4xl">{heading}</h2>
           </div>
           <div className="mt-8 flex shrink-0 items-center justify-start gap-2">
-            <Button
+            <Pressable
               size="icon"
               variant="outline"
               onClick={() => carouselApi?.scrollPrev()}
               disabled={!canScrollPrev}
               className="rounded-full"
+              asButton
             >
               <DynamicIcon name="lucide/arrow-left" size={20} />
-            </Button>
-            <Button
+            </Pressable>
+            <Pressable
               size="icon"
               variant="outline"
               onClick={() => carouselApi?.scrollNext()}
               disabled={!canScrollNext}
               className="rounded-full"
+              asButton
             >
               <DynamicIcon name="lucide/arrow-right" size={20} />
-            </Button>
+            </Pressable>
           </div>
         </div>
       </div>

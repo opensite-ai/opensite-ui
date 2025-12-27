@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -131,14 +132,14 @@ export function FooterBrandDescription({
         <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
             <div className="flex items-center gap-2 lg:justify-start">
-              <a href={logo.url}>
+              <Pressable href={logo.url}>
                 <Img
                   src={logo.src}
                   alt={logo.alt}
                   className="h-8"
                   optixFlowConfig={optixFlowConfig}
                 />
-              </a>
+              </Pressable>
               <h2 className="text-xl font-semibold">{logo.title}</h2>
             </div>
             <p className="max-w-[70%] text-sm text-muted-foreground">
@@ -147,9 +148,9 @@ export function FooterBrandDescription({
             <ul className="flex items-center space-x-6 text-muted-foreground">
               {socialLinks.map((social, idx) => (
                 <li key={idx} className="font-medium hover:text-primary">
-                  <a href={social.href} aria-label={social.label}>
+                  <Pressable href={social.href} aria-label={social.label}>
                     <DynamicIcon name={social.icon} size={20} />
-                  </a>
+                  </Pressable>
                 </li>
               ))}
             </ul>
@@ -164,7 +165,7 @@ export function FooterBrandDescription({
                       key={linkIdx}
                       className="font-medium hover:text-primary"
                     >
-                      <a href={link.href}>{link.name}</a>
+                      <Pressable href={link.href}>{link.name}</Pressable>
                     </li>
                   ))}
                 </ul>
@@ -187,7 +188,7 @@ export function FooterBrandDescription({
           <ul className="order-1 flex flex-col gap-2 md:order-2 md:flex-row">
             {legalLinks.map((link, idx) => (
               <li key={idx} className="hover:text-primary">
-                <a href={link.href}>{link.name}</a>
+                <Pressable href={link.href}>{link.name}</Pressable>
               </li>
             ))}
           </ul>

@@ -4,11 +4,8 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import { Pressable } from "../../../lib/Pressable";
 
 export interface AutoScrollCarouselProps {
   heading?: string;
@@ -73,20 +70,21 @@ export function AutoScrollCarousel({
       <div className="container">
         <div className="mb-12 grid grid-cols-1 gap-x-12 gap-y-6 md:mb-16 md:grid-cols-2 md:gap-x-24">
           <div className="flex flex-col gap-8 md:gap-12">
-            <h1 className="text-3xl font-bold md:text-4xl">
-              {heading}
-            </h1>
+            <h1 className="text-3xl font-bold md:text-4xl">{heading}</h1>
           </div>
-          <p>
-            {description}
-          </p>
-          <a href={linkHref} className="font-medium hover:underline">
-            {linkText} <DynamicIcon name="lucide/move-right" size={20} className="ml-2 inline" />
-          </a>
+          <p>{description}</p>
+          <Pressable href={linkHref} className="font-medium hover:underline">
+            {linkText}{" "}
+            <DynamicIcon
+              name="lucide/move-right"
+              size={20}
+              className="ml-2 inline"
+            />
+          </Pressable>
         </div>
       </div>
       <div className="w-full">
-        <div className="max-w-[100vw] overflow-x-hidden">
+        <div className="max-w-screen overflow-x-hidden">
           <Carousel
             opts={{
               loop: true,
@@ -107,7 +105,7 @@ export function AutoScrollCarousel({
                       alt="Gallery image"
                       className={cn(
                         "mt-7 h-full w-full rounded-md object-cover",
-                        index % 2 === 0 && "mt-16",
+                        index % 2 === 0 && "mt-16"
                       )}
                       loading="lazy"
                       optixFlowConfig={optixFlowConfig}

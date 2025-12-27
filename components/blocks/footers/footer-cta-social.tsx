@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration with icon
@@ -94,7 +95,7 @@ export function FooterCtaSocial({
               size={16}
               className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
             />
-          </a>
+          </Pressable>
 
           {/* Social Media Links */}
           <div className="flex items-center gap-6 pt-8">
@@ -106,7 +107,7 @@ export function FooterCtaSocial({
                   aria-label={link.label}
                 >
                   <DynamicIcon name={link.icon} size={20} />
-                </a>
+                </Pressable>
                 {idx < socialLinks.length - 1 && (
                   <div className="h-4 w-px bg-border" />
                 )}
@@ -121,7 +122,7 @@ export function FooterCtaSocial({
               className="transition-colors hover:text-foreground"
             >
               {email}
-            </a>
+            </Pressable>
           </p>
 
           {/* Attribution */}
@@ -134,7 +135,7 @@ export function FooterCtaSocial({
               rel="noopener noreferrer"
             >
               AI Website and Automation Platform by Opensite
-            </a>
+            </Pressable>
           </div>
         </div>
       </div>

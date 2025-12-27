@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -107,7 +108,7 @@ export function FooterContactCard({
           <div className="grid gap-12 lg:grid-cols-2">
             {/* Left Column - Heading and Contact */}
             <div>
-              <a href={logo.url} className="mb-8 flex items-center gap-2">
+              <Pressable href={logo.url} className="mb-8 flex items-center gap-2">
                 <Img
                   src={logo.src}
                   alt={logo.alt}
@@ -115,20 +116,20 @@ export function FooterContactCard({
                   optixFlowConfig={optixFlowConfig}
                 />
                 <span className="text-xl font-semibold">{logo.title}</span>
-              </a>
+              </Pressable>
               <h2 className="mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
                 {heading}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  <a href={`mailto:${email}`} className="hover:text-primary">
+                  <Pressable href={`mailto:${email}`} className="hover:text-primary">
                     {email}
-                  </a>
+                  </Pressable>
                 </p>
                 <p>
-                  <a href={`tel:${phone}`} className="hover:text-primary">
+                  <Pressable href={`tel:${phone}`} className="hover:text-primary">
                     {phone}
-                  </a>
+                  </Pressable>
                 </p>
                 <p>{address}</p>
               </div>

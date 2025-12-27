@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
+import { Pressable } from "../../../lib/Pressable";
 import {
   Carousel,
   CarouselContent,
@@ -126,7 +127,7 @@ export function CarouselSidebarResources({
                     >
                       {resource.title}
                       <DynamicIcon name="lucide/move-right" size={20} className="mt-0.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
-                    </a>
+                    </Pressable>
                   </div>
                   <div className="h-px w-full bg-border" />
                 </Fragment>
@@ -137,7 +138,7 @@ export function CarouselSidebarResources({
               >
                 {viewAllText}
                 <DynamicIcon name="lucide/move-right" size={20} className="mt-0.5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </Pressable>
             </div>
             <div className="order-1 lg:order-none lg:col-span-2 [&>div[data-slot=carousel-content]]:overflow-visible [&>div[data-slot=carousel-content]]:[clip-path:inset(-100vw_-100vw_-100vw_0)]">
               <CarouselContent className="ml-0 max-w-[min(calc(100vw-4rem),24rem)] select-none sm:max-w-96">
@@ -149,7 +150,7 @@ export function CarouselSidebarResources({
                     )}
                     key={idx}
                   >
-                    <a href={item.link} className="block h-full">
+                    <Pressable href={item.link} className="block h-full">
                       <Img
                         src={item.image}
                         alt={item.title}
@@ -165,7 +166,7 @@ export function CarouselSidebarResources({
                           {item.title}
                         </h3>
                       </div>
-                    </a>
+                    </Pressable>
                   </CarouselItem>
                 ))}
               </CarouselContent>

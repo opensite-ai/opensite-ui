@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
-import { Button } from "../../ui/button";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
+import { Pressable } from "../../../lib/Pressable";
 import type { CarouselApi } from "../../ui/carousel";
 import {
   Carousel,
@@ -159,24 +159,26 @@ export function TestimonialCarouselCards({
             </div>
 
             <div className="hidden justify-start gap-4 lg:flex">
-              <Button
+              <Pressable
                 size="icon"
                 className="rounded-full"
                 variant="outline"
                 onClick={() => carouselApi?.scrollPrev()}
                 disabled={!canScrollPrev}
+                asButton
               >
                 <DynamicIcon name="lucide/arrow-left" size={16} />
-              </Button>
-              <Button
+              </Pressable>
+              <Pressable
                 size="icon"
                 variant="outline"
                 className="rounded-full"
                 onClick={() => carouselApi?.scrollNext()}
                 disabled={!canScrollNext}
+                asButton
               >
                 <DynamicIcon name="lucide/arrow-right" size={16} />
-              </Button>
+              </Pressable>
             </div>
           </div>
 

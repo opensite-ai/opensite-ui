@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Menu item configuration
@@ -157,7 +158,7 @@ export function FooterBackgroundCard({
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
               >
                 {ctaText}
-              </a>
+              </Pressable>
             </div>
 
             {/* Menu Sections */}
@@ -174,7 +175,7 @@ export function FooterBackgroundCard({
                         className="border-b border-transparent text-muted-foreground transition-all duration-300 ease-in-out hover:border-primary hover:text-primary"
                       >
                         {link.text}
-                      </a>
+                      </Pressable>
                     </li>
                   ))}
                 </ul>
@@ -207,7 +208,7 @@ export function FooterBackgroundCard({
                 rel="noopener noreferrer"
               >
                 AI Website and Automation Platform by Opensite
-              </a>
+              </Pressable>
             </div>
             <div className="flex gap-4">
               {bottomLinks.map((link, idx) => (
@@ -217,7 +218,7 @@ export function FooterBackgroundCard({
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
                   {link.text}
-                </a>
+                </Pressable>
               ))}
             </div>
           </div>

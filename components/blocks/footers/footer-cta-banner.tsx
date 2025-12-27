@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Pressable } from "../../../lib/Pressable";
 
 /**
  * Social link configuration
@@ -157,14 +158,14 @@ export function FooterCtaBanner({
               className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
             >
               {ctaButtonText}
-            </a>
+            </Pressable>
           </div>
 
           {/* Main Footer Content */}
           <div className="grid gap-10 lg:grid-cols-5">
             {/* Brand Section */}
             <div className="lg:col-span-2">
-              <a href={logo.url} className="mb-6 flex items-center gap-2">
+              <Pressable href={logo.url} className="mb-6 flex items-center gap-2">
                 <Img
                   src={logo.src}
                   alt={logo.alt}
@@ -172,7 +173,7 @@ export function FooterCtaBanner({
                   optixFlowConfig={optixFlowConfig}
                 />
                 <span className="text-xl font-semibold">{logo.title}</span>
-              </a>
+              </Pressable>
               <div className="mb-6">
                 <p className="mb-2 text-sm font-medium">{newsletterLabel}</p>
                 <div className="flex max-w-sm gap-2">
@@ -198,7 +199,7 @@ export function FooterCtaBanner({
                       className="text-muted-foreground transition-colors hover:text-foreground"
                     >
                       <DynamicIcon name={social.icon} size={20} />
-                    </a>
+                    </Pressable>
                   </li>
                 ))}
               </ul>
@@ -211,9 +212,9 @@ export function FooterCtaBanner({
                 <ul className="space-y-3 text-sm text-muted-foreground">
                   {section.links.map((link, linkIdx) => (
                     <li key={linkIdx}>
-                      <a href={link.href} className="hover:text-foreground">
+                      <Pressable href={link.href} className="hover:text-foreground">
                         {link.name}
-                      </a>
+                      </Pressable>
                     </li>
                   ))}
                 </ul>
@@ -232,14 +233,14 @@ export function FooterCtaBanner({
                 rel="noopener noreferrer"
               >
                 AI Website and Automation Platform by Opensite
-              </a>
+              </Pressable>
             </div>
             <ul className="flex gap-4">
               {legalLinks.map((link, idx) => (
                 <li key={idx}>
-                  <a href={link.href} className="hover:text-foreground">
+                  <Pressable href={link.href} className="hover:text-foreground">
                     {link.name}
-                  </a>
+                  </Pressable>
                 </li>
               ))}
             </ul>

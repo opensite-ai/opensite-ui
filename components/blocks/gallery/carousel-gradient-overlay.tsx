@@ -2,15 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
-import { Button } from "../../ui/button";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import { Pressable } from "../../../lib/Pressable";
 
 export interface CarouselGradientOverlayItem {
   id: string;
@@ -39,7 +35,8 @@ const defaultItems: CarouselGradientOverlayItem[] = [
     description:
       "Explore how modern component libraries revolutionized React development by providing a unique approach to component distribution and customization.",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
+    image:
+      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
   },
   {
     id: "tailwind",
@@ -47,7 +44,8 @@ const defaultItems: CarouselGradientOverlayItem[] = [
     description:
       "Discover how utility-first CSS transformed the way developers style their applications, offering a new approach that speeds up development.",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
+    image:
+      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
   },
   {
     id: "astro",
@@ -55,7 +53,8 @@ const defaultItems: CarouselGradientOverlayItem[] = [
     description:
       "Learn how innovative architecture and zero-JS-by-default approach is helping developers build faster websites while maintaining rich interactivity.",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
+    image:
+      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
   },
   {
     id: "react",
@@ -63,7 +62,8 @@ const defaultItems: CarouselGradientOverlayItem[] = [
     description:
       "See how React continues to shape modern web development with its component-based architecture, enabling developers to build complex user interfaces.",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
+    image:
+      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
   },
   {
     id: "nextjs",
@@ -71,7 +71,8 @@ const defaultItems: CarouselGradientOverlayItem[] = [
     description:
       "Explore how Next.js has become the go-to framework for building full-stack React applications, offering features like server components and file-based routing.",
     href: "#",
-    image: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
+    image:
+      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
   },
 ];
 
@@ -139,7 +140,7 @@ export function CarouselGradientOverlay({
             <p className="max-w-lg text-muted-foreground">{description}</p>
           </div>
           <div className="hidden shrink-0 gap-2 md:flex">
-            <Button
+            <Pressable
               size="icon"
               variant="ghost"
               onClick={() => {
@@ -149,8 +150,8 @@ export function CarouselGradientOverlay({
               className="disabled:pointer-events-auto"
             >
               <DynamicIcon name="lucide/arrow-left" size={20} />
-            </Button>
-            <Button
+            </Pressable>
+            <Pressable
               size="icon"
               variant="ghost"
               onClick={() => {
@@ -160,7 +161,7 @@ export function CarouselGradientOverlay({
               className="disabled:pointer-events-auto"
             >
               <DynamicIcon name="lucide/arrow-right" size={20} />
-            </Button>
+            </Pressable>
           </div>
         </div>
       </div>
@@ -179,10 +180,10 @@ export function CarouselGradientOverlay({
             {items.map((item) => (
               <CarouselItem
                 key={item.id}
-                className="max-w-[320px] pl-[20px] lg:max-w-[360px]"
+                className="max-w-[320px] pl-5 lg:max-w-[360px]"
               >
-                <a href={item.href} className="group rounded-xl">
-                  <div className="group relative h-full min-h-[27rem] max-w-full overflow-hidden rounded-xl md:aspect-[5/4] lg:aspect-[16/9]">
+                <Pressable href={item.href} className="group rounded-xl">
+                  <div className="group relative h-full min-h-108 max-w-full overflow-hidden rounded-xl md:aspect-5/4 lg:aspect-video">
                     <Img
                       src={item.image}
                       alt={item.title}
@@ -190,7 +191,7 @@ export function CarouselGradientOverlay({
                       loading="lazy"
                       optixFlowConfig={optixFlowConfig}
                     />
-                    <div className="absolute inset-0 h-full bg-gradient-to-t from-primary from-20% to-transparent mix-blend-multiply" />
+                    <div className="absolute inset-0 h-full bg-linear-to-t from-primary from-20% to-transparent mix-blend-multiply" />
                     <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-primary-foreground md:p-8">
                       <div className="mb-2 pt-4 text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
                         {item.title}
@@ -200,11 +201,15 @@ export function CarouselGradientOverlay({
                       </div>
                       <div className="flex items-center text-sm">
                         Read more{" "}
-                        <DynamicIcon name="lucide/arrow-right" size={20} className="ml-2 transition-transform group-hover:translate-x-1" />
+                        <DynamicIcon
+                          name="lucide/arrow-right"
+                          size={20}
+                          className="ml-2 transition-transform group-hover:translate-x-1"
+                        />
                       </div>
                     </div>
                   </div>
-                </a>
+                </Pressable>
               </CarouselItem>
             ))}
           </CarouselContent>
