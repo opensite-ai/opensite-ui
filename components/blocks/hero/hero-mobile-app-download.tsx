@@ -6,95 +6,318 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
 
-export interface HeroMobileAppDownloadProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+export interface AppStoreAction extends ActionConfig {
+  /**
+   * Store label prefix (e.g., "Download on the")
+   */
+  storePrefix?: string;
+  /**
+   * Store name (e.g., "App Store")
+   */
+  storeName?: string;
+  /**
+   * Store icon name
+   */
+  storeIcon?: string;
 }
 
+export interface NotificationItem {
+  /**
+   * Notification icon name
+   */
+  icon?: string;
+  /**
+   * Icon background class
+   */
+  iconBgClass?: string;
+  /**
+   * Icon color class
+   */
+  iconColorClass?: string;
+  /**
+   * Notification title
+   */
+  title?: string;
+  /**
+   * Notification subtitle
+   */
+  subtitle?: string;
+}
+
+export interface HeroMobileAppDownloadProps {
+  /**
+   * Badge text
+   */
+  badgeText?: React.ReactNode;
+  /**
+   * Badge icon name
+   */
+  badgeIcon?: string;
+  /**
+   * Custom slot for badge (overrides badge props)
+   */
+  badgeSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of app store action configurations
+   */
+  storeActions?: AppStoreAction[];
+  /**
+   * Custom slot for store actions (overrides storeActions array)
+   */
+  storeActionsSlot?: React.ReactNode;
+  /**
+   * Rating value (e.g., "4.9")
+   */
+  ratingValue?: string;
+  /**
+   * Rating label (e.g., "rating from 50K+ reviews")
+   */
+  ratingLabel?: React.ReactNode;
+  /**
+   * Number of stars to display
+   */
+  starCount?: number;
+  /**
+   * Custom slot for rating section (overrides rating props)
+   */
+  ratingSlot?: React.ReactNode;
+  /**
+   * Mobile app screenshot image
+   */
+  image?: ImageItem;
+  /**
+   * Custom slot for image (overrides image prop)
+   */
+  imageSlot?: React.ReactNode;
+  /**
+   * Notification popup configuration
+   */
+  notification?: NotificationItem;
+  /**
+   * Custom slot for notification (overrides notification prop)
+   */
+  notificationSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content column
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the image container
+   */
+  imageClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+}
+
+const defaultStoreActions: AppStoreAction[] = [
+  {
+    href: "#",
+    variant: "default",
+    size: "lg",
+    className: "flex items-center gap-2",
+    storePrefix: "Download on the",
+    storeName: "App Store",
+    storeIcon: "lucide/apple",
+  },
+  {
+    href: "#",
+    variant: "outline",
+    size: "lg",
+    className: "flex items-center gap-2",
+    storePrefix: "Get it on",
+    storeName: "Google Play",
+    storeIcon: "lucide/play",
+  },
+];
+
+const defaultImage: ImageItem = {
+  src: imagePlaceholders[26],
+  alt: "Mobile app screenshot",
+};
+
+const defaultNotification: NotificationItem = {
+  icon: "lucide/check",
+  iconBgClass: "bg-green-100",
+  iconColorClass: "text-green-600",
+  title: "Task completed",
+  subtitle: "Just now",
+};
+
 export function HeroMobileAppDownload({
+  badgeText = "Mobile App",
+  badgeIcon = "lucide/smartphone",
+  badgeSlot,
+  heading = "Your pocket companion for productivity",
+  description = "Take your work anywhere with our powerful mobile app. Stay connected, collaborate on the go, and never miss an update.",
+  storeActions = defaultStoreActions,
+  storeActionsSlot,
+  ratingValue = "4.9",
+  ratingLabel = "rating from 50K+ reviews",
+  starCount = 5,
+  ratingSlot,
+  image = defaultImage,
+  imageSlot,
+  notification = defaultNotification,
+  notificationSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  imageClassName,
   optixFlowConfig,
 }: HeroMobileAppDownloadProps): React.JSX.Element {
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+
+    return (
+      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-violet-100 px-4 py-2 text-sm font-medium text-violet-700">
+        <DynamicIcon name={badgeIcon} size={16} />
+        <span>{badgeText}</span>
+      </div>
+    );
+  };
+
+  const renderStoreActions = () => {
+    if (storeActionsSlot) return storeActionsSlot;
+
+    return (
+      <div className="flex flex-col gap-4 sm:flex-row">
+        {storeActions.map((action, index) => {
+          const { storePrefix, storeName, storeIcon, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {storeIcon && <DynamicIcon name={storeIcon} size={20} />}
+              <div className="text-left">
+                {storePrefix && <div className="text-xs opacity-80">{storePrefix}</div>}
+                {storeName && <div className="font-semibold">{storeName}</div>}
+              </div>
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderRating = () => {
+    if (ratingSlot) return ratingSlot;
+
+    return (
+      <div className="flex items-center gap-4 pt-4">
+        <div className="flex items-center gap-1">
+          {[...Array(starCount)].map((_, i) => (
+            <DynamicIcon key={i} name="lucide/star" size={16} className="fill-yellow-400 text-yellow-400" />
+          ))}
+        </div>
+        <span className="text-sm text-muted-foreground">
+          {ratingValue} {ratingLabel}
+        </span>
+      </div>
+    );
+  };
+
+  const renderNotification = () => {
+    if (notificationSlot) return notificationSlot;
+    if (!notification) return null;
+
+    return (
+      <div className="absolute -right-8 top-1/4 w-48 rounded-2xl bg-background p-4 shadow-lg">
+        <div className="flex items-center gap-3">
+          {notification.icon && (
+            <div className={cn("flex h-10 w-10 items-center justify-center rounded-full", notification.iconBgClass)}>
+              <DynamicIcon name={notification.icon} size={20} className={notification.iconColorClass} />
+            </div>
+          )}
+          <div>
+            {notification.title && <div className="font-semibold text-foreground">{notification.title}</div>}
+            {notification.subtitle && <div className="text-xs text-muted-foreground">{notification.subtitle}</div>}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderImage = () => {
+    if (imageSlot) return imageSlot;
+
+    return (
+      <div className={cn("relative flex justify-center", imageClassName)}>
+        <div className="relative">
+          <Img
+            src={image.src}
+            alt={image.alt}
+            className={cn("w-64 rounded-3xl shadow-2xl", image.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+          {renderNotification()}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className={cn("bg-background py-20 md:py-32", className)}>
-      <div className="container">
+      <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="flex flex-col gap-8">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full bg-violet-100 px-4 py-2 text-sm font-medium text-violet-700">
-              <DynamicIcon name="lucide/smartphone" size={16} />
-              <span>Mobile App</span>
-            </div>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Your pocket companion for productivity
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Take your work anywhere with our powerful mobile app. Stay
-              connected, collaborate on the go, and never miss an update.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Pressable
-                href="#"
-                asButton
-                variant="default"
-                size="lg"
-                className="flex items-center gap-2"
-              >
-                <DynamicIcon name="lucide/apple" size={20} />
-                <div className="text-left">
-                  <div className="text-xs opacity-80">Download on the</div>
-                  <div className="font-semibold">App Store</div>
-                </div>
-              </Pressable>
-              <Pressable
-                href="#"
-                asButton
-                variant="outline"
-                size="lg"
-                className="flex items-center gap-2"
-              >
-                <DynamicIcon name="lucide/play" size={20} />
-                <div className="text-left">
-                  <div className="text-xs opacity-80">Get it on</div>
-                  <div className="font-semibold">Google Play</div>
-                </div>
-              </Pressable>
-            </div>
-            <div className="flex items-center gap-4 pt-4">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <DynamicIcon key={i} name="lucide/star" size={16} className="fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <span className="text-sm text-muted-foreground">
-                4.9 rating from 50K+ reviews
-              </span>
-            </div>
+          <div className={cn("flex flex-col gap-8", contentClassName)}>
+            {renderBadge()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                  {heading}
+                </h1>
+              ) : (
+                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
+                  {heading}
+                </h1>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+            {renderStoreActions()}
+            {renderRating()}
           </div>
-          <div className="relative flex justify-center">
-            <div className="relative">
-              <Img
-                src={imagePlaceholders[26]}
-                alt="Mobile app screenshot"
-                className="w-64 rounded-3xl shadow-2xl"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <div className="absolute -right-8 top-1/4 w-48 rounded-2xl bg-background p-4 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
-                    <DynamicIcon name="lucide/check" size={20} className="text-green-600" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground">Task completed</div>
-                    <div className="text-xs text-muted-foreground">Just now</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {renderImage()}
         </div>
       </div>
     </section>
