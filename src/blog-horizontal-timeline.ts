@@ -14,4 +14,4 @@
  */
 
 export { BlogHorizontalTimeline } from "../components/blocks/blog/blog-horizontal-timeline";
-export type { BlogHorizontalTimelineProps, BlogPost } from "../components/blocks/blog/blog-horizontal-timeline";
+export type { BlogHorizontalTimelineProps } from "../components/blocks/blog/blog-horizontal-timeline";

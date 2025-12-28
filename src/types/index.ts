@@ -17,6 +17,8 @@ export type {
   BlockActionProps,
   BlockLogoProps,
   OptixFlowConfig,
+  BlogPostItem,
+  BlockBlogProps,
   BreadcrumbItem,
   DetailItem,
   AuthorInfo,

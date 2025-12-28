@@ -20,14 +20,14 @@ describe("BlogFeaturedPopular", () => {
     expect(screen.getByText(/Stay updated with the latest insights/)).toBeInTheDocument();
   });
 
-  it("renders custom title and description", () => {
+  it("renders custom heading and description", () => {
     render(
       <BlogFeaturedPopular
-        title="Custom Blog Title"
+        heading="Custom Blog Heading"
         description="Custom blog description"
       />
     );
-    expect(screen.getByText("Custom Blog Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Blog Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom blog description")).toBeInTheDocument();
   });
 
@@ -65,8 +65,8 @@ describe("BlogFeaturedPopular", () => {
     expect(screen.getByText("Popular Post 1")).toBeInTheDocument();
   });
 
-  it("renders custom popular title", () => {
-    render(<BlogFeaturedPopular popularTitle="Trending Now" />);
+  it("renders custom popular heading", () => {
+    render(<BlogFeaturedPopular popularHeading="Trending Now" />);
     expect(screen.getByText("Trending Now")).toBeInTheDocument();
   });
 

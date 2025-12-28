@@ -37,16 +37,16 @@ describe("BlogCardsReadTime", () => {
     expect(screen.getByText(/Explore our blog for insightful articles/)).toBeInTheDocument();
   });
 
-  it("renders custom tagline and title", () => {
+  it("renders custom badge and heading", () => {
     render(
       <BlogCardsReadTime
-        tagline="Custom Tagline"
-        title="Custom Title"
+        badge="Custom Badge"
+        heading="Custom Heading"
         description="Custom description text"
       />
     );
-    expect(screen.getByText("Custom Tagline")).toBeInTheDocument();
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
@@ -97,7 +97,7 @@ describe("BlogCardsReadTime", () => {
   });
 
   it("renders custom view all button text", () => {
-    render(<BlogCardsReadTime viewAllText="See More Posts" viewAllHref="/all-posts" />);
+    render(<BlogCardsReadTime viewAllAction={{ label: "See More Posts", href: "/all-posts" }} />);
     expect(screen.getByText("See More Posts")).toBeInTheDocument();
   });
 

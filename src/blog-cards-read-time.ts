@@ -13,4 +13,4 @@
  */
 
 export { BlogCardsReadTime } from "../components/blocks/blog/blog-cards-read-time";
-export type { BlogCardsReadTimeProps, BlogPost } from "../components/blocks/blog/blog-cards-read-time";
+export type { BlogCardsReadTimeProps } from "../components/blocks/blog/blog-cards-read-time";

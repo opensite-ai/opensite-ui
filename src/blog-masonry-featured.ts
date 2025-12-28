@@ -14,4 +14,4 @@
  */
 
 export { BlogMasonryFeatured } from "../components/blocks/blog/blog-masonry-featured";
-export type { BlogMasonryFeaturedProps, BlogPost } from "../components/blocks/blog/blog-masonry-featured";
+export type { BlogMasonryFeaturedProps } from "../components/blocks/blog/blog-masonry-featured";

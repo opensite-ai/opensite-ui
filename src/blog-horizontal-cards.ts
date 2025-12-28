@@ -14,4 +14,4 @@
  */
 
 export { BlogHorizontalCards } from "../components/blocks/blog/blog-horizontal-cards";
-export type { BlogHorizontalCardsProps, BlogPost } from "../components/blocks/blog/blog-horizontal-cards";
+export type { BlogHorizontalCardsProps } from "../components/blocks/blog/blog-horizontal-cards";

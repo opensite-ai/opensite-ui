@@ -32,15 +32,15 @@ describe("BlogCardsTaglineCta", () => {
     expect(screen.getByText("Blog Posts")).toBeInTheDocument();
   });
 
-  it("renders custom tagline and heading", () => {
+  it("renders custom badge and heading", () => {
     render(
       <BlogCardsTaglineCta
-        tagline="Custom Tagline"
+        badge="Custom Badge"
         heading="Custom Heading"
         description="Custom description"
       />
     );
-    expect(screen.getByText("Custom Tagline")).toBeInTheDocument();
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
@@ -78,7 +78,7 @@ describe("BlogCardsTaglineCta", () => {
   });
 
   it("renders custom button text", () => {
-    render(<BlogCardsTaglineCta buttonText="See All Posts" buttonUrl="/posts" />);
+    render(<BlogCardsTaglineCta ctaAction={{ label: "See All Posts", href: "/posts" }} />);
     expect(screen.getByText("See All Posts")).toBeInTheDocument();
   });
 

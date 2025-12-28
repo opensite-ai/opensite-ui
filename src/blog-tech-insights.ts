@@ -14,4 +14,4 @@
  */
 
 export { BlogTechInsights } from "../components/blocks/blog/blog-tech-insights";
-export type { BlogTechInsightsProps, FeaturedPost, SecondaryPost } from "../components/blocks/blog/blog-tech-insights";
+export type { BlogTechInsightsProps } from "../components/blocks/blog/blog-tech-insights";

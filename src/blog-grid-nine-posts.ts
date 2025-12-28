@@ -14,4 +14,4 @@
  */
 
 export { BlogGridNinePosts } from "../components/blocks/blog/blog-grid-nine-posts";
-export type { BlogGridNinePostsProps, BlogPost } from "../components/blocks/blog/blog-grid-nine-posts";
+export type { BlogGridNinePostsProps } from "../components/blocks/blog/blog-grid-nine-posts";
