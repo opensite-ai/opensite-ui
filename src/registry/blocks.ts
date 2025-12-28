@@ -446,6 +446,30 @@ import { OfferModalNewsletterDiscount } from "../../components/blocks/offer-moda
 import { OfferModalMembershipImage } from "../../components/blocks/offer-modal/offer-modal-membership-image";
 import { OfferModalSheetNewsletter } from "../../components/blocks/offer-modal/offer-modal-sheet-newsletter";
 
+// Project Detail components
+import { ProjectDetailHeroMetadata } from "../../components/blocks/project-detail/project-detail-hero-metadata";
+import { ProjectDetailSidebarSticky } from "../../components/blocks/project-detail/project-detail-sidebar-sticky";
+import { ProjectDetailCaseStudyProse } from "../../components/blocks/project-detail/project-detail-case-study-prose";
+import { ProjectDetailSidebarNavigation } from "../../components/blocks/project-detail/project-detail-sidebar-navigation";
+import { ProjectDetailFullscreenHero } from "../../components/blocks/project-detail/project-detail-fullscreen-hero";
+import { ProjectDetailSculptureShowcase } from "../../components/blocks/project-detail/project-detail-sculpture-showcase";
+import { ProjectDetailGridGallery } from "../../components/blocks/project-detail/project-detail-grid-gallery";
+import { ProjectDetailSplitMaterials } from "../../components/blocks/project-detail/project-detail-split-materials";
+import { ProjectDetailCompactMetadata } from "../../components/blocks/project-detail/project-detail-compact-metadata";
+import { ProjectDetailMinimalCentered } from "../../components/blocks/project-detail/project-detail-minimal-centered";
+import { ProjectDetailHoverGallery } from "../../components/blocks/project-detail/project-detail-hover-gallery";
+import { ProjectDetailCardHeader } from "../../components/blocks/project-detail/project-detail-card-header";
+import { ProjectDetailExhibitionSidebar } from "../../components/blocks/project-detail/project-detail-exhibition-sidebar";
+import { ProjectDetailListRelated } from "../../components/blocks/project-detail/project-detail-list-related";
+import { ProjectDetailArchitectureCarousel } from "../../components/blocks/project-detail/project-detail-architecture-carousel";
+import { ProjectDetailFashionEditorial } from "../../components/blocks/project-detail/project-detail-fashion-editorial";
+import { ProjectDetailPhotographyBreadcrumb } from "../../components/blocks/project-detail/project-detail-photography-breadcrumb";
+import { ProjectDetailLargeHeroFeatured } from "../../components/blocks/project-detail/project-detail-large-hero-featured";
+import { ProjectDetailTabbedCaseStudy } from "../../components/blocks/project-detail/project-detail-tabbed-case-study";
+import { ProjectDetailNumberedSections } from "../../components/blocks/project-detail/project-detail-numbered-sections";
+import { ProjectDetailMaskReveal } from "../../components/blocks/project-detail/project-detail-mask-reveal";
+import { ProjectDetailParallaxScroll } from "../../components/blocks/project-detail/project-detail-parallax-scroll";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -484,6 +508,7 @@ export type BlockCategory =
   | "navbar"
   | "logos"
   | "project-list"
+  | "project-detail"
   | "list"
   | "offer-modal";
 
@@ -10260,6 +10285,713 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   privacyUrl="/privacy"
   defaultOpen={true}
   onSubmit={(email) => console.log('Subscribed:', email)}
+/>`.trim(),
+  },
+
+  // Project Detail components
+  "project-detail-hero-metadata": {
+    id: "project-detail-hero-metadata",
+    name: "Project Detail Hero with Metadata",
+    description:
+      "A project detail page layout featuring a large hero image with overlaid title, followed by a metadata section displaying project details like category, year, and artist. Includes a description section and a gallery grid. Ideal for portfolio sites, art galleries, and creative showcases.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "hero",
+      "metadata",
+      "gallery",
+      "art",
+      "creative",
+      "showcase",
+      "case-study",
+    ],
+    category: "project-detail",
+    component: ProjectDetailHeroMetadata,
+    props: "ProjectDetailHeroMetadataProps",
+    exampleUsage: `<ProjectDetailHeroMetadata
+  title="Ethereal Horizons"
+  category="Digital Art"
+  year="2024"
+  artist="Jane Smith"
+  heroImage={{ src: "/hero.jpg", alt: "Project hero" }}
+  description="A stunning digital art piece exploring the boundaries of light and shadow."
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Gallery 1" },
+    { src: "/gallery2.jpg", alt: "Gallery 2" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-sidebar-sticky": {
+    id: "project-detail-sidebar-sticky",
+    name: "Project Detail with Sticky Sidebar",
+    description:
+      "A two-column project detail layout with a sticky sidebar containing project metadata and navigation. The main content area displays a hero image, description, and gallery. The sidebar remains visible while scrolling through the content. Perfect for detailed project pages with extensive information.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "sidebar",
+      "sticky",
+      "navigation",
+      "metadata",
+      "gallery",
+      "two-column",
+    ],
+    category: "project-detail",
+    component: ProjectDetailSidebarSticky,
+    props: "ProjectDetailSidebarStickyProps",
+    exampleUsage: `<ProjectDetailSidebarSticky
+  title="Urban Perspectives"
+  subtitle="A photographic journey through city landscapes"
+  category="Photography"
+  year="2024"
+  client="City Magazine"
+  heroImage={{ src: "/hero.jpg", alt: "Project hero" }}
+  description="Exploring the hidden beauty of urban environments."
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Gallery 1", caption: "Downtown at dusk" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-case-study-prose": {
+    id: "project-detail-case-study-prose",
+    name: "Project Detail Case Study Prose",
+    description:
+      "A long-form case study layout with prose sections and inline images. Features a hero section with title and metadata, followed by multiple content sections with headings and body text. Ideal for detailed project write-ups, design case studies, and portfolio pieces that require extensive explanation.",
+    semanticTags: [
+      "project",
+      "case-study",
+      "prose",
+      "long-form",
+      "content",
+      "detail",
+      "portfolio",
+      "design",
+      "write-up",
+    ],
+    category: "project-detail",
+    component: ProjectDetailCaseStudyProse,
+    props: "ProjectDetailCaseStudyProseProps",
+    exampleUsage: `<ProjectDetailCaseStudyProse
+  title="Brand Redesign"
+  category="Branding"
+  year="2024"
+  heroImage={{ src: "/hero.jpg", alt: "Project hero" }}
+  sections={[
+    { heading: "The Challenge", body: "Our client needed a fresh identity..." },
+    { heading: "The Solution", body: "We developed a comprehensive brand system..." },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-sidebar-navigation": {
+    id: "project-detail-sidebar-navigation",
+    name: "Project Detail with Sidebar Navigation",
+    description:
+      "A project detail layout with a sidebar containing section navigation links. Users can click navigation items to scroll to specific sections. Features a hero image, multiple content sections with images, and smooth scroll behavior. Perfect for long project pages with distinct sections.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "sidebar",
+      "navigation",
+      "sections",
+      "scroll",
+      "anchor-links",
+      "table-of-contents",
+    ],
+    category: "project-detail",
+    component: ProjectDetailSidebarNavigation,
+    props: "ProjectDetailSidebarNavigationProps",
+    exampleUsage: `<ProjectDetailSidebarNavigation
+  title="Product Launch Campaign"
+  subtitle="A multi-channel marketing initiative"
+  heroImage={{ src: "/hero.jpg", alt: "Project hero" }}
+  sections={[
+    { id: "overview", title: "Overview", content: "Campaign overview...", image: { src: "/img1.jpg", alt: "Overview" } },
+    { id: "strategy", title: "Strategy", content: "Our strategic approach...", image: { src: "/img2.jpg", alt: "Strategy" } },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-fullscreen-hero": {
+    id: "project-detail-fullscreen-hero",
+    name: "Project Detail Fullscreen Hero",
+    description:
+      "A dramatic project detail layout with a fullscreen hero image that fills the viewport. Title and metadata overlay the hero with a gradient for readability. Content sections follow below with alternating layouts. Ideal for visually striking portfolio pieces and creative showcases.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "fullscreen",
+      "hero",
+      "dramatic",
+      "visual",
+      "creative",
+      "immersive",
+    ],
+    category: "project-detail",
+    component: ProjectDetailFullscreenHero,
+    props: "ProjectDetailFullscreenHeroProps",
+    exampleUsage: `<ProjectDetailFullscreenHero
+  title="Mountain Expedition"
+  category="Adventure Photography"
+  year="2024"
+  heroImage={{ src: "/hero.jpg", alt: "Mountain landscape" }}
+  sections={[
+    { heading: "The Journey", body: "A 30-day expedition...", image: { src: "/img1.jpg", alt: "Journey" } },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-sculpture-showcase": {
+    id: "project-detail-sculpture-showcase",
+    name: "Project Detail Sculpture Showcase",
+    description:
+      "A gallery-focused project detail layout designed for showcasing physical artworks like sculptures. Features a large hero image with title overlay, detailed specifications section, and a masonry-style gallery. Includes dimensions, materials, and exhibition information. Perfect for artists and galleries.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "sculpture",
+      "art",
+      "gallery",
+      "exhibition",
+      "physical-art",
+      "specifications",
+      "masonry",
+    ],
+    category: "project-detail",
+    component: ProjectDetailSculptureShowcase,
+    props: "ProjectDetailSculptureShowcaseProps",
+    exampleUsage: `<ProjectDetailSculptureShowcase
+  title="Metamorphosis"
+  artist="John Doe"
+  year="2024"
+  heroImage={{ src: "/hero.jpg", alt: "Sculpture" }}
+  dimensions="48 x 24 x 36 inches"
+  materials="Bronze, Steel"
+  exhibition="Modern Art Museum"
+  description="A transformative piece exploring change and growth."
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Detail view 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-grid-gallery": {
+    id: "project-detail-grid-gallery",
+    name: "Project Detail Grid Gallery",
+    description:
+      "A project detail layout emphasizing a grid-based image gallery. Features a compact header with title and metadata, followed by a responsive grid of project images. Each image can have a caption. Ideal for photography portfolios, product showcases, and visual-heavy projects.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "grid",
+      "gallery",
+      "images",
+      "photography",
+      "visual",
+      "responsive",
+    ],
+    category: "project-detail",
+    component: ProjectDetailGridGallery,
+    props: "ProjectDetailGridGalleryProps",
+    exampleUsage: `<ProjectDetailGridGallery
+  title="Summer Collection"
+  category="Fashion"
+  year="2024"
+  description="Our latest summer fashion collection featuring bold colors and patterns."
+  images={[
+    { src: "/img1.jpg", alt: "Look 1", caption: "Sunset dress" },
+    { src: "/img2.jpg", alt: "Look 2", caption: "Ocean breeze top" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-split-materials": {
+    id: "project-detail-split-materials",
+    name: "Project Detail Split Materials",
+    description:
+      "A split-layout project detail page with materials and specifications on one side and images on the other. Features a hero section, detailed specs list, and gallery. Perfect for product design, industrial design, and projects where materials and construction details are important.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "split",
+      "materials",
+      "specifications",
+      "product-design",
+      "industrial",
+      "technical",
+    ],
+    category: "project-detail",
+    component: ProjectDetailSplitMaterials,
+    props: "ProjectDetailSplitMaterialsProps",
+    exampleUsage: `<ProjectDetailSplitMaterials
+  title="Ergonomic Chair"
+  category="Furniture Design"
+  year="2024"
+  heroImage={{ src: "/hero.jpg", alt: "Chair" }}
+  description="A revolutionary ergonomic chair designed for all-day comfort."
+  specifications={[
+    { label: "Material", value: "Recycled aluminum, mesh fabric" },
+    { label: "Dimensions", value: "28W x 26D x 42H inches" },
+  ]}
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Side view" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-compact-metadata": {
+    id: "project-detail-compact-metadata",
+    name: "Project Detail Compact Metadata",
+    description:
+      "A compact project detail layout with metadata displayed in a horizontal bar. Features a hero image, inline metadata items, description, and gallery. Space-efficient design ideal for projects with multiple metadata fields that need to be visible at a glance.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "compact",
+      "metadata",
+      "horizontal",
+      "efficient",
+      "inline",
+    ],
+    category: "project-detail",
+    component: ProjectDetailCompactMetadata,
+    props: "ProjectDetailCompactMetadataProps",
+    exampleUsage: `<ProjectDetailCompactMetadata
+  title="Mobile App Redesign"
+  heroImage={{ src: "/hero.jpg", alt: "App screens" }}
+  metadata={[
+    { label: "Client", value: "TechCorp" },
+    { label: "Year", value: "2024" },
+    { label: "Role", value: "Lead Designer" },
+  ]}
+  description="A complete redesign of the mobile banking experience."
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Screen 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-minimal-centered": {
+    id: "project-detail-minimal-centered",
+    name: "Project Detail Minimal Centered",
+    description:
+      "A minimalist, centered project detail layout with clean typography and generous whitespace. Features a centered title, subtitle, and description with a single hero image. Gallery images displayed in a simple grid. Perfect for elegant, understated portfolio presentations.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "minimal",
+      "centered",
+      "clean",
+      "elegant",
+      "whitespace",
+      "typography",
+    ],
+    category: "project-detail",
+    component: ProjectDetailMinimalCentered,
+    props: "ProjectDetailMinimalCenteredProps",
+    exampleUsage: `<ProjectDetailMinimalCentered
+  title="Quiet Moments"
+  subtitle="A meditation on stillness"
+  heroImage={{ src: "/hero.jpg", alt: "Quiet scene" }}
+  description="A photographic series exploring moments of peace in everyday life."
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Moment 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-hover-gallery": {
+    id: "project-detail-hover-gallery",
+    name: "Project Detail Hover Gallery",
+    description:
+      "A project detail layout with an interactive hover-reveal gallery. Images display titles and descriptions on hover with smooth animations. Features a header section with back navigation, title, and metadata. Ideal for interactive portfolios and creative showcases.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "hover",
+      "interactive",
+      "gallery",
+      "animation",
+      "reveal",
+      "creative",
+    ],
+    category: "project-detail",
+    component: ProjectDetailHoverGallery,
+    props: "ProjectDetailHoverGalleryProps",
+    exampleUsage: `<ProjectDetailHoverGallery
+  title="Interactive Installations"
+  category="Digital Art"
+  year="2024"
+  backHref="/projects"
+  images={[
+    { src: "/img1.jpg", alt: "Installation 1", title: "Light Wave", description: "An immersive light experience" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-card-header": {
+    id: "project-detail-card-header",
+    name: "Project Detail Card Header",
+    description:
+      "A project detail layout with a card-based header containing the hero image and metadata. The card has rounded corners and a subtle shadow. Content and gallery follow below. Modern, polished design ideal for tech portfolios and SaaS case studies.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "card",
+      "header",
+      "modern",
+      "polished",
+      "tech",
+      "saas",
+      "rounded",
+    ],
+    category: "project-detail",
+    component: ProjectDetailCardHeader,
+    props: "ProjectDetailCardHeaderProps",
+    exampleUsage: `<ProjectDetailCardHeader
+  title="Dashboard Redesign"
+  category="UI/UX"
+  year="2024"
+  artist="Design Team"
+  heroImage={{ src: "/hero.jpg", alt: "Dashboard" }}
+  description="A complete overhaul of the analytics dashboard."
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Screen 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-exhibition-sidebar": {
+    id: "project-detail-exhibition-sidebar",
+    name: "Project Detail Exhibition Sidebar",
+    description:
+      "A project detail layout with a sidebar listing exhibition history and venues. Features a hero image, description, and gallery in the main content area. The sidebar displays past and upcoming exhibitions with dates and locations. Perfect for artists and galleries.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "exhibition",
+      "sidebar",
+      "venues",
+      "art",
+      "gallery",
+      "history",
+    ],
+    category: "project-detail",
+    component: ProjectDetailExhibitionSidebar,
+    props: "ProjectDetailExhibitionSidebarProps",
+    exampleUsage: `<ProjectDetailExhibitionSidebar
+  title="Reflections"
+  category="Mixed Media"
+  year="2024"
+  heroImage={{ src: "/hero.jpg", alt: "Artwork" }}
+  description="A series exploring identity and self-perception."
+  exhibitions={[
+    { title: "Solo Show", venue: "Modern Gallery", date: "Jan 2024" },
+  ]}
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Piece 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-list-related": {
+    id: "project-detail-list-related",
+    name: "Project Detail with Related Projects List",
+    description:
+      "A project detail layout with a related projects section displayed as a list. Features a hero image, metadata, description, and gallery, followed by a list of related projects with thumbnails. Encourages exploration of similar work. Ideal for portfolio sites.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "related",
+      "list",
+      "thumbnails",
+      "navigation",
+      "exploration",
+      "similar",
+    ],
+    category: "project-detail",
+    component: ProjectDetailListRelated,
+    props: "ProjectDetailListRelatedProps",
+    exampleUsage: `<ProjectDetailListRelated
+  title="Brand Identity"
+  category="Branding"
+  year="2024"
+  heroImage={{ src: "/hero.jpg", alt: "Brand" }}
+  description="A comprehensive brand identity system."
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Logo" },
+  ]}
+  relatedProjects={[
+    { title: "Website Design", category: "Web", year: "2024", thumbnail: { src: "/thumb1.jpg", alt: "Website" }, href: "/projects/website" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-architecture-carousel": {
+    id: "project-detail-architecture-carousel",
+    name: "Project Detail Architecture Carousel",
+    description:
+      "A project detail layout with a carousel for showcasing architectural or spatial projects. Features navigation controls, dot indicators, and multiple content sections with alternating image placement. Includes a detail grid at the bottom. Perfect for architecture and interior design portfolios.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "architecture",
+      "carousel",
+      "spatial",
+      "interior",
+      "navigation",
+      "slides",
+    ],
+    category: "project-detail",
+    component: ProjectDetailArchitectureCarousel,
+    props: "ProjectDetailArchitectureCarouselProps",
+    exampleUsage: `<ProjectDetailArchitectureCarousel
+  title="Modern Residence"
+  category="Architecture"
+  year="2024"
+  heroImage={{ src: "/hero.jpg", alt: "House exterior" }}
+  carouselImages={[
+    { src: "/slide1.jpg", alt: "Living room" },
+    { src: "/slide2.jpg", alt: "Kitchen" },
+  ]}
+  sections={[
+    { heading: "Design Concept", body: "A seamless blend of indoor and outdoor living.", image: { src: "/img1.jpg", alt: "Concept" } },
+  ]}
+  detailImages={[
+    { src: "/detail1.jpg", alt: "Detail 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-fashion-editorial": {
+    id: "project-detail-fashion-editorial",
+    name: "Project Detail Fashion Editorial",
+    description:
+      "An editorial-style project detail layout designed for fashion and photography projects. Features a large title, hero image with portrait aspect ratio, credits sidebar listing team members, and a gallery of editorial images. Perfect for fashion shoots and creative collaborations.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "fashion",
+      "editorial",
+      "photography",
+      "credits",
+      "team",
+      "portrait",
+    ],
+    category: "project-detail",
+    component: ProjectDetailFashionEditorial,
+    props: "ProjectDetailFashionEditorialProps",
+    exampleUsage: `<ProjectDetailFashionEditorial
+  title="AUTUMN COLLECTION"
+  heroImage={{ src: "/hero.jpg", alt: "Fashion shoot" }}
+  credits={[
+    { role: "Photographer", name: "Jane Doe" },
+    { role: "Stylist", name: "John Smith" },
+  ]}
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Look 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-photography-breadcrumb": {
+    id: "project-detail-photography-breadcrumb",
+    name: "Project Detail Photography Breadcrumb",
+    description:
+      "A project detail layout with breadcrumb navigation and a sticky sidebar. Features a two-column layout with metadata in the sidebar and images in the main content area. Breadcrumbs show the navigation path. Ideal for photography portfolios with organized categories.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "photography",
+      "breadcrumb",
+      "navigation",
+      "sidebar",
+      "sticky",
+      "categories",
+    ],
+    category: "project-detail",
+    component: ProjectDetailPhotographyBreadcrumb,
+    props: "ProjectDetailPhotographyBreadcrumbProps",
+    exampleUsage: `<ProjectDetailPhotographyBreadcrumb
+  title="Street Photography"
+  subtitle="Urban life in motion"
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Photography", href: "/photography" },
+    { label: "Street" },
+  ]}
+  metadata={[
+    { label: "Location", value: "New York City" },
+    { label: "Year", value: "2024" },
+  ]}
+  description="Capturing the energy and diversity of city streets."
+  heroImage={{ src: "/hero.jpg", alt: "Street scene" }}
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Photo 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-large-hero-featured": {
+    id: "project-detail-large-hero-featured",
+    name: "Project Detail Large Hero Featured",
+    description:
+      "A project detail layout with an extra-large hero section featuring gradient overlay and scroll-based opacity effects. Includes a details grid, multiple prose sections with alternating layouts, and a gallery. Dramatic and immersive design for featured projects.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "large-hero",
+      "featured",
+      "gradient",
+      "scroll",
+      "immersive",
+      "dramatic",
+    ],
+    category: "project-detail",
+    component: ProjectDetailLargeHeroFeatured,
+    props: "ProjectDetailLargeHeroFeaturedProps",
+    exampleUsage: `<ProjectDetailLargeHeroFeatured
+  title="Epic Journey"
+  heroImage={{ src: "/hero.jpg", alt: "Journey" }}
+  details={[
+    { label: "Duration", value: "6 months" },
+    { label: "Location", value: "Global" },
+  ]}
+  sections={[
+    { heading: "The Beginning", body: "It all started with a dream...", image: { src: "/img1.jpg", alt: "Start" } },
+  ]}
+  galleryImages={[
+    { src: "/gallery1.jpg", alt: "Moment 1" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-tabbed-case-study": {
+    id: "project-detail-tabbed-case-study",
+    name: "Project Detail Tabbed Case Study",
+    description:
+      "A comprehensive case study layout with tabbed navigation for different sections like Overview, Challenge, Solution, and Results. Includes content sections, testimonials, and a tools/technologies section. Perfect for detailed project case studies and client work showcases.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "case-study",
+      "tabs",
+      "testimonial",
+      "tools",
+      "comprehensive",
+      "client-work",
+    ],
+    category: "project-detail",
+    component: ProjectDetailTabbedCaseStudy,
+    props: "ProjectDetailTabbedCaseStudyProps",
+    exampleUsage: `<ProjectDetailTabbedCaseStudy
+  title="E-commerce Platform"
+  heroImage={{ src: "/hero.jpg", alt: "Platform" }}
+  tabs={[
+    { id: "overview", label: "Overview" },
+    { id: "challenge", label: "Challenge" },
+  ]}
+  contentSections={[
+    { heading: "Project Goals", body: "Increase conversion rates...", image: { src: "/img1.jpg", alt: "Goals" } },
+  ]}
+  testimonial={{
+    quote: "The results exceeded our expectations.",
+    author: "CEO",
+    role: "Client Company",
+    avatar: { src: "/avatar.jpg", alt: "CEO" },
+  }}
+  tools={[
+    { name: "React", icon: "react" },
+    { name: "Node.js", icon: "nodejs" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-numbered-sections": {
+    id: "project-detail-numbered-sections",
+    name: "Project Detail Numbered Sections",
+    description:
+      "A project detail layout with large numbered section headings. Each section features a prominent number (01, 02, 03), title, description, and image with alternating left/right placement. Creates a clear visual hierarchy and reading flow. Ideal for process-oriented case studies.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "numbered",
+      "sections",
+      "process",
+      "hierarchy",
+      "alternating",
+      "steps",
+    ],
+    category: "project-detail",
+    component: ProjectDetailNumberedSections,
+    props: "ProjectDetailNumberedSectionsProps",
+    exampleUsage: `<ProjectDetailNumberedSections
+  title="Design Process"
+  heroImage={{ src: "/hero.jpg", alt: "Process" }}
+  sections={[
+    { number: "01", title: "Research", description: "Understanding user needs...", image: { src: "/img1.jpg", alt: "Research" } },
+    { number: "02", title: "Design", description: "Creating solutions...", image: { src: "/img2.jpg", alt: "Design" } },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-mask-reveal": {
+    id: "project-detail-mask-reveal",
+    name: "Project Detail Mask Reveal",
+    description:
+      "A project detail layout with scroll-triggered clip-path reveal animations. Images are revealed as the user scrolls using CSS clip-path transitions. Features parallax effects and smooth animations. Creates an engaging, cinematic viewing experience for visual projects.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "mask",
+      "reveal",
+      "animation",
+      "scroll",
+      "clip-path",
+      "cinematic",
+      "parallax",
+    ],
+    category: "project-detail",
+    component: ProjectDetailMaskReveal,
+    props: "ProjectDetailMaskRevealProps",
+    exampleUsage: `<ProjectDetailMaskReveal
+  title="Visual Journey"
+  heroImage={{ src: "/hero.jpg", alt: "Journey" }}
+  revealImages={[
+    { src: "/reveal1.jpg", alt: "Scene 1", caption: "The beginning" },
+    { src: "/reveal2.jpg", alt: "Scene 2", caption: "The middle" },
+  ]}
+/>`.trim(),
+  },
+  "project-detail-parallax-scroll": {
+    id: "project-detail-parallax-scroll",
+    name: "Project Detail Parallax Scroll",
+    description:
+      "A project detail layout with parallax scroll effects throughout. The hero section features Y-axis parallax and opacity transforms. Content sections have staggered parallax effects creating depth. Ideal for immersive storytelling and visually dynamic project presentations.",
+    semanticTags: [
+      "project",
+      "portfolio",
+      "detail",
+      "parallax",
+      "scroll",
+      "animation",
+      "depth",
+      "immersive",
+      "storytelling",
+      "dynamic",
+    ],
+    category: "project-detail",
+    component: ProjectDetailParallaxScroll,
+    props: "ProjectDetailParallaxScrollProps",
+    exampleUsage: `<ProjectDetailParallaxScroll
+  title="Immersive Experience"
+  heroImage={{ src: "/hero.jpg", alt: "Experience" }}
+  sections={[
+    { heading: "Chapter One", body: "The story begins...", image: { src: "/img1.jpg", alt: "Chapter 1" } },
+    { heading: "Chapter Two", body: "The journey continues...", image: { src: "/img2.jpg", alt: "Chapter 2" } },
+  ]}
 />`.trim(),
   },
 };
