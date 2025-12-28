@@ -234,6 +234,23 @@ import { FaqCardCategories } from "../../components/blocks/faq/faq-card-categori
 import { FaqIconBenefits } from "../../components/blocks/faq/faq-icon-benefits";
 import { FaqRoundedCards } from "../../components/blocks/faq/faq-rounded-cards";
 import { FaqProfileSidebar } from "../../components/blocks/faq/faq-profile-sidebar";
+import { FaqSplitHero } from "../../components/blocks/faq/faq-split-hero";
+
+// New About components
+import { AboutSplitHero } from "../../components/blocks/about/about-split-hero";
+import { AboutMissionPrinciples } from "../../components/blocks/about/about-mission-principles";
+import { AboutExpandableValues } from "../../components/blocks/about/about-expandable-values";
+import { AboutDeiInitiatives } from "../../components/blocks/about/about-dei-initiatives";
+import { AboutCultureTabs } from "../../components/blocks/about/about-culture-tabs";
+
+// New Feature components
+import { FeatureAnimatedCarousel } from "../../components/blocks/features/feature-animated-carousel";
+
+// New Footer components
+import { FooterNewsletterContact } from "../../components/blocks/footers/footer-newsletter-contact";
+import { FooterSplitImageAccordion } from "../../components/blocks/footers/footer-split-image-accordion";
+import { FooterAccordionSocial } from "../../components/blocks/footers/footer-accordion-social";
+import { FooterInfoCardsAccordion } from "../../components/blocks/footers/footer-info-cards-accordion";
 
 // Case Studies List components
 import { CaseStudiesImageGrid } from "../../components/blocks/case-studies-list/case-studies-image-grid";
@@ -14949,6 +14966,357 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   ]}
   socialLinks={[
     { id: "s1", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" }
+  ]}
+/>`.trim(),
+  },
+
+  // New About components
+  "about-split-hero": {
+    id: "about-split-hero",
+    name: "About Split Hero",
+    description:
+      "A split-screen hero section with dark theme styling, featuring text content on the left and a large image on the right. Includes brand text with gradient highlight, prominent heading, description, and CTA button. Best for premium/pro tier landing pages, product launches, and upgrade prompts.",
+    semanticTags: [
+      "about",
+      "hero",
+      "split",
+      "dark-theme",
+      "premium",
+      "upgrade",
+      "cta",
+      "brand",
+      "landing",
+    ],
+    category: "about",
+    component: AboutSplitHero,
+    props: "AboutSplitHeroProps",
+    exampleUsage: `
+<AboutSplitHero
+  brandText="Business"
+  brandHighlight="PRO"
+  heading="Achieve More with Elite Access Pro"
+  description="Enhance your career hunt with increased visibility."
+  ctaText="Upgrade to premium"
+  ctaUrl="/upgrade"
+/>`.trim(),
+  },
+
+  "about-mission-principles": {
+    id: "about-mission-principles",
+    name: "About Mission Principles",
+    description:
+      "A comprehensive mission statement section with numbered principle cards and a vision callout. Features a two-column grid with mission text on left, principle cards on right, followed by a full-width vision banner. Best for company about pages, mission statements, and values showcases.",
+    semanticTags: [
+      "about",
+      "mission",
+      "principles",
+      "values",
+      "vision",
+      "company",
+      "culture",
+      "numbered",
+      "cards",
+    ],
+    category: "about",
+    component: AboutMissionPrinciples,
+    props: "AboutMissionPrinciplesProps",
+    exampleUsage: `
+<AboutMissionPrinciples
+  badgeText="Our Mission"
+  missionHeading="To empower people through technology"
+  missionDescription="We believe technology should serve humanity."
+  principles={[
+    { number: "01", title: "Customer-Centric", description: "..." },
+  ]}
+/>`.trim(),
+  },
+
+  "about-expandable-values": {
+    id: "about-expandable-values",
+    name: "About Expandable Values",
+    description:
+      "An interactive values section with expandable cards that reveal detailed descriptions and examples when clicked. Features a responsive grid of value cards that expand to full width when active, with icon integration and example lists. Best for company values pages, culture showcases, and brand identity sections.",
+    semanticTags: [
+      "about",
+      "values",
+      "expandable",
+      "interactive",
+      "cards",
+      "culture",
+      "brand",
+      "icons",
+      "accordion",
+    ],
+    category: "about",
+    component: AboutExpandableValues,
+    props: "AboutExpandableValuesProps",
+    exampleUsage: `
+<AboutExpandableValues
+  badgeText="Our Core Values"
+  heading="The Principles That Guide Us"
+  values={[
+    {
+      id: "integrity",
+      icon: "lucide/shield",
+      title: "Integrity",
+      shortDescription: "Doing what's right.",
+      longDescription: "We believe in honesty...",
+      examples: ["Transparent pricing", "Honest communication"],
+    },
+  ]}
+/>`.trim(),
+  },
+
+  "about-dei-initiatives": {
+    id: "about-dei-initiatives",
+    name: "About DEI Initiatives",
+    description:
+      "A comprehensive diversity, equity, and inclusion section with tabbed categories and detailed initiative cards with metrics. Features a tabbed interface with alternating content/image layout for initiatives, metrics display, and responsive dropdown for mobile. Best for DEI pages, corporate responsibility sections, and values showcases.",
+    semanticTags: [
+      "about",
+      "dei",
+      "diversity",
+      "equity",
+      "inclusion",
+      "initiatives",
+      "metrics",
+      "tabs",
+      "corporate",
+      "responsibility",
+    ],
+    category: "about",
+    component: AboutDeiInitiatives,
+    props: "AboutDeiInitiativesProps",
+    exampleUsage: `
+<AboutDeiInitiatives
+  badgeText="Diversity & Inclusion"
+  heading="Building a More Equitable Future"
+  categories={[
+    {
+      id: "workplace",
+      title: "Inclusive Workplace",
+      description: "Creating an inclusive environment.",
+      initiatives: [...]
+    },
+  ]}
+/>`.trim(),
+  },
+
+  "about-culture-tabs": {
+    id: "about-culture-tabs",
+    name: "About Culture Tabs",
+    description:
+      "A tabbed company culture section with testimonials, image galleries, and a careers CTA. Features a tabbed interface with description, testimonial card, and image grid for each culture aspect. Best for company culture pages, careers sections, and about us pages.",
+    semanticTags: [
+      "about",
+      "culture",
+      "tabs",
+      "testimonials",
+      "gallery",
+      "careers",
+      "team",
+      "values",
+      "workplace",
+    ],
+    category: "about",
+    component: AboutCultureTabs,
+    props: "AboutCultureTabsProps",
+    exampleUsage: `
+<AboutCultureTabs
+  badgeText="Our Culture"
+  heading="What Makes Us Different"
+  aspects={[
+    {
+      id: "innovation",
+      title: "Innovation First",
+      description: "We believe in challenging the status quo.",
+      images: [...],
+      testimonial: { quote: "...", author: "...", role: "...", avatar: "..." },
+    },
+  ]}
+/>`.trim(),
+  },
+
+  // New Feature components
+  "feature-animated-carousel": {
+    id: "feature-animated-carousel",
+    name: "Feature Animated Carousel",
+    description:
+      "An interactive feature carousel with animated transitions between feature cards and images. Features a vertical card list with up/down navigation controls on desktop and horizontal swipe on mobile. Uses Framer Motion for smooth animations. Best for product feature showcases, service highlights, and interactive landing pages.",
+    semanticTags: [
+      "features",
+      "carousel",
+      "animated",
+      "interactive",
+      "cards",
+      "showcase",
+      "framer-motion",
+      "responsive",
+    ],
+    category: "features",
+    component: FeatureAnimatedCarousel,
+    props: "FeatureAnimatedCarouselProps",
+    exampleUsage: `
+<FeatureAnimatedCarousel
+  features={[
+    {
+      image: "/feature1.jpg",
+      title: "Feature One",
+      description: "Description of the first feature.",
+    },
+  ]}
+/>`.trim(),
+  },
+
+  // New Footer components
+  "footer-newsletter-contact": {
+    id: "footer-newsletter-contact",
+    name: "Footer Newsletter Contact",
+    description:
+      "A comprehensive footer with newsletter signup, navigation links, contact details, and social media icons. Features a four-column grid layout with newsletter form, link sections, and contact info with icons. Best for e-commerce sites, business websites, and service-based companies.",
+    semanticTags: [
+      "footer",
+      "newsletter",
+      "contact",
+      "social",
+      "links",
+      "ecommerce",
+      "business",
+      "navigation",
+    ],
+    category: "footer",
+    component: FooterNewsletterContact,
+    props: "FooterNewsletterContactProps",
+    exampleUsage: `
+<FooterNewsletterContact
+  newsletterTitle="Newsletter"
+  newsletterDescription="Join our newsletter for exclusive deals."
+  footerLinks={[
+    { title: "Information", items: [...] },
+  ]}
+  contactDetails={[
+    { icon: "lucide/mail", text: "support@store.com", type: "email" },
+  ]}
+/>`.trim(),
+  },
+
+  "footer-split-image-accordion": {
+    id: "footer-split-image-accordion",
+    name: "Footer Split Image Accordion",
+    description:
+      "A split-layout footer with large image, newsletter signup, accordion navigation, and payment methods. Features a two-column split with image on left, content on right, and responsive accordion links for mobile. Best for e-commerce sites, fashion brands, and lifestyle businesses.",
+    semanticTags: [
+      "footer",
+      "split",
+      "image",
+      "accordion",
+      "newsletter",
+      "payment",
+      "ecommerce",
+      "fashion",
+    ],
+    category: "footer",
+    component: FooterSplitImageAccordion,
+    props: "FooterSplitImageAccordionProps",
+    exampleUsage: `
+<FooterSplitImageAccordion
+  newsletterTitle="Get updates and save 20%"
+  footerLinks={[
+    { title: "Collections", id: "collections", items: [...] },
+  ]}
+  footerData={{
+    image: { src: "/hero.jpg", alt: "Hero" },
+    title: "Modern Fashion",
+    description: "Quality clothing for everyone.",
+  }}
+/>`.trim(),
+  },
+
+  "footer-accordion-social": {
+    id: "footer-accordion-social",
+    name: "Footer Accordion Social",
+    description:
+      "A footer with newsletter, accordion navigation links, and social media icons with responsive accordion behavior. Features newsletter section at top, accordion links in grid, and social icons. Accordion is collapsed on mobile and expanded on desktop. Best for e-commerce sites, retail brands, and content-heavy websites.",
+    semanticTags: [
+      "footer",
+      "accordion",
+      "social",
+      "newsletter",
+      "responsive",
+      "ecommerce",
+      "retail",
+      "navigation",
+    ],
+    category: "footer",
+    component: FooterAccordionSocial,
+    props: "FooterAccordionSocialProps",
+    exampleUsage: `
+<FooterAccordionSocial
+  newsletterTitle="Stay in the loop"
+  newsletterDescription="Get updates on new products and offers."
+  footerLinks={[
+    { title: "Shop", id: "shop", items: [...] },
+  ]}
+/>`.trim(),
+  },
+
+  "footer-info-cards-accordion": {
+    id: "footer-info-cards-accordion",
+    name: "Footer Info Cards Accordion",
+    description:
+      "A comprehensive footer with info cards, newsletter, accordion navigation, payment methods, and social links. Features hero image with newsletter, contact info cards grid, accordion links, and language selector. Best for e-commerce sites, service businesses, and customer-focused brands.",
+    semanticTags: [
+      "footer",
+      "info",
+      "cards",
+      "accordion",
+      "newsletter",
+      "payment",
+      "contact",
+      "ecommerce",
+      "service",
+    ],
+    category: "footer",
+    component: FooterInfoCardsAccordion,
+    props: "FooterInfoCardsAccordionProps",
+    exampleUsage: `
+<FooterInfoCardsAccordion
+  newsletterTitle="Newsletter"
+  newsletterDescription="Join for exclusive offers."
+  infoItems={[
+    { icon: "lucide/phone", title: "Call Us", text: "+1 555-1234" },
+  ]}
+  footerLinks={[
+    { title: "Shop", id: "shop", items: [...] },
+  ]}
+/>`.trim(),
+  },
+
+  // New FAQ components
+  "faq-split-hero": {
+    id: "faq-split-hero",
+    name: "FAQ Split Hero",
+    description:
+      "A dark-themed split-screen FAQ section with animated accordion on the left and a large image on the right. Features prominent heading and subheading with animated accordion FAQ items. Best for landing pages, product pages, and service pages requiring FAQ visibility.",
+    semanticTags: [
+      "faq",
+      "split",
+      "hero",
+      "dark-theme",
+      "accordion",
+      "animated",
+      "landing",
+      "questions",
+    ],
+    category: "faq",
+    component: FaqSplitHero,
+    props: "FaqSplitHeroProps",
+    exampleUsage: `
+<FaqSplitHero
+  heading="Frequently Asked Questions"
+  subheading="Find answers to common questions about our services."
+  items={[
+    { id: "1", question: "What services do you offer?", answer: "..." },
   ]}
 />`.trim(),
   },
