@@ -27,21 +27,88 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
+
+export interface SlideItem {
+  /**
+   * Image source URL
+   */
+  src: string;
+  /**
+   * Slide label/alt text
+   */
+  label?: React.ReactNode;
+  /**
+   * Additional CSS classes for the slide
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+}
 
 export interface CarouselAutoProgressSlidesProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
-  heading?: string;
-  subheading?: string;
-  slideLabel?: string;
-  items?: Array<{
-    src: string;
-    label: string;
-  }>;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading/description text
+   */
+  subheading?: React.ReactNode;
+  /**
+   * Label shown above each slide
+   */
+  slideLabel?: React.ReactNode;
+  /**
+   * Array of slide items
+   */
+  items?: SlideItem[];
+  /**
+   * Custom slot for rendering slides (overrides items array)
+   */
+  slidesSlot?: React.ReactNode;
+  /**
+   * Auto advance interval in milliseconds
+   */
   autoAdvanceInterval?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the navigation area
+   */
+  navigationClassName?: string;
+  /**
+   * Additional CSS classes for the slide label
+   */
+  slideLabelClassName?: string;
+  /**
+   * Additional CSS classes for the slide container
+   */
+  slideContainerClassName?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const variants: Variants = {
@@ -64,25 +131,31 @@ const variants: Variants = {
   },
 };
 
+const defaultItems: SlideItem[] = [
+  { src: imagePlaceholders[0], label: "Feature showcase 1" },
+  { src: imagePlaceholders[1], label: "Feature showcase 2" },
+  { src: imagePlaceholders[2], label: "Feature showcase 3" },
+  { src: imagePlaceholders[3], label: "Feature showcase 4" },
+  { src: imagePlaceholders[4], label: "Feature showcase 5" },
+];
+
 export function CarouselAutoProgressSlides({
-  className,
-  optixFlowConfig,
   heading = "UI for future",
   subheading = "Collection of unusual UI components",
   slideLabel = "Available with our platform",
-  items,
+  items = defaultItems,
+  slidesSlot,
   autoAdvanceInterval = 50,
+  className,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  navigationClassName,
+  slideLabelClassName,
+  slideContainerClassName,
+  imageClassName,
+  optixFlowConfig,
 }: CarouselAutoProgressSlidesProps): React.JSX.Element {
-  const defaultItems = React.useMemo(
-    () =>
-      Array.from({ length: 5 }).map((_, index) => ({
-        src: imagePlaceholders[index % imagePlaceholders.length],
-        label: `Feature showcase ${index + 1}`,
-      })),
-    []
-  );
-
-  const carouselItems = items || defaultItems;
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const progress = useMotionValue(100);
   const [direction, setDirection] = React.useState(1);
@@ -97,7 +170,7 @@ export function CarouselAutoProgressSlides({
       } else {
         clearInterval(interval);
         progress.set(100);
-        if (currentIndex < carouselItems.length - 1) {
+        if (currentIndex < items.length - 1) {
           setCurrentIndex(currentIndex + 1);
           setDirection(1);
         } else {
@@ -107,19 +180,19 @@ export function CarouselAutoProgressSlides({
     }, autoAdvanceInterval);
 
     return () => clearInterval(interval);
-  }, [progress, currentIndex, carouselItems.length, autoAdvanceInterval]);
+  }, [progress, currentIndex, items.length, autoAdvanceInterval]);
 
   const handlePrev = () => {
     progress.set(100);
     currentIndex > 0
       ? setCurrentIndex(currentIndex - 1)
-      : setCurrentIndex(carouselItems.length - 1);
+      : setCurrentIndex(items.length - 1);
     setDirection(-1);
   };
 
   const handleNext = () => {
     progress.set(100);
-    currentIndex < carouselItems.length - 1
+    currentIndex < items.length - 1
       ? setCurrentIndex(currentIndex + 1)
       : setCurrentIndex(0);
     setDirection(1);
@@ -142,13 +215,25 @@ export function CarouselAutoProgressSlides({
         className
       )}
     >
-      <div className="text-center">
-        <h1 className="text-6xl tracking-tighter">{heading}</h1>
-        <p className="mt-4 text-2xl text-foreground/50">{subheading}</p>
+      <div className={cn("text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("text-6xl tracking-tighter", headingClassName)}>{heading}</h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {subheading && (
+          typeof subheading === "string" ? (
+            <p className={cn("mt-4 text-2xl text-foreground/50", subheadingClassName)}>{subheading}</p>
+          ) : (
+            <div className={cn("mt-4", subheadingClassName)}>{subheading}</div>
+          )
+        )}
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex items-center justify-center gap-5">
+      <div className={cn("flex items-center justify-center gap-5", navigationClassName)}>
         <Pressable
           onClick={handlePrev}
           asButton
@@ -159,7 +244,7 @@ export function CarouselAutoProgressSlides({
           <DynamicIcon name="lucide/chevron-left" size={16} />
         </Pressable>
         <div className="flex items-center justify-center gap-1">
-          {carouselItems.map((_, index) => (
+          {items.map((_, index) => (
             <motion.button
               key={index}
               initial={false}
@@ -189,36 +274,46 @@ export function CarouselAutoProgressSlides({
         </Pressable>
       </div>
 
-      <AnimatePresence initial={false} mode="popLayout" custom={direction}>
-        {currentIndex !== null && (
-          <motion.div
-            key={currentIndex}
-            variants={variants}
-            initial="initial"
-            animate="active"
-            exit="exit"
-            custom={direction}
-            transition={{ type: "spring", stiffness: 100, damping: 30 }}
-            className="flex w-full max-w-3xl flex-col items-center justify-center"
-          >
-            <p className="mb-6 text-2xl text-foreground/50">{slideLabel}</p>
-            <div className="h-[550px] w-full overflow-hidden rounded-3xl bg-foreground/10 p-1">
-              <motion.div
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                className="h-full w-full"
-              >
-                <Img
-                  src={carouselItems[currentIndex].src}
-                  alt={carouselItems[currentIndex].label}
-                  className="h-full w-full rounded-3xl object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {slidesSlot ? (
+        slidesSlot
+      ) : (
+        <AnimatePresence initial={false} mode="popLayout" custom={direction}>
+          {currentIndex !== null && (
+            <motion.div
+              key={currentIndex}
+              variants={variants}
+              initial="initial"
+              animate="active"
+              exit="exit"
+              custom={direction}
+              transition={{ type: "spring", stiffness: 100, damping: 30 }}
+              className={cn("flex w-full max-w-3xl flex-col items-center justify-center", items[currentIndex].className)}
+            >
+              {slideLabel && (
+                typeof slideLabel === "string" ? (
+                  <p className={cn("mb-6 text-2xl text-foreground/50", slideLabelClassName)}>{slideLabel}</p>
+                ) : (
+                  <div className={cn("mb-6", slideLabelClassName)}>{slideLabel}</div>
+                )
+              )}
+              <div className={cn("h-[550px] w-full overflow-hidden rounded-3xl bg-foreground/10 p-1", slideContainerClassName)}>
+                <motion.div
+                  initial={{ scale: 0.9 }}
+                  animate={{ scale: 1 }}
+                  className="h-full w-full"
+                >
+                  <Img
+                    src={items[currentIndex].src}
+                    alt={typeof items[currentIndex].label === "string" ? items[currentIndex].label : `Slide ${currentIndex + 1}`}
+                    className={cn("h-full w-full rounded-3xl object-cover", imageClassName, items[currentIndex].imageClassName)}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </section>
   );
 }

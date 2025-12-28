@@ -23,20 +23,84 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
+
+export interface AutoplaySlide {
+  /**
+   * Image source URL
+   */
+  src: string;
+  /**
+   * Image alt text
+   */
+  alt?: React.ReactNode;
+  /**
+   * Additional content below the image
+   */
+  content?: React.ReactNode;
+  /**
+   * Additional CSS classes for the slide
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+}
 
 export interface CarouselAutoplayProgressProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
-  slides?: Array<{
-    src: string;
-    alt: string;
-    content?: React.ReactNode;
-  }>;
+  /**
+   * Array of slides
+   */
+  slides?: AutoplaySlide[];
+  /**
+   * Custom slot for rendering slides (overrides slides array)
+   */
+  slidesSlot?: React.ReactNode;
+  /**
+   * Embla carousel options
+   */
   options?: EmblaOptionsType;
+  /**
+   * Autoplay delay in milliseconds
+   */
   autoplayDelay?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the carousel container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the slides track
+   */
+  trackClassName?: string;
+  /**
+   * Additional CSS classes for individual slides
+   */
+  slideClassName?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the controls area
+   */
+  controlsClassName?: string;
+  /**
+   * Additional CSS classes for the dots navigation
+   */
+  dotsClassName?: string;
+  /**
+   * Additional CSS classes for the progress bar
+   */
+  progressClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 // Hook for dot button navigation
@@ -167,23 +231,29 @@ function useAutoplayProgress(
   return { showAutoplayProgress };
 }
 
+const defaultSlides: AutoplaySlide[] = [
+  { src: imagePlaceholders[0], alt: "Slide 1" },
+  { src: imagePlaceholders[1], alt: "Slide 2" },
+  { src: imagePlaceholders[2], alt: "Slide 3" },
+  { src: imagePlaceholders[3], alt: "Slide 4" },
+  { src: imagePlaceholders[4], alt: "Slide 5" },
+];
+
 export function CarouselAutoplayProgress({
-  className,
-  optixFlowConfig,
-  slides,
+  slides = defaultSlides,
+  slidesSlot,
   options,
   autoplayDelay = 3000,
+  className,
+  containerClassName,
+  trackClassName,
+  slideClassName,
+  imageClassName,
+  controlsClassName,
+  dotsClassName,
+  progressClassName,
+  optixFlowConfig,
 }: CarouselAutoplayProgressProps): React.JSX.Element {
-  const defaultSlides = React.useMemo(
-    () =>
-      Array.from({ length: 5 }).map((_, index) => ({
-        src: imagePlaceholders[index % imagePlaceholders.length],
-        alt: `Slide ${index + 1}`,
-      })),
-    []
-  );
-
-  const carouselSlides = slides || defaultSlides;
   const progressNode = React.useRef<HTMLDivElement>(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
@@ -198,31 +268,35 @@ export function CarouselAutoplayProgress({
 
   return (
     <section className={cn("w-full", className)}>
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="ml-auto mr-3 flex touch-pan-y touch-pinch-zoom">
-          {carouselSlides.map((slide, index) => (
-            <div
-              className="flex-[0_0_70%] transform-gpu pl-3"
-              key={index}
-            >
-              <div className="aspect-video overflow-hidden rounded-lg">
-                <Img
-                  src={slide.src}
-                  alt={slide.alt}
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
+      <div className={cn("overflow-hidden", containerClassName)} ref={emblaRef}>
+        <div className={cn("ml-auto mr-3 flex touch-pan-y touch-pinch-zoom", trackClassName)}>
+          {slidesSlot ? (
+            slidesSlot
+          ) : (
+            slides.map((slide, index) => (
+              <div
+                className={cn("flex-[0_0_70%] transform-gpu pl-3", slideClassName, slide.className)}
+                key={index}
+              >
+                <div className="aspect-video overflow-hidden rounded-lg">
+                  <Img
+                    src={slide.src}
+                    alt={typeof slide.alt === "string" ? slide.alt : `Slide ${index + 1}`}
+                    className={cn("h-full w-full object-cover", imageClassName, slide.imageClassName)}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </div>
+                {slide.content && (
+                  <div className="mt-4">{slide.content}</div>
+                )}
               </div>
-              {slide.content && (
-                <div className="mt-4">{slide.content}</div>
-              )}
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
 
-      <div className="mx-auto mt-7 flex max-w-80 items-center justify-between gap-3">
-        <div className="flex justify-center gap-2">
+      <div className={cn("mx-auto mt-7 flex max-w-80 items-center justify-between gap-3", controlsClassName)}>
+        <div className={cn("flex justify-center gap-2", dotsClassName)}>
           {scrollSnaps.map((_, index) => (
             <button
               key={index}
@@ -243,7 +317,8 @@ export function CarouselAutoplayProgress({
         <div
           className={cn(
             "relative h-2 w-40 max-w-[90%] justify-self-center self-center overflow-hidden rounded-[1.8rem] border-2 border-border bg-background transition-opacity duration-300 ease-in-out",
-            showAutoplayProgress ? "opacity-100" : "opacity-0"
+            showAutoplayProgress ? "opacity-100" : "opacity-0",
+            progressClassName
           )}
         >
           <div

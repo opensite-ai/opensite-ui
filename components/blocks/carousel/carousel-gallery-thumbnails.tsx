@@ -20,59 +20,126 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
 
 export interface GalleryImage {
+  /**
+   * Image source URL
+   */
   src: string;
-  alt: string;
+  /**
+   * Image alt text/caption
+   */
+  alt?: React.ReactNode;
+  /**
+   * Image width
+   */
   width?: number;
+  /**
+   * Image height
+   */
   height?: number;
+  /**
+   * Additional CSS classes for the image
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the image element
+   */
+  imageClassName?: string;
 }
 
 export interface CarouselGalleryThumbnailsProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Array of gallery images
+   */
   images?: GalleryImage[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Enable auto-play
+   */
   autoPlay?: boolean;
+  /**
+   * Auto-play interval in milliseconds
+   */
   autoPlayInterval?: number;
+  /**
+   * Show thumbnail navigation
+   */
   showThumbnails?: boolean;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the main carousel container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the slide area
+   */
+  slideClassName?: string;
+  /**
+   * Additional CSS classes for the navigation buttons
+   */
+  navigationClassName?: string;
+  /**
+   * Additional CSS classes for the caption
+   */
+  captionClassName?: string;
+  /**
+   * Additional CSS classes for the thumbnails container
+   */
+  thumbnailsClassName?: string;
+  /**
+   * Additional CSS classes for individual thumbnails
+   */
+  thumbnailClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
+const defaultImages: GalleryImage[] = [
+  { src: imagePlaceholders[0], alt: "Gallery image 1", width: 1470, height: 980 },
+  { src: imagePlaceholders[1], alt: "Gallery image 2", width: 1470, height: 980 },
+  { src: imagePlaceholders[2], alt: "Gallery image 3", width: 1470, height: 980 },
+  { src: imagePlaceholders[3], alt: "Gallery image 4", width: 1470, height: 980 },
+  { src: imagePlaceholders[4], alt: "Gallery image 5", width: 1470, height: 980 },
+];
+
 export function CarouselGalleryThumbnails({
-  className,
-  optixFlowConfig,
-  images,
+  images = defaultImages,
+  imagesSlot,
   autoPlay = true,
   autoPlayInterval = 5000,
   showThumbnails = true,
+  className,
+  containerClassName,
+  slideClassName,
+  navigationClassName,
+  captionClassName,
+  thumbnailsClassName,
+  thumbnailClassName,
+  optixFlowConfig,
 }: CarouselGalleryThumbnailsProps): React.JSX.Element {
-  const defaultImages: GalleryImage[] = React.useMemo(
-    () =>
-      Array.from({ length: 5 }).map((_, index) => ({
-        src: imagePlaceholders[index % imagePlaceholders.length],
-        alt: `Gallery image ${index + 1}`,
-        width: 1470,
-        height: 980,
-      })),
-    []
-  );
-
-  const galleryImages = images || defaultImages;
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const prevSlide = React.useCallback(() => {
     setCurrentIndex((prev) =>
-      prev === 0 ? galleryImages.length - 1 : prev - 1
+      prev === 0 ? images.length - 1 : prev - 1
     );
-  }, [galleryImages.length]);
+  }, [images.length]);
 
   const nextSlide = React.useCallback(() => {
     setCurrentIndex((prev) =>
-      prev === galleryImages.length - 1 ? 0 : prev + 1
+      prev === images.length - 1 ? 0 : prev + 1
     );
-  }, [galleryImages.length]);
+  }, [images.length]);
 
   // Auto play functionality
   React.useEffect(() => {
@@ -102,34 +169,39 @@ export function CarouselGalleryThumbnails({
   return (
     <section className={cn("w-full p-4 md:p-6", className)}>
       {/* Main carousel */}
-      <div className="relative overflow-hidden rounded-lg">
-        <div className="relative aspect-video w-full overflow-hidden">
-          {galleryImages.map((image, index) => (
-            <div
-              key={`slide-${index}`}
-              className={cn(
-                "absolute inset-0 transform transition-all duration-500 ease-in-out",
-                index === currentIndex
-                  ? "translate-x-0 opacity-100"
-                  : index < currentIndex
-                    ? "-translate-x-full opacity-0"
-                    : "translate-x-full opacity-0"
-              )}
-            >
-              <Img
-                src={image.src}
-                alt={image.alt}
-                className="h-full w-full object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
-          ))}
+      <div className={cn("relative overflow-hidden rounded-lg", containerClassName)}>
+        <div className={cn("relative aspect-video w-full overflow-hidden", slideClassName)}>
+          {imagesSlot ? (
+            imagesSlot
+          ) : (
+            images.map((image, index) => (
+              <div
+                key={`slide-${index}`}
+                className={cn(
+                  "absolute inset-0 transform transition-all duration-500 ease-in-out",
+                  index === currentIndex
+                    ? "translate-x-0 opacity-100"
+                    : index < currentIndex
+                      ? "-translate-x-full opacity-0"
+                      : "translate-x-full opacity-0",
+                  image.className
+                )}
+              >
+                <Img
+                  src={image.src}
+                  alt={typeof image.alt === "string" ? image.alt : `Image ${index + 1}`}
+                  className={cn("h-full w-full object-cover", image.imageClassName)}
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+            ))
+          )}
         </div>
 
         {/* Navigation buttons */}
         <Pressable
           size="icon"
-          className="absolute left-2 top-1/2 -translate-y-1/2"
+          className={cn("absolute left-2 top-1/2 -translate-y-1/2", navigationClassName)}
           onClick={prevSlide}
           asButton
         >
@@ -138,7 +210,7 @@ export function CarouselGalleryThumbnails({
 
         <Pressable
           size="icon"
-          className="absolute right-2 top-1/2 -translate-y-1/2"
+          className={cn("absolute right-2 top-1/2 -translate-y-1/2", navigationClassName)}
           onClick={nextSlide}
           asButton
         >
@@ -146,22 +218,29 @@ export function CarouselGalleryThumbnails({
         </Pressable>
 
         {/* Caption */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-sm text-white">
-          {galleryImages[currentIndex].alt}
+        <div className={cn("absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-sm text-white", captionClassName)}>
+          {images[currentIndex].alt && (
+            typeof images[currentIndex].alt === "string" ? (
+              images[currentIndex].alt
+            ) : (
+              <div>{images[currentIndex].alt}</div>
+            )
+          )}
         </div>
       </div>
 
       {/* Thumbnails */}
       {showThumbnails && (
-        <div className="mt-4 flex gap-2 overflow-x-auto px-2 py-2">
-          {galleryImages.map((image, index) => (
+        <div className={cn("mt-4 flex gap-2 overflow-x-auto px-2 py-2", thumbnailsClassName)}>
+          {images.map((image, index) => (
             <button
               key={`thumb-${index}`}
               className={cn(
                 "relative h-20 w-20 shrink-0 transition-all duration-200",
                 index === currentIndex
                   ? "ring-2 ring-primary ring-offset-2"
-                  : "opacity-70 hover:opacity-100"
+                  : "opacity-70 hover:opacity-100",
+                thumbnailClassName
               )}
               onClick={() => setCurrentIndex(index)}
             >

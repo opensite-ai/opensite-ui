@@ -22,74 +22,176 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+
+export interface ProductColorVariant {
+  /**
+   * Color variant name
+   */
+  name: string;
+  /**
+   * Color value (hex, rgb, etc.)
+   */
+  value: string;
+  /**
+   * Optional image for this color variant
+   */
+  image?: string;
+}
 
 export interface ProductFeature {
+  /**
+   * Unique identifier for the feature
+   */
   id: string;
-  title: string;
-  description: string;
+  /**
+   * Feature title
+   */
+  title?: React.ReactNode;
+  /**
+   * Feature description
+   */
+  description?: React.ReactNode;
+  /**
+   * Image source URL
+   */
   image: string;
-  colors?: Array<{
-    name: string;
-    value: string;
-    image?: string;
-  }>;
+  /**
+   * Color variants for the product
+   */
+  colors?: ProductColorVariant[];
+  /**
+   * Additional CSS classes for the feature
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
 }
 
 export interface CarouselProductFeatureShowcaseProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading/description text
+   */
+  subheading?: React.ReactNode;
+  /**
+   * Array of product features
+   */
   features?: ProductFeature[];
-  heading?: string;
-  subheading?: string;
-  ctaText?: string;
-  ctaHref?: string;
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the content grid
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the image container
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the navigation arrows
+   */
+  navigationClassName?: string;
+  /**
+   * Additional CSS classes for the color selectors
+   */
+  colorSelectorClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the dot indicators
+   */
+  indicatorsClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
+const defaultFeatures: ProductFeature[] = [
+  { id: "feature-0", title: "Product Feature 1", description: "Experience the innovative design and functionality of feature 1. Built with precision and attention to detail.", image: imagePlaceholders[0], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
+  { id: "feature-1", title: "Product Feature 2", description: "Experience the innovative design and functionality of feature 2. Built with precision and attention to detail.", image: imagePlaceholders[1], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
+  { id: "feature-2", title: "Product Feature 3", description: "Experience the innovative design and functionality of feature 3. Built with precision and attention to detail.", image: imagePlaceholders[2], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
+  { id: "feature-3", title: "Product Feature 4", description: "Experience the innovative design and functionality of feature 4. Built with precision and attention to detail.", image: imagePlaceholders[3], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
+];
+
+const defaultActions: ActionConfig[] = [
+  { label: "Learn More", href: "#", size: "lg", iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" /> },
+];
+
 export function CarouselProductFeatureShowcase({
-  className,
-  optixFlowConfig,
-  features,
   heading = "Discover Our Products",
   subheading = "Explore the features that make our products stand out",
-  ctaText = "Learn More",
-  ctaHref = "#",
+  features = defaultFeatures,
+  featuresSlot,
+  actions = defaultActions,
+  actionsSlot,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  contentClassName,
+  imageClassName,
+  navigationClassName,
+  colorSelectorClassName,
+  actionsClassName,
+  indicatorsClassName,
+  optixFlowConfig,
 }: CarouselProductFeatureShowcaseProps): React.JSX.Element {
-  const defaultFeatures: ProductFeature[] = React.useMemo(
-    () =>
-      Array.from({ length: 4 }).map((_, index) => ({
-        id: `feature-${index}`,
-        title: `Product Feature ${index + 1}`,
-        description: `Experience the innovative design and functionality of feature ${index + 1}. Built with precision and attention to detail.`,
-        image: imagePlaceholders[index % imagePlaceholders.length],
-        colors: [
-          { name: "Default", value: "#3b82f6" },
-          { name: "Dark", value: "#1f2937" },
-          { name: "Light", value: "#f3f4f6" },
-        ],
-      })),
-    []
-  );
-
-  const productFeatures = features || defaultFeatures;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [activeColorIndex, setActiveColorIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
 
-  const activeFeature = productFeatures[activeIndex];
+  const activeFeature = features[activeIndex];
 
   const goToNext = () => {
     setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % productFeatures.length);
+    setActiveIndex((prev) => (prev + 1) % features.length);
     setActiveColorIndex(0);
   };
 
   const goToPrev = () => {
     setDirection(-1);
     setActiveIndex(
-      (prev) => (prev - 1 + productFeatures.length) % productFeatures.length
+      (prev) => (prev - 1 + features.length) % features.length
     );
     setActiveColorIndex(0);
   };
@@ -116,139 +218,182 @@ export function CarouselProductFeatureShowcase({
   };
 
   const currentImage =
-    activeFeature.colors?.[activeColorIndex]?.image || activeFeature.image;
+    activeFeature?.colors?.[activeColorIndex]?.image || activeFeature?.image;
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={cn("mt-8", actionClassName)}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
 
   return (
     <section className={cn("w-full py-16 lg:py-24", className)}>
-      <div className="container mx-auto px-4">
+      <div className={cn("container mx-auto px-4", containerClassName)}>
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            {heading}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subheading}</p>
+        <div className={cn("mb-12 text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {subheading && (
+            typeof subheading === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subheadingClassName)}>{subheading}</p>
+            ) : (
+              <div className={subheadingClassName}>{subheading}</div>
+            )
+          )}
         </div>
 
         {/* Main content */}
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-          {/* Image section */}
-          <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted lg:aspect-[4/3]">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div
-                key={`${activeIndex}-${activeColorIndex}`}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <Img
-                  src={currentImage}
-                  alt={activeFeature.title}
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Navigation arrows */}
-            <div className="absolute bottom-4 right-4 flex gap-2">
-              <Pressable
-                onClick={goToPrev}
-                asButton
-                variant="secondary"
-                size="icon"
-                className="rounded-full bg-background/80 backdrop-blur-sm"
-              >
-                <DynamicIcon name="lucide/chevron-left" size={20} />
-              </Pressable>
-              <Pressable
-                onClick={goToNext}
-                asButton
-                variant="secondary"
-                size="icon"
-                className="rounded-full bg-background/80 backdrop-blur-sm"
-              >
-                <DynamicIcon name="lucide/chevron-right" size={20} />
-              </Pressable>
-            </div>
-          </div>
-
-          {/* Content section */}
-          <div className="flex flex-col justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h3 className="text-2xl font-semibold md:text-3xl">
-                  {activeFeature.title}
-                </h3>
-                <p className="mt-4 text-lg text-muted-foreground">
-                  {activeFeature.description}
-                </p>
-
-                {/* Color selectors */}
-                {activeFeature.colors && activeFeature.colors.length > 0 && (
-                  <div className="mt-6">
-                    <p className="mb-3 text-sm font-medium">Available Colors</p>
-                    <div className="flex gap-3">
-                      {activeFeature.colors.map((color, index) => (
-                        <button
-                          key={color.name}
-                          onClick={() => setActiveColorIndex(index)}
-                          className={cn(
-                            "h-8 w-8 rounded-full border-2 transition-all",
-                            activeColorIndex === index
-                              ? "border-primary ring-2 ring-primary ring-offset-2"
-                              : "border-transparent hover:border-muted-foreground"
-                          )}
-                          style={{ backgroundColor: color.value }}
-                          title={color.name}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <Pressable
-                  href={ctaHref}
-                  asButton
-                  className="mt-8"
-                  size="lg"
+        {featuresSlot ? (
+          <div className={contentClassName}>{featuresSlot}</div>
+        ) : (
+          <div className={cn("grid gap-8 lg:grid-cols-2 lg:gap-12", contentClassName)}>
+            {/* Image section */}
+            <div className={cn("relative aspect-square overflow-hidden rounded-2xl bg-muted lg:aspect-[4/3]", imageClassName)}>
+              <AnimatePresence initial={false} custom={direction} mode="wait">
+                <motion.div
+                  key={`${activeIndex}-${activeColorIndex}`}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className={cn("absolute inset-0", activeFeature?.imageClassName)}
                 >
-                  {ctaText}
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="ml-2"
+                  <Img
+                    src={currentImage}
+                    alt={typeof activeFeature?.title === "string" ? activeFeature.title : `Feature ${activeIndex + 1}`}
+                    className="h-full w-full object-cover"
+                    optixFlowConfig={optixFlowConfig}
                   />
-                </Pressable>
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
 
-            {/* Dot indicators */}
-            <div className="mt-8 flex gap-2">
-              {productFeatures.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={cn(
-                    "h-2 rounded-full transition-all",
-                    activeIndex === index
-                      ? "w-8 bg-primary"
-                      : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+              {/* Navigation arrows */}
+              <div className={cn("absolute bottom-4 right-4 flex gap-2", navigationClassName)}>
+                <Pressable
+                  onClick={goToPrev}
+                  asButton
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full bg-background/80 backdrop-blur-sm"
+                >
+                  <DynamicIcon name="lucide/chevron-left" size={20} />
+                </Pressable>
+                <Pressable
+                  onClick={goToNext}
+                  asButton
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full bg-background/80 backdrop-blur-sm"
+                >
+                  <DynamicIcon name="lucide/chevron-right" size={20} />
+                </Pressable>
+              </div>
+            </div>
+
+            {/* Content section */}
+            <div className="flex flex-col justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {activeFeature?.title && (
+                    typeof activeFeature.title === "string" ? (
+                      <h3 className="text-2xl font-semibold md:text-3xl">
+                        {activeFeature.title}
+                      </h3>
+                    ) : (
+                      <div>{activeFeature.title}</div>
+                    )
                   )}
-                />
-              ))}
+                  {activeFeature?.description && (
+                    typeof activeFeature.description === "string" ? (
+                      <p className="mt-4 text-lg text-muted-foreground">
+                        {activeFeature.description}
+                      </p>
+                    ) : (
+                      <div className="mt-4">{activeFeature.description}</div>
+                    )
+                  )}
+
+                  {/* Color selectors */}
+                  {activeFeature?.colors && activeFeature.colors.length > 0 && (
+                    <div className={cn("mt-6", colorSelectorClassName)}>
+                      <p className="mb-3 text-sm font-medium">Available Colors</p>
+                      <div className="flex gap-3">
+                        {activeFeature.colors.map((color, index) => (
+                          <button
+                            key={color.name}
+                            onClick={() => setActiveColorIndex(index)}
+                            className={cn(
+                              "h-8 w-8 rounded-full border-2 transition-all",
+                              activeColorIndex === index
+                                ? "border-primary ring-2 ring-primary ring-offset-2"
+                                : "border-transparent hover:border-muted-foreground"
+                            )}
+                            style={{ backgroundColor: color.value }}
+                            title={color.name}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className={actionsClassName}>
+                    {renderActions()}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Dot indicators */}
+              <div className={cn("mt-8 flex gap-2", indicatorsClassName)}>
+                {features.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={cn(
+                      "h-2 rounded-full transition-all",
+                      activeIndex === index
+                        ? "w-8 bg-primary"
+                        : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    )}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
