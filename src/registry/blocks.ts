@@ -35,6 +35,28 @@ import { FeatureShowcase } from "../../components/blocks/features/feature-showca
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
 import { TeamMediaShowcase } from "../../components/blocks/team/team-media-showcase";
 import type { TeamMediaShowcaseProps } from "../../components/blocks/team/team-media-showcase";
+import { TeamSimpleGrid } from "../../components/blocks/team/team-simple-grid";
+import { TeamSocialGrid } from "../../components/blocks/team/team-social-grid";
+import { TeamGradientCards } from "../../components/blocks/team/team-gradient-cards";
+import { TeamBioBadges } from "../../components/blocks/team/team-bio-badges";
+import { TeamExpertiseCards } from "../../components/blocks/team/team-expertise-cards";
+import { TeamCompactGrid } from "../../components/blocks/team/team-compact-grid";
+import { TeamInvestorShowcase } from "../../components/blocks/team/team-investor-showcase";
+import { TeamCarouselExperience } from "../../components/blocks/team/team-carousel-experience";
+import { TeamFilterableSearch } from "../../components/blocks/team/team-filterable-search";
+import { TeamCompactCta } from "../../components/blocks/team/team-compact-cta";
+import { TeamHoverHighlight } from "../../components/blocks/team/team-hover-highlight";
+import { TeamSocialCards } from "../../components/blocks/team/team-social-cards";
+import { TeamGridAnimated } from "../../components/blocks/team/team-grid-animated";
+import { TeamDepartmentSections } from "../../components/blocks/team/team-department-sections";
+import { TeamAlternatingBios } from "../../components/blocks/team/team-alternating-bios";
+import { TeamAvatarSocial } from "../../components/blocks/team/team-avatar-social";
+import { TeamHoverOverlay } from "../../components/blocks/team/team-hover-overlay";
+import { TeamRoleFilter } from "../../components/blocks/team/team-role-filter";
+import { TeamContactCards } from "../../components/blocks/team/team-contact-cards";
+import { TeamLargeImages } from "../../components/blocks/team/team-large-images";
+import { TeamSkillBadges } from "../../components/blocks/team/team-skill-badges";
+import { TeamTestimonialStats } from "../../components/blocks/team/team-testimonial-stats";
 
 // Footer components
 import { FooterLinksGrid } from "../../components/blocks/footers/footer-links-grid";
@@ -964,6 +986,780 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       imageSrc: "/team/bob-wilson.jpg",
       name: "Bob Wilson",
       role: "Head of Design"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-simple-grid": {
+    id: "team-simple-grid",
+    name: "Team Simple Grid",
+    description:
+      "A clean, minimal team section displaying members in a responsive grid layout. Each member card shows a circular avatar, name, and role. Ideal for showcasing team members with a professional appearance without social links or additional details.",
+    semanticTags: [
+      "team",
+      "members",
+      "staff",
+      "people",
+      "grid",
+      "avatars",
+      "minimal",
+      "simple",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamSimpleGrid,
+    props: "TeamSimpleGridProps",
+    exampleUsage: `
+<TeamSimpleGrid
+  heading="Our Team"
+  description="Meet the people behind our success"
+  members={[
+    { id: "1", name: "John Doe", role: "CEO", avatar: "/avatars/john.jpg" }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-social-grid": {
+    id: "team-social-grid",
+    name: "Team Social Grid",
+    description:
+      "A team section displaying members in a responsive grid with social media icons. Each member card shows an avatar, name, role, and links to their GitHub, Twitter, and LinkedIn profiles. Perfect for tech teams or companies that want to highlight their team's online presence.",
+    semanticTags: [
+      "team",
+      "members",
+      "staff",
+      "social",
+      "github",
+      "twitter",
+      "linkedin",
+      "grid",
+      "avatars",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamSocialGrid,
+    props: "TeamSocialGridProps",
+    exampleUsage: `
+<TeamSocialGrid
+  heading="Meet Our Team"
+  description="The talented people behind our product"
+  members={[
+    {
+      id: "1",
+      name: "Jane Doe",
+      role: "Lead Developer",
+      avatar: "/avatars/jane.jpg",
+      social: { github: "https://github.com/jane", twitter: "https://twitter.com/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-gradient-cards": {
+    id: "team-gradient-cards",
+    name: "Team Gradient Cards",
+    description:
+      "A visually striking team section featuring cards with gradient backgrounds that animate on hover. Each card displays an avatar with a gradient ring effect, member name, role, and social media links. The cards have a subtle scale and shadow animation on hover for an engaging user experience.",
+    semanticTags: [
+      "team",
+      "members",
+      "gradient",
+      "hover",
+      "animation",
+      "cards",
+      "social",
+      "modern",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamGradientCards,
+    props: "TeamGradientCardsProps",
+    exampleUsage: `
+<TeamGradientCards
+  heading="Our Leadership"
+  description="Meet the visionaries driving our company forward"
+  members={[
+    {
+      id: "1",
+      name: "Alex Smith",
+      role: "Founder",
+      avatar: "/avatars/alex.jpg",
+      social: { linkedin: "https://linkedin.com/in/alex" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-bio-badges": {
+    id: "team-bio-badges",
+    name: "Team Bio Badges",
+    description:
+      "A comprehensive team section featuring member cards with detailed bios and department badges. Each card displays an avatar, name, role, department badge, biographical text, and social media links. Ideal for showcasing leadership teams or key personnel where background information adds credibility.",
+    semanticTags: [
+      "team",
+      "members",
+      "bio",
+      "biography",
+      "department",
+      "badges",
+      "leadership",
+      "detailed",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamBioBadges,
+    props: "TeamBioBadgesProps",
+    exampleUsage: `
+<TeamBioBadges
+  heading="Leadership Team"
+  description="The visionaries guiding our company"
+  members={[
+    {
+      id: "1",
+      name: "Jane Smith",
+      role: "CEO",
+      department: "Executive",
+      bio: "20 years of industry experience...",
+      avatar: "/avatars/jane.jpg",
+      social: { linkedin: "https://linkedin.com/in/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-expertise-cards": {
+    id: "team-expertise-cards",
+    name: "Team Expertise Cards",
+    description:
+      "A professional team section featuring glassmorphism-style cards with member details and expertise tags. Each card displays an avatar, name, role, department badge, description, and skill/expertise badges. Includes a bottom CTA section for career opportunities. Perfect for companies wanting to highlight team expertise and recruit new talent.",
+    semanticTags: [
+      "team",
+      "members",
+      "expertise",
+      "skills",
+      "badges",
+      "careers",
+      "cta",
+      "glassmorphism",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamExpertiseCards,
+    props: "TeamExpertiseCardsProps",
+    exampleUsage: `
+<TeamExpertiseCards
+  heading="Our Experts"
+  description="Meet the talented team behind our success"
+  ctaHeading="Join Our Team"
+  ctaButtonText="View Open Positions"
+  ctaButtonUrl="/careers"
+  members={[
+    {
+      id: "1",
+      name: "John Doe",
+      role: "Senior Engineer",
+      department: "Engineering",
+      description: "Full-stack developer with 8 years experience",
+      expertise: ["React", "Node.js", "AWS"],
+      avatar: "/avatars/john.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-compact-grid": {
+    id: "team-compact-grid",
+    name: "Team Compact Grid",
+    description:
+      "A space-efficient team section displaying members in a dense 4-column grid. Each card shows an avatar, name, role, and department badge with a subtle hover effect. Includes a bottom CTA section for career opportunities. Ideal for larger teams where you want to show many members without overwhelming the page.",
+    semanticTags: [
+      "team",
+      "members",
+      "compact",
+      "grid",
+      "dense",
+      "department",
+      "careers",
+      "cta",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamCompactGrid,
+    props: "TeamCompactGridProps",
+    exampleUsage: `
+<TeamCompactGrid
+  heading="Our Team"
+  description="Meet the people making it happen"
+  ctaButtonText="Join Us"
+  ctaButtonUrl="/careers"
+  members={[
+    {
+      id: "1",
+      name: "Jane Doe",
+      role: "Designer",
+      department: "Design",
+      avatar: "/avatars/jane.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-investor-showcase": {
+    id: "team-investor-showcase",
+    name: "Team Investor Showcase",
+    description:
+      "A clean, horizontal grid layout for showcasing investors, advisors, or board members. Each entry displays a circular photo, name, and company/firm affiliation. Features a prominent heading with primary color styling. Perfect for startup pages highlighting their backers or advisory board.",
+    semanticTags: [
+      "team",
+      "investors",
+      "advisors",
+      "board",
+      "backers",
+      "venture",
+      "startup",
+      "funding",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamInvestorShowcase,
+    props: "TeamInvestorShowcaseProps",
+    exampleUsage: `
+<TeamInvestorShowcase
+  heading="Our Investors"
+  investors={[
+    {
+      name: "John Smith",
+      company: "Acme Ventures",
+      image: "/investors/john.jpg"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-carousel-experience": {
+    id: "team-carousel-experience",
+    name: "Team Carousel Experience",
+    description:
+      "A dynamic team section featuring a horizontal carousel of member cards. Each card displays a photo, name, role, and years of experience with a gradient separator. Includes navigation arrows for browsing through team members. Ideal for larger teams where you want an interactive browsing experience without overwhelming the page.",
+    semanticTags: [
+      "team",
+      "members",
+      "carousel",
+      "slider",
+      "experience",
+      "years",
+      "interactive",
+      "navigation",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamCarouselExperience,
+    props: "TeamCarouselExperienceProps",
+    exampleUsage: `
+<TeamCarouselExperience
+  heading="Our Team"
+  headingHighlight="of experts"
+  description="Meet the talented individuals driving our success"
+  members={[
+    {
+      name: "Jane Doe",
+      image: "/team/jane.jpg",
+      role: "CEO",
+      yearsOfExperience: 15
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-filterable-search": {
+    id: "team-filterable-search",
+    name: "Team Filterable Search",
+    description:
+      "An interactive team section with a search input and department filter tabs. Users can search by name, role, or description, and filter by department. Each member card displays an avatar, name, role, department badge, description, and social links. Perfect for larger organizations where users need to find specific team members quickly.",
+    semanticTags: [
+      "team",
+      "members",
+      "search",
+      "filter",
+      "department",
+      "interactive",
+      "tabs",
+      "directory",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamFilterableSearch,
+    props: "TeamFilterableSearchProps",
+    exampleUsage: `
+<TeamFilterableSearch
+  heading="Find Your Team"
+  description="Search and filter to find the right person"
+  searchPlaceholder="Search by name or role..."
+  members={[
+    {
+      id: "1",
+      name: "Jane Doe",
+      role: "Engineer",
+      department: "Engineering",
+      description: "Full-stack developer",
+      avatar: "/avatars/jane.jpg",
+      social: { github: "https://github.com/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-compact-cta": {
+    id: "team-compact-cta",
+    name: "Team Compact CTA",
+    description:
+      "A compact team section with a clean 4-column grid and a prominent call-to-action button for career opportunities. Each member displays a simple avatar, name, and role. The CTA button is positioned prominently below the team grid. Ideal for landing pages where you want to showcase key team members while driving recruitment.",
+    semanticTags: [
+      "team",
+      "members",
+      "compact",
+      "cta",
+      "careers",
+      "recruitment",
+      "minimal",
+      "grid",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamCompactCta,
+    props: "TeamCompactCtaProps",
+    exampleUsage: `
+<TeamCompactCta
+  heading="Our Leadership"
+  description="Meet the team driving our vision"
+  ctaButtonText="View Open Positions"
+  ctaButtonUrl="/careers"
+  members={[
+    { id: "1", name: "John Doe", role: "CEO", avatar: "/avatars/john.jpg" }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-hover-highlight": {
+    id: "team-hover-highlight",
+    name: "Team Hover Highlight",
+    description:
+      "A visually engaging team section where hovering over a member card highlights it while dimming others. Each card features a circular image, name, role, and social links that appear on hover. The hover effect creates focus on the selected member while maintaining context of the full team.",
+    semanticTags: [
+      "team",
+      "members",
+      "hover",
+      "highlight",
+      "focus",
+      "interactive",
+      "social",
+      "animation",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamHoverHighlight,
+    props: "TeamHoverHighlightProps",
+    exampleUsage: `
+<TeamHoverHighlight
+  heading="Meet Our Team"
+  description="The talented individuals behind our success"
+  members={[
+    {
+      id: "1",
+      name: "Jane Doe",
+      role: "Designer",
+      image: "/team/jane.jpg",
+      social: { linkedin: "https://linkedin.com/in/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-social-cards": {
+    id: "team-social-cards",
+    name: "Team Social Cards",
+    description:
+      "A professional team section featuring bordered cards with member photos, biographical text, and social media links. Each card displays a circular avatar, name, role, short bio, and social icons. Cards have a subtle hover shadow effect. Ideal for showcasing key team members with context about their background.",
+    semanticTags: [
+      "team",
+      "members",
+      "cards",
+      "bio",
+      "social",
+      "professional",
+      "shadow",
+      "hover",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamSocialCards,
+    props: "TeamSocialCardsProps",
+    exampleUsage: `
+<TeamSocialCards
+  heading="Our Leadership"
+  description="Meet the people driving our vision"
+  members={[
+    {
+      id: "1",
+      name: "John Smith",
+      role: "CEO",
+      bio: "20 years of industry experience",
+      avatar: "/avatars/john.jpg",
+      social: { linkedin: "https://linkedin.com/in/john" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-grid-animated": {
+    id: "team-grid-animated",
+    name: "Team Grid Animated",
+    description:
+      "A visually rich team section featuring a grid background pattern, animated member cards with wave effects on hover, and optional company social links. Each member card has a colored background that varies by position, circular avatar with border animation, and social links that appear on hover. Includes an optional register CTA button and company logo placement.",
+    semanticTags: [
+      "team",
+      "members",
+      "animated",
+      "pattern",
+      "wave",
+      "colorful",
+      "social",
+      "cta",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamGridAnimated,
+    props: "TeamGridAnimatedProps",
+    exampleUsage: `
+<TeamGridAnimated
+  title="TEAM"
+  description="Meet the talented individuals driving our vision"
+  registerLink="/register"
+  members={[
+    {
+      name: "Jane Doe",
+      designation: "CEO",
+      imageSrc: "/team/jane.jpg",
+      socialLinks: [{ icon: "lucide/linkedin", href: "https://linkedin.com/in/jane" }]
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-department-sections": {
+    id: "team-department-sections",
+    name: "Team Department Sections",
+    description:
+      "A structured team section that organizes members by department with clear section headers. Each department has its own bordered section with a 4-column grid of members showing circular avatars, names, and roles. Ideal for larger organizations wanting to show team structure and hierarchy.",
+    semanticTags: [
+      "team",
+      "members",
+      "department",
+      "sections",
+      "organized",
+      "hierarchy",
+      "structure",
+      "corporate",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamDepartmentSections,
+    props: "TeamDepartmentSectionsProps",
+    exampleUsage: `
+<TeamDepartmentSections
+  heading="Our Team"
+  departments={[
+    {
+      name: "Engineering",
+      members: [
+        { name: "John Doe", role: "Lead Engineer", avatar: "/avatars/john.jpg" }
+      ]
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-alternating-bios": {
+    id: "team-alternating-bios",
+    name: "Team Alternating Bios",
+    description:
+      "A premium team section featuring alternating left/right layouts for each member. Each entry displays a large 4:3 aspect ratio image, name, role, detailed bio, and social media links. Includes a decorative dot pattern background element. Ideal for showcasing key leadership with in-depth biographical information.",
+    semanticTags: [
+      "team",
+      "members",
+      "alternating",
+      "bio",
+      "leadership",
+      "premium",
+      "large-image",
+      "detailed",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamAlternatingBios,
+    props: "TeamAlternatingBiosProps",
+    exampleUsage: `
+<TeamAlternatingBios
+  heading="Our Leadership"
+  description="Meet the visionaries behind our success"
+  members={[
+    {
+      name: "Jane Smith",
+      role: "CEO",
+      bio: "20 years of industry experience leading innovative companies...",
+      image: "/team/jane.jpg",
+      social: { linkedin: "https://linkedin.com/in/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-avatar-social": {
+    id: "team-avatar-social",
+    name: "Team Avatar Social",
+    description:
+      "A simple, elegant team section featuring a 4-column grid of circular avatars with names, roles, and social media links centered below each member. Uses the Avatar component for consistent styling. Ideal for showcasing a small to medium-sized team with a clean, professional appearance.",
+    semanticTags: [
+      "team",
+      "members",
+      "avatar",
+      "social",
+      "simple",
+      "clean",
+      "centered",
+      "grid",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamAvatarSocial,
+    props: "TeamAvatarSocialProps",
+    exampleUsage: `
+<TeamAvatarSocial
+  heading="Our Team"
+  description="The creative minds behind our success"
+  members={[
+    {
+      name: "John Doe",
+      role: "Designer",
+      image: "/avatars/john.jpg",
+      social: { twitter: "https://twitter.com/john" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-hover-overlay": {
+    id: "team-hover-overlay",
+    name: "Team Hover Overlay",
+    description:
+      "A visually striking team section featuring portrait-style cards (3:4 aspect ratio) with a gradient overlay that reveals bio text and social links on hover. Each card shows a full-bleed image with name and role at the bottom, and on hover displays additional biographical information and social media links with a smooth animation.",
+    semanticTags: [
+      "team",
+      "members",
+      "hover",
+      "overlay",
+      "portrait",
+      "gradient",
+      "reveal",
+      "animation",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamHoverOverlay,
+    props: "TeamHoverOverlayProps",
+    exampleUsage: `
+<TeamHoverOverlay
+  heading="Our Team"
+  description="The amazing people behind the scenes"
+  members={[
+    {
+      name: "Jane Doe",
+      role: "Designer",
+      bio: "Passionate about creating beautiful experiences",
+      image: "/team/jane.jpg",
+      social: { linkedin: "https://linkedin.com/in/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-role-filter": {
+    id: "team-role-filter",
+    name: "Team Role Filter",
+    description:
+      "An interactive team section with filter buttons to show members by role/department. Features a row of filter buttons at the top that filter the team grid below. Each member card shows a circular avatar, name, position, and social links. Ideal for organizations wanting to let users explore team members by department.",
+    semanticTags: [
+      "team",
+      "members",
+      "filter",
+      "role",
+      "department",
+      "interactive",
+      "buttons",
+      "directory",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamRoleFilter,
+    props: "TeamRoleFilterProps",
+    exampleUsage: `
+<TeamRoleFilter
+  heading="Our Team"
+  description="Filter by department"
+  roles={["All", "Engineering", "Design", "Marketing"]}
+  members={[
+    {
+      name: "Jane Doe",
+      role: "Engineering",
+      position: "Senior Engineer",
+      image: "/avatars/jane.jpg",
+      social: { github: "https://github.com/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-contact-cards": {
+    id: "team-contact-cards",
+    name: "Team Contact Cards",
+    description:
+      "A comprehensive team section designed for contact and networking purposes. Each card displays a member photo with availability status indicator, name, role, bio, contact information (email, phone, location), availability text, and social links. Status indicators show green for active, yellow for busy, and gray for away. Ideal for sales teams, consultants, or any team where direct contact is important.",
+    semanticTags: [
+      "team",
+      "members",
+      "contact",
+      "availability",
+      "status",
+      "email",
+      "phone",
+      "networking",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamContactCards,
+    props: "TeamContactCardsProps",
+    exampleUsage: `
+<TeamContactCards
+  heading="Contact Our Team"
+  description="Reach out to the right person"
+  members={[
+    {
+      name: "John Doe",
+      role: "Sales Director",
+      bio: "Available for enterprise discussions",
+      image: "/avatars/john.jpg",
+      contact: { email: "john@example.com", phone: "+1 555-0123", location: "NYC" },
+      availability: "Available now",
+      status: "active",
+      social: { linkedin: "https://linkedin.com/in/john" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-large-images": {
+    id: "team-large-images",
+    name: "Team Large Images",
+    description:
+      "A visually impactful team section featuring large 4:3 aspect ratio images in a 3-column grid. Each member entry shows a prominent image, name, role, biographical text, and social media links. Ideal for leadership pages or smaller teams where you want to give each member significant visual presence.",
+    semanticTags: [
+      "team",
+      "members",
+      "large-image",
+      "prominent",
+      "leadership",
+      "bio",
+      "visual",
+      "grid",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamLargeImages,
+    props: "TeamLargeImagesProps",
+    exampleUsage: `
+<TeamLargeImages
+  heading="Our Leadership"
+  description="The talented people behind the scenes"
+  members={[
+    {
+      name: "Jane Doe",
+      role: "CEO",
+      bio: "20 years of industry experience",
+      image: "/team/jane.jpg",
+      social: { linkedin: "https://linkedin.com/in/jane" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-skill-badges": {
+    id: "team-skill-badges",
+    name: "Team Skill Badges",
+    description:
+      "A professional team section featuring cards with circular avatars, member details, and skill badges. Each card displays a centered avatar with a decorative ring, name, role, bio, skill badges, and social links. The skill badges highlight each member's areas of expertise. Ideal for showcasing technical teams or consultants where skills are important differentiators.",
+    semanticTags: [
+      "team",
+      "members",
+      "skills",
+      "badges",
+      "expertise",
+      "technical",
+      "consultants",
+      "competencies",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamSkillBadges,
+    props: "TeamSkillBadgesProps",
+    exampleUsage: `
+<TeamSkillBadges
+  heading="Our Experts"
+  description="The skilled professionals behind our success"
+  members={[
+    {
+      name: "John Doe",
+      role: "Senior Engineer",
+      bio: "Full-stack developer with 10 years experience",
+      image: "/avatars/john.jpg",
+      skills: ["React", "Node.js", "AWS", "TypeScript"],
+      social: { github: "https://github.com/john" }
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "team-testimonial-stats": {
+    id: "team-testimonial-stats",
+    name: "Team Testimonial Stats",
+    description:
+      "A premium team section featuring horizontal cards split between a large image and content area. Each card displays a full-height member photo on one side, with name, role, achievement stats (years, projects, clients, awards), a testimonial quote with quote icon, and social links on the other side. Ideal for showcasing leadership with credibility-building metrics.",
+    semanticTags: [
+      "team",
+      "members",
+      "testimonial",
+      "stats",
+      "metrics",
+      "achievements",
+      "quote",
+      "leadership",
+      "profiles",
+    ],
+    category: "team",
+    component: TeamTestimonialStats,
+    props: "TeamTestimonialStatsProps",
+    exampleUsage: `
+<TeamTestimonialStats
+  heading="Our Leadership"
+  description="The talented individuals guiding our vision"
+  members={[
+    {
+      name: "Jane Doe",
+      role: "CEO",
+      testimonial: "Building the future of technology",
+      image: "/team/jane.jpg",
+      stats: { years: "15+", projects: "100+", clients: "50+" },
+      social: { linkedin: "https://linkedin.com/in/jane" }
     }
   ]}
 />
