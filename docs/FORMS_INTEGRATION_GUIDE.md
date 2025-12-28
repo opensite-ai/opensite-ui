@@ -14,7 +14,9 @@ pnpm add @legendapp/state valibot
 
 ### Base Styles (Shadcn-compatible)
 
-The OpenSite UI library now includes a base set of `@page-speed/forms` styles (adapted from `prototypes/client-canyon-lands/app/forms.css`) inside `src/styles/globals.css`.
+The OpenSite UI library includes `src/styles/forms.css` (a direct copy of
+`prototypes/client-canyon-lands/app/forms.css`). `src/styles/globals.css`
+imports it by default.
 
 If you are **already importing OpenSite UI global styles**, nothing else is required.
 
@@ -96,7 +98,21 @@ import {
   serializeForRails,
   deserializeErrors,
   type RailsApiConfig,
+  type RailsErrorResponse,
+  type FormErrors,
 } from "@page-speed/forms/integration";
+
+export class FormSubmissionError extends Error {
+  formErrors: FormErrors;
+  status?: number;
+
+  constructor(message: string, formErrors: FormErrors, status?: number) {
+    super(message);
+    this.name = "FormSubmissionError";
+    this.formErrors = formErrors;
+    this.status = status;
+  }
+}
 
 export async function submitContactForm(values: Record<string, unknown>) {
   const config: RailsApiConfig = {
@@ -123,11 +139,16 @@ export async function submitContactForm(values: Record<string, unknown>) {
   const data = await response.json();
 
   if (!response.ok || data.errors) {
-    const errorResponse = {
+    const errorResponse: RailsErrorResponse = {
       errors: data.errors || { base: ["Submission failed"] },
       status: data.status || response.status,
     };
-    throw deserializeErrors(errorResponse);
+    const formErrors = deserializeErrors(errorResponse);
+    throw new FormSubmissionError(
+      "Form submission failed",
+      formErrors,
+      errorResponse.status
+    );
   }
 
   return data;
@@ -136,7 +157,19 @@ export async function submitContactForm(values: Record<string, unknown>) {
 
 ### Error Mapping
 
-Use `deserializeErrors` to map Rails `snake_case` errors to `camelCase` keys that `@page-speed/forms` expects.
+Use `deserializeErrors` to map Rails `snake_case` errors to `camelCase` keys that `@page-speed/forms` expects. In your form handler:
+
+```tsx
+try {
+  await submitContactForm(values);
+  helpers.resetForm();
+} catch (error) {
+  if (error instanceof FormSubmissionError) {
+    helpers.setErrors(error.formErrors);
+  }
+  throw error;
+}
+```
 
 ## 4. OpenSite UI Blocks (Preconfigured Forms)
 
@@ -175,7 +208,7 @@ import { CtaNewsletterFeatures } from "@opensite/ui/blocks/cta/cta-newsletter-fe
 - `format` ("rails" | "json"): Submission format (defaults to `rails` when `apiKey` is present).
 - `apiKey`, `websiteId`, `contactCategoryToken`, `locationId`, `websiteFormAssignmentId`, `visitorIpAddress`: Rails config fields.
 - `headers`: Additional request headers.
-- `values`: Static values merged into submission payload (e.g., subject, content).
+- `values`: Static values merged into submission payload (e.g., subject, content, tags).
 - `resetOnSuccess`: Reset form values after success (default: `true`).
 
 If `formConfig.endpoint` is not provided, the block will only call the optional `onSubmit(email)` callback.
@@ -201,7 +234,24 @@ Ensure your design payload includes the `Form` block with `action` and `method`:
 }
 ```
 
-Within OpenSite UI blocks rendered by opensite-blocks, pass `formConfig` into the block's props so the submission endpoint and Rails credentials are available at runtime.
+Within OpenSite UI blocks rendered by opensite-blocks, pass `formConfig` into the block's `blockProps` so the submission endpoint and Rails credentials are available at runtime:
+
+```json
+{
+  "_id": "newsletter-cta",
+  "_type": "cta-newsletter-features",
+  "blockProps": {
+    "formConfig": {
+      "endpoint": "https://api.dashtrack.com/contacts",
+      "format": "rails",
+      "apiKey": "your-api-key",
+      "websiteId": "979",
+      "contactCategoryToken": "newsletter-token",
+      "values": { "subject": "Newsletter Signup" }
+    }
+  }
+}
+```
 
 ## 6. File Uploads (e.g. CareersForm)
 
@@ -219,7 +269,11 @@ const { upload, state } = useFileUpload({
   endpoint: "https://api.toastability.com/contacts/_/contact_form_uploads",
   format: "legacy",
   onComplete: (token) => {
-    form.setFieldValue("contact_form_upload_tokens", [token]);
+    const tokens = Array.isArray(token) ? token : [token];
+    form.setFieldValue(
+      "contact_form_upload_tokens",
+      tokens.map((value) => `upload_${value}`)
+    );
   },
 });
 ```
@@ -261,10 +315,11 @@ const form = useForm({
 2. Initialize `useForm` with `initialValues` + `validationSchema`.
 3. Render `<Form>` with `<Field>` + inputs from `@page-speed/forms/inputs`.
 4. Create a submission helper:
-   - **Rails**: use `serializeForRails` / `deserializeErrors`.
+   - **Rails**: use `serializeForRails` / `deserializeErrors` + a `FormSubmissionError`.
    - **Standard JSON**: submit raw values to a configured endpoint.
-5. For uploads, use `useFileUpload` and include `contact_form_upload_tokens`.
-6. Confirm base form styles are loaded.
+5. For uploads, use `useFileUpload` and store tokens as `upload_*` strings.
+6. For OpenSite UI blocks, expose a `formConfig` prop and keep it JSON-serializable for `blockProps`.
+7. Confirm base form styles are loaded.
 
 ## 8. Recommended Patterns
 
@@ -272,3 +327,4 @@ const form = useForm({
 - Always map Rails errors with `deserializeErrors`.
 - Store API credentials outside components (env or centralized config).
 - Use `formConfig.values` to inject hidden metadata (subjects, tags, etc).
+- Prefix upload tokens with `upload_` so Rails serialization can detect them.
