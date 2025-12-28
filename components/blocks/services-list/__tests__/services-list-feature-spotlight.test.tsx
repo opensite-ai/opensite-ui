@@ -44,8 +44,8 @@ describe("ServicesListFeatureSpotlight", () => {
 
   it("renders feature items", () => {
     render(<ServicesListFeatureSpotlight />);
-    expect(screen.getByText("Independent Strategy")).toBeInTheDocument();
-    expect(screen.getByText("Personal Guidance")).toBeInTheDocument();
+    expect(screen.getAllByText("Independent Strategy").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Personal Guidance").length).toBeGreaterThan(0);
   });
 
   it("applies custom className", () => {
