@@ -492,6 +492,14 @@ import type { IndustriesTimelineTableProps } from "../../components/blocks/indus
 import { IndustriesExpandableShowcase } from "../../components/blocks/industries/industries-expandable-showcase";
 import type { IndustriesExpandableShowcaseProps } from "../../components/blocks/industries/industries-expandable-showcase";
 
+// Resource Detail components
+import { ResourceDetailWhitepaperSidebar } from "../../components/blocks/resource-detail/resource-detail-whitepaper-sidebar";
+import type { ResourceDetailWhitepaperSidebarProps } from "../../components/blocks/resource-detail/resource-detail-whitepaper-sidebar";
+import { ResourceDetailArticleHero } from "../../components/blocks/resource-detail/resource-detail-article-hero";
+import type { ResourceDetailArticleHeroProps } from "../../components/blocks/resource-detail/resource-detail-article-hero";
+import { ResourceDetailDocumentSidebar } from "../../components/blocks/resource-detail/resource-detail-document-sidebar";
+import type { ResourceDetailDocumentSidebarProps } from "../../components/blocks/resource-detail/resource-detail-document-sidebar";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -533,8 +541,9 @@ export type BlockCategory =
   | "project-detail"
   | "list"
   | "offer-modal"
-  | "banner"
-  | "industries";
+    | "banner"
+    | "industries"
+    | "resource-detail";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -11451,6 +11460,152 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       learnMoreUrl: "/industries/wind"
     }
   ]}
+/>`.trim(),
+  },
+
+  "resource-detail-whitepaper-sidebar": {
+    id: "resource-detail-whitepaper-sidebar",
+    name: "Resource Detail Whitepaper Sidebar",
+    description:
+      "A resource detail layout with a left sidebar containing whitepaper info card, download options (PDF and Print), and social sharing icons. Main content area displays prose article content with headings, paragraphs, lists, blockquotes, and tables. Ideal for whitepapers, guides, ebooks, research papers, and downloadable resources that need prominent download CTAs and social sharing.",
+    semanticTags: [
+      "resource",
+      "detail",
+      "whitepaper",
+      "sidebar",
+      "download",
+      "pdf",
+      "guide",
+      "ebook",
+      "article",
+      "prose",
+      "social-sharing",
+      "two-column",
+    ],
+    category: "resource-detail",
+    component: ResourceDetailWhitepaperSidebar,
+    props: "ResourceDetailWhitepaperSidebarProps",
+    exampleUsage: `<ResourceDetailWhitepaperSidebar
+  sidebar={{
+    resourceType: "Whitepaper",
+    resourceTitle: "The Complete Guide to Launching Your Startup",
+    downloadDescription: "Enjoy this guide? Download it for offline reading or sharing.",
+    readTime: "5 minutes",
+    primaryDownload: { text: "PDF Format", href: "/download/pdf" },
+    secondaryDownload: { text: "Print Version", href: "/download/print" },
+    shareTitle: "Share this guide",
+    socialLinks: [
+      { platform: "linkedin", href: "#", label: "Share on LinkedIn" },
+      { platform: "twitter", href: "#", label: "Share on Twitter" }
+    ]
+  }}
+  article={{
+    title: "White Paper: The Complete Guide",
+    content: <div>Your article content here...</div>
+  }}
+/>`.trim(),
+  },
+
+  "resource-detail-article-hero": {
+    id: "resource-detail-article-hero",
+    name: "Resource Detail Article Hero",
+    description:
+      "A full-width article hero with dark primary background, navigation back link, title, author info with avatar, social sharing buttons, and featured illustration image. Below the hero is prose content area with author bio section at the bottom. Ideal for blog posts, articles, case studies, thought leadership pieces, and long-form content that needs a visually impactful hero section.",
+    semanticTags: [
+      "resource",
+      "detail",
+      "article",
+      "hero",
+      "blog",
+      "author",
+      "social-sharing",
+      "featured-image",
+      "prose",
+      "case-study",
+      "thought-leadership",
+      "dark-hero",
+    ],
+    category: "resource-detail",
+    component: ResourceDetailArticleHero,
+    props: "ResourceDetailArticleHeroProps",
+    exampleUsage: `<ResourceDetailArticleHero
+  navigation={{ backText: "All Articles", backHref: "/blog" }}
+  blog={{
+    title: "Building Sustainable Web Applications",
+    author: "Sarah Chen",
+    date: "December 15, 2024",
+    readTime: "8 min read",
+    role: "Senior Developer",
+    imageSrc: "/avatars/sarah.jpg",
+    content: <div>Your article content here...</div>
+  }}
+  social={{
+    heading: "Share this article",
+    links: [
+      { icon: "link", href: "#", label: "Copy link" },
+      { icon: "linkedin", href: "#", label: "Share on LinkedIn" },
+      { icon: "twitter", href: "#", label: "Share on X" }
+    ]
+  }}
+  illustration={{
+    imageSrc: "/images/hero.jpg",
+    imageAlt: "Article hero image"
+  }}
+/>`.trim(),
+  },
+
+  "resource-detail-document-sidebar": {
+    id: "resource-detail-document-sidebar",
+    name: "Resource Detail Document Sidebar",
+    description:
+      "A document detail page with breadcrumb navigation, title, two-column layout with article content on the left and sticky sidebar on the right. Sidebar contains document excerpt, download button, reviewer info with avatar, key features checklist with check icons, and social sharing links. Ideal for legal documents, templates, contracts, service agreements, and downloadable resources that need reviewer credibility and feature highlights.",
+    semanticTags: [
+      "resource",
+      "detail",
+      "document",
+      "sidebar",
+      "breadcrumb",
+      "download",
+      "template",
+      "contract",
+      "legal",
+      "agreement",
+      "reviewer",
+      "features",
+      "checklist",
+      "sticky-sidebar",
+      "two-column",
+    ],
+    category: "resource-detail",
+    component: ResourceDetailDocumentSidebar,
+    props: "ResourceDetailDocumentSidebarProps",
+    exampleUsage: `<ResourceDetailDocumentSidebar
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Templates", href: "/templates" },
+    { label: "Service Agreement", isCurrentPage: true }
+  ]}
+  title="Professional Service Agreement"
+  article={{
+    featuredImage: { src: "/images/doc.jpg", alt: "Document preview" },
+    content: <div>Your article content here...</div>
+  }}
+  sidebar={{
+    excerptTitle: "Document Summary",
+    excerptDescription: "A comprehensive service agreement template...",
+    downloadButton: { text: "Download PDF", href: "/download" },
+    reviewer: { name: "John Doe", role: "Legal Consultant", avatarSrc: "/avatars/john.jpg" },
+    featuresTitle: "Key Features",
+    features: [
+      { text: "Customizable Terms" },
+      { text: "Digital Signatures" },
+      { text: "Document Tracking" }
+    ],
+    shareTitle: "Share this template",
+    socialLinks: [
+      { icon: "linkedin", href: "#", label: "Share on LinkedIn" }
+    ]
+  }}
 />`.trim(),
   },
 };
