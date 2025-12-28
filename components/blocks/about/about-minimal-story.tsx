@@ -3,11 +3,20 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import type { OptixFlowConfig } from "../../../src/types";
 
 export interface AboutMinimalStoryProps {
-  className?: string;
-  title?: string;
-  content?: string;
+  /**
+   * Main heading/title
+   */
+  title?: React.ReactNode;
+  /**
+   * Story content/body text
+   */
+  content?: React.ReactNode;
+  /**
+   * Author information
+   */
   author?: {
     name: string;
     role: string;
@@ -16,75 +25,132 @@ export interface AboutMinimalStoryProps {
       alt: string;
     };
   };
+  /**
+   * Custom slot for rendering author (overrides author object)
+   */
+  authorSlot?: React.ReactNode;
+  /**
+   * Featured image configuration
+   */
   featuredImage?: {
     src: string;
     alt: string;
   };
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the body content
+   */
+  bodyClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the featured image
+   */
+  imageClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProps: Partial<AboutMinimalStoryProps> = {
-  title: "Our Story",
-  content: `Every great company starts with a simple idea. Ours was born from frustration with the complexity of modern software development. We believed there had to be a better way.
+const defaultAuthor = {
+  name: "Jordan Mitchell",
+  role: "Founder & CEO",
+};
+
+export function AboutMinimalStory({
+  title = "Our Story",
+  content = `Every great company starts with a simple idea. Ours was born from frustration with the complexity of modern software development. We believed there had to be a better way.
 
 In 2019, our founders came together with a shared vision: make building software as intuitive as using it. What started as a side project quickly grew into something bigger as more developers discovered our tools.
 
 Today, we're proud to serve thousands of teams worldwide, from solo entrepreneurs to Fortune 500 companies. But our mission remains the same: empower everyone to build the software they need.`,
-  author: {
-    name: "Jordan Mitchell",
-    role: "Founder & CEO",
-  },
-};
-
-export function AboutMinimalStory({
-  className,
-  title = defaultProps.title,
-  content = defaultProps.content,
-  author = defaultProps.author,
+  author = defaultAuthor,
+  authorSlot,
   featuredImage,
+  className,
+  containerClassName,
+  contentClassName,
+  titleClassName,
+  bodyClassName,
+  authorClassName,
+  imageClassName,
   optixFlowConfig,
-}: AboutMinimalStoryProps) {
+}: AboutMinimalStoryProps): React.JSX.Element {
+  const renderAuthor = () => {
+    if (authorSlot) return authorSlot;
+    if (!author) return null;
+
+    return (
+      <div className={cn("mb-12 flex items-center gap-4", authorClassName)}>
+        {author.avatar ? (
+          <Img
+            src={author.avatar.src}
+            alt={author.avatar.alt}
+            className="h-16 w-16 rounded-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        ) : (
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
+            {author.name.charAt(0)}
+          </div>
+        )}
+        <div>
+          <p className="font-semibold">{author.name}</p>
+          <p className="text-sm text-muted-foreground">{author.role}</p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-3xl">
-          {author && (
-            <div className="mb-12 flex items-center gap-4">
-              {author.avatar ? (
-                <Img
-                  src={author.avatar.src}
-                  alt={author.avatar.alt}
-                  className="h-16 w-16 rounded-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              ) : (
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
-                  {author.name.charAt(0)}
-                </div>
-              )}
-              <div>
-                <p className="font-semibold">{author.name}</p>
-                <p className="text-sm text-muted-foreground">{author.role}</p>
-              </div>
-            </div>
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("mx-auto max-w-3xl", contentClassName)}>
+          {(authorSlot || author) && renderAuthor()}
+
+          {title && (
+            typeof title === "string" ? (
+              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
+                {title}
+              </h1>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            )
           )}
 
-          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-            {title}
-          </h1>
-
-          <p className="mt-8 text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
-            {content}
-          </p>
+          {content && (
+            typeof content === "string" ? (
+              <p className={cn("mt-8 text-lg leading-relaxed text-muted-foreground whitespace-pre-line", bodyClassName)}>
+                {content}
+              </p>
+            ) : (
+              <div className={cn("mt-8", bodyClassName)}>{content}</div>
+            )
+          )}
 
           {featuredImage && (
             <Img
               src={featuredImage.src}
               alt={featuredImage.alt}
-              className="mt-12 w-full rounded-2xl object-cover"
+              className={cn("mt-12 w-full rounded-2xl object-cover", imageClassName)}
               optixFlowConfig={optixFlowConfig}
             />
           )}

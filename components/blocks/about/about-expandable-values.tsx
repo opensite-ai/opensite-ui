@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 export interface AboutExpandableValueItem {
   /**
@@ -11,70 +12,114 @@ export interface AboutExpandableValueItem {
    */
   id: string;
   /**
-   * Icon name in format: prefix/name (e.g., "lucide/shield")
+   * Icon element or icon name
    */
-  icon: string;
+  icon?: React.ReactNode;
   /**
    * Value title
    */
-  title: string;
+  title?: React.ReactNode;
   /**
    * Short description shown when collapsed
    */
-  shortDescription: string;
+  shortDescription?: React.ReactNode;
   /**
    * Long description shown when expanded
    */
-  longDescription: string;
+  longDescription?: React.ReactNode;
   /**
    * Examples of how the value is practiced
    */
-  examples: string[];
+  examples?: React.ReactNode[];
 }
 
 export interface AboutExpandableValuesProps {
   /**
    * Badge/label text
    */
-  badgeText?: string;
+  badgeText?: React.ReactNode;
   /**
    * Main heading text
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Supporting description text
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of value items
    */
   values?: AboutExpandableValueItem[];
   /**
+   * Custom slot for rendering values (overrides values array)
+   */
+  valuesSlot?: React.ReactNode;
+  /**
    * Bottom CTA heading
    */
-  ctaHeading?: string;
+  ctaHeading?: React.ReactNode;
   /**
    * Bottom CTA description
    */
-  ctaDescription?: string;
+  ctaDescription?: React.ReactNode;
   /**
-   * Bottom CTA button text
+   * Array of action configurations for CTA buttons
    */
-  ctaButtonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Bottom CTA button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  ctaButtonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the values grid
+   */
+  valuesClassName?: string;
+  /**
+   * Additional CSS classes for the CTA section
+   */
+  ctaClassName?: string;
+  /**
+   * Additional CSS classes for the CTA heading
+   */
+  ctaHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the CTA description
+   */
+  ctaDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
 const defaultValues: AboutExpandableValueItem[] = [
   {
     id: "integrity",
-    icon: "lucide/shield",
+    icon: <DynamicIcon name="lucide/shield" size={24} className="text-primary" />,
     title: "Integrity",
     shortDescription: "Doing what's right, even when no one is watching.",
     longDescription:
@@ -87,7 +132,7 @@ const defaultValues: AboutExpandableValueItem[] = [
   },
   {
     id: "innovation",
-    icon: "lucide/zap",
+    icon: <DynamicIcon name="lucide/zap" size={24} className="text-primary" />,
     title: "Innovation",
     shortDescription: "Constantly exploring new ideas to create better solutions.",
     longDescription:
@@ -100,7 +145,7 @@ const defaultValues: AboutExpandableValueItem[] = [
   },
   {
     id: "collaboration",
-    icon: "lucide/users",
+    icon: <DynamicIcon name="lucide/users" size={24} className="text-primary" />,
     title: "Collaboration",
     shortDescription: "Achieving more by working together effectively.",
     longDescription:
@@ -113,7 +158,7 @@ const defaultValues: AboutExpandableValueItem[] = [
   },
   {
     id: "empathy",
-    icon: "lucide/heart",
+    icon: <DynamicIcon name="lucide/heart" size={24} className="text-primary" />,
     title: "Empathy",
     shortDescription: "Understanding and sharing the feelings of others.",
     longDescription:
@@ -126,7 +171,7 @@ const defaultValues: AboutExpandableValueItem[] = [
   },
   {
     id: "excellence",
-    icon: "lucide/brain",
+    icon: <DynamicIcon name="lucide/brain" size={24} className="text-primary" />,
     title: "Excellence",
     shortDescription: "Striving for the highest quality in everything we do.",
     longDescription:
@@ -139,7 +184,7 @@ const defaultValues: AboutExpandableValueItem[] = [
   },
   {
     id: "sustainability",
-    icon: "lucide/globe",
+    icon: <DynamicIcon name="lucide/globe" size={24} className="text-primary" />,
     title: "Sustainability",
     shortDescription: "Creating long-term value while minimizing environmental impact.",
     longDescription:
@@ -149,6 +194,14 @@ const defaultValues: AboutExpandableValueItem[] = [
       "Eco-friendly office practices and remote work options",
       "Community involvement and social responsibility initiatives",
     ],
+  },
+];
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Learn about our culture",
+    href: "#",
+    variant: "default",
   },
 ];
 
@@ -183,72 +236,118 @@ export function AboutExpandableValues({
   heading = "The Principles That Guide Us",
   description = "Our values define who we are, how we work together, and what we strive for. They are the foundation of our culture and drive every decision we make.",
   values = defaultValues,
+  valuesSlot,
   ctaHeading = "Living Our Values Every Day",
   ctaDescription = "These aren't just words on our website—our values are integrated into our hiring processes, performance reviews, decision-making frameworks, and daily interactions. They're how we show up for our team, our customers, and our community.",
-  ctaButtonText = "Learn about our culture",
-  ctaButtonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   className,
-}: AboutExpandableValuesProps) {
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  valuesClassName,
+  ctaClassName,
+  ctaHeadingClassName,
+  ctaDescriptionClassName,
+  actionsClassName,
+}: AboutExpandableValuesProps): React.JSX.Element {
   const [expandedValue, setExpandedValue] = React.useState<string | null>(null);
 
   const toggleExpand = (id: string) => {
     setExpandedValue(expandedValue === id ? null : id);
   };
 
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container mx-auto space-y-12 px-4 md:px-6 2xl:max-w-[1400px]">
-        <div className="mx-auto max-w-3xl space-y-4 text-center">
-          <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
-            {badgeText}
-          </div>
-          <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>
-          <p className="text-muted-foreground">{description}</p>
-        </div>
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {values.map((value) => (
-            <div
-              key={value.id}
-              className={cn(
-                "group overflow-hidden rounded-xl border bg-card text-card-foreground transition-all duration-300",
-                expandedValue === value.id
-                  ? "col-span-1 shadow-lg md:col-span-2 lg:col-span-3"
-                  : ""
-              )}
+    return (
+      <div className={actionsClassName}>
+        {actions.map((action, idx) => (
+          <Pressable
+            key={idx}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant || "default"}
+            size={action.size}
+            asButton
+          >
+            {action.label}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
+  const renderValues = () => {
+    if (valuesSlot) return valuesSlot;
+    if (!values || values.length === 0) return null;
+
+    return (
+      <div className={cn("grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3", valuesClassName)}>
+        {values.map((value) => (
+          <div
+            key={value.id}
+            className={cn(
+              "group overflow-hidden rounded-xl border bg-card text-card-foreground transition-all duration-300",
+              expandedValue === value.id
+                ? "col-span-1 shadow-lg md:col-span-2 lg:col-span-3"
+                : ""
+            )}
+          >
+            <button
+              onClick={() => toggleExpand(value.id)}
+              className="flex w-full items-start justify-between p-6 text-left"
+              type="button"
             >
-              <button
-                onClick={() => toggleExpand(value.id)}
-                className="flex w-full items-start justify-between p-6 text-left"
-                type="button"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 rounded-md bg-primary/10 p-3">
-                    <DynamicIcon name={value.icon} size={24} className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold">{value.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {value.shortDescription}
-                    </p>
-                  </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 rounded-md bg-primary/10 p-3">
+                  {value.icon}
                 </div>
-                <DynamicIcon
-                  name="lucide/chevron-down"
-                  size={20}
-                  className={cn(
-                    "mt-1 flex-shrink-0 text-muted-foreground transition-transform duration-300",
-                    expandedValue === value.id ? "rotate-180" : ""
+                <div>
+                  {value.title && (
+                    typeof value.title === "string" ? (
+                      <h3 className="text-lg font-bold">{value.title}</h3>
+                    ) : (
+                      value.title
+                    )
                   )}
-                />
-              </button>
+                  {value.shortDescription && (
+                    typeof value.shortDescription === "string" ? (
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {value.shortDescription}
+                      </p>
+                    ) : (
+                      <div className="mt-1">{value.shortDescription}</div>
+                    )
+                  )}
+                </div>
+              </div>
+              <DynamicIcon
+                name="lucide/chevron-down"
+                size={20}
+                className={cn(
+                  "mt-1 flex-shrink-0 text-muted-foreground transition-transform duration-300",
+                  expandedValue === value.id ? "rotate-180" : ""
+                )}
+              />
+            </button>
 
-              {expandedValue === value.id && (
-                <div className="space-y-6 px-6 pb-6">
+            {expandedValue === value.id && (
+              <div className="space-y-6 px-6 pb-6">
+                {value.longDescription && (
                   <div className="rounded-lg bg-muted/50 p-4">
-                    <p className="text-muted-foreground">{value.longDescription}</p>
+                    {typeof value.longDescription === "string" ? (
+                      <p className="text-muted-foreground">{value.longDescription}</p>
+                    ) : (
+                      value.longDescription
+                    )}
                   </div>
+                )}
 
+                {value.examples && value.examples.length > 0 && (
                   <div>
                     <h4 className="mb-2 text-sm font-semibold text-muted-foreground">
                       How we put this into practice:
@@ -258,29 +357,77 @@ export function AboutExpandableValues({
                         <li key={index} className="flex items-start gap-2">
                           <div className="mt-0.5 flex-shrink-0 rounded-full bg-primary/10 p-1">
                             <DynamicIcon
-                              name={value.icon}
+                              name="lucide/check"
                               size={12}
                               className="text-primary"
                             />
                           </div>
-                          <span className="text-sm">{example}</span>
+                          {typeof example === "string" ? (
+                            <span className="text-sm">{example}</span>
+                          ) : (
+                            example
+                          )}
                         </li>
                       ))}
                     </ul>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <section className={cn("py-24", className)}>
+      <div className={cn("container mx-auto space-y-12 px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+        <div className={cn("mx-auto max-w-3xl space-y-4 text-center", headerClassName)}>
+          {badgeText && (
+            typeof badgeText === "string" ? (
+              <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary", badgeClassName)}>
+                {badgeText}
+              </div>
+            ) : (
+              <div className={badgeClassName}>{badgeText}</div>
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight", headingClassName)}>{heading}</h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
         </div>
 
-        <div className="relative mt-8 rounded-lg bg-accent/50 p-8">
+        {renderValues()}
+
+        <div className={cn("relative mt-8 rounded-lg bg-accent/50 p-8", ctaClassName)}>
           <div className="mx-auto max-w-3xl space-y-6 text-center">
-            <h3 className="text-2xl font-bold">{ctaHeading}</h3>
-            <p className="text-muted-foreground">{ctaDescription}</p>
-            <Pressable href={ctaButtonUrl} variant="default" asButton>
-              {ctaButtonText}
-            </Pressable>
+            {ctaHeading && (
+              typeof ctaHeading === "string" ? (
+                <h3 className={cn("text-2xl font-bold", ctaHeadingClassName)}>{ctaHeading}</h3>
+              ) : (
+                <div className={ctaHeadingClassName}>{ctaHeading}</div>
+              )
+            )}
+            {ctaDescription && (
+              typeof ctaDescription === "string" ? (
+                <p className={cn("text-muted-foreground", ctaDescriptionClassName)}>{ctaDescription}</p>
+              ) : (
+                <div className={ctaDescriptionClassName}>{ctaDescription}</div>
+              )
+            )}
+            {renderActions()}
           </div>
         </div>
       </div>
