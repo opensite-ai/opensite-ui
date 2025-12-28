@@ -33,8 +33,11 @@ describe("ContactSchedule", () => {
   it("renders all form fields", () => {
     render(<ContactSchedule />);
 
-    expect(screen.getByLabelText("Name")).toBeInTheDocument();
+    expect(screen.getByLabelText("First Name")).toBeInTheDocument();
+    expect(screen.getByLabelText("Last Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText("Phone")).toBeInTheDocument();
+    expect(screen.getByLabelText("Message")).toBeInTheDocument();
   });
 
   it("renders default heading", () => {

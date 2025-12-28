@@ -41,7 +41,7 @@ describe("ContactFaq", () => {
 
   it("renders default heading", () => {
     render(<ContactFaq />);
-    expect(screen.getByText("Have a Question?")).toBeInTheDocument();
+    expect(screen.getByText("Frequently Asked Questions")).toBeInTheDocument();
   });
 
   it("renders submit button", () => {

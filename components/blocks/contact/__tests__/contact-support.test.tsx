@@ -40,7 +40,7 @@ describe("ContactSupport", () => {
 
   it("renders default heading", () => {
     render(<ContactSupport />);
-    expect(screen.getByText("Customer Support")).toBeInTheDocument();
+    expect(screen.getByText("How can we help?")).toBeInTheDocument();
   });
 
   it("renders submit button", () => {
