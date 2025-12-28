@@ -441,6 +441,11 @@ import { ListCareerTimeline } from "../../components/blocks/list/list-career-tim
 import { ListMetricsDashboard } from "../../components/blocks/list/list-metrics-dashboard";
 import { ListFeatureComparison } from "../../components/blocks/list/list-feature-comparison";
 
+// Offer Modal components
+import { OfferModalNewsletterDiscount } from "../../components/blocks/offer-modal/offer-modal-newsletter-discount";
+import { OfferModalMembershipImage } from "../../components/blocks/offer-modal/offer-modal-membership-image";
+import { OfferModalSheetNewsletter } from "../../components/blocks/offer-modal/offer-modal-sheet-newsletter";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -474,12 +479,13 @@ export type BlockCategory =
   | "background-pattern-hero"
   | "blog"
   | "article"
-    | "case-studies-list"
-      | "case-study-detail"
-      | "navbar"
-      | "logos"
-      | "project-list"
-      | "list";
+  | "case-studies-list"
+  | "case-study-detail"
+  | "navbar"
+  | "logos"
+  | "project-list"
+  | "list"
+  | "offer-modal";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -10147,6 +10153,113 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   trustIndicators={[
     { icon: "lucide/users", title: "50,000+ Users", description: "Join our community" }
   ]}
+/>`.trim(),
+  },
+
+  // Offer Modal components
+  "offer-modal-newsletter-discount": {
+    id: "offer-modal-newsletter-discount",
+    name: "Newsletter Discount Offer Modal",
+    description:
+      "A compact newsletter signup modal positioned at the bottom-right of the screen. Features a clean design with a close button, compelling headline, email input field, and subscribe CTA button. Perfect for e-commerce sites offering first-purchase discounts, newsletter signup incentives, or promotional offers. The non-intrusive positioning allows users to continue browsing while the offer remains visible.",
+    semanticTags: [
+      "offer",
+      "modal",
+      "newsletter",
+      "discount",
+      "popup",
+      "email-capture",
+      "subscription",
+      "promotion",
+      "e-commerce",
+      "lead-generation",
+      "bottom-right",
+      "non-intrusive",
+    ],
+    category: "offer-modal",
+    component: OfferModalNewsletterDiscount,
+    props: "OfferModalNewsletterDiscountProps",
+    exampleUsage: `<OfferModalNewsletterDiscount
+  title="Join our newsletter and enjoy 35% off your first order"
+  emailPlaceholder="Email"
+  buttonText="Subscribe"
+  closeButtonText="Close"
+  defaultOpen={true}
+  onSubmit={(email) => console.log('Subscribed:', email)}
+/>`.trim(),
+  },
+  "offer-modal-membership-image": {
+    id: "offer-modal-membership-image",
+    name: "Membership Offer Modal with Image",
+    description:
+      "A visually rich membership offer modal featuring a header image, overline text, compelling title, email signup form with mail icon, and descriptive footer text. Includes responsive design with mobile-optimized layout (arrow button on mobile, full-width button on desktop) and hover animations on the close button. The image header creates visual impact while the form captures leads. Ideal for e-commerce membership programs, exclusive offers, premium newsletter signups, or VIP access promotions.",
+    semanticTags: [
+      "offer",
+      "modal",
+      "membership",
+      "image",
+      "signup",
+      "email-capture",
+      "promotion",
+      "e-commerce",
+      "lead-generation",
+      "premium",
+      "vip",
+      "exclusive",
+      "responsive",
+      "form-validation",
+    ],
+    category: "offer-modal",
+    component: OfferModalMembershipImage,
+    props: "OfferModalMembershipImageProps",
+    exampleUsage: `<OfferModalMembershipImage
+  overline="Treat Yourself!"
+  title="Become a Member & Enjoy 20% Off"
+  description="Sign up to receive our latest updates — you can unsubscribe whenever you like."
+  image={{ src: "/promo.jpg", alt: "Promotional image" }}
+  emailPlaceholder="Email Address"
+  buttonText="Get Offer"
+  defaultOpen={true}
+  onSubmit={(email) => console.log('Subscribed:', email)}
+/>`.trim(),
+  },
+  "offer-modal-sheet-newsletter": {
+    id: "offer-modal-sheet-newsletter",
+    name: "Sheet-Style Newsletter Offer Modal",
+    description:
+      "A side-sheet style newsletter signup modal that slides in from the right side of the screen. Features a logo, compelling headline, description, email signup form with rounded inputs, legal consent links (Terms of Use and Privacy Policy), and a square aspect ratio promotional image. The sheet design provides a more immersive experience while maintaining easy dismissal via the close button with rotation animation. Perfect for premium brands, lifestyle products, fashion e-commerce, or any site wanting a sophisticated newsletter capture experience with strong visual branding.",
+    semanticTags: [
+      "offer",
+      "modal",
+      "sheet",
+      "newsletter",
+      "sidebar",
+      "slide-in",
+      "email-capture",
+      "subscription",
+      "promotion",
+      "premium",
+      "branding",
+      "logo",
+      "terms",
+      "privacy",
+      "lifestyle",
+      "fashion",
+    ],
+    category: "offer-modal",
+    component: OfferModalSheetNewsletter,
+    props: "OfferModalSheetNewsletterProps",
+    exampleUsage: `<OfferModalSheetNewsletter
+  logo={{ src: "/logo.png", alt: "Brand Logo" }}
+  title="Join Now & Enjoy 20% Off"
+  description="Join our mailing list for updates and offers. You can unsubscribe at any time."
+  image={{ src: "/promo.jpg", alt: "Promotional image" }}
+  emailPlaceholder="Email Address"
+  buttonText="Join"
+  termsUrl="/terms"
+  privacyUrl="/privacy"
+  defaultOpen={true}
+  onSubmit={(email) => console.log('Subscribed:', email)}
 />`.trim(),
   },
 };
