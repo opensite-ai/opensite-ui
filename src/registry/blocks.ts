@@ -31,6 +31,32 @@ import { AboutInteractiveTabs } from "../../components/blocks/about/about-intera
 import { AboutMissionDualImage } from "../../components/blocks/about/about-mission-dual-image";
 import { MediaHoverCtas } from "../../components/blocks/cta/media-hover-ctas";
 import type { MediaHoverCtasProps } from "../../components/blocks/cta/media-hover-ctas";
+import { CtaDocumentationLinks } from "../../components/blocks/cta/cta-documentation-links";
+import { CtaFeatureChecklist } from "../../components/blocks/cta/cta-feature-checklist";
+import { CtaSplitImage } from "../../components/blocks/cta/cta-split-image";
+import { CtaStackedCards } from "../../components/blocks/cta/cta-stacked-cards";
+import { CtaFeatureList } from "../../components/blocks/cta/cta-feature-list";
+import { CtaSplitImageLogos } from "../../components/blocks/cta/cta-split-image-logos";
+import { CtaFullwidthBackground } from "../../components/blocks/cta/cta-fullwidth-background";
+import { CtaFeatureCardsGrid } from "../../components/blocks/cta/cta-feature-cards-grid";
+import { CtaAccentBackground } from "../../components/blocks/cta/cta-accent-background";
+import { CtaSplitGradientImage } from "../../components/blocks/cta/cta-split-gradient-image";
+import { CtaBackgroundIconBadge } from "../../components/blocks/cta/cta-background-icon-badge";
+import { CtaPatternBackground } from "../../components/blocks/cta/cta-pattern-background";
+import { CtaPlatformDemo } from "../../components/blocks/cta/cta-platform-demo";
+import { CtaEnterpriseSplit } from "../../components/blocks/cta/cta-enterprise-split";
+import { CtaMinimalSeparator } from "../../components/blocks/cta/cta-minimal-separator";
+import { CtaImageOverlayArrow } from "../../components/blocks/cta/cta-image-overlay-arrow";
+import { CtaAppDownloadNewsletter } from "../../components/blocks/cta/cta-app-download-newsletter";
+import { CtaNewsletterFeatures } from "../../components/blocks/cta/cta-newsletter-features";
+import { CtaHeroFeatureCards } from "../../components/blocks/cta/cta-hero-feature-cards";
+import { CtaEnterpriseDarkFeatures } from "../../components/blocks/cta/cta-enterprise-dark-features";
+import { CtaGradientLogosFloating } from "../../components/blocks/cta/cta-gradient-logos-floating";
+import { CtaGradientStatsHero } from "../../components/blocks/cta/cta-gradient-stats-hero";
+import { CtaVideoBackgroundHero } from "../../components/blocks/cta/cta-video-background-hero";
+import { CtaWorkflowTabs } from "../../components/blocks/cta/cta-workflow-tabs";
+import { CtaCaseStudyTestimonial } from "../../components/blocks/cta/cta-case-study-testimonial";
+import { CtaSimpleCentered } from "../../components/blocks/cta/cta-simple-centered";
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
 import { TeamMediaShowcase } from "../../components/blocks/team/team-media-showcase";
@@ -967,6 +993,740 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       onHoverBackgroundColor: "var(--brand-900)"
     }
   ]}
+/>
+    `.trim(),
+  },
+  "cta-documentation-links": {
+    id: "cta-documentation-links",
+    name: "CTA Documentation Links",
+    description:
+      "A CTA section featuring a grid of documentation or resource links with icons, titles, and descriptions. Includes a main heading, subtitle, and primary action button. Perfect for developer documentation, resource centers, or help sections.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "documentation",
+      "resources",
+      "links",
+      "grid",
+      "icons",
+      "developer",
+      "help-center",
+    ],
+    category: "cta",
+    component: CtaDocumentationLinks,
+    props: "CtaDocumentationLinksProps",
+    exampleUsage: `
+<CtaDocumentationLinks
+  heading="Explore Our Resources"
+  description="Everything you need to get started"
+  links={[
+    { icon: "lucide/book-open", title: "Documentation", description: "Learn the basics", href: "/docs" },
+    { icon: "lucide/code", title: "API Reference", description: "Explore our APIs", href: "/api" }
+  ]}
+  primaryButton={{ text: "Get Started", href: "/start" }}
+/>
+    `.trim(),
+  },
+  "cta-feature-checklist": {
+    id: "cta-feature-checklist",
+    name: "CTA Feature Checklist",
+    description:
+      "A split-layout CTA with a feature checklist on one side and a featured image on the other. Includes heading, description, list of features with check icons, and action buttons. Ideal for product pages or feature highlights.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "features",
+      "checklist",
+      "split-layout",
+      "image",
+      "benefits",
+      "product",
+    ],
+    category: "cta",
+    component: CtaFeatureChecklist,
+    props: "CtaFeatureChecklistProps",
+    exampleUsage: `
+<CtaFeatureChecklist
+  heading="Why Choose Us"
+  description="Built for modern teams"
+  features={["Fast deployment", "24/7 support", "Scalable infrastructure"]}
+  primaryButton={{ text: "Start Free Trial", href: "/trial" }}
+  secondaryButton={{ text: "Learn More", href: "/features" }}
+  imageSrc="/images/dashboard.jpg"
+/>
+    `.trim(),
+  },
+  "cta-split-image": {
+    id: "cta-split-image",
+    name: "CTA Split Image",
+    description:
+      "A clean split-layout CTA with content on one side and a large featured image on the other. Features heading, description, and dual action buttons. Perfect for product showcases or service introductions.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "split-layout",
+      "image",
+      "hero",
+      "product",
+      "showcase",
+    ],
+    category: "cta",
+    component: CtaSplitImage,
+    props: "CtaSplitImageProps",
+    exampleUsage: `
+<CtaSplitImage
+  heading="Transform Your Workflow"
+  description="Streamline your processes with our platform"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+  secondaryButton={{ text: "Watch Demo", href: "/demo" }}
+  imageSrc="/images/product.jpg"
+/>
+    `.trim(),
+  },
+  "cta-stacked-cards": {
+    id: "cta-stacked-cards",
+    name: "CTA Stacked Cards",
+    description:
+      "A CTA section with stacked content cards featuring icons, titles, and descriptions. Includes main heading, subtitle, and action buttons. Great for highlighting multiple services or product tiers.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "cards",
+      "stacked",
+      "services",
+      "features",
+      "icons",
+      "grid",
+    ],
+    category: "cta",
+    component: CtaStackedCards,
+    props: "CtaStackedCardsProps",
+    exampleUsage: `
+<CtaStackedCards
+  heading="Choose Your Plan"
+  description="Find the perfect fit for your needs"
+  cards={[
+    { icon: "lucide/zap", title: "Starter", description: "For individuals" },
+    { icon: "lucide/rocket", title: "Pro", description: "For teams" }
+  ]}
+  primaryButton={{ text: "Compare Plans", href: "/pricing" }}
+/>
+    `.trim(),
+  },
+  "cta-feature-list": {
+    id: "cta-feature-list",
+    name: "CTA Feature List",
+    description:
+      "A CTA section with a vertical list of features, each with an icon, title, and description. Includes main heading, subtitle, and action buttons. Ideal for detailed feature breakdowns or benefit lists.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "features",
+      "list",
+      "benefits",
+      "icons",
+      "vertical",
+    ],
+    category: "cta",
+    component: CtaFeatureList,
+    props: "CtaFeatureListProps",
+    exampleUsage: `
+<CtaFeatureList
+  heading="Everything You Need"
+  description="Powerful features for modern teams"
+  features={[
+    { icon: "lucide/shield", title: "Security", description: "Enterprise-grade protection" },
+    { icon: "lucide/zap", title: "Speed", description: "Lightning-fast performance" }
+  ]}
+  primaryButton={{ text: "Start Building", href: "/start" }}
+/>
+    `.trim(),
+  },
+  "cta-split-image-logos": {
+    id: "cta-split-image-logos",
+    name: "CTA Split Image with Logos",
+    description:
+      "A split-layout CTA with content and buttons on one side, featured image on the other, and trusted company logos below. Perfect for building credibility with social proof.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "split-layout",
+      "image",
+      "logos",
+      "social-proof",
+      "trust",
+      "companies",
+    ],
+    category: "cta",
+    component: CtaSplitImageLogos,
+    props: "CtaSplitImageLogosProps",
+    exampleUsage: `
+<CtaSplitImageLogos
+  heading="Trusted by Industry Leaders"
+  description="Join thousands of companies using our platform"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+  secondaryButton={{ text: "Contact Sales", href: "/contact" }}
+  imageSrc="/images/dashboard.jpg"
+  logos={["/logos/company1.svg", "/logos/company2.svg"]}
+/>
+    `.trim(),
+  },
+  "cta-fullwidth-background": {
+    id: "cta-fullwidth-background",
+    name: "CTA Fullwidth Background",
+    description:
+      "A full-width CTA section with a background image, gradient overlay, centered heading, description, and action buttons. Creates a dramatic, immersive call-to-action experience.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "fullwidth",
+      "background-image",
+      "overlay",
+      "hero",
+      "dramatic",
+      "centered",
+    ],
+    category: "cta",
+    component: CtaFullwidthBackground,
+    props: "CtaFullwidthBackgroundProps",
+    exampleUsage: `
+<CtaFullwidthBackground
+  heading="Ready to Get Started?"
+  description="Join thousands of satisfied customers today"
+  primaryButton={{ text: "Start Free Trial", href: "/trial" }}
+  secondaryButton={{ text: "Learn More", href: "/about" }}
+  backgroundImage="/images/hero-bg.jpg"
+/>
+    `.trim(),
+  },
+  "cta-feature-cards-grid": {
+    id: "cta-feature-cards-grid",
+    name: "CTA Feature Cards Grid",
+    description:
+      "A CTA section with heading, description, action buttons, and a grid of feature cards with icons. Each card highlights a key feature or benefit. Great for product pages or service overviews.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "cards",
+      "grid",
+      "features",
+      "icons",
+      "benefits",
+      "product",
+    ],
+    category: "cta",
+    component: CtaFeatureCardsGrid,
+    props: "CtaFeatureCardsGridProps",
+    exampleUsage: `
+<CtaFeatureCardsGrid
+  heading="Powerful Features"
+  description="Everything you need to succeed"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+  features={[
+    { icon: "lucide/zap", title: "Fast", description: "Lightning performance" },
+    { icon: "lucide/shield", title: "Secure", description: "Enterprise security" }
+  ]}
+/>
+    `.trim(),
+  },
+  "cta-accent-background": {
+    id: "cta-accent-background",
+    name: "CTA Accent Background",
+    description:
+      "A CTA section with an accent-colored background, large heading, description, and dual action buttons. The colored background creates visual distinction and draws attention.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "accent",
+      "colored-background",
+      "centered",
+      "prominent",
+      "attention",
+    ],
+    category: "cta",
+    component: CtaAccentBackground,
+    props: "CtaAccentBackgroundProps",
+    exampleUsage: `
+<CtaAccentBackground
+  heading="Start Your Journey Today"
+  description="No credit card required. Free 14-day trial."
+  buttons={[
+    { text: "Get Started", href: "/start", variant: "default" },
+    { text: "Contact Sales", href: "/contact", variant: "outline" }
+  ]}
+/>
+    `.trim(),
+  },
+  "cta-split-gradient-image": {
+    id: "cta-split-gradient-image",
+    name: "CTA Split Gradient Image",
+    description:
+      "A split-layout CTA with content on one side, featured image on the other, and a subtle radial gradient background. Creates an elegant, modern appearance.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "split-layout",
+      "gradient",
+      "image",
+      "elegant",
+      "modern",
+    ],
+    category: "cta",
+    component: CtaSplitGradientImage,
+    props: "CtaSplitGradientImageProps",
+    exampleUsage: `
+<CtaSplitGradientImage
+  heading="Elevate Your Business"
+  description="Modern solutions for modern challenges"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+  secondaryButton={{ text: "Learn More", href: "/about" }}
+  imageSrc="/images/product.jpg"
+/>
+    `.trim(),
+  },
+  "cta-background-icon-badge": {
+    id: "cta-background-icon-badge",
+    name: "CTA Background Icon Badge",
+    description:
+      "A full-width CTA with background image, icon badge, heading, and action buttons. The icon badge adds a distinctive visual element above the heading.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "background-image",
+      "icon",
+      "badge",
+      "fullwidth",
+      "overlay",
+    ],
+    category: "cta",
+    component: CtaBackgroundIconBadge,
+    props: "CtaBackgroundIconBadgeProps",
+    exampleUsage: `
+<CtaBackgroundIconBadge
+  icon="lucide/rocket"
+  heading="Launch Your Project"
+  description="Get started in minutes"
+  primaryButton={{ text: "Start Now", href: "/start" }}
+  backgroundImage="/images/hero-bg.jpg"
+/>
+    `.trim(),
+  },
+  "cta-pattern-background": {
+    id: "cta-pattern-background",
+    name: "CTA Pattern Background",
+    description:
+      "A CTA section with a subtle pattern background, centered heading, description, and action buttons. The pattern adds visual interest without overwhelming the content.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "pattern",
+      "background",
+      "centered",
+      "subtle",
+      "decorative",
+    ],
+    category: "cta",
+    component: CtaPatternBackground,
+    props: "CtaPatternBackgroundProps",
+    exampleUsage: `
+<CtaPatternBackground
+  heading="Ready to Transform?"
+  description="Join thousands of happy customers"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+  secondaryButton={{ text: "Learn More", href: "/about" }}
+/>
+    `.trim(),
+  },
+  "cta-platform-demo": {
+    id: "cta-platform-demo",
+    name: "CTA Platform Demo",
+    description:
+      "A CTA section promoting platform exploration with content on one side and decorative product images on the other. Ideal for SaaS products or platform showcases.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "platform",
+      "demo",
+      "product",
+      "showcase",
+      "saas",
+      "split-layout",
+    ],
+    category: "cta",
+    component: CtaPlatformDemo,
+    props: "CtaPlatformDemoProps",
+    exampleUsage: `
+<CtaPlatformDemo
+  heading="See It In Action"
+  description="Experience the power of our platform"
+  primaryButton={{ text: "Request Demo", href: "/demo" }}
+  secondaryButton={{ text: "Start Free", href: "/trial" }}
+/>
+    `.trim(),
+  },
+  "cta-enterprise-split": {
+    id: "cta-enterprise-split",
+    name: "CTA Enterprise Split",
+    description:
+      "A split-layout CTA with enterprise messaging and buttons on one side, documentation/demo links with icons on the other. Perfect for enterprise or B2B landing pages.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "enterprise",
+      "split-layout",
+      "b2b",
+      "documentation",
+      "links",
+      "cards",
+    ],
+    category: "cta",
+    component: CtaEnterpriseSplit,
+    props: "CtaEnterpriseSplitProps",
+    exampleUsage: `
+<CtaEnterpriseSplit
+  heading="Enterprise Ready"
+  description="Built for scale and security"
+  primaryButton={{ text: "Contact Sales", href: "/contact" }}
+  links={[
+    { icon: "lucide/book", title: "Documentation", description: "Read the docs", href: "/docs" },
+    { icon: "lucide/play", title: "Demo", description: "Watch demo", href: "/demo" }
+  ]}
+/>
+    `.trim(),
+  },
+  "cta-minimal-separator": {
+    id: "cta-minimal-separator",
+    name: "CTA Minimal Separator",
+    description:
+      "A minimal CTA section with centered text and a single button flanked by horizontal separators. Clean and understated design for subtle calls-to-action.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "minimal",
+      "separator",
+      "centered",
+      "clean",
+      "simple",
+    ],
+    category: "cta",
+    component: CtaMinimalSeparator,
+    props: "CtaMinimalSeparatorProps",
+    exampleUsage: `
+<CtaMinimalSeparator
+  heading="Ready to begin?"
+  buttonText="Get Started"
+  buttonHref="/start"
+/>
+    `.trim(),
+  },
+  "cta-image-overlay-arrow": {
+    id: "cta-image-overlay-arrow",
+    name: "CTA Image Overlay Arrow",
+    description:
+      "A CTA section with background image, centered heading, and a prominent button with an arrow icon. The arrow adds visual direction and encourages action.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "background-image",
+      "overlay",
+      "arrow",
+      "centered",
+      "action",
+    ],
+    category: "cta",
+    component: CtaImageOverlayArrow,
+    props: "CtaImageOverlayArrowProps",
+    exampleUsage: `
+<CtaImageOverlayArrow
+  heading="Start Your Journey"
+  buttonText="Explore Now"
+  buttonHref="/explore"
+  backgroundImage="/images/hero-bg.jpg"
+/>
+    `.trim(),
+  },
+  "cta-app-download-newsletter": {
+    id: "cta-app-download-newsletter",
+    name: "CTA App Download Newsletter",
+    description:
+      "A two-column CTA grid featuring an app download section with phone mockup and a newsletter subscription form. Perfect for mobile apps with email marketing.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "app-download",
+      "newsletter",
+      "mobile",
+      "subscription",
+      "email",
+      "two-column",
+    ],
+    category: "cta",
+    component: CtaAppDownloadNewsletter,
+    props: "CtaAppDownloadNewsletterProps",
+    exampleUsage: `
+<CtaAppDownloadNewsletter
+  appHeading="Get the App"
+  appDescription="Available on iOS and Android"
+  newsletterHeading="Stay Updated"
+  newsletterDescription="Subscribe to our newsletter"
+/>
+    `.trim(),
+  },
+  "cta-newsletter-features": {
+    id: "cta-newsletter-features",
+    name: "CTA Newsletter Features",
+    description:
+      "A newsletter subscription CTA with badge, heading, email form, and a list of subscription benefits. Highlights the value of subscribing with feature icons.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "newsletter",
+      "subscription",
+      "email",
+      "features",
+      "benefits",
+      "form",
+    ],
+    category: "cta",
+    component: CtaNewsletterFeatures,
+    props: "CtaNewsletterFeaturesProps",
+    exampleUsage: `
+<CtaNewsletterFeatures
+  badge="Newsletter"
+  heading="Stay in the Loop"
+  description="Get weekly updates and insights"
+  features={["Industry news", "Product updates", "Tips & tricks"]}
+/>
+    `.trim(),
+  },
+  "cta-hero-feature-cards": {
+    id: "cta-hero-feature-cards",
+    name: "CTA Hero Feature Cards",
+    description:
+      "A CTA section with a hero image and centered content, plus feature cards below. Combines visual impact with detailed feature highlights.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "hero",
+      "image",
+      "feature-cards",
+      "grid",
+      "showcase",
+    ],
+    category: "cta",
+    component: CtaHeroFeatureCards,
+    props: "CtaHeroFeatureCardsProps",
+    exampleUsage: `
+<CtaHeroFeatureCards
+  heading="The Complete Platform"
+  description="Everything you need in one place"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+  heroImage="/images/hero.jpg"
+  features={[
+    { title: "Analytics", description: "Track everything" },
+    { title: "Automation", description: "Save time" }
+  ]}
+/>
+    `.trim(),
+  },
+  "cta-enterprise-dark-features": {
+    id: "cta-enterprise-dark-features",
+    name: "CTA Enterprise Dark Features",
+    description:
+      "A dark-themed enterprise CTA with serif heading, feature list with icons, and layered decorative images. Creates a premium, sophisticated appearance.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "enterprise",
+      "dark-theme",
+      "features",
+      "premium",
+      "sophisticated",
+      "serif",
+    ],
+    category: "cta",
+    component: CtaEnterpriseDarkFeatures,
+    props: "CtaEnterpriseDarkFeaturesProps",
+    exampleUsage: `
+<CtaEnterpriseDarkFeatures
+  heading="Enterprise Solutions"
+  description="Built for the world's leading companies"
+  features={[
+    { icon: "lucide/shield", text: "Enterprise security" },
+    { icon: "lucide/users", text: "Team collaboration" }
+  ]}
+  primaryButton={{ text: "Contact Sales", href: "/contact" }}
+/>
+    `.trim(),
+  },
+  "cta-gradient-logos-floating": {
+    id: "cta-gradient-logos-floating",
+    name: "CTA Gradient Logos Floating",
+    description:
+      "A CTA section with gradient text heading, centered content, and floating logo circles on both sides. Creates a dynamic, modern appearance with social proof.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "gradient",
+      "logos",
+      "floating",
+      "social-proof",
+      "modern",
+      "dynamic",
+    ],
+    category: "cta",
+    component: CtaGradientLogosFloating,
+    props: "CtaGradientLogosFloatingProps",
+    exampleUsage: `
+<CtaGradientLogosFloating
+  heading="Trusted by Innovators"
+  description="Join the companies transforming their industries"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+/>
+    `.trim(),
+  },
+  "cta-gradient-stats-hero": {
+    id: "cta-gradient-stats-hero",
+    name: "CTA Gradient Stats Hero",
+    description:
+      "A hero-style CTA with gradient background, heading, description, action buttons, and floating stats cards. Combines visual appeal with social proof metrics.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "hero",
+      "gradient",
+      "stats",
+      "metrics",
+      "social-proof",
+      "cards",
+    ],
+    category: "cta",
+    component: CtaGradientStatsHero,
+    props: "CtaGradientStatsHeroProps",
+    exampleUsage: `
+<CtaGradientStatsHero
+  heading="Proven Results"
+  description="See why teams choose us"
+  primaryButton={{ text: "Start Free", href: "/trial" }}
+  stats={[
+    { value: "10K+", label: "Customers" },
+    { value: "99.9%", label: "Uptime" }
+  ]}
+/>
+    `.trim(),
+  },
+  "cta-video-background-hero": {
+    id: "cta-video-background-hero",
+    name: "CTA Video Background Hero",
+    description:
+      "A hero CTA with looping video background, gradient overlay, heading, description, and buttons including a video modal trigger. Creates an immersive, cinematic experience.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "hero",
+      "video",
+      "background",
+      "cinematic",
+      "immersive",
+      "modal",
+    ],
+    category: "cta",
+    component: CtaVideoBackgroundHero,
+    props: "CtaVideoBackgroundHeroProps",
+    exampleUsage: `
+<CtaVideoBackgroundHero
+  heading="Experience the Future"
+  description="See what's possible with our platform"
+  primaryButton={{ text: "Get Started", href: "/start" }}
+  backgroundVideo="/videos/hero-bg.mp4"
+  modalVideo="/videos/demo.mp4"
+/>
+    `.trim(),
+  },
+  "cta-workflow-tabs": {
+    id: "cta-workflow-tabs",
+    name: "CTA Workflow Tabs",
+    description:
+      "A hero CTA with tabbed content sections for different workflows (design, develop, deploy). Each tab shows relevant content and imagery. Perfect for developer tools or multi-step processes.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "tabs",
+      "workflow",
+      "process",
+      "developer",
+      "interactive",
+      "multi-step",
+    ],
+    category: "cta",
+    component: CtaWorkflowTabs,
+    props: "CtaWorkflowTabsProps",
+    exampleUsage: `
+<CtaWorkflowTabs
+  heading="Your Complete Workflow"
+  description="From design to deployment"
+  tabs={[
+    { id: "design", label: "Design", title: "Create", description: "Build beautiful interfaces", image: "/images/design.jpg" },
+    { id: "develop", label: "Develop", title: "Code", description: "Write clean code", image: "/images/develop.jpg" }
+  ]}
+  primaryButton={{ text: "Start Building", href: "/start" }}
+/>
+    `.trim(),
+  },
+  "cta-case-study-testimonial": {
+    id: "cta-case-study-testimonial",
+    name: "CTA Case Study Testimonial",
+    description:
+      "A comprehensive case study CTA with testimonial quote, challenge/solution/results breakdown, stats cards, and video thumbnail. Perfect for showcasing customer success stories.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "case-study",
+      "testimonial",
+      "stats",
+      "success-story",
+      "customer",
+      "results",
+    ],
+    category: "cta",
+    component: CtaCaseStudyTestimonial,
+    props: "CtaCaseStudyTestimonialProps",
+    exampleUsage: `
+<CtaCaseStudyTestimonial
+  quote="This platform transformed our business"
+  author={{ name: "Jane Doe", title: "CEO", company: "Acme Inc" }}
+  sections={[
+    { title: "Challenge", content: "Scaling operations" },
+    { title: "Solution", content: "Automated workflows" },
+    { title: "Results", content: "3x productivity" }
+  ]}
+  stats={[{ value: "300%", label: "Growth" }]}
+/>
+    `.trim(),
+  },
+  "cta-simple-centered": {
+    id: "cta-simple-centered",
+    name: "CTA Simple Centered",
+    description:
+      "A minimal centered CTA section with heading, description, and primary/secondary action buttons. Simple, straightforward design focused on conversion.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "simple",
+      "centered",
+      "minimal",
+      "conversion",
+      "clean",
+    ],
+    category: "cta",
+    component: CtaSimpleCentered,
+    props: "CtaSimpleCenteredProps",
+    exampleUsage: `
+<CtaSimpleCentered
+  heading="Ready to Get Started?"
+  description="Join thousands of satisfied customers"
+  primaryButton={{ text: "Start Free Trial", href: "/trial" }}
+  secondaryButton={{ text: "Contact Sales", href: "/contact" }}
 />
     `.trim(),
   },

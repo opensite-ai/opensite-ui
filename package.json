@@ -171,12 +171,142 @@
       "import": "./dist/about-mission-dual-image.js",
       "require": "./dist/about-mission-dual-image.cjs"
     },
-    "./blocks/cta/media-hover-ctas": {
-      "types": "./dist/media-hover-ctas.d.ts",
-      "import": "./dist/media-hover-ctas.js",
-      "require": "./dist/media-hover-ctas.cjs"
-    },
-    "./blocks/features/feature-showcase": {
+        "./blocks/cta/media-hover-ctas": {
+          "types": "./dist/media-hover-ctas.d.ts",
+          "import": "./dist/media-hover-ctas.js",
+          "require": "./dist/media-hover-ctas.cjs"
+        },
+        "./blocks/cta/cta-documentation-links": {
+          "types": "./dist/cta-documentation-links.d.ts",
+          "import": "./dist/cta-documentation-links.js",
+          "require": "./dist/cta-documentation-links.cjs"
+        },
+        "./blocks/cta/cta-feature-checklist": {
+          "types": "./dist/cta-feature-checklist.d.ts",
+          "import": "./dist/cta-feature-checklist.js",
+          "require": "./dist/cta-feature-checklist.cjs"
+        },
+        "./blocks/cta/cta-split-image": {
+          "types": "./dist/cta-split-image.d.ts",
+          "import": "./dist/cta-split-image.js",
+          "require": "./dist/cta-split-image.cjs"
+        },
+        "./blocks/cta/cta-stacked-cards": {
+          "types": "./dist/cta-stacked-cards.d.ts",
+          "import": "./dist/cta-stacked-cards.js",
+          "require": "./dist/cta-stacked-cards.cjs"
+        },
+        "./blocks/cta/cta-feature-list": {
+          "types": "./dist/cta-feature-list.d.ts",
+          "import": "./dist/cta-feature-list.js",
+          "require": "./dist/cta-feature-list.cjs"
+        },
+        "./blocks/cta/cta-split-image-logos": {
+          "types": "./dist/cta-split-image-logos.d.ts",
+          "import": "./dist/cta-split-image-logos.js",
+          "require": "./dist/cta-split-image-logos.cjs"
+        },
+        "./blocks/cta/cta-fullwidth-background": {
+          "types": "./dist/cta-fullwidth-background.d.ts",
+          "import": "./dist/cta-fullwidth-background.js",
+          "require": "./dist/cta-fullwidth-background.cjs"
+        },
+        "./blocks/cta/cta-feature-cards-grid": {
+          "types": "./dist/cta-feature-cards-grid.d.ts",
+          "import": "./dist/cta-feature-cards-grid.js",
+          "require": "./dist/cta-feature-cards-grid.cjs"
+        },
+        "./blocks/cta/cta-accent-background": {
+          "types": "./dist/cta-accent-background.d.ts",
+          "import": "./dist/cta-accent-background.js",
+          "require": "./dist/cta-accent-background.cjs"
+        },
+        "./blocks/cta/cta-split-gradient-image": {
+          "types": "./dist/cta-split-gradient-image.d.ts",
+          "import": "./dist/cta-split-gradient-image.js",
+          "require": "./dist/cta-split-gradient-image.cjs"
+        },
+        "./blocks/cta/cta-background-icon-badge": {
+          "types": "./dist/cta-background-icon-badge.d.ts",
+          "import": "./dist/cta-background-icon-badge.js",
+          "require": "./dist/cta-background-icon-badge.cjs"
+        },
+        "./blocks/cta/cta-pattern-background": {
+          "types": "./dist/cta-pattern-background.d.ts",
+          "import": "./dist/cta-pattern-background.js",
+          "require": "./dist/cta-pattern-background.cjs"
+        },
+        "./blocks/cta/cta-platform-demo": {
+          "types": "./dist/cta-platform-demo.d.ts",
+          "import": "./dist/cta-platform-demo.js",
+          "require": "./dist/cta-platform-demo.cjs"
+        },
+        "./blocks/cta/cta-enterprise-split": {
+          "types": "./dist/cta-enterprise-split.d.ts",
+          "import": "./dist/cta-enterprise-split.js",
+          "require": "./dist/cta-enterprise-split.cjs"
+        },
+        "./blocks/cta/cta-minimal-separator": {
+          "types": "./dist/cta-minimal-separator.d.ts",
+          "import": "./dist/cta-minimal-separator.js",
+          "require": "./dist/cta-minimal-separator.cjs"
+        },
+        "./blocks/cta/cta-image-overlay-arrow": {
+          "types": "./dist/cta-image-overlay-arrow.d.ts",
+          "import": "./dist/cta-image-overlay-arrow.js",
+          "require": "./dist/cta-image-overlay-arrow.cjs"
+        },
+        "./blocks/cta/cta-app-download-newsletter": {
+          "types": "./dist/cta-app-download-newsletter.d.ts",
+          "import": "./dist/cta-app-download-newsletter.js",
+          "require": "./dist/cta-app-download-newsletter.cjs"
+        },
+        "./blocks/cta/cta-newsletter-features": {
+          "types": "./dist/cta-newsletter-features.d.ts",
+          "import": "./dist/cta-newsletter-features.js",
+          "require": "./dist/cta-newsletter-features.cjs"
+        },
+        "./blocks/cta/cta-hero-feature-cards": {
+          "types": "./dist/cta-hero-feature-cards.d.ts",
+          "import": "./dist/cta-hero-feature-cards.js",
+          "require": "./dist/cta-hero-feature-cards.cjs"
+        },
+        "./blocks/cta/cta-enterprise-dark-features": {
+          "types": "./dist/cta-enterprise-dark-features.d.ts",
+          "import": "./dist/cta-enterprise-dark-features.js",
+          "require": "./dist/cta-enterprise-dark-features.cjs"
+        },
+        "./blocks/cta/cta-gradient-logos-floating": {
+          "types": "./dist/cta-gradient-logos-floating.d.ts",
+          "import": "./dist/cta-gradient-logos-floating.js",
+          "require": "./dist/cta-gradient-logos-floating.cjs"
+        },
+        "./blocks/cta/cta-gradient-stats-hero": {
+          "types": "./dist/cta-gradient-stats-hero.d.ts",
+          "import": "./dist/cta-gradient-stats-hero.js",
+          "require": "./dist/cta-gradient-stats-hero.cjs"
+        },
+        "./blocks/cta/cta-video-background-hero": {
+          "types": "./dist/cta-video-background-hero.d.ts",
+          "import": "./dist/cta-video-background-hero.js",
+          "require": "./dist/cta-video-background-hero.cjs"
+        },
+        "./blocks/cta/cta-workflow-tabs": {
+          "types": "./dist/cta-workflow-tabs.d.ts",
+          "import": "./dist/cta-workflow-tabs.js",
+          "require": "./dist/cta-workflow-tabs.cjs"
+        },
+        "./blocks/cta/cta-case-study-testimonial": {
+          "types": "./dist/cta-case-study-testimonial.d.ts",
+          "import": "./dist/cta-case-study-testimonial.js",
+          "require": "./dist/cta-case-study-testimonial.cjs"
+        },
+        "./blocks/cta/cta-simple-centered": {
+          "types": "./dist/cta-simple-centered.d.ts",
+          "import": "./dist/cta-simple-centered.js",
+          "require": "./dist/cta-simple-centered.cjs"
+        },
+        "./blocks/features/feature-showcase": {
       "types": "./dist/feature-showcase.d.ts",
       "import": "./dist/feature-showcase.js",
       "require": "./dist/feature-showcase.cjs"
