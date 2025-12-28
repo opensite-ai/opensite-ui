@@ -67,6 +67,39 @@ import { ContactCatering } from "../../components/blocks/contact/contact-caterin
 import { ContactConsultation } from "../../components/blocks/contact/contact-consultation";
 import { ContactDark } from "../../components/blocks/contact/contact-dark";
 import { ContactDemo } from "../../components/blocks/contact/contact-demo";
+import { ContactEmergency } from "../../components/blocks/contact/contact-emergency";
+import { ContactEvent } from "../../components/blocks/contact/contact-event";
+import { ContactFaq } from "../../components/blocks/contact/contact-faq";
+import { ContactFeedback } from "../../components/blocks/contact/contact-feedback";
+import { ContactFitness } from "../../components/blocks/contact/contact-fitness";
+import { ContactGuest } from "../../components/blocks/contact/contact-guest";
+import { ContactImage } from "../../components/blocks/contact/contact-image";
+import { ContactInsurance } from "../../components/blocks/contact/contact-insurance";
+import { ContactInterview } from "../../components/blocks/contact/contact-interview";
+import { ContactLocations } from "../../components/blocks/contact/contact-locations";
+import { ContactMaintenance } from "../../components/blocks/contact/contact-maintenance";
+import { ContactMap } from "../../components/blocks/contact/contact-map";
+import { ContactMinimal } from "../../components/blocks/contact/contact-minimal";
+import { ContactMoving } from "../../components/blocks/contact/contact-moving";
+import { ContactMultistep } from "../../components/blocks/contact/contact-multistep";
+import { ContactPartnership } from "../../components/blocks/contact/contact-partnership";
+import { ContactPhotography } from "../../components/blocks/contact/contact-photography";
+import { ContactPress } from "../../components/blocks/contact/contact-press";
+import { ContactQuote } from "../../components/blocks/contact/contact-quote";
+import { ContactReferral } from "../../components/blocks/contact/contact-referral";
+import { ContactReport } from "../../components/blocks/contact/contact-report";
+import { ContactReservation } from "../../components/blocks/contact/contact-reservation";
+import { ContactRetreat } from "../../components/blocks/contact/contact-retreat";
+import { ContactRsvp } from "../../components/blocks/contact/contact-rsvp";
+import { ContactSales } from "../../components/blocks/contact/contact-sales";
+import { ContactSchedule } from "../../components/blocks/contact/contact-schedule";
+import { ContactSponsorship } from "../../components/blocks/contact/contact-sponsorship";
+import { ContactSupport } from "../../components/blocks/contact/contact-support";
+import { ContactTenant } from "../../components/blocks/contact/contact-tenant";
+import { ContactVendor } from "../../components/blocks/contact/contact-vendor";
+import { ContactVolunteer } from "../../components/blocks/contact/contact-volunteer";
+import { ContactWarranty } from "../../components/blocks/contact/contact-warranty";
+import { ContactWedding } from "../../components/blocks/contact/contact-wedding";
 
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
@@ -240,8 +273,8 @@ import { FaqSplitHero } from "../../components/blocks/faq/faq-split-hero";
 import { AboutSplitHero } from "../../components/blocks/about/about-split-hero";
 import { AboutMissionPrinciples } from "../../components/blocks/about/about-mission-principles";
 import { AboutExpandableValues } from "../../components/blocks/about/about-expandable-values";
-import { AboutDeiInitiatives } from "../../components/blocks/about/about-dei-initiatives";
 import { AboutCultureTabs } from "../../components/blocks/about/about-culture-tabs";
+import { CommunityInitiatives } from "../../components/blocks/about/community-initiatives";
 
 // New Feature components
 import { FeatureAnimatedCarousel } from "../../components/blocks/features/feature-animated-carousel";
@@ -745,12 +778,12 @@ export type BlockCategory =
   | "list"
   | "offer-modal"
   | "banner"
-    | "industries"
-      | "resource-detail"
-      | "service-detail"
-      | "services-list"
-      | "resource-list"
-      | "link-page";
+  | "industries"
+  | "resource-detail"
+  | "service-detail"
+  | "services-list"
+  | "resource-list"
+  | "link-page";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -2240,6 +2273,776 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   description="See how we can help your team work smarter"
   buttonText="Request Demo"
   formConfig={{ endpoint: "/api/demo", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-emergency": {
+    id: "contact-emergency",
+    name: "Contact Emergency",
+    description:
+      "An urgent contact form with priority level selection and immediate response options. Features visual priority indicators and streamlined fields for critical situations.",
+    semanticTags: [
+      "contact",
+      "emergency",
+      "urgent",
+      "priority",
+      "support",
+      "critical",
+      "form",
+    ],
+    category: "contact",
+    component: ContactEmergency,
+    props: "ContactEmergencyProps",
+    exampleUsage: `
+<ContactEmergency
+  heading="Emergency Contact"
+  description="We're here to help 24/7"
+  buttonText="Submit Emergency Request"
+  formConfig={{ endpoint: "/api/emergency", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-event": {
+    id: "contact-event",
+    name: "Contact Event Registration",
+    description:
+      "Event registration form with attendee information and event-specific fields. Perfect for conferences, workshops, and community events.",
+    semanticTags: [
+      "contact",
+      "event",
+      "registration",
+      "form",
+      "rsvp",
+      "attendee",
+    ],
+    category: "contact",
+    component: ContactEvent,
+    props: "ContactEventProps",
+    exampleUsage: `
+<ContactEvent
+  heading="Event Registration"
+  description="Register for our event"
+  buttonText="Register"
+  formConfig={{ endpoint: "/api/event", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-faq": {
+    id: "contact-faq",
+    name: "Contact FAQ",
+    description:
+      "A contact form designed for FAQ and general inquiries with subject and message fields. Simple and straightforward for customer questions.",
+    semanticTags: ["contact", "faq", "questions", "inquiry", "form", "support"],
+    category: "contact",
+    component: ContactFaq,
+    props: "ContactFaqProps",
+    exampleUsage: `
+<ContactFaq
+  heading="Have a Question?"
+  description="We're here to help"
+  buttonText="Send Question"
+  formConfig={{ endpoint: "/api/faq", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-feedback": {
+    id: "contact-feedback",
+    name: "Contact Feedback",
+    description:
+      "A simple feedback form with email and feedback message fields. Ideal for collecting customer feedback and suggestions.",
+    semanticTags: [
+      "contact",
+      "feedback",
+      "survey",
+      "form",
+      "customer-feedback",
+    ],
+    category: "contact",
+    component: ContactFeedback,
+    props: "ContactFeedbackProps",
+    exampleUsage: `
+<ContactFeedback
+  heading="Share Your Feedback"
+  description="We value your input"
+  buttonText="Submit Feedback"
+  formConfig={{ endpoint: "/api/feedback", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-fitness": {
+    id: "contact-fitness",
+    name: "Contact Fitness Consultation",
+    description:
+      "Fitness consultation form with goals, experience level, and health information. Perfect for gyms, personal trainers, and wellness centers.",
+    semanticTags: [
+      "contact",
+      "fitness",
+      "consultation",
+      "form",
+      "health",
+      "wellness",
+    ],
+    category: "contact",
+    component: ContactFitness,
+    props: "ContactFitnessProps",
+    exampleUsage: `
+<ContactFitness
+  heading="Fitness Consultation"
+  description="Start your fitness journey"
+  buttonText="Book Consultation"
+  formConfig={{ endpoint: "/api/fitness", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-guest": {
+    id: "contact-guest",
+    name: "Contact Guest Information",
+    description:
+      "Guest information form for hospitality and event management. Collects detailed guest preferences and requirements.",
+    semanticTags: [
+      "contact",
+      "guest",
+      "hospitality",
+      "form",
+      "booking",
+      "accommodation",
+    ],
+    category: "contact",
+    component: ContactGuest,
+    props: "ContactGuestProps",
+    exampleUsage: `
+<ContactGuest
+  heading="Guest Information"
+  description="Provide your guest details"
+  buttonText="Submit Information"
+  formConfig={{ endpoint: "/api/guest", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-image": {
+    id: "contact-image",
+    name: "Contact Image",
+    description:
+      "Contact form with image background layout. Features a clean card design with first name, last name, email, phone, and message fields.",
+    semanticTags: ["contact", "form", "image", "card", "simple"],
+    category: "contact",
+    component: ContactImage,
+    props: "ContactImageProps",
+    exampleUsage: `
+<ContactImage
+  heading="Get in Touch"
+  description="We'd love to hear from you"
+  buttonText="Send Message"
+  formConfig={{ endpoint: "/api/contact", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-insurance": {
+    id: "contact-insurance",
+    name: "Contact Insurance Quote",
+    description:
+      "Insurance quote request form with coverage type, policy details, and personal information. Ideal for insurance agencies and brokers.",
+    semanticTags: [
+      "contact",
+      "insurance",
+      "quote",
+      "form",
+      "coverage",
+      "policy",
+    ],
+    category: "contact",
+    component: ContactInsurance,
+    props: "ContactInsuranceProps",
+    exampleUsage: `
+<ContactInsurance
+  heading="Insurance Quote"
+  description="Get an insurance quote"
+  buttonText="Request Quote"
+  formConfig={{ endpoint: "/api/insurance", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-interview": {
+    id: "contact-interview",
+    name: "Contact Interview Scheduling",
+    description:
+      "Interview scheduling form with position, availability, and candidate information. Perfect for HR and recruitment teams.",
+    semanticTags: [
+      "contact",
+      "interview",
+      "scheduling",
+      "form",
+      "recruitment",
+      "hr",
+    ],
+    category: "contact",
+    component: ContactInterview,
+    props: "ContactInterviewProps",
+    exampleUsage: `
+<ContactInterview
+  heading="Schedule Interview"
+  description="Book an interview time"
+  buttonText="Schedule"
+  formConfig={{ endpoint: "/api/interview", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-locations": {
+    id: "contact-locations",
+    name: "Contact Locations",
+    description:
+      "Multi-location contact form with location selection and contact information. Ideal for businesses with multiple offices or stores.",
+    semanticTags: ["contact", "locations", "multi-location", "form", "offices"],
+    category: "contact",
+    component: ContactLocations,
+    props: "ContactLocationsProps",
+    exampleUsage: `
+<ContactLocations
+  heading="Find a Location"
+  description="Contact us at one of our locations"
+  buttonText="Send Message"
+  formConfig={{ endpoint: "/api/contact", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-maintenance": {
+    id: "contact-maintenance",
+    name: "Contact Maintenance Request",
+    description:
+      "Maintenance request form with issue type, priority, and detailed description. Perfect for property management and facility services.",
+    semanticTags: [
+      "contact",
+      "maintenance",
+      "request",
+      "form",
+      "property",
+      "facility",
+    ],
+    category: "contact",
+    component: ContactMaintenance,
+    props: "ContactMaintenanceProps",
+    exampleUsage: `
+<ContactMaintenance
+  heading="Maintenance Request"
+  description="Submit a maintenance request"
+  buttonText="Submit Request"
+  formConfig={{ endpoint: "/api/maintenance", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-map": {
+    id: "contact-map",
+    name: "Contact Map",
+    description:
+      "Contact form with integrated map display. Shows location information alongside contact form fields.",
+    semanticTags: ["contact", "map", "location", "form", "address"],
+    category: "contact",
+    component: ContactMap,
+    props: "ContactMapProps",
+    exampleUsage: `
+<ContactMap
+  heading="Contact Us"
+  description="Find us on the map and get in touch"
+  buttonText="Send Message"
+  formConfig={{ endpoint: "/api/contact", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-minimal": {
+    id: "contact-minimal",
+    name: "Contact Minimal",
+    description:
+      "Minimal contact form with just name, email, and message fields. Clean and simple design for basic contact needs.",
+    semanticTags: ["contact", "minimal", "simple", "form", "basic"],
+    category: "contact",
+    component: ContactMinimal,
+    props: "ContactMinimalProps",
+    exampleUsage: `
+<ContactMinimal
+  heading="Let's Talk"
+  description="Send us a message"
+  buttonText="Send Message"
+  formConfig={{ endpoint: "/api/contact", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-moving": {
+    id: "contact-moving",
+    name: "Contact Moving Services",
+    description:
+      "Moving services request form with move details, inventory, and scheduling. Perfect for moving companies and relocation services.",
+    semanticTags: [
+      "contact",
+      "moving",
+      "relocation",
+      "form",
+      "services",
+      "logistics",
+    ],
+    category: "contact",
+    component: ContactMoving,
+    props: "ContactMovingProps",
+    exampleUsage: `
+<ContactMoving
+  heading="Moving Services"
+  description="Get help with your move"
+  buttonText="Request Quote"
+  formConfig={{ endpoint: "/api/moving", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-multistep": {
+    id: "contact-multistep",
+    name: "Contact Multistep",
+    description:
+      "Multi-step contact form with progressive disclosure. Breaks complex forms into manageable steps for better user experience.",
+    semanticTags: [
+      "contact",
+      "multistep",
+      "wizard",
+      "form",
+      "progressive",
+      "complex",
+    ],
+    category: "contact",
+    component: ContactMultistep,
+    props: "ContactMultistepProps",
+    exampleUsage: `
+<ContactMultistep
+  heading="Contact Us"
+  description="Multi-step contact form"
+  buttonText="Continue"
+  formConfig={{ endpoint: "/api/contact", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-partnership": {
+    id: "contact-partnership",
+    name: "Contact Partnership Inquiry",
+    description:
+      "Partnership inquiry form with company information and collaboration details. Ideal for B2B partnerships and strategic alliances.",
+    semanticTags: [
+      "contact",
+      "partnership",
+      "collaboration",
+      "form",
+      "b2b",
+      "alliance",
+    ],
+    category: "contact",
+    component: ContactPartnership,
+    props: "ContactPartnershipProps",
+    exampleUsage: `
+<ContactPartnership
+  heading="Partnership Inquiry"
+  description="Explore partnership opportunities"
+  buttonText="Submit Inquiry"
+  formConfig={{ endpoint: "/api/partnership", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-photography": {
+    id: "contact-photography",
+    name: "Contact Photography Services",
+    description:
+      "Photography booking form with session type, date, location, and special requirements. Perfect for photographers and studios.",
+    semanticTags: [
+      "contact",
+      "photography",
+      "booking",
+      "form",
+      "session",
+      "creative",
+    ],
+    category: "contact",
+    component: ContactPhotography,
+    props: "ContactPhotographyProps",
+    exampleUsage: `
+<ContactPhotography
+  heading="Photography Services"
+  description="Book a photography session"
+  buttonText="Book Session"
+  formConfig={{ endpoint: "/api/photography", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-press": {
+    id: "contact-press",
+    name: "Contact Press Inquiries",
+    description:
+      "Press and media inquiry form with publication details and story information. Designed for PR teams and media relations.",
+    semanticTags: ["contact", "press", "media", "form", "pr", "journalism"],
+    category: "contact",
+    component: ContactPress,
+    props: "ContactPressProps",
+    exampleUsage: `
+<ContactPress
+  heading="Press Inquiries"
+  description="Media and press contact form"
+  buttonText="Submit Inquiry"
+  formConfig={{ endpoint: "/api/press", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-quote": {
+    id: "contact-quote",
+    name: "Contact Quote Request",
+    description:
+      "Quote request form with project details, budget, and timeline. Ideal for service providers and contractors.",
+    semanticTags: [
+      "contact",
+      "quote",
+      "request",
+      "form",
+      "pricing",
+      "estimate",
+    ],
+    category: "contact",
+    component: ContactQuote,
+    props: "ContactQuoteProps",
+    exampleUsage: `
+<ContactQuote
+  heading="Request a Quote"
+  description="Get a custom quote for your project"
+  buttonText="Request Quote"
+  formConfig={{ endpoint: "/api/quote", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-referral": {
+    id: "contact-referral",
+    name: "Contact Referral",
+    description:
+      "Referral form for recommending friends or colleagues. Includes referrer and referee information with incentive details.",
+    semanticTags: [
+      "contact",
+      "referral",
+      "recommendation",
+      "form",
+      "rewards",
+      "incentive",
+    ],
+    category: "contact",
+    component: ContactReferral,
+    props: "ContactReferralProps",
+    exampleUsage: `
+<ContactReferral
+  heading="Refer a Friend"
+  description="Know someone who could benefit from our services?"
+  buttonText="Submit Referral"
+  formConfig={{ endpoint: "/api/referral", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-report": {
+    id: "contact-report",
+    name: "Contact Report Issue",
+    description:
+      "Issue reporting form with category, severity, and detailed description. Perfect for bug reports and problem tracking.",
+    semanticTags: [
+      "contact",
+      "report",
+      "issue",
+      "form",
+      "bug",
+      "problem",
+      "support",
+    ],
+    category: "contact",
+    component: ContactReport,
+    props: "ContactReportProps",
+    exampleUsage: `
+<ContactReport
+  heading="Report an Issue"
+  description="Help us improve by reporting problems"
+  buttonText="Submit Report"
+  formConfig={{ endpoint: "/api/report", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-reservation": {
+    id: "contact-reservation",
+    name: "Contact Reservation",
+    description:
+      "Reservation form with date, time, party size, and special requests. Ideal for restaurants, hotels, and event venues.",
+    semanticTags: [
+      "contact",
+      "reservation",
+      "booking",
+      "form",
+      "hospitality",
+      "restaurant",
+    ],
+    category: "contact",
+    component: ContactReservation,
+    props: "ContactReservationProps",
+    exampleUsage: `
+<ContactReservation
+  heading="Make a Reservation"
+  description="Reserve your spot today"
+  buttonText="Reserve"
+  formConfig={{ endpoint: "/api/reservation", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-retreat": {
+    id: "contact-retreat",
+    name: "Contact Retreat Registration",
+    description:
+      "Retreat registration form with accommodation preferences, dietary requirements, and participant information. Perfect for wellness retreats and corporate events.",
+    semanticTags: [
+      "contact",
+      "retreat",
+      "registration",
+      "form",
+      "wellness",
+      "event",
+    ],
+    category: "contact",
+    component: ContactRetreat,
+    props: "ContactRetreatProps",
+    exampleUsage: `
+<ContactRetreat
+  heading="Retreat Registration"
+  description="Register for our upcoming retreat"
+  buttonText="Register"
+  formConfig={{ endpoint: "/api/retreat", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-rsvp": {
+    id: "contact-rsvp",
+    name: "Contact RSVP",
+    description:
+      "RSVP form for event attendance confirmation with guest count and dietary preferences. Simple and elegant design for invitations.",
+    semanticTags: [
+      "contact",
+      "rsvp",
+      "event",
+      "form",
+      "invitation",
+      "attendance",
+    ],
+    category: "contact",
+    component: ContactRsvp,
+    props: "ContactRsvpProps",
+    exampleUsage: `
+<ContactRsvp
+  heading="RSVP to Event"
+  description="Confirm your attendance"
+  buttonText="Submit RSVP"
+  formConfig={{ endpoint: "/api/rsvp", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-sales": {
+    id: "contact-sales",
+    name: "Contact Sales",
+    description:
+      "Sales inquiry form with company information and product interest. Designed for B2B sales teams and lead generation.",
+    semanticTags: ["contact", "sales", "inquiry", "form", "b2b", "leads"],
+    category: "contact",
+    component: ContactSales,
+    props: "ContactSalesProps",
+    exampleUsage: `
+<ContactSales
+  heading="Talk to Sales"
+  description="Interested in our products?"
+  buttonText="Contact Sales"
+  formConfig={{ endpoint: "/api/sales", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-schedule": {
+    id: "contact-schedule",
+    name: "Contact Schedule Meeting",
+    description:
+      "Meeting scheduling form with calendar integration and time slot selection. Streamlined booking for consultations and appointments.",
+    semanticTags: [
+      "contact",
+      "schedule",
+      "meeting",
+      "form",
+      "booking",
+      "calendar",
+    ],
+    category: "contact",
+    component: ContactSchedule,
+    props: "ContactScheduleProps",
+    exampleUsage: `
+<ContactSchedule
+  heading="Schedule a Meeting"
+  description="Book a time to chat with our team"
+  buttonText="Schedule"
+  formConfig={{ endpoint: "/api/schedule", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-sponsorship": {
+    id: "contact-sponsorship",
+    name: "Contact Sponsorship",
+    description:
+      "Sponsorship inquiry form with organization details and sponsorship level preferences. Perfect for events and non-profits.",
+    semanticTags: [
+      "contact",
+      "sponsorship",
+      "partnership",
+      "form",
+      "funding",
+      "event",
+    ],
+    category: "contact",
+    component: ContactSponsorship,
+    props: "ContactSponsorshipProps",
+    exampleUsage: `
+<ContactSponsorship
+  heading="Sponsorship Opportunities"
+  description="Partner with us through sponsorship"
+  buttonText="Submit Inquiry"
+  formConfig={{ endpoint: "/api/sponsorship", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-support": {
+    id: "contact-support",
+    name: "Contact Support",
+    description:
+      "Customer support form with name, email, and message fields. Simple and effective for general support inquiries.",
+    semanticTags: ["contact", "support", "help", "form", "customer-service"],
+    category: "contact",
+    component: ContactSupport,
+    props: "ContactSupportProps",
+    exampleUsage: `
+<ContactSupport
+  heading="Customer Support"
+  description="We're here to help"
+  buttonText="Send Message"
+  formConfig={{ endpoint: "/api/support", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-tenant": {
+    id: "contact-tenant",
+    name: "Contact Tenant Application",
+    description:
+      "Tenant application form with rental history, employment, and references. Comprehensive form for property management.",
+    semanticTags: [
+      "contact",
+      "tenant",
+      "application",
+      "form",
+      "rental",
+      "property",
+    ],
+    category: "contact",
+    component: ContactTenant,
+    props: "ContactTenantProps",
+    exampleUsage: `
+<ContactTenant
+  heading="Tenant Application"
+  description="Apply to become a tenant"
+  buttonText="Submit Application"
+  formConfig={{ endpoint: "/api/tenant", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-vendor": {
+    id: "contact-vendor",
+    name: "Contact Vendor Application",
+    description:
+      "Vendor application form with business information, products/services, and certification details. Perfect for marketplace platforms.",
+    semanticTags: [
+      "contact",
+      "vendor",
+      "application",
+      "form",
+      "supplier",
+      "marketplace",
+    ],
+    category: "contact",
+    component: ContactVendor,
+    props: "ContactVendorProps",
+    exampleUsage: `
+<ContactVendor
+  heading="Become a Vendor"
+  description="Apply to become one of our vendors"
+  buttonText="Submit Application"
+  formConfig={{ endpoint: "/api/vendor", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-volunteer": {
+    id: "contact-volunteer",
+    name: "Contact Volunteer",
+    description:
+      "Volunteer registration form with availability, skills, and interests. Ideal for non-profits and community organizations.",
+    semanticTags: [
+      "contact",
+      "volunteer",
+      "registration",
+      "form",
+      "non-profit",
+      "community",
+    ],
+    category: "contact",
+    component: ContactVolunteer,
+    props: "ContactVolunteerProps",
+    exampleUsage: `
+<ContactVolunteer
+  heading="Volunteer With Us"
+  description="Join our team of volunteers"
+  buttonText="Sign Up"
+  formConfig={{ endpoint: "/api/volunteer", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-warranty": {
+    id: "contact-warranty",
+    name: "Contact Warranty Claim",
+    description:
+      "Warranty claim form with product information, purchase details, and issue description. Essential for product support teams.",
+    semanticTags: [
+      "contact",
+      "warranty",
+      "claim",
+      "form",
+      "support",
+      "product",
+    ],
+    category: "contact",
+    component: ContactWarranty,
+    props: "ContactWarrantyProps",
+    exampleUsage: `
+<ContactWarranty
+  heading="Warranty Claim"
+  description="Submit a warranty claim"
+  buttonText="Submit Claim"
+  formConfig={{ endpoint: "/api/warranty", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-wedding": {
+    id: "contact-wedding",
+    name: "Contact Wedding Inquiry",
+    description:
+      "Wedding planning inquiry form with event details, guest count, and service preferences. Perfect for wedding venues and planners.",
+    semanticTags: [
+      "contact",
+      "wedding",
+      "inquiry",
+      "form",
+      "event",
+      "planning",
+    ],
+    category: "contact",
+    component: ContactWedding,
+    props: "ContactWeddingProps",
+    exampleUsage: `
+<ContactWedding
+  heading="Wedding Inquiry"
+  description="Plan your special day with us"
+  buttonText="Submit Inquiry"
+  formConfig={{ endpoint: "/api/wedding", format: "json" }}
 />
     `.trim(),
   },
@@ -6892,8 +7695,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-badge-image-split": {
     id: "hero-badge-image-split",
     name: "Badge Image Split Hero",
-    description: "A split-layout hero section with a badge, headline, description, and CTA buttons on the left, and a large featured image on the right. Includes a logo bar showing trusted companies. Perfect for SaaS products and business landing pages.",
-    semanticTags: ["hero", "landing", "split", "badge", "image", "cta", "logos", "trust", "saas", "business"],
+    description:
+      "A split-layout hero section with a badge, headline, description, and CTA buttons on the left, and a large featured image on the right. Includes a logo bar showing trusted companies. Perfect for SaaS products and business landing pages.",
+    semanticTags: [
+      "hero",
+      "landing",
+      "split",
+      "badge",
+      "image",
+      "cta",
+      "logos",
+      "trust",
+      "saas",
+      "business",
+    ],
     category: "hero",
     component: HeroBadgeImageSplit,
     props: "HeroBadgeImageSplitProps",
@@ -6903,8 +7718,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-image-left-content": {
     id: "hero-image-left-content",
     name: "Image Left Content Hero",
-    description: "A hero section with a large image on the left and content on the right, featuring headline, description, and CTA buttons. Great for showcasing products or services with visual emphasis.",
-    semanticTags: ["hero", "landing", "split", "image", "content", "cta", "product", "visual"],
+    description:
+      "A hero section with a large image on the left and content on the right, featuring headline, description, and CTA buttons. Great for showcasing products or services with visual emphasis.",
+    semanticTags: [
+      "hero",
+      "landing",
+      "split",
+      "image",
+      "content",
+      "cta",
+      "product",
+      "visual",
+    ],
     category: "hero",
     component: HeroImageLeftContent,
     props: "HeroImageLeftContentProps",
@@ -6914,8 +7739,17 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-centered-image-grid": {
     id: "hero-centered-image-grid",
     name: "Centered Image Grid Hero",
-    description: "A centered hero section with headline and description above a grid of images. Ideal for portfolios, galleries, or showcasing multiple products or team members.",
-    semanticTags: ["hero", "centered", "grid", "images", "gallery", "portfolio", "showcase"],
+    description:
+      "A centered hero section with headline and description above a grid of images. Ideal for portfolios, galleries, or showcasing multiple products or team members.",
+    semanticTags: [
+      "hero",
+      "centered",
+      "grid",
+      "images",
+      "gallery",
+      "portfolio",
+      "showcase",
+    ],
     category: "hero",
     component: HeroCenteredImageGrid,
     props: "HeroCenteredImageGridProps",
@@ -6925,8 +7759,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-centered-screenshot": {
     id: "hero-centered-screenshot",
     name: "Centered Screenshot Hero",
-    description: "A centered hero with headline, description, and CTA buttons above a large product screenshot. Perfect for SaaS products, apps, and software landing pages.",
-    semanticTags: ["hero", "centered", "screenshot", "product", "saas", "app", "software", "demo"],
+    description:
+      "A centered hero with headline, description, and CTA buttons above a large product screenshot. Perfect for SaaS products, apps, and software landing pages.",
+    semanticTags: [
+      "hero",
+      "centered",
+      "screenshot",
+      "product",
+      "saas",
+      "app",
+      "software",
+      "demo",
+    ],
     category: "hero",
     component: HeroCenteredScreenshot,
     props: "HeroCenteredScreenshotProps",
@@ -6936,8 +7780,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-pattern-badge-logos": {
     id: "hero-pattern-badge-logos",
     name: "Pattern Badge Logos Hero",
-    description: "A hero section with a decorative background pattern, badge, headline, and a row of trusted company logos. Great for establishing credibility and trust.",
-    semanticTags: ["hero", "pattern", "badge", "logos", "trust", "credibility", "companies", "partners"],
+    description:
+      "A hero section with a decorative background pattern, badge, headline, and a row of trusted company logos. Great for establishing credibility and trust.",
+    semanticTags: [
+      "hero",
+      "pattern",
+      "badge",
+      "logos",
+      "trust",
+      "credibility",
+      "companies",
+      "partners",
+    ],
     category: "hero",
     component: HeroPatternBadgeLogos,
     props: "HeroPatternBadgeLogosProps",
@@ -6947,8 +7801,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-logo-centered-screenshot": {
     id: "hero-logo-centered-screenshot",
     name: "Logo Centered Screenshot Hero",
-    description: "A centered hero featuring a logo, headline, description, and a large centered screenshot. Includes trusted company logos below. Ideal for product launches.",
-    semanticTags: ["hero", "logo", "centered", "screenshot", "product", "launch", "trust", "logos"],
+    description:
+      "A centered hero featuring a logo, headline, description, and a large centered screenshot. Includes trusted company logos below. Ideal for product launches.",
+    semanticTags: [
+      "hero",
+      "logo",
+      "centered",
+      "screenshot",
+      "product",
+      "launch",
+      "trust",
+      "logos",
+    ],
     category: "hero",
     component: HeroLogoCenteredScreenshot,
     props: "HeroLogoCenteredScreenshotProps",
@@ -6958,8 +7822,19 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-pattern-logo-tech-stack": {
     id: "hero-pattern-logo-tech-stack",
     name: "Pattern Logo Tech Stack Hero",
-    description: "A hero section with a background pattern, logo, headline, and a visual display of technology stack icons. Perfect for developer tools and technical products.",
-    semanticTags: ["hero", "pattern", "logo", "tech", "stack", "developer", "tools", "technical", "icons"],
+    description:
+      "A hero section with a background pattern, logo, headline, and a visual display of technology stack icons. Perfect for developer tools and technical products.",
+    semanticTags: [
+      "hero",
+      "pattern",
+      "logo",
+      "tech",
+      "stack",
+      "developer",
+      "tools",
+      "technical",
+      "icons",
+    ],
     category: "hero",
     component: HeroPatternLogoTechStack,
     props: "HeroPatternLogoTechStackProps",
@@ -6969,8 +7844,17 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-announcement-badge": {
     id: "hero-announcement-badge",
     name: "Announcement Badge Hero",
-    description: "A hero section featuring an announcement badge at the top, followed by headline, description, and CTA buttons. Great for product launches and announcements.",
-    semanticTags: ["hero", "announcement", "badge", "launch", "news", "update", "cta"],
+    description:
+      "A hero section featuring an announcement badge at the top, followed by headline, description, and CTA buttons. Great for product launches and announcements.",
+    semanticTags: [
+      "hero",
+      "announcement",
+      "badge",
+      "launch",
+      "news",
+      "update",
+      "cta",
+    ],
     category: "hero",
     component: HeroAnnouncementBadge,
     props: "HeroAnnouncementBadgeProps",
@@ -6980,8 +7864,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-tech-carousel": {
     id: "hero-tech-carousel",
     name: "Tech Carousel Hero",
-    description: "A hero section with a carousel of technology logos or partner brands. Features headline, description, and auto-scrolling logo carousel. Perfect for showcasing integrations.",
-    semanticTags: ["hero", "carousel", "tech", "logos", "partners", "integrations", "brands", "auto-scroll"],
+    description:
+      "A hero section with a carousel of technology logos or partner brands. Features headline, description, and auto-scrolling logo carousel. Perfect for showcasing integrations.",
+    semanticTags: [
+      "hero",
+      "carousel",
+      "tech",
+      "logos",
+      "partners",
+      "integrations",
+      "brands",
+      "auto-scroll",
+    ],
     category: "hero",
     component: HeroTechCarousel,
     props: "HeroTechCarouselProps",
@@ -6991,8 +7885,17 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-simple-centered-image": {
     id: "hero-simple-centered-image",
     name: "Simple Centered Image Hero",
-    description: "A minimal centered hero with headline, description, CTA buttons, and a single featured image below. Clean and straightforward design for any landing page.",
-    semanticTags: ["hero", "simple", "centered", "image", "minimal", "clean", "landing"],
+    description:
+      "A minimal centered hero with headline, description, CTA buttons, and a single featured image below. Clean and straightforward design for any landing page.",
+    semanticTags: [
+      "hero",
+      "simple",
+      "centered",
+      "image",
+      "minimal",
+      "clean",
+      "landing",
+    ],
     category: "hero",
     component: HeroSimpleCenteredImage,
     props: "HeroSimpleCenteredImageProps",
@@ -7002,8 +7905,17 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-platform-features-grid": {
     id: "hero-platform-features-grid",
     name: "Platform Features Grid Hero",
-    description: "A hero section showcasing platform features in a grid layout with icons and descriptions. Includes headline and CTA. Perfect for feature-rich products.",
-    semanticTags: ["hero", "platform", "features", "grid", "icons", "product", "showcase"],
+    description:
+      "A hero section showcasing platform features in a grid layout with icons and descriptions. Includes headline and CTA. Perfect for feature-rich products.",
+    semanticTags: [
+      "hero",
+      "platform",
+      "features",
+      "grid",
+      "icons",
+      "product",
+      "showcase",
+    ],
     category: "hero",
     component: HeroPlatformFeaturesGrid,
     props: "HeroPlatformFeaturesGridProps",
@@ -7013,8 +7925,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-spiral-pattern-cards": {
     id: "hero-spiral-pattern-cards",
     name: "Spiral Pattern Cards Hero",
-    description: "A creative hero with a spiral background pattern and floating feature cards. Unique visual design for creative agencies and innovative products.",
-    semanticTags: ["hero", "spiral", "pattern", "cards", "creative", "innovative", "visual", "agency"],
+    description:
+      "A creative hero with a spiral background pattern and floating feature cards. Unique visual design for creative agencies and innovative products.",
+    semanticTags: [
+      "hero",
+      "spiral",
+      "pattern",
+      "cards",
+      "creative",
+      "innovative",
+      "visual",
+      "agency",
+    ],
     category: "hero",
     component: HeroSpiralPatternCards,
     props: "HeroSpiralPatternCardsProps",
@@ -7024,8 +7946,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-split-spiral-shapes": {
     id: "hero-split-spiral-shapes",
     name: "Split Spiral Shapes Hero",
-    description: "A split-layout hero with content on one side and decorative spiral shapes on the other. Artistic and modern design for creative businesses.",
-    semanticTags: ["hero", "split", "spiral", "shapes", "artistic", "modern", "creative", "design"],
+    description:
+      "A split-layout hero with content on one side and decorative spiral shapes on the other. Artistic and modern design for creative businesses.",
+    semanticTags: [
+      "hero",
+      "split",
+      "spiral",
+      "shapes",
+      "artistic",
+      "modern",
+      "creative",
+      "design",
+    ],
     category: "hero",
     component: HeroSplitSpiralShapes,
     props: "HeroSplitSpiralShapesProps",
@@ -7035,8 +7967,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-split-geometric-shapes": {
     id: "hero-split-geometric-shapes",
     name: "Split Geometric Shapes Hero",
-    description: "A split-layout hero featuring geometric shapes and patterns alongside content. Modern and professional design for tech companies.",
-    semanticTags: ["hero", "split", "geometric", "shapes", "modern", "professional", "tech", "patterns"],
+    description:
+      "A split-layout hero featuring geometric shapes and patterns alongside content. Modern and professional design for tech companies.",
+    semanticTags: [
+      "hero",
+      "split",
+      "geometric",
+      "shapes",
+      "modern",
+      "professional",
+      "tech",
+      "patterns",
+    ],
     category: "hero",
     component: HeroSplitGeometricShapes,
     props: "HeroSplitGeometricShapesProps",
@@ -7046,8 +7988,17 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-community-survey-cta": {
     id: "hero-community-survey-cta",
     name: "Community Survey CTA Hero",
-    description: "A hero section focused on community engagement with a survey or feedback CTA. Includes headline, description, and prominent call-to-action for user participation.",
-    semanticTags: ["hero", "community", "survey", "feedback", "engagement", "cta", "participation"],
+    description:
+      "A hero section focused on community engagement with a survey or feedback CTA. Includes headline, description, and prominent call-to-action for user participation.",
+    semanticTags: [
+      "hero",
+      "community",
+      "survey",
+      "feedback",
+      "engagement",
+      "cta",
+      "participation",
+    ],
     category: "hero",
     component: HeroCommunitySurveyCta,
     props: "HeroCommunitySurveyCtaProps",
@@ -7057,8 +8008,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-marketplace-scattered-images": {
     id: "hero-marketplace-scattered-images",
     name: "Marketplace Scattered Images Hero",
-    description: "A hero section with scattered product images creating a marketplace feel. Dynamic layout showcasing multiple items or categories.",
-    semanticTags: ["hero", "marketplace", "scattered", "images", "products", "dynamic", "ecommerce", "shop"],
+    description:
+      "A hero section with scattered product images creating a marketplace feel. Dynamic layout showcasing multiple items or categories.",
+    semanticTags: [
+      "hero",
+      "marketplace",
+      "scattered",
+      "images",
+      "products",
+      "dynamic",
+      "ecommerce",
+      "shop",
+    ],
     category: "hero",
     component: HeroMarketplaceScatteredImages,
     props: "HeroMarketplaceScatteredImagesProps",
@@ -7068,8 +8029,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-badge-shadow-overlay": {
     id: "hero-badge-shadow-overlay",
     name: "Badge Shadow Overlay Hero",
-    description: "A hero with a badge, headline, and content overlaid on a shadowed background image. Creates depth and visual interest for impactful landing pages.",
-    semanticTags: ["hero", "badge", "shadow", "overlay", "background", "depth", "impactful", "landing"],
+    description:
+      "A hero with a badge, headline, and content overlaid on a shadowed background image. Creates depth and visual interest for impactful landing pages.",
+    semanticTags: [
+      "hero",
+      "badge",
+      "shadow",
+      "overlay",
+      "background",
+      "depth",
+      "impactful",
+      "landing",
+    ],
     category: "hero",
     component: HeroBadgeShadowOverlay,
     props: "HeroBadgeShadowOverlayProps",
@@ -7079,8 +8050,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-video-background-dark": {
     id: "hero-video-background-dark",
     name: "Video Background Dark Hero",
-    description: "A dark-themed hero with a video background, headline, and CTA buttons. Creates an immersive experience for media-rich landing pages.",
-    semanticTags: ["hero", "video", "background", "dark", "immersive", "media", "cinematic", "landing"],
+    description:
+      "A dark-themed hero with a video background, headline, and CTA buttons. Creates an immersive experience for media-rich landing pages.",
+    semanticTags: [
+      "hero",
+      "video",
+      "background",
+      "dark",
+      "immersive",
+      "media",
+      "cinematic",
+      "landing",
+    ],
     category: "hero",
     component: HeroVideoBackgroundDark,
     props: "HeroVideoBackgroundDarkProps",
@@ -7090,8 +8071,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-grid-pattern-efficiency": {
     id: "hero-grid-pattern-efficiency",
     name: "Grid Pattern Efficiency Hero",
-    description: "A hero section with a grid pattern background emphasizing efficiency and productivity. Clean design for business and productivity tools.",
-    semanticTags: ["hero", "grid", "pattern", "efficiency", "productivity", "business", "tools", "clean"],
+    description:
+      "A hero section with a grid pattern background emphasizing efficiency and productivity. Clean design for business and productivity tools.",
+    semanticTags: [
+      "hero",
+      "grid",
+      "pattern",
+      "efficiency",
+      "productivity",
+      "business",
+      "tools",
+      "clean",
+    ],
     category: "hero",
     component: HeroGridPatternEfficiency,
     props: "HeroGridPatternEfficiencyProps",
@@ -7101,8 +8092,17 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-dashed-border-features": {
     id: "hero-dashed-border-features",
     name: "Dashed Border Features Hero",
-    description: "A hero with dashed border decorations and feature highlights. Unique visual style that draws attention to key features.",
-    semanticTags: ["hero", "dashed", "border", "features", "unique", "decorative", "highlights"],
+    description:
+      "A hero with dashed border decorations and feature highlights. Unique visual style that draws attention to key features.",
+    semanticTags: [
+      "hero",
+      "dashed",
+      "border",
+      "features",
+      "unique",
+      "decorative",
+      "highlights",
+    ],
     category: "hero",
     component: HeroDashedBorderFeatures,
     props: "HeroDashedBorderFeaturesProps",
@@ -7112,8 +8112,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-design-carousel-portfolio": {
     id: "hero-design-carousel-portfolio",
     name: "Design Carousel Portfolio Hero",
-    description: "A portfolio-style hero with a carousel showcasing design work or projects. Perfect for creative agencies and designers.",
-    semanticTags: ["hero", "design", "carousel", "portfolio", "creative", "agency", "projects", "showcase"],
+    description:
+      "A portfolio-style hero with a carousel showcasing design work or projects. Perfect for creative agencies and designers.",
+    semanticTags: [
+      "hero",
+      "design",
+      "carousel",
+      "portfolio",
+      "creative",
+      "agency",
+      "projects",
+      "showcase",
+    ],
     category: "hero",
     component: HeroDesignCarouselPortfolio,
     props: "HeroDesignCarouselPortfolioProps",
@@ -7123,8 +8133,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-gradient-client-focused": {
     id: "hero-gradient-client-focused",
     name: "Gradient Client Focused Hero",
-    description: "A hero with gradient background focused on client success stories or testimonials. Builds trust through social proof.",
-    semanticTags: ["hero", "gradient", "client", "focused", "testimonials", "trust", "social-proof", "success"],
+    description:
+      "A hero with gradient background focused on client success stories or testimonials. Builds trust through social proof.",
+    semanticTags: [
+      "hero",
+      "gradient",
+      "client",
+      "focused",
+      "testimonials",
+      "trust",
+      "social-proof",
+      "success",
+    ],
     category: "hero",
     component: HeroGradientClientFocused,
     props: "HeroGradientClientFocusedProps",
@@ -7134,8 +8154,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-premium-split-avatars": {
     id: "hero-premium-split-avatars",
     name: "Premium Split Avatars Hero",
-    description: "A premium split-layout hero featuring user avatars and social proof. Shows real users to build credibility and trust.",
-    semanticTags: ["hero", "premium", "split", "avatars", "social-proof", "users", "credibility", "trust"],
+    description:
+      "A premium split-layout hero featuring user avatars and social proof. Shows real users to build credibility and trust.",
+    semanticTags: [
+      "hero",
+      "premium",
+      "split",
+      "avatars",
+      "social-proof",
+      "users",
+      "credibility",
+      "trust",
+    ],
     category: "hero",
     component: HeroPremiumSplitAvatars,
     props: "HeroPremiumSplitAvatarsProps",
@@ -7145,8 +8175,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-ui-library-showcase": {
     id: "hero-ui-library-showcase",
     name: "UI Library Showcase Hero",
-    description: "A hero designed to showcase UI components or design systems. Features component previews and documentation links.",
-    semanticTags: ["hero", "ui", "library", "showcase", "components", "design-system", "documentation", "developer"],
+    description:
+      "A hero designed to showcase UI components or design systems. Features component previews and documentation links.",
+    semanticTags: [
+      "hero",
+      "ui",
+      "library",
+      "showcase",
+      "components",
+      "design-system",
+      "documentation",
+      "developer",
+    ],
     category: "hero",
     component: HeroUiLibraryShowcase,
     props: "HeroUiLibraryShowcaseProps",
@@ -7156,8 +8196,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-fullscreen-background-image": {
     id: "hero-fullscreen-background-image",
     name: "Fullscreen Background Image Hero",
-    description: "A fullscreen hero with a background image, overlay, and centered content. Creates an immersive first impression.",
-    semanticTags: ["hero", "fullscreen", "background", "image", "overlay", "immersive", "impactful", "landing"],
+    description:
+      "A fullscreen hero with a background image, overlay, and centered content. Creates an immersive first impression.",
+    semanticTags: [
+      "hero",
+      "fullscreen",
+      "background",
+      "image",
+      "overlay",
+      "immersive",
+      "impactful",
+      "landing",
+    ],
     category: "hero",
     component: HeroFullscreenBackgroundImage,
     props: "HeroFullscreenBackgroundImageProps",
@@ -7167,8 +8217,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-fullscreen-logo-cta": {
     id: "hero-fullscreen-logo-cta",
     name: "Fullscreen Logo CTA Hero",
-    description: "A fullscreen hero featuring a prominent logo and call-to-action. Minimal and focused design for brand-centric landing pages.",
-    semanticTags: ["hero", "fullscreen", "logo", "cta", "minimal", "brand", "focused", "landing"],
+    description:
+      "A fullscreen hero featuring a prominent logo and call-to-action. Minimal and focused design for brand-centric landing pages.",
+    semanticTags: [
+      "hero",
+      "fullscreen",
+      "logo",
+      "cta",
+      "minimal",
+      "brand",
+      "focused",
+      "landing",
+    ],
     category: "hero",
     component: HeroFullscreenLogoCta,
     props: "HeroFullscreenLogoCtaProps",
@@ -7178,8 +8238,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-gradient-avatars-rating": {
     id: "hero-gradient-avatars-rating",
     name: "Gradient Avatars Rating Hero",
-    description: "A hero with gradient background, user avatars, and star ratings. Combines visual appeal with social proof elements.",
-    semanticTags: ["hero", "gradient", "avatars", "rating", "stars", "social-proof", "reviews", "trust"],
+    description:
+      "A hero with gradient background, user avatars, and star ratings. Combines visual appeal with social proof elements.",
+    semanticTags: [
+      "hero",
+      "gradient",
+      "avatars",
+      "rating",
+      "stars",
+      "social-proof",
+      "reviews",
+      "trust",
+    ],
     category: "hero",
     component: HeroGradientAvatarsRating,
     props: "HeroGradientAvatarsRatingProps",
@@ -7189,8 +8259,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-task-timer-animated": {
     id: "hero-task-timer-animated",
     name: "Task Timer Animated Hero",
-    description: "An animated hero featuring a task timer or countdown element. Dynamic and engaging for productivity apps.",
-    semanticTags: ["hero", "task", "timer", "animated", "countdown", "productivity", "dynamic", "engaging"],
+    description:
+      "An animated hero featuring a task timer or countdown element. Dynamic and engaging for productivity apps.",
+    semanticTags: [
+      "hero",
+      "task",
+      "timer",
+      "animated",
+      "countdown",
+      "productivity",
+      "dynamic",
+      "engaging",
+    ],
     category: "hero",
     component: HeroTaskTimerAnimated,
     props: "HeroTaskTimerAnimatedProps",
@@ -7200,8 +8280,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-ai-powered-carousel": {
     id: "hero-ai-powered-carousel",
     name: "AI Powered Carousel Hero",
-    description: "A hero showcasing AI-powered features with a carousel of capabilities. Perfect for AI products and machine learning tools.",
-    semanticTags: ["hero", "ai", "powered", "carousel", "machine-learning", "features", "technology", "innovation"],
+    description:
+      "A hero showcasing AI-powered features with a carousel of capabilities. Perfect for AI products and machine learning tools.",
+    semanticTags: [
+      "hero",
+      "ai",
+      "powered",
+      "carousel",
+      "machine-learning",
+      "features",
+      "technology",
+      "innovation",
+    ],
     category: "hero",
     component: HeroAiPoweredCarousel,
     props: "HeroAiPoweredCarouselProps",
@@ -7211,8 +8301,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-ad-campaign-expert": {
     id: "hero-ad-campaign-expert",
     name: "Ad Campaign Expert Hero",
-    description: "A hero designed for advertising and marketing services. Features campaign metrics and expert positioning.",
-    semanticTags: ["hero", "ad", "campaign", "marketing", "advertising", "expert", "metrics", "agency"],
+    description:
+      "A hero designed for advertising and marketing services. Features campaign metrics and expert positioning.",
+    semanticTags: [
+      "hero",
+      "ad",
+      "campaign",
+      "marketing",
+      "advertising",
+      "expert",
+      "metrics",
+      "agency",
+    ],
     category: "hero",
     component: HeroAdCampaignExpert,
     props: "HeroAdCampaignExpertProps",
@@ -7222,8 +8322,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-adaptable-product-grid": {
     id: "hero-adaptable-product-grid",
     name: "Adaptable Product Grid Hero",
-    description: "A flexible hero with an adaptable product grid layout. Showcases multiple products or features in a responsive grid.",
-    semanticTags: ["hero", "adaptable", "product", "grid", "flexible", "responsive", "showcase", "features"],
+    description:
+      "A flexible hero with an adaptable product grid layout. Showcases multiple products or features in a responsive grid.",
+    semanticTags: [
+      "hero",
+      "adaptable",
+      "product",
+      "grid",
+      "flexible",
+      "responsive",
+      "showcase",
+      "features",
+    ],
     category: "hero",
     component: HeroAdaptableProductGrid,
     props: "HeroAdaptableProductGridProps",
@@ -7233,8 +8343,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-presentation-platform-video": {
     id: "hero-presentation-platform-video",
     name: "Presentation Platform Video Hero",
-    description: "A split-layout hero with video content on the right and presentation platform messaging on the left. Ideal for video conferencing and presentation tools.",
-    semanticTags: ["hero", "presentation", "platform", "video", "split", "conferencing", "tools", "communication"],
+    description:
+      "A split-layout hero with video content on the right and presentation platform messaging on the left. Ideal for video conferencing and presentation tools.",
+    semanticTags: [
+      "hero",
+      "presentation",
+      "platform",
+      "video",
+      "split",
+      "conferencing",
+      "tools",
+      "communication",
+    ],
     category: "hero",
     component: HeroPresentationPlatformVideo,
     props: "HeroPresentationPlatformVideoProps",
@@ -7244,8 +8364,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-grid-pattern-solutions": {
     id: "hero-grid-pattern-solutions",
     name: "Grid Pattern Solutions Hero",
-    description: "A hero with grid pattern background and centered content showcasing business solutions. Professional design for B2B services.",
-    semanticTags: ["hero", "grid", "pattern", "solutions", "business", "b2b", "professional", "services"],
+    description:
+      "A hero with grid pattern background and centered content showcasing business solutions. Professional design for B2B services.",
+    semanticTags: [
+      "hero",
+      "grid",
+      "pattern",
+      "solutions",
+      "business",
+      "b2b",
+      "professional",
+      "services",
+    ],
     category: "hero",
     component: HeroGridPatternSolutions,
     props: "HeroGridPatternSolutionsProps",
@@ -7255,8 +8385,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-crm-streamlined": {
     id: "hero-crm-streamlined",
     name: "CRM Streamlined Hero",
-    description: "A streamlined hero for CRM and sales tools. Features split layout with product image and CRM-focused messaging.",
-    semanticTags: ["hero", "crm", "streamlined", "sales", "tools", "split", "product", "business"],
+    description:
+      "A streamlined hero for CRM and sales tools. Features split layout with product image and CRM-focused messaging.",
+    semanticTags: [
+      "hero",
+      "crm",
+      "streamlined",
+      "sales",
+      "tools",
+      "split",
+      "product",
+      "business",
+    ],
     category: "hero",
     component: HeroCrmStreamlined,
     props: "HeroCrmStreamlinedProps",
@@ -7266,8 +8406,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-billing-platform-logos": {
     id: "hero-billing-platform-logos",
     name: "Billing Platform Logos Hero",
-    description: "A hero for billing and payment platforms featuring trusted company logos in a carousel. Builds trust for fintech products.",
-    semanticTags: ["hero", "billing", "platform", "logos", "payment", "fintech", "trust", "carousel"],
+    description:
+      "A hero for billing and payment platforms featuring trusted company logos in a carousel. Builds trust for fintech products.",
+    semanticTags: [
+      "hero",
+      "billing",
+      "platform",
+      "logos",
+      "payment",
+      "fintech",
+      "trust",
+      "carousel",
+    ],
     category: "hero",
     component: HeroBillingPlatformLogos,
     props: "HeroBillingPlatformLogosProps",
@@ -7277,8 +8427,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-software-growth-video-dialog": {
     id: "hero-software-growth-video-dialog",
     name: "Software Growth Video Dialog Hero",
-    description: "A hero focused on software growth with a video dialog modal. Features scattered images and growth-focused messaging.",
-    semanticTags: ["hero", "software", "growth", "video", "dialog", "modal", "saas", "startup"],
+    description:
+      "A hero focused on software growth with a video dialog modal. Features scattered images and growth-focused messaging.",
+    semanticTags: [
+      "hero",
+      "software",
+      "growth",
+      "video",
+      "dialog",
+      "modal",
+      "saas",
+      "startup",
+    ],
     category: "hero",
     component: HeroSoftwareGrowthVideoDialog,
     props: "HeroSoftwareGrowthVideoDialogProps",
@@ -7288,8 +8448,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-conversion-video-play": {
     id: "hero-conversion-video-play",
     name: "Conversion Video Play Hero",
-    description: "A conversion-focused hero with a prominent video play button and brand logos. Designed to drive engagement and conversions.",
-    semanticTags: ["hero", "conversion", "video", "play", "engagement", "logos", "cta", "marketing"],
+    description:
+      "A conversion-focused hero with a prominent video play button and brand logos. Designed to drive engagement and conversions.",
+    semanticTags: [
+      "hero",
+      "conversion",
+      "video",
+      "play",
+      "engagement",
+      "logos",
+      "cta",
+      "marketing",
+    ],
     category: "hero",
     component: HeroConversionVideoPlay,
     props: "HeroConversionVideoPlayProps",
@@ -7299,8 +8469,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-design-showcase-logos": {
     id: "hero-design-showcase-logos",
     name: "Design Showcase Logos Hero",
-    description: "A hero showcasing design work with trusted design team logos. Perfect for design agencies and creative studios.",
-    semanticTags: ["hero", "design", "showcase", "logos", "agency", "creative", "studio", "portfolio"],
+    description:
+      "A hero showcasing design work with trusted design team logos. Perfect for design agencies and creative studios.",
+    semanticTags: [
+      "hero",
+      "design",
+      "showcase",
+      "logos",
+      "agency",
+      "creative",
+      "studio",
+      "portfolio",
+    ],
     category: "hero",
     component: HeroDesignShowcaseLogos,
     props: "HeroDesignShowcaseLogosProps",
@@ -7310,8 +8490,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-video-overlay-stars": {
     id: "hero-video-overlay-stars",
     name: "Video Overlay Stars Hero",
-    description: "A hero with video overlay, star rating, and testimonial. Combines video content with social proof elements.",
-    semanticTags: ["hero", "video", "overlay", "stars", "rating", "testimonial", "social-proof", "reviews"],
+    description:
+      "A hero with video overlay, star rating, and testimonial. Combines video content with social proof elements.",
+    semanticTags: [
+      "hero",
+      "video",
+      "overlay",
+      "stars",
+      "rating",
+      "testimonial",
+      "social-proof",
+      "reviews",
+    ],
     category: "hero",
     component: HeroVideoOverlayStars,
     props: "HeroVideoOverlayStarsProps",
@@ -7321,8 +8511,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-productivity-launcher-video": {
     id: "hero-productivity-launcher-video",
     name: "Productivity Launcher Video Hero",
-    description: "A hero for productivity apps with video background and download buttons. Features app store badges and launcher-style design.",
-    semanticTags: ["hero", "productivity", "launcher", "video", "download", "app", "mobile", "desktop"],
+    description:
+      "A hero for productivity apps with video background and download buttons. Features app store badges and launcher-style design.",
+    semanticTags: [
+      "hero",
+      "productivity",
+      "launcher",
+      "video",
+      "download",
+      "app",
+      "mobile",
+      "desktop",
+    ],
     category: "hero",
     component: HeroProductivityLauncherVideo,
     props: "HeroProductivityLauncherVideoProps",
@@ -7332,8 +8532,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-hiring-animated-text": {
     id: "hero-hiring-animated-text",
     name: "Hiring Animated Text Hero",
-    description: "A hero for hiring platforms with animated rotating text. Dynamic design that showcases different job roles or skills.",
-    semanticTags: ["hero", "hiring", "animated", "text", "jobs", "recruitment", "careers", "dynamic"],
+    description:
+      "A hero for hiring platforms with animated rotating text. Dynamic design that showcases different job roles or skills.",
+    semanticTags: [
+      "hero",
+      "hiring",
+      "animated",
+      "text",
+      "jobs",
+      "recruitment",
+      "careers",
+      "dynamic",
+    ],
     category: "hero",
     component: HeroHiringAnimatedText,
     props: "HeroHiringAnimatedTextProps",
@@ -7343,8 +8553,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-split-image-newsletter": {
     id: "hero-split-image-newsletter",
     name: "Split Image Newsletter Hero",
-    description: "A split-layout hero with image and newsletter signup form. Perfect for content creators and newsletter-focused businesses.",
-    semanticTags: ["hero", "split", "image", "newsletter", "signup", "email", "content", "subscription"],
+    description:
+      "A split-layout hero with image and newsletter signup form. Perfect for content creators and newsletter-focused businesses.",
+    semanticTags: [
+      "hero",
+      "split",
+      "image",
+      "newsletter",
+      "signup",
+      "email",
+      "content",
+      "subscription",
+    ],
     category: "hero",
     component: HeroSplitImageNewsletter,
     props: "HeroSplitImageNewsletterProps",
@@ -7354,8 +8574,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-centered-gradient-cta": {
     id: "hero-centered-gradient-cta",
     name: "Centered Gradient CTA Hero",
-    description: "A centered hero with gradient background and prominent CTA. Features highlight badges and feature callouts.",
-    semanticTags: ["hero", "centered", "gradient", "cta", "features", "highlights", "modern", "vibrant"],
+    description:
+      "A centered hero with gradient background and prominent CTA. Features highlight badges and feature callouts.",
+    semanticTags: [
+      "hero",
+      "centered",
+      "gradient",
+      "cta",
+      "features",
+      "highlights",
+      "modern",
+      "vibrant",
+    ],
     category: "hero",
     component: HeroCenteredGradientCta,
     props: "HeroCenteredGradientCtaProps",
@@ -7365,8 +8595,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-stats-social-proof": {
     id: "hero-stats-social-proof",
     name: "Stats Social Proof Hero",
-    description: "A hero featuring prominent statistics and social proof elements. Includes dashboard image and key metrics display.",
-    semanticTags: ["hero", "stats", "social-proof", "metrics", "dashboard", "numbers", "credibility", "data"],
+    description:
+      "A hero featuring prominent statistics and social proof elements. Includes dashboard image and key metrics display.",
+    semanticTags: [
+      "hero",
+      "stats",
+      "social-proof",
+      "metrics",
+      "dashboard",
+      "numbers",
+      "credibility",
+      "data",
+    ],
     category: "hero",
     component: HeroStatsSocialProof,
     props: "HeroStatsSocialProofProps",
@@ -7376,8 +8616,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-feature-cards-grid": {
     id: "hero-feature-cards-grid",
     name: "Feature Cards Grid Hero",
-    description: "A hero with feature cards arranged in a grid layout. Each card has an icon and description for key features.",
-    semanticTags: ["hero", "feature", "cards", "grid", "icons", "benefits", "showcase", "product"],
+    description:
+      "A hero with feature cards arranged in a grid layout. Each card has an icon and description for key features.",
+    semanticTags: [
+      "hero",
+      "feature",
+      "cards",
+      "grid",
+      "icons",
+      "benefits",
+      "showcase",
+      "product",
+    ],
     category: "hero",
     component: HeroFeatureCardsGrid,
     props: "HeroFeatureCardsGridProps",
@@ -7387,8 +8637,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-testimonial-image-grid": {
     id: "hero-testimonial-image-grid",
     name: "Testimonial Image Grid Hero",
-    description: "A hero combining testimonials with an image grid layout. Shows customer feedback alongside visual content.",
-    semanticTags: ["hero", "testimonial", "image", "grid", "reviews", "customers", "feedback", "social-proof"],
+    description:
+      "A hero combining testimonials with an image grid layout. Shows customer feedback alongside visual content.",
+    semanticTags: [
+      "hero",
+      "testimonial",
+      "image",
+      "grid",
+      "reviews",
+      "customers",
+      "feedback",
+      "social-proof",
+    ],
     category: "hero",
     component: HeroTestimonialImageGrid,
     props: "HeroTestimonialImageGridProps",
@@ -7398,8 +8658,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-design-system-3d": {
     id: "hero-design-system-3d",
     name: "Design System 3D Hero",
-    description: "A hero showcasing design systems with 3D perspective images. Modern and innovative design for design tool products.",
-    semanticTags: ["hero", "design-system", "3d", "perspective", "modern", "innovative", "tools", "creative"],
+    description:
+      "A hero showcasing design systems with 3D perspective images. Modern and innovative design for design tool products.",
+    semanticTags: [
+      "hero",
+      "design-system",
+      "3d",
+      "perspective",
+      "modern",
+      "innovative",
+      "tools",
+      "creative",
+    ],
     category: "hero",
     component: HeroDesignSystem3d,
     props: "HeroDesignSystem3dProps",
@@ -7409,8 +8679,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-architecture-fullscreen": {
     id: "hero-architecture-fullscreen",
     name: "Architecture Fullscreen Hero",
-    description: "A fullscreen hero with architecture or real estate imagery. Features overlay content for property or construction businesses.",
-    semanticTags: ["hero", "architecture", "fullscreen", "real-estate", "property", "construction", "overlay", "immersive"],
+    description:
+      "A fullscreen hero with architecture or real estate imagery. Features overlay content for property or construction businesses.",
+    semanticTags: [
+      "hero",
+      "architecture",
+      "fullscreen",
+      "real-estate",
+      "property",
+      "construction",
+      "overlay",
+      "immersive",
+    ],
     category: "hero",
     component: HeroArchitectureFullscreen,
     props: "HeroArchitectureFullscreenProps",
@@ -7420,8 +8700,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-innovation-image-grid": {
     id: "hero-innovation-image-grid",
     name: "Innovation Image Grid Hero",
-    description: "A hero focused on innovation with an image grid layout. Showcases innovative products or research visually.",
-    semanticTags: ["hero", "innovation", "image", "grid", "research", "technology", "showcase", "modern"],
+    description:
+      "A hero focused on innovation with an image grid layout. Showcases innovative products or research visually.",
+    semanticTags: [
+      "hero",
+      "innovation",
+      "image",
+      "grid",
+      "research",
+      "technology",
+      "showcase",
+      "modern",
+    ],
     category: "hero",
     component: HeroInnovationImageGrid,
     props: "HeroInnovationImageGridProps",
@@ -7431,8 +8721,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-video-dialog-gradient": {
     id: "hero-video-dialog-gradient",
     name: "Video Dialog Gradient Hero",
-    description: "A hero with gradient background and video dialog modal. Combines visual appeal with video content engagement.",
-    semanticTags: ["hero", "video", "dialog", "gradient", "modal", "engagement", "media", "modern"],
+    description:
+      "A hero with gradient background and video dialog modal. Combines visual appeal with video content engagement.",
+    semanticTags: [
+      "hero",
+      "video",
+      "dialog",
+      "gradient",
+      "modal",
+      "engagement",
+      "media",
+      "modern",
+    ],
     category: "hero",
     component: HeroVideoDialogGradient,
     props: "HeroVideoDialogGradientProps",
@@ -7442,8 +8742,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-minimal-centered-dark": {
     id: "hero-minimal-centered-dark",
     name: "Minimal Centered Dark Hero",
-    description: "A minimal dark-themed centered hero with beta badge. Clean and focused design for product launches.",
-    semanticTags: ["hero", "minimal", "centered", "dark", "beta", "launch", "clean", "focused"],
+    description:
+      "A minimal dark-themed centered hero with beta badge. Clean and focused design for product launches.",
+    semanticTags: [
+      "hero",
+      "minimal",
+      "centered",
+      "dark",
+      "beta",
+      "launch",
+      "clean",
+      "focused",
+    ],
     category: "hero",
     component: HeroMinimalCenteredDark,
     props: "HeroMinimalCenteredDarkProps",
@@ -7453,8 +8763,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-product-showcase-floating": {
     id: "hero-product-showcase-floating",
     name: "Product Showcase Floating Hero",
-    description: "A hero with floating stats cards around a product showcase. Dynamic design highlighting key metrics and features.",
-    semanticTags: ["hero", "product", "showcase", "floating", "stats", "cards", "metrics", "dynamic"],
+    description:
+      "A hero with floating stats cards around a product showcase. Dynamic design highlighting key metrics and features.",
+    semanticTags: [
+      "hero",
+      "product",
+      "showcase",
+      "floating",
+      "stats",
+      "cards",
+      "metrics",
+      "dynamic",
+    ],
     category: "hero",
     component: HeroProductShowcaseFloating,
     props: "HeroProductShowcaseFloatingProps",
@@ -7464,8 +8784,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-saas-dashboard-preview": {
     id: "hero-saas-dashboard-preview",
     name: "SaaS Dashboard Preview Hero",
-    description: "A hero featuring a SaaS dashboard preview with email signup. Perfect for software products showing their interface.",
-    semanticTags: ["hero", "saas", "dashboard", "preview", "email", "signup", "software", "product"],
+    description:
+      "A hero featuring a SaaS dashboard preview with email signup. Perfect for software products showing their interface.",
+    semanticTags: [
+      "hero",
+      "saas",
+      "dashboard",
+      "preview",
+      "email",
+      "signup",
+      "software",
+      "product",
+    ],
     category: "hero",
     component: HeroSaasDashboardPreview,
     props: "HeroSaasDashboardPreviewProps",
@@ -7475,8 +8805,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-therapy-testimonial-grid": {
     id: "hero-therapy-testimonial-grid",
     name: "Therapy Testimonial Grid Hero",
-    description: "A hero for therapy and wellness services with testimonial grid. Features calming design and client feedback.",
-    semanticTags: ["hero", "therapy", "testimonial", "grid", "wellness", "health", "mental-health", "calming"],
+    description:
+      "A hero for therapy and wellness services with testimonial grid. Features calming design and client feedback.",
+    semanticTags: [
+      "hero",
+      "therapy",
+      "testimonial",
+      "grid",
+      "wellness",
+      "health",
+      "mental-health",
+      "calming",
+    ],
     category: "hero",
     component: HeroTherapyTestimonialGrid,
     props: "HeroTherapyTestimonialGridProps",
@@ -7486,8 +8826,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-mental-health-team": {
     id: "hero-mental-health-team",
     name: "Mental Health Team Hero",
-    description: "A dark-themed hero showcasing mental health professionals. Features team images and supportive messaging.",
-    semanticTags: ["hero", "mental-health", "team", "professionals", "dark", "support", "wellness", "healthcare"],
+    description:
+      "A dark-themed hero showcasing mental health professionals. Features team images and supportive messaging.",
+    semanticTags: [
+      "hero",
+      "mental-health",
+      "team",
+      "professionals",
+      "dark",
+      "support",
+      "wellness",
+      "healthcare",
+    ],
     category: "hero",
     component: HeroMentalHealthTeam,
     props: "HeroMentalHealthTeamProps",
@@ -7497,8 +8847,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-mentorship-video-split": {
     id: "hero-mentorship-video-split",
     name: "Mentorship Video Split Hero",
-    description: "A split-layout hero for mentorship platforms with video preview. Features career growth messaging and video CTA.",
-    semanticTags: ["hero", "mentorship", "video", "split", "career", "growth", "education", "coaching"],
+    description:
+      "A split-layout hero for mentorship platforms with video preview. Features career growth messaging and video CTA.",
+    semanticTags: [
+      "hero",
+      "mentorship",
+      "video",
+      "split",
+      "career",
+      "growth",
+      "education",
+      "coaching",
+    ],
     category: "hero",
     component: HeroMentorshipVideoSplit,
     props: "HeroMentorshipVideoSplitProps",
@@ -7508,8 +8868,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-business-operations-mosaic": {
     id: "hero-business-operations-mosaic",
     name: "Business Operations Mosaic Hero",
-    description: "A hero with mosaic image layout for business operations. Features asymmetric grid and professional messaging.",
-    semanticTags: ["hero", "business", "operations", "mosaic", "grid", "professional", "agency", "corporate"],
+    description:
+      "A hero with mosaic image layout for business operations. Features asymmetric grid and professional messaging.",
+    semanticTags: [
+      "hero",
+      "business",
+      "operations",
+      "mosaic",
+      "grid",
+      "professional",
+      "agency",
+      "corporate",
+    ],
     category: "hero",
     component: HeroBusinessOperationsMosaic,
     props: "HeroBusinessOperationsMosaicProps",
@@ -7519,8 +8889,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-agency-animated-images": {
     id: "hero-agency-animated-images",
     name: "Agency Animated Images Hero",
-    description: "A hero for agencies with animated image transitions. Dynamic visual design showcasing creative work.",
-    semanticTags: ["hero", "agency", "animated", "images", "creative", "dynamic", "transitions", "portfolio"],
+    description:
+      "A hero for agencies with animated image transitions. Dynamic visual design showcasing creative work.",
+    semanticTags: [
+      "hero",
+      "agency",
+      "animated",
+      "images",
+      "creative",
+      "dynamic",
+      "transitions",
+      "portfolio",
+    ],
     category: "hero",
     component: HeroAgencyAnimatedImages,
     props: "HeroAgencyAnimatedImagesProps",
@@ -7530,8 +8910,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-welcome-asymmetric-images": {
     id: "hero-welcome-asymmetric-images",
     name: "Welcome Asymmetric Images Hero",
-    description: "A welcoming hero with asymmetric image layout. Features staggered images and friendly messaging.",
-    semanticTags: ["hero", "welcome", "asymmetric", "images", "friendly", "staggered", "modern", "landing"],
+    description:
+      "A welcoming hero with asymmetric image layout. Features staggered images and friendly messaging.",
+    semanticTags: [
+      "hero",
+      "welcome",
+      "asymmetric",
+      "images",
+      "friendly",
+      "staggered",
+      "modern",
+      "landing",
+    ],
     category: "hero",
     component: HeroWelcomeAsymmetricImages,
     props: "HeroWelcomeAsymmetricImagesProps",
@@ -7541,8 +8931,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-startup-launch-cta": {
     id: "hero-startup-launch-cta",
     name: "Startup Launch CTA Hero",
-    description: "A hero designed for startup launches with prominent CTA. Features launch badge, user avatars, and growth messaging.",
-    semanticTags: ["hero", "startup", "launch", "cta", "badge", "avatars", "growth", "funding"],
+    description:
+      "A hero designed for startup launches with prominent CTA. Features launch badge, user avatars, and growth messaging.",
+    semanticTags: [
+      "hero",
+      "startup",
+      "launch",
+      "cta",
+      "badge",
+      "avatars",
+      "growth",
+      "funding",
+    ],
     category: "hero",
     component: HeroStartupLaunchCta,
     props: "HeroStartupLaunchCtaProps",
@@ -7552,8 +8952,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-enterprise-security": {
     id: "hero-enterprise-security",
     name: "Enterprise Security Hero",
-    description: "A hero focused on enterprise security features. Includes security badges, feature cards, and trust logos.",
-    semanticTags: ["hero", "enterprise", "security", "features", "trust", "compliance", "badges", "b2b"],
+    description:
+      "A hero focused on enterprise security features. Includes security badges, feature cards, and trust logos.",
+    semanticTags: [
+      "hero",
+      "enterprise",
+      "security",
+      "features",
+      "trust",
+      "compliance",
+      "badges",
+      "b2b",
+    ],
     category: "hero",
     component: HeroEnterpriseSecurity,
     props: "HeroEnterpriseSecurityProps",
@@ -7563,8 +8973,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-creative-studio-stacked": {
     id: "hero-creative-studio-stacked",
     name: "Creative Studio Stacked Hero",
-    description: "A hero for creative studios with stacked image layout. Features video CTA and design-focused messaging.",
-    semanticTags: ["hero", "creative", "studio", "stacked", "images", "video", "design", "agency"],
+    description:
+      "A hero for creative studios with stacked image layout. Features video CTA and design-focused messaging.",
+    semanticTags: [
+      "hero",
+      "creative",
+      "studio",
+      "stacked",
+      "images",
+      "video",
+      "design",
+      "agency",
+    ],
     category: "hero",
     component: HeroCreativeStudioStacked,
     props: "HeroCreativeStudioStackedProps",
@@ -7574,8 +8994,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-digital-agency-fullscreen": {
     id: "hero-digital-agency-fullscreen",
     name: "Digital Agency Fullscreen Hero",
-    description: "A fullscreen hero for digital agencies with background image. Features location info and scroll indicator.",
-    semanticTags: ["hero", "digital", "agency", "fullscreen", "background", "location", "immersive", "creative"],
+    description:
+      "A fullscreen hero for digital agencies with background image. Features location info and scroll indicator.",
+    semanticTags: [
+      "hero",
+      "digital",
+      "agency",
+      "fullscreen",
+      "background",
+      "location",
+      "immersive",
+      "creative",
+    ],
     category: "hero",
     component: HeroDigitalAgencyFullscreen,
     props: "HeroDigitalAgencyFullscreenProps",
@@ -7585,8 +9015,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-customer-support-layered": {
     id: "hero-customer-support-layered",
     name: "Customer Support Layered Hero",
-    description: "A hero for customer support platforms with layered image design. Features support messaging and dashboard previews.",
-    semanticTags: ["hero", "customer", "support", "layered", "helpdesk", "service", "dashboard", "saas"],
+    description:
+      "A hero for customer support platforms with layered image design. Features support messaging and dashboard previews.",
+    semanticTags: [
+      "hero",
+      "customer",
+      "support",
+      "layered",
+      "helpdesk",
+      "service",
+      "dashboard",
+      "saas",
+    ],
     category: "hero",
     component: HeroCustomerSupportLayered,
     props: "HeroCustomerSupportLayeredProps",
@@ -7596,8 +9036,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-shared-inbox-layered": {
     id: "hero-shared-inbox-layered",
     name: "Shared Inbox Layered Hero",
-    description: "A hero for shared inbox and email tools with layered screenshots. Features inbox organization messaging.",
-    semanticTags: ["hero", "shared", "inbox", "layered", "email", "collaboration", "team", "communication"],
+    description:
+      "A hero for shared inbox and email tools with layered screenshots. Features inbox organization messaging.",
+    semanticTags: [
+      "hero",
+      "shared",
+      "inbox",
+      "layered",
+      "email",
+      "collaboration",
+      "team",
+      "communication",
+    ],
     category: "hero",
     component: HeroSharedInboxLayered,
     props: "HeroSharedInboxLayeredProps",
@@ -7607,8 +9057,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-conversation-intelligence": {
     id: "hero-conversation-intelligence",
     name: "Conversation Intelligence Hero",
-    description: "A hero for conversation intelligence and sales tools. Features gradient background and centered screenshot.",
-    semanticTags: ["hero", "conversation", "intelligence", "sales", "ai", "analytics", "gradient", "saas"],
+    description:
+      "A hero for conversation intelligence and sales tools. Features gradient background and centered screenshot.",
+    semanticTags: [
+      "hero",
+      "conversation",
+      "intelligence",
+      "sales",
+      "ai",
+      "analytics",
+      "gradient",
+      "saas",
+    ],
     category: "hero",
     component: HeroConversationIntelligence,
     props: "HeroConversationIntelligenceProps",
@@ -7618,8 +9078,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-business-carousel-dots": {
     id: "hero-business-carousel-dots",
     name: "Business Carousel Dots Hero",
-    description: "A business hero with image carousel and dot navigation. Features premium badge and professional messaging.",
-    semanticTags: ["hero", "business", "carousel", "dots", "navigation", "premium", "professional", "enterprise"],
+    description:
+      "A business hero with image carousel and dot navigation. Features premium badge and professional messaging.",
+    semanticTags: [
+      "hero",
+      "business",
+      "carousel",
+      "dots",
+      "navigation",
+      "premium",
+      "professional",
+      "enterprise",
+    ],
     category: "hero",
     component: HeroBusinessCarouselDots,
     props: "HeroBusinessCarouselDotsProps",
@@ -7629,8 +9099,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-developer-tools-code": {
     id: "hero-developer-tools-code",
     name: "Developer Tools Code Hero",
-    description: "A hero for developer tools featuring a terminal/code preview. Shows CLI commands and developer-focused messaging.",
-    semanticTags: ["hero", "developer", "tools", "code", "terminal", "cli", "programming", "technical"],
+    description:
+      "A hero for developer tools featuring a terminal/code preview. Shows CLI commands and developer-focused messaging.",
+    semanticTags: [
+      "hero",
+      "developer",
+      "tools",
+      "code",
+      "terminal",
+      "cli",
+      "programming",
+      "technical",
+    ],
     category: "hero",
     component: HeroDeveloperToolsCode,
     props: "HeroDeveloperToolsCodeProps",
@@ -7640,8 +9120,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-ecommerce-product-showcase": {
     id: "hero-ecommerce-product-showcase",
     name: "Ecommerce Product Showcase Hero",
-    description: "A hero for ecommerce with product image grid. Features new collection badge and shopping statistics.",
-    semanticTags: ["hero", "ecommerce", "product", "showcase", "shopping", "retail", "collection", "store"],
+    description:
+      "A hero for ecommerce with product image grid. Features new collection badge and shopping statistics.",
+    semanticTags: [
+      "hero",
+      "ecommerce",
+      "product",
+      "showcase",
+      "shopping",
+      "retail",
+      "collection",
+      "store",
+    ],
     category: "hero",
     component: HeroEcommerceProductShowcase,
     props: "HeroEcommerceProductShowcaseProps",
@@ -7651,8 +9141,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-mobile-app-download": {
     id: "hero-mobile-app-download",
     name: "Mobile App Download Hero",
-    description: "A hero for mobile apps with download buttons. Features app store badges, phone mockup, and ratings.",
-    semanticTags: ["hero", "mobile", "app", "download", "ios", "android", "phone", "ratings"],
+    description:
+      "A hero for mobile apps with download buttons. Features app store badges, phone mockup, and ratings.",
+    semanticTags: [
+      "hero",
+      "mobile",
+      "app",
+      "download",
+      "ios",
+      "android",
+      "phone",
+      "ratings",
+    ],
     category: "hero",
     component: HeroMobileAppDownload,
     props: "HeroMobileAppDownloadProps",
@@ -7662,8 +9162,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-pricing-comparison": {
     id: "hero-pricing-comparison",
     name: "Pricing Comparison Hero",
-    description: "A hero featuring pricing tiers comparison. Shows starter, pro, and enterprise plans with feature lists.",
-    semanticTags: ["hero", "pricing", "comparison", "plans", "tiers", "subscription", "saas", "features"],
+    description:
+      "A hero featuring pricing tiers comparison. Shows starter, pro, and enterprise plans with feature lists.",
+    semanticTags: [
+      "hero",
+      "pricing",
+      "comparison",
+      "plans",
+      "tiers",
+      "subscription",
+      "saas",
+      "features",
+    ],
     category: "hero",
     component: HeroPricingComparison,
     props: "HeroPricingComparisonProps",
@@ -7673,8 +9183,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-newsletter-minimal": {
     id: "hero-newsletter-minimal",
     name: "Newsletter Minimal Hero",
-    description: "A minimal hero focused on newsletter signup. Clean design with email input and subscriber count.",
-    semanticTags: ["hero", "newsletter", "minimal", "signup", "email", "subscription", "clean", "focused"],
+    description:
+      "A minimal hero focused on newsletter signup. Clean design with email input and subscriber count.",
+    semanticTags: [
+      "hero",
+      "newsletter",
+      "minimal",
+      "signup",
+      "email",
+      "subscription",
+      "clean",
+      "focused",
+    ],
     category: "hero",
     component: HeroNewsletterMinimal,
     props: "HeroNewsletterMinimalProps",
@@ -7684,8 +9204,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-coming-soon-countdown": {
     id: "hero-coming-soon-countdown",
     name: "Coming Soon Countdown Hero",
-    description: "A dark-themed hero with countdown timer for launches. Features email signup and social links.",
-    semanticTags: ["hero", "coming-soon", "countdown", "launch", "timer", "dark", "teaser", "anticipation"],
+    description:
+      "A dark-themed hero with countdown timer for launches. Features email signup and social links.",
+    semanticTags: [
+      "hero",
+      "coming-soon",
+      "countdown",
+      "launch",
+      "timer",
+      "dark",
+      "teaser",
+      "anticipation",
+    ],
     category: "hero",
     component: HeroComingSoonCountdown,
     props: "HeroComingSoonCountdownProps",
@@ -7695,8 +9225,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-event-registration": {
     id: "hero-event-registration",
     name: "Event Registration Hero",
-    description: "A hero for event registration with date badge. Features speaker count, workshop info, and venue location.",
-    semanticTags: ["hero", "event", "registration", "conference", "workshop", "speakers", "venue", "date"],
+    description:
+      "A hero for event registration with date badge. Features speaker count, workshop info, and venue location.",
+    semanticTags: [
+      "hero",
+      "event",
+      "registration",
+      "conference",
+      "workshop",
+      "speakers",
+      "venue",
+      "date",
+    ],
     category: "hero",
     component: HeroEventRegistration,
     props: "HeroEventRegistrationProps",
@@ -7706,8 +9246,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "hero-portfolio-creative": {
     id: "hero-portfolio-creative",
     name: "Portfolio Creative Hero",
-    description: "A hero for creative portfolios with profile and project grid. Features social links and personal branding.",
-    semanticTags: ["hero", "portfolio", "creative", "profile", "projects", "personal", "designer", "freelancer"],
+    description:
+      "A hero for creative portfolios with profile and project grid. Features social links and personal branding.",
+    semanticTags: [
+      "hero",
+      "portfolio",
+      "creative",
+      "profile",
+      "projects",
+      "personal",
+      "designer",
+      "freelancer",
+    ],
     category: "hero",
     component: HeroPortfolioCreative,
     props: "HeroPortfolioCreativeProps",
@@ -7718,8 +9268,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "case-studies-image-grid": {
     id: "case-studies-image-grid",
     name: "Case Studies Image Grid",
-    description: "A responsive grid layout displaying case studies with full-bleed background images, company logos, and hover zoom effects. Features a 2-column asymmetric grid where the first and fifth items span 2 rows for visual hierarchy. Each card shows a gradient overlay, company logo at top, and case study title at bottom. Ideal for showcasing client success stories, portfolio highlights, or featured projects with strong visual impact.",
-    semanticTags: ["case-studies", "portfolio", "grid", "images", "clients", "success-stories", "projects", "showcase", "hover-effects", "visual"],
+    description:
+      "A responsive grid layout displaying case studies with full-bleed background images, company logos, and hover zoom effects. Features a 2-column asymmetric grid where the first and fifth items span 2 rows for visual hierarchy. Each card shows a gradient overlay, company logo at top, and case study title at bottom. Ideal for showcasing client success stories, portfolio highlights, or featured projects with strong visual impact.",
+    semanticTags: [
+      "case-studies",
+      "portfolio",
+      "grid",
+      "images",
+      "clients",
+      "success-stories",
+      "projects",
+      "showcase",
+      "hover-effects",
+      "visual",
+    ],
     category: "case-studies-list",
     component: CaseStudiesImageGrid,
     props: "CaseStudiesImageGridProps",
@@ -7729,8 +9291,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "case-studies-testimonial-stats": {
     id: "case-studies-testimonial-stats",
     name: "Case Studies Testimonial Stats",
-    description: "A split-layout component displaying customer testimonials alongside key metrics. Features customer photo and quote on the left, and performance statistics on the right. Each testimonial includes author details with company logo. Multiple testimonials are separated by horizontal dividers. Ideal for showcasing customer success stories with quantifiable results and social proof metrics.",
-    semanticTags: ["case-studies", "testimonials", "stats", "metrics", "quotes", "customers", "social-proof", "results", "success", "roi"],
+    description:
+      "A split-layout component displaying customer testimonials alongside key metrics. Features customer photo and quote on the left, and performance statistics on the right. Each testimonial includes author details with company logo. Multiple testimonials are separated by horizontal dividers. Ideal for showcasing customer success stories with quantifiable results and social proof metrics.",
+    semanticTags: [
+      "case-studies",
+      "testimonials",
+      "stats",
+      "metrics",
+      "quotes",
+      "customers",
+      "social-proof",
+      "results",
+      "success",
+      "roi",
+    ],
     category: "case-studies-list",
     component: CaseStudiesTestimonialStats,
     props: "CaseStudiesTestimonialStatsProps",
@@ -7740,8 +9314,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "case-studies-featured-border": {
     id: "case-studies-featured-border",
     name: "Case Studies Featured Border",
-    description: "A bordered card layout with a prominent featured case study and secondary items below. Features a full-width bordered container with dot pattern decorations on the sides. The featured case study shows company logo, tags, title with subtitle, image preview, and a 'Read case study' CTA with arrow icon. Secondary case studies appear in a two-column grid below. Hover states include background color transitions. Ideal for highlighting a primary success story while showcasing additional case studies.",
-    semanticTags: ["case-studies", "featured", "border", "cards", "cta", "hover", "dot-pattern", "enterprise", "b2b", "professional"],
+    description:
+      "A bordered card layout with a prominent featured case study and secondary items below. Features a full-width bordered container with dot pattern decorations on the sides. The featured case study shows company logo, tags, title with subtitle, image preview, and a 'Read case study' CTA with arrow icon. Secondary case studies appear in a two-column grid below. Hover states include background color transitions. Ideal for highlighting a primary success story while showcasing additional case studies.",
+    semanticTags: [
+      "case-studies",
+      "featured",
+      "border",
+      "cards",
+      "cta",
+      "hover",
+      "dot-pattern",
+      "enterprise",
+      "b2b",
+      "professional",
+    ],
     category: "case-studies-list",
     component: CaseStudiesFeaturedBorder,
     props: "CaseStudiesFeaturedBorderProps",
@@ -7751,8 +9337,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "case-studies-stats-card": {
     id: "case-studies-stats-card",
     name: "Case Studies Stats Card",
-    description: "A single case study card format with company branding, key metrics, author attribution, and call-to-action. Features a two-column layout within a muted background container. The left column shows company logo, key statistics in a row, and author info with avatar. The right column displays the case study title, summary text, and a 'Read Story' button with arrow icon. Ideal for highlighting a featured customer success story with quantifiable results and personal testimonial.",
-    semanticTags: ["case-studies", "stats", "card", "metrics", "author", "cta", "featured", "testimonial", "avatar", "single"],
+    description:
+      "A single case study card format with company branding, key metrics, author attribution, and call-to-action. Features a two-column layout within a muted background container. The left column shows company logo, key statistics in a row, and author info with avatar. The right column displays the case study title, summary text, and a 'Read Story' button with arrow icon. Ideal for highlighting a featured customer success story with quantifiable results and personal testimonial.",
+    semanticTags: [
+      "case-studies",
+      "stats",
+      "card",
+      "metrics",
+      "author",
+      "cta",
+      "featured",
+      "testimonial",
+      "avatar",
+      "single",
+    ],
     category: "case-studies-list",
     component: CaseStudiesStatsCard,
     props: "CaseStudiesStatsCardProps",
@@ -7763,8 +9361,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "case-study-prose-sidebar": {
     id: "case-study-prose-sidebar",
     name: "Case Study Prose Sidebar",
-    description: "A case study article layout with rich prose content and a sticky sidebar containing company information. Features a two-column design with the main article area on the left (including hero image, headings, paragraphs, blockquotes, lists, and tables using prose styling) and a sidebar on the right with company logo, description, industry, location, company size, website link, and topics. The sidebar uses an accent background with organized sections separated by borders. Ideal for detailed case study pages, customer success stories, or in-depth articles that need supplementary company context alongside the main narrative.",
-    semanticTags: ["case-study", "detail", "prose", "sidebar", "article", "company-info", "success-story", "content", "two-column", "sticky"],
+    description:
+      "A case study article layout with rich prose content and a sticky sidebar containing company information. Features a two-column design with the main article area on the left (including hero image, headings, paragraphs, blockquotes, lists, and tables using prose styling) and a sidebar on the right with company logo, description, industry, location, company size, website link, and topics. The sidebar uses an accent background with organized sections separated by borders. Ideal for detailed case study pages, customer success stories, or in-depth articles that need supplementary company context alongside the main narrative.",
+    semanticTags: [
+      "case-study",
+      "detail",
+      "prose",
+      "sidebar",
+      "article",
+      "company-info",
+      "success-story",
+      "content",
+      "two-column",
+      "sticky",
+    ],
     category: "case-study-detail",
     component: CaseStudyProseSidebar,
     props: "CaseStudyProseSidebarProps",
@@ -7774,8 +9384,22 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "case-study-toc-social-sidebar": {
     id: "case-study-toc-social-sidebar",
     name: "Case Study TOC Social Sidebar",
-    description: "A comprehensive case study layout with breadcrumb navigation, featured author attribution, sticky sidebar with company details, table of contents navigation, and social sharing links. Features a three-column layout on large screens: left sidebar with company info (overview, sector, team size, location, established, funding, core features) and social links, center content area with problem/approach/outcomes summary followed by prose sections, and right sidebar with sticky table of contents that highlights active section via IntersectionObserver. The header includes breadcrumbs, large title, and author attribution with avatar. Ideal for in-depth case studies, customer success stories, or detailed articles that benefit from structured navigation and comprehensive company context.",
-    semanticTags: ["case-study", "detail", "toc", "table-of-contents", "social", "sidebar", "breadcrumbs", "author", "navigation", "comprehensive", "three-column", "sticky"],
+    description:
+      "A comprehensive case study layout with breadcrumb navigation, featured author attribution, sticky sidebar with company details, table of contents navigation, and social sharing links. Features a three-column layout on large screens: left sidebar with company info (overview, sector, team size, location, established, funding, core features) and social links, center content area with problem/approach/outcomes summary followed by prose sections, and right sidebar with sticky table of contents that highlights active section via IntersectionObserver. The header includes breadcrumbs, large title, and author attribution with avatar. Ideal for in-depth case studies, customer success stories, or detailed articles that benefit from structured navigation and comprehensive company context.",
+    semanticTags: [
+      "case-study",
+      "detail",
+      "toc",
+      "table-of-contents",
+      "social",
+      "sidebar",
+      "breadcrumbs",
+      "author",
+      "navigation",
+      "comprehensive",
+      "three-column",
+      "sticky",
+    ],
     category: "case-study-detail",
     component: CaseStudyTocSocialSidebar,
     props: "CaseStudyTocSocialSidebarProps",
@@ -7785,8 +9409,22 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "case-study-stats-metrics": {
     id: "case-study-stats-metrics",
     name: "Case Study Stats Metrics",
-    description: "A results-focused case study layout with prominent performance metrics, breadcrumb navigation, prose content, and a sticky sidebar with company info and CTA. Features a two-column design with the main content area showing breadcrumbs, title, subtitle, hero image, a grid of 4 key statistics with large values and labels, and rich prose content (headings, paragraphs, blockquotes, lists, tables, alerts). The sticky sidebar displays company logo, overview text, sector information, a solution badge with icon, and a call-to-action button. Ideal for ROI-driven case studies that emphasize quantifiable outcomes, customer success stories with measurable impact, or results-focused content marketing.",
-    semanticTags: ["case-study", "detail", "stats", "metrics", "results", "roi", "breadcrumbs", "sidebar", "cta", "quantifiable", "performance", "two-column"],
+    description:
+      "A results-focused case study layout with prominent performance metrics, breadcrumb navigation, prose content, and a sticky sidebar with company info and CTA. Features a two-column design with the main content area showing breadcrumbs, title, subtitle, hero image, a grid of 4 key statistics with large values and labels, and rich prose content (headings, paragraphs, blockquotes, lists, tables, alerts). The sticky sidebar displays company logo, overview text, sector information, a solution badge with icon, and a call-to-action button. Ideal for ROI-driven case studies that emphasize quantifiable outcomes, customer success stories with measurable impact, or results-focused content marketing.",
+    semanticTags: [
+      "case-study",
+      "detail",
+      "stats",
+      "metrics",
+      "results",
+      "roi",
+      "breadcrumbs",
+      "sidebar",
+      "cta",
+      "quantifiable",
+      "performance",
+      "two-column",
+    ],
     category: "case-study-detail",
     component: CaseStudyStatsMetrics,
     props: "CaseStudyStatsMetricsProps",
@@ -7797,8 +9435,19 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-table-two-column": {
     id: "comparison-table-two-column",
     name: "Comparison Table Two Column",
-    description: "A table-based comparison layout with two columns showing features side by side. Displays company logos at the top and feature rows below with the first column (Option A) highlighted in green tones indicating the preferred choice, while the second column (Option B) uses red tones. Rows can optionally display check/x icons for boolean comparisons. Best for product comparisons, service tier comparisons, competitor analysis, and feature-by-feature breakdowns where one option is clearly preferred.",
-    semanticTags: ["comparison", "table", "two-column", "features", "product-comparison", "competitor", "side-by-side", "checklist", "pros-cons"],
+    description:
+      "A table-based comparison layout with two columns showing features side by side. Displays company logos at the top and feature rows below with the first column (Option A) highlighted in green tones indicating the preferred choice, while the second column (Option B) uses red tones. Rows can optionally display check/x icons for boolean comparisons. Best for product comparisons, service tier comparisons, competitor analysis, and feature-by-feature breakdowns where one option is clearly preferred.",
+    semanticTags: [
+      "comparison",
+      "table",
+      "two-column",
+      "features",
+      "product-comparison",
+      "competitor",
+      "side-by-side",
+      "checklist",
+      "pros-cons",
+    ],
     category: "comparison",
     component: ComparisonTableTwoColumn,
     props: "ComparisonTableTwoColumnProps",
@@ -7814,8 +9463,19 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-feature-cards": {
     id: "comparison-feature-cards",
     name: "Comparison Feature Cards",
-    description: "Side-by-side feature comparison cards displaying two product/service options with feature checklists. The highlighted card uses a bordered, shadowed style while the other uses a muted background. Features show check icons for included items and strikethrough with minus icons for excluded items. Includes optional explanatory text sections below the cards for suitability and key differences. Best for product tier comparisons, subscription plan comparisons, competitor feature analysis, and service package breakdowns.",
-    semanticTags: ["comparison", "cards", "features", "checklist", "product-tiers", "subscription", "pricing", "side-by-side", "included-excluded"],
+    description:
+      "Side-by-side feature comparison cards displaying two product/service options with feature checklists. The highlighted card uses a bordered, shadowed style while the other uses a muted background. Features show check icons for included items and strikethrough with minus icons for excluded items. Includes optional explanatory text sections below the cards for suitability and key differences. Best for product tier comparisons, subscription plan comparisons, competitor feature analysis, and service package breakdowns.",
+    semanticTags: [
+      "comparison",
+      "cards",
+      "features",
+      "checklist",
+      "product-tiers",
+      "subscription",
+      "pricing",
+      "side-by-side",
+      "included-excluded",
+    ],
     category: "comparison",
     component: ComparisonFeatureCards,
     props: "ComparisonFeatureCardsProps",
@@ -7829,8 +9489,19 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-grid-badges": {
     id: "comparison-grid-badges",
     name: "Comparison Grid Badges",
-    description: "Grid-based comparison layout with icons and badge-style value indicators. Displays features in a responsive grid with icons, descriptions, and two badges comparing options. Each feature card shows an icon, title, description, and badges with highlighted badges using a distinct color to indicate the preferred choice. Best for feature-rich product comparisons, technical specification comparisons, service tier breakdowns, and capability matrices.",
-    semanticTags: ["comparison", "grid", "badges", "icons", "features", "technical", "specifications", "capabilities", "metrics"],
+    description:
+      "Grid-based comparison layout with icons and badge-style value indicators. Displays features in a responsive grid with icons, descriptions, and two badges comparing options. Each feature card shows an icon, title, description, and badges with highlighted badges using a distinct color to indicate the preferred choice. Best for feature-rich product comparisons, technical specification comparisons, service tier breakdowns, and capability matrices.",
+    semanticTags: [
+      "comparison",
+      "grid",
+      "badges",
+      "icons",
+      "features",
+      "technical",
+      "specifications",
+      "capabilities",
+      "metrics",
+    ],
     category: "comparison",
     component: ComparisonGridBadges,
     props: "ComparisonGridBadgesProps",
@@ -7845,8 +9516,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-metrics-rows": {
     id: "comparison-metrics-rows",
     name: "Comparison Metrics Rows",
-    description: "Data-heavy comparison layout with quantitative metrics displayed in horizontal rows. Features large typography for values with supporting descriptions, optional units, and explanatory text. Each row compares two options with prominent numbers. Includes column headers, footnotes section, and a call-to-action button. Best for ROI comparisons, cost analysis, timeline comparisons, performance metrics, and quantitative feature breakdowns.",
-    semanticTags: ["comparison", "metrics", "data", "numbers", "roi", "cost", "timeline", "performance", "quantitative", "statistics"],
+    description:
+      "Data-heavy comparison layout with quantitative metrics displayed in horizontal rows. Features large typography for values with supporting descriptions, optional units, and explanatory text. Each row compares two options with prominent numbers. Includes column headers, footnotes section, and a call-to-action button. Best for ROI comparisons, cost analysis, timeline comparisons, performance metrics, and quantitative feature breakdowns.",
+    semanticTags: [
+      "comparison",
+      "metrics",
+      "data",
+      "numbers",
+      "roi",
+      "cost",
+      "timeline",
+      "performance",
+      "quantitative",
+      "statistics",
+    ],
     category: "comparison",
     component: ComparisonMetricsRows,
     props: "ComparisonMetricsRowsProps",
@@ -7861,8 +9544,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-image-cards": {
     id: "comparison-image-cards",
     name: "Comparison Image Cards",
-    description: "Two large image cards side by side with a centered 'OR' badge divider. Each card features a full-bleed background image with a gradient overlay at the bottom containing the title, description, and CTA button. Creates a visual choice between two distinct options. Best for service tier selection, build vs buy decisions, path selection, and two-option comparisons with strong visual differentiation.",
-    semanticTags: ["comparison", "images", "cards", "visual", "choice", "options", "cta", "decision", "path-selection", "build-vs-buy"],
+    description:
+      "Two large image cards side by side with a centered 'OR' badge divider. Each card features a full-bleed background image with a gradient overlay at the bottom containing the title, description, and CTA button. Creates a visual choice between two distinct options. Best for service tier selection, build vs buy decisions, path selection, and two-option comparisons with strong visual differentiation.",
+    semanticTags: [
+      "comparison",
+      "images",
+      "cards",
+      "visual",
+      "choice",
+      "options",
+      "cta",
+      "decision",
+      "path-selection",
+      "build-vs-buy",
+    ],
     category: "comparison",
     component: ComparisonImageCards,
     props: "ComparisonImageCardsProps",
@@ -7876,8 +9571,21 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-table-tabs": {
     id: "comparison-table-tabs",
     name: "Comparison Table Tabs",
-    description: "Feature comparison table with multiple options using tabs on mobile and full columns on desktop. Each cell includes a status indicator (positive/negative/neutral) with corresponding colored icons and backgrounds. Uses green for positive, red for negative, and amber for neutral states. Best for multi-option technical comparisons, storage solutions, hosting options, and service tier comparisons with detailed attributes.",
-    semanticTags: ["comparison", "table", "tabs", "mobile", "responsive", "status", "indicators", "technical", "multi-option", "storage", "hosting"],
+    description:
+      "Feature comparison table with multiple options using tabs on mobile and full columns on desktop. Each cell includes a status indicator (positive/negative/neutral) with corresponding colored icons and backgrounds. Uses green for positive, red for negative, and amber for neutral states. Best for multi-option technical comparisons, storage solutions, hosting options, and service tier comparisons with detailed attributes.",
+    semanticTags: [
+      "comparison",
+      "table",
+      "tabs",
+      "mobile",
+      "responsive",
+      "status",
+      "indicators",
+      "technical",
+      "multi-option",
+      "storage",
+      "hosting",
+    ],
     category: "comparison",
     component: ComparisonTableTabs,
     props: "ComparisonTableTabsProps",
@@ -7892,8 +9600,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-table-tooltips": {
     id: "comparison-table-tooltips",
     name: "Comparison Table Tooltips",
-    description: "Two-column comparison table with the preferred option highlighted using a muted background. Some cells can include tooltips that reveal additional context on hover. Clean, minimal design with clear visual hierarchy. Best for framework comparisons, technology stack comparisons, and detailed feature matrices where some items need additional explanation.",
-    semanticTags: ["comparison", "table", "tooltips", "hover", "framework", "technology", "features", "detailed", "context", "explanation"],
+    description:
+      "Two-column comparison table with the preferred option highlighted using a muted background. Some cells can include tooltips that reveal additional context on hover. Clean, minimal design with clear visual hierarchy. Best for framework comparisons, technology stack comparisons, and detailed feature matrices where some items need additional explanation.",
+    semanticTags: [
+      "comparison",
+      "table",
+      "tooltips",
+      "hover",
+      "framework",
+      "technology",
+      "features",
+      "detailed",
+      "context",
+      "explanation",
+    ],
     category: "comparison",
     component: ComparisonTableTooltips,
     props: "ComparisonTableTooltipsProps",
@@ -7909,8 +9629,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-feature-grid": {
     id: "comparison-feature-grid",
     name: "Comparison Feature Grid",
-    description: "Features displayed in a responsive list format with icons, labels, descriptions, and check/x indicators for each option. Each row shows the feature icon on the left, feature details in the middle, and status indicators on the right. Supports true/false/partial states with corresponding visual indicators (green check, red x, yellow check for partial). Best for framework comparisons, library comparisons, detailed feature matrices, and technology stack evaluations.",
-    semanticTags: ["comparison", "grid", "features", "icons", "checklist", "framework", "library", "technology", "evaluation", "partial-support"],
+    description:
+      "Features displayed in a responsive list format with icons, labels, descriptions, and check/x indicators for each option. Each row shows the feature icon on the left, feature details in the middle, and status indicators on the right. Supports true/false/partial states with corresponding visual indicators (green check, red x, yellow check for partial). Best for framework comparisons, library comparisons, detailed feature matrices, and technology stack evaluations.",
+    semanticTags: [
+      "comparison",
+      "grid",
+      "features",
+      "icons",
+      "checklist",
+      "framework",
+      "library",
+      "technology",
+      "evaluation",
+      "partial-support",
+    ],
     category: "comparison",
     component: ComparisonFeatureGrid,
     props: "ComparisonFeatureGridProps",
@@ -7926,8 +9658,21 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-ai-models": {
     id: "comparison-ai-models",
     name: "Comparison AI Models",
-    description: "Detailed comparison table for AI models with interactive hover effects. Each column represents a model with its icon, and cells are color-coded based on performance (best/worst/neutral) using green, red, and muted colors. Includes a technical analysis section below that highlights on hover. Designed for comparing LLM capabilities, pricing, and performance metrics. Best for AI/ML model comparisons, API pricing comparisons, technical specification matrices, and performance benchmarks.",
-    semanticTags: ["comparison", "ai", "models", "llm", "machine-learning", "api", "pricing", "performance", "benchmarks", "technical", "hover-effects"],
+    description:
+      "Detailed comparison table for AI models with interactive hover effects. Each column represents a model with its icon, and cells are color-coded based on performance (best/worst/neutral) using green, red, and muted colors. Includes a technical analysis section below that highlights on hover. Designed for comparing LLM capabilities, pricing, and performance metrics. Best for AI/ML model comparisons, API pricing comparisons, technical specification matrices, and performance benchmarks.",
+    semanticTags: [
+      "comparison",
+      "ai",
+      "models",
+      "llm",
+      "machine-learning",
+      "api",
+      "pricing",
+      "performance",
+      "benchmarks",
+      "technical",
+      "hover-effects",
+    ],
     category: "comparison",
     component: ComparisonAiModels,
     props: "ComparisonAiModelsProps",
@@ -7942,8 +9687,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "comparison-legacy-modern": {
     id: "comparison-legacy-modern",
     name: "Comparison Legacy Modern",
-    description: "Two-column comparison between legacy/old approaches and modern/new solutions. The legacy column uses muted styling with X icons for pain points, while the modern column uses a bordered card with emoji indicators for benefits. Features are separated by dividers for clear visual hierarchy. Best for digital transformation messaging, product modernization pitches, before/after comparisons, migration benefits, and upgrade justifications.",
-    semanticTags: ["comparison", "legacy", "modern", "transformation", "migration", "upgrade", "before-after", "old-vs-new", "benefits", "pain-points"],
+    description:
+      "Two-column comparison between legacy/old approaches and modern/new solutions. The legacy column uses muted styling with X icons for pain points, while the modern column uses a bordered card with emoji indicators for benefits. Features are separated by dividers for clear visual hierarchy. Best for digital transformation messaging, product modernization pitches, before/after comparisons, migration benefits, and upgrade justifications.",
+    semanticTags: [
+      "comparison",
+      "legacy",
+      "modern",
+      "transformation",
+      "migration",
+      "upgrade",
+      "before-after",
+      "old-vs-new",
+      "benefits",
+      "pain-points",
+    ],
     category: "comparison",
     component: ComparisonLegacyModern,
     props: "ComparisonLegacyModernProps",
@@ -7959,8 +9716,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-dropdown-menu": {
     id: "navbar-dropdown-menu",
     name: "Navbar Dropdown Menu",
-    description: "A responsive navigation bar with dropdown menus for desktop and a slide-out sheet menu for mobile. Features logo, navigation links with dropdown submenus containing icons and descriptions, and call-to-action buttons. The desktop view shows horizontal navigation with hover-triggered dropdowns, while mobile uses a hamburger menu that opens a full sheet with accordion-style navigation. Ideal for marketing sites, SaaS applications, and corporate websites that need organized multi-level navigation.",
-    semanticTags: ["navbar", "navigation", "header", "dropdown", "menu", "responsive", "mobile-menu", "sheet", "accordion", "cta-buttons"],
+    description:
+      "A responsive navigation bar with dropdown menus for desktop and a slide-out sheet menu for mobile. Features logo, navigation links with dropdown submenus containing icons and descriptions, and call-to-action buttons. The desktop view shows horizontal navigation with hover-triggered dropdowns, while mobile uses a hamburger menu that opens a full sheet with accordion-style navigation. Ideal for marketing sites, SaaS applications, and corporate websites that need organized multi-level navigation.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "header",
+      "dropdown",
+      "menu",
+      "responsive",
+      "mobile-menu",
+      "sheet",
+      "accordion",
+      "cta-buttons",
+    ],
     category: "navbar",
     component: NavbarDropdownMenu,
     props: "NavbarDropdownMenuProps",
@@ -7976,8 +9745,19 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-centered-menu": {
     id: "navbar-centered-menu",
     name: "Navbar Centered Menu",
-    description: "A navigation bar with centered navigation links and dropdown menus that appear directly below each trigger. Features logo on the left, centered navigation with dropdowns, and CTA buttons on the right. Uses a custom NavigationMenu implementation that centers dropdown content below each menu item rather than spanning the full width. Mobile view uses a sheet with accordion navigation. Perfect for brands that want a balanced, symmetrical header layout.",
-    semanticTags: ["navbar", "navigation", "header", "centered", "dropdown", "balanced", "symmetrical", "responsive", "mobile-menu"],
+    description:
+      "A navigation bar with centered navigation links and dropdown menus that appear directly below each trigger. Features logo on the left, centered navigation with dropdowns, and CTA buttons on the right. Uses a custom NavigationMenu implementation that centers dropdown content below each menu item rather than spanning the full width. Mobile view uses a sheet with accordion navigation. Perfect for brands that want a balanced, symmetrical header layout.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "header",
+      "centered",
+      "dropdown",
+      "balanced",
+      "symmetrical",
+      "responsive",
+      "mobile-menu",
+    ],
     category: "navbar",
     component: NavbarCenteredMenu,
     props: "NavbarCenteredMenuProps",
@@ -7992,8 +9772,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-mega-menu": {
     id: "navbar-mega-menu",
     name: "Navbar Mega Menu",
-    description: "A comprehensive navigation bar with multiple mega-menu panels for complex site structures. Features distinct mega-menu styles for Platform (with product features), Use Cases (with industry solutions), Developers (with documentation and resources), and Resources (with company info). Each mega-menu panel spans the full viewport width with organized content sections, featured cards, and quick links. Mobile view uses a multi-level navigation with back buttons for drilling into sections. Ideal for enterprise SaaS, developer platforms, and large-scale websites with extensive navigation needs.",
-    semanticTags: ["navbar", "navigation", "mega-menu", "enterprise", "multi-level", "platform", "developers", "resources", "full-width", "complex-navigation"],
+    description:
+      "A comprehensive navigation bar with multiple mega-menu panels for complex site structures. Features distinct mega-menu styles for Platform (with product features), Use Cases (with industry solutions), Developers (with documentation and resources), and Resources (with company info). Each mega-menu panel spans the full viewport width with organized content sections, featured cards, and quick links. Mobile view uses a multi-level navigation with back buttons for drilling into sections. Ideal for enterprise SaaS, developer platforms, and large-scale websites with extensive navigation needs.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "mega-menu",
+      "enterprise",
+      "multi-level",
+      "platform",
+      "developers",
+      "resources",
+      "full-width",
+      "complex-navigation",
+    ],
     category: "navbar",
     component: NavbarMegaMenu,
     props: "NavbarMegaMenuProps",
@@ -8009,8 +9801,21 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-enterprise-mega": {
     id: "navbar-enterprise-mega",
     name: "Navbar Enterprise Mega Menu",
-    description: "A comprehensive enterprise-grade navigation bar with five distinct mega-menu styles. Features Solutions menu with bordered cards containing subpages and developer platform section, Products menu with featured image card and categorized listings, Global menu with enterprise features and regional location selectors, Partners menu with large promotional cards and partner type listings, and Resources menu with topic groups and resource cards. Each menu spans full width with rich content layouts. Mobile view uses full-screen sheet with accordion navigation. Ideal for large enterprise SaaS platforms, B2B software companies, and global organizations with complex product offerings.",
-    semanticTags: ["navbar", "navigation", "enterprise", "mega-menu", "solutions", "products", "global", "partners", "resources", "b2b", "corporate"],
+    description:
+      "A comprehensive enterprise-grade navigation bar with five distinct mega-menu styles. Features Solutions menu with bordered cards containing subpages and developer platform section, Products menu with featured image card and categorized listings, Global menu with enterprise features and regional location selectors, Partners menu with large promotional cards and partner type listings, and Resources menu with topic groups and resource cards. Each menu spans full width with rich content layouts. Mobile view uses full-screen sheet with accordion navigation. Ideal for large enterprise SaaS platforms, B2B software companies, and global organizations with complex product offerings.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "enterprise",
+      "mega-menu",
+      "solutions",
+      "products",
+      "global",
+      "partners",
+      "resources",
+      "b2b",
+      "corporate",
+    ],
     category: "navbar",
     component: NavbarEnterpriseMega,
     props: "NavbarEnterpriseMegaProps",
@@ -8025,8 +9830,19 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-feature-grid": {
     id: "navbar-feature-grid",
     name: "Navbar Feature Grid",
-    description: "A navigation bar with a two-column feature grid dropdown menu. The dropdown displays navigation items in a clean grid layout with icons, titles, and descriptions. Features logo, main navigation links, feature grid dropdown, and CTA buttons. Desktop view shows the grid dropdown on hover, while mobile uses a sheet with accordion navigation. Perfect for showcasing product features, tools, or services in an organized grid format within the navigation.",
-    semanticTags: ["navbar", "navigation", "feature-grid", "grid-layout", "dropdown", "icons", "descriptions", "product-features", "tools"],
+    description:
+      "A navigation bar with a two-column feature grid dropdown menu. The dropdown displays navigation items in a clean grid layout with icons, titles, and descriptions. Features logo, main navigation links, feature grid dropdown, and CTA buttons. Desktop view shows the grid dropdown on hover, while mobile uses a sheet with accordion navigation. Perfect for showcasing product features, tools, or services in an organized grid format within the navigation.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "feature-grid",
+      "grid-layout",
+      "dropdown",
+      "icons",
+      "descriptions",
+      "product-features",
+      "tools",
+    ],
     category: "navbar",
     component: NavbarFeatureGrid,
     props: "NavbarFeatureGridProps",
@@ -8042,8 +9858,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-floating-pill": {
     id: "navbar-floating-pill",
     name: "Navbar Floating Pill",
-    description: "A modern floating navigation bar with pill-shaped design and glassmorphism effect. Positioned absolutely at the top of the page with rounded-full border, backdrop blur, and subtle shadow. Features smooth dropdown animations and a collapsible mobile menu with custom hamburger animation that transforms into an X. The floating design creates a premium, modern aesthetic that works well over hero sections and images. Ideal for creative agencies, portfolios, modern SaaS landing pages, and design-focused websites.",
-    semanticTags: ["navbar", "navigation", "floating", "pill", "glassmorphism", "backdrop-blur", "modern", "premium", "creative", "animated-hamburger"],
+    description:
+      "A modern floating navigation bar with pill-shaped design and glassmorphism effect. Positioned absolutely at the top of the page with rounded-full border, backdrop blur, and subtle shadow. Features smooth dropdown animations and a collapsible mobile menu with custom hamburger animation that transforms into an X. The floating design creates a premium, modern aesthetic that works well over hero sections and images. Ideal for creative agencies, portfolios, modern SaaS landing pages, and design-focused websites.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "floating",
+      "pill",
+      "glassmorphism",
+      "backdrop-blur",
+      "modern",
+      "premium",
+      "creative",
+      "animated-hamburger",
+    ],
     category: "navbar",
     component: NavbarFloatingPill,
     props: "NavbarFloatingPillProps",
@@ -8059,8 +9887,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-platform-resources": {
     id: "navbar-platform-resources",
     name: "Navbar Platform Resources",
-    description: "A navigation bar with comprehensive platform and resources mega-menus. Features two main dropdowns: Platform menu with solutions grid and use cases section, and Resources menu with a three-column grid of resource links. Includes solution cards with icons and descriptions, use case items, and categorized resource links. Mobile view uses full-screen overlay with accordion navigation. Perfect for SaaS platforms, developer tools, and technology companies that need to showcase both product capabilities and educational resources.",
-    semanticTags: ["navbar", "navigation", "platform", "resources", "mega-menu", "solutions", "use-cases", "documentation", "saas", "developer-tools"],
+    description:
+      "A navigation bar with comprehensive platform and resources mega-menus. Features two main dropdowns: Platform menu with solutions grid and use cases section, and Resources menu with a three-column grid of resource links. Includes solution cards with icons and descriptions, use case items, and categorized resource links. Mobile view uses full-screen overlay with accordion navigation. Perfect for SaaS platforms, developer tools, and technology companies that need to showcase both product capabilities and educational resources.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "platform",
+      "resources",
+      "mega-menu",
+      "solutions",
+      "use-cases",
+      "documentation",
+      "saas",
+      "developer-tools",
+    ],
     category: "navbar",
     component: NavbarPlatformResources,
     props: "NavbarPlatformResourcesProps",
@@ -8075,8 +9915,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-image-preview": {
     id: "navbar-image-preview",
     name: "Navbar Image Preview",
-    description: "A fixed navigation bar with image preview functionality in dropdown menus. The navigation bar changes background on scroll for better visibility. Desktop dropdowns display a large image preview that dynamically changes when hovering over different menu items, creating an engaging visual experience. Mobile view uses a full-screen dark overlay with categorized link columns and social links at the bottom. Ideal for creative agencies, portfolios, e-commerce sites, and brands that want to showcase visual content directly in their navigation.",
-    semanticTags: ["navbar", "navigation", "image-preview", "hover-preview", "visual", "creative", "portfolio", "e-commerce", "fixed", "scroll-aware"],
+    description:
+      "A fixed navigation bar with image preview functionality in dropdown menus. The navigation bar changes background on scroll for better visibility. Desktop dropdowns display a large image preview that dynamically changes when hovering over different menu items, creating an engaging visual experience. Mobile view uses a full-screen dark overlay with categorized link columns and social links at the bottom. Ideal for creative agencies, portfolios, e-commerce sites, and brands that want to showcase visual content directly in their navigation.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "image-preview",
+      "hover-preview",
+      "visual",
+      "creative",
+      "portfolio",
+      "e-commerce",
+      "fixed",
+      "scroll-aware",
+    ],
     category: "navbar",
     component: NavbarImagePreview,
     props: "NavbarImagePreviewProps",
@@ -8091,8 +9943,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-dark-icons": {
     id: "navbar-dark-icons",
     name: "Navbar Dark Icons",
-    description: "A dark-themed navigation bar with colorful icon indicators in dropdown menus. Features a dark background with dropdown menus containing items with colorful icon backgrounds that provide visual categorization. Includes a GitHub stars counter button and primary CTA. Mobile view uses a full-screen dark sheet with accordion navigation. Perfect for developer tools, open-source projects, tech startups, and products that want a modern dark aesthetic with visual hierarchy through color-coded icons.",
-    semanticTags: ["navbar", "navigation", "dark-theme", "colorful-icons", "github-stars", "developer-tools", "open-source", "tech", "modern", "icon-indicators"],
+    description:
+      "A dark-themed navigation bar with colorful icon indicators in dropdown menus. Features a dark background with dropdown menus containing items with colorful icon backgrounds that provide visual categorization. Includes a GitHub stars counter button and primary CTA. Mobile view uses a full-screen dark sheet with accordion navigation. Perfect for developer tools, open-source projects, tech startups, and products that want a modern dark aesthetic with visual hierarchy through color-coded icons.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "dark-theme",
+      "colorful-icons",
+      "github-stars",
+      "developer-tools",
+      "open-source",
+      "tech",
+      "modern",
+      "icon-indicators",
+    ],
     category: "navbar",
     component: NavbarDarkIcons,
     props: "NavbarDarkIconsProps",
@@ -8108,8 +9972,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-animated-preview": {
     id: "navbar-animated-preview",
     name: "Navbar Animated Preview",
-    description: "A navigation bar with animated image previews and multiple distinct dropdown styles. Features three dropdown menu types: Products menu with animated image preview that transitions smoothly between items, Solutions menu with featured cards and organized grid layout, and Developers menu with grouped links and featured image section. Navigation menu spans full width with smooth fade-in animations. Mobile view uses full-screen sheet with accordion navigation. Ideal for SaaS products, technology platforms, and companies that want engaging, animated navigation experiences.",
-    semanticTags: ["navbar", "navigation", "animated", "image-preview", "transitions", "products", "solutions", "developers", "full-width", "engaging"],
+    description:
+      "A navigation bar with animated image previews and multiple distinct dropdown styles. Features three dropdown menu types: Products menu with animated image preview that transitions smoothly between items, Solutions menu with featured cards and organized grid layout, and Developers menu with grouped links and featured image section. Navigation menu spans full width with smooth fade-in animations. Mobile view uses full-screen sheet with accordion navigation. Ideal for SaaS products, technology platforms, and companies that want engaging, animated navigation experiences.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "animated",
+      "image-preview",
+      "transitions",
+      "products",
+      "solutions",
+      "developers",
+      "full-width",
+      "engaging",
+    ],
     category: "navbar",
     component: NavbarAnimatedPreview,
     props: "NavbarAnimatedPreviewProps",
@@ -8124,8 +10000,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-multi-column-groups": {
     id: "navbar-multi-column-groups",
     name: "Navbar Multi-Column Groups",
-    description: "A navigation bar with multi-column grouped dropdown menus. Dropdown menus organize links into multiple columns by category, with each column having a group title and list of links with icons and descriptions. The dropdown width dynamically adjusts based on the number of groups for optimal layout. Mobile view uses a dark-themed full-screen sheet with accordion navigation and CTA buttons prominently displayed at the top. Perfect for large websites with many navigation categories, enterprise software, and platforms with extensive feature sets.",
-    semanticTags: ["navbar", "navigation", "multi-column", "grouped", "categories", "organized", "enterprise", "extensive", "dynamic-width", "dark-mobile"],
+    description:
+      "A navigation bar with multi-column grouped dropdown menus. Dropdown menus organize links into multiple columns by category, with each column having a group title and list of links with icons and descriptions. The dropdown width dynamically adjusts based on the number of groups for optimal layout. Mobile view uses a dark-themed full-screen sheet with accordion navigation and CTA buttons prominently displayed at the top. Perfect for large websites with many navigation categories, enterprise software, and platforms with extensive feature sets.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "multi-column",
+      "grouped",
+      "categories",
+      "organized",
+      "enterprise",
+      "extensive",
+      "dynamic-width",
+      "dark-mobile",
+    ],
     category: "navbar",
     component: NavbarMultiColumnGroups,
     props: "NavbarMultiColumnGroupsProps",
@@ -8142,8 +10030,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-sidebar-mobile": {
     id: "navbar-sidebar-mobile",
     name: "Navbar Sidebar Mobile",
-    description: "A navigation bar with a slide-out sidebar for mobile devices. Features standard horizontal navigation menu on desktop with dropdown menus containing icons, titles, and descriptions. Mobile view uses a slide-out sidebar from the left with accordion navigation and additional footer links. The sidebar includes a header with logo and close button, providing an app-like mobile navigation experience. Ideal for applications, dashboards, and websites that want a more immersive mobile navigation pattern.",
-    semanticTags: ["navbar", "navigation", "sidebar", "slide-out", "mobile", "app-like", "accordion", "dashboard", "application", "immersive"],
+    description:
+      "A navigation bar with a slide-out sidebar for mobile devices. Features standard horizontal navigation menu on desktop with dropdown menus containing icons, titles, and descriptions. Mobile view uses a slide-out sidebar from the left with accordion navigation and additional footer links. The sidebar includes a header with logo and close button, providing an app-like mobile navigation experience. Ideal for applications, dashboards, and websites that want a more immersive mobile navigation pattern.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "sidebar",
+      "slide-out",
+      "mobile",
+      "app-like",
+      "accordion",
+      "dashboard",
+      "application",
+      "immersive",
+    ],
     category: "navbar",
     component: NavbarSidebarMobile,
     props: "NavbarSidebarMobileProps",
@@ -8160,8 +10060,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-transparent-overlay": {
     id: "navbar-transparent-overlay",
     name: "Navbar Transparent Overlay",
-    description: "A transparent navigation bar that transitions to solid on scroll. Logo and navigation links are visible against hero images or video backgrounds with appropriate contrast. Mobile view uses a full-screen overlay menu with large, centered navigation links that animate in with a staggered effect. The hamburger menu icon transforms into an X when open. Perfect for landing pages, portfolios, creative websites, and any page with prominent hero sections where the navbar should blend with the background initially.",
-    semanticTags: ["navbar", "navigation", "transparent", "overlay", "scroll-transition", "hero", "landing-page", "portfolio", "creative", "staggered-animation"],
+    description:
+      "A transparent navigation bar that transitions to solid on scroll. Logo and navigation links are visible against hero images or video backgrounds with appropriate contrast. Mobile view uses a full-screen overlay menu with large, centered navigation links that animate in with a staggered effect. The hamburger menu icon transforms into an X when open. Perfect for landing pages, portfolios, creative websites, and any page with prominent hero sections where the navbar should blend with the background initially.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "transparent",
+      "overlay",
+      "scroll-transition",
+      "hero",
+      "landing-page",
+      "portfolio",
+      "creative",
+      "staggered-animation",
+    ],
     category: "navbar",
     component: NavbarTransparentOverlay,
     props: "NavbarTransparentOverlayProps",
@@ -8179,8 +10091,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-education-platform": {
     id: "navbar-education-platform",
     name: "Navbar Education Platform",
-    description: "A navigation bar designed for education and LMS platforms. Features two main dropdown menus: Products menu with tools and quick start sections including a featured image card for latest updates, and Support menu with guides and about us sections. Each menu item displays an icon, title, and description with hover animations. Mobile view uses accordion navigation with categorized sections. Ideal for online learning platforms, educational institutions, course marketplaces, and knowledge management systems.",
-    semanticTags: ["navbar", "navigation", "education", "lms", "learning", "courses", "support", "documentation", "knowledge-base", "e-learning"],
+    description:
+      "A navigation bar designed for education and LMS platforms. Features two main dropdown menus: Products menu with tools and quick start sections including a featured image card for latest updates, and Support menu with guides and about us sections. Each menu item displays an icon, title, and description with hover animations. Mobile view uses accordion navigation with categorized sections. Ideal for online learning platforms, educational institutions, course marketplaces, and knowledge management systems.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "education",
+      "lms",
+      "learning",
+      "courses",
+      "support",
+      "documentation",
+      "knowledge-base",
+      "e-learning",
+    ],
     category: "navbar",
     component: NavbarEducationPlatform,
     props: "NavbarEducationPlatformProps",
@@ -8195,8 +10119,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-sticky-compact": {
     id: "navbar-sticky-compact",
     name: "Navbar Sticky Compact",
-    description: "A compact sticky navigation bar that shrinks on scroll to maximize content space. The logo shrinks and padding reduces as the user scrolls down, maintaining navigation accessibility while giving more room to content. Desktop view shows dropdown menus with icons, while mobile view uses a slide-out sheet from the right. The smooth transition between normal and compact states provides a polished user experience. Ideal for content-heavy sites, blogs, documentation, and any website where vertical space is valuable.",
-    semanticTags: ["navbar", "navigation", "sticky", "compact", "shrink-on-scroll", "space-efficient", "content-heavy", "blog", "documentation", "smooth-transition"],
+    description:
+      "A compact sticky navigation bar that shrinks on scroll to maximize content space. The logo shrinks and padding reduces as the user scrolls down, maintaining navigation accessibility while giving more room to content. Desktop view shows dropdown menus with icons, while mobile view uses a slide-out sheet from the right. The smooth transition between normal and compact states provides a polished user experience. Ideal for content-heavy sites, blogs, documentation, and any website where vertical space is valuable.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "sticky",
+      "compact",
+      "shrink-on-scroll",
+      "space-efficient",
+      "content-heavy",
+      "blog",
+      "documentation",
+      "smooth-transition",
+    ],
     category: "navbar",
     component: NavbarStickyCompact,
     props: "NavbarStickyCompactProps",
@@ -8212,8 +10148,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-search-focused": {
     id: "navbar-search-focused",
     name: "Navbar Search Focused",
-    description: "A navigation bar with a prominent search input as the primary action. Features a centered search bar that takes up significant horizontal space, making search the most visible and accessible action. Navigation links are positioned to the sides of the search bar. The search input expands on focus for better usability. Mobile view moves the search bar below the logo and hamburger menu, with navigation in a slide-out sheet. Ideal for e-commerce sites, marketplaces, documentation sites, and content-heavy platforms where search is the primary user action.",
-    semanticTags: ["navbar", "navigation", "search", "search-focused", "e-commerce", "marketplace", "documentation", "content-platform", "prominent-search", "expandable"],
+    description:
+      "A navigation bar with a prominent search input as the primary action. Features a centered search bar that takes up significant horizontal space, making search the most visible and accessible action. Navigation links are positioned to the sides of the search bar. The search input expands on focus for better usability. Mobile view moves the search bar below the logo and hamburger menu, with navigation in a slide-out sheet. Ideal for e-commerce sites, marketplaces, documentation sites, and content-heavy platforms where search is the primary user action.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "search",
+      "search-focused",
+      "e-commerce",
+      "marketplace",
+      "documentation",
+      "content-platform",
+      "prominent-search",
+      "expandable",
+    ],
     category: "navbar",
     component: NavbarSearchFocused,
     props: "NavbarSearchFocusedProps",
@@ -8231,8 +10179,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-simple-links": {
     id: "navbar-simple-links",
     name: "Navbar Simple Links",
-    description: "A clean, minimal navigation bar with animated active indicator. Features horizontal navigation links with an animated underline indicator that slides smoothly to show the currently active item. The simple design focuses on essential navigation without dropdowns or complex menus. Desktop view shows all links inline with the sliding indicator, while mobile uses a popover menu with a left border indicator for the active item. Perfect for simple marketing sites, portfolios, personal websites, and landing pages that need straightforward navigation.",
-    semanticTags: ["navbar", "navigation", "simple", "minimal", "animated-indicator", "underline", "clean", "portfolio", "landing-page", "straightforward"],
+    description:
+      "A clean, minimal navigation bar with animated active indicator. Features horizontal navigation links with an animated underline indicator that slides smoothly to show the currently active item. The simple design focuses on essential navigation without dropdowns or complex menus. Desktop view shows all links inline with the sliding indicator, while mobile uses a popover menu with a left border indicator for the active item. Perfect for simple marketing sites, portfolios, personal websites, and landing pages that need straightforward navigation.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "simple",
+      "minimal",
+      "animated-indicator",
+      "underline",
+      "clean",
+      "portfolio",
+      "landing-page",
+      "straightforward",
+    ],
     category: "navbar",
     component: NavbarSimpleLinks,
     props: "NavbarSimpleLinksProps",
@@ -8251,8 +10211,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-split-cta": {
     id: "navbar-split-cta",
     name: "Navbar Split CTA",
-    description: "A navigation bar with split primary and secondary call-to-action buttons. Features a balanced layout with navigation links on the left and two distinct CTA buttons on the right: a secondary outline button and a primary filled button. Dropdown menus display items with icons and descriptions in a clean list format. Mobile view uses a slide-out sheet with CTAs prominently displayed at the top. Ideal for SaaS products and services that want to emphasize both login/signup actions or demo/trial options simultaneously.",
-    semanticTags: ["navbar", "navigation", "split-cta", "dual-buttons", "login-signup", "demo-trial", "saas", "conversion", "balanced-layout", "prominent-cta"],
+    description:
+      "A navigation bar with split primary and secondary call-to-action buttons. Features a balanced layout with navigation links on the left and two distinct CTA buttons on the right: a secondary outline button and a primary filled button. Dropdown menus display items with icons and descriptions in a clean list format. Mobile view uses a slide-out sheet with CTAs prominently displayed at the top. Ideal for SaaS products and services that want to emphasize both login/signup actions or demo/trial options simultaneously.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "split-cta",
+      "dual-buttons",
+      "login-signup",
+      "demo-trial",
+      "saas",
+      "conversion",
+      "balanced-layout",
+      "prominent-cta",
+    ],
     category: "navbar",
     component: NavbarSplitCta,
     props: "NavbarSplitCtaProps",
@@ -8270,8 +10242,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-icon-links": {
     id: "navbar-icon-links",
     name: "Navbar Icon Links",
-    description: "A compact navigation bar with icon-only links and tooltips. Features a minimalist design with icon-only navigation links that display tooltips on hover to reveal the link label. This approach maximizes horizontal space while maintaining accessibility through tooltips. The active state is indicated by a highlighted background. Mobile view uses a slide-out sheet with full text labels. Ideal for dashboards, admin panels, applications, and interfaces where users are familiar with the navigation structure and icon meanings.",
-    semanticTags: ["navbar", "navigation", "icon-only", "tooltips", "compact", "minimalist", "dashboard", "admin-panel", "application", "space-efficient"],
+    description:
+      "A compact navigation bar with icon-only links and tooltips. Features a minimalist design with icon-only navigation links that display tooltips on hover to reveal the link label. This approach maximizes horizontal space while maintaining accessibility through tooltips. The active state is indicated by a highlighted background. Mobile view uses a slide-out sheet with full text labels. Ideal for dashboards, admin panels, applications, and interfaces where users are familiar with the navigation structure and icon meanings.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "icon-only",
+      "tooltips",
+      "compact",
+      "minimalist",
+      "dashboard",
+      "admin-panel",
+      "application",
+      "space-efficient",
+    ],
     category: "navbar",
     component: NavbarIconLinks,
     props: "NavbarIconLinksProps",
@@ -8289,8 +10273,20 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-tabbed-sections": {
     id: "navbar-tabbed-sections",
     name: "Navbar Tabbed Sections",
-    description: "A navigation bar with tabbed dropdown menus for organized content. Features dropdown menus that use tabs to organize content into distinct sections. Each tab displays a list of links with icons and descriptions, and optionally a featured content card with an image. Tabs allow users to quickly switch between different categories within the same dropdown without closing it. Mobile view uses a slide-out sheet with expandable sections. Ideal for products with many features organized into logical categories, enterprise software, and platforms with diverse offerings.",
-    semanticTags: ["navbar", "navigation", "tabbed", "organized", "categories", "featured-content", "enterprise", "diverse-offerings", "multi-section", "switchable"],
+    description:
+      "A navigation bar with tabbed dropdown menus for organized content. Features dropdown menus that use tabs to organize content into distinct sections. Each tab displays a list of links with icons and descriptions, and optionally a featured content card with an image. Tabs allow users to quickly switch between different categories within the same dropdown without closing it. Mobile view uses a slide-out sheet with expandable sections. Ideal for products with many features organized into logical categories, enterprise software, and platforms with diverse offerings.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "tabbed",
+      "organized",
+      "categories",
+      "featured-content",
+      "enterprise",
+      "diverse-offerings",
+      "multi-section",
+      "switchable",
+    ],
     category: "navbar",
     component: NavbarTabbedSections,
     props: "NavbarTabbedSectionsProps",
@@ -8308,8 +10304,21 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   "navbar-fullscreen-menu": {
     id: "navbar-fullscreen-menu",
     name: "Navbar Fullscreen Menu",
-    description: "A dramatic navigation bar with fullscreen overlay navigation. Features a minimal header with logo and MENU/CLOSE text toggle. When activated, a fullscreen overlay appears with large, centered menu items that animate in with blur effects on hover. Social links appear at the bottom with staggered animations. The theatrical presentation creates a memorable navigation experience. Perfect for creative agencies, portfolios, artistic websites, fashion brands, and any site that wants to make a bold visual statement with their navigation.",
-    semanticTags: ["navbar", "navigation", "fullscreen", "overlay", "dramatic", "creative", "portfolio", "artistic", "fashion", "theatrical", "animated"],
+    description:
+      "A dramatic navigation bar with fullscreen overlay navigation. Features a minimal header with logo and MENU/CLOSE text toggle. When activated, a fullscreen overlay appears with large, centered menu items that animate in with blur effects on hover. Social links appear at the bottom with staggered animations. The theatrical presentation creates a memorable navigation experience. Perfect for creative agencies, portfolios, artistic websites, fashion brands, and any site that wants to make a bold visual statement with their navigation.",
+    semanticTags: [
+      "navbar",
+      "navigation",
+      "fullscreen",
+      "overlay",
+      "dramatic",
+      "creative",
+      "portfolio",
+      "artistic",
+      "fashion",
+      "theatrical",
+      "animated",
+    ],
     category: "navbar",
     component: NavbarFullscreenMenu,
     props: "NavbarFullscreenMenuProps",
@@ -15067,17 +17076,15 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 />`.trim(),
   },
 
-  "about-dei-initiatives": {
-    id: "about-dei-initiatives",
-    name: "About DEI Initiatives",
+  "community-initiatives": {
+    id: "community-initiatives",
+    name: "Community Initiatives",
     description:
-      "A comprehensive diversity, equity, and inclusion section with tabbed categories and detailed initiative cards with metrics. Features a tabbed interface with alternating content/image layout for initiatives, metrics display, and responsive dropdown for mobile. Best for DEI pages, corporate responsibility sections, and values showcases.",
+      "A comprehensive community impact section with tabbed categories and detailed initiative cards with metrics. Features a tabbed interface with alternating content/image layout for initiatives, metrics display, and responsive dropdown for mobile. Best for community impact pages, corporate responsibility sections, and values showcases.",
     semanticTags: [
       "about",
-      "dei",
-      "diversity",
-      "equity",
-      "inclusion",
+      "community",
+      "impact",
       "initiatives",
       "metrics",
       "tabs",
@@ -15085,17 +17092,17 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       "responsibility",
     ],
     category: "about",
-    component: AboutDeiInitiatives,
-    props: "AboutDeiInitiativesProps",
+    component: CommunityInitiatives,
+    props: "CommunityInitiativesProps",
     exampleUsage: `
-<AboutDeiInitiatives
-  badgeText="Diversity & Inclusion"
-  heading="Building a More Equitable Future"
+<CommunityInitiatives
+  badgeText="Food Drive"
+  heading="Supporting Our Community"
   categories={[
     {
-      id: "workplace",
-      title: "Inclusive Workplace",
-      description: "Creating an inclusive environment.",
+      id: "food-drive",
+      title: "Food Drive",
+      description: "Supporting our community through food donations.",
       initiatives: [...]
     },
   ]}

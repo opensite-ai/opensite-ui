@@ -231,7 +231,7 @@ export function TeamMediaShowcase({
                     optixFlowConfig={optixFlowConfig}
                   >
                     <div className="relative flex h-full flex-col justify-end p-6 text-card-foreground">
-                      <div className="space-y-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-12">
+                      <div className="space-y-4 transition-transform duration-500 ease-in-out md:group-hover:-translate-y-12">
                         <div>
                           {member.name &&
                             typeof member.name === "string" &&
@@ -251,7 +251,7 @@ export function TeamMediaShowcase({
                       </div>
 
                       {member.action ? (
-                        <div className="absolute -bottom-20 left-0 w-full pt-2 p-6 opacity-0 transition-all duration-500 ease-in-out group-hover:bottom-0 group-hover:opacity-100">
+                        <div className="mt-4 w-full md:absolute md:-bottom-20 md:left-0 md:mt-0 md:p-6 md:pt-2 md:opacity-0 md:transition-all md:duration-500 md:ease-in-out md:group-hover:bottom-0 md:group-hover:opacity-100">
                           {member.action}
                         </div>
                       ) : null}

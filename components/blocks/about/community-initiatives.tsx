@@ -10,7 +10,7 @@ import { Card, CardContent } from "../../ui/card";
 import { Badge } from "../../ui/badge";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 
-export interface DeiMetric {
+export interface CommunityMetric {
   /**
    * Metric value (e.g., "45%", "$2M")
    */
@@ -21,7 +21,7 @@ export interface DeiMetric {
   label: string;
 }
 
-export interface DeiInitiative {
+export interface CommunityInitiative {
   /**
    * Unique identifier
    */
@@ -41,14 +41,14 @@ export interface DeiInitiative {
   /**
    * Optional metrics to display
    */
-  metrics?: DeiMetric[];
+  metrics?: CommunityMetric[];
   /**
    * Optional image URL
    */
   image?: string;
 }
 
-export interface DeiCategory {
+export interface CommunityCategory {
   /**
    * Unique identifier
    */
@@ -58,16 +58,15 @@ export interface DeiCategory {
    */
   title: string;
   /**
-   * Category description
    */
   description: string;
   /**
    * Array of initiatives in this category
    */
-  initiatives: DeiInitiative[];
+  initiatives: CommunityInitiative[];
 }
 
-export interface AboutDeiInitiativesProps {
+export interface CommunityInitiativesProps {
   /**
    * Badge/label text
    */
@@ -83,7 +82,7 @@ export interface AboutDeiInitiativesProps {
   /**
    * Array of DEI categories
    */
-  categories?: DeiCategory[];
+  categories?: CommunityCategory[];
   /**
    * CTA badge text
    */
@@ -125,7 +124,7 @@ export interface AboutDeiInitiativesProps {
   };
 }
 
-const defaultCategories: DeiCategory[] = [
+const defaultCategories: CommunityCategory[] = [
   {
     id: "workplace",
     title: "Inclusive Workplace",
@@ -322,7 +321,7 @@ const defaultCategories: DeiCategory[] = [
  *
  * @example
  * ```tsx
- * <AboutDeiInitiatives
+ * <CommunityInitiatives
  *   badgeText="Diversity & Inclusion"
  *   heading="Building a More Equitable Future"
  *   categories={[
@@ -336,7 +335,7 @@ const defaultCategories: DeiCategory[] = [
  * />
  * ```
  */
-export function AboutDeiInitiatives({
+export function CommunityInitiatives({
   badgeText = "Diversity & Inclusion",
   heading = "Building a More Equitable Future Together",
   description = "Our commitment to diversity, equity, and inclusion runs deep in everything we do—from how we build our teams to how we build our products.",
@@ -350,11 +349,14 @@ export function AboutDeiInitiatives({
   secondaryCtaUrl = "/about/dei-report",
   className,
   optixFlowConfig,
-}: AboutDeiInitiativesProps) {
-  const [activeCategory, setActiveCategory] = React.useState(categories[0]?.id || "");
+}: CommunityInitiativesProps) {
+  const [activeCategory, setActiveCategory] = React.useState(
+    categories[0]?.id || ""
+  );
 
   const currentCategory =
-    categories.find((category) => category.id === activeCategory) || categories[0];
+    categories.find((category) => category.id === activeCategory) ||
+    categories[0];
 
   return (
     <section className={cn("py-24", className)}>
@@ -363,7 +365,9 @@ export function AboutDeiInitiatives({
           <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
             {badgeText}
           </div>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{heading}</h2>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            {heading}
+          </h2>
           <p className="text-muted-foreground">{description}</p>
         </div>
 
@@ -402,11 +406,17 @@ export function AboutDeiInitiatives({
           </div>
 
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-muted-foreground">{currentCategory?.description}</p>
+            <p className="text-muted-foreground">
+              {currentCategory?.description}
+            </p>
           </div>
 
           {categories.map((category) => (
-            <TabsContent key={category.id} value={category.id} className="space-y-12">
+            <TabsContent
+              key={category.id}
+              value={category.id}
+              className="space-y-12"
+            >
               {category.initiatives.map((initiative, index) => {
                 const isEven = index % 2 === 0;
 
@@ -429,10 +439,14 @@ export function AboutDeiInitiatives({
                             className="text-primary"
                           />
                         </div>
-                        <h3 className="text-2xl font-bold">{initiative.title}</h3>
+                        <h3 className="text-2xl font-bold">
+                          {initiative.title}
+                        </h3>
                       </div>
 
-                      <p className="text-muted-foreground">{initiative.description}</p>
+                      <p className="text-muted-foreground">
+                        {initiative.description}
+                      </p>
 
                       {initiative.metrics && (
                         <div className="grid grid-cols-3 gap-4 pt-2">
@@ -457,7 +471,7 @@ export function AboutDeiInitiatives({
                           isEven ? "md:order-2" : "md:order-1"
                         )}
                       >
-                        <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                        <div className="relative aspect-4/3 overflow-hidden rounded-xl">
                           <Img
                             src={initiative.image}
                             alt={initiative.title}
@@ -481,8 +495,8 @@ export function AboutDeiInitiatives({
                               className="mx-auto mb-4 text-muted-foreground/50"
                             />
                             <Badge variant="secondary" className="mx-auto">
-                              Learn more about our {initiative.title.toLowerCase()}{" "}
-                              initiative
+                              Learn more about our{" "}
+                              {initiative.title.toLowerCase()} initiative
                             </Badge>
                           </CardContent>
                         </Card>
@@ -503,13 +517,25 @@ export function AboutDeiInitiatives({
           </div>
 
           <h3 className="mb-4 text-2xl font-bold">{ctaHeading}</h3>
-          <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">{ctaDescription}</p>
+          <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
+            {ctaDescription}
+          </p>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Pressable href={primaryCtaUrl} variant="default" size="lg" asButton>
+            <Pressable
+              href={primaryCtaUrl}
+              variant="default"
+              size="lg"
+              asButton
+            >
               {primaryCtaText}
             </Pressable>
-            <Pressable href={secondaryCtaUrl} variant="outline" size="lg" asButton>
+            <Pressable
+              href={secondaryCtaUrl}
+              variant="outline"
+              size="lg"
+              asButton
+            >
               {secondaryCtaText}
             </Pressable>
           </div>
