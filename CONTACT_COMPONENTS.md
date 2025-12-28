@@ -6344,7 +6344,7 @@ export default function ContactReservation() {
                       {TIME_SLOTS.map((slot) => (
                         <label
                           key={slot.value}
-                          className="relative flex cursor-pointer items-center justify-center rounded-md border p-2 text-sm transition-colors hover:border-foreground has-checked:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
+                          className="relative flex cursor-pointer items-center justify-center rounded-md border p-2 text-sm transition-colors hover:border-foreground has-checked:border-primary has-checked:bg-primary has-checked:text-primary-foreground"
                         >
                           <input
                             type="radio"
@@ -6392,7 +6392,7 @@ export default function ContactReservation() {
                       {OCCASIONS.map((occasion) => (
                         <label
                           key={occasion.id}
-                          className="flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors hover:border-foreground has-checked:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
+                          className="flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors hover:border-foreground has-checked:border-primary has-checked:bg-primary has-checked:text-primary-foreground"
                         >
                           <input
                             type="checkbox"
@@ -9892,13 +9892,13 @@ export function ContactPage() {
      </Box>
     </div>
     <BorderSeparator />
-    <div className="relative flex h-full min-h-[320px] items-center justify-center">
+    <div className="relative flex h-full min-h-80 items-center justify-center">
      <div
       className={cn(
        'z--10 absolute inset-0 size-full',
        'bg-[radial-gradient(color-mix(in_oklab,var(--foreground)30%,transparent)_1px,transparent_1px)]',
-       'bg-[size:32px_32px]',
-       '[mask-image:radial-gradient(ellipse_at_center,var(--background)_30%,transparent)]',
+       'bg-size-[32px_32px]',
+       'mask-[radial-gradient(ellipse_at_center,var(--background)_30%,transparent)]',
       )}
      />
 
