@@ -95,7 +95,7 @@ export function HeroTestimonialImageGrid({
             </div>
           </div>
           <div className="w-full flex-1">
-            <div className="w-full max-w-[50rem]">
+            <div className="w-full max-w-200">
               <AspectRatio ratio={1 / 1} className="h-full w-full">
                 <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[3.5%]">
                   <div className="overflow-hidden rounded-[5.2%] border border-muted bg-muted">
@@ -107,7 +107,7 @@ export function HeroTestimonialImageGrid({
                     />
                   </div>
                   <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="absolute top-1/2 left-[5%] w-[110%] max-w-[25rem] -translate-y-1/2 overflow-hidden rounded-md">
+                    <div className="absolute top-1/2 left-[5%] w-[110%] max-w-100 -translate-y-1/2 overflow-hidden rounded-md">
                       <AspectRatio ratio={1.739130435 / 1}>
                         <Img
                           src={imagePlaceholders[91]}

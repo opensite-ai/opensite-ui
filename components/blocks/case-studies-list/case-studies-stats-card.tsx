@@ -99,7 +99,7 @@ export function CaseStudiesStatsCard({
     <section className={cn("py-32", className)}>
       <div className="container">
         <div className="flex w-full flex-col items-stretch justify-between gap-10 rounded-lg bg-muted p-10 lg:flex-row">
-          <div className="flex w-full max-w-[30rem] flex-col gap-10 rounded-lg bg-background p-5">
+          <div className="flex w-full max-w-120 flex-col gap-10 rounded-lg bg-background p-5">
             <div className="max-w-[4.875rem]">
               <Img
                 src={companyLogo}
@@ -140,12 +140,7 @@ export function CaseStudiesStatsCard({
             </h2>
             <p className="text-base font-medium text-foreground">{summary}</p>
             <div className="shrink-0">
-              <Pressable
-                href={href}
-                variant="outline"
-                size="sm"
-                asButton
-              >
+              <Pressable href={href} variant="outline" size="sm" asButton>
                 Read Story
                 <DynamicIcon name="lucide/arrow-right" size={16} />
               </Pressable>

@@ -19,11 +19,11 @@ export function HeroVideoOverlayStars({
     <section
       className={cn(
         "dark relative h-svh max-h-[1400px] min-h-[600px] w-full overflow-hidden bg-background px-5 font-sans",
-        className,
+        className
       )}
     >
       <div className="relative z-10 flex size-full">
-        <div className="m-auto flex max-w-[25rem] flex-col items-center gap-9 sm:max-w-[31.25rem] md:max-w-[50rem]">
+        <div className="m-auto flex max-w-100 flex-col items-center gap-9 sm:max-w-125 md:max-w-200">
           <h1 className="bg-linear-to-br from-neutral-100 to-neutral-600 bg-clip-text text-center text-4xl leading-tight font-semibold text-transparent sm:text-5xl md:text-[4rem]">
             Liberate yourself from phone interruptions
           </h1>
@@ -39,7 +39,12 @@ export function HeroVideoOverlayStars({
           <div>
             <div className="flex items-center justify-center gap-0.5">
               {[...Array(5)].map((_, i) => (
-                <DynamicIcon key={i} name="lucide/star" size={12} className="fill-muted2-foreground" />
+                <DynamicIcon
+                  key={i}
+                  name="lucide/star"
+                  size={12}
+                  className="fill-muted2-foreground"
+                />
               ))}
             </div>
             <p className="mt-1.5 max-w-40 text-center text-xs leading-snug font-medium text-foreground/60">

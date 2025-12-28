@@ -24,7 +24,7 @@ export function HeroSharedInboxLayered({
     >
       <div className="container pt-10">
         <div className="grid grid-cols-1 items-center gap-2 md:gap-4 lg:grid-cols-2">
-          <div className="flex w-full max-w-[31.25rem] flex-col gap-9 lg:max-w-[37.5rem] lg:py-[20%] xl:py-[26%]">
+          <div className="flex w-full max-w-125 flex-col gap-9 lg:max-w-[37.5rem] lg:py-[20%] xl:py-[26%]">
             <p className="font-mono text-[clamp(0.875rem,0.875vw,1rem)] text-muted-foreground">
               Shared Inbox
             </p>
@@ -34,9 +34,10 @@ export function HeroSharedInboxLayered({
               Your Inbox
             </h1>
             <p className="text-[clamp(1.125rem,1.125vw,1.4rem)] leading-normal text-muted-foreground">
-              Your email account doesn&apos;t have to feel like chaos. A shared inbox
-              unites all your email aliases, social messages, and teammates in
-              one space, ensuring everyone gets the answers they need.
+              Your email account doesn&apos;t have to feel like chaos. A shared
+              inbox unites all your email aliases, social messages, and
+              teammates in one space, ensuring everyone gets the answers they
+              need.
             </p>
           </div>
           <div>

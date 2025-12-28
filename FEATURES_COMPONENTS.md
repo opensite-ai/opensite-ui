@@ -9444,7 +9444,7 @@ const Feature218 = ({ className }: Feature218Props) => {
               </div>
             </div>
             <div className="pt-10 xl:pt-20">
-              <div className="relative ml-auto w-full max-w-[50rem] after:absolute after:top-0 after:right-0 after:z-20 after:block after:h-full after:w-1/3 after:rounded-tr-2xl after:bg-linear-90 after:from-transparent after:to-background after:content-['']">
+              <div className="relative ml-auto w-full max-w-200 after:absolute after:top-0 after:right-0 after:z-20 after:block after:h-full after:w-1/3 after:rounded-tr-2xl after:bg-linear-90 after:from-transparent after:to-background after:content-['']">
                 <AspectRatio
                   ratio={1.932}
                   className="w-full overflow-hidden rounded-tl-2xl rounded-tr-2xl"
@@ -9543,8 +9543,8 @@ const CardImage = ({ variant, images, Icon }: CardImageProps) => {
   switch (variant) {
     case "1":
       return (
-        <div className="absolute right-[30%] bottom-[3.75rem]">
-          <div className="aspect-[1.645714286] w-[25rem]">
+        <div className="absolute right-[30%] bottom-15">
+          <div className="aspect-[1.645714286] w-100">
             <div className="flex size-full items-center -space-x-[10%]">
               <div className="w-full shrink-0">
                 <AspectRatio
@@ -9577,7 +9577,7 @@ const CardImage = ({ variant, images, Icon }: CardImageProps) => {
     case "2":
       return (
         <div className="absolute right-1/6 -bottom-[5%]">
-          <div className="aspect-video w-[31.25rem] overflow-hidden rounded-2xl shadow-2xl sm:w-[42.5rem]">
+          <div className="aspect-video w-125 overflow-hidden rounded-2xl shadow-2xl sm:w-170">
             <img
               src={images[0].src}
               alt={images[0].alt}
@@ -9589,7 +9589,7 @@ const CardImage = ({ variant, images, Icon }: CardImageProps) => {
     default:
       return (
         <div className="absolute right-1/6 -bottom-[5%]">
-          <div className="relative aspect-[1.195592287] w-[21.25rem] sm:w-[25rem]">
+          <div className="relative aspect-[1.195592287] w-85 sm:w-100">
             <div className="absolute bottom-0 aspect-[1.287833828] w-full overflow-hidden rounded-2xl">
               <img
                 src={images[0].src}
@@ -9714,7 +9714,7 @@ const Feature220 = ({ className }: Feature220Props) => {
             </div>
           </div>
           <div>
-            <div className="group flex w-full max-w-[30rem] flex-col gap-10 rounded-[.5rem] bg-background p-5 transition-shadow hover:shadow-[0_0_2px_var(--color-gray-300)]">
+            <div className="group flex w-full max-w-120 flex-col gap-10 rounded-xl bg-background p-5 transition-shadow hover:shadow-[0_0_2px_var(--color-gray-300)]">
               <div className="flex w-full flex-col gap-8 sm:flex-row">
                 {stats.map((item, i) => (
                   <div

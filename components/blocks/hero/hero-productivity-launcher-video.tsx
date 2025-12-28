@@ -19,13 +19,13 @@ export function HeroProductivityLauncherVideo({
     <section
       className={cn(
         "dark relative overflow-hidden bg-background py-12 font-sans md:py-20",
-        className,
+        className
       )}
     >
       <div className="relative z-20 container max-w-[51.125rem]">
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-8 px-4 pt-52 pb-32 md:pb-52">
-            <div className="max-w-[25rem] sm:max-w-[33.75rem]">
+            <div className="max-w-100 sm:max-w-[33.75rem]">
               <h1 className="text-center text-4xl leading-tight font-semibold text-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]">
                 Your fast track to everything.
               </h1>
@@ -75,7 +75,11 @@ export function HeroProductivityLauncherVideo({
             <span>Download on iOS</span>
             <span className="flex items-center gap-1 text-muted-foreground">
               <span>Join waitlist</span>
-              <DynamicIcon name="lucide/arrow-right" size={16} className="stroke-muted-foreground" />
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="stroke-muted-foreground"
+              />
             </span>
           </Pressable>
         </div>
