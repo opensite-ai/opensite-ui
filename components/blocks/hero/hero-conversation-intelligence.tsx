@@ -26,7 +26,7 @@ export function HeroConversationIntelligence({
       <div className="container">
         <div className="flex flex-col gap-24">
           <div>
-            <div className="relative z-10 mx-auto flex max-w-[55rem] flex-col gap-7">
+            <div className="relative z-10 mx-auto flex max-w-220 flex-col gap-7">
               <h1 className="text-center text-5xl leading-[1.294] font-semibold text-foreground sm:text-[3.75rem] md:text-[4.25rem]">
                 Conversation Intelligence{" "}
                 <span className="relative text-nowrap after:absolute after:top-1/2 after:left-0 after:z-[-1] after:block after:h-[65%] after:w-full after:-translate-y-1/3 after:bg-muted after:content-['']">
@@ -59,7 +59,7 @@ export function HeroConversationIntelligence({
             </div>
           </div>
           <div>
-            <div className="mx-auto w-full max-w-[81.25rem]">
+            <div className="mx-auto w-full max-w-325">
               <AspectRatio ratio={1.818181818 / 1}>
                 <div className="relative flex size-full flex-col justify-between">
                   <AspectRatio

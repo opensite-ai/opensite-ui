@@ -22,12 +22,12 @@ export function HeroCustomerSupportLayered({
     <section
       className={cn(
         "relative border-b border-muted bg-background pt-10",
-        className,
+        className
       )}
     >
       <div className="container">
         <div className="grid grid-cols-1 items-center gap-2 md:gap-4 lg:grid-cols-2">
-          <div className="flex w-full max-w-[31.25rem] flex-col gap-9 lg:max-w-[37.5rem] lg:py-[20%] xl:py-[26%]">
+          <div className="flex w-full max-w-125 flex-col gap-9 lg:max-w-150 lg:py-[20%] xl:py-[26%]">
             <p className="font-mono text-[clamp(0.875rem,0.875vw,1rem)] text-muted-foreground">
               Customer Support
             </p>
@@ -43,7 +43,7 @@ export function HeroCustomerSupportLayered({
             </p>
           </div>
           <div>
-            <div className="relative ml-8 aspect-square w-full max-w-[56.25rem] overflow-hidden lg:absolute lg:right-0 lg:bottom-0 lg:w-1/2">
+            <div className="relative ml-8 aspect-square w-full max-w-225 overflow-hidden lg:absolute lg:right-0 lg:bottom-0 lg:w-1/2">
               <div className="absolute right-0 bottom-0 w-[85%] overflow-hidden rounded-lg">
                 <AspectRatio ratio={0.918918919 / 1}>
                   <Img

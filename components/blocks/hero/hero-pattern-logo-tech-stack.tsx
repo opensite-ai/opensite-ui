@@ -25,8 +25,8 @@ export function HeroPatternLogoTechStack({
       <div className="absolute inset-x-0 top-0 flex h-full w-full items-center justify-center opacity-100">
         <Img
           alt="background"
-          src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/square-alt-grid.svg"
-          className="[mask-image:radial-gradient(75%_75%_at_center,white,transparent)] opacity-90"
+          src="https://cdn.ing/assets/files/record/286187/4gpn0yq2ptra8iwlvmwwv860ggwv"
+          className="mask-[radial-gradient(75%_75%_at_center,white,transparent)] opacity-90"
           optixFlowConfig={optixFlowConfig}
         />
       </div>
@@ -53,12 +53,21 @@ export function HeroPatternLogoTechStack({
               </p>
             </div>
             <div className="mt-6 flex justify-center gap-3">
-              <Pressable href="#" asButton variant="default" className="shadow-sm transition-shadow hover:shadow">
+              <Pressable
+                href="#"
+                asButton
+                variant="default"
+                className="shadow-sm transition-shadow hover:shadow"
+              >
                 Get Started
               </Pressable>
               <Pressable href="#" asButton variant="outline" className="group">
                 Learn more{" "}
-                <DynamicIcon name="lucide/external-link" size={16} className="ml-2 transition-transform group-hover:translate-x-0.5" />
+                <DynamicIcon
+                  name="lucide/external-link"
+                  size={16}
+                  className="ml-2 transition-transform group-hover:translate-x-0.5"
+                />
               </Pressable>
             </div>
             <div className="mt-20 flex flex-col items-center gap-5">
@@ -70,7 +79,7 @@ export function HeroPatternLogoTechStack({
                   href="#"
                   className={cn(
                     buttonVariants({ variant: "outline" }),
-                    "group flex aspect-square h-12 items-center justify-center p-0",
+                    "group flex aspect-square h-12 items-center justify-center p-0"
                   )}
                 >
                   <Img
@@ -84,7 +93,7 @@ export function HeroPatternLogoTechStack({
                   href="#"
                   className={cn(
                     buttonVariants({ variant: "outline" }),
-                    "group flex aspect-square h-12 items-center justify-center p-0",
+                    "group flex aspect-square h-12 items-center justify-center p-0"
                   )}
                 >
                   <Img
@@ -98,7 +107,7 @@ export function HeroPatternLogoTechStack({
                   href="#"
                   className={cn(
                     buttonVariants({ variant: "outline" }),
-                    "group flex aspect-square h-12 items-center justify-center p-0",
+                    "group flex aspect-square h-12 items-center justify-center p-0"
                   )}
                 >
                   <Img
@@ -112,7 +121,7 @@ export function HeroPatternLogoTechStack({
                   href="#"
                   className={cn(
                     buttonVariants({ variant: "outline" }),
-                    "group flex aspect-square h-12 items-center justify-center p-0",
+                    "group flex aspect-square h-12 items-center justify-center p-0"
                   )}
                 >
                   <Img

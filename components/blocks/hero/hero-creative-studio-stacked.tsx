@@ -38,7 +38,7 @@ export function HeroCreativeStudioStacked({
               <p className="text-sm font-medium tracking-wider text-muted-foreground uppercase">
                 Harmony Creative Studio
               </p>
-              <div className="flex max-w-[40rem] flex-col gap-6">
+              <div className="flex max-w-160 flex-col gap-6">
                 <h1 className="text-4xl leading-tight font-medium md:text-5xl xl:text-6xl">
                   Boost your business with a brand-new website.
                 </h1>
@@ -63,13 +63,17 @@ export function HeroCreativeStudioStacked({
                   variant="ghost"
                   className="flex h-fit w-fit flex-nowrap items-center gap-2 rounded-sm bg-transparent px-5 py-3.5 text-sm font-medium tracking-wider text-nowrap uppercase"
                 >
-                  <DynamicIcon name="lucide/play" size={12} className="fill-neutral-950" />
+                  <DynamicIcon
+                    name="lucide/play"
+                    size={12}
+                    className="fill-neutral-950"
+                  />
                   <p>How it works?</p>
                 </Pressable>
               </div>
             </div>
             <div>
-              <div className="relative mx-auto aspect-[0.789340102/1] max-w-[25rem]">
+              <div className="relative mx-auto aspect-[0.789340102/1] max-w-100">
                 <div className="absolute bottom-0 left-0 z-30 w-[63%]">
                   <AspectRatio
                     ratio={0.724137931 / 1}

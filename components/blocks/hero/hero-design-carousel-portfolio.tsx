@@ -7,12 +7,11 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+  imagePlaceholders,
+  logoPlaceholders,
+} from "../../../lib/mediaPlaceholders";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 
 export interface HeroDesignCarouselPortfolioProps {
   className?: string;
@@ -69,7 +68,7 @@ export function HeroDesignCarouselPortfolio({
             href="#"
             asButton
             variant="outline"
-            className="flex h-fit items-center gap-[10px] self-start rounded-full border-2 border-black px-2 py-1.5 text-sm font-semibold lg:px-4 lg:py-3.5 lg:text-base"
+            className="flex h-fit items-center gap-2.5 self-start rounded-full border-2 border-black px-2 py-1.5 text-sm font-semibold lg:px-4 lg:py-3.5 lg:text-base"
           >
             <Img
               src={imagePlaceholders[16]}

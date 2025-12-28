@@ -22,7 +22,7 @@ interface Feature1Props {
 const Feature1 = ({
   title = "Blocks built with Shadcn & Tailwind",
   description = "Hundreds of finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
-  imageSrc = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+  imageSrc = "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   imageAlt = "placeholder hero",
   buttonPrimary = {
     text: "Get Started",
@@ -99,7 +99,7 @@ interface Feature2Props {
 const Feature2 = ({
   title = "Blocks built with Shadcn & Tailwind",
   description = "Hundreds of finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
-  imageSrc = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+  imageSrc = "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   imageAlt = "placeholder hero",
   buttonPrimary = {
     text: "Get Started",
@@ -257,7 +257,7 @@ const Feature11 = ({ className }: Feature11Props) => {
       <div className="container max-w-6xl">
         <div className="flex flex-col gap-12 md:flex-row">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="max-h-96 w-full rounded-lg object-cover md:max-h-[500px] md:w-1/2"
           />
@@ -476,7 +476,7 @@ const Feature13 = ({
       label: "FOR DESIGNERS",
       description:
         "Hundreds of finely crafted components for shadcn/ui available in Figma. Easily modify the design system to your brand.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+      image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
       url: "https://shadcnblocks.com",
     },
     {
@@ -485,7 +485,7 @@ const Feature13 = ({
       label: "FOR DEVELOPERS",
       description:
         "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+      image: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
       url: "https://shadcnblocks.com",
     },
     {
@@ -494,7 +494,7 @@ const Feature13 = ({
       label: "FOR PRODUCT TEAMS",
       description:
         "Components designed with user experience in mind. Every block is tested for usability and optimized for conversion rates.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+      image: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
       url: "https://shadcnblocks.com",
     },
     {
@@ -503,7 +503,7 @@ const Feature13 = ({
       label: "FOR MARKETING",
       description:
         "High-converting landing pages, email templates, and marketing components that drive engagement and boost your campaigns.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-4.svg",
+      image: "https://cdn.ing/assets/files/record/286212/65sbovk1iv0fzrcrbm558df4ey8w",
       url: "https://shadcnblocks.com",
     },
   ],
@@ -602,7 +602,7 @@ const Feature14 = ({ className }: Feature14Props) => {
             </div>
             <div className="relative order-first max-h-80 md:order-last md:max-h-[500px]">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="h-full w-full object-cover"
               />
@@ -632,7 +632,7 @@ const Feature14 = ({ className }: Feature14Props) => {
             </div>
             <div className="relative order-first max-h-80 md:order-last md:max-h-[500px]">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="h-full w-full object-cover"
               />
@@ -986,7 +986,7 @@ const Feature18 = ({ className }: Feature18Props) => {
   return (
     <section
       className={cn(
-        "relative py-32 before:absolute before:inset-0 before:bg-primary/10 before:[mask-image:url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/waves.svg')] before:[mask-size:64px_32px] before:[mask-repeat:repeat]",
+        "relative py-32 before:absolute before:inset-0 before:bg-primary/10 before:[mask-image:url('https://cdn.ing/assets/files/record/286191/mqlb33fzxz9cdth1bx7if0wmpkp1')] before:[mask-size:64px_32px] before:[mask-repeat:repeat]",
         className,
       )}
     >
@@ -1049,7 +1049,7 @@ const slides = [
       "Customizable Templates",
     ],
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     id: 2,
@@ -1064,7 +1064,7 @@ const slides = [
       "Ongoing Maintenance",
     ],
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     id: 3,
@@ -1079,7 +1079,7 @@ const slides = [
       "Continuous Innovation",
     ],
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     id: 4,
@@ -1094,7 +1094,7 @@ const slides = [
       "Client Testimonials",
     ],
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     id: 5,
@@ -1109,7 +1109,7 @@ const slides = [
       "Community Forums",
     ],
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
 ];
 
@@ -1207,32 +1207,32 @@ const utilities = [
   {
     title: "Integrations",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "Apps",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "APIs",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     title: "Plugins",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     title: "Extensions",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
   {
     title: "Widgets",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    image: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
   },
 ];
 
@@ -1331,7 +1331,7 @@ const Feature21 = ({ className }: Feature21Props) => {
             </Card>
             <Card className="overflow-hidden pt-0">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="aspect-video w-full object-cover"
               />
@@ -1364,7 +1364,7 @@ const Feature21 = ({ className }: Feature21Props) => {
           <div className="flex w-full flex-col gap-6">
             <Card className="overflow-hidden pt-0">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="aspect-video w-full object-cover"
               />
@@ -1479,7 +1479,7 @@ const Feature22 = ({ className }: Feature22Props) => {
           <div className="rounded-lg border">
             <div className="relative p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="max-h-96 w-full rounded-t-lg object-cover sm:max-h-72 md:max-h-64"
               />
@@ -1530,7 +1530,7 @@ const Feature22 = ({ className }: Feature22Props) => {
           <div className="rounded-lg border">
             <div className="relative p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="max-h-96 w-full rounded-t-lg object-cover sm:max-h-72 md:max-h-64"
               />
@@ -1579,7 +1579,7 @@ const Feature22 = ({ className }: Feature22Props) => {
           <div className="rounded-lg border">
             <div className="relative p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                 alt="placeholder"
                 className="max-h-96 w-full rounded-t-lg object-cover sm:max-h-72 md:max-h-64"
               />
@@ -1667,7 +1667,7 @@ const Feature101 = ({ className }: Feature101Props) => {
               </p>
             </div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-aspect-video-1.svg"
+              src="https://cdn.ing/assets/files/record/286199/em26dugzamyy0nlbqdqq5r9h0xx8"
               alt="integration feature"
               className="ml-auto max-h-80 w-full rounded-lg object-cover transition-transform duration-300 hover:-translate-y-3 sm:w-11/12"
             />
@@ -1707,7 +1707,7 @@ const Feature101 = ({ className }: Feature101Props) => {
               </p>
             </div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-aspect-video-1.svg"
+              src="https://cdn.ing/assets/files/record/286199/em26dugzamyy0nlbqdqq5r9h0xx8"
               alt="platform feature"
               className="h-full min-h-0 rounded-lg object-cover transition-transform duration-300 hover:-translate-y-3"
             />
@@ -1761,7 +1761,7 @@ const Feature102 = ({ className }: Feature102Props) => {
               </div>
             </div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt="placeholder"
               className="z-10 aspect-video w-full rounded-xl border object-cover min-[960px]:max-h-56 min-[960px]:w-auto"
             />
@@ -1790,7 +1790,7 @@ const Feature102 = ({ className }: Feature102Props) => {
             </div>
 
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="z-10 max-h-56 w-full rounded-xl border object-cover min-[960px]:aspect-video min-[960px]:w-auto"
             />
@@ -1816,7 +1816,7 @@ const Feature102 = ({ className }: Feature102Props) => {
               </div>
             </div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+              src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
               alt="placeholder"
               className="z-10 max-h-56 w-full rounded-xl border object-cover min-[960px]:aspect-video min-[960px]:w-auto"
             />
@@ -2020,7 +2020,7 @@ const Feature104 = ({ className }: Feature104Props) => {
           </div>
 
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="hidden h-full rounded-lg object-cover lg:block"
           />
@@ -2186,49 +2186,49 @@ const Feature105 = ({ className }: Feature105Props) => {
             <div className="mt-5">
               <TabsContent value="tab-1" className="aspect-video">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt="placeholder"
                   className="h-full w-full rounded-xl border object-cover"
                 />
               </TabsContent>
               <TabsContent value="tab-2" className="aspect-video">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt="placeholder"
                   className="h-full w-full rounded-xl border object-cover"
                 />
               </TabsContent>
               <TabsContent value="tab-3" className="aspect-video">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                  src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                   alt="placeholder"
                   className="h-full w-full rounded-xl border object-cover"
                 />
               </TabsContent>
               <TabsContent value="tab-4" className="aspect-video">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                  src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                   alt="placeholder"
                   className="h-full w-full rounded-xl border object-cover"
                 />
               </TabsContent>
               <TabsContent value="tab-5" className="aspect-video">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+                  src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
                   alt="placeholder"
                   className="h-full w-full rounded-xl border object-cover"
                 />
               </TabsContent>
               <TabsContent value="tab-6" className="aspect-video">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg"
+                  src="https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2"
                   alt="placeholder"
                   className="h-full w-full rounded-xl border object-cover"
                 />
               </TabsContent>
               <TabsContent value="tab-7" className="aspect-video">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt="placeholder"
                   className="h-full w-full rounded-xl border object-cover"
                 />
@@ -2268,7 +2268,7 @@ const features = [
     title: "Master Task Coordination",
     description:
       "Learn to easily manage and organize tasks to improve workflow efficiency. Explore how this simplifies task coordination for better results.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     id: 2,
@@ -2279,7 +2279,7 @@ const features = [
     title: "Effective Team Collaboration",
     description:
       "Improve team collaboration and communication with intuitive tools. Learn how to streamline teamwork and achieve project success with ease.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     id: 3,
@@ -2290,7 +2290,7 @@ const features = [
     title: "Efficient Resource Management",
     description:
       "Maximize resource management and efficiency. Discover how to effectively utilize resources for greater productivity and project outcomes.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     id: 4,
@@ -2301,7 +2301,7 @@ const features = [
     title: "Streamlined System Integration",
     description:
       "Integrate systems and tools seamlessly for smoother workflows. Learn how to improve interoperability for more efficient processes.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
 ];
 
@@ -2444,7 +2444,7 @@ const Feature107 = ({ className }: Feature107Props) => {
             <div className="flex items-center justify-between">
               <span className="grid size-12 shrink-0 place-content-center rounded-md border">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                  src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                   alt="placeholder"
                   className="h-auto w-7"
                 />
@@ -2468,7 +2468,7 @@ const Feature107 = ({ className }: Feature107Props) => {
             <div className="flex items-center justify-between">
               <span className="grid size-12 shrink-0 place-content-center rounded-md border">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg"
+                  src="https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5"
                   alt="placeholder"
                   className="h-auto w-7"
                 />
@@ -2492,7 +2492,7 @@ const Feature107 = ({ className }: Feature107Props) => {
             <div className="flex items-center justify-between">
               <span className="grid size-12 shrink-0 place-content-center rounded-md border">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg"
+                  src="https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh"
                   alt="placeholder"
                   className="h-auto w-7"
                 />
@@ -2516,7 +2516,7 @@ const Feature107 = ({ className }: Feature107Props) => {
             <div className="flex items-center justify-between">
               <span className="grid size-12 shrink-0 place-content-center rounded-md border">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg"
+                  src="https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea"
                   alt="placeholder"
                   className="h-auto w-7"
                 />
@@ -2540,7 +2540,7 @@ const Feature107 = ({ className }: Feature107Props) => {
             <div className="flex items-center justify-between">
               <span className="grid size-12 shrink-0 place-content-center rounded-md border">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-5.svg"
+                  src="https://cdn.ing/assets/files/record/286234/bldwkc8wkq6nd3hkdqds9fy5lls9"
                   alt="placeholder"
                   className="h-auto w-7"
                 />
@@ -2564,7 +2564,7 @@ const Feature107 = ({ className }: Feature107Props) => {
             <div className="flex items-center justify-between">
               <span className="grid size-12 shrink-0 place-content-center rounded-md border">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-6.svg"
+                  src="https://cdn.ing/assets/files/record/286233/176g648qa51ou4g3hfnywyldnc7a"
                   alt="placeholder"
                   className="h-auto w-7"
                 />
@@ -2639,7 +2639,7 @@ const Feature108 = ({
         description:
           "Discover new web trends that help you craft sleek, highly functional sites that drive traffic and convert leads into customers.",
         buttonText: "See Plans",
-        imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        imageSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         imageAlt: "placeholder",
       },
     },
@@ -2653,7 +2653,7 @@ const Feature108 = ({
         description:
           "Use stellar design to easily engage users and strengthen their loyalty. Create a seamless experience that keeps them coming back for more.",
         buttonText: "See Tools",
-        imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+        imageSrc: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
         imageAlt: "placeholder",
       },
     },
@@ -2667,7 +2667,7 @@ const Feature108 = ({
         description:
           "Lift your brand with modern tech that grabs attention and drives action. Create a digital experience that stands out from the crowd.",
         buttonText: "See Options",
-        imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+        imageSrc: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
         imageAlt: "placeholder",
       },
     },
@@ -3076,7 +3076,7 @@ const Feature111 = ({ className }: Feature111Props) => {
                 <ChevronRight className="h-auto w-4" />
               </a>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="mt-5 max-h-[400px] rounded-t-lg"
               />
@@ -3101,7 +3101,7 @@ const Feature111 = ({ className }: Feature111Props) => {
                 <ChevronRight className="h-auto w-4" />
               </a>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+                src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
                 alt="placeholder"
                 className="mt-5 max-h-[400px] rounded-t-lg"
               />
@@ -3151,7 +3151,7 @@ const Feature112 = ({ className }: Feature112Props) => {
         <div className="mt-20 grid gap-6 md:grid-cols-3 lg:gap-10">
           <div className="flex flex-col rounded-lg border">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt="placeholder"
               className="aspect-video size-full rounded-t-lg object-cover"
             />
@@ -3167,7 +3167,7 @@ const Feature112 = ({ className }: Feature112Props) => {
           </div>
           <div className="flex flex-col rounded-lg border">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="aspect-video size-full rounded-t-lg object-cover"
             />
@@ -3183,7 +3183,7 @@ const Feature112 = ({ className }: Feature112Props) => {
           </div>
           <div className="flex flex-col rounded-lg border">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+              src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
               alt="placeholder"
               className="aspect-video size-full rounded-t-lg object-cover"
             />
@@ -3272,7 +3272,7 @@ const Feature113 = ({ className }: Feature113Props) => {
                   </Button>
                 </div>
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt="placeholder"
                   className="max-h-96 rounded-xl"
                 />
@@ -3299,7 +3299,7 @@ const Feature113 = ({ className }: Feature113Props) => {
                   </Button>
                 </div>
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+                  src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
                   alt="placeholder"
                   className="max-h-96 rounded-xl"
                 />
@@ -3326,7 +3326,7 @@ const Feature113 = ({ className }: Feature113Props) => {
                   </Button>
                 </div>
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+                  src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
                   alt="placeholder"
                   className="max-h-96 rounded-xl"
                 />
@@ -3593,7 +3593,7 @@ const Feature115 = ({ className }: Feature115Props) => {
       title: "Interface",
       category: "Category",
       image: {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         alt: "User-Friendly Interface",
       },
     },
@@ -3601,7 +3601,7 @@ const Feature115 = ({ className }: Feature115Props) => {
       title: "Analytics",
       category: "Category",
       image: {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+        src: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
         alt: "Advanced Analytics",
       },
     },
@@ -3609,7 +3609,7 @@ const Feature115 = ({ className }: Feature115Props) => {
       title: "Integration",
       category: "Category",
       image: {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         alt: "Seamless Integration",
       },
     },
@@ -3617,7 +3617,7 @@ const Feature115 = ({ className }: Feature115Props) => {
       title: "Customizable",
       category: "Category",
       image: {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+        src: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
         alt: "Customizable Features",
       },
     },
@@ -3625,7 +3625,7 @@ const Feature115 = ({ className }: Feature115Props) => {
       title: "Support",
       category: "Category",
       image: {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         alt: "Reliable Support",
       },
     },
@@ -3633,7 +3633,7 @@ const Feature115 = ({ className }: Feature115Props) => {
       title: "Security",
       category: "Category",
       image: {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+        src: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
         alt: "Secure Data Management",
       },
     },
@@ -3939,7 +3939,7 @@ const Feature118 = ({ className }: Feature118Props) => {
                 </p>
               </div>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="aspect-video h-full w-full rounded-xl object-cover md:aspect-auto"
               />
@@ -4074,7 +4074,7 @@ const Feature119 = ({ className }: Feature119Props) => {
             </div>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg"
+            src="https://cdn.ing/assets/files/record/286207/ce9ss2hob7uml3u1mn8kjvsx93ts"
             alt="placeholder"
             className="aspect-video w-full rounded-xl object-cover"
           />
@@ -4135,7 +4135,7 @@ const Feature120 = ({ className }: Feature120Props) => {
             <Button className="w-fit">Start your free trial</Button>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="h-full max-h-[420px] w-full rounded-xl object-cover"
           />
@@ -4267,7 +4267,7 @@ const Feature122 = ({ className }: Feature122Props) => {
             </Button>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+            src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
             alt="placeholder"
             className="aspect-square h-full w-full rounded-lg object-cover md:aspect-[3]"
           />
@@ -4337,42 +4337,42 @@ const tabsData: ITabData[] = [
   {
     id: 1,
     title: "Performance",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 2,
     title: "Innovation",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 3,
     title: "Quality",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 4,
     title: "Accessibility",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 5,
     title: "Affordability",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 6,
     title: "Customer Support",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
@@ -4488,21 +4488,21 @@ const tabs = [
     tabDescription:
       "Communicate with your team, share updates, project discussions all in one place",
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   },
   {
     id: 2,
     tabName: "Google Drive",
     tabDescription: "Store, access, and collaborate on files with ease",
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
   },
   {
     id: 3,
     tabName: "Dropbox",
     tabDescription: "A reliable solution for file storage and sharing",
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
   },
   {
     id: 4,
@@ -4510,7 +4510,7 @@ const tabs = [
     tabDescription:
       "Manage your code repositories and collaborate on development projects",
     link: "#",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg",
+    image: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
   },
 ];
 
@@ -4617,7 +4617,7 @@ const Feature130 = ({ className }: Feature130Props) => {
             </p>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="max-h-52 w-full rounded-t-md object-cover shadow-[0_0_10px_rgb(0,0,0,0.2)]"
           />
@@ -4625,7 +4625,7 @@ const Feature130 = ({ className }: Feature130Props) => {
         <div className="w-full overflow-hidden rounded-2xl border bg-card text-card-foreground shadow-sm">
           <div className="pr-12 pl-12 xl:pl-0">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="max-h-48 w-full rounded-br-md object-cover shadow-[0_0_10px_rgb(0,0,0,0.2)]"
             />
@@ -4651,7 +4651,7 @@ const Feature130 = ({ className }: Feature130Props) => {
         </div>
         <div className="w-full pl-12 md:pt-12">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+            src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
             alt="placeholder"
             className="max-h-96 w-full rounded-tl-md object-cover shadow-[0_0_10px_rgb(0,0,0,0.2)]"
           />
@@ -4690,21 +4690,21 @@ const tabsData: ITabData[] = [
   {
     id: 1,
     title: "Performance",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 2,
     title: "Innovation",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 3,
     title: "Quality",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
@@ -4804,28 +4804,28 @@ const itemsData = [
   {
     id: 1,
     title: "Performance",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 2,
     title: "Innovation",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 3,
     title: "Quality",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
   {
     id: 4,
     title: "Accessibility",
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, accusantium quam. Temporibus quae quos deserunt!",
   },
@@ -4906,7 +4906,7 @@ const Feature133 = ({ className }: Feature133Props) => {
             </p>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="max-h-52 w-full rounded-t-md object-cover shadow-lg"
           />
@@ -4992,7 +4992,7 @@ const Feature134 = ({ className }: Feature134Props) => {
             </div>
             <div className="rounded-lg p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="size-full max-h-72 rounded-lg border object-cover"
               />
@@ -5015,7 +5015,7 @@ const Feature134 = ({ className }: Feature134Props) => {
             </div>
             <div className="rounded-lg p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="h-full max-h-72 w-full rounded-lg border object-cover"
               />
@@ -5035,7 +5035,7 @@ const Feature134 = ({ className }: Feature134Props) => {
             </div>
             <div className="rounded-lg p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                 alt="placeholder"
                 className="size-full max-h-72 rounded-lg border object-cover"
               />
@@ -5055,7 +5055,7 @@ const Feature134 = ({ className }: Feature134Props) => {
             </div>
             <div className="rounded-lg p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                 alt="placeholder"
                 className="size-full max-h-72 rounded-lg border object-cover"
               />
@@ -5075,7 +5075,7 @@ const Feature134 = ({ className }: Feature134Props) => {
             </div>
             <div className="rounded-lg p-1">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+                src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
                 alt="placeholder"
                 className="size-full max-h-72 rounded-lg border object-cover"
               />
@@ -5307,7 +5307,7 @@ const Feature136 = ({ className }: Feature136Props) => {
             </div>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="ml-auto max-h-[450px] w-full rounded-xl object-cover"
           />
@@ -5376,22 +5376,22 @@ const items1 = [
   {
     title: "Team Spirit",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    imgSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    imgSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Innovation",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    imgSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+    imgSrc: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
   },
   {
     title: "Quality",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    imgSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+    imgSrc: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
   },
   {
     title: "Integrity",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    imgSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    imgSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
 ];
 
@@ -5503,7 +5503,7 @@ const Feature138 = ({ className }: Feature138Props) => {
         <div className="mt-16 flex flex-col overflow-hidden rounded-2xl bg-muted md:flex-row">
           <div className="flex w-full items-center bg-muted md:w-1/2">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="max-h-64 w-full object-cover"
             />
@@ -5553,7 +5553,7 @@ const Feature138 = ({ className }: Feature138Props) => {
           </div>
           <div className="flex w-full items-center bg-muted md:w-1/2">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+              src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
               alt="placeholder"
               className="max-h-64 w-full object-cover"
             />
@@ -5563,7 +5563,7 @@ const Feature138 = ({ className }: Feature138Props) => {
         <div className="mt-16 flex flex-col overflow-hidden rounded-2xl bg-muted md:flex-row">
           <div className="flex w-full items-center bg-muted md:w-1/2">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+              src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
               alt="placeholder"
               className="max-h-64 w-full object-cover"
             />
@@ -5660,7 +5660,7 @@ const Feature139 = ({ className }: Feature139Props) => {
             </div>
             <div className="w-full max-w-lg">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="max-h-[420px] w-full rounded-lg object-cover"
               />
@@ -5706,19 +5706,19 @@ const items = [
     title: "Built for artists and designers",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima doloribus illum, labore quis facilis molestias!",
-    imgSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    imgSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Built for coders and developers",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima doloribus illum, labore quis facilis molestias!",
-    imgSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+    imgSrc: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
   },
   {
     title: "Build your own website with our UI blocks",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima doloribus illum, labore quis facilis molestias!",
-    imgSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+    imgSrc: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
   },
 ];
 
@@ -5808,7 +5808,7 @@ const Feature144 = ({ className }: Feature144Props) => {
           </div>
           <div className="w-full">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt="placeholder"
               className="max-h-80 w-full rounded-lg object-cover"
             />
@@ -5819,7 +5819,7 @@ const Feature144 = ({ className }: Feature144Props) => {
           <Card className="flex w-full flex-col gap-6 p-6 md:gap-8 md:p-8">
             <div className="w-full">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="max-h-80 w-full rounded-lg object-cover"
               />
@@ -5840,7 +5840,7 @@ const Feature144 = ({ className }: Feature144Props) => {
           <Card className="flex w-full flex-col gap-6 p-6 md:gap-8 md:p-8">
             <div className="w-full">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                 alt="placeholder"
                 className="max-h-80 w-full rounded-lg object-cover"
               />
@@ -5894,9 +5894,9 @@ const tabsData: ITabData[] = [
     id: 1,
     title: "Title 1",
     imageSrc: [
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+      "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
+      "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
+      "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     ],
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repellat officiis culpa, quis veniam incidunt illum vitae saepe dolore doloremque magni exercitationem aut facere eos quam odit et voluptatum dolorem?",
@@ -5905,9 +5905,9 @@ const tabsData: ITabData[] = [
     id: 2,
     title: "Title 2",
     imageSrc: [
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+      "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
+      "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
+      "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     ],
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repellat officiis culpa, quis veniam incidunt illum vitae saepe dolore doloremque magni exercitationem aut facere eos quam odit et voluptatum dolorem?",
@@ -5916,9 +5916,9 @@ const tabsData: ITabData[] = [
     id: 3,
     title: "Title 3",
     imageSrc: [
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+      "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
+      "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
+      "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     ],
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam repellat officiis culpa, quis veniam incidunt illum vitae saepe dolore doloremque magni exercitationem aut facere eos quam odit et voluptatum dolorem?",
@@ -5993,7 +5993,7 @@ const Feature145 = ({ className }: Feature145Props) => {
               ))}
             </Accordion>
           </div>
-          <div className="relative m-auto hidden w-1/2 overflow-hidden rounded-xl bg-muted-foreground/5 px-10 py-12 before:absolute before:inset-0 before:z-[-1] before:bg-primary/50 before:[mask-image:url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dot-pattern.svg')] before:[mask-size:15px] before:[mask-repeat:repeat] md:block">
+          <div className="relative m-auto hidden w-1/2 overflow-hidden rounded-xl bg-muted-foreground/5 px-10 py-12 before:absolute before:inset-0 before:z-[-1] before:bg-primary/50 before:[mask-image:url('https://cdn.ing/assets/files/record/286192/7ig0cku8aqbboiza8nuk6hw0nnsr')] before:[mask-size:15px] before:[mask-repeat:repeat] md:block">
             <div className="flex min-h-96 w-full items-center justify-center px-3">
               <img
                 src={activeImage[0]}
@@ -6051,7 +6051,7 @@ const Feature146 = ({ className }: Feature146Props) => {
                 </div>
 
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt="placeholder"
                   className="aspect-[1.45] h-full w-full object-cover"
                 />
@@ -6065,7 +6065,7 @@ const Feature146 = ({ className }: Feature146Props) => {
                 </div>
 
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt="placeholder"
                   className="aspect-[1.5] h-full w-full object-cover lg:aspect-[2.4]"
                 />
@@ -6085,29 +6085,29 @@ const Feature146 = ({ className }: Feature146Props) => {
                 </div>
 
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                  src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                   alt="placeholder"
                   className="aspect-[1.7] h-full w-full object-cover lg:w-2/3"
                 />
               </div>
             </div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/cross-pattern.svg"
+              src="https://cdn.ing/assets/files/record/286193/9yfqwdbnqaipbp7fsb3wbzzmq472"
               alt="cross"
               className="absolute top-[-4px] left-[-6px] w-3"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/cross-pattern.svg"
+              src="https://cdn.ing/assets/files/record/286193/9yfqwdbnqaipbp7fsb3wbzzmq472"
               alt="cross"
               className="absolute top-[-4px] right-[-6px] w-3"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/cross-pattern.svg"
+              src="https://cdn.ing/assets/files/record/286193/9yfqwdbnqaipbp7fsb3wbzzmq472"
               alt="cross"
               className="absolute bottom-[-8px] left-[-6px] w-3"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/cross-pattern.svg"
+              src="https://cdn.ing/assets/files/record/286193/9yfqwdbnqaipbp7fsb3wbzzmq472"
               alt="cross"
               className="absolute right-[-6px] bottom-[-8px] w-3"
             />
@@ -6134,37 +6134,37 @@ const integrations = [
     title: "Outreach",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   },
   {
     title: "Typeform",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
   },
   {
     title: "Slack",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
   },
   {
     title: "Mailchimp",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg",
+    image: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
   },
   {
     title: "Mixmax",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-5.svg",
+    image: "https://cdn.ing/assets/files/record/286234/bldwkc8wkq6nd3hkdqds9fy5lls9",
   },
   {
     title: "Webhooks",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-6.svg",
+    image: "https://cdn.ing/assets/files/record/286233/176g648qa51ou4g3hfnywyldnc7a",
   },
 ];
 
@@ -6227,37 +6227,37 @@ const utilities = [
     title: "Pass deals to Customer Success",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "Closed-won deal notification",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Closed won deal Slack message",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     title: "Won and lost deal summary",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     title: "Customer renewal date autofill",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
   {
     title: "Stay on top of customer churn",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, corporis!",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    image: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
   },
 ];
 
@@ -6391,21 +6391,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const integrations = [
   {
     id: "1",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
     title: "Modern Development Workflow",
     description:
       "Streamline your development process with integrated tools for code review, continuous integration, and automated testing. Built for modern engineering teams.",
   },
   {
     id: "2",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
     title: "Component-Driven Architecture",
     description:
       "Build scalable applications with reusable components. Our component system helps maintain consistency while reducing development time and technical debt.",
   },
   {
     id: "3",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
     title: "Real-Time Collaboration",
     description:
       "Work together seamlessly with built-in version control, live previews, and collaborative editing features. Perfect for distributed teams and pair programming.",
@@ -6547,15 +6547,15 @@ import { Button } from "@/components/ui/button";
 
 const integrations = [
   {
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     text: "Our innovative budgeting tool helps users track their expenses and savings effortlessly, ensuring they stay on top of their financial goals.",
   },
   {
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     text: "With our investment platform, users can easily manage their portfolios and make informed decisions to grow their wealth over time.",
   },
   {
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     text: "Our secure payment solutions provide a seamless experience for both individuals and businesses, making transactions quick and reliable.",
   },
 ];
@@ -6721,15 +6721,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const integrations = [
   {
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     title: "Sales efficiency",
   },
   {
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     title: "Revenue metrics",
   },
   {
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     title: "PLG monitoring",
   },
 ];
@@ -6821,25 +6821,25 @@ const Feature166 = ({
     title: "UI/UX Design",
     description:
       "Creating intuitive user experiences with modern interface design principles and user-centered methodologies.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   feature2 = {
     title: "Responsive Development",
     description:
       "Building websites that look and function perfectly across all devices and screen sizes.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   feature3 = {
     title: "Brand Integration",
     description:
       "Seamlessly incorporating your brand identity into every aspect of your website's design.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   feature4 = {
     title: "Performance Optimization",
     description:
       "Ensuring fast loading times and smooth performance through optimized code and assets.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   className,
 }: Feature166Props) => {
@@ -6926,21 +6926,21 @@ const FEATURES_DATA = [
     description:
       "Create, prioritize, and delegate tasks effortlessly. AI helps you identify what matters most with smart recommendations and automated workflows.",
     icon: SquarePen,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   },
   {
     title: "Automated Scheduling",
     description:
       "Let AI find the best time slots for meetings, reminders, and tasks based on your calendar and working habits. Stay organized without the hassle.",
     icon: CalendarClock,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
   },
   {
     title: "Personalized Insights",
     description:
       "Track your productivity with AI-powered insights. Get weekly summaries and actionable tips to improve your workflow and manage workloads better.",
     icon: ChartNoAxesCombined,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
   },
 ];
 interface Feature167Props {
@@ -7046,21 +7046,21 @@ const DATA = [
     description:
       "Keep all your appointments and events in sync with seamless cross-platform calendar connectivity.",
     icon: "CircleHelp",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   },
   {
     title: "Insightful Performance",
     description:
       "Get clear, real-time analytics tracking your progress, key milestones, focus hours, and completed tasks.",
     icon: "Volume2",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
   },
   {
     title: "Effortless Tool Integrations",
     description:
       "Link your favorite apps and services to streamline work without switching between platforms.",
     icon: "Lightbulb",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
   },
 ];
 interface Feature168Props {
@@ -7141,21 +7141,21 @@ const DATA = [
     description:
       "Keep all your appointments and events in sync with seamless cross-platform calendar connectivity.",
     icon: CircleHelp,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "Insightful Performance",
     description:
       "Get clear, real-time analytics tracking your progress, key milestones, focus hours, and completed tasks.",
     icon: Volume2,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Effortless Tool Integrations",
     description:
       "Link your favorite apps and services to streamline work without switching between platforms.",
     icon: Lightbulb,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
 ];
 
@@ -7260,7 +7260,7 @@ const FEATURES: Array<{
     content: {
       title: "Track progress across custom issue flows for your team.",
       description: `Simple, robust, and blazingly fast. Mainline is designed with developer ergonomics in mind. It's the first issue tracker your team will actually enjoy using.`,
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+      image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     },
     icon: CircleDot,
   },
@@ -7271,7 +7271,7 @@ const FEATURES: Array<{
       title: "Collaborate across teams and departments.",
       description:
         "Simple, robust, and blazingly fast. Mainline is designed with developer ergonomics in mind. It's the first issue tracker your team will actually enjoy using.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+      image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     },
     icon: Blend,
   },
@@ -7282,7 +7282,7 @@ const FEATURES: Array<{
       title: "Break projects down into concrete phases.",
       description:
         "Simple, robust, and blazingly fast. Mainline is designed with developer ergonomics in mind. It's the first issue tracker your team will actually enjoy using.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+      image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     },
     icon: Diamond,
   },
@@ -7293,7 +7293,7 @@ const FEATURES: Array<{
       title: "Track scope, velocity, and progress over time.",
       description:
         "Simple, robust, and blazingly fast. Mainline is designed with developer ergonomics in mind. It's the first issue tracker your team will actually enjoy using.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+      image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
     },
     icon: ChartNoAxesColumn,
   },
@@ -7389,19 +7389,19 @@ const FEATURES = [
   {
     title: "Tailored workflows",
     description: "Custom issue flows",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     icon: <Workflow />,
   },
   {
     title: "Cross-team projects",
     description: "Team collaboration",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     icon: <Users />,
   },
   {
     title: "Milestones",
     description: "Concrete phases",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     icon: <Flag />,
   },
 ];
@@ -7540,21 +7540,21 @@ const DATA: DataItem[] = [
     id: "feature-1",
     title: "Innovative Solutions",
     description: "Discover cutting-edge tools to revolutionize your workflow.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     icon: <Sparkles className="h-6 w-6 text-white" />,
   },
   {
     id: "feature-2",
     title: "Data Management",
     description: "Efficiently organize and manage your data with ease.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+    image: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
     icon: <Database className="h-6 w-6 text-white" />,
   },
   {
     id: "feature-3",
     title: "Advanced Security",
     description: "Protect your assets with state-of-the-art security features.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+    image: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
     icon: <LockKeyhole className="h-6 w-6 text-white" />,
   },
 ];
@@ -7571,7 +7571,7 @@ const Feature186 = ({ className }: Feature186Props) => {
       <div
         className="absolute top-0 right-0 left-0 z-0 h-[800px] w-screen [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)] bg-repeat opacity-30"
         style={{
-          backgroundImage: "url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/architect.svg')",
+          backgroundImage: "url('https://cdn.ing/assets/files/record/286194/vgs88ugpvyhxu13wqgy0acvae6re')",
           backgroundSize: "60px",
         }}
       />
@@ -7683,21 +7683,21 @@ const Feature188 = ({ className }: Feature188Props) => {
       description:
         "Choose from hundreds of pre-designed templates tailored to your needs",
       href: "#",
-      imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
+      imageSrc: "https://cdn.ing/assets/files/record/286207/ce9ss2hob7uml3u1mn8kjvsx93ts",
     },
     {
       title: "Discover the power of No Code",
       description:
         "Understand how no-code platforms are revolutionizing software development",
       href: "#",
-      imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
+      imageSrc: "https://cdn.ing/assets/files/record/286207/ce9ss2hob7uml3u1mn8kjvsx93ts",
     },
     {
       title: "Connect with a certified expert",
       description:
         "Get professional help from our network of certified experts",
       href: "#",
-      imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
+      imageSrc: "https://cdn.ing/assets/files/record/286207/ce9ss2hob7uml3u1mn8kjvsx93ts",
     },
   ];
 
@@ -7776,7 +7776,7 @@ const Feature189 = ({ className }: Feature189Props) => {
             <div className="relative -top-12 z-10 mx-auto w-[50%] sm:w-[35%]">
               <img
                 alt="Placeholder 2"
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 className="h-[200px] rounded-lg object-cover shadow-lg sm:h-[300px]"
               />
             </div>
@@ -7784,7 +7784,7 @@ const Feature189 = ({ className }: Feature189Props) => {
             <div className="absolute top-8 left-0 z-0 w-[50%] -rotate-12 sm:w-[35%]">
               <img
                 alt="Placeholder 1"
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 className="h-[200px] rounded-lg object-cover shadow-lg sm:h-[300px]"
               />
             </div>
@@ -7792,7 +7792,7 @@ const Feature189 = ({ className }: Feature189Props) => {
             <div className="absolute top-8 right-0 z-20 w-[50%] rotate-12 sm:w-[35%]">
               <img
                 alt="Placeholder 3"
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                 className="h-[200px] rounded-lg object-cover shadow-lg sm:h-[300px]"
               />
             </div>
@@ -7883,7 +7883,7 @@ const DATA: DataItem[] = [
     title: "Streamline your workflow",
     description:
       "Automate repetitive tasks and focus on what truly matters for your business growth.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     id: 2,
@@ -7891,7 +7891,7 @@ const DATA: DataItem[] = [
     title: "Collaborate seamlessly",
     description:
       "Work together with your team in real-time, no matter where you are.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     id: 3,
@@ -7899,7 +7899,7 @@ const DATA: DataItem[] = [
     title: "Scale effortlessly",
     description:
       "Our tools grow with your business, ensuring you’re always ready for the next step.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
 ];
 
@@ -8104,127 +8104,127 @@ import { Separator } from "@/components/ui/separator";
 const features = [
   {
     title: "AI-Powered Analytics",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "Cloud Integration",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Real-time Monitoring",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     title: "Data Visualization",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     title: "Automated Workflows",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
   {
     title: "Team Collaboration",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    image: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
   },
   {
     title: "API Integration",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "Custom Dashboards",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Security Features",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     title: "Performance Metrics",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     title: "Machine Learning Models",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
   {
     title: "Data Encryption",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    image: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
   },
   {
     title: "Automated Testing",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "CI/CD Pipeline",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Version Control",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     title: "Code Analysis",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     title: "Database Management",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
   {
     title: "Load Balancing",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    image: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
   },
   {
     title: "Container Orchestration",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "Microservices",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Edge Computing",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     title: "Serverless Functions",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     title: "DevOps Tools",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
   {
     title: "Infrastructure as Code",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    image: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
   },
   {
     title: "Authentication Services",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     title: "Message Queues",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     title: "Service Discovery",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     title: "API Gateway",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     title: "Caching Solutions",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
   {
     title: "Event Streaming",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg",
+    image: "https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2",
   },
   {
     title: "GraphQL Support",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
 ];
 
@@ -8703,7 +8703,7 @@ const Feature209 = ({ className }: Feature209Props) => {
                     />
                   ))}
                 </div>
-                <div className="pointer-events-none absolute inset-0 -z-10 h-full w-full bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/tiny-checkers.svg')] [background-size:4px_4px] bg-repeat opacity-10"></div>
+                <div className="pointer-events-none absolute inset-0 -z-10 h-full w-full bg-[url('https://cdn.ing/assets/files/record/286195/65efaknsw8kcpf9o3c2gybytsl5b')] [background-size:4px_4px] bg-repeat opacity-10"></div>
               </div>
             </div>
           </div>
@@ -8756,7 +8756,7 @@ const TAB_LIST: Array<list> = [
     imageComponent: "1",
     images: [
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         alt: "",
       },
     ],
@@ -8774,19 +8774,19 @@ const TAB_LIST: Array<list> = [
     },
     images: [
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         alt: "",
       },
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+        src: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
         alt: "",
       },
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+        src: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
         alt: "",
       },
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-4.svg",
+        src: "https://cdn.ing/assets/files/record/286212/65sbovk1iv0fzrcrbm558df4ey8w",
         alt: "",
       },
     ],
@@ -8804,7 +8804,7 @@ const TAB_LIST: Array<list> = [
     },
     images: [
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         alt: "",
       },
     ],
@@ -8822,15 +8822,15 @@ const TAB_LIST: Array<list> = [
     },
     images: [
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+        src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
         alt: "",
       },
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
+        src: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
         alt: "",
       },
       {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
+        src: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
         alt: "",
       },
     ],
@@ -9029,7 +9029,7 @@ const LIST: Array<list> = [
     summary:
       "transcribes your recordings automatically. To edit the video, just edit the transcript—hit delete to cut parts and copy-paste to rearrange segments. It’s that easy.",
     image: {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+      src: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
       alt: "",
     },
   },
@@ -9039,7 +9039,7 @@ const LIST: Array<list> = [
     summary:
       "Eliminate filler words, close awkward pauses, and make it sound like a professional studio recording—all with our AI and just a click or two.",
     image: {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+      src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
       alt: "",
     },
   },
@@ -9049,7 +9049,7 @@ const LIST: Array<list> = [
     summary:
       "Keep your gaze fixed on the camera, even if you were reading your script the entire time. Use AI green screen to swap out your messy background for a more professional one.",
     image: {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+      src: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
       alt: "",
     },
   },
@@ -9192,7 +9192,7 @@ const Feature217 = ({ className }: Feature217Props) => {
                   className="w-full overflow-hidden rounded-xl shadow-xl"
                 >
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt=""
                     className="block size-full object-cover object-center"
                   />
@@ -9296,7 +9296,7 @@ const Feature217a = ({ className }: Feature217aProps) => {
                 className="w-full overflow-hidden rounded-xl shadow-xl"
               >
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt=""
                   className="block size-full object-cover object-center"
                 />
@@ -9450,7 +9450,7 @@ const Feature218 = ({ className }: Feature218Props) => {
                   className="w-full overflow-hidden rounded-tl-2xl rounded-tr-2xl"
                 >
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt=""
                     className="block size-full object-cover object-[50%_0%]"
                   />
@@ -9613,7 +9613,7 @@ const Card = ({ title, summary, images, Icon, number, variant }: Item) => {
   return (
     <div
       className="relative flex h-full min-h-[39.375rem] w-full max-w-[34rem] flex-col justify-between gap-4 overflow-hidden rounded-[0.75rem] bg-muted"
-      style={{ backgroundImage: "url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/p6.png')" }}
+      style={{ backgroundImage: "url('https://cdn.ing/assets/i/r/286196/6kl0rqnd6mjk8j7e525fo8fo0vkc/p6.webp')" }}
     >
       <div className="flex w-full flex-col gap-4 p-10 pr-[3.75rem] pb-0 md:p-[3.75rem]">
         <h3 className="text-2xl leading-none">{title}</h3>
@@ -9692,7 +9692,7 @@ const Feature220 = ({ className }: Feature220Props) => {
   return (
     <section
       className={cn(
-        "bg-muted bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dot-pattern-2.svg')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
+        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
         className,
       )}
     >
@@ -9787,7 +9787,7 @@ const Feature220a = ({ className }: Feature220aProps) => {
   return (
     <section
       className={cn(
-        "bg-muted bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dot-pattern-2.svg')] bg-[length:3.125rem_3.125rem] bg-repeat py-24",
+        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-[length:3.125rem_3.125rem] bg-repeat py-24",
         className,
       )}
     >
@@ -9880,7 +9880,7 @@ const Feature220b = ({ className }: Feature220bProps) => {
   return (
     <section
       className={cn(
-        "bg-muted bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dot-pattern-2.svg')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
+        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
         className,
       )}
     >

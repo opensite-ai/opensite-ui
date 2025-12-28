@@ -791,7 +791,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
             <div>
               {(!open || !submenu) && (
                 <>
-                  <Logo url="https://shadcnblocks.com">
+                  <Logo url="https://opensite.ai">
                     <LogoImageDesktop
                       src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblocks-logo-word.svg"
                       className="h-7 dark:invert"
@@ -825,9 +825,9 @@ const Navbar3 = ({ className }: Navbar3Props) => {
                       <div className="overflow-clip rounded-lg border border-input bg-background">
                         <div>
                           <img
-                            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                             alt="Placeholder image"
-                            className="aspect-[4/3] object-cover object-center"
+                            className="aspect-4/3 object-cover object-center"
                           />
                         </div>
                         <div className="p-5 xl:p-8">
@@ -897,7 +897,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
                       <div className="flex h-full rounded-lg border border-input bg-background p-0 hover:bg-transparent">
                         <div className="w-2/5 max-w-[310px] shrink-0 overflow-clip rounded-tl-lg rounded-bl-lg">
                           <img
-                            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                             alt="Placeholder image"
                             className="h-full w-full object-cover object-center"
                           />
@@ -961,7 +961,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
                         </div>
                         <div className="h-[154px] max-w-[264px] shrink-0">
                           <img
-                            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                             alt="Placeholder image"
                             className="h-full w-full object-cover object-center"
                           />
@@ -982,7 +982,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
                         </div>
                         <div className="h-[154px] max-w-[264px] shrink-0">
                           <img
-                            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                             alt="Placeholder image"
                             className="h-full w-full object-cover object-center"
                           />
@@ -1036,7 +1036,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
                         </div>
                         <div className="w-1/3 max-w-[130px] shrink-0">
                           <img
-                            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                             alt="Placeholder image"
                             className="h-full w-full object-cover object-center"
                           />
@@ -1145,7 +1145,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
               <a href="#" className="block space-y-6 px-8 py-8">
                 <div className="w-full overflow-clip rounded-lg">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="Placeholder image"
                     className="aspect-2/1 h-full w-full object-cover object-center"
                   />
@@ -1208,7 +1208,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
                 <a href="#" className="block space-y-6">
                   <div className="overflow-clip rounded-lg">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt="Placeholder image"
                       className="aspect-2/1 h-full w-full object-cover object-center"
                     />
@@ -1232,7 +1232,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
               <a href="#" className="block space-y-6 px-8 py-8">
                 <div className="w-full overflow-clip rounded-lg">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="Placeholder image"
                     className="aspect-2/1 h-full w-full object-cover object-center"
                   />
@@ -1251,7 +1251,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
               >
                 <div className="w-full overflow-clip rounded-lg">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="Placeholder image"
                     className="aspect-2/1 h-full w-full object-cover object-center"
                   />
@@ -1312,7 +1312,7 @@ const Navbar3 = ({ className }: Navbar3Props) => {
                 <a href="#" className="block space-y-6">
                   <div className="overflow-clip rounded-lg">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt="Placeholder image"
                       className="aspect-2/1 h-full w-full object-cover object-center"
                     />
@@ -1570,21 +1570,21 @@ const productCategories = [
         title: "Task Management",
         description: "Organize and track work efficiently.",
         href: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+        image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
       },
       {
         id: "product-2",
         title: "Team Calendar",
         description: "Coordinate schedules and deadlines.",
         href: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+        image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
       },
       {
         id: "product-3",
         title: "Workflows",
         description: "Automate your business processes.",
         href: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+        image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
       },
     ],
   },
@@ -1596,14 +1596,14 @@ const productCategories = [
         title: "Portfolio Management",
         description: "Track and optimize project portfolios at scale.",
         href: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg",
+        image: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
       },
       {
         id: "product-5",
         title: "Resource Planning",
         description: "Optimize team workload and capacity.",
         href: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-5.svg",
+        image: "https://cdn.ing/assets/files/record/286234/bldwkc8wkq6nd3hkdqds9fy5lls9",
       },
     ],
   },
@@ -1897,7 +1897,7 @@ const SolutionsMenu = () => (
         </div>
         <div className="relative aspect-2/1 overflow-clip rounded-t pl-6 lg:max-w-64 lg:pl-0 xl:max-w-96">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="aspect-2/1 h-full w-full translate-y-px object-cover object-center"
           />
@@ -1972,7 +1972,7 @@ const ProductsMenu = () => (
         <div className="relative z-10 flex w-full flex-col text-left">
           <div className="relative flex aspect-2/1 max-h-[11rem] w-full flex-1 justify-center">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="h-full w-full object-cover object-center"
             />
@@ -2040,7 +2040,7 @@ const GlobalGuidanceMenu = () => (
           <div className="relative z-10 flex w-full flex-col-reverse text-left lg:flex-col">
             <div className="relative flex aspect-4/3 max-h-[18rem] w-full flex-1 justify-center">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                 alt="placeholder"
                 className="h-full w-full object-cover object-center"
               />
@@ -2150,7 +2150,7 @@ const PartnersMenu = () => (
           </div>
           <div className="absolute inset-0 top-[32%] bg-accent invert md:top-0">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt="placeholder"
               className="object-fit h-full w-full object-top-right opacity-100 md:h-2/3 md:object-top"
             />
@@ -2175,7 +2175,7 @@ const PartnersMenu = () => (
           </div>
           <div className="absolute inset-0 top-[32%] md:top-0">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="object-fit h-full w-full object-top-right md:h-2/3 md:object-top"
             />
@@ -2240,7 +2240,7 @@ const ResourcesMenu = () => (
           </div>
           <div className="absolute inset-0">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+              src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
               alt="placeholder"
               className="h-full w-full object-cover object-center invert"
             />
@@ -2742,7 +2742,7 @@ const Navbar6 = ({ className }: Navbar6Props) => {
     >
       <div className="flex items-center justify-between px-6 py-3">
         <a href="/" className="flex shrink-0 items-center gap-2">
-          <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg" alt="logo" className="w-10" />
+          <img src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb" alt="logo" className="w-10" />
         </a>
 
         {/* Desktop Navigation */}
@@ -3426,7 +3426,7 @@ interface DesktopMenuItemProps {
 
 const LOGO = {
   url: "https://www.shadcnblocks.com",
-  src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+  src: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   alt: "logo",
   title: "Shadcnblocks.com",
 };
@@ -3439,31 +3439,31 @@ const NAVIGATION: MenuItem[] = [
         label: "Company Blog",
         description: "Explore the latest insights and updates",
         url: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+        image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
       },
       {
         label: "Our Platform",
         description: "Innovative tools to empower your workflow",
         url: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+        image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
       },
       {
         label: "Careers at Our Company",
         description: "Discover open roles and our workplace culture",
         url: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+        image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
       },
       {
         label: "Customer Support",
         description: "Reach out or browse community help articles",
         url: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+        image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
       },
       {
         label: "Product Documentation",
         description: "In-depth guides, references, and API docs",
         url: "#",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+        image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
       },
     ],
   },
@@ -3474,19 +3474,19 @@ const NAVIGATION: MenuItem[] = [
         label: "About Our Team",
         url: "#",
         description: "Learn more about our mission and values",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+        image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
       },
       {
         label: "Help & Support Center",
         url: "#",
         description: "Search our help center for quick answers",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+        image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
       },
       {
         label: "Latest News",
         url: "#",
         description: "Stay up to date with product announcements",
-        image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+        image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
       },
     ],
   },
@@ -3938,7 +3938,7 @@ interface MenuSubLinkProps {
 
 const LOGO = {
   url: "https://www.shadcnblocks.com",
-  src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+  src: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   alt: "logo",
   title: "Shadcnblocks.com",
 };
@@ -4419,7 +4419,7 @@ type NavLinkProps = {
 
 const LOGO = {
   url: "https://www.shadcnblocks.com",
-  src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+  src: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   alt: "logo",
   title: "Shadcnblocks.com",
 };
@@ -4510,7 +4510,7 @@ const NAVIGATION: MenuItem[] = [
           "Tailored eCommerce solutions for growing online businesses",
         url: "#",
         company: {
-          logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
+          logo: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
           name: "ARC",
         },
       },
@@ -4518,7 +4518,7 @@ const NAVIGATION: MenuItem[] = [
         description: "Optimized development tools for SaaS web platforms",
         url: "#",
         company: {
-          logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+          logo: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
           name: "descript",
         },
       },
@@ -4526,7 +4526,7 @@ const NAVIGATION: MenuItem[] = [
         description: "Bank-grade security for finance-based web applications",
         url: "#",
         company: {
-          logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+          logo: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
           name: "MERCURY",
         },
       },
@@ -4535,7 +4535,7 @@ const NAVIGATION: MenuItem[] = [
           "Healthcare infrastructure built for medical tech platforms",
         url: "#",
         company: {
-          logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+          logo: "https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp",
           name: "ramp",
         },
       },
@@ -5202,7 +5202,7 @@ interface MobileNavigationMenuProps {
 
 const LOGO = {
   url: "https://www.shadcnblocks.com",
-  src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+  src: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   alt: "logo",
   title: "Shadcnblocks.com",
 };
@@ -5913,7 +5913,7 @@ const Navbar14 = ({ className }: Navbar14Props) => {
                             <a href="#">
                               <div className="rounded-lg bg-primary p-3">
                                 <img
-                                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                                   alt="placeholder"
                                   className="aspect-video min-w-52 rounded-md object-cover"
                                 />

@@ -32,7 +32,7 @@ const Industries1 = ({
       name: "Healthcare",
       description:
         "Revolutionary medical solutions and digital health platforms that improve patient outcomes and streamline healthcare delivery.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+      image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
       imageAlt: "Healthcare technology illustration",
       url: "http://shadcnblocks.com/blocks",
     },
@@ -40,7 +40,7 @@ const Industries1 = ({
       name: "Fintech",
       description:
         "Cutting-edge financial technology solutions that transform banking, payments, and investment management for the digital age.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+      image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
       imageAlt: "Financial technology illustration",
       url: "http://shadcnblocks.com/blocks",
     },
@@ -48,7 +48,7 @@ const Industries1 = ({
       name: "E-commerce",
       description:
         "Comprehensive online retail platforms and marketplace solutions that drive sales and enhance customer experiences.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+      image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
       imageAlt: "E-commerce platform illustration",
       url: "http://shadcnblocks.com/blocks",
     },
@@ -56,7 +56,7 @@ const Industries1 = ({
       name: "Education",
       description:
         "Innovative learning management systems and educational technology that empower students and educators worldwide.",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+      image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
       imageAlt: "Educational technology illustration",
       url: "http://shadcnblocks.com/blocks",
     },
@@ -193,28 +193,28 @@ const Industries2 = ({
       title: "Mining",
       description:
         "Empowering mining operations with advanced automation systems, real-time monitoring solutions, safety management platforms, and resource optimization technologies that maximize efficiency and ensure sustainable extraction practices.",
-      imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+      imageSrc: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
       imageAlt: "Mining industry icon",
     },
     {
       title: "Finance",
       description:
         "Delivering secure, scalable financial technology solutions including digital banking platforms, payment processing systems, risk management tools, and regulatory compliance frameworks that enable financial institutions to innovate and compete effectively.",
-      imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+      imageSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
       imageAlt: "Finance industry icon",
     },
     {
       title: "Energy",
       description:
         "Transforming energy operations with smart grid technologies, renewable energy management systems, predictive maintenance solutions, and demand forecasting tools that optimize resource allocation and improve sustainability.",
-      imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+      imageSrc: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
       imageAlt: "Energy industry icon",
     },
     {
       title: "Construction",
       description:
         "Streamlining construction projects with project management platforms, BIM integration, real-time collaboration tools, and safety monitoring systems that reduce costs, improve timelines, and enhance on-site productivity.",
-      imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+      imageSrc: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
       imageAlt: "Construction industry icon",
     },
   ],

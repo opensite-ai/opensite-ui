@@ -21,7 +21,7 @@ const CaseStudies1 = ({ className }: CaseStudies1Props) => {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-black/10"></div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark-white.svg"
+              src="https://cdn.ing/assets/files/record/286213/u1qta7tzk0yo7ij8hp84xh1lty3n"
               alt="logo"
               className="isolate h-7 w-fit"
             />
@@ -40,7 +40,7 @@ const CaseStudies1 = ({ className }: CaseStudies1Props) => {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-black/10"></div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/react-wordmark-white.svg"
+              src="https://cdn.ing/assets/files/record/286221/9o1roljuhclobrrmtcfz3o7ptppp"
               alt="logo"
               className="isolate h-9 w-fit"
             />
@@ -59,7 +59,7 @@ const CaseStudies1 = ({ className }: CaseStudies1Props) => {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-black/10"></div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-wordmark-white.svg"
+              src="https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb"
               alt="logo"
               className="isolate h-8 w-fit"
             />
@@ -78,7 +78,7 @@ const CaseStudies1 = ({ className }: CaseStudies1Props) => {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-black/10"></div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark-white.svg"
+              src="https://cdn.ing/assets/files/record/286219/xflgk6oshkxpx4ku0rowz33ey6pi"
               alt="logo"
               className="isolate h-7 w-fit"
             />
@@ -97,7 +97,7 @@ const CaseStudies1 = ({ className }: CaseStudies1Props) => {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-black/10"></div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/nextjs-wordmark-white.svg"
+              src="https://cdn.ing/assets/files/record/286218/ew5ms7l6bv8i04759jw82uyub0sp"
               alt="logo"
               className="isolate h-6 w-fit"
             />
@@ -116,7 +116,7 @@ const CaseStudies1 = ({ className }: CaseStudies1Props) => {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-black/10"></div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark-white.svg"
+              src="https://cdn.ing/assets/files/record/286217/zvgufvfrljos9ygzttuz01584m5r"
               alt="logo"
               className="isolate h-8 w-fit"
             />
@@ -157,7 +157,7 @@ const CaseStudies2 = ({ className }: CaseStudies2Props) => {
           <div className="grid gap-16 lg:grid-cols-3 xl:gap-24">
             <div className="flex flex-col gap-10 border-border sm:flex-row lg:col-span-2 lg:border-r lg:pr-16 xl:pr-24">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="aspect-29/35 h-full w-full max-w-60 rounded-2xl object-cover"
               />
@@ -175,7 +175,7 @@ const CaseStudies2 = ({ className }: CaseStudies2Props) => {
                     <p className="text-muted-foreground">Product Director</p>
                   </div>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg"
+                    src="https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum"
                     alt="logo"
                   />
                 </div>
@@ -204,7 +204,7 @@ const CaseStudies2 = ({ className }: CaseStudies2Props) => {
           <div className="grid gap-16 lg:grid-cols-3 xl:gap-24">
             <div className="flex flex-col gap-10 border-border sm:flex-row lg:col-span-2 lg:border-r lg:pr-16 xl:pr-24">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="aspect-29/35 h-full w-full max-w-60 rounded-2xl object-cover"
               />
@@ -222,7 +222,7 @@ const CaseStudies2 = ({ className }: CaseStudies2Props) => {
                     <p className="text-muted-foreground">Operations Lead</p>
                   </div>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg"
+                    src="https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq"
                     alt="logo"
                   />
                 </div>
@@ -280,18 +280,18 @@ interface CaseStudies3Props {
 }
 
 const defaultFeaturedCasestudy: CaseStudyItem = {
-  logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+  logo: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   company: "Acme",
   tags: "ARTIFICIAL INTELLIGENCE / ENTERPRISE SOLUTIONS",
   title: "Workflow Automation for the Digital Age.",
   subtitle: "How to automate your workflow with AI.",
-  image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+  image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   link: "https://shadcnblocks.com",
 };
 
 const defaultCasestudies: CaseStudyItem[] = [
   {
-    logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    logo: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
     company: "Super",
     tags: "DATA MIGRATION / SOFTWARE SOLUTIONS",
     title: "Enhance data migration with AI.",
@@ -300,7 +300,7 @@ const defaultCasestudies: CaseStudyItem[] = [
     link: "https://shadcnblocks.com",
   },
   {
-    logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    logo: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
     company: "Advent",
     tags: "ARTIFICIAL INTELLIGENCE / DATA SOLUTIONS",
     title: "Strategic AI for a future-proof business.",
@@ -415,7 +415,7 @@ import { Button } from "@/components/ui/button";
 
 const CUSTOMER_DATA = {
   company: {
-    logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-8.svg",
+    logo: "https://cdn.ing/assets/files/record/286231/otqj8cnwnrtp3bdk6tfu0pdr1z5a",
     name: "",
   },
   stats: [

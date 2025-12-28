@@ -6,7 +6,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  imagePlaceholders,
+  logoPlaceholders,
+} from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
   Dialog,
@@ -47,7 +50,12 @@ export function HeroConversionVideoPlay({
                 </div>
 
                 <div className="flex flex-wrap items-center justify-center gap-8">
-                  <Pressable href="#" asButton variant="default" className="group relative h-fit overflow-hidden rounded-full border-none px-6 py-5 font-semibold text-white max-lg:px-5 max-lg:py-3.5 lg:self-start">
+                  <Pressable
+                    href="#"
+                    asButton
+                    variant="default"
+                    className="group relative h-fit overflow-hidden rounded-full border-none px-6 py-5 font-semibold text-white max-lg:px-5 max-lg:py-3.5 lg:self-start"
+                  >
                     <div className="relative z-10 flex items-center gap-2.5">
                       <span>Start Your Free Trial Today</span>
                     </div>
@@ -62,7 +70,11 @@ export function HeroConversionVideoPlay({
                     className="flex h-fit w-fit items-center gap-2 text-lg font-semibold uppercase hover:bg-transparent"
                   >
                     <div className="flex h-10 w-10 rounded-full bg-primary">
-                      <DynamicIcon name="lucide/play" size={16} className="m-auto fill-white stroke-white" />
+                      <DynamicIcon
+                        name="lucide/play"
+                        size={16}
+                        className="m-auto fill-white stroke-white"
+                      />
                     </div>
                     <div>Play Video</div>
                   </Pressable>
@@ -70,7 +82,7 @@ export function HeroConversionVideoPlay({
               </div>
               <div className="w-full">
                 <div className="relative h-fit w-full">
-                  <div className="relative z-20 w-full max-w-[82.5rem] overflow-hidden rounded-t-xl md:rounded-t-3xl">
+                  <div className="relative z-20 w-full max-w-330 overflow-hidden rounded-t-xl md:rounded-t-3xl">
                     <AspectRatio ratio={2.095238095 / 1}>
                       <Img
                         src={imagePlaceholders[78]}

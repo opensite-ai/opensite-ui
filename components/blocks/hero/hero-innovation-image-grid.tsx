@@ -22,8 +22,8 @@ export function HeroInnovationImageGrid({
 }: HeroInnovationImageGridProps): React.JSX.Element {
   return (
     <section className={cn("bg-primary/5 py-12 font-sans md:py-20", className)}>
-      <div className="container max-w-[87.5rem]">
-        <div className="grid grid-cols-1 gap-[5.625rem] lg:grid-cols-2">
+      <div className="container max-w-350">
+        <div className="grid grid-cols-1 gap-22.5 lg:grid-cols-2">
           <div>
             <div className="flex flex-col gap-12">
               <div>
@@ -44,8 +44,16 @@ export function HeroInnovationImageGrid({
                 <div className="font-medium text-white">Started for free</div>
                 <div className="relative h-6 w-7 overflow-hidden">
                   <div className="absolute top-0 left-0 flex -translate-x-1/2 items-center transition-all duration-500 group-hover:translate-x-0">
-                    <DynamicIcon name="lucide/move-right" size={24} className="fill-white px-1" />
-                    <DynamicIcon name="lucide/move-right" size={24} className="fill-white px-1" />
+                    <DynamicIcon
+                      name="lucide/move-right"
+                      size={24}
+                      className="fill-white px-1"
+                    />
+                    <DynamicIcon
+                      name="lucide/move-right"
+                      size={24}
+                      className="fill-white px-1"
+                    />
                   </div>
                 </div>
               </Pressable>
@@ -53,7 +61,7 @@ export function HeroInnovationImageGrid({
           </div>
           <div>
             <AspectRatio ratio={1.390658174 / 1}>
-              <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-5 lg:max-w-[38.9375rem] lg:gap-8">
+              <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-5 lg:max-w-155.75 lg:gap-8">
                 <div className="col-[1/2] row-[1/3]">
                   <Img
                     src={imagePlaceholders[98]}

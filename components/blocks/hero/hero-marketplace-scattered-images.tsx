@@ -23,7 +23,7 @@ export function HeroMarketplaceScatteredImages({
     <section className={cn("py-32", className)}>
       <div className="">
         <div className="relative container mx-auto max-w-xl py-10 text-center">
-          <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted))_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:64px_64px]"></div>
+          <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[64px_64px]"></div>
           <h1 className="mb-3 text-4xl lg:text-7xl">
             Explore a World of Digital Assets
           </h1>
@@ -31,7 +31,9 @@ export function HeroMarketplaceScatteredImages({
             Discover the future of asset management, tokenization, and liquidity
             with our comprehensive marketplace.
           </p>
-          <Pressable href="#" asButton variant="default">Marketplace</Pressable>
+          <Pressable href="#" asButton variant="default">
+            Marketplace
+          </Pressable>
           <div className="mt-7 flex items-start justify-center gap-2 font-medium md:text-xl">
             <DynamicIcon name="lucide/globe" size={20} className="mt-0.5" />
             Global Partnerships and Innovation

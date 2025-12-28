@@ -30,7 +30,7 @@ export function HeroEcommerceProductShowcase({
                   <Img
                     src={imagePlaceholders[22]}
                     alt="Product 1"
-                    className="aspect-[3/4] w-full object-cover"
+                    className="aspect-3/4 w-full object-cover"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
@@ -56,7 +56,7 @@ export function HeroEcommerceProductShowcase({
                   <Img
                     src={imagePlaceholders[25]}
                     alt="Product 4"
-                    className="aspect-[3/4] w-full object-cover"
+                    className="aspect-3/4 w-full object-cover"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
@@ -77,33 +77,31 @@ export function HeroEcommerceProductShowcase({
               modern design.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Pressable
-                href="#"
-                asButton
-                variant="default"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="default" size="lg">
                 Shop now
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
-              <Pressable
-                href="#"
-                asButton
-                variant="outline"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="outline" size="lg">
                 View catalog
               </Pressable>
             </div>
             <div className="flex items-center gap-6 pt-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-foreground">50K+</div>
-                <div className="text-sm text-muted-foreground">Happy customers</div>
+                <div className="text-sm text-muted-foreground">
+                  Happy customers
+                </div>
               </div>
               <div className="h-12 w-px bg-border"></div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-foreground">4.9</div>
-                <div className="text-sm text-muted-foreground">Average rating</div>
+                <div className="text-sm text-muted-foreground">
+                  Average rating
+                </div>
               </div>
               <div className="h-12 w-px bg-border"></div>
               <div className="text-center">

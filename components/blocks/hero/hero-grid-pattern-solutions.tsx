@@ -23,7 +23,7 @@ export function HeroGridPatternSolutions({
     <section className={cn("py-32", className)}>
       <div className="container">
         <div className="relative overflow-hidden">
-          <div className="absolute inset-0 -top-1 -left-1 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_100%_at_50%_50%,transparent_60%,#000_100%)] bg-[size:92px_92px] opacity-15"></div>
+          <div className="absolute inset-0 -top-1 -left-1 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,transparent_60%,#000_100%)] bg-size-[92px_92px] opacity-15"></div>
           <div className="mx-auto max-w-4xl">
             <Pressable
               href="#"
@@ -43,11 +43,19 @@ export function HeroGridPatternSolutions({
             <div className="flex flex-col justify-center gap-x-2 gap-y-3 sm:flex-row">
               <Pressable href="#" asButton variant="default">
                 Get Started
-                <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/chevron-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
               <Pressable href="#" asButton variant="secondary">
                 Discover Our Platform
-                <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/chevron-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
             </div>
           </div>

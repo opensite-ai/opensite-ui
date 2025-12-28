@@ -18,16 +18,16 @@ export function HeroHiringAnimatedText({
   return (
     <section
       className={cn(
-        "dark relative h-svh max-h-[1400px] w-full bg-cover bg-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
-        className,
+        "dark relative h-svh max-h-[1400px] w-full bg-cover bg-position-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
+        className
       )}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className="relative z-10 container flex size-full max-w-[103.125rem] flex-col justify-between pt-24 pb-14 md:justify-end">
+      <div className="relative z-10 container flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end">
         <div className="flex h-full flex-col justify-between gap-6 md:justify-end">
-          <h1 className="text-4xl leading-[2.25rem] font-bold text-foreground lg:text-5xl lg:leading-[3rem]! xl:text-7xl xl:leading-[5.5rem]!">
+          <h1 className="text-4xl leading-9 font-bold text-foreground lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22!">
             <div className="mb-2">We help you to hire top</div>
-            <div className="relative h-[calc(2.25rem*3)] md:h-[2.25rem] lg:h-[3rem] xl:h-[5.5rem]">
+            <div className="relative h-[calc(2.25rem*3)] md:h-9 lg:h-12 xl:h-22">
               <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_0s] will-change-[opacity]">
                 Cybersecurity sales reps
               </div>
@@ -81,7 +81,11 @@ export function HeroHiringAnimatedText({
                 className="flex h-fit w-fit items-center gap-2 text-xs font-semibold text-nowrap uppercase hover:no-underline lg:text-base"
               >
                 <div>Scroll to explore</div>
-                <DynamicIcon name="lucide/arrow-down" size={16} className="stroke-white" />
+                <DynamicIcon
+                  name="lucide/arrow-down"
+                  size={16}
+                  className="stroke-white"
+                />
               </Pressable>
             </div>
           </div>

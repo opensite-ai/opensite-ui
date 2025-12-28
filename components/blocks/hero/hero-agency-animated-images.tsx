@@ -21,9 +21,9 @@ export function HeroAgencyAnimatedImages({
 }: HeroAgencyAnimatedImagesProps): React.JSX.Element {
   return (
     <section className={cn("bg-background py-12 md:py-20", className)}>
-      <div className="container max-w-[111rem]">
+      <div className="container max-w-444">
         <div className="grid w-full grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
-          <div className="flex w-full max-w-[31.25rem] flex-col gap-8 md:gap-14 lg:max-w-full">
+          <div className="flex w-full max-w-125 flex-col gap-8 md:gap-14 lg:max-w-full">
             <h1 className="font-serif text-5xl text-foreground md:text-6xl lg:text-7xl xl:text-[5rem]">
               Revolutionize your business operations
             </h1>
@@ -39,7 +39,7 @@ export function HeroAgencyAnimatedImages({
               Book a Demo
             </Pressable>
           </div>
-          <div className="mx-auto w-full max-w-[52.875rem] lg:mx-0">
+          <div className="mx-auto w-full max-w-211.5 lg:mx-0">
             <AspectRatio ratio={1.049627792 / 1}>
               <div className="grid w-full grid-cols-2 items-center justify-center gap-4">
                 <div className="flex flex-col items-end justify-center gap-4">

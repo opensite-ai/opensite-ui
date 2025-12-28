@@ -5,7 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  imagePlaceholders,
+  logoPlaceholders,
+} from "../../../lib/mediaPlaceholders";
 
 export interface HeroDesignShowcaseLogosProps {
   className?: string;
@@ -50,7 +53,11 @@ export function HeroDesignShowcaseLogos({
               >
                 <div>See our plans</div>
                 <span className="flex h-6 w-6 rounded-full bg-zinc-100">
-                  <DynamicIcon name="lucide/arrow-right" size={16} className="m-auto" />
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="m-auto"
+                  />
                 </span>
               </Pressable>
             </div>
@@ -76,8 +83,8 @@ export function HeroDesignShowcaseLogos({
         </div>
       </div>
       <div className="w-full xl:px-8">
-        <div className="relative mx-auto aspect-[1.259253731/1] w-full max-w-[96rem] overflow-hidden bg-zinc-950 xl:aspect-[1.896296296/1] xl:rounded-3xl">
-          <div className="absolute -bottom-1 left-[56%] aspect-[1.151758794/-1] w-[100%] -translate-x-1/2 overflow-hidden rounded-tl-2xl bg-background xl:left-1/2 xl:aspect-[1.933988764/1] xl:w-[87.5%] xl:rounded-tr-2xl">
+        <div className="relative mx-auto aspect-[1.259253731/1] w-full max-w-384 overflow-hidden bg-zinc-950 xl:aspect-[1.896296296/1] xl:rounded-3xl">
+          <div className="absolute -bottom-1 left-[56%] aspect-[1.151758794/-1] w-full -translate-x-1/2 overflow-hidden rounded-tl-2xl bg-background xl:left-1/2 xl:aspect-[1.933988764/1] xl:w-[87.5%] xl:rounded-tr-2xl">
             <Img
               src={imagePlaceholders[83]}
               alt=""

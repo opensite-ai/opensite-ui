@@ -402,7 +402,7 @@ const Resource2 = ({
     ],
   },
   illustration = {
-    imageSrc: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    imageSrc: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     imageAlt:
       "Sustainable web development illustration showing green coding practices and environmental impact",
   },
@@ -604,7 +604,7 @@ const Resource3 = ({ className }: Resource3Props) => {
           <article className="order-2 mx-auto prose md:order-1 dark:prose-invert">
             <div>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="placeholder"
                 className="mt-0 mb-8 aspect-video w-full rounded-lg object-cover"
               />

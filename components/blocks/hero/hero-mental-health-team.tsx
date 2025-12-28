@@ -28,9 +28,9 @@ export function HeroMentalHealthTeam({
             Experienced Professionals Committed to Your Mental Health
           </h1>
         </div>
-        <div className="grid w-full max-w-[83.125rem] auto-cols-auto grid-cols-2 grid-rows-[auto_auto] justify-center gap-5 md:grid-cols-[repeat(4,1fr)]">
+        <div className="grid w-full max-w-332.5 auto-cols-auto grid-cols-2 grid-rows-[auto_auto] justify-center gap-5 md:grid-cols-[repeat(4,1fr)]">
           <div className="col-[1/2] row-[1/2] w-full">
-            <div className="h-full max-h-[19.375rem] w-full overflow-hidden rounded-2xl">
+            <div className="h-full max-h-77.5 w-full overflow-hidden rounded-2xl">
               <Img
                 src={imagePlaceholders[111]}
                 alt=""
@@ -40,7 +40,7 @@ export function HeroMentalHealthTeam({
             </div>
           </div>
           <div className="col-[2/3] row-[1/2] w-full md:col-[2/3] md:row-[1/2]">
-            <div className="h-full max-h-[19.375rem] w-full overflow-hidden rounded-2xl">
+            <div className="h-full max-h-77.5 w-full overflow-hidden rounded-2xl">
               <Img
                 src={imagePlaceholders[112]}
                 alt=""
@@ -50,8 +50,8 @@ export function HeroMentalHealthTeam({
             </div>
           </div>
           <div className="col-[1/3] row-[3/4] w-full md:col-[1/3] md:row-[2/3]">
-            <div className="flex h-full min-h-[9.375rem] flex-col gap-3 overflow-hidden rounded-3xl bg-muted p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
-              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-[7.5rem] md:w-[7.5rem]">
+            <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-muted p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
+              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
                 <Img
                   src={imagePlaceholders[113]}
                   alt=""
@@ -68,8 +68,8 @@ export function HeroMentalHealthTeam({
               </div>
             </div>
           </div>
-          <div className="col-[1/3] row-[2/3] h-[25rem] w-full md:col-[3/5] md:row-[1/3] md:h-auto">
-            <div className="h-full max-h-[32.625rem] w-full overflow-hidden rounded-2xl">
+          <div className="col-[1/3] row-[2/3] h-100 w-full md:col-[3/5] md:row-[1/3] md:h-auto">
+            <div className="h-full max-h-130.5 w-full overflow-hidden rounded-2xl">
               <Img
                 src={imagePlaceholders[114]}
                 alt=""

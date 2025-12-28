@@ -163,7 +163,7 @@ const Cta5 = ({ className }: Cta5Props) => {
         <div className="flex w-full flex-col overflow-hidden rounded-lg bg-muted md:rounded-xl lg:flex-row lg:items-center">
           <div className="w-full shrink-0 self-stretch lg:w-1/2">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder hero"
               className="aspect-3/2 w-full rounded-t-md object-cover md:rounded-t-none md:rounded-l-md"
             />
@@ -398,7 +398,7 @@ interface Cta11Props {
 const Cta11 = ({
   heading = "Call to Action",
   description = "Build faster with our collection of pre-built blocks. Speed up your development and ship features in record time.",
-  imageSrc = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+  imageSrc = "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   imageAlt = "Call to action image",
   className,
 }: Cta11Props) => {
@@ -726,7 +726,7 @@ interface Cta17Props {
 const Cta17 = ({ className }: Cta17Props) => {
   return (
     <section className={cn("py-32", className)}>
-      <div className="flex items-center justify-center border bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/circles.svg')] bg-cover bg-center py-20 text-center md:p-20">
+      <div className="flex items-center justify-center border bg-[url('https://cdn.ing/assets/files/record/286190/gtmia3sncjtzetdshc20zf1d3c17')] bg-cover bg-center py-20 text-center md:p-20">
         <div className="container">
           <div className="mx-auto max-w-3xl">
             <h1 className="mb-4 text-3xl font-semibold text-balance md:text-5xl">
@@ -788,12 +788,12 @@ const Cta18 = ({ className }: Cta18Props) => {
           </div>
           <div className="relative ml-6 max-h-96 md:mt-8 md:ml-0">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg"
+              src="https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh"
               alt="placeholder"
               className="absolute -bottom-12 left-4 h-48 -translate-x-1/2 -rotate-[120deg]"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="z-10 aspect-video h-full w-full rounded-tl-xl border-t border-l object-cover pt-3.5 pl-3.5 backdrop-blur-sm"
             />
@@ -1036,7 +1036,7 @@ const Cta22 = ({ className }: Cta22Props) => {
               <div className="relative z-10 hidden md:block">
                 <div className="absolute top-0 left-1/2 h-[120%] w-[69%] -translate-x-1/2 overflow-hidden rounded-t-[32px]">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-7-tall.svg"
+                    src="https://cdn.ing/assets/files/record/286247/c92kzuar6li9m5lcm7ek8uckgfx0"
                     alt=""
                     className="h-full w-full object-cover"
                   />
@@ -1044,7 +1044,7 @@ const Cta22 = ({ className }: Cta22Props) => {
                 <div className="relative z-10 h-[350px] overflow-hidden">
                   <img
                     className="h-[600px] w-auto max-w-none"
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/mockups/phone-2.png"
+                    src="https://cdn.ing/assets/i/r/286248/yc2corz15dowsy59vp38u6hikiwm/phone-2.png"
                     width={340}
                     height={600}
                     alt=""
@@ -1409,7 +1409,7 @@ const Cta31 = ({ className }: Cta31Props) => {
   return (
     <section className={cn("overflow-hidden py-32", className)}>
       <div className="relative container">
-        <h1 className="mx-auto max-w-4xl bg-gradient-to-r from-primary/60 via-primary to-primary/60 bg-clip-text text-center text-4xl font-semibold text-transparent lg:text-6xl">
+        <h1 className="mx-auto max-w-4xl bg-linear-to-r from-primary/60 via-primary to-primary/60 bg-clip-text text-center text-4xl font-semibold text-transparent lg:text-6xl">
           Solutions for <br /> Modern Businesses
         </h1>
         <p className="mt-4 text-center text-lg lg:mt-10">
@@ -1426,42 +1426,42 @@ const Cta31 = ({ className }: Cta31Props) => {
             <div className="relative -left-20 min-h-44 min-w-[460px] translate-x-28 scale-80 sm:translate-x-0 lg:min-h-[292px] lg:scale-90 xl:scale-100">
               <span className="absolute right-0 -bottom-5 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-3.svg"
+                  src="https://cdn.ing/assets/files/record/286277/mnd352db8b4yw19lraw6w29pyrub"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute right-24 bottom-1 flex size-20 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-20.svg"
+                  src="https://cdn.ing/assets/files/record/286265/vfrvdxgku0jn1jx9e5dya0xypkv1"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute right-44 bottom-7 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-6.svg"
+                  src="https://cdn.ing/assets/files/record/286274/cgwhw53pp05jeq0oqh2td24liibn"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute right-44 bottom-28 flex size-20 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-8.svg"
+                  src="https://cdn.ing/assets/files/record/286281/3cuuq5ptj5bmgcudhs88fy0krmnz"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute bottom-4 left-24 flex size-20 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-9.svg"
+                  src="https://cdn.ing/assets/files/record/286282/c76zfn36i5cvqado2dtc31simuwf"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute bottom-24 left-20 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-21.svg"
+                  src="https://cdn.ing/assets/files/record/286266/242pfzm04mnosbiz0jt3qgslu294"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
@@ -1470,48 +1470,48 @@ const Cta31 = ({ className }: Cta31Props) => {
             <div className="relative -right-20 min-h-44 min-w-[460px] -translate-x-28 scale-80 sm:translate-x-0 lg:min-h-[292px] lg:scale-90 xl:scale-100">
               <span className="absolute -bottom-5 left-0 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-12.svg"
+                  src="https://cdn.ing/assets/files/record/286257/or0u77z9kzwgwim26rjowjhy270x"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute bottom-1 left-24 flex size-20 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-13.svg"
+                  src="https://cdn.ing/assets/files/record/286258/pzftug9yjmmp6nn5l06tj04k9i9y"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute bottom-7 left-44 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-14.svg"
+                  src="https://cdn.ing/assets/files/record/286259/pjuleqkiqaky2825y4vjipc5f4u7"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute bottom-28 left-44 flex size-20 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-15.svg"
+                  src="https://cdn.ing/assets/files/record/286260/2d06gd97qf54lcod4mttiv0syv8a"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute right-24 bottom-4 flex size-20 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-17.svg"
+                  src="https://cdn.ing/assets/files/record/286262/qgkw8ove3rdue2fdl3j5k3v0iokl"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
               <span className="absolute right-20 bottom-24 flex size-20 scale-60 items-center justify-center rounded-full border border-border p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/integration/integration-19.svg"
+                  src="https://cdn.ing/assets/files/record/286264/3b6ngdqxlah4a9esyr07nj01160f"
                   alt="logo"
                   className="brightness-0 invert-0 dark:invert"
                 />
               </span>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
+            <div className="absolute inset-0 bg-linear-to-r from-background/80 via-transparent to-background/80" />
           </div>
         </div>
       </div>
@@ -1569,8 +1569,8 @@ const Cta32 = ({
           <div className="absolute inset-0 flex items-center justify-center opacity-100">
             <img
               alt="pattern"
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/square-alt-grid.svg"
-              className="[mask-image:radial-gradient(circle_at_top_right,black,transparent_100%)]"
+              src="https://cdn.ing/assets/files/record/286187/4gpn0yq2ptra8iwlvmwwv860ggwv"
+              className="mask-[radial-gradient(circle_at_top_right,black,transparent_100%)]"
             />
           </div>
           <div className="relative z-10">

@@ -102,7 +102,7 @@ const PRIMARY_POST: Post = {
     "Explore how tools like GitHub Copilot, AI design generators, and code assistants are changing the way developers build UIs and ship features faster.",
   link: "#",
   cta: "Discover the Future",
-  thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+  thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
 };
 
 const POSTS: Array<Post> = [
@@ -113,7 +113,7 @@ const POSTS: Array<Post> = [
       "Discover must-have extensions to boost your coding efficiency and streamline your workflow.",
     link: "#",
     cta: "Boost Your Editor",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Productivity",
@@ -122,7 +122,7 @@ const POSTS: Array<Post> = [
       "Learn proven strategies to avoid burnout and stay on top of your tasks without stress.",
     link: "#",
     cta: "Manage Your Time",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Productivity",
@@ -131,7 +131,7 @@ const POSTS: Array<Post> = [
       "Use tools like Gulp, npm scripts, and GitHub Actions to automate repetitive development tasks.",
     link: "#",
     cta: "Automate Now",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Productivity",
@@ -140,7 +140,7 @@ const POSTS: Array<Post> = [
       "Discover routines that top developers follow to stay productive, creative, and focused.",
     link: "#",
     cta: "Find Your Flow",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Productivity",
@@ -149,7 +149,7 @@ const POSTS: Array<Post> = [
       "Speed up your version control workflow with powerful Git aliases and tips.",
     link: "#",
     cta: "Speed Up Git",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Productivity",
@@ -158,7 +158,7 @@ const POSTS: Array<Post> = [
       "Minimize distractions and deep-dive into your code with focused work practices.",
     link: "#",
     cta: "Stay Focused",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Productivity",
@@ -167,7 +167,7 @@ const POSTS: Array<Post> = [
       "Set up your space and software stack for maximum productivity when working from home.",
     link: "#",
     cta: "Upgrade Your Setup",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Productivity",
@@ -176,7 +176,7 @@ const POSTS: Array<Post> = [
       "A practical review of the Pomodoro technique and its effectiveness for software development.",
     link: "#",
     cta: "Try the Method",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -185,7 +185,7 @@ const POSTS: Array<Post> = [
       "Making your product inclusive from day one improves usability and reach.",
     link: "#",
     cta: "Learn Why",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -194,7 +194,7 @@ const POSTS: Array<Post> = [
       "Understand how to enhance screen reader support using ARIA roles and landmarks.",
     link: "#",
     cta: "Improve Semantics",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -203,7 +203,7 @@ const POSTS: Array<Post> = [
       "Learn how to choose accessible color combinations that meet WCAG standards.",
     link: "#",
     cta: "Fix Your Colors",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -212,7 +212,7 @@ const POSTS: Array<Post> = [
       "Ensure your website is fully usable with just a keyboard, for accessibility and speed.",
     link: "#",
     cta: "Test Navigation",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -221,7 +221,7 @@ const POSTS: Array<Post> = [
       "Improve the usability of your forms by ensuring screen readers and users receive clear instructions.",
     link: "#",
     cta: "Fix Your Forms",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -230,7 +230,7 @@ const POSTS: Array<Post> = [
       "How to test your site with popular screen readers and what to listen for.",
     link: "#",
     cta: "Start Testing",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -239,7 +239,7 @@ const POSTS: Array<Post> = [
       "Design interfaces that consider users of all abilities from the start.",
     link: "#",
     cta: "Design for All",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Accessibility",
@@ -248,7 +248,7 @@ const POSTS: Array<Post> = [
       "Perform thorough accessibility audits with tools like Axe, Lighthouse, and manual checklists.",
     link: "#",
     cta: "Audit Now",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -257,7 +257,7 @@ const POSTS: Array<Post> = [
       "Improve load times by using native lazy-loading and fallback strategies for images.",
     link: "#",
     cta: "Optimize Images",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -266,7 +266,7 @@ const POSTS: Array<Post> = [
       "Best practices for minifying and tree-shaking your JS bundles to boost speed.",
     link: "#",
     cta: "Shrink Your Code",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -275,7 +275,7 @@ const POSTS: Array<Post> = [
       "Learn how to measure and improve Core Web Vitals for a better user experience.",
     link: "#",
     cta: "Improve Vitals",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -284,7 +284,7 @@ const POSTS: Array<Post> = [
       "Compare SSR and CSR strategies and when to use each for better performance.",
     link: "#",
     cta: "Explore Options",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -293,7 +293,7 @@ const POSTS: Array<Post> = [
       "Learn techniques for loading fonts without blocking rendering or causing layout shifts.",
     link: "#",
     cta: "Speed Up Fonts",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -302,7 +302,7 @@ const POSTS: Array<Post> = [
       "Use dynamic imports and route-based chunking to reduce initial load time.",
     link: "#",
     cta: "Split It Up",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -311,7 +311,7 @@ const POSTS: Array<Post> = [
       "Leverage HTTP caching, service workers, and CDNs to improve speed and offline support.",
     link: "#",
     cta: "Cache Smarter",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     category: "Performance",
@@ -320,7 +320,7 @@ const POSTS: Array<Post> = [
       "Use the Performance tab in DevTools to track down and fix runtime issues in your app.",
     link: "#",
     cta: "Analyze Now",
-    thumbnail: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    thumbnail: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
 ];
 
@@ -590,10 +590,10 @@ interface Resources1Props {
 const Resources1 = ({ className }: Resources1Props) => {
   return (
     <section className={cn("pb-32", className)}>
-      <div className="bg-muted bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dot-pattern-2.svg')] bg-[length:3.125rem_3.125rem] bg-repeat">
+      <div className="bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-size-[3.125rem_3.125rem] bg-repeat">
         <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
-            <div className="flex w-full max-w-[36rem] flex-col gap-8">
+            <div className="flex w-full max-w-xl flex-col gap-8">
               <BreadcrumbBlog breadcrumb={BREADCRUMB} />
               <div className="flex w-full flex-col gap-5">
                 <h1 className="text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl">
@@ -605,12 +605,12 @@ const Resources1 = ({ className }: Resources1Props) => {
                   way.
                 </p>
               </div>
-              <div className="max-w-[30rem]">
+              <div className="max-w-120">
                 <EmailForm />
               </div>
             </div>
           </div>
-          <div className="w-full max-w-[27.5rem]">
+          <div className="w-full max-w-110">
             <ResourcesCard {...PRIMARY_POST} />
           </div>
         </div>
@@ -1026,7 +1026,7 @@ interface FeaturedPostData {
 }
 const FEATURED_POST: FeaturedPostData = {
   title: "How to Build Reusable UI Component Blocks for Beginners",
-  imageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg",
+  imageUrl: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   link: "#",
 };
 const ARTICLES = [
@@ -1319,7 +1319,7 @@ const Resources5 = ({
       duration: "42:18 minutes",
       audience: ["Developers", "Content creators"],
       gradient: "from-blue-100 to-purple-100",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+      image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
       cta: {
         text: "Start",
         url: "https://www.shadcnblocks.com",
@@ -1340,7 +1340,7 @@ const Resources5 = ({
       duration: "58:45 minutes",
       audience: ["Developers", "Content creators", "Designers"],
       gradient: "from-green-100 to-emerald-100",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+      image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
       cta: {
         text: "Start",
         url: "https://www.shadcnblocks.com",

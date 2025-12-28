@@ -52,7 +52,7 @@ export function HeroCrmStreamlined({
                 className="relative z-20 h-full w-full object-cover object-center"
                 optixFlowConfig={optixFlowConfig}
               />
-              <div className="absolute top-0 left-[6.25rem] z-10 aspect-[1.378254211/1] h-full w-[56.25rem] bg-muted" />
+              <div className="absolute top-0 left-25 z-10 aspect-[1.378254211/1] h-full w-225 bg-muted" />
             </div>
           </div>
         </div>

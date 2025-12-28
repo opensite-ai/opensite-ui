@@ -1696,7 +1696,7 @@ const Projects2 = ({ className }: Projects2Props) => {
               </div>
 
               <div className="order-1 lg:order-2 lg:col-span-8">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border">
+                <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg border border-border">
                   <img
                     src={project.imagePath}
                     alt={project.imageAlt}
@@ -2353,7 +2353,7 @@ const Projects7 = ({ className }: Projects7Props) => {
                   }}
                   className="group relative cursor-pointer overflow-hidden rounded-lg"
                 >
-                  <div className="relative aspect-[4/3] h-96 w-full">
+                  <div className="relative aspect-4/3 h-96 w-full">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -2517,12 +2517,12 @@ const Projects16 = ({ className }: Projects16Props) => {
             <img
               src={imgPaths[0]}
               alt="Sunlight streaming through forest trees"
-              className="aspect-[4/3] w-full rounded-lg object-cover"
+              className="aspect-4/3 w-full rounded-lg object-cover"
             />
             <img
               src={imgPaths[2]}
               alt="Majestic mountain peak at sunrise"
-              className="aspect-[4/5] w-full rounded-lg object-cover"
+              className="aspect-4/5 w-full rounded-lg object-cover"
             />
           </div>
 
@@ -2530,12 +2530,12 @@ const Projects16 = ({ className }: Projects16Props) => {
             <img
               src={imgPaths[1]}
               alt="Crystal clear lake surrounded by pines"
-              className="aspect-[4/5] w-full rounded-lg object-cover"
+              className="aspect-4/5 w-full rounded-lg object-cover"
             />
             <img
               src={imgPaths[3]}
               alt="Wildflowers blooming in a green meadow"
-              className="aspect-[4/3] w-full rounded-lg object-cover"
+              className="aspect-4/3 w-full rounded-lg object-cover"
             />
           </div>
         </div>
@@ -2686,7 +2686,7 @@ const Projects17 = ({ className }: Projects17Props) => {
               {projects17Prop.map((project) => (
                 <CarouselItem key={project.id} className="basis-auto pl-8">
                   <div className="w-[500px] space-y-6">
-                    <div className="aspect-[4/3] overflow-hidden rounded-md">
+                    <div className="aspect-4/3 overflow-hidden rounded-md">
                       <img
                         src={project.image || "/placeholder.svg"}
                         alt={project.title}
@@ -3277,7 +3277,7 @@ const Projects8 = ({ className }: Projects8Props) => {
                   }}
                   className="group relative cursor-pointer overflow-hidden rounded-lg"
                 >
-                  <div className="relative aspect-[4/3] h-96 w-full">
+                  <div className="relative aspect-4/3 h-96 w-full">
                     <img
                       src={item.image}
                       alt={item.title}

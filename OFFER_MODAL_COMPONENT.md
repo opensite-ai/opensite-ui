@@ -229,7 +229,7 @@ import {
 
 const OFFER_MODAL = {
   logo: {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/symbols/ux.svg",
+    src: "https://cdn.ing/assets/files/record/286285/q7zi0j433fhs847rfbc82uaqydga",
     alt: "",
   },
   title: "Join Now & Enjoy 20% Off",

@@ -136,7 +136,7 @@ const Project1 = ({ className }: Project1Props) => {
                     ? "Team brainstorming with sticky notes, generating creative ideas."
                     : "Three people sitting on a couch with laptops, collaborating in a modern workspace."
                 }
-                className="aspect-[4/3] w-full object-cover transition-transform duration-500"
+                className="aspect-4/3 w-full object-cover transition-transform duration-500"
               />
             </div>
           ))}
@@ -155,7 +155,7 @@ const Project1 = ({ className }: Project1Props) => {
                     ? "Group of people in a meeting room with laptops, discussing a project."
                     : "People collaborating at a table with laptops in a modern office."
                 }
-                className="aspect-[4/3] w-full object-cover transition-transform duration-500"
+                className="aspect-4/3 w-full object-cover transition-transform duration-500"
               />
             </div>
           ))}
@@ -3527,7 +3527,7 @@ const Project5d = ({ className }: Project5dProps) => {
         >
           <motion.div
             variants={fadeInUp}
-            className="relative aspect-[4/3] overflow-hidden bg-muted/30"
+            className="relative aspect-4/3 overflow-hidden bg-muted/30"
           >
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Tree Trunk Art Piece.jpg"
@@ -4219,7 +4219,7 @@ const ImageBlock = ({
     viewport={{ once: true, margin: "-100px" }}
     className="group relative mb-8 last:mb-0"
   >
-    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
+    <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-muted">
       {src ? (
         <motion.img
           src={src}
@@ -4306,7 +4306,7 @@ const ProjectCard = ({ title, category, src, alt, index }: Project6Props) => (
     viewport={{ once: true }}
     className="group relative cursor-pointer"
   >
-    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+    <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
       <motion.img
         src={src}
         alt={alt}
@@ -4441,7 +4441,7 @@ const ImageBlock = ({
     viewport={{ once: true, margin: "-100px" }}
     className="group relative mb-8 last:mb-0"
   >
-    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
+    <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-muted">
       {src ? (
         <motion.img
           src={src}
@@ -5113,7 +5113,7 @@ const Project8b = ({ className }: Project8bProps) => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <div className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+            <div className="relative aspect-4/5 overflow-hidden rounded-lg">
               <img
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/glitch-portrait-pir7z.jpg"
                 alt="Creative portrait with dynamic lighting"

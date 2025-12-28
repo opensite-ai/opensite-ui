@@ -1528,7 +1528,7 @@ const plans = [
     price: { monthly: "$9", annually: "$9" },
     href: "#",
     recommended: false,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
     featureGroups: [
       {
         title: "Overview",
@@ -1567,7 +1567,7 @@ const plans = [
     },
     href: "#",
     recommended: false,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
     featureGroups: [
       {
         title: "Overview",
@@ -1606,7 +1606,7 @@ const plans = [
     },
     href: "#",
     recommended: true,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
     featureGroups: [
       {
         title: "Overview",
@@ -1645,7 +1645,7 @@ const plans = [
     },
     href: "#",
     recommended: false,
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg",
+    image: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
     featureGroups: [
       {
         title: "Overview",
@@ -2143,14 +2143,14 @@ const otherAddons = [
     title: "Add-on option 4",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
     price: "$9",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
   },
   {
     id: "addon-5",
     title: "Add-on option 5",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
     price: "$19",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
   },
   {
     id: "addon-6",
@@ -2158,7 +2158,7 @@ const otherAddons = [
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
     price: "$19",
     priceFootnote: "This is a footnote.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg",
+    image: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
   },
 ];
 
@@ -2184,7 +2184,7 @@ const Pricing12 = ({ className }: Pricing12Props) => {
                 </p>
               </div>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                 alt="placeholder"
                 className="hidden size-24 md:block lg:size-32"
               />
@@ -2227,7 +2227,7 @@ const Pricing12 = ({ className }: Pricing12Props) => {
                 >
                   <div className="flex items-center md:max-w-md md:space-x-4 lg:max-w-full lg:space-x-6">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                      src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                       alt="placeholder"
                       className="hidden shrink-0 md:block md:size-16 lg:size-20"
                     />
@@ -2293,7 +2293,7 @@ const Pricing13 = ({ className }: Pricing13Props) => {
                 </p>
               </div>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                 alt="placeholder"
                 className="hidden size-24 md:block lg:size-32"
               />
@@ -3878,7 +3878,7 @@ const Pricing27 = ({ className }: Pricing27Props) => {
               <div className="hidden p-6 md:p-8 xl:block xl:w-[800px] 2xl:w-[960px]">
                 <div className="h-full rounded-lg">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt="Glide Solutions"
                     className="h-full w-full rounded-lg object-cover"
                   />

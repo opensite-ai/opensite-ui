@@ -13,7 +13,7 @@ const Logos1 = ({ className }: Logos1Props) => {
     },
     {
       name: "Vercel",
-      logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg",
+      logo: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
     },
     {
       name: "Astro",
@@ -21,7 +21,7 @@ const Logos1 = ({ className }: Logos1Props) => {
     },
     {
       name: "Supabase",
-      logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg",
+      logo: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
     },
     {
       name: "Figma",
@@ -70,32 +70,32 @@ const logos = [
   {
     id: "logo-1",
     description: "Logo 1",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
+    image: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
   },
   {
     id: "logo-2",
     description: "Logo 2",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg",
+    image: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
   },
   {
     id: "logo-3",
     description: "Logo 3",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg",
+    image: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
   },
   {
     id: "logo-4",
     description: "Logo 4",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg",
+    image: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
   },
   {
     id: "logo-5",
     description: "Logo 5",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-5.svg",
+    image: "https://cdn.ing/assets/files/record/286234/bldwkc8wkq6nd3hkdqds9fy5lls9",
   },
   {
     id: "logo-6",
     description: "Logo 6",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-6.svg",
+    image: "https://cdn.ing/assets/files/record/286233/176g648qa51ou4g3hfnywyldnc7a",
   },
 ];
 
@@ -195,7 +195,7 @@ const Logos3 = ({
     {
       id: "logo-3",
       description: "Logo 3",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/nextjs-wordmark.svg",
+      image: "https://cdn.ing/assets/files/record/286249/ff7m4wdw0zefj7d96v4ajmljuifc",
       className: "h-7 w-auto",
     },
     {
@@ -207,13 +207,13 @@ const Logos3 = ({
     {
       id: "logo-5",
       description: "Logo 5",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-wordmark.svg",
+      image: "https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb",
       className: "h-7 w-auto",
     },
     {
       id: "logo-6",
       description: "Logo 6",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg",
+      image: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
       className: "h-7 w-auto",
     },
     {
@@ -225,7 +225,7 @@ const Logos3 = ({
     {
       id: "logo-8",
       description: "Logo 8",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg",
+      image: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
       className: "h-7 w-auto",
     },
   ],
@@ -288,11 +288,11 @@ const logos = [
   },
   {
     name: "Vercel",
-    logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg",
+    logo: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
   },
   {
     name: "Supabase",
-    logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg",
+    logo: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
   },
   {
     name: "Figma",
@@ -300,7 +300,7 @@ const logos = [
   },
   {
     name: "Astro",
-    logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/nextjs-wordmark.svg",
+    logo: "https://cdn.ing/assets/files/record/286249/ff7m4wdw0zefj7d96v4ajmljuifc",
   },
   {
     name: "Vercel",
@@ -639,7 +639,7 @@ const Logos8 = ({
   logos = [
     {
       name: "Vercel",
-      logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg",
+      logo: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
       className: "h-7 w-auto",
     },
     {
@@ -649,7 +649,7 @@ const Logos8 = ({
     },
     {
       name: "Supabase",
-      logo: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg",
+      logo: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
       className: "h-6 w-auto",
     },
     {
@@ -721,43 +721,43 @@ const Logos10 = ({ className }: Logos10Props) => {
     {
       id: "logo-2",
       description: "Logo 2",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
+      image: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-3",
       description: "Logo 3",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+      image: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-4",
       description: "Logo 4",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+      image: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-5",
       description: "Logo 5",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+      image: "https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-6",
       description: "Logo 6",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
+      image: "https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d",
       className: "h-5 w-auto dark:invert",
     },
     {
       id: "logo-7",
       description: "Logo 7",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
+      image: "https://cdn.ing/assets/files/record/286232/e4357wegghlhmlpr1gue9ektg125",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-8",
       description: "Logo 8",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-7.svg",
+      image: "https://cdn.ing/assets/files/record/286227/uw8kpztosjoogahdto1ssnievsn2",
       className: "h-7 w-auto dark:invert",
     },
   ];
@@ -858,37 +858,37 @@ const Logos11 = ({ className }: Logos11Props) => {
     {
       id: "logo-3",
       description: "Logo 3",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+      image: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
       className: "h-7 w-auto",
     },
     {
       id: "logo-4",
       description: "Logo 4",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+      image: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
       className: "h-7 w-auto",
     },
     {
       id: "logo-5",
       description: "Logo 5",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+      image: "https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp",
       className: "h-7 w-auto",
     },
     {
       id: "logo-6",
       description: "Logo 6",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
+      image: "https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d",
       className: "h-5 w-auto",
     },
     {
       id: "logo-7",
       description: "Logo 7",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
+      image: "https://cdn.ing/assets/files/record/286232/e4357wegghlhmlpr1gue9ektg125",
       className: "h-7 w-auto",
     },
     {
       id: "logo-8",
       description: "Logo 8",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-7.svg",
+      image: "https://cdn.ing/assets/files/record/286227/uw8kpztosjoogahdto1ssnievsn2",
       className: "h-7 w-auto",
     },
   ];
@@ -1068,43 +1068,43 @@ const Logos12 = ({ className }: Logos12Props) => {
     {
       id: "logo-2",
       description: "Logo 2",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
+      image: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-3",
       description: "Logo 3",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+      image: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-4",
       description: "Logo 4",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+      image: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-5",
       description: "Logo 5",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+      image: "https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-6",
       description: "Logo 6",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
+      image: "https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d",
       className: "h-5 w-auto dark:invert",
     },
     {
       id: "logo-7",
       description: "Logo 7",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
+      image: "https://cdn.ing/assets/files/record/286232/e4357wegghlhmlpr1gue9ektg125",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-8",
       description: "Logo 8",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-7.svg",
+      image: "https://cdn.ing/assets/files/record/286227/uw8kpztosjoogahdto1ssnievsn2",
       className: "h-7 w-auto dark:invert",
     },
   ];
@@ -1164,31 +1164,31 @@ const Logos13 = ({ className }: Logos13Props) => {
     {
       id: "logo-2",
       description: "/2022",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
+      image: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-3",
       description: "/2023",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+      image: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-4",
       description: "/2024",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+      image: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-5",
       description: "/2025",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+      image: "https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp",
       className: "h-7 w-auto dark:invert",
     },
     {
       id: "logo-6",
       description: "/2026",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
+      image: "https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d",
       className: "h-5 w-auto dark:invert",
     },
   ];

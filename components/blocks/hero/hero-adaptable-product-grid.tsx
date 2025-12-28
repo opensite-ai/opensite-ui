@@ -34,13 +34,23 @@ export function HeroAdaptableProductGrid({
               needs and fuels your innovation. Highnote is the adaptable
               solution for your business.
             </p>
-            <Pressable href="#" asButton size="lg" variant="default" className="mt-12">
+            <Pressable
+              href="#"
+              asButton
+              size="lg"
+              variant="default"
+              className="mt-12"
+            >
               Consult with an Expert
-              <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="ml-2"
+              />
             </Pressable>
           </div>
           <div className="relative flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 -top-1 -z-10 mx-auto h-full w-full max-w-3xl bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:56px_56px] opacity-15"></div>
+            <div className="absolute inset-0 -top-1 -z-10 mx-auto h-full w-full max-w-3xl bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[56px_56px] opacity-15"></div>
             <Img
               src={logoPlaceholders.logoMark}
               alt="placeholder"

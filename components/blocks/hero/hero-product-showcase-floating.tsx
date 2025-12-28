@@ -25,7 +25,7 @@ export function HeroProductShowcaseFloating({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="order-2 lg:order-1">
             <div className="relative">
-              <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 p-8">
+              <div className="aspect-4/3 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 p-8">
                 <Img
                   src={imagePlaceholders[102]}
                   alt="Product interface"
@@ -36,10 +36,16 @@ export function HeroProductShowcaseFloating({
               <div className="absolute -top-4 -right-4 rounded-xl bg-background p-4 shadow-lg">
                 <div className="flex items-center gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
-                    <DynamicIcon name="lucide/trending-up" size={20} className="text-green-600" />
+                    <DynamicIcon
+                      name="lucide/trending-up"
+                      size={20}
+                      className="text-green-600"
+                    />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-foreground">+127%</div>
+                    <div className="text-2xl font-bold text-foreground">
+                      +127%
+                    </div>
                     <div className="text-xs text-muted-foreground">Growth</div>
                   </div>
                 </div>
@@ -78,21 +84,15 @@ export function HeroProductShowcaseFloating({
               everything you need to build, test, and deploy amazing products.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Pressable
-                href="#"
-                asButton
-                variant="default"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="default" size="lg">
                 Start building
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
-              <Pressable
-                href="#"
-                asButton
-                variant="outline"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="outline" size="lg">
                 See examples
               </Pressable>
             </div>

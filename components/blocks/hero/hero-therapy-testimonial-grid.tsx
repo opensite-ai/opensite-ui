@@ -19,7 +19,9 @@ export function HeroTherapyTestimonialGrid({
   optixFlowConfig,
 }: HeroTherapyTestimonialGridProps): React.JSX.Element {
   return (
-    <section className={cn("bg-background py-12 font-sans md:py-20", className)}>
+    <section
+      className={cn("bg-background py-12 font-sans md:py-20", className)}
+    >
       <div className="container">
         <div className="mx-auto mb-16 flex max-w-[900px] flex-col items-center gap-6">
           <h1 className="text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl">
@@ -40,7 +42,7 @@ export function HeroTherapyTestimonialGrid({
         </div>
         <div className="grid w-full auto-cols-auto grid-cols-1 grid-rows-[auto_auto_auto] justify-center gap-5 md:grid-cols-2">
           <div className="col-[1/2] row-[1/2] w-full">
-            <div className="h-full max-h-[25rem] w-full overflow-hidden rounded-2xl">
+            <div className="h-full max-h-100 w-full overflow-hidden rounded-2xl">
               <Img
                 src={imagePlaceholders[107]}
                 alt=""
@@ -50,7 +52,7 @@ export function HeroTherapyTestimonialGrid({
             </div>
           </div>
           <div className="col-[1/2] row-[2/3] md:col-[2/3] md:row-[1/2]">
-            <div className="h-full max-h-[25rem] w-full overflow-hidden rounded-2xl">
+            <div className="h-full max-h-100 w-full overflow-hidden rounded-2xl">
               <Img
                 src={imagePlaceholders[108]}
                 alt=""

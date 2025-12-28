@@ -7,12 +7,11 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+  imagePlaceholders,
+  logoPlaceholders,
+} from "../../../lib/mediaPlaceholders";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 
 export interface HeroBillingPlatformLogosProps {
   className?: string;
@@ -29,8 +28,8 @@ export function HeroBillingPlatformLogos({
   return (
     <section
       className={cn(
-        "dark bg-background bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/noise.png')] py-12 font-sans md:py-20",
-        className,
+        "dark bg-background bg-[url('https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png')] py-12 font-sans md:py-20",
+        className
       )}
     >
       <div className="container">
@@ -66,15 +65,19 @@ export function HeroBillingPlatformLogos({
                     <p className="font-mono text-sm font-medium text-foreground uppercase">
                       GUIDE TO EMBRACING USAGE-BASED PRICING
                     </p>
-                    <DynamicIcon name="lucide/chevron-right" size={16} className="shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
+                    <DynamicIcon
+                      name="lucide/chevron-right"
+                      size={16}
+                      className="shrink-0 stroke-foreground transition-transform group-hover:translate-x-2"
+                    />
                   </Pressable>
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <div className="relative mr-auto ml-auto aspect-[1.28581291/1] w-full max-w-[37.25rem] lg:mr-0 lg:ml-auto">
-              <div className="relative mx-auto aspect-[1.020365896/1] h-full w-[79.35%] max-w-[29.5625rem] overflow-hidden rounded-3xl">
+            <div className="relative mr-auto ml-auto aspect-[1.28581291/1] w-full max-w-149 lg:mr-0 lg:ml-auto">
+              <div className="relative mx-auto aspect-[1.020365896/1] h-full w-[79.35%] max-w-118.25 overflow-hidden rounded-3xl">
                 <Img
                   src={imagePlaceholders[65]}
                   alt=""
@@ -82,7 +85,7 @@ export function HeroBillingPlatformLogos({
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
-              <div className="absolute top-[19.84%] -left-[-2%] z-30 aspect-[1.765043789/1] w-[30.49%] max-w-[11.875rem] overflow-hidden rounded-lg shadow-lg">
+              <div className="absolute top-[19.84%] -left-[-2%] z-30 aspect-[1.765043789/1] w-[30.49%] max-w-47.5 overflow-hidden rounded-lg shadow-lg">
                 <Img
                   src={imagePlaceholders[66]}
                   alt=""
@@ -90,7 +93,7 @@ export function HeroBillingPlatformLogos({
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
-              <div className="absolute top-[55%] left-[0%] z-30 aspect-[1.776555024/1] w-[43.6%] max-w-[16.375rem] overflow-hidden rounded-lg shadow-lg">
+              <div className="absolute top-[55%] left-[0%] z-30 aspect-[1.776555024/1] w-[43.6%] max-w-65.5 overflow-hidden rounded-lg shadow-lg">
                 <Img
                   src={imagePlaceholders[67]}
                   alt=""
@@ -98,7 +101,7 @@ export function HeroBillingPlatformLogos({
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
-              <div className="absolute top-[40%] right-[0%] z-30 aspect-[1.170212766/1] w-[26.48%] max-w-[10.3125rem] overflow-hidden rounded-lg shadow-lg">
+              <div className="absolute top-[40%] right-[0%] z-30 aspect-[1.170212766/1] w-[26.48%] max-w-41.25 overflow-hidden rounded-lg shadow-lg">
                 <Img
                   src={imagePlaceholders[68]}
                   alt=""

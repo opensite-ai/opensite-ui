@@ -16,7 +16,7 @@ export function HeroMinimalCenteredDark({
     <section
       className={cn(
         "dark relative min-h-screen bg-background py-32",
-        className,
+        className
       )}
     >
       <div className="container flex flex-col items-center justify-center text-center">
@@ -29,7 +29,7 @@ export function HeroMinimalCenteredDark({
         </div>
         <h1 className="mt-8 max-w-4xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
           The future of{" "}
-          <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
             collaboration
           </span>{" "}
           is here

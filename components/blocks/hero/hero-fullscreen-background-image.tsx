@@ -18,11 +18,11 @@ export function HeroFullscreenBackgroundImage({
     <section
       className={cn(
         "dark relative flex h-svh max-h-[1400px] w-svw overflow-hidden bg-cover bg-center bg-no-repeat font-sans after:absolute after:top-0 after:left-0 after:z-10 after:h-full after:w-full after:bg-black/20 after:content-[''] md:h-svh",
-        className,
+        className
       )}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className="relative z-30 m-auto flex max-w-[46.25rem] flex-col items-center justify-center gap-6 px-5">
+      <div className="relative z-30 m-auto flex max-w-185 flex-col items-center justify-center gap-6 px-5">
         <h1 className="text-center font-serif text-4xl leading-tight text-foreground md:text-6xl xl:text-[4.4rem]">
           Explore the wonders of science.
         </h1>
@@ -31,11 +31,16 @@ export function HeroFullscreenBackgroundImage({
           architectural marvels, each photo invites you to explore the
           artificial wonders of the world.
         </p>
-        <Pressable href="#" asButton variant="default" className="h-fit w-fit rounded-full px-7 py-4 text-sm leading-tight font-medium">
+        <Pressable
+          href="#"
+          asButton
+          variant="default"
+          className="h-fit w-fit rounded-full px-7 py-4 text-sm leading-tight font-medium"
+        >
           See all photos
         </Pressable>
       </div>
-      <div className="pointer-events-none absolute inset-0 z-20 h-full w-full bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/noise.png')] bg-repeat opacity-15" />
+      <div className="pointer-events-none absolute inset-0 z-20 h-full w-full bg-[url('https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png')] bg-repeat opacity-15" />
     </section>
   );
 }

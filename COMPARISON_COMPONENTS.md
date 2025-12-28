@@ -59,14 +59,14 @@ const Compare1 = ({ className }: Compare1Props) => {
               <div className="p-4"></div>
               <div className="flex items-center rounded-t-md bg-green-100 p-3 md:p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-7.svg"
+                  src="https://cdn.ing/assets/files/record/286227/uw8kpztosjoogahdto1ssnievsn2"
                   alt="logo"
                   className="h-7 md:h-8"
                 />
               </div>
               <div className="flex items-center rounded-t-md bg-red-100 p-3 md:p-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg"
+                  src="https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum"
                   alt="logo"
                   className="h-7 md:h-8"
                 />
@@ -141,7 +141,7 @@ const Compare2 = ({ className }: Compare2Props) => {
             <div className="rounded-xl border bg-background p-6 shadow">
               <span className="flex items-center justify-center gap-2 font-medium">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                  src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                   alt="company logo"
                   className="h-7"
                 />
@@ -182,7 +182,7 @@ const Compare2 = ({ className }: Compare2Props) => {
             <div className="rounded-xl bg-border/40 p-6">
               <span className="flex items-center justify-center gap-2 font-medium">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg"
+                  src="https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5"
                   alt="company logo"
                   className="h-7"
                 />
@@ -294,7 +294,7 @@ const Compare3 = ({ className }: Compare3Props) => {
             <div className="border-b border-border p-5"></div>
             <div className="flex flex-col items-center gap-2 rounded-t-2xl border-b border-border bg-muted p-5">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                 alt="Acme logo"
                 className="size-8"
               />
@@ -305,7 +305,7 @@ const Compare3 = ({ className }: Compare3Props) => {
             </div>
             <div className="flex flex-col items-center gap-2 border-b border-border p-5">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg"
+                src="https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5"
                 alt="Biz logo"
                 className="size-8"
               />
@@ -1236,7 +1236,7 @@ const Compare9 = ({ className }: Compare9Props) => {
                   <TableHead className="text-center font-semibold text-foreground">
                     <div className="flex items-center justify-center gap-2">
                       <img
-                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/openai-icon.svg"
+                        src="https://cdn.ing/assets/files/record/286236/w11q4i7pq5v2xbaysb4glfeqiel9"
                         alt="OpenAI"
                         width={16}
                         height={16}
@@ -1248,7 +1248,7 @@ const Compare9 = ({ className }: Compare9Props) => {
                   <TableHead className="text-center font-semibold text-foreground">
                     <div className="flex items-center justify-center gap-2">
                       <img
-                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/claude-icon.svg"
+                        src="https://cdn.ing/assets/files/record/286237/id772bsaby7c6wq1nk3ox7ywbgkp"
                         alt="Claude"
                         width={16}
                         height={16}
@@ -1260,7 +1260,7 @@ const Compare9 = ({ className }: Compare9Props) => {
                   <TableHead className="text-center font-semibold text-foreground">
                     <div className="flex items-center justify-center gap-2">
                       <img
-                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/gemini-icon.svg"
+                        src="https://cdn.ing/assets/files/record/286238/kozl1uiskp6sqq1k5ku69s23lw27"
                         alt="Gemini"
                         width={16}
                         height={16}

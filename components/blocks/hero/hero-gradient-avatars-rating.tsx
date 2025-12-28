@@ -24,7 +24,7 @@ export function HeroGradientAvatarsRating({
     <section className={cn("relative overflow-hidden py-32", className)}>
       <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(ellipse_35%_15%_at_40%_55%,hsl(var(--accent))_0%,transparent_100%)] lg:bg-[radial-gradient(ellipse_12%_20%_at_60%_45%,hsl(var(--accent))_0%,transparent_100%)]"></div>
       <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(ellipse_35%_20%_at_70%_75%,hsl(var(--accent))_0%,transparent_80%)] lg:bg-[radial-gradient(ellipse_15%_30%_at_70%_65%,hsl(var(--accent))_0%,transparent_80%)]"></div>
-      <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(hsl(var(--accent-foreground)/0.1)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_60%_at_65%_50%,#000_0%,transparent_80%)] [background-size:8px_8px]"></div>
+      <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(hsl(var(--accent-foreground)/0.1)_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_60%_at_65%_50%,#000_0%,transparent_80%)] bg-size-[8px_8px]"></div>
 
       <div className="relative z-10 container mx-auto px-4">
         <div className="grid items-center gap-8 lg:grid-cols-2">
@@ -49,10 +49,22 @@ export function HeroGradientAvatarsRating({
             </p>
 
             <div className="flex w-full flex-col justify-center gap-3 sm:flex-row lg:justify-start">
-              <Pressable href="#" asButton size="lg" variant="default" className="w-full sm:w-auto">
+              <Pressable
+                href="#"
+                asButton
+                size="lg"
+                variant="default"
+                className="w-full sm:w-auto"
+              >
                 Browse Components
               </Pressable>
-              <Pressable href="#" asButton size="lg" variant="outline" className="w-full sm:w-auto">
+              <Pressable
+                href="#"
+                asButton
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto"
+              >
                 View Demo
               </Pressable>
             </div>
@@ -75,7 +87,12 @@ export function HeroGradientAvatarsRating({
               <div className="flex flex-col items-center sm:items-start">
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <DynamicIcon key={i} name="lucide/star" size={20} className="fill-primary" />
+                    <DynamicIcon
+                      key={i}
+                      name="lucide/star"
+                      size={20}
+                      className="fill-primary"
+                    />
                   ))}
                   <span className="font-semibold">5.0</span>
                 </div>

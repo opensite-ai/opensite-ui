@@ -11,7 +11,7 @@ const CaseStudy8 = ({ className }: CaseStudy8Props) => {
       <div className="container flex flex-col gap-12 lg:flex-row lg:gap-24">
         <article className="mx-auto">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="mb-8 aspect-video w-full max-w-3xl rounded-lg border object-cover"
           />
@@ -108,7 +108,7 @@ const CaseStudy8 = ({ className }: CaseStudy8Props) => {
           <div className="flex flex-col items-start rounded-lg border border-border bg-accent py-6 md:py-8">
             <div className="mb-8 px-6">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg"
+                src="https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq"
                 alt="placeholder"
                 className="max-h-8 w-full"
               />
@@ -265,7 +265,7 @@ const CaseStudy3 = ({ className }: CaseStudy3Props) => {
             </div>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="max-h-[524px] w-full rounded-xl object-cover lg:w-auto"
           />
@@ -273,7 +273,7 @@ const CaseStudy3 = ({ className }: CaseStudy3Props) => {
         <div className="relative mt-20 flex flex-col gap-x-6 gap-y-16 lg:flex-row">
           <aside className="mx-auto h-fit max-w-prose lg:sticky lg:top-10 lg:mx-0 lg:w-64 lg:max-w-none">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-wordmark.svg"
+              src="https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb"
               alt="logo"
               className="h-6 dark:invert"
             />
@@ -628,7 +628,7 @@ const CaseStudy1 = ({ className }: CaseStudy1Props) => {
                     very essence of joy itself - jokes and jest.
                   </p>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="placeholder"
                     className="my-8 aspect-video w-full rounded-lg object-cover"
                   />
@@ -746,7 +746,7 @@ const CaseStudy1 = ({ className }: CaseStudy1Props) => {
             </div>
             <div className="h-fit lg:sticky lg:top-8 lg:max-w-80">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg"
+                src="https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq"
                 alt="logo"
                 className="mb-8 w-36"
               />

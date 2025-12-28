@@ -38,21 +38,15 @@ export function HeroEventRegistration({
               opportunities.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Pressable
-                href="#"
-                asButton
-                variant="default"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="default" size="lg">
                 Register now
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
-              <Pressable
-                href="#"
-                asButton
-                variant="outline"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="outline" size="lg">
                 View schedule
               </Pressable>
             </div>
@@ -76,18 +70,26 @@ export function HeroEventRegistration({
               <Img
                 src={imagePlaceholders[27]}
                 alt="Conference venue"
-                className="aspect-[4/3] w-full object-cover"
+                className="aspect-4/3 w-full object-cover"
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
             <div className="absolute -bottom-4 -left-4 rounded-xl bg-background p-4 shadow-lg">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <DynamicIcon name="lucide/map-pin" size={24} className="text-primary" />
+                  <DynamicIcon
+                    name="lucide/map-pin"
+                    size={24}
+                    className="text-primary"
+                  />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">San Francisco, CA</div>
-                  <div className="text-sm text-muted-foreground">Moscone Center</div>
+                  <div className="font-semibold text-foreground">
+                    San Francisco, CA
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Moscone Center
+                  </div>
                 </div>
               </div>
             </div>

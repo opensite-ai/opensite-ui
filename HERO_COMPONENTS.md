@@ -42,7 +42,7 @@ const Hero1 = ({
     },
   },
   image = {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    src: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     alt: "Hero section demo image showing interface components",
   },
   className,
@@ -114,7 +114,7 @@ const Hero2 = ({ className }: Hero2Props) => {
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
           <div className="flex justify-end bg-muted">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt="placeholder hero"
               className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
             />
@@ -191,13 +191,13 @@ const Hero6 = ({ className }: Hero6Props) => {
         </div>
         <div className="mx-auto mt-20 grid max-w-7xl gap-px bg-border p-px md:grid-cols-5">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="h-full max-h-[500px] w-full object-cover md:col-span-3 dark:invert"
           />
           <div className="relative md:col-span-2">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="h-full max-h-[500px] w-full object-cover dark:invert"
             />
@@ -209,27 +209,27 @@ const Hero6 = ({ className }: Hero6Props) => {
         </div>
         <div className="mx-auto mt-12 grid max-w-7xl grid-cols-2 place-items-center gap-6 md:grid-cols-4">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-wordmark.svg"
+            src="https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb"
             alt="logo"
             className="h-5 sm:h-7 dark:invert"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/nextjs-wordmark.svg"
+            src="https://cdn.ing/assets/files/record/286249/ff7m4wdw0zefj7d96v4ajmljuifc"
             alt="logo"
             className="h-9 sm:h-11 dark:invert"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark-light.svg"
+            src="https://cdn.ing/assets/files/record/286219/xflgk6oshkxpx4ku0rowz33ey6pi"
             alt="logo"
             className="h-4 sm:h-6 dark:hidden"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark-dark.svg"
+            src="https://cdn.ing/assets/files/record/286251/c64yb2c255uig6vpe4gdlnten7rv"
             alt="logo"
             className="hidden h-4 sm:h-6 dark:block"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg"
+            src="https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min"
             alt="logo"
             className="h-6 sm:h-7 dark:invert"
           />
@@ -282,7 +282,7 @@ const Hero8 = ({ className }: Hero8Props) => {
             </div>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="mx-auto mt-24 max-h-[700px] w-full max-w-7xl rounded-t-lg object-cover shadow-lg"
           />
@@ -313,7 +313,7 @@ interface Hero10Props {
 const Hero10 = ({ className }: Hero10Props) => {
   return (
     <section className={cn("relative p-0", className)}>
-      <div className="absolute h-full w-full bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/grid1.svg')] [mask-image:linear-gradient(to_right,theme(colors.border),transparent,transparent,theme(colors.border))] bg-contain bg-repeat opacity-100 lg:block"></div>
+      <div className="absolute h-full w-full bg-[url('https://cdn.ing/assets/files/record/286186/nbdflpgp4ostrno079hygibsflp3')] [mask-image:linear-gradient(to_right,theme(colors.border),transparent,transparent,theme(colors.border))] bg-contain bg-repeat opacity-100 lg:block"></div>
       <div className="container py-28 md:py-32">
         <div className="mx-auto flex max-w-5xl flex-col items-center">
           <div className="z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
@@ -345,32 +345,32 @@ const Hero10 = ({ className }: Hero10Props) => {
               </p>
               <div className="grid grid-cols-2 place-items-center items-center justify-center gap-6 opacity-80 sm:grid-cols-4 sm:gap-4">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-wordmark.svg"
+                  src="https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb"
                   alt="ShadCN UI"
                   className="h-6 dark:invert"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg"
+                  src="https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min"
                   alt="Vercel"
                   className="h-5 dark:invert"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg"
+                  src="https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu"
                   alt="Supabase"
                   className="h-6 dark:hidden"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark-dark.svg"
+                  src="https://cdn.ing/assets/files/record/286217/zvgufvfrljos9ygzttuz01584m5r"
                   alt="Supabase"
                   className="hidden h-6 dark:block"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark-light.svg"
+                  src="https://cdn.ing/assets/files/record/286219/xflgk6oshkxpx4ku0rowz33ey6pi"
                   alt="Tailwind CSS"
                   className="h-5 dark:hidden"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark-dark.svg"
+                  src="https://cdn.ing/assets/files/record/286251/c64yb2c255uig6vpe4gdlnten7rv"
                   alt="Tailwind CSS"
                   className="hidden h-5 dark:block"
                 />
@@ -406,7 +406,7 @@ const Hero11 = ({ className }: Hero11Props) => {
           <div className="mx-auto flex max-w-5xl flex-col items-center">
             <div className="z-10 flex flex-col items-center gap-6 text-center">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                 alt="logo"
                 className="h-10 md:h-16"
               />
@@ -427,7 +427,7 @@ const Hero11 = ({ className }: Hero11Props) => {
             </div>
           </div>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg"
+            src="https://cdn.ing/assets/files/record/286207/ce9ss2hob7uml3u1mn8kjvsx93ts"
             alt="placeholder"
             className="mt-20 aspect-video w-full rounded-t-lg object-cover"
           />
@@ -458,7 +458,7 @@ const Hero12 = ({ className }: Hero12Props) => {
       <div className="absolute inset-x-0 top-0 flex h-full w-full items-center justify-center opacity-100">
         <img
           alt="background"
-          src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/square-alt-grid.svg"
+          src="https://cdn.ing/assets/files/record/286187/4gpn0yq2ptra8iwlvmwwv860ggwv"
           className="[mask-image:radial-gradient(75%_75%_at_center,white,transparent)] opacity-90"
         />
       </div>
@@ -467,7 +467,7 @@ const Hero12 = ({ className }: Hero12Props) => {
           <div className="flex flex-col items-center gap-6 text-center">
             <div className="rounded-xl bg-background/30 p-4 shadow-sm backdrop-blur-sm">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                 alt="logo"
                 className="h-16"
               />
@@ -815,7 +815,7 @@ const Hero16 = ({ className }: Hero16Props) => {
       <div className="container">
         <div className="aspect-video [mask-image:linear-gradient(#000_80%,transparent_100%)]">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder hero"
             className="h-full w-full rounded-md object-cover"
           />
@@ -846,7 +846,7 @@ const Hero24 = ({ className }: Hero24Props) => {
       <div className="container">
         <div className="text-center">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+            src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
             alt="placeholder"
             className="mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28"
           />
@@ -1219,7 +1219,7 @@ const Hero40 = ({ className }: Hero40Props) => {
           </div>
           <div className="flex flex-col gap-6">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt="placeholder"
               className="aspect-video w-full rounded-lg border border-border object-cover"
             />
@@ -1256,7 +1256,7 @@ const Hero40 = ({ className }: Hero40Props) => {
                   </div>
                 ))}
               </Marquee>
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background"></div>
               <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
             </div>
           </div>
@@ -1317,17 +1317,17 @@ const Hero50 = ({ className }: Hero50Props) => {
         <div className="absolute inset-0 top-1/2 h-full w-full bg-linear-to-b from-muted to-transparent to-50%"></div>
         <div className="relative mx-auto max-w-5xl">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="mt-20 max-h-[580px] w-full rounded-lg object-cover shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)]"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+            src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
             alt="placeholder"
             className="absolute top-1/2 -left-3 hidden max-h-56 -translate-y-1/2 rounded-lg object-cover shadow-md md:block xl:-left-10"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+            src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
             alt="placeholder"
             className="absolute top-1/3 -right-3 hidden h-24 w-24 -translate-y-1/2 rounded-lg bg-muted shadow-md md:block xl:-right-10"
           />
@@ -1374,27 +1374,27 @@ const Hero51 = ({ className }: Hero51Props) => {
         <div className="mx-auto mt-14 max-w-7xl overflow-hidden py-8">
           <div className="relative w-full">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt="placeholder"
               className="relative left-1/2 mx-auto max-h-[480px] w-full rounded-xl object-cover shadow-md lg:static lg:max-w-[60vw] xl:max-w-3xl"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="absolute top-0 right-20 -z-10 hidden max-h-60 -rotate-12 rounded-xl object-cover shadow-md lg:block"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="absolute right-20 bottom-0 hidden rotate-12 rounded-xl object-cover shadow-md md:max-h-60 lg:block"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+              src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
               alt="placeholder"
               className="absolute top-0 left-1/4 -z-10 max-h-44 -rotate-12 rounded-xl object-cover shadow-md min-[450px]:max-h-52 sm:left-1/3 md:max-h-60 lg:left-20"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+              src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
               alt="placeholder"
               className="absolute bottom-0 left-1/4 max-h-44 rotate-12 rounded-xl object-cover shadow-md min-[450px]:max-h-52 sm:left-1/3 md:max-h-60 lg:left-20"
             />
@@ -1664,7 +1664,7 @@ const Hero70 = ({ className }: Hero70Props) => {
       <div className="relative z-10 container mx-auto">
         <div className="py-8">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+            src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
             className="h-12 lg:h-16"
             alt=""
           />
@@ -1731,7 +1731,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1740,7 +1740,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1749,7 +1749,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                  src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1758,7 +1758,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                  src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1767,7 +1767,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+                  src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1776,7 +1776,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg"
+                  src="https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1785,7 +1785,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1794,7 +1794,7 @@ const Hero70 = ({ className }: Hero70Props) => {
             <CarouselItem className="basis-[496px] bg-background">
               <div className="h-[380px] basis-[480px] overflow-hidden rounded-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -1854,7 +1854,7 @@ const Hero71 = ({ className }: Hero71Props) => {
         </div>
         <img
           className="mt-10 w-[50%] rounded-xl shadow-[rgba(50,50,105,0.15)_0px_2px_5px_0px,rgba(0,0,0,0.05)_0px_1px_1px_0px] max-lg:w-full"
-          src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+          src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
           alt=""
         />
       </div>
@@ -1932,7 +1932,7 @@ const Hero75 = ({ className }: Hero75Props) => {
         </div>
       </div>
       <img
-        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+        src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
         alt=""
         className="hidden h-screen w-1/2 object-cover lg:block"
       />
@@ -1986,7 +1986,7 @@ const Hero76 = ({ className }: Hero76Props) => {
       <div className="w-full overflow-hidden rounded-lg">
         <AspectRatio ratio={1.916786227 / 1}>
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt=""
             className="size-full object-cover"
           />
@@ -2030,7 +2030,7 @@ const Hero78 = ({ className }: Hero78Props) => {
           See all photos
         </Button>
       </div>
-      <div className="pointer-events-none absolute inset-0 z-20 h-full w-full bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/noise.png')] bg-repeat opacity-15" />
+      <div className="pointer-events-none absolute inset-0 z-20 h-full w-full bg-[url('https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png')] bg-repeat opacity-15" />
     </section>
   );
 };
@@ -2182,7 +2182,7 @@ const Hero80 = ({ className }: Hero80Props) => {
             {/* Main Image */}
             <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="UI Components Preview"
                 className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
               />
@@ -2191,7 +2191,7 @@ const Hero80 = ({ className }: Hero80Props) => {
             {/* Secondary Image */}
             <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted lg:mt-8">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="Component Examples"
                 className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
               />
@@ -2255,7 +2255,7 @@ const Hero82 = ({ className }: Hero82Props) => {
       </div>
       <AspectRatio ratio={1.6 / 1} className="overflow-hidden rounded-3xl">
         <img
-          src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+          src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
           alt=""
           className="size-full object-cover object-center"
         />
@@ -2296,19 +2296,19 @@ const BUTTONS: ButtonType[] = [
 
 const IMAGES = [
   {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    src: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
     alt: "",
     ratio: 0.644736842,
     className: "w-[30%]",
   },
   {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    src: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
     alt: "",
     ratio: 0.926829268,
     className: "w-[40%]",
   },
   {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    src: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
     alt: "",
     ratio: 0.644736842,
     className: "w-[30%]",
@@ -2406,7 +2406,7 @@ const Hero84 = ({ className }: Hero84Props) => {
           <div className="absolute right-0 bottom-0 z-10 w-[27%] overflow-hidden">
             <AspectRatio ratio={0.924193548 / 1}>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt=""
                 className="block size-full object-cover object-top-left"
               />
@@ -2415,7 +2415,7 @@ const Hero84 = ({ className }: Hero84Props) => {
           <div className="absolute right-[14%] bottom-0 z-20 w-[32%] overflow-hidden shadow-xl">
             <AspectRatio ratio={0.924193548 / 1}>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt=""
                 className="block size-full object-cover object-top-left"
               />
@@ -2424,7 +2424,7 @@ const Hero84 = ({ className }: Hero84Props) => {
           <div className="absolute bottom-0 left-1/2 z-30 w-[37%] -translate-x-1/2 overflow-hidden shadow-xl">
             <AspectRatio ratio={0.924193548 / 1}>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                 alt=""
                 className="block size-full object-cover object-top-left"
               />
@@ -2433,7 +2433,7 @@ const Hero84 = ({ className }: Hero84Props) => {
           <div className="absolute bottom-0 left-[14%] z-20 w-[32%] overflow-hidden shadow-xl">
             <AspectRatio ratio={0.924193548 / 1}>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                 alt=""
                 className="block size-full object-cover object-top-left"
               />
@@ -2442,7 +2442,7 @@ const Hero84 = ({ className }: Hero84Props) => {
           <div className="absolute bottom-0 left-0 z-10 w-[27%] overflow-hidden">
             <AspectRatio ratio={0.924193548 / 1}>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+                src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
                 alt=""
                 className="block size-full object-cover object-top-left"
               />
@@ -2522,25 +2522,25 @@ const Hero85 = ({ className }: Hero85Props) => {
               <CarouselContent className="max-h-[350px]">
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                    src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                    src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                     alt="placeholder"
                   />
                 </CarouselItem>
@@ -2561,25 +2561,25 @@ const Hero85 = ({ className }: Hero85Props) => {
               <CarouselContent className="max-h-[350px]">
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                    src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem className="max-w-96">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                    src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                     alt="placeholder"
                   />
                 </CarouselItem>
@@ -2601,25 +2601,25 @@ const Hero85 = ({ className }: Hero85Props) => {
               <CarouselContent className="max-h-[600px]">
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                    src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                    src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                     alt="placeholder"
                   />
                 </CarouselItem>
@@ -2640,25 +2640,25 @@ const Hero85 = ({ className }: Hero85Props) => {
               <CarouselContent className="max-h-[600px]">
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                    src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                     alt="placeholder"
                   />
                 </CarouselItem>
                 <CarouselItem>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                    src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                     alt="placeholder"
                   />
                 </CarouselItem>
@@ -2708,7 +2708,7 @@ const Hero86 = ({ className }: Hero86Props) => {
             <div className="relative z-10 -mb-16 h-auto w-[80%] max-w-[355px] lg:w-[520px]">
               <AspectRatio ratio={355 / 520} className="border-muted2 border">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -2768,7 +2768,7 @@ const Hero87 = ({ className }: Hero87Props) => {
           <div className="relative flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0 -top-1 -z-10 mx-auto h-full w-full max-w-3xl bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:56px_56px] opacity-15"></div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg"
+              src="https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5"
               alt="placeholder"
               className="max-h-[400px]"
             />
@@ -2888,17 +2888,17 @@ const Hero99 = ({ className }: Hero99Props) => {
         </div>
         <div className="mt-20 grid gap-6 md:grid-cols-10">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+            src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
             alt="placeholder"
             className="h-full max-h-[500px] w-full rounded-xl object-cover md:col-span-3"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+            src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
             alt="placeholder"
             className="h-full max-h-[500px] w-full rounded-xl object-cover md:col-span-2"
           />
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+            src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
             alt="placeholder"
             className="h-full max-h-[500px] w-full rounded-xl object-cover md:col-span-5"
           />
@@ -2950,7 +2950,7 @@ const Hero100 = ({ className }: Hero100Props) => {
           <div className="relative basis-[42%] py-9 md:py-16">
             <div className="aspect-square w-full overflow-hidden">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt=""
                 className="relative z-20 h-full w-full object-cover object-center"
               />
@@ -2990,7 +2990,7 @@ const Hero103 = ({ className }: Hero103Props) => {
   return (
     <section
       className={cn(
-        "dark bg-background bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/noise.png')] py-12 font-sans md:py-20",
+        "dark bg-background bg-[url('https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png')] py-12 font-sans md:py-20",
         className,
       )}
     >
@@ -3036,28 +3036,28 @@ const Hero103 = ({ className }: Hero103Props) => {
             <div className="relative mr-auto ml-auto aspect-[1.28581291/1] w-full max-w-[37.25rem] lg:mr-0 lg:ml-auto">
               <div className="relative mx-auto aspect-[1.020365896/1] h-full w-[79.35%] max-w-[29.5625rem] overflow-hidden rounded-3xl">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt=""
                   className="relative z-10 w-full object-cover"
                 />
               </div>
               <div className="absolute top-[19.84%] -left-[-2%] z-30 aspect-[1.765043789/1] w-[30.49%] max-w-[11.875rem] overflow-hidden rounded-lg shadow-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt=""
                   className="size-full object-cover"
                 />
               </div>
               <div className="absolute top-[55%] left-[0%] z-30 aspect-[1.776555024/1] w-[43.6%] max-w-[16.375rem] overflow-hidden rounded-lg shadow-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                  src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                   alt=""
                   className="size-full object-cover"
                 />
               </div>
               <div className="absolute top-[40%] right-[0%] z-30 aspect-[1.170212766/1] w-[26.48%] max-w-[10.3125rem] overflow-hidden rounded-lg shadow-lg">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                  src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                   alt=""
                   className="size-full object-cover"
                 />
@@ -3089,70 +3089,70 @@ const Hero103 = ({ className }: Hero103Props) => {
           <CarouselContent className="items-center">
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/react-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286221/9o1roljuhclobrrmtcfz3o7ptppp"
                 alt=""
                 className="h-8 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb"
                 alt=""
                 className="h-8 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286217/zvgufvfrljos9ygzttuz01584m5r"
                 alt=""
                 className="h-8 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286219/xflgk6oshkxpx4ku0rowz33ey6pi"
                 alt=""
                 className="h-6 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286213/u1qta7tzk0yo7ij8hp84xh1lty3n"
                 alt=""
                 className="h-6 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/react-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286221/9o1roljuhclobrrmtcfz3o7ptppp"
                 alt=""
                 className="h-8 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb"
                 alt=""
                 className="h-8 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286217/zvgufvfrljos9ygzttuz01584m5r"
                 alt=""
                 className="h-8 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286219/xflgk6oshkxpx4ku0rowz33ey6pi"
                 alt=""
                 className="h-6 w-full object-fill"
               />
             </CarouselItem>
             <CarouselItem className="w-fit basis-auto px-7">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark-white.svg"
+                src="https://cdn.ing/assets/files/record/286213/u1qta7tzk0yo7ij8hp84xh1lty3n"
                 alt=""
                 className="h-6 w-full object-fill"
               />
@@ -3247,7 +3247,7 @@ const Hero116 = ({ className }: Hero116Props) => {
                 <div className="absolute -top-[28%] left-[18%] w-[28.47%] max-w-[25.625rem]">
                   <AspectRatio ratio={1.11372549 / 1}>
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                      src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                       alt=""
                       className="size-full object-cover object-center"
                     />
@@ -3256,7 +3256,7 @@ const Hero116 = ({ className }: Hero116Props) => {
                 <div className="absolute -top-[28%] left-[51%] w-[18.75%] max-w-[16.875rem]">
                   <AspectRatio ratio={0.845559846 / 1}>
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt=""
                       className="size-full object-cover object-center"
                     />
@@ -3265,7 +3265,7 @@ const Hero116 = ({ className }: Hero116Props) => {
                 <div className="absolute -bottom-[14%] left-[51%] w-[38.19%] max-w-[34.375rem]">
                   <AspectRatio ratio={1.686153846 / 1}>
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                      src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                       alt=""
                       className="size-full object-cover object-center"
                     />
@@ -3274,7 +3274,7 @@ const Hero116 = ({ className }: Hero116Props) => {
                 <div className="absolute -bottom-[30%] left-[10.7%] w-[38.19%] max-w-[34.375rem]">
                   <AspectRatio ratio={1.415041783 / 1}>
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                      src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                       alt=""
                       className="size-full object-cover object-center"
                     />
@@ -3374,7 +3374,7 @@ const Hero134 = ({ className }: Hero134Props) => {
                   <div className="relative z-20 w-full max-w-[82.5rem] overflow-hidden rounded-t-xl md:rounded-t-3xl">
                     <AspectRatio ratio={2.095238095 / 1}>
                       <img
-                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                        src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                         alt=""
                         className="size-full object-cover object-center"
                       />
@@ -3392,27 +3392,27 @@ const Hero134 = ({ className }: Hero134Props) => {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-20">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg"
+                src="https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh"
                 alt=""
                 className="w-36 opacity-55"
               />
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg"
+                src="https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum"
                 alt=""
                 className="w-36 opacity-55"
               />
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg"
+                src="https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq"
                 alt=""
                 className="w-36 opacity-55"
               />
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg"
+                src="https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp"
                 alt=""
                 className="w-36 opacity-55"
               />
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg"
+                src="https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d"
                 alt=""
                 className="w-36 opacity-55"
               />
@@ -3604,27 +3604,27 @@ const Hero136 = ({ className }: Hero136Props) => {
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-5 sm:flex-nowrap">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg"
+                  src="https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh"
                   alt=""
                   className="block h-3.5 w-auto opacity-50 md:h-5"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg"
+                  src="https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum"
                   alt=""
                   className="block h-3.5 w-auto opacity-50 md:h-5"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg"
+                  src="https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq"
                   alt=""
                   className="block h-3.5 w-auto opacity-50 md:h-5"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg"
+                  src="https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp"
                   alt=""
                   className="block h-3.5 w-auto opacity-50 md:h-5"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg"
+                  src="https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d"
                   alt=""
                   className="hidden h-3.5 w-auto opacity-50 md:block md:h-5"
                 />
@@ -3637,7 +3637,7 @@ const Hero136 = ({ className }: Hero136Props) => {
         <div className="relative mx-auto aspect-[1.259253731/1] w-full max-w-[96rem] overflow-hidden bg-zinc-950 xl:aspect-[1.896296296/1] xl:rounded-3xl">
           <div className="absolute -bottom-1 left-[56%] aspect-[1.151758794/-1] w-[100%] -translate-x-1/2 overflow-hidden rounded-tl-2xl bg-background xl:left-1/2 xl:aspect-[1.933988764/1] xl:w-[87.5%] xl:rounded-tr-2xl">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+              src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
               alt=""
               className="w-full object-cover object-top-left"
             />
@@ -3852,13 +3852,13 @@ const Hero145 = ({ className }: Hero145Props) => {
   return (
     <section
       className={cn(
-        "dark relative h-svh max-h-[1400px] w-full bg-[url(https://deifkwefumgah.cloudfront.net/shadcnblocks/block/full-width-backgrounds/andrew-kliatskyi-uBg4k82xnI4-unsplash.jpg)] bg-cover bg-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
+        "dark relative h-svh max-h-[1400px] w-full bg-[url(https://deifkwefumgah.cloudfront.net/shadcnblocks/block/full-width-backgrounds/andrew-kliatskyi-uBg4k82xnI4-unsplash.jpg)] bg-cover bg-position-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
         className,
       )}
     >
-      <div className="relative z-10 container flex size-full max-w-[103.125rem] flex-col justify-between pt-24 pb-14 md:justify-end">
+      <div className="relative z-10 container flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end">
         <div className="flex h-full flex-col justify-between gap-6 md:justify-end">
-          <h1 className="text-4xl leading-[2.25rem] font-bold text-foreground lg:text-5xl lg:leading-[3rem]! xl:text-7xl xl:leading-[5.5rem]!">
+          <h1 className="text-4xl leading-9 font-bold text-foreground lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-[5.5rem]!">
             <div className="mb-2">We help you to hire top</div>
             <div className="relative h-[calc(2.25rem*3)] md:h-[2.25rem] lg:h-[3rem] xl:h-[5.5rem]">
               <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_0s] will-change-[opacity]">
@@ -3949,7 +3949,7 @@ const Hero146 = ({ className }: Hero146Props) => {
     <Fragment>
       <section
         className={cn(
-          "border-muted2 border-b bg-[url(https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/grid-1.svg)] bg-[length:100%_100%] bg-center bg-no-repeat font-sans",
+          "border-muted2 border-b bg-[url('https://cdn.ing/assets/files/record/286186/nbdflpgp4ostrno079hygibsflp3')] bg-[length:100%_100%] bg-center bg-no-repeat font-sans",
           className,
         )}
       >
@@ -3981,7 +3981,7 @@ const Hero146 = ({ className }: Hero146Props) => {
                 >
                   <div>
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-aspect-video-1.svg"
+                      src="https://cdn.ing/assets/files/record/286199/em26dugzamyy0nlbqdqq5r9h0xx8"
                       alt=""
                       className="w-full object-cover object-top-left"
                     />
@@ -4104,7 +4104,7 @@ const Hero149 = ({ className }: Hero149Props) => {
           <div className="mx-auto mt-16 w-full max-w-[1000px] overflow-hidden rounded-xl shadow-[4px_2px_3.123rem_rgba(0,0,0,.15)]">
             <AspectRatio ratio={1.406469761 / 1}>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt=""
                 className="size-full object-cover object-center"
               />
@@ -4112,7 +4112,7 @@ const Hero149 = ({ className }: Hero149Props) => {
           </div>
         </div>
         <img
-          src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/line.svg"
+          src="https://cdn.ing/assets/files/record/286197/c1rxtarndaf346hzf6rpui4kodbb"
           alt=""
           className="absolute top-auto bottom-[13%] left-[-3%] z-10 block w-full"
         />
@@ -4203,10 +4203,10 @@ const Hero151 = ({
     ],
   },
   images = {
-    first: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
-    second: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg",
-    third: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg",
-    fourth: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-7-tall.svg",
+    first: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
+    second: "https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9",
+    third: "https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0",
+    fourth: "https://cdn.ing/assets/files/record/286247/c92kzuar6li9m5lcm7ek8uckgfx0",
   },
   className,
 }: Hero151Props) => {
@@ -4378,7 +4378,7 @@ const Hero152 = ({ className }: Hero152Props) => {
           <div className="absolute top-[11%] left-[8%] z-10 aspect-[0.7/1] w-[80%] sm:left-[4%] sm:w-[45%]">
             <div className="size-full [transform:rotateY(-30deg)_rotateX(-18deg)_rotate(-4deg)]">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt=""
                 className="block size-full object-cover object-center"
               />
@@ -4387,7 +4387,7 @@ const Hero152 = ({ className }: Hero152Props) => {
           <div className="absolute top-0 left-[70%] z-20 aspect-[0.7/1] w-[73%] -translate-x-1/2 sm:left-1/2 sm:w-[38%]">
             <div className="size-full [transform:rotateY(-30deg)_rotateX(-18deg)_rotate(-4deg)] shadow-[-25px_0px_20px_0px_rgba(0,0,0,.04)]">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+                src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
                 alt=""
                 className="block size-full object-cover object-center"
               />
@@ -4396,7 +4396,7 @@ const Hero152 = ({ className }: Hero152Props) => {
           <div className="absolute top-[3%] -right-[45%] z-30 aspect-[0.7/1] w-[85%] sm:-right-[2%] sm:w-[50%]">
             <div className="size-full [transform:rotateY(-30deg)_rotateX(-18deg)_rotate(-4deg)] shadow-[-25px_0px_20px_0px_rgba(0,0,0,.04)]">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+                src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
                 alt=""
                 className="block size-full object-cover object-center"
               />
@@ -4520,7 +4520,7 @@ const Hero158 = ({ className }: Hero158Props) => {
                 <div className="col-[1/2] row-[1/3]">
                   <div className="h-full w-full overflow-hidden rounded-xl sm:rounded-2xl xl:rounded-3xl">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                      src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                       alt=""
                       className="h-full w-full object-cover object-center"
                     />
@@ -4529,7 +4529,7 @@ const Hero158 = ({ className }: Hero158Props) => {
                 <div className="col-[2/3] row-[1/2]">
                   <div className="h-full w-full overflow-hidden rounded-xl sm:rounded-2xl xl:rounded-3xl">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+                      src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
                       alt=""
                       className="h-full w-full object-cover object-center"
                     />
@@ -4538,7 +4538,7 @@ const Hero158 = ({ className }: Hero158Props) => {
                 <div className="col-[2/3] row-[2/3]">
                   <div className="h-full w-full overflow-hidden rounded-xl sm:rounded-2xl xl:rounded-3xl">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+                      src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
                       alt=""
                       className="h-full w-full object-cover object-center"
                     />
@@ -4616,7 +4616,7 @@ const Hero159 = ({ className }: Hero159Props) => {
           <div className="relative">
             <div className="h-full w-full md:max-w-[37.5rem]">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt=""
                 className="aspect-[1.026845638/1] h-full w-full rounded-xl object-cover object-center lg:aspect-[1.34529148/1]"
               />
@@ -4638,7 +4638,7 @@ const Hero159 = ({ className }: Hero159Props) => {
       </div>
       <div className="absolute -top-36 right-0 hidden w-1/2 rounded-bl-[1.875rem] md:block md:h-[34.375rem] xl:h-[41.5625rem]">
         <img
-          src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg"
+          src="https://cdn.ing/assets/files/record/286207/ce9ss2hob7uml3u1mn8kjvsx93ts"
           alt=""
           className="h-full w-full object-cover object-center"
         />
@@ -4695,7 +4695,7 @@ const Hero162 = ({ className }: Hero162Props) => {
           <div className="row-[1/2] overflow-hidden md:col-[1/3]">
             <div className="h-full w-full overflow-hidden rounded-3xl bg-muted">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt=""
                 className="h-full w-full object-cover object-center"
               />
@@ -4722,7 +4722,7 @@ const Hero162 = ({ className }: Hero162Props) => {
           <div className="row-[3/4] md:col-[2/3] md:row-[2/3]">
             <div className="h-full w-full overflow-hidden rounded-3xl bg-muted">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt=""
                 className="h-full w-full object-cover object-center"
               />
@@ -4761,7 +4761,7 @@ const Hero163 = ({ className }: Hero163Props) => {
           <div className="col-[1/2] row-[1/2] w-full">
             <div className="h-full max-h-[19.375rem] w-full overflow-hidden rounded-2xl">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt=""
                 className="block h-full w-full object-cover object-center"
               />
@@ -4770,7 +4770,7 @@ const Hero163 = ({ className }: Hero163Props) => {
           <div className="col-[2/3] row-[1/2] w-full md:col-[2/3] md:row-[1/2]">
             <div className="h-full max-h-[19.375rem] w-full overflow-hidden rounded-2xl">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt=""
                 className="block h-full w-full object-cover object-center"
               />
@@ -4794,10 +4794,10 @@ const Hero163 = ({ className }: Hero163Props) => {
               </div>
             </div>
           </div>
-          <div className="col-[1/3] row-[2/3] h-[25rem] w-full md:col-[3/5] md:row-[1/3] md:h-auto">
-            <div className="h-full max-h-[32.625rem] w-full overflow-hidden rounded-2xl">
+          <div className="col-[1/3] row-[2/3] h-100 w-full md:col-[3/5] md:row-[1/3] md:h-auto">
+            <div className="h-full max-h-130.5 w-full overflow-hidden rounded-2xl">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                 alt=""
                 className="block h-full w-full object-cover object-center"
               />
@@ -4867,7 +4867,7 @@ const Hero164 = ({ className }: Hero164Props) => {
                   <Button
                     variant="ghost"
                     onClick={() => setIsVideoOpen(true)}
-                    className="group relative flex aspect-video h-full w-full max-w-[24.375rem] overflow-hidden rounded-lg bg-accent bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg')] bg-[length:100%_100%] bg-center bg-no-repeat p-0 transition-all after:absolute after:block after:h-full after:w-full after:bg-background/5 after:content-[''] hover:bg-accent hover:bg-[length:120%_120%] hover:after:bg-black/15"
+                    className="group relative flex aspect-video h-full w-full max-w-[24.375rem] overflow-hidden rounded-lg bg-accent bg-[url('https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u')] bg-[length:100%_100%] bg-center bg-no-repeat p-0 transition-all after:absolute after:block after:h-full after:w-full after:bg-background/5 after:content-[''] hover:bg-accent hover:bg-[length:120%_120%] hover:after:bg-black/15"
                   >
                     <AspectRatio ratio={16 / 9} className="flex h-full w-full">
                       <div className="m-auto aspect-square">
@@ -4880,9 +4880,9 @@ const Hero164 = ({ className }: Hero164Props) => {
             </div>
             <div>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt=""
-                className="aspect-[4/5] h-full max-h-[62.5rem] w-full rounded-xl object-cover object-center"
+                className="aspect-4/5 h-full max-h-[62.5rem] w-full rounded-xl object-cover object-center"
               />
             </div>
           </div>
@@ -4932,7 +4932,7 @@ const Hero165 = ({ className }: Hero165Props) => {
                 <div className="col-[1/3] row-[1/3]">
                   <div className="h-full w-full overflow-hidden rounded-[2vw] bg-blue-100 lg:rounded-[1.2vw] xl:rounded-2xl">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt=""
                       className="h-full w-full object-cover object-center"
                     />
@@ -4941,7 +4941,7 @@ const Hero165 = ({ className }: Hero165Props) => {
                 <div className="col-[3/5] row-[2/3]">
                   <div className="h-full w-full overflow-hidden rounded-[2vw] bg-green-100 lg:rounded-[1.2vw] xl:rounded-2xl">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                      src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                       alt=""
                       className="h-full w-full object-cover object-center"
                     />
@@ -4950,7 +4950,7 @@ const Hero165 = ({ className }: Hero165Props) => {
                 <div className="col-[2/4] row-[3/4]">
                   <div className="h-full w-full overflow-hidden rounded-[2vw] bg-pink-100 lg:rounded-[1.2vw] xl:rounded-2xl">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                      src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                       alt=""
                       className="h-full w-full object-cover object-center"
                     />
@@ -5012,29 +5012,29 @@ const Hero166 = ({ className }: Hero166Props) => {
                 <div className="flex flex-col items-end justify-center gap-4">
                   <div className="relative animate-[transform1_15s_ease-in-out_infinite] overflow-hidden rounded-lg">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt=""
                       className="absolute block h-full w-full animate-[image1_15s_ease-in-out_infinite] object-cover object-center"
                     />
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                      src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                       alt=""
                       className="absolute block h-full w-full animate-[image2_15s_ease-in-out_infinite] object-cover object-center"
                     />
                   </div>
                   <div className="relative animate-[transform2_15s_ease-in-out_infinite] overflow-hidden rounded-lg">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                      src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                       alt=""
                       className="absolute block h-full w-full animate-[image1_15s_ease-in-out_infinite] object-cover object-center"
                     />
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+                      src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
                       alt=""
                       className="absolute block h-full w-full animate-[image2_15s_ease-in-out_infinite] object-cover object-center"
                     />
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                      src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                       alt=""
                       className="absolute block h-full w-full animate-[image3_15s_ease-in-out_infinite] object-cover object-center"
                     />
@@ -5043,24 +5043,24 @@ const Hero166 = ({ className }: Hero166Props) => {
                 <div className="flex flex-col items-start justify-center gap-4">
                   <div className="relative animate-[transform4_15s_ease-in-out_infinite] overflow-hidden rounded-lg">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt=""
                       className="absolute block h-full w-full animate-[image3_15s_ease-in-out_infinite] object-cover object-center"
                     />
                   </div>
                   <div className="relative animate-[transform3_15s_ease-in-out_infinite] overflow-hidden rounded-lg">
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                      src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                       alt=""
                       className="absolute block h-full w-full animate-[image1_15s_ease-in-out_infinite] object-cover object-center"
                     />
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+                      src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
                       alt=""
                       className="absolute block h-full w-full animate-[image2_15s_ease-in-out_infinite] object-cover object-center"
                     />
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-6.svg"
+                      src="https://cdn.ing/assets/files/record/286206/qs3jazsupq75q1fgisnonwnohie2"
                       alt=""
                       className="absolute block h-full w-full animate-[image3_15s_ease-in-out_infinite] object-cover object-center"
                     />
@@ -5113,24 +5113,24 @@ const Hero168 = ({ className }: Hero168Props) => {
           <div className="relative flex h-[600px] w-full rounded-md sm:h-[750px]">
             <div className="absolute flex h-[600px] w-screen rounded-md bg-linear-to-b from-muted/50 to-muted sm:h-[750px]">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="my-auto ml-20 block h-4/6 w-auto rounded-md object-cover md:w-2/5"
               />
               <div className="absolute top-1/2 -left-5 md:-left-20 lg:-left-44">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+                  src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
                   alt="placeholder"
                   className="mb-6 h-[134px] w-[230px] rounded-lg object-cover shadow-md lg:h-[142px] lg:w-[265px]"
                 />
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+                  src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
                   alt="placeholder"
                   className="h-[115px] w-[230px] rounded-lg bg-muted shadow-md lg:h-[122px] lg:w-[265px]"
                 />
               </div>
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+                src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
                 alt="placeholder"
                 className="absolute bottom-[70%] -left-5 h-[146px] w-[230px] rounded-lg bg-muted shadow-md md:bottom-10 md:left-1/4 lg:h-[156px] lg:w-[265px] 2xl:left-32"
               />
@@ -5200,7 +5200,7 @@ const Hero170 = ({ className }: Hero170Props) => {
             <Button asChild size="icon" variant="ghost" className="block w-fit">
               <a href="#">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg"
+                  src="https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb"
                   alt=""
                   className="size-10 invert"
                 />
@@ -5209,7 +5209,7 @@ const Hero170 = ({ className }: Hero170Props) => {
             <Button asChild size="icon" variant="ghost" className="block w-fit">
               <a href="#">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg"
+                  src="https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5"
                   alt=""
                   className="size-10 invert"
                 />
@@ -5218,7 +5218,7 @@ const Hero170 = ({ className }: Hero170Props) => {
             <Button asChild size="icon" variant="ghost" className="block w-fit">
               <a href="#">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg"
+                  src="https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh"
                   alt=""
                   className="size-10 invert"
                 />
@@ -5227,7 +5227,7 @@ const Hero170 = ({ className }: Hero170Props) => {
             <Button asChild size="icon" variant="ghost" className="block w-fit">
               <a href="#">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg"
+                  src="https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea"
                   alt=""
                   className="size-10 invert"
                 />
@@ -5236,7 +5236,7 @@ const Hero170 = ({ className }: Hero170Props) => {
             <Button asChild size="icon" variant="ghost" className="block w-fit">
               <a href="#">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-5.svg"
+                  src="https://cdn.ing/assets/files/record/286234/bldwkc8wkq6nd3hkdqds9fy5lls9"
                   alt=""
                   className="size-10 invert"
                 />
@@ -5247,17 +5247,17 @@ const Hero170 = ({ className }: Hero170Props) => {
         <div>
           <div className="relative mx-auto mt-16 w-full max-w-[52.8rem]">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-aspect-video-1.svg"
+              src="https://cdn.ing/assets/files/record/286199/em26dugzamyy0nlbqdqq5r9h0xx8"
               alt=""
               className="relative z-20 -mb-[2px] block w-full rounded-tl-lg rounded-tr-lg"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dots.svg"
+              src="https://cdn.ing/assets/files/record/286198/yfsjx9thvtxzhl2qtshxyhkrm524"
               alt=""
               className="absolute top-0 right-0 z-10 h-20 w-20 translate-x-[20%] -translate-y-[30%] sm:h-32 sm:w-32 md:h-40 md:w-40"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dots.svg"
+              src="https://cdn.ing/assets/files/record/286198/yfsjx9thvtxzhl2qtshxyhkrm524"
               alt=""
               className="absolute bottom-0 left-0 z-10 h-20 w-20 -translate-x-[30%] translate-y-[30%] sm:h-32 sm:w-32 md:h-40 md:w-40"
             />
@@ -5340,7 +5340,7 @@ const Hero173 = ({ className }: Hero173Props) => {
                     className="overflow-hidden"
                   >
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt=""
                       className="size-full object-cover object-center"
                     />
@@ -5353,7 +5353,7 @@ const Hero173 = ({ className }: Hero173Props) => {
                     className="overflow-hidden"
                   >
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                      src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                       alt=""
                       className="size-full object-cover object-center"
                     />
@@ -5366,7 +5366,7 @@ const Hero173 = ({ className }: Hero173Props) => {
                     className="overflow-hidden"
                   >
                     <img
-                      src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                      src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                       alt=""
                       className="size-full object-cover object-center"
                     />
@@ -5507,7 +5507,7 @@ const Hero178 = ({ className }: Hero178Props) => {
               <div className="absolute right-0 bottom-0 w-[85%] overflow-hidden rounded-lg">
                 <AspectRatio ratio={0.918918919 / 1}>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt=""
                     className="block size-full object-cover object-top-left"
                   />
@@ -5516,7 +5516,7 @@ const Hero178 = ({ className }: Hero178Props) => {
               <div className="absolute bottom-0 left-[0%] w-[70%] overflow-hidden rounded-tl-lg">
                 <AspectRatio ratio={1.9 / 1}>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+                    src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
                     alt=""
                     className="block h-full w-full object-cover object-center"
                   />
@@ -5525,7 +5525,7 @@ const Hero178 = ({ className }: Hero178Props) => {
               <div className="absolute right-[5%] bottom-0 w-[40%] overflow-hidden rounded-tl-lg rounded-tr-lg shadow-md">
                 <AspectRatio ratio={0.776119403 / 1}>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-3.svg"
+                    src="https://cdn.ing/assets/files/record/286211/1d12hqfn5zpsfloai89gqq98kht0"
                     alt=""
                     className="block h-full w-full object-cover object-top"
                   />
@@ -5579,7 +5579,7 @@ const Hero179 = ({ className }: Hero179Props) => {
               <div className="absolute right-0 bottom-0 w-[85%] overflow-hidden rounded-lg">
                 <AspectRatio ratio={0.918918919 / 1}>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                    src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                     alt=""
                     className="block size-full object-cover object-top-left"
                   />
@@ -5588,7 +5588,7 @@ const Hero179 = ({ className }: Hero179Props) => {
               <div className="absolute right-0 bottom-0 w-[93%] overflow-hidden rounded-tl-lg shadow-md">
                 <AspectRatio ratio={1.381308411 / 1}>
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-2.svg"
+                    src="https://cdn.ing/assets/files/record/286210/jdwpoe6le13i7l4hn0er8ay9t5n9"
                     alt=""
                     className="block size-full object-cover object-center"
                   />
@@ -5668,7 +5668,7 @@ const Hero180 = ({ className }: Hero180Props) => {
                   <div className="border-muted2 absolute top-1/2 left-1/2 z-10 w-[87.69%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl border">
                     <AspectRatio ratio={1.594405594 / 1}>
                       <img
-                        src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                        src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                         alt=""
                         className="object-centers size-full object-cover"
                       />
@@ -5757,29 +5757,29 @@ const Hero183 = ({ className }: Hero183Props) => {
           <div className="absolute -right-20 bottom-0 -left-20 z-10 h-px bg-[linear-gradient(to_right,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
           <div className="relative grid grid-cols-7 grid-rows-11 gap-4 lg:gap-6">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+              src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
               alt="placeholder"
               className="col-span-2 row-span-4 row-start-2 aspect-video h-full rounded-lg border border-border object-cover"
             />
             <div className="col-span-3 col-start-3 row-span-full m-px rounded-lg bg-muted p-2.5">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
+                src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                 alt="placeholder"
                 className="aspect-video h-full rounded-lg border border-border object-cover"
               />
             </div>
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+              src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
               alt="placeholder"
               className="col-span-2 row-span-5 row-start-2 aspect-video h-full rounded-lg border border-border object-cover"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+              src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
               alt="placeholder"
               className="col-span-2 row-span-5 aspect-video h-full rounded-lg border border-border object-cover"
             />
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+              src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
               alt="placeholder"
               className="col-span-2 row-span-4 aspect-video h-full rounded-lg border border-border object-cover"
             />
@@ -5795,12 +5795,12 @@ const Hero183 = ({ className }: Hero183Props) => {
               <CarouselItem>
                 <div className="flex flex-col gap-3">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                    src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                     alt="placeholder"
                     className="aspect-video rounded-lg border border-border object-cover"
                   />
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg"
+                    src="https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx"
                     alt="placeholder"
                     className="aspect-4/3 rounded-lg border border-border object-cover"
                   />
@@ -5808,7 +5808,7 @@ const Hero183 = ({ className }: Hero183Props) => {
               </CarouselItem>
               <CarouselItem>
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                  src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                   alt="placeholder"
                   className="h-full rounded-lg border border-border object-cover"
                 />
@@ -5816,12 +5816,12 @@ const Hero183 = ({ className }: Hero183Props) => {
               <CarouselItem>
                 <div className="flex flex-col gap-3">
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                    src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                     alt="placeholder"
                     className="aspect-4/3 rounded-lg border border-border object-cover"
                   />
                   <img
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg"
+                    src="https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr"
                     alt="placeholder"
                     className="aspect-video rounded-lg border border-border object-cover"
                   />
@@ -5875,7 +5875,7 @@ const Hero185 = ({ className }: Hero185Props) => {
             </div>
             <div className="relative mt-10 aspect-[3/3.25] overflow-hidden md:mt-14 lg:mr-8 lg:mb-10 lg:ml-2">
               <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
+                src="https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8"
                 alt="About hero image"
                 className="object-cover"
               />
@@ -5886,14 +5886,14 @@ const Hero185 = ({ className }: Hero185Props) => {
             <div className="flex justify-center gap-6 lg:gap-8">
               <div className="relative mt-20 aspect-[1/1.1] h-[200px] overflow-hidden lg:mt-32 lg:h-[296px]">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg"
+                  src="https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u"
                   alt="Team meeting"
                   className="object-cover"
                 />
               </div>
               <div className="relative mt-10 aspect-[1/1.1] h-[200px] overflow-hidden lg:mt-16 lg:h-[296px]">
                 <img
-                  src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+                  src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
                   alt="Team collaboration"
                   className="object-cover"
                 />
@@ -6019,7 +6019,7 @@ const Hero186 = ({ className }: Hero186Props) => {
 
         <div className="container mt-12 md:mt-20 lg:mt-24">
           <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg"
+            src="https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4"
             alt="hero"
             className="w-full rounded-2xl object-cover object-center sm:h-[500px] lg:h-[793px]"
           />
@@ -6265,27 +6265,27 @@ const TAB_LIST = [
   {
     icon: Calendar,
     title: "Scheduling",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image: "https://cdn.ing/assets/files/record/286200/io0rg4wv8jd2o792q4uouxg4d5k8",
   },
   {
     icon: Route,
     title: "Routing",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image: "https://cdn.ing/assets/files/record/286201/l8f27khqrs9eumdi9r0ihvbe886u",
   },
   {
     icon: Workflow,
     title: "Workflows",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image: "https://cdn.ing/assets/files/record/286203/itwrx0hqshkompfxvikdmj77xoh4",
   },
   {
     icon: Text,
     title: "Forms",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image: "https://cdn.ing/assets/files/record/286204/7rhj7uvcnozjm6c2q4txtptfcmpx",
   },
   {
     icon: Waypoints,
     title: "Enrichment",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
+    image: "https://cdn.ing/assets/files/record/286205/e0az5aimgxvqa11grxzaok7fbsvr",
   },
 ];
 
@@ -6356,7 +6356,7 @@ const Hero196 = ({ className }: Hero196Props) => {
   return (
     <section
       className={cn(
-        "bg-muted bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/dot-pattern-2.svg')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
+        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
         className,
       )}
     >
@@ -6769,7 +6769,7 @@ const Hero210 = ({ className }: Hero210Props) => {
         </div>
 
         <div className="relative mt-12 h-[420px] w-full lg:px-20">
-          <div className="absolute left-0 z-10 h-full w-12 bg-gradient-to-r from-background to-transparent sm:via-background md:w-58 lg:left-16" />
+          <div className="absolute left-0 z-10 h-full w-12 bg-linear-to-r from-background to-transparent sm:via-background md:w-58 lg:left-16" />
           <div className="absolute right-0 z-10 h-full w-12 bg-gradient-to-l from-background to-transparent sm:via-background md:w-58 lg:right-16" />
           <motion.div
             initial={{ opacity: 0 }}
@@ -7156,43 +7156,43 @@ const Hero230 = ({ className }: Hero230Props) => {
     {
       id: "logo-2",
       description: "Logo 2",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
+      image: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
       className: "h-7 w-auto",
     },
     {
       id: "logo-3",
       description: "Logo 3",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+      image: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
       className: "h-7 w-auto",
     },
     {
       id: "logo-4",
       description: "Logo 4",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+      image: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
       className: "h-7 w-auto",
     },
     {
       id: "logo-5",
       description: "Logo 5",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+      image: "https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp",
       className: "h-7 w-auto",
     },
     {
       id: "logo-6",
       description: "Logo 6",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
+      image: "https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d",
       className: "h-5 w-auto",
     },
     {
       id: "logo-7",
       description: "Logo 7",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
+      image: "https://cdn.ing/assets/files/record/286232/e4357wegghlhmlpr1gue9ektg125",
       className: "h-7 w-auto",
     },
     {
       id: "logo-8",
       description: "Logo 8",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-7.svg",
+      image: "https://cdn.ing/assets/files/record/286227/uw8kpztosjoogahdto1ssnievsn2",
       className: "h-7 w-auto",
     },
     {
@@ -7204,43 +7204,43 @@ const Hero230 = ({ className }: Hero230Props) => {
     {
       id: "logo-2",
       description: "Logo 2",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
+      image: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
       className: "h-7 w-auto",
     },
     {
       id: "logo-3",
       description: "Logo 3",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+      image: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
       className: "h-7 w-auto",
     },
     {
       id: "logo-4",
       description: "Logo 4",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+      image: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
       className: "h-7 w-auto",
     },
     {
       id: "logo-5",
       description: "Logo 5",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+      image: "https://cdn.ing/assets/files/record/286230/rl5ccu4bblexv7k2xj6ku4xig4xp",
       className: "h-7 w-auto",
     },
     {
       id: "logo-6",
       description: "Logo 6",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
+      image: "https://cdn.ing/assets/files/record/286229/6tpue2feey9ja58jh6fwmh5aad0d",
       className: "h-5 w-auto",
     },
     {
       id: "logo-7",
       description: "Logo 7",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
+      image: "https://cdn.ing/assets/files/record/286232/e4357wegghlhmlpr1gue9ektg125",
       className: "h-7 w-auto",
     },
     {
       id: "logo-8",
       description: "Logo 8",
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-7.svg",
+      image: "https://cdn.ing/assets/files/record/286227/uw8kpztosjoogahdto1ssnievsn2",
       className: "h-7 w-auto",
     },
   ];
@@ -7412,7 +7412,7 @@ const Hero234 = ({ className }: Hero234Props) => {
       </div>
 
       {/* Left side masks */}
-      <div className="absolute top-0 left-0 z-10 h-full w-[160px] bg-gradient-to-r from-background to-transparent md:w-[200px]" />
+      <div className="absolute top-0 left-0 z-10 h-full w-[160px] bg-linear-to-r from-background to-transparent md:w-[200px]" />
 
       {/* Right side masks */}
       <div className="absolute top-0 right-0 z-10 h-full w-[160px] bg-gradient-to-l from-background to-transparent md:w-[200px]" />

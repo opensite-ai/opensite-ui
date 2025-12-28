@@ -21,7 +21,7 @@ export function HeroPatternBadgeLogos({
 }: HeroPatternBadgeLogosProps): React.JSX.Element {
   return (
     <section className={cn("relative p-0", className)}>
-      <div className="absolute h-full w-full bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/grid1.svg')] [mask-image:linear-gradient(to_right,theme(colors.border),transparent,transparent,theme(colors.border))] bg-contain bg-repeat opacity-100 lg:block"></div>
+      <div className="absolute h-full w-full bg-[url('https://cdn.ing/assets/files/record/286186/nbdflpgp4ostrno079hygibsflp3')] mask-[linear-gradient(to_right,var(--color-border),transparent,transparent,var(--color-border))] bg-contain bg-repeat opacity-100 lg:block"></div>
       <div className="container py-28 md:py-32">
         <div className="mx-auto flex max-w-5xl flex-col items-center">
           <div className="z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
@@ -43,8 +43,12 @@ export function HeroPatternBadgeLogos({
             </div>
 
             <div className="mt-6 flex items-center gap-4">
-              <Pressable href="#" asButton variant="default">Get Started</Pressable>
-              <Pressable href="#" asButton variant="outline">Learn More</Pressable>
+              <Pressable href="#" asButton variant="default">
+                Get Started
+              </Pressable>
+              <Pressable href="#" asButton variant="outline">
+                Learn More
+              </Pressable>
             </div>
 
             <div className="mt-12 flex flex-col items-center gap-4 lg:mt-16">
