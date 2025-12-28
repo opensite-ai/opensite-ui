@@ -32,12 +32,7 @@ const defaultPlans: PricingPlan[] = [
     monthlyPrice: 15,
     yearlyPrice: 150,
     description: "For individuals",
-    features: [
-      "5 projects",
-      "Basic analytics",
-      "Email support",
-      "2GB storage",
-    ],
+    features: ["5 projects", "Basic analytics", "Email support", "2GB storage"],
     buttonText: "Get Started",
     buttonHref: "#",
     gradientClass: "from-blue-500/10 to-cyan-500/10",
@@ -142,7 +137,7 @@ export function PricingGradientCards({
               className={cn(
                 "relative flex flex-col rounded-2xl border p-6",
                 plan.isPopular ? "border-primary shadow-lg" : "border-border",
-                plan.gradientClass && `bg-gradient-to-br ${plan.gradientClass}`
+                plan.gradientClass && `bg-linear-to-br ${plan.gradientClass}`
               )}
             >
               {plan.isPopular && (

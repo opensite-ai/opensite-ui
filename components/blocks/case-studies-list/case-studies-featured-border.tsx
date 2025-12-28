@@ -144,7 +144,7 @@ export function CaseStudiesFeaturedBorder({
                     <Img
                       src={featuredCaseStudy.image}
                       alt={featuredCaseStudy.title}
-                      className="aspect-[14/9] h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      className="aspect-14/9 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                       loading="lazy"
                       optixFlowConfig={optixFlowConfig}
                     />
@@ -154,7 +154,7 @@ export function CaseStudiesFeaturedBorder({
             )}
           </Pressable>
           <div className="flex border-t border-border">
-            <div className="hidden w-28 shrink-0 bg-[radial-gradient(var(--muted-foreground)_1px,transparent_1px)] [background-size:10px_10px] opacity-15 xl:block"></div>
+            <div className="hidden w-28 shrink-0 bg-[radial-gradient(var(--muted-foreground)_1px,transparent_1px)] bg-size-[10px_10px] opacity-15 xl:block"></div>
             <div className="grid lg:grid-cols-2">
               {caseStudies.map((item, idx) => (
                 <Pressable
@@ -200,7 +200,7 @@ export function CaseStudiesFeaturedBorder({
                 </Pressable>
               ))}
             </div>
-            <div className="hidden w-28 shrink-0 bg-[radial-gradient(var(--muted-foreground)_1px,transparent_1px)] [background-size:10px_10px] opacity-15 xl:block"></div>
+            <div className="hidden w-28 shrink-0 bg-[radial-gradient(var(--muted-foreground)_1px,transparent_1px)] bg-size-[10px_10px] opacity-15 xl:block"></div>
           </div>
         </div>
       </div>

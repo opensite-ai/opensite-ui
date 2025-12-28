@@ -124,7 +124,7 @@ export function FaqSidebarNavigation({
           </h2>
           <p className="text-muted-foreground lg:text-lg">{description}</p>
         </div>
-        <div className="mx-auto mt-10 flex max-w-screen-xl flex-col gap-10 lg:flex-row lg:gap-16">
+        <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-10 lg:flex-row lg:gap-16">
           <nav className="lg:w-1/4">
             <div className="sticky top-24 space-y-2">
               {categories.map((category) => (

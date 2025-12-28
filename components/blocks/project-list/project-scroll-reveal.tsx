@@ -143,7 +143,7 @@ const ProjectItem = ({
           />
         </motion.div>
         <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
+          className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"
           initial={{ opacity: 0.6 }}
           animate={{ opacity: hoveredIndex === index ? 0.8 : 0.6 }}
           transition={{ duration: 0.4 }}

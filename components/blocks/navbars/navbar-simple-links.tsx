@@ -44,7 +44,7 @@ const defaultNavItems: NavItem[] = [
 
 /**
  * NavbarSimpleLinks - A minimal navigation bar with animated active indicator.
- * 
+ *
  * Features a clean, simple design with horizontal navigation links and an animated
  * underline indicator that slides to show the active item. Desktop view shows all
  * links inline with a smooth sliding indicator. Mobile view uses a popover menu
@@ -69,7 +69,7 @@ export const NavbarSimpleLinks = ({
   useEffect(() => {
     const updateIndicator = () => {
       const activeEl = document.querySelector(
-        `[data-nav-item="${activeItem}"]`,
+        `[data-nav-item="${activeItem}"]`
       ) as HTMLElement;
 
       if (activeEl && indicatorRef.current && menuRef.current) {
@@ -187,7 +187,7 @@ const MobileNav = ({ navItems, activeItem, setActiveItem }: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="block flex h-full items-center lg:hidden">
+    <div className="flex h-full items-center lg:hidden">
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Pressable variant="ghost" size="icon" asButton onClick={() => {}}>

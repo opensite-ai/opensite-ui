@@ -119,7 +119,7 @@ export function HeroTestimonialImageGrid({
                     </div>
                   </div>
                   <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="absolute top-[9%] left-[9%] w-[200%] max-w-[37.5rem] overflow-hidden rounded-md">
+                    <div className="absolute top-[9%] left-[9%] w-[200%] max-w-150 overflow-hidden rounded-md">
                       <AspectRatio ratio={1.6 / 1}>
                         <Img
                           src={imagePlaceholders[92]}
@@ -131,7 +131,7 @@ export function HeroTestimonialImageGrid({
                     </div>
                   </div>
                   <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="relative top-[12%] left-[50%] w-[70%] max-w-[17.5rem] -translate-x-[50%]">
+                    <div className="relative top-[12%] left-[50%] w-[70%] max-w-70 -translate-x-[50%]">
                       <AspectRatio ratio={0.52 / 1}>
                         <Img
                           src={imagePlaceholders[93]}

@@ -22,15 +22,15 @@ export function HeroProductivityLauncherVideo({
         className
       )}
     >
-      <div className="relative z-20 container max-w-[51.125rem]">
+      <div className="relative z-20 container max-w-204.5">
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-8 px-4 pt-52 pb-32 md:pb-52">
-            <div className="max-w-100 sm:max-w-[33.75rem]">
+            <div className="max-w-100 sm:max-w-135">
               <h1 className="text-center text-4xl leading-tight font-semibold text-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.15)] sm:text-5xl md:text-[4rem]">
                 Your fast track to everything.
               </h1>
             </div>
-            <div className="max-w-[22.5rem] md:max-w-full">
+            <div className="max-w-90 md:max-w-full">
               <p className="text-center text-sm leading-normal tracking-tight text-balance text-muted-foreground [text-shadow:0_4px_4px_rgba(0,0,0,0.25)] md:text-lg">
                 A suite of robust productivity tools packed into an adaptable
                 launcher—quick, intuitive, and dependable.

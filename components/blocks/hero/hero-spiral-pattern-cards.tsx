@@ -45,7 +45,7 @@ export function HeroSpiralPatternCards({
       </div>
       <div className="mt-16 flex flex-col items-center justify-center lg:mt-32">
         <div className="b relative mx-auto aspect-square w-[95%] max-w-125 sm:w-full">
-          <div className="absolute inset-x-1/2 top-full z-0 flex w-[120rem] -translate-x-1/2 -translate-y-[4rem] md:-translate-y-[2rem]">
+          <div className="absolute inset-x-1/2 top-full z-0 flex w-480 -translate-x-1/2 -translate-y-16 md:-translate-y-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               version="1.1"

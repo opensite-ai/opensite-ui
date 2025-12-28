@@ -62,8 +62,8 @@ export function HeroTherapyTestimonialGrid({
             </div>
           </div>
           <div className="col-[1/2] row-[3/4] md:col-[1/2] md:row-[2/3]">
-            <div className="flex h-full min-h-[9.375rem] flex-col gap-3 overflow-hidden rounded-3xl bg-muted p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
-              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-[7.5rem] md:w-[7.5rem]">
+            <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-muted p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
+              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
                 <Img
                   src={imagePlaceholders[109]}
                   alt=""

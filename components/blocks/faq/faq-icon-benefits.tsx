@@ -71,7 +71,7 @@ export function FaqIconBenefits({
           </h2>
           <p className="text-muted-foreground lg:text-lg">{description}</p>
         </div>
-        <div className="mx-auto mt-10 grid max-w-screen-xl gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">
           {benefits.map((benefit, index) => (
             <div
               key={index}

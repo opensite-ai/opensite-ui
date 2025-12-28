@@ -29,12 +29,16 @@ export function HeroSimpleCenteredImage({
           consequatur.
         </p>
         <div className="mb-6 flex gap-2 lg:mb-12">
-          <Pressable href="#" asButton variant="default">Primary</Pressable>
-          <Pressable href="#" asButton variant="outline">Secondary</Pressable>
+          <Pressable href="#" asButton variant="default">
+            Primary
+          </Pressable>
+          <Pressable href="#" asButton variant="outline">
+            Secondary
+          </Pressable>
         </div>
       </div>
       <div className="container">
-        <div className="aspect-video [mask-image:linear-gradient(#000_80%,transparent_100%)]">
+        <div className="aspect-video mask-[linear-gradient(#000_80%,transparent_100%)]">
           <Img
             src={imagePlaceholders[6]}
             alt="placeholder hero"

@@ -4063,7 +4063,7 @@ const Project5g = ({ className }: Project5gProps) => {
             </motion.div>
 
             <motion.div variants={fadeInUp} className="lg:col-span-2">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-muted/30">
+              <div className="relative aspect-3/4 overflow-hidden rounded-lg bg-muted/30">
                 <img
                   src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Modern Terrarium Display.jpg"
                   alt="Modern Terrarium Display"

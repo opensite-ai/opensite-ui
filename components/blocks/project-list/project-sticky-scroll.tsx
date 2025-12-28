@@ -81,7 +81,7 @@ export function ProjectStickyScroll({
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
       className={cn(
-        "h-[30rem] overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10",
+        "h-120 overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10",
         className
       )}
       ref={ref}

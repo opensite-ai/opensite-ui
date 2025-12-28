@@ -22,7 +22,10 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
-import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  logoPlaceholders,
+  imagePlaceholders,
+} from "../../../lib/mediaPlaceholders";
 
 interface SubpageItem {
   id: string;
@@ -147,11 +150,36 @@ const defaultSolutions: SolutionItem[] = [
     description: "Streamline team collaboration and project workflows.",
     href: "#",
     subpages: [
-      { id: "subpage-1", title: "Task Management", href: "#", icon: "lucide/file" },
-      { id: "subpage-2", title: "Team Planning", href: "#", icon: "lucide/building" },
-      { id: "subpage-3", title: "Resource Allocation", href: "#", icon: "lucide/search" },
-      { id: "subpage-4", title: "Time Tracking", href: "#", icon: "lucide/clock" },
-      { id: "subpage-5", title: "Team Analytics", href: "#", icon: "lucide/user-plus" },
+      {
+        id: "subpage-1",
+        title: "Task Management",
+        href: "#",
+        icon: "lucide/file",
+      },
+      {
+        id: "subpage-2",
+        title: "Team Planning",
+        href: "#",
+        icon: "lucide/building",
+      },
+      {
+        id: "subpage-3",
+        title: "Resource Allocation",
+        href: "#",
+        icon: "lucide/search",
+      },
+      {
+        id: "subpage-4",
+        title: "Time Tracking",
+        href: "#",
+        icon: "lucide/clock",
+      },
+      {
+        id: "subpage-5",
+        title: "Team Analytics",
+        href: "#",
+        icon: "lucide/user-plus",
+      },
     ],
   },
   {
@@ -160,10 +188,30 @@ const defaultSolutions: SolutionItem[] = [
     description: "Plan, track, and deliver projects with confidence.",
     href: "#",
     subpages: [
-      { id: "subpage-6", title: "Project Templates", href: "#", icon: "lucide/check-circle-2" },
-      { id: "subpage-7", title: "Timeline Views", href: "#", icon: "lucide/user" },
-      { id: "subpage-8", title: "Risk Management", href: "#", icon: "lucide/shield-check" },
-      { id: "subpage-9", title: "Budget Tracking", href: "#", icon: "lucide/scale" },
+      {
+        id: "subpage-6",
+        title: "Project Templates",
+        href: "#",
+        icon: "lucide/check-circle-2",
+      },
+      {
+        id: "subpage-7",
+        title: "Timeline Views",
+        href: "#",
+        icon: "lucide/user",
+      },
+      {
+        id: "subpage-8",
+        title: "Risk Management",
+        href: "#",
+        icon: "lucide/shield-check",
+      },
+      {
+        id: "subpage-9",
+        title: "Budget Tracking",
+        href: "#",
+        icon: "lucide/scale",
+      },
     ],
   },
   {
@@ -172,9 +220,24 @@ const defaultSolutions: SolutionItem[] = [
     description: "Automate repetitive tasks and focus on what matters.",
     href: "#",
     subpages: [
-      { id: "subpage-11", title: "Custom Workflows", href: "#", icon: "lucide/globe" },
-      { id: "subpage-12", title: "Process Templates", href: "#", icon: "lucide/clock" },
-      { id: "subpage-13", title: "Business Rules", href: "#", icon: "lucide/dollar-sign" },
+      {
+        id: "subpage-11",
+        title: "Custom Workflows",
+        href: "#",
+        icon: "lucide/globe",
+      },
+      {
+        id: "subpage-12",
+        title: "Process Templates",
+        href: "#",
+        icon: "lucide/clock",
+      },
+      {
+        id: "subpage-13",
+        title: "Business Rules",
+        href: "#",
+        icon: "lucide/dollar-sign",
+      },
     ],
   },
   {
@@ -183,33 +246,93 @@ const defaultSolutions: SolutionItem[] = [
     description: "Scale your organization with enterprise-grade features.",
     href: "#",
     subpages: [
-      { id: "subpage-16", title: "Advanced Analytics", href: "#", icon: "lucide/pie-chart" },
-      { id: "subpage-17", title: "Security Controls", href: "#", icon: "lucide/calculator" },
-      { id: "subpage-18", title: "Custom Reporting", href: "#", icon: "lucide/table" },
+      {
+        id: "subpage-16",
+        title: "Advanced Analytics",
+        href: "#",
+        icon: "lucide/pie-chart",
+      },
+      {
+        id: "subpage-17",
+        title: "Security Controls",
+        href: "#",
+        icon: "lucide/calculator",
+      },
+      {
+        id: "subpage-18",
+        title: "Custom Reporting",
+        href: "#",
+        icon: "lucide/table",
+      },
     ],
   },
 ];
 
 const defaultSolutionTechnologies: TechnologyItem[] = [
-  { id: "technology-1", title: "Integration Platform", href: "#", icon: "lucide/puzzle" },
-  { id: "technology-2", title: "Enterprise Security", href: "#", icon: "lucide/lock" },
-  { id: "technology-3", title: "Developer API", href: "#", icon: "lucide/code" },
+  {
+    id: "technology-1",
+    title: "Integration Platform",
+    href: "#",
+    icon: "lucide/puzzle",
+  },
+  {
+    id: "technology-2",
+    title: "Enterprise Security",
+    href: "#",
+    icon: "lucide/lock",
+  },
+  {
+    id: "technology-3",
+    title: "Developer API",
+    href: "#",
+    icon: "lucide/code",
+  },
 ];
 
 const defaultProductCategories: ProductCategory[] = [
   {
     title: "Core Products",
     products: [
-      { id: "product-1", title: "Task Management", description: "Organize and track work efficiently.", href: "#", image: imagePlaceholders[0] },
-      { id: "product-2", title: "Team Calendar", description: "Coordinate schedules and deadlines.", href: "#", image: imagePlaceholders[1] },
-      { id: "product-3", title: "Workflows", description: "Automate your business processes.", href: "#", image: imagePlaceholders[2] },
+      {
+        id: "product-1",
+        title: "Task Management",
+        description: "Organize and track work efficiently.",
+        href: "#",
+        image: imagePlaceholders[0],
+      },
+      {
+        id: "product-2",
+        title: "Team Calendar",
+        description: "Coordinate schedules and deadlines.",
+        href: "#",
+        image: imagePlaceholders[1],
+      },
+      {
+        id: "product-3",
+        title: "Workflows",
+        description: "Automate your business processes.",
+        href: "#",
+        image: imagePlaceholders[2],
+      },
     ],
   },
   {
     title: "Advanced Features",
     products: [
-      { id: "product-4", title: "Portfolio Management", description: "Track and optimize project portfolios at scale.", href: "#", image: imagePlaceholders[3] },
-      { id: "product-5", title: "Resource Planning", description: "Optimize team workload and capacity.", href: "#", image: imagePlaceholders[4] },
+      {
+        id: "product-4",
+        title: "Portfolio Management",
+        description: "Track and optimize project portfolios at scale.",
+        href: "#",
+        image: imagePlaceholders[3],
+      },
+      {
+        id: "product-5",
+        title: "Resource Planning",
+        description: "Optimize team workload and capacity.",
+        href: "#",
+        image: imagePlaceholders[4],
+      },
     ],
   },
 ];
@@ -218,17 +341,53 @@ const defaultGlobalCategories: GlobalCategory[] = [
   {
     title: "Enterprise Solutions",
     features: [
-      { id: "feature-1", title: "Digital Transformation", description: "Transform how your organization works.", href: "#", icon: "lucide/rocket" },
-      { id: "feature-2", title: "Change Management", description: "Expert guidance for organizational change.", href: "#", icon: "lucide/building-2" },
-      { id: "feature-3", title: "Global Deployment", description: "Roll out across global teams seamlessly.", href: "#", icon: "lucide/globe" },
+      {
+        id: "feature-1",
+        title: "Digital Transformation",
+        description: "Transform how your organization works.",
+        href: "#",
+        icon: "lucide/rocket",
+      },
+      {
+        id: "feature-2",
+        title: "Change Management",
+        description: "Expert guidance for organizational change.",
+        href: "#",
+        icon: "lucide/building-2",
+      },
+      {
+        id: "feature-3",
+        title: "Global Deployment",
+        description: "Roll out across global teams seamlessly.",
+        href: "#",
+        icon: "lucide/globe",
+      },
     ],
   },
   {
     title: "Business Solutions",
     features: [
-      { id: "feature-4", title: "Customer Success", description: "Dedicated support for your business needs.", href: "#", icon: "lucide/phone" },
-      { id: "feature-5", title: "Compliance", description: "Meet industry standards and regulations.", href: "#", icon: "lucide/gavel" },
-      { id: "feature-6", title: "ROI Calculator", description: "Measure the impact on your business.", href: "#", icon: "lucide/dollar-sign" },
+      {
+        id: "feature-4",
+        title: "Customer Success",
+        description: "Dedicated support for your business needs.",
+        href: "#",
+        icon: "lucide/phone",
+      },
+      {
+        id: "feature-5",
+        title: "Compliance",
+        description: "Meet industry standards and regulations.",
+        href: "#",
+        icon: "lucide/gavel",
+      },
+      {
+        id: "feature-6",
+        title: "ROI Calculator",
+        description: "Measure the impact on your business.",
+        href: "#",
+        icon: "lucide/dollar-sign",
+      },
     ],
   },
 ];
@@ -261,29 +420,95 @@ const defaultRegions: RegionItem[] = [
 ];
 
 const defaultResources: ResourceItem[] = [
-  { id: "resource-1", title: "Events & Webinars", description: "Learn from industry experts.", href: "#", icon: "lucide/calendar" },
-  { id: "resource-2", title: "Podcasts", description: "Insights on productivity and leadership.", href: "#", icon: "lucide/mic" },
-  { id: "resource-3", title: "Blog", description: "Latest updates and best practices.", href: "#", icon: "lucide/newspaper" },
-  { id: "resource-4", title: "Video Tutorials", description: "Get started with guided videos.", href: "#", icon: "lucide/play-circle" },
-  { id: "resource-5", title: "Knowledge Base", description: "Detailed guides and documentation.", href: "#", icon: "lucide/book" },
-  { id: "resource-6", title: "Success Stories", description: "See how others achieve more.", href: "#", icon: "lucide/lightbulb" },
+  {
+    id: "resource-1",
+    title: "Events & Webinars",
+    description: "Learn from industry experts.",
+    href: "#",
+    icon: "lucide/calendar",
+  },
+  {
+    id: "resource-2",
+    title: "Podcasts",
+    description: "Insights on productivity and leadership.",
+    href: "#",
+    icon: "lucide/mic",
+  },
+  {
+    id: "resource-3",
+    title: "Blog",
+    description: "Latest updates and best practices.",
+    href: "#",
+    icon: "lucide/newspaper",
+  },
+  {
+    id: "resource-4",
+    title: "Video Tutorials",
+    description: "Get started with guided videos.",
+    href: "#",
+    icon: "lucide/play-circle",
+  },
+  {
+    id: "resource-5",
+    title: "Knowledge Base",
+    description: "Detailed guides and documentation.",
+    href: "#",
+    icon: "lucide/book",
+  },
+  {
+    id: "resource-6",
+    title: "Success Stories",
+    description: "See how others achieve more.",
+    href: "#",
+    icon: "lucide/lightbulb",
+  },
 ];
 
 const defaultTopicGroups: TopicGroup[] = [
   {
     title: "Learning Resources",
     topics: [
-      { id: "topic-1", title: "Getting Started Guide", href: "#", icon: "lucide/globe" },
-      { id: "topic-2", title: "Product Updates", href: "#", icon: "lucide/rocket" },
-      { id: "topic-3", title: "Best Practices", href: "#", icon: "lucide/pyramid" },
-      { id: "topic-4", title: "Integrations", href: "#", icon: "lucide/arrow-right-left" },
-      { id: "topic-5", title: "API Documentation", href: "#", icon: "lucide/app-window" },
+      {
+        id: "topic-1",
+        title: "Getting Started Guide",
+        href: "#",
+        icon: "lucide/globe",
+      },
+      {
+        id: "topic-2",
+        title: "Product Updates",
+        href: "#",
+        icon: "lucide/rocket",
+      },
+      {
+        id: "topic-3",
+        title: "Best Practices",
+        href: "#",
+        icon: "lucide/pyramid",
+      },
+      {
+        id: "topic-4",
+        title: "Integrations",
+        href: "#",
+        icon: "lucide/arrow-right-left",
+      },
+      {
+        id: "topic-5",
+        title: "API Documentation",
+        href: "#",
+        icon: "lucide/app-window",
+      },
     ],
   },
   {
     title: "Community",
     topics: [
-      { id: "topic-6", title: "Community Forum", href: "#", icon: "lucide/play" },
+      {
+        id: "topic-6",
+        title: "Community Forum",
+        href: "#",
+        icon: "lucide/play",
+      },
     ],
   },
 ];
@@ -292,7 +517,7 @@ const MOBILE_BREAKPOINT = 1024;
 
 /**
  * NavbarEnterpriseMega - A comprehensive enterprise-grade navigation bar with multiple mega-menu styles.
- * 
+ *
  * Features five distinct mega-menu types: (1) Solutions with bordered cards containing subpages and
  * a developer platform section, (2) Products with featured image card and categorized product listings,
  * (3) Global with enterprise/business features and regional location selectors, (4) Partners with
@@ -345,7 +570,7 @@ export const NavbarEnterpriseMega = ({
       <section
         className={cn(
           "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center border-b bg-background",
-          className,
+          className
         )}
       >
         <div className="container">
@@ -382,18 +607,38 @@ export const NavbarEnterpriseMega = ({
               </NavigationMenuList>
             </NavigationMenu>
             <div className="flex items-center gap-3">
-              <Pressable variant="outline" size="sm" asButton href="#" className="hidden lg:flex">
+              <Pressable
+                variant="outline"
+                size="sm"
+                asButton
+                href="#"
+                className="hidden lg:flex"
+              >
                 Contact Sales
               </Pressable>
               <Pressable size="sm" asButton href="#" className="hidden lg:flex">
                 Get Started
               </Pressable>
               <div className="lg:hidden">
-                <Pressable className="size-11" variant="ghost" size="icon" asButton onClick={handleMobileMenu}>
+                <Pressable
+                  className="size-11"
+                  variant="ghost"
+                  size="icon"
+                  asButton
+                  onClick={handleMobileMenu}
+                >
                   {open ? (
-                    <DynamicIcon name="lucide/x" size={22} className="stroke-foreground" />
+                    <DynamicIcon
+                      name="lucide/x"
+                      size={22}
+                      className="stroke-foreground"
+                    />
                   ) : (
-                    <DynamicIcon name="lucide/menu" size={22} className="stroke-foreground" />
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={22}
+                      className="stroke-foreground"
+                    />
                   )}
                 </Pressable>
               </div>
@@ -443,23 +688,37 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-fit bg-transparent font-normal text-foreground/60">
           {item.title}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-xl !border-0 !p-0">
+        <NavigationMenuContent className="rounded-xl! border-0! p-0!">
           <div className="w-dvw px-8 pt-6 pb-12">
             <div className="container">
               {item.menuType === "solutions" && (
-                <SolutionsMenu solutions={solutions} solutionTechnologies={solutionTechnologies} optixFlowConfig={optixFlowConfig} />
+                <SolutionsMenu
+                  solutions={solutions}
+                  solutionTechnologies={solutionTechnologies}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               {item.menuType === "products" && (
-                <ProductsMenu productCategories={productCategories} optixFlowConfig={optixFlowConfig} />
+                <ProductsMenu
+                  productCategories={productCategories}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               {item.menuType === "global" && (
-                <GlobalMenu globalCategories={globalCategories} regions={regions} optixFlowConfig={optixFlowConfig} />
+                <GlobalMenu
+                  globalCategories={globalCategories}
+                  regions={regions}
+                  optixFlowConfig={optixFlowConfig}
+                />
               )}
               {item.menuType === "partners" && (
                 <PartnersMenu optixFlowConfig={optixFlowConfig} />
               )}
               {item.menuType === "resources" && (
-                <ResourcesMenu resources={resources} topicGroups={topicGroups} />
+                <ResourcesMenu
+                  resources={resources}
+                  topicGroups={topicGroups}
+                />
               )}
             </div>
           </div>
@@ -486,7 +745,11 @@ interface SolutionsMenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const SolutionsMenu = ({ solutions, solutionTechnologies, optixFlowConfig }: SolutionsMenuProps) => (
+const SolutionsMenu = ({
+  solutions,
+  solutionTechnologies,
+  optixFlowConfig,
+}: SolutionsMenuProps) => (
   <div className="grid gap-8 sm:grid-cols-2">
     <Pressable
       href="#"
@@ -499,10 +762,15 @@ const SolutionsMenu = ({ solutions, solutionTechnologies, optixFlowConfig }: Sol
           </span>
           <div className="mt-auto flex items-center space-x-1 text-xs">
             Discover Our Platform
-            <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+            <DynamicIcon
+              name="lucide/arrow-right"
+              size={16}
+              className="ml-1 transition-transform group-hover:translate-x-1"
+            />
           </div>
           <p className="mt-2 text-xs text-primary-foreground/85">
-            Streamline collaboration, automate workflows, and boost productivity across your organization.
+            Streamline collaboration, automate workflows, and boost productivity
+            across your organization.
           </p>
         </div>
         <div className="relative aspect-2/1 overflow-clip rounded-t pl-6 lg:max-w-64 lg:pl-0 xl:max-w-96">
@@ -516,7 +784,7 @@ const SolutionsMenu = ({ solutions, solutionTechnologies, optixFlowConfig }: Sol
       </div>
     </Pressable>
 
-    <div className="order-last mt-3 sm:order-none sm:mt-0 sm:py-2 md:p-6">
+    <div className="order-last mt-3 sm:order-0 sm:mt-0 sm:py-2 md:p-6">
       <div className="mb-4 text-left leading-none md:col-span-2 lg:col-span-4 lg:mb-6">
         <strong className="text-left text-xs font-medium tracking-wider text-muted-foreground uppercase">
           Developer Platform
@@ -531,7 +799,11 @@ const SolutionsMenu = ({ solutions, solutionTechnologies, optixFlowConfig }: Sol
           >
             <DynamicIcon name={technology.icon} size={16} />
             <div className="flex-1 text-sm font-medium">{technology.title}</div>
-            <DynamicIcon name="lucide/arrow-right" size={16} className="transition-transform group-hover:translate-x-1 lg:hidden" />
+            <DynamicIcon
+              name="lucide/arrow-right"
+              size={16}
+              className="transition-transform group-hover:translate-x-1 lg:hidden"
+            />
           </NavigationMenuLink>
         ))}
       </div>
@@ -540,12 +812,23 @@ const SolutionsMenu = ({ solutions, solutionTechnologies, optixFlowConfig }: Sol
       {solutions.map((solution) => (
         <div key={solution.id} className="rounded-md border border-border p-5">
           <div className="border-b border-border pb-4">
-            <Pressable href={solution.href} className="group flex flex-col text-left">
+            <Pressable
+              href={solution.href}
+              className="group flex flex-col text-left"
+            >
               <div className="flex items-center">
-                <strong className="text-sm font-medium">{solution.title}</strong>
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                <strong className="text-sm font-medium">
+                  {solution.title}
+                </strong>
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-1 transition-transform group-hover:translate-x-1"
+                />
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">{solution.description}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {solution.description}
+              </p>
             </Pressable>
           </div>
           <menu className="mt-6 grid gap-y-4">
@@ -556,8 +839,14 @@ const SolutionsMenu = ({ solutions, solutionTechnologies, optixFlowConfig }: Sol
                 className="group flex flex-row items-center space-x-4 text-left text-foreground/85 hover:text-foreground lg:space-x-4 lg:border-0"
               >
                 <DynamicIcon name={subpage.icon} size={16} />
-                <div className="flex-1 text-sm font-medium">{subpage.title}</div>
-                <DynamicIcon name="lucide/arrow-right" size={16} className="transition-transform group-hover:translate-x-1 lg:hidden" />
+                <div className="flex-1 text-sm font-medium">
+                  {subpage.title}
+                </div>
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="transition-transform group-hover:translate-x-1 lg:hidden"
+                />
               </NavigationMenuLink>
             ))}
           </menu>
@@ -572,7 +861,10 @@ interface ProductsMenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const ProductsMenu = ({ productCategories, optixFlowConfig }: ProductsMenuProps) => (
+const ProductsMenu = ({
+  productCategories,
+  optixFlowConfig,
+}: ProductsMenuProps) => (
   <div className="grid gap-y-12 lg:flex lg:space-x-8">
     <div className="w-full shrink-0 lg:max-w-[18rem]">
       <Pressable
@@ -580,7 +872,7 @@ const ProductsMenu = ({ productCategories, optixFlowConfig }: ProductsMenuProps)
         className="group relative flex h-full flex-row overflow-hidden rounded-lg px-0 text-primary-foreground lg:rounded-xl"
       >
         <div className="relative z-10 flex w-full flex-col text-left">
-          <div className="relative flex aspect-2/1 max-h-[11rem] w-full flex-1 justify-center">
+          <div className="relative flex aspect-2/1 max-h-44 w-full flex-1 justify-center">
             <Img
               src={imagePlaceholders[5]}
               alt="placeholder"
@@ -591,7 +883,11 @@ const ProductsMenu = ({ productCategories, optixFlowConfig }: ProductsMenuProps)
           <div className="relative z-20 flex flex-col rounded-b-xl bg-primary p-6">
             <div className="flex items-center space-x-1 text-xs">
               Enterprise Solutions
-              <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="ml-1 transition-transform group-hover:translate-x-1"
+              />
             </div>
             <p className="mt-2 text-xs text-primary-foreground/70">
               Scale your business with enterprise-grade features and support.
@@ -616,13 +912,26 @@ const ProductsMenu = ({ productCategories, optixFlowConfig }: ProductsMenuProps)
                 className="group flex flex-row items-center space-x-6 border-b border-border py-5 text-left sm:py-7 lg:space-x-4 lg:border-0 lg:py-2"
               >
                 <div className="relative flex aspect-square w-6 shrink-0 items-center justify-center overflow-clip rounded md:size-9 md:p-2">
-                  <Img src={product.image} alt={product.title} className="dark:invert" optixFlowConfig={optixFlowConfig} />
+                  <Img
+                    src={product.image}
+                    alt={product.title}
+                    className="dark:invert"
+                    optixFlowConfig={optixFlowConfig}
+                  />
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground">{product.title}</div>
-                  <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground">{product.description}</p>
+                  <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground">
+                    {product.title}
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground">
+                    {product.description}
+                  </p>
                 </div>
-                <DynamicIcon name="lucide/arrow-right" size={16} className="transition-transform group-hover:translate-x-1 lg:hidden" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="transition-transform group-hover:translate-x-1 lg:hidden"
+                />
               </NavigationMenuLink>
             ))}
           </menu>
@@ -638,7 +947,11 @@ interface GlobalMenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const GlobalMenu = ({ globalCategories, regions, optixFlowConfig }: GlobalMenuProps) => (
+const GlobalMenu = ({
+  globalCategories,
+  regions,
+  optixFlowConfig,
+}: GlobalMenuProps) => (
   <div>
     <div className="space-y-6 lg:flex lg:space-y-0 lg:space-x-8">
       <div className="w-full shrink-0 lg:max-w-[18rem]">
@@ -647,7 +960,7 @@ const GlobalMenu = ({ globalCategories, regions, optixFlowConfig }: GlobalMenuPr
           className="group relative flex h-full flex-row overflow-hidden rounded-lg p-0 text-primary-foreground lg:rounded-xl"
         >
           <div className="relative z-10 flex w-full flex-col-reverse text-left lg:flex-col">
-            <div className="relative flex aspect-4/3 max-h-[18rem] w-full flex-1 justify-center">
+            <div className="relative flex aspect-4/3 max-h-72 w-full flex-1 justify-center">
               <Img
                 src={imagePlaceholders[6]}
                 alt="placeholder"
@@ -658,7 +971,11 @@ const GlobalMenu = ({ globalCategories, regions, optixFlowConfig }: GlobalMenuPr
             <div className="relative z-20 flex flex-col rounded-b-xl bg-primary p-6">
               <div className="flex items-center space-x-1 text-xs">
                 Enterprise Solutions
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-1 transition-transform group-hover:translate-x-1"
+                />
               </div>
               <p className="mt-2 text-xs text-primary-foreground/85">
                 Scale your business with enterprise-grade features and support.
@@ -686,10 +1003,18 @@ const GlobalMenu = ({ globalCategories, regions, optixFlowConfig }: GlobalMenuPr
                     <DynamicIcon name={feature.icon} size={20} />
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground">{feature.title}</div>
-                    <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground">{feature.description}</p>
+                    <div className="text-sm font-medium text-foreground/85 group-hover:text-foreground">
+                      {feature.title}
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground group-hover:text-foreground">
+                      {feature.description}
+                    </p>
                   </div>
-                  <DynamicIcon name="lucide/arrow-right" size={16} className="transition-transform group-hover:translate-x-1 lg:hidden" />
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="transition-transform group-hover:translate-x-1 lg:hidden"
+                  />
                 </NavigationMenuLink>
               ))}
             </menu>
@@ -705,8 +1030,13 @@ const GlobalMenu = ({ globalCategories, regions, optixFlowConfig }: GlobalMenuPr
       </div>
       <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
         {regions.map((region) => (
-          <div key={region.title} className="space-y-6 rounded-md border border-border p-6 lg:border-0 lg:p-0">
-            <div className="text-left text-xs text-muted-foreground">{region.title}</div>
+          <div
+            key={region.title}
+            className="space-y-6 rounded-md border border-border p-6 lg:border-0 lg:p-0"
+          >
+            <div className="text-left text-xs text-muted-foreground">
+              {region.title}
+            </div>
             <menu className="grid gap-y-3 border-t border-border pt-6 lg:border-0 lg:pt-0">
               {region.locations.map((location) => (
                 <NavigationMenuLink
@@ -714,9 +1044,17 @@ const GlobalMenu = ({ globalCategories, regions, optixFlowConfig }: GlobalMenuPr
                   href={location.href}
                   className="group flex flex-row items-center space-x-4 text-left text-foreground/85 hover:text-foreground lg:space-x-4 lg:border-0 lg:py-0"
                 >
-                  <div className="flex size-4 items-center justify-center">{location.icon}</div>
-                  <div className="flex-1 text-sm font-medium">{location.title}</div>
-                  <DynamicIcon name="lucide/arrow-right" size={16} className="transition-transform group-hover:translate-x-1 lg:hidden" />
+                  <div className="flex size-4 items-center justify-center">
+                    {location.icon}
+                  </div>
+                  <div className="flex-1 text-sm font-medium">
+                    {location.title}
+                  </div>
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="transition-transform group-hover:translate-x-1 lg:hidden"
+                  />
                 </NavigationMenuLink>
               ))}
             </menu>
@@ -739,13 +1077,18 @@ const PartnersMenu = ({ optixFlowConfig }: PartnersMenuProps) => (
         className="group relative flex h-full flex-row overflow-hidden rounded-lg bg-primary p-0 text-primary-foreground lg:rounded-xl"
       >
         <div className="relative z-10 flex w-full flex-col-reverse text-left">
-          <div className="relative z-20 flex flex-col px-6 pt-6 pb-[14rem] md:pt-40 md:pb-6">
+          <div className="relative z-20 flex flex-col px-6 pt-6 pb-56 md:pt-40 md:pb-6">
             <div className="mt-auto flex items-center space-x-1 text-xs font-medium">
               Partner Program
-              <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="ml-1 transition-transform group-hover:translate-x-1"
+              />
             </div>
             <p className="mt-2 text-xs">
-              Join our partner network and grow your business with our leading productivity platform.
+              Join our partner network and grow your business with our leading
+              productivity platform.
             </p>
           </div>
           <div className="absolute inset-0 top-[32%] bg-accent invert md:top-0">
@@ -765,10 +1108,14 @@ const PartnersMenu = ({ optixFlowConfig }: PartnersMenuProps) => (
         className="group relative flex h-full flex-row overflow-hidden rounded-lg bg-accent p-0 text-accent-foreground lg:rounded-xl"
       >
         <div className="relative z-10 flex w-full flex-col-reverse text-left">
-          <div className="relative z-20 flex flex-col px-6 pt-6 pb-[14rem] md:pt-40 md:pb-6">
+          <div className="relative z-20 flex flex-col px-6 pt-6 pb-56 md:pt-40 md:pb-6">
             <div className="mt-auto flex items-center space-x-1 text-xs font-medium">
               Solution Partners
-              <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="ml-1 transition-transform group-hover:translate-x-1"
+              />
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
               Build and deliver solutions that help customers achieve more.
@@ -831,7 +1178,9 @@ const ResourcesMenu = ({ resources, topicGroups }: ResourcesMenuProps) => (
   <div className="grid gap-8 lg:grid-cols-3">
     <div className="lg:col-span-2">
       <div className="mb-6 text-left">
-        <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">Resources</strong>
+        <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
+          Resources
+        </strong>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {resources.map((resource) => (
@@ -840,10 +1189,16 @@ const ResourcesMenu = ({ resources, topicGroups }: ResourcesMenuProps) => (
             href={resource.href}
             className="group flex flex-row items-start gap-4 rounded-lg border border-border p-4 hover:bg-accent"
           >
-            <DynamicIcon name={resource.icon} size={20} className="mt-1 shrink-0" />
+            <DynamicIcon
+              name={resource.icon}
+              size={20}
+              className="mt-1 shrink-0"
+            />
             <div>
               <div className="text-sm font-medium">{resource.title}</div>
-              <p className="mt-1 text-xs text-muted-foreground">{resource.description}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {resource.description}
+              </p>
             </div>
           </NavigationMenuLink>
         ))}
@@ -853,7 +1208,9 @@ const ResourcesMenu = ({ resources, topicGroups }: ResourcesMenuProps) => (
       {topicGroups.map((group) => (
         <div key={group.title} className="mb-8 last:mb-0">
           <div className="mb-4 text-left">
-            <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">{group.title}</strong>
+            <strong className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
+              {group.title}
+            </strong>
           </div>
           <div className="space-y-3">
             {group.topics.map((topic) => (
@@ -898,7 +1255,9 @@ const MobileNavigationMenu = ({
         <div className="h-full overflow-y-auto pt-4 pb-20">
           <div className="container">
             <div className="absolute -m-px h-px w-px overflow-hidden border-0 mask-clip-border p-0 text-nowrap whitespace-nowrap">
-              <SheetTitle className="text-primary">Mobile Navigation</SheetTitle>
+              <SheetTitle className="text-primary">
+                Mobile Navigation
+              </SheetTitle>
             </div>
             <div className="flex flex-col gap-4">
               <Pressable variant="outline" asButton href="#" className="w-full">
@@ -912,8 +1271,12 @@ const MobileNavigationMenu = ({
               {navigation.map((item, index) => {
                 if (item.menuType) {
                   return (
-                    <AccordionItem key={item.title} value={`nav-${index}`} className="border-b-0">
-                      <AccordionTrigger className="h-[3.75rem] items-center text-base font-normal text-foreground hover:no-underline">
+                    <AccordionItem
+                      key={item.title}
+                      value={`nav-${index}`}
+                      className="border-b-0"
+                    >
+                      <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
                         {item.title}
                       </AccordionTrigger>
                       <AccordionContent className="max-h-[60dvh] overflow-y-auto">
@@ -921,7 +1284,10 @@ const MobileNavigationMenu = ({
                           <div className="space-y-4">
                             {solutions.map((solution) => (
                               <div key={solution.id} className="space-y-2">
-                                <Pressable href={solution.href} className="text-sm font-medium">
+                                <Pressable
+                                  href={solution.href}
+                                  className="text-sm font-medium"
+                                >
                                   {solution.title}
                                 </Pressable>
                                 {solution.subpages.map((subpage) => (
@@ -930,7 +1296,10 @@ const MobileNavigationMenu = ({
                                     href={subpage.href}
                                     className="flex items-center gap-2 pl-4 text-sm text-muted-foreground"
                                   >
-                                    <DynamicIcon name={subpage.icon} size={14} />
+                                    <DynamicIcon
+                                      name={subpage.icon}
+                                      size={14}
+                                    />
                                     {subpage.title}
                                   </Pressable>
                                 ))}
@@ -949,7 +1318,7 @@ const MobileNavigationMenu = ({
                                 >
                                   {product.title}
                                 </Pressable>
-                              )),
+                              ))
                             )}
                           </div>
                         )}
@@ -967,9 +1336,12 @@ const MobileNavigationMenu = ({
                             ))}
                           </div>
                         )}
-                        {(item.menuType === "global" || item.menuType === "partners") && (
+                        {(item.menuType === "global" ||
+                          item.menuType === "partners") && (
                           <div className="text-sm text-muted-foreground">
-                            <Pressable href="#">View all {item.title.toLowerCase()}</Pressable>
+                            <Pressable href="#">
+                              View all {item.title.toLowerCase()}
+                            </Pressable>
                           </div>
                         )}
                       </AccordionContent>
@@ -981,7 +1353,7 @@ const MobileNavigationMenu = ({
                   <Pressable
                     key={item.title}
                     href={item.url}
-                    className="flex h-[3.75rem] items-center text-base font-normal text-foreground"
+                    className="flex h-15 items-center text-base font-normal text-foreground"
                   >
                     {item.title}
                   </Pressable>

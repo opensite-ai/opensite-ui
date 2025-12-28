@@ -39,10 +39,10 @@ export function HeroSoftwareGrowthVideoDialog({
               <h1 className="max-w-[1000px] text-center text-[3.125rem] leading-none text-foreground md:text-[4.25rem] lg:text-[5.5rem]">
                 Unlock impactful solutions for accelerated software growth
               </h1>
-              <p className="max-w-[53.125rem] text-center text-lg leading-snug text-muted-foreground md:text-xl">
-                Sign up on our website and use your account for as long as you&apos;d
-                like. Our team is always available to assist and dedicated to
-                solving any issues you encounter.
+              <p className="max-w-212.5 text-center text-lg leading-snug text-muted-foreground md:text-xl">
+                Sign up on our website and use your account for as long as
+                you&apos;d like. Our team is always available to assist and
+                dedicated to solving any issues you encounter.
               </p>
               <div className="flex flex-col items-center justify-center gap-3 md:flex-row">
                 <Pressable
@@ -81,7 +81,7 @@ export function HeroSoftwareGrowthVideoDialog({
             </div>
             <div className="w-full py-[16%]">
               <div className="border-muted2 relative aspect-[2.716981132/1] w-full border">
-                <div className="absolute -top-[28%] left-[18%] w-[28.47%] max-w-[25.625rem]">
+                <div className="absolute -top-[28%] left-[18%] w-[28.47%] max-w-102.5">
                   <AspectRatio ratio={1.11372549 / 1}>
                     <Img
                       src={imagePlaceholders[74]}
@@ -91,7 +91,7 @@ export function HeroSoftwareGrowthVideoDialog({
                     />
                   </AspectRatio>
                 </div>
-                <div className="absolute -top-[28%] left-[51%] w-[18.75%] max-w-[16.875rem]">
+                <div className="absolute -top-[28%] left-[51%] w-[18.75%] max-w-67.5">
                   <AspectRatio ratio={0.845559846 / 1}>
                     <Img
                       src={imagePlaceholders[75]}
@@ -101,7 +101,7 @@ export function HeroSoftwareGrowthVideoDialog({
                     />
                   </AspectRatio>
                 </div>
-                <div className="absolute -bottom-[14%] left-[51%] w-[38.19%] max-w-[34.375rem]">
+                <div className="absolute -bottom-[14%] left-[51%] w-[38.19%] max-w-137.5">
                   <AspectRatio ratio={1.686153846 / 1}>
                     <Img
                       src={imagePlaceholders[76]}
@@ -111,7 +111,7 @@ export function HeroSoftwareGrowthVideoDialog({
                     />
                   </AspectRatio>
                 </div>
-                <div className="absolute -bottom-[30%] left-[10.7%] w-[38.19%] max-w-[34.375rem]">
+                <div className="absolute -bottom-[30%] left-[10.7%] w-[38.19%] max-w-137.5">
                   <AspectRatio ratio={1.415041783 / 1}>
                     <Img
                       src={imagePlaceholders[77]}

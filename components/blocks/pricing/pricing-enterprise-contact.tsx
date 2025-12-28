@@ -83,7 +83,7 @@ export function PricingEnterpriseContact({
     <section className={cn("py-24", className)}>
       <div className="container">
         <div className="mx-auto max-w-4xl">
-          <div className="rounded-2xl border bg-gradient-to-br from-muted/50 to-muted p-8 md:p-12">
+          <div className="rounded-2xl border bg-linear-to-br from-muted/50 to-muted p-8 md:p-12">
             <div className="grid gap-8 md:grid-cols-2">
               {/* Left - Content */}
               <div>

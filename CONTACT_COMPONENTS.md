@@ -97,9 +97,7 @@ export default function ContactCallback() {
             <form action="#" className="space-y-6">
               {/* Contact Information */}
               <div>
-                <h3 className="mb-4 text-lg font-semibold">
-                  Your Information
-                </h3>
+                <h3 className="mb-4 text-lg font-semibold">Your Information</h3>
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
@@ -140,11 +138,7 @@ export default function ContactCallback() {
                   <div className="space-y-2">
                     <Label htmlFor="date">Preferred Date</Label>
                     <div className="relative">
-                      <Input
-                        id="date"
-                        type="date"
-                        className="pl-10"
-                      />
+                      <Input id="date" type="date" className="pl-10" />
                       <CalendarIcon className="text-muted-foreground pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2" />
                     </div>
                   </div>
@@ -204,7 +198,9 @@ export default function ContactCallback() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="details">Additional Details (Optional)</Label>
+                    <Label htmlFor="details">
+                      Additional Details (Optional)
+                    </Label>
                     <Textarea
                       id="details"
                       placeholder="Help us prepare for the call by sharing any specific questions or topics you'd like to cover..."
@@ -250,7 +246,6 @@ export default function ContactCallback() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -288,7 +283,9 @@ export default function ContactCard() {
       <div className="mx-auto w-full max-w-4xl px-4">
         <div className="grid items-start gap-10 lg:grid-cols-2">
           <Card className="p-6 lg:p-8">
-            <h3 className="mb-6 text-2xl font-semibold tracking-tight">Contact us</h3>
+            <h3 className="mb-6 text-2xl font-semibold tracking-tight">
+              Contact us
+            </h3>
             <form action="#" className="space-y-6">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -302,11 +299,7 @@ export default function ContactCard() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="john@example.com"
-                />
+                <Input id="email" type="email" placeholder="john@example.com" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
@@ -333,7 +326,9 @@ export default function ContactCard() {
           </Card>
 
           <div className="lg:pt-8">
-            <h2 className="mb-3 text-3xl font-bold tracking-tight">Get in Touch</h2>
+            <h2 className="mb-3 text-3xl font-bold tracking-tight">
+              Get in Touch
+            </h2>
             <p className="text-muted-foreground leading-relaxed">
               Have questions? We'd love to hear from you. Send us a message and
               we'll respond as soon as possible.
@@ -352,7 +347,6 @@ export default function ContactCard() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -499,7 +493,9 @@ export default function ContactCareers() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="linkedin">LinkedIn Profile (Optional)</Label>
+                    <Label htmlFor="linkedin">
+                      LinkedIn Profile (Optional)
+                    </Label>
                     <Input
                       id="linkedin"
                       type="url"
@@ -508,7 +504,9 @@ export default function ContactCareers() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="portfolio">Portfolio / Website (Optional)</Label>
+                    <Label htmlFor="portfolio">
+                      Portfolio / Website (Optional)
+                    </Label>
                     <Input
                       id="portfolio"
                       type="url"
@@ -520,7 +518,10 @@ export default function ContactCareers() {
                     <Label>Availability</Label>
                     <RadioGroup defaultValue="2-weeks" className="space-y-2">
                       {AVAILABILITY.map((item) => (
-                        <div key={item.value} className="flex items-center gap-3">
+                        <div
+                          key={item.value}
+                          className="flex items-center gap-3"
+                        >
                           <RadioGroupItem value={item.value} id={item.value} />
                           <Label htmlFor={item.value} className="font-normal">
                             {item.label}
@@ -585,7 +586,8 @@ export default function ContactCareers() {
                   <Button className="w-full">Submit Application</Button>
 
                   <p className="text-center text-xs text-muted-foreground">
-                    We'll review your application and get back to you within 5 business days.
+                    We'll review your application and get back to you within 5
+                    business days.
                   </p>
                 </form>
               </div>
@@ -596,14 +598,19 @@ export default function ContactCareers() {
     </section>
   );
 }
-
 ```
 
 ```tsx
 "use client";
 
 import { useState } from "react";
-import { Calendar, ChefHat, MapPin, Users, UtensilsCrossed } from "lucide-react";
+import {
+  Calendar,
+  ChefHat,
+  MapPin,
+  Users,
+  UtensilsCrossed,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -637,7 +644,11 @@ const SERVICE_STYLES = [
   { value: "buffet", label: "Buffet", description: "Self-serve stations" },
   { value: "plated", label: "Plated", description: "Formal sit-down service" },
   { value: "family", label: "Family Style", description: "Shared platters" },
-  { value: "stations", label: "Food Stations", description: "Interactive cooking" },
+  {
+    value: "stations",
+    label: "Food Stations",
+    description: "Interactive cooking",
+  },
   { value: "cocktail", label: "Cocktail", description: "Passed appetizers" },
 ];
 
@@ -676,7 +687,8 @@ export default function ContactCatering() {
             Catering Inquiry
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            From intimate dinners to grand celebrations, we'll create the perfect menu.
+            From intimate dinners to grand celebrations, we'll create the
+            perfect menu.
           </p>
         </div>
 
@@ -774,10 +786,18 @@ export default function ContactCatering() {
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            <RadioGroupItem value={style.value} id={`style-${style.value}`} className="sr-only" />
-                            <span className="text-sm font-medium">{style.label}</span>
+                            <RadioGroupItem
+                              value={style.value}
+                              id={`style-${style.value}`}
+                              className="sr-only"
+                            />
+                            <span className="text-sm font-medium">
+                              {style.label}
+                            </span>
                           </div>
-                          <span className="text-xs text-muted-foreground">{style.description}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {style.description}
+                          </span>
                         </Label>
                       ))}
                     </RadioGroup>
@@ -797,9 +817,15 @@ export default function ContactCatering() {
                     <Label>Cuisine Preferences</Label>
                     <div className="grid grid-cols-2 gap-2">
                       {CUISINES.map((cuisine) => (
-                        <div key={cuisine.id} className="flex items-center gap-2">
+                        <div
+                          key={cuisine.id}
+                          className="flex items-center gap-2"
+                        >
                           <Checkbox id={cuisine.id} />
-                          <Label htmlFor={cuisine.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={cuisine.id}
+                            className="text-sm font-normal"
+                          >
                             {cuisine.label}
                           </Label>
                         </div>
@@ -813,7 +839,10 @@ export default function ContactCatering() {
                       {DIETARY_OPTIONS.map((diet) => (
                         <div key={diet.id} className="flex items-center gap-2">
                           <Checkbox id={diet.id} />
-                          <Label htmlFor={diet.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={diet.id}
+                            className="text-sm font-normal"
+                          >
                             {diet.label}
                           </Label>
                         </div>
@@ -831,7 +860,9 @@ export default function ContactCatering() {
                         <SelectItem value="25-50">$25-50 / person</SelectItem>
                         <SelectItem value="50-75">$50-75 / person</SelectItem>
                         <SelectItem value="75-100">$75-100 / person</SelectItem>
-                        <SelectItem value="100-150">$100-150 / person</SelectItem>
+                        <SelectItem value="100-150">
+                          $100-150 / person
+                        </SelectItem>
                         <SelectItem value="150+">$150+ / person</SelectItem>
                       </SelectContent>
                     </Select>
@@ -846,7 +877,11 @@ export default function ContactCatering() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                      />
                     </div>
                   </div>
 
@@ -881,7 +916,8 @@ export default function ContactCatering() {
                   <div className="rounded-lg border p-3 flex items-center gap-3">
                     <ChefHat className="h-5 w-5 text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">
-                      Minimum 25 guests. Custom menus available for all dietary needs.
+                      Minimum 25 guests. Custom menus available for all dietary
+                      needs.
                     </p>
                   </div>
 
@@ -899,7 +935,6 @@ export default function ContactCatering() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -1100,7 +1135,6 @@ export default function ContactConsultation() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -1156,11 +1190,7 @@ export default function ContactDark() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="john@example.com"
-                />
+                <Input id="email" type="email" placeholder="john@example.com" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
@@ -1224,7 +1254,6 @@ export default function ContactDark() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -1345,14 +1374,19 @@ export default function ContactDemo() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="timeline">When are you looking to start?</Label>
+                    <Label htmlFor="timeline">
+                      When are you looking to start?
+                    </Label>
                     <Select>
                       <SelectTrigger id="timeline">
                         <SelectValue placeholder="Select timeline" />
                       </SelectTrigger>
                       <SelectContent>
                         {TIMELINES.map((timeline) => (
-                          <SelectItem key={timeline.value} value={timeline.value}>
+                          <SelectItem
+                            key={timeline.value}
+                            value={timeline.value}
+                          >
                             {timeline.label}
                           </SelectItem>
                         ))}
@@ -1426,7 +1460,6 @@ export default function ContactDemo() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -1617,7 +1650,6 @@ export default function ContactEmergency() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -1644,9 +1676,27 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
 const TICKETS = [
-  { value: "early", label: "Early Bird", price: "$99", originalPrice: "$149", available: true },
-  { value: "standard", label: "Standard", price: "$149", originalPrice: null, available: true },
-  { value: "vip", label: "VIP Access", price: "$299", originalPrice: null, available: true },
+  {
+    value: "early",
+    label: "Early Bird",
+    price: "$99",
+    originalPrice: "$149",
+    available: true,
+  },
+  {
+    value: "standard",
+    label: "Standard",
+    price: "$149",
+    originalPrice: null,
+    available: true,
+  },
+  {
+    value: "vip",
+    label: "VIP Access",
+    price: "$299",
+    originalPrice: null,
+    available: true,
+  },
 ];
 
 const DIETARY = [
@@ -1809,7 +1859,9 @@ export default function ContactEvent() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="special">Special Requirements (Optional)</Label>
+                    <Label htmlFor="special">
+                      Special Requirements (Optional)
+                    </Label>
                     <Textarea
                       id="special"
                       placeholder="Accessibility needs, allergies, or other requirements..."
@@ -1846,7 +1898,6 @@ export default function ContactEvent() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -1933,7 +1984,9 @@ export default function ContactFaq() {
 
         {/* Contact Form */}
         <div className="text-center">
-          <h3 className="mb-2 text-xl font-semibold tracking-tight">Still need help?</h3>
+          <h3 className="mb-2 text-xl font-semibold tracking-tight">
+            Still need help?
+          </h3>
           <p className="text-muted-foreground mb-6">
             Can't find the answer you're looking for? Send us a message.
           </p>
@@ -1980,7 +2033,6 @@ export default function ContactFaq() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -2063,7 +2115,9 @@ export default function ContactFeedback() {
 
               {/* Categories */}
               <div className="space-y-3">
-                <Label>What is your feedback about? (Select all that apply)</Label>
+                <Label>
+                  What is your feedback about? (Select all that apply)
+                </Label>
                 <ToggleGroup
                   type="multiple"
                   value={categories}
@@ -2102,11 +2156,7 @@ export default function ContactFeedback() {
                     — if you'd like us to follow up
                   </span>
                 </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                />
+                <Input id="email" type="email" placeholder="you@example.com" />
               </div>
 
               <Button className="w-full">
@@ -2124,14 +2174,22 @@ export default function ContactFeedback() {
     </section>
   );
 }
-
 ```
 
 ```tsx
 "use client";
 
 import { useState } from "react";
-import { Activity, Calendar, Dumbbell, Flame, Heart, Target, Timer, Trophy } from "lucide-react";
+import {
+  Activity,
+  Calendar,
+  Dumbbell,
+  Flame,
+  Heart,
+  Target,
+  Timer,
+  Trophy,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -2151,25 +2209,85 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
 const FITNESS_GOALS = [
-  { value: "weight-loss", label: "Lose Weight", icon: Flame, metric: "Burn fat" },
-  { value: "muscle", label: "Build Muscle", icon: Dumbbell, metric: "Get stronger" },
-  { value: "endurance", label: "Endurance", icon: Activity, metric: "Last longer" },
+  {
+    value: "weight-loss",
+    label: "Lose Weight",
+    icon: Flame,
+    metric: "Burn fat",
+  },
+  {
+    value: "muscle",
+    label: "Build Muscle",
+    icon: Dumbbell,
+    metric: "Get stronger",
+  },
+  {
+    value: "endurance",
+    label: "Endurance",
+    icon: Activity,
+    metric: "Last longer",
+  },
   { value: "tone", label: "Tone & Define", icon: Target, metric: "Look lean" },
-  { value: "performance", label: "Performance", icon: Trophy, metric: "Compete" },
-  { value: "wellness", label: "General Wellness", icon: Heart, metric: "Feel great" },
+  {
+    value: "performance",
+    label: "Performance",
+    icon: Trophy,
+    metric: "Compete",
+  },
+  {
+    value: "wellness",
+    label: "General Wellness",
+    icon: Heart,
+    metric: "Feel great",
+  },
 ];
 
 const EXPERIENCE_LEVELS = [
-  { value: "beginner", label: "Beginner", description: "New to exercise or returning after long break", sessions: "2-3x/week recommended" },
-  { value: "intermediate", label: "Intermediate", description: "Exercise regularly, know basic movements", sessions: "3-4x/week recommended" },
-  { value: "advanced", label: "Advanced", description: "Consistent training, ready for intensity", sessions: "4-5x/week recommended" },
+  {
+    value: "beginner",
+    label: "Beginner",
+    description: "New to exercise or returning after long break",
+    sessions: "2-3x/week recommended",
+  },
+  {
+    value: "intermediate",
+    label: "Intermediate",
+    description: "Exercise regularly, know basic movements",
+    sessions: "3-4x/week recommended",
+  },
+  {
+    value: "advanced",
+    label: "Advanced",
+    description: "Consistent training, ready for intensity",
+    sessions: "4-5x/week recommended",
+  },
 ];
 
 const TRAINING_FORMATS = [
-  { value: "1on1", label: "1-on-1 Training", price: "$$$", description: "100% personalized attention" },
-  { value: "semi", label: "Semi-Private (2-4)", price: "$$", description: "Small group, shared cost" },
-  { value: "group", label: "Group Classes", price: "$", description: "Community & motivation" },
-  { value: "online", label: "Online Coaching", price: "$$", description: "Train anywhere, anytime" },
+  {
+    value: "1on1",
+    label: "1-on-1 Training",
+    price: "$$$",
+    description: "100% personalized attention",
+  },
+  {
+    value: "semi",
+    label: "Semi-Private (2-4)",
+    price: "$$",
+    description: "Small group, shared cost",
+  },
+  {
+    value: "group",
+    label: "Group Classes",
+    price: "$",
+    description: "Community & motivation",
+  },
+  {
+    value: "online",
+    label: "Online Coaching",
+    price: "$$",
+    description: "Train anywhere, anytime",
+  },
 ];
 
 const AVAILABILITY = [
@@ -2209,7 +2327,8 @@ export default function ContactFitness() {
             Find Your Perfect Training Program
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Whether you're just starting out or ready to level up, we'll build a plan that fits your life.
+            Whether you're just starting out or ready to level up, we'll build a
+            plan that fits your life.
           </p>
         </div>
 
@@ -2243,9 +2362,17 @@ export default function ContactFitness() {
                         id={`goal-${fg.value}`}
                         className="sr-only"
                       />
-                      <Icon className={`mb-2 h-6 w-6 ${goal === fg.value ? "text-primary" : "text-muted-foreground"}`} />
+                      <Icon
+                        className={`mb-2 h-6 w-6 ${
+                          goal === fg.value
+                            ? "text-primary"
+                            : "text-muted-foreground"
+                        }`}
+                      />
                       <span className="text-xs font-medium">{fg.label}</span>
-                      <span className="text-[10px] text-muted-foreground">{fg.metric}</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        {fg.metric}
+                      </span>
                     </Label>
                   );
                 })}
@@ -2279,10 +2406,17 @@ export default function ContactFitness() {
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <RadioGroupItem value={level.value} id={`exp-${level.value}`} />
+                            <RadioGroupItem
+                              value={level.value}
+                              id={`exp-${level.value}`}
+                            />
                             <div>
-                              <span className="text-sm font-medium">{level.label}</span>
-                              <p className="text-xs text-muted-foreground">{level.description}</p>
+                              <span className="text-sm font-medium">
+                                {level.label}
+                              </span>
+                              <p className="text-xs text-muted-foreground">
+                                {level.description}
+                              </p>
                             </div>
                           </div>
                           <Badge variant="secondary" className="text-xs">
@@ -2313,11 +2447,21 @@ export default function ContactFitness() {
                           }`}
                         >
                           <div className="flex items-center justify-between mb-1">
-                            <RadioGroupItem value={tf.value} id={`format-${tf.value}`} className="sr-only" />
-                            <span className="text-sm font-medium">{tf.label}</span>
-                            <span className="text-xs text-muted-foreground">{tf.price}</span>
+                            <RadioGroupItem
+                              value={tf.value}
+                              id={`format-${tf.value}`}
+                              className="sr-only"
+                            />
+                            <span className="text-sm font-medium">
+                              {tf.label}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {tf.price}
+                            </span>
                           </div>
-                          <span className="text-xs text-muted-foreground">{tf.description}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {tf.description}
+                          </span>
                         </Label>
                       ))}
                     </RadioGroup>
@@ -2330,9 +2474,15 @@ export default function ContactFitness() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {HEALTH_CONSIDERATIONS.map((health) => (
-                        <div key={health.id} className="flex items-center gap-2">
+                        <div
+                          key={health.id}
+                          className="flex items-center gap-2"
+                        >
                           <Checkbox id={health.id} />
-                          <Label htmlFor={health.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={health.id}
+                            className="text-sm font-normal"
+                          >
                             {health.label}
                           </Label>
                         </div>
@@ -2362,7 +2512,10 @@ export default function ContactFitness() {
                       {AVAILABILITY.map((time) => (
                         <div key={time.id} className="flex items-center gap-2">
                           <Checkbox id={time.id} />
-                          <Label htmlFor={time.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={time.id}
+                            className="text-sm font-normal"
+                          >
                             <span className="mr-1">{time.icon}</span>
                             {time.label}
                           </Label>
@@ -2372,7 +2525,9 @@ export default function ContactFitness() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="frequency">Desired Training Frequency</Label>
+                    <Label htmlFor="frequency">
+                      Desired Training Frequency
+                    </Label>
                     <Select>
                       <SelectTrigger id="frequency">
                         <SelectValue placeholder="Sessions per week" />
@@ -2388,7 +2543,9 @@ export default function ContactFitness() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="motivation">What's Motivating You Right Now?</Label>
+                    <Label htmlFor="motivation">
+                      What's Motivating You Right Now?
+                    </Label>
                     <Textarea
                       id="motivation"
                       placeholder="An upcoming event, health wake-up call, wanting more energy, ready for a change..."
@@ -2405,7 +2562,11 @@ export default function ContactFitness() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                      />
                     </div>
                   </div>
 
@@ -2441,7 +2602,9 @@ export default function ContactFitness() {
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="downtown">Downtown Studio</SelectItem>
+                          <SelectItem value="downtown">
+                            Downtown Studio
+                          </SelectItem>
                           <SelectItem value="westside">Westside Gym</SelectItem>
                           <SelectItem value="online">Online Only</SelectItem>
                           <SelectItem value="home">At My Home</SelectItem>
@@ -2452,7 +2615,9 @@ export default function ContactFitness() {
 
                   <div className="rounded-lg border p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-medium">Free Fitness Assessment</span>
+                      <span className="font-medium">
+                        Free Fitness Assessment
+                      </span>
                       <Badge>$75 Value</Badge>
                     </div>
                     <ul className="text-xs text-muted-foreground space-y-1">
@@ -2480,7 +2645,6 @@ export default function ContactFitness() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -2508,7 +2672,9 @@ export default function ContactFormMap() {
     <section className="py-12">
       <div className="mx-auto w-full max-w-4xl px-4">
         <div className="mb-10 text-center">
-          <h2 className="mb-3 text-3xl font-bold tracking-tight">Get in Touch</h2>
+          <h2 className="mb-3 text-3xl font-bold tracking-tight">
+            Get in Touch
+          </h2>
           <p className="text-muted-foreground leading-relaxed">
             Have a question or want to work together? Fill out the form below
             and we'll get back to you as soon as possible.
@@ -2518,7 +2684,9 @@ export default function ContactFormMap() {
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Contact Form */}
           <Card className="p-6 lg:p-8">
-            <h3 className="mb-6 text-xl font-semibold tracking-tight">Send us a message</h3>
+            <h3 className="mb-6 text-xl font-semibold tracking-tight">
+              Send us a message
+            </h3>
             <form action="#" className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -2537,7 +2705,11 @@ export default function ContactFormMap() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="department">Department</Label>
@@ -2620,7 +2792,6 @@ export default function ContactFormMap() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -2767,11 +2938,15 @@ export default function ContactGuest() {
                     <RadioGroup defaultValue="no" className="flex gap-4">
                       <div className="flex items-center gap-2">
                         <RadioGroupItem value="yes" id="parking-yes" />
-                        <Label htmlFor="parking-yes" className="font-normal">Yes</Label>
+                        <Label htmlFor="parking-yes" className="font-normal">
+                          Yes
+                        </Label>
                       </div>
                       <div className="flex items-center gap-2">
                         <RadioGroupItem value="no" id="parking-no" />
-                        <Label htmlFor="parking-no" className="font-normal">No</Label>
+                        <Label htmlFor="parking-no" className="font-normal">
+                          No
+                        </Label>
                       </div>
                     </RadioGroup>
                   </div>
@@ -2885,14 +3060,16 @@ export default function ContactGuest() {
                   <div className="rounded-lg border p-3 flex items-center gap-3">
                     <Building2 className="h-5 w-5 text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">
-                      Your host will be notified and a badge will be ready at reception
+                      Your host will be notified and a badge will be ready at
+                      reception
                     </p>
                   </div>
 
                   <Button className="w-full">Complete Registration</Button>
 
                   <p className="text-center text-xs text-muted-foreground">
-                    You'll receive a confirmation email with check-in instructions.
+                    You'll receive a confirmation email with check-in
+                    instructions.
                   </p>
                 </form>
               </div>
@@ -2903,7 +3080,6 @@ export default function ContactGuest() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -2944,11 +3120,7 @@ export default function ContactImage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Phone Number</Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="+1 (555) 000-0000"
-              />
+              <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="message">Message</Label>
@@ -2984,14 +3156,20 @@ export default function ContactImage() {
     </section>
   );
 }
-
 ```
 
 ```tsx
 "use client";
 
 import { useState } from "react";
-import { Car, CircleDollarSign, Home, Shield, ShieldCheck, User } from "lucide-react";
+import {
+  Car,
+  CircleDollarSign,
+  Home,
+  Shield,
+  ShieldCheck,
+  User,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -3011,10 +3189,30 @@ import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
 
 const COVERAGE_TYPES = [
-  { value: "auto", label: "Auto Insurance", icon: Car, description: "Vehicles & drivers" },
-  { value: "home", label: "Home Insurance", icon: Home, description: "Property & contents" },
-  { value: "life", label: "Life Insurance", icon: User, description: "Family protection" },
-  { value: "bundle", label: "Bundle & Save", icon: Shield, description: "Multiple policies" },
+  {
+    value: "auto",
+    label: "Auto Insurance",
+    icon: Car,
+    description: "Vehicles & drivers",
+  },
+  {
+    value: "home",
+    label: "Home Insurance",
+    icon: Home,
+    description: "Property & contents",
+  },
+  {
+    value: "life",
+    label: "Life Insurance",
+    icon: User,
+    description: "Family protection",
+  },
+  {
+    value: "bundle",
+    label: "Bundle & Save",
+    icon: Shield,
+    description: "Multiple policies",
+  },
 ];
 
 const DEDUCTIBLES = [
@@ -3094,9 +3292,17 @@ export default function ContactInsurance() {
                         id={`type-${type.value}`}
                         className="sr-only"
                       />
-                      <Icon className={`mb-2 h-6 w-6 ${coverageType === type.value ? "text-primary" : "text-muted-foreground"}`} />
+                      <Icon
+                        className={`mb-2 h-6 w-6 ${
+                          coverageType === type.value
+                            ? "text-primary"
+                            : "text-muted-foreground"
+                        }`}
+                      />
                       <span className="text-sm font-medium">{type.label}</span>
-                      <span className="text-xs text-muted-foreground">{type.description}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {type.description}
+                      </span>
                     </Label>
                   );
                 })}
@@ -3122,7 +3328,10 @@ export default function ContactInsurance() {
                               <SelectValue placeholder="Select year" />
                             </SelectTrigger>
                             <SelectContent>
-                              {Array.from({ length: 15 }, (_, i) => 2024 - i).map((year) => (
+                              {Array.from(
+                                { length: 15 },
+                                (_, i) => 2024 - i
+                              ).map((year) => (
                                 <SelectItem key={year} value={year.toString()}>
                                   {year}
                                 </SelectItem>
@@ -3140,9 +3349,13 @@ export default function ContactInsurance() {
                               <SelectItem value="toyota">Toyota</SelectItem>
                               <SelectItem value="honda">Honda</SelectItem>
                               <SelectItem value="ford">Ford</SelectItem>
-                              <SelectItem value="chevrolet">Chevrolet</SelectItem>
+                              <SelectItem value="chevrolet">
+                                Chevrolet
+                              </SelectItem>
                               <SelectItem value="bmw">BMW</SelectItem>
-                              <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
+                              <SelectItem value="mercedes">
+                                Mercedes-Benz
+                              </SelectItem>
                               <SelectItem value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
@@ -3150,7 +3363,10 @@ export default function ContactInsurance() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="vehicle-model">Model</Label>
-                        <Input id="vehicle-model" placeholder="e.g., Camry, Civic, F-150" />
+                        <Input
+                          id="vehicle-model"
+                          placeholder="e.g., Camry, Civic, F-150"
+                        />
                       </div>
                     </>
                   )}
@@ -3159,16 +3375,27 @@ export default function ContactInsurance() {
                     <>
                       <div className="space-y-2">
                         <Label htmlFor="address">Property Address</Label>
-                        <Input id="address" placeholder="123 Main Street, City, State ZIP" />
+                        <Input
+                          id="address"
+                          placeholder="123 Main Street, City, State ZIP"
+                        />
                       </div>
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Label htmlFor="year-built">Year Built</Label>
-                          <Input id="year-built" type="number" placeholder="e.g., 1995" />
+                          <Input
+                            id="year-built"
+                            type="number"
+                            placeholder="e.g., 1995"
+                          />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="sqft">Square Footage</Label>
-                          <Input id="sqft" type="number" placeholder="e.g., 2,400" />
+                          <Input
+                            id="sqft"
+                            type="number"
+                            placeholder="e.g., 2,400"
+                          />
                         </div>
                       </div>
                     </>
@@ -3199,11 +3426,18 @@ export default function ContactInsurance() {
                         <RadioGroup defaultValue="no" className="flex gap-4">
                           <div className="flex items-center gap-2">
                             <RadioGroupItem value="no" id="tobacco-no" />
-                            <Label htmlFor="tobacco-no" className="font-normal">Non-smoker</Label>
+                            <Label htmlFor="tobacco-no" className="font-normal">
+                              Non-smoker
+                            </Label>
                           </div>
                           <div className="flex items-center gap-2">
                             <RadioGroupItem value="yes" id="tobacco-yes" />
-                            <Label htmlFor="tobacco-yes" className="font-normal">Smoker</Label>
+                            <Label
+                              htmlFor="tobacco-yes"
+                              className="font-normal"
+                            >
+                              Smoker
+                            </Label>
                           </div>
                         </RadioGroup>
                       </div>
@@ -3216,19 +3450,30 @@ export default function ContactInsurance() {
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
                           <Checkbox id="bundle-auto" defaultChecked />
-                          <Label htmlFor="bundle-auto" className="font-normal">Auto Insurance</Label>
+                          <Label htmlFor="bundle-auto" className="font-normal">
+                            Auto Insurance
+                          </Label>
                         </div>
                         <div className="flex items-center gap-2">
                           <Checkbox id="bundle-home" defaultChecked />
-                          <Label htmlFor="bundle-home" className="font-normal">Home Insurance</Label>
+                          <Label htmlFor="bundle-home" className="font-normal">
+                            Home Insurance
+                          </Label>
                         </div>
                         <div className="flex items-center gap-2">
                           <Checkbox id="bundle-life" />
-                          <Label htmlFor="bundle-life" className="font-normal">Life Insurance</Label>
+                          <Label htmlFor="bundle-life" className="font-normal">
+                            Life Insurance
+                          </Label>
                         </div>
                         <div className="flex items-center gap-2">
                           <Checkbox id="bundle-umbrella" />
-                          <Label htmlFor="bundle-umbrella" className="font-normal">Umbrella Policy</Label>
+                          <Label
+                            htmlFor="bundle-umbrella"
+                            className="font-normal"
+                          >
+                            Umbrella Policy
+                          </Label>
                         </div>
                       </div>
                       <p className="text-xs text-muted-foreground">
@@ -3242,7 +3487,9 @@ export default function ContactInsurance() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <Label>Coverage Amount</Label>
-                      <span className="text-lg font-semibold">{formatCoverage(coverageAmount[0])}</span>
+                      <span className="text-lg font-semibold">
+                        {formatCoverage(coverageAmount[0])}
+                      </span>
                     </div>
                     <Slider
                       value={coverageAmount}
@@ -3276,10 +3523,18 @@ export default function ContactInsurance() {
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            <RadioGroupItem value={ded.value} id={`ded-${ded.value}`} className="sr-only" />
-                            <span className="text-sm font-medium">{ded.label}</span>
+                            <RadioGroupItem
+                              value={ded.value}
+                              id={`ded-${ded.value}`}
+                              className="sr-only"
+                            />
+                            <span className="text-sm font-medium">
+                              {ded.label}
+                            </span>
                           </div>
-                          <span className="text-xs text-muted-foreground">{ded.premium}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {ded.premium}
+                          </span>
                         </Label>
                       ))}
                     </RadioGroup>
@@ -3299,9 +3554,15 @@ export default function ContactInsurance() {
                     <Label>Available Discounts</Label>
                     <div className="space-y-2">
                       {discounts.map((discount) => (
-                        <div key={discount.id} className="flex items-center gap-2">
+                        <div
+                          key={discount.id}
+                          className="flex items-center gap-2"
+                        >
                           <Checkbox id={discount.id} />
-                          <Label htmlFor={discount.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={discount.id}
+                            className="text-sm font-normal"
+                          >
                             {discount.label}
                           </Label>
                         </div>
@@ -3337,7 +3598,11 @@ export default function ContactInsurance() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="zip">ZIP Code</Label>
@@ -3346,13 +3611,17 @@ export default function ContactInsurance() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="current-provider">Current Insurance Provider</Label>
+                    <Label htmlFor="current-provider">
+                      Current Insurance Provider
+                    </Label>
                     <Select>
                       <SelectTrigger id="current-provider">
                         <SelectValue placeholder="Select provider (optional)" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="none">No current coverage</SelectItem>
+                        <SelectItem value="none">
+                          No current coverage
+                        </SelectItem>
                         <SelectItem value="state-farm">State Farm</SelectItem>
                         <SelectItem value="geico">GEICO</SelectItem>
                         <SelectItem value="progressive">Progressive</SelectItem>
@@ -3369,7 +3638,8 @@ export default function ContactInsurance() {
                       htmlFor="consent"
                       className="text-sm font-normal leading-tight"
                     >
-                      I agree to receive my quote and policy information via email and phone
+                      I agree to receive my quote and policy information via
+                      email and phone
                     </Label>
                   </div>
 
@@ -3379,7 +3649,8 @@ export default function ContactInsurance() {
                       <Badge>Up to $480/yr</Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Average savings when switching to us with eligible discounts
+                      Average savings when switching to us with eligible
+                      discounts
                     </p>
                   </div>
 
@@ -3400,7 +3671,6 @@ export default function ContactInsurance() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -3520,7 +3790,9 @@ export default function ContactInterview() {
                               value={type.value}
                               className="h-4 w-4 accent-primary"
                             />
-                            <span className="text-sm font-medium">{type.label}</span>
+                            <span className="text-sm font-medium">
+                              {type.label}
+                            </span>
                           </div>
                           <Badge variant="secondary">{type.duration}</Badge>
                         </label>
@@ -3647,7 +3919,8 @@ export default function ContactInterview() {
                   <Button className="w-full">Submit Availability</Button>
 
                   <p className="text-center text-xs text-muted-foreground">
-                    We'll send a calendar invite within 24 hours confirming your interview.
+                    We'll send a calendar invite within 24 hours confirming your
+                    interview.
                   </p>
                 </form>
               </div>
@@ -3658,7 +3931,6 @@ export default function ContactInterview() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -3805,7 +4077,6 @@ export default function ContactLocations() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -3832,19 +4103,54 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
 const CATEGORIES = [
-  { value: "plumbing", label: "Plumbing", description: "Leaks, clogs, water heater" },
-  { value: "electrical", label: "Electrical", description: "Outlets, lighting, breakers" },
-  { value: "hvac", label: "HVAC", description: "Heating, cooling, ventilation" },
-  { value: "appliance", label: "Appliances", description: "Fridge, stove, dishwasher" },
-  { value: "structural", label: "Structural", description: "Doors, windows, walls" },
+  {
+    value: "plumbing",
+    label: "Plumbing",
+    description: "Leaks, clogs, water heater",
+  },
+  {
+    value: "electrical",
+    label: "Electrical",
+    description: "Outlets, lighting, breakers",
+  },
+  {
+    value: "hvac",
+    label: "HVAC",
+    description: "Heating, cooling, ventilation",
+  },
+  {
+    value: "appliance",
+    label: "Appliances",
+    description: "Fridge, stove, dishwasher",
+  },
+  {
+    value: "structural",
+    label: "Structural",
+    description: "Doors, windows, walls",
+  },
   { value: "pest", label: "Pest Control", description: "Insects, rodents" },
   { value: "other", label: "Other", description: "General repairs" },
 ];
 
 const URGENCY = [
-  { value: "emergency", label: "Emergency", description: "Safety hazard, flooding, no heat", badge: "Immediate" },
-  { value: "urgent", label: "Urgent", description: "Major inconvenience, need quick fix", badge: "24 hours" },
-  { value: "routine", label: "Routine", description: "Non-urgent repair needed", badge: "3-5 days" },
+  {
+    value: "emergency",
+    label: "Emergency",
+    description: "Safety hazard, flooding, no heat",
+    badge: "Immediate",
+  },
+  {
+    value: "urgent",
+    label: "Urgent",
+    description: "Major inconvenience, need quick fix",
+    badge: "24 hours",
+  },
+  {
+    value: "routine",
+    label: "Routine",
+    description: "Non-urgent repair needed",
+    badge: "3-5 days",
+  },
 ];
 
 const AVAILABILITY = [
@@ -3912,7 +4218,10 @@ export default function ContactMaintenance() {
 
                   <div className="space-y-2">
                     <Label htmlFor="location">Location in unit</Label>
-                    <Input id="location" placeholder="e.g., Master bathroom, Kitchen" />
+                    <Input
+                      id="location"
+                      placeholder="e.g., Master bathroom, Kitchen"
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -3950,14 +4259,20 @@ export default function ContactMaintenance() {
                               id={`urgency-${level.value}`}
                             />
                             <div>
-                              <span className="text-sm font-medium">{level.label}</span>
+                              <span className="text-sm font-medium">
+                                {level.label}
+                              </span>
                               <p className="text-xs text-muted-foreground">
                                 {level.description}
                               </p>
                             </div>
                           </div>
                           <Badge
-                            variant={level.value === "emergency" ? "destructive" : "secondary"}
+                            variant={
+                              level.value === "emergency"
+                                ? "destructive"
+                                : "secondary"
+                            }
                             className="text-xs"
                           >
                             {level.badge}
@@ -4014,7 +4329,11 @@ export default function ContactMaintenance() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                      />
                     </div>
                   </div>
 
@@ -4032,7 +4351,9 @@ export default function ContactMaintenance() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <Label htmlFor="availability">When can we access your unit?</Label>
+                      <Label htmlFor="availability">
+                        When can we access your unit?
+                      </Label>
                     </div>
                     <Select>
                       <SelectTrigger id="availability">
@@ -4067,7 +4388,9 @@ export default function ContactMaintenance() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="access-notes">Access Instructions (Optional)</Label>
+                    <Label htmlFor="access-notes">
+                      Access Instructions (Optional)
+                    </Label>
                     <Textarea
                       id="access-notes"
                       placeholder="Gate code, parking instructions, pet details, or anything else the technician should know..."
@@ -4100,7 +4423,6 @@ export default function ContactMaintenance() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -4162,14 +4484,21 @@ export default function ContactMinimal() {
     </section>
   );
 }
-
 ```
 
 ```tsx
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Box, Calendar, Home, MapPin, Package, Truck } from "lucide-react";
+import {
+  ArrowRight,
+  Box,
+  Calendar,
+  Home,
+  MapPin,
+  Package,
+  Truck,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -4191,18 +4520,64 @@ import { Textarea } from "@/components/ui/textarea";
 
 const HOME_SIZES = [
   { value: "studio", label: "Studio", rooms: "1 room", estimate: "1-2 hours" },
-  { value: "1bed", label: "1 Bedroom", rooms: "2-3 rooms", estimate: "2-3 hours" },
-  { value: "2bed", label: "2 Bedroom", rooms: "4-5 rooms", estimate: "3-5 hours" },
-  { value: "3bed", label: "3 Bedroom", rooms: "6-7 rooms", estimate: "5-7 hours" },
-  { value: "4bed", label: "4+ Bedroom", rooms: "8+ rooms", estimate: "7+ hours" },
-  { value: "office", label: "Office/Commercial", rooms: "Varies", estimate: "Custom quote" },
+  {
+    value: "1bed",
+    label: "1 Bedroom",
+    rooms: "2-3 rooms",
+    estimate: "2-3 hours",
+  },
+  {
+    value: "2bed",
+    label: "2 Bedroom",
+    rooms: "4-5 rooms",
+    estimate: "3-5 hours",
+  },
+  {
+    value: "3bed",
+    label: "3 Bedroom",
+    rooms: "6-7 rooms",
+    estimate: "5-7 hours",
+  },
+  {
+    value: "4bed",
+    label: "4+ Bedroom",
+    rooms: "8+ rooms",
+    estimate: "7+ hours",
+  },
+  {
+    value: "office",
+    label: "Office/Commercial",
+    rooms: "Varies",
+    estimate: "Custom quote",
+  },
 ];
 
 const SERVICE_LEVELS = [
-  { value: "labor", label: "Labor Only", description: "You pack, we load & move", price: "$$" },
-  { value: "basic", label: "Basic Move", description: "Load, transport, unload", price: "$$$" },
-  { value: "full", label: "Full Service", description: "We pack & move everything", price: "$$$$", badge: "Most Popular" },
-  { value: "white-glove", label: "White Glove", description: "Full service + unpacking", price: "$$$$$" },
+  {
+    value: "labor",
+    label: "Labor Only",
+    description: "You pack, we load & move",
+    price: "$$",
+  },
+  {
+    value: "basic",
+    label: "Basic Move",
+    description: "Load, transport, unload",
+    price: "$$$",
+  },
+  {
+    value: "full",
+    label: "Full Service",
+    description: "We pack & move everything",
+    price: "$$$$",
+    badge: "Most Popular",
+  },
+  {
+    value: "white-glove",
+    label: "White Glove",
+    description: "Full service + unpacking",
+    price: "$$$$$",
+  },
 ];
 
 const SPECIAL_ITEMS = [
@@ -4239,7 +4614,8 @@ export default function ContactMoving() {
             Get Your Moving Quote
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Professional movers you can trust. Tell us about your move and get a free estimate.
+            Professional movers you can trust. Tell us about your move and get a
+            free estimate.
           </p>
         </div>
 
@@ -4254,7 +4630,10 @@ export default function ContactMoving() {
               <div className="grid gap-4 md:grid-cols-[1fr,auto,1fr]">
                 <div className="space-y-2">
                   <Label htmlFor="origin">Origin Address</Label>
-                  <Input id="origin" placeholder="123 Current Street, City, State ZIP" />
+                  <Input
+                    id="origin"
+                    placeholder="123 Current Street, City, State ZIP"
+                  />
                   <div className="grid grid-cols-2 gap-2">
                     <Select>
                       <SelectTrigger>
@@ -4289,7 +4668,10 @@ export default function ContactMoving() {
 
                 <div className="space-y-2">
                   <Label htmlFor="destination">Destination Address</Label>
-                  <Input id="destination" placeholder="456 New Avenue, City, State ZIP" />
+                  <Input
+                    id="destination"
+                    placeholder="456 New Avenue, City, State ZIP"
+                  />
                   <div className="grid grid-cols-2 gap-2">
                     <Select>
                       <SelectTrigger>
@@ -4390,20 +4772,32 @@ export default function ContactMoving() {
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <RadioGroupItem value={level.value} id={`level-${level.value}`} />
+                            <RadioGroupItem
+                              value={level.value}
+                              id={`level-${level.value}`}
+                            />
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium">{level.label}</span>
+                                <span className="text-sm font-medium">
+                                  {level.label}
+                                </span>
                                 {level.badge && (
-                                  <Badge variant="secondary" className="text-xs">
+                                  <Badge
+                                    variant="secondary"
+                                    className="text-xs"
+                                  >
                                     {level.badge}
                                   </Badge>
                                 )}
                               </div>
-                              <p className="text-xs text-muted-foreground">{level.description}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {level.description}
+                              </p>
                             </div>
                           </div>
-                          <span className="text-sm text-muted-foreground">{level.price}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {level.price}
+                          </span>
                         </Label>
                       ))}
                     </RadioGroup>
@@ -4415,7 +4809,10 @@ export default function ContactMoving() {
                       {SPECIAL_ITEMS.map((item) => (
                         <div key={item.id} className="flex items-center gap-2">
                           <Checkbox id={item.id} />
-                          <Label htmlFor={item.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={item.id}
+                            className="text-sm font-normal"
+                          >
                             {item.label}
                           </Label>
                         </div>
@@ -4448,7 +4845,9 @@ export default function ContactMoving() {
                           <SelectItem value="exact">Exact date only</SelectItem>
                           <SelectItem value="1-2">± 1-2 days</SelectItem>
                           <SelectItem value="week">± 1 week</SelectItem>
-                          <SelectItem value="flexible">Very flexible</SelectItem>
+                          <SelectItem value="flexible">
+                            Very flexible
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -4458,9 +4857,15 @@ export default function ContactMoving() {
                     <Label>Additional Services</Label>
                     <div className="space-y-2">
                       {ADDITIONAL_SERVICES.map((service) => (
-                        <div key={service.id} className="flex items-center gap-2">
+                        <div
+                          key={service.id}
+                          className="flex items-center gap-2"
+                        >
                           <Checkbox id={service.id} />
-                          <Label htmlFor={service.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={service.id}
+                            className="text-sm font-normal"
+                          >
                             {service.label}
                           </Label>
                         </div>
@@ -4486,7 +4891,11 @@ export default function ContactMoving() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                      />
                     </div>
                   </div>
 
@@ -4505,7 +4914,8 @@ export default function ContactMoving() {
                       htmlFor="survey"
                       className="text-sm font-normal leading-tight"
                     >
-                      I'd like a free virtual or in-home survey for a more accurate quote
+                      I'd like a free virtual or in-home survey for a more
+                      accurate quote
                     </Label>
                   </div>
 
@@ -4513,7 +4923,9 @@ export default function ContactMoving() {
                     <div className="flex items-center gap-3">
                       <Package className="h-5 w-5 text-muted-foreground" />
                       <div>
-                        <p className="text-sm font-medium">Licensed & Insured</p>
+                        <p className="text-sm font-medium">
+                          Licensed & Insured
+                        </p>
                         <p className="text-xs text-muted-foreground">
                           Full value protection available on all moves
                         </p>
@@ -4527,7 +4939,8 @@ export default function ContactMoving() {
                   </Button>
 
                   <p className="text-center text-xs text-muted-foreground">
-                    No obligation. Quote delivered within 2 hours during business hours.
+                    No obligation. Quote delivered within 2 hours during
+                    business hours.
                   </p>
                 </form>
               </div>
@@ -4538,7 +4951,6 @@ export default function ContactMoving() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -4757,11 +5169,7 @@ export default function ContactMultistep() {
               {/* Navigation Buttons */}
               <div className="flex items-center justify-between pt-2">
                 {currentStep > 1 ? (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleBack}
-                  >
+                  <Button type="button" variant="outline" onClick={handleBack}>
                     Previous
                   </Button>
                 ) : (
@@ -4782,7 +5190,6 @@ export default function ContactMultistep() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -4880,7 +5287,9 @@ export default function ContactPartnership() {
                           className="sr-only"
                         />
                         <Icon className="h-5 w-5" />
-                        <span className="text-sm font-medium">{type.label}</span>
+                        <span className="text-sm font-medium">
+                          {type.label}
+                        </span>
                       </Label>
                     );
                   })}
@@ -4927,7 +5336,10 @@ export default function ContactPartnership() {
                         </SelectTrigger>
                         <SelectContent>
                           {INDUSTRIES.map((industry) => (
-                            <SelectItem key={industry.value} value={industry.value}>
+                            <SelectItem
+                              key={industry.value}
+                              value={industry.value}
+                            >
                               {industry.label}
                             </SelectItem>
                           ))}
@@ -4980,7 +5392,8 @@ export default function ContactPartnership() {
                   <Button className="w-full">Submit Partnership Inquiry</Button>
 
                   <p className="text-center text-xs text-muted-foreground">
-                    Our partnerships team will review and respond within 48 hours.
+                    Our partnerships team will review and respond within 48
+                    hours.
                   </p>
                 </form>
               </div>
@@ -4991,7 +5404,6 @@ export default function ContactPartnership() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -5029,17 +5441,58 @@ const SHOOT_TYPES = [
 ];
 
 const PACKAGES = [
-  { value: "mini", label: "Mini Session", duration: "30 min", images: "10 edited", price: "$195" },
-  { value: "standard", label: "Standard", duration: "1 hour", images: "25 edited", price: "$350", badge: "Popular" },
-  { value: "premium", label: "Premium", duration: "2 hours", images: "50 edited", price: "$595" },
-  { value: "luxury", label: "Luxury", duration: "4 hours", images: "100+ edited", price: "$995" },
+  {
+    value: "mini",
+    label: "Mini Session",
+    duration: "30 min",
+    images: "10 edited",
+    price: "$195",
+  },
+  {
+    value: "standard",
+    label: "Standard",
+    duration: "1 hour",
+    images: "25 edited",
+    price: "$350",
+    badge: "Popular",
+  },
+  {
+    value: "premium",
+    label: "Premium",
+    duration: "2 hours",
+    images: "50 edited",
+    price: "$595",
+  },
+  {
+    value: "luxury",
+    label: "Luxury",
+    duration: "4 hours",
+    images: "100+ edited",
+    price: "$995",
+  },
 ];
 
 const LOCATIONS = [
-  { value: "studio", label: "In-Studio", description: "Professional lighting & backdrops" },
-  { value: "outdoor", label: "Outdoor Location", description: "Parks, urban, or beach" },
-  { value: "client", label: "Your Location", description: "Home, office, or venue" },
-  { value: "destination", label: "Destination", description: "Travel available" },
+  {
+    value: "studio",
+    label: "In-Studio",
+    description: "Professional lighting & backdrops",
+  },
+  {
+    value: "outdoor",
+    label: "Outdoor Location",
+    description: "Parks, urban, or beach",
+  },
+  {
+    value: "client",
+    label: "Your Location",
+    description: "Home, office, or venue",
+  },
+  {
+    value: "destination",
+    label: "Destination",
+    description: "Travel available",
+  },
 ];
 
 const ADDONS = [
@@ -5117,12 +5570,20 @@ export default function ContactPhotography() {
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <RadioGroupItem value={pkg.value} id={`pkg-${pkg.value}`} />
+                            <RadioGroupItem
+                              value={pkg.value}
+                              id={`pkg-${pkg.value}`}
+                            />
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium">{pkg.label}</span>
+                                <span className="text-sm font-medium">
+                                  {pkg.label}
+                                </span>
                                 {pkg.badge && (
-                                  <Badge variant="secondary" className="text-xs">
+                                  <Badge
+                                    variant="secondary"
+                                    className="text-xs"
+                                  >
                                     {pkg.badge}
                                   </Badge>
                                 )}
@@ -5161,10 +5622,18 @@ export default function ContactPhotography() {
                         }`}
                       >
                         <div className="flex items-center gap-2">
-                          <RadioGroupItem value={loc.value} id={`loc-${loc.value}`} className="sr-only" />
-                          <span className="text-sm font-medium">{loc.label}</span>
+                          <RadioGroupItem
+                            value={loc.value}
+                            id={`loc-${loc.value}`}
+                            className="sr-only"
+                          />
+                          <span className="text-sm font-medium">
+                            {loc.label}
+                          </span>
                         </div>
-                        <span className="text-xs text-muted-foreground">{loc.description}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {loc.description}
+                        </span>
                       </Label>
                     ))}
                   </RadioGroup>
@@ -5181,10 +5650,18 @@ export default function ContactPhotography() {
                           <SelectValue placeholder="Select time" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="morning">Morning (8-11am)</SelectItem>
-                          <SelectItem value="midday">Midday (11am-2pm)</SelectItem>
-                          <SelectItem value="afternoon">Afternoon (2-5pm)</SelectItem>
-                          <SelectItem value="golden">Golden Hour (5-7pm)</SelectItem>
+                          <SelectItem value="morning">
+                            Morning (8-11am)
+                          </SelectItem>
+                          <SelectItem value="midday">
+                            Midday (11am-2pm)
+                          </SelectItem>
+                          <SelectItem value="afternoon">
+                            Afternoon (2-5pm)
+                          </SelectItem>
+                          <SelectItem value="golden">
+                            Golden Hour (5-7pm)
+                          </SelectItem>
                           <SelectItem value="flexible">I'm Flexible</SelectItem>
                         </SelectContent>
                       </Select>
@@ -5207,7 +5684,10 @@ export default function ContactPhotography() {
                       {ADDONS.map((addon) => (
                         <div key={addon.id} className="flex items-center gap-2">
                           <Checkbox id={addon.id} />
-                          <Label htmlFor={addon.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={addon.id}
+                            className="text-sm font-normal"
+                          >
                             {addon.label}
                           </Label>
                         </div>
@@ -5249,7 +5729,11 @@ export default function ContactPhotography() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                      />
                     </div>
                   </div>
 
@@ -5296,7 +5780,6 @@ export default function ContactPhotography() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -5412,7 +5895,10 @@ export default function ContactPress() {
                         </SelectTrigger>
                         <SelectContent>
                           {DEADLINES.map((deadline) => (
-                            <SelectItem key={deadline.value} value={deadline.value}>
+                            <SelectItem
+                              key={deadline.value}
+                              value={deadline.value}
+                            >
                               {deadline.label}
                             </SelectItem>
                           ))}
@@ -5489,8 +5975,8 @@ export default function ContactPress() {
                   <div className="rounded-lg border p-4">
                     <p className="text-sm text-muted-foreground">
                       <span className="font-medium text-foreground">Note:</span>{" "}
-                      This form is for verified journalists and media professionals
-                      only. For general inquiries, please use our{" "}
+                      This form is for verified journalists and media
+                      professionals only. For general inquiries, please use our{" "}
                       <a href="#" className="text-primary hover:underline">
                         contact form
                       </a>
@@ -5506,7 +5992,6 @@ export default function ContactPress() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -5649,7 +6134,10 @@ export default function ContactQuote() {
                       </SelectTrigger>
                       <SelectContent>
                         {TIMELINES.map((timeline) => (
-                          <SelectItem key={timeline.value} value={timeline.value}>
+                          <SelectItem
+                            key={timeline.value}
+                            value={timeline.value}
+                          >
                             {timeline.label}
                           </SelectItem>
                         ))}
@@ -5727,7 +6215,6 @@ export default function ContactQuote() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -5835,9 +6322,18 @@ export default function ContactReferral() {
                     <Label>Their Interest Level</Label>
                     <RadioGroup defaultValue="solution" className="space-y-2">
                       {INTERESTS.map((interest) => (
-                        <div key={interest.value} className="flex items-center gap-3">
-                          <RadioGroupItem value={interest.value} id={interest.value} />
-                          <Label htmlFor={interest.value} className="font-normal">
+                        <div
+                          key={interest.value}
+                          className="flex items-center gap-3"
+                        >
+                          <RadioGroupItem
+                            value={interest.value}
+                            id={interest.value}
+                          />
+                          <Label
+                            htmlFor={interest.value}
+                            className="font-normal"
+                          >
                             {interest.label}
                           </Label>
                         </div>
@@ -5871,9 +6367,7 @@ export default function ContactReferral() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">
-                      Personal Message (Optional)
-                    </Label>
+                    <Label htmlFor="message">Personal Message (Optional)</Label>
                     <Textarea
                       id="message"
                       placeholder="Add a note we can include when reaching out to your referral..."
@@ -5912,7 +6406,6 @@ export default function ContactReferral() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -5948,10 +6441,30 @@ const CATEGORIES = [
 ];
 
 const SEVERITY = [
-  { value: "critical", label: "Critical", description: "System unusable, data loss", color: "destructive" },
-  { value: "high", label: "High", description: "Major feature broken", color: "default" },
-  { value: "medium", label: "Medium", description: "Workaround available", color: "secondary" },
-  { value: "low", label: "Low", description: "Minor / Cosmetic", color: "outline" },
+  {
+    value: "critical",
+    label: "Critical",
+    description: "System unusable, data loss",
+    color: "destructive",
+  },
+  {
+    value: "high",
+    label: "High",
+    description: "Major feature broken",
+    color: "default",
+  },
+  {
+    value: "medium",
+    label: "Medium",
+    description: "Workaround available",
+    color: "secondary",
+  },
+  {
+    value: "low",
+    label: "Low",
+    description: "Minor / Cosmetic",
+    color: "outline",
+  },
 ];
 
 const BROWSERS = [
@@ -6059,9 +6572,14 @@ export default function ContactReport() {
                           />
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium">{level.label}</span>
+                              <span className="text-sm font-medium">
+                                {level.label}
+                              </span>
                               {level.value === "critical" && (
-                                <Badge variant="destructive" className="text-[10px]">
+                                <Badge
+                                  variant="destructive"
+                                  className="text-[10px]"
+                                >
                                   Urgent
                                 </Badge>
                               )}
@@ -6112,7 +6630,10 @@ export default function ContactReport() {
                         </SelectTrigger>
                         <SelectContent>
                           {BROWSERS.map((browser) => (
-                            <SelectItem key={browser.value} value={browser.value}>
+                            <SelectItem
+                              key={browser.value}
+                              value={browser.value}
+                            >
                               {browser.label}
                             </SelectItem>
                           ))}
@@ -6202,7 +6723,9 @@ export default function ContactReport() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="account">Account/User ID (Optional)</Label>
+                      <Label htmlFor="account">
+                        Account/User ID (Optional)
+                      </Label>
                       <Input id="account" placeholder="user_123" />
                     </div>
                   </div>
@@ -6224,7 +6747,6 @@ export default function ContactReport() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -6355,7 +6877,10 @@ export default function ContactReservation() {
                           {slot.label}
                           {slot.badge && (
                             <span className="absolute -top-2 -right-2">
-                              <Badge variant="secondary" className="text-[10px] px-1">
+                              <Badge
+                                variant="secondary"
+                                className="text-[10px] px-1"
+                              >
                                 {slot.badge}
                               </Badge>
                             </span>
@@ -6488,7 +7013,6 @@ export default function ContactReservation() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -6515,10 +7039,32 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
 const ACCOMMODATIONS = [
-  { value: "shared-dorm", label: "Shared Dormitory", price: "$850", description: "4-6 people, shared bath" },
-  { value: "shared-room", label: "Shared Room", price: "$1,100", description: "2 people, private bath" },
-  { value: "private", label: "Private Room", price: "$1,450", description: "Queen bed, private bath", badge: "Popular" },
-  { value: "premium", label: "Premium Suite", price: "$1,950", description: "King bed, ocean view", badge: null },
+  {
+    value: "shared-dorm",
+    label: "Shared Dormitory",
+    price: "$850",
+    description: "4-6 people, shared bath",
+  },
+  {
+    value: "shared-room",
+    label: "Shared Room",
+    price: "$1,100",
+    description: "2 people, private bath",
+  },
+  {
+    value: "private",
+    label: "Private Room",
+    price: "$1,450",
+    description: "Queen bed, private bath",
+    badge: "Popular",
+  },
+  {
+    value: "premium",
+    label: "Premium Suite",
+    price: "$1,950",
+    description: "King bed, ocean view",
+    badge: null,
+  },
 ];
 
 const SESSIONS = [
@@ -6563,7 +7109,8 @@ export default function ContactRetreat() {
             Wellness Retreat Registration
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Join us for a transformative 5-day journey of renewal and self-discovery.
+            Join us for a transformative 5-day journey of renewal and
+            self-discovery.
           </p>
         </div>
 
@@ -6611,7 +7158,10 @@ export default function ContactRetreat() {
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <RadioGroupItem value={option.value} id={`acc-${option.value}`} />
+                        <RadioGroupItem
+                          value={option.value}
+                          id={`acc-${option.value}`}
+                        />
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="font-medium">{option.label}</span>
@@ -6638,9 +7188,18 @@ export default function ContactRetreat() {
                     <Label>Sessions of Interest (select all that apply)</Label>
                     <div className="space-y-2">
                       {SESSIONS.map((session) => (
-                        <div key={session.id} className="flex items-center gap-2">
-                          <Checkbox id={session.id} defaultChecked={session.id !== "massage"} />
-                          <Label htmlFor={session.id} className="text-sm font-normal">
+                        <div
+                          key={session.id}
+                          className="flex items-center gap-2"
+                        >
+                          <Checkbox
+                            id={session.id}
+                            defaultChecked={session.id !== "massage"}
+                          />
+                          <Label
+                            htmlFor={session.id}
+                            className="text-sm font-normal"
+                          >
                             {session.label}
                           </Label>
                         </div>
@@ -6704,8 +7263,13 @@ export default function ContactRetreat() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="emergency">Emergency Contact Name & Phone</Label>
-                    <Input id="emergency" placeholder="John Doe, +1 (555) 123-4567" />
+                    <Label htmlFor="emergency">
+                      Emergency Contact Name & Phone
+                    </Label>
+                    <Input
+                      id="emergency"
+                      placeholder="John Doe, +1 (555) 123-4567"
+                    />
                   </div>
 
                   <Separator className="my-4" />
@@ -6731,7 +7295,9 @@ export default function ContactRetreat() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="allergies">Allergies or Special Needs</Label>
+                    <Label htmlFor="allergies">
+                      Allergies or Special Needs
+                    </Label>
                     <Textarea
                       id="allergies"
                       placeholder="Food allergies, mobility needs, or anything we should know to support you..."
@@ -6740,7 +7306,9 @@ export default function ContactRetreat() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="intention">What brings you to this retreat? (Optional)</Label>
+                    <Label htmlFor="intention">
+                      What brings you to this retreat? (Optional)
+                    </Label>
                     <Textarea
                       id="intention"
                       placeholder="Share your intentions or what you hope to experience..."
@@ -6773,7 +7341,8 @@ export default function ContactRetreat() {
                       <Badge>Save $200</Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      $500 deposit reserves your spot. Balance due 30 days before retreat.
+                      $500 deposit reserves your spot. Balance due 30 days
+                      before retreat.
                     </p>
                   </div>
 
@@ -6791,7 +7360,6 @@ export default function ContactRetreat() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -6859,7 +7427,9 @@ export default function ContactRSVP() {
             <div className="rounded-lg border p-4 mb-6 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">Please respond by May 15, 2025</span>
+                <span className="font-medium">
+                  Please respond by May 15, 2025
+                </span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Ceremony at 4:00 PM • Reception to follow
@@ -6882,7 +7452,11 @@ export default function ContactRSVP() {
                         : "hover:border-foreground"
                     }`}
                   >
-                    <RadioGroupItem value="yes" id="attending-yes" className="sr-only" />
+                    <RadioGroupItem
+                      value="yes"
+                      id="attending-yes"
+                      className="sr-only"
+                    />
                     <span className="text-2xl mb-1">🎉</span>
                     <span className="font-medium">Joyfully Accept</span>
                   </Label>
@@ -6894,7 +7468,11 @@ export default function ContactRSVP() {
                         : "hover:border-foreground"
                     }`}
                   >
-                    <RadioGroupItem value="no" id="attending-no" className="sr-only" />
+                    <RadioGroupItem
+                      value="no"
+                      id="attending-no"
+                      className="sr-only"
+                    />
                     <span className="text-2xl mb-1">😢</span>
                     <span className="font-medium">Regretfully Decline</span>
                   </Label>
@@ -6908,7 +7486,10 @@ export default function ContactRSVP() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Your Name</Label>
-                      <Input id="name" placeholder="As it appears on your invitation" />
+                      <Input
+                        id="name"
+                        placeholder="As it appears on your invitation"
+                      />
                     </div>
 
                     <div className="space-y-2">
@@ -6934,12 +7515,14 @@ export default function ContactRSVP() {
                       <div className="space-y-2">
                         <Label>Guest Names</Label>
                         <div className="space-y-2">
-                          {Array.from({ length: parseInt(guestCount) - 1 }).map((_, i) => (
-                            <Input
-                              key={i}
-                              placeholder={`Guest ${i + 2} name`}
-                            />
-                          ))}
+                          {Array.from({ length: parseInt(guestCount) - 1 }).map(
+                            (_, i) => (
+                              <Input
+                                key={i}
+                                placeholder={`Guest ${i + 2} name`}
+                              />
+                            )
+                          )}
                         </div>
                       </div>
                     )}
@@ -6952,7 +7535,10 @@ export default function ContactRSVP() {
                         <Label>Meal Selection</Label>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="meal-1" className="text-sm text-muted-foreground">
+                        <Label
+                          htmlFor="meal-1"
+                          className="text-sm text-muted-foreground"
+                        >
                           Your meal choice
                         </Label>
                         <Select>
@@ -6970,26 +7556,35 @@ export default function ContactRSVP() {
                       </div>
                       {parseInt(guestCount) > 1 && (
                         <div className="space-y-2">
-                          {Array.from({ length: parseInt(guestCount) - 1 }).map((_, i) => (
-                            <Select key={i}>
-                              <SelectTrigger>
-                                <SelectValue placeholder={`Guest ${i + 2} entrée`} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {MEALS.map((meal) => (
-                                  <SelectItem key={meal.value} value={meal.value}>
-                                    {meal.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          ))}
+                          {Array.from({ length: parseInt(guestCount) - 1 }).map(
+                            (_, i) => (
+                              <Select key={i}>
+                                <SelectTrigger>
+                                  <SelectValue
+                                    placeholder={`Guest ${i + 2} entrée`}
+                                  />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {MEALS.map((meal) => (
+                                    <SelectItem
+                                      key={meal.value}
+                                      value={meal.value}
+                                    >
+                                      {meal.label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            )
+                          )}
                         </div>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="dietary">Dietary Restrictions or Allergies</Label>
+                      <Label htmlFor="dietary">
+                        Dietary Restrictions or Allergies
+                      </Label>
                       <Textarea
                         id="dietary"
                         placeholder="Please let us know of any allergies or dietary requirements..."
@@ -7016,7 +7611,8 @@ export default function ContactRSVP() {
                         htmlFor="photos"
                         className="text-sm font-normal leading-tight"
                       >
-                        I consent to being photographed and appearing in wedding photos
+                        I consent to being photographed and appearing in wedding
+                        photos
                       </Label>
                     </div>
                   </div>
@@ -7029,7 +7625,10 @@ export default function ContactRSVP() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="decline-name">Your Name</Label>
-                      <Input id="decline-name" placeholder="So we know who responded" />
+                      <Input
+                        id="decline-name"
+                        placeholder="So we know who responded"
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">Send a Message (Optional)</Label>
@@ -7044,7 +7643,11 @@ export default function ContactRSVP() {
               )}
 
               <Button className="w-full" disabled={!attending}>
-                {attending === "yes" ? "Confirm Attendance" : attending === "no" ? "Send Response" : "Submit RSVP"}
+                {attending === "yes"
+                  ? "Confirm Attendance"
+                  : attending === "no"
+                  ? "Send Response"
+                  : "Submit RSVP"}
               </Button>
 
               <p className="text-center text-xs text-muted-foreground">
@@ -7057,7 +7660,6 @@ export default function ContactRSVP() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -7135,7 +7737,9 @@ export default function ContactSales() {
                         <SelectItem value="1-10">1-10 employees</SelectItem>
                         <SelectItem value="11-50">11-50 employees</SelectItem>
                         <SelectItem value="51-200">51-200 employees</SelectItem>
-                        <SelectItem value="201-1000">201-1000 employees</SelectItem>
+                        <SelectItem value="201-1000">
+                          201-1000 employees
+                        </SelectItem>
                         <SelectItem value="1000+">1000+ employees</SelectItem>
                       </SelectContent>
                     </Select>
@@ -7149,7 +7753,9 @@ export default function ContactSales() {
                       <SelectContent>
                         <SelectItem value="<5k">Less than $5,000</SelectItem>
                         <SelectItem value="5k-15k">$5,000 - $15,000</SelectItem>
-                        <SelectItem value="15k-50k">$15,000 - $50,000</SelectItem>
+                        <SelectItem value="15k-50k">
+                          $15,000 - $50,000
+                        </SelectItem>
                         <SelectItem value="50k+">$50,000+</SelectItem>
                         <SelectItem value="unsure">Not sure yet</SelectItem>
                       </SelectContent>
@@ -7223,7 +7829,6 @@ export default function ContactSales() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -7336,8 +7941,8 @@ export default function ContactSchedule() {
                           selectedDay === day.date
                             ? "border-primary bg-primary text-primary-foreground"
                             : day.available
-                              ? "hover:border-foreground"
-                              : "cursor-not-allowed opacity-40"
+                            ? "hover:border-foreground"
+                            : "cursor-not-allowed opacity-40"
                         }`}
                       >
                         <span className="block text-xs">{day.day}</span>
@@ -7366,8 +7971,8 @@ export default function ContactSchedule() {
                           selectedTime === slot.time
                             ? "border-primary bg-primary text-primary-foreground"
                             : slot.available
-                              ? "hover:border-foreground"
-                              : "cursor-not-allowed opacity-40"
+                            ? "hover:border-foreground"
+                            : "cursor-not-allowed opacity-40"
                         }`}
                       >
                         {slot.time}
@@ -7409,7 +8014,6 @@ export default function ContactSchedule() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -7506,15 +8110,21 @@ export default function ContactSponsorship() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <p className="text-2xl font-bold">50K+</p>
-                      <p className="text-xs text-muted-foreground">Subscribers</p>
+                      <p className="text-xs text-muted-foreground">
+                        Subscribers
+                      </p>
                     </div>
                     <div>
                       <p className="text-2xl font-bold">120K</p>
-                      <p className="text-xs text-muted-foreground">Monthly Views</p>
+                      <p className="text-xs text-muted-foreground">
+                        Monthly Views
+                      </p>
                     </div>
                     <div>
                       <p className="text-2xl font-bold">8.5%</p>
-                      <p className="text-xs text-muted-foreground">Engagement</p>
+                      <p className="text-xs text-muted-foreground">
+                        Engagement
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -7590,7 +8200,10 @@ export default function ContactSponsorship() {
                       </SelectTrigger>
                       <SelectContent>
                         {DURATIONS.map((duration) => (
-                          <SelectItem key={duration.value} value={duration.value}>
+                          <SelectItem
+                            key={duration.value}
+                            value={duration.value}
+                          >
                             {duration.label}
                           </SelectItem>
                         ))}
@@ -7676,7 +8289,6 @@ export default function ContactSponsorship() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -7791,7 +8403,6 @@ export default function ContactSupport() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -7857,7 +8468,8 @@ export default function ContactTenant() {
             Rental Inquiry
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Interested in this property? Tell us about yourself to schedule a viewing.
+            Interested in this property? Tell us about yourself to schedule a
+            viewing.
           </p>
         </div>
 
@@ -7921,11 +8533,15 @@ export default function ContactTenant() {
                     <RadioGroup defaultValue="no" className="flex gap-4">
                       <div className="flex items-center gap-2">
                         <RadioGroupItem value="yes" id="pets-yes" />
-                        <Label htmlFor="pets-yes" className="font-normal">Yes</Label>
+                        <Label htmlFor="pets-yes" className="font-normal">
+                          Yes
+                        </Label>
                       </div>
                       <div className="flex items-center gap-2">
                         <RadioGroupItem value="no" id="pets-no" />
-                        <Label htmlFor="pets-no" className="font-normal">No</Label>
+                        <Label htmlFor="pets-no" className="font-normal">
+                          No
+                        </Label>
                       </div>
                     </RadioGroup>
                   </div>
@@ -7935,11 +8551,15 @@ export default function ContactTenant() {
                     <RadioGroup defaultValue="yes" className="flex gap-4">
                       <div className="flex items-center gap-2">
                         <RadioGroupItem value="yes" id="parking-yes" />
-                        <Label htmlFor="parking-yes" className="font-normal">Yes</Label>
+                        <Label htmlFor="parking-yes" className="font-normal">
+                          Yes
+                        </Label>
                       </div>
                       <div className="flex items-center gap-2">
                         <RadioGroupItem value="no" id="parking-no" />
-                        <Label htmlFor="parking-no" className="font-normal">No</Label>
+                        <Label htmlFor="parking-no" className="font-normal">
+                          No
+                        </Label>
                       </div>
                     </RadioGroup>
                   </div>
@@ -8017,7 +8637,9 @@ export default function ContactTenant() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">Additional Information (Optional)</Label>
+                    <Label htmlFor="message">
+                      Additional Information (Optional)
+                    </Label>
                     <Textarea
                       id="message"
                       placeholder="Tell us about yourself, your rental history, or any questions..."
@@ -8033,7 +8655,8 @@ export default function ContactTenant() {
                       htmlFor="consent"
                       className="text-sm font-normal leading-tight"
                     >
-                      I consent to a credit and background check as part of the application process
+                      I consent to a credit and background check as part of the
+                      application process
                     </Label>
                   </div>
 
@@ -8058,7 +8681,6 @@ export default function ContactTenant() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -8304,7 +8926,6 @@ export default function ContactVendor() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -8530,7 +9151,8 @@ export default function ContactVolunteer() {
                       htmlFor="background"
                       className="text-sm font-normal leading-tight"
                     >
-                      I consent to a background check if required for my volunteer role
+                      I consent to a background check if required for my
+                      volunteer role
                     </Label>
                   </div>
 
@@ -8555,7 +9177,6 @@ export default function ContactVolunteer() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -8616,7 +9237,8 @@ export default function ContactWarranty() {
             Warranty Claim
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Submit a warranty claim for your product. We'll process it within 48 hours.
+            Submit a warranty claim for your product. We'll process it within 48
+            hours.
           </p>
         </div>
 
@@ -8776,7 +9398,8 @@ export default function ContactWarranty() {
                       htmlFor="confirm"
                       className="text-sm font-normal leading-tight"
                     >
-                      I confirm this product is within the warranty period and has not been damaged through misuse
+                      I confirm this product is within the warranty period and
+                      has not been damaged through misuse
                     </Label>
                   </div>
 
@@ -8801,7 +9424,6 @@ export default function ContactWarranty() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -8892,7 +9514,8 @@ export default function ContactWedding() {
             Begin Your Wedding Journey
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Every love story deserves a perfect celebration. Let's bring your vision to life.
+            Every love story deserves a perfect celebration. Let's bring your
+            vision to life.
           </p>
         </div>
 
@@ -8925,7 +9548,9 @@ export default function ContactWedding() {
                       className="sr-only"
                     />
                     <span className="text-2xl mb-2">{ws.icon}</span>
-                    <span className="text-xs font-medium leading-tight">{ws.label}</span>
+                    <span className="text-xs font-medium leading-tight">
+                      {ws.label}
+                    </span>
                   </Label>
                 ))}
               </RadioGroup>
@@ -8953,9 +9578,15 @@ export default function ContactWedding() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="set">Date is set</SelectItem>
-                          <SelectItem value="flexible">Flexible ± 2 weeks</SelectItem>
-                          <SelectItem value="month">Flexible within month</SelectItem>
-                          <SelectItem value="exploring">Still choosing</SelectItem>
+                          <SelectItem value="flexible">
+                            Flexible ± 2 weeks
+                          </SelectItem>
+                          <SelectItem value="month">
+                            Flexible within month
+                          </SelectItem>
+                          <SelectItem value="exploring">
+                            Still choosing
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -8968,8 +9599,12 @@ export default function ContactWedding() {
                         <Label>Estimated Guest Count</Label>
                       </div>
                       <div className="text-right">
-                        <span className="text-lg font-semibold">{guests[0]}</span>
-                        <p className="text-xs text-muted-foreground">{getGuestLabel(guests[0])}</p>
+                        <span className="text-lg font-semibold">
+                          {guests[0]}
+                        </span>
+                        <p className="text-xs text-muted-foreground">
+                          {getGuestLabel(guests[0])}
+                        </p>
                       </div>
                     </div>
                     <Slider
@@ -9007,7 +9642,10 @@ export default function ContactWedding() {
 
                   <div className="space-y-2">
                     <Label htmlFor="location">Preferred City / Region</Label>
-                    <Input id="location" placeholder="e.g., Napa Valley, Miami Beach" />
+                    <Input
+                      id="location"
+                      placeholder="e.g., Napa Valley, Miami Beach"
+                    />
                   </div>
 
                   <Separator />
@@ -9019,9 +9657,15 @@ export default function ContactWedding() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {SERVICES_NEEDED.map((service) => (
-                        <div key={service.id} className="flex items-center gap-2">
+                        <div
+                          key={service.id}
+                          className="flex items-center gap-2"
+                        >
                           <Checkbox id={service.id} />
-                          <Label htmlFor={service.id} className="text-sm font-normal">
+                          <Label
+                            htmlFor={service.id}
+                            className="text-sm font-normal"
+                          >
                             {service.label}
                           </Label>
                         </div>
@@ -9091,7 +9735,11 @@ export default function ContactWedding() {
 
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone</Label>
-                    <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+1 (555) 000-0000"
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -9104,8 +9752,12 @@ export default function ContactWedding() {
                         <SelectItem value="instagram">Instagram</SelectItem>
                         <SelectItem value="pinterest">Pinterest</SelectItem>
                         <SelectItem value="google">Google Search</SelectItem>
-                        <SelectItem value="referral">Friend / Family Referral</SelectItem>
-                        <SelectItem value="wedding-wire">WeddingWire / The Knot</SelectItem>
+                        <SelectItem value="referral">
+                          Friend / Family Referral
+                        </SelectItem>
+                        <SelectItem value="wedding-wire">
+                          WeddingWire / The Knot
+                        </SelectItem>
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
@@ -9127,7 +9779,8 @@ export default function ContactWedding() {
                       <Badge variant="secondary">60 min</Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Meet with our team to discuss your vision and explore options
+                      Meet with our team to discuss your vision and explore
+                      options
                     </p>
                   </div>
 
@@ -9137,7 +9790,8 @@ export default function ContactWedding() {
                   </Button>
 
                   <p className="text-center text-xs text-muted-foreground">
-                    We'll reach out within 24 hours to schedule your consultation.
+                    We'll reach out within 24 hours to schedule your
+                    consultation.
                   </p>
                 </form>
               </div>
@@ -9148,7 +9802,6 @@ export default function ContactWedding() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -9198,7 +9851,6 @@ export default function Newsletter2() {
     </section>
   );
 }
-
 ```
 
 ```tsx
@@ -9218,11 +9870,17 @@ export default function Newsletter4() {
               <CardTitle className="text-2xl font-bold tracking-tight">
                 Unlock exclusive content
               </CardTitle>
-              <p className="text-sm text-muted-foreground">Sign up and get benefits like:</p>
+              <p className="text-sm text-muted-foreground">
+                Sign up and get benefits like:
+              </p>
             </CardHeader>
             <CardContent className="p-0 mt-4">
               <ul className="space-y-2" role="list">
-                {['Exclusive tutorials', 'Product news', 'Member-only discounts'].map((benefit) => (
+                {[
+                  "Exclusive tutorials",
+                  "Product news",
+                  "Member-only discounts",
+                ].map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2 text-sm">
                     <CheckCircle className="size-4 text-primary" stroke={2} />
                     <span>{benefit}</span>
@@ -9234,7 +9892,12 @@ export default function Newsletter4() {
           <form className="grid gap-4 w-full">
             <div className="grid gap-2">
               <Label htmlFor="email3">Email</Label>
-              <Input id="email3" type="email" placeholder="Enter your email" required />
+              <Input
+                id="email3"
+                type="email"
+                placeholder="Enter your email"
+                required
+              />
             </div>
             <Button type="submit">Subscribe</Button>
           </form>
@@ -9243,16 +9906,15 @@ export default function Newsletter4() {
     </section>
   );
 }
-
 ```
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { BrainCircuit, MessageSquare, Wrench } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { BrainCircuit, MessageSquare, Wrench } from "lucide-react";
 
 export default function CenterAligned() {
   return (
@@ -9347,7 +10009,7 @@ export default function CenterAligned() {
 
       <div className="mt-12 grid items-center gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         <a
-          href={'#'}
+          href={"#"}
           className="group hover:bg-muted flex h-full flex-col rounded-lg p-4 text-center sm:p-6"
         >
           <BrainCircuit className="text-muted-foreground mx-auto size-9" />
@@ -9377,7 +10039,7 @@ export default function CenterAligned() {
         </a>
 
         <a
-          href={'#'}
+          href={"#"}
           className="group hover:bg-muted flex h-full flex-col rounded-lg p-4 text-center sm:p-6"
         >
           <MessageSquare className="text-muted-foreground mx-auto size-9" />
@@ -9407,7 +10069,7 @@ export default function CenterAligned() {
         </a>
 
         <a
-          href={'#'}
+          href={"#"}
           className="group hover:bg-muted flex h-full flex-col rounded-lg p-4 text-center sm:p-6"
         >
           <Wrench className="text-muted-foreground mx-auto size-9" />
@@ -9439,15 +10101,14 @@ export default function CenterAligned() {
     </div>
   );
 }
-
 ```
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function SplitWithDetails() {
   return (
@@ -9558,16 +10219,15 @@ export default function SplitWithDetails() {
     </div>
   );
 }
-
 ```
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function WithMap() {
   return (
@@ -9680,426 +10340,448 @@ export default function WithMap() {
     </div>
   );
 }
-
 ```
 
 ```tsx
-import React from 'react';
-import { cn } from '@/lib/utils';
-import {
- LucideIcon,
- PlusIcon,
-} from 'lucide-react';
+import React from "react";
+import { cn } from "@/lib/utils";
+import { LucideIcon, PlusIcon } from "lucide-react";
 
-type ContactInfoProps = React.ComponentProps<'div'> & {
- icon: LucideIcon;
- label: string;
- value: string;
+type ContactInfoProps = React.ComponentProps<"div"> & {
+  icon: LucideIcon;
+  label: string;
+  value: string;
 };
 
-type ContactCardProps = React.ComponentProps<'div'> & {
- // Content props
- title?: string;
- description?: string;
- contactInfo?: ContactInfoProps[];
- formSectionClassName?: string;
+type ContactCardProps = React.ComponentProps<"div"> & {
+  // Content props
+  title?: string;
+  description?: string;
+  contactInfo?: ContactInfoProps[];
+  formSectionClassName?: string;
 };
 
 export function ContactCard({
- title = 'Contact With Us',
- description = 'If you have any questions regarding our Services or need help, please fill out the form here. We do our best to respond within 1 business day.',
- contactInfo,
- className,
- formSectionClassName,
- children,
- ...props
+  title = "Contact With Us",
+  description = "If you have any questions regarding our Services or need help, please fill out the form here. We do our best to respond within 1 business day.",
+  contactInfo,
+  className,
+  formSectionClassName,
+  children,
+  ...props
 }: ContactCardProps) {
- return (
-  <div
-   className={cn(
-    'bg-card border relative grid h-full w-full shadow md:grid-cols-2 lg:grid-cols-3',
-    className,
-   )}
-   {...props}
-  >
-   <PlusIcon className="absolute -top-3 -left-3 h-6 w-6" />
-   <PlusIcon className="absolute -top-3 -right-3 h-6 w-6" />
-   <PlusIcon className="absolute -bottom-3 -left-3 h-6 w-6" />
-   <PlusIcon className="absolute -right-3 -bottom-3 h-6 w-6" />
-   <div className="flex flex-col justify-between lg:col-span-2">
-    <div className="relative h-full space-y-4 px-4 py-8 md:p-8">
-     <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">
-      {title}
-     </h1>
-     <p className="text-muted-foreground max-w-xl text-sm md:text-base lg:text-lg">
-      {description}
-     </p>
-     <div className="grid gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
-      {contactInfo?.map((info, index) => (
-       <ContactInfo key={index} {...info} />
-      ))}
-     </div>
+  return (
+    <div
+      className={cn(
+        "bg-card border relative grid h-full w-full shadow md:grid-cols-2 lg:grid-cols-3",
+        className
+      )}
+      {...props}
+    >
+      <PlusIcon className="absolute -top-3 -left-3 h-6 w-6" />
+      <PlusIcon className="absolute -top-3 -right-3 h-6 w-6" />
+      <PlusIcon className="absolute -bottom-3 -left-3 h-6 w-6" />
+      <PlusIcon className="absolute -right-3 -bottom-3 h-6 w-6" />
+      <div className="flex flex-col justify-between lg:col-span-2">
+        <div className="relative h-full space-y-4 px-4 py-8 md:p-8">
+          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">
+            {title}
+          </h1>
+          <p className="text-muted-foreground max-w-xl text-sm md:text-base lg:text-lg">
+            {description}
+          </p>
+          <div className="grid gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
+            {contactInfo?.map((info, index) => (
+              <ContactInfo key={index} {...info} />
+            ))}
+          </div>
+        </div>
+      </div>
+      <div
+        className={cn(
+          "bg-muted/40 flex h-full w-full items-center border-t p-5 md:col-span-1 md:border-t-0 md:border-l",
+          formSectionClassName
+        )}
+      >
+        {children}
+      </div>
     </div>
-   </div>
-   <div
-    className={cn(
-     'bg-muted/40 flex h-full w-full items-center border-t p-5 md:col-span-1 md:border-t-0 md:border-l',
-     formSectionClassName,
-    )}
-   >
-    {children}
-   </div>
-  </div>
- );
+  );
 }
 
 function ContactInfo({
- icon: Icon,
- label,
- value,
- className,
- ...props
+  icon: Icon,
+  label,
+  value,
+  className,
+  ...props
 }: ContactInfoProps) {
- return (
-  <div className={cn('flex items-center gap-3 py-3', className)} {...props}>
-   <div className="bg-muted/40 rounded-lg p-3">
-    <Icon className="h-5 w-5" />
-   </div>
-   <div>
-    <p className="font-medium">{label}</p>
-    <p className="text-muted-foreground text-xs">{value}</p>
-   </div>
-  </div>
- );
+  return (
+    <div className={cn("flex items-center gap-3 py-3", className)} {...props}>
+      <div className="bg-muted/40 rounded-lg p-3">
+        <Icon className="h-5 w-5" />
+      </div>
+      <div>
+        <p className="font-medium">{label}</p>
+        <p className="text-muted-foreground text-xs">{value}</p>
+      </div>
+    </div>
+  );
 }
-
 ```
 
 ```tsx
-import React from 'react';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { cn } from "@/lib/utils";
 import {
- Check,
- Copy,
- LucideIcon,
- Mail,
- MapPin,
- Phone,
- GithubIcon,
- TwitterIcon,
- LinkedinIcon,
- InstagramIcon,
-} from 'lucide-react';
-import { Button, ButtonProps } from '@/components/ui/button';
+  Check,
+  Copy,
+  LucideIcon,
+  Mail,
+  MapPin,
+  Phone,
+  GithubIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  InstagramIcon,
+} from "lucide-react";
+import { Button, ButtonProps } from "@/components/ui/button";
 
-const APP_EMAIL = 'mail@example.com';
-const APP_PHONE = '+92 300 1234567';
-const APP_PHONE_2 = '+92 321 9876543';
+const APP_EMAIL = "mail@example.com";
+const APP_PHONE = "+92 300 1234567";
+const APP_PHONE_2 = "+92 321 9876543";
 
 export function ContactPage() {
- const socialLinks = [
-  {
-   icon: GithubIcon,
-   href: 'https://github.com/sshahaider',
-   label: 'GitHub',
-  },
-  {
-   icon: TwitterIcon,
-   href: 'https://twitter.com/sshahaider',
-   label: 'Twitter',
-  },
-  {
-   icon: LinkedinIcon,
-   href: 'https://linkedin.com/in/sshahaider',
-   label: 'LinkedIn',
-  },
-  {
-   icon: InstagramIcon,
-   href: 'https://instagram.com/sshahaider',
-   label: 'Instagram',
-  },
- ];
+  const socialLinks = [
+    {
+      icon: GithubIcon,
+      href: "https://github.com/sshahaider",
+      label: "GitHub",
+    },
+    {
+      icon: TwitterIcon,
+      href: "https://twitter.com/sshahaider",
+      label: "Twitter",
+    },
+    {
+      icon: LinkedinIcon,
+      href: "https://linkedin.com/in/sshahaider",
+      label: "LinkedIn",
+    },
+    {
+      icon: InstagramIcon,
+      href: "https://instagram.com/sshahaider",
+      label: "Instagram",
+    },
+  ];
 
- return (
-  <div className="min-h-screen w-full">
-   <div className="mx-auto h-full max-w-6xl lg:border-x">
-    <div
-     aria-hidden
-     className="absolute inset-0 isolate -z-10 opacity-80 contain-strict"
-    >
-     <div className="bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,--theme(--color-foreground/.06)_0,hsla(0,0%,55%,.02)_50%,--theme(--color-foreground/.01)_80%)] absolute top-0 left-0 h-320 w-140 -translate-y-87.5 -rotate-45 rounded-full" />
-     <div className="bg-[radial-gradient(50%_50%_at_50%_50%,--theme(--color-foreground/.04)_0,--theme(--color-foreground/.01)_80%,transparent_100%)] absolute top-0 left-0 h-320 w-60 [translate:5%_-50%] -rotate-45 rounded-full" />
-     <div className="bg-[radial-gradient(50%_50%_at_50%_50%,--theme(--color-foreground/.04)_0,--theme(--color-foreground/.01)_80%,transparent_100%)] absolute top-0 left-0 h-320 w-60 -translate-y-87.5 -rotate-45 rounded-full" />
-    </div>
-    <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
-     <h1 className=" text-4xl font-bold md:text-5xl">
-      Contact Us
-     </h1>
-     <p className="text-muted-foreground mb-5 text-base">
-      Contact the support team at Asme.
-     </p>
-    </div>
-    <BorderSeparator />
-    <div className="grid md:grid-cols-3">
-     <Box
-      icon={Mail}
-      title="Email"
-      description="We respond to all emails within 24 hours."
-     >
-      <a
-       href={`mailto:${APP_EMAIL}`}
-       className="font-mono text-base font-medium tracking-wide hover:underline"
-      >
-       {APP_EMAIL}
-      </a>
-      <CopyButton className="size-6" test={APP_EMAIL} />
-     </Box>
-     <Box
-      icon={MapPin}
-      title="Office"
-      description="Drop by our office for a chat."
-     >
-      <span className="font-mono text-base font-medium tracking-wide">
-       Office # 100, 101 Second Floor Kohinoor 1, Faisalabad, Pakistan
-      </span>
-     </Box>
-     <Box
-      icon={Phone}
-      title="Phone"
-      description="We're available Mon-Fri, 9am-5pm."
-      className="border-b-0 md:border-r-0"
-     >
-      <div>
-       <div className="flex items-center gap-x-2">
-        <a
-         href={`tel:${APP_PHONE}`}
-         className="block font-mono text-base font-medium tracking-wide hover:underline"
+  return (
+    <div className="min-h-screen w-full">
+      <div className="mx-auto h-full max-w-6xl lg:border-x">
+        <div
+          aria-hidden
+          className="absolute inset-0 isolate -z-10 opacity-80 contain-strict"
         >
-         {APP_PHONE}
-        </a>
-        <CopyButton className="size-6" test="+923207376123" />
-       </div>
-       <div className="flex items-center gap-x-2">
-        <a
-         href={`tel:${APP_PHONE_2}`}
-         className="block font-mono text-base font-medium tracking-wide hover:underline"
-        >
-         {APP_PHONE_2}
-        </a>
-        <CopyButton className="size-6" test="+923045771644" />
-       </div>
-      </div>
-     </Box>
-    </div>
-    <BorderSeparator />
-    <div className="relative flex h-full min-h-80 items-center justify-center">
-     <div
-      className={cn(
-       'z--10 absolute inset-0 size-full',
-       'bg-[radial-gradient(color-mix(in_oklab,var(--foreground)30%,transparent)_1px,transparent_1px)]',
-       'bg-size-[32px_32px]',
-       'mask-[radial-gradient(ellipse_at_center,var(--background)_30%,transparent)]',
-      )}
-     />
+          <div className="bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,--theme(--color-foreground/.06)_0,hsla(0,0%,55%,.02)_50%,--theme(--color-foreground/.01)_80%)] absolute top-0 left-0 h-320 w-140 -translate-y-87.5 -rotate-45 rounded-full" />
+          <div className="bg-[radial-gradient(50%_50%_at_50%_50%,--theme(--color-foreground/.04)_0,--theme(--color-foreground/.01)_80%,transparent_100%)] absolute top-0 left-0 h-320 w-60 [translate:5%_-50%] -rotate-45 rounded-full" />
+          <div className="bg-[radial-gradient(50%_50%_at_50%_50%,--theme(--color-foreground/.04)_0,--theme(--color-foreground/.01)_80%,transparent_100%)] absolute top-0 left-0 h-320 w-60 -translate-y-87.5 -rotate-45 rounded-full" />
+        </div>
+        <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
+          <h1 className=" text-4xl font-bold md:text-5xl">Contact Us</h1>
+          <p className="text-muted-foreground mb-5 text-base">
+            Contact the support team at Asme.
+          </p>
+        </div>
+        <BorderSeparator />
+        <div className="grid md:grid-cols-3">
+          <Box
+            icon={Mail}
+            title="Email"
+            description="We respond to all emails within 24 hours."
+          >
+            <a
+              href={`mailto:${APP_EMAIL}`}
+              className="font-mono text-base font-medium tracking-wide hover:underline"
+            >
+              {APP_EMAIL}
+            </a>
+            <CopyButton className="size-6" test={APP_EMAIL} />
+          </Box>
+          <Box
+            icon={MapPin}
+            title="Office"
+            description="Drop by our office for a chat."
+          >
+            <span className="font-mono text-base font-medium tracking-wide">
+              Office # 100, 101 Second Floor Kohinoor 1, Faisalabad, Pakistan
+            </span>
+          </Box>
+          <Box
+            icon={Phone}
+            title="Phone"
+            description="We're available Mon-Fri, 9am-5pm."
+            className="border-b-0 md:border-r-0"
+          >
+            <div>
+              <div className="flex items-center gap-x-2">
+                <a
+                  href={`tel:${APP_PHONE}`}
+                  className="block font-mono text-base font-medium tracking-wide hover:underline"
+                >
+                  {APP_PHONE}
+                </a>
+                <CopyButton className="size-6" test="+923207376123" />
+              </div>
+              <div className="flex items-center gap-x-2">
+                <a
+                  href={`tel:${APP_PHONE_2}`}
+                  className="block font-mono text-base font-medium tracking-wide hover:underline"
+                >
+                  {APP_PHONE_2}
+                </a>
+                <CopyButton className="size-6" test="+923045771644" />
+              </div>
+            </div>
+          </Box>
+        </div>
+        <BorderSeparator />
+        <div className="relative flex h-full min-h-80 items-center justify-center">
+          <div
+            className={cn(
+              "z--10 absolute inset-0 size-full",
+              "bg-[radial-gradient(color-mix(in_oklab,var(--foreground)30%,transparent)_1px,transparent_1px)]",
+              "bg-size-[32px_32px]",
+              "mask-[radial-gradient(ellipse_at_center,var(--background)_30%,transparent)]"
+            )}
+          />
 
-     <div className="relative z-1 space-y-6">
-      <h2 className="text-center text-3xl font-bold md:text-4xl">
-       Find us online
-      </h2>
-      <div className="flex flex-wrap items-center gap-4">
-       {socialLinks.map((link) => (
-        <a
-         key={link.label}
-         href={link.href}
-         target="_blank"
-         rel="noopener noreferrer"
-         className="bg-muted/50 hover:bg-accent flex items-center gap-x-2 rounded-full border px-4 py-2"
-        >
-         <link.icon className="size-4" />
-         <span className="font-mono text-sm font-medium tracking-wide">
-          {link.label}
-         </span>
-        </a>
-       ))}
+          <div className="relative z-1 space-y-6">
+            <h2 className="text-center text-3xl font-bold md:text-4xl">
+              Find us online
+            </h2>
+            <div className="flex flex-wrap items-center gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-muted/50 hover:bg-accent flex items-center gap-x-2 rounded-full border px-4 py-2"
+                >
+                  <link.icon className="size-4" />
+                  <span className="font-mono text-sm font-medium tracking-wide">
+                    {link.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-     </div>
     </div>
-   </div>
-  </div>
- );
+  );
 }
 
 function BorderSeparator() {
- return <div className="absolute inset-x-0 h-px w-full border-b" />;
+  return <div className="absolute inset-x-0 h-px w-full border-b" />;
 }
 
-type ContactBox = React.ComponentProps<'div'> & {
- icon: LucideIcon;
- title: string;
- description: string;
+type ContactBox = React.ComponentProps<"div"> & {
+  icon: LucideIcon;
+  title: string;
+  description: string;
 };
 
 function Box({
- title,
- description,
- className,
- children,
- ...props
+  title,
+  description,
+  className,
+  children,
+  ...props
 }: ContactBox) {
- return (
-  <div
-   className={cn(
-    'flex flex-col justify-between border-b md:border-r md:border-b-0',
-    className,
-   )}
-  >
-   <div className="bg-muted/40 flex items-center gap-x-3 border-b p-4">
-    <props.icon className="text-muted-foreground size-5" strokeWidth={1} />
-    <h2 className="font-heading text-lg font-medium tracking-wider">
-     {title}
-    </h2>
-   </div>
-   <div className="flex items-center gap-x-2 p-4 py-12">{children}</div>
-   <div className="border-t p-4">
-    <p className="text-muted-foreground text-sm">{description}</p>
-   </div>
-  </div>
- );
+  return (
+    <div
+      className={cn(
+        "flex flex-col justify-between border-b md:border-r md:border-b-0",
+        className
+      )}
+    >
+      <div className="bg-muted/40 flex items-center gap-x-3 border-b p-4">
+        <props.icon className="text-muted-foreground size-5" strokeWidth={1} />
+        <h2 className="font-heading text-lg font-medium tracking-wider">
+          {title}
+        </h2>
+      </div>
+      <div className="flex items-center gap-x-2 p-4 py-12">{children}</div>
+      <div className="border-t p-4">
+        <p className="text-muted-foreground text-sm">{description}</p>
+      </div>
+    </div>
+  );
 }
 
 type CopyButtonProps = ButtonProps & {
- test: string;
+  test: string;
 };
 
 function CopyButton({
- className,
- variant = 'ghost',
- size = 'icon',
- test,
- ...props
+  className,
+  variant = "ghost",
+  size = "icon",
+  test,
+  ...props
 }: CopyButtonProps) {
- const [copied, setCopied] = React.useState<boolean>(false);
+  const [copied, setCopied] = React.useState<boolean>(false);
 
- const handleCopy = async () => {
-  try {
-   await navigator.clipboard.writeText(test);
-   setCopied(true);
-   setTimeout(() => setCopied(false), 1500);
-  } catch (err) {
-   console.error('Failed to copy text: ', err);
-  }
- };
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(test);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
 
- return (
-  <Button
-   variant={variant}
-   size={size}
-   className={cn('disabled:opacity-100', className)}
-   onClick={handleCopy}
-   aria-label={copied ? 'Copied' : 'Copy to clipboard'}
-   disabled={copied || props.disabled}
-   {...props}
-  >
-   <div
-    className={cn(
-     'transition-all',
-     copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0',
-    )}
-   >
-    <Check className="size-3.5 stroke-emerald-500" aria-hidden="true" />
-   </div>
-   <div
-    className={cn(
-     'absolute transition-all',
-     copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100',
-    )}
-   >
-    <Copy aria-hidden="true" className="size-3.5" />
-   </div>
-  </Button>
- );
+  return (
+    <Button
+      variant={variant}
+      size={size}
+      className={cn("disabled:opacity-100", className)}
+      onClick={handleCopy}
+      aria-label={copied ? "Copied" : "Copy to clipboard"}
+      disabled={copied || props.disabled}
+      {...props}
+    >
+      <div
+        className={cn(
+          "transition-all",
+          copied ? "scale-100 opacity-100" : "scale-0 opacity-0"
+        )}
+      >
+        <Check className="size-3.5 stroke-emerald-500" aria-hidden="true" />
+      </div>
+      <div
+        className={cn(
+          "absolute transition-all",
+          copied ? "scale-0 opacity-0" : "scale-100 opacity-100"
+        )}
+      >
+        <Copy aria-hidden="true" className="size-3.5" />
+      </div>
+    </Button>
+  );
 }
-
 ```
 
 ```tsx
 export default function Contact() {
+  const contactMethods = [
+    {
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
+          />
+        </svg>
+      ),
+      title: "Join our community",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      link: {
+        name: "Join our Discord",
+        href: "javascript:void(0)",
+      },
+    },
+    {
+      icon: (
+        <svg
+          className="w-6 h-6"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_17_80)">
+            <path
+              d="M15.1003 43.5C33.2091 43.5 43.1166 28.4935 43.1166 15.4838C43.1166 15.0619 43.1072 14.6307 43.0884 14.2088C45.0158 12.815 46.679 11.0886 48 9.11066C46.205 9.90926 44.2993 10.4308 42.3478 10.6575C44.4026 9.42588 45.9411 7.491 46.6781 5.21159C44.7451 6.35718 42.6312 7.16528 40.4269 7.60128C38.9417 6.02318 36.978 4.97829 34.8394 4.62816C32.7008 4.27803 30.5064 4.64216 28.5955 5.66425C26.6846 6.68635 25.1636 8.30947 24.2677 10.2827C23.3718 12.2559 23.1509 14.4693 23.6391 16.5807C19.725 16.3842 15.8959 15.3675 12.4 13.5963C8.90405 11.825 5.81939 9.33893 3.34594 6.29909C2.0888 8.46655 1.70411 11.0314 2.27006 13.4722C2.83601 15.9131 4.31013 18.047 6.39281 19.44C4.82926 19.3904 3.29995 18.9694 1.93125 18.2119V18.3338C1.92985 20.6084 2.7162 22.8132 4.15662 24.5736C5.59704 26.334 7.60265 27.5412 9.8325 27.99C8.38411 28.3863 6.86396 28.4441 5.38969 28.1588C6.01891 30.1149 7.24315 31.8258 8.89154 33.0527C10.5399 34.2796 12.5302 34.9613 14.5847 35.0025C11.0968 37.7423 6.78835 39.2283 2.35313 39.2213C1.56657 39.2201 0.780798 39.1719 0 39.0769C4.50571 41.9676 9.74706 43.5028 15.1003 43.5Z"
+              fill="currentColor"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_17_80">
+              <rect width="48" height="48" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      ),
 
-    const contactMethods = [
-        {
-            icon:
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                </svg>
-            ,
-            title: "Join our community",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            link: {
-                name: "Join our Discord",
-                href: "javascript:void(0)"
-            },
-        },
-        {
-            icon:
-                <svg className="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_17_80)">
-                        <path d="M15.1003 43.5C33.2091 43.5 43.1166 28.4935 43.1166 15.4838C43.1166 15.0619 43.1072 14.6307 43.0884 14.2088C45.0158 12.815 46.679 11.0886 48 9.11066C46.205 9.90926 44.2993 10.4308 42.3478 10.6575C44.4026 9.42588 45.9411 7.491 46.6781 5.21159C44.7451 6.35718 42.6312 7.16528 40.4269 7.60128C38.9417 6.02318 36.978 4.97829 34.8394 4.62816C32.7008 4.27803 30.5064 4.64216 28.5955 5.66425C26.6846 6.68635 25.1636 8.30947 24.2677 10.2827C23.3718 12.2559 23.1509 14.4693 23.6391 16.5807C19.725 16.3842 15.8959 15.3675 12.4 13.5963C8.90405 11.825 5.81939 9.33893 3.34594 6.29909C2.0888 8.46655 1.70411 11.0314 2.27006 13.4722C2.83601 15.9131 4.31013 18.047 6.39281 19.44C4.82926 19.3904 3.29995 18.9694 1.93125 18.2119V18.3338C1.92985 20.6084 2.7162 22.8132 4.15662 24.5736C5.59704 26.334 7.60265 27.5412 9.8325 27.99C8.38411 28.3863 6.86396 28.4441 5.38969 28.1588C6.01891 30.1149 7.24315 31.8258 8.89154 33.0527C10.5399 34.2796 12.5302 34.9613 14.5847 35.0025C11.0968 37.7423 6.78835 39.2283 2.35313 39.2213C1.56657 39.2201 0.780798 39.1719 0 39.0769C4.50571 41.9676 9.74706 43.5028 15.1003 43.5Z" fill="currentColor" />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_17_80">
-                            <rect width="48" height="48" fill="white" />
-                        </clipPath>
-                    </defs>
-                </svg>
+      title: "Follow us on Twitter",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      link: {
+        name: "Send us DMs",
+        href: "javascript:void(0)",
+      },
+    },
+  ];
 
-            ,
-            title: "Follow us on Twitter",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            link: {
-                name: "Send us DMs",
-                href: "javascript:void(0)"
-            },
-        },
-    ]
-
-    return (
-        <section className="py-14">
-            <div className="max-w-screen-xl mx-auto px-4 text-gray-600 gap-12 md:px-8 lg:flex">
-                <div className="max-w-md">
-                    <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                        Let’s connect
-                    </h3>
-                    <p className="mt-3">
-                        We’re here to help and answer any question you might have, We look forward to hearing from you .
-                    </p>
+  return (
+    <section className="py-14">
+      <div className="max-w-7xl mx-auto px-4 text-gray-600 gap-12 md:px-8 lg:flex">
+        <div className="max-w-md">
+          <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+            Let’s connect
+          </h3>
+          <p className="mt-3">
+            We’re here to help and answer any question you might have, We look
+            forward to hearing from you .
+          </p>
+        </div>
+        <div>
+          <ul className="mt-12 gap-y-6 gap-x-12 items-center md:flex lg:gap-x-0 lg:mt-0">
+            {contactMethods.map((item, idx) => (
+              <li
+                key={idx}
+                className="space-y-3 border-t py-6 md:max-w-sm md:py-0 md:border-t-0 lg:border-l lg:px-12 lg:max-w-none"
+              >
+                <div className="w-12 h-12 rounded-full border flex items-center justify-center text-gray-700">
+                  {item.icon}
                 </div>
-                <div>
-                    <ul className="mt-12 gap-y-6 gap-x-12 items-center md:flex lg:gap-x-0 lg:mt-0">
-                        {
-                            contactMethods.map((item, idx) => (
-                                <li key={idx} className="space-y-3 border-t py-6 md:max-w-sm md:py-0 md:border-t-0 lg:border-l lg:px-12 lg:max-w-none">
-                                    <div className="w-12 h-12 rounded-full border flex items-center justify-center text-gray-700">
-                                        {item.icon}
-                                    </div>
-                                    <h4 className="text-gray-800 text-lg font-medium xl:text-xl">
-                                        {item.title}
-                                    </h4>
-                                    <p>
-                                        {item.desc}
-                                    </p>
-                                    <a href={item.link.href} className="flex items-center gap-1 text-sm text-indigo-600 duration-150 hover:text-indigo-400 font-medium">
-                                        {item.link.name}
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                                            <path fillRule="evenodd" d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z" clipRule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            ))
-                        }
-                    </ul>
-                </div>
-            </div>
-        </section>
-    )
+                <h4 className="text-gray-800 text-lg font-medium xl:text-xl">
+                  {item.title}
+                </h4>
+                <p>{item.desc}</p>
+                <a
+                  href={item.link.href}
+                  className="flex items-center gap-1 text-sm text-indigo-600 duration-150 hover:text-indigo-400 font-medium"
+                >
+                  {item.link.name}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
 }
 ```

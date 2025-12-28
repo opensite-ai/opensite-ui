@@ -11,7 +11,7 @@ describe("Container", () => {
   it("applies default maxWidth of xl", () => {
     const { container } = render(<Container>Test</Container>);
     const element = container.firstChild as HTMLElement;
-    expect(element.className).toContain("max-w-screen-xl");
+    expect(element.className).toContain("max-w-7xl");
   });
 
   it("applies custom maxWidth", () => {
@@ -21,7 +21,9 @@ describe("Container", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<Container className="custom-class">Test</Container>);
+    const { container } = render(
+      <Container className="custom-class">Test</Container>
+    );
     const element = container.firstChild as HTMLElement;
     expect(element.className).toContain("custom-class");
   });

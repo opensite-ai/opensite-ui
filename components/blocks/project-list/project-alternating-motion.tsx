@@ -105,7 +105,7 @@ export function ProjectAlternatingMotion({
               </div>
 
               <motion.div
-                className="aspect-[3/2] w-full overflow-hidden rounded-sm"
+                className="aspect-3/2 w-full overflow-hidden rounded-sm"
                 initial={{ y: -80, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}

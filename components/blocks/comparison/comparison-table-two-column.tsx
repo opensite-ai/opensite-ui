@@ -90,7 +90,7 @@ export function ComparisonTableTwoColumn({
           {title}
         </h1>
         <div className="-mr-4 overflow-x-auto">
-          <div className="min-w-[672px] overflow-hidden">
+          <div className="min-w-2xl overflow-hidden">
             <div className="grid grid-cols-3 [&>:last-child_div]:rounded-b-md [&>div:nth-last-child(-n+3)]:rounded-b-md [&>div:nth-last-child(-n+3)]:border-b-0">
               <div className="p-4"></div>
               <div className="flex items-center rounded-t-md bg-green-100 p-3 md:p-4">
@@ -102,7 +102,9 @@ export function ComparisonTableTwoColumn({
                     optixFlowConfig={optixFlowConfig}
                   />
                 ) : (
-                  <span className="text-lg font-semibold text-green-800">Option A</span>
+                  <span className="text-lg font-semibold text-green-800">
+                    Option A
+                  </span>
                 )}
               </div>
               <div className="flex items-center rounded-t-md bg-red-100 p-3 md:p-4">
@@ -114,7 +116,9 @@ export function ComparisonTableTwoColumn({
                     optixFlowConfig={optixFlowConfig}
                   />
                 ) : (
-                  <span className="text-lg font-semibold text-red-800">Option B</span>
+                  <span className="text-lg font-semibold text-red-800">
+                    Option B
+                  </span>
                 )}
               </div>
               {rows.map((row, idx) => (
@@ -125,7 +129,11 @@ export function ComparisonTableTwoColumn({
                   <div className="border-b bg-green-50 p-3 md:p-6">
                     <div className="flex items-center gap-2">
                       {row.hasIcon && (
-                        <DynamicIcon name="lucide/circle-check-big" size={20} className="text-green-600" />
+                        <DynamicIcon
+                          name="lucide/circle-check-big"
+                          size={20}
+                          className="text-green-600"
+                        />
                       )}
                       <span className="text-base md:text-lg">
                         {row.optionA}
@@ -135,7 +143,11 @@ export function ComparisonTableTwoColumn({
                   <div className="border-b bg-red-50 p-3 md:p-6">
                     <div className="flex items-center gap-2">
                       {row.hasIcon && (
-                        <DynamicIcon name="lucide/octagon-x" size={20} className="text-red-600" />
+                        <DynamicIcon
+                          name="lucide/octagon-x"
+                          size={20}
+                          className="text-red-600"
+                        />
                       )}
                       <span className="text-base md:text-lg">
                         {row.optionB}

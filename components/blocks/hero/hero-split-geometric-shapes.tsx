@@ -17,7 +17,7 @@ export function HeroSplitGeometricShapes({
       <div className="container flex flex-col items-center">
         <div className="2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))] w-full overflow-clip rounded-lg bg-accent/50">
           <div className="grid items-center gap-8 lg:grid-cols-2">
-            <div className="container flex flex-col items-center px-[4rem] py-16 text-center lg:mx-auto lg:items-start lg:px-[4rem] lg:py-32 lg:text-left">
+            <div className="container flex flex-col items-center px-16 py-16 text-center lg:mx-auto lg:items-start lg:px-16 lg:py-32 lg:text-left">
               <p>New Release</p>
               <h1 className="my-6 text-4xl font-bold text-pretty lg:text-6xl">
                 Welcome to Our Website
@@ -28,8 +28,17 @@ export function HeroSplitGeometricShapes({
                 consequatur. Explicabo.
               </p>
               <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-                <Pressable href="#" asButton variant="default" className="w-full sm:w-auto">
-                  <DynamicIcon name="lucide/arrow-right" size={16} className="mr-2" />
+                <Pressable
+                  href="#"
+                  asButton
+                  variant="default"
+                  className="w-full sm:w-auto"
+                >
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="mr-2"
+                  />
                   Primary
                 </Pressable>
               </div>

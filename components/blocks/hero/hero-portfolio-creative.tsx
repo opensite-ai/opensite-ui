@@ -34,8 +34,12 @@ export function HeroPortfolioCreative({
                 />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-foreground">Alex Johnson</h2>
-                <p className="text-sm text-muted-foreground">Creative Director & Designer</p>
+                <h2 className="text-lg font-semibold text-foreground">
+                  Alex Johnson
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Creative Director & Designer
+                </p>
               </div>
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
@@ -47,35 +51,41 @@ export function HeroPortfolioCreative({
               with startups and Fortune 500 companies alike.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Pressable
-                href="#"
-                asButton
-                variant="default"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="default" size="lg">
                 View my work
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
-              <Pressable
-                href="#"
-                asButton
-                variant="outline"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="outline" size="lg">
                 Get in touch
               </Pressable>
             </div>
             <div className="flex items-center gap-6 pt-4">
-              <Pressable href="#" className="text-muted-foreground hover:text-foreground">
+              <Pressable
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <DynamicIcon name="lucide/dribbble" size={20} />
               </Pressable>
-              <Pressable href="#" className="text-muted-foreground hover:text-foreground">
+              <Pressable
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <DynamicIcon name="lucide/twitter" size={20} />
               </Pressable>
-              <Pressable href="#" className="text-muted-foreground hover:text-foreground">
+              <Pressable
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <DynamicIcon name="lucide/linkedin" size={20} />
               </Pressable>
-              <Pressable href="#" className="text-muted-foreground hover:text-foreground">
+              <Pressable
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <DynamicIcon name="lucide/instagram" size={20} />
               </Pressable>
             </div>
@@ -87,7 +97,7 @@ export function HeroPortfolioCreative({
                   <Img
                     src={imagePlaceholders[29]}
                     alt="Project 1"
-                    className="aspect-[3/4] w-full object-cover transition-transform hover:scale-105"
+                    className="aspect-3/4 w-full object-cover transition-transform hover:scale-105"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
@@ -113,7 +123,7 @@ export function HeroPortfolioCreative({
                   <Img
                     src={imagePlaceholders[32]}
                     alt="Project 4"
-                    className="aspect-[3/4] w-full object-cover transition-transform hover:scale-105"
+                    className="aspect-3/4 w-full object-cover transition-transform hover:scale-105"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>

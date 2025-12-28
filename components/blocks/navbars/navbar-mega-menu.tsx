@@ -15,7 +15,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
-import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  logoPlaceholders,
+  imagePlaceholders,
+} from "../../../lib/mediaPlaceholders";
 
 interface SolutionItem {
   title: string;
@@ -114,7 +117,7 @@ const defaultResources: ResourceItem[] = [
 
 /**
  * NavbarMegaMenu - A comprehensive navigation bar with rich mega-menu dropdowns.
- * 
+ *
  * Features multiple mega-menu panels for Platform, Use Cases, Developers, and Resources.
  * Each panel contains categorized links with icons, descriptions, and featured content cards.
  * Includes a full-screen mobile menu with slide-in submenus for each category.
@@ -163,9 +166,17 @@ export const NavbarMegaMenu = ({
                 </Pressable>
               )}
               {open && submenu && (
-                <Pressable variant="outline" asButton onClick={() => setSubmenu(null)}>
+                <Pressable
+                  variant="outline"
+                  asButton
+                  onClick={() => setSubmenu(null)}
+                >
                   Back
-                  <DynamicIcon name="lucide/chevron-left" size={16} className="ml-2" />
+                  <DynamicIcon
+                    name="lucide/chevron-left"
+                    size={16}
+                    className="ml-2"
+                  />
                 </Pressable>
               )}
             </div>
@@ -189,7 +200,9 @@ export const NavbarMegaMenu = ({
                           />
                         </div>
                         <div className="p-5 xl:p-8">
-                          <div className="mb-2 text-base">Platform Overview</div>
+                          <div className="mb-2 text-base">
+                            Platform Overview
+                          </div>
                           <div className="text-sm font-normal text-muted-foreground">
                             Discover how our platform transforms your workflow.
                           </div>
@@ -210,7 +223,9 @@ export const NavbarMegaMenu = ({
                             <div className="mb-5 group-hover:opacity-60">
                               <DynamicIcon name={solution.icon} size={20} />
                             </div>
-                            <div className="mb-1 text-base">{solution.title}</div>
+                            <div className="mb-1 text-base">
+                              {solution.title}
+                            </div>
                             <div className="text-sm font-normal text-muted-foreground">
                               {solution.description}
                             </div>
@@ -296,7 +311,10 @@ export const NavbarMegaMenu = ({
                             href={link.href}
                             className="group flex flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
                           >
-                            <DynamicIcon name="lucide/arrow-up-right" size={16} />
+                            <DynamicIcon
+                              name="lucide/arrow-up-right"
+                              size={16}
+                            />
                             <div className="text-base">{link.title}</div>
                           </NavigationMenuLink>
                         ))}
@@ -328,7 +346,9 @@ export const NavbarMegaMenu = ({
                         className="flex flex-row items-center overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                       >
                         <div className="flex-1 p-5 xl:p-8">
-                          <div className="mb-2 text-base">Another showcase link</div>
+                          <div className="mb-2 text-base">
+                            Another showcase link
+                          </div>
                           <div className="text-sm font-normal text-muted-foreground">
                             Learn best practices and advanced techniques from
                             expert developers.
@@ -364,7 +384,9 @@ export const NavbarMegaMenu = ({
                             className="flex h-full flex-col overflow-clip rounded-lg border border-input bg-background p-5 hover:bg-accent hover:text-accent-foreground xl:p-8"
                           >
                             <div className="mt-auto">
-                              <div className="mb-2 text-base">{resource.title}</div>
+                              <div className="mb-2 text-base">
+                                {resource.title}
+                              </div>
                               <div className="text-sm font-normal text-muted-foreground">
                                 {resource.description}
                               </div>
@@ -403,7 +425,8 @@ export const NavbarMegaMenu = ({
                       >
                         <Badge variant="secondary">NEW</Badge>
                         <span className="text-sm text-ellipsis text-secondary-foreground">
-                          Introducing our latest feature: enhanced analytics dashboard
+                          Introducing our latest feature: enhanced analytics
+                          dashboard
                         </span>
                       </NavigationMenuLink>
                     </div>
@@ -418,7 +441,11 @@ export const NavbarMegaMenu = ({
               </Pressable>
               <Pressable href="#" variant="outline" asButton>
                 Start now
-                <DynamicIcon name="lucide/chevron-right" size={16} className="ml-1" />
+                <DynamicIcon
+                  name="lucide/chevron-right"
+                  size={16}
+                  className="ml-1"
+                />
               </Pressable>
             </div>
 
@@ -488,7 +515,7 @@ export const NavbarMegaMenu = ({
                   </span>
                 </button>
               </div>
-              <div className="mx-[2rem] mt-auto flex flex-col gap-4 py-12">
+              <div className="mx-8 mt-auto flex flex-col gap-4 py-12">
                 <Pressable href="#" variant="outline" size="lg" asButton>
                   Login
                 </Pressable>

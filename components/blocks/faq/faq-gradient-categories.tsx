@@ -92,7 +92,7 @@ export function FaqGradientCategories({
             </h2>
             <p className="text-muted-foreground lg:text-lg">{description}</p>
           </div>
-          <div className="mx-auto mt-10 grid max-w-screen-xl gap-10 md:grid-cols-2">
+          <div className="mx-auto mt-10 grid max-w-7xl gap-10 md:grid-cols-2">
             {categories.map((category, categoryIndex) => (
               <div key={categoryIndex}>
                 <h3 className="mb-4 text-xl font-semibold">{category.title}</h3>

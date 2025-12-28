@@ -48,7 +48,7 @@ const defaultNavItems: NavItem[] = [
 
 /**
  * NavbarSearchFocused - A navigation bar with a prominent search input.
- * 
+ *
  * Features a centered search bar that takes up significant horizontal space, making search
  * the primary action. Navigation links are positioned to the sides of the search bar.
  * The search input expands on focus for better usability. Mobile view moves the search bar
@@ -82,7 +82,10 @@ export const NavbarSearchFocused = ({
       <div className="container">
         <nav className="flex items-center gap-4 py-3 lg:gap-8">
           {/* Logo */}
-          <Pressable href={logo.url} className="flex shrink-0 items-center gap-2">
+          <Pressable
+            href={logo.url}
+            className="flex shrink-0 items-center gap-2"
+          >
             <Img
               src={logo.src}
               alt={logo.alt}
@@ -115,7 +118,7 @@ export const NavbarSearchFocused = ({
             onSubmit={handleSearch}
             className={cn(
               "relative flex-1 transition-all duration-300",
-              isSearchFocused ? "lg:flex-[2]" : "lg:flex-1",
+              isSearchFocused ? "lg:flex-2" : "lg:flex-1"
             )}
           >
             <div className="relative">
@@ -180,7 +183,12 @@ export const NavbarSearchFocused = ({
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Pressable variant="ghost" size="icon" asButton onClick={() => {}}>
+              <Pressable
+                variant="ghost"
+                size="icon"
+                asButton
+                onClick={() => {}}
+              >
                 <DynamicIcon name="lucide/menu" size={20} />
                 <span className="sr-only">Toggle menu</span>
               </Pressable>

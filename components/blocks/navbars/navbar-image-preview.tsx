@@ -15,13 +15,11 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
+import { Sheet, SheetContent, SheetTitle, SheetClose } from "../../ui/sheet";
 import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetClose,
-} from "../../ui/sheet";
-import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+  logoPlaceholders,
+  imagePlaceholders,
+} from "../../../lib/mediaPlaceholders";
 
 interface MenuLink {
   label: string;
@@ -40,7 +38,13 @@ interface MenuItem {
 interface NavButton {
   label: string;
   url: string;
-  variant: "ghost" | "default" | "link" | "destructive" | "outline" | "secondary";
+  variant:
+    | "ghost"
+    | "default"
+    | "link"
+    | "destructive"
+    | "outline"
+    | "secondary";
 }
 
 interface SocialLink {
@@ -179,7 +183,7 @@ const MOBILE_BREAKPOINT = 1024;
 
 /**
  * NavbarImagePreview - A fixed navigation bar with image preview on hover.
- * 
+ *
  * Features a sticky header that changes background on scroll. Desktop dropdowns
  * show a large image preview that changes as users hover over different menu items.
  * Mobile view uses a full-screen dark overlay with categorized link columns and
@@ -211,7 +215,10 @@ export const NavbarImagePreview = ({
 
     const handleScroll = () => {
       navRef.current?.classList.toggle("bg-background", window.scrollY > 300);
-      navRef.current?.classList.toggle("bg-transparent", !(window.scrollY > 300));
+      navRef.current?.classList.toggle(
+        "bg-transparent",
+        !(window.scrollY > 300)
+      );
     };
 
     handleResize();
@@ -277,7 +284,12 @@ export const NavbarImagePreview = ({
                 </Pressable>
               ))}
               <div className="lg:hidden">
-                <Pressable variant="ghost" size="icon" asButton onClick={handleMobileMenu}>
+                <Pressable
+                  variant="ghost"
+                  size="icon"
+                  asButton
+                  onClick={handleMobileMenu}
+                >
                   <DynamicIcon name="lucide/menu" size={22} />
                 </Pressable>
               </div>
@@ -301,7 +313,11 @@ interface DesktopMenuItemProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DesktopMenuItem = ({ item, index, optixFlowConfig }: DesktopMenuItemProps) => {
+const DesktopMenuItem = ({
+  item,
+  index,
+  optixFlowConfig,
+}: DesktopMenuItemProps) => {
   const imagesRef = useRef<HTMLImageElement[]>([]);
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
@@ -330,8 +346,8 @@ const DesktopMenuItem = ({ item, index, optixFlowConfig }: DesktopMenuItemProps)
         <NavigationMenuTrigger className="bg-transparent">
           {item.title}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-2xl !p-0">
-          <div className="grid min-h-[18.75rem] w-[45.25rem] grid-cols-[22.5rem_1fr] gap-4 p-3">
+        <NavigationMenuContent className="rounded-2xl! p-0!">
+          <div className="grid min-h-75 w-181 grid-cols-[22.5rem_1fr] gap-4 p-3">
             <div className="relative aspect-square w-full overflow-hidden rounded-xl">
               {item.links.map((link, linkIndex) => (
                 <Img
@@ -343,7 +359,9 @@ const DesktopMenuItem = ({ item, index, optixFlowConfig }: DesktopMenuItemProps)
                   }}
                   src={link.image || imagePlaceholders[0]}
                   alt={link.label}
-                  className={`absolute top-0 left-0 h-full w-full object-cover transition-opacity duration-300 ${linkIndex === 0 ? "opacity-100" : "opacity-0"}`}
+                  className={`absolute top-0 left-0 h-full w-full object-cover transition-opacity duration-300 ${
+                    linkIndex === 0 ? "opacity-100" : "opacity-0"
+                  }`}
                   optixFlowConfig={optixFlowConfig}
                 />
               ))}
@@ -361,7 +379,9 @@ const DesktopMenuItem = ({ item, index, optixFlowConfig }: DesktopMenuItemProps)
                       onMouseLeave={handleMouseLeave}
                     >
                       <div>
-                        <h3 className="leading-normal font-medium">{link.label}</h3>
+                        <h3 className="leading-normal font-medium">
+                          {link.label}
+                        </h3>
                         <p className="leading-normal text-muted-foreground">
                           {link.description}
                         </p>
@@ -411,7 +431,9 @@ const MobileNavigationMenu = ({
         <div className="flex-1 overflow-y-auto">
           <div className="container pb-12">
             <div className="absolute -m-px h-px w-px overflow-hidden border-0 mask-clip-border p-0 text-nowrap whitespace-nowrap">
-              <SheetTitle className="text-primary">Mobile Navigation</SheetTitle>
+              <SheetTitle className="text-primary">
+                Mobile Navigation
+              </SheetTitle>
             </div>
             <div className="flex justify-end pt-5">
               <SheetClose asChild>
@@ -429,16 +451,22 @@ const MobileNavigationMenu = ({
               <div className="grid w-full grid-cols-2 gap-x-4 gap-y-10">
                 {mobileNavigation.map((item, index) => (
                   <div
-                    className={`flex flex-col gap-4 text-primary-foreground ${item.className || ""}`}
+                    className={`flex flex-col gap-4 text-primary-foreground ${
+                      item.className || ""
+                    }`}
                     key={`mobile-menu-item-${index}`}
                   >
-                    <div className="text-xs text-foreground/60 uppercase">{item.title}</div>
+                    <div className="text-xs text-foreground/60 uppercase">
+                      {item.title}
+                    </div>
                     <ul className="flex flex-col gap-3">
                       {item.links?.map((link, i) => (
                         <li key={`mobile-nav-link-${i}`}>
                           <Pressable
                             href={link.url}
-                            className={`text-primary-foreground ${index === 0 ? "text-2xl" : "text-base"} leading-normal font-medium`}
+                            className={`text-primary-foreground ${
+                              index === 0 ? "text-2xl" : "text-base"
+                            } leading-normal font-medium`}
                           >
                             {link.label}
                           </Pressable>
@@ -449,7 +477,9 @@ const MobileNavigationMenu = ({
                 ))}
               </div>
               <div className="col-span-2 flex flex-col gap-4">
-                <div className="text-xs text-foreground/60 uppercase">SOCIAL</div>
+                <div className="text-xs text-foreground/60 uppercase">
+                  SOCIAL
+                </div>
                 <div className="flex gap-4">
                   {socialLinks.map((link, index) => (
                     <Pressable

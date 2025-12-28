@@ -100,7 +100,7 @@ export function CaseStudiesStatsCard({
       <div className="container">
         <div className="flex w-full flex-col items-stretch justify-between gap-10 rounded-lg bg-muted p-10 lg:flex-row">
           <div className="flex w-full max-w-120 flex-col gap-10 rounded-lg bg-background p-5">
-            <div className="max-w-[4.875rem]">
+            <div className="max-w-19.5">
               <Img
                 src={companyLogo}
                 alt={companyName}
@@ -134,7 +134,7 @@ export function CaseStudiesStatsCard({
               </div>
             </div>
           </div>
-          <div className="flex max-w-[32rem] flex-col gap-5">
+          <div className="flex max-w-lg flex-col gap-5">
             <h2 className="text-2xl leading-none font-bold md:text-3xl lg:text-4xl">
               {title}
             </h2>

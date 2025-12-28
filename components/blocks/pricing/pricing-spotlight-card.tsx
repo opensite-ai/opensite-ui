@@ -67,7 +67,7 @@ export function PricingSpotlightCard({
           {/* Spotlight effect wrapper */}
           <div className="relative">
             {/* Glow effect */}
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-primary/50 via-primary to-primary/50 opacity-75 blur-lg" />
+            <div className="absolute -inset-1 rounded-3xl bg-linear-to-r from-primary/50 via-primary to-primary/50 opacity-75 blur-lg" />
 
             {/* Card */}
             <div className="relative rounded-2xl border bg-card p-8 shadow-2xl md:p-10">

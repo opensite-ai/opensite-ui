@@ -63,9 +63,12 @@ export function FaqNumberedGrid({
           </h2>
           <p className="text-muted-foreground lg:text-lg">{description}</p>
         </div>
-        <div className="mx-auto mt-10 grid max-w-screen-xl gap-6 md:grid-cols-2">
+        <div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2">
           {items.map((item, index) => (
-            <div key={index} className="flex gap-4 rounded-lg border p-4 md:p-5">
+            <div
+              key={index}
+              className="flex gap-4 rounded-lg border p-4 md:p-5"
+            >
               <span className="bg-secondary flex size-6 shrink-0 items-center justify-center rounded-sm text-xs font-medium">
                 {index + 1}
               </span>

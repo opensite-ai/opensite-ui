@@ -159,7 +159,9 @@ export function ProjectStudioHoverPreview({
                 </h3>
                 <div className="flex flex-col items-end">
                   <p className="text-sm text-neutral-600">{project.year}</p>
-                  <p className="text-sm text-muted-foreground">{project.type}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {project.type}
+                  </p>
                 </div>
               </div>
             </div>
@@ -190,7 +192,7 @@ export function ProjectStudioHoverPreview({
                   damping: 25,
                   mass: 0.5,
                 }}
-                className="pointer-events-none absolute top-0 left-0 z-[9999] select-none"
+                className="pointer-events-none absolute top-0 left-0 z-9999 select-none"
               >
                 <div className="relative">
                   <div className="absolute inset-0 rounded-xl border border-white/10 bg-black/95 shadow-2xl shadow-black/30 backdrop-blur-md" />

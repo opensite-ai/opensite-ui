@@ -72,28 +72,88 @@ const defaultNavigation: MenuItem[] = [
       {
         title: "Company Blog",
         links: [
-          { label: "Insights", icon: "lucide/book", description: "Company news and updates", url: "#" },
-          { label: "Engineering", icon: "lucide/code", description: "Technical deep dives", url: "#" },
-          { label: "Culture", icon: "lucide/users", description: "Team stories and values", url: "#" },
-          { label: "Press", icon: "lucide/globe", description: "Media mentions", url: "#" },
+          {
+            label: "Insights",
+            icon: "lucide/book",
+            description: "Company news and updates",
+            url: "#",
+          },
+          {
+            label: "Engineering",
+            icon: "lucide/code",
+            description: "Technical deep dives",
+            url: "#",
+          },
+          {
+            label: "Culture",
+            icon: "lucide/users",
+            description: "Team stories and values",
+            url: "#",
+          },
+          {
+            label: "Press",
+            icon: "lucide/globe",
+            description: "Media mentions",
+            url: "#",
+          },
         ],
       },
       {
         title: "Developer Tools",
         links: [
-          { label: "API", icon: "lucide/monitor", description: "Access our REST API", url: "#" },
-          { label: "CLI", icon: "lucide/terminal", description: "Command line tools", url: "#" },
-          { label: "SDKs", icon: "lucide/code", description: "Integrate with our SDKs", url: "#" },
-          { label: "Docs", icon: "lucide/book", description: "Complete documentation", url: "#" },
+          {
+            label: "API",
+            icon: "lucide/monitor",
+            description: "Access our REST API",
+            url: "#",
+          },
+          {
+            label: "CLI",
+            icon: "lucide/terminal",
+            description: "Command line tools",
+            url: "#",
+          },
+          {
+            label: "SDKs",
+            icon: "lucide/code",
+            description: "Integrate with our SDKs",
+            url: "#",
+          },
+          {
+            label: "Docs",
+            icon: "lucide/book",
+            description: "Complete documentation",
+            url: "#",
+          },
         ],
       },
       {
         title: "Commerce",
         links: [
-          { label: "Store", icon: "lucide/shopping-cart", description: "Buy our products", url: "#" },
-          { label: "Plans", icon: "lucide/database", description: "Subscription options", url: "#" },
-          { label: "Mobile App", icon: "lucide/smartphone", description: "Shop on the go", url: "#" },
-          { label: "Gift Cards", icon: "lucide/gift", description: "Send a gift instantly", url: "#" },
+          {
+            label: "Store",
+            icon: "lucide/shopping-cart",
+            description: "Buy our products",
+            url: "#",
+          },
+          {
+            label: "Plans",
+            icon: "lucide/database",
+            description: "Subscription options",
+            url: "#",
+          },
+          {
+            label: "Mobile App",
+            icon: "lucide/smartphone",
+            description: "Shop on the go",
+            url: "#",
+          },
+          {
+            label: "Gift Cards",
+            icon: "lucide/gift",
+            description: "Send a gift instantly",
+            url: "#",
+          },
         ],
       },
     ],
@@ -104,19 +164,59 @@ const defaultNavigation: MenuItem[] = [
       {
         title: "Industries",
         links: [
-          { label: "E-commerce", icon: "lucide/shopping-cart", description: "Solutions for online stores", url: "#" },
-          { label: "SaaS", icon: "lucide/cloud", description: "Tools for SaaS apps", url: "#" },
-          { label: "Finance", icon: "lucide/shield", description: "Secure finance apps", url: "#" },
-          { label: "Healthcare", icon: "lucide/heart", description: "For medical platforms", url: "#" },
+          {
+            label: "E-commerce",
+            icon: "lucide/shopping-cart",
+            description: "Solutions for online stores",
+            url: "#",
+          },
+          {
+            label: "SaaS",
+            icon: "lucide/cloud",
+            description: "Tools for SaaS apps",
+            url: "#",
+          },
+          {
+            label: "Finance",
+            icon: "lucide/shield",
+            description: "Secure finance apps",
+            url: "#",
+          },
+          {
+            label: "Healthcare",
+            icon: "lucide/heart",
+            description: "For medical platforms",
+            url: "#",
+          },
         ],
       },
       {
         title: "Design System",
         links: [
-          { label: "Components", icon: "lucide/layout", description: "Reusable UI parts", url: "#" },
-          { label: "Tokens", icon: "lucide/settings", description: "Design tokens reference", url: "#" },
-          { label: "Icons", icon: "lucide/sparkles", description: "Lucide icon library", url: "#" },
-          { label: "Themes", icon: "lucide/paintbrush", description: "UI appearance presets", url: "#" },
+          {
+            label: "Components",
+            icon: "lucide/layout",
+            description: "Reusable UI parts",
+            url: "#",
+          },
+          {
+            label: "Tokens",
+            icon: "lucide/settings",
+            description: "Design tokens reference",
+            url: "#",
+          },
+          {
+            label: "Icons",
+            icon: "lucide/sparkles",
+            description: "Lucide icon library",
+            url: "#",
+          },
+          {
+            label: "Themes",
+            icon: "lucide/paintbrush",
+            description: "UI appearance presets",
+            url: "#",
+          },
         ],
       },
     ],
@@ -127,10 +227,30 @@ const defaultNavigation: MenuItem[] = [
       {
         title: "Core Services",
         links: [
-          { label: "Hosting", icon: "lucide/server", description: "Reliable infrastructure", url: "#" },
-          { label: "Auth", icon: "lucide/shield", description: "Secure login & roles", url: "#" },
-          { label: "Database", icon: "lucide/database", description: "Scalable data storage", url: "#" },
-          { label: "Edge Functions", icon: "lucide/zap", description: "Low-latency logic", url: "#" },
+          {
+            label: "Hosting",
+            icon: "lucide/server",
+            description: "Reliable infrastructure",
+            url: "#",
+          },
+          {
+            label: "Auth",
+            icon: "lucide/shield",
+            description: "Secure login & roles",
+            url: "#",
+          },
+          {
+            label: "Database",
+            icon: "lucide/database",
+            description: "Scalable data storage",
+            url: "#",
+          },
+          {
+            label: "Edge Functions",
+            icon: "lucide/zap",
+            description: "Low-latency logic",
+            url: "#",
+          },
         ],
       },
     ],
@@ -154,7 +274,7 @@ const MOBILE_BREAKPOINT = 1024;
 
 /**
  * NavbarMultiColumnGroups - A navigation bar with multi-column grouped dropdown menus.
- * 
+ *
  * Features dropdown menus that display links organized into multiple columns by category.
  * Each column has a group title and a list of links with icons and descriptions. The dropdown
  * width dynamically adjusts based on the number of groups. Mobile view uses a dark-themed
@@ -201,7 +321,7 @@ export const NavbarMultiColumnGroups = ({
       <section
         className={cn(
           "pointer-events-auto fixed top-0 z-999 flex h-16 w-full items-center justify-center bg-background",
-          className,
+          className
         )}
       >
         <div className="container">
@@ -222,7 +342,11 @@ export const NavbarMultiColumnGroups = ({
               <NavigationMenu className="hidden xl:flex" viewport={false}>
                 <NavigationMenuList>
                   {navigation.map((item, index) => (
-                    <DesktopMenuItem key={`desktop-link-${index}`} item={item} index={index} />
+                    <DesktopMenuItem
+                      key={`desktop-link-${index}`}
+                      item={item}
+                      index={index}
+                    />
                   ))}
                 </NavigationMenuList>
               </NavigationMenu>
@@ -233,7 +357,11 @@ export const NavbarMultiColumnGroups = ({
                   key={`navbar-btn-${index}`}
                   size="sm"
                   variant={!btn.isPrimary ? "outline" : "default"}
-                  className={btn.isPrimary ? "text-primary-foreground" : "text-foreground"}
+                  className={
+                    btn.isPrimary
+                      ? "text-primary-foreground"
+                      : "text-foreground"
+                  }
                   asButton
                   href={btn.url}
                 >
@@ -242,11 +370,24 @@ export const NavbarMultiColumnGroups = ({
               ))}
             </div>
             <div className="xl:hidden">
-              <Pressable className="size-11" variant="ghost" asButton onClick={handleMobileMenu}>
+              <Pressable
+                className="size-11"
+                variant="ghost"
+                asButton
+                onClick={handleMobileMenu}
+              >
                 {open ? (
-                  <DynamicIcon name="lucide/x" size={22} className="stroke-foreground" />
+                  <DynamicIcon
+                    name="lucide/x"
+                    size={22}
+                    className="stroke-foreground"
+                  />
                 ) : (
-                  <DynamicIcon name="lucide/menu" size={22} className="stroke-foreground" />
+                  <DynamicIcon
+                    name="lucide/menu"
+                    size={22}
+                    className="stroke-foreground"
+                  />
                 )}
               </Pressable>
             </div>
@@ -274,7 +415,7 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
         <NavigationMenuTrigger className="h-fit bg-transparent px-2.5 font-normal text-muted-foreground">
           {item.title}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-xl !border !p-0">
+        <NavigationMenuContent className="rounded-xl! border! p-0!">
           <ul className="flex p-2" style={{ width: item.groups.length * 248 }}>
             {item.groups.map((group, groupIndex) => (
               <li className="flex-1" key={`desktop-group-${groupIndex}`}>
@@ -298,8 +439,10 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
                               />
                             )}
                           </div>
-                          <div className="flex flex-col gap-[2px]">
-                            <div className="text-sm font-medium">{link.label}</div>
+                          <div className="flex flex-col gap-0.5">
+                            <div className="text-sm font-medium">
+                              {link.label}
+                            </div>
                             <div className="text-xs text-muted-foreground group-hover/link:text-foreground">
                               {link.description}
                             </div>
@@ -335,18 +478,24 @@ interface MobileNavigationMenuProps {
   mobileButtons: NavButton[];
 }
 
-const MobileNavigationMenu = ({ open, navigation, mobileButtons }: MobileNavigationMenuProps) => {
+const MobileNavigationMenu = ({
+  open,
+  navigation,
+  mobileButtons,
+}: MobileNavigationMenuProps) => {
   return (
     <Sheet open={open}>
       <SheetContent
         aria-describedby={undefined}
         side="top"
-        className="dark inset-0 z-998 h-dvh w-full bg-background pt-[3.9375rem] [&>button]:hidden"
+        className="dark inset-0 z-998 h-dvh w-full bg-background pt-15.75 [&>button]:hidden"
       >
         <div className="h-full overflow-y-auto pt-10 pb-20">
           <div className="container">
             <div className="absolute -m-px h-px w-px overflow-hidden border-0 mask-clip-border p-0 text-nowrap whitespace-nowrap">
-              <SheetTitle className="text-primary">Mobile Navigation</SheetTitle>
+              <SheetTitle className="text-primary">
+                Mobile Navigation
+              </SheetTitle>
             </div>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-4">
@@ -354,7 +503,11 @@ const MobileNavigationMenu = ({ open, navigation, mobileButtons }: MobileNavigat
                   <Pressable
                     key={`navbar-btn-${index}`}
                     variant={!btn.isPrimary ? "outline" : "default"}
-                    className={btn.isPrimary ? "text-primary-foreground" : "text-foreground"}
+                    className={
+                      btn.isPrimary
+                        ? "text-primary-foreground"
+                        : "text-foreground"
+                    }
                     asButton
                     href={btn.url}
                   >
@@ -363,7 +516,9 @@ const MobileNavigationMenu = ({ open, navigation, mobileButtons }: MobileNavigat
                 ))}
               </div>
               <Accordion type="multiple" className="w-full">
-                {navigation.map((item, index) => renderMobileMenuItem(item, index))}
+                {navigation.map((item, index) =>
+                  renderMobileMenuItem(item, index)
+                )}
               </Accordion>
             </div>
           </div>
@@ -376,8 +531,12 @@ const MobileNavigationMenu = ({ open, navigation, mobileButtons }: MobileNavigat
 const renderMobileMenuItem = (item: MenuItem, index: number) => {
   if (item.groups) {
     return (
-      <AccordionItem key={item.title} value={`nav-${index}`} className="border-b-0">
-        <AccordionTrigger className="h-[3.75rem] items-center p-0 !px-4 text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
+      <AccordionItem
+        key={item.title}
+        value={`nav-${index}`}
+        className="border-b-0"
+      >
+        <AccordionTrigger className="h-15 items-center p-0 px-4! text-base leading-[3.75] font-normal text-muted-foreground hover:bg-muted hover:no-underline">
           {item.title}
         </AccordionTrigger>
         <AccordionContent className="max-h-[60dvh] overflow-x-auto">
@@ -389,11 +548,15 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
                 className="flex h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
               >
                 {link.icon && (
-                  <DynamicIcon name={link.icon} size={16} className="stroke-muted-foreground" />
+                  <DynamicIcon
+                    name={link.icon}
+                    size={16}
+                    className="stroke-muted-foreground"
+                  />
                 )}
                 {link.label}
               </Pressable>
-            )),
+            ))
           )}
         </AccordionContent>
       </AccordionItem>
@@ -404,7 +567,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
     <Pressable
       key={item.title}
       href={item.url}
-      className="flex h-[3.75rem] items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
+      className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
     >
       {item.title}
     </Pressable>

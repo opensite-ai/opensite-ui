@@ -6,7 +6,7 @@ const maxWidthStyles = {
   sm: "max-w-screen-sm",
   md: "max-w-screen-md",
   lg: "max-w-screen-lg",
-  xl: "max-w-screen-xl",
+  xl: "max-w-7xl",
   "2xl": "max-w-screen-2xl",
   "4xl": "max-w-[1536px]",
   full: "max-w-full",

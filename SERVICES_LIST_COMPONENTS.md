@@ -1009,7 +1009,7 @@ const Services11 = ({ className }: Services11Props) => {
               whileHover={{ opacity: 0.8 }}
               className="group block overflow-hidden rounded-xl"
             >
-              <Card className="relative aspect-[3/4] overflow-hidden border-none bg-muted p-0">
+              <Card className="relative aspect-3/4 overflow-hidden border-none bg-muted p-0">
                 <img
                   src={service.image}
                   alt={service.title}
@@ -1112,7 +1112,7 @@ const Services12 = ({ className }: Services12Props) => {
               whileHover={{ opacity: 0.8 }}
               className="group block overflow-hidden rounded-xl"
             >
-              <Card className="relative aspect-[3/4] overflow-hidden p-0">
+              <Card className="relative aspect-3/4 overflow-hidden p-0">
                 <img
                   src={service.image}
                   alt={service.title}

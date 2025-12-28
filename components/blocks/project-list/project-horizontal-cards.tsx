@@ -35,12 +35,7 @@ const defaultProjects: ProjectHorizontalCardsItem[] = [
       "Created a complete brand identity system for an AI-driven tech startup, including logo design, color palette, typography, and usage guidelines.",
     client: "Nexus AI",
     role: "Brand Designer",
-    technologies: [
-      "Adobe Illustrator",
-      "Photoshop",
-      "Figma",
-      "Brand Strategy",
-    ],
+    technologies: ["Adobe Illustrator", "Photoshop", "Figma", "Brand Strategy"],
     year: "2023",
     link: "#",
   },
@@ -109,7 +104,7 @@ export function ProjectHorizontalCards({
               className="bg-card overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md"
             >
               <div className="grid md:grid-cols-3">
-                <div className="relative aspect-[16/9] w-full overflow-hidden md:aspect-auto md:h-full">
+                <div className="relative aspect-video w-full overflow-hidden md:aspect-auto md:h-full">
                   <Img
                     src={project.image}
                     alt={project.title}

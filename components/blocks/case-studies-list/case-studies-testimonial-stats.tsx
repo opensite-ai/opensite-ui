@@ -125,7 +125,7 @@ export function CaseStudiesTestimonialStats({
                   <Img
                     src={testimonial.image}
                     alt={testimonial.authorName}
-                    className="aspect-[29/35] h-full w-full max-w-60 rounded-2xl object-cover"
+                    className="aspect-29/35 h-full w-full max-w-60 rounded-2xl object-cover"
                     loading="lazy"
                     optixFlowConfig={optixFlowConfig}
                   />
@@ -156,7 +156,9 @@ export function CaseStudiesTestimonialStats({
                         {stat.value}
                       </p>
                       <p className="font-semibold text-primary">{stat.label}</p>
-                      <p className="text-muted-foreground">{stat.description}</p>
+                      <p className="text-muted-foreground">
+                        {stat.description}
+                      </p>
                     </div>
                   ))}
                 </div>

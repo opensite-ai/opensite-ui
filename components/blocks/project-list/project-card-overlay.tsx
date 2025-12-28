@@ -97,7 +97,7 @@ const ProjectCard = ({ project, optixFlowConfig }: ProjectCardProps) => {
           optixFlowConfig={optixFlowConfig}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
         <div className="absolute top-4 left-4">
           <span className="inline-block rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
@@ -107,7 +107,11 @@ const ProjectCard = ({ project, optixFlowConfig }: ProjectCardProps) => {
 
         <div className="absolute top-4 right-4 translate-x-2 transform opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
           <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/20 backdrop-blur-sm">
-            <DynamicIcon name="lucide/arrow-up-right" size={16} className="text-white" />
+            <DynamicIcon
+              name="lucide/arrow-up-right"
+              size={16}
+              className="text-white"
+            />
           </div>
         </div>
 

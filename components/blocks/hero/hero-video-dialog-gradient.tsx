@@ -33,7 +33,7 @@ export function HeroVideoDialogGradient({
       <section
         className={cn(
           "relative overflow-hidden bg-background py-12 font-sans md:py-20",
-          className,
+          className
         )}
       >
         <div className="relative z-20 container">
@@ -56,7 +56,11 @@ export function HeroVideoDialogGradient({
                 className="rounded-full px-8"
               >
                 Start free trial
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
               <Pressable
                 href="#"
@@ -82,7 +86,7 @@ export function HeroVideoDialogGradient({
             </AspectRatio>
           </div>
         </div>
-        <div className="absolute top-auto bottom-[32%] left-[31%] z-10 size-full md:top-[-6%] md:bottom-auto md:left-[13.875rem]">
+        <div className="absolute top-auto bottom-[32%] left-[31%] z-10 size-full md:top-[-6%] md:bottom-auto md:left-55.5">
           <AspectRatio
             ratio={1}
             className="bg-[radial-gradient(closest-side,var(--color-accent),transparent)]"
