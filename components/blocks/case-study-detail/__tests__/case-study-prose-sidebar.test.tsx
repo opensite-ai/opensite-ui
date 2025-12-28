@@ -48,10 +48,12 @@ describe("CaseStudyProseSidebar", () => {
   it("renders custom company information", () => {
     render(
       <CaseStudyProseSidebar
-        companyDescription="Custom company description"
-        industry="Custom Industry"
-        location="Custom Location"
-        companySize="Custom Size"
+        details={[
+          { label: "Company", value: "Custom company description" },
+          { label: "Industry", value: "Custom Industry" },
+          { label: "Location", value: "Custom Location" },
+          { label: "Company size", value: "Custom Size" },
+        ]}
       />
     );
     expect(screen.getByText("Custom company description")).toBeInTheDocument();
@@ -61,12 +63,24 @@ describe("CaseStudyProseSidebar", () => {
   });
 
   it("renders website link", () => {
-    render(<CaseStudyProseSidebar websiteUrl="https://example.com" websiteLabel="Visit Website" />);
+    render(
+      <CaseStudyProseSidebar
+        details={[
+          { label: "Website", value: "Visit Website", href: "https://example.com" },
+        ]}
+      />
+    );
     expect(screen.getByText("Visit Website")).toBeInTheDocument();
   });
 
   it("renders topics section", () => {
-    render(<CaseStudyProseSidebar topics="Design Systems, Components, UI/UX" />);
+    render(
+      <CaseStudyProseSidebar
+        details={[
+          { label: "Topics", value: "Design Systems, Components, UI/UX" },
+        ]}
+      />
+    );
     expect(screen.getByText("Topics")).toBeInTheDocument();
     expect(screen.getByText("Design Systems, Components, UI/UX")).toBeInTheDocument();
   });
@@ -92,13 +106,13 @@ describe("CaseStudyProseSidebar", () => {
   });
 
   it("renders hero image", () => {
-    render(<CaseStudyProseSidebar heroImage="/hero.jpg" heroImageAlt="Hero image" />);
+    render(<CaseStudyProseSidebar heroImageSrc="/hero.jpg" heroImageAlt="Hero image" />);
     const images = screen.getAllByTestId("mock-img");
     expect(images.length).toBeGreaterThan(0);
   });
 
   it("renders company logo", () => {
-    render(<CaseStudyProseSidebar companyLogo="/logo.svg" />);
+    render(<CaseStudyProseSidebar companyLogoSrc="/logo.svg" />);
     const images = screen.getAllByTestId("mock-img");
     expect(images.length).toBeGreaterThan(0);
   });

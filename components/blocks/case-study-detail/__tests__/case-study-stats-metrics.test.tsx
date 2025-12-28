@@ -88,12 +88,12 @@ describe("CaseStudyStatsMetrics", () => {
   });
 
   it("renders CTA button", () => {
-    render(<CaseStudyStatsMetrics ctaLabel="Get Started" ctaHref="/start" />);
+    render(<CaseStudyStatsMetrics ctaAction={{ label: "Get Started", href: "/start" }} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 
   it("renders learn more link", () => {
-    render(<CaseStudyStatsMetrics learnMoreLabel="Learn More" />);
+    render(<CaseStudyStatsMetrics ctaLabel="Learn More" />);
     expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 
@@ -111,13 +111,13 @@ describe("CaseStudyStatsMetrics", () => {
   });
 
   it("renders hero image", () => {
-    render(<CaseStudyStatsMetrics heroImage="/hero.jpg" heroImageAlt="Hero image" />);
+    render(<CaseStudyStatsMetrics heroImageSrc="/hero.jpg" heroImageAlt="Hero image" />);
     const images = screen.getAllByTestId("mock-img");
     expect(images.length).toBeGreaterThan(0);
   });
 
   it("renders company logo", () => {
-    render(<CaseStudyStatsMetrics companyLogo="/logo.svg" />);
+    render(<CaseStudyStatsMetrics companyLogoSrc="/logo.svg" />);
     const images = screen.getAllByTestId("mock-img");
     expect(images.length).toBeGreaterThan(0);
   });
