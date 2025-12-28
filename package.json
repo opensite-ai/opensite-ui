@@ -171,145 +171,265 @@
       "import": "./dist/about-mission-dual-image.js",
       "require": "./dist/about-mission-dual-image.cjs"
     },
-        "./blocks/cta/media-hover-ctas": {
-          "types": "./dist/media-hover-ctas.d.ts",
-          "import": "./dist/media-hover-ctas.js",
-          "require": "./dist/media-hover-ctas.cjs"
-        },
-        "./blocks/cta/cta-documentation-links": {
-          "types": "./dist/cta-documentation-links.d.ts",
-          "import": "./dist/cta-documentation-links.js",
-          "require": "./dist/cta-documentation-links.cjs"
-        },
-        "./blocks/cta/cta-feature-checklist": {
-          "types": "./dist/cta-feature-checklist.d.ts",
-          "import": "./dist/cta-feature-checklist.js",
-          "require": "./dist/cta-feature-checklist.cjs"
-        },
-        "./blocks/cta/cta-split-image": {
-          "types": "./dist/cta-split-image.d.ts",
-          "import": "./dist/cta-split-image.js",
-          "require": "./dist/cta-split-image.cjs"
-        },
-        "./blocks/cta/cta-stacked-cards": {
-          "types": "./dist/cta-stacked-cards.d.ts",
-          "import": "./dist/cta-stacked-cards.js",
-          "require": "./dist/cta-stacked-cards.cjs"
-        },
-        "./blocks/cta/cta-feature-list": {
-          "types": "./dist/cta-feature-list.d.ts",
-          "import": "./dist/cta-feature-list.js",
-          "require": "./dist/cta-feature-list.cjs"
-        },
-        "./blocks/cta/cta-split-image-logos": {
-          "types": "./dist/cta-split-image-logos.d.ts",
-          "import": "./dist/cta-split-image-logos.js",
-          "require": "./dist/cta-split-image-logos.cjs"
-        },
-        "./blocks/cta/cta-fullwidth-background": {
-          "types": "./dist/cta-fullwidth-background.d.ts",
-          "import": "./dist/cta-fullwidth-background.js",
-          "require": "./dist/cta-fullwidth-background.cjs"
-        },
-        "./blocks/cta/cta-feature-cards-grid": {
-          "types": "./dist/cta-feature-cards-grid.d.ts",
-          "import": "./dist/cta-feature-cards-grid.js",
-          "require": "./dist/cta-feature-cards-grid.cjs"
-        },
-        "./blocks/cta/cta-accent-background": {
-          "types": "./dist/cta-accent-background.d.ts",
-          "import": "./dist/cta-accent-background.js",
-          "require": "./dist/cta-accent-background.cjs"
-        },
-        "./blocks/cta/cta-split-gradient-image": {
-          "types": "./dist/cta-split-gradient-image.d.ts",
-          "import": "./dist/cta-split-gradient-image.js",
-          "require": "./dist/cta-split-gradient-image.cjs"
-        },
-        "./blocks/cta/cta-background-icon-badge": {
-          "types": "./dist/cta-background-icon-badge.d.ts",
-          "import": "./dist/cta-background-icon-badge.js",
-          "require": "./dist/cta-background-icon-badge.cjs"
-        },
-        "./blocks/cta/cta-pattern-background": {
-          "types": "./dist/cta-pattern-background.d.ts",
-          "import": "./dist/cta-pattern-background.js",
-          "require": "./dist/cta-pattern-background.cjs"
-        },
-        "./blocks/cta/cta-platform-demo": {
-          "types": "./dist/cta-platform-demo.d.ts",
-          "import": "./dist/cta-platform-demo.js",
-          "require": "./dist/cta-platform-demo.cjs"
-        },
-        "./blocks/cta/cta-enterprise-split": {
-          "types": "./dist/cta-enterprise-split.d.ts",
-          "import": "./dist/cta-enterprise-split.js",
-          "require": "./dist/cta-enterprise-split.cjs"
-        },
-        "./blocks/cta/cta-minimal-separator": {
-          "types": "./dist/cta-minimal-separator.d.ts",
-          "import": "./dist/cta-minimal-separator.js",
-          "require": "./dist/cta-minimal-separator.cjs"
-        },
-        "./blocks/cta/cta-image-overlay-arrow": {
-          "types": "./dist/cta-image-overlay-arrow.d.ts",
-          "import": "./dist/cta-image-overlay-arrow.js",
-          "require": "./dist/cta-image-overlay-arrow.cjs"
-        },
-        "./blocks/cta/cta-app-download-newsletter": {
-          "types": "./dist/cta-app-download-newsletter.d.ts",
-          "import": "./dist/cta-app-download-newsletter.js",
-          "require": "./dist/cta-app-download-newsletter.cjs"
-        },
-        "./blocks/cta/cta-newsletter-features": {
-          "types": "./dist/cta-newsletter-features.d.ts",
-          "import": "./dist/cta-newsletter-features.js",
-          "require": "./dist/cta-newsletter-features.cjs"
-        },
-        "./blocks/cta/cta-hero-feature-cards": {
-          "types": "./dist/cta-hero-feature-cards.d.ts",
-          "import": "./dist/cta-hero-feature-cards.js",
-          "require": "./dist/cta-hero-feature-cards.cjs"
-        },
-        "./blocks/cta/cta-enterprise-dark-features": {
-          "types": "./dist/cta-enterprise-dark-features.d.ts",
-          "import": "./dist/cta-enterprise-dark-features.js",
-          "require": "./dist/cta-enterprise-dark-features.cjs"
-        },
-        "./blocks/cta/cta-gradient-logos-floating": {
-          "types": "./dist/cta-gradient-logos-floating.d.ts",
-          "import": "./dist/cta-gradient-logos-floating.js",
-          "require": "./dist/cta-gradient-logos-floating.cjs"
-        },
-        "./blocks/cta/cta-gradient-stats-hero": {
-          "types": "./dist/cta-gradient-stats-hero.d.ts",
-          "import": "./dist/cta-gradient-stats-hero.js",
-          "require": "./dist/cta-gradient-stats-hero.cjs"
-        },
-        "./blocks/cta/cta-video-background-hero": {
-          "types": "./dist/cta-video-background-hero.d.ts",
-          "import": "./dist/cta-video-background-hero.js",
-          "require": "./dist/cta-video-background-hero.cjs"
-        },
-        "./blocks/cta/cta-workflow-tabs": {
-          "types": "./dist/cta-workflow-tabs.d.ts",
-          "import": "./dist/cta-workflow-tabs.js",
-          "require": "./dist/cta-workflow-tabs.cjs"
-        },
-        "./blocks/cta/cta-case-study-testimonial": {
-          "types": "./dist/cta-case-study-testimonial.d.ts",
-          "import": "./dist/cta-case-study-testimonial.js",
-          "require": "./dist/cta-case-study-testimonial.cjs"
-        },
-        "./blocks/cta/cta-simple-centered": {
-          "types": "./dist/cta-simple-centered.d.ts",
-          "import": "./dist/cta-simple-centered.js",
-          "require": "./dist/cta-simple-centered.cjs"
-        },
-        "./blocks/features/feature-showcase": {
+    "./blocks/cta/media-hover-ctas": {
+      "types": "./dist/media-hover-ctas.d.ts",
+      "import": "./dist/media-hover-ctas.js",
+      "require": "./dist/media-hover-ctas.cjs"
+    },
+    "./blocks/cta/cta-documentation-links": {
+      "types": "./dist/cta-documentation-links.d.ts",
+      "import": "./dist/cta-documentation-links.js",
+      "require": "./dist/cta-documentation-links.cjs"
+    },
+    "./blocks/cta/cta-feature-checklist": {
+      "types": "./dist/cta-feature-checklist.d.ts",
+      "import": "./dist/cta-feature-checklist.js",
+      "require": "./dist/cta-feature-checklist.cjs"
+    },
+    "./blocks/cta/cta-split-image": {
+      "types": "./dist/cta-split-image.d.ts",
+      "import": "./dist/cta-split-image.js",
+      "require": "./dist/cta-split-image.cjs"
+    },
+    "./blocks/cta/cta-stacked-cards": {
+      "types": "./dist/cta-stacked-cards.d.ts",
+      "import": "./dist/cta-stacked-cards.js",
+      "require": "./dist/cta-stacked-cards.cjs"
+    },
+    "./blocks/cta/cta-feature-list": {
+      "types": "./dist/cta-feature-list.d.ts",
+      "import": "./dist/cta-feature-list.js",
+      "require": "./dist/cta-feature-list.cjs"
+    },
+    "./blocks/cta/cta-split-image-logos": {
+      "types": "./dist/cta-split-image-logos.d.ts",
+      "import": "./dist/cta-split-image-logos.js",
+      "require": "./dist/cta-split-image-logos.cjs"
+    },
+    "./blocks/cta/cta-fullwidth-background": {
+      "types": "./dist/cta-fullwidth-background.d.ts",
+      "import": "./dist/cta-fullwidth-background.js",
+      "require": "./dist/cta-fullwidth-background.cjs"
+    },
+    "./blocks/cta/cta-feature-cards-grid": {
+      "types": "./dist/cta-feature-cards-grid.d.ts",
+      "import": "./dist/cta-feature-cards-grid.js",
+      "require": "./dist/cta-feature-cards-grid.cjs"
+    },
+    "./blocks/cta/cta-accent-background": {
+      "types": "./dist/cta-accent-background.d.ts",
+      "import": "./dist/cta-accent-background.js",
+      "require": "./dist/cta-accent-background.cjs"
+    },
+    "./blocks/cta/cta-split-gradient-image": {
+      "types": "./dist/cta-split-gradient-image.d.ts",
+      "import": "./dist/cta-split-gradient-image.js",
+      "require": "./dist/cta-split-gradient-image.cjs"
+    },
+    "./blocks/cta/cta-background-icon-badge": {
+      "types": "./dist/cta-background-icon-badge.d.ts",
+      "import": "./dist/cta-background-icon-badge.js",
+      "require": "./dist/cta-background-icon-badge.cjs"
+    },
+    "./blocks/cta/cta-pattern-background": {
+      "types": "./dist/cta-pattern-background.d.ts",
+      "import": "./dist/cta-pattern-background.js",
+      "require": "./dist/cta-pattern-background.cjs"
+    },
+    "./blocks/cta/cta-platform-demo": {
+      "types": "./dist/cta-platform-demo.d.ts",
+      "import": "./dist/cta-platform-demo.js",
+      "require": "./dist/cta-platform-demo.cjs"
+    },
+    "./blocks/cta/cta-enterprise-split": {
+      "types": "./dist/cta-enterprise-split.d.ts",
+      "import": "./dist/cta-enterprise-split.js",
+      "require": "./dist/cta-enterprise-split.cjs"
+    },
+    "./blocks/cta/cta-minimal-separator": {
+      "types": "./dist/cta-minimal-separator.d.ts",
+      "import": "./dist/cta-minimal-separator.js",
+      "require": "./dist/cta-minimal-separator.cjs"
+    },
+    "./blocks/cta/cta-image-overlay-arrow": {
+      "types": "./dist/cta-image-overlay-arrow.d.ts",
+      "import": "./dist/cta-image-overlay-arrow.js",
+      "require": "./dist/cta-image-overlay-arrow.cjs"
+    },
+    "./blocks/cta/cta-app-download-newsletter": {
+      "types": "./dist/cta-app-download-newsletter.d.ts",
+      "import": "./dist/cta-app-download-newsletter.js",
+      "require": "./dist/cta-app-download-newsletter.cjs"
+    },
+    "./blocks/cta/cta-newsletter-features": {
+      "types": "./dist/cta-newsletter-features.d.ts",
+      "import": "./dist/cta-newsletter-features.js",
+      "require": "./dist/cta-newsletter-features.cjs"
+    },
+    "./blocks/cta/cta-hero-feature-cards": {
+      "types": "./dist/cta-hero-feature-cards.d.ts",
+      "import": "./dist/cta-hero-feature-cards.js",
+      "require": "./dist/cta-hero-feature-cards.cjs"
+    },
+    "./blocks/cta/cta-enterprise-dark-features": {
+      "types": "./dist/cta-enterprise-dark-features.d.ts",
+      "import": "./dist/cta-enterprise-dark-features.js",
+      "require": "./dist/cta-enterprise-dark-features.cjs"
+    },
+    "./blocks/cta/cta-gradient-logos-floating": {
+      "types": "./dist/cta-gradient-logos-floating.d.ts",
+      "import": "./dist/cta-gradient-logos-floating.js",
+      "require": "./dist/cta-gradient-logos-floating.cjs"
+    },
+    "./blocks/cta/cta-gradient-stats-hero": {
+      "types": "./dist/cta-gradient-stats-hero.d.ts",
+      "import": "./dist/cta-gradient-stats-hero.js",
+      "require": "./dist/cta-gradient-stats-hero.cjs"
+    },
+    "./blocks/cta/cta-video-background-hero": {
+      "types": "./dist/cta-video-background-hero.d.ts",
+      "import": "./dist/cta-video-background-hero.js",
+      "require": "./dist/cta-video-background-hero.cjs"
+    },
+    "./blocks/cta/cta-workflow-tabs": {
+      "types": "./dist/cta-workflow-tabs.d.ts",
+      "import": "./dist/cta-workflow-tabs.js",
+      "require": "./dist/cta-workflow-tabs.cjs"
+    },
+    "./blocks/cta/cta-case-study-testimonial": {
+      "types": "./dist/cta-case-study-testimonial.d.ts",
+      "import": "./dist/cta-case-study-testimonial.js",
+      "require": "./dist/cta-case-study-testimonial.cjs"
+    },
+    "./blocks/cta/cta-simple-centered": {
+      "types": "./dist/cta-simple-centered.d.ts",
+      "import": "./dist/cta-simple-centered.js",
+      "require": "./dist/cta-simple-centered.cjs"
+    },
+    "./blocks/features/feature-showcase": {
       "types": "./dist/feature-showcase.d.ts",
       "import": "./dist/feature-showcase.js",
       "require": "./dist/feature-showcase.cjs"
+    },
+    "./blocks/features/feature-split-image": {
+      "types": "./dist/feature-split-image.d.ts",
+      "import": "./dist/feature-split-image.js",
+      "require": "./dist/feature-split-image.cjs"
+    },
+    "./blocks/features/feature-split-image-reverse": {
+      "types": "./dist/feature-split-image-reverse.d.ts",
+      "import": "./dist/feature-split-image-reverse.js",
+      "require": "./dist/feature-split-image-reverse.cjs"
+    },
+    "./blocks/features/feature-icon-grid-bordered": {
+      "types": "./dist/feature-icon-grid-bordered.d.ts",
+      "import": "./dist/feature-icon-grid-bordered.js",
+      "require": "./dist/feature-icon-grid-bordered.cjs"
+    },
+    "./blocks/features/feature-checklist-image": {
+      "types": "./dist/feature-checklist-image.d.ts",
+      "import": "./dist/feature-checklist-image.js",
+      "require": "./dist/feature-checklist-image.cjs"
+    },
+    "./blocks/features/feature-carousel-progress": {
+      "types": "./dist/feature-carousel-progress.d.ts",
+      "import": "./dist/feature-carousel-progress.js",
+      "require": "./dist/feature-carousel-progress.cjs"
+    },
+    "./blocks/features/feature-card-grid-linked": {
+      "types": "./dist/feature-card-grid-linked.d.ts",
+      "import": "./dist/feature-card-grid-linked.js",
+      "require": "./dist/feature-card-grid-linked.cjs"
+    },
+    "./blocks/features/feature-numbered-cards": {
+      "types": "./dist/feature-numbered-cards.d.ts",
+      "import": "./dist/feature-numbered-cards.js",
+      "require": "./dist/feature-numbered-cards.cjs"
+    },
+    "./blocks/features/feature-icon-grid-accent": {
+      "types": "./dist/feature-icon-grid-accent.d.ts",
+      "import": "./dist/feature-icon-grid-accent.js",
+      "require": "./dist/feature-icon-grid-accent.cjs"
+    },
+    "./blocks/features/feature-three-column-values": {
+      "types": "./dist/feature-three-column-values.d.ts",
+      "import": "./dist/feature-three-column-values.js",
+      "require": "./dist/feature-three-column-values.cjs"
+    },
+    "./blocks/features/feature-badge-grid-six": {
+      "types": "./dist/feature-badge-grid-six.d.ts",
+      "import": "./dist/feature-badge-grid-six.js",
+      "require": "./dist/feature-badge-grid-six.cjs"
+    },
+    "./blocks/features/feature-pattern-grid-links": {
+      "types": "./dist/feature-pattern-grid-links.d.ts",
+      "import": "./dist/feature-pattern-grid-links.js",
+      "require": "./dist/feature-pattern-grid-links.cjs"
+    },
+    "./blocks/features/feature-tabbed-content-image": {
+      "types": "./dist/feature-tabbed-content-image.d.ts",
+      "import": "./dist/feature-tabbed-content-image.js",
+      "require": "./dist/feature-tabbed-content-image.cjs"
+    },
+    "./blocks/features/feature-utility-cards-grid": {
+      "types": "./dist/feature-utility-cards-grid.d.ts",
+      "import": "./dist/feature-utility-cards-grid.js",
+      "require": "./dist/feature-utility-cards-grid.cjs"
+    },
+    "./blocks/features/feature-bento-utilities": {
+      "types": "./dist/feature-bento-utilities.d.ts",
+      "import": "./dist/feature-bento-utilities.js",
+      "require": "./dist/feature-bento-utilities.cjs"
+    },
+    "./blocks/features/feature-checklist-three-column": {
+      "types": "./dist/feature-checklist-three-column.d.ts",
+      "import": "./dist/feature-checklist-three-column.js",
+      "require": "./dist/feature-checklist-three-column.cjs"
+    },
+    "./blocks/features/feature-integration-cards": {
+      "types": "./dist/feature-integration-cards.d.ts",
+      "import": "./dist/feature-integration-cards.js",
+      "require": "./dist/feature-integration-cards.cjs"
+    },
+    "./blocks/features/feature-icon-tabs-content": {
+      "types": "./dist/feature-icon-tabs-content.d.ts",
+      "import": "./dist/feature-icon-tabs-content.js",
+      "require": "./dist/feature-icon-tabs-content.cjs"
+    },
+    "./blocks/features/feature-image-overlay-badge": {
+      "types": "./dist/feature-image-overlay-badge.d.ts",
+      "import": "./dist/feature-image-overlay-badge.js",
+      "require": "./dist/feature-image-overlay-badge.cjs"
+    },
+    "./blocks/features/feature-category-image-cards": {
+      "types": "./dist/feature-category-image-cards.d.ts",
+      "import": "./dist/feature-category-image-cards.js",
+      "require": "./dist/feature-category-image-cards.cjs"
+    },
+    "./blocks/features/feature-bento-image-grid": {
+      "types": "./dist/feature-bento-image-grid.d.ts",
+      "import": "./dist/feature-bento-image-grid.js",
+      "require": "./dist/feature-bento-image-grid.cjs"
+    },
+    "./blocks/features/feature-image-cards-three-column": {
+      "types": "./dist/feature-image-cards-three-column.d.ts",
+      "import": "./dist/feature-image-cards-three-column.js",
+      "require": "./dist/feature-image-cards-three-column.cjs"
+    },
+    "./blocks/features/feature-icon-grid-muted": {
+      "types": "./dist/feature-icon-grid-muted.d.ts",
+      "import": "./dist/feature-icon-grid-muted.js",
+      "require": "./dist/feature-icon-grid-muted.cjs"
+    },
+    "./blocks/features/feature-stats-highlight": {
+      "types": "./dist/feature-stats-highlight.d.ts",
+      "import": "./dist/feature-stats-highlight.js",
+      "require": "./dist/feature-stats-highlight.cjs"
+    },
+    "./blocks/features/feature-accordion-image": {
+      "types": "./dist/feature-accordion-image.d.ts",
+      "import": "./dist/feature-accordion-image.js",
+      "require": "./dist/feature-accordion-image.cjs"
     },
     "./blocks/team/team-media-showcase": {
       "types": "./dist/team-media-showcase.d.ts",
@@ -1496,162 +1616,162 @@
       "import": "./dist/process-steps-grid.js",
       "require": "./dist/process-steps-grid.cjs"
     },
-        "./blocks/process/process-numbered-services": {
-          "types": "./dist/process-numbered-services.d.ts",
-          "import": "./dist/process-numbered-services.js",
-          "require": "./dist/process-numbered-services.cjs"
-        },
-        "./blocks/project-list/project-alternating-motion": {
-          "types": "./dist/project-alternating-motion.d.ts",
-          "import": "./dist/project-alternating-motion.js",
-          "require": "./dist/project-alternating-motion.cjs"
-        },
-        "./blocks/project-list/project-background-reveal": {
-          "types": "./dist/project-background-reveal.d.ts",
-          "import": "./dist/project-background-reveal.js",
-          "require": "./dist/project-background-reveal.cjs"
-        },
-        "./blocks/project-list/project-card-overlay": {
-          "types": "./dist/project-card-overlay.d.ts",
-          "import": "./dist/project-card-overlay.js",
-          "require": "./dist/project-card-overlay.cjs"
-        },
-        "./blocks/project-list/project-carousel-cinematic": {
-          "types": "./dist/project-carousel-cinematic.d.ts",
-          "import": "./dist/project-carousel-cinematic.js",
-          "require": "./dist/project-carousel-cinematic.cjs"
-        },
-        "./blocks/project-list/project-carousel-detail-cards": {
-          "types": "./dist/project-carousel-detail-cards.d.ts",
-          "import": "./dist/project-carousel-detail-cards.js",
-          "require": "./dist/project-carousel-detail-cards.cjs"
-        },
-        "./blocks/project-list/project-carousel-minimal": {
-          "types": "./dist/project-carousel-minimal.d.ts",
-          "import": "./dist/project-carousel-minimal.js",
-          "require": "./dist/project-carousel-minimal.cjs"
-        },
-        "./blocks/project-list/project-experience-quote": {
-          "types": "./dist/project-experience-quote.d.ts",
-          "import": "./dist/project-experience-quote.js",
-          "require": "./dist/project-experience-quote.cjs"
-        },
-        "./blocks/project-list/project-featured-carousel": {
-          "types": "./dist/project-featured-carousel.d.ts",
-          "import": "./dist/project-featured-carousel.js",
-          "require": "./dist/project-featured-carousel.cjs"
-        },
-        "./blocks/project-list/project-filterable-gallery": {
-          "types": "./dist/project-filterable-gallery.d.ts",
-          "import": "./dist/project-filterable-gallery.js",
-          "require": "./dist/project-filterable-gallery.cjs"
-        },
-        "./blocks/project-list/project-filterable-three-column": {
-          "types": "./dist/project-filterable-three-column.d.ts",
-          "import": "./dist/project-filterable-three-column.js",
-          "require": "./dist/project-filterable-three-column.cjs"
-        },
-        "./blocks/project-list/project-grid-gallery": {
-          "types": "./dist/project-grid-gallery.d.ts",
-          "import": "./dist/project-grid-gallery.js",
-          "require": "./dist/project-grid-gallery.cjs"
-        },
-        "./blocks/project-list/project-grid-motion": {
-          "types": "./dist/project-grid-motion.d.ts",
-          "import": "./dist/project-grid-motion.js",
-          "require": "./dist/project-grid-motion.cjs"
-        },
-        "./blocks/project-list/project-horizontal-cards": {
-          "types": "./dist/project-horizontal-cards.d.ts",
-          "import": "./dist/project-horizontal-cards.js",
-          "require": "./dist/project-horizontal-cards.cjs"
-        },
-        "./blocks/project-list/project-hover-reveal-grid": {
-          "types": "./dist/project-hover-reveal-grid.d.ts",
-          "import": "./dist/project-hover-reveal-grid.js",
-          "require": "./dist/project-hover-reveal-grid.cjs"
-        },
-        "./blocks/project-list/project-interactive-hover-reveal": {
-          "types": "./dist/project-interactive-hover-reveal.d.ts",
-          "import": "./dist/project-interactive-hover-reveal.js",
-          "require": "./dist/project-interactive-hover-reveal.cjs"
-        },
-        "./blocks/project-list/project-masonry-columns": {
-          "types": "./dist/project-masonry-columns.d.ts",
-          "import": "./dist/project-masonry-columns.js",
-          "require": "./dist/project-masonry-columns.cjs"
-        },
-        "./blocks/project-list/project-nature-mosaic": {
-          "types": "./dist/project-nature-mosaic.d.ts",
-          "import": "./dist/project-nature-mosaic.js",
-          "require": "./dist/project-nature-mosaic.cjs"
-        },
-        "./blocks/project-list/project-scroll-reveal": {
-          "types": "./dist/project-scroll-reveal.d.ts",
-          "import": "./dist/project-scroll-reveal.js",
-          "require": "./dist/project-scroll-reveal.cjs"
-        },
-        "./blocks/project-list/project-showcase-alternating": {
-          "types": "./dist/project-showcase-alternating.d.ts",
-          "import": "./dist/project-showcase-alternating.js",
-          "require": "./dist/project-showcase-alternating.cjs"
-        },
-        "./blocks/project-list/project-sticky-scroll": {
-          "types": "./dist/project-sticky-scroll.d.ts",
-          "import": "./dist/project-sticky-scroll.js",
-          "require": "./dist/project-sticky-scroll.cjs"
-        },
-        "./blocks/project-list/project-studio-hover-preview": {
-          "types": "./dist/project-studio-hover-preview.d.ts",
-          "import": "./dist/project-studio-hover-preview.js",
-          "require": "./dist/project-studio-hover-preview.cjs"
-        },
-        "./blocks/project-list/project-table-list": {
-          "types": "./dist/project-table-list.d.ts",
-          "import": "./dist/project-table-list.js",
-          "require": "./dist/project-table-list.cjs"
-        },
-        "./blocks/project-list/project-video-carousel": {
-          "types": "./dist/project-video-carousel.d.ts",
-          "import": "./dist/project-video-carousel.js",
-          "require": "./dist/project-video-carousel.cjs"
-        },
-        "./blocks/project-list/project-video-hover-bento": {
-          "types": "./dist/project-video-hover-bento.d.ts",
-          "import": "./dist/project-video-hover-bento.js",
-          "require": "./dist/project-video-hover-bento.cjs"
-        },
-        "./blocks/project-list/project-video-hover-grid": {
-          "types": "./dist/project-video-hover-grid.d.ts",
-          "import": "./dist/project-video-hover-grid.js",
-          "require": "./dist/project-video-hover-grid.cjs"
-        },
-        "./blocks/project-list/project-video-hover-rounded": {
-          "types": "./dist/project-video-hover-rounded.d.ts",
-          "import": "./dist/project-video-hover-rounded.js",
-          "require": "./dist/project-video-hover-rounded.cjs"
-        },
-        "./blocks/project-list/project-video-hover-stack": {
-          "types": "./dist/project-video-hover-stack.d.ts",
-          "import": "./dist/project-video-hover-stack.js",
-          "require": "./dist/project-video-hover-stack.cjs"
-        },
-        "./blocks/project-list/project-video-hover-two-by-two": {
-          "types": "./dist/project-video-hover-two-by-two.d.ts",
-          "import": "./dist/project-video-hover-two-by-two.js",
-          "require": "./dist/project-video-hover-two-by-two.cjs"
-        },
-        "./blocks/project-list/project-work-showcase": {
-          "types": "./dist/project-work-showcase.d.ts",
-          "import": "./dist/project-work-showcase.js",
-          "require": "./dist/project-work-showcase.cjs"
-        },
-        "./blocks/project-list/project-zigzag-layout": {
-          "types": "./dist/project-zigzag-layout.d.ts",
-          "import": "./dist/project-zigzag-layout.js",
-          "require": "./dist/project-zigzag-layout.cjs"
-        },
-        "./registry": {
+    "./blocks/process/process-numbered-services": {
+      "types": "./dist/process-numbered-services.d.ts",
+      "import": "./dist/process-numbered-services.js",
+      "require": "./dist/process-numbered-services.cjs"
+    },
+    "./blocks/project-list/project-alternating-motion": {
+      "types": "./dist/project-alternating-motion.d.ts",
+      "import": "./dist/project-alternating-motion.js",
+      "require": "./dist/project-alternating-motion.cjs"
+    },
+    "./blocks/project-list/project-background-reveal": {
+      "types": "./dist/project-background-reveal.d.ts",
+      "import": "./dist/project-background-reveal.js",
+      "require": "./dist/project-background-reveal.cjs"
+    },
+    "./blocks/project-list/project-card-overlay": {
+      "types": "./dist/project-card-overlay.d.ts",
+      "import": "./dist/project-card-overlay.js",
+      "require": "./dist/project-card-overlay.cjs"
+    },
+    "./blocks/project-list/project-carousel-cinematic": {
+      "types": "./dist/project-carousel-cinematic.d.ts",
+      "import": "./dist/project-carousel-cinematic.js",
+      "require": "./dist/project-carousel-cinematic.cjs"
+    },
+    "./blocks/project-list/project-carousel-detail-cards": {
+      "types": "./dist/project-carousel-detail-cards.d.ts",
+      "import": "./dist/project-carousel-detail-cards.js",
+      "require": "./dist/project-carousel-detail-cards.cjs"
+    },
+    "./blocks/project-list/project-carousel-minimal": {
+      "types": "./dist/project-carousel-minimal.d.ts",
+      "import": "./dist/project-carousel-minimal.js",
+      "require": "./dist/project-carousel-minimal.cjs"
+    },
+    "./blocks/project-list/project-experience-quote": {
+      "types": "./dist/project-experience-quote.d.ts",
+      "import": "./dist/project-experience-quote.js",
+      "require": "./dist/project-experience-quote.cjs"
+    },
+    "./blocks/project-list/project-featured-carousel": {
+      "types": "./dist/project-featured-carousel.d.ts",
+      "import": "./dist/project-featured-carousel.js",
+      "require": "./dist/project-featured-carousel.cjs"
+    },
+    "./blocks/project-list/project-filterable-gallery": {
+      "types": "./dist/project-filterable-gallery.d.ts",
+      "import": "./dist/project-filterable-gallery.js",
+      "require": "./dist/project-filterable-gallery.cjs"
+    },
+    "./blocks/project-list/project-filterable-three-column": {
+      "types": "./dist/project-filterable-three-column.d.ts",
+      "import": "./dist/project-filterable-three-column.js",
+      "require": "./dist/project-filterable-three-column.cjs"
+    },
+    "./blocks/project-list/project-grid-gallery": {
+      "types": "./dist/project-grid-gallery.d.ts",
+      "import": "./dist/project-grid-gallery.js",
+      "require": "./dist/project-grid-gallery.cjs"
+    },
+    "./blocks/project-list/project-grid-motion": {
+      "types": "./dist/project-grid-motion.d.ts",
+      "import": "./dist/project-grid-motion.js",
+      "require": "./dist/project-grid-motion.cjs"
+    },
+    "./blocks/project-list/project-horizontal-cards": {
+      "types": "./dist/project-horizontal-cards.d.ts",
+      "import": "./dist/project-horizontal-cards.js",
+      "require": "./dist/project-horizontal-cards.cjs"
+    },
+    "./blocks/project-list/project-hover-reveal-grid": {
+      "types": "./dist/project-hover-reveal-grid.d.ts",
+      "import": "./dist/project-hover-reveal-grid.js",
+      "require": "./dist/project-hover-reveal-grid.cjs"
+    },
+    "./blocks/project-list/project-interactive-hover-reveal": {
+      "types": "./dist/project-interactive-hover-reveal.d.ts",
+      "import": "./dist/project-interactive-hover-reveal.js",
+      "require": "./dist/project-interactive-hover-reveal.cjs"
+    },
+    "./blocks/project-list/project-masonry-columns": {
+      "types": "./dist/project-masonry-columns.d.ts",
+      "import": "./dist/project-masonry-columns.js",
+      "require": "./dist/project-masonry-columns.cjs"
+    },
+    "./blocks/project-list/project-nature-mosaic": {
+      "types": "./dist/project-nature-mosaic.d.ts",
+      "import": "./dist/project-nature-mosaic.js",
+      "require": "./dist/project-nature-mosaic.cjs"
+    },
+    "./blocks/project-list/project-scroll-reveal": {
+      "types": "./dist/project-scroll-reveal.d.ts",
+      "import": "./dist/project-scroll-reveal.js",
+      "require": "./dist/project-scroll-reveal.cjs"
+    },
+    "./blocks/project-list/project-showcase-alternating": {
+      "types": "./dist/project-showcase-alternating.d.ts",
+      "import": "./dist/project-showcase-alternating.js",
+      "require": "./dist/project-showcase-alternating.cjs"
+    },
+    "./blocks/project-list/project-sticky-scroll": {
+      "types": "./dist/project-sticky-scroll.d.ts",
+      "import": "./dist/project-sticky-scroll.js",
+      "require": "./dist/project-sticky-scroll.cjs"
+    },
+    "./blocks/project-list/project-studio-hover-preview": {
+      "types": "./dist/project-studio-hover-preview.d.ts",
+      "import": "./dist/project-studio-hover-preview.js",
+      "require": "./dist/project-studio-hover-preview.cjs"
+    },
+    "./blocks/project-list/project-table-list": {
+      "types": "./dist/project-table-list.d.ts",
+      "import": "./dist/project-table-list.js",
+      "require": "./dist/project-table-list.cjs"
+    },
+    "./blocks/project-list/project-video-carousel": {
+      "types": "./dist/project-video-carousel.d.ts",
+      "import": "./dist/project-video-carousel.js",
+      "require": "./dist/project-video-carousel.cjs"
+    },
+    "./blocks/project-list/project-video-hover-bento": {
+      "types": "./dist/project-video-hover-bento.d.ts",
+      "import": "./dist/project-video-hover-bento.js",
+      "require": "./dist/project-video-hover-bento.cjs"
+    },
+    "./blocks/project-list/project-video-hover-grid": {
+      "types": "./dist/project-video-hover-grid.d.ts",
+      "import": "./dist/project-video-hover-grid.js",
+      "require": "./dist/project-video-hover-grid.cjs"
+    },
+    "./blocks/project-list/project-video-hover-rounded": {
+      "types": "./dist/project-video-hover-rounded.d.ts",
+      "import": "./dist/project-video-hover-rounded.js",
+      "require": "./dist/project-video-hover-rounded.cjs"
+    },
+    "./blocks/project-list/project-video-hover-stack": {
+      "types": "./dist/project-video-hover-stack.d.ts",
+      "import": "./dist/project-video-hover-stack.js",
+      "require": "./dist/project-video-hover-stack.cjs"
+    },
+    "./blocks/project-list/project-video-hover-two-by-two": {
+      "types": "./dist/project-video-hover-two-by-two.d.ts",
+      "import": "./dist/project-video-hover-two-by-two.js",
+      "require": "./dist/project-video-hover-two-by-two.cjs"
+    },
+    "./blocks/project-list/project-work-showcase": {
+      "types": "./dist/project-work-showcase.d.ts",
+      "import": "./dist/project-work-showcase.js",
+      "require": "./dist/project-work-showcase.cjs"
+    },
+    "./blocks/project-list/project-zigzag-layout": {
+      "types": "./dist/project-zigzag-layout.d.ts",
+      "import": "./dist/project-zigzag-layout.js",
+      "require": "./dist/project-zigzag-layout.cjs"
+    },
+    "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
@@ -1720,6 +1840,7 @@
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-progress": "^1.1.8",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-switch": "^1.2.6",

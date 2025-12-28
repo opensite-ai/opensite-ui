@@ -59,6 +59,30 @@ import { CtaCaseStudyTestimonial } from "../../components/blocks/cta/cta-case-st
 import { CtaSimpleCentered } from "../../components/blocks/cta/cta-simple-centered";
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
+import { FeatureSplitImage } from "../../components/blocks/features/feature-split-image";
+import { FeatureSplitImageReverse } from "../../components/blocks/features/feature-split-image-reverse";
+import { FeatureIconGridBordered } from "../../components/blocks/features/feature-icon-grid-bordered";
+import { FeatureChecklistImage } from "../../components/blocks/features/feature-checklist-image";
+import { FeatureCarouselProgress } from "../../components/blocks/features/feature-carousel-progress";
+import { FeatureCardGridLinked } from "../../components/blocks/features/feature-card-grid-linked";
+import { FeatureNumberedCards } from "../../components/blocks/features/feature-numbered-cards";
+import { FeatureIconGridAccent } from "../../components/blocks/features/feature-icon-grid-accent";
+import { FeatureThreeColumnValues } from "../../components/blocks/features/feature-three-column-values";
+import { FeatureBadgeGridSix } from "../../components/blocks/features/feature-badge-grid-six";
+import { FeaturePatternGridLinks } from "../../components/blocks/features/feature-pattern-grid-links";
+import { FeatureTabbedContentImage } from "../../components/blocks/features/feature-tabbed-content-image";
+import { FeatureUtilityCardsGrid } from "../../components/blocks/features/feature-utility-cards-grid";
+import { FeatureBentoUtilities } from "../../components/blocks/features/feature-bento-utilities";
+import { FeatureChecklistThreeColumn } from "../../components/blocks/features/feature-checklist-three-column";
+import { FeatureIntegrationCards } from "../../components/blocks/features/feature-integration-cards";
+import { FeatureIconTabsContent } from "../../components/blocks/features/feature-icon-tabs-content";
+import { FeatureImageOverlayBadge } from "../../components/blocks/features/feature-image-overlay-badge";
+import { FeatureCategoryImageCards } from "../../components/blocks/features/feature-category-image-cards";
+import { FeatureBentoImageGrid } from "../../components/blocks/features/feature-bento-image-grid";
+import { FeatureImageCardsThreeColumn } from "../../components/blocks/features/feature-image-cards-three-column";
+import { FeatureIconGridMuted } from "../../components/blocks/features/feature-icon-grid-muted";
+import { FeatureStatsHighlight } from "../../components/blocks/features/feature-stats-highlight";
+import { FeatureAccordionImage } from "../../components/blocks/features/feature-accordion-image";
 import { TeamMediaShowcase } from "../../components/blocks/team/team-media-showcase";
 import type { TeamMediaShowcaseProps } from "../../components/blocks/team/team-media-showcase";
 import { TeamSimpleGrid } from "../../components/blocks/team/team-simple-grid";
@@ -1785,6 +1809,706 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       ),
       mediaComponent: <img src="..." alt="Integrations" className="rounded-lg" />
     }
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-split-image": {
+    id: "feature-split-image",
+    name: "Feature Split Image",
+    description:
+      "Two-column feature section with text content on the left and a large image on the right. Includes badge, heading, description, feature list with icons, and CTA button. Perfect for product features, service highlights, or capability showcases.",
+    semanticTags: [
+      "features",
+      "split-layout",
+      "two-column",
+      "image",
+      "product",
+      "capabilities",
+      "benefits",
+      "cta",
+    ],
+    category: "features",
+    component: FeatureSplitImage,
+    props: "FeatureSplitImageProps",
+    exampleUsage: `
+<FeatureSplitImage
+  badge="Features"
+  title="Powerful Tools for Your Business"
+  description="Everything you need to grow your business."
+  features={[
+    { icon: "lucide/zap", title: "Fast Performance", description: "Lightning fast load times" },
+    { icon: "lucide/shield", title: "Secure", description: "Enterprise-grade security" },
+  ]}
+  buttonText="Get Started"
+  buttonLink="/signup"
+  imageSrc="/feature-image.jpg"
+  imageAlt="Feature showcase"
+/>
+    `.trim(),
+  },
+  "feature-split-image-reverse": {
+    id: "feature-split-image-reverse",
+    name: "Feature Split Image Reverse",
+    description:
+      "Two-column feature section with a large image on the left and text content on the right. Mirror layout of Feature Split Image. Includes badge, heading, description, feature list with icons, and CTA button.",
+    semanticTags: [
+      "features",
+      "split-layout",
+      "two-column",
+      "image",
+      "reverse",
+      "product",
+      "capabilities",
+      "benefits",
+    ],
+    category: "features",
+    component: FeatureSplitImageReverse,
+    props: "FeatureSplitImageReverseProps",
+    exampleUsage: `
+<FeatureSplitImageReverse
+  badge="Features"
+  title="Streamline Your Workflow"
+  description="Automate repetitive tasks and focus on what matters."
+  features={[
+    { icon: "lucide/clock", title: "Save Time", description: "Automate daily tasks" },
+    { icon: "lucide/users", title: "Collaborate", description: "Work together seamlessly" },
+  ]}
+  buttonText="Learn More"
+  imageSrc="/workflow-image.jpg"
+/>
+    `.trim(),
+  },
+  "feature-icon-grid-bordered": {
+    id: "feature-icon-grid-bordered",
+    name: "Feature Icon Grid Bordered",
+    description:
+      "Four-column grid of features with icons and dashed left borders. Each feature has an icon badge, title, and description. Clean, organized layout for showcasing multiple capabilities.",
+    semanticTags: [
+      "features",
+      "grid",
+      "icons",
+      "bordered",
+      "four-column",
+      "capabilities",
+      "benefits",
+    ],
+    category: "features",
+    component: FeatureIconGridBordered,
+    props: "FeatureIconGridBorderedProps",
+    exampleUsage: `
+<FeatureIconGridBordered
+  title="Why Choose Us"
+  description="Discover the benefits of our platform."
+  features={[
+    { icon: "lucide/zap", title: "Fast", description: "Lightning speed" },
+    { icon: "lucide/shield", title: "Secure", description: "Bank-level security" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-checklist-image": {
+    id: "feature-checklist-image",
+    name: "Feature Checklist Image",
+    description:
+      "Split layout with a large image on the left and a checklist of benefits on the right. Each benefit has a check icon, title, and description. Great for product benefits or service features.",
+    semanticTags: [
+      "features",
+      "checklist",
+      "image",
+      "benefits",
+      "split-layout",
+      "two-column",
+      "product",
+    ],
+    category: "features",
+    component: FeatureChecklistImage,
+    props: "FeatureChecklistImageProps",
+    exampleUsage: `
+<FeatureChecklistImage
+  title="Everything You Need"
+  description="Our platform includes all the tools you need."
+  benefits={[
+    { title: "Easy Setup", description: "Get started in minutes" },
+    { title: "24/7 Support", description: "We're always here to help" },
+  ]}
+  imageSrc="/benefits-image.jpg"
+/>
+    `.trim(),
+  },
+  "feature-carousel-progress": {
+    id: "feature-carousel-progress",
+    name: "Feature Carousel Progress",
+    description:
+      "Carousel-based feature display with progress indicator. Each slide shows a feature with image, title, and description. Includes navigation arrows and progress bar for visual feedback.",
+    semanticTags: [
+      "features",
+      "carousel",
+      "slider",
+      "progress",
+      "interactive",
+      "showcase",
+      "product",
+    ],
+    category: "features",
+    component: FeatureCarouselProgress,
+    props: "FeatureCarouselProgressProps",
+    exampleUsage: `
+<FeatureCarouselProgress
+  title="Key Features"
+  description="Explore what makes us different."
+  features={[
+    { imageSrc: "/feature1.jpg", title: "Analytics", description: "Track everything" },
+    { imageSrc: "/feature2.jpg", title: "Automation", description: "Save time" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-card-grid-linked": {
+    id: "feature-card-grid-linked",
+    name: "Feature Card Grid Linked",
+    description:
+      "Two-column grid of feature cards with images and clickable headings. Each card has an image, title link, and description. Perfect for blog posts, resources, or feature highlights.",
+    semanticTags: [
+      "features",
+      "grid",
+      "cards",
+      "linked",
+      "two-column",
+      "images",
+      "resources",
+    ],
+    category: "features",
+    component: FeatureCardGridLinked,
+    props: "FeatureCardGridLinkedProps",
+    exampleUsage: `
+<FeatureCardGridLinked
+  title="Resources"
+  description="Learn more about our platform."
+  features={[
+    { imageSrc: "/resource1.jpg", title: "Getting Started", description: "Quick start guide", link: "/docs/start" },
+    { imageSrc: "/resource2.jpg", title: "Best Practices", description: "Tips and tricks", link: "/docs/tips" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-numbered-cards": {
+    id: "feature-numbered-cards",
+    name: "Feature Numbered Cards",
+    description:
+      "Stacked feature cards with numbered badges and images. Each card has a number badge in the top-left corner, image, title, and description. Great for step-by-step processes or ranked features.",
+    semanticTags: [
+      "features",
+      "numbered",
+      "cards",
+      "steps",
+      "process",
+      "images",
+      "ranked",
+    ],
+    category: "features",
+    component: FeatureNumberedCards,
+    props: "FeatureNumberedCardsProps",
+    exampleUsage: `
+<FeatureNumberedCards
+  title="How It Works"
+  description="Simple steps to get started."
+  features={[
+    { imageSrc: "/step1.jpg", title: "Sign Up", description: "Create your account" },
+    { imageSrc: "/step2.jpg", title: "Configure", description: "Set up your workspace" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-icon-grid-accent": {
+    id: "feature-icon-grid-accent",
+    name: "Feature Icon Grid Accent",
+    description:
+      "Two-column grid of features with accent background cards. Each feature has an icon in an accent-colored circle, title, and description. Modern, colorful design for capability showcases.",
+    semanticTags: [
+      "features",
+      "grid",
+      "icons",
+      "accent",
+      "two-column",
+      "colorful",
+      "capabilities",
+    ],
+    category: "features",
+    component: FeatureIconGridAccent,
+    props: "FeatureIconGridAccentProps",
+    exampleUsage: `
+<FeatureIconGridAccent
+  title="Platform Features"
+  description="Everything you need in one place."
+  features={[
+    { icon: "lucide/layers", title: "Components", description: "Pre-built UI elements" },
+    { icon: "lucide/palette", title: "Themes", description: "Customizable styles" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-three-column-values": {
+    id: "feature-three-column-values",
+    name: "Feature Three Column Values",
+    description:
+      "Three-column grid of value cards with icons. Each card has an icon, title, and description. Clean, balanced layout for company values, core principles, or key benefits.",
+    semanticTags: [
+      "features",
+      "values",
+      "three-column",
+      "grid",
+      "icons",
+      "principles",
+      "benefits",
+    ],
+    category: "features",
+    component: FeatureThreeColumnValues,
+    props: "FeatureThreeColumnValuesProps",
+    exampleUsage: `
+<FeatureThreeColumnValues
+  title="Our Values"
+  description="What drives us every day."
+  values={[
+    { icon: "lucide/heart", title: "Customer First", description: "Your success is our priority" },
+    { icon: "lucide/lightbulb", title: "Innovation", description: "Always pushing boundaries" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-badge-grid-six": {
+    id: "feature-badge-grid-six",
+    name: "Feature Badge Grid Six",
+    description:
+      "Six-feature grid with badge header and centered CTA button. Each feature has an icon in an accent circle, title, and description. Includes badge label and large heading.",
+    semanticTags: [
+      "features",
+      "grid",
+      "six-column",
+      "badge",
+      "icons",
+      "cta",
+      "capabilities",
+    ],
+    category: "features",
+    component: FeatureBadgeGridSix,
+    props: "FeatureBadgeGridSixProps",
+    exampleUsage: `
+<FeatureBadgeGridSix
+  badge="Features"
+  title="Everything You Need"
+  description="Comprehensive tools for your business."
+  features={[
+    { icon: "lucide/zap", title: "Fast", description: "Lightning speed" },
+  ]}
+  buttonText="Get Started"
+/>
+    `.trim(),
+  },
+  "feature-pattern-grid-links": {
+    id: "feature-pattern-grid-links",
+    name: "Feature Pattern Grid Links",
+    description:
+      "Six-feature grid with pattern background and 'Learn more' links on each card. Each card has an icon, title, description, and arrow link. Pattern background adds visual interest.",
+    semanticTags: [
+      "features",
+      "grid",
+      "pattern",
+      "links",
+      "six-column",
+      "icons",
+      "learn-more",
+    ],
+    category: "features",
+    component: FeaturePatternGridLinks,
+    props: "FeaturePatternGridLinksProps",
+    exampleUsage: `
+<FeaturePatternGridLinks
+  title="Platform Capabilities"
+  description="Explore our powerful features."
+  features={[
+    { icon: "lucide/database", title: "Data Storage", description: "Secure cloud storage", link: "/features/storage" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-tabbed-content-image": {
+    id: "feature-tabbed-content-image",
+    name: "Feature Tabbed Content Image",
+    description:
+      "Tabbed interface with content and images that change based on selected tab. Each tab shows heading, description, checklist features, CTA button, and responsive image.",
+    semanticTags: [
+      "features",
+      "tabs",
+      "tabbed",
+      "interactive",
+      "images",
+      "checklist",
+      "cta",
+    ],
+    category: "features",
+    component: FeatureTabbedContentImage,
+    props: "FeatureTabbedContentImageProps",
+    exampleUsage: `
+<FeatureTabbedContentImage
+  title="Product Features"
+  description="Explore our capabilities."
+  tabs={[
+    {
+      id: "analytics",
+      label: "Analytics",
+      heading: "Powerful Analytics",
+      description: "Track everything.",
+      features: ["Real-time data", "Custom reports"],
+      buttonText: "Learn More",
+      imageSrc: "/analytics.jpg",
+    },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-utility-cards-grid": {
+    id: "feature-utility-cards-grid",
+    name: "Feature Utility Cards Grid",
+    description:
+      "Six-card grid showcasing utilities with images and descriptions. Header with separator line, two-column intro, and three-column card grid. Each card has image, title, and description.",
+    semanticTags: [
+      "features",
+      "utilities",
+      "grid",
+      "cards",
+      "images",
+      "three-column",
+      "tools",
+    ],
+    category: "features",
+    component: FeatureUtilityCardsGrid,
+    props: "FeatureUtilityCardsGridProps",
+    exampleUsage: `
+<FeatureUtilityCardsGrid
+  iconLabel="lucide/wrench"
+  title="Utilities"
+  description="Tools to enhance your workflow."
+  utilities={[
+    { imageSrc: "/tool1.jpg", title: "Code Editor", description: "Write code faster" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-bento-utilities": {
+    id: "feature-bento-utilities",
+    name: "Feature Bento Utilities",
+    description:
+      "Bento-style grid layout with mixed card sizes showcasing various utilities. Two-column bento grid with varying card heights and image cards. Includes sparkle icons and coming soon badges.",
+    semanticTags: [
+      "features",
+      "bento",
+      "grid",
+      "utilities",
+      "mixed-sizes",
+      "images",
+      "modern",
+    ],
+    category: "features",
+    component: FeatureBentoUtilities,
+    props: "FeatureBentoUtilitiesProps",
+    exampleUsage: `
+<FeatureBentoUtilities
+  title="Platform Utilities"
+  description="Everything you need in one place."
+  utilities={[
+    { title: "Analytics", description: "Track metrics", imageSrc: "/analytics.jpg" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-checklist-three-column": {
+    id: "feature-checklist-three-column",
+    name: "Feature Checklist Three Column",
+    description:
+      "Three-column layout with heading, dual checklists, and feature cards with images. First column has heading and description, middle columns have checklists, and feature cards below with badges and read more links.",
+    semanticTags: [
+      "features",
+      "checklist",
+      "three-column",
+      "cards",
+      "images",
+      "badges",
+      "benefits",
+    ],
+    category: "features",
+    component: FeatureChecklistThreeColumn,
+    props: "FeatureChecklistThreeColumnProps",
+    exampleUsage: `
+<FeatureChecklistThreeColumn
+  title="Why Choose Us"
+  description="The benefits of our platform."
+  checklistLeft={["Fast setup", "24/7 support"]}
+  checklistRight={["Secure", "Scalable"]}
+  features={[
+    { imageSrc: "/feature1.jpg", badge: "New", title: "Analytics", description: "Track everything", link: "/analytics" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-integration-cards": {
+    id: "feature-integration-cards",
+    name: "Feature Integration Cards",
+    description:
+      "Grid of integration cards with icons, descriptions, and visit website links. Centered header with four-column grid of bordered cards. Each card has icon badge, title, description, and external link button.",
+    semanticTags: [
+      "features",
+      "integrations",
+      "cards",
+      "grid",
+      "icons",
+      "external-links",
+      "partners",
+    ],
+    category: "features",
+    component: FeatureIntegrationCards,
+    props: "FeatureIntegrationCardsProps",
+    exampleUsage: `
+<FeatureIntegrationCards
+  title="Integrations"
+  description="Connect with your favorite tools."
+  integrations={[
+    { icon: "simple-icons/slack", title: "Slack", description: "Team communication", link: "https://slack.com" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-icon-tabs-content": {
+    id: "feature-icon-tabs-content",
+    name: "Feature Icon Tabs Content",
+    description:
+      "Tabbed interface with icon triggers and content panels featuring images and CTAs. Centered header with icon tabs, muted background content area. Each tab has badge label, heading, description, CTA button, and image.",
+    semanticTags: [
+      "features",
+      "tabs",
+      "icons",
+      "interactive",
+      "images",
+      "cta",
+      "showcase",
+    ],
+    category: "features",
+    component: FeatureIconTabsContent,
+    props: "FeatureIconTabsContentProps",
+    exampleUsage: `
+<FeatureIconTabsContent
+  title="Platform Features"
+  description="Explore our capabilities."
+  tabs={[
+    {
+      id: "analytics",
+      icon: "lucide/bar-chart",
+      label: "Analytics",
+      badge: "Popular",
+      heading: "Powerful Analytics",
+      description: "Track everything.",
+      buttonText: "Learn More",
+      imageSrc: "/analytics.jpg",
+    },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-image-overlay-badge": {
+    id: "feature-image-overlay-badge",
+    name: "Feature Image Overlay Badge",
+    description:
+      "Two-column layout with content and an image featuring gradient overlay with avatar badge and CTA. Left side has heading, description, and feature list. Right side has image with gradient overlay, avatar badge, and floating CTA.",
+    semanticTags: [
+      "features",
+      "image",
+      "overlay",
+      "badge",
+      "avatar",
+      "gradient",
+      "cta",
+      "two-column",
+    ],
+    category: "features",
+    component: FeatureImageOverlayBadge,
+    props: "FeatureImageOverlayBadgeProps",
+    exampleUsage: `
+<FeatureImageOverlayBadge
+  title="Transform Your Business"
+  description="Powerful tools for growth."
+  features={[
+    { icon: "lucide/zap", text: "Lightning fast" },
+  ]}
+  imageSrc="/hero-image.jpg"
+  avatarSrc="/avatar.jpg"
+  avatarName="John Doe"
+  avatarRole="CEO"
+  ctaText="Get Started"
+/>
+    `.trim(),
+  },
+  "feature-category-image-cards": {
+    id: "feature-category-image-cards",
+    name: "Feature Category Image Cards",
+    description:
+      "Six-card grid with category badges and large images showcasing key features. Centered header with three-column grid of muted background cards. Each card has category label, large image, title, and description.",
+    semanticTags: [
+      "features",
+      "categories",
+      "cards",
+      "images",
+      "grid",
+      "three-column",
+      "showcase",
+    ],
+    category: "features",
+    component: FeatureCategoryImageCards,
+    props: "FeatureCategoryImageCardsProps",
+    exampleUsage: `
+<FeatureCategoryImageCards
+  title="Platform Features"
+  description="Everything you need."
+  features={[
+    { category: "Analytics", imageSrc: "/analytics.jpg", title: "Real-time Data", description: "Track metrics" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-bento-image-grid": {
+    id: "feature-bento-image-grid",
+    name: "Feature Bento Image Grid",
+    description:
+      "Asymmetric bento-style grid with large and small image cards featuring gradient overlays and CTAs. One large card and two smaller cards with gradient overlays, icon badges, hover animations, and responsive layout.",
+    semanticTags: [
+      "features",
+      "bento",
+      "grid",
+      "images",
+      "gradient",
+      "overlay",
+      "asymmetric",
+      "modern",
+    ],
+    category: "features",
+    component: FeatureBentoImageGrid,
+    props: "FeatureBentoImageGridProps",
+    exampleUsage: `
+<FeatureBentoImageGrid
+  title="Key Features"
+  description="Discover what makes us different."
+  features={[
+    { imageSrc: "/feature1.jpg", icon: "lucide/zap", title: "Fast", description: "Lightning speed", link: "/fast" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-image-cards-three-column": {
+    id: "feature-image-cards-three-column",
+    name: "Feature Image Cards Three Column",
+    description:
+      "Three-column grid of image cards with gradient overlays, badges, and CTAs. Three equal-width cards with full-height images, gradient overlays, icon/avatar badges, hover animations, and call-to-action buttons.",
+    semanticTags: [
+      "features",
+      "cards",
+      "images",
+      "three-column",
+      "gradient",
+      "overlay",
+      "cta",
+    ],
+    category: "features",
+    component: FeatureImageCardsThreeColumn,
+    props: "FeatureImageCardsThreeColumnProps",
+    exampleUsage: `
+<FeatureImageCardsThreeColumn
+  title="Our Services"
+  description="What we offer."
+  features={[
+    { imageSrc: "/service1.jpg", icon: "lucide/code", title: "Development", description: "Custom solutions", buttonText: "Learn More", buttonLink: "/dev" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-icon-grid-muted": {
+    id: "feature-icon-grid-muted",
+    name: "Feature Icon Grid Muted",
+    description:
+      "Five-feature grid with muted background and icon badges showcasing key capabilities. Muted background section with centered header and five-column grid of bordered cards with icons.",
+    semanticTags: [
+      "features",
+      "grid",
+      "icons",
+      "muted",
+      "five-column",
+      "capabilities",
+      "benefits",
+    ],
+    category: "features",
+    component: FeatureIconGridMuted,
+    props: "FeatureIconGridMutedProps",
+    exampleUsage: `
+<FeatureIconGridMuted
+  title="Key Features"
+  description="Tools to enhance your workflow."
+  features={[
+    { icon: "lucide/check-circle-2", title: "Instant Approvals", description: "Quick approvals" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-stats-highlight": {
+    id: "feature-stats-highlight",
+    name: "Feature Stats Highlight",
+    description:
+      "Feature section with stats grid and CTA button showcasing key metrics and achievements. Two-column layout with content/CTA on left and stats grid on right. Includes badge header, stats grid, and CTA button.",
+    semanticTags: [
+      "features",
+      "stats",
+      "metrics",
+      "achievements",
+      "cta",
+      "two-column",
+      "trust",
+    ],
+    category: "features",
+    component: FeatureStatsHighlight,
+    props: "FeatureStatsHighlightProps",
+    exampleUsage: `
+<FeatureStatsHighlight
+  badge="Why Choose Us"
+  title="We deliver results"
+  description="Our platform helps businesses grow."
+  buttonText="Get Started"
+  stats={[
+    { value: "99%", label: "Uptime" },
+    { value: "24/7", label: "Support" },
+  ]}
+/>
+    `.trim(),
+  },
+  "feature-accordion-image": {
+    id: "feature-accordion-image",
+    name: "Feature Accordion Image",
+    description:
+      "Accordion-based feature display with images that change based on the selected accordion item. Two-column layout with accordion on left and dynamic image on right. Smooth transitions between items.",
+    semanticTags: [
+      "features",
+      "accordion",
+      "interactive",
+      "images",
+      "dynamic",
+      "two-column",
+      "faq",
+    ],
+    category: "features",
+    component: FeatureAccordionImage,
+    props: "FeatureAccordionImageProps",
+    exampleUsage: `
+<FeatureAccordionImage
+  title="How It Works"
+  description="Learn about our process."
+  items={[
+    { title: "Sign Up", content: "Create your account.", imageSrc: "/step1.jpg", imageAlt: "Sign up" },
   ]}
 />
     `.trim(),
