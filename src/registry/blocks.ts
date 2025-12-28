@@ -352,6 +352,38 @@ import { ProcessMissionPrinciples } from "../../components/blocks/process/proces
 import { ProcessStepsGrid } from "../../components/blocks/process/process-steps-grid";
 import { ProcessNumberedServices } from "../../components/blocks/process/process-numbered-services";
 
+// Project List components
+import { ProjectAlternatingMotion } from "../../components/blocks/project-list/project-alternating-motion";
+import { ProjectBackgroundReveal } from "../../components/blocks/project-list/project-background-reveal";
+import { ProjectCardOverlay } from "../../components/blocks/project-list/project-card-overlay";
+import { ProjectCarouselCinematic } from "../../components/blocks/project-list/project-carousel-cinematic";
+import { ProjectCarouselDetailCards } from "../../components/blocks/project-list/project-carousel-detail-cards";
+import { ProjectCarouselMinimal } from "../../components/blocks/project-list/project-carousel-minimal";
+import { ProjectExperienceQuote } from "../../components/blocks/project-list/project-experience-quote";
+import { ProjectFeaturedCarousel } from "../../components/blocks/project-list/project-featured-carousel";
+import { ProjectFilterableGallery } from "../../components/blocks/project-list/project-filterable-gallery";
+import { ProjectFilterableThreeColumn } from "../../components/blocks/project-list/project-filterable-three-column";
+import { ProjectGridGallery } from "../../components/blocks/project-list/project-grid-gallery";
+import { ProjectGridMotion } from "../../components/blocks/project-list/project-grid-motion";
+import { ProjectHorizontalCards } from "../../components/blocks/project-list/project-horizontal-cards";
+import { ProjectHoverRevealGrid } from "../../components/blocks/project-list/project-hover-reveal-grid";
+import { ProjectInteractiveHoverReveal } from "../../components/blocks/project-list/project-interactive-hover-reveal";
+import { ProjectMasonryColumns } from "../../components/blocks/project-list/project-masonry-columns";
+import { ProjectNatureMosaic } from "../../components/blocks/project-list/project-nature-mosaic";
+import { ProjectScrollReveal } from "../../components/blocks/project-list/project-scroll-reveal";
+import { ProjectShowcaseAlternating } from "../../components/blocks/project-list/project-showcase-alternating";
+import { ProjectStickyScroll } from "../../components/blocks/project-list/project-sticky-scroll";
+import { ProjectStudioHoverPreview } from "../../components/blocks/project-list/project-studio-hover-preview";
+import { ProjectTableList } from "../../components/blocks/project-list/project-table-list";
+import { ProjectVideoCarousel } from "../../components/blocks/project-list/project-video-carousel";
+import { ProjectVideoHoverBento } from "../../components/blocks/project-list/project-video-hover-bento";
+import { ProjectVideoHoverGrid } from "../../components/blocks/project-list/project-video-hover-grid";
+import { ProjectVideoHoverRounded } from "../../components/blocks/project-list/project-video-hover-rounded";
+import { ProjectVideoHoverStack } from "../../components/blocks/project-list/project-video-hover-stack";
+import { ProjectVideoHoverTwoByTwo } from "../../components/blocks/project-list/project-video-hover-two-by-two";
+import { ProjectWorkShowcase } from "../../components/blocks/project-list/project-work-showcase";
+import { ProjectZigzagLayout } from "../../components/blocks/project-list/project-zigzag-layout";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -386,9 +418,10 @@ export type BlockCategory =
   | "blog"
   | "article"
   | "case-studies-list"
-  | "case-study-detail"
-  | "navbar"
-  | "logos";
+    | "case-study-detail"
+    | "navbar"
+    | "logos"
+    | "project-list";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -7639,6 +7672,813 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   services={[
     { number: "01", title: "Strategy", description: "Digital transformation...", capabilities: ["Roadmap", "Assessment"], ctaText: "Learn more", ctaUrl: "#" },
     { number: "02", title: "Design", description: "User experience...", capabilities: ["UX Research", "UI Design"], ctaText: "Learn more", ctaUrl: "#" }
+  ]}
+/>`.trim(),
+  },
+  // Project List components
+  "project-alternating-motion": {
+    id: "project-alternating-motion",
+    name: "Project Alternating Motion",
+    description:
+      "A portfolio section with alternating left/right project cards featuring hover-activated motion effects. Each card displays a project image with gradient overlay, title, description, and technology badges. The alternating layout creates visual rhythm while motion effects add interactivity. Perfect for creative portfolios and agency showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "alternating",
+      "motion",
+      "hover",
+      "cards",
+      "technologies",
+      "showcase",
+    ],
+    category: "project-list",
+    component: ProjectAlternatingMotion,
+    props: "ProjectAlternatingMotionProps",
+    exampleUsage: `<ProjectAlternatingMotion
+  heading="Featured Projects"
+  subheading="A selection of recent work"
+  projects={[
+    { title: "E-commerce Platform", description: "Modern shopping experience", image: "/project1.jpg", technologies: ["React", "Node.js"], link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-background-reveal": {
+    id: "project-background-reveal",
+    name: "Project Background Reveal",
+    description:
+      "Full-width project cards with background image reveal on hover. Each card displays heading, subheading, and description with a background image that becomes visible on hover with a smooth transition. Includes a header section with title and CTA button. Perfect for portfolios where visual impact is key.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "background",
+      "reveal",
+      "hover",
+      "full-width",
+      "cards",
+      "cta",
+    ],
+    category: "project-list",
+    component: ProjectBackgroundReveal,
+    props: "ProjectBackgroundRevealProps",
+    exampleUsage: `<ProjectBackgroundReveal
+  heading="Our Work"
+  subheading="Featured Projects"
+  projects={[
+    { heading: "Brand Identity", subheading: "Design", description: "Complete rebrand", image: "/project1.jpg", url: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-card-overlay": {
+    id: "project-card-overlay",
+    name: "Project Card Overlay",
+    description:
+      "A grid of project cards with gradient overlays and hover effects. Each card features a full-bleed image with a dark gradient overlay, category badge, title, and description. On hover, the overlay lightens and content shifts. Ideal for creative portfolios and agency showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "overlay",
+      "gradient",
+      "hover",
+      "cards",
+      "badge",
+    ],
+    category: "project-list",
+    component: ProjectCardOverlay,
+    props: "ProjectCardOverlayProps",
+    exampleUsage: `<ProjectCardOverlay
+  heading="Portfolio"
+  subheading="Recent projects"
+  projects={[
+    { title: "Website Redesign", category: "Web Design", description: "Modern UI overhaul", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-carousel-cinematic": {
+    id: "project-carousel-cinematic",
+    name: "Project Carousel Cinematic",
+    description:
+      "A cinematic carousel with large landscape images and minimal text overlays. Features wide aspect ratio cards with gradient overlays, category labels, titles, and descriptions. Navigation arrows and dot indicators provide carousel control. Perfect for film, photography, or architectural portfolios.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "carousel",
+      "cinematic",
+      "landscape",
+      "film",
+      "photography",
+      "architecture",
+    ],
+    category: "project-list",
+    component: ProjectCarouselCinematic,
+    props: "ProjectCarouselCinematicProps",
+    exampleUsage: `<ProjectCarouselCinematic
+  heading="Featured Work"
+  subheading="Cinematic showcase"
+  projects={[
+    { title: "Documentary Film", category: "Film", description: "Award-winning documentary", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-carousel-detail-cards": {
+    id: "project-carousel-detail-cards",
+    name: "Project Carousel Detail Cards",
+    description:
+      "A carousel of detailed project cards with comprehensive metadata. Each card includes image, category badge, title, client info, year, description, and CTA button. Features navigation arrows and dot indicators. Ideal for agency portfolios or case study showcases requiring detailed project information.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "carousel",
+      "detailed",
+      "metadata",
+      "client",
+      "case-study",
+      "agency",
+    ],
+    category: "project-list",
+    component: ProjectCarouselDetailCards,
+    props: "ProjectCarouselDetailCardsProps",
+    exampleUsage: `<ProjectCarouselDetailCards
+  heading="Case Studies"
+  subheading="Detailed project showcase"
+  projects={[
+    { title: "E-commerce Platform", category: "Web Development", client: "Retail Co", year: "2023", description: "Full-stack solution", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-carousel-minimal": {
+    id: "project-carousel-minimal",
+    name: "Project Carousel Minimal",
+    description:
+      "A minimal carousel with clean project cards and subtle hover effects. Each card features a square image with hover zoom, title, and category. Navigation arrows and dot indicators provide carousel control. Perfect for clean, modern portfolios where simplicity is key.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "carousel",
+      "minimal",
+      "clean",
+      "modern",
+      "simple",
+    ],
+    category: "project-list",
+    component: ProjectCarouselMinimal,
+    props: "ProjectCarouselMinimalProps",
+    exampleUsage: `<ProjectCarouselMinimal
+  heading="Projects"
+  subheading="Recent work"
+  projects={[
+    { title: "Brand Identity", category: "Branding", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-experience-quote": {
+    id: "project-experience-quote",
+    name: "Project Experience Quote",
+    description:
+      "Professional experience cards with testimonial quotes. Each card features a colored header with role and company, location and duration metadata, description, achievement list, and a testimonial quote. Displayed in a 3-column grid. Ideal for professional portfolios and career showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "experience",
+      "career",
+      "testimonial",
+      "quote",
+      "achievements",
+      "professional",
+      "resume",
+    ],
+    category: "project-list",
+    component: ProjectExperienceQuote,
+    props: "ProjectExperienceQuoteProps",
+    exampleUsage: `<ProjectExperienceQuote
+  heading="Experience"
+  subheading="Professional journey"
+  experiences={[
+    { role: "Senior Developer", company: "Tech Corp", location: "San Francisco", duration: "2020-2023", description: "Led development team", achievements: ["Shipped 5 products"], quote: { text: "Great work!", author: "CEO", position: "Tech Corp" }, link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-featured-carousel": {
+    id: "project-featured-carousel",
+    name: "Project Featured Carousel",
+    description:
+      "A full-featured carousel with client info, badges, and descriptions. Each card includes a square image, category badge, title, client/year metadata, description, and CTA button. Navigation arrows are positioned at the sides. Perfect for agency portfolios or freelancer showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "carousel",
+      "featured",
+      "client",
+      "agency",
+      "freelancer",
+      "showcase",
+    ],
+    category: "project-list",
+    component: ProjectFeaturedCarousel,
+    props: "ProjectFeaturedCarouselProps",
+    exampleUsage: `<ProjectFeaturedCarousel
+  heading="Featured Projects"
+  subheading="Client work showcase"
+  projects={[
+    { title: "E-commerce Redesign", client: "Fashion Boutique", year: "2023", category: "Web Design", description: "Complete overhaul", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-filterable-gallery": {
+    id: "project-filterable-gallery",
+    name: "Project Filterable Gallery",
+    description:
+      "A filterable gallery with category tabs and animated transitions. Projects are displayed in a responsive grid with hover effects revealing title and category. Category tabs allow filtering with smooth fade animations. Perfect for portfolios with multiple project categories.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "gallery",
+      "filterable",
+      "tabs",
+      "categories",
+      "animated",
+      "grid",
+    ],
+    category: "project-list",
+    component: ProjectFilterableGallery,
+    props: "ProjectFilterableGalleryProps",
+    exampleUsage: `<ProjectFilterableGallery
+  heading="Portfolio"
+  subheading="Filter by category"
+  categories={["All", "Web", "Mobile", "Branding"]}
+  projects={[
+    { title: "Website", category: "Web", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-filterable-three-column": {
+    id: "project-filterable-three-column",
+    name: "Project Filterable Three Column",
+    description:
+      "A three-column filterable gallery with category tabs and hover overlays. Each project card displays an image with hover overlay showing title, description, and tags. Category tabs allow filtering projects. Perfect for design portfolios and creative showcases with multiple categories.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "gallery",
+      "filterable",
+      "three-column",
+      "tags",
+      "overlay",
+      "hover",
+    ],
+    category: "project-list",
+    component: ProjectFilterableThreeColumn,
+    props: "ProjectFilterableThreeColumnProps",
+    exampleUsage: `<ProjectFilterableThreeColumn
+  categories={["All", "Design", "Development"]}
+  projects={[
+    { id: 1, title: "Brand Design", category: "Design", description: "Visual identity", image: "/project1.jpg", tags: ["Logo", "Colors"] }
+  ]}
+/>`.trim(),
+  },
+  "project-grid-gallery": {
+    id: "project-grid-gallery",
+    name: "Project Grid Gallery",
+    description:
+      "A responsive grid gallery of project cards with hover effects. Each card displays a project image with hover zoom effect, title, and category badge. The grid adapts from 1 column on mobile to 3 columns on desktop. Perfect for simple, clean portfolio layouts.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "gallery",
+      "responsive",
+      "hover",
+      "simple",
+      "clean",
+    ],
+    category: "project-list",
+    component: ProjectGridGallery,
+    props: "ProjectGridGalleryProps",
+    exampleUsage: `<ProjectGridGallery
+  heading="Projects"
+  subheading="Recent work"
+  projects={[
+    { title: "Website Design", category: "Web", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-grid-motion": {
+    id: "project-grid-motion",
+    name: "Project Grid Motion",
+    description:
+      "A grid of project cards with Framer Motion animations. Cards feature staggered entrance animations, hover scale effects, and smooth transitions. Each card displays an image, title, and category. Perfect for portfolios that want to add visual interest through motion.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "motion",
+      "animation",
+      "framer-motion",
+      "staggered",
+      "hover",
+    ],
+    category: "project-list",
+    component: ProjectGridMotion,
+    props: "ProjectGridMotionProps",
+    exampleUsage: `<ProjectGridMotion
+  heading="Portfolio"
+  subheading="Animated showcase"
+  projects={[
+    { title: "App Design", category: "Mobile", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-horizontal-cards": {
+    id: "project-horizontal-cards",
+    name: "Project Horizontal Cards",
+    description:
+      "Wide horizontal cards with image sidebar and detailed metadata. Each card displays a landscape image on the left with title, description, client info, role, technologies, year, and CTA link on the right. Perfect for case studies or detailed project showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "horizontal",
+      "cards",
+      "detailed",
+      "case-study",
+      "metadata",
+      "technologies",
+    ],
+    category: "project-list",
+    component: ProjectHorizontalCards,
+    props: "ProjectHorizontalCardsProps",
+    exampleUsage: `<ProjectHorizontalCards
+  heading="Case Studies"
+  subheading="Detailed project showcase"
+  projects={[
+    { title: "E-commerce Platform", image: "/project1.jpg", description: "Full-stack solution", client: "Retail Co", role: "Lead Developer", technologies: ["React", "Node.js"], year: "2023", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-hover-reveal-grid": {
+    id: "project-hover-reveal-grid",
+    name: "Project Hover Reveal Grid",
+    description:
+      "A grid of project cards with content revealed on hover. Each card displays a full-bleed image that darkens on hover to reveal title, category, and description. The reveal animation creates an engaging interactive experience. Perfect for visual-first portfolios.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "hover",
+      "reveal",
+      "overlay",
+      "interactive",
+      "visual",
+    ],
+    category: "project-list",
+    component: ProjectHoverRevealGrid,
+    props: "ProjectHoverRevealGridProps",
+    exampleUsage: `<ProjectHoverRevealGrid
+  heading="Portfolio"
+  subheading="Hover to explore"
+  projects={[
+    { title: "Brand Identity", category: "Branding", description: "Visual identity system", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-interactive-hover-reveal": {
+    id: "project-interactive-hover-reveal",
+    name: "Project Interactive Hover Reveal",
+    description:
+      "A three-column grid with expanded content on hover. Cards display full-bleed images with gradient overlays. In default state, only category and title are visible. On hover, description and 'View Project' link appear with smooth transitions. Perfect for design portfolios and creative showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "interactive",
+      "hover",
+      "reveal",
+      "three-column",
+      "gradient",
+    ],
+    category: "project-list",
+    component: ProjectInteractiveHoverReveal,
+    props: "ProjectInteractiveHoverRevealProps",
+    exampleUsage: `<ProjectInteractiveHoverReveal
+  heading="Portfolio Highlights"
+  subheading="Explore featured work"
+  projects={[
+    { title: "Photography Portfolio", category: "Web Design", description: "Minimalist website", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-masonry-columns": {
+    id: "project-masonry-columns",
+    name: "Project Masonry Columns",
+    description:
+      "A masonry-style grid with varying card heights for visual interest. Cards are distributed across columns with different aspect ratios creating a Pinterest-like layout. Each card displays an image with hover overlay showing title and category. Perfect for photography or design portfolios.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "masonry",
+      "pinterest",
+      "columns",
+      "varying-heights",
+      "photography",
+      "design",
+    ],
+    category: "project-list",
+    component: ProjectMasonryColumns,
+    props: "ProjectMasonryColumnsProps",
+    exampleUsage: `<ProjectMasonryColumns
+  heading="Gallery"
+  subheading="Masonry layout"
+  projects={[
+    { title: "Photo Series", category: "Photography", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-nature-mosaic": {
+    id: "project-nature-mosaic",
+    name: "Project Nature Mosaic",
+    description:
+      "A mosaic grid layout with varying card sizes for visual hierarchy. Features a mix of large and small cards arranged in an asymmetric pattern. Each card displays an image with hover effects. Perfect for photography portfolios or nature-themed showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "mosaic",
+      "asymmetric",
+      "varying-sizes",
+      "photography",
+      "nature",
+      "visual-hierarchy",
+    ],
+    category: "project-list",
+    component: ProjectNatureMosaic,
+    props: "ProjectNatureMosaicProps",
+    exampleUsage: `<ProjectNatureMosaic
+  heading="Nature Gallery"
+  subheading="Mosaic showcase"
+  images={["/image1.jpg", "/image2.jpg", "/image3.jpg"]}
+/>`.trim(),
+  },
+  "project-scroll-reveal": {
+    id: "project-scroll-reveal",
+    name: "Project Scroll Reveal",
+    description:
+      "A scroll-triggered reveal layout with staggered animations. Projects appear as the user scrolls down the page with fade-in and slide-up effects. Each card displays an image, title, description, and technology badges. Perfect for storytelling portfolios and case study pages.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "scroll",
+      "reveal",
+      "animation",
+      "staggered",
+      "storytelling",
+      "case-study",
+    ],
+    category: "project-list",
+    component: ProjectScrollReveal,
+    props: "ProjectScrollRevealProps",
+    exampleUsage: `<ProjectScrollReveal
+  heading="Our Work"
+  subheading="Scroll to explore"
+  projects={[
+    { title: "E-commerce Platform", description: "Full-stack solution", image: "/project1.jpg", technologies: ["React", "Node.js"], link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-showcase-alternating": {
+    id: "project-showcase-alternating",
+    name: "Project Showcase Alternating",
+    description:
+      "An alternating layout with large images and detailed content sections. Projects alternate between image-left and image-right layouts. Each section includes title, description, and CTA link. Perfect for detailed project showcases and case study presentations.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "alternating",
+      "showcase",
+      "detailed",
+      "case-study",
+      "large-images",
+      "cta",
+    ],
+    category: "project-list",
+    component: ProjectShowcaseAlternating,
+    props: "ProjectShowcaseAlternatingProps",
+    exampleUsage: `<ProjectShowcaseAlternating
+  heading="Featured Work"
+  subheading="Detailed showcase"
+  projects={[
+    { title: "Brand Redesign", description: "Complete visual overhaul", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-sticky-scroll": {
+    id: "project-sticky-scroll",
+    name: "Project Sticky Scroll",
+    description:
+      "A scroll-driven content reveal with sticky gradient sidebar. Features a scrollable container with text content on the left and a sticky gradient panel on the right that changes color as you scroll. Each section has a title and description that fade based on scroll position. Perfect for storytelling and case study walkthroughs.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "sticky",
+      "scroll",
+      "gradient",
+      "storytelling",
+      "case-study",
+      "walkthrough",
+    ],
+    category: "project-list",
+    component: ProjectStickyScroll,
+    props: "ProjectStickyScrollProps",
+    exampleUsage: `<ProjectStickyScroll
+  content={[
+    { title: "Discovery Phase", description: "Understanding the problem space and user needs." },
+    { title: "Design Phase", description: "Creating wireframes and visual designs." }
+  ]}
+/>`.trim(),
+  },
+  "project-studio-hover-preview": {
+    id: "project-studio-hover-preview",
+    name: "Project Studio Hover Preview",
+    description:
+      "A studio-style project list with hover image previews. Displays projects as a vertical list with title, category, and year. On hover, a preview image appears alongside the list item. Perfect for design studios and creative agencies with a minimalist aesthetic.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "studio",
+      "hover",
+      "preview",
+      "list",
+      "minimalist",
+      "agency",
+    ],
+    category: "project-list",
+    component: ProjectStudioHoverPreview,
+    props: "ProjectStudioHoverPreviewProps",
+    exampleUsage: `<ProjectStudioHoverPreview
+  heading="Selected Work"
+  subheading="Hover to preview"
+  projects={[
+    { title: "Brand Identity", category: "Branding", year: "2023", image: "/project1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-table-list": {
+    id: "project-table-list",
+    name: "Project Table List",
+    description:
+      "A table-style project list with sortable columns. Displays projects in rows with columns for title, category, year, and status. Includes hover effects and optional sorting functionality. Perfect for portfolios that need to display many projects in a compact format.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "table",
+      "list",
+      "sortable",
+      "compact",
+      "data",
+      "organized",
+    ],
+    category: "project-list",
+    component: ProjectTableList,
+    props: "ProjectTableListProps",
+    exampleUsage: `<ProjectTableList
+  heading="All Projects"
+  subheading="Complete project list"
+  projects={[
+    { title: "Website Redesign", category: "Web", year: "2023", status: "Completed", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-video-carousel": {
+    id: "project-video-carousel",
+    name: "Project Video Carousel",
+    description:
+      "A carousel of project cards with video thumbnails. Each card displays a video that plays on hover with title and category overlay. Navigation arrows and dot indicators provide carousel control. Perfect for video production portfolios or motion design showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "carousel",
+      "video",
+      "motion",
+      "production",
+      "hover-play",
+      "multimedia",
+    ],
+    category: "project-list",
+    component: ProjectVideoCarousel,
+    props: "ProjectVideoCarouselProps",
+    exampleUsage: `<ProjectVideoCarousel
+  heading="Video Work"
+  subheading="Motion design showcase"
+  projects={[
+    { title: "Brand Animation", category: "Motion", video: "/video1.mp4", thumbnail: "/thumb1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-video-hover-bento": {
+    id: "project-video-hover-bento",
+    name: "Project Video Hover Bento",
+    description:
+      "A bento-style grid with video hover effects. Features a mix of large and small cards arranged in an asymmetric bento box layout. Videos play on hover with title and category overlays. Perfect for creative portfolios with video content.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "bento",
+      "video",
+      "hover",
+      "asymmetric",
+      "creative",
+      "multimedia",
+    ],
+    category: "project-list",
+    component: ProjectVideoHoverBento,
+    props: "ProjectVideoHoverBentoProps",
+    exampleUsage: `<ProjectVideoHoverBento
+  heading="Creative Work"
+  subheading="Bento video showcase"
+  projects={[
+    { title: "Motion Graphics", category: "Animation", video: "/video1.mp4", thumbnail: "/thumb1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-video-hover-grid": {
+    id: "project-video-hover-grid",
+    name: "Project Video Hover Grid",
+    description:
+      "A grid of project cards with video hover effects. Each card displays a thumbnail image that transitions to video playback on hover. Title and category appear as overlays. Perfect for video production portfolios or motion design showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "video",
+      "hover",
+      "production",
+      "motion",
+      "multimedia",
+    ],
+    category: "project-list",
+    component: ProjectVideoHoverGrid,
+    props: "ProjectVideoHoverGridProps",
+    exampleUsage: `<ProjectVideoHoverGrid
+  heading="Video Portfolio"
+  subheading="Hover to play"
+  projects={[
+    { title: "Commercial", category: "Video", video: "/video1.mp4", thumbnail: "/thumb1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-video-hover-rounded": {
+    id: "project-video-hover-rounded",
+    name: "Project Video Hover Rounded",
+    description:
+      "A grid of rounded project cards with video hover effects. Each card has large border radius and displays a thumbnail that transitions to video on hover. Title and category appear as overlays. Perfect for modern, friendly portfolio designs.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "video",
+      "rounded",
+      "modern",
+      "friendly",
+      "hover",
+    ],
+    category: "project-list",
+    component: ProjectVideoHoverRounded,
+    props: "ProjectVideoHoverRoundedProps",
+    exampleUsage: `<ProjectVideoHoverRounded
+  heading="Video Work"
+  subheading="Modern showcase"
+  projects={[
+    { title: "Product Video", category: "Commercial", video: "/video1.mp4", thumbnail: "/thumb1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-video-hover-stack": {
+    id: "project-video-hover-stack",
+    name: "Project Video Hover Stack",
+    description:
+      "A stacked layout of project cards with video hover effects. Cards are displayed in a vertical stack with full-width videos that play on hover. Each card includes title, category, and description. Perfect for video portfolios that want to emphasize individual projects.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "stack",
+      "video",
+      "hover",
+      "full-width",
+      "vertical",
+      "emphasis",
+    ],
+    category: "project-list",
+    component: ProjectVideoHoverStack,
+    props: "ProjectVideoHoverStackProps",
+    exampleUsage: `<ProjectVideoHoverStack
+  heading="Featured Videos"
+  subheading="Stacked showcase"
+  projects={[
+    { title: "Documentary", category: "Film", description: "Award-winning film", video: "/video1.mp4", thumbnail: "/thumb1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-video-hover-two-by-two": {
+    id: "project-video-hover-two-by-two",
+    name: "Project Video Hover Two By Two",
+    description:
+      "A 2x2 grid of project cards with video hover effects. Each card displays a thumbnail that transitions to video playback on hover. Title and category appear as overlays. Perfect for showcasing a curated selection of video projects in a balanced layout.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "grid",
+      "video",
+      "2x2",
+      "curated",
+      "balanced",
+      "hover",
+    ],
+    category: "project-list",
+    component: ProjectVideoHoverTwoByTwo,
+    props: "ProjectVideoHoverTwoByTwoProps",
+    exampleUsage: `<ProjectVideoHoverTwoByTwo
+  heading="Selected Videos"
+  subheading="Curated showcase"
+  projects={[
+    { title: "Brand Film", category: "Commercial", video: "/video1.mp4", thumbnail: "/thumb1.jpg", link: "#" }
+  ]}
+/>`.trim(),
+  },
+  "project-work-showcase": {
+    id: "project-work-showcase",
+    name: "Project Work Showcase",
+    description:
+      "Work experience cards with embedded project galleries. Each card displays role, company, duration, description, technology badges, and a grid of related projects. Stacked full-width cards create a comprehensive work history. Perfect for professional portfolios and career showcases.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "experience",
+      "work",
+      "career",
+      "technologies",
+      "gallery",
+      "professional",
+      "resume",
+    ],
+    category: "project-list",
+    component: ProjectWorkShowcase,
+    props: "ProjectWorkShowcaseProps",
+    exampleUsage: `<ProjectWorkShowcase
+  heading="Work Experience"
+  subheading="Professional journey"
+  experiences={[
+    { role: "Senior Developer", company: "Tech Corp", duration: "2020-2023", description: "Led development", technologies: ["React", "Node.js"], projects: [{ title: "E-commerce", image: "/project1.jpg", description: "Platform", link: "#" }] }
+  ]}
+/>`.trim(),
+  },
+  "project-zigzag-layout": {
+    id: "project-zigzag-layout",
+    name: "Project Zigzag Layout",
+    description:
+      "An alternating image-content layout with technology badges. Projects alternate between image-left and image-right layouts. Each section includes title, category, description, technology badges, and CTA link. Perfect for detailed project showcases and case study presentations.",
+    semanticTags: [
+      "project-list",
+      "portfolio",
+      "projects",
+      "zigzag",
+      "alternating",
+      "technologies",
+      "case-study",
+      "detailed",
+      "cta",
+    ],
+    category: "project-list",
+    component: ProjectZigzagLayout,
+    props: "ProjectZigzagLayoutProps",
+    exampleUsage: `<ProjectZigzagLayout
+  heading="Featured Projects"
+  subheading="Detailed showcase"
+  projects={[
+    { id: 1, title: "E-commerce Platform", category: "Web Development", description: "Full-stack solution", image: "/project1.jpg", technologies: ["React", "Node.js"], link: "#" }
   ]}
 />`.trim(),
   },
