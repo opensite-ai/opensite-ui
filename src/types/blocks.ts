@@ -407,3 +407,164 @@ export interface OptixFlowConfig {
    */
   compression?: number;
 }
+
+/**
+ * Breadcrumb item configuration for navigation breadcrumbs.
+ * 
+ * @example
+ * ```tsx
+ * const breadcrumbs: BreadcrumbItem[] = [
+ *   { label: "Home", href: "/" },
+ *   { label: "Case Studies", href: "/case-studies" },
+ *   { label: "Current Page" }
+ * ];
+ * ```
+ */
+export interface BreadcrumbItem {
+  /**
+   * Breadcrumb label text or ReactNode
+   */
+  label: ReactNode;
+  /**
+   * Link URL (if omitted, renders as current page)
+   */
+  href?: string;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+/**
+ * Detail item configuration for key-value displays (sidebars, info cards).
+ * 
+ * @example
+ * ```tsx
+ * const details: DetailItem[] = [
+ *   { label: "Industry", value: "Technology" },
+ *   { label: "Location", value: "San Francisco, CA" },
+ *   { label: "Website", value: "example.com", href: "https://example.com" }
+ * ];
+ * ```
+ */
+export interface DetailItem {
+  /**
+   * Detail label/heading
+   */
+  label: ReactNode;
+  /**
+   * Detail value
+   */
+  value: ReactNode;
+  /**
+   * Optional link URL for the value
+   */
+  href?: string;
+  /**
+   * Icon to display (ReactNode)
+   */
+  icon?: ReactNode;
+  /**
+   * Icon name for dynamic icon loading
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+/**
+ * Author information configuration for attribution displays.
+ * 
+ * @example
+ * ```tsx
+ * const author: AuthorInfo = {
+ *   name: "Jane Doe",
+ *   role: "Senior Product Manager",
+ *   avatarSrc: "/avatars/jane.jpg"
+ * };
+ * ```
+ */
+export interface AuthorInfo {
+  /**
+   * Author name
+   */
+  name?: ReactNode;
+  /**
+   * Author role/title
+   */
+  role?: ReactNode;
+  /**
+   * Author avatar image URL
+   */
+  avatarSrc?: string;
+  /**
+   * Custom slot for avatar (overrides avatarSrc)
+   */
+  avatarSlot?: ReactNode;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+/**
+ * Section item configuration for content sections with TOC navigation.
+ * 
+ * @example
+ * ```tsx
+ * const sections: SectionItem[] = [
+ *   { id: "intro", title: "Introduction", content: <p>...</p> },
+ *   { id: "approach", title: "Our Approach", content: <p>...</p> }
+ * ];
+ * ```
+ */
+export interface SectionItem {
+  /**
+   * Unique section ID for anchor links
+   */
+  id: string;
+  /**
+   * Section title
+   */
+  title: ReactNode;
+  /**
+   * Section content
+   */
+  content: ReactNode;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}
+
+/**
+ * Outcome item configuration for results/outcomes lists.
+ * 
+ * @example
+ * ```tsx
+ * const outcomes: OutcomeItem[] = [
+ *   { text: "Increased efficiency by 40%" },
+ *   { text: "Reduced costs by $1M annually" }
+ * ];
+ * ```
+ */
+export interface OutcomeItem {
+  /**
+   * Outcome text
+   */
+  text: ReactNode;
+  /**
+   * Icon to display (ReactNode)
+   */
+  icon?: ReactNode;
+  /**
+   * Icon name for dynamic icon loading
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes
+   */
+  className?: string;
+}

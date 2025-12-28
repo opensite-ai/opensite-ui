@@ -65,8 +65,7 @@ describe("CaseStudyTocSocialSidebar", () => {
   it("renders author information", () => {
     render(
       <CaseStudyTocSocialSidebar
-        authorName="John Doe"
-        authorRole="Senior Developer"
+        author={{ name: "John Doe", role: "Senior Developer" }}
       />
     );
     expect(screen.getByText("John Doe")).toBeInTheDocument();
@@ -74,18 +73,24 @@ describe("CaseStudyTocSocialSidebar", () => {
   });
 
   it("renders company overview section", () => {
-    render(<CaseStudyTocSocialSidebar overview="Custom overview text" />);
+    render(
+      <CaseStudyTocSocialSidebar
+        details={[{ label: "Overview", value: "Custom overview text" }]}
+      />
+    );
     expect(screen.getByText("Custom overview text")).toBeInTheDocument();
   });
 
   it("renders company details", () => {
     render(
       <CaseStudyTocSocialSidebar
-        sector="Technology"
-        teamSize="50-100"
-        location="San Francisco"
-        established="2020"
-        funding="Series A"
+        details={[
+          { label: "Sector", value: "Technology" },
+          { label: "Team size", value: "50-100" },
+          { label: "Location", value: "San Francisco" },
+          { label: "Established", value: "2020" },
+          { label: "Funding", value: "Series A" },
+        ]}
       />
     );
     expect(screen.getByText("Technology")).toBeInTheDocument();
@@ -149,7 +154,7 @@ describe("CaseStudyTocSocialSidebar", () => {
   });
 
   it("renders hero image", () => {
-    render(<CaseStudyTocSocialSidebar heroImage="/hero.jpg" heroImageAlt="Hero image" />);
+    render(<CaseStudyTocSocialSidebar heroImageSrc="/hero.jpg" heroImageAlt="Hero image" />);
     const images = screen.getAllByTestId("mock-img");
     expect(images.length).toBeGreaterThan(0);
   });

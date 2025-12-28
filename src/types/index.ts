@@ -17,6 +17,11 @@ export type {
   BlockActionProps,
   BlockLogoProps,
   OptixFlowConfig,
+  BreadcrumbItem,
+  DetailItem,
+  AuthorInfo,
+  SectionItem,
+  OutcomeItem,
 } from "./blocks";
 
 /**
