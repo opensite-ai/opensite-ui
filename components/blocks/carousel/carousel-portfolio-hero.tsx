@@ -20,135 +20,242 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export interface PortfolioSlide {
+  /**
+   * Unique identifier for the slide
+   */
   id: number | string;
+  /**
+   * Image source URL
+   */
   image: string;
-  title: string;
-  description: string;
-  tag: string;
+  /**
+   * Slide title
+   */
+  title?: React.ReactNode;
+  /**
+   * Slide description
+   */
+  description?: React.ReactNode;
+  /**
+   * Category tag
+   */
+  tag?: React.ReactNode;
+  /**
+   * Additional CSS classes for the slide
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
 }
 
 export interface CarouselPortfolioHeroProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Array of portfolio slides
+   */
   slides?: PortfolioSlide[];
-  ctaText?: string;
-  ctaHref?: string;
+  /**
+   * Custom slot for rendering slides (overrides slides array)
+   */
+  slidesSlot?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Auto-play interval in milliseconds
+   */
   autoPlayInterval?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the tag badge
+   */
+  tagClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the navigation controls
+   */
+  navigationClassName?: string;
+  /**
+   * Additional CSS classes for the slide counter
+   */
+  counterClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-export function CarouselPortfolioHero({
-  className,
-  optixFlowConfig,
-  slides,
-  ctaText = "View Projects",
-  ctaHref = "#",
-  autoPlayInterval = 5000,
-}: CarouselPortfolioHeroProps): React.JSX.Element {
-  const defaultSlides: PortfolioSlide[] = React.useMemo(
-    () => [
-      {
-        id: 1,
-        image: imagePlaceholders[0],
-        title: "Web Design Portfolio",
-        description:
-          "Clean, modern interfaces that prioritize user experience and functionality",
-        tag: "UI/UX Design",
-      },
-      {
-        id: 2,
-        image: imagePlaceholders[1],
-        title: "Branding & Identity",
-        description:
-          "Crafting memorable brand identities that tell your unique story",
-        tag: "Brand Design",
-      },
-      {
-        id: 3,
-        image: imagePlaceholders[2],
-        title: "Photography Projects",
-        description: "Capturing moments and emotions through a creative lens",
-        tag: "Photography",
-      },
-    ],
-    []
-  );
+const defaultSlides: PortfolioSlide[] = [
+  { id: 1, image: imagePlaceholders[0], title: "Web Design Portfolio", description: "Clean, modern interfaces that prioritize user experience and functionality", tag: "UI/UX Design" },
+  { id: 2, image: imagePlaceholders[1], title: "Branding & Identity", description: "Crafting memorable brand identities that tell your unique story", tag: "Brand Design" },
+  { id: 3, image: imagePlaceholders[2], title: "Photography Projects", description: "Capturing moments and emotions through a creative lens", tag: "Photography" },
+];
 
-  const portfolioSlides = slides || defaultSlides;
+const defaultActions: ActionConfig[] = [
+  { label: "View Projects", href: "#", size: "lg", className: "min-w-[150px]" },
+];
+
+export function CarouselPortfolioHero({
+  slides = defaultSlides,
+  slidesSlot,
+  actions = defaultActions,
+  actionsSlot,
+  autoPlayInterval = 5000,
+  className,
+  containerClassName,
+  contentClassName,
+  tagClassName,
+  titleClassName,
+  descriptionClassName,
+  actionsClassName,
+  navigationClassName,
+  counterClassName,
+  optixFlowConfig,
+}: CarouselPortfolioHeroProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const goToNext = React.useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % portfolioSlides.length);
-  }, [portfolioSlides.length]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+  }, [slides.length]);
 
   const goToPrev = React.useCallback(() => {
     setCurrentIndex(
       (prevIndex) =>
-        (prevIndex - 1 + portfolioSlides.length) % portfolioSlides.length
+        (prevIndex - 1 + slides.length) % slides.length
     );
-  }, [portfolioSlides.length]);
+  }, [slides.length]);
 
   React.useEffect(() => {
     const interval = setInterval(goToNext, autoPlayInterval);
     return () => clearInterval(interval);
   }, [goToNext, autoPlayInterval]);
 
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const currentSlide = slides[currentIndex];
+
   return (
     <section
       className={cn("relative h-screen w-full overflow-hidden", className)}
     >
       {/* Slide images with animation */}
-      {portfolioSlides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={cn(
-            "absolute inset-0 h-full w-full transition-opacity duration-1000",
-            index === currentIndex ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <Img
-            src={slide.image}
-            alt={slide.title}
-            className="h-full w-full object-cover"
-            optixFlowConfig={optixFlowConfig}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-        </div>
-      ))}
+      {slidesSlot ? (
+        slidesSlot
+      ) : (
+        slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={cn(
+              "absolute inset-0 h-full w-full transition-opacity duration-1000",
+              index === currentIndex ? "opacity-100" : "opacity-0",
+              slide.className
+            )}
+          >
+            <Img
+              src={slide.image}
+              alt={typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}
+              className={cn("h-full w-full object-cover", slide.imageClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+          </div>
+        ))
+      )}
 
       {/* Content */}
-      <div className="relative z-10 flex h-full w-full flex-col justify-end p-4 pb-16 text-white sm:p-8 md:p-12">
+      <div className={cn("relative z-10 flex h-full w-full flex-col justify-end p-4 pb-16 text-white sm:p-8 md:p-12", containerClassName)}>
         <div className="container mx-auto">
-          <div className="max-w-3xl">
-            <div className="mb-4">
-              <span className="inline-block rounded-full bg-primary px-3 py-1 text-sm font-medium">
-                {portfolioSlides[currentIndex].tag}
-              </span>
-            </div>
+          <div className={cn("max-w-3xl", contentClassName)}>
+            {currentSlide?.tag && (
+              <div className="mb-4">
+                {typeof currentSlide.tag === "string" ? (
+                  <span className={cn("inline-block rounded-full bg-primary px-3 py-1 text-sm font-medium", tagClassName)}>
+                    {currentSlide.tag}
+                  </span>
+                ) : (
+                  <div className={tagClassName}>{currentSlide.tag}</div>
+                )}
+              </div>
+            )}
 
-            <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
-              {portfolioSlides[currentIndex].title}
-            </h1>
+            {currentSlide?.title && (
+              typeof currentSlide.title === "string" ? (
+                <h1 className={cn("text-4xl font-bold sm:text-5xl md:text-6xl", titleClassName)}>
+                  {currentSlide.title}
+                </h1>
+              ) : (
+                <div className={titleClassName}>{currentSlide.title}</div>
+              )
+            )}
 
-            <p className="mt-4 text-lg text-white/80 sm:text-xl md:max-w-2xl">
-              {portfolioSlides[currentIndex].description}
-            </p>
+            {currentSlide?.description && (
+              typeof currentSlide.description === "string" ? (
+                <p className={cn("mt-4 text-lg text-white/80 sm:text-xl md:max-w-2xl", descriptionClassName)}>
+                  {currentSlide.description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{currentSlide.description}</div>
+              )
+            )}
 
-            <div className="mt-8 flex items-center gap-4">
-              <Pressable
-                href={ctaHref}
-                asButton
-                size="lg"
-                className="min-w-[150px]"
-              >
-                {ctaText}
-              </Pressable>
+            <div className={cn("mt-8 flex items-center gap-4", actionsClassName)}>
+              {renderActions()}
 
-              <div className="ml-auto flex items-center gap-2">
+              <div className={cn("ml-auto flex items-center gap-2", navigationClassName)}>
                 <Pressable
                   variant="outline"
                   size="icon"
@@ -169,8 +276,8 @@ export function CarouselPortfolioHero({
                   <DynamicIcon name="lucide/chevron-right" size={20} />
                 </Pressable>
 
-                <div className="ml-3 text-sm text-white/80">
-                  {currentIndex + 1} / {portfolioSlides.length}
+                <div className={cn("ml-3 text-sm text-white/80", counterClassName)}>
+                  {currentIndex + 1} / {slides.length}
                 </div>
               </div>
             </div>
