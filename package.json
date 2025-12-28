@@ -1956,6 +1956,41 @@
       "import": "./dist/testimonials-large-quote.js",
       "require": "./dist/testimonials-large-quote.cjs"
     },
+    "./blocks/service-detail/service-detail-prose-minimal": {
+      "types": "./dist/service-detail-prose-minimal.d.ts",
+      "import": "./dist/service-detail-prose-minimal.js",
+      "require": "./dist/service-detail-prose-minimal.cjs"
+    },
+    "./blocks/service-detail/service-detail-image-hero": {
+      "types": "./dist/service-detail-image-hero.d.ts",
+      "import": "./dist/service-detail-image-hero.js",
+      "require": "./dist/service-detail-image-hero.cjs"
+    },
+    "./blocks/service-detail/service-detail-stats-hero": {
+      "types": "./dist/service-detail-stats-hero.d.ts",
+      "import": "./dist/service-detail-stats-hero.js",
+      "require": "./dist/service-detail-stats-hero.cjs"
+    },
+    "./blocks/service-detail/service-detail-sidebar-stats": {
+      "types": "./dist/service-detail-sidebar-stats.d.ts",
+      "import": "./dist/service-detail-sidebar-stats.js",
+      "require": "./dist/service-detail-sidebar-stats.cjs"
+    },
+    "./blocks/service-detail/service-detail-sidebar-related": {
+      "types": "./dist/service-detail-sidebar-related.d.ts",
+      "import": "./dist/service-detail-sidebar-related.js",
+      "require": "./dist/service-detail-sidebar-related.cjs"
+    },
+    "./blocks/service-detail/service-detail-centered-expertise": {
+      "types": "./dist/service-detail-centered-expertise.d.ts",
+      "import": "./dist/service-detail-centered-expertise.js",
+      "require": "./dist/service-detail-centered-expertise.cjs"
+    },
+    "./blocks/service-detail/service-detail-compact-cards": {
+      "types": "./dist/service-detail-compact-cards.d.ts",
+      "import": "./dist/service-detail-compact-cards.js",
+      "require": "./dist/service-detail-compact-cards.cjs"
+    },
     "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",

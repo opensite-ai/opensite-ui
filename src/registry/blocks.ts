@@ -525,6 +525,22 @@ import type { ResourceDetailArticleHeroProps } from "../../components/blocks/res
 import { ResourceDetailDocumentSidebar } from "../../components/blocks/resource-detail/resource-detail-document-sidebar";
 import type { ResourceDetailDocumentSidebarProps } from "../../components/blocks/resource-detail/resource-detail-document-sidebar";
 
+// Service Detail components
+import { ServiceDetailProseMinimal } from "../../components/blocks/service-detail/service-detail-prose-minimal";
+import type { ServiceDetailProseMinimalProps } from "../../components/blocks/service-detail/service-detail-prose-minimal";
+import { ServiceDetailImageHero } from "../../components/blocks/service-detail/service-detail-image-hero";
+import type { ServiceDetailImageHeroProps } from "../../components/blocks/service-detail/service-detail-image-hero";
+import { ServiceDetailStatsHero } from "../../components/blocks/service-detail/service-detail-stats-hero";
+import type { ServiceDetailStatsHeroProps } from "../../components/blocks/service-detail/service-detail-stats-hero";
+import { ServiceDetailSidebarStats } from "../../components/blocks/service-detail/service-detail-sidebar-stats";
+import type { ServiceDetailSidebarStatsProps } from "../../components/blocks/service-detail/service-detail-sidebar-stats";
+import { ServiceDetailSidebarRelated } from "../../components/blocks/service-detail/service-detail-sidebar-related";
+import type { ServiceDetailSidebarRelatedProps } from "../../components/blocks/service-detail/service-detail-sidebar-related";
+import { ServiceDetailCenteredExpertise } from "../../components/blocks/service-detail/service-detail-centered-expertise";
+import type { ServiceDetailCenteredExpertiseProps } from "../../components/blocks/service-detail/service-detail-centered-expertise";
+import { ServiceDetailCompactCards } from "../../components/blocks/service-detail/service-detail-compact-cards";
+import type { ServiceDetailCompactCardsProps } from "../../components/blocks/service-detail/service-detail-compact-cards";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -566,9 +582,10 @@ export type BlockCategory =
   | "project-detail"
   | "list"
   | "offer-modal"
-    | "banner"
-    | "industries"
-    | "resource-detail";
+  | "banner"
+  | "industries"
+  | "resource-detail"
+  | "service-detail";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -12350,6 +12367,213 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     quote: "This platform has fundamentally changed how we approach our work...",
     author: { name: "Sarah Chen", role: "CEO", company: "TechVentures Inc.", avatar: "/avatars/sarah.jpg" }
   }}
+/>`.trim(),
+  },
+
+  // Service Detail components
+  "service-detail-prose-minimal": {
+    id: "service-detail-prose-minimal",
+    name: "Service Detail Prose Minimal",
+    description:
+      "A minimal service detail page with a muted hero section, introduction block, and prose content sections. Features a clean, text-focused layout with service title, intro description, content paragraphs, and a bulleted services list. Ideal for professional services, consulting, or any service that benefits from detailed written explanations without heavy visual elements.",
+    semanticTags: [
+      "service",
+      "detail",
+      "minimal",
+      "prose",
+      "text",
+      "content",
+      "services-list",
+      "professional",
+      "consulting",
+    ],
+    category: "service-detail",
+    component: ServiceDetailProseMinimal,
+    props: "ServiceDetailProseMinimalProps",
+    exampleUsage: `
+<ServiceDetailProseMinimal
+  title="UX/UI Design"
+  introTitle="User-Centered Design That Converts"
+  introDescription="We believe that great design should be intuitive..."
+  contentSections={[
+    { title: "Creating Meaningful Digital Experiences", paragraphs: ["..."] }
+  ]}
+  servicesList={{ title: "Our Services", items: ["User research", "Wireframing"] }}
+/>`.trim(),
+  },
+
+  "service-detail-image-hero": {
+    id: "service-detail-image-hero",
+    name: "Service Detail Image Hero",
+    description:
+      "A service detail page featuring a full-width background image hero with dark overlay and centered title. Includes introduction section, prose content blocks, and services list. The dramatic hero image creates visual impact while maintaining readability. Perfect for creative services, design agencies, or any service that benefits from strong visual presentation.",
+    semanticTags: [
+      "service",
+      "detail",
+      "hero",
+      "image",
+      "background",
+      "overlay",
+      "dramatic",
+      "creative",
+      "agency",
+    ],
+    category: "service-detail",
+    component: ServiceDetailImageHero,
+    props: "ServiceDetailImageHeroProps",
+    exampleUsage: `
+<ServiceDetailImageHero
+  title="UX/UI Design"
+  heroImage={{ src: "/images/hero.jpg", alt: "Service hero" }}
+  introTitle="User-Centered Design That Converts"
+  introDescription="We believe that great design should be intuitive..."
+  contentSections={[{ title: "Creating Experiences", paragraphs: ["..."] }]}
+/>`.trim(),
+  },
+
+  "service-detail-stats-hero": {
+    id: "service-detail-stats-hero",
+    name: "Service Detail Stats Hero",
+    description:
+      "A service detail page with a background image hero featuring a service icon, followed by a stats grid section highlighting expertise metrics. Includes prose content and services list. The stats section with tool/technology icons builds credibility by showcasing proficiency levels and experience. Ideal for technical services, development agencies, or services where quantifiable expertise matters.",
+    semanticTags: [
+      "service",
+      "detail",
+      "hero",
+      "stats",
+      "metrics",
+      "expertise",
+      "technical",
+      "development",
+      "credibility",
+    ],
+    category: "service-detail",
+    component: ServiceDetailStatsHero,
+    props: "ServiceDetailStatsHeroProps",
+    exampleUsage: `
+<ServiceDetailStatsHero
+  title="UX/UI Design"
+  heroImage={{ src: "/images/hero.jpg", alt: "Service hero" }}
+  serviceIcon={{ src: "/icons/ux.svg", alt: "UX/UI" }}
+  stats={[
+    { icon: "/icons/adobe.svg", title: "Adobe Suite", value: "100%", description: "Proficiency" }
+  ]}
+/>`.trim(),
+  },
+
+  "service-detail-sidebar-stats": {
+    id: "service-detail-sidebar-stats",
+    name: "Service Detail Sidebar Stats",
+    description:
+      "A two-column service detail layout with main content on the left and a sticky sidebar on the right displaying expertise stats. Features a muted hero with service icon, prose content, icon-enhanced services list, and sidebar with tool/technology proficiency indicators. The sidebar remains visible while scrolling through content. Perfect for services requiring detailed explanations with quick-reference expertise information.",
+    semanticTags: [
+      "service",
+      "detail",
+      "sidebar",
+      "stats",
+      "sticky",
+      "two-column",
+      "expertise",
+      "icons",
+      "professional",
+    ],
+    category: "service-detail",
+    component: ServiceDetailSidebarStats,
+    props: "ServiceDetailSidebarStatsProps",
+    exampleUsage: `
+<ServiceDetailSidebarStats
+  title="UX/UI Design"
+  serviceIcon={{ src: "/icons/ux.svg", alt: "UX/UI" }}
+  services={[{ icon: "lucide/users", title: "User research" }]}
+  stats={[{ icon: "/icons/figma.svg", title: "Figma", description: "5+ years" }]}
+/>`.trim(),
+  },
+
+  "service-detail-sidebar-related": {
+    id: "service-detail-sidebar-related",
+    name: "Service Detail Sidebar Related",
+    description:
+      "A two-column service detail layout featuring main content with a sidebar containing both expertise stats and related services links. The sidebar includes clickable related service cards with icons and descriptions for cross-navigation. Ideal for businesses with multiple interconnected services where users might want to explore related offerings while learning about a specific service.",
+    semanticTags: [
+      "service",
+      "detail",
+      "sidebar",
+      "related",
+      "navigation",
+      "cross-sell",
+      "links",
+      "expertise",
+      "interconnected",
+    ],
+    category: "service-detail",
+    component: ServiceDetailSidebarRelated,
+    props: "ServiceDetailSidebarRelatedProps",
+    exampleUsage: `
+<ServiceDetailSidebarRelated
+  title="UX/UI Design"
+  serviceIcon={{ src: "/icons/ux.svg", alt: "UX/UI" }}
+  stats={[{ icon: "/icons/figma.svg", title: "Figma", description: "Expert" }]}
+  relatedServices={[
+    { icon: "lucide/code", title: "Web Development", description: "Custom websites", link: "/services/web" }
+  ]}
+/>`.trim(),
+  },
+
+  "service-detail-centered-expertise": {
+    id: "service-detail-centered-expertise",
+    name: "Service Detail Centered Expertise",
+    description:
+      "A centered service detail layout with a prominent expertise grid, icon-enhanced services list, and related services cards with images. Features a centered hero with service icon, four-column expertise grid showing tools/technologies, two-column services checklist, and three-column related services with thumbnail images. Perfect for showcasing comprehensive service offerings with visual hierarchy and clear navigation to related services.",
+    semanticTags: [
+      "service",
+      "detail",
+      "centered",
+      "expertise",
+      "grid",
+      "cards",
+      "images",
+      "comprehensive",
+      "visual",
+    ],
+    category: "service-detail",
+    component: ServiceDetailCenteredExpertise,
+    props: "ServiceDetailCenteredExpertiseProps",
+    exampleUsage: `
+<ServiceDetailCenteredExpertise
+  title="UX/UI Design"
+  serviceIcon={{ src: "/icons/ux.svg", alt: "UX/UI" }}
+  expertise={[{ icon: "/icons/figma.svg", title: "Figma", description: "Expert" }]}
+  services={[{ icon: "lucide/users", title: "User research" }]}
+  relatedServices={[{ image: "/images/web.jpg", title: "Web Dev", description: "...", link: "#" }]}
+/>`.trim(),
+  },
+
+  "service-detail-compact-cards": {
+    id: "service-detail-compact-cards",
+    name: "Service Detail Compact Cards",
+    description:
+      "A compact service detail layout with horizontal expertise cards, icon-enhanced services list, and a four-column related services grid. Features a left-aligned service icon with title, inline expertise badges, two-column services checklist, and compact related service cards with images. The horizontal expertise layout saves vertical space while maintaining visual appeal. Ideal for services pages where space efficiency is important or when displaying multiple services on a single page.",
+    semanticTags: [
+      "service",
+      "detail",
+      "compact",
+      "cards",
+      "horizontal",
+      "badges",
+      "efficient",
+      "grid",
+      "multiple",
+    ],
+    category: "service-detail",
+    component: ServiceDetailCompactCards,
+    props: "ServiceDetailCompactCardsProps",
+    exampleUsage: `
+<ServiceDetailCompactCards
+  title="UX/UI Design"
+  serviceIcon={{ src: "/icons/ux.svg", alt: "UX/UI" }}
+  expertise={[{ icon: "/icons/figma.svg", title: "Figma", description: "Expert" }]}
+  services={[{ icon: "lucide/users", title: "User research" }]}
+  relatedServices={[{ image: "/images/web.jpg", title: "Web Dev", description: "...", link: "#" }]}
 />`.trim(),
   },
 };
