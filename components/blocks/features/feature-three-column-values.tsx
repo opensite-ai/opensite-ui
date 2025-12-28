@@ -6,37 +6,102 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 
 export interface FeatureThreeColumnValuesItem {
   /**
+   * Icon element (overrides iconName)
+   */
+  icon?: React.ReactNode;
+  /**
    * Icon name in format: prefix/name (e.g., "lucide/timer")
    */
-  icon: string;
+  iconName?: string;
   /**
-   * Feature title
+   * Feature title content
    */
-  title: string;
+  title?: React.ReactNode;
   /**
-   * Feature description
+   * Feature description content
    */
-  description: string;
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the icon wrapper
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
 export interface FeatureThreeColumnValuesProps {
   /**
-   * Section label text
+   * Section label content
    */
-  label?: string;
+  label?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Array of value items
    */
   values?: FeatureThreeColumnValuesItem[];
   /**
+   * Custom slot for rendering values (overrides values array)
+   */
+  valuesSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the label
+   */
+  labelClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each value card
+   */
+  cardClassName?: string;
 }
+
+const defaultValues: FeatureThreeColumnValuesItem[] = [
+  {
+    iconName: "lucide/timer",
+    title: "Performance",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
+  },
+  {
+    iconName: "lucide/zoom-in",
+    title: "Quality",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
+  },
+  {
+    iconName: "lucide/zap",
+    title: "Innovation",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
+  },
+];
 
 /**
  * Feature Three Column Values - Three-column grid of value cards with icons
@@ -52,9 +117,9 @@ export interface FeatureThreeColumnValuesProps {
  *   label="OUR VALUES"
  *   title="Why Choose Us?"
  *   values={[
- *     { icon: "lucide/timer", title: "Performance", description: "Fast and optimized" },
- *     { icon: "lucide/zoom-in", title: "Quality", description: "Built with care" },
- *     { icon: "lucide/zap", title: "Innovation", description: "Cutting-edge tech" },
+ *     { iconName: "lucide/timer", title: "Performance", description: "Fast and optimized" },
+ *     { iconName: "lucide/zoom-in", title: "Quality", description: "Built with care" },
+ *     { iconName: "lucide/zap", title: "Innovation", description: "Cutting-edge tech" },
  *   ]}
  * />
  * ```
@@ -62,51 +127,75 @@ export interface FeatureThreeColumnValuesProps {
 export function FeatureThreeColumnValues({
   label = "OUR VALUES",
   title = "Why Choose Us?",
-  values = [
-    {
-      icon: "lucide/timer",
-      title: "Performance",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
-    },
-    {
-      icon: "lucide/zoom-in",
-      title: "Quality",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
-    },
-    {
-      icon: "lucide/zap",
-      title: "Innovation",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
-    },
-  ],
+  values = defaultValues,
+  valuesSlot,
   className,
-}: FeatureThreeColumnValuesProps) {
+  containerClassName,
+  labelClassName,
+  titleClassName,
+  gridClassName,
+  cardClassName,
+}: FeatureThreeColumnValuesProps): React.JSX.Element {
+  const renderValueIcon = (value: FeatureThreeColumnValuesItem) => {
+    if (value.icon) return value.icon;
+    if (value.iconName) return <DynamicIcon name={value.iconName} size={24} />;
+    return <DynamicIcon name="lucide/star" size={24} />;
+  };
+
+  const renderValues = () => {
+    if (valuesSlot) return valuesSlot;
+    if (!values || values.length === 0) return null;
+
+    return values.map((value, index) => (
+      <div key={index} className={cn("rounded-lg bg-accent p-5", cardClassName, value.className)}>
+        <span className={cn("mb-8 flex size-12 items-center justify-center rounded-full bg-background", value.iconClassName)}>
+          {renderValueIcon(value)}
+        </span>
+        {value.title && (
+          typeof value.title === "string" ? (
+            <h3 className={cn("mb-2 text-xl font-medium", value.titleClassName)}>{value.title}</h3>
+          ) : (
+            <div className={cn("mb-2 text-xl font-medium", value.titleClassName)}>{value.title}</div>
+          )
+        )}
+        {value.description && (
+          typeof value.description === "string" ? (
+            <p className={cn("leading-7 text-muted-foreground", value.descriptionClassName)}>
+              {value.description}
+            </p>
+          ) : (
+            <div className={cn("leading-7 text-muted-foreground", value.descriptionClassName)}>
+              {value.description}
+            </div>
+          )
+        )}
+      </div>
+    ));
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
+      <div className={cn("container", containerClassName)}>
         {label && (
-          <p className="mb-4 text-sm text-muted-foreground lg:text-base">
-            {label}
-          </p>
+          typeof label === "string" ? (
+            <p className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
+              {label}
+            </p>
+          ) : (
+            <div className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
+              {label}
+            </div>
+          )
         )}
         {title && (
-          <h2 className="text-3xl font-medium lg:text-4xl">{title}</h2>
+          typeof title === "string" ? (
+            <h2 className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</h2>
+          ) : (
+            <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
+          )
         )}
-        <div className="mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3">
-          {values.map((value, index) => (
-            <div key={index} className="rounded-lg bg-accent p-5">
-              <span className="mb-8 flex size-12 items-center justify-center rounded-full bg-background">
-                <DynamicIcon name={value.icon} size={24} />
-              </span>
-              <h3 className="mb-2 text-xl font-medium">{value.title}</h3>
-              <p className="leading-7 text-muted-foreground">
-                {value.description}
-              </p>
-            </div>
-          ))}
+        <div className={cn("mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3", gridClassName)}>
+          {renderValues()}
         </div>
       </div>
     </section>

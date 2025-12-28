@@ -5,24 +5,68 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
+
+export interface FeatureNumberedCardsChecklistItem {
+  /**
+   * Checklist item content
+   */
+  content?: React.ReactNode;
+  /**
+   * Icon element (overrides default check icon)
+   */
+  icon?: React.ReactNode;
+  /**
+   * Icon name for dynamic icon loading
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
+}
 
 export interface FeatureNumberedCardsItem {
   /**
-   * Feature title
+   * Feature title content
    */
-  title: string;
+  title?: React.ReactNode;
   /**
-   * Feature description
+   * Feature description content
    */
-  description: string;
+  description?: React.ReactNode;
   /**
    * Image source URL
    */
-  image: string;
+  image?: string;
   /**
-   * Checklist items
+   * Image alt text
    */
-  checklistItems?: string[];
+  imageAlt?: string;
+  /**
+   * Image element or ReactNode (overrides image)
+   */
+  imageSlot?: React.ReactNode;
+  /**
+   * Checklist items (can be strings or FeatureNumberedCardsChecklistItem objects)
+   */
+  checklistItems?: (string | FeatureNumberedCardsChecklistItem)[];
+  /**
+   * Custom slot for checklist (overrides checklistItems)
+   */
+  checklistSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the card
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the image wrapper
+   */
+  imageWrapperClassName?: string;
 }
 
 export interface FeatureNumberedCardsProps {
@@ -31,17 +75,66 @@ export interface FeatureNumberedCardsProps {
    */
   features?: FeatureNumberedCardsItem[];
   /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
-   * Optional Optix Flow configuration for image optimization
+   * Additional CSS classes for the container
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the cards wrapper
+   */
+  cardsWrapperClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the checklist
+   */
+  checklistClassName?: string;
+  /**
+   * Additional CSS classes for the number badge
+   */
+  badgeClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultFeatures: FeatureNumberedCardsItem[] = [
+  {
+    title: "Secure Payments",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur modi et recusandae ducimus eligendi eveniet soluta reprehenderit nostrum expedita omnis.",
+    image: blockBrandedIconsAndPlaceholders.placeholder1,
+    checklistItems: [
+      "Secure payment gateway integration with Stripe",
+      "SSL encryption for secure transactions",
+    ],
+  },
+  {
+    title: "Automated Invoicing",
+    description:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur modi et recusandae ducimus eligendi eveniet soluta reprehenderit nostrum expedita omnis.",
+    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
+    checklistItems: ["Automated invoicing for easy billing"],
+  },
+];
 
 /**
  * Feature Numbered Cards - Stacked feature cards with numbered badges and
@@ -66,70 +159,115 @@ export interface FeatureNumberedCardsProps {
  * ```
  */
 export function FeatureNumberedCards({
-  features = [
-    {
-      title: "Secure Payments",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur modi et recusandae ducimus eligendi eveniet soluta reprehenderit nostrum expedita omnis.",
-      image: blockBrandedIconsAndPlaceholders.placeholder1,
-      checklistItems: [
-        "Secure payment gateway integration with Stripe",
-        "SSL encryption for secure transactions",
-      ],
-    },
-    {
-      title: "Automated Invoicing",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur modi et recusandae ducimus eligendi eveniet soluta reprehenderit nostrum expedita omnis.",
-      image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-      checklistItems: ["Automated invoicing for easy billing"],
-    },
-  ],
+  features = defaultFeatures,
+  featuresSlot,
   className,
+  containerClassName,
+  cardsWrapperClassName,
+  cardClassName,
+  titleClassName,
+  descriptionClassName,
+  checklistClassName,
+  badgeClassName,
   optixFlowConfig,
-}: FeatureNumberedCardsProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="space-y-10 rounded-lg border py-10 md:px-4">
-          {features.map((feature, index) => (
-            <div key={index} className="grid rounded-lg border md:grid-cols-2">
-              <div className="flex flex-col px-6 py-8 lg:px-8 lg:py-12 xl:px-12 xl:py-20">
-                <h3 className="mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl">
+}: FeatureNumberedCardsProps): React.JSX.Element {
+  const renderChecklistItems = (feature: FeatureNumberedCardsItem) => {
+    if (feature.checklistSlot) return feature.checklistSlot;
+    if (!feature.checklistItems || feature.checklistItems.length === 0) return null;
+
+    return feature.checklistItems.map((item, itemIndex) => {
+      const isString = typeof item === "string";
+      const content = isString ? item : item.content;
+      const iconElement = isString ? (
+        <DynamicIcon
+          name="lucide/check-circle"
+          size={16}
+          className="mt-0.5 shrink-0 sm:mt-1"
+        />
+      ) : (
+        item.icon ?? (item.iconName ? <DynamicIcon name={item.iconName} size={16} className="mt-0.5 shrink-0 sm:mt-1" /> : <DynamicIcon name="lucide/check-circle" size={16} className="mt-0.5 shrink-0 sm:mt-1" />)
+      );
+      const itemClassName = isString ? undefined : item.className;
+
+      return (
+        <li key={itemIndex} className={cn("flex gap-x-3", itemClassName)}>
+          {iconElement}
+          <p className="text-sm md:text-base">{content}</p>
+        </li>
+      );
+    });
+  };
+
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
+
+    return features.map((feature, index) => {
+      const imageAlt = feature.imageAlt || (typeof feature.title === "string" ? feature.title : "Feature image");
+
+      const renderImage = () => {
+        if (feature.imageSlot) return feature.imageSlot;
+        if (feature.image) {
+          return (
+            <Img
+              src={feature.image}
+              alt={imageAlt}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              optixFlowConfig={optixFlowConfig}
+            />
+          );
+        }
+        return null;
+      };
+
+      return (
+        <div key={index} className={cn("grid rounded-lg border md:grid-cols-2", cardClassName, feature.className)}>
+          <div className={cn("flex flex-col px-6 py-8 lg:px-8 lg:py-12 xl:px-12 xl:py-20", feature.contentClassName)}>
+            {feature.title && (
+              typeof feature.title === "string" ? (
+                <h3 className={cn("mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl", titleClassName)}>
                   {feature.title}
                 </h3>
-                <div className="mb-8 text-sm text-muted-foreground sm:mb-10 md:text-base">
+              ) : (
+                <div className={cn("mb-3 text-2xl font-medium sm:mb-5 md:text-3xl lg:text-4xl", titleClassName)}>
+                  {feature.title}
+                </div>
+              )
+            )}
+            {feature.description && (
+              typeof feature.description === "string" ? (
+                <div className={cn("mb-8 text-sm text-muted-foreground sm:mb-10 md:text-base", descriptionClassName)}>
                   {feature.description}
                 </div>
-                {feature.checklistItems && feature.checklistItems.length > 0 && (
-                  <ul className="mt-auto space-y-2 sm:space-y-3">
-                    {feature.checklistItems.map((item, itemIndex) => (
-                      <li key={itemIndex} className="flex gap-x-3">
-                        <DynamicIcon
-                          name="lucide/check-circle"
-                          size={16}
-                          className="mt-0.5 shrink-0 sm:mt-1"
-                        />
-                        <p className="text-sm md:text-base">{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="relative order-first max-h-80 md:order-last md:max-h-[500px]">
-                <Img
-                  src={feature.image}
-                  alt={feature.title}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <span className="absolute top-5 left-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:top-10 md:left-10">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-            </div>
-          ))}
+              ) : (
+                <div className={cn("mb-8 text-sm text-muted-foreground sm:mb-10 md:text-base", descriptionClassName)}>
+                  {feature.description}
+                </div>
+              )
+            )}
+            {(feature.checklistItems && feature.checklistItems.length > 0) || feature.checklistSlot ? (
+              <ul className={cn("mt-auto space-y-2 sm:space-y-3", checklistClassName)}>
+                {renderChecklistItems(feature)}
+              </ul>
+            ) : null}
+          </div>
+          <div className={cn("relative order-first max-h-80 md:order-last md:max-h-[500px]", feature.imageWrapperClassName)}>
+            {renderImage()}
+            <span className={cn("absolute top-5 left-5 flex size-6 items-center justify-center rounded-sm bg-primary font-mono text-xs text-primary-foreground md:top-10 md:left-10", badgeClassName)}>
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
+      );
+    });
+  };
+
+  return (
+    <section className={cn("py-32", className)}>
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("space-y-10 rounded-lg border py-10 md:px-4", cardsWrapperClassName)}>
+          {renderFeatures()}
         </div>
       </div>
     </section>

@@ -8,21 +8,53 @@ import { patternSvgs } from "../../../lib/patternSvgs";
 
 export interface FeaturePatternGridLinksItem {
   /**
+   * Icon element (overrides iconName)
+   */
+  icon?: React.ReactNode;
+  /**
    * Icon name in format: prefix/name (e.g., "lucide/zoom-in")
    */
-  icon: string;
+  iconName?: string;
   /**
-   * Feature title
+   * Feature title content
    */
-  title: string;
+  title?: React.ReactNode;
   /**
-   * Feature description
+   * Feature description content
    */
-  description: string;
+  description?: React.ReactNode;
   /**
    * Link URL
    */
-  link: string;
+  link?: string;
+  /**
+   * Link label content
+   */
+  linkLabel?: React.ReactNode;
+  /**
+   * Custom link slot (overrides link and linkLabel)
+   */
+  linkSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the link
+   */
+  linkClassName?: string;
 }
 
 export interface FeaturePatternGridLinksProps {
@@ -31,6 +63,10 @@ export interface FeaturePatternGridLinksProps {
    */
   features?: FeaturePatternGridLinksItem[];
   /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
    * Background pattern URL
    */
   patternUrl?: string;
@@ -38,7 +74,70 @@ export interface FeaturePatternGridLinksProps {
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
 }
+
+const defaultFeatures: FeaturePatternGridLinksItem[] = [
+  {
+    iconName: "lucide/zoom-in",
+    title: "Quality",
+    description:
+      "Our UI blocks are designed with quality in mind. We make sure that every block is pixel perfect and visually appealing.",
+    link: "#",
+    linkLabel: "Learn more",
+  },
+  {
+    iconName: "lucide/blocks",
+    title: "Customizable",
+    description:
+      "You can easily customize our UI blocks to fit your needs. Change colors, fonts, and more with our easy-to-use interface.",
+    link: "#",
+    linkLabel: "Learn more",
+  },
+  {
+    iconName: "lucide/laptop",
+    title: "Responsive",
+    description:
+      "Our UI blocks are fully responsive and look great on any device. No matter the screen size, your website will look amazing.",
+    link: "#",
+    linkLabel: "Learn more",
+  },
+  {
+    iconName: "lucide/list-end",
+    title: "Easy to Use",
+    description:
+      "Our UI blocks are easy to use and require no coding knowledge. Simply drag and drop the blocks you want and you are good to go.",
+    link: "#",
+    linkLabel: "Learn more",
+  },
+  {
+    iconName: "lucide/zap",
+    title: "Fast",
+    description:
+      "Our UI blocks are optimized for speed and performance. Your website will load fast and provide a great user experience.",
+    link: "#",
+    linkLabel: "Learn more",
+  },
+  {
+    iconName: "lucide/infinity",
+    title: "Modern",
+    description:
+      "Our UI blocks are designed with modern trends in mind. Your website will look fresh and up-to-date with our blocks.",
+    link: "#",
+    linkLabel: "Learn more",
+  },
+];
 
 /**
  * Feature Pattern Grid Links - Six-feature grid with pattern background and
@@ -52,59 +151,76 @@ export interface FeaturePatternGridLinksProps {
  * ```tsx
  * <FeaturePatternGridLinks
  *   features={[
- *     { icon: "lucide/zoom-in", title: "Quality", description: "Built with care", link: "/quality" },
+ *     { iconName: "lucide/zoom-in", title: "Quality", description: "Built with care", link: "/quality" },
  *   ]}
  * />
  * ```
  */
 export function FeaturePatternGridLinks({
-  features = [
-    {
-      icon: "lucide/zoom-in",
-      title: "Quality",
-      description:
-        "Our UI blocks are designed with quality in mind. We make sure that every block is pixel perfect and visually appealing.",
-      link: "#",
-    },
-    {
-      icon: "lucide/blocks",
-      title: "Customizable",
-      description:
-        "You can easily customize our UI blocks to fit your needs. Change colors, fonts, and more with our easy-to-use interface.",
-      link: "#",
-    },
-    {
-      icon: "lucide/laptop",
-      title: "Responsive",
-      description:
-        "Our UI blocks are fully responsive and look great on any device. No matter the screen size, your website will look amazing.",
-      link: "#",
-    },
-    {
-      icon: "lucide/list-end",
-      title: "Easy to Use",
-      description:
-        "Our UI blocks are easy to use and require no coding knowledge. Simply drag and drop the blocks you want and you are good to go.",
-      link: "#",
-    },
-    {
-      icon: "lucide/zap",
-      title: "Fast",
-      description:
-        "Our UI blocks are optimized for speed and performance. Your website will load fast and provide a great user experience.",
-      link: "#",
-    },
-    {
-      icon: "lucide/infinity",
-      title: "Modern",
-      description:
-        "Our UI blocks are designed with modern trends in mind. Your website will look fresh and up-to-date with our blocks.",
-      link: "#",
-    },
-  ],
+  features = defaultFeatures,
+  featuresSlot,
   patternUrl = patternSvgs.dotPattern,
   className,
-}: FeaturePatternGridLinksProps) {
+  containerClassName,
+  gridClassName,
+  cardClassName,
+}: FeaturePatternGridLinksProps): React.JSX.Element {
+  const renderFeatureIcon = (feature: FeaturePatternGridLinksItem) => {
+    if (feature.icon) return feature.icon;
+    if (feature.iconName) return <DynamicIcon name={feature.iconName} size={24} className={feature.iconClassName} />;
+    return null;
+  };
+
+  const renderFeatureLink = (feature: FeaturePatternGridLinksItem) => {
+    if (feature.linkSlot) return feature.linkSlot;
+    if (!feature.link) return null;
+
+    return (
+      <Pressable
+        href={feature.link}
+        className={cn("flex items-center gap-2 text-sm font-medium", feature.linkClassName)}
+      >
+        {feature.linkLabel || "Learn more"}
+        <DynamicIcon name="lucide/chevron-right" size={16} />
+      </Pressable>
+    );
+  };
+
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
+
+    return features.map((feature, index) => (
+      <div
+        key={index}
+        className={cn("flex flex-col gap-10 rounded-lg border bg-background p-8", cardClassName, feature.className)}
+      >
+        <div>
+          {renderFeatureIcon(feature)}
+          {feature.title && (
+            typeof feature.title === "string" ? (
+              <h3 className={cn("mt-6 mb-2 font-medium", feature.titleClassName)}>{feature.title}</h3>
+            ) : (
+              <div className={cn("mt-6 mb-2 font-medium", feature.titleClassName)}>{feature.title}</div>
+            )
+          )}
+          {feature.description && (
+            typeof feature.description === "string" ? (
+              <p className={cn("text-sm text-muted-foreground", feature.descriptionClassName)}>
+                {feature.description}
+              </p>
+            ) : (
+              <div className={cn("text-sm text-muted-foreground", feature.descriptionClassName)}>
+                {feature.description}
+              </div>
+            )
+          )}
+        </div>
+        {renderFeatureLink(feature)}
+      </div>
+    ));
+  };
+
   return (
     <section
       className={cn(
@@ -116,29 +232,9 @@ export function FeaturePatternGridLinks({
         backgroundRepeat: "repeat",
       }}
     >
-      <div className="container">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="flex flex-col gap-10 rounded-lg border bg-background p-8"
-            >
-              <div>
-                <DynamicIcon name={feature.icon} size={24} />
-                <h3 className="mt-6 mb-2 font-medium">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {feature.description}
-                </p>
-              </div>
-              <Pressable
-                href={feature.link}
-                className="flex items-center gap-2 text-sm font-medium"
-              >
-                Learn more
-                <DynamicIcon name="lucide/chevron-right" size={16} />
-              </Pressable>
-            </div>
-          ))}
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+          {renderFeatures()}
         </div>
       </div>
     </section>
