@@ -4,27 +4,62 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailHeroMetadataProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  year?: string;
-  category?: string;
-  client?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle/role text */
+  subtitle?: React.ReactNode;
+  /** Description text */
+  description?: React.ReactNode;
+  /** Project year */
+  year?: React.ReactNode;
+  /** Project category */
+  category?: React.ReactNode;
+  /** Client name */
+  client?: React.ReactNode;
+  /** Hero image configuration */
   heroImage?: {
     src?: string;
     alt?: string;
   };
-  ctaText?: string;
-  ctaHref?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** CTA action configuration */
+  action?: ActionConfig;
+  /** Custom slot for action (overrides action prop) */
+  actionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
+  className?: string;
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the header */
+  headerClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the description */
+  descriptionClassName?: string;
+  /** Additional CSS classes for the metadata section */
+  metadataClassName?: string;
+  /** Additional CSS classes for the hero image container */
+  heroImageClassName?: string;
 }
 
 const defaultProps: ProjectDetailHeroMetadataProps = {
@@ -39,8 +74,7 @@ const defaultProps: ProjectDetailHeroMetadataProps = {
     src: imagePlaceholders[0],
     alt: "Project hero image",
   },
-  ctaText: "View Project",
-  ctaHref: "#",
+  action: { label: "View Project", href: "#" },
 };
 
 const fadeInUp = {
@@ -61,7 +95,6 @@ export function ProjectDetailHeroMetadata(
   props: ProjectDetailHeroMetadataProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     description = defaultProps.description,
@@ -69,47 +102,90 @@ export function ProjectDetailHeroMetadata(
     category = defaultProps.category,
     client = defaultProps.client,
     heroImage = defaultProps.heroImage,
-    ctaText = defaultProps.ctaText,
-    ctaHref = defaultProps.ctaHref,
+    action = defaultProps.action,
+    actionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    headerClassName,
+    titleClassName,
+    descriptionClassName,
+    metadataClassName,
+    heroImageClassName,
   } = props;
 
+  const renderAction = () => {
+    if (actionSlot) return actionSlot;
+    if (!action) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    return (
+      <Pressable
+        className={cn("h-auto p-0 font-medium text-foreground hover:text-primary", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <section className={cn("py-24 md:py-32", className)}>
-      <div className="container space-y-8">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("space-y-8", containerClassName)}>
         <motion.header
-          className="pb-8 md:pb-12"
+          className={cn("pb-8 md:pb-12", headerClassName)}
           initial="initial"
           animate="animate"
           variants={staggerContainer}
         >
           <div className="flex flex-col gap-y-12 lg:flex-row lg:items-start lg:justify-between">
             <motion.div variants={fadeInUp} className="flex-1">
-              <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-                {title}
-              </h1>
-              <motion.p
-                variants={fadeInUp}
-                className="mt-6 max-w-xl text-lg leading-relaxed font-medium text-muted-foreground"
-              >
-                {description}
-              </motion.p>
+              {typeof title === "string" ? (
+                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+                  {title}
+                </h1>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              )}
+              {description && (
+                <motion.div variants={fadeInUp}>
+                  {typeof description === "string" ? (
+                    <p className={cn("mt-6 max-w-xl text-lg leading-relaxed font-medium text-muted-foreground", descriptionClassName)}>
+                      {description}
+                    </p>
+                  ) : (
+                    <div className={cn("mt-6", descriptionClassName)}>{description}</div>
+                  )}
+                </motion.div>
+              )}
             </motion.div>
 
             <motion.div
               variants={fadeInUp}
-              className="w-full max-w-md space-y-4"
+              className={cn("w-full max-w-md space-y-4", metadataClassName)}
             >
               <div className="flex items-center justify-between border-b border-border pb-3">
-                <span className="font-medium text-muted-foreground">
-                  CATEGORY
-                </span>
+                <span className="font-medium text-muted-foreground">CATEGORY</span>
                 <span className="font-medium text-foreground">{category}</span>
               </div>
               <div className="flex items-center justify-between border-b border-border pb-3">
-                <span className="font-medium text-muted-foreground">
-                  CLIENT
-                </span>
+                <span className="font-medium text-muted-foreground">CLIENT</span>
                 <span className="font-medium text-foreground">{client}</span>
               </div>
               <div className="flex items-center justify-between border-b border-border pb-3">
@@ -117,17 +193,8 @@ export function ProjectDetailHeroMetadata(
                 <span className="font-medium text-foreground">{year}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-medium text-muted-foreground">
-                  {subtitle}
-                </span>
-                {ctaHref && ctaText && (
-                  <Pressable
-                    href={ctaHref}
-                    className="h-auto p-0 font-medium text-foreground hover:text-primary"
-                  >
-                    {ctaText}
-                  </Pressable>
-                )}
+                <span className="font-medium text-muted-foreground">{subtitle}</span>
+                {renderAction()}
               </div>
             </motion.div>
           </div>
@@ -140,7 +207,7 @@ export function ProjectDetailHeroMetadata(
         >
           <motion.div
             variants={fadeInUp}
-            className="relative aspect-video overflow-hidden rounded-lg bg-muted/30"
+            className={cn("relative aspect-video overflow-hidden rounded-lg bg-muted/30", heroImageClassName)}
           >
             <Img
               src={heroImage?.src || imagePlaceholders[0]}
@@ -152,6 +219,6 @@ export function ProjectDetailHeroMetadata(
           </motion.div>
         </motion.main>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -4,43 +4,78 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type {
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-export interface ProjectDetailSidebarStickyImage {
-  src?: string;
+export interface ProjectDetailSidebarStickyRelatedProject {
+  title: React.ReactNode;
+  category: React.ReactNode;
+  src: string;
   alt: string;
+  href?: string;
+  className?: string;
 }
 
 export interface ProjectDetailSidebarStickyProps {
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Category label */
+  category?: React.ReactNode;
+  /** Project year */
+  year?: React.ReactNode;
+  /** Description text */
+  description?: React.ReactNode;
+  /** Gallery images */
+  images?: ImageItem[];
+  /** Related projects */
+  relatedProjects?: ProjectDetailSidebarStickyRelatedProject[];
+  /** Related projects section title */
+  relatedProjectsTitle?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
   className?: string;
-  title?: string;
-  subtitle?: string;
-  category?: string;
-  year?: string;
-  description?: string;
-  images?: ProjectDetailSidebarStickyImage[];
-  relatedProjects?: Array<{
-    title: string;
-    category: string;
-    src: string;
-    alt: string;
-    href?: string;
-  }>;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the grid layout */
+  gridClassName?: string;
+  /** Additional CSS classes for the sticky sidebar */
+  sidebarClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the description */
+  descriptionClassName?: string;
+  /** Additional CSS classes for the images container */
+  imagesClassName?: string;
+  /** Additional CSS classes for the related projects section */
+  relatedProjectsClassName?: string;
 }
 
-const defaultImages: ProjectDetailSidebarStickyImage[] = [
+const defaultImages: ImageItem[] = [
   { src: imagePlaceholders[0], alt: "Project image 1" },
   { src: imagePlaceholders[1], alt: "Project image 2" },
   { src: imagePlaceholders[2], alt: "Project image 3" },
   { src: imagePlaceholders[3], alt: "Project image 4" },
 ];
 
-const defaultRelatedProjects = [
+const defaultRelatedProjects: ProjectDetailSidebarStickyRelatedProject[] = [
   {
     title: "Portrait",
     category: "STREET",
@@ -73,6 +108,7 @@ const defaultProps: ProjectDetailSidebarStickyProps = {
     "A captivating series of street photography that captures the essence of urban life through the lens of contemporary photographers working in monochrome.",
   images: defaultImages,
   relatedProjects: defaultRelatedProjects,
+  relatedProjectsTitle: "MORE COLLECTIONS",
 };
 
 function ImageBlock({
