@@ -273,7 +273,7 @@ const List2 = ({
           {items.map((item, index) => (
             <React.Fragment key={index}>
               <div className="grid items-center gap-4 px-4 py-5 md:grid-cols-4">
-                <div className="order-2 flex items-center gap-2 md:order-none">
+                <div className="order-2 flex items-center gap-2 md:order-0">
                   <span className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md bg-muted">
                     {item.icon}
                   </span>
@@ -284,12 +284,12 @@ const List2 = ({
                     </p>
                   </div>
                 </div>
-                <p className="order-1 text-2xl font-semibold md:order-none md:col-span-2">
+                <p className="order-1 text-2xl font-semibold md:order-0 md:col-span-2">
                   {item.description}
                 </p>
                 <Button variant="outline" asChild>
                   <a
-                    className="order-3 ml-auto w-fit gap-2 md:order-none"
+                    className="order-3 ml-auto w-fit gap-2 md:order-0"
                     href={item.link}
                   >
                     <span>View project</span>
@@ -457,7 +457,6 @@ const List3 = ({ className }: List3Props) => {
 export { List3 };
 
 ```
-
 
 ```tsx
 import { useState } from 'react';

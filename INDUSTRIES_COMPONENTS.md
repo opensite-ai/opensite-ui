@@ -245,19 +245,19 @@ const Industries2 = ({
               className="border-b border-border pb-8 first:border-t first:pt-8 last:border-b-0"
             >
               <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-12 md:items-center md:gap-8">
-                <div className="order-2 md:order-none md:col-span-4">
+                <div className="order-2 md:order-0 md:col-span-4">
                   <h3 className="text-lg font-semibold text-foreground md:text-xl">
                     {service.title}
                   </h3>
                 </div>
-                <div className="order-1 md:order-none md:col-span-2 md:flex md:justify-center">
+                <div className="order-1 md:order-0 md:col-span-2 md:flex md:justify-center">
                   <img
                     src={service.imageSrc}
                     alt={service.imageAlt}
                     className="h-12 w-12 object-contain md:h-16 md:w-16"
                   />
                 </div>
-                <div className="order-3 md:order-none md:col-span-6">
+                <div className="order-3 md:order-0 md:col-span-6">
                   <p className="text-sm leading-relaxed text-muted-foreground">
                     {service.description}
                   </p>

@@ -280,7 +280,7 @@ const OfferModal5 = ({
 
   return (
     <Sheet defaultOpen>
-      <SheetContent className="md:max-w-150 w-full max-md:!max-w-[calc(100dvw-2.5rem)] [&>button:hover>svg]:rotate-180 [&>button>svg]:size-5 [&>button>svg]:transition-all">
+      <SheetContent className="md:max-w-150 w-full max-md:max-w-[calc(100dvw-2.5rem)]! [&>button:hover>svg]:rotate-180 [&>button>svg]:size-5 [&>button>svg]:transition-all">
         <div className="max-h-full overflow-y-auto">
           <div className="space-y-4 p-6 md:p-16">
             <div className="basis-1/2 space-y-8">

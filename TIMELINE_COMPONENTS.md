@@ -45,7 +45,7 @@ const Timeline1 = ({ className }: Timeline1Props) => {
             </p>
           </div>
           <span
-            className="my-3 h-36 w-[2px]"
+            className="my-3 h-36 w-0.5"
             style={{
               backgroundImage:
                 "linear-gradient(to bottom, #000 10%, rgba(255, 255, 255, 0) 0%)",
@@ -467,7 +467,7 @@ const Timeline4 = () => {
         ))}
       </div>
 
-      <div className="h-8 w-full border-y md:h-12 lg:h-[112px]">
+      <div className="h-8 w-full border-y md:h-12 lg:h-28">
         <div className="container h-full w-full border-x"></div>
       </div>
     </section>
@@ -1157,7 +1157,7 @@ const Timeline10 = ({ className }: Timeline10Props) => {
                   }}
                   transition={{ ease: "easeOut", duration: 0.5 }}
                   className={cn(
-                    "absolute -top-[32px] left-0 hidden h-0.5 bg-foreground md:block",
+                    "absolute -top-8 left-0 hidden h-0.5 bg-foreground md:block",
                   )}
                 />
               )}
@@ -1510,13 +1510,13 @@ const Timeline13 = ({ className }: Timeline13Props) => {
           <div className="mt-3 flex gap-4 sm:flex-col">
             <div className="relative">
               <div className="grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:grid-cols-3 sm:items-center">
-                <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-ring sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:-translate-x-0" />
+                <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-ring sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:translate-x-0" />
                 <span className="relative top-3 size-2 rounded-full bg-ring sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-ring sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-ring sm:top-0" />
               </div>
               <div className="animate-timeline-reveal absolute inset-0 grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:grid-cols-3 sm:items-center">
-                <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-primary sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:-translate-x-0" />
+                <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-primary sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:translate-x-0" />
                 <span className="relative top-3 size-2 rounded-full bg-primary sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-primary sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-primary sm:top-0" />
@@ -1768,7 +1768,7 @@ const Timeline14 = ({ className }: Timeline14Props) => {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="aspect-[16/12] rounded-lg border object-cover md:w-1/3 md:max-w-[440px]"
+                  className="aspect-16/12 rounded-lg border object-cover md:w-1/3 md:max-w-[440px]"
                 />
                 <div>
                   <h2 className="mb-3 text-2xl font-medium md:mb-4 md:text-4xl">

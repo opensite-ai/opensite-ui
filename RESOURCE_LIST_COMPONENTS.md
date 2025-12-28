@@ -516,7 +516,7 @@ const EmailForm = () => {
                       type="email"
                       id="emailInput"
                       placeholder="What's your work email?"
-                      className="h-fit bg-background py-4 pr-5 pl-5 lg:pr-[13.75rem]"
+                      className="h-fit bg-background py-4 pr-5 pl-5 lg:pr-55"
                     />
                     <div className="top-1/2 right-2.5 lg:absolute lg:-translate-y-1/2">
                       <Button
@@ -1128,7 +1128,7 @@ const FeaturedPost = ({ title, imageUrl, link }: FeaturedPostData) => {
           <div>
             <Button
               asChild
-              className="group relative mt-5 !px-6 transition-all hover:!pr-8 hover:!pl-4"
+              className="group relative mt-5 px-6! transition-all hover:pr-8! hover:pl-4!"
             >
               <a href={link}>
                 Read more
@@ -1139,7 +1139,7 @@ const FeaturedPost = ({ title, imageUrl, link }: FeaturedPostData) => {
         </div>
       </div>
       <div className="basis-full lg:basis-1/2">
-        <div className="mx-auto aspect-[1.782729805] w-full max-w-[40rem] overflow-hidden rounded-2xl">
+        <div className="mx-auto aspect-[1.782729805] w-full max-w-160 overflow-hidden rounded-2xl">
           <img
             src={imageUrl}
             alt={title}
@@ -1354,7 +1354,7 @@ const Resources5 = ({
         {courses.map((course) => (
           <div
             key={course.title}
-            className="relative flex flex-col gap-8 border-t-1 border-border py-16 md:p-8"
+            className="relative flex flex-col gap-8 border-t border-border py-16 md:p-8"
           >
             <div className="container grid grid-cols-1 gap-10 md:grid-cols-2">
               {/* Left Content */}
@@ -1409,7 +1409,7 @@ const Resources5 = ({
                 {/* Start Button */}
                 <a
                   href={course.cta.url}
-                  className="group/btn flex w-fit items-center gap-2 border-l-1 border-border p-1 hover:bg-accent"
+                  className="group/btn flex w-fit items-center gap-2 border-l border-border p-1 hover:bg-accent"
                 >
                   <span className="font-medium">{course.cta.text}</span>
                   <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover/btn:translate-x-1" />
@@ -1421,7 +1421,7 @@ const Resources5 = ({
                 <div
                   className={`group grid aspect-video w-full place-items-center bg-linear-to-br ${course.gradient} rounded-lg pt-6 pr-8 transition duration-200 ease-out hover:scale-[1.03] hover:-rotate-2 dark:from-muted dark:to-muted/50`}
                 >
-                  <div className="shadow-duo col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-6deg] rounded-md border border-border bg-muted/50 transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-2deg] lg:w-32"></div>
+                  <div className="shadow-duo col-start-1 row-start-1 flex aspect-square w-24 origin-top-left -rotate-6 rounded-md border border-border bg-muted/50 transition duration-500 ease-out group-hover:scale-[1.1] group-hover:-rotate-2 lg:w-32"></div>
                   <div className="col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-8deg] rounded-md border border-border bg-muted/50 transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-8deg] lg:w-32"></div>
                   <div className="shadow-duo col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-10deg] rounded-md border border-border bg-card transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-14deg] lg:w-32">
                     <div className="m-4 h-4 w-4 rounded-full bg-muted shadow-inner"></div>
@@ -1446,4 +1446,3 @@ const Resources5 = ({
 export { Resources5 };
 
 ```
-

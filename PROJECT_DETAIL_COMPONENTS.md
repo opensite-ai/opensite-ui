@@ -84,7 +84,7 @@ const Project1 = ({ className }: Project1Props) => {
             <img
               src={heroImage}
               alt="Team collaborating in a modern workspace, sharing ideas and working together."
-              className="aspect-[16/7] w-full object-cover"
+              className="aspect-16/7 w-full object-cover"
             />
           </div>
         </FadeUpOnScroll>
@@ -240,7 +240,7 @@ const Project2 = ({
         </div>
 
         <div className="relative">
-          <div className="aspect-[16/10] overflow-hidden">
+          <div className="aspect-16/10 overflow-hidden">
             <img
               src={imageSrc}
               alt={imageAlt}
@@ -790,7 +790,7 @@ const Project13 = ({ className }: Project13Props) => {
         variants={containerVariants}
       >
         <motion.div
-          className="relative flex h-[60vh] items-center justify-center md:h-[70vh] md:border-[50px] md:border-white lg:h-[100vh]"
+          className="relative flex h-[60vh] items-center justify-center md:h-[70vh] md:border-50 md:border-white lg:h-screen"
           style={{ y: heroY, scale: heroScale }}
         >
           <motion.img
@@ -1467,7 +1467,7 @@ const Project2a = ({
           </div>
 
           <div className="mb-24">
-            <div className="aspect-[16/10] overflow-hidden bg-muted">
+            <div className="aspect-16/10 overflow-hidden bg-muted">
               <img
                 src={imageSrc}
                 alt={imageAlt}
@@ -1594,7 +1594,7 @@ const Project2b = ({
           </div>
 
           <div className="mb-24">
-            <div className="aspect-[3/2] overflow-hidden bg-muted">
+            <div className="aspect-3/2 overflow-hidden bg-muted">
               <img
                 src={imageSrc}
                 alt={imageAlt}
@@ -1705,21 +1705,21 @@ const Project2c = ({
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="group">
-              <div className="h-[1px] w-full bg-border"></div>
+              <div className="h-px w-full bg-border"></div>
               <div className="mt-4 text-sm font-medium text-muted-foreground">
                 YEAR
               </div>
               <div className="mt-1 text-lg text-foreground">{year}</div>
             </div>
             <div className="group">
-              <div className="h-[1px] w-full bg-border"></div>
+              <div className="h-px w-full bg-border"></div>
               <div className="mt-4 text-sm font-medium text-muted-foreground">
                 CATEGORY
               </div>
               <div className="mt-1 text-lg text-foreground">{category}</div>
             </div>
             <div className="group">
-              <div className="h-[1px] w-full bg-border"></div>
+              <div className="h-px w-full bg-border"></div>
               <div className="mt-4 text-sm font-medium text-muted-foreground">
                 CLIENT
               </div>
@@ -1729,7 +1729,7 @@ const Project2c = ({
         </div>
 
         <div className="mb-20">
-          <div className="aspect-[16/9] overflow-hidden">
+          <div className="aspect-video overflow-hidden">
             <img
               src={imageSrc}
               alt={imageAlt}
@@ -1895,7 +1895,7 @@ const Project2d = ({
 
         <div className="mb-32">
           <div className="relative">
-            <div className="aspect-[5/3] overflow-hidden rounded-2xl">
+            <div className="aspect-5/3 overflow-hidden rounded-2xl">
               <img
                 src={imageSrc}
                 alt={imageAlt}
@@ -3021,7 +3021,7 @@ const Project5a = ({ className }: Project5aProps) => {
           className="space-y-12 md:space-y-16"
         >
           <motion.div variants={fadeInUp}>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-muted/30">
+            <div className="relative aspect-video overflow-hidden rounded-lg bg-muted/30">
               <img
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Tree Trunk Art Piece.jpg"
                 alt="Organic Resonance - Modern abstract nature sculpture"
@@ -3167,7 +3167,7 @@ const Project5b = ({ className }: Project5bProps) => {
           className="space-y-8 md:space-y-20"
         >
           <motion.div variants={fadeInUp} className="relative">
-            <div className="relative aspect-[21/9] overflow-hidden rounded-lg bg-muted/30">
+            <div className="relative aspect-21/9 overflow-hidden rounded-lg bg-muted/30">
               <img
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Tree Trunk Art Piece.jpg"
                 alt="Organic Resonance - Main sculpture view"
@@ -3408,7 +3408,7 @@ const Project5c = ({ className }: Project5cProps) => {
             className="grid grid-cols-1 gap-6 md:grid-cols-4"
           >
             <div className="md:col-span-3">
-              <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-muted/30">
+              <div className="relative aspect-video overflow-hidden rounded-lg bg-muted/30">
                 <img
                   src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Tree Trunk Art Piece.jpg"
                   alt="Organic Resonance - Main sculpture view"
@@ -3569,7 +3569,7 @@ const Project5d = ({ className }: Project5dProps) => {
 
           <motion.div
             variants={fadeInUp}
-            className="relative aspect-[3/2] overflow-hidden bg-muted/30"
+            className="relative aspect-3/2 overflow-hidden bg-muted/30"
           >
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Modern Terrarium Display.jpg"
@@ -3594,7 +3594,7 @@ const Project5d = ({ className }: Project5dProps) => {
 
           <motion.div
             variants={fadeInUp}
-            className="relative aspect-[16/9] overflow-hidden bg-muted/30"
+            className="relative aspect-video overflow-hidden bg-muted/30"
           >
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Modern Terrarium Design.jpg"
@@ -3937,7 +3937,7 @@ const Project5f = ({ className }: Project5fProps) => {
         >
           <motion.div
             variants={fadeInUp}
-            className="relative aspect-[21/9] overflow-hidden rounded-xl bg-muted/30"
+            className="relative aspect-21/9 overflow-hidden rounded-xl bg-muted/30"
           >
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Tree Trunk Art Piece.jpg"
@@ -3949,7 +3949,7 @@ const Project5f = ({ className }: Project5fProps) => {
 
           <motion.div
             variants={fadeInUp}
-            className="relative aspect-[16/9] overflow-hidden rounded-xl bg-muted/30"
+            className="relative aspect-video overflow-hidden rounded-xl bg-muted/30"
           >
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Modern Terrarium Display.jpg"
@@ -3961,7 +3961,7 @@ const Project5f = ({ className }: Project5fProps) => {
 
           <motion.div
             variants={fadeInUp}
-            className="relative aspect-[16/9] overflow-hidden rounded-xl bg-muted/30"
+            className="relative aspect-video overflow-hidden rounded-xl bg-muted/30"
           >
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Modern Terrarium Design.jpg"
@@ -4086,7 +4086,7 @@ const Project5g = ({ className }: Project5gProps) => {
             className="grid grid-cols-1 gap-8 lg:grid-cols-3"
           >
             <div className="lg:col-span-2">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-muted/30">
+              <div className="relative aspect-16/10 overflow-hidden rounded-lg bg-muted/30">
                 <img
                   src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/modern-terrarium/Tree Trunk Art Piece.jpg"
                   alt="Organic Resonance - Main sculpture view"
@@ -4390,7 +4390,7 @@ export const Project6 = ({
         </div>
 
         <div className="mt-32">
-          <h3 className="mb-6 text-sm font-bold font-medium tracking-wider text-foreground uppercase">
+          <h3 className="mb-6 text-sm font-medium tracking-wider text-foreground uppercase">
             MORE COLLECTIONS
           </h3>
           <div className="grid gap-6 pb-16 md:grid-cols-3">
@@ -4711,7 +4711,7 @@ const Project7 = ({ className }: Project7Props) => {
             <CarouselContent>
               {images.carousel.map((image, index) => (
                 <CarouselItem key={index}>
-                  <div className="aspect-[5/3] overflow-hidden">
+                  <div className="aspect-5/3 overflow-hidden">
                     <img
                       src={image}
                       alt={`Project process ${index + 1}`}
@@ -4754,7 +4754,7 @@ const Project7 = ({ className }: Project7Props) => {
           </div>
         </div>
 
-        <div className="aspect-[16/9] overflow-hidden md:aspect-[21/9]">
+        <div className="aspect-video overflow-hidden md:aspect-21/9">
           <img
             src={images.dayOne}
             alt="Meridian Tower main facade"
@@ -4882,7 +4882,7 @@ const Project8 = ({ className }: Project8Props) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
         >
-          <div className="relative aspect-[16/10] overflow-hidden rounded-lg">
+          <div className="relative aspect-16/10 overflow-hidden rounded-lg">
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/glitch-portrait-pir7z.jpg"
               alt="Creative portrait with dynamic lighting"
@@ -4997,7 +4997,7 @@ const Project8a = ({ className }: Project8aProps) => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.6 }}
       >
-        <div className="relative aspect-[16/9] overflow-hidden">
+        <div className="relative aspect-video overflow-hidden">
           <img
             src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/glitch-portrait-pir7z.jpg"
             alt="Creative portrait with dynamic lighting"
@@ -5225,7 +5225,7 @@ const Project8c = ({ className }: Project8cProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
         >
-          <div className="relative aspect-[3/2] overflow-hidden rounded-lg">
+          <div className="relative aspect-3/2 overflow-hidden rounded-lg">
             <img
               src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/glitch-portrait-pir7z.jpg"
               alt="Creative portrait with dynamic lighting"
@@ -5669,7 +5669,7 @@ const Project9 = ({ className }: Project9Props) => {
             >
               <img
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw1.jpeg"
-                className="max-h-[30rem] w-full object-cover transition-transform duration-700 hover:scale-105"
+                className="max-h-120 w-full object-cover transition-transform duration-700 hover:scale-105"
                 alt="Featured project"
               />
             </motion.div>

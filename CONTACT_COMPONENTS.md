@@ -971,7 +971,7 @@ export default function ContactConsultation() {
                     <Label
                       key={service.value}
                       htmlFor={`service-${service.value}`}
-                      className="flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-colors hover:border-foreground has-[[data-state=checked]]:border-primary"
+                      className="flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-colors hover:border-foreground has-data-[state=checked]:border-primary"
                     >
                       <RadioGroupItem
                         value={service.value}
@@ -1000,7 +1000,7 @@ export default function ContactConsultation() {
                     <Label
                       key={duration.value}
                       htmlFor={`duration-${duration.value}`}
-                      className="flex cursor-pointer items-center justify-between rounded-lg border p-4 transition-colors hover:border-foreground has-[[data-state=checked]]:border-primary"
+                      className="flex cursor-pointer items-center justify-between rounded-lg border p-4 transition-colors hover:border-foreground has-data-[state=checked]:border-primary"
                     >
                       <div className="flex items-center gap-3">
                         <RadioGroupItem
@@ -3511,7 +3511,7 @@ export default function ContactInterview() {
                       {INTERVIEW_TYPES.map((type) => (
                         <label
                           key={type.value}
-                          className="flex cursor-pointer items-center justify-between rounded-lg border p-3 transition-colors hover:border-foreground has-[:checked]:border-primary"
+                          className="flex cursor-pointer items-center justify-between rounded-lg border p-3 transition-colors hover:border-foreground has-checked:border-primary"
                         >
                           <div className="flex items-center gap-3">
                             <input
@@ -3537,7 +3537,7 @@ export default function ContactInterview() {
                         <Label
                           key={format.value}
                           htmlFor={`format-${format.value}`}
-                          className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border p-3 transition-colors hover:border-foreground has-[[data-state=checked]]:border-primary"
+                          className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border p-3 transition-colors hover:border-foreground has-data-[state=checked]:border-primary"
                         >
                           <RadioGroupItem
                             value={format.value}
@@ -6344,7 +6344,7 @@ export default function ContactReservation() {
                       {TIME_SLOTS.map((slot) => (
                         <label
                           key={slot.value}
-                          className="relative flex cursor-pointer items-center justify-center rounded-md border p-2 text-sm transition-colors hover:border-foreground has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
+                          className="relative flex cursor-pointer items-center justify-center rounded-md border p-2 text-sm transition-colors hover:border-foreground has-checked:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
                         >
                           <input
                             type="radio"
@@ -6392,7 +6392,7 @@ export default function ContactReservation() {
                       {OCCASIONS.map((occasion) => (
                         <label
                           key={occasion.id}
-                          className="flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors hover:border-foreground has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
+                          className="flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors hover:border-foreground has-checked:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
                         >
                           <input
                             type="checkbox"

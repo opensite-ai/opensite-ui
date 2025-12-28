@@ -1245,7 +1245,7 @@ const Services13 = ({ className }: Services13Props) => {
             whileHover={{ opacity: 0.8, scale: 1.02 }}
             className="group col-span-1 block overflow-hidden rounded-xl sm:col-span-2"
           >
-            <Card className="relative aspect-[16/9] overflow-hidden p-0">
+            <Card className="relative aspect-video overflow-hidden p-0">
               <img
                 src={services[0].image}
                 alt={services[0].title}
@@ -1266,7 +1266,7 @@ const Services13 = ({ className }: Services13Props) => {
             whileHover={{ opacity: 0.8, scale: 1.02 }}
             className="group block overflow-hidden rounded-xl"
           >
-            <Card className="relative aspect-[4/5] overflow-hidden p-0">
+            <Card className="relative aspect-4/5 overflow-hidden p-0">
               <img
                 src={services[1].image}
                 alt={services[1].title}
@@ -1287,7 +1287,7 @@ const Services13 = ({ className }: Services13Props) => {
             whileHover={{ opacity: 0.8, scale: 1.02 }}
             className="group block overflow-hidden rounded-xl"
           >
-            <Card className="relative aspect-[4/5] overflow-hidden p-0">
+            <Card className="relative aspect-4/5 overflow-hidden p-0">
               <img
                 src={services[2].image}
                 alt={services[2].title}
@@ -1308,7 +1308,7 @@ const Services13 = ({ className }: Services13Props) => {
             whileHover={{ opacity: 0.8, scale: 1.02 }}
             className="group block overflow-hidden rounded-xl"
           >
-            <Card className="relative aspect-[4/5] overflow-hidden p-0">
+            <Card className="relative aspect-4/5 overflow-hidden p-0">
               <img
                 src={services[3].image}
                 alt={services[3].title}
@@ -1329,7 +1329,7 @@ const Services13 = ({ className }: Services13Props) => {
             whileHover={{ opacity: 0.8, scale: 1.02 }}
             className="group block overflow-hidden rounded-xl"
           >
-            <Card className="relative aspect-[4/5] overflow-hidden p-0">
+            <Card className="relative aspect-4/5 overflow-hidden p-0">
               <img
                 src={services[4].image}
                 alt={services[4].title}
@@ -2251,7 +2251,6 @@ export { Services21 };
 
 ```
 
-
 ```tsx
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -2754,7 +2753,7 @@ export default function AnimatedFeaturesHero() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Your platform for{' '}
             <span className="text-primary relative inline-flex">
-              <span className="animate-text-gradient from-primary to-primary via-muted-foreground bg-linear-to-r bg-[200%_auto] bg-clip-text text-transparent">
+              <span className="animate-text-gradient from-primary to-primary via-muted-foreground bg-linear-to-r bg-size-[200%_auto] bg-clip-text text-transparent">
                 innovation
               </span>
             </span>
@@ -3811,7 +3810,7 @@ export default function HeroSectionWithIntegrationShowcase() {
         <div className="relative">
           {/* Background pattern */}
           <div className="absolute inset-0 -z-10 h-full w-full">
-            <div className="absolute h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+            <div className="absolute h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
             <div className="absolute top-0 right-0 bottom-0 left-0 bg-[radial-gradient(circle_800px_at_100%_200px,rgba(120,119,198,0.1),transparent)]"></div>
           </div>
 
@@ -4936,5 +4935,4 @@ export default function SplitLayoutFeature() {
     </section>
   );
 }
-
 ```

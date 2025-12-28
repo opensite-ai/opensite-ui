@@ -393,7 +393,6 @@ export { Service3 };
 
 ```
 
-
 ```tsx
 "use client";
 
@@ -1067,7 +1066,6 @@ const Service6 = ({ className }: Service6Props) => {
 export { Service6 };
 
 ```
-
 
 ```tsx
 "use client";

@@ -1080,7 +1080,7 @@ export default function TestimonialsCompany01() {
             <img
               src="https://v3.material-tailwind.com/logo/spotify.svg"
               alt="user profile"
-              className="h-full max-h-96 w-full max-w-96 rounded-xl object-cover lg:max-h-[30rem] lg:max-w-full"
+              className="h-full max-h-96 w-full max-w-96 rounded-xl object-cover lg:max-h-120 lg:max-w-full"
             />
           </div>
           <CardContent className="col-span-full px-0 py-6 md:col-span-8 md:px-8 lg:px-12">
@@ -1381,7 +1381,7 @@ export default function TestimonialsMarquee01() {
           </div>
 
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-background to-transparent" />
         </div>
 
         <style jsx>{`
@@ -2664,7 +2664,7 @@ export default function BigImage() {
             />
 
             {/* SVG Element */}
-            <div className="absolute start-0 bottom-0 -z-[1] -translate-x-14 translate-y-10">
+            <div className="absolute start-0 bottom-0 -z-1 -translate-x-14 translate-y-10">
               <svg
                 className="text-muted-foreground h-auto max-w-40"
                 width="696"
@@ -3152,7 +3152,7 @@ const TestimonialsSection = () => {
         </div>
 
         <div 
-          className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] max-h-[740px] overflow-hidden"
+          className="flex justify-center gap-6 mt-10 mask-[linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] max-h-[740px] overflow-hidden"
           role="region"
           aria-label="Scrolling Testimonials"
         >
@@ -3248,7 +3248,7 @@ export function Testimonials() {
     <div className="flex flex-col items-center gap-10 py-16">
       {/* Quote Container */}
       <div className="relative px-8">
-        <span className="absolute -left-2 -top-6 text-7xl font-serif text-foreground/[0.06] select-none pointer-events-none">
+        <span className="absolute -left-2 -top-6 text-7xl font-serif text-foreground/6 select-none pointer-events-none">
           "
         </span>
 
@@ -3261,7 +3261,7 @@ export function Testimonials() {
           {displayedQuote}
         </p>
 
-        <span className="absolute -right-2 -bottom-8 text-7xl font-serif text-foreground/[0.06] select-none pointer-events-none">
+        <span className="absolute -right-2 -bottom-8 text-7xl font-serif text-foreground/6 select-none pointer-events-none">
           "
         </span>
       </div>
@@ -3291,7 +3291,7 @@ export function Testimonials() {
                 onMouseLeave={() => setHoveredIndex(null)}
                 className={cn(
                   "relative flex items-center gap-0 rounded-full cursor-pointer",
-                  "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                  "transition-all duration-500 ease-in-out",
                   isActive ? "bg-foreground shadow-lg" : "bg-transparent hover:bg-muted/80",
                   showName ? "pr-4 pl-2 py-2" : "p-0.5",
                 )}
@@ -3303,7 +3303,7 @@ export function Testimonials() {
                     alt={testimonial.author}
                     className={cn(
                       "w-8 h-8 rounded-full object-cover",
-                      "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                      "transition-all duration-500 ease-in-out",
                       isActive ? "ring-2 ring-background/30" : "ring-0",
                       !isActive && "hover:scale-105",
                     )}
@@ -3312,7 +3312,7 @@ export function Testimonials() {
 
                 <div
                   className={cn(
-                    "grid transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                    "grid transition-all duration-500 ease-in-out",
                     showName ? "grid-cols-[1fr] opacity-100 ml-2" : "grid-cols-[0fr] opacity-0 ml-0",
                   )}
                 >
@@ -3673,7 +3673,7 @@ export function Testimonial() {
       <div ref={containerRef} className="relative w-full max-w-5xl" onMouseMove={handleMouseMove}>
         {/* Oversized index number - positioned to bleed off left edge */}
         <motion.div
-          className="absolute -left-8 top-1/2 -translate-y-1/2 text-[28rem] font-bold text-foreground/[0.03] select-none pointer-events-none leading-none tracking-tighter"
+          className="absolute -left-8 top-1/2 -translate-y-1/2 text-[28rem] font-bold text-foreground/3 select-none pointer-events-none leading-none tracking-tighter"
           style={{ x: numberX, y: numberY }}
         >
           <AnimatePresence mode="wait">
@@ -3959,7 +3959,7 @@ export default function Testimonials() {
                             <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                                 <p>Great work on tailfolio template. This is one of the best personal website that I have seen so far!</p>
 
-                                <div className="grid items-center gap-3 [grid-template-columns:auto_1fr]">
+                                <div className="grid items-center gap-3 grid-cols-[auto_1fr]">
                                     <Avatar className="size-12">
                                         <AvatarImage
                                             src="https://tailus.io/images/reviews/yucel.webp"

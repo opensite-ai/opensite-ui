@@ -13,7 +13,7 @@ const Resource1 = ({ className }: Resource1Props) => {
   return (
     <section className={cn("py-32", className)}>
       <div className="container grid gap-12 md:grid-cols-12 md:gap-8">
-        <div className="order-last md:order-none md:col-span-4 lg:col-span-3">
+        <div className="order-last md:order-0 md:col-span-4 lg:col-span-3">
           <aside className="flex flex-col gap-2">
             <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
               <div className="border-b border-border bg-muted/50 px-5 py-4">

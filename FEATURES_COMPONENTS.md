@@ -6038,9 +6038,9 @@ const Feature146 = ({ className }: Feature146Props) => {
         <div className="flex justify-center">
           <div className="relative flex w-full flex-col border border-solid border-muted-foreground/30 md:w-1/2 lg:w-full">
             <div className="relative flex flex-col lg:flex-row">
-              <div className="absolute top-0 left-[-50px] h-[1px] w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
+              <div className="absolute top-0 left-[-50px] h-px w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
               <div className="absolute top-[-50px] left-0 h-12 w-[1px] border-r-[1px] border-dashed border-r-muted-foreground/30" />
-              <div className="absolute top-0 right-[-50px] h-[1px] w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
+              <div className="absolute top-0 right-[-50px] h-px w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
               <div className="absolute top-[-50px] right-0 h-12 w-[1px] border-r-[1px] border-dashed border-r-muted-foreground/30" />
               <div className="flex flex-col justify-between gap-8 border-b border-solid border-muted-foreground/30 p-10 lg:w-2/5 lg:border-r lg:border-b-0">
                 <div>
@@ -6072,9 +6072,9 @@ const Feature146 = ({ className }: Feature146Props) => {
               </div>
             </div>
             <div className="relative border-t border-solid border-muted-foreground/30">
-              <div className="absolute bottom-0 left-[-50px] h-[1px] w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
+              <div className="absolute bottom-0 left-[-50px] h-px w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
               <div className="absolute bottom-[-50px] left-0 h-12 w-[1px] border-r-[1px] border-dashed border-r-muted-foreground/30" />
-              <div className="absolute right-[-50px] bottom-0 h-[1px] w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
+              <div className="absolute right-[-50px] bottom-0 h-px w-12 border-b-[1px] border-dashed border-b-muted-foreground/30" />
               <div className="absolute right-0 bottom-[-50px] h-12 w-[1px] border-r-[1px] border-dashed border-r-muted-foreground/30" />
               <div className="flex flex-col gap-8 p-10 lg:flex-row lg:items-center">
                 <div className="lg:w-1/3">
@@ -7022,7 +7022,7 @@ const Feature167 = ({ className }: Feature167Props) => {
         </Tabs>
       </div>
 
-      <div className="h-8 w-full border-y md:h-12 lg:h-[112px]">
+      <div className="h-8 w-full border-y md:h-12 lg:h-28">
         <div className="container h-full w-full border-x"></div>
       </div>
     </section>
@@ -7116,7 +7116,7 @@ const Feature168 = ({ className }: Feature168Props) => {
           </div>
         </div>
       </div>
-      <div className="h-8 w-full border-y md:h-12 lg:h-[112px]">
+      <div className="h-8 w-full border-y md:h-12 lg:h-28">
         <div className="container h-full w-full border-x"></div>
       </div>
     </section>
@@ -7222,7 +7222,7 @@ const Feature169 = ({ className }: Feature169Props) => {
           ))}
         </Tabs>
       </div>
-      <div className="h-8 w-full border-y md:h-12 lg:h-[112px]">
+      <div className="h-8 w-full border-y md:h-12 lg:h-28">
         <div className="container size-full md:border-x"></div>
       </div>
     </section>
@@ -11739,7 +11739,7 @@ export default function FeatureAccordion() {
                 )}
               </div>
 
-              <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-lg">
+              <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
                 <img
                   src={activeFeature.image}
                   alt={activeFeature.imageAlt}
