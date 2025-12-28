@@ -5,7 +5,6 @@ import { join } from "path";
 // Entry points that contain client-side React hooks and need "use client" directive
 const clientEntryNames = new Set([
   "animated-dialog",
-  "page-hero-banner",
   "dynamic-icon",
   "pressable",
   "hooks",
