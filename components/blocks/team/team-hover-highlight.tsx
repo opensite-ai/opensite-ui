@@ -175,7 +175,7 @@ export function TeamHoverHighlight({
           {members.map((member) => (
             <div
               key={member.id}
-              className="relative flex flex-col items-center rounded-xl p-6 transition-all duration-300 group-hover:opacity-50 hover:!opacity-100 hover:bg-muted/50"
+              className="relative flex flex-col items-center rounded-xl p-6 transition-all duration-300 group-hover:opacity-50 hover:opacity-100! hover:bg-muted/50"
             >
               <div className="relative mb-4 overflow-hidden rounded-full">
                 <Img

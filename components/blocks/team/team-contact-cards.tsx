@@ -188,7 +188,7 @@ export function TeamContactCards({
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {members.map((member) => (
             <Card key={member.name} className="p-0">
-              <CardContent className="!p-6">
+              <CardContent className="p-6!">
                 <div className="flex gap-6">
                   <div className="relative shrink-0">
                     <Img
@@ -202,7 +202,7 @@ export function TeamContactCards({
                     <span
                       className={cn(
                         "border-background absolute -top-2 -right-2 size-4 rounded-full border-2",
-                        getStatusColor(member.status)
+                        getStatusColor(member.status),
                       )}
                     />
                   </div>
@@ -219,7 +219,9 @@ export function TeamContactCards({
                       <p className="text-muted-foreground text-sm">
                         {member.bio}
                       </p>
-                      <p className="text-sm font-medium">{member.availability}</p>
+                      <p className="text-sm font-medium">
+                        {member.availability}
+                      </p>
                     </div>
                   </div>
                 </div>

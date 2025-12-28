@@ -91,7 +91,8 @@ const defaultMembers: TeamTestimonialStatsMember[] = [
   {
     name: "Sarah Chen",
     role: "CEO & Founder",
-    testimonial: "Building great products with an amazing team is what drives me every day.",
+    testimonial:
+      "Building great products with an amazing team is what drives me every day.",
     image: blockBrandedIconsAndPlaceholders.avatar1,
     stats: {
       years: "12+",
@@ -103,7 +104,8 @@ const defaultMembers: TeamTestimonialStatsMember[] = [
   {
     name: "Marcus Rodriguez",
     role: "CTO",
-    testimonial: "Design is not just what it looks like, it's how it works. I strive to make both perfect.",
+    testimonial:
+      "Design is not just what it looks like, it's how it works. I strive to make both perfect.",
     image: blockBrandedIconsAndPlaceholders.avatar2,
     stats: {
       years: "8+",
@@ -169,7 +171,7 @@ export function TeamTestimonialStats({
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {members.map((member) => (
             <Card key={member.name} className="overflow-hidden p-0">
-              <CardContent className="!p-0">
+              <CardContent className="p-0!">
                 <div className="grid sm:grid-cols-2">
                   <div className="relative h-full min-h-[200px]">
                     <Img

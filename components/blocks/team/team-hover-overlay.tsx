@@ -163,10 +163,10 @@ export function TeamHoverOverlay({
               key={member.name}
               className="group relative overflow-hidden p-0 transition-shadow hover:shadow-lg"
             >
-              <CardContent className="!p-0">
+              <CardContent className="p-0!">
                 <div className="relative">
                   <Img
-                    className="aspect-[3/4] w-full object-cover"
+                    className="aspect-3/4 w-full object-cover"
                     src={member.image}
                     alt={member.name}
                     width={320}
