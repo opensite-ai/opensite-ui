@@ -6,38 +6,155 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 export interface IndustryProject {
-  year: string;
-  name: string;
-  description: string;
+  /**
+   * Year/date for the project
+   */
+  year: React.ReactNode;
+  /**
+   * Project/industry name
+   */
+  name: React.ReactNode;
+  /**
+   * Project description
+   */
+  description: React.ReactNode;
+  /**
+   * Image source URL
+   */
   imageSrc: string;
+  /**
+   * Alt text for the image
+   */
   imageAlt: string;
+  /**
+   * URL for the project link
+   */
   url: string;
+  /**
+   * Additional CSS classes for the project row
+   */
+  className?: string;
 }
 
 export interface IndustriesTimelineTableProps {
   /**
-   * Column labels for the table header
-   * @default ["Year", "Industry", "Description"]
+   * Main heading content
    */
-  labels?: string[];
+  heading?: React.ReactNode;
+  /**
+   * Custom slot for heading (overrides heading prop)
+   */
+  headingSlot?: React.ReactNode;
+  /**
+   * Column labels for the table header
+   */
+  labels?: React.ReactNode[];
+  /**
+   * Custom slot for labels (overrides labels array)
+   */
+  labelsSlot?: React.ReactNode;
   /**
    * Array of industry projects to display
    */
   projects?: IndustryProject[];
   /**
+   * Custom slot for projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the header row
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the projects container
+   */
+  projectsClassName?: string;
+  /**
+   * Additional CSS classes for individual project rows
+   */
+  itemClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultProjects: IndustryProject[] = [
+  {
+    year: "/2024",
+    name: "/Consumer Tech",
+    description: "Innovative consumer electronics and smart device solutions",
+    imageSrc: imagePlaceholders[0],
+    imageAlt: "Consumer tech project",
+    url: "#",
+  },
+  {
+    year: "/2023",
+    name: "/Biotech",
+    description:
+      "Cutting-edge biotechnology research and pharmaceutical development",
+    imageSrc: imagePlaceholders[1],
+    imageAlt: "Biotech project",
+    url: "#",
+  },
+  {
+    year: "/2023",
+    name: "/Cybersecurity",
+    description: "Enterprise-grade security solution for data protection",
+    imageSrc: imagePlaceholders[2],
+    imageAlt: "Cybersecurity project",
+    url: "#",
+  },
+  {
+    year: "/2022",
+    name: "/Healthtech",
+    description: "Integrated healthcare management system with telemedicine",
+    imageSrc: imagePlaceholders[3],
+    imageAlt: "Healthtech project",
+    url: "#",
+  },
+];
 
 /**
  * IndustriesTimelineTable displays industry projects in a timeline-style table layout.
@@ -62,115 +179,135 @@ export interface IndustriesTimelineTableProps {
  *       url: "/projects/consumer-tech"
  *     }
  *   ]}
+ *   background="muted"
+ *   spacing="lg"
  * />
  * ```
  */
 export function IndustriesTimelineTable({
-  className,
+  heading,
+  headingSlot,
   labels = ["Year", "Industry", "Description"],
-  projects = [
-    {
-      year: "/2024",
-      name: "/Consumer Tech",
-      description: "Innovative consumer electronics and smart device solutions",
-      imageSrc: imagePlaceholders[0],
-      imageAlt: "Consumer tech project",
-      url: "#",
-    },
-    {
-      year: "/2023",
-      name: "/Biotech",
-      description:
-        "Cutting-edge biotechnology research and pharmaceutical development",
-      imageSrc: imagePlaceholders[1],
-      imageAlt: "Biotech project",
-      url: "#",
-    },
-    {
-      year: "/2023",
-      name: "/Cybersecurity",
-      description: "Enterprise-grade security solution for data protection",
-      imageSrc: imagePlaceholders[2],
-      imageAlt: "Cybersecurity project",
-      url: "#",
-    },
-    {
-      year: "/2022",
-      name: "/Healthtech",
-      description: "Integrated healthcare management system with telemedicine",
-      imageSrc: imagePlaceholders[3],
-      imageAlt: "Healthtech project",
-      url: "#",
-    },
-  ],
+  labelsSlot,
+  projects = defaultProjects,
+  projectsSlot,
+  className,
+  containerClassName,
+  headingClassName,
+  headerClassName,
+  projectsClassName,
+  itemClassName,
+  background = "muted",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: IndustriesTimelineTableProps) {
-  return (
-    <section className={cn("min-h-screen bg-muted py-16", className)}>
-      <div className="container mx-auto flex flex-col gap-8 px-8">
-        {/* Header Row */}
-        <div className="grid grid-cols-2 gap-8 font-medium text-muted-foreground md:grid-cols-3">
-          <div className="order-2 pl-10 text-sm md:order-1 lg:pl-10">
-            {labels[0]}
-          </div>
-          <div className="order-1 pl-5 text-sm md:order-2 md:pl-0">
-            {labels[1]}
-          </div>
-          <div className="hidden text-sm md:order-3 lg:block">{labels[2]}</div>
-        </div>
+}: IndustriesTimelineTableProps): React.JSX.Element {
+  const renderHeading = () => {
+    if (headingSlot) return headingSlot;
+    if (!heading) return null;
 
-        {/* Project Rows */}
-        <div className="space-y-0">
-          {projects.map((project, index) => (
-            <Pressable href={project.url} key={index} className="block">
-              <div className="group relative mb-2 flex min-h-[100px] flex-col justify-center md:min-h-0 lg:mb-0">
-                <div className="relative z-3 grid grid-cols-2 gap-8 transition-all duration-300 md:grid-cols-3 lg:hover:rounded-lg lg:hover:font-medium lg:hover:text-secondary lg:hover:shadow-lg">
-                  {/* Year Column */}
-                  <div className="order-2 flex items-center md:order-1">
-                    <span className="pl-10 text-xs font-medium text-secondary opacity-100 lg:opacity-0 lg:group-hover:opacity-100">
-                      {project.year}
+    return typeof heading === "string" ? (
+      <h2
+        className={cn(
+          "mb-8 text-3xl font-bold text-foreground lg:text-4xl",
+          headingClassName
+        )}
+      >
+        {heading}
+      </h2>
+    ) : (
+      <div className={cn("mb-8", headingClassName)}>{heading}</div>
+    );
+  };
+
+  const renderLabels = () => {
+    if (labelsSlot) return labelsSlot;
+    if (!labels || labels.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "grid grid-cols-2 gap-8 font-medium text-muted-foreground md:grid-cols-3",
+          headerClassName
+        )}
+      >
+        <div className="order-2 pl-10 text-sm md:order-1 lg:pl-10">
+          {labels[0]}
+        </div>
+        <div className="order-1 pl-5 text-sm md:order-2 md:pl-0">
+          {labels[1]}
+        </div>
+        <div className="hidden text-sm md:order-3 lg:block">{labels[2]}</div>
+      </div>
+    );
+  };
+
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+    if (!projects || projects.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-0", projectsClassName)}>
+        {projects.map((project, index) => (
+          <Pressable
+            href={project.url}
+            key={index}
+            className={cn("block", itemClassName, project.className)}
+          >
+            <div className="group relative mb-2 flex min-h-[100px] flex-col justify-center md:min-h-0 lg:mb-0">
+              <div className="relative z-3 grid grid-cols-2 gap-8 transition-all duration-300 md:grid-cols-3 lg:hover:rounded-lg lg:hover:font-medium lg:hover:text-secondary lg:hover:shadow-lg">
+                <div className="order-2 flex items-center md:order-1">
+                  <span className="pl-10 text-xs font-medium text-secondary opacity-100 lg:opacity-0 lg:group-hover:opacity-100">
+                    {project.year}
+                  </span>
+                </div>
+                <div className="order-1 col-span-1 grid grid-cols-2 gap-8 border-b border-muted-foreground/20 p-5 transition-all duration-300 md:order-2 md:col-span-2 md:p-10 md:pr-0 md:pl-0 lg:group-hover:border-transparent">
+                  <div className="flex items-center">
+                    <span className="ml-0 pl-0 text-xl font-medium text-secondary transition-all duration-300 md:text-2xl lg:text-foreground lg:group-hover:pl-2 lg:group-hover:text-secondary">
+                      {project.name}
                     </span>
                   </div>
-
-                  {/* Project Name and Description Column */}
-                  <div className="order-1 col-span-1 grid grid-cols-2 gap-8 border-b border-muted-foreground/20 p-5 transition-all duration-300 md:order-2 md:col-span-2 md:p-10 md:pr-0 md:pl-0 lg:group-hover:border-transparent">
-                    {/* Project Name */}
-                    <div className="flex items-center">
-                      <span className="ml-0 pl-0 text-xl font-medium text-secondary transition-all duration-300 md:text-2xl lg:text-foreground lg:group-hover:pl-2 lg:group-hover:text-secondary">
-                        {project.name}
-                      </span>
-                    </div>
-
-                    {/* Description and Button */}
-                    <div className="hidden items-center justify-between gap-4 lg:flex lg:pr-10">
-                      <span className="text-sm text-secondary/80 opacity-100 lg:opacity-0 lg:group-hover:opacity-100">
-                        {project.description}
-                      </span>
-
-                      {/* Action Button */}
-                      <span className="flex translate-x-full items-center justify-center rounded-full bg-primary p-1 text-secondary opacity-100 shadow-md transition-all duration-300 ease-out lg:opacity-0 lg:group-hover:translate-x-0 lg:group-hover:opacity-100">
-                        <DynamicIcon name="lucide/arrow-up-right" size={24} />
-                      </span>
-                    </div>
+                  <div className="hidden items-center justify-between gap-4 lg:flex lg:pr-10">
+                    <span className="text-sm text-secondary/80 opacity-100 lg:opacity-0 lg:group-hover:opacity-100">
+                      {project.description}
+                    </span>
+                    <span className="flex translate-x-full items-center justify-center rounded-full bg-primary p-1 text-secondary opacity-100 shadow-md transition-all duration-300 ease-out lg:opacity-0 lg:group-hover:translate-x-0 lg:group-hover:opacity-100">
+                      <DynamicIcon name="lucide/arrow-up-right" size={24} />
+                    </span>
                   </div>
                 </div>
-
-                {/* Background Image */}
-                <Img
-                  src={project.imageSrc}
-                  alt={project.imageAlt}
-                  className="absolute inset-0 z-1 h-full w-full object-cover opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100"
-                  loading="lazy"
-                  optixFlowConfig={optixFlowConfig}
-                />
-
-                {/* Overlay */}
-                <div className="absolute inset-0 z-2 bg-black/20 opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100" />
               </div>
-            </Pressable>
-          ))}
-        </div>
+              <Img
+                src={project.imageSrc}
+                alt={project.imageAlt}
+                className="absolute inset-0 z-1 h-full w-full object-cover opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100"
+                loading="lazy"
+                optixFlowConfig={optixFlowConfig}
+              />
+              <div className="absolute inset-0 z-2 bg-black/20 opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100" />
+            </div>
+          </Pressable>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("min-h-screen", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+    >
+      <div className={cn("flex flex-col gap-8", containerClassName)}>
+        {renderHeading()}
+        {renderLabels()}
+        {renderProjects()}
+      </div>
+    </Section>
   );
 }
