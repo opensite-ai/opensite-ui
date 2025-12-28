@@ -470,6 +470,18 @@ import { ProjectDetailNumberedSections } from "../../components/blocks/project-d
 import { ProjectDetailMaskReveal } from "../../components/blocks/project-detail/project-detail-mask-reveal";
 import { ProjectDetailParallaxScroll } from "../../components/blocks/project-detail/project-detail-parallax-scroll";
 
+// Banner components
+import { BannerPromoCta } from "../../components/blocks/banner/banner-promo-cta";
+import { BannerCountdownSale } from "../../components/blocks/banner/banner-countdown-sale";
+import { BannerDeliveryCountdown } from "../../components/blocks/banner/banner-delivery-countdown";
+import { BannerAnnouncementDismissible } from "../../components/blocks/banner/banner-announcement-dismissible";
+import { BannerPrivacyNotice } from "../../components/blocks/banner/banner-privacy-notice";
+import { BannerSurveyIncentive } from "../../components/blocks/banner/banner-survey-incentive";
+import { BannerSocialFollow } from "../../components/blocks/banner/banner-social-follow";
+import { BannerGdprRights } from "../../components/blocks/banner/banner-gdpr-rights";
+import { BannerEventPromo } from "../../components/blocks/banner/banner-event-promo";
+import { BannerFloatingOffer } from "../../components/blocks/banner/banner-floating-offer";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -510,7 +522,8 @@ export type BlockCategory =
   | "project-list"
   | "project-detail"
   | "list"
-  | "offer-modal";
+  | "offer-modal"
+  | "banner";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -10992,6 +11005,271 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     { heading: "Chapter One", body: "The story begins...", image: { src: "/img1.jpg", alt: "Chapter 1" } },
     { heading: "Chapter Two", body: "The journey continues...", image: { src: "/img2.jpg", alt: "Chapter 2" } },
   ]}
+/>`.trim(),
+  },
+
+  // Banner components
+  "banner-promo-cta": {
+    id: "banner-promo-cta",
+    name: "Banner Promo CTA",
+    description:
+      "A promotional banner with message, discount text, and arrow link CTA. Features a full-width primary background with centered content including a bold message, discount text, and an underlined link with arrow icon. Ideal for seasonal sales, promotional announcements, and limited-time offers.",
+    semanticTags: [
+      "banner",
+      "promo",
+      "promotion",
+      "sale",
+      "discount",
+      "offer",
+      "cta",
+      "call-to-action",
+      "announcement",
+      "marketing",
+    ],
+    category: "banner",
+    component: BannerPromoCta,
+    props: "BannerPromoCtaProps",
+    exampleUsage: `<BannerPromoCta
+  message="Summer Sale"
+  discount="Up to 70% off"
+  link="/sale"
+  linkText="Shop Now"
+/>`.trim(),
+  },
+  "banner-countdown-sale": {
+    id: "banner-countdown-sale",
+    name: "Banner Countdown Sale",
+    description:
+      "A flash sale banner with live countdown timer showing hours:minutes:seconds. Features a red urgency background with a live countdown timer that automatically updates every second. The timer displays time remaining until the sale ends. Ideal for flash sales, time-limited promotions, and urgency-driven marketing campaigns.",
+    semanticTags: [
+      "banner",
+      "countdown",
+      "timer",
+      "sale",
+      "flash-sale",
+      "urgency",
+      "promotion",
+      "limited-time",
+      "marketing",
+    ],
+    category: "banner",
+    component: BannerCountdownSale,
+    props: "BannerCountdownSaleProps",
+    exampleUsage: `<BannerCountdownSale
+  endTime={new Date(Date.now() + 12 * 60 * 60 * 1000)}
+  message="Flash Sale Ends In"
+  description="Up to 70% off on all items"
+/>`.trim(),
+  },
+  "banner-delivery-countdown": {
+    id: "banner-delivery-countdown",
+    name: "Banner Delivery Countdown",
+    description:
+      "A delivery deadline banner with countdown timer and gift icon. Features an amber attention-grabbing background with a gift icon and live countdown timer. Shows time remaining to place an order for guaranteed delivery by a specific date. Ideal for holiday shipping deadlines, delivery guarantees, and order cutoff times.",
+    semanticTags: [
+      "banner",
+      "countdown",
+      "timer",
+      "delivery",
+      "shipping",
+      "deadline",
+      "holiday",
+      "order",
+      "ecommerce",
+    ],
+    category: "banner",
+    component: BannerDeliveryCountdown,
+    props: "BannerDeliveryCountdownProps",
+    exampleUsage: `<BannerDeliveryCountdown
+  deliveryDate="Dec 25"
+  cutoffTime={new Date(Date.now() + 6 * 60 * 60 * 1000)}
+/>`.trim(),
+  },
+  "banner-announcement-dismissible": {
+    id: "banner-announcement-dismissible",
+    name: "Banner Announcement Dismissible",
+    description:
+      "A top announcement banner with icon, message, CTA button, and dismiss button. Features a clean background with border-bottom styling, containing an icon, announcement text, action button, and dismissible X button. The banner can be closed by the user and triggers an optional callback. Ideal for product launches, feature announcements, and important updates.",
+    semanticTags: [
+      "banner",
+      "announcement",
+      "notification",
+      "dismissible",
+      "closable",
+      "alert",
+      "update",
+      "launch",
+      "feature",
+    ],
+    category: "banner",
+    component: BannerAnnouncementDismissible,
+    props: "BannerAnnouncementDismissibleProps",
+    exampleUsage: `<BannerAnnouncementDismissible
+  icon="mynaui/rocket"
+  message="New feature: AI-powered analytics is now live!"
+  buttonText="Try It Now"
+  buttonLink="/features/analytics"
+  onDismiss={() => console.log('Banner dismissed')}
+/>`.trim(),
+  },
+  "banner-privacy-notice": {
+    id: "banner-privacy-notice",
+    name: "Banner Privacy Notice",
+    description:
+      "A bottom-positioned privacy policy update notice with shield icon, title, description, and review link. Features a fixed bottom position with border-top styling. Includes a dismiss button to close the banner. Ideal for privacy policy updates, legal notices, and compliance notifications.",
+    semanticTags: [
+      "banner",
+      "privacy",
+      "policy",
+      "legal",
+      "compliance",
+      "notice",
+      "bottom",
+      "fixed",
+      "dismissible",
+    ],
+    category: "banner",
+    component: BannerPrivacyNotice,
+    props: "BannerPrivacyNoticeProps",
+    exampleUsage: `<BannerPrivacyNotice
+  title="Privacy Policy Updated"
+  description="We've made changes to how we handle your data."
+  linkText="Read More"
+  linkUrl="/privacy"
+  onDismiss={() => console.log('Dismissed')}
+/>`.trim(),
+  },
+  "banner-survey-incentive": {
+    id: "banner-survey-incentive",
+    name: "Banner Survey Incentive",
+    description:
+      "A survey invitation banner with shopping bag icon and incentive offer. Features a clean background with border-bottom styling, containing a shopping bag icon, message with incentive offer, action button, and dismiss button. The layout is responsive with the icon hidden on mobile. Ideal for customer feedback collection, survey invitations, and engagement campaigns with discount incentives.",
+    semanticTags: [
+      "banner",
+      "survey",
+      "feedback",
+      "incentive",
+      "discount",
+      "engagement",
+      "customer",
+      "dismissible",
+    ],
+    category: "banner",
+    component: BannerSurveyIncentive,
+    props: "BannerSurveyIncentiveProps",
+    exampleUsage: `<BannerSurveyIncentive
+  title="Share your feedback!"
+  description="Complete our quick survey and receive a 15% discount code."
+  buttonText="Start Survey"
+  buttonLink="/survey"
+  onDismiss={() => console.log('Dismissed')}
+/>`.trim(),
+  },
+  "banner-social-follow": {
+    id: "banner-social-follow",
+    name: "Banner Social Follow",
+    description:
+      "A gradient background banner encouraging social media follows. Features a vibrant pink-to-rose gradient background with white text, users icon, follow CTA button, and dismiss button. The layout is centered with responsive text alignment. Ideal for social media promotion, community building, and engagement campaigns.",
+    semanticTags: [
+      "banner",
+      "social",
+      "social-media",
+      "follow",
+      "community",
+      "engagement",
+      "gradient",
+      "dismissible",
+    ],
+    category: "banner",
+    component: BannerSocialFollow,
+    props: "BannerSocialFollowProps",
+    exampleUsage: `<BannerSocialFollow
+  message="Join our community of 50,000+ developers!"
+  buttonText="Follow Now"
+  buttonLink="https://twitter.com/example"
+  onDismiss={() => console.log('Dismissed')}
+/>`.trim(),
+  },
+  "banner-gdpr-rights": {
+    id: "banner-gdpr-rights",
+    name: "Banner GDPR Rights",
+    description:
+      "A bottom-positioned GDPR privacy rights notice with globe icon, title, description, and manage data link. Features a fixed bottom position with border-top styling. Includes a dismiss button to close the banner. Ideal for GDPR compliance, data privacy notices, and user rights information.",
+    semanticTags: [
+      "banner",
+      "gdpr",
+      "privacy",
+      "data",
+      "rights",
+      "compliance",
+      "legal",
+      "bottom",
+      "fixed",
+      "dismissible",
+    ],
+    category: "banner",
+    component: BannerGdprRights,
+    props: "BannerGdprRightsProps",
+    exampleUsage: `<BannerGdprRights
+  title="Your Privacy Rights"
+  description="You can request access to or deletion of your personal data at any time."
+  linkText="Manage Data"
+  linkUrl="/privacy/manage"
+  onDismiss={() => console.log('Dismissed')}
+/>`.trim(),
+  },
+  "banner-event-promo": {
+    id: "banner-event-promo",
+    name: "Banner Event Promo",
+    description:
+      "An event promotion banner with primary background and registration CTA. Features a primary background with event name (bold), dot separator, event details, and a ghost-styled register button with arrow icon. The layout is responsive with content wrapping on smaller screens. Ideal for conference announcements, webinar promotions, and event registrations.",
+    semanticTags: [
+      "banner",
+      "event",
+      "conference",
+      "webinar",
+      "registration",
+      "promotion",
+      "announcement",
+      "cta",
+    ],
+    category: "banner",
+    component: BannerEventPromo,
+    props: "BannerEventPromoProps",
+    exampleUsage: `<BannerEventPromo
+  eventName="TechSummit 2024"
+  eventDetails="Join us in San Francisco from Sept 15 - 17 for the biggest tech event of the year."
+  buttonText="Get Tickets"
+  buttonLink="/events/techsummit"
+/>`.trim(),
+  },
+  "banner-floating-offer": {
+    id: "banner-floating-offer",
+    name: "Banner Floating Offer",
+    description:
+      "A floating bottom banner with rounded corners and offer CTA. Features a fixed bottom position with primary background, rounded container on larger screens, offer text with bold title, dot separator, description, and a secondary-styled CTA button with arrow icon. The banner floats above content and can optionally be dismissed. Ideal for limited-time offers, conversion prompts, and persistent CTAs.",
+    semanticTags: [
+      "banner",
+      "floating",
+      "sticky",
+      "fixed",
+      "offer",
+      "promotion",
+      "cta",
+      "conversion",
+      "persistent",
+      "dismissible",
+    ],
+    category: "banner",
+    component: BannerFloatingOffer,
+    props: "BannerFloatingOfferProps",
+    exampleUsage: `<BannerFloatingOffer
+  offerTitle="Black Friday Special"
+  offerDescription="Save 60% on annual plans - ends tonight!"
+  buttonText="Claim Offer"
+  buttonLink="/pricing"
+  dismissible={true}
+  onDismiss={() => console.log('Dismissed')}
 />`.trim(),
   },
 };
