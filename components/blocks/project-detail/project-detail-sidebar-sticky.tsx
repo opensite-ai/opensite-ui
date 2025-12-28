@@ -152,59 +152,6 @@ function ImageBlock({
   );
 }
 
-function StickySection({
-  title,
-  subtitle,
-  category,
-  year,
-  description,
-}: {
-  title: string;
-  subtitle: string;
-  category: string;
-  year: string;
-  description: string;
-}) {
-  return (
-    <div className="top-20 flex flex-col self-start lg:sticky lg:min-h-screen lg:justify-between">
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="space-y-3">
-          <h1 className="text-5xl font-bold tracking-tight text-foreground md:text-6xl">
-            {title}
-          </h1>
-          <p className="text-xl text-muted-foreground">{subtitle}</p>
-          <div className="flex items-center gap-4">
-            <span className="rounded-3xl bg-muted px-4 py-1 text-xs font-medium text-foreground">
-              {category}
-            </span>
-            <span className="rounded-3xl border border-border px-3 text-sm text-muted-foreground">
-              {year}
-            </span>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mt-5 space-y-3 md:sticky md:bottom-9"
-      >
-        <h3 className="text-sm font-medium tracking-wider text-foreground uppercase">
-          ABOUT
-        </h3>
-        <p className="max-w-sm text-sm leading-relaxed tracking-wide text-muted-foreground uppercase">
-          {description}
-        </p>
-      </motion.div>
-    </div>
-  );
-}
-
 function ProjectCard({
   title,
   category,
@@ -214,16 +161,13 @@ function ProjectCard({
   href,
   optixFlowConfig,
 }: {
-  title: string;
-  category: string;
+  title: React.ReactNode;
+  category: React.ReactNode;
   src: string;
   alt: string;
   index: number;
   href?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }) {
   const content = (
     <motion.div
@@ -268,7 +212,6 @@ export function ProjectDetailSidebarSticky(
   props: ProjectDetailSidebarStickyProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     category = defaultProps.category,
@@ -276,21 +219,79 @@ export function ProjectDetailSidebarSticky(
     description = defaultProps.description,
     images = defaultProps.images,
     relatedProjects = defaultProps.relatedProjects,
+    relatedProjectsTitle = defaultProps.relatedProjectsTitle,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    gridClassName,
+    sidebarClassName,
+    titleClassName,
+    descriptionClassName,
+    imagesClassName,
+    relatedProjectsClassName,
   } = props;
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
-          <StickySection
-            title={title!}
-            subtitle={subtitle!}
-            category={category!}
-            year={year!}
-            description={description!}
-          />
-          <div className="space-y-10">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={containerClassName}>
+        <div className={cn("grid gap-12 lg:grid-cols-2 lg:gap-20", gridClassName)}>
+          <div className={cn("top-20 flex flex-col self-start lg:sticky lg:min-h-screen lg:justify-between", sidebarClassName)}>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="space-y-3">
+                {typeof title === "string" ? (
+                  <h1 className={cn("text-5xl font-bold tracking-tight text-foreground md:text-6xl", titleClassName)}>
+                    {title}
+                  </h1>
+                ) : (
+                  <div className={titleClassName}>{title}</div>
+                )}
+                {subtitle && (
+                  <p className="text-xl text-muted-foreground">{subtitle}</p>
+                )}
+                <div className="flex items-center gap-4">
+                  <span className="rounded-3xl bg-muted px-4 py-1 text-xs font-medium text-foreground">
+                    {category}
+                  </span>
+                  <span className="rounded-3xl border border-border px-3 text-sm text-muted-foreground">
+                    {year}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-5 space-y-3 md:sticky md:bottom-9"
+            >
+              <h3 className="text-sm font-medium tracking-wider text-foreground uppercase">
+                ABOUT
+              </h3>
+              {typeof description === "string" ? (
+                <p className={cn("max-w-sm text-sm leading-relaxed tracking-wide text-muted-foreground uppercase", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )}
+            </motion.div>
+          </div>
+          <div className={cn("space-y-10", imagesClassName)}>
             {images?.map((img, index) => (
               <ImageBlock
                 key={index}
@@ -304,15 +305,25 @@ export function ProjectDetailSidebarSticky(
         </div>
 
         {relatedProjects && relatedProjects.length > 0 && (
-          <div className="mt-32">
-            <h3 className="mb-6 text-sm font-medium tracking-wider text-foreground uppercase">
-              MORE COLLECTIONS
-            </h3>
+          <div className={cn("mt-32", relatedProjectsClassName)}>
+            {relatedProjectsTitle && (
+              typeof relatedProjectsTitle === "string" ? (
+                <h3 className="mb-6 text-sm font-medium tracking-wider text-foreground uppercase">
+                  {relatedProjectsTitle}
+                </h3>
+              ) : (
+                relatedProjectsTitle
+              )
+            )}
             <div className="grid gap-6 pb-16 md:grid-cols-3">
               {relatedProjects.map((project, index) => (
                 <ProjectCard
-                  key={project.title}
-                  {...project}
+                  key={String(project.title)}
+                  title={project.title}
+                  category={project.category}
+                  src={project.src}
+                  alt={project.alt}
+                  href={project.href}
                   index={index}
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -321,6 +332,6 @@ export function ProjectDetailSidebarSticky(
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

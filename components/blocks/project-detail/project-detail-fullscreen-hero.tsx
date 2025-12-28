@@ -4,47 +4,81 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-
-export interface ProjectDetailFullscreenHeroSection {
-  title: string;
-  content: string;
-}
+import type {
+  ActionConfig,
+  SectionItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailFullscreenHeroProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  year?: string;
-  category?: string;
-  client?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Project year */
+  year?: React.ReactNode;
+  /** Category label */
+  category?: React.ReactNode;
+  /** Client name */
+  client?: React.ReactNode;
+  /** Hero image configuration */
   heroImage?: {
     src?: string;
     alt?: string;
   };
-  sections?: ProjectDetailFullscreenHeroSection[];
-  backHref?: string;
-  backLabel?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Content sections */
+  sections?: SectionItem[];
+  /** Back navigation action */
+  backAction?: ActionConfig;
+  /** Custom slot for back action (overrides backAction) */
+  backActionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Content section background variant */
+  background?: SectionBackground;
+  /** Content section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern for content section */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the article */
+  className?: string;
+  /** Additional CSS classes for the hero section */
+  heroClassName?: string;
+  /** Additional CSS classes for the hero image */
+  heroImageClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the subtitle */
+  subtitleClassName?: string;
+  /** Additional CSS classes for the content section */
+  contentClassName?: string;
+  /** Additional CSS classes for the sections container */
+  sectionsClassName?: string;
 }
 
-const defaultSections: ProjectDetailFullscreenHeroSection[] = [
+const defaultSections: SectionItem[] = [
   {
+    id: "vision",
     title: "The Vision",
     content:
       "Creating a bold visual identity that captures the essence of modern luxury while remaining accessible and approachable. The design language needed to work seamlessly across digital and physical touchpoints.",
   },
   {
+    id: "execution",
     title: "The Execution",
     content:
       "Through careful consideration of typography, color, and spatial relationships, we developed a comprehensive brand system that elevates every customer interaction and reinforces brand values at every touchpoint.",
   },
   {
+    id: "impact",
     title: "The Impact",
     content:
       "The new brand identity has transformed how customers perceive and interact with the brand, resulting in measurable improvements in engagement, loyalty, and overall brand sentiment.",
@@ -62,8 +96,7 @@ const defaultProps: ProjectDetailFullscreenHeroProps = {
     alt: "Luxe Collective brand showcase",
   },
   sections: defaultSections,
-  backHref: "/projects",
-  backLabel: "Back",
+  backAction: { label: "Back", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
 };
 
 export function ProjectDetailFullscreenHero(
