@@ -8,123 +8,336 @@ import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig, ActionConfig } from "../../../src/types";
 
 export interface ArticleSplitAnimatedProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  description?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the image container
+   */
+  imageContainerClassName?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the author info
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the category badge
+   */
+  categoryClassName?: string;
+  /**
+   * Additional CSS classes for the meta info (date, read time)
+   */
+  metaClassName?: string;
+  /**
+   * Additional CSS classes for the CTA section
+   */
+  ctaClassName?: string;
+  /**
+   * Article title
+   */
+  title?: React.ReactNode;
+  /**
+   * Article description
+   */
+  description?: React.ReactNode;
+  /**
+   * Hero image source URL
+   */
   image?: string;
+  /**
+   * Hero image alt text
+   */
+  imageAlt?: string;
+  /**
+   * Custom slot for hero media (overrides image)
+   */
+  heroMediaSlot?: React.ReactNode;
+  /**
+   * Author name
+   */
   authorName?: string;
+  /**
+   * Author image URL
+   */
   authorImage?: string;
-  authorRole?: string;
-  publishDate?: string;
-  readTime?: string;
-  category?: string;
+  /**
+   * Author role/title
+   */
+  authorRole?: React.ReactNode;
+  /**
+   * Author profile href
+   */
+  authorHref?: string;
+  /**
+   * Custom slot for author info (overrides author props)
+   */
+  authorSlot?: React.ReactNode;
+  /**
+   * Publish date string
+   */
+  publishDate?: React.ReactNode;
+  /**
+   * Read time string
+   */
+  readTime?: React.ReactNode;
+  /**
+   * Category text
+   */
+  category?: React.ReactNode;
+  /**
+   * Category link href
+   */
   categoryHref?: string;
+  /**
+   * Custom slot for category badge (overrides category)
+   */
+  categorySlot?: React.ReactNode;
+  /**
+   * CTA actions
+   */
+  ctaActions?: ActionConfig[];
+  /**
+   * @deprecated Use ctaActions instead
+   * CTA button text (backward compatibility)
+   */
   ctaText?: string;
+  /**
+   * @deprecated Use ctaActions instead
+   * CTA button href (backward compatibility)
+   */
   ctaHref?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Custom slot for CTA section (overrides ctaActions)
+   */
+  ctaSlot?: React.ReactNode;
+  /**
+   * Enable entrance animations
+   * @default true
+   */
+  enableAnimations?: boolean;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProps: Partial<ArticleSplitAnimatedProps> = {
-  title: "The Evolution of Design Systems in Modern Product Development",
-  description:
-    "Explore how design systems have transformed from simple style guides into comprehensive ecosystems that power the world's most successful digital products. Learn the principles, patterns, and practices that make design systems effective.",
-  image: imagePlaceholders[2],
-  authorName: "David Park",
-  authorImage: imagePlaceholders[10],
-  authorRole: "Design Lead",
-  publishDate: "January 15, 2025",
-  readTime: "8 min read",
-  category: "Design",
-  categoryHref: "#",
-  ctaText: "Read Full Article",
-  ctaHref: "#",
-};
+const defaultCtaActions: ActionConfig[] = [
+  { label: "Read Full Article", href: "#", variant: "default", size: "lg" },
+];
 
 export function ArticleSplitAnimatedComponent({
   className,
-  title = defaultProps.title,
-  description = defaultProps.description,
-  image = defaultProps.image,
-  authorName = defaultProps.authorName,
-  authorImage = defaultProps.authorImage,
-  authorRole = defaultProps.authorRole,
-  publishDate = defaultProps.publishDate,
-  readTime = defaultProps.readTime,
-  category = defaultProps.category,
-  categoryHref = defaultProps.categoryHref,
-  ctaText = defaultProps.ctaText,
-  ctaHref = defaultProps.ctaHref,
+  containerClassName,
+  imageContainerClassName,
+  contentClassName,
+  titleClassName,
+  descriptionClassName,
+  authorClassName,
+  categoryClassName,
+  metaClassName,
+  ctaClassName,
+  title = "The Evolution of Design Systems in Modern Product Development",
+  description = "Explore how design systems have transformed from simple style guides into comprehensive ecosystems that power the world's most successful digital products. Learn the principles, patterns, and practices that make design systems effective.",
+  image = imagePlaceholders[2],
+  imageAlt,
+  heroMediaSlot,
+  authorName = "David Park",
+  authorImage = imagePlaceholders[10],
+  authorRole = "Design Lead",
+  authorHref,
+  authorSlot,
+  publishDate = "January 15, 2025",
+  readTime = "8 min read",
+  category = "Design",
+  categoryHref = "#",
+  categorySlot,
+  ctaActions: ctaActionsProp,
+  ctaText,
+  ctaHref,
+  ctaSlot,
+  enableAnimations = true,
   optixFlowConfig,
 }: ArticleSplitAnimatedProps) {
+  const ctaActions = ctaActionsProp ?? (ctaText ? [{ label: ctaText, href: ctaHref || "#", variant: "default" as const, size: "lg" as const }] : defaultCtaActions);
+
+  const MotionWrapper = enableAnimations ? motion.div : "div";
+
+  const renderCategory = () => {
+    if (categorySlot) return categorySlot;
+    if (!category) return null;
+
+    return (
+      <Pressable
+        href={categoryHref}
+        className={cn(
+          "inline-block rounded-full bg-white/20 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30",
+          categoryClassName
+        )}
+      >
+        {category}
+      </Pressable>
+    );
+  };
+
+  const renderHeroMedia = () => {
+    if (heroMediaSlot) return heroMediaSlot;
+    if (!image) return null;
+
+    return (
+      <Img
+        src={image}
+        alt={imageAlt || (typeof title === "string" ? title : "Article image")}
+        className="h-full w-full object-cover"
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  };
+
+  const renderAuthor = () => {
+    if (authorSlot) return authorSlot;
+    if (!authorName) return null;
+
+    return (
+      <div className={cn("mt-8 flex items-center gap-4", authorClassName)}>
+        <Avatar className="h-12 w-12">
+          <AvatarImage src={authorImage} />
+          <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <div>
+          {authorHref ? (
+            <Pressable href={authorHref} className="font-medium hover:underline">
+              {authorName}
+            </Pressable>
+          ) : (
+            <p className="font-medium">{authorName}</p>
+          )}
+          {authorRole && (
+            <p className="text-sm text-muted-foreground">{authorRole}</p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderCta = () => {
+    if (ctaSlot) return ctaSlot;
+    if (!ctaActions || ctaActions.length === 0) return null;
+
+    return (
+      <div className={cn("mt-8 flex flex-wrap gap-3", ctaClassName)}>
+        {ctaActions.map((action, index) => {
+          const { label, icon, iconAfter, children: actionChildren, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {actionChildren ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const imageAnimationProps = enableAnimations
+    ? {
+        initial: { opacity: 0, x: -20 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.5 },
+      }
+    : {};
+
+  const contentAnimationProps = enableAnimations
+    ? {
+        initial: { opacity: 0, x: 20 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.5, delay: 0.1 },
+      }
+    : {};
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
+      <div className={cn("container", containerClassName)}>
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-auto lg:h-full"
+          <MotionWrapper
+            {...imageAnimationProps}
+            className={cn(
+              "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-auto lg:h-full",
+              imageContainerClassName
+            )}
           >
-            <Img
-              src={image || ""}
-              alt={title || "Article image"}
-              className="h-full w-full object-cover"
-              optixFlowConfig={optixFlowConfig}
-            />
+            {renderHeroMedia()}
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 p-6">
-              <Pressable
-                href={categoryHref}
-                className="inline-block rounded-full bg-white/20 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30"
-              >
-                {category}
-              </Pressable>
+              {renderCategory()}
             </div>
-          </motion.div>
+          </MotionWrapper>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-col justify-center"
+          <MotionWrapper
+            {...contentAnimationProps}
+            className={cn("flex flex-col justify-center", contentClassName)}
           >
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>{publishDate}</span>
-              <Separator orientation="vertical" className="h-4" />
-              <span>{readTime}</span>
-            </div>
-
-            <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-              {title}
-            </h2>
-
-            <p className="mt-4 text-lg text-muted-foreground">{description}</p>
-
-            <div className="mt-8 flex items-center gap-4">
-              <Avatar className="h-12 w-12">
-                <AvatarImage src={authorImage} />
-                <AvatarFallback>{authorName?.charAt(0) || "A"}</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-medium">{authorName}</p>
-                <p className="text-sm text-muted-foreground">{authorRole}</p>
+            {(publishDate || readTime) && (
+              <div className={cn("flex items-center gap-4 text-sm text-muted-foreground", metaClassName)}>
+                {publishDate && <span>{publishDate}</span>}
+                {publishDate && readTime && <Separator orientation="vertical" className="h-4" />}
+                {readTime && <span>{readTime}</span>}
               </div>
-            </div>
+            )}
 
-            <div className="mt-8">
-              <Pressable href={ctaHref} asButton variant="default" size="lg">
-                {ctaText}
-              </Pressable>
-            </div>
-          </motion.div>
+            {title && (
+              typeof title === "string" ? (
+                <h2 className={cn("mt-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", titleClassName)}>
+                  {title}
+                </h2>
+              ) : (
+                <div className={cn("mt-4", titleClassName)}>{title}</div>
+              )
+            )}
+
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+              )
+            )}
+
+            {renderAuthor()}
+            {renderCta()}
+          </MotionWrapper>
         </div>
       </div>
     </section>
