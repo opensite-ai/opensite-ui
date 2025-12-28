@@ -20,8 +20,8 @@ export function DashedGridFadeTopLeft({ className, children }: DashedGridFadeTop
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `
-            linear-gradient(to right, var(--muted) 1px, transparent 1px),
-            linear-gradient(to bottom, var(--muted) 1px, transparent 1px)
+            linear-gradient(to right, hsl(var(--muted)) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(var(--muted)) 1px, transparent 1px)
           `,
           backgroundSize: "20px 20px",
           backgroundPosition: "0 0, 0 0",

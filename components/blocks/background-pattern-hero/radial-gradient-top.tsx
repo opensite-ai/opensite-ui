@@ -15,7 +15,7 @@ export function RadialGradientTop({ className, children }: RadialGradientTopProp
         className="absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)",
+            "radial-gradient(125% 125% at 50% 10%, hsl(var(--background)) 40%, hsl(var(--primary)) 100%)",
         }}
       />
       <div className="relative z-10">{children}</div>

@@ -17,7 +17,7 @@ export function GridFadeCenter({ className, children }: GridFadeCenterProps) {
       )}
     >
       <div
-        className="absolute inset-0 z-0 bg-[linear-gradient(to_right,_var(--muted)_1px,_transparent_1px),linear-gradient(to_bottom,_var(--muted)_1px,_transparent_1px)] bg-[length:40px_40px]"
+        className="absolute inset-0 z-0 bg-[linear-gradient(to_right,_hsl(var(--muted))_1px,_transparent_1px),linear-gradient(to_bottom,_hsl(var(--muted))_1px,_transparent_1px)] bg-[length:40px_40px]"
         style={{
           WebkitMaskImage:
             "radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 70%)",

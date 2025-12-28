@@ -1,10 +1,18 @@
 "use client";
 
 import * as React from "react";
+import { Field, Form, useForm } from "@page-speed/forms";
+import { TextInput } from "@page-speed/forms/inputs";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import {
+  isValidEmail,
+  PageSpeedFormSubmissionError,
+  submitPageSpeedForm,
+  type PageSpeedFormConfig,
+} from "../../../lib/forms";
 import { Separator } from "../../ui/separator";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 
@@ -116,6 +124,22 @@ export interface FooterNewsletterContactProps {
     apiKey: string;
     compression?: number;
   };
+  /**
+   * Optional form submission configuration for newsletter signup.
+   */
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Optional custom submission handler for newsletter signup.
+   */
+  onSubmit?: (email: string) => void | Promise<void>;
+  /**
+   * Optional success callback invoked after successful submission.
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Optional error callback invoked if submission fails.
+   */
+  onError?: (error: Error) => void;
 }
 
 const defaultFooterLinks: FooterNewsletterContactSection[] = [
@@ -203,14 +227,61 @@ export function FooterNewsletterContact({
   copyright = `Copyright © ${new Date().getFullYear()}`,
   className,
   optixFlowConfig,
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
 }: FooterNewsletterContactProps) {
-  const [email, setEmail] = React.useState("");
+  const form = useForm<{ email: string }>({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: {
+      email: (value) => {
+        if (!value) return "Email is required";
+        if (!isValidEmail(value)) return "Please enter a valid email address";
+        return undefined;
+      },
+    },
+    onSubmit: async (values, helpers) => {
+      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Newsletter signup:", email);
-    setEmail("");
-  };
+      if (!shouldAutoSubmit && !onSubmit) {
+        return;
+      }
+
+      try {
+        let result: unknown;
+
+        if (shouldAutoSubmit) {
+          result = await submitPageSpeedForm(values, formConfig);
+        }
+
+        if (onSubmit) {
+          await onSubmit(values.email);
+        }
+
+        if (shouldAutoSubmit || onSubmit) {
+          if (formConfig?.resetOnSuccess !== false) {
+            helpers.resetForm();
+          }
+          onSuccess?.(result);
+        }
+      } catch (error) {
+        if (
+          error instanceof PageSpeedFormSubmissionError &&
+          error.formErrors
+        ) {
+          helpers.setErrors(error.formErrors);
+        }
+        onError?.(error as Error);
+        throw error;
+      }
+    },
+  });
+
+  const formMethod =
+    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   return (
     <section className={cn("pb-8 pt-8 xl:pt-12", className)}>
@@ -221,23 +292,35 @@ export function FooterNewsletterContact({
               {newsletterTitle}
             </h3>
             <p className="font-light leading-normal">{newsletterDescription}</p>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={newsletterPlaceholder}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              />
+            <Form
+              form={form}
+              action={formConfig?.endpoint}
+              method={formMethod}
+              className="space-y-4"
+            >
+              <Field name="email">
+                {({ field, meta }) => (
+                  <TextInput
+                    {...field}
+                    type="email"
+                    placeholder={newsletterPlaceholder}
+                    error={meta.touched && !!meta.error}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    aria-label={newsletterPlaceholder || "Email address"}
+                  />
+                )}
+              </Field>
               <Pressable
-                onClick={() => {}}
+                componentType="button"
+                type="submit"
                 variant="default"
                 asButton
                 className="w-full"
+                disabled={form.isSubmitting}
               >
                 {newsletterButtonText}
               </Pressable>
-            </form>
+            </Form>
           </div>
 
           {footerLinks.map((section, idx) => (

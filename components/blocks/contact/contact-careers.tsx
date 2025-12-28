@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
+import { useFileUpload } from "@page-speed/forms/upload";
 import { TextInput, Select, TextArea, Radio } from "@page-speed/forms/inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -44,6 +45,7 @@ interface CareersFormValues {
   email: string;
   phone: string;
   coverLetter: string;
+  contact_form_upload_tokens: string[];
 }
 
 export interface ContactCareersProps {
@@ -145,16 +147,6 @@ export function ContactCareers({
 }: ContactCareersProps): React.JSX.Element {
   const [resume, setResume] = useState<File | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setResume(e.target.files[0]);
-    }
-  };
-
-  const handleRemoveFile = () => {
-    setResume(null);
-  };
-
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -174,6 +166,7 @@ export function ContactCareers({
       email: "",
       phone: "",
       coverLetter: "",
+      contact_form_upload_tokens: [],
     },
     validationSchema: {
       position: (value) => (!value ? "Position is required" : undefined),
@@ -208,6 +201,7 @@ export function ContactCareers({
         if (shouldAutoSubmit || onSubmit) {
           if (formConfig?.resetOnSuccess !== false) {
             helpers.resetForm();
+            setResume(null);
           }
           onSuccess?.(result);
         }
@@ -223,6 +217,42 @@ export function ContactCareers({
       }
     },
   });
+
+  // File upload hook - integrates with @page-speed/forms
+  const { upload, state: uploadState } = useFileUpload({
+    endpoint: formConfig?.endpoint
+      ? `${new URL(formConfig.endpoint, typeof window !== "undefined" ? window.location.origin : "http://localhost").origin}/contacts/_/contact_form_uploads`
+      : "https://api.toastability.com/contacts/_/contact_form_uploads",
+    format: "legacy",
+    onComplete: (token) => {
+      const tokens = Array.isArray(token) ? token : [token];
+      form.setFieldValue(
+        "contact_form_upload_tokens",
+        tokens.map((value) => `upload_${value}`)
+      );
+    },
+  });
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setResume(file);
+
+      // Upload the file immediately
+      try {
+        await upload(file);
+      } catch (error) {
+        console.error("File upload failed:", error);
+        setResume(null);
+        onError?.(error as Error);
+      }
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setResume(null);
+    form.setFieldValue("contact_form_upload_tokens", []);
+  };
 
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
@@ -281,14 +311,22 @@ export function ContactCareers({
                     {!resume ? (
                       <label
                         htmlFor="resume-upload"
-                        className="flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed p-6 transition-colors hover:border-foreground"
+                        className={cn(
+                          "flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed p-6 transition-colors hover:border-foreground",
+                          uploadState.status === "uploading" && "opacity-50 cursor-not-allowed"
+                        )}
                       >
                         <DynamicIcon
-                          name="lucide/upload"
+                          name={uploadState.status === "uploading" ? "lucide/loader-2" : "lucide/upload"}
                           size={24}
-                          className="mb-2 text-muted-foreground"
+                          className={cn(
+                            "mb-2 text-muted-foreground",
+                            uploadState.status === "uploading" && "animate-spin"
+                          )}
                         />
-                        <p className="text-sm">Upload your resume</p>
+                        <p className="text-sm">
+                          {uploadState.status === "uploading" ? "Uploading..." : "Upload your resume"}
+                        </p>
                         <p className="text-xs text-muted-foreground">
                           PDF or DOCX up to 5MB
                         </p>
@@ -298,20 +336,26 @@ export function ContactCareers({
                           className="hidden"
                           accept=".pdf,.doc,.docx"
                           onChange={handleFileChange}
+                          disabled={uploadState.status === "uploading"}
                         />
                       </label>
                     ) : (
                       <div className="flex items-center justify-between rounded-lg border p-3">
                         <div className="flex items-center gap-3">
                           <DynamicIcon
-                            name="lucide/file"
+                            name={uploadState.status === "success" ? "lucide/check-circle" : "lucide/file"}
                             size={20}
-                            className="text-muted-foreground"
+                            className={cn(
+                              "text-muted-foreground",
+                              uploadState.status === "success" && "text-green-600"
+                            )}
                           />
                           <div>
                             <p className="text-sm font-medium">{resume.name}</p>
                             <p className="text-xs text-muted-foreground">
-                              {formatFileSize(resume.size)}
+                              {uploadState.status === "success"
+                                ? "Uploaded successfully"
+                                : formatFileSize(resume.size)}
                             </p>
                           </div>
                         </div>

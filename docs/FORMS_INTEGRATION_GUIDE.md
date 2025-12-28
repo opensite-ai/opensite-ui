@@ -117,6 +117,7 @@ function MyApp() {
 ```
 
 **Expected Payload Sent**:
+
 ```json
 {
   "email": "user@example.com"
@@ -124,6 +125,7 @@ function MyApp() {
 ```
 
 **Works with**: Any API that accepts JSON, including:
+
 - Express.js backends
 - FastAPI (Python)
 - Django REST Framework
@@ -192,6 +194,7 @@ function MyApp() {
 ```
 
 **Benefits**:
+
 - Full control over request format
 - Custom error handling
 - Analytics integration
@@ -232,6 +235,7 @@ function MyDashTrackSite() {
 ```
 
 **Expected Payload Sent** (Rails format):
+
 ```json
 {
   "contact": {
@@ -277,6 +281,7 @@ function MyApp() {
 ```
 
 **Use Cases**:
+
 - Coming soon pages
 - Waitlist captures
 - Local storage before backend is ready
@@ -857,6 +862,7 @@ validationSchema: {
 ```
 
 The validator checks for:
+
 - Valid email format (RFC 5322 compliant)
 - Common typos (gmail.con → gmail.com suggestions)
 - Disposable email domains (optional filtering)
@@ -1170,6 +1176,7 @@ function Newsletter() {
 ```
 
 **After:**
+
 ```tsx
 import { OfferModalNewsletterDiscount } from "@opensite/ui/blocks/offer-modal";
 
@@ -1186,6 +1193,7 @@ function Newsletter() {
 ```
 
 **Benefits:**
+
 - Automatic validation ✓
 - Field-level reactivity ✓
 - Consistent error handling ✓
@@ -1197,6 +1205,7 @@ function Newsletter() {
 ### Issue: Form doesn't submit
 
 **Check:**
+
 1. Did you provide either `formConfig.endpoint` OR `onSubmit`?
 2. Is the endpoint URL correct?
 3. Are there CORS issues? (Check browser console)
@@ -1212,6 +1221,7 @@ function Newsletter() {
 ### Issue: Validation not working
 
 **Check:**
+
 1. Is `isValidEmail` imported correctly?
 2. Are you using the latest version of `@opensite/ui`?
 
@@ -1358,6 +1368,7 @@ The `@page-speed/forms` integration in OpenSite UI components is designed to be:
 ✅ **Accessible**: WCAG 2.1 AA compliant
 
 Choose the pattern that fits your use case:
+
 - **Generic JSON** for standard REST APIs
 - **Custom Handler** for maximum control
 - **Rails Format** for DashTrack platform integration

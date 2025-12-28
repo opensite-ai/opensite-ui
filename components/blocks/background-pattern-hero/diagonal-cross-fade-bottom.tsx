@@ -20,8 +20,8 @@ export function DiagonalCrossFadeBottom({ className, children }: DiagonalCrossFa
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `
-            repeating-linear-gradient(45deg, transparent, transparent 32px, var(--muted) 32px, var(--muted) 33px),
-            repeating-linear-gradient(135deg, transparent, transparent 32px, var(--muted) 32px, var(--muted) 33px)
+            repeating-linear-gradient(45deg, transparent, transparent 32px, hsl(var(--muted)) 32px, hsl(var(--muted)) 33px),
+            repeating-linear-gradient(135deg, transparent, transparent 32px, hsl(var(--muted)) 32px, hsl(var(--muted)) 33px)
           `,
           WebkitMaskImage:
             "radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)",

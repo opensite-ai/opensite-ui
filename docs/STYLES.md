@@ -45,6 +45,8 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   /* Semantic Colors */
   --destructive: 0 84.2% 60.2%;      /* Error/danger color */
   --destructive-foreground: 210 40% 98%; /* Text on destructive color */
+  --warning: 38 92% 50%;             /* Warning/attention color */
+  --warning-foreground: 0 0% 10%;    /* Text on warning color */
 
   /* Border & Input */
   --border: 214.3 31.8% 91.4%;       /* Default border color */
@@ -57,6 +59,12 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
 
   --popover: 0 0% 100%;              /* Popover background */
   --popover-foreground: 222.2 84% 4.9%; /* Popover text color */
+
+  /* Derived Utility Colors (used by decorative blocks/patterns) */
+  --color-accent: hsl(var(--accent));
+  --color-border: hsl(var(--border));
+  --color-muted: hsl(var(--muted));
+  --color-gray-200: hsl(var(--muted));
 
   /* ============================================
      TYPOGRAPHY
@@ -327,6 +335,9 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
 
+  --warning: 45 96% 60%;
+  --warning-foreground: 0 0% 10%;
+
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 212.7 26.8% 83.9%;
@@ -407,6 +418,10 @@ module.exports = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, Select, TextArea, Radio } from "@page-speed/forms/inputs";
+import { TextInput, Select, TextArea } from "@page-speed/forms/inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -55,18 +55,6 @@ const DIETARY_OPTIONS = [
   { id: "halal", label: "Halal" },
 ];
 
-const GUEST_COUNTS = [
-  { value: "10-25", label: "10-25 guests" },
-  { value: "26-50", label: "26-50 guests" },
-  { value: "51-75", label: "51-75 guests" },
-  { value: "76-100", label: "76-100 guests" },
-  { value: "101-150", label: "101-150 guests" },
-  { value: "151-200", label: "151-200 guests" },
-  { value: "201-300", label: "201-300 guests" },
-  { value: "301-500", label: "301-500 guests" },
-  { value: "500+", label: "500+ guests" },
-];
-
 const BUDGET_RANGES = [
   { value: "25-50", label: "$25-50 / person" },
   { value: "50-75", label: "$50-75 / person" },
@@ -78,7 +66,7 @@ const BUDGET_RANGES = [
 interface CateringFormValues {
   eventType: string;
   eventDate: string;
-  guestCount: string;
+  guests: number;
   startTime: string;
   endTime: string;
   venue: string;
@@ -194,26 +182,22 @@ export function ContactCatering({
   const form = useForm<CateringFormValues>({
     initialValues: {
       eventType: "",
-      eventDate: "",
       guestCount: "",
-      startTime: "",
-      endTime: "",
-      venue: "",
-      serviceStyle: "buffet",
-      cuisinePreferences: [],
-      dietaryAccommodations: [],
-      budget: "",
-      name: "",
-      phone: "",
+      eventDate: "",
+      dietaryRestrictions: [],
+      firstName: "",
+      lastName: "",
       email: "",
+      phone: "",
+      venue: "",
       details: "",
-      tasting: false,
     },
     validationSchema: {
       eventType: (value) => (!value ? "Please select an event type" : undefined),
-      eventDate: (value) => (!value ? "Event date is required" : undefined),
       guestCount: (value) => (!value ? "Please select guest count" : undefined),
-      name: (value) => (!value ? "Name is required" : undefined),
+      eventDate: (value) => (!value ? "Event date is required" : undefined),
+      firstName: (value) => (!value ? "First name is required" : undefined),
+      lastName: (value) => (!value ? "Last name is required" : undefined),
       email: (value) => {
         if (!value) return "Email is required";
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
@@ -262,20 +246,12 @@ export function ContactCatering({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const toggleCuisinePreference = (value: string) => {
-    const current = form.values.cuisinePreferences;
+  const toggleDietaryRestriction = (value: string) => {
+    const current = form.values.dietaryRestrictions;
     const updated = current.includes(value)
       ? current.filter((v) => v !== value)
       : [...current, value];
-    form.setFieldValue("cuisinePreferences", updated);
-  };
-
-  const toggleDietaryAccommodation = (value: string) => {
-    const current = form.values.dietaryAccommodations;
-    const updated = current.includes(value)
-      ? current.filter((v) => v !== value)
-      : [...current, value];
-    form.setFieldValue("dietaryAccommodations", updated);
+    form.setFieldValue("dietaryRestrictions", updated);
   };
 
   return (
@@ -356,114 +332,22 @@ export function ContactCatering({
                   </Field>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field name="startTime">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="start-time">Start Time</Label>
-                        <TextInput
-                          {...field}
-                          id="start-time"
-                          type="time"
-                          error={meta.touched && !!meta.error}
-                          aria-label="Start Time"
-                        />
-                      </div>
-                    )}
-                  </Field>
-
-                  <Field name="endTime">
-                    {({ field, meta }) => (
-                      <div className="space-y-2">
-                        <Label htmlFor="end-time">End Time (Optional)</Label>
-                        <TextInput
-                          {...field}
-                          id="end-time"
-                          type="time"
-                          error={meta.touched && !!meta.error}
-                          aria-label="End Time"
-                        />
-                      </div>
-                    )}
-                  </Field>
-                </div>
-
-                <Field name="venue">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="venue">Venue / Location</Label>
-                      <TextInput
-                        {...field}
-                        id="venue"
-                        placeholder="Event venue or location"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Venue"
-                      />
-                    </div>
-                  )}
-                </Field>
-              </div>
-
-              <Separator />
-
-              {/* Service Style */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Service Preferences</h3>
-                <Field name="serviceStyle">
-                  {({ field }) => (
-                    <Radio
-                      name="serviceStyle"
-                      label="Service Style"
-                      value={field.value}
-                      onChange={field.onChange}
-                      options={SERVICE_STYLES}
-                      layout="vertical"
-                      className="space-y-2"
-                    />
-                  )}
-                </Field>
-
                 <div className="space-y-3">
-                  <Label>Cuisine Preferences (Optional)</Label>
-                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                    {CUISINES.map((cuisine) => (
-                      <div key={cuisine.id} className="flex items-center gap-2">
-                        <Checkbox
-                          id={cuisine.id}
-                          checked={form.values.cuisinePreferences.includes(
-                            cuisine.id
-                          )}
-                          onCheckedChange={() =>
-                            toggleCuisinePreference(cuisine.id)
-                          }
-                        />
-                        <Label
-                          htmlFor={cuisine.id}
-                          className="cursor-pointer font-normal"
-                        >
-                          {cuisine.label}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <Label>Dietary Accommodations (Optional)</Label>
+                  <Label>Dietary Restrictions (Optional)</Label>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {DIETARY_OPTIONS.map((option) => (
-                      <div key={option.id} className="flex items-center gap-2">
+                      <div key={option.value} className="flex items-center gap-2">
                         <Checkbox
-                          id={option.id}
-                          checked={form.values.dietaryAccommodations.includes(
-                            option.id
+                          id={option.value}
+                          checked={form.values.dietaryRestrictions.includes(
+                            option.value
                           )}
                           onCheckedChange={() =>
-                            toggleDietaryAccommodation(option.id)
+                            toggleDietaryRestriction(option.value)
                           }
                         />
                         <Label
-                          htmlFor={option.id}
+                          htmlFor={option.value}
                           className="cursor-pointer font-normal"
                         >
                           {option.label}
@@ -472,27 +356,6 @@ export function ContactCatering({
                     ))}
                   </div>
                 </div>
-
-                <Field name="budget">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="budget">Budget Per Person (Optional)</Label>
-                      <Select
-                        {...field}
-                        id="budget"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Budget Per Person"
-                      >
-                        <option value="">Select budget range</option>
-                        {BUDGET_RANGES.map((range) => (
-                          <option key={range.value} value={range.value}>
-                            {range.label}
-                          </option>
-                        ))}
-                      </Select>
-                    </div>
-                  )}
-                </Field>
               </div>
 
               <Separator />
@@ -500,20 +363,36 @@ export function ContactCatering({
               {/* Contact Information */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Your Information</h3>
-                <Field name="name">
-                  {({ field, meta }) => (
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <TextInput
-                        {...field}
-                        id="name"
-                        placeholder="John Doe"
-                        error={meta.touched && !!meta.error}
-                        aria-label="Full Name"
-                      />
-                    </div>
-                  )}
-                </Field>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Field name="firstName">
+                    {({ field, meta }) => (
+                      <div className="space-y-2">
+                        <Label htmlFor="first-name">First Name</Label>
+                        <TextInput
+                          {...field}
+                          id="first-name"
+                          placeholder="John"
+                          error={meta.touched && !!meta.error}
+                          aria-label="First Name"
+                        />
+                      </div>
+                    )}
+                  </Field>
+                  <Field name="lastName">
+                    {({ field, meta }) => (
+                      <div className="space-y-2">
+                        <Label htmlFor="last-name">Last Name</Label>
+                        <TextInput
+                          {...field}
+                          id="last-name"
+                          placeholder="Doe"
+                          error={meta.touched && !!meta.error}
+                          aria-label="Last Name"
+                        />
+                      </div>
+                    )}
+                  </Field>
+                </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field name="email">
@@ -548,6 +427,21 @@ export function ContactCatering({
                   </Field>
                 </div>
 
+                <Field name="venue">
+                  {({ field, meta }) => (
+                    <div className="space-y-2">
+                      <Label htmlFor="venue">Venue / Location (Optional)</Label>
+                      <TextInput
+                        {...field}
+                        id="venue"
+                        placeholder="Grand Ballroom, 123 Main St"
+                        error={meta.touched && !!meta.error}
+                        aria-label="Venue / Location"
+                      />
+                    </div>
+                  )}
+                </Field>
+
                 <Field name="details">
                   {({ field, meta }) => (
                     <div className="space-y-2">
@@ -565,19 +459,6 @@ export function ContactCatering({
                     </div>
                   )}
                 </Field>
-
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="tasting"
-                    checked={form.values.tasting}
-                    onCheckedChange={(checked) =>
-                      form.setFieldValue("tasting", checked === true)
-                    }
-                  />
-                  <Label htmlFor="tasting" className="cursor-pointer font-normal">
-                    I'm interested in scheduling a tasting
-                  </Label>
-                </div>
               </div>
 
               <div className="rounded-lg border bg-muted/50 p-4">

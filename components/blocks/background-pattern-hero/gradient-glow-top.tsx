@@ -20,7 +20,7 @@ export function GradientGlowTop({ className, children }: GradientGlowTopProps) {
         className="pointer-events-none absolute -top-1/4 left-1/2 z-0 aspect-square w-3/4 -translate-x-1/2 rounded-full opacity-50 blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+            "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)",
         }}
       />
       <div className="relative z-10">{children}</div>

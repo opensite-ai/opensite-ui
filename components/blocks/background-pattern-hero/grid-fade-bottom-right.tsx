@@ -17,7 +17,7 @@ export function GridFadeBottomRight({ className, children }: GridFadeBottomRight
       )}
     >
       <div
-        className="absolute inset-0 z-0 bg-[linear-gradient(to_right,_var(--muted)_1px,_transparent_1px),linear-gradient(to_bottom,_var(--muted)_1px,_transparent_1px)] bg-[length:32px_32px]"
+        className="absolute inset-0 z-0 bg-[linear-gradient(to_right,_hsl(var(--muted))_1px,_transparent_1px),linear-gradient(to_bottom,_hsl(var(--muted))_1px,_transparent_1px)] bg-[length:32px_32px]"
         style={{
           WebkitMaskImage:
             "radial-gradient(ellipse 80% 80% at 100% 100%, #000 50%, transparent 90%)",

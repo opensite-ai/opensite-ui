@@ -69,11 +69,11 @@ export function FooterCtaSocial({
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-2 text-center">
           {/* Pre-heading with decorative lines */}
           <div className="flex w-full items-center gap-4">
-            <div className="h-px flex-1 bg-[linear-gradient(270deg,var(--primary,rgb(255,255,255))_0%,var(--secondary,rgb(0,0,0))_100%)] opacity-50" />
+            <div className="h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--primary,0_0%_100%))_0%,hsl(var(--secondary,0_0%_0%))_100%)] opacity-50" />
             <p className="text-sm text-muted-foreground italic md:text-base">
               {preHeading}
             </p>
-            <div className="h-px flex-1 bg-[linear-gradient(270deg,var(--secondary,rgb(0,0,0))_0%,var(--primary,rgb(255,255,255))_100%)] opacity-50" />
+            <div className="h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--secondary,0_0%_0%))_0%,hsl(var(--primary,0_0%_100%))_100%)] opacity-50" />
           </div>
 
           {/* Main heading */}

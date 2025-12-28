@@ -37,11 +37,11 @@ export function GridDotsFadeCenter({ className, children }: GridDotsFadeCenterPr
           >
             <path
               d="M0 20h40M20 0v40"
-              stroke="var(--muted)"
+              stroke="hsl(var(--muted))"
               strokeWidth="0.5"
               fill="none"
             />
-            <circle cx="20" cy="20" r="2" fill="var(--muted)" />
+            <circle cx="20" cy="20" r="2" fill="hsl(var(--muted))" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid-dots-fade-center)" />
