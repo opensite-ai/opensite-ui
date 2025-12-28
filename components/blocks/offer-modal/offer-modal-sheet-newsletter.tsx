@@ -282,17 +282,23 @@ export function OfferModalSheetNewsletter({
                   <Field
                     name="email"
                     className="w-full flex-1"
-                    errorClassName="text-destructive mt-1 text-xs"
                   >
                     {({ field, meta }) => (
-                      <TextInput
-                        {...field}
-                        type="email"
-                        className="h-10 w-full rounded-full px-6"
-                        placeholder={emailPlaceholder}
-                        error={meta.touched && !!meta.error}
-                        aria-label={emailPlaceholder || "Email address"}
-                      />
+                      <div className="w-full">
+                        <TextInput
+                          {...field}
+                          type="email"
+                          className="h-10 w-full rounded-full px-6"
+                          placeholder={emailPlaceholder}
+                          error={meta.touched && !!meta.error}
+                          aria-label={emailPlaceholder || "Email address"}
+                        />
+                        {meta.touched && meta.error && (
+                          <div className="text-destructive mt-1 text-xs">
+                            {meta.error}
+                          </div>
+                        )}
+                      </div>
                     )}
                   </Field>
                   <Pressable

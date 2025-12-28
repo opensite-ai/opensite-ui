@@ -184,7 +184,9 @@ export function OfferModalMembershipImage({
     onSubmit: async (values, helpers) => {
       const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
+      // Allow form submission even without handlers to enable validation
       if (!shouldAutoSubmit && !onSubmit) {
+        // Validation has already run, just return without doing anything
         return;
       }
 
@@ -271,7 +273,6 @@ export function OfferModalMembershipImage({
               <Field
                 name="email"
                 className="flex-1"
-                errorClassName="text-destructive mt-1 text-xs"
               >
                 {({ field, meta }) => (
                   <div className="relative flex-1">
@@ -286,6 +287,11 @@ export function OfferModalMembershipImage({
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                       <DynamicIcon name="lucide/mail" size={16} />
                     </div>
+                    {meta.touched && meta.error && (
+                      <div className="text-destructive mt-1 text-xs">
+                        {meta.error}
+                      </div>
+                    )}
                   </div>
                 )}
               </Field>

@@ -229,16 +229,24 @@ export function OfferModalNewsletterDiscount({
           method={formMethod}
           className="space-y-2.5"
         >
-          <Field name="email" errorClassName="text-destructive text-xs">
+          <Field name="email">
             {({ field, meta }) => (
-              <TextInput
-                {...field}
-                type="email"
-                placeholder={emailPlaceholder}
-                error={meta.touched && !!meta.error}
-                className="w-full"
-                aria-label={emailPlaceholder || "Email address"}
-              />
+              <div>
+                <TextInput
+                  {...field}
+                  type="email"
+                  placeholder={emailPlaceholder}
+                  error={meta.touched && !!meta.error}
+                  className="w-full"
+                  aria-label={emailPlaceholder || "Email address"}
+                  required
+                />
+                {meta.touched && meta.error && (
+                  <div className="text-destructive text-xs mt-1">
+                    {meta.error}
+                  </div>
+                )}
+              </div>
             )}
           </Field>
           <Pressable
