@@ -1986,12 +1986,37 @@
       "import": "./dist/service-detail-centered-expertise.js",
       "require": "./dist/service-detail-centered-expertise.cjs"
     },
-    "./blocks/service-detail/service-detail-compact-cards": {
-      "types": "./dist/service-detail-compact-cards.d.ts",
-      "import": "./dist/service-detail-compact-cards.js",
-      "require": "./dist/service-detail-compact-cards.cjs"
-    },
-    "./registry": {
+        "./blocks/service-detail/service-detail-compact-cards": {
+          "types": "./dist/service-detail-compact-cards.d.ts",
+          "import": "./dist/service-detail-compact-cards.js",
+          "require": "./dist/service-detail-compact-cards.cjs"
+        },
+        "./blocks/resource-list/resource-list-hero-filter": {
+          "types": "./dist/resource-list-hero-filter.d.ts",
+          "import": "./dist/resource-list-hero-filter.js",
+          "require": "./dist/resource-list-hero-filter.cjs"
+        },
+        "./blocks/resource-list/resource-list-featured-grid": {
+          "types": "./dist/resource-list-featured-grid.d.ts",
+          "import": "./dist/resource-list-featured-grid.js",
+          "require": "./dist/resource-list-featured-grid.cjs"
+        },
+        "./blocks/resource-list/resource-list-featured-articles": {
+          "types": "./dist/resource-list-featured-articles.d.ts",
+          "import": "./dist/resource-list-featured-articles.js",
+          "require": "./dist/resource-list-featured-articles.cjs"
+        },
+        "./blocks/resource-list/resource-list-news-updates": {
+          "types": "./dist/resource-list-news-updates.d.ts",
+          "import": "./dist/resource-list-news-updates.js",
+          "require": "./dist/resource-list-news-updates.cjs"
+        },
+        "./blocks/resource-list/resource-list-course-cards": {
+          "types": "./dist/resource-list-course-cards.d.ts",
+          "import": "./dist/resource-list-course-cards.js",
+          "require": "./dist/resource-list-course-cards.cjs"
+        },
+        "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
