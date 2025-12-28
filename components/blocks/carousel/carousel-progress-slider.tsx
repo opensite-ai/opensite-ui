@@ -19,8 +19,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
 
-// Context types
 interface ProgressSliderContextType {
   active: string;
   progress: number;
@@ -28,7 +28,6 @@ interface ProgressSliderContextType {
   vertical: boolean;
 }
 
-// Create context
 const ProgressSliderContext = React.createContext<
   ProgressSliderContextType | undefined
 >(undefined);
@@ -43,7 +42,6 @@ function useProgressSliderContext(): ProgressSliderContextType {
   return context;
 }
 
-// Slider Button component
 interface SliderBtnProps {
   children: React.ReactNode;
   value: string;
@@ -87,7 +85,6 @@ function SliderBtn({
   );
 }
 
-// Slider Wrapper component
 interface SliderWrapperProps {
   children: React.ReactNode;
   value: string;
@@ -114,45 +111,111 @@ function SliderWrapper({ children, value, className }: SliderWrapperProps) {
   );
 }
 
-// Main component props
-export interface CarouselProgressSliderProps {
+export interface ProgressSlide {
+  /**
+   * Unique identifier for the slide
+   */
+  id: string;
+  /**
+   * Slide title
+   */
+  title?: React.ReactNode;
+  /**
+   * Slide description
+   */
+  description?: React.ReactNode;
+  /**
+   * Image source URL
+   */
+  image: string;
+  /**
+   * Additional CSS classes for the slide
+   */
   className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
-  duration?: number;
-  fastDuration?: number;
-  vertical?: boolean;
-  slides?: Array<{
-    id: string;
-    title: string;
-    description: string;
-    image: string;
-  }>;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
 }
 
+export interface CarouselProgressSliderProps {
+  /**
+   * Array of slides
+   */
+  slides?: ProgressSlide[];
+  /**
+   * Custom slot for rendering slides (overrides slides array)
+   */
+  slidesSlot?: React.ReactNode;
+  /**
+   * Duration for each slide in milliseconds
+   */
+  duration?: number;
+  /**
+   * Fast forward duration in milliseconds
+   */
+  fastDuration?: number;
+  /**
+   * Whether to use vertical progress bars
+   */
+  vertical?: boolean;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content grid
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the image area
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the navigation area
+   */
+  navigationClassName?: string;
+  /**
+   * Additional CSS classes for the navigation buttons
+   */
+  buttonClassName?: string;
+  /**
+   * Additional CSS classes for the progress bar
+   */
+  progressBarClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+}
+
+const defaultSlides: ProgressSlide[] = [
+  { id: "slide-0", title: "Feature 1", description: "Discover the amazing capabilities of feature 1", image: imagePlaceholders[0] },
+  { id: "slide-1", title: "Feature 2", description: "Discover the amazing capabilities of feature 2", image: imagePlaceholders[1] },
+  { id: "slide-2", title: "Feature 3", description: "Discover the amazing capabilities of feature 3", image: imagePlaceholders[2] },
+  { id: "slide-3", title: "Feature 4", description: "Discover the amazing capabilities of feature 4", image: imagePlaceholders[3] },
+];
+
 export function CarouselProgressSlider({
-  className,
-  optixFlowConfig,
+  slides = defaultSlides,
+  slidesSlot,
   duration = 5000,
   fastDuration = 400,
   vertical = false,
-  slides,
+  className,
+  containerClassName,
+  contentClassName,
+  imageClassName,
+  navigationClassName,
+  buttonClassName,
+  progressBarClassName,
+  optixFlowConfig,
 }: CarouselProgressSliderProps): React.JSX.Element {
-  const defaultSlides = React.useMemo(
-    () =>
-      Array.from({ length: 4 }).map((_, index) => ({
-        id: `slide-${index}`,
-        title: `Feature ${index + 1}`,
-        description: `Discover the amazing capabilities of feature ${index + 1}`,
-        image: imagePlaceholders[index % imagePlaceholders.length],
-      })),
-    []
-  );
-
-  const sliderSlides = slides || defaultSlides;
-  const [active, setActive] = React.useState<string>(sliderSlides[0].id);
+  const [active, setActive] = React.useState<string>(slides[0].id);
   const [progress, setProgress] = React.useState<number>(0);
   const [isFastForward, setIsFastForward] = React.useState<boolean>(false);
   const frame = React.useRef<number>(0);
@@ -160,8 +223,8 @@ export function CarouselProgressSlider({
   const targetValue = React.useRef<string | null>(null);
 
   const sliderValues = React.useMemo(
-    () => sliderSlides.map((slide) => slide.id),
-    [sliderSlides]
+    () => slides.map((slide) => slide.id),
+    [slides]
   );
 
   React.useEffect(() => {
@@ -219,41 +282,57 @@ export function CarouselProgressSlider({
       value={{ active, progress, handleButtonClick, vertical }}
     >
       <section className={cn("relative w-full py-12", className)}>
-        <div className="container mx-auto px-4">
-          <div className="grid gap-8 lg:grid-cols-2">
+        <div className={cn("container mx-auto px-4", containerClassName)}>
+          <div className={cn("grid gap-8 lg:grid-cols-2", contentClassName)}>
             {/* Content area */}
-            <div className="relative min-h-[300px]">
-              {sliderSlides.map((slide) => (
-                <SliderWrapper
-                  key={slide.id}
-                  value={slide.id}
-                  className="absolute inset-0"
-                >
-                  <div className="aspect-video overflow-hidden rounded-lg">
-                    <Img
-                      src={slide.image}
-                      alt={slide.title}
-                      className="h-full w-full object-cover"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                </SliderWrapper>
-              ))}
+            <div className={cn("relative min-h-[300px]", imageClassName)}>
+              {slidesSlot ? (
+                slidesSlot
+              ) : (
+                slides.map((slide) => (
+                  <SliderWrapper
+                    key={slide.id}
+                    value={slide.id}
+                    className={cn("absolute inset-0", slide.className)}
+                  >
+                    <div className="aspect-video overflow-hidden rounded-lg">
+                      <Img
+                        src={slide.image}
+                        alt={typeof slide.title === "string" ? slide.title : `Slide ${slide.id}`}
+                        className={cn("h-full w-full object-cover", slide.imageClassName)}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </div>
+                  </SliderWrapper>
+                ))
+              )}
             </div>
 
             {/* Navigation buttons */}
-            <div className="flex flex-col justify-center gap-4">
-              {sliderSlides.map((slide) => (
+            <div className={cn("flex flex-col justify-center gap-4", navigationClassName)}>
+              {slides.map((slide) => (
                 <SliderBtn
                   key={slide.id}
                   value={slide.id}
-                  className="rounded-lg border p-4 text-left transition-colors hover:bg-muted"
-                  progressBarClass="bottom-0 h-1 bg-primary"
+                  className={cn("rounded-lg border p-4 text-left transition-colors hover:bg-muted", buttonClassName)}
+                  progressBarClass={cn("bottom-0 h-1 bg-primary", progressBarClassName)}
                 >
-                  <h3 className="text-lg font-semibold">{slide.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {slide.description}
-                  </p>
+                  {slide.title && (
+                    typeof slide.title === "string" ? (
+                      <h3 className="text-lg font-semibold">{slide.title}</h3>
+                    ) : (
+                      <div>{slide.title}</div>
+                    )
+                  )}
+                  {slide.description && (
+                    typeof slide.description === "string" ? (
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {slide.description}
+                      </p>
+                    ) : (
+                      <div className="mt-1">{slide.description}</div>
+                    )
+                  )}
                 </SliderBtn>
               ))}
             </div>

@@ -5,16 +5,17 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export interface FeatureSplitImageProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
-   * Supporting description text
+   * Supporting description content
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Image source URL
    */
@@ -24,31 +25,67 @@ export interface FeatureSplitImageProps {
    */
   imageAlt?: string;
   /**
-   * Primary button configuration
+   * Image element or ReactNode (overrides imageSrc)
    */
-  buttonPrimary?: {
-    text: string;
-    href: string;
-  };
+  imageSlot?: React.ReactNode;
   /**
-   * Secondary button configuration
+   * Array of action configurations for CTA buttons
    */
-  buttonSecondary?: {
-    text: string;
-    href: string;
-  };
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
-   * Optional Optix Flow configuration for image optimization
+   * Additional CSS classes for the container
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the grid wrapper
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Get Started",
+    href: "#",
+    variant: "default",
+  },
+  {
+    label: "Learn More",
+    href: "#",
+    variant: "outline",
+  },
+];
 
 /**
  * Feature Split Image - Two-column feature section with text content on the left
@@ -64,8 +101,10 @@ export interface FeatureSplitImageProps {
  *   title="Build faster with our components"
  *   description="Hundreds of finely crafted components built with React and Tailwind."
  *   imageSrc="/feature-image.jpg"
- *   buttonPrimary={{ text: "Get Started", href: "/signup" }}
- *   buttonSecondary={{ text: "Learn More", href: "/docs" }}
+ *   actions={[
+ *     { label: "Get Started", href: "/signup", variant: "default" },
+ *     { label: "Learn More", href: "/docs", variant: "outline" },
+ *   ]}
  * />
  * ```
  */
@@ -74,46 +113,106 @@ export function FeatureSplitImage({
   description = "Hundreds of finely crafted components built with React, Tailwind and modern best practices. Developers can copy and paste these blocks directly into their project.",
   imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   imageAlt = "Feature illustration",
-  buttonPrimary = {
-    text: "Get Started",
-    href: "#",
-  },
-  buttonSecondary = {
-    text: "Learn More",
-    href: "#",
-  },
+  imageSlot,
+  actions = defaultActions,
+  actionsSlot,
   className,
+  containerClassName,
+  gridClassName,
+  contentClassName,
+  titleClassName,
+  descriptionClassName,
+  actionsClassName,
+  imageClassName,
   optixFlowConfig,
-}: FeatureSplitImageProps) {
+}: FeatureSplitImageProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      if (action.children) {
+        return (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant}
+            size={action.size}
+            className={action.className}
+            aria-label={action["aria-label"]}
+            asButton
+          >
+            {action.children}
+          </Pressable>
+        );
+      }
+
+      return (
+        <Pressable
+          key={index}
+          href={action.href}
+          onClick={action.onClick}
+          variant={action.variant}
+          size={action.size}
+          className={action.className}
+          aria-label={action["aria-label"]}
+          asButton
+        >
+          {action.icon}
+          {action.label}
+          {action.iconAfter}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderImage = () => {
+    if (imageSlot) return imageSlot;
+
+    return (
+      <Img
+        src={imageSrc}
+        alt={imageAlt}
+        className={cn("max-h-96 w-full rounded-md object-cover", imageClassName)}
+        loading="lazy"
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <h2 className="my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl">
-              {title}
-            </h2>
-            {description && (
-              <p className="mb-8 max-w-xl text-muted-foreground lg:text-lg">
-                {description}
-              </p>
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("grid items-center gap-8 lg:grid-cols-2", gridClassName)}>
+          <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
+            {title && (
+              typeof title === "string" ? (
+                <h2 className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
+                  {title}
+                </h2>
+              ) : (
+                <div className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
+                  {title}
+                </div>
+              )
             )}
-            <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-              <Pressable href={buttonPrimary.href} variant="default" asButton>
-                {buttonPrimary.text}
-              </Pressable>
-              <Pressable href={buttonSecondary.href} variant="outline" asButton>
-                {buttonSecondary.text}
-              </Pressable>
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+                  {description}
+                </div>
+              )
+            )}
+            <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
+              {renderActions()}
             </div>
           </div>
-          <Img
-            src={imageSrc}
-            alt={imageAlt}
-            className="max-h-96 w-full rounded-md object-cover"
-            loading="lazy"
-            optixFlowConfig={optixFlowConfig}
-          />
+          {renderImage()}
         </div>
       </div>
     </section>

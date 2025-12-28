@@ -25,73 +25,144 @@ import {
 } from "../../ui/carousel";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ImageItem, OptixFlowConfig } from "../../../src/types";
 
 export interface CarouselFeatureBadgeProps {
+  /**
+   * Badge/eyebrow content above heading
+   */
+  badge?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of image items for the carousel
+   */
+  items?: ImageItem[];
+  /**
+   * Custom slot for rendering carousel items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
-  badgeText?: string;
-  heading?: string;
-  description?: string;
-  items?: Array<{
-    src: string;
-    alt: string;
-  }>;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content column
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the carousel container
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for each carousel item
+   */
+  carouselItemClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
+const defaultItems: ImageItem[] = [
+  { src: imagePlaceholders[0], alt: "Platform Screenshot 1" },
+  { src: imagePlaceholders[1], alt: "Platform Screenshot 2" },
+  { src: imagePlaceholders[2], alt: "Platform Screenshot 3" },
+  { src: imagePlaceholders[3], alt: "Platform Screenshot 4" },
+  { src: imagePlaceholders[4], alt: "Platform Screenshot 5" },
+];
+
 export function CarouselFeatureBadge({
-  className,
-  optixFlowConfig,
-  badgeText = "Platform",
+  badge = "Platform",
   heading = "This is the start of something new",
   description = "Managing a small business today is already tough. Avoid further complications by ditching outdated, tedious trade methods. Our goal is to streamline SMB trade, making it easier and faster than ever.",
-  items,
+  items = defaultItems,
+  itemsSlot,
+  className,
+  containerClassName,
+  contentClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  carouselClassName,
+  carouselItemClassName,
+  optixFlowConfig,
 }: CarouselFeatureBadgeProps): React.JSX.Element {
-  const defaultItems = React.useMemo(
-    () =>
-      Array.from({ length: 5 }).map((_, index) => ({
-        src: imagePlaceholders[index % imagePlaceholders.length],
-        alt: `Platform Screenshot ${index + 1}`,
-      })),
-    []
-  );
+  const renderCarouselItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
 
-  const carouselItems = items || defaultItems;
+    return items.map((item, index) => (
+      <CarouselItem key={index} className={carouselItemClassName}>
+        <div className="flex aspect-video items-center justify-center overflow-hidden rounded-md bg-muted p-6">
+          <Img
+            src={item.src}
+            alt={item.alt}
+            className={cn("h-full w-full object-cover", item.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+      </CarouselItem>
+    ));
+  };
 
   return (
     <section className={cn("w-full py-20 lg:py-40", className)}>
-      <div className="container mx-auto">
+      <div className={cn("container mx-auto", containerClassName)}>
         <div className="grid grid-cols-1 items-end justify-end gap-10 lg:grid-cols-2">
-          <div className="flex flex-col items-start gap-4">
-            <div>
-              <Badge>{badgeText}</Badge>
-            </div>
+          <div className={cn("flex flex-col items-start gap-4", contentClassName)}>
+            {badge && (
+              <div className={badgeClassName}>
+                {typeof badge === "string" ? <Badge>{badge}</Badge> : badge}
+              </div>
+            )}
             <div className="flex flex-col gap-2">
-              <h2 className="text-left text-xl font-normal tracking-tighter md:text-3xl lg:max-w-xl lg:text-5xl">
-                {heading}
-              </h2>
-              <p className="max-w-xl text-left text-lg leading-relaxed tracking-tight text-muted-foreground lg:max-w-sm">
-                {description}
-              </p>
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2 className={cn("text-left text-xl font-normal tracking-tighter md:text-3xl lg:max-w-xl lg:text-5xl", headingClassName)}>
+                    {heading}
+                  </h2>
+                ) : (
+                  <div className={headingClassName}>{heading}</div>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p className={cn("max-w-xl text-left text-lg leading-relaxed tracking-tight text-muted-foreground lg:max-w-sm", descriptionClassName)}>
+                    {description}
+                  </p>
+                ) : (
+                  <div className={descriptionClassName}>{description}</div>
+                )
+              )}
             </div>
           </div>
-          <div className="w-full max-w-full px-6">
+          <div className={cn("w-full max-w-full px-6", carouselClassName)}>
             <Carousel>
               <CarouselContent>
-                {carouselItems.map((item, index) => (
-                  <CarouselItem key={index}>
-                    <div className="flex aspect-video items-center justify-center overflow-hidden rounded-md bg-muted p-6">
-                      <Img
-                        src={item.src}
-                        alt={item.alt}
-                        className="h-full w-full object-cover"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
+                {renderCarouselItems()}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />

@@ -8,6 +8,62 @@ import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+
+export interface FeatureIconTabsContentTabContent {
+  /**
+   * Badge content
+   */
+  badge?: React.ReactNode;
+  /**
+   * Title content
+   */
+  title?: React.ReactNode;
+  /**
+   * Description content
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Image source URL
+   */
+  imageSrc?: string;
+  /**
+   * Image alt text
+   */
+  imageAlt?: string;
+  /**
+   * Custom slot for image (overrides imageSrc)
+   */
+  imageSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the content
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+}
 
 export interface FeatureIconTabsContentTab {
   /**
@@ -15,55 +71,146 @@ export interface FeatureIconTabsContentTab {
    */
   value: string;
   /**
+   * Icon element (overrides iconName)
+   */
+  icon?: React.ReactNode;
+  /**
    * Icon name in format: prefix/name (e.g., "lucide/zap")
    */
-  icon: string;
+  iconName?: string;
   /**
-   * Tab label text
+   * Tab label content
    */
-  label: string;
+  label?: React.ReactNode;
   /**
    * Tab content configuration
    */
-  content: {
-    badge: string;
-    title: string;
-    description: string;
-    buttonText: string;
-    imageSrc: string;
-    imageAlt: string;
-  };
+  content?: FeatureIconTabsContentTabContent;
+  /**
+   * Custom slot for tab content (overrides content)
+   */
+  contentSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the tab trigger
+   */
+  className?: string;
 }
 
 export interface FeatureIconTabsContentProps {
   /**
-   * Badge text
+   * Badge content
    */
-  badge?: string;
+  badge?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Supporting description text
+   * Supporting description content
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of tab configurations
    */
   tabs?: FeatureIconTabsContentTab[];
   /**
+   * Custom slot for rendering tabs (overrides tabs array)
+   */
+  tabsSlot?: React.ReactNode;
+  /**
+   * Default active tab value
+   */
+  defaultTab?: string;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
-   * Optional Optix Flow configuration for image optimization
+   * Additional CSS classes for the container
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the tabs list
+   */
+  tabsListClassName?: string;
+  /**
+   * Additional CSS classes for each tab trigger
+   */
+  tabTriggerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentWrapperClassName?: string;
+  /**
+   * Additional CSS classes for each tab content
+   */
+  tabContentClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultTabs: FeatureIconTabsContentTab[] = [
+  {
+    value: "tab-1",
+    iconName: "lucide/zap",
+    label: "Boost Revenue",
+    content: {
+      badge: "Modern Tactics",
+      title: "Make your site a true standout.",
+      description:
+        "Discover new web trends that help you craft sleek, highly functional sites that drive traffic and convert leads into customers.",
+      actions: [{ label: "See Plans", href: "#", variant: "default", size: "lg" }],
+      imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
+      imageAlt: "Feature illustration",
+    },
+  },
+  {
+    value: "tab-2",
+    iconName: "lucide/pointer",
+    label: "Higher Engagement",
+    content: {
+      badge: "Expert Features",
+      title: "Boost your site with top-tier design.",
+      description:
+        "Use stellar design to easily engage users and strengthen their loyalty. Create a seamless experience that keeps them coming back for more.",
+      actions: [{ label: "See Tools", href: "#", variant: "default", size: "lg" }],
+      imageSrc: blockBrandedIconsAndPlaceholders.placeholderDark1,
+      imageAlt: "Feature illustration",
+    },
+  },
+  {
+    value: "tab-3",
+    iconName: "lucide/layout",
+    label: "Stunning Layouts",
+    content: {
+      badge: "Elite Solutions",
+      title: "Build an advanced web experience.",
+      description:
+        "Lift your brand with modern tech that grabs attention and drives action. Create a digital experience that stands out from the crowd.",
+      actions: [{ label: "See Options", href: "#", variant: "default", size: "lg" }],
+      imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
+      imageAlt: "Feature illustration",
+    },
+  },
+];
 
 /**
  * Feature Icon Tabs Content - Tabbed interface with icon triggers and
@@ -81,13 +228,13 @@ export interface FeatureIconTabsContentProps {
  *   tabs={[
  *     {
  *       value: "tab-1",
- *       icon: "lucide/zap",
+ *       iconName: "lucide/zap",
  *       label: "Boost Revenue",
  *       content: {
  *         badge: "Modern Tactics",
  *         title: "Make your site stand out",
  *         description: "Discover new web trends.",
- *         buttonText: "See Plans",
+ *         actions: [{ label: "See Plans", href: "#", variant: "default" }],
  *         imageSrc: "/feature.jpg",
  *         imageAlt: "Feature"
  *       }
@@ -100,122 +247,191 @@ export function FeatureIconTabsContent({
   badge = "Opensite AI",
   heading = "A Collection of Components Built With Opensite AI & Tailwind",
   description = "Join us to build flawless web solutions.",
-  tabs = [
-    {
-      value: "tab-1",
-      icon: "lucide/zap",
-      label: "Boost Revenue",
-      content: {
-        badge: "Modern Tactics",
-        title: "Make your site a true standout.",
-        description:
-          "Discover new web trends that help you craft sleek, highly functional sites that drive traffic and convert leads into customers.",
-        buttonText: "See Plans",
-        imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-        imageAlt: "Feature illustration",
-      },
-    },
-    {
-      value: "tab-2",
-      icon: "lucide/pointer",
-      label: "Higher Engagement",
-      content: {
-        badge: "Expert Features",
-        title: "Boost your site with top-tier design.",
-        description:
-          "Use stellar design to easily engage users and strengthen their loyalty. Create a seamless experience that keeps them coming back for more.",
-        buttonText: "See Tools",
-        imageSrc: blockBrandedIconsAndPlaceholders.placeholderDark1,
-        imageAlt: "Feature illustration",
-      },
-    },
-    {
-      value: "tab-3",
-      icon: "lucide/layout",
-      label: "Stunning Layouts",
-      content: {
-        badge: "Elite Solutions",
-        title: "Build an advanced web experience.",
-        description:
-          "Lift your brand with modern tech that grabs attention and drives action. Create a digital experience that stands out from the crowd.",
-        buttonText: "See Options",
-        imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-        imageAlt: "Feature illustration",
-      },
-    },
-  ],
+  tabs = defaultTabs,
+  tabsSlot,
+  defaultTab,
   className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  tabsListClassName,
+  tabTriggerClassName,
+  contentWrapperClassName,
+  tabContentClassName,
   optixFlowConfig,
-}: FeatureIconTabsContentProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container mx-auto">
-        <div className="flex flex-col items-center gap-4 text-center">
-          {badge && <Badge variant="outline">{badge}</Badge>}
-          {heading && (
-            <h1 className="max-w-2xl text-3xl font-semibold md:text-4xl">
-              {heading}
-            </h1>
-          )}
-          {description && (
-            <p className="text-muted-foreground">{description}</p>
-          )}
-        </div>
-        <Tabs defaultValue={tabs[0]?.value} className="mt-8">
-          <TabsList className="container flex flex-col items-center justify-center gap-4 bg-transparent sm:flex-row md:gap-10">
-            {tabs.map((tab) => (
-              <TabsTrigger
-                key={tab.value}
-                value={tab.value}
-                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground data-[state=active]:bg-muted data-[state=active]:text-primary"
-              >
-                <DynamicIcon name={tab.icon} size={16} />
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          <div className="mx-auto mt-8 max-w-7xl rounded-2xl bg-muted/70 p-6 lg:p-16">
-            <div className="relative">
-              {tabs.map((tab) => (
+}: FeatureIconTabsContentProps): React.JSX.Element {
+  const renderTabIcon = (tab: FeatureIconTabsContentTab) => {
+    if (tab.icon) return tab.icon;
+    if (tab.iconName) return <DynamicIcon name={tab.iconName} size={16} />;
+    return <DynamicIcon name="lucide/star" size={16} />;
+  };
+
+  const renderTabContentActions = (content: FeatureIconTabsContentTabContent) => {
+    if (content.actionsSlot) return content.actionsSlot;
+    if (!content.actions || content.actions.length === 0) return null;
+
+    return content.actions.map((action, index) => {
+      if (action.children) {
+        return (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant}
+            size={action.size}
+            className={cn("mt-2.5 w-fit gap-2", action.className)}
+            aria-label={action["aria-label"]}
+            asButton
+          >
+            {action.children}
+          </Pressable>
+        );
+      }
+
+      return (
+        <Pressable
+          key={index}
+          href={action.href}
+          onClick={action.onClick}
+          variant={action.variant}
+          size={action.size}
+          className={cn("mt-2.5 w-fit gap-2", action.className)}
+          aria-label={action["aria-label"]}
+          asButton
+        >
+          {action.icon}
+          {action.label}
+          {action.iconAfter}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderTabContentImage = (content: FeatureIconTabsContentTabContent) => {
+    if (content.imageSlot) return content.imageSlot;
+    if (content.imageSrc) {
+      return (
+        <Img
+          src={content.imageSrc}
+          alt={content.imageAlt || "Tab content image"}
+          className={cn("h-full w-full rounded-xl object-cover", content.imageClassName)}
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    }
+    return null;
+  };
+
+  const renderTabs = () => {
+    if (tabsSlot) return tabsSlot;
+    if (!tabs || tabs.length === 0) return null;
+
+    const activeDefaultTab = defaultTab || tabs[0]?.value;
+
+    return (
+      <Tabs defaultValue={activeDefaultTab} className="mt-8">
+        <TabsList className={cn("container flex flex-col items-center justify-center gap-4 bg-transparent sm:flex-row md:gap-10", tabsListClassName)}>
+          {tabs.map((tab) => (
+            <TabsTrigger
+              key={tab.value}
+              value={tab.value}
+              className={cn("flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground data-[state=active]:bg-muted data-[state=active]:text-primary", tabTriggerClassName, tab.className)}
+            >
+              {renderTabIcon(tab)}
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <div className={cn("mx-auto mt-8 max-w-7xl rounded-2xl bg-muted/70 p-6 lg:p-16", contentWrapperClassName)}>
+          <div className="relative">
+            {tabs.map((tab) => {
+              if (tab.contentSlot) {
+                return (
+                  <TabsContent key={tab.value} value={tab.value} className={tabContentClassName}>
+                    {tab.contentSlot}
+                  </TabsContent>
+                );
+              }
+
+              const content = tab.content;
+              if (!content) return null;
+
+              return (
                 <TabsContent
                   key={tab.value}
                   value={tab.value}
-                  className="grid place-items-start gap-20 lg:grid-cols-2 lg:gap-10"
+                  className={cn("grid place-items-start gap-20 lg:grid-cols-2 lg:gap-10", tabContentClassName, content.className)}
                 >
                   <div className="flex flex-col gap-5">
-                    <Badge variant="outline" className="w-fit bg-background">
-                      {tab.content.badge}
-                    </Badge>
-                    <h3 className="text-3xl font-semibold lg:text-5xl">
-                      {tab.content.title}
-                    </h3>
-                    <p className="text-muted-foreground lg:text-lg">
-                      {tab.content.description}
-                    </p>
-                    <Pressable
-                      href="#"
-                      variant="default"
-                      size="lg"
-                      asButton
-                      className="mt-2.5 w-fit gap-2"
-                    >
-                      {tab.content.buttonText}
-                    </Pressable>
+                    {content.badge && (
+                      <Badge variant="outline" className={cn("w-fit bg-background", content.badgeClassName)}>
+                        {content.badge}
+                      </Badge>
+                    )}
+                    {content.title && (
+                      typeof content.title === "string" ? (
+                        <h3 className={cn("text-3xl font-semibold lg:text-5xl", content.titleClassName)}>
+                          {content.title}
+                        </h3>
+                      ) : (
+                        <div className={cn("text-3xl font-semibold lg:text-5xl", content.titleClassName)}>
+                          {content.title}
+                        </div>
+                      )
+                    )}
+                    {content.description && (
+                      typeof content.description === "string" ? (
+                        <p className={cn("text-muted-foreground lg:text-lg", content.descriptionClassName)}>
+                          {content.description}
+                        </p>
+                      ) : (
+                        <div className={cn("text-muted-foreground lg:text-lg", content.descriptionClassName)}>
+                          {content.description}
+                        </div>
+                      )
+                    )}
+                    {renderTabContentActions(content)}
                   </div>
                   <div className="relative h-[300px] w-full lg:h-[400px]">
-                    <Img
-                      src={tab.content.imageSrc}
-                      alt={tab.content.imageAlt}
-                      className="h-full w-full rounded-xl object-cover"
-                      loading="lazy"
-                      optixFlowConfig={optixFlowConfig}
-                    />
+                    {renderTabContentImage(content)}
                   </div>
                 </TabsContent>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        </Tabs>
+        </div>
+      </Tabs>
+    );
+  };
+
+  return (
+    <section className={cn("py-32", className)}>
+      <div className={cn("container mx-auto", containerClassName)}>
+        <div className={cn("flex flex-col items-center gap-4 text-center", headerClassName)}>
+          {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <div className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+                {heading}
+              </div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+        {renderTabs()}
       </div>
     </section>
   );

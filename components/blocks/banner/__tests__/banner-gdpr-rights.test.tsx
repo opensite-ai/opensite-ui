@@ -30,7 +30,7 @@ describe("BannerGdprRights", () => {
       <BannerGdprRights
         title="Data Privacy Notice"
         description="You have the right to manage your data."
-        linkText="Manage Settings"
+        actions={[{ label: "Manage Settings", href: "#", variant: "link" }]}
       />
     );
     expect(screen.getByText("Data Privacy Notice")).toBeInTheDocument();

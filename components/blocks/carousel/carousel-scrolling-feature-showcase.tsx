@@ -19,46 +19,119 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
 
 export interface FeatureItem {
+  /**
+   * Unique identifier for the feature
+   */
   id: string;
-  title: string;
-  description: string;
+  /**
+   * Feature title
+   */
+  title?: React.ReactNode;
+  /**
+   * Feature description
+   */
+  description?: React.ReactNode;
+  /**
+   * Image source URL
+   */
   image: string;
+  /**
+   * Additional CSS classes for the feature
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
 }
 
 export interface CarouselScrollingFeatureShowcaseProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading/description text
+   */
+  subheading?: React.ReactNode;
+  /**
+   * Array of feature items
+   */
   features?: FeatureItem[];
-  sectionTitle?: string;
-  sectionSubtitle?: string;
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the content grid
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the sticky image panel
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the feature descriptions area
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for the feature number badge
+   */
+  numberBadgeClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-export function CarouselScrollingFeatureShowcase({
-  className,
-  optixFlowConfig,
-  features,
-  sectionTitle = "Powerful Features",
-  sectionSubtitle = "Discover what makes our platform unique",
-}: CarouselScrollingFeatureShowcaseProps): React.JSX.Element {
-  const defaultFeatures: FeatureItem[] = React.useMemo(
-    () =>
-      Array.from({ length: 4 }).map((_, index) => ({
-        id: `feature-${index}`,
-        title: `Feature ${index + 1}`,
-        description: `This is a detailed description of feature ${index + 1}. It explains the benefits and capabilities that users can expect when using this feature.`,
-        image: imagePlaceholders[index % imagePlaceholders.length],
-      })),
-    []
-  );
+const defaultFeatures: FeatureItem[] = [
+  { id: "feature-0", title: "Feature 1", description: "This is a detailed description of feature 1. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[0] },
+  { id: "feature-1", title: "Feature 2", description: "This is a detailed description of feature 2. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[1] },
+  { id: "feature-2", title: "Feature 3", description: "This is a detailed description of feature 3. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[2] },
+  { id: "feature-3", title: "Feature 4", description: "This is a detailed description of feature 4. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[3] },
+];
 
-  const featureItems = features || defaultFeatures;
+export function CarouselScrollingFeatureShowcase({
+  heading = "Powerful Features",
+  subheading = "Discover what makes our platform unique",
+  features = defaultFeatures,
+  featuresSlot,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  contentClassName,
+  imageClassName,
+  featuresClassName,
+  numberBadgeClassName,
+  optixFlowConfig,
+}: CarouselScrollingFeatureShowcaseProps): React.JSX.Element {
   const [activeFeature, setActiveFeature] = React.useState<string>(
-    featureItems[0].id
+    features[0].id
   );
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -73,7 +146,7 @@ export function CarouselScrollingFeatureShowcase({
   React.useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
-    featureItems.forEach((feature) => {
+    features.forEach((feature) => {
       const element = document.getElementById(feature.id);
       if (element) {
         const observer = new IntersectionObserver(
@@ -94,35 +167,47 @@ export function CarouselScrollingFeatureShowcase({
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, [featureItems]);
+  }, [features]);
 
-  const activeFeatureData = featureItems.find((f) => f.id === activeFeature);
+  const activeFeatureData = features.find((f) => f.id === activeFeature);
 
   return (
     <section ref={containerRef} className={cn("relative", className)}>
-      <div className="container mx-auto px-4">
+      <div className={cn("container mx-auto px-4", containerClassName)}>
         {/* Header */}
-        <div className="py-16 text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {sectionTitle}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{sectionSubtitle}</p>
+        <div className={cn("py-16 text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {subheading && (
+            typeof subheading === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subheadingClassName)}>{subheading}</p>
+            ) : (
+              <div className={cn("mt-4", subheadingClassName)}>{subheading}</div>
+            )
+          )}
         </div>
 
         {/* Scrolling content */}
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className={cn("grid gap-8 lg:grid-cols-2", contentClassName)}>
           {/* Sticky image panel */}
           <div className="hidden lg:block">
             <div className="sticky top-24">
               <motion.div
                 style={{ opacity: imageOpacity }}
-                className="aspect-video overflow-hidden rounded-xl"
+                className={cn("aspect-video overflow-hidden rounded-xl", imageClassName)}
               >
                 {activeFeatureData && (
                   <Img
                     src={activeFeatureData.image}
-                    alt={activeFeatureData.title}
-                    className="h-full w-full object-cover transition-all duration-500"
+                    alt={typeof activeFeatureData.title === "string" ? activeFeatureData.title : `Feature ${activeFeatureData.id}`}
+                    className={cn("h-full w-full object-cover transition-all duration-500", activeFeatureData.imageClassName)}
                     optixFlowConfig={optixFlowConfig}
                   />
                 )}
@@ -131,43 +216,60 @@ export function CarouselScrollingFeatureShowcase({
           </div>
 
           {/* Feature descriptions */}
-          <div className="space-y-32 py-16">
-            {featureItems.map((feature, index) => (
-              <div
-                key={feature.id}
-                id={feature.id}
-                className={cn(
-                  "min-h-[50vh] transition-opacity duration-300",
-                  activeFeature === feature.id
-                    ? "opacity-100"
-                    : "opacity-50"
-                )}
-              >
-                {/* Mobile image */}
-                <div className="mb-6 lg:hidden">
-                  <div className="aspect-video overflow-hidden rounded-lg">
-                    <Img
-                      src={feature.image}
-                      alt={feature.title}
-                      className="h-full w-full object-cover"
-                      optixFlowConfig={optixFlowConfig}
-                    />
+          <div className={cn("space-y-32 py-16", featuresClassName)}>
+            {featuresSlot ? (
+              featuresSlot
+            ) : (
+              features.map((feature, index) => (
+                <div
+                  key={feature.id}
+                  id={feature.id}
+                  className={cn(
+                    "min-h-[50vh] transition-opacity duration-300",
+                    activeFeature === feature.id
+                      ? "opacity-100"
+                      : "opacity-50",
+                    feature.className
+                  )}
+                >
+                  {/* Mobile image */}
+                  <div className="mb-6 lg:hidden">
+                    <div className="aspect-video overflow-hidden rounded-lg">
+                      <Img
+                        src={feature.image}
+                        alt={typeof feature.title === "string" ? feature.title : `Feature ${feature.id}`}
+                        className={cn("h-full w-full object-cover", feature.imageClassName)}
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold">{feature.title}</h3>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                      {feature.description}
-                    </p>
+                  <div className="flex items-start gap-4">
+                    <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground", numberBadgeClassName)}>
+                      {index + 1}
+                    </div>
+                    <div>
+                      {feature.title && (
+                        typeof feature.title === "string" ? (
+                          <h3 className="text-2xl font-semibold">{feature.title}</h3>
+                        ) : (
+                          <div>{feature.title}</div>
+                        )
+                      )}
+                      {feature.description && (
+                        typeof feature.description === "string" ? (
+                          <p className="mt-4 text-lg text-muted-foreground">
+                            {feature.description}
+                          </p>
+                        ) : (
+                          <div className="mt-4">{feature.description}</div>
+                        )
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>

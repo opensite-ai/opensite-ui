@@ -31,8 +31,7 @@ describe("BannerPromoCta", () => {
       <BannerPromoCta
         message="Summer Sale"
         discount="Up to 70% off"
-        linkText="Buy Now"
-        link="/summer-sale"
+        actions={[{ label: "Buy Now", href: "/summer-sale" }]}
       />
     );
     expect(screen.getByText("Summer Sale")).toBeInTheDocument();

@@ -29,7 +29,7 @@ describe("BannerAnnouncementDismissible", () => {
     render(
       <BannerAnnouncementDismissible
         message="New feature available!"
-        buttonText="Try Now"
+        actions={[{ label: "Try Now", href: "#", variant: "secondary", size: "sm" }]}
       />
     );
     expect(screen.getByText("New feature available!")).toBeInTheDocument();

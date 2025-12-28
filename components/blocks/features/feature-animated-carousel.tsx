@@ -6,20 +6,33 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
 
 export interface FeatureAnimatedCarouselItem {
   /**
    * Image source URL for this feature
    */
-  image: string;
+  image?: string;
   /**
-   * Feature title
+   * Image alt text
    */
-  title: string;
+  imageAlt?: string;
   /**
-   * Feature description
+   * Custom slot for image (overrides image)
    */
-  description: string;
+  imageSlot?: React.ReactNode;
+  /**
+   * Feature title content
+   */
+  title?: React.ReactNode;
+  /**
+   * Feature description content
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
 }
 
 export interface FeatureAnimatedCarouselProps {
@@ -28,16 +41,25 @@ export interface FeatureAnimatedCarouselProps {
    */
   features?: FeatureAnimatedCarouselItem[];
   /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
-   * Optional Optix Flow configuration for image optimization
+   * Additional CSS classes for the container
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 interface ControlsProps {
@@ -416,12 +438,12 @@ export function FeatureAnimatedCarousel({
                 }}
                 className="h-full w-full"
               >
-                <Img
-                  src={features[activeIndex].image}
-                  alt={features[activeIndex].title}
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
+                  <Img
+                    src={features[activeIndex].image}
+                    alt={features[activeIndex].imageAlt || (typeof features[activeIndex].title === "string" ? features[activeIndex].title : "Feature image")}
+                    className="h-full w-full object-cover"
+                    optixFlowConfig={optixFlowConfig}
+                  />
               </motion.div>
             </AnimatePresence>
           </div>

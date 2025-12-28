@@ -19,6 +19,11 @@ export type {
   OptixFlowConfig,
   BlogPostItem,
   BlockBlogProps,
+  BreadcrumbItem,
+  DetailItem,
+  AuthorInfo,
+  SectionItem,
+  OutcomeItem,
 } from "./blocks";
 
 /**

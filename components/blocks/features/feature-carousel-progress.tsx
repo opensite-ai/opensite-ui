@@ -18,41 +18,142 @@ import { Progress } from "../../ui/progress";
 
 export interface FeatureCarouselProgressItem {
   /**
+   * Icon element (overrides iconName)
+   */
+  icon?: React.ReactNode;
+  /**
    * Icon name in format: prefix/name (e.g., "lucide/code")
    */
-  icon: string;
+  iconName?: string;
   /**
-   * Feature title
+   * Feature title content
    */
-  title: string;
+  title?: React.ReactNode;
   /**
-   * Feature description
+   * Feature description content
    */
-  description: string;
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the slide
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the icon wrapper
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
 export interface FeatureCarouselProgressProps {
   /**
-   * Badge text displayed above the heading
+   * Badge content displayed above the heading
    */
-  badge?: string;
+  badge?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Label for the carousel section
    */
-  carouselLabel?: string;
+  carouselLabel?: React.ReactNode;
   /**
    * Array of feature slides
    */
   slides?: FeatureCarouselProgressItem[];
   /**
+   * Custom slot for rendering slides (overrides slides array)
+   */
+  slidesSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the carousel
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for the carousel controls
+   */
+  controlsClassName?: string;
+  /**
+   * Additional CSS classes for the progress bar
+   */
+  progressClassName?: string;
+  /**
+   * Additional CSS classes for each slide card
+   */
+  cardClassName?: string;
 }
+
+const defaultSlides: FeatureCarouselProgressItem[] = [
+  {
+    iconName: "lucide/code",
+    title: "Integrations",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
+  },
+  {
+    iconName: "lucide/arrow-up-down",
+    title: "Automation",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
+  },
+  {
+    iconName: "lucide/redo",
+    title: "Customization",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
+  },
+  {
+    iconName: "lucide/arrow-down-to-line",
+    title: "Collaboration",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
+  },
+  {
+    iconName: "lucide/repeat",
+    title: "Security",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
+  },
+  {
+    iconName: "lucide/scan",
+    title: "Performance",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
+  },
+  {
+    iconName: "lucide/scaling",
+    title: "Scalability",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
+  },
+];
 
 /**
  * Feature Carousel Progress - Carousel-based feature display with progress indicator
@@ -68,8 +169,8 @@ export interface FeatureCarouselProgressProps {
  *   badge="Features"
  *   title="This is where your features go"
  *   slides={[
- *     { icon: "lucide/code", title: "Integrations", description: "Connect with your tools" },
- *     { icon: "lucide/zap", title: "Automation", description: "Streamline workflows" },
+ *     { iconName: "lucide/code", title: "Integrations", description: "Connect with your tools" },
+ *     { iconName: "lucide/zap", title: "Automation", description: "Streamline workflows" },
  *   ]}
  * />
  * ```
@@ -78,54 +179,21 @@ export function FeatureCarouselProgress({
   badge = "Badge",
   title = "This is where your features go",
   carouselLabel = "Rules",
-  slides = [
-    {
-      icon: "lucide/code",
-      title: "Integrations",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-    },
-    {
-      icon: "lucide/arrow-up-down",
-      title: "Automation",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-    },
-    {
-      icon: "lucide/redo",
-      title: "Customization",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-    },
-    {
-      icon: "lucide/arrow-down-to-line",
-      title: "Collaboration",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-    },
-    {
-      icon: "lucide/repeat",
-      title: "Security",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-    },
-    {
-      icon: "lucide/scan",
-      title: "Performance",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-    },
-    {
-      icon: "lucide/scaling",
-      title: "Scalability",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-    },
-  ],
+  slides = defaultSlides,
+  slidesSlot,
   className,
-}: FeatureCarouselProgressProps) {
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  titleClassName,
+  carouselClassName,
+  controlsClassName,
+  progressClassName,
+  cardClassName,
+}: FeatureCarouselProgressProps): React.JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
-  const [progress, setProgress] = useState(Math.floor(100 / slides.length));
+  const slidesLength = slides?.length || 1;
+  const [progress, setProgress] = useState(Math.floor(100 / slidesLength));
 
   useEffect(() => {
     if (!api) {
@@ -133,60 +201,101 @@ export function FeatureCarouselProgress({
     }
     api.on("scroll", ({ scrollProgress }) => {
       setProgress(
-        Math.max(1 / slides.length, Math.min(1, scrollProgress())) * 100
+        Math.max(1 / slidesLength, Math.min(1, scrollProgress())) * 100
       );
     });
-  }, [api, slides.length]);
+  }, [api, slidesLength]);
+
+  const renderSlideIcon = (slide: FeatureCarouselProgressItem) => {
+    if (slide.icon) return slide.icon;
+    if (slide.iconName) return <DynamicIcon name={slide.iconName} size={16} />;
+    return <DynamicIcon name="lucide/star" size={16} />;
+  };
+
+  const renderSlides = () => {
+    if (slidesSlot) return slidesSlot;
+    if (!slides || slides.length === 0) return null;
+
+    return slides.map((slide, index) => (
+      <CarouselItem
+        key={index}
+        className="basis-full md:basis-1/2 lg:basis-1/3"
+      >
+        <div className="p-1">
+          <Card className={cn(cardClassName, slide.className)}>
+            <CardContent className="flex flex-col justify-center p-6">
+              <div>
+                <span className={cn("mb-5 flex size-8 items-center justify-center rounded-full bg-accent lg:size-10", slide.iconClassName)}>
+                  {renderSlideIcon(slide)}
+                </span>
+                {slide.title && (
+                  typeof slide.title === "string" ? (
+                    <p className={cn("text-xl font-semibold md:text-2xl lg:text-2xl", slide.titleClassName)}>
+                      {slide.title}
+                    </p>
+                  ) : (
+                    <div className={cn("text-xl font-semibold md:text-2xl lg:text-2xl", slide.titleClassName)}>
+                      {slide.title}
+                    </div>
+                  )
+                )}
+                {slide.description && (
+                  typeof slide.description === "string" ? (
+                    <p className={cn("pt-2 text-muted-foreground", slide.descriptionClassName)}>
+                      {slide.description}
+                    </p>
+                  ) : (
+                    <div className={cn("pt-2 text-muted-foreground", slide.descriptionClassName)}>
+                      {slide.description}
+                    </div>
+                  )
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </CarouselItem>
+    ));
+  };
 
   return (
     <section className={cn("py-32", className)}>
-      <div className="container max-w-7xl">
-        <div className="mb-10 flex flex-col items-center gap-6 md:mb-20">
-          {badge && <Badge variant="outline">{badge}</Badge>}
+      <div className={cn("container max-w-7xl", containerClassName)}>
+        <div className={cn("mb-10 flex flex-col items-center gap-6 md:mb-20", headerClassName)}>
+          {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
           {title && (
-            <h2 className="mb-2 text-center text-3xl font-semibold lg:text-5xl">
-              {title}
-            </h2>
+            typeof title === "string" ? (
+              <h2 className={cn("mb-2 text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={cn("mb-2 text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+                {title}
+              </div>
+            )
           )}
         </div>
-        <Carousel className="w-full" setApi={setApi}>
-          <div className="mb-4 flex justify-between px-1 md:mb-5">
-            <p className="font-medium">{carouselLabel}</p>
+        <Carousel className={cn("w-full", carouselClassName)} setApi={setApi}>
+          <div className={cn("mb-4 flex justify-between px-1 md:mb-5", controlsClassName)}>
+            {carouselLabel && (
+              typeof carouselLabel === "string" ? (
+                <p className="font-medium">{carouselLabel}</p>
+              ) : (
+                <div className="font-medium">{carouselLabel}</div>
+              )
+            )}
             <div className="flex items-center space-x-2">
               <div className="mr-2 hidden items-center gap-3 text-xs text-muted-foreground md:flex">
                 <span>01</span>
-                <Progress value={progress} className="h-0.5 w-52" />
-                <span>0{slides.length}</span>
+                <Progress value={progress} className={cn("h-0.5 w-52", progressClassName)} />
+                <span>0{slidesLength}</span>
               </div>
               <CarouselPrevious className="static translate-y-0" />
               <CarouselNext className="static translate-y-0" />
             </div>
           </div>
           <CarouselContent>
-            {slides.map((slide, index) => (
-              <CarouselItem
-                key={index}
-                className="basis-full md:basis-1/2 lg:basis-1/3"
-              >
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex flex-col justify-center p-6">
-                      <div>
-                        <span className="mb-5 flex size-8 items-center justify-center rounded-full bg-accent lg:size-10">
-                          <DynamicIcon name={slide.icon} size={16} />
-                        </span>
-                        <p className="text-xl font-semibold md:text-2xl lg:text-2xl">
-                          {slide.title}
-                        </p>
-                        <p className="pt-2 text-muted-foreground">
-                          {slide.description}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
+            {renderSlides()}
           </CarouselContent>
         </Carousel>
       </div>

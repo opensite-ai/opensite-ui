@@ -1,9 +1,12 @@
-import React from "react";
+import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 
-interface FeatureItem {
+/**
+ * Feature item configuration for grid comparison
+ */
+export interface GridFeatureItem {
   icon: string;
   title: string;
   description: string;
@@ -14,15 +17,61 @@ interface FeatureItem {
 }
 
 export interface ComparisonGridBadgesProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Label for option A
+   */
+  optionALabel?: React.ReactNode;
+  /**
+   * Label for option B
+   */
+  optionBLabel?: React.ReactNode;
+  /**
+   * Array of feature items to display
+   */
+  features?: GridFeatureItem[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  description?: string;
-  optionALabel?: string;
-  optionBLabel?: string;
-  features?: FeatureItem[];
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the features grid
+   */
+  featuresGridClassName?: string;
+  /**
+   * Additional CSS classes for individual feature cards
+   */
+  featureCardClassName?: string;
+  /**
+   * Additional CSS classes for badges
+   */
+  badgeClassName?: string;
 }
 
-const defaultFeatures: FeatureItem[] = [
+const defaultFeatures: GridFeatureItem[] = [
   {
     icon: "lucide/code-2",
     title: "Development Speed",
@@ -69,57 +118,84 @@ const defaultFeatures: FeatureItem[] = [
  * service tier breakdowns, capability matrices.
  */
 export function ComparisonGridBadges({
-  className,
-  title = "Feature Comparison",
+  heading = "Feature Comparison",
   description = "See how our solution compares to traditional approaches across key metrics.",
   optionALabel = "Our Solution",
   optionBLabel = "Traditional",
   features = defaultFeatures,
-}: ComparisonGridBadgesProps) {
+  featuresSlot,
+  className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
+  featuresGridClassName,
+  featureCardClassName,
+  badgeClassName,
+}: ComparisonGridBadgesProps): React.JSX.Element {
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+
+    return features.map((feature, idx) => (
+      <div
+        key={idx}
+        className={cn("rounded-xl border bg-background p-6 shadow-sm transition-shadow hover:shadow-md", featureCardClassName)}
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+            <DynamicIcon
+              name={feature.icon}
+              size={20}
+              className="text-primary"
+            />
+          </div>
+          <h3 className="text-lg font-semibold">{feature.title}</h3>
+        </div>
+        <p className="mb-4 text-sm text-muted-foreground">
+          {feature.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Badge
+            variant={feature.optionAHighlight ? "default" : "secondary"}
+            className={cn("text-xs", badgeClassName)}
+          >
+            {optionALabel}: {feature.optionAValue}
+          </Badge>
+          <Badge
+            variant={feature.optionBHighlight ? "default" : "outline"}
+            className={cn("text-xs", badgeClassName)}
+          >
+            {optionBLabel}: {feature.optionBValue}
+          </Badge>
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
+      <div className={cn("container", containerClassName)}>
         <div className="text-center">
-          <h2 className="mb-4 text-3xl font-bold md:text-5xl">{title}</h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground md:text-lg">
-            {description}
-          </p>
-        </div>
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {features.map((feature, idx) => (
-            <div
-              key={idx}
-              className="rounded-xl border bg-background p-6 shadow-sm transition-shadow hover:shadow-md"
-            >
-              <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                  <DynamicIcon
-                    name={feature.icon}
-                    size={20}
-                    className="text-primary"
-                  />
-                </div>
-                <h3 className="text-lg font-semibold">{feature.title}</h3>
-              </div>
-              <p className="mb-4 text-sm text-muted-foreground">
-                {feature.description}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-4 text-3xl font-bold md:text-5xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto max-w-2xl text-muted-foreground md:text-lg", descriptionClassName)}>
+                {description}
               </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge
-                  variant={feature.optionAHighlight ? "default" : "secondary"}
-                  className="text-xs"
-                >
-                  {optionALabel}: {feature.optionAValue}
-                </Badge>
-                <Badge
-                  variant={feature.optionBHighlight ? "default" : "outline"}
-                  className="text-xs"
-                >
-                  {optionBLabel}: {feature.optionBValue}
-                </Badge>
-              </div>
-            </div>
-          ))}
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+        </div>
+        <div className={cn("mt-16 grid gap-6 md:grid-cols-2", featuresGridClassName)}>
+          {renderFeatures()}
         </div>
       </div>
     </section>

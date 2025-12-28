@@ -18,52 +18,117 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
 
 export interface FullscreenSlide {
+  /**
+   * Unique identifier for the slide
+   */
   id: string;
-  title: string;
-  subtitle: string;
-  description: string;
+  /**
+   * Slide title
+   */
+  title?: React.ReactNode;
+  /**
+   * Slide subtitle/eyebrow text
+   */
+  subtitle?: React.ReactNode;
+  /**
+   * Slide description
+   */
+  description?: React.ReactNode;
+  /**
+   * Image source URL
+   */
   image: string;
+  /**
+   * Overlay color (rgba format)
+   */
   overlayColor?: string;
+  /**
+   * Additional CSS classes for the slide
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
 }
 
 export interface CarouselFullscreenScrollFxProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Array of fullscreen slides
+   */
   slides?: FullscreenSlide[];
+  /**
+   * Custom slot for rendering slides (overrides slides array)
+   */
+  slidesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the navigation dots
+   */
+  navigationClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the scroll indicator
+   */
+  scrollIndicatorClassName?: string;
+  /**
+   * Additional CSS classes for the slide counter
+   */
+  counterClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-export function CarouselFullscreenScrollFx({
-  className,
-  optixFlowConfig,
-  slides,
-}: CarouselFullscreenScrollFxProps): React.JSX.Element {
-  const defaultSlides: FullscreenSlide[] = React.useMemo(
-    () =>
-      Array.from({ length: 4 }).map((_, index) => ({
-        id: `slide-${index}`,
-        title: `Section ${index + 1}`,
-        subtitle: `Discover More`,
-        description: `Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.`,
-        image: imagePlaceholders[index % imagePlaceholders.length],
-        overlayColor: `rgba(0, 0, 0, 0.${4 + index})`,
-      })),
-    []
-  );
+const defaultSlides: FullscreenSlide[] = [
+  { id: "slide-0", title: "Section 1", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[0], overlayColor: "rgba(0, 0, 0, 0.4)" },
+  { id: "slide-1", title: "Section 2", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[1], overlayColor: "rgba(0, 0, 0, 0.5)" },
+  { id: "slide-2", title: "Section 3", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[2], overlayColor: "rgba(0, 0, 0, 0.6)" },
+  { id: "slide-3", title: "Section 4", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[3], overlayColor: "rgba(0, 0, 0, 0.7)" },
+];
 
-  const slideItems = slides || defaultSlides;
+export function CarouselFullscreenScrollFx({
+  slides = defaultSlides,
+  slidesSlot,
+  className,
+  navigationClassName,
+  contentClassName,
+  subtitleClassName,
+  titleClassName,
+  descriptionClassName,
+  scrollIndicatorClassName,
+  counterClassName,
+  optixFlowConfig,
+}: CarouselFullscreenScrollFxProps): React.JSX.Element {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  // Intersection observer for scroll-based activation
   React.useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
-    slideItems.forEach((slide, index) => {
+    slides.forEach((slide, index) => {
       const element = document.getElementById(`fullscreen-${slide.id}`);
       if (element) {
         const observer = new IntersectionObserver(
@@ -84,13 +149,13 @@ export function CarouselFullscreenScrollFx({
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, [slideItems]);
+  }, [slides]);
 
   return (
     <section ref={containerRef} className={cn("relative", className)}>
       {/* Navigation dots */}
-      <div className="fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
-        {slideItems.map((slide, index) => (
+      <div className={cn("fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-3 lg:flex", navigationClassName)}>
+        {slides.map((slide, index) => (
           <button
             key={slide.id}
             onClick={() => {
@@ -103,66 +168,88 @@ export function CarouselFullscreenScrollFx({
                 ? "scale-125 border-white bg-white"
                 : "border-white/50 bg-transparent hover:border-white"
             )}
-            aria-label={`Go to ${slide.title}`}
+            aria-label={`Go to ${typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}`}
           />
         ))}
       </div>
 
       {/* Slides */}
-      {slideItems.map((slide, index) => (
-        <div
-          key={slide.id}
-          id={`fullscreen-${slide.id}`}
-          className="relative flex h-screen w-full items-center justify-center overflow-hidden"
-        >
-          {/* Background image */}
-          <div className="absolute inset-0">
-            <Img
-              src={slide.image}
-              alt={slide.title}
-              className="h-full w-full object-cover"
-              optixFlowConfig={optixFlowConfig}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundColor: slide.overlayColor || "rgba(0, 0, 0, 0.5)",
-              }}
-            />
-          </div>
+      {slidesSlot ? (
+        slidesSlot
+      ) : (
+        slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            id={`fullscreen-${slide.id}`}
+            className={cn("relative flex h-screen w-full items-center justify-center overflow-hidden", slide.className)}
+          >
+            {/* Background image */}
+            <div className="absolute inset-0">
+              <Img
+                src={slide.image}
+                alt={typeof slide.title === "string" ? slide.title : `Slide ${index + 1}`}
+                className={cn("h-full w-full object-cover", slide.imageClassName)}
+                optixFlowConfig={optixFlowConfig}
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundColor: slide.overlayColor || "rgba(0, 0, 0, 0.5)",
+                }}
+              />
+            </div>
 
-          {/* Content */}
-          <div className="relative z-10 mx-auto max-w-4xl px-6 text-center text-white">
-            <p className="mb-4 text-sm font-medium uppercase tracking-widest text-white/70">
-              {slide.subtitle}
-            </p>
-            <h2 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-              {slide.title}
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-white/80 md:text-xl">
-              {slide.description}
-            </p>
+            {/* Content */}
+            <div className={cn("relative z-10 mx-auto max-w-4xl px-6 text-center text-white", contentClassName)}>
+              {slide.subtitle && (
+                typeof slide.subtitle === "string" ? (
+                  <p className={cn("mb-4 text-sm font-medium uppercase tracking-widest text-white/70", subtitleClassName)}>
+                    {slide.subtitle}
+                  </p>
+                ) : (
+                  <div className={subtitleClassName}>{slide.subtitle}</div>
+                )
+              )}
+              {slide.title && (
+                typeof slide.title === "string" ? (
+                  <h2 className={cn("mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", titleClassName)}>
+                    {slide.title}
+                  </h2>
+                ) : (
+                  <div className={titleClassName}>{slide.title}</div>
+                )
+              )}
+              {slide.description && (
+                typeof slide.description === "string" ? (
+                  <p className={cn("mx-auto max-w-2xl text-lg text-white/80 md:text-xl", descriptionClassName)}>
+                    {slide.description}
+                  </p>
+                ) : (
+                  <div className={descriptionClassName}>{slide.description}</div>
+                )
+              )}
 
-            {/* Scroll indicator */}
-            {index < slideItems.length - 1 && (
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-xs uppercase tracking-widest text-white/50">
-                    Scroll
-                  </span>
-                  <div className="h-12 w-px animate-pulse bg-gradient-to-b from-white/50 to-transparent" />
+              {/* Scroll indicator */}
+              {index < slides.length - 1 && (
+                <div className={cn("absolute bottom-8 left-1/2 -translate-x-1/2", scrollIndicatorClassName)}>
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="text-xs uppercase tracking-widest text-white/50">
+                      Scroll
+                    </span>
+                    <div className="h-12 w-px animate-pulse bg-gradient-to-b from-white/50 to-transparent" />
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          {/* Slide counter */}
-          <div className="absolute bottom-8 right-8 text-sm text-white/50">
-            {String(index + 1).padStart(2, "0")} /{" "}
-            {String(slideItems.length).padStart(2, "0")}
+            {/* Slide counter */}
+            <div className={cn("absolute bottom-8 right-8 text-sm text-white/50", counterClassName)}>
+              {String(index + 1).padStart(2, "0")} /{" "}
+              {String(slides.length).padStart(2, "0")}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </section>
   );
 }

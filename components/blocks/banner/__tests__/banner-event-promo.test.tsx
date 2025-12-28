@@ -31,7 +31,7 @@ describe("BannerEventPromo", () => {
       <BannerEventPromo
         eventName="TechSummit 2025"
         eventDetails="Join us in San Francisco for the biggest tech event."
-        buttonText="Get Tickets"
+        actions={[{ label: "Get Tickets", href: "#", variant: "ghost", size: "sm" }]}
       />
     );
     expect(screen.getByText("TechSummit 2025")).toBeInTheDocument();

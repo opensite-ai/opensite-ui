@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { cn } from "../../../lib/utils";
 import {
   Table,
@@ -14,19 +14,88 @@ import {
   TooltipTrigger,
 } from "../../ui/tooltip";
 
-interface TableRowData {
+/**
+ * Tooltip configuration for table cells
+ */
+export interface TooltipConfig {
+  title: string;
+  content: string;
+}
+
+/**
+ * Cell value with optional tooltip
+ */
+export interface CellValue {
+  value: string;
+  tooltip?: TooltipConfig;
+}
+
+/**
+ * Table row data for comparison
+ */
+export interface TableRowData {
   feature: string;
-  optionA: string | { value: string; tooltip?: { title: string; content: string } };
-  optionB: string | { value: string; tooltip?: { title: string; content: string } };
+  optionA: string | CellValue;
+  optionB: string | CellValue;
 }
 
 export interface ComparisonTableTooltipsProps {
-  className?: string;
-  title?: string;
-  description?: string;
-  optionALabel?: string;
-  optionBLabel?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Label for option A column
+   */
+  optionALabel?: React.ReactNode;
+  /**
+   * Label for option B column
+   */
+  optionBLabel?: React.ReactNode;
+  /**
+   * Array of table row data
+   */
   rows?: TableRowData[];
+  /**
+   * Custom slot for rendering the table (overrides default table)
+   */
+  tableSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the table wrapper
+   */
+  tableWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the table
+   */
+  tableClassName?: string;
+  /**
+   * Additional CSS classes for table header cells
+   */
+  tableHeaderClassName?: string;
+  /**
+   * Additional CSS classes for table body cells
+   */
+  tableCellClassName?: string;
 }
 
 const defaultRows: TableRowData[] = [
@@ -73,15 +142,23 @@ const defaultRows: TableRowData[] = [
  * feature matrices where some items need additional explanation.
  */
 export function ComparisonTableTooltips({
-  className,
-  title = "Compare Us",
+  heading = "Compare Us",
   description = "A modern framework for building websites that is better than the competition.",
   optionALabel = "Our Solution",
   optionBLabel = "Alternative",
   rows = defaultRows,
-}: ComparisonTableTooltipsProps) {
+  tableSlot,
+  className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
+  tableWrapperClassName,
+  tableClassName,
+  tableHeaderClassName,
+  tableCellClassName,
+}: ComparisonTableTooltipsProps): React.JSX.Element {
   const renderCellContent = (
-    cell: string | { value: string; tooltip?: { title: string; content: string } },
+    cell: string | CellValue,
     isHighlighted: boolean
   ) => {
     if (typeof cell === "string") {
@@ -112,38 +189,62 @@ export function ComparisonTableTooltips({
     return cell.value;
   };
 
+  const renderTable = () => {
+    if (tableSlot) return tableSlot;
+
+    return (
+      <Table className={cn("rounded border text-left shadow-lg", tableClassName)}>
+        <TableHeader>
+          <TableRow>
+            <TableHead className={tableHeaderClassName}></TableHead>
+            <TableHead className={cn("bg-muted px-6 py-4 font-semibold", tableHeaderClassName)}>
+              {optionALabel}
+            </TableHead>
+            <TableHead className={cn("px-6 py-4 font-semibold", tableHeaderClassName)}>
+              {optionBLabel}
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody className="text-foreground">
+          {rows.map((row, idx) => (
+            <TableRow key={idx}>
+              <TableCell className={cn("px-6 py-4", tableCellClassName)}>{row.feature}</TableCell>
+              <TableCell className={cn("bg-muted px-6 py-4", tableCellClassName)}>
+                {renderCellContent(row.optionA, true)}
+              </TableCell>
+              <TableCell className={cn("px-6 py-4", tableCellClassName)}>
+                {renderCellContent(row.optionB, false)}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
-        <h2 className="mb-4 text-center text-4xl font-semibold">{title}</h2>
-        <p className="mb-8 text-center text-muted-foreground">{description}</p>
-        <div className="mx-auto max-w-3xl overflow-x-auto">
-          <Table className="rounded border text-left shadow-lg">
-            <TableHeader>
-              <TableRow>
-                <TableHead></TableHead>
-                <TableHead className="bg-muted px-6 py-4 font-semibold">
-                  {optionALabel}
-                </TableHead>
-                <TableHead className="px-6 py-4 font-semibold">
-                  {optionBLabel}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="text-foreground">
-              {rows.map((row, idx) => (
-                <TableRow key={idx}>
-                  <TableCell className="px-6 py-4">{row.feature}</TableCell>
-                  <TableCell className="bg-muted px-6 py-4">
-                    {renderCellContent(row.optionA, true)}
-                  </TableCell>
-                  <TableCell className="px-6 py-4">
-                    {renderCellContent(row.optionB, false)}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+      <div className={cn("container", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("mb-4 text-center text-4xl font-semibold", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mb-8 text-center text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+        <div className={cn("mx-auto max-w-3xl overflow-x-auto", tableWrapperClassName)}>
+          {renderTable()}
         </div>
       </div>
     </section>
