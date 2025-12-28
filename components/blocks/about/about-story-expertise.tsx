@@ -7,6 +7,9 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutStoryExpertiseArea {
   /**
@@ -83,6 +86,22 @@ export interface AboutStoryExpertiseProps {
    */
   className?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: {
@@ -146,11 +165,20 @@ export function AboutStoryExpertise({
     "Experience, independence, and intelligent tooling combine to deliver better outcomes.",
   expertiseAreas = defaultExpertiseAreas,
   className,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: AboutStoryExpertiseProps): React.JSX.Element {
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -258,7 +286,6 @@ export function AboutStoryExpertise({
             ))}
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

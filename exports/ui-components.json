@@ -104,6 +104,11 @@
     "import": "./dist/page-hero-banner.js",
     "require": "./dist/page-hero-banner.cjs"
   },
+  "./components/pattern-background": {
+    "types": "./dist/pattern-background.d.ts",
+    "import": "./dist/pattern-background.js",
+    "require": "./dist/pattern-background.cjs"
+  },
   "./components/popover": {
     "types": "./dist/popover.d.ts",
     "import": "./dist/popover.js",

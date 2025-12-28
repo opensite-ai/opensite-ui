@@ -5,10 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { patternSvgs } from "../../../lib/patternSvgs";
+import { PatternBackground, type PatternName } from "../../ui/pattern-background";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
-
-export type PatternName = keyof typeof patternSvgs;
+import { Container } from "../../ui/container";
 
 export interface FooterComprehensiveLinksLink {
   label: string;
@@ -187,28 +186,11 @@ export function FooterComprehensiveLinks({
   const year = new Date().getFullYear();
   const copyrightText =
     copyright || `© ${year} ${companyName}. All rights reserved.`;
-  const patternUrl = pattern
-    ? pattern in patternSvgs
-      ? patternSvgs[pattern as PatternName]
-      : pattern
-    : undefined;
-
   return (
     <footer className={cn("relative overflow-hidden bg-zinc-950 text-white", className)}>
-      {patternUrl ? (
-        <div
-          className="pointer-events-none absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${patternUrl})`,
-            backgroundRepeat: "repeat",
-            backgroundSize: "auto",
-            opacity: patternOpacity,
-          }}
-          aria-hidden="true"
-        />
-      ) : null}
+      <PatternBackground pattern={pattern} opacity={patternOpacity} />
 
-      <div className="container relative z-10 py-12 lg:py-16">
+      <Container className="relative z-10 py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 lg:gap-12">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-12">
             <div className="sm:col-span-2 lg:col-span-3">
@@ -388,7 +370,7 @@ export function FooterComprehensiveLinks({
             ) : null}
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

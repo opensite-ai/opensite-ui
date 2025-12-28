@@ -7,6 +7,9 @@ import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card } from "../../ui/card";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ServicesListFeatureSpotlightItem {
   /**
@@ -59,6 +62,22 @@ export interface ServicesListFeatureSpotlightProps {
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -133,11 +152,20 @@ export function ServicesListFeatureSpotlight({
   subheading = "The OpenSite AI approach",
   features = defaultFeatures,
   className,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: ServicesListFeatureSpotlightProps): React.JSX.Element {
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
         <div className="mb-12 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
             {subheading}
@@ -210,7 +238,6 @@ export function ServicesListFeatureSpotlight({
             );
           })}
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

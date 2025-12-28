@@ -112,6 +112,18 @@ export interface SectionProps extends HTMLAttributes<HTMLElement> {
    */
   className?: string;
   /**
+   * Optional background pattern name or URL
+   */
+  pattern?: string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Inline styles (React.CSSProperties)
    */
   style?: React.CSSProperties;

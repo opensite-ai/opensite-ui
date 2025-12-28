@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "../../lib/utils";
 import { Container } from "./container";
+import { PatternBackground } from "./pattern-background";
 import type { SectionProps } from "../../src/types";
 
 /**
@@ -55,6 +56,9 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       style,
       background = "white",
       spacing = "lg",
+      pattern,
+      patternOpacity,
+      patternClassName,
       ...props
     },
     ref,
@@ -64,6 +68,8 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         ref={ref}
         id={id}
         className={cn(
+          "relative",
+          pattern ? "overflow-hidden" : null,
           backgroundStyles[background],
           spacingStyles[spacing],
           className,
@@ -71,16 +77,21 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         style={style}
         {...props}
       >
-        <Container>
+        <PatternBackground
+          pattern={pattern}
+          opacity={patternOpacity}
+          className={patternClassName}
+        />
+        <Container className="relative z-10">
           {(title || subtitle) && (
-            <div className="text-center mb-12 md:mb-16">
+            <div className="mb-12 text-center md:mb-16">
               {subtitle && (
-                <p className="text-sm font-semibold uppercase tracking-wider mb-2 text-primary">
+                <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
                   {subtitle}
                 </p>
               )}
               {title && (
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
                   {title}
                 </h2>
               )}

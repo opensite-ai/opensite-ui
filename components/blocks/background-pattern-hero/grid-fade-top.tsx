@@ -2,24 +2,22 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
+import { PatternBackground } from "../../ui/pattern-background";
 
 export interface GridFadeTopProps {
   className?: string;
   children?: React.ReactNode;
+  patternOpacity?: number;
 }
 
-export function GridFadeTop({ className, children }: GridFadeTopProps) {
+export function GridFadeTop({
+  className,
+  children,
+  patternOpacity = 1,
+}: GridFadeTopProps) {
   return (
     <section className={cn("relative min-h-screen w-full", className)}>
-      <div
-        className="absolute inset-0 z-0 bg-[linear-gradient(to_right,_hsl(var(--muted))_1px,_transparent_1px),linear-gradient(to_bottom,_hsl(var(--muted))_1px,_transparent_1px)] bg-[length:32px_32px]"
-        style={{
-          WebkitMaskImage:
-            "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
-          maskImage:
-            "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
-        }}
-      />
+      <PatternBackground pattern="gridFadeTop" opacity={patternOpacity} />
       <div className="relative z-10">{children}</div>
     </section>
   );

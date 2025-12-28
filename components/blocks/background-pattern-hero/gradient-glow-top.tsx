@@ -2,27 +2,22 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
+import { PatternBackground } from "../../ui/pattern-background";
 
 export interface GradientGlowTopProps {
   className?: string;
   children?: React.ReactNode;
+  patternOpacity?: number;
 }
 
-export function GradientGlowTop({ className, children }: GradientGlowTopProps) {
+export function GradientGlowTop({
+  className,
+  children,
+  patternOpacity = 1,
+}: GradientGlowTopProps) {
   return (
-    <section
-      className={cn(
-        "relative flex min-h-screen w-full items-center justify-center overflow-hidden",
-        className
-      )}
-    >
-      <div
-        className="pointer-events-none absolute -top-1/4 left-1/2 z-0 aspect-square w-3/4 -translate-x-1/2 rounded-full opacity-50 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)",
-        }}
-      />
+    <section className={cn("relative flex min-h-screen w-full items-center justify-center overflow-hidden", className)}>
+      <PatternBackground pattern="gradientGlowTop" opacity={patternOpacity} />
       <div className="relative z-10">{children}</div>
     </section>
   );

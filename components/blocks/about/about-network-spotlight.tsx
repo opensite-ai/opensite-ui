@@ -7,6 +7,9 @@ import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutNetworkSpotlightProps {
   /**
@@ -60,6 +63,22 @@ export interface AboutNetworkSpotlightProps {
    */
   className?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: {
@@ -98,11 +117,20 @@ export function AboutNetworkSpotlight({
       "A trusted network where agencies collaborate to deliver better outcomes.",
   },
   className,
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: AboutNetworkSpotlightProps): React.JSX.Element {
   return (
-    <section className={cn("bg-foreground py-32 text-background", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -174,7 +202,6 @@ export function AboutNetworkSpotlight({
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

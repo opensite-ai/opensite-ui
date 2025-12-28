@@ -6,6 +6,9 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface CtaImageOverlayCenteredProps {
   /**
@@ -43,6 +46,22 @@ export interface CtaImageOverlayCenteredProps {
    */
   className?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: {
@@ -63,42 +82,50 @@ export function CtaImageOverlayCentered({
   backgroundImage = imagePlaceholders[20],
   backgroundAlt = "OpenSite AI call to action background",
   className,
+  background = "white",
+  spacing = "md",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: CtaImageOverlayCenteredProps): React.JSX.Element {
   return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="relative overflow-hidden rounded-3xl border border-border/50">
-          <Img
-            src={backgroundImage}
-            alt={backgroundAlt}
-            className="absolute inset-0 h-full w-full object-cover"
-            loading="lazy"
-            optixFlowConfig={optixFlowConfig}
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-foreground/90 via-foreground/80 to-foreground/90" />
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35 }}
-            className="relative px-6 py-16 text-center text-white md:px-10"
-          >
-            <h2 className="text-3xl font-bold md:text-5xl">{heading}</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
-              {description}
-            </p>
-            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <Pressable href={primaryCta.href} size="lg" variant="default">
-                {primaryCta.label}
-              </Pressable>
-              <Pressable href={secondaryCta.href} size="lg" variant="ghost">
-                {secondaryCta.label}
-              </Pressable>
-            </div>
-          </motion.div>
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className="relative overflow-hidden rounded-3xl border border-border/50">
+        <Img
+          src={backgroundImage}
+          alt={backgroundAlt}
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
+        <div className="absolute inset-0 bg-linear-to-r from-foreground/90 via-foreground/80 to-foreground/90" />
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.35 }}
+          className="relative px-6 py-16 text-center text-white md:px-10"
+        >
+          <h2 className="text-3xl font-bold md:text-5xl">{heading}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
+            {description}
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <Pressable href={primaryCta.href} size="lg" variant="default">
+              {primaryCta.label}
+            </Pressable>
+            <Pressable href={secondaryCta.href} size="lg" variant="ghost">
+              {secondaryCta.label}
+            </Pressable>
+          </div>
+        </motion.div>
       </div>
-    </section>
+    </Section>
   );
 }
