@@ -33,12 +33,36 @@ export interface ProjectDetailGridGalleryProps {
 }
 
 const defaultImages: ProjectDetailGridGalleryImage[] = [
-  { src: imagePlaceholders[14], alt: "Gallery image 1", caption: "Initial concept exploration" },
-  { src: imagePlaceholders[15], alt: "Gallery image 2", caption: "Material studies" },
-  { src: imagePlaceholders[16], alt: "Gallery image 3", caption: "Form development" },
-  { src: imagePlaceholders[17], alt: "Gallery image 4", caption: "Detail refinement" },
-  { src: imagePlaceholders[18], alt: "Gallery image 5", caption: "Final composition" },
-  { src: imagePlaceholders[19], alt: "Gallery image 6", caption: "Installation view" },
+  {
+    src: imagePlaceholders[14],
+    alt: "Gallery image 1",
+    caption: "Initial concept exploration",
+  },
+  {
+    src: imagePlaceholders[15],
+    alt: "Gallery image 2",
+    caption: "Material studies",
+  },
+  {
+    src: imagePlaceholders[16],
+    alt: "Gallery image 3",
+    caption: "Form development",
+  },
+  {
+    src: imagePlaceholders[17],
+    alt: "Gallery image 4",
+    caption: "Detail refinement",
+  },
+  {
+    src: imagePlaceholders[18],
+    alt: "Gallery image 5",
+    caption: "Final composition",
+  },
+  {
+    src: imagePlaceholders[19],
+    alt: "Gallery image 6",
+    caption: "Installation view",
+  },
 ];
 
 const defaultProps: ProjectDetailGridGalleryProps = {
@@ -155,7 +179,7 @@ export function ProjectDetailGridGallery(
                   optixFlowConfig={optixFlowConfig}
                 />
                 {image.caption && (
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <p className="text-sm text-foreground">{image.caption}</p>
                   </div>
                 )}
@@ -190,7 +214,7 @@ export function ProjectDetailGridGallery(
                     optixFlowConfig={optixFlowConfig}
                   />
                   {image.caption && (
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <p className="text-sm text-foreground">{image.caption}</p>
                     </div>
                   )}

@@ -93,7 +93,7 @@ export function ProjectDetailFullscreenHero(
             className="h-full w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent" />
         </div>
 
         <div className="container relative z-10 flex min-h-screen flex-col justify-between py-8">

@@ -110,7 +110,7 @@ function ImageBlock({
             <span className="text-sm">Image placeholder</span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-muted/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-muted/50 via-transparent to-transparent" />
       </div>
     </motion.div>
   );

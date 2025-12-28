@@ -191,7 +191,7 @@ export function ProjectDetailListRelated(
                       href={project.href}
                       className="group flex items-center gap-6 rounded-xl border border-border p-4 transition-colors hover:bg-muted/50"
                     >
-                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-muted">
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-muted">
                         <Img
                           src={project.src || imagePlaceholders[46 + index]}
                           alt={project.alt}
@@ -215,7 +215,7 @@ export function ProjectDetailListRelated(
                     </Pressable>
                   ) : (
                     <div className="flex items-center gap-6 rounded-xl border border-border p-4">
-                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-muted">
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-muted">
                         <Img
                           src={project.src || imagePlaceholders[46 + index]}
                           alt={project.alt}

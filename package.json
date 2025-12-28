@@ -1831,6 +1831,7 @@
   },
   "dependencies": {
     "@opensite/hooks": "^0.1.1",
+    "@page-speed/forms": "^0.3.3",
     "@page-speed/img": "^0.4.3",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
@@ -1847,7 +1848,6 @@
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "@tabler/icons-react": "^3.36.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
