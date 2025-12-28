@@ -31,7 +31,7 @@ describe("BannerSurveyIncentive", () => {
       <BannerSurveyIncentive
         title="Share Feedback"
         description="Get 30% off for completing our survey."
-        buttonText="Start Now"
+        actions={[{ label: "Start Now", href: "#", size: "sm" }]}
       />
     );
     expect(screen.getByText("Share Feedback")).toBeInTheDocument();

@@ -29,7 +29,7 @@ describe("BannerSocialFollow", () => {
     render(
       <BannerSocialFollow
         message="Join our community!"
-        buttonText="Connect Now"
+        actions={[{ label: "Connect Now", href: "#", variant: "secondary", size: "sm" }]}
       />
     );
     expect(screen.getByText("Join our community!")).toBeInTheDocument();

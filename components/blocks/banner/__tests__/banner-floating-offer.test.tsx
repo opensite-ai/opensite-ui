@@ -31,7 +31,7 @@ describe("BannerFloatingOffer", () => {
       <BannerFloatingOffer
         offerTitle="Black Friday Deal"
         offerDescription="Save 70% on all plans"
-        buttonText="Claim Now"
+        actions={[{ label: "Claim Now", href: "#" }]}
       />
     );
     expect(screen.getByText("Black Friday Deal")).toBeInTheDocument();
@@ -64,17 +64,17 @@ describe("BannerFloatingOffer", () => {
     expect(buttons.length).toBe(2);
   });
 
-  it("calls onDismiss when dismiss button is clicked", () => {
-    const onDismiss = vi.fn();
-    render(<BannerFloatingOffer dismissible={true} onDismiss={onDismiss} />);
+  it("calls onOpenChange when dismiss button is clicked", () => {
+    const onOpenChange = vi.fn();
+    render(<BannerFloatingOffer dismissible={true} onOpenChange={onOpenChange} />);
     const dismissButtons = screen.getAllByTestId("mock-pressable");
     const dismissButton = dismissButtons[dismissButtons.length - 1];
     fireEvent.click(dismissButton);
-    expect(onDismiss).toHaveBeenCalled();
+    expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
-  it("hides banner when visible is false", () => {
-    const { container } = render(<BannerFloatingOffer visible={false} />);
+  it("hides banner when open is false", () => {
+    const { container } = render(<BannerFloatingOffer open={false} />);
     expect(container.firstChild).toBeNull();
   });
 

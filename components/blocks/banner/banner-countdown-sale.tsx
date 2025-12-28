@@ -6,6 +6,15 @@ import { useEffect, useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 
 /**
+ * Time left object for countdown timer
+ */
+export interface CountdownTimeLeft {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+/**
  * Props for the BannerCountdownSale component
  */
 export interface BannerCountdownSaleProps {
@@ -15,19 +24,53 @@ export interface BannerCountdownSaleProps {
    */
   endTime?: Date;
   /**
-   * Main message text
-   * @default "Flash Sale Ends In"
+   * Main message content
    */
-  message?: string;
+  message?: React.ReactNode;
   /**
-   * Description text
-   * @default "Up to 50% off on selected items"
+   * Description content
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Additional CSS classes
+   * Custom slot for rendering the timer (overrides default timer)
+   */
+  timerSlot?: React.ReactNode;
+  /**
+   * Custom render function for the timer
+   */
+  renderTimer?: (timeLeft: CountdownTimeLeft) => React.ReactNode;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the message
+   */
+  messageClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the timer wrapper
+   */
+  timerClassName?: string;
+  /**
+   * Additional CSS classes for each time unit box
+   */
+  timeUnitClassName?: string;
+  /**
+   * Additional CSS classes for the separator
+   */
+  separatorClassName?: string;
 }
 
 /**
@@ -50,7 +93,16 @@ export function BannerCountdownSale({
   endTime,
   message = "Flash Sale Ends In",
   description = "Up to 50% off on selected items",
+  timerSlot,
+  renderTimer,
   className,
+  containerClassName,
+  contentClassName,
+  messageClassName,
+  descriptionClassName,
+  timerClassName,
+  timeUnitClassName,
+  separatorClassName,
 }: BannerCountdownSaleProps) {
   const defaultEndTime = useMemo(
     () => new Date(Date.now() + 24 * 60 * 60 * 1000),
@@ -58,14 +110,14 @@ export function BannerCountdownSale({
   );
   const targetTime = endTime ?? defaultEndTime;
 
-  const [timeLeft, setTimeLeft] = useState({
+  const [timeLeft, setTimeLeft] = useState<CountdownTimeLeft>({
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
+    const calculateTimeLeft = (): CountdownTimeLeft => {
       const now = new Date().getTime();
       const target = targetTime.getTime();
       const diff = target - now;
@@ -91,25 +143,46 @@ export function BannerCountdownSale({
 
   const pad = (n: number) => n.toString().padStart(2, "0");
 
+  const renderDefaultTimer = () => {
+    if (timerSlot) return timerSlot;
+    if (renderTimer) return renderTimer(timeLeft);
+
+    return (
+      <div className={cn("flex items-center gap-1 font-mono text-lg font-bold", timerClassName)}>
+        <span className={cn("rounded bg-red-700 px-2 py-0.5", timeUnitClassName)}>
+          {pad(timeLeft.hours)}
+        </span>
+        <span className={separatorClassName}>:</span>
+        <span className={cn("rounded bg-red-700 px-2 py-0.5", timeUnitClassName)}>
+          {pad(timeLeft.minutes)}
+        </span>
+        <span className={separatorClassName}>:</span>
+        <span className={cn("rounded bg-red-700 px-2 py-0.5", timeUnitClassName)}>
+          {pad(timeLeft.seconds)}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div className={cn("w-full bg-red-600 text-white", className)}>
-      <div className="container py-2.5">
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
-          <span className="font-medium">{message}</span>
-          <div className="flex items-center gap-1 font-mono text-lg font-bold">
-            <span className="rounded bg-red-700 px-2 py-0.5">
-              {pad(timeLeft.hours)}
-            </span>
-            <span>:</span>
-            <span className="rounded bg-red-700 px-2 py-0.5">
-              {pad(timeLeft.minutes)}
-            </span>
-            <span>:</span>
-            <span className="rounded bg-red-700 px-2 py-0.5">
-              {pad(timeLeft.seconds)}
-            </span>
-          </div>
-          <span className="text-red-100">{description}</span>
+      <div className={cn("container py-2.5", containerClassName)}>
+        <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm", contentClassName)}>
+          {message && (
+            typeof message === "string" ? (
+              <span className={cn("font-medium", messageClassName)}>{message}</span>
+            ) : (
+              <div className={messageClassName}>{message}</div>
+            )
+          )}
+          {renderDefaultTimer()}
+          {description && (
+            typeof description === "string" ? (
+              <span className={cn("text-red-100", descriptionClassName)}>{description}</span>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
         </div>
       </div>
     </div>

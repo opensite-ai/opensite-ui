@@ -5,36 +5,70 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 /**
  * Props for the BannerPromoCta component
  */
 export interface BannerPromoCtaProps {
   /**
-   * Main promotional message
-   * @default "Winter Sale"
+   * Main promotional message content
    */
-  message?: string;
+  message?: React.ReactNode;
   /**
-   * Discount or offer text
-   * @default "Up to 50% off"
+   * Discount or offer content
    */
-  discount?: string;
+  discount?: React.ReactNode;
   /**
-   * Link URL for the CTA
-   * @default "#"
+   * Separator element between message and discount
    */
-  link?: string;
+  separator?: React.ReactNode;
   /**
-   * Text for the CTA link
-   * @default "Shop Now"
+   * Array of action configurations for CTA links/buttons
    */
-  linkText?: string;
+  actions?: ActionConfig[];
   /**
-   * Additional CSS classes
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the message
+   */
+  messageClassName?: string;
+  /**
+   * Additional CSS classes for the separator
+   */
+  separatorClassName?: string;
+  /**
+   * Additional CSS classes for the discount
+   */
+  discountClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Shop Now",
+    href: "#",
+    iconAfter: <DynamicIcon name="lucide/arrow-right" size={12} />,
+    className: "inline-flex items-center gap-1 font-medium underline underline-offset-4 hover:no-underline",
+  },
+];
 
 /**
  * BannerPromoCta - A promotional banner with message, discount text, and arrow link CTA.
@@ -48,34 +82,79 @@ export interface BannerPromoCtaProps {
  * <BannerPromoCta
  *   message="Summer Sale"
  *   discount="Up to 70% off"
- *   link="/sale"
- *   linkText="Shop Now"
+ *   actions={[{ label: "Shop Now", href: "/sale" }]}
  * />
  * ```
  */
 export function BannerPromoCta({
   message = "Winter Sale",
   discount = "Up to 50% off",
-  link = "#",
-  linkText = "Shop Now",
+  separator,
+  actions = defaultActions,
+  actionsSlot,
   className,
+  containerClassName,
+  contentClassName,
+  messageClassName,
+  separatorClassName,
+  discountClassName,
+  actionsClassName,
 }: BannerPromoCtaProps) {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={cn("inline-flex items-center gap-1 font-medium underline underline-offset-4 hover:no-underline", actionClassName)}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {actionIcon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderSeparator = () => {
+    if (separator) return separator;
+    return <span className={cn("hidden sm:inline", separatorClassName)}>·</span>;
+  };
+
   return (
     <div
       className={cn("w-full bg-primary text-primary-foreground", className)}
     >
-      <div className="container py-2.5">
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm">
-          <span className="font-semibold">{message}</span>
-          <span className="hidden sm:inline">·</span>
-          <span>{discount}</span>
-          <Pressable
-            href={link}
-            className="inline-flex items-center gap-1 font-medium underline underline-offset-4 hover:no-underline"
-          >
-            {linkText}
-            <DynamicIcon name="lucide/arrow-right" size={12} />
-          </Pressable>
+      <div className={cn("container py-2.5", containerClassName)}>
+        <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm", contentClassName)}>
+          {message && (
+            typeof message === "string" ? (
+              <span className={cn("font-semibold", messageClassName)}>{message}</span>
+            ) : (
+              <span className={messageClassName}>{message}</span>
+            )
+          )}
+          {renderSeparator()}
+          {discount && (
+            typeof discount === "string" ? (
+              <span className={discountClassName}>{discount}</span>
+            ) : (
+              <span className={discountClassName}>{discount}</span>
+            )
+          )}
+          {(actionsSlot || (actions && actions.length > 0)) && (
+            <span className={actionsClassName}>
+              {renderActions()}
+            </span>
+          )}
         </div>
       </div>
     </div>

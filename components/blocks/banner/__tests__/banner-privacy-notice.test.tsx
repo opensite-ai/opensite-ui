@@ -30,7 +30,7 @@ describe("BannerPrivacyNotice", () => {
       <BannerPrivacyNotice
         title="New Privacy Terms"
         description="Please review our updated terms."
-        linkText="View Terms"
+        actions={[{ label: "View Terms", href: "#", variant: "link" }]}
       />
     );
     expect(screen.getByText("New Privacy Terms")).toBeInTheDocument();
