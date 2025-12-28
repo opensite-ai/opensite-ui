@@ -5,16 +5,173 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig } from "../../../src/types";
 
 export interface HeroDigitalAgencyFullscreenProps {
-  className?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Footer label (e.g., "Global Headquarters")
+   */
+  footerLabel?: React.ReactNode;
+  /**
+   * Footer sublabel (e.g., location)
+   */
+  footerSublabel?: React.ReactNode;
+  /**
+   * Footer scroll action configuration
+   */
+  footerAction?: ActionConfig;
+  /**
+   * Custom slot for footer (overrides footer props)
+   */
+  footerSlot?: React.ReactNode;
+  /**
+   * Background image URL
+   */
   backgroundImage?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
 }
 
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Explore Projects",
+    href: "#",
+    variant: "default",
+    className: "block h-fit w-fit rounded-sm px-6 py-3.5 text-sm font-semibold tracking-wider text-nowrap uppercase",
+  },
+];
+
+const defaultFooterAction: ActionConfig = {
+  href: "#",
+  variant: "outline",
+  size: "icon",
+  className: "flex size-10 rounded-full border-2 border-primary transition-colors hover:bg-primary/20",
+};
+
 export function HeroDigitalAgencyFullscreen({
-  className,
+  heading = "Transform Your Vision Into Digital Reality",
+  description = "We craft exceptional digital solutions that help brands stand out and make a lasting impact in the digital landscape.",
+  actions = defaultActions,
+  actionsSlot,
+  footerLabel = "Global Headquarters",
+  footerSublabel = "San Francisco, California",
+  footerAction = defaultFooterAction,
+  footerSlot,
   backgroundImage = imagePlaceholders[10],
+  className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  footerClassName,
 }: HeroDigitalAgencyFullscreenProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    return (
+      <div className={cn("mt-8 flex flex-wrap items-center justify-center gap-4", actionsClassName)}>
+        {actions.map((action, index) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
+
+    const { className: footerActionClassName, ...footerActionProps } = footerAction;
+    return (
+      <div className={cn("flex items-center justify-between gap-4 rounded-lg bg-black/20 px-6 py-4 backdrop-blur-sm", footerClassName)}>
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-1 bg-primary"></div>
+          <div className="text-sm font-medium text-muted-foreground">
+            {typeof footerLabel === "string" ? (
+              <p className="text-primary">{footerLabel}</p>
+            ) : (
+              footerLabel
+            )}
+            {typeof footerSublabel === "string" ? (
+              <p>{footerSublabel}</p>
+            ) : (
+              footerSublabel
+            )}
+          </div>
+        </div>
+        <Pressable
+          asButton
+          className={footerActionClassName}
+          {...footerActionProps}
+        >
+          <DynamicIcon
+            name="lucide/arrow-down"
+            size={20}
+            className="m-auto stroke-primary"
+          />
+        </Pressable>
+      </div>
+    );
+  };
+
   return (
     <section
       className={cn(
@@ -23,49 +180,32 @@ export function HeroDigitalAgencyFullscreen({
       )}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className="relative z-10 mx-auto flex size-full max-w-500 px-4 py-9">
+      <div className={cn("relative z-10 mx-auto flex size-full max-w-500 px-4 py-9", containerClassName)}>
         <div className="flex w-full flex-col justify-between gap-10">
-          <div className="mx-auto flex max-w-125 flex-1 flex-col items-center justify-center gap-7 sm:max-w-150 md:max-w-200">
-            <h1 className="text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl">
-              Transform Your Vision Into Digital Reality
-            </h1>
-            <p className="text-center text-lg text-balance text-foreground md:text-2xl">
-              We craft exceptional digital solutions that help brands stand out
-              and make a lasting impact in the digital landscape.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Pressable
-                href="#"
-                asButton
-                variant="default"
-                className="block h-fit w-fit rounded-sm px-6 py-3.5 text-sm font-semibold tracking-wider text-nowrap uppercase"
-              >
-                Explore Projects
-              </Pressable>
-            </div>
+          <div className={cn("mx-auto flex max-w-125 flex-1 flex-col items-center justify-center gap-7 sm:max-w-150 md:max-w-200", contentClassName)}>
+            {heading && (
+              typeof heading === "string" ? (
+                <h1 className={cn("text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl", headingClassName)}>
+                  {heading}
+                </h1>
+              ) : (
+                <h1 className={cn("text-center text-4xl leading-tight font-medium text-foreground sm:text-5xl md:text-6xl", headingClassName)}>
+                  {heading}
+                </h1>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("text-center text-lg text-balance text-foreground md:text-2xl", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+            {renderActions()}
           </div>
-          <div className="flex items-center justify-between gap-4 rounded-lg bg-black/20 px-6 py-4 backdrop-blur-sm">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-1 bg-primary"></div>
-              <div className="text-sm font-medium text-muted-foreground">
-                <p className="text-primary">Global Headquarters</p>
-                <p>San Francisco, California</p>
-              </div>
-            </div>
-            <Pressable
-              href="#"
-              asButton
-              variant="outline"
-              size="icon"
-              className="flex size-10 rounded-full border-2 border-primary transition-colors hover:bg-primary/20"
-            >
-              <DynamicIcon
-                name="lucide/arrow-down"
-                size={20}
-                className="m-auto stroke-primary"
-              />
-            </Pressable>
-          </div>
+          {renderFooter()}
         </div>
       </div>
     </section>
