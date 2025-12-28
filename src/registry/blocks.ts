@@ -158,6 +158,11 @@ import { CaseStudiesTestimonialStats } from "../../components/blocks/case-studie
 import { CaseStudiesFeaturedBorder } from "../../components/blocks/case-studies-list/case-studies-featured-border";
 import { CaseStudiesStatsCard } from "../../components/blocks/case-studies-list/case-studies-stats-card";
 
+// Case Study Detail components
+import { CaseStudyProseSidebar } from "../../components/blocks/case-study-detail/case-study-prose-sidebar";
+import { CaseStudyTocSocialSidebar } from "../../components/blocks/case-study-detail/case-study-toc-social-sidebar";
+import { CaseStudyStatsMetrics } from "../../components/blocks/case-study-detail/case-study-stats-metrics";
+
 // Hero components
 import { HeroBadgeImageSplit } from "../../components/blocks/hero/hero-badge-image-split";
 import { HeroImageLeftContent } from "../../components/blocks/hero/hero-image-left-content";
@@ -266,9 +271,10 @@ export type BlockCategory =
   | "benefits"
   | "comparison"
   | "background-pattern-hero"
-  | "blog"
-  | "article"
-  | "case-studies-list";
+    | "blog"
+    | "article"
+    | "case-studies-list"
+    | "case-study-detail";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -4857,6 +4863,40 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: CaseStudiesStatsCard,
     props: "CaseStudiesStatsCardProps",
     exampleUsage: `<CaseStudiesStatsCard />`.trim(),
+  },
+
+  // Case Study Detail blocks
+  "case-study-prose-sidebar": {
+    id: "case-study-prose-sidebar",
+    name: "Case Study Prose Sidebar",
+    description: "A case study article layout with rich prose content and a sticky sidebar containing company information. Features a two-column design with the main article area on the left (including hero image, headings, paragraphs, blockquotes, lists, and tables using prose styling) and a sidebar on the right with company logo, description, industry, location, company size, website link, and topics. The sidebar uses an accent background with organized sections separated by borders. Ideal for detailed case study pages, customer success stories, or in-depth articles that need supplementary company context alongside the main narrative.",
+    semanticTags: ["case-study", "detail", "prose", "sidebar", "article", "company-info", "success-story", "content", "two-column", "sticky"],
+    category: "case-study-detail",
+    component: CaseStudyProseSidebar,
+    props: "CaseStudyProseSidebarProps",
+    exampleUsage: `<CaseStudyProseSidebar />`.trim(),
+  },
+
+  "case-study-toc-social-sidebar": {
+    id: "case-study-toc-social-sidebar",
+    name: "Case Study TOC Social Sidebar",
+    description: "A comprehensive case study layout with breadcrumb navigation, featured author attribution, sticky sidebar with company details, table of contents navigation, and social sharing links. Features a three-column layout on large screens: left sidebar with company info (overview, sector, team size, location, established, funding, core features) and social links, center content area with problem/approach/outcomes summary followed by prose sections, and right sidebar with sticky table of contents that highlights active section via IntersectionObserver. The header includes breadcrumbs, large title, and author attribution with avatar. Ideal for in-depth case studies, customer success stories, or detailed articles that benefit from structured navigation and comprehensive company context.",
+    semanticTags: ["case-study", "detail", "toc", "table-of-contents", "social", "sidebar", "breadcrumbs", "author", "navigation", "comprehensive", "three-column", "sticky"],
+    category: "case-study-detail",
+    component: CaseStudyTocSocialSidebar,
+    props: "CaseStudyTocSocialSidebarProps",
+    exampleUsage: `<CaseStudyTocSocialSidebar />`.trim(),
+  },
+
+  "case-study-stats-metrics": {
+    id: "case-study-stats-metrics",
+    name: "Case Study Stats Metrics",
+    description: "A results-focused case study layout with prominent performance metrics, breadcrumb navigation, prose content, and a sticky sidebar with company info and CTA. Features a two-column design with the main content area showing breadcrumbs, title, subtitle, hero image, a grid of 4 key statistics with large values and labels, and rich prose content (headings, paragraphs, blockquotes, lists, tables, alerts). The sticky sidebar displays company logo, overview text, sector information, a solution badge with icon, and a call-to-action button. Ideal for ROI-driven case studies that emphasize quantifiable outcomes, customer success stories with measurable impact, or results-focused content marketing.",
+    semanticTags: ["case-study", "detail", "stats", "metrics", "results", "roi", "breadcrumbs", "sidebar", "cta", "quantifiable", "performance", "two-column"],
+    category: "case-study-detail",
+    component: CaseStudyStatsMetrics,
+    props: "CaseStudyStatsMetricsProps",
+    exampleUsage: `<CaseStudyStatsMetrics />`.trim(),
   },
 };
 

@@ -1096,12 +1096,27 @@
       "import": "./dist/case-studies-featured-border.js",
       "require": "./dist/case-studies-featured-border.cjs"
     },
-    "./blocks/case-studies-list/case-studies-stats-card": {
-      "types": "./dist/case-studies-stats-card.d.ts",
-      "import": "./dist/case-studies-stats-card.js",
-      "require": "./dist/case-studies-stats-card.cjs"
-    },
-    "./registry": {
+        "./blocks/case-studies-list/case-studies-stats-card": {
+          "types": "./dist/case-studies-stats-card.d.ts",
+          "import": "./dist/case-studies-stats-card.js",
+          "require": "./dist/case-studies-stats-card.cjs"
+        },
+        "./blocks/case-study-detail/case-study-prose-sidebar": {
+          "types": "./dist/case-study-prose-sidebar.d.ts",
+          "import": "./dist/case-study-prose-sidebar.js",
+          "require": "./dist/case-study-prose-sidebar.cjs"
+        },
+        "./blocks/case-study-detail/case-study-toc-social-sidebar": {
+          "types": "./dist/case-study-toc-social-sidebar.d.ts",
+          "import": "./dist/case-study-toc-social-sidebar.js",
+          "require": "./dist/case-study-toc-social-sidebar.cjs"
+        },
+        "./blocks/case-study-detail/case-study-stats-metrics": {
+          "types": "./dist/case-study-stats-metrics.d.ts",
+          "import": "./dist/case-study-stats-metrics.js",
+          "require": "./dist/case-study-stats-metrics.cjs"
+        },
+        "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
