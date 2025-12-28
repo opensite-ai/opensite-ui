@@ -310,6 +310,37 @@ import { LogosDoubleCarouselPattern } from "../../components/blocks/logos/logos-
 import { LogosMinimalCarousel } from "../../components/blocks/logos/logos-minimal-carousel";
 import { LogosPartnerGridSidebar } from "../../components/blocks/logos/logos-partner-grid-sidebar";
 
+// Pricing components
+import { PricingAddonsCards } from "../../components/blocks/pricing/pricing-addons-cards";
+import { PricingAddonsFeatured } from "../../components/blocks/pricing/pricing-addons-featured";
+import { PricingCollapsiblePlans } from "../../components/blocks/pricing/pricing-collapsible-plans";
+import { PricingColumnsToggle } from "../../components/blocks/pricing/pricing-columns-toggle";
+import { PricingComparisonHeaders } from "../../components/blocks/pricing/pricing-comparison-headers";
+import { PricingComparisonTable } from "../../components/blocks/pricing/pricing-comparison-table";
+import { PricingDiscountCard } from "../../components/blocks/pricing/pricing-discount-card";
+import { PricingEnterpriseContact } from "../../components/blocks/pricing/pricing-enterprise-contact";
+import { PricingFeatureMatrix } from "../../components/blocks/pricing/pricing-feature-matrix";
+import { PricingFourTierToggle } from "../../components/blocks/pricing/pricing-four-tier-toggle";
+import { PricingFullComparison } from "../../components/blocks/pricing/pricing-full-comparison";
+import { PricingGradientCards } from "../../components/blocks/pricing/pricing-gradient-cards";
+import { PricingIconHeaders } from "../../components/blocks/pricing/pricing-icon-headers";
+import { PricingMinimalCards } from "../../components/blocks/pricing/pricing-minimal-cards";
+import { PricingPackagesRadio } from "../../components/blocks/pricing/pricing-packages-radio";
+import { PricingPopularHighlight } from "../../components/blocks/pricing/pricing-popular-highlight";
+import { PricingRadioToggle } from "../../components/blocks/pricing/pricing-radio-toggle";
+import { PricingResponsiveTable } from "../../components/blocks/pricing/pricing-responsive-table";
+import { PricingServicesCards } from "../../components/blocks/pricing/pricing-services-cards";
+import { PricingSimpleCard } from "../../components/blocks/pricing/pricing-simple-card";
+import { PricingSingleCard } from "../../components/blocks/pricing/pricing-single-card";
+import { PricingSplitLayout } from "../../components/blocks/pricing/pricing-split-layout";
+import { PricingSpotlightCard } from "../../components/blocks/pricing/pricing-spotlight-card";
+import { PricingSwitchCards } from "../../components/blocks/pricing/pricing-switch-cards";
+import { PricingTabsToggle } from "../../components/blocks/pricing/pricing-tabs-toggle";
+import { PricingTierGrid } from "../../components/blocks/pricing/pricing-tier-grid";
+import { PricingToggleCards } from "../../components/blocks/pricing/pricing-toggle-cards";
+import { PricingTogglePeriod } from "../../components/blocks/pricing/pricing-toggle-period";
+import { PricingTwoColumnBasic } from "../../components/blocks/pricing/pricing-two-column-basic";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -6612,6 +6643,737 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     { name: "Partner 1", logo: "/logos/partner1.svg" },
     { name: "Partner 2", logo: "/logos/partner2.svg" }
   ]}
+/>`.trim(),
+  },
+
+  // Pricing Components
+  "pricing-tier-grid": {
+    id: "pricing-tier-grid",
+    name: "Pricing Tier Grid",
+    description:
+      "A 4-column pricing grid displaying Free, Pro, Premium, and Enterprise tiers with feature lists and comparison labels. Ideal for SaaS products with multiple pricing tiers that need clear feature differentiation.",
+    semanticTags: [
+      "pricing",
+      "plans",
+      "tiers",
+      "subscription",
+      "saas",
+      "grid",
+      "comparison",
+      "features",
+      "enterprise",
+    ],
+    category: "pricing",
+    component: PricingTierGrid,
+    props: "PricingTierGridProps",
+    exampleUsage: `<PricingTierGrid
+  title="Choose Your Plan"
+  subtitle="Select the perfect plan for your needs"
+  tiers={[
+    { name: "Free", price: "$0", features: ["5 projects", "Basic support"] },
+    { name: "Pro", price: "$29", features: ["Unlimited projects", "Priority support"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-toggle-cards": {
+    id: "pricing-toggle-cards",
+    name: "Pricing Toggle Cards",
+    description:
+      "A 3-column card layout with monthly/yearly Switch toggle for billing period selection. Features popular plan highlighting and clean card design with feature lists.",
+    semanticTags: [
+      "pricing",
+      "plans",
+      "toggle",
+      "switch",
+      "monthly",
+      "yearly",
+      "cards",
+      "subscription",
+    ],
+    category: "pricing",
+    component: PricingToggleCards,
+    props: "PricingToggleCardsProps",
+    exampleUsage: `<PricingToggleCards
+  title="Simple Pricing"
+  plans={[
+    { name: "Basic", monthlyPrice: 9, yearlyPrice: 90, features: ["Feature 1"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-columns-toggle": {
+    id: "pricing-columns-toggle",
+    name: "Pricing Columns Toggle",
+    description:
+      "A 3-column pricing layout with annual billing toggle button. Features highlighted plan option and clean design with feature lists and separator elements.",
+    semanticTags: [
+      "pricing",
+      "plans",
+      "toggle",
+      "annual",
+      "columns",
+      "subscription",
+      "highlight",
+    ],
+    category: "pricing",
+    component: PricingColumnsToggle,
+    props: "PricingColumnsToggleProps",
+    exampleUsage: `<PricingColumnsToggle
+  title="Pricing Plans"
+  plans={[
+    { name: "Starter", monthlyPrice: 19, yearlyPrice: 190, features: ["Feature 1"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-radio-toggle": {
+    id: "pricing-radio-toggle",
+    name: "Pricing Radio Toggle",
+    description:
+      "A 3-column pricing layout with radio button style toggle for billing period. Features Badge component for popular plan indicator and clean card design.",
+    semanticTags: [
+      "pricing",
+      "plans",
+      "radio",
+      "toggle",
+      "badge",
+      "popular",
+      "subscription",
+    ],
+    category: "pricing",
+    component: PricingRadioToggle,
+    props: "PricingRadioToggleProps",
+    exampleUsage: `<PricingRadioToggle
+  title="Choose Your Plan"
+  plans={[
+    { name: "Basic", monthlyPrice: 15, yearlyPrice: 150, features: ["Feature 1"], isPopular: true }
+  ]}
+/>`.trim(),
+  },
+  "pricing-comparison-table": {
+    id: "pricing-comparison-table",
+    name: "Pricing Comparison Table",
+    description:
+      "A 2-column card layout with detailed feature comparison table below. Uses Table components for organized feature matrix with check/minus icons for availability.",
+    semanticTags: [
+      "pricing",
+      "comparison",
+      "table",
+      "features",
+      "matrix",
+      "plans",
+      "detailed",
+    ],
+    category: "pricing",
+    component: PricingComparisonTable,
+    props: "PricingComparisonTableProps",
+    exampleUsage: `<PricingComparisonTable
+  title="Compare Plans"
+  plans={[
+    { name: "Basic", price: "$9", features: ["Feature 1"] }
+  ]}
+  comparisonFeatures={[
+    { name: "Storage", basic: "5GB", pro: "50GB" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-single-card": {
+    id: "pricing-single-card",
+    name: "Pricing Single Card",
+    description:
+      "A single comprehensive pricing card with grouped feature sections. Features organized into titled sections with a single CTA button. Ideal for single-tier products.",
+    semanticTags: [
+      "pricing",
+      "single",
+      "card",
+      "grouped",
+      "features",
+      "sections",
+      "simple",
+    ],
+    category: "pricing",
+    component: PricingSingleCard,
+    props: "PricingSingleCardProps",
+    exampleUsage: `<PricingSingleCard
+  title="Pro Plan"
+  price="$49"
+  featureGroups={[
+    { title: "Core Features", features: ["Feature 1", "Feature 2"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-two-column-basic": {
+    id: "pricing-two-column-basic",
+    name: "Pricing Two Column Basic",
+    description:
+      "A clean two-column layout with two pricing plans and radio toggle for billing period. Simple and focused design ideal for products with basic/pro tier structure.",
+    semanticTags: [
+      "pricing",
+      "two-column",
+      "basic",
+      "simple",
+      "toggle",
+      "plans",
+      "startup",
+    ],
+    category: "pricing",
+    component: PricingTwoColumnBasic,
+    props: "PricingTwoColumnBasicProps",
+    exampleUsage: `<PricingTwoColumnBasic
+  title="Simple Pricing"
+  plans={[
+    { name: "Basic", monthlyPrice: 19, yearlyPrice: 190, features: ["Feature 1"] },
+    { name: "Pro", monthlyPrice: 49, yearlyPrice: 490, features: ["Feature 1", "Feature 2"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-simple-card": {
+    id: "pricing-simple-card",
+    name: "Pricing Simple Card",
+    description:
+      "A single, minimal pricing card with prominent price display and feature list. Clean and focused design ideal for landing pages or single pricing tier products.",
+    semanticTags: [
+      "pricing",
+      "simple",
+      "minimal",
+      "card",
+      "single",
+      "landing",
+      "focused",
+    ],
+    category: "pricing",
+    component: PricingSimpleCard,
+    props: "PricingSimpleCardProps",
+    exampleUsage: `<PricingSimpleCard
+  title="Pro Plan"
+  price="$49"
+  priceInterval="/month"
+  features={["Feature 1", "Feature 2"]}
+  buttonText="Get Started"
+/>`.trim(),
+  },
+  "pricing-responsive-table": {
+    id: "pricing-responsive-table",
+    name: "Pricing Responsive Table",
+    description:
+      "A comprehensive pricing comparison with mobile cards and desktop table views. Features tooltips for feature explanations and Switch toggle for billing period.",
+    semanticTags: [
+      "pricing",
+      "responsive",
+      "table",
+      "mobile",
+      "desktop",
+      "comparison",
+      "tooltips",
+    ],
+    category: "pricing",
+    component: PricingResponsiveTable,
+    props: "PricingResponsiveTableProps",
+    exampleUsage: `<PricingResponsiveTable
+  title="Compare Plans"
+  plans={[
+    { name: "Free", monthlyPrice: 0, yearlyPrice: 0, buttonText: "Get Started" }
+  ]}
+  features={[
+    { name: "Projects", tooltip: "Number of projects", free: "3", pro: "Unlimited", enterprise: "Unlimited" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-four-tier-toggle": {
+    id: "pricing-four-tier-toggle",
+    name: "Pricing Four Tier Toggle",
+    description:
+      "A 4-column pricing grid with annual billing Switch toggle. Features check/X icons for feature availability and popular plan highlighting with Badge.",
+    semanticTags: [
+      "pricing",
+      "four-tier",
+      "toggle",
+      "switch",
+      "enterprise",
+      "comparison",
+      "features",
+    ],
+    category: "pricing",
+    component: PricingFourTierToggle,
+    props: "PricingFourTierToggleProps",
+    exampleUsage: `<PricingFourTierToggle
+  title="Pricing Plans"
+  plans={[
+    { name: "Free", monthlyPrice: 0, yearlyPrice: 0, features: [{ name: "Feature", included: true }] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-feature-matrix": {
+    id: "pricing-feature-matrix",
+    name: "Pricing Feature Matrix",
+    description:
+      "A comprehensive pricing comparison with collapsible feature categories. Features tabs-based billing toggle, tooltips, and organized feature groups that can be expanded/collapsed.",
+    semanticTags: [
+      "pricing",
+      "matrix",
+      "features",
+      "collapsible",
+      "categories",
+      "tabs",
+      "detailed",
+    ],
+    category: "pricing",
+    component: PricingFeatureMatrix,
+    props: "PricingFeatureMatrixProps",
+    exampleUsage: `<PricingFeatureMatrix
+  title="Compare Plans"
+  plans={[
+    { name: "Starter", monthlyPrice: 19, yearlyPrice: 190, buttonText: "Get Started" }
+  ]}
+  featureCategories={[
+    { name: "Core", features: [{ name: "Projects", starter: "5", professional: "Unlimited", enterprise: "Unlimited" }] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-addons-featured": {
+    id: "pricing-addons-featured",
+    name: "Pricing Addons Featured",
+    description:
+      "Featured add-on options with 3 highlighted cards plus a secondary list of additional add-ons. Ideal for upselling additional features or services to existing customers.",
+    semanticTags: [
+      "pricing",
+      "addons",
+      "featured",
+      "upsell",
+      "extras",
+      "upgrades",
+      "services",
+    ],
+    category: "pricing",
+    component: PricingAddonsFeatured,
+    props: "PricingAddonsFeaturedProps",
+    exampleUsage: `<PricingAddonsFeatured
+  title="Enhance Your Plan"
+  featuredAddons={[
+    { name: "Analytics", description: "Deep insights", price: "$29", features: ["Feature 1"] }
+  ]}
+  additionalAddons={[
+    { name: "Extra Storage", description: "100GB more", price: "$10/month" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-addons-cards": {
+    id: "pricing-addons-cards",
+    name: "Pricing Addons Cards",
+    description:
+      "A row of 3 add-on cards with feature lists. Each card includes name, description, price, feature checklist, and CTA button. Simpler version without additional add-ons list.",
+    semanticTags: [
+      "pricing",
+      "addons",
+      "cards",
+      "extras",
+      "upgrades",
+      "features",
+      "simple",
+    ],
+    category: "pricing",
+    component: PricingAddonsCards,
+    props: "PricingAddonsCardsProps",
+    exampleUsage: `<PricingAddonsCards
+  title="Power-ups"
+  addons={[
+    { name: "Analytics", description: "Deep insights", price: "$19", features: ["Feature 1"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-discount-card": {
+    id: "pricing-discount-card",
+    name: "Pricing Discount Card",
+    description:
+      "A single pricing card with discount badge and strikethrough original price. Features prominent discount indicator for promotional pricing or limited-time offers.",
+    semanticTags: [
+      "pricing",
+      "discount",
+      "promotion",
+      "sale",
+      "offer",
+      "badge",
+      "special",
+    ],
+    category: "pricing",
+    component: PricingDiscountCard,
+    props: "PricingDiscountCardProps",
+    exampleUsage: `<PricingDiscountCard
+  title="Pro Plan"
+  originalPrice="$99"
+  discountedPrice="$79"
+  discountBadge="20% OFF"
+  features={["Feature 1", "Feature 2"]}
+/>`.trim(),
+  },
+  "pricing-split-layout": {
+    id: "pricing-split-layout",
+    name: "Pricing Split Layout",
+    description:
+      "A split layout with marketing content on the left and pricing card on the right. Combines compelling headline, description, and feature list with prominent pricing display.",
+    semanticTags: [
+      "pricing",
+      "split",
+      "layout",
+      "marketing",
+      "conversion",
+      "landing",
+      "cta",
+    ],
+    category: "pricing",
+    component: PricingSplitLayout,
+    props: "PricingSplitLayoutProps",
+    exampleUsage: `<PricingSplitLayout
+  title="Start Building Today"
+  subtitle="Simple, transparent pricing"
+  price="$49"
+  features={["Feature 1", "Feature 2"]}
+  buttonText="Get Started"
+/>`.trim(),
+  },
+  "pricing-tabs-toggle": {
+    id: "pricing-tabs-toggle",
+    name: "Pricing Tabs Toggle",
+    description:
+      "A 3-column pricing grid with tabs-based monthly/yearly toggle. Features plan icons, popular plan highlighting, and clean card design with feature lists.",
+    semanticTags: [
+      "pricing",
+      "tabs",
+      "toggle",
+      "icons",
+      "plans",
+      "subscription",
+      "saas",
+    ],
+    category: "pricing",
+    component: PricingTabsToggle,
+    props: "PricingTabsToggleProps",
+    exampleUsage: `<PricingTabsToggle
+  title="Simple Pricing"
+  plans={[
+    { name: "Free", monthlyPrice: 0, yearlyPrice: 0, features: ["Feature 1"], icon: "lucide/user" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-icon-headers": {
+    id: "pricing-icon-headers",
+    name: "Pricing Icon Headers",
+    description:
+      "A 3-column pricing grid with icon-based plan headers. Each plan features a colored icon badge for visual differentiation through icon colors.",
+    semanticTags: [
+      "pricing",
+      "icons",
+      "headers",
+      "visual",
+      "colorful",
+      "plans",
+      "badges",
+    ],
+    category: "pricing",
+    component: PricingIconHeaders,
+    props: "PricingIconHeadersProps",
+    exampleUsage: `<PricingIconHeaders
+  title="Pricing Plans"
+  plans={[
+    { name: "Starter", price: "$9", features: ["Feature 1"], icon: "lucide/rocket", iconBgClass: "bg-blue-100 text-blue-600" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-comparison-headers": {
+    id: "pricing-comparison-headers",
+    name: "Pricing Comparison Headers",
+    description:
+      "A comparison table with plan headers and monthly/yearly Switch toggle. Features sticky plan headers, feature rows with check/X indicators, and responsive design.",
+    semanticTags: [
+      "pricing",
+      "comparison",
+      "headers",
+      "table",
+      "sticky",
+      "toggle",
+      "detailed",
+    ],
+    category: "pricing",
+    component: PricingComparisonHeaders,
+    props: "PricingComparisonHeadersProps",
+    exampleUsage: `<PricingComparisonHeaders
+  title="Compare Plans"
+  plans={[
+    { name: "Free", monthlyPrice: 0, yearlyPrice: 0, buttonText: "Get Started" }
+  ]}
+  features={[
+    { name: "Projects", free: "3", pro: "Unlimited", enterprise: "Unlimited" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-switch-cards": {
+    id: "pricing-switch-cards",
+    name: "Pricing Switch Cards",
+    description:
+      "A 3-card pricing layout with Switch toggle for billing period. Features clean card design with popular plan highlighting and feature lists.",
+    semanticTags: [
+      "pricing",
+      "switch",
+      "cards",
+      "toggle",
+      "plans",
+      "subscription",
+      "clean",
+    ],
+    category: "pricing",
+    component: PricingSwitchCards,
+    props: "PricingSwitchCardsProps",
+    exampleUsage: `<PricingSwitchCards
+  title="Simple Pricing"
+  plans={[
+    { name: "Free", monthlyPrice: 0, yearlyPrice: 0, features: ["Feature 1"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-collapsible-plans": {
+    id: "pricing-collapsible-plans",
+    name: "Pricing Collapsible Plans",
+    description:
+      "Pricing plans with collapsible mobile menu and desktop comparison. Features dropdown plan selector on mobile and expanded cards on desktop for responsive experience.",
+    semanticTags: [
+      "pricing",
+      "collapsible",
+      "mobile",
+      "responsive",
+      "dropdown",
+      "plans",
+      "adaptive",
+    ],
+    category: "pricing",
+    component: PricingCollapsiblePlans,
+    props: "PricingCollapsiblePlansProps",
+    exampleUsage: `<PricingCollapsiblePlans
+  title="Pricing Plans"
+  plans={[
+    { name: "Starter", price: "$9", features: ["Feature 1"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-popular-highlight": {
+    id: "pricing-popular-highlight",
+    name: "Pricing Popular Highlight",
+    description:
+      "A 3-column pricing grid with the popular plan visually elevated and scaled up. Features enhanced styling to draw attention to the recommended tier.",
+    semanticTags: [
+      "pricing",
+      "popular",
+      "highlight",
+      "elevated",
+      "recommended",
+      "emphasis",
+      "scale",
+    ],
+    category: "pricing",
+    component: PricingPopularHighlight,
+    props: "PricingPopularHighlightProps",
+    exampleUsage: `<PricingPopularHighlight
+  title="Pricing Plans"
+  plans={[
+    { name: "Basic", monthlyPrice: 15, yearlyPrice: 150, features: ["Feature 1"] },
+    { name: "Pro", monthlyPrice: 39, yearlyPrice: 390, features: ["Feature 1"], isPopular: true }
+  ]}
+/>`.trim(),
+  },
+  "pricing-services-cards": {
+    id: "pricing-services-cards",
+    name: "Pricing Services Cards",
+    description:
+      "A two-card layout for service-based pricing. Features icon headers, feature lists, and distinct styling for the primary service. Ideal for agencies and consultants.",
+    semanticTags: [
+      "pricing",
+      "services",
+      "agency",
+      "consulting",
+      "packages",
+      "professional",
+      "icons",
+    ],
+    category: "pricing",
+    component: PricingServicesCards,
+    props: "PricingServicesCardsProps",
+    exampleUsage: `<PricingServicesCards
+  title="Our Services"
+  plans={[
+    { name: "Consultation", price: "$199", features: ["Feature 1"], icon: "lucide/users" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-packages-radio": {
+    id: "pricing-packages-radio",
+    name: "Pricing Packages Radio",
+    description:
+      "Pricing packages with radio button selection. Users select a package and proceed with a single CTA button. Features visual selection state and popular package highlighting.",
+    semanticTags: [
+      "pricing",
+      "packages",
+      "radio",
+      "selection",
+      "marketing",
+      "services",
+      "choose",
+    ],
+    category: "pricing",
+    component: PricingPackagesRadio,
+    props: "PricingPackagesRadioProps",
+    exampleUsage: `<PricingPackagesRadio
+  title="Marketing Packages"
+  packages={[
+    { id: "basic", name: "Basic", price: "$499", features: ["Feature 1"] }
+  ]}
+  buttonText="Get Started"
+/>`.trim(),
+  },
+  "pricing-toggle-period": {
+    id: "pricing-toggle-period",
+    name: "Pricing Toggle Period",
+    description:
+      "Pricing plans with toggle group for multiple billing periods (monthly, quarterly, yearly). Features clean two-column layout with popular plan highlighting.",
+    semanticTags: [
+      "pricing",
+      "toggle",
+      "period",
+      "quarterly",
+      "flexible",
+      "billing",
+      "options",
+    ],
+    category: "pricing",
+    component: PricingTogglePeriod,
+    props: "PricingTogglePeriodProps",
+    exampleUsage: `<PricingTogglePeriod
+  title="Flexible Pricing"
+  plans={[
+    { name: "Starter", monthlyPrice: 19, quarterlyPrice: 49, yearlyPrice: 149, features: ["Feature 1"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-spotlight-card": {
+    id: "pricing-spotlight-card",
+    name: "Pricing Spotlight Card",
+    description:
+      "A single premium pricing card with spotlight/glow effect. Features gradient border, prominent pricing display, and dual CTA buttons for flagship product highlighting.",
+    semanticTags: [
+      "pricing",
+      "spotlight",
+      "premium",
+      "glow",
+      "featured",
+      "flagship",
+      "hero",
+    ],
+    category: "pricing",
+    component: PricingSpotlightCard,
+    props: "PricingSpotlightCardProps",
+    exampleUsage: `<PricingSpotlightCard
+  title="Premium Plan"
+  subtitle="The ultimate solution"
+  price="$99"
+  features={["Feature 1", "Feature 2"]}
+  buttonText="Get Started"
+/>`.trim(),
+  },
+  "pricing-full-comparison": {
+    id: "pricing-full-comparison",
+    name: "Pricing Full Comparison",
+    description:
+      "A comprehensive 4-tier pricing comparison with full feature matrix. Features plan cards at top followed by detailed comparison table organized by category.",
+    semanticTags: [
+      "pricing",
+      "comparison",
+      "full",
+      "matrix",
+      "detailed",
+      "enterprise",
+      "comprehensive",
+    ],
+    category: "pricing",
+    component: PricingFullComparison,
+    props: "PricingFullComparisonProps",
+    exampleUsage: `<PricingFullComparison
+  title="Compare All Plans"
+  plans={[
+    { name: "Free", monthlyPrice: 0, yearlyPrice: 0, buttonText: "Get Started" }
+  ]}
+  features={[
+    { name: "Projects", category: "Usage", free: "3", startup: "10", team: "Unlimited", enterprise: "Unlimited" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-minimal-cards": {
+    id: "pricing-minimal-cards",
+    name: "Pricing Minimal Cards",
+    description:
+      "A clean, minimal 3-column pricing layout with essential information. No toggle or complex interactions - just straightforward pricing display.",
+    semanticTags: [
+      "pricing",
+      "minimal",
+      "simple",
+      "clean",
+      "basic",
+      "straightforward",
+      "static",
+    ],
+    category: "pricing",
+    component: PricingMinimalCards,
+    props: "PricingMinimalCardsProps",
+    exampleUsage: `<PricingMinimalCards
+  title="Simple Pricing"
+  plans={[
+    { name: "Basic", price: "$9", features: ["Feature 1"] }
+  ]}
+/>`.trim(),
+  },
+  "pricing-gradient-cards": {
+    id: "pricing-gradient-cards",
+    name: "Pricing Gradient Cards",
+    description:
+      "Pricing plans with subtle gradient backgrounds. Each card features a unique gradient color scheme for visual differentiation with Switch toggle for billing.",
+    semanticTags: [
+      "pricing",
+      "gradient",
+      "colorful",
+      "modern",
+      "visual",
+      "cards",
+      "stylish",
+    ],
+    category: "pricing",
+    component: PricingGradientCards,
+    props: "PricingGradientCardsProps",
+    exampleUsage: `<PricingGradientCards
+  title="Pricing Plans"
+  plans={[
+    { name: "Starter", monthlyPrice: 15, yearlyPrice: 150, features: ["Feature 1"], gradientClass: "from-blue-500/10 to-cyan-500/10" }
+  ]}
+/>`.trim(),
+  },
+  "pricing-enterprise-contact": {
+    id: "pricing-enterprise-contact",
+    name: "Pricing Enterprise Contact",
+    description:
+      "An enterprise-focused pricing section with contact CTA. Features list of enterprise benefits with descriptions and prominent contact buttons for custom quotes.",
+    semanticTags: [
+      "pricing",
+      "enterprise",
+      "contact",
+      "sales",
+      "custom",
+      "quote",
+      "b2b",
+    ],
+    category: "pricing",
+    component: PricingEnterpriseContact,
+    props: "PricingEnterpriseContactProps",
+    exampleUsage: `<PricingEnterpriseContact
+  title="Enterprise"
+  subtitle="For large organizations"
+  features={[
+    { name: "Unlimited everything", description: "No limits" }
+  ]}
+  buttonText="Contact Sales"
 />`.trim(),
   },
 };
