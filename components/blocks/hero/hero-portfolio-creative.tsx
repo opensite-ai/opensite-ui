@@ -51,7 +51,7 @@ export interface HeroPortfolioCreativeProps {
   /**
    * Array of social link configurations
    */
-  socialLinks?: SocialLinkItem[];
+  socialLinks?: Array<SocialLinkItem & { iconName?: string }>;
   /**
    * Custom slot for social links (overrides socialLinks array)
    */
@@ -116,11 +116,11 @@ const defaultActions: ActionConfig[] = [
   },
 ];
 
-const defaultSocialLinks: SocialLinkItem[] = [
-  { href: "#", icon: "lucide/dribbble", label: "Dribbble" },
-  { href: "#", icon: "lucide/twitter", label: "Twitter" },
-  { href: "#", icon: "lucide/linkedin", label: "LinkedIn" },
-  { href: "#", icon: "lucide/instagram", label: "Instagram" },
+const defaultSocialLinks: Array<SocialLinkItem & { iconName?: string }> = [
+  { href: "#", iconName: "lucide/dribbble", label: "Dribbble" },
+  { href: "#", iconName: "lucide/twitter", label: "Twitter" },
+  { href: "#", iconName: "lucide/linkedin", label: "LinkedIn" },
+  { href: "#", iconName: "lucide/instagram", label: "Instagram" },
 ];
 
 const defaultPortfolioImages: ImageItem[] = [
@@ -220,7 +220,7 @@ export function HeroPortfolioCreative({
             href={link.href}
             className={cn("text-muted-foreground hover:text-foreground", link.className)}
           >
-            {link.icon && <DynamicIcon name={link.icon} size={20} />}
+            {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
           </Pressable>
         ))}
       </div>

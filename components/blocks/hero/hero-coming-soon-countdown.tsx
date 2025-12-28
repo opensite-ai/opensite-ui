@@ -55,7 +55,7 @@ export interface HeroComingSoonCountdownProps {
   /**
    * Social link items
    */
-  socialLinks?: SocialLinkItem[];
+  socialLinks?: Array<SocialLinkItem & { iconName?: string }>;
   /**
    * Custom slot for social links (overrides socialLinks array)
    */
@@ -108,10 +108,10 @@ const defaultSubmitAction: ActionConfig = {
   className: "h-12 px-8",
 };
 
-const defaultSocialLinks: SocialLinkItem[] = [
-  { platform: "twitter", href: "#", icon: "lucide/twitter" },
-  { platform: "instagram", href: "#", icon: "lucide/instagram" },
-  { platform: "linkedin", href: "#", icon: "lucide/linkedin" },
+const defaultSocialLinks: Array<SocialLinkItem & { iconName?: string }> = [
+  { platform: "twitter", href: "#", iconName: "lucide/twitter" },
+  { platform: "instagram", href: "#", iconName: "lucide/instagram" },
+  { platform: "linkedin", href: "#", iconName: "lucide/linkedin" },
 ];
 
 export function HeroComingSoonCountdown({
@@ -188,7 +188,7 @@ export function HeroComingSoonCountdown({
         href={link.href}
         className={cn("text-muted-foreground hover:text-foreground", link.className)}
       >
-        <DynamicIcon name={link.icon} size={20} />
+        {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
       </Pressable>
     ));
   };

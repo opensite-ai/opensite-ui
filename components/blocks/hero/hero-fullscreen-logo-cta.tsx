@@ -95,9 +95,10 @@ export function HeroFullscreenLogoCta({
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
 
+    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
       <Img
-        src={logo.src}
+        src={logoSrc}
         alt={logo.alt}
         className={cn("size-20", logo.className)}
         optixFlowConfig={optixFlowConfig}

@@ -187,15 +187,18 @@ export function HeroDesignShowcaseLogos({
           )
         )}
         <div className={cn("mt-8 flex flex-wrap items-center justify-center gap-5 sm:flex-nowrap", logosClassName)}>
-          {logos.map((logo, index) => (
-            <Img
-              key={index}
-              src={logo.src}
-              alt={logo.alt}
-              className={cn("block h-3.5 w-auto opacity-50 md:h-5", logo.className)}
-              optixFlowConfig={optixFlowConfig}
-            />
-          ))}
+          {logos.map((logo, index) => {
+            const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
+            return (
+              <Img
+                key={index}
+                src={logoSrc}
+                alt={logo.alt}
+                className={cn("block h-3.5 w-auto opacity-50 md:h-5", logo.className)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            );
+          })}
         </div>
       </div>
     );

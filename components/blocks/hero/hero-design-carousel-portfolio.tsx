@@ -26,7 +26,7 @@ export interface HeroDesignCarouselPortfolioProps {
   /**
    * Array of feature highlights
    */
-  features?: FeatureItem[];
+  features?: Array<FeatureItem & { iconName?: string }>;
   /**
    * Custom slot for features (overrides features array)
    */
@@ -103,10 +103,10 @@ const defaultLogo: LogoItem = {
   className: "h-12 lg:h-16",
 };
 
-const defaultFeatures: FeatureItem[] = [
-  { icon: "lucide/check-circle", title: "Design Subscription Monthly" },
-  { icon: "lucide/check-circle", title: "Rapid Delivery" },
-  { icon: "lucide/check-circle", title: "Flexible Subscription" },
+const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
+  { iconName: "lucide/check-circle", title: "Design Subscription Monthly" },
+  { iconName: "lucide/check-circle", title: "Rapid Delivery" },
+  { iconName: "lucide/check-circle", title: "Flexible Subscription" },
 ];
 
 const defaultPrimaryAction: ActionConfig = {
@@ -160,9 +160,10 @@ export function HeroDesignCarouselPortfolio({
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
 
+    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
       <Img
-        src={logo.src}
+        src={logoSrc}
         className={cn("h-12 lg:h-16", logo.className)}
         alt={logo.alt}
         optixFlowConfig={optixFlowConfig}
@@ -178,7 +179,7 @@ export function HeroDesignCarouselPortfolio({
       <div className={cn("hidden items-center gap-6 lg:flex", featuresClassName)}>
         {features.map((feature, index) => (
           <div key={index} className="flex items-center gap-1.5 text-foreground">
-            <DynamicIcon name={feature.icon || "lucide/check-circle"} size={24} />
+            {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check-circle"} size={24} />}
             <span>{feature.title}</span>
           </div>
         ))}

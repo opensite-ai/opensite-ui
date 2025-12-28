@@ -26,7 +26,7 @@ export interface HeroFeatureCardsGridProps {
   /**
    * Array of feature items
    */
-  features?: FeatureItem[];
+  features?: Array<FeatureItem & { iconName?: string }>;
   /**
    * Custom slot for features (overrides features array)
    */
@@ -77,24 +77,24 @@ const defaultActions: ActionConfig[] = [
   },
 ];
 
-const defaultFeatures: FeatureItem[] = [
+const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
   {
-    icon: "lucide/zap",
+    iconName: "lucide/zap",
     title: "Lightning Fast",
     description: "Optimized for speed and performance",
   },
   {
-    icon: "lucide/shield",
+    iconName: "lucide/shield",
     title: "Secure by Default",
     description: "Enterprise-grade security built in",
   },
   {
-    icon: "lucide/code",
+    iconName: "lucide/code",
     title: "Developer First",
     description: "APIs and SDKs for every platform",
   },
   {
-    icon: "lucide/globe",
+    iconName: "lucide/globe",
     title: "Global Scale",
     description: "Deploy anywhere in the world",
   },
@@ -155,7 +155,7 @@ export function HeroFeatureCardsGrid({
             className="group rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
           >
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-              <DynamicIcon name={feature.icon || "lucide/check"} size={24} />
+              {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={24} />}
             </div>
             <h3 className="mb-2 text-lg font-semibold text-foreground">
               {feature.title}

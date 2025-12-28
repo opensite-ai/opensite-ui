@@ -49,7 +49,7 @@ export interface HeroDashedBorderFeaturesProps {
   /**
    * Array of feature items
    */
-  features?: FeatureItem[];
+  features?: Array<FeatureItem & { iconName?: string }>;
   /**
    * Custom slot for features (overrides features array)
    */
@@ -95,10 +95,10 @@ const defaultActions: ActionConfig[] = [
   },
 ];
 
-const defaultFeatures: FeatureItem[] = [
-  { icon: "lucide/zap", title: "2-4 week delivery" },
-  { icon: "lucide/dollar-sign", title: "Upfront, no hidden fees" },
-  { icon: "lucide/medal", title: "Full refund if not satisfied" },
+const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
+  { iconName: "lucide/zap", title: "2-4 week delivery" },
+  { iconName: "lucide/dollar-sign", title: "Upfront, no hidden fees" },
+  { iconName: "lucide/medal", title: "Full refund if not satisfied" },
 ];
 
 export function HeroDashedBorderFeatures({
@@ -192,7 +192,7 @@ export function HeroDashedBorderFeatures({
         )}
       >
         <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-sm lg:size-12 lg:text-base">
-          <DynamicIcon name={feature.icon || "lucide/check"} size={20} />
+          {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={20} />}
         </span>
         {feature.title}
       </div>

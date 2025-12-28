@@ -109,9 +109,10 @@ export function HeroLogoCenteredScreenshot({
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
 
+    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
       <Img
-        src={logo.src}
+        src={logoSrc}
         alt={logo.alt}
         className={cn("h-10 md:h-16", logo.className)}
         optixFlowConfig={optixFlowConfig}

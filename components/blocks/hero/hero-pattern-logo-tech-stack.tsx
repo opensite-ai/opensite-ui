@@ -141,10 +141,11 @@ export function HeroPatternLogoTechStack({
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
 
+    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
       <div className="rounded-xl bg-background/30 p-4 shadow-sm backdrop-blur-sm">
         <Img
-          src={logo.src}
+          src={logoSrc}
           alt={logo.alt}
           className={cn("h-16", logo.imgClassName)}
           optixFlowConfig={optixFlowConfig}
@@ -197,24 +198,27 @@ export function HeroPatternLogoTechStack({
           )
         )}
         <div className="flex flex-wrap items-center justify-center gap-4">
-          {techLogos.map((techLogo, index) => (
-            <Pressable
-              key={index}
-              href={techLogo.href}
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "group flex aspect-square h-12 items-center justify-center p-0",
-                techLogo.className
-              )}
-            >
-              <Img
-                src={techLogo.src}
-                alt={techLogo.alt}
-                className={cn("h-6 saturate-0 transition-all group-hover:saturate-100", techLogo.imgClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-            </Pressable>
-          ))}
+          {techLogos.map((techLogo, index) => {
+            const techLogoSrc = typeof techLogo.src === "string" ? techLogo.src : techLogo.src.light;
+            return (
+              <Pressable
+                key={index}
+                href={techLogo.href}
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "group flex aspect-square h-12 items-center justify-center p-0",
+                  techLogo.className
+                )}
+              >
+                <Img
+                  src={techLogoSrc}
+                  alt={techLogo.alt}
+                  className={cn("h-6 saturate-0 transition-all group-hover:saturate-100", techLogo.imgClassName)}
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </Pressable>
+            );
+          })}
         </div>
       </div>
     );

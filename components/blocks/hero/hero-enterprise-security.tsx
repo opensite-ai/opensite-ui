@@ -40,7 +40,7 @@ export interface HeroEnterpriseSecurityProps {
   /**
    * Array of security feature items
    */
-  features?: FeatureItem[];
+  features?: Array<FeatureItem & { iconName?: string }>;
   /**
    * Custom slot for features (overrides features array)
    */
@@ -107,23 +107,23 @@ const defaultActions: ActionConfig[] = [
   },
 ];
 
-const defaultFeatures: FeatureItem[] = [
+const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
   {
-    icon: "lucide/lock",
+    iconName: "lucide/lock",
     title: "End-to-end encryption",
     description: "All data is encrypted at rest and in transit using AES-256",
     iconBgClass: "bg-green-100",
     iconColorClass: "text-green-600",
   },
   {
-    icon: "lucide/key",
+    iconName: "lucide/key",
     title: "SSO & SAML",
     description: "Integrate with your existing identity provider",
     iconBgClass: "bg-blue-100",
     iconColorClass: "text-blue-600",
   },
   {
-    icon: "lucide/eye",
+    iconName: "lucide/eye",
     title: "Audit logs",
     description: "Complete visibility into all account activity",
     iconBgClass: "bg-purple-100",
@@ -209,7 +209,7 @@ export function HeroEnterpriseSecurity({
         {features.map((feature, index) => (
           <div key={index} className="rounded-2xl border border-border bg-card p-6 text-center">
             <div className={cn("mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full", feature.iconBgClass || "bg-primary/10")}>
-              <DynamicIcon name={feature.icon || "lucide/check"} size={24} className={feature.iconColorClass || "text-primary"} />
+              {feature.icon ?? <DynamicIcon name={feature.iconName || "lucide/check"} size={24} className={feature.iconColorClass || "text-primary"} />}
             </div>
             <h3 className="mb-2 text-lg font-semibold text-foreground">
               {feature.title}
@@ -231,15 +231,18 @@ export function HeroEnterpriseSecurity({
 
     return (
       <div className={cn("mt-16 flex flex-wrap items-center justify-center gap-8", logosClassName)}>
-        {logos.map((logo, index) => (
-          <Img
-            key={index}
-            src={logo.src}
-            alt={logo.alt}
-            className={cn("h-8 opacity-50 grayscale", logo.className)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        ))}
+        {logos.map((logo, index) => {
+          const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
+          return (
+            <Img
+              key={index}
+              src={logoSrc}
+              alt={logo.alt}
+              className={cn("h-8 opacity-50 grayscale", logo.className)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          );
+        })}
       </div>
     );
   };

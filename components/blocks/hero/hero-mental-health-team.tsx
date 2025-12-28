@@ -26,7 +26,7 @@ export interface HeroMentalHealthTeamProps {
   /**
    * Testimonial configuration
    */
-  testimonial?: TestimonialItem;
+  testimonial?: TestimonialItem & { avatarSrc?: string };
   /**
    * Custom slot for testimonial (overrides testimonial prop)
    */
@@ -70,10 +70,10 @@ const defaultTeamImages: ImageItem[] = [
   { src: imagePlaceholders[112], alt: "" },
 ];
 
-const defaultTestimonial: TestimonialItem = {
+const defaultTestimonial: TestimonialItem & { avatarSrc?: string } = {
   quote: "Since beginning therapy here, I feel more grounded and at ease.",
   author: "John Doe",
-  avatar: imagePlaceholders[113],
+  avatarSrc: imagePlaceholders[113],
 };
 
 const defaultFeatureImage: ImageItem = {
@@ -134,14 +134,15 @@ export function HeroMentalHealthTeam({
   const renderTestimonial = () => {
     if (testimonialSlot) return testimonialSlot;
 
+    const avatarSrc = testimonial.avatarSrc ?? (testimonial.avatar?.src);
     return (
       <div className="col-[1/3] row-[3/4] w-full md:col-[1/3] md:row-[2/3]">
         <div className="flex h-full min-h-37.5 flex-col gap-3 overflow-hidden rounded-3xl bg-muted p-5 px-5 md:flex-row md:items-center md:gap-7 md:py-8">
-          {testimonial.avatar && (
+          {avatarSrc && (
             <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl md:h-30 md:w-30">
               <Img
-                src={testimonial.avatar}
-                alt=""
+                src={avatarSrc}
+                alt={testimonial.avatar?.alt ?? ""}
                 className="h-full w-full object-cover object-center"
                 optixFlowConfig={optixFlowConfig}
               />

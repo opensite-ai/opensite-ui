@@ -36,7 +36,7 @@ export interface HeroPlatformFeaturesGridProps {
   /**
    * Array of feature items for the grid
    */
-  features?: FeatureItem[];
+  features?: Array<FeatureItem & { iconName?: string }>;
   /**
    * Custom slot for features (overrides features array)
    */
@@ -82,24 +82,24 @@ const defaultAction: ActionConfig = {
   iconAfter: <DynamicIcon name="lucide/move-right" size={20} className="ml-2" />,
 };
 
-const defaultFeatures: FeatureItem[] = [
+const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
   {
-    icon: "lucide/globe",
+    iconName: "lucide/globe",
     title: "Robust Infrastructure",
     description: "Reliable and scalable infrastructure, easy to manage.",
   },
   {
-    icon: "lucide/rocket",
+    iconName: "lucide/rocket",
     title: "Easy Setup",
     description: "Quick and simple configuration for any use case.",
   },
   {
-    icon: "lucide/expand",
+    iconName: "lucide/expand",
     title: "Effortless Scaling",
     description: "Built to handle increased demand with ease.",
   },
   {
-    icon: "lucide/wrench",
+    iconName: "lucide/wrench",
     title: "Low Maintenance",
     description: "Focus on building, not on maintenance tasks.",
   },
@@ -124,9 +124,10 @@ export function HeroPlatformFeaturesGrid({
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
 
+    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
       <Img
-        src={logo.src}
+        src={logoSrc}
         alt={logo.alt}
         className={cn("mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28", logo.imgClassName)}
         optixFlowConfig={optixFlowConfig}
@@ -159,7 +160,7 @@ export function HeroPlatformFeaturesGrid({
       <div className={cn("mt-16 grid gap-px overflow-hidden rounded-lg border bg-input md:grid-cols-2 lg:grid-cols-4", featuresClassName)}>
         {features.map((feature, index) => (
           <div key={index} className="flex flex-col gap-3 bg-background p-5 md:gap-6">
-            {feature.icon && <DynamicIcon name={feature.icon} size={24} />}
+            {feature.icon ?? (feature.iconName && <DynamicIcon name={feature.iconName} size={24} />)}
             <div>
               {feature.title && (
                 <h2 className="text-sm font-semibold md:text-base">
