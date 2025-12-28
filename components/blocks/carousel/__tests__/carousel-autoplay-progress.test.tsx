@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
 import { CarouselAutoplayProgress } from "../carousel-autoplay-progress";
 
 // Mock the Img component
@@ -15,26 +15,11 @@ vi.mock("@page-speed/img", () => ({
   }) => <img src={src} alt={alt} className={className} data-testid="img" />,
 }));
 
-// Mock embla-carousel-react
+// Mock embla-carousel-react - return null for emblaApi to prevent hook effects from running
 vi.mock("embla-carousel-react", () => ({
   default: () => [
-    { current: null },
-    {
-      scrollSnapList: () => [0, 1, 2],
-      selectedScrollSnap: () => 0,
-      scrollTo: vi.fn(),
-      on: vi.fn().mockReturnThis(),
-      plugins: () => ({
-        autoplay: {
-          isPlaying: () => true,
-          play: vi.fn(),
-          stop: vi.fn(),
-          reset: vi.fn(),
-          options: { stopOnInteraction: false },
-          timeUntilNext: () => 3000,
-        },
-      }),
-    },
+    vi.fn(),
+    null,
   ],
 }));
 
@@ -44,6 +29,15 @@ vi.mock("embla-carousel-autoplay", () => ({
 }));
 
 describe("CarouselAutoplayProgress", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.useRealTimers();
+  });
+
   it("renders with default props", () => {
     const { container } = render(<CarouselAutoplayProgress />);
     expect(container.querySelector("section")).toBeInTheDocument();
