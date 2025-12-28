@@ -100,3 +100,37 @@ export type {
   FooterNavSocialSection,
   FooterNavSocialLink,
 } from "./footer-nav-social";
+
+export { FooterNewsletterContact } from "./footer-newsletter-contact";
+export type {
+  FooterNewsletterContactProps,
+  FooterNewsletterContactLink,
+  FooterNewsletterContactSection,
+  FooterNewsletterContactDetail,
+  FooterNewsletterContactSocialLink,
+} from "./footer-newsletter-contact";
+
+export { FooterSplitImageAccordion } from "./footer-split-image-accordion";
+export type {
+  FooterSplitImageAccordionProps,
+  FooterSplitImageAccordionLink,
+  FooterSplitImageAccordionSection,
+  FooterSplitImageAccordionSocialLink,
+} from "./footer-split-image-accordion";
+
+export { FooterAccordionSocial } from "./footer-accordion-social";
+export type {
+  FooterAccordionSocialProps,
+  FooterAccordionSocialLink,
+  FooterAccordionSocialSection,
+  FooterAccordionSocialMediaLink,
+} from "./footer-accordion-social";
+
+export { FooterInfoCardsAccordion } from "./footer-info-cards-accordion";
+export type {
+  FooterInfoCardsAccordionProps,
+  FooterInfoCardsAccordionInfoItem,
+  FooterInfoCardsAccordionLink,
+  FooterInfoCardsAccordionSection,
+  FooterInfoCardsAccordionSocialLink,
+} from "./footer-info-cards-accordion";
