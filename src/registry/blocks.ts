@@ -240,6 +240,18 @@ import { HeroComingSoonCountdown } from "../../components/blocks/hero/hero-comin
 import { HeroEventRegistration } from "../../components/blocks/hero/hero-event-registration";
 import { HeroPortfolioCreative } from "../../components/blocks/hero/hero-portfolio-creative";
 
+// Comparison components
+import { ComparisonTableTwoColumn } from "../../components/blocks/comparison/comparison-table-two-column";
+import { ComparisonFeatureCards } from "../../components/blocks/comparison/comparison-feature-cards";
+import { ComparisonGridBadges } from "../../components/blocks/comparison/comparison-grid-badges";
+import { ComparisonMetricsRows } from "../../components/blocks/comparison/comparison-metrics-rows";
+import { ComparisonImageCards } from "../../components/blocks/comparison/comparison-image-cards";
+import { ComparisonTableTabs } from "../../components/blocks/comparison/comparison-table-tabs";
+import { ComparisonTableTooltips } from "../../components/blocks/comparison/comparison-table-tooltips";
+import { ComparisonFeatureGrid } from "../../components/blocks/comparison/comparison-feature-grid";
+import { ComparisonAiModels } from "../../components/blocks/comparison/comparison-ai-models";
+import { ComparisonLegacyModern } from "../../components/blocks/comparison/comparison-legacy-modern";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -4897,6 +4909,168 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: CaseStudyStatsMetrics,
     props: "CaseStudyStatsMetricsProps",
     exampleUsage: `<CaseStudyStatsMetrics />`.trim(),
+  },
+
+  // Comparison blocks
+  "comparison-table-two-column": {
+    id: "comparison-table-two-column",
+    name: "Comparison Table Two Column",
+    description: "A table-based comparison layout with two columns showing features side by side. Displays company logos at the top and feature rows below with the first column (Option A) highlighted in green tones indicating the preferred choice, while the second column (Option B) uses red tones. Rows can optionally display check/x icons for boolean comparisons. Best for product comparisons, service tier comparisons, competitor analysis, and feature-by-feature breakdowns where one option is clearly preferred.",
+    semanticTags: ["comparison", "table", "two-column", "features", "product-comparison", "competitor", "side-by-side", "checklist", "pros-cons"],
+    category: "comparison",
+    component: ComparisonTableTwoColumn,
+    props: "ComparisonTableTwoColumnProps",
+    exampleUsage: `<ComparisonTableTwoColumn
+  title="Compare us with others."
+  rows={[
+    { label: "Onboarding", optionA: "1-2 days", optionB: "30 days" },
+    { label: "Support", optionA: "24/7 dedicated team", optionB: "Limited hours", hasIcon: true }
+  ]}
+/>`.trim(),
+  },
+
+  "comparison-feature-cards": {
+    id: "comparison-feature-cards",
+    name: "Comparison Feature Cards",
+    description: "Side-by-side feature comparison cards displaying two product/service options with feature checklists. The highlighted card uses a bordered, shadowed style while the other uses a muted background. Features show check icons for included items and strikethrough with minus icons for excluded items. Includes optional explanatory text sections below the cards for suitability and key differences. Best for product tier comparisons, subscription plan comparisons, competitor feature analysis, and service package breakdowns.",
+    semanticTags: ["comparison", "cards", "features", "checklist", "product-tiers", "subscription", "pricing", "side-by-side", "included-excluded"],
+    category: "comparison",
+    component: ComparisonFeatureCards,
+    props: "ComparisonFeatureCardsProps",
+    exampleUsage: `<ComparisonFeatureCards
+  title="Product A vs. Product B: Making the Right Choice"
+  productA={{ name: "Product A", features: [{ text: "Unlimited Users", included: true }] }}
+  productB={{ name: "Product B", features: [{ text: "Unlimited Users", included: false }] }}
+/>`.trim(),
+  },
+
+  "comparison-grid-badges": {
+    id: "comparison-grid-badges",
+    name: "Comparison Grid Badges",
+    description: "Grid-based comparison layout with icons and badge-style value indicators. Displays features in a responsive grid with icons, descriptions, and two badges comparing options. Each feature card shows an icon, title, description, and badges with highlighted badges using a distinct color to indicate the preferred choice. Best for feature-rich product comparisons, technical specification comparisons, service tier breakdowns, and capability matrices.",
+    semanticTags: ["comparison", "grid", "badges", "icons", "features", "technical", "specifications", "capabilities", "metrics"],
+    category: "comparison",
+    component: ComparisonGridBadges,
+    props: "ComparisonGridBadgesProps",
+    exampleUsage: `<ComparisonGridBadges
+  title="Feature Comparison"
+  features={[
+    { icon: "lucide/code-2", title: "Development Speed", description: "Time to production", optionAValue: "2-4 weeks", optionBValue: "3-6 months", optionAHighlight: true }
+  ]}
+/>`.trim(),
+  },
+
+  "comparison-metrics-rows": {
+    id: "comparison-metrics-rows",
+    name: "Comparison Metrics Rows",
+    description: "Data-heavy comparison layout with quantitative metrics displayed in horizontal rows. Features large typography for values with supporting descriptions, optional units, and explanatory text. Each row compares two options with prominent numbers. Includes column headers, footnotes section, and a call-to-action button. Best for ROI comparisons, cost analysis, timeline comparisons, performance metrics, and quantitative feature breakdowns.",
+    semanticTags: ["comparison", "metrics", "data", "numbers", "roi", "cost", "timeline", "performance", "quantitative", "statistics"],
+    category: "comparison",
+    component: ComparisonMetricsRows,
+    props: "ComparisonMetricsRowsProps",
+    exampleUsage: `<ComparisonMetricsRows
+  title="Compare Cloud vs On-site Infrastructure"
+  metrics={[
+    { title: "Initial Setup", optionA: { value: "6", unit: "mo", desc: "Enterprise timeline" }, optionB: { value: "2", unit: "wk", desc: "Rapid deployment" } }
+  ]}
+/>`.trim(),
+  },
+
+  "comparison-image-cards": {
+    id: "comparison-image-cards",
+    name: "Comparison Image Cards",
+    description: "Two large image cards side by side with a centered 'OR' badge divider. Each card features a full-bleed background image with a gradient overlay at the bottom containing the title, description, and CTA button. Creates a visual choice between two distinct options. Best for service tier selection, build vs buy decisions, path selection, and two-option comparisons with strong visual differentiation.",
+    semanticTags: ["comparison", "images", "cards", "visual", "choice", "options", "cta", "decision", "path-selection", "build-vs-buy"],
+    category: "comparison",
+    component: ComparisonImageCards,
+    props: "ComparisonImageCardsProps",
+    exampleUsage: `<ComparisonImageCards
+  title="Old vs New"
+  optionA={{ image: "/option1.jpg", title: "Option 1", description: "Let our team handle everything", ctaText: "Get Started", ctaHref: "#" }}
+  optionB={{ image: "/option2.jpg", title: "Option 2", description: "Take control yourself", ctaText: "Get Started", ctaHref: "#" }}
+/>`.trim(),
+  },
+
+  "comparison-table-tabs": {
+    id: "comparison-table-tabs",
+    name: "Comparison Table Tabs",
+    description: "Feature comparison table with multiple options using tabs on mobile and full columns on desktop. Each cell includes a status indicator (positive/negative/neutral) with corresponding colored icons and backgrounds. Uses green for positive, red for negative, and amber for neutral states. Best for multi-option technical comparisons, storage solutions, hosting options, and service tier comparisons with detailed attributes.",
+    semanticTags: ["comparison", "table", "tabs", "mobile", "responsive", "status", "indicators", "technical", "multi-option", "storage", "hosting"],
+    category: "comparison",
+    component: ComparisonTableTabs,
+    props: "ComparisonTableTabsProps",
+    exampleUsage: `<ComparisonTableTabs
+  features={["Initial cost", "Scalability", "Performance"]}
+  models={[
+    { name: "SSD", attributes: [{ value: "Medium to high", status: "negative" }, { value: "Limited", status: "neutral" }, { value: "Very fast", status: "positive" }] }
+  ]}
+/>`.trim(),
+  },
+
+  "comparison-table-tooltips": {
+    id: "comparison-table-tooltips",
+    name: "Comparison Table Tooltips",
+    description: "Two-column comparison table with the preferred option highlighted using a muted background. Some cells can include tooltips that reveal additional context on hover. Clean, minimal design with clear visual hierarchy. Best for framework comparisons, technology stack comparisons, and detailed feature matrices where some items need additional explanation.",
+    semanticTags: ["comparison", "table", "tooltips", "hover", "framework", "technology", "features", "detailed", "context", "explanation"],
+    category: "comparison",
+    component: ComparisonTableTooltips,
+    props: "ComparisonTableTooltipsProps",
+    exampleUsage: `<ComparisonTableTooltips
+  title="Compare Us"
+  rows={[
+    { feature: "Dark Mode", optionA: "Built-in", optionB: "Requires extra setup" },
+    { feature: "Premium Components", optionA: "Available", optionB: { value: "Not included", tooltip: { title: "Premium Only", content: "Some components require paid versions." } } }
+  ]}
+/>`.trim(),
+  },
+
+  "comparison-feature-grid": {
+    id: "comparison-feature-grid",
+    name: "Comparison Feature Grid",
+    description: "Features displayed in a responsive list format with icons, labels, descriptions, and check/x indicators for each option. Each row shows the feature icon on the left, feature details in the middle, and status indicators on the right. Supports true/false/partial states with corresponding visual indicators (green check, red x, yellow check for partial). Best for framework comparisons, library comparisons, detailed feature matrices, and technology stack evaluations.",
+    semanticTags: ["comparison", "grid", "features", "icons", "checklist", "framework", "library", "technology", "evaluation", "partial-support"],
+    category: "comparison",
+    component: ComparisonFeatureGrid,
+    props: "ComparisonFeatureGridProps",
+    exampleUsage: `<ComparisonFeatureGrid
+  title="Compare Us"
+  features={[
+    { icon: "lucide/moon", label: "Dark Mode", description: "Built-in dark mode support", optionA: true, optionB: false },
+    { icon: "lucide/type", label: "TypeScript", description: "TypeScript support level", optionA: true, optionB: "partial" }
+  ]}
+/>`.trim(),
+  },
+
+  "comparison-ai-models": {
+    id: "comparison-ai-models",
+    name: "Comparison AI Models",
+    description: "Detailed comparison table for AI models with interactive hover effects. Each column represents a model with its icon, and cells are color-coded based on performance (best/worst/neutral) using green, red, and muted colors. Includes a technical analysis section below that highlights on hover. Designed for comparing LLM capabilities, pricing, and performance metrics. Best for AI/ML model comparisons, API pricing comparisons, technical specification matrices, and performance benchmarks.",
+    semanticTags: ["comparison", "ai", "models", "llm", "machine-learning", "api", "pricing", "performance", "benchmarks", "technical", "hover-effects"],
+    category: "comparison",
+    component: ComparisonAiModels,
+    props: "ComparisonAiModelsProps",
+    exampleUsage: `<ComparisonAiModels
+  models={{
+    modelA: { name: "GPT-4o", icon: "/openai.svg", summary: ["Fast response times"], hoverColor: "red" },
+    modelB: { name: "Claude 3.5", icon: "/claude.svg", summary: ["Best reasoning"], hoverColor: "blue" }
+  }}
+/>`.trim(),
+  },
+
+  "comparison-legacy-modern": {
+    id: "comparison-legacy-modern",
+    name: "Comparison Legacy Modern",
+    description: "Two-column comparison between legacy/old approaches and modern/new solutions. The legacy column uses muted styling with X icons for pain points, while the modern column uses a bordered card with emoji indicators for benefits. Features are separated by dividers for clear visual hierarchy. Best for digital transformation messaging, product modernization pitches, before/after comparisons, migration benefits, and upgrade justifications.",
+    semanticTags: ["comparison", "legacy", "modern", "transformation", "migration", "upgrade", "before-after", "old-vs-new", "benefits", "pain-points"],
+    category: "comparison",
+    component: ComparisonLegacyModern,
+    props: "ComparisonLegacyModernProps",
+    exampleUsage: `<ComparisonLegacyModern
+  title="Why Teams are"
+  titleHighlight="Moving to Modern Tools"
+  legacyFeatures={[{ text: "One-size-fits-all project tools" }]}
+  modernFeatures={[{ emoji: "🧭", text: "Built for modern product teams" }]}
+/>`.trim(),
   },
 };
 

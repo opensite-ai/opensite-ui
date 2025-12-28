@@ -1096,27 +1096,77 @@
       "import": "./dist/case-studies-featured-border.js",
       "require": "./dist/case-studies-featured-border.cjs"
     },
-        "./blocks/case-studies-list/case-studies-stats-card": {
-          "types": "./dist/case-studies-stats-card.d.ts",
-          "import": "./dist/case-studies-stats-card.js",
-          "require": "./dist/case-studies-stats-card.cjs"
-        },
-        "./blocks/case-study-detail/case-study-prose-sidebar": {
-          "types": "./dist/case-study-prose-sidebar.d.ts",
-          "import": "./dist/case-study-prose-sidebar.js",
-          "require": "./dist/case-study-prose-sidebar.cjs"
-        },
-        "./blocks/case-study-detail/case-study-toc-social-sidebar": {
-          "types": "./dist/case-study-toc-social-sidebar.d.ts",
-          "import": "./dist/case-study-toc-social-sidebar.js",
-          "require": "./dist/case-study-toc-social-sidebar.cjs"
-        },
-        "./blocks/case-study-detail/case-study-stats-metrics": {
-          "types": "./dist/case-study-stats-metrics.d.ts",
-          "import": "./dist/case-study-stats-metrics.js",
-          "require": "./dist/case-study-stats-metrics.cjs"
-        },
-        "./registry": {
+    "./blocks/case-studies-list/case-studies-stats-card": {
+      "types": "./dist/case-studies-stats-card.d.ts",
+      "import": "./dist/case-studies-stats-card.js",
+      "require": "./dist/case-studies-stats-card.cjs"
+    },
+    "./blocks/case-study-detail/case-study-prose-sidebar": {
+      "types": "./dist/case-study-prose-sidebar.d.ts",
+      "import": "./dist/case-study-prose-sidebar.js",
+      "require": "./dist/case-study-prose-sidebar.cjs"
+    },
+    "./blocks/case-study-detail/case-study-toc-social-sidebar": {
+      "types": "./dist/case-study-toc-social-sidebar.d.ts",
+      "import": "./dist/case-study-toc-social-sidebar.js",
+      "require": "./dist/case-study-toc-social-sidebar.cjs"
+    },
+    "./blocks/case-study-detail/case-study-stats-metrics": {
+      "types": "./dist/case-study-stats-metrics.d.ts",
+      "import": "./dist/case-study-stats-metrics.js",
+      "require": "./dist/case-study-stats-metrics.cjs"
+    },
+    "./blocks/comparison/comparison-table-two-column": {
+      "types": "./dist/comparison-table-two-column.d.ts",
+      "import": "./dist/comparison-table-two-column.js",
+      "require": "./dist/comparison-table-two-column.cjs"
+    },
+    "./blocks/comparison/comparison-feature-cards": {
+      "types": "./dist/comparison-feature-cards.d.ts",
+      "import": "./dist/comparison-feature-cards.js",
+      "require": "./dist/comparison-feature-cards.cjs"
+    },
+    "./blocks/comparison/comparison-grid-badges": {
+      "types": "./dist/comparison-grid-badges.d.ts",
+      "import": "./dist/comparison-grid-badges.js",
+      "require": "./dist/comparison-grid-badges.cjs"
+    },
+    "./blocks/comparison/comparison-metrics-rows": {
+      "types": "./dist/comparison-metrics-rows.d.ts",
+      "import": "./dist/comparison-metrics-rows.js",
+      "require": "./dist/comparison-metrics-rows.cjs"
+    },
+    "./blocks/comparison/comparison-image-cards": {
+      "types": "./dist/comparison-image-cards.d.ts",
+      "import": "./dist/comparison-image-cards.js",
+      "require": "./dist/comparison-image-cards.cjs"
+    },
+    "./blocks/comparison/comparison-table-tabs": {
+      "types": "./dist/comparison-table-tabs.d.ts",
+      "import": "./dist/comparison-table-tabs.js",
+      "require": "./dist/comparison-table-tabs.cjs"
+    },
+    "./blocks/comparison/comparison-table-tooltips": {
+      "types": "./dist/comparison-table-tooltips.d.ts",
+      "import": "./dist/comparison-table-tooltips.js",
+      "require": "./dist/comparison-table-tooltips.cjs"
+    },
+    "./blocks/comparison/comparison-feature-grid": {
+      "types": "./dist/comparison-feature-grid.d.ts",
+      "import": "./dist/comparison-feature-grid.js",
+      "require": "./dist/comparison-feature-grid.cjs"
+    },
+    "./blocks/comparison/comparison-ai-models": {
+      "types": "./dist/comparison-ai-models.d.ts",
+      "import": "./dist/comparison-ai-models.js",
+      "require": "./dist/comparison-ai-models.cjs"
+    },
+    "./blocks/comparison/comparison-legacy-modern": {
+      "types": "./dist/comparison-legacy-modern.d.ts",
+      "import": "./dist/comparison-legacy-modern.js",
+      "require": "./dist/comparison-legacy-modern.cjs"
+    },
+    "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
@@ -1187,6 +1237,7 @@
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-tooltip": "^1.2.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
