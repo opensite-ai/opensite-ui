@@ -145,7 +145,7 @@ export function FeatureImageOverlayBadge({
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
             />
-            <div className="absolute top-0 right-0 bottom-0 left-0 rounded-xl bg-gradient-to-t from-primary via-transparent to-transparent"></div>
+            <div className="absolute top-0 right-0 bottom-0 left-0 rounded-xl bg-linear-to-t from-primary via-transparent to-transparent"></div>
             <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
               <span className="ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm">
                 <Avatar className="size-7 rounded-full">

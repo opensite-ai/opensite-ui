@@ -22,12 +22,10 @@ export default defineConfig({
     ],
     // Run tests in isolated processes with increased heap to prevent memory leaks
     pool: "forks",
-    // Vitest 4 moved poolOptions to top-level
-    forks: {
-      singleFork: false,
-      isolate: true,
-      execArgv: ["--max-old-space-size=8192"],
-    },
+    // Vitest 4.x moved poolOptions to top-level test options
+    isolate: true,
+    fileParallelism: true,
+    execArgv: ["--max-old-space-size=8192"],
     // Increase test timeout for async validation tests
     testTimeout: 30000,
     coverage: {

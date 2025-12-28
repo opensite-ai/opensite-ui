@@ -158,7 +158,7 @@ export function FeatureBentoImageGrid({
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
             />
-            <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-gradient-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
+            <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
             <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
               <span className="ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background">
                 <DynamicIcon name={largeItem.icon} size={24} />
@@ -195,7 +195,7 @@ export function FeatureBentoImageGrid({
                   loading="lazy"
                   optixFlowConfig={optixFlowConfig}
                 />
-                <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-gradient-to-t from-primary to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
+                <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-10 rounded-xl bg-linear-to-t from-primary to-transparent opacity-80 transition-transform duration-300 group-hover:translate-y-0"></div>
                 <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
                   <span className="ml-auto flex w-fit items-center gap-1 p-2.5 text-sm font-semibold text-background">
                     <DynamicIcon name={item.icon} size={24} />

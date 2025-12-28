@@ -155,7 +155,7 @@ export function FeatureCarouselProgress({
             <div className="flex items-center space-x-2">
               <div className="mr-2 hidden items-center gap-3 text-xs text-muted-foreground md:flex">
                 <span>01</span>
-                <Progress value={progress} className="h-[2px] w-52" />
+                <Progress value={progress} className="h-0.5 w-52" />
                 <span>0{slides.length}</span>
               </div>
               <CarouselPrevious className="static translate-y-0" />

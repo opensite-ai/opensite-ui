@@ -154,7 +154,7 @@ export function FeatureImageCardsThreeColumn({
                 loading="lazy"
                 optixFlowConfig={optixFlowConfig}
               />
-              <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-gradient-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
+              <div className="absolute top-0 right-0 bottom-0 left-0 translate-y-20 rounded-xl bg-linear-to-t from-primary to-transparent transition-transform duration-300 group-hover:translate-y-0"></div>
               <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
                 <span
                   className={cn(
