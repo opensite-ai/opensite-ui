@@ -1,12 +1,19 @@
 "use client";
 
 import * as React from "react";
+import { Form, useForm, Field } from "@page-speed/forms";
+import { TextInput } from "@page-speed/forms/inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import { Input } from "../../ui/input";
+import {
+  isValidEmail,
+  PageSpeedFormSubmissionError,
+  submitPageSpeedForm,
+  type PageSpeedFormConfig,
+} from "../../../lib/forms";
 
 export interface CtaAppDownloadNewsletterProps {
   /**
@@ -50,6 +57,22 @@ export interface CtaAppDownloadNewsletterProps {
    */
   className?: string;
   /**
+   * Form submission configuration for @page-speed/forms
+   */
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Optional submit callback
+   */
+  onSubmit?: (email: string) => void | Promise<void>;
+  /**
+   * Optional success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Optional error callback
+   */
+  onError?: (error: Error) => void;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: {
@@ -86,8 +109,66 @@ export function CtaAppDownloadNewsletter({
   newsletterButtonText = "Subscribe",
   emailPlaceholder = "Enter your email",
   className,
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
   optixFlowConfig,
 }: CtaAppDownloadNewsletterProps): React.JSX.Element {
+  const form = useForm<{ email: string }>({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: {
+      email: (value) => {
+        if (!value) return "Email is required";
+        if (!isValidEmail(value)) return "Please enter a valid email address";
+        return undefined;
+      },
+    },
+    onSubmit: async (values, helpers) => {
+      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+
+      if (!shouldAutoSubmit && !onSubmit) {
+        return;
+      }
+
+      try {
+        let result: unknown;
+
+        if (shouldAutoSubmit) {
+          result = await submitPageSpeedForm(values, formConfig);
+        }
+
+        if (onSubmit) {
+          await onSubmit(values.email);
+        }
+
+        if (shouldAutoSubmit || onSubmit) {
+          if (formConfig?.resetOnSuccess !== false) {
+            helpers.resetForm();
+          }
+          onSuccess?.(result);
+        }
+      } catch (error) {
+        if (
+          error instanceof PageSpeedFormSubmissionError &&
+          error.formErrors
+        ) {
+          helpers.setErrors(error.formErrors);
+        }
+        onError?.(error as Error);
+        throw error;
+      }
+    },
+  });
+
+  const formMethod = (formConfig?.method ?? "post") as
+    | "post"
+    | "get"
+    | "put"
+    | "patch";
+
   return (
     <section className={cn("py-32", className)}>
       <div className="container">
@@ -136,23 +217,36 @@ export function CtaAppDownloadNewsletter({
             <p className="mb-8 text-muted-foreground">
               {newsletterDescription}
             </p>
-            <form className="flex flex-col gap-3 sm:flex-row">
-              <Input
-                type="email"
-                placeholder={emailPlaceholder}
-                className="flex-1"
-              />
+            <Form
+              form={form}
+              action={formConfig?.endpoint}
+              method={formMethod}
+              className="flex flex-col gap-3 sm:flex-row"
+            >
+              <Field name="email" className="flex-1">
+                {({ field, meta }) => (
+                  <TextInput
+                    {...field}
+                    type="email"
+                    placeholder={emailPlaceholder}
+                    error={meta.touched && !!meta.error}
+                    className="w-full"
+                    aria-label={emailPlaceholder || "Email address"}
+                  />
+                )}
+              </Field>
               <Pressable
-                href="#"
+                componentType="button"
+                type="submit"
                 variant="default"
                 className="shrink-0"
                 asButton
-                onClick={(e) => e.preventDefault()}
+                disabled={form.isSubmitting}
               >
                 {newsletterButtonText}
                 <DynamicIcon name="lucide/send" size={16} className="ml-2" />
               </Pressable>
-            </form>
+            </Form>
           </div>
         </div>
       </div>

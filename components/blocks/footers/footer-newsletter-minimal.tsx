@@ -1,10 +1,18 @@
 "use client";
 
 import * as React from "react";
+import { Field, Form, useForm } from "@page-speed/forms";
+import { TextInput } from "@page-speed/forms/inputs";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import {
+  isValidEmail,
+  PageSpeedFormSubmissionError,
+  submitPageSpeedForm,
+  type PageSpeedFormConfig,
+} from "../../../lib/forms";
 
 /**
  * Navigation link configuration
@@ -50,6 +58,14 @@ export interface FooterNewsletterMinimalProps {
   newsletterLabel?: string;
   /** Newsletter placeholder */
   newsletterPlaceholder?: string;
+  /** Form submission configuration for @page-speed/forms */
+  formConfig?: PageSpeedFormConfig;
+  /** Optional submit callback */
+  onSubmit?: (email: string) => void | Promise<void>;
+  /** Optional success callback */
+  onSuccess?: (data: unknown) => void;
+  /** Optional error callback */
+  onError?: (error: Error) => void;
   /** Location text */
   location?: string;
 }
@@ -89,9 +105,63 @@ export function FooterNewsletterMinimal({
   socialLinks = defaultSocialLinks,
   footerLinks = defaultFooterLinks,
   newsletterLabel = "Sign up for newsletter :",
-  newsletterPlaceholder = "Name*",
+  newsletterPlaceholder = "Email*",
+  formConfig,
+  onSubmit,
+  onSuccess,
+  onError,
   location = "San Francisco, CA",
 }: FooterNewsletterMinimalProps): React.JSX.Element {
+  const form = useForm<{ email: string }>({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: {
+      email: (value) => {
+        if (!value) return "Email is required";
+        if (!isValidEmail(value)) return "Please enter a valid email address";
+        return undefined;
+      },
+    },
+    onSubmit: async (values, helpers) => {
+      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
+
+      if (!shouldAutoSubmit && !onSubmit) {
+        return;
+      }
+
+      try {
+        let result: unknown;
+
+        if (shouldAutoSubmit) {
+          result = await submitPageSpeedForm(values, formConfig);
+        }
+
+        if (onSubmit) {
+          await onSubmit(values.email);
+        }
+
+        if (shouldAutoSubmit || onSubmit) {
+          if (formConfig?.resetOnSuccess !== false) {
+            helpers.resetForm();
+          }
+          onSuccess?.(result);
+        }
+      } catch (error) {
+        if (
+          error instanceof PageSpeedFormSubmissionError &&
+          error.formErrors
+        ) {
+          helpers.setErrors(error.formErrors);
+        }
+        onError?.(error as Error);
+        throw error;
+      }
+    },
+  });
+
+  const formMethod = formConfig?.method === "get" ? "get" : "post";
+
   return (
     <section
       className={cn("dark bg-background py-32 text-foreground", className)}
@@ -145,16 +215,34 @@ export function FooterNewsletterMinimal({
           <div className="flex w-full max-w-md flex-col gap-10">
             <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
               <p>{newsletterLabel}</p>
-              <form className="flex w-full items-end border-b border-b-foreground/10">
-                <input
-                  type="text"
-                  placeholder={newsletterPlaceholder}
-                  className="mt-10 w-full rounded-none border-0 bg-transparent p-0 uppercase shadow-none placeholder:text-foreground/20 focus:outline-none focus:ring-0 lg:text-base"
-                />
-                <button type="submit" className="p-2 hover:bg-muted/20">
+              <Form
+                form={form}
+                action={formConfig?.endpoint}
+                method={formMethod}
+                className="flex w-full items-end border-b border-b-foreground/10"
+              >
+                <Field name="email" className="flex-1">
+                  {({ field, meta }) => (
+                    <TextInput
+                      {...field}
+                      type="email"
+                      placeholder={newsletterPlaceholder}
+                      error={meta.touched && !!meta.error}
+                      className="mt-10 h-auto w-full rounded-none border-0 bg-transparent p-0 uppercase shadow-none placeholder:text-foreground/20 focus:outline-none focus:ring-0 lg:text-base"
+                      aria-label={newsletterPlaceholder || "Email address"}
+                    />
+                  )}
+                </Field>
+                <Pressable
+                  componentType="button"
+                  type="submit"
+                  className="p-2 hover:bg-muted/20"
+                  asButton={false}
+                  disabled={form.isSubmitting}
+                >
                   <DynamicIcon name="lucide/arrow-right" size={20} />
-                </button>
-              </form>
+                </Pressable>
+              </Form>
             </div>
           </div>
           <div className="grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base">
