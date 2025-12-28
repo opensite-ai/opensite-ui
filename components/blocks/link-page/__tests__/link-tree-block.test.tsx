@@ -56,7 +56,7 @@ describe("LinkTreeBlock", () => {
   it("renders with glass theme", () => {
     const { container } = render(<LinkTreeBlock brandName="Test" theme="glass" />);
     const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("bg-gradient-to-br");
+    expect(wrapper).toHaveClass("bg-linear-to-br");
   });
 
   it("renders links when provided", () => {

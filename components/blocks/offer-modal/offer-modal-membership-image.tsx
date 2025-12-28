@@ -280,14 +280,14 @@ export function OfferModalMembershipImage({
                       {...field}
                       type="email"
                       placeholder={emailPlaceholder}
-                      error={meta.touched && !!meta.error}
+                      error={(meta.touched || form.status === 'error') && !!meta.error}
                       className="w-full pr-10"
                       aria-label={emailPlaceholder || "Email address"}
                     />
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                       <DynamicIcon name="lucide/mail" size={16} />
                     </div>
-                    {meta.touched && meta.error && (
+                    {(meta.touched || form.status === 'error') && meta.error && (
                       <div className="text-destructive mt-1 text-xs">
                         {meta.error}
                       </div>

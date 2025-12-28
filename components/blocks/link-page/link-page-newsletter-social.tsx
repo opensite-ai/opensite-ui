@@ -139,16 +139,51 @@ export interface LinkPageNewsletterSocialProps {
 }
 
 const defaultLinks: NewsletterSocialLink[] = [
-  { id: "1", label: "My Website", href: "https://example.com", icon: "lucide/globe" },
-  { id: "2", label: "Latest Blog Post", href: "https://example.com/blog", icon: "lucide/file-text" },
-  { id: "3", label: "Free Resources", href: "https://example.com/resources", icon: "lucide/download" },
+  {
+    id: "1",
+    label: "My Website",
+    href: "https://example.com",
+    icon: "lucide/globe",
+  },
+  {
+    id: "2",
+    label: "Latest Blog Post",
+    href: "https://example.com/blog",
+    icon: "lucide/file-text",
+  },
+  {
+    id: "3",
+    label: "Free Resources",
+    href: "https://example.com/resources",
+    icon: "lucide/download",
+  },
 ];
 
 const defaultSocialLinks: NewsletterSocialSocialLink[] = [
-  { id: "s1", platform: "Twitter", href: "https://twitter.com", icon: "simple-icons/x" },
-  { id: "s2", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" },
-  { id: "s3", platform: "YouTube", href: "https://youtube.com", icon: "simple-icons/youtube" },
-  { id: "s4", platform: "TikTok", href: "https://tiktok.com", icon: "simple-icons/tiktok" },
+  {
+    id: "s1",
+    platform: "Twitter",
+    href: "https://twitter.com",
+    icon: "simple-icons/x",
+  },
+  {
+    id: "s2",
+    platform: "Instagram",
+    href: "https://instagram.com",
+    icon: "simple-icons/instagram",
+  },
+  {
+    id: "s3",
+    platform: "YouTube",
+    href: "https://youtube.com",
+    icon: "simple-icons/youtube",
+  },
+  {
+    id: "s4",
+    platform: "TikTok",
+    href: "https://tiktok.com",
+    icon: "simple-icons/tiktok",
+  },
 ];
 
 /**
@@ -243,10 +278,7 @@ export function LinkPageNewsletterSocial({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -262,7 +294,7 @@ export function LinkPageNewsletterSocial({
     <div
       className={cn(
         "min-h-screen w-full flex items-start justify-center py-12 px-4",
-        isDark ? "bg-neutral-950" : "bg-gradient-to-b from-white to-neutral-50",
+        isDark ? "bg-neutral-950" : "bg-linear-to-b from-white to-neutral-50",
         className
       )}
     >
@@ -363,7 +395,8 @@ export function LinkPageNewsletterSocial({
                   error={meta.touched && !!meta.error}
                   className={cn(
                     "w-full",
-                    isDark && "bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                    isDark &&
+                      "bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   )}
                   aria-label={emailPlaceholder || "Email address"}
                 />
@@ -380,7 +413,11 @@ export function LinkPageNewsletterSocial({
             >
               {form.isSubmitting ? (
                 <>
-                  <DynamicIcon name="lucide/loader-2" size={16} className="animate-spin" />
+                  <DynamicIcon
+                    name="lucide/loader-2"
+                    size={16}
+                    className="animate-spin"
+                  />
                   <span>Subscribing...</span>
                 </>
               ) : (
@@ -411,14 +448,18 @@ export function LinkPageNewsletterSocial({
                   <DynamicIcon
                     name={link.icon}
                     size={18}
-                    className={isDark ? "text-neutral-400" : "text-muted-foreground"}
+                    className={
+                      isDark ? "text-neutral-400" : "text-muted-foreground"
+                    }
                   />
                 )}
                 <span className="text-sm font-medium flex-1">{link.label}</span>
                 <DynamicIcon
                   name="lucide/chevron-right"
                   size={16}
-                  className={isDark ? "text-neutral-600" : "text-muted-foreground"}
+                  className={
+                    isDark ? "text-neutral-600" : "text-muted-foreground"
+                  }
                 />
               </Pressable>
             ))}

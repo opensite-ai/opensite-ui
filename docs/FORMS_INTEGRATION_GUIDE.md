@@ -1018,6 +1018,124 @@ test("submits to API endpoint", async () => {
 });
 ```
 
+### Testing Validation Errors
+
+When testing form validation errors with `@page-speed/forms`, there are important behaviors to understand:
+
+#### Understanding Validation vs Touched State
+
+The `@page-speed/forms` library validates fields on form submission but does **not** automatically set the `touched` state for fields. This means:
+
+1. After submission, validation errors exist in `meta.error`
+2. However, `meta.touched` may still be `false`
+3. Components should show errors when either:
+   - The field has been touched AND has an error, OR
+   - The form has validation errors (status === 'error')
+
+#### Recommended Error Display Pattern
+
+```tsx
+import { useForm, Form, Field } from "@page-speed/forms";
+
+function MyFormComponent() {
+  const form = useForm({
+    defaultValues: { email: "" },
+    validate: (values) => {
+      const errors: Record<string, string> = {};
+      if (!values.email) {
+        errors.email = "Please enter an email address";
+      }
+      return errors;
+    },
+  });
+
+  return (
+    <Form form={form}>
+      <Field name="email">
+        {({ field, meta }) => (
+          <div>
+            <input {...field} type="email" />
+            {/* Show error when touched OR when form has validation errors */}
+            {(meta.touched || form.status === 'error') && meta.error && (
+              <div className="text-destructive text-xs mt-1">
+                {meta.error}
+              </div>
+            )}
+          </div>
+        )}
+      </Field>
+    </Form>
+  );
+}
+```
+
+#### Testing Error Messages with Duplicate Elements
+
+The `@page-speed/forms` `Field` component may render its own error message with class `field-error`. When testing, you may encounter multiple elements with the same error text. Use this pattern to find your specific error element:
+
+```tsx
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
+test("shows error for empty email", async () => {
+  const user = userEvent.setup();
+  render(<MyFormComponent />);
+
+  // Submit the form without entering an email
+  const submitButton = screen.getByRole("button", { name: /submit/i });
+  await user.click(submitButton);
+
+  // Wait for validation and find the specific error element
+  await waitFor(async () => {
+    // Use getAllByText since Field component may also render an error
+    const errors = screen.getAllByText("Please enter an email address");
+    // Find your specific error element by class
+    const errorMessage = errors.find(el =>
+      el.classList.contains("text-destructive")
+    );
+    expect(errorMessage).toBeInTheDocument();
+  }, { timeout: 3000 });
+});
+```
+
+#### Testing Invalid Email Format
+
+```tsx
+test("shows error for invalid email format", async () => {
+  const user = userEvent.setup();
+  render(<MyFormComponent />);
+
+  // Enter an invalid email
+  const emailInput = screen.getByPlaceholderText(/email/i);
+  await user.type(emailInput, "invalid-email");
+
+  // Submit the form
+  const submitButton = screen.getByRole("button", { name: /submit/i });
+  await user.click(submitButton);
+
+  // Wait for validation error
+  await waitFor(async () => {
+    const errors = screen.getAllByText("Please enter a valid email address");
+    const errorMessage = errors.find(el =>
+      el.classList.contains("text-destructive")
+    );
+    expect(errorMessage).toBeInTheDocument();
+  }, { timeout: 3000 });
+});
+```
+
+#### Key Testing Tips
+
+1. **Use `userEvent` over `fireEvent`**: `userEvent` better simulates real user interactions and handles async state updates properly.
+
+2. **Always use `waitFor` for error assertions**: Form validation is asynchronous, so wrap error assertions in `waitFor`.
+
+3. **Handle duplicate error elements**: The `Field` component renders its own error with class `field-error`. Use `getAllByText` and filter by your custom class.
+
+4. **Set appropriate timeouts**: Form validation may take time; use `{ timeout: 3000 }` or higher for `waitFor`.
+
+5. **Check form status for error display**: Use `form.status === 'error'` in addition to `meta.touched` to ensure errors show after submission.
+
 ## 15. Migration Guide
 
 ### From Custom Forms to @page-speed/forms

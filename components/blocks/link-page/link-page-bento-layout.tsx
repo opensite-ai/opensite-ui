@@ -110,10 +110,30 @@ const defaultLinks: BentoLink[] = [
 ];
 
 const defaultSocialLinks: BentoSocialLink[] = [
-  { id: "s1", platform: "Twitter", href: "https://twitter.com", icon: "simple-icons/x" },
-  { id: "s2", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" },
-  { id: "s3", platform: "TikTok", href: "https://tiktok.com", icon: "simple-icons/tiktok" },
-  { id: "s4", platform: "LinkedIn", href: "https://linkedin.com", icon: "simple-icons/linkedin" },
+  {
+    id: "s1",
+    platform: "Twitter",
+    href: "https://twitter.com",
+    icon: "simple-icons/x",
+  },
+  {
+    id: "s2",
+    platform: "Instagram",
+    href: "https://instagram.com",
+    icon: "simple-icons/instagram",
+  },
+  {
+    id: "s3",
+    platform: "TikTok",
+    href: "https://tiktok.com",
+    icon: "simple-icons/tiktok",
+  },
+  {
+    id: "s4",
+    platform: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: "simple-icons/linkedin",
+  },
 ];
 
 /**
@@ -237,7 +257,7 @@ export function LinkPageBentoLayout({
                   key={link.id}
                   href={link.href}
                   className={cn(
-                    "group relative aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-200",
+                    "group relative aspect-4/3 rounded-2xl overflow-hidden transition-all duration-200",
                     "hover:scale-[1.02] active:scale-[0.98]",
                     isDark
                       ? "bg-white/5 border border-white/10"
@@ -255,10 +275,10 @@ export function LinkPageBentoLayout({
                     className={cn(
                       "absolute inset-0 transition-opacity",
                       link.imageUrl
-                        ? "bg-gradient-to-t from-black/80 via-black/40 to-transparent"
+                        ? "bg-linear-to-t from-black/80 via-black/40 to-transparent"
                         : isDark
-                          ? "bg-gradient-to-t from-white/10 to-transparent"
-                          : "bg-gradient-to-t from-neutral-200/50 to-transparent"
+                        ? "bg-linear-to-t from-white/10 to-transparent"
+                        : "bg-linear-to-t from-neutral-200/50 to-transparent"
                     )}
                   />
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
@@ -267,13 +287,23 @@ export function LinkPageBentoLayout({
                         <DynamicIcon
                           name={link.icon}
                           size={18}
-                          className={link.imageUrl ? "text-white" : isDark ? "text-white" : "text-foreground"}
+                          className={
+                            link.imageUrl
+                              ? "text-white"
+                              : isDark
+                              ? "text-white"
+                              : "text-foreground"
+                          }
                         />
                       )}
                       <span
                         className={cn(
                           "font-semibold text-sm",
-                          link.imageUrl ? "text-white" : isDark ? "text-white" : "text-foreground"
+                          link.imageUrl
+                            ? "text-white"
+                            : isDark
+                            ? "text-white"
+                            : "text-foreground"
                         )}
                       >
                         {link.label}
@@ -283,7 +313,11 @@ export function LinkPageBentoLayout({
                       <span
                         className={cn(
                           "text-xs mt-0.5",
-                          link.imageUrl ? "text-white/70" : isDark ? "text-neutral-400" : "text-muted-foreground"
+                          link.imageUrl
+                            ? "text-white/70"
+                            : isDark
+                            ? "text-neutral-400"
+                            : "text-muted-foreground"
                         )}
                       >
                         {link.description}

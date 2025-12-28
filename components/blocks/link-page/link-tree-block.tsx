@@ -142,7 +142,11 @@ function BrandHeader({
         </div>
         {brandVerified && (
           <div className="absolute -bottom-1 -right-1 rounded-full bg-primary p-1">
-            <DynamicIcon name="lucide/check" size={14} className="text-primary-foreground" />
+            <DynamicIcon
+              name="lucide/check"
+              size={14}
+              className="text-primary-foreground"
+            />
           </div>
         )}
       </div>
@@ -186,13 +190,16 @@ function LinkItem({ link, theme = "light" }: LinkItemProps) {
         "group relative flex items-center gap-3 w-full rounded-xl px-4 py-3.5 transition-all duration-200",
         "hover:scale-[1.02] active:scale-[0.98]",
         isFeatured
-          ? cn("bg-primary text-primary-foreground shadow-lg", "hover:bg-primary/90")
+          ? cn(
+              "bg-primary text-primary-foreground shadow-lg",
+              "hover:bg-primary/90"
+            )
           : cn(
               theme === "dark"
                 ? "bg-white/10 text-white hover:bg-white/20 border border-white/10"
                 : theme === "glass"
-                  ? "bg-white/60 backdrop-blur-sm text-foreground hover:bg-white/80 border border-white/30"
-                  : "bg-card text-card-foreground hover:bg-accent border border-border"
+                ? "bg-white/60 backdrop-blur-sm text-foreground hover:bg-white/80 border border-white/30"
+                : "bg-card text-card-foreground hover:bg-accent border border-border"
             )
       )}
     >
@@ -205,8 +212,8 @@ function LinkItem({ link, theme = "light" }: LinkItemProps) {
             isFeatured
               ? "text-primary-foreground"
               : theme === "dark"
-                ? "text-white"
-                : "text-foreground"
+              ? "text-white"
+              : "text-foreground"
           )}
         />
       )}
@@ -220,8 +227,8 @@ function LinkItem({ link, theme = "light" }: LinkItemProps) {
               isFeatured
                 ? "text-primary-foreground/70"
                 : theme === "dark"
-                  ? "text-white/60"
-                  : "text-muted-foreground"
+                ? "text-white/60"
+                : "text-muted-foreground"
             )}
           >
             {link.description}
@@ -230,7 +237,10 @@ function LinkItem({ link, theme = "light" }: LinkItemProps) {
       </div>
 
       {link.badge && (
-        <Badge variant={isFeatured ? "secondary" : "default"} className="shrink-0 text-xs">
+        <Badge
+          variant={isFeatured ? "secondary" : "default"}
+          className="shrink-0 text-xs"
+        >
           {link.badge}
         </Badge>
       )}
@@ -243,8 +253,8 @@ function LinkItem({ link, theme = "light" }: LinkItemProps) {
           isFeatured
             ? "text-primary-foreground/70"
             : theme === "dark"
-              ? "text-white/50"
-              : "text-muted-foreground"
+            ? "text-white/50"
+            : "text-muted-foreground"
         )}
       />
     </Pressable>
@@ -256,7 +266,10 @@ interface SocialLinksProps {
   theme?: "light" | "dark" | "glass";
 }
 
-function SocialLinksSection({ socialLinks, theme = "light" }: SocialLinksProps) {
+function SocialLinksSection({
+  socialLinks,
+  theme = "light",
+}: SocialLinksProps) {
   return (
     <div className="flex items-center justify-center gap-2 flex-wrap">
       {socialLinks.map((social) => (
@@ -270,8 +283,8 @@ function SocialLinksSection({ socialLinks, theme = "light" }: SocialLinksProps) 
             theme === "dark"
               ? "bg-white/10 text-white hover:bg-white/20"
               : theme === "glass"
-                ? "bg-white/60 backdrop-blur-sm hover:bg-white/80"
-                : "bg-muted hover:bg-accent"
+              ? "bg-white/60 backdrop-blur-sm hover:bg-white/80"
+              : "bg-muted hover:bg-accent"
           )}
         >
           <DynamicIcon
@@ -291,7 +304,11 @@ interface MediaGalleryProps {
   theme?: "light" | "dark" | "glass";
 }
 
-function MediaGallerySection({ items, title, theme = "light" }: MediaGalleryProps) {
+function MediaGallerySection({
+  items,
+  title,
+  theme = "light",
+}: MediaGalleryProps) {
   return (
     <div className="space-y-3">
       {title && (
@@ -392,10 +409,30 @@ const defaultLinks: LinkTreeLink[] = [
 ];
 
 const defaultSocialLinks: SocialLink[] = [
-  { id: "s1", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" },
-  { id: "s2", platform: "TikTok", href: "https://tiktok.com", icon: "simple-icons/tiktok" },
-  { id: "s3", platform: "Twitter", href: "https://twitter.com", icon: "simple-icons/x" },
-  { id: "s4", platform: "LinkedIn", href: "https://linkedin.com", icon: "simple-icons/linkedin" },
+  {
+    id: "s1",
+    platform: "Instagram",
+    href: "https://instagram.com",
+    icon: "simple-icons/instagram",
+  },
+  {
+    id: "s2",
+    platform: "TikTok",
+    href: "https://tiktok.com",
+    icon: "simple-icons/tiktok",
+  },
+  {
+    id: "s3",
+    platform: "Twitter",
+    href: "https://twitter.com",
+    icon: "simple-icons/x",
+  },
+  {
+    id: "s4",
+    platform: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: "simple-icons/linkedin",
+  },
 ];
 
 const defaultMediaGallery: MediaGalleryItem[] = [
@@ -465,11 +502,15 @@ export function LinkTreeBlock({
         theme === "dark"
           ? "bg-neutral-950"
           : theme === "glass"
-            ? "bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100"
-            : "bg-muted/30",
+          ? "bg-linear-to-br from-pink-100 via-purple-50 to-blue-100"
+          : "bg-muted/30",
         className
       )}
-      style={accentColor ? ({ "--accent-color": accentColor } as React.CSSProperties) : undefined}
+      style={
+        accentColor
+          ? ({ "--accent-color": accentColor } as React.CSSProperties)
+          : undefined
+      }
     >
       {backgroundPattern && (
         <div
@@ -501,7 +542,11 @@ export function LinkTreeBlock({
         )}
 
         {mediaGallery.length > 0 && (
-          <MediaGallerySection items={mediaGallery} title={mediaGalleryTitle} theme={theme} />
+          <MediaGallerySection
+            items={mediaGallery}
+            title={mediaGalleryTitle}
+            theme={theme}
+          />
         )}
 
         {socialLinks.length > 0 && (

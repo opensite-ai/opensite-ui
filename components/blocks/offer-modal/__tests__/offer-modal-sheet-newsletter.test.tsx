@@ -118,9 +118,13 @@ describe("OfferModalSheetNewsletter", () => {
     await user.click(submitButton);
 
     // Find error by class name since the component renders a plain div
-    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
-    expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage).toHaveClass("text-destructive");
+    // Note: The @page-speed/forms Field component also renders an error, so we need to find the one with text-destructive class
+    await waitFor(async () => {
+      const errors = screen.getAllByText("Please enter an email address");
+      const errorMessage = errors.find(el => el.classList.contains("text-destructive"));
+      expect(errorMessage).toBeInTheDocument();
+      expect(errorMessage).toHaveClass("text-destructive");
+    }, { timeout: 3000 });
   });
 
   it("shows error for invalid email format", async () => {
@@ -138,9 +142,13 @@ describe("OfferModalSheetNewsletter", () => {
     await user.click(submitButton);
 
     // Find error by class name since the component renders a plain div
-    const errorMessage = await screen.findByText("Please enter a valid email address", {}, { timeout: 3000 });
-    expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage).toHaveClass("text-destructive");
+    // Note: The @page-speed/forms Field component also renders an error, so we need to find the one with text-destructive class
+    await waitFor(async () => {
+      const errors = screen.getAllByText("Please enter a valid email address");
+      const errorMessage = errors.find(el => el.classList.contains("text-destructive"));
+      expect(errorMessage).toBeInTheDocument();
+      expect(errorMessage).toHaveClass("text-destructive");
+    }, { timeout: 3000 });
   });
 
   it("clears error when user types", async () => {
@@ -156,9 +164,13 @@ describe("OfferModalSheetNewsletter", () => {
     await user.click(submitButton);
 
     // Wait for error to appear
-    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
-    expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage).toHaveClass("text-destructive");
+    // Note: The @page-speed/forms Field component also renders an error, so we need to find the one with text-destructive class
+    await waitFor(async () => {
+      const errors = screen.getAllByText("Please enter an email address");
+      const errorMessage = errors.find(el => el.classList.contains("text-destructive"));
+      expect(errorMessage).toBeInTheDocument();
+      expect(errorMessage).toHaveClass("text-destructive");
+    }, { timeout: 3000 });
 
     // Click input and type to clear the error
     await user.click(input);

@@ -290,10 +290,10 @@ export function OfferModalSheetNewsletter({
                           type="email"
                           className="h-10 w-full rounded-full px-6"
                           placeholder={emailPlaceholder}
-                          error={meta.touched && !!meta.error}
+                          error={(meta.touched || form.status === 'error') && !!meta.error}
                           aria-label={emailPlaceholder || "Email address"}
                         />
-                        {meta.touched && meta.error && (
+                        {(meta.touched || form.status === 'error') && meta.error && (
                           <div className="text-destructive mt-1 text-xs">
                             {meta.error}
                           </div>

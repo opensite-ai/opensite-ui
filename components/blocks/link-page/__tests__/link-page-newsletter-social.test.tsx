@@ -54,7 +54,7 @@ describe("LinkPageNewsletterSocial", () => {
   it("renders with light theme by default", () => {
     const { container } = render(<LinkPageNewsletterSocial name="Test" />);
     const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("bg-gradient-to-b");
+    expect(wrapper).toHaveClass("bg-linear-to-b");
   });
 
   it("renders with dark theme", () => {
