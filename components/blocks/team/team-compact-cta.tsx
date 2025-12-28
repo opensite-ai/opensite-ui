@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
 import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -152,7 +151,10 @@ export function TeamCompactCta({
         </div>
         <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {members.map((member) => (
-            <div key={member.id} className="flex flex-col items-center text-center">
+            <div
+              key={member.id}
+              className="flex flex-col items-center text-center"
+            >
               <Avatar className="mb-4 size-20 border lg:size-24">
                 <AvatarImage src={member.avatar} alt={member.name} />
                 <AvatarFallback className="text-xl font-bold">

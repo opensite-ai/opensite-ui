@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
 import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import { Card, CardContent } from "../../ui/card";
@@ -176,8 +175,12 @@ export function TeamSkillBadges({
                   </div>
                   <div className="mt-4 space-y-2">
                     <h3 className="text-lg font-medium">{member.name}</h3>
-                    <p className="text-muted-foreground text-sm">{member.role}</p>
-                    <p className="text-muted-foreground text-sm">{member.bio}</p>
+                    <p className="text-muted-foreground text-sm">
+                      {member.role}
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      {member.bio}
+                    </p>
                   </div>
                   <div className="mt-6 flex flex-wrap justify-center gap-2">
                     {member.skills.map((skill) => (

@@ -185,8 +185,8 @@ export function CtaEnterpriseDarkFeatures({
               </div>
             </div>
           </div>
-          <div className="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 blur-3xl" />
-          <div className="absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 blur-3xl" />
+          <div className="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-linear-to-br from-blue-500/20 to-purple-500/20 blur-3xl" />
+          <div className="absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-linear-to-br from-purple-500/20 to-pink-500/20 blur-3xl" />
         </div>
       </div>
     </section>

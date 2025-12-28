@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
 import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -90,7 +89,8 @@ const defaultMembers: TeamFilterableSearchMember[] = [
     name: "Sarah Chen",
     role: "CEO & Co-founder",
     department: "Leadership",
-    description: "Former Google PM with 10+ years building products that millions use daily.",
+    description:
+      "Former Google PM with 10+ years building products that millions use daily.",
     avatar: blockBrandedIconsAndPlaceholders.avatar1,
     social: { github: "#", twitter: "#", linkedin: "#" },
   },
@@ -99,7 +99,8 @@ const defaultMembers: TeamFilterableSearchMember[] = [
     name: "Marcus Rodriguez",
     role: "CTO & Co-founder",
     department: "Engineering",
-    description: "Ex-Meta engineer who led teams building infrastructure that served billions.",
+    description:
+      "Ex-Meta engineer who led teams building infrastructure that served billions.",
     avatar: blockBrandedIconsAndPlaceholders.avatar2,
     social: { github: "#", twitter: "#", linkedin: "#" },
   },
@@ -126,7 +127,8 @@ const defaultMembers: TeamFilterableSearchMember[] = [
     name: "Emma Thompson",
     role: "Head of Marketing",
     department: "Marketing",
-    description: "Marketing strategist who grew multiple startups from 0 to millions.",
+    description:
+      "Marketing strategist who grew multiple startups from 0 to millions.",
     avatar: blockBrandedIconsAndPlaceholders.avatar5,
     social: { github: "#", twitter: "#", linkedin: "#" },
   },
@@ -135,7 +137,8 @@ const defaultMembers: TeamFilterableSearchMember[] = [
     name: "Alex Johnson",
     role: "Head of Sales",
     department: "Sales",
-    description: "Sales leader with a track record of building high-performing teams.",
+    description:
+      "Sales leader with a track record of building high-performing teams.",
     avatar: blockBrandedIconsAndPlaceholders.avatar6,
     social: { github: "#", twitter: "#", linkedin: "#" },
   },
@@ -196,7 +199,8 @@ export function TeamFilterableSearch({
         member.description.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesDepartment =
-        selectedDepartment === "All" || member.department === selectedDepartment;
+        selectedDepartment === "All" ||
+        member.department === selectedDepartment;
 
       return matchesSearch && matchesDepartment;
     });
@@ -273,7 +277,9 @@ export function TeamFilterableSearch({
                       {member.department}
                     </Badge>
                   </div>
-                  <p className="text-sm font-medium text-primary">{member.role}</p>
+                  <p className="text-sm font-medium text-primary">
+                    {member.role}
+                  </p>
                   <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
                     {member.description}
                   </p>

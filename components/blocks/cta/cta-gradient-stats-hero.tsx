@@ -91,7 +91,7 @@ export function CtaGradientStatsHero({
   return (
     <section className={cn("py-32", className)}>
       <div className="container">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 p-8 text-primary-foreground md:p-12 lg:p-16">
+        <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-primary via-primary/90 to-primary/80 p-8 text-primary-foreground md:p-12 lg:p-16">
           <div className="relative z-10 mx-auto max-w-3xl text-center">
             <h2 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
               {heading}

@@ -83,13 +83,15 @@ export function CtaVideoBackgroundHero({
           >
             <source src={backgroundVideoUrl} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/30" />
           <div className="relative z-10 flex h-full items-center justify-center">
             <div className="max-w-2xl p-8 text-center text-white">
               <h2 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
                 {heading}
               </h2>
-              <p className="mb-8 text-lg opacity-90 md:text-xl">{description}</p>
+              <p className="mb-8 text-lg opacity-90 md:text-xl">
+                {description}
+              </p>
               <div className="flex flex-col justify-center gap-3 sm:flex-row">
                 <Pressable
                   href={primaryButtonUrl}
@@ -139,11 +141,7 @@ export function CtaVideoBackgroundHero({
             >
               <DynamicIcon name="lucide/x" size={20} />
             </button>
-            <video
-              controls
-              autoPlay
-              className="w-full rounded-lg"
-            >
+            <video controls autoPlay className="w-full rounded-lg">
               <source src={modalVideoUrl} type="video/mp4" />
             </video>
           </div>

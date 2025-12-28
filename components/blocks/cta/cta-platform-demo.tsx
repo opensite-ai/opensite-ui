@@ -89,7 +89,9 @@ export function CtaPlatformDemo({
         <div className="relative mx-auto flex max-w-7xl flex-col justify-between gap-6 overflow-hidden rounded-xl border bg-muted/50 md:flex-row">
           <div className="max-w-xl self-center p-6 md:p-12">
             <h2 className="text-3xl font-semibold md:text-4xl">{heading}</h2>
-            <p className="mt-4 text-muted-foreground md:text-lg">{description}</p>
+            <p className="mt-4 text-muted-foreground md:text-lg">
+              {description}
+            </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Pressable href={primaryButtonUrl} variant="default" asButton>
                 {primaryButtonText}
@@ -104,7 +106,7 @@ export function CtaPlatformDemo({
             <Img
               src={decorativeImage}
               alt=""
-              className="absolute -bottom-12 left-4 h-48 -translate-x-1/2 -rotate-[120deg]"
+              className="absolute -bottom-12 left-4 h-48 -translate-x-1/2 -rotate-120"
               optixFlowConfig={optixFlowConfig}
             />
             <Img

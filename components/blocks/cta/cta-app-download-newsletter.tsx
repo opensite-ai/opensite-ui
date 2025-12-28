@@ -92,9 +92,11 @@ export function CtaAppDownloadNewsletter({
     <section className={cn("py-32", className)}>
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-2">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 p-8 lg:p-12">
+          <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 p-8 lg:p-12">
             <div className="relative z-10 max-w-sm">
-              <h2 className="mb-4 text-2xl font-bold md:text-3xl">{appHeading}</h2>
+              <h2 className="mb-4 text-2xl font-bold md:text-3xl">
+                {appHeading}
+              </h2>
               <p className="mb-8 text-muted-foreground">{appDescription}</p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Pressable
@@ -131,7 +133,9 @@ export function CtaAppDownloadNewsletter({
             <h2 className="mb-4 text-2xl font-bold md:text-3xl">
               {newsletterHeading}
             </h2>
-            <p className="mb-8 text-muted-foreground">{newsletterDescription}</p>
+            <p className="mb-8 text-muted-foreground">
+              {newsletterDescription}
+            </p>
             <form className="flex flex-col gap-3 sm:flex-row">
               <Input
                 type="email"

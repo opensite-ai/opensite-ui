@@ -145,7 +145,7 @@ export function CtaGradientLogosFloating({
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="mb-6 text-4xl font-bold md:text-5xl">
               {heading}{" "}
-              <span className="bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 {headingGradient}
               </span>
             </h2>

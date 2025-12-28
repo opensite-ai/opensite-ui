@@ -7,10 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
-import {
-  imagePlaceholders,
-  logoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
+import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 
 export interface CtaCaseStudySection {
@@ -205,7 +202,9 @@ export function CtaCaseStudyTestimonial({
                   </div>
                   <div>
                     <h3 className="text-lg font-medium">{section.title}</h3>
-                    <p className="text-muted-foreground">{section.description}</p>
+                    <p className="text-muted-foreground">
+                      {section.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -221,7 +220,12 @@ export function CtaCaseStudyTestimonial({
             </div>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Pressable href={primaryButtonUrl} variant="default" size="lg" asButton>
+              <Pressable
+                href={primaryButtonUrl}
+                variant="default"
+                size="lg"
+                asButton
+              >
                 {primaryButtonText}
                 <DynamicIcon
                   name="lucide/arrow-right"

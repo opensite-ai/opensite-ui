@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../../lib/utils";
 import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import { Card, CardContent } from "../../ui/card";
@@ -183,8 +182,12 @@ export function TeamSocialCards({
                   />
                   <div className="flex flex-col">
                     <h3 className="text-lg font-semibold">{member.name}</h3>
-                    <p className="text-sm font-medium text-primary">{member.role}</p>
-                    <p className="mt-2 text-sm text-muted-foreground">{member.bio}</p>
+                    <p className="text-sm font-medium text-primary">
+                      {member.role}
+                    </p>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {member.bio}
+                    </p>
                     {member.social && (
                       <div className="mt-3 flex gap-3 text-muted-foreground">
                         {member.social.github && (

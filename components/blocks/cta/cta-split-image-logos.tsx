@@ -5,10 +5,7 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import {
-  imagePlaceholders,
-  logoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
+import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 
 export interface CtaSplitImageLogosProps {
@@ -124,7 +121,11 @@ export function CtaSplitImageLogos({
                 asButton
               >
                 {primaryButtonText}
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
               <Pressable
                 href={secondaryButtonUrl}
@@ -138,7 +139,9 @@ export function CtaSplitImageLogos({
             </div>
             {logos.length > 0 && (
               <div className="mt-10 w-full">
-                <p className="mb-4 text-sm text-muted-foreground">{logosLabel}</p>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  {logosLabel}
+                </p>
                 <div className="flex flex-wrap items-center justify-center gap-6 lg:justify-start">
                   {logos.map((logo, index) => (
                     <Img
