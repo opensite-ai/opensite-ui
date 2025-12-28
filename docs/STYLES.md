@@ -474,6 +474,7 @@ These variables control the base styling for all button variants:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-font-family` | `inherit` | Font family for button text |
 | `--button-font-weight` | `500` | Font weight (medium) |
 | `--button-letter-spacing` | `0` | Letter spacing |
@@ -488,6 +489,7 @@ These variables control the base styling for all button variants:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-height-sm` | `2rem` (32px) | Small button height |
 | `--button-height-md` | `2.25rem` (36px) | Medium button height |
 | `--button-height-lg` | `2.5rem` (40px) | Large button height |
@@ -505,8 +507,10 @@ These variables control the base styling for all button variants:
 Each variant has a complete, consistent set of customization variables:
 
 **Default (Primary) Variant:**
+
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-default-bg` | `hsl(var(--primary))` | Background color |
 | `--button-default-fg` | `hsl(var(--primary-foreground))` | Text color |
 | `--button-default-border` | `transparent` | Border color |
@@ -518,8 +522,10 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-default-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Destructive Variant:**
+
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-destructive-bg` | `hsl(var(--destructive))` | Background color |
 | `--button-destructive-fg` | `white` | Text color |
 | `--button-destructive-border` | `transparent` | Border color |
@@ -531,8 +537,10 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-destructive-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Outline Variant:**
+
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-outline-bg` | `hsl(var(--background))` | Background color |
 | `--button-outline-fg` | `inherit` | Text color |
 | `--button-outline-border` | `hsl(var(--border))` | Border color |
@@ -544,8 +552,10 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-outline-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Secondary Variant:**
+
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-secondary-bg` | `hsl(var(--secondary))` | Background color |
 | `--button-secondary-fg` | `hsl(var(--secondary-foreground))` | Text color |
 | `--button-secondary-border` | `transparent` | Border color |
@@ -557,8 +567,10 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-secondary-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Ghost Variant:**
+
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-ghost-bg` | `transparent` | Background color |
 | `--button-ghost-fg` | `inherit` | Text color |
 | `--button-ghost-border` | `transparent` | Border color |
@@ -570,8 +582,10 @@ Each variant has a complete, consistent set of customization variables:
 | `--button-ghost-shadow-hover` | `var(--button-shadow-hover)` | Hover box shadow (inherits master) |
 
 **Link Variant:**
+
 | Variable | Default | Description |
 |----------|---------|-------------|
+
 | `--button-link-bg` | `transparent` | Background color |
 | `--button-link-fg` | `hsl(var(--primary))` | Text color |
 | `--button-link-border` | `transparent` | Border color |
@@ -622,6 +636,7 @@ import { Container } from "@opensite/ui/components/container";
 ```
 
 **Affected CSS Variables:**
+
 - `--container-sm` through `--container-4xl`
 - `--padding-md` - Default horizontal padding
 
@@ -641,6 +656,7 @@ import { Section } from "@opensite/ui/components/section";
 ```
 
 **Affected CSS Variables:**
+
 - `--background` - White background variant
 - `--foreground` - Dark background variant
 - `--primary` - Primary background variant
@@ -664,6 +680,7 @@ import { AnimatedDialog } from "@opensite/ui/components/animated-dialog";
 ```
 
 **Affected CSS Variables:**
+
 - `--card` - Dialog background
 - `--card-foreground` - Dialog text
 - `--border` - Dialog border
@@ -688,6 +705,7 @@ import { PageHeroBanner } from "@opensite/ui/components/page-hero-banner";
 ```
 
 **Affected CSS Variables:**
+
 - `--foreground` - Overlay gradient color
 - `--background` - Text color on overlay
 - `--container-4xl` - Content max width
@@ -865,6 +883,7 @@ Always test your custom colors in both light and dark modes.
 ### 4. Use HSL Format
 
 CSS variables use HSL format without `hsl()` wrapper for flexibility:
+
 ```css
 /* ✅ Correct */
 --primary: 220 90% 56%;
@@ -925,5 +944,6 @@ When adding new components to @opensite/ui:
 ## Support
 
 For issues or questions:
+
 - GitHub Issues: https://github.com/dashtrack/opensite-ui/issues
 - Documentation: See README.md for component API reference

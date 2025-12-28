@@ -27,6 +27,7 @@ The AlternatingBlocks component demonstrates the complete pattern:
 ### Step 1: Create the Component
 
 **First, choose the appropriate category** from the available options (see Category Guidelines below):
+
 - `about`, `features`, `cta`, `testimonials`, `services`, `hero`, `footer`, `header`, `pricing`, `team`, `stats`, `faq`, `contact`, `gallery`, `timeline`, `process`, `benefits`, `comparison`
 
 Create your component file in `components/blocks/[category]/[component-name].tsx`:
@@ -104,6 +105,7 @@ export function YourBlock({
 ```
 
 **Key Principles:**
+
 - **Use the Section component** - Wrap content in Section for consistent spacing, backgrounds, and titles
 - **Organize by category** - Place components in the appropriate category directory
 - Make components **fully reusable** - accept props instead of hard-coding data
@@ -193,6 +195,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 **Important:** The `category` field must match the directory where your component is located.
 
 **Semantic Tags Best Practices:**
+
 - Include **functional tags** (what it does): "showcase", "grid", "list"
 - Include **content tags** (what it contains): "features", "testimonials", "team"
 - Include **layout tags** (how it's structured): "two-column", "alternating", "stacked"
@@ -200,6 +203,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 - Be generous with tags - they help AI selection
 
 **Category Guidelines:**
+
 - `about` - Company story, mission, history
 - `features` - Product/service features, benefits
 - `cta` - Call-to-action sections
@@ -255,6 +259,7 @@ Add export path to `package.json` **with category in the path**:
 ```
 
 This allows consumers to import using:
+
 ```ts
 import { YourBlock } from "@opensite/ui/blocks/[category]/your-block";
 ```
@@ -377,6 +382,7 @@ When converting blocks from shadcn.io or similar libraries:
 ### 1. Identify Hard-Coded Data
 
 **Before (shadcn example):**
+
 ```tsx
 const SECTIONS = [
   {
@@ -404,6 +410,7 @@ export default function AboutAlternating() {
 ### 2. Abstract to Props
 
 **After (reusable):**
+
 ```tsx
 export interface AboutAlternatingProps {
   sections: {
@@ -467,14 +474,17 @@ Keep the visual structure and styling from the original, just make the content d
 Good semantic tags help the AI select appropriate blocks. Use this hierarchy:
 
 ### Primary Tags (Required)
+
 - **Category**: Main classification (features, testimonials, hero, etc.)
 - **Content Type**: What content it displays (text, images, stats, etc.)
 
 ### Secondary Tags (Recommended)
+
 - **Layout**: How it's arranged (grid, list, alternating, stacked)
 - **Functionality**: What it does (showcase, compare, highlight)
 
 ### Contextual Tags (Optional)
+
 - **Use Cases**: When to use it (landing-page, about-page, product-page)
 - **Industry**: Specific verticals (saas, ecommerce, services)
 - **Style**: Visual approach (minimal, bold, elegant)
@@ -482,6 +492,7 @@ Good semantic tags help the AI select appropriate blocks. Use this hierarchy:
 ### Example Tag Sets
 
 **Feature Grid Block:**
+
 ```typescript
 semanticTags: [
   // Primary
@@ -494,6 +505,7 @@ semanticTags: [
 ```
 
 **Testimonial Carousel:**
+
 ```typescript
 semanticTags: [
   // Primary
@@ -513,7 +525,8 @@ semanticTags: [
 - **Package exports**: Include category in path (e.g., `./blocks/about/alternating-blocks`)
 
 **Category Directory Structure:**
-```
+
+```bash
 components/blocks/
 ├── about/
 │   ├── __tests__/
@@ -823,6 +836,7 @@ Then complete steps 6-10 from the main guide (package.json export, tsup config, 
 ## Questions?
 
 See the AlternatingBlocks implementation as the reference:
+
 - Component: `components/blocks/about/alternating-blocks.tsx`
 - Tests: `components/blocks/about/__tests__/alternating-blocks.test.tsx`
 - Registry: `src/registry/blocks.ts`

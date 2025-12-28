@@ -123,7 +123,7 @@ export function FaqCardCategories({
                 </CardHeader>
                 <CardContent>
                   <Accordion type="single" collapsible>
-                    {category.items.map((item) => (
+                    {category.items?.map((item) => (
                       <AccordionItem key={item.id} value={item.id}>
                         <AccordionTrigger className="text-sm transition-opacity duration-200 hover:no-underline hover:opacity-60">
                           {item.question}
