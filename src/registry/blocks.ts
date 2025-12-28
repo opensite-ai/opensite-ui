@@ -57,6 +57,17 @@ import { CtaVideoBackgroundHero } from "../../components/blocks/cta/cta-video-ba
 import { CtaWorkflowTabs } from "../../components/blocks/cta/cta-workflow-tabs";
 import { CtaCaseStudyTestimonial } from "../../components/blocks/cta/cta-case-study-testimonial";
 import { CtaSimpleCentered } from "../../components/blocks/cta/cta-simple-centered";
+
+// Contact components
+import { ContactFloatingBanner } from "../../components/blocks/contact/contact-floating-banner";
+import { ContactCallback } from "../../components/blocks/contact/contact-callback";
+import { ContactCard } from "../../components/blocks/contact/contact-card";
+import { ContactCareers } from "../../components/blocks/contact/contact-careers";
+import { ContactCatering } from "../../components/blocks/contact/contact-catering";
+import { ContactConsultation } from "../../components/blocks/contact/contact-consultation";
+import { ContactDark } from "../../components/blocks/contact/contact-dark";
+import { ContactDemo } from "../../components/blocks/contact/contact-demo";
+
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
 import { FeatureSplitImage } from "../../components/blocks/features/feature-split-image";
@@ -2002,6 +2013,216 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   description="Join thousands of satisfied customers"
   primaryButton={{ text: "Start Free Trial", href: "/trial" }}
   secondaryButton={{ text: "Contact Sales", href: "/contact" }}
+/>
+    `.trim(),
+  },
+  "contact-floating-banner": {
+    id: "contact-floating-banner",
+    name: "Contact Floating Banner",
+    description:
+      "A fixed floating banner at the bottom of the page with a promotional message and CTA button. Perfect for persistent contact prompts or special offers.",
+    semanticTags: [
+      "contact",
+      "banner",
+      "floating",
+      "fixed",
+      "cta",
+      "promotional",
+      "persistent",
+    ],
+    category: "contact",
+    component: ContactFloatingBanner,
+    props: "ContactFloatingBannerProps",
+    exampleUsage: `
+<ContactFloatingBanner
+  badgeText="Limited Offer"
+  message="Get 20% off your first order!"
+  buttonText="Claim Offer"
+  buttonHref="/contact"
+/>
+    `.trim(),
+  },
+  "contact-callback": {
+    id: "contact-callback",
+    name: "Contact Callback Request",
+    description:
+      "A comprehensive callback scheduling form with date/time selection, timezone, topic selection, and detailed information fields. Ideal for professional services requiring scheduled consultations.",
+    semanticTags: [
+      "contact",
+      "callback",
+      "scheduling",
+      "form",
+      "appointment",
+      "consultation",
+      "professional-services",
+    ],
+    category: "contact",
+    component: ContactCallback,
+    props: "ContactCallbackProps",
+    exampleUsage: `
+<ContactCallback
+  heading="Request a Callback"
+  description="Schedule a time that works for you"
+  buttonText="Schedule Callback"
+  formConfig={{ endpoint: "/api/callback", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-card": {
+    id: "contact-card",
+    name: "Contact Card Form",
+    description:
+      "A simple contact form with card layout featuring form fields on one side and contact information with multiple contact methods on the other. Clean, professional design.",
+    semanticTags: [
+      "contact",
+      "form",
+      "card",
+      "split-layout",
+      "contact-info",
+      "simple",
+    ],
+    category: "contact",
+    component: ContactCard,
+    props: "ContactCardProps",
+    exampleUsage: `
+<ContactCard
+  heading="Get in Touch"
+  description="We'd love to hear from you"
+  formHeading="Contact us"
+  buttonText="Send Message"
+  formConfig={{ endpoint: "/api/contact", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-careers": {
+    id: "contact-careers",
+    name: "Contact Careers Application",
+    description:
+      "A comprehensive job application form with position selection, resume upload, LinkedIn/portfolio links, availability options, and personal information. Perfect for career pages.",
+    semanticTags: [
+      "contact",
+      "careers",
+      "jobs",
+      "application",
+      "form",
+      "resume",
+      "upload",
+      "hiring",
+    ],
+    category: "contact",
+    component: ContactCareers,
+    props: "ContactCareersProps",
+    exampleUsage: `
+<ContactCareers
+  heading="Join Our Team"
+  description="We're always looking for talented people"
+  buttonText="Submit Application"
+  formConfig={{ endpoint: "/api/careers", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-catering": {
+    id: "contact-catering",
+    name: "Contact Catering Inquiry",
+    description:
+      "A catering inquiry form with event type selection, guest count, date picker, dietary restrictions checkboxes, and venue information. Ideal for catering and event planning businesses.",
+    semanticTags: [
+      "contact",
+      "catering",
+      "events",
+      "form",
+      "inquiry",
+      "dietary",
+      "event-planning",
+    ],
+    category: "contact",
+    component: ContactCatering,
+    props: "ContactCateringProps",
+    exampleUsage: `
+<ContactCatering
+  heading="Catering Inquiry"
+  description="Let us make your event unforgettable"
+  buttonText="Request Quote"
+  formConfig={{ endpoint: "/api/catering", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-consultation": {
+    id: "contact-consultation",
+    name: "Contact Consultation Booking",
+    description:
+      "A consultation booking form with service selection, duration preferences, budget range, and detailed information fields. Perfect for professional services and consulting businesses.",
+    semanticTags: [
+      "contact",
+      "consultation",
+      "booking",
+      "form",
+      "services",
+      "professional",
+      "advisory",
+    ],
+    category: "contact",
+    component: ContactConsultation,
+    props: "ContactConsultationProps",
+    exampleUsage: `
+<ContactConsultation
+  heading="Book a Consultation"
+  description="Let's discuss how we can help your business"
+  buttonText="Book Consultation"
+  formConfig={{ endpoint: "/api/consultation", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-dark": {
+    id: "contact-dark",
+    name: "Contact Dark Theme",
+    description:
+      "A dark-themed contact form with split layout featuring form fields on one side and contact information with social links on a dark background. Modern, high-contrast design.",
+    semanticTags: [
+      "contact",
+      "form",
+      "dark",
+      "theme",
+      "split-layout",
+      "social",
+      "modern",
+    ],
+    category: "contact",
+    component: ContactDark,
+    props: "ContactDarkProps",
+    exampleUsage: `
+<ContactDark
+  heading="Contact Us"
+  description="Any questions or remarks? Just write us a message!"
+  buttonText="Send Message"
+  formConfig={{ endpoint: "/api/contact", format: "json" }}
+/>
+    `.trim(),
+  },
+  "contact-demo": {
+    id: "contact-demo",
+    name: "Contact Demo Request",
+    description:
+      "A demo request form with use case selection, team size, timeline, and company information. Perfect for SaaS products and B2B services requiring product demonstrations.",
+    semanticTags: [
+      "contact",
+      "demo",
+      "request",
+      "form",
+      "saas",
+      "b2b",
+      "product",
+      "trial",
+    ],
+    category: "contact",
+    component: ContactDemo,
+    props: "ContactDemoProps",
+    exampleUsage: `
+<ContactDemo
+  heading="Request a Demo"
+  description="See how we can help your team work smarter"
+  buttonText="Request Demo"
+  formConfig={{ endpoint: "/api/demo", format: "json" }}
 />
     `.trim(),
   },

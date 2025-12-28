@@ -20,7 +20,6 @@ This guide explains how to integrate the `@page-speed/forms` library with OpenSi
 ┌─────────────────────────────────────────────────────────────┐
 │ @page-speed/forms (Core Library)                            │
 │ • Framework-agnostic                                         │
-│ • Observable-based state (@legendapp/state)                 │
 │ • Field-level reactivity (~1 re-render per change)         │
 │ • Validation with race condition prevention                 │
 └─────────────────────────────────────────────────────────────┘
