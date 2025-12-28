@@ -1,0 +1,23 @@
+[
+  {
+    "path": "./blocks/offer-modal/offer-modal-membership-image",
+    "types": "./dist/offer-modal-membership-image.d.ts",
+    "import": "./dist/offer-modal-membership-image.js",
+    "require": "./dist/offer-modal-membership-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/offer-modal/offer-modal-newsletter-discount",
+    "types": "./dist/offer-modal-newsletter-discount.d.ts",
+    "import": "./dist/offer-modal-newsletter-discount.js",
+    "require": "./dist/offer-modal-newsletter-discount.cjs"
+  }
+,
+  {
+    "path": "./blocks/offer-modal/offer-modal-sheet-newsletter",
+    "types": "./dist/offer-modal-sheet-newsletter.d.ts",
+    "import": "./dist/offer-modal-sheet-newsletter.js",
+    "require": "./dist/offer-modal-sheet-newsletter.cjs"
+  }
+
+]

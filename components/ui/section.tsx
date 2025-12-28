@@ -22,6 +22,7 @@ const backgroundStyles = {
  * Vertical spacing variants
  */
 const spacingStyles = {
+  none: "py-0 md:py-0",
   sm: "py-12 md:py-16",
   md: "py-16 md:py-24",
   lg: "py-20 md:py-32",
@@ -56,7 +57,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       spacing = "lg",
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <section
@@ -65,7 +66,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         className={cn(
           backgroundStyles[background],
           spacingStyles[spacing],
-          className
+          className,
         )}
         style={style}
         {...props}
@@ -89,7 +90,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         </Container>
       </section>
     );
-  }
+  },
 );
 
 Section.displayName = "Section";

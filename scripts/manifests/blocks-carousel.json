@@ -1,0 +1,93 @@
+[
+  {
+    "path": "./blocks/carousel/carousel-animated-sections",
+    "types": "./dist/carousel-animated-sections.d.ts",
+    "import": "./dist/carousel-animated-sections.js",
+    "require": "./dist/carousel-animated-sections.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-auto-progress-slides",
+    "types": "./dist/carousel-auto-progress-slides.d.ts",
+    "import": "./dist/carousel-auto-progress-slides.js",
+    "require": "./dist/carousel-auto-progress-slides.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-autoplay-progress",
+    "types": "./dist/carousel-autoplay-progress.d.ts",
+    "import": "./dist/carousel-autoplay-progress.js",
+    "require": "./dist/carousel-autoplay-progress.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-feature-badge",
+    "types": "./dist/carousel-feature-badge.d.ts",
+    "import": "./dist/carousel-feature-badge.js",
+    "require": "./dist/carousel-feature-badge.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-fullscreen-scroll-fx",
+    "types": "./dist/carousel-fullscreen-scroll-fx.d.ts",
+    "import": "./dist/carousel-fullscreen-scroll-fx.js",
+    "require": "./dist/carousel-fullscreen-scroll-fx.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-gallery-thumbnails",
+    "types": "./dist/carousel-gallery-thumbnails.d.ts",
+    "import": "./dist/carousel-gallery-thumbnails.js",
+    "require": "./dist/carousel-gallery-thumbnails.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-horizontal-cards",
+    "types": "./dist/carousel-horizontal-cards.d.ts",
+    "import": "./dist/carousel-horizontal-cards.js",
+    "require": "./dist/carousel-horizontal-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-image-hero",
+    "types": "./dist/carousel-image-hero.d.ts",
+    "import": "./dist/carousel-image-hero.js",
+    "require": "./dist/carousel-image-hero.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-multi-step-showcase",
+    "types": "./dist/carousel-multi-step-showcase.d.ts",
+    "import": "./dist/carousel-multi-step-showcase.js",
+    "require": "./dist/carousel-multi-step-showcase.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-portfolio-hero",
+    "types": "./dist/carousel-portfolio-hero.d.ts",
+    "import": "./dist/carousel-portfolio-hero.js",
+    "require": "./dist/carousel-portfolio-hero.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-product-feature-showcase",
+    "types": "./dist/carousel-product-feature-showcase.d.ts",
+    "import": "./dist/carousel-product-feature-showcase.js",
+    "require": "./dist/carousel-product-feature-showcase.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-progress-slider",
+    "types": "./dist/carousel-progress-slider.d.ts",
+    "import": "./dist/carousel-progress-slider.js",
+    "require": "./dist/carousel-progress-slider.cjs"
+  }
+,
+  {
+    "path": "./blocks/carousel/carousel-scrolling-feature-showcase",
+    "types": "./dist/carousel-scrolling-feature-showcase.d.ts",
+    "import": "./dist/carousel-scrolling-feature-showcase.js",
+    "require": "./dist/carousel-scrolling-feature-showcase.cjs"
+  }
+
+]

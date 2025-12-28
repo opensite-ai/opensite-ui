@@ -29,16 +29,16 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
       <Component
         ref={ref}
         className={cn(
-          "mx-auto w-full px-4 sm:px-6 lg:px-8",
+          "mx-auto w-full px-2 sm:px-4 lg:px-8",
           maxWidthStyles[maxWidth],
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </Component>
     );
-  }
+  },
 );
 
 Container.displayName = "Container";

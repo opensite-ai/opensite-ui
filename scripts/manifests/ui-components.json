@@ -1,0 +1,205 @@
+[
+  {
+    "path": "./components/accordion",
+    "types": "./dist/accordion.d.ts",
+    "import": "./dist/accordion.js",
+    "require": "./dist/accordion.cjs"
+  }
+,
+  {
+    "path": "./components/alert",
+    "types": "./dist/alert.d.ts",
+    "import": "./dist/alert.js",
+    "require": "./dist/alert.cjs"
+  }
+,
+  {
+    "path": "./components/animated-dialog",
+    "types": "./dist/animated-dialog.d.ts",
+    "import": "./dist/animated-dialog.js",
+    "require": "./dist/animated-dialog.cjs"
+  }
+,
+  {
+    "path": "./components/aspect-ratio",
+    "types": "./dist/aspect-ratio.d.ts",
+    "import": "./dist/aspect-ratio.js",
+    "require": "./dist/aspect-ratio.cjs"
+  }
+,
+  {
+    "path": "./components/avatar",
+    "types": "./dist/avatar.d.ts",
+    "import": "./dist/avatar.js",
+    "require": "./dist/avatar.cjs"
+  }
+,
+  {
+    "path": "./components/badge",
+    "types": "./dist/badge.d.ts",
+    "import": "./dist/badge.js",
+    "require": "./dist/badge.cjs"
+  }
+,
+  {
+    "path": "./components/bento-grid",
+    "types": "./dist/bento-grid.d.ts",
+    "import": "./dist/bento-grid.js",
+    "require": "./dist/bento-grid.cjs"
+  }
+,
+  {
+    "path": "./components/breadcrumb",
+    "types": "./dist/breadcrumb.d.ts",
+    "import": "./dist/breadcrumb.js",
+    "require": "./dist/breadcrumb.cjs"
+  }
+,
+  {
+    "path": "./components/button",
+    "types": "./dist/button.d.ts",
+    "import": "./dist/button.js",
+    "require": "./dist/button.cjs"
+  }
+,
+  {
+    "path": "./components/card",
+    "types": "./dist/card.d.ts",
+    "import": "./dist/card.js",
+    "require": "./dist/card.cjs"
+  }
+,
+  {
+    "path": "./components/carousel",
+    "types": "./dist/carousel.d.ts",
+    "import": "./dist/carousel.js",
+    "require": "./dist/carousel.cjs"
+  }
+,
+  {
+    "path": "./components/checkbox",
+    "types": "./dist/checkbox.d.ts",
+    "import": "./dist/checkbox.js",
+    "require": "./dist/checkbox.cjs"
+  }
+,
+  {
+    "path": "./components/container",
+    "types": "./dist/container.d.ts",
+    "import": "./dist/container.js",
+    "require": "./dist/container.cjs"
+  }
+,
+  {
+    "path": "./components/dialog",
+    "types": "./dist/dialog.d.ts",
+    "import": "./dist/dialog.js",
+    "require": "./dist/dialog.cjs"
+  }
+,
+  {
+    "path": "./components/dropdown-menu",
+    "types": "./dist/dropdown-menu.d.ts",
+    "import": "./dist/dropdown-menu.js",
+    "require": "./dist/dropdown-menu.cjs"
+  }
+,
+  {
+    "path": "./components/dynamic-icon",
+    "types": "./dist/dynamic-icon.d.ts",
+    "import": "./dist/dynamic-icon.js",
+    "require": "./dist/dynamic-icon.cjs"
+  }
+,
+  {
+    "path": "./components/input",
+    "types": "./dist/input.d.ts",
+    "import": "./dist/input.js",
+    "require": "./dist/input.cjs"
+  }
+,
+  {
+    "path": "./components/label",
+    "types": "./dist/label.d.ts",
+    "import": "./dist/label.js",
+    "require": "./dist/label.cjs"
+  }
+,
+  {
+    "path": "./components/navigation-menu",
+    "types": "./dist/navigation-menu.d.ts",
+    "import": "./dist/navigation-menu.js",
+    "require": "./dist/navigation-menu.cjs"
+  }
+,
+  {
+    "path": "./components/page-hero-banner",
+    "types": "./dist/page-hero-banner.d.ts",
+    "import": "./dist/page-hero-banner.js",
+    "require": "./dist/page-hero-banner.cjs"
+  }
+,
+  {
+    "path": "./components/popover",
+    "types": "./dist/popover.d.ts",
+    "import": "./dist/popover.js",
+    "require": "./dist/popover.cjs"
+  }
+,
+  {
+    "path": "./components/progress",
+    "types": "./dist/progress.d.ts",
+    "import": "./dist/progress.js",
+    "require": "./dist/progress.cjs"
+  }
+,
+  {
+    "path": "./components/section",
+    "types": "./dist/section.d.ts",
+    "import": "./dist/section.js",
+    "require": "./dist/section.cjs"
+  }
+,
+  {
+    "path": "./components/separator",
+    "types": "./dist/separator.d.ts",
+    "import": "./dist/separator.js",
+    "require": "./dist/separator.cjs"
+  }
+,
+  {
+    "path": "./components/sheet",
+    "types": "./dist/sheet.d.ts",
+    "import": "./dist/sheet.js",
+    "require": "./dist/sheet.cjs"
+  }
+,
+  {
+    "path": "./components/switch",
+    "types": "./dist/switch.d.ts",
+    "import": "./dist/switch.js",
+    "require": "./dist/switch.cjs"
+  }
+,
+  {
+    "path": "./components/table",
+    "types": "./dist/table.d.ts",
+    "import": "./dist/table.js",
+    "require": "./dist/table.cjs"
+  }
+,
+  {
+    "path": "./components/tabs",
+    "types": "./dist/tabs.d.ts",
+    "import": "./dist/tabs.js",
+    "require": "./dist/tabs.cjs"
+  }
+,
+  {
+    "path": "./components/tooltip",
+    "types": "./dist/tooltip.d.ts",
+    "import": "./dist/tooltip.js",
+    "require": "./dist/tooltip.cjs"
+  }
+
+]

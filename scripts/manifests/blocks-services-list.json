@@ -1,0 +1,184 @@
+[
+  {
+    "path": "./blocks/services-list/services-list-accordion-benefits",
+    "types": "./dist/services-list-accordion-benefits.d.ts",
+    "import": "./dist/services-list-accordion-benefits.js",
+    "require": "./dist/services-list-accordion-benefits.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-accordion",
+    "types": "./dist/services-list-accordion.d.ts",
+    "import": "./dist/services-list-accordion.js",
+    "require": "./dist/services-list-accordion.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-cards-hover",
+    "types": "./dist/services-list-cards-hover.d.ts",
+    "import": "./dist/services-list-cards-hover.js",
+    "require": "./dist/services-list-cards-hover.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-category-accordion",
+    "types": "./dist/services-list-category-accordion.d.ts",
+    "import": "./dist/services-list-category-accordion.js",
+    "require": "./dist/services-list-category-accordion.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-centered-icons",
+    "types": "./dist/services-list-centered-icons.d.ts",
+    "import": "./dist/services-list-centered-icons.js",
+    "require": "./dist/services-list-centered-icons.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-culture-tabs",
+    "types": "./dist/services-list-culture-tabs.d.ts",
+    "import": "./dist/services-list-culture-tabs.js",
+    "require": "./dist/services-list-culture-tabs.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-featured-highlight",
+    "types": "./dist/services-list-featured-highlight.d.ts",
+    "import": "./dist/services-list-featured-highlight.js",
+    "require": "./dist/services-list-featured-highlight.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-hero-cards",
+    "types": "./dist/services-list-hero-cards.d.ts",
+    "import": "./dist/services-list-hero-cards.js",
+    "require": "./dist/services-list-hero-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-icon-grid",
+    "types": "./dist/services-list-icon-grid.d.ts",
+    "import": "./dist/services-list-icon-grid.js",
+    "require": "./dist/services-list-icon-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-image-cards",
+    "types": "./dist/services-list-image-cards.d.ts",
+    "import": "./dist/services-list-image-cards.js",
+    "require": "./dist/services-list-image-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-image-overlay-grid",
+    "types": "./dist/services-list-image-overlay-grid.d.ts",
+    "import": "./dist/services-list-image-overlay-grid.js",
+    "require": "./dist/services-list-image-overlay-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-masonry",
+    "types": "./dist/services-list-masonry.d.ts",
+    "import": "./dist/services-list-masonry.js",
+    "require": "./dist/services-list-masonry.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-methodology-steps",
+    "types": "./dist/services-list-methodology-steps.d.ts",
+    "import": "./dist/services-list-methodology-steps.js",
+    "require": "./dist/services-list-methodology-steps.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-minimal-grid",
+    "types": "./dist/services-list-minimal-grid.d.ts",
+    "import": "./dist/services-list-minimal-grid.js",
+    "require": "./dist/services-list-minimal-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-muted-cards",
+    "types": "./dist/services-list-muted-cards.d.ts",
+    "import": "./dist/services-list-muted-cards.js",
+    "require": "./dist/services-list-muted-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-numbered-steps",
+    "types": "./dist/services-list-numbered-steps.d.ts",
+    "import": "./dist/services-list-numbered-steps.js",
+    "require": "./dist/services-list-numbered-steps.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-pricing-grid",
+    "types": "./dist/services-list-pricing-grid.d.ts",
+    "import": "./dist/services-list-pricing-grid.js",
+    "require": "./dist/services-list-pricing-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-progress-sidebar",
+    "types": "./dist/services-list-progress-sidebar.d.ts",
+    "import": "./dist/services-list-progress-sidebar.js",
+    "require": "./dist/services-list-progress-sidebar.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-split-checklist",
+    "types": "./dist/services-list-split-checklist.d.ts",
+    "import": "./dist/services-list-split-checklist.js",
+    "require": "./dist/services-list-split-checklist.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-sticky-image",
+    "types": "./dist/services-list-sticky-image.d.ts",
+    "import": "./dist/services-list-sticky-image.js",
+    "require": "./dist/services-list-sticky-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-table-hover",
+    "types": "./dist/services-list-table-hover.d.ts",
+    "import": "./dist/services-list-table-hover.js",
+    "require": "./dist/services-list-table-hover.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-tabs-features",
+    "types": "./dist/services-list-tabs-features.d.ts",
+    "import": "./dist/services-list-tabs-features.js",
+    "require": "./dist/services-list-tabs-features.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-timeline",
+    "types": "./dist/services-list-timeline.d.ts",
+    "import": "./dist/services-list-timeline.js",
+    "require": "./dist/services-list-timeline.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-two-column-grid",
+    "types": "./dist/services-list-two-column-grid.d.ts",
+    "import": "./dist/services-list-two-column-grid.js",
+    "require": "./dist/services-list-two-column-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-vertical-tags",
+    "types": "./dist/services-list-vertical-tags.d.ts",
+    "import": "./dist/services-list-vertical-tags.js",
+    "require": "./dist/services-list-vertical-tags.cjs"
+  }
+,
+  {
+    "path": "./blocks/services-list/services-list-video-showcase",
+    "types": "./dist/services-list-video-showcase.d.ts",
+    "import": "./dist/services-list-video-showcase.js",
+    "require": "./dist/services-list-video-showcase.cjs"
+  }
+
+]

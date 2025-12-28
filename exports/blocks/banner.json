@@ -1,0 +1,52 @@
+{
+  "./blocks/banner/banner-announcement-dismissible": {
+    "types": "./dist/banner-announcement-dismissible.d.ts",
+    "import": "./dist/banner-announcement-dismissible.js",
+    "require": "./dist/banner-announcement-dismissible.cjs"
+  },
+  "./blocks/banner/banner-countdown-sale": {
+    "types": "./dist/banner-countdown-sale.d.ts",
+    "import": "./dist/banner-countdown-sale.js",
+    "require": "./dist/banner-countdown-sale.cjs"
+  },
+  "./blocks/banner/banner-delivery-countdown": {
+    "types": "./dist/banner-delivery-countdown.d.ts",
+    "import": "./dist/banner-delivery-countdown.js",
+    "require": "./dist/banner-delivery-countdown.cjs"
+  },
+  "./blocks/banner/banner-event-promo": {
+    "types": "./dist/banner-event-promo.d.ts",
+    "import": "./dist/banner-event-promo.js",
+    "require": "./dist/banner-event-promo.cjs"
+  },
+  "./blocks/banner/banner-floating-offer": {
+    "types": "./dist/banner-floating-offer.d.ts",
+    "import": "./dist/banner-floating-offer.js",
+    "require": "./dist/banner-floating-offer.cjs"
+  },
+  "./blocks/banner/banner-gdpr-rights": {
+    "types": "./dist/banner-gdpr-rights.d.ts",
+    "import": "./dist/banner-gdpr-rights.js",
+    "require": "./dist/banner-gdpr-rights.cjs"
+  },
+  "./blocks/banner/banner-privacy-notice": {
+    "types": "./dist/banner-privacy-notice.d.ts",
+    "import": "./dist/banner-privacy-notice.js",
+    "require": "./dist/banner-privacy-notice.cjs"
+  },
+  "./blocks/banner/banner-promo-cta": {
+    "types": "./dist/banner-promo-cta.d.ts",
+    "import": "./dist/banner-promo-cta.js",
+    "require": "./dist/banner-promo-cta.cjs"
+  },
+  "./blocks/banner/banner-social-follow": {
+    "types": "./dist/banner-social-follow.d.ts",
+    "import": "./dist/banner-social-follow.js",
+    "require": "./dist/banner-social-follow.cjs"
+  },
+  "./blocks/banner/banner-survey-incentive": {
+    "types": "./dist/banner-survey-incentive.d.ts",
+    "import": "./dist/banner-survey-incentive.js",
+    "require": "./dist/banner-survey-incentive.cjs"
+  }
+}

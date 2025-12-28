@@ -1,0 +1,121 @@
+[
+  {
+    "path": "./blocks/footers/footer-accordion-social",
+    "types": "./dist/footer-accordion-social.d.ts",
+    "import": "./dist/footer-accordion-social.js",
+    "require": "./dist/footer-accordion-social.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-animated-social",
+    "types": "./dist/footer-animated-social.d.ts",
+    "import": "./dist/footer-animated-social.js",
+    "require": "./dist/footer-animated-social.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-background-card",
+    "types": "./dist/footer-background-card.d.ts",
+    "import": "./dist/footer-background-card.js",
+    "require": "./dist/footer-background-card.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-brand-description",
+    "types": "./dist/footer-brand-description.d.ts",
+    "import": "./dist/footer-brand-description.js",
+    "require": "./dist/footer-brand-description.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-contact-card",
+    "types": "./dist/footer-contact-card.d.ts",
+    "import": "./dist/footer-contact-card.js",
+    "require": "./dist/footer-contact-card.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-cta-banner",
+    "types": "./dist/footer-cta-banner.d.ts",
+    "import": "./dist/footer-cta-banner.js",
+    "require": "./dist/footer-cta-banner.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-cta-social",
+    "types": "./dist/footer-cta-social.d.ts",
+    "import": "./dist/footer-cta-social.js",
+    "require": "./dist/footer-cta-social.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-info-cards-accordion",
+    "types": "./dist/footer-info-cards-accordion.d.ts",
+    "import": "./dist/footer-info-cards-accordion.js",
+    "require": "./dist/footer-info-cards-accordion.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-links-grid",
+    "types": "./dist/footer-links-grid.d.ts",
+    "import": "./dist/footer-links-grid.js",
+    "require": "./dist/footer-links-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-nav-social",
+    "types": "./dist/footer-nav-social.d.ts",
+    "import": "./dist/footer-nav-social.js",
+    "require": "./dist/footer-nav-social.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-newsletter-contact",
+    "types": "./dist/footer-newsletter-contact.d.ts",
+    "import": "./dist/footer-newsletter-contact.js",
+    "require": "./dist/footer-newsletter-contact.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-newsletter-grid",
+    "types": "./dist/footer-newsletter-grid.d.ts",
+    "import": "./dist/footer-newsletter-grid.js",
+    "require": "./dist/footer-newsletter-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-newsletter-minimal",
+    "types": "./dist/footer-newsletter-minimal.d.ts",
+    "import": "./dist/footer-newsletter-minimal.js",
+    "require": "./dist/footer-newsletter-minimal.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-simple-centered",
+    "types": "./dist/footer-simple-centered.d.ts",
+    "import": "./dist/footer-simple-centered.js",
+    "require": "./dist/footer-simple-centered.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-social-apps",
+    "types": "./dist/footer-social-apps.d.ts",
+    "import": "./dist/footer-social-apps.js",
+    "require": "./dist/footer-social-apps.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-social-newsletter",
+    "types": "./dist/footer-social-newsletter.d.ts",
+    "import": "./dist/footer-social-newsletter.js",
+    "require": "./dist/footer-social-newsletter.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-split-image-accordion",
+    "types": "./dist/footer-split-image-accordion.d.ts",
+    "import": "./dist/footer-split-image-accordion.js",
+    "require": "./dist/footer-split-image-accordion.cjs"
+  }
+
+]

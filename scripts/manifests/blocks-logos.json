@@ -1,0 +1,79 @@
+[
+  {
+    "path": "./blocks/logos/logos-carousel-heading",
+    "types": "./dist/logos-carousel-heading.d.ts",
+    "import": "./dist/logos-carousel-heading.js",
+    "require": "./dist/logos-carousel-heading.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-centered-simple",
+    "types": "./dist/logos-centered-simple.d.ts",
+    "import": "./dist/logos-centered-simple.js",
+    "require": "./dist/logos-centered-simple.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-certifications-grid",
+    "types": "./dist/logos-certifications-grid.d.ts",
+    "import": "./dist/logos-certifications-grid.js",
+    "require": "./dist/logos-certifications-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-double-carousel-pattern",
+    "types": "./dist/logos-double-carousel-pattern.d.ts",
+    "import": "./dist/logos-double-carousel-pattern.js",
+    "require": "./dist/logos-double-carousel-pattern.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-inline-tagline",
+    "types": "./dist/logos-inline-tagline.d.ts",
+    "import": "./dist/logos-inline-tagline.js",
+    "require": "./dist/logos-inline-tagline.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-marquee-muted",
+    "types": "./dist/logos-marquee-muted.d.ts",
+    "import": "./dist/logos-marquee-muted.js",
+    "require": "./dist/logos-marquee-muted.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-minimal-carousel",
+    "types": "./dist/logos-minimal-carousel.d.ts",
+    "import": "./dist/logos-minimal-carousel.js",
+    "require": "./dist/logos-minimal-carousel.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-numbered-carousel",
+    "types": "./dist/logos-numbered-carousel.d.ts",
+    "import": "./dist/logos-numbered-carousel.js",
+    "require": "./dist/logos-numbered-carousel.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-partner-grid-sidebar",
+    "types": "./dist/logos-partner-grid-sidebar.d.ts",
+    "import": "./dist/logos-partner-grid-sidebar.js",
+    "require": "./dist/logos-partner-grid-sidebar.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-partner-network",
+    "types": "./dist/logos-partner-network.d.ts",
+    "import": "./dist/logos-partner-network.js",
+    "require": "./dist/logos-partner-network.cjs"
+  }
+,
+  {
+    "path": "./blocks/logos/logos-two-row-grid",
+    "types": "./dist/logos-two-row-grid.d.ts",
+    "import": "./dist/logos-two-row-grid.js",
+    "require": "./dist/logos-two-row-grid.cjs"
+  }
+
+]

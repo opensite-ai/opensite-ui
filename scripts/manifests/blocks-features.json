@@ -1,0 +1,184 @@
+[
+  {
+    "path": "./blocks/features/feature-accordion-image",
+    "types": "./dist/feature-accordion-image.d.ts",
+    "import": "./dist/feature-accordion-image.js",
+    "require": "./dist/feature-accordion-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-animated-carousel",
+    "types": "./dist/feature-animated-carousel.d.ts",
+    "import": "./dist/feature-animated-carousel.js",
+    "require": "./dist/feature-animated-carousel.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-badge-grid-six",
+    "types": "./dist/feature-badge-grid-six.d.ts",
+    "import": "./dist/feature-badge-grid-six.js",
+    "require": "./dist/feature-badge-grid-six.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-bento-image-grid",
+    "types": "./dist/feature-bento-image-grid.d.ts",
+    "import": "./dist/feature-bento-image-grid.js",
+    "require": "./dist/feature-bento-image-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-bento-utilities",
+    "types": "./dist/feature-bento-utilities.d.ts",
+    "import": "./dist/feature-bento-utilities.js",
+    "require": "./dist/feature-bento-utilities.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-card-grid-linked",
+    "types": "./dist/feature-card-grid-linked.d.ts",
+    "import": "./dist/feature-card-grid-linked.js",
+    "require": "./dist/feature-card-grid-linked.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-carousel-progress",
+    "types": "./dist/feature-carousel-progress.d.ts",
+    "import": "./dist/feature-carousel-progress.js",
+    "require": "./dist/feature-carousel-progress.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-category-image-cards",
+    "types": "./dist/feature-category-image-cards.d.ts",
+    "import": "./dist/feature-category-image-cards.js",
+    "require": "./dist/feature-category-image-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-checklist-image",
+    "types": "./dist/feature-checklist-image.d.ts",
+    "import": "./dist/feature-checklist-image.js",
+    "require": "./dist/feature-checklist-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-checklist-three-column",
+    "types": "./dist/feature-checklist-three-column.d.ts",
+    "import": "./dist/feature-checklist-three-column.js",
+    "require": "./dist/feature-checklist-three-column.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-icon-grid-accent",
+    "types": "./dist/feature-icon-grid-accent.d.ts",
+    "import": "./dist/feature-icon-grid-accent.js",
+    "require": "./dist/feature-icon-grid-accent.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-icon-grid-bordered",
+    "types": "./dist/feature-icon-grid-bordered.d.ts",
+    "import": "./dist/feature-icon-grid-bordered.js",
+    "require": "./dist/feature-icon-grid-bordered.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-icon-grid-muted",
+    "types": "./dist/feature-icon-grid-muted.d.ts",
+    "import": "./dist/feature-icon-grid-muted.js",
+    "require": "./dist/feature-icon-grid-muted.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-icon-tabs-content",
+    "types": "./dist/feature-icon-tabs-content.d.ts",
+    "import": "./dist/feature-icon-tabs-content.js",
+    "require": "./dist/feature-icon-tabs-content.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-image-cards-three-column",
+    "types": "./dist/feature-image-cards-three-column.d.ts",
+    "import": "./dist/feature-image-cards-three-column.js",
+    "require": "./dist/feature-image-cards-three-column.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-image-overlay-badge",
+    "types": "./dist/feature-image-overlay-badge.d.ts",
+    "import": "./dist/feature-image-overlay-badge.js",
+    "require": "./dist/feature-image-overlay-badge.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-integration-cards",
+    "types": "./dist/feature-integration-cards.d.ts",
+    "import": "./dist/feature-integration-cards.js",
+    "require": "./dist/feature-integration-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-numbered-cards",
+    "types": "./dist/feature-numbered-cards.d.ts",
+    "import": "./dist/feature-numbered-cards.js",
+    "require": "./dist/feature-numbered-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-pattern-grid-links",
+    "types": "./dist/feature-pattern-grid-links.d.ts",
+    "import": "./dist/feature-pattern-grid-links.js",
+    "require": "./dist/feature-pattern-grid-links.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-showcase",
+    "types": "./dist/feature-showcase.d.ts",
+    "import": "./dist/feature-showcase.js",
+    "require": "./dist/feature-showcase.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-split-image-reverse",
+    "types": "./dist/feature-split-image-reverse.d.ts",
+    "import": "./dist/feature-split-image-reverse.js",
+    "require": "./dist/feature-split-image-reverse.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-split-image",
+    "types": "./dist/feature-split-image.d.ts",
+    "import": "./dist/feature-split-image.js",
+    "require": "./dist/feature-split-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-stats-highlight",
+    "types": "./dist/feature-stats-highlight.d.ts",
+    "import": "./dist/feature-stats-highlight.js",
+    "require": "./dist/feature-stats-highlight.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-tabbed-content-image",
+    "types": "./dist/feature-tabbed-content-image.d.ts",
+    "import": "./dist/feature-tabbed-content-image.js",
+    "require": "./dist/feature-tabbed-content-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-three-column-values",
+    "types": "./dist/feature-three-column-values.d.ts",
+    "import": "./dist/feature-three-column-values.js",
+    "require": "./dist/feature-three-column-values.cjs"
+  }
+,
+  {
+    "path": "./blocks/features/feature-utility-cards-grid",
+    "types": "./dist/feature-utility-cards-grid.d.ts",
+    "import": "./dist/feature-utility-cards-grid.js",
+    "require": "./dist/feature-utility-cards-grid.cjs"
+  }
+
+]

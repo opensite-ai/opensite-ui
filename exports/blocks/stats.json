@@ -1,0 +1,62 @@
+{
+  "./blocks/stats/stats-animated-counter": {
+    "types": "./dist/stats-animated-counter.d.ts",
+    "import": "./dist/stats-animated-counter.js",
+    "require": "./dist/stats-animated-counter.cjs"
+  },
+  "./blocks/stats/stats-bar-comparison": {
+    "types": "./dist/stats-bar-comparison.d.ts",
+    "import": "./dist/stats-bar-comparison.js",
+    "require": "./dist/stats-bar-comparison.cjs"
+  },
+  "./blocks/stats/stats-card-group": {
+    "types": "./dist/stats-card-group.d.ts",
+    "import": "./dist/stats-card-group.js",
+    "require": "./dist/stats-card-group.cjs"
+  },
+  "./blocks/stats/stats-circular-progress": {
+    "types": "./dist/stats-circular-progress.d.ts",
+    "import": "./dist/stats-circular-progress.js",
+    "require": "./dist/stats-circular-progress.cjs"
+  },
+  "./blocks/stats/stats-growth-timeline": {
+    "types": "./dist/stats-growth-timeline.d.ts",
+    "import": "./dist/stats-growth-timeline.js",
+    "require": "./dist/stats-growth-timeline.cjs"
+  },
+  "./blocks/stats/stats-icon-cards": {
+    "types": "./dist/stats-icon-cards.d.ts",
+    "import": "./dist/stats-icon-cards.js",
+    "require": "./dist/stats-icon-cards.cjs"
+  },
+  "./blocks/stats/stats-impact-grid": {
+    "types": "./dist/stats-impact-grid.d.ts",
+    "import": "./dist/stats-impact-grid.js",
+    "require": "./dist/stats-impact-grid.cjs"
+  },
+  "./blocks/stats/stats-milestone-sidebar": {
+    "types": "./dist/stats-milestone-sidebar.d.ts",
+    "import": "./dist/stats-milestone-sidebar.js",
+    "require": "./dist/stats-milestone-sidebar.cjs"
+  },
+  "./blocks/stats/stats-number-ticker": {
+    "types": "./dist/stats-number-ticker.d.ts",
+    "import": "./dist/stats-number-ticker.js",
+    "require": "./dist/stats-number-ticker.cjs"
+  },
+  "./blocks/stats/stats-primary-secondary": {
+    "types": "./dist/stats-primary-secondary.d.ts",
+    "import": "./dist/stats-primary-secondary.js",
+    "require": "./dist/stats-primary-secondary.cjs"
+  },
+  "./blocks/stats/stats-simple-grid": {
+    "types": "./dist/stats-simple-grid.d.ts",
+    "import": "./dist/stats-simple-grid.js",
+    "require": "./dist/stats-simple-grid.cjs"
+  },
+  "./blocks/stats/stats-timeline-tabs": {
+    "types": "./dist/stats-timeline-tabs.d.ts",
+    "import": "./dist/stats-timeline-tabs.js",
+    "require": "./dist/stats-timeline-tabs.cjs"
+  }
+}

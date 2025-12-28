@@ -1,0 +1,117 @@
+{
+  "./blocks/team/team-alternating-bios": {
+    "types": "./dist/team-alternating-bios.d.ts",
+    "import": "./dist/team-alternating-bios.js",
+    "require": "./dist/team-alternating-bios.cjs"
+  },
+  "./blocks/team/team-avatar-social": {
+    "types": "./dist/team-avatar-social.d.ts",
+    "import": "./dist/team-avatar-social.js",
+    "require": "./dist/team-avatar-social.cjs"
+  },
+  "./blocks/team/team-bio-badges": {
+    "types": "./dist/team-bio-badges.d.ts",
+    "import": "./dist/team-bio-badges.js",
+    "require": "./dist/team-bio-badges.cjs"
+  },
+  "./blocks/team/team-carousel-experience": {
+    "types": "./dist/team-carousel-experience.d.ts",
+    "import": "./dist/team-carousel-experience.js",
+    "require": "./dist/team-carousel-experience.cjs"
+  },
+  "./blocks/team/team-compact-cta": {
+    "types": "./dist/team-compact-cta.d.ts",
+    "import": "./dist/team-compact-cta.js",
+    "require": "./dist/team-compact-cta.cjs"
+  },
+  "./blocks/team/team-compact-grid": {
+    "types": "./dist/team-compact-grid.d.ts",
+    "import": "./dist/team-compact-grid.js",
+    "require": "./dist/team-compact-grid.cjs"
+  },
+  "./blocks/team/team-contact-cards": {
+    "types": "./dist/team-contact-cards.d.ts",
+    "import": "./dist/team-contact-cards.js",
+    "require": "./dist/team-contact-cards.cjs"
+  },
+  "./blocks/team/team-department-sections": {
+    "types": "./dist/team-department-sections.d.ts",
+    "import": "./dist/team-department-sections.js",
+    "require": "./dist/team-department-sections.cjs"
+  },
+  "./blocks/team/team-expertise-cards": {
+    "types": "./dist/team-expertise-cards.d.ts",
+    "import": "./dist/team-expertise-cards.js",
+    "require": "./dist/team-expertise-cards.cjs"
+  },
+  "./blocks/team/team-filterable-search": {
+    "types": "./dist/team-filterable-search.d.ts",
+    "import": "./dist/team-filterable-search.js",
+    "require": "./dist/team-filterable-search.cjs"
+  },
+  "./blocks/team/team-gradient-cards": {
+    "types": "./dist/team-gradient-cards.d.ts",
+    "import": "./dist/team-gradient-cards.js",
+    "require": "./dist/team-gradient-cards.cjs"
+  },
+  "./blocks/team/team-grid-animated": {
+    "types": "./dist/team-grid-animated.d.ts",
+    "import": "./dist/team-grid-animated.js",
+    "require": "./dist/team-grid-animated.cjs"
+  },
+  "./blocks/team/team-hover-highlight": {
+    "types": "./dist/team-hover-highlight.d.ts",
+    "import": "./dist/team-hover-highlight.js",
+    "require": "./dist/team-hover-highlight.cjs"
+  },
+  "./blocks/team/team-hover-overlay": {
+    "types": "./dist/team-hover-overlay.d.ts",
+    "import": "./dist/team-hover-overlay.js",
+    "require": "./dist/team-hover-overlay.cjs"
+  },
+  "./blocks/team/team-investor-showcase": {
+    "types": "./dist/team-investor-showcase.d.ts",
+    "import": "./dist/team-investor-showcase.js",
+    "require": "./dist/team-investor-showcase.cjs"
+  },
+  "./blocks/team/team-large-images": {
+    "types": "./dist/team-large-images.d.ts",
+    "import": "./dist/team-large-images.js",
+    "require": "./dist/team-large-images.cjs"
+  },
+  "./blocks/team/team-media-showcase": {
+    "types": "./dist/team-media-showcase.d.ts",
+    "import": "./dist/team-media-showcase.js",
+    "require": "./dist/team-media-showcase.cjs"
+  },
+  "./blocks/team/team-role-filter": {
+    "types": "./dist/team-role-filter.d.ts",
+    "import": "./dist/team-role-filter.js",
+    "require": "./dist/team-role-filter.cjs"
+  },
+  "./blocks/team/team-simple-grid": {
+    "types": "./dist/team-simple-grid.d.ts",
+    "import": "./dist/team-simple-grid.js",
+    "require": "./dist/team-simple-grid.cjs"
+  },
+  "./blocks/team/team-skill-badges": {
+    "types": "./dist/team-skill-badges.d.ts",
+    "import": "./dist/team-skill-badges.js",
+    "require": "./dist/team-skill-badges.cjs"
+  },
+  "./blocks/team/team-social-cards": {
+    "types": "./dist/team-social-cards.d.ts",
+    "import": "./dist/team-social-cards.js",
+    "require": "./dist/team-social-cards.cjs"
+  },
+  "./blocks/team/team-social-grid": {
+    "types": "./dist/team-social-grid.d.ts",
+    "import": "./dist/team-social-grid.js",
+    "require": "./dist/team-social-grid.cjs"
+  },
+  "./blocks/team/team-testimonial-stats": {
+    "types": "./dist/team-testimonial-stats.d.ts",
+    "import": "./dist/team-testimonial-stats.js",
+    "require": "./dist/team-testimonial-stats.cjs"
+  }
+}

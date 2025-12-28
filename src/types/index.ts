@@ -3,17 +3,31 @@ import type { HTMLAttributes, ReactNode } from "react";
 /**
  * Max width variants for Container component
  */
-export type ContainerMaxWidth = "sm" | "md" | "lg" | "xl" | "2xl" | "4xl" | "full";
+export type ContainerMaxWidth =
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "4xl"
+  | "full";
 
 /**
  * Background variants for Section component
  */
-export type SectionBackground = "white" | "gray" | "dark" | "gradient" | "primary" | "secondary" | "muted";
+export type SectionBackground =
+  | "white"
+  | "gray"
+  | "dark"
+  | "gradient"
+  | "primary"
+  | "secondary"
+  | "muted";
 
 /**
  * Spacing variants for Section component
  */
-export type SectionSpacing = "sm" | "md" | "lg" | "xl";
+export type SectionSpacing = "none" | "sm" | "md" | "lg" | "xl";
 
 /**
  * Size variants for AnimatedDialog component

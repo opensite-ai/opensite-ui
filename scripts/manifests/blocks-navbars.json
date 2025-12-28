@@ -1,0 +1,149 @@
+[
+  {
+    "path": "./blocks/navbars/navbar-animated-preview",
+    "types": "./dist/navbar-animated-preview.d.ts",
+    "import": "./dist/navbar-animated-preview.js",
+    "require": "./dist/navbar-animated-preview.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-centered-menu",
+    "types": "./dist/navbar-centered-menu.d.ts",
+    "import": "./dist/navbar-centered-menu.js",
+    "require": "./dist/navbar-centered-menu.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-dark-icons",
+    "types": "./dist/navbar-dark-icons.d.ts",
+    "import": "./dist/navbar-dark-icons.js",
+    "require": "./dist/navbar-dark-icons.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-dropdown-menu",
+    "types": "./dist/navbar-dropdown-menu.d.ts",
+    "import": "./dist/navbar-dropdown-menu.js",
+    "require": "./dist/navbar-dropdown-menu.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-education-platform",
+    "types": "./dist/navbar-education-platform.d.ts",
+    "import": "./dist/navbar-education-platform.js",
+    "require": "./dist/navbar-education-platform.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-enterprise-mega",
+    "types": "./dist/navbar-enterprise-mega.d.ts",
+    "import": "./dist/navbar-enterprise-mega.js",
+    "require": "./dist/navbar-enterprise-mega.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-feature-grid",
+    "types": "./dist/navbar-feature-grid.d.ts",
+    "import": "./dist/navbar-feature-grid.js",
+    "require": "./dist/navbar-feature-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-floating-pill",
+    "types": "./dist/navbar-floating-pill.d.ts",
+    "import": "./dist/navbar-floating-pill.js",
+    "require": "./dist/navbar-floating-pill.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-fullscreen-menu",
+    "types": "./dist/navbar-fullscreen-menu.d.ts",
+    "import": "./dist/navbar-fullscreen-menu.js",
+    "require": "./dist/navbar-fullscreen-menu.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-icon-links",
+    "types": "./dist/navbar-icon-links.d.ts",
+    "import": "./dist/navbar-icon-links.js",
+    "require": "./dist/navbar-icon-links.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-image-preview",
+    "types": "./dist/navbar-image-preview.d.ts",
+    "import": "./dist/navbar-image-preview.js",
+    "require": "./dist/navbar-image-preview.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-mega-menu",
+    "types": "./dist/navbar-mega-menu.d.ts",
+    "import": "./dist/navbar-mega-menu.js",
+    "require": "./dist/navbar-mega-menu.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-multi-column-groups",
+    "types": "./dist/navbar-multi-column-groups.d.ts",
+    "import": "./dist/navbar-multi-column-groups.js",
+    "require": "./dist/navbar-multi-column-groups.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-platform-resources",
+    "types": "./dist/navbar-platform-resources.d.ts",
+    "import": "./dist/navbar-platform-resources.js",
+    "require": "./dist/navbar-platform-resources.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-search-focused",
+    "types": "./dist/navbar-search-focused.d.ts",
+    "import": "./dist/navbar-search-focused.js",
+    "require": "./dist/navbar-search-focused.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-sidebar-mobile",
+    "types": "./dist/navbar-sidebar-mobile.d.ts",
+    "import": "./dist/navbar-sidebar-mobile.js",
+    "require": "./dist/navbar-sidebar-mobile.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-simple-links",
+    "types": "./dist/navbar-simple-links.d.ts",
+    "import": "./dist/navbar-simple-links.js",
+    "require": "./dist/navbar-simple-links.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-split-cta",
+    "types": "./dist/navbar-split-cta.d.ts",
+    "import": "./dist/navbar-split-cta.js",
+    "require": "./dist/navbar-split-cta.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-sticky-compact",
+    "types": "./dist/navbar-sticky-compact.d.ts",
+    "import": "./dist/navbar-sticky-compact.js",
+    "require": "./dist/navbar-sticky-compact.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-tabbed-sections",
+    "types": "./dist/navbar-tabbed-sections.d.ts",
+    "import": "./dist/navbar-tabbed-sections.js",
+    "require": "./dist/navbar-tabbed-sections.cjs"
+  }
+,
+  {
+    "path": "./blocks/navbars/navbar-transparent-overlay",
+    "types": "./dist/navbar-transparent-overlay.d.ts",
+    "import": "./dist/navbar-transparent-overlay.js",
+    "require": "./dist/navbar-transparent-overlay.cjs"
+  }
+
+]

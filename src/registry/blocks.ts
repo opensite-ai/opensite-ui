@@ -101,6 +101,34 @@ import { ContactVolunteer } from "../../components/blocks/contact/contact-volunt
 import { ContactWarranty } from "../../components/blocks/contact/contact-warranty";
 import { ContactWedding } from "../../components/blocks/contact/contact-wedding";
 
+// Carousel components
+import { CarouselAnimatedSections } from "../../components/blocks/carousel/carousel-animated-sections";
+import type { CarouselAnimatedSectionsProps } from "../../components/blocks/carousel/carousel-animated-sections";
+import { CarouselAutoProgressSlides } from "../../components/blocks/carousel/carousel-auto-progress-slides";
+import type { CarouselAutoProgressSlidesProps } from "../../components/blocks/carousel/carousel-auto-progress-slides";
+import { CarouselAutoplayProgress } from "../../components/blocks/carousel/carousel-autoplay-progress";
+import type { CarouselAutoplayProgressProps } from "../../components/blocks/carousel/carousel-autoplay-progress";
+import { CarouselFeatureBadge } from "../../components/blocks/carousel/carousel-feature-badge";
+import type { CarouselFeatureBadgeProps } from "../../components/blocks/carousel/carousel-feature-badge";
+import { CarouselFullscreenScrollFx } from "../../components/blocks/carousel/carousel-fullscreen-scroll-fx";
+import type { CarouselFullscreenScrollFxProps } from "../../components/blocks/carousel/carousel-fullscreen-scroll-fx";
+import { CarouselGalleryThumbnails } from "../../components/blocks/carousel/carousel-gallery-thumbnails";
+import type { CarouselGalleryThumbnailsProps } from "../../components/blocks/carousel/carousel-gallery-thumbnails";
+import { CarouselHorizontalCards } from "../../components/blocks/carousel/carousel-horizontal-cards";
+import type { CarouselHorizontalCardsProps } from "../../components/blocks/carousel/carousel-horizontal-cards";
+import { CarouselImageHero } from "../../components/blocks/carousel/carousel-image-hero";
+import type { CarouselImageHeroProps } from "../../components/blocks/carousel/carousel-image-hero";
+import { CarouselMultiStepShowcase } from "../../components/blocks/carousel/carousel-multi-step-showcase";
+import type { CarouselMultiStepShowcaseProps } from "../../components/blocks/carousel/carousel-multi-step-showcase";
+import { CarouselPortfolioHero } from "../../components/blocks/carousel/carousel-portfolio-hero";
+import type { CarouselPortfolioHeroProps } from "../../components/blocks/carousel/carousel-portfolio-hero";
+import { CarouselProductFeatureShowcase } from "../../components/blocks/carousel/carousel-product-feature-showcase";
+import type { CarouselProductFeatureShowcaseProps } from "../../components/blocks/carousel/carousel-product-feature-showcase";
+import { CarouselProgressSlider } from "../../components/blocks/carousel/carousel-progress-slider";
+import type { CarouselProgressSliderProps } from "../../components/blocks/carousel/carousel-progress-slider";
+import { CarouselScrollingFeatureShowcase } from "../../components/blocks/carousel/carousel-scrolling-feature-showcase";
+import type { CarouselScrollingFeatureShowcaseProps } from "../../components/blocks/carousel/carousel-scrolling-feature-showcase";
+
 import { FeatureShowcase } from "../../components/blocks/features/feature-showcase";
 import type { FeatureShowcaseProps } from "../../components/blocks/features/feature-showcase";
 import { FeatureSplitImage } from "../../components/blocks/features/feature-split-image";
@@ -761,6 +789,7 @@ export type BlockCategory =
   | "stats"
   | "faq"
   | "contact"
+  | "carousel"
   | "gallery"
   | "timeline"
   | "process"
@@ -3043,6 +3072,451 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   description="Plan your special day with us"
   buttonText="Submit Inquiry"
   formConfig={{ endpoint: "/api/wedding", format: "json" }}
+/>
+    `.trim(),
+  },
+  "carousel-animated-sections": {
+    id: "carousel-animated-sections",
+    name: "Carousel Animated Sections",
+    description:
+      "A fullscreen section carousel with smooth animated transitions between slides. Features click-to-advance navigation, progress indicators, and content overlays with CTAs. Perfect for immersive storytelling experiences.",
+    semanticTags: [
+      "carousel",
+      "slider",
+      "fullscreen",
+      "animated",
+      "transitions",
+      "storytelling",
+      "hero",
+      "sections",
+      "immersive",
+    ],
+    category: "carousel",
+    component: CarouselAnimatedSections,
+    props: "CarouselAnimatedSectionsProps",
+    exampleUsage: `
+<CarouselAnimatedSections
+  sections={[
+    {
+      id: "1",
+      title: "Welcome",
+      subtitle: "Start Here",
+      description: "Begin your journey with us",
+      image: "/images/section-1.jpg",
+      ctaText: "Learn More",
+      ctaHref: "#learn"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-auto-progress-slides": {
+    id: "carousel-auto-progress-slides",
+    name: "Carousel Auto Progress Slides",
+    description:
+      "An auto-advancing carousel with animated progress indicators and smooth blur transitions between slides. Features centered headline, navigation controls, and visual progress dots that fill as each slide auto-advances.",
+    semanticTags: [
+      "carousel",
+      "slider",
+      "auto-advance",
+      "progress",
+      "animated",
+      "hero",
+      "onboarding",
+      "timed",
+      "transitions",
+    ],
+    category: "carousel",
+    component: CarouselAutoProgressSlides,
+    props: "CarouselAutoProgressSlidesProps",
+    exampleUsage: `
+<CarouselAutoProgressSlides
+  heading="Featured Products"
+  subheading="Discover our latest collection"
+  slideLabel="Explore"
+  items={[
+    { src: "/images/product-1.jpg", label: "Product 1" },
+    { src: "/images/product-2.jpg", label: "Product 2" }
+  ]}
+  autoAdvanceInterval={5000}
+/>
+    `.trim(),
+  },
+  "carousel-autoplay-progress": {
+    id: "carousel-autoplay-progress",
+    name: "Carousel Autoplay Progress",
+    description:
+      "An Embla-powered carousel with autoplay functionality, animated progress bar, dot navigation, and play/pause controls. Features smooth transitions with visual feedback for autoplay timing.",
+    semanticTags: [
+      "carousel",
+      "slider",
+      "autoplay",
+      "progress-bar",
+      "embla",
+      "hero",
+      "testimonials",
+      "features",
+      "controls",
+    ],
+    category: "carousel",
+    component: CarouselAutoplayProgress,
+    props: "CarouselAutoplayProgressProps",
+    exampleUsage: `
+<CarouselAutoplayProgress
+  slides={[
+    {
+      src: "/images/slide-1.jpg",
+      alt: "Slide 1",
+      content: <div>Custom content</div>
+    }
+  ]}
+  autoplayDelay={4000}
+  options={{ loop: true }}
+/>
+    `.trim(),
+  },
+  "carousel-feature-badge": {
+    id: "carousel-feature-badge",
+    name: "Carousel Feature Badge",
+    description:
+      "A two-column feature section with badge label, headline, description text, and an interactive carousel showcasing platform screenshots or feature images. Includes previous/next navigation controls.",
+    semanticTags: [
+      "carousel",
+      "features",
+      "screenshots",
+      "badge",
+      "two-column",
+      "platform",
+      "showcase",
+      "gallery",
+    ],
+    category: "carousel",
+    component: CarouselFeatureBadge,
+    props: "CarouselFeatureBadgeProps",
+    exampleUsage: `
+<CarouselFeatureBadge
+  badgeText="Platform"
+  heading="This is the start of something new"
+  description="Our platform helps you build amazing products"
+  items={[
+    { src: "/images/screen-1.jpg", alt: "Dashboard" },
+    { src: "/images/screen-2.jpg", alt: "Analytics" }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-fullscreen-scroll-fx": {
+    id: "carousel-fullscreen-scroll-fx",
+    name: "Carousel Fullscreen Scroll Effects",
+    description:
+      "A GSAP-powered fullscreen carousel with scroll-triggered animations, pinned sections, and smooth parallax effects. Features immersive full-viewport slides with overlay content and navigation indicators.",
+    semanticTags: [
+      "carousel",
+      "fullscreen",
+      "scroll",
+      "gsap",
+      "parallax",
+      "immersive",
+      "storytelling",
+      "portfolio",
+      "cinematic",
+    ],
+    category: "carousel",
+    component: CarouselFullscreenScrollFx,
+    props: "CarouselFullscreenScrollFxProps",
+    exampleUsage: `
+<CarouselFullscreenScrollFx
+  slides={[
+    {
+      id: "1",
+      title: "Innovation",
+      subtitle: "Discover More",
+      description: "Experience the future",
+      image: "/images/slide-1.jpg",
+      overlayColor: "rgba(0,0,0,0.5)"
+    }
+  ]}
+/>
+    `.trim(),
+  },
+  "carousel-gallery-thumbnails": {
+    id: "carousel-gallery-thumbnails",
+    name: "Carousel Gallery Thumbnails",
+    description:
+      "A gallery carousel with main image display, thumbnail navigation strip, keyboard navigation support, and auto-play functionality. Features smooth slide transitions with caption overlay and responsive thumbnail grid.",
+    semanticTags: [
+      "carousel",
+      "gallery",
+      "thumbnails",
+      "images",
+      "portfolio",
+      "products",
+      "real-estate",
+      "photography",
+      "navigation",
+    ],
+    category: "carousel",
+    component: CarouselGalleryThumbnails,
+    props: "CarouselGalleryThumbnailsProps",
+    exampleUsage: `
+<CarouselGalleryThumbnails
+  images={[
+    { src: "/images/gallery-1.jpg", alt: "Image 1", width: 1470, height: 980 },
+    { src: "/images/gallery-2.jpg", alt: "Image 2", width: 1470, height: 980 }
+  ]}
+  autoPlay={true}
+  autoPlayInterval={5000}
+  showThumbnails={true}
+/>
+    `.trim(),
+  },
+  "carousel-horizontal-cards": {
+    id: "carousel-horizontal-cards",
+    name: "Carousel Horizontal Cards",
+    description:
+      "A horizontal scrolling card carousel with animated entrance effects, navigation buttons, and stat displays. Features smooth scroll behavior with dynamic button visibility based on scroll position.",
+    semanticTags: [
+      "carousel",
+      "cards",
+      "horizontal",
+      "scroll",
+      "features",
+      "products",
+      "team",
+      "testimonials",
+      "stats",
+    ],
+    category: "carousel",
+    component: CarouselHorizontalCards,
+    props: "CarouselHorizontalCardsProps",
+    exampleUsage: `
+<CarouselHorizontalCards
+  title="Featured Content"
+  subtitle="Discover our latest highlights"
+  items={[
+    {
+      id: "1",
+      imageSrc: "/images/card-1.jpg",
+      title: "Card Title",
+      count: 42,
+      countLabel: "Projects"
+    }
+  ]}
+  titleHref="#more"
+/>
+    `.trim(),
+  },
+  "carousel-image-hero": {
+    id: "carousel-image-hero",
+    name: "Carousel Image Hero",
+    description:
+      "A full-width hero section with an auto-advancing background image carousel, overlay content with headline, description, and call-to-action button. Includes navigation arrows and dot indicators for manual slide control.",
+    semanticTags: [
+      "carousel",
+      "hero",
+      "fullwidth",
+      "background",
+      "landing",
+      "cta",
+      "portfolio",
+      "marketing",
+      "auto-advance",
+    ],
+    category: "carousel",
+    component: CarouselImageHero,
+    props: "CarouselImageHeroProps",
+    exampleUsage: `
+<CarouselImageHero
+  badgeText="Launching Soon"
+  heading="Build exceptional digital experiences"
+  description="Create stunning websites with ease"
+  ctaText="Get Started"
+  ctaHref="#start"
+  images={[
+    { src: "/images/hero-1.jpg", alt: "Hero 1" },
+    { src: "/images/hero-2.jpg", alt: "Hero 2" }
+  ]}
+  autoPlayInterval={6000}
+/>
+    `.trim(),
+  },
+  "carousel-multi-step-showcase": {
+    id: "carousel-multi-step-showcase",
+    name: "Carousel Multi-Step Showcase",
+    description:
+      "A multi-step feature showcase with animated step navigation, progress indicators, and synchronized image transitions. Features numbered step buttons with active state highlighting and smooth content transitions.",
+    semanticTags: [
+      "carousel",
+      "multi-step",
+      "onboarding",
+      "tutorial",
+      "walkthrough",
+      "features",
+      "process",
+      "steps",
+      "progressive",
+    ],
+    category: "carousel",
+    component: CarouselMultiStepShowcase,
+    props: "CarouselMultiStepShowcaseProps",
+    exampleUsage: `
+<CarouselMultiStepShowcase
+  heading="How It Works"
+  subheading="Follow these simple steps"
+  steps={[
+    {
+      id: "1",
+      step: 1,
+      title: "Sign Up",
+      description: "Create your account in seconds",
+      image: "/images/step-1.jpg"
+    }
+  ]}
+  ctaText="Get Started"
+  ctaHref="#signup"
+/>
+    `.trim(),
+  },
+  "carousel-portfolio-hero": {
+    id: "carousel-portfolio-hero",
+    name: "Carousel Portfolio Hero",
+    description:
+      "A fullscreen portfolio hero section with auto-advancing image slider, gradient overlay, category tags, and navigation controls. Features smooth opacity transitions between slides with slide counter display.",
+    semanticTags: [
+      "carousel",
+      "portfolio",
+      "hero",
+      "fullscreen",
+      "creative",
+      "agency",
+      "photography",
+      "design",
+      "showcase",
+    ],
+    category: "carousel",
+    component: CarouselPortfolioHero,
+    props: "CarouselPortfolioHeroProps",
+    exampleUsage: `
+<CarouselPortfolioHero
+  slides={[
+    {
+      id: "1",
+      image: "/images/portfolio-1.jpg",
+      title: "Project Title",
+      description: "Project description",
+      tag: "Design"
+    }
+  ]}
+  ctaText="View Projects"
+  ctaHref="#projects"
+  autoPlayInterval={5000}
+/>
+    `.trim(),
+  },
+  "carousel-product-feature-showcase": {
+    id: "carousel-product-feature-showcase",
+    name: "Carousel Product Feature Showcase",
+    description:
+      "An interactive product feature carousel with mobile-responsive design, color variant selectors, and animated transitions. Features a split layout with product imagery on one side and feature descriptions with navigation on the other.",
+    semanticTags: [
+      "carousel",
+      "product",
+      "features",
+      "ecommerce",
+      "variants",
+      "showcase",
+      "interactive",
+      "split-layout",
+      "saas",
+    ],
+    category: "carousel",
+    component: CarouselProductFeatureShowcase,
+    props: "CarouselProductFeatureShowcaseProps",
+    exampleUsage: `
+<CarouselProductFeatureShowcase
+  heading="Discover Our Products"
+  subheading="Explore features that stand out"
+  features={[
+    {
+      id: "1",
+      title: "Product Feature 1",
+      description: "Feature description",
+      image: "/images/feature-1.jpg",
+      colors: [
+        { name: "Default", value: "#3b82f6" },
+        { name: "Dark", value: "#1f2937" }
+      ]
+    }
+  ]}
+  ctaText="Learn More"
+  ctaHref="#learn"
+/>
+    `.trim(),
+  },
+  "carousel-progress-slider": {
+    id: "carousel-progress-slider",
+    name: "Carousel Progress Slider",
+    description:
+      "A context-based slider with animated progress bar indicators for each slide. Features auto-advancing slides with visual progress feedback and smooth transitions between content panels.",
+    semanticTags: [
+      "carousel",
+      "progress",
+      "slider",
+      "auto-advance",
+      "onboarding",
+      "walkthrough",
+      "features",
+      "timed",
+      "indicators",
+    ],
+    category: "carousel",
+    component: CarouselProgressSlider,
+    props: "CarouselProgressSliderProps",
+    exampleUsage: `
+<CarouselProgressSlider
+  slides={[
+    {
+      id: "1",
+      title: "Feature 1",
+      description: "Description",
+      image: "/images/feature-1.jpg"
+    }
+  ]}
+  vertical={false}
+/>
+    `.trim(),
+  },
+  "carousel-scrolling-feature-showcase": {
+    id: "carousel-scrolling-feature-showcase",
+    name: "Carousel Scrolling Feature Showcase",
+    description:
+      "A scroll-driven feature showcase with a sticky image panel that updates as users scroll through feature descriptions. Features smooth transitions between feature images with intersection observer-based activation.",
+    semanticTags: [
+      "carousel",
+      "scroll",
+      "features",
+      "sticky",
+      "storytelling",
+      "documentation",
+      "marketing",
+      "synchronized",
+      "intersection-observer",
+    ],
+    category: "carousel",
+    component: CarouselScrollingFeatureShowcase,
+    props: "CarouselScrollingFeatureShowcaseProps",
+    exampleUsage: `
+<CarouselScrollingFeatureShowcase
+  sectionTitle="Powerful Features"
+  sectionSubtitle="Discover what makes us unique"
+  features={[
+    {
+      id: "1",
+      title: "Feature Title",
+      description: "Feature description",
+      image: "/images/feature-1.jpg"
+    }
+  ]}
 />
     `.trim(),
   },

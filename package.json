@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -36,705 +36,165 @@
       "import": "./dist/components.js",
       "require": "./dist/components.cjs"
     },
-    "./components/container": {
-      "types": "./dist/container.d.ts",
-      "import": "./dist/container.js",
-      "require": "./dist/container.cjs"
-    },
-    "./components/section": {
-      "types": "./dist/section.d.ts",
-      "import": "./dist/section.js",
-      "require": "./dist/section.cjs"
-    },
-    "./components/animated-dialog": {
-      "types": "./dist/animated-dialog.d.ts",
-      "import": "./dist/animated-dialog.js",
-      "require": "./dist/animated-dialog.cjs"
-    },
-    "./components/page-hero-banner": {
-      "types": "./dist/page-hero-banner.d.ts",
-      "import": "./dist/page-hero-banner.js",
-      "require": "./dist/page-hero-banner.cjs"
-    },
-    "./components/button": {
-      "types": "./dist/button.d.ts",
-      "import": "./dist/button.js",
-      "require": "./dist/button.cjs"
-    },
-    "./components/card": {
-      "types": "./dist/card.d.ts",
-      "import": "./dist/card.js",
-      "require": "./dist/card.cjs"
-    },
-    "./components/badge": {
-      "types": "./dist/badge.d.ts",
-      "import": "./dist/badge.js",
-      "require": "./dist/badge.cjs"
-    },
-    "./components/popover": {
-      "types": "./dist/popover.d.ts",
-      "import": "./dist/popover.js",
-      "require": "./dist/popover.cjs"
-    },
-    "./components/dynamic-icon": {
-      "types": "./dist/dynamic-icon.d.ts",
-      "import": "./dist/dynamic-icon.js",
-      "require": "./dist/dynamic-icon.cjs"
-    },
-    "./components/pressable": {
-      "types": "./dist/pressable.d.ts",
-      "import": "./dist/pressable.js",
-      "require": "./dist/pressable.cjs"
-    },
-    "./hooks": {
-      "types": "./dist/hooks.d.ts",
-      "import": "./dist/hooks.js",
-      "require": "./dist/hooks.cjs"
-    },
-    "./hooks/use-navigation": {
-      "types": "./dist/use-navigation.d.ts",
-      "import": "./dist/use-navigation.js",
-      "require": "./dist/use-navigation.cjs"
-    },
-    "./blocks/about/alternating-blocks": {
-      "types": "./dist/alternating-blocks.d.ts",
-      "import": "./dist/alternating-blocks.js",
-      "require": "./dist/alternating-blocks.cjs"
-    },
-    "./blocks/about/about-mission-features": {
-      "types": "./dist/about-mission-features.d.ts",
-      "import": "./dist/about-mission-features.js",
-      "require": "./dist/about-mission-features.cjs"
-    },
-    "./blocks/about/about-stats-showcase": {
-      "types": "./dist/about-stats-showcase.d.ts",
-      "import": "./dist/about-stats-showcase.js",
-      "require": "./dist/about-stats-showcase.cjs"
-    },
     "./blocks/about/about-company-profile": {
       "types": "./dist/about-company-profile.d.ts",
       "import": "./dist/about-company-profile.js",
       "require": "./dist/about-company-profile.cjs"
     },
-    "./blocks/about/about-vision-gallery": {
-      "types": "./dist/about-vision-gallery.d.ts",
-      "import": "./dist/about-vision-gallery.js",
-      "require": "./dist/about-vision-gallery.cjs"
-    },
-    "./blocks/about/about-developer-story": {
-      "types": "./dist/about-developer-story.d.ts",
-      "import": "./dist/about-developer-story.js",
-      "require": "./dist/about-developer-story.cjs"
-    },
-    "./blocks/about/about-story-gallery": {
-      "types": "./dist/about-story-gallery.d.ts",
-      "import": "./dist/about-story-gallery.js",
-      "require": "./dist/about-story-gallery.cjs"
-    },
-    "./blocks/about/about-streamline-team": {
-      "types": "./dist/about-streamline-team.d.ts",
-      "import": "./dist/about-streamline-team.js",
-      "require": "./dist/about-streamline-team.cjs"
+    "./blocks/about/about-culture-tabs": {
+      "types": "./dist/about-culture-tabs.d.ts",
+      "import": "./dist/about-culture-tabs.js",
+      "require": "./dist/about-culture-tabs.cjs"
     },
     "./blocks/about/about-developer-profile": {
       "types": "./dist/about-developer-profile.d.ts",
       "import": "./dist/about-developer-profile.js",
       "require": "./dist/about-developer-profile.cjs"
     },
-    "./blocks/about/about-startup-team": {
-      "types": "./dist/about-startup-team.d.ts",
-      "import": "./dist/about-startup-team.js",
-      "require": "./dist/about-startup-team.cjs"
+    "./blocks/about/about-developer-story": {
+      "types": "./dist/about-developer-story.d.ts",
+      "import": "./dist/about-developer-story.js",
+      "require": "./dist/about-developer-story.cjs"
     },
-    "./blocks/about/about-minimal-story": {
-      "types": "./dist/about-minimal-story.d.ts",
-      "import": "./dist/about-minimal-story.js",
-      "require": "./dist/about-minimal-story.cjs"
-    },
-    "./blocks/about/about-story-hero": {
-      "types": "./dist/about-story-hero.d.ts",
-      "import": "./dist/about-story-hero.js",
-      "require": "./dist/about-story-hero.cjs"
-    },
-    "./blocks/about/about-stats-sidebar": {
-      "types": "./dist/about-stats-sidebar.d.ts",
-      "import": "./dist/about-stats-sidebar.js",
-      "require": "./dist/about-stats-sidebar.cjs"
+    "./blocks/about/about-expandable-values": {
+      "types": "./dist/about-expandable-values.d.ts",
+      "import": "./dist/about-expandable-values.js",
+      "require": "./dist/about-expandable-values.cjs"
     },
     "./blocks/about/about-interactive-tabs": {
       "types": "./dist/about-interactive-tabs.d.ts",
       "import": "./dist/about-interactive-tabs.js",
       "require": "./dist/about-interactive-tabs.cjs"
     },
+    "./blocks/about/about-minimal-story": {
+      "types": "./dist/about-minimal-story.d.ts",
+      "import": "./dist/about-minimal-story.js",
+      "require": "./dist/about-minimal-story.cjs"
+    },
     "./blocks/about/about-mission-dual-image": {
       "types": "./dist/about-mission-dual-image.d.ts",
       "import": "./dist/about-mission-dual-image.js",
       "require": "./dist/about-mission-dual-image.cjs"
     },
-    "./blocks/cta/media-hover-ctas": {
-      "types": "./dist/media-hover-ctas.d.ts",
-      "import": "./dist/media-hover-ctas.js",
-      "require": "./dist/media-hover-ctas.cjs"
-    },
-    "./blocks/cta/cta-documentation-links": {
-      "types": "./dist/cta-documentation-links.d.ts",
-      "import": "./dist/cta-documentation-links.js",
-      "require": "./dist/cta-documentation-links.cjs"
-    },
-    "./blocks/cta/cta-feature-checklist": {
-      "types": "./dist/cta-feature-checklist.d.ts",
-      "import": "./dist/cta-feature-checklist.js",
-      "require": "./dist/cta-feature-checklist.cjs"
-    },
-    "./blocks/cta/cta-split-image": {
-      "types": "./dist/cta-split-image.d.ts",
-      "import": "./dist/cta-split-image.js",
-      "require": "./dist/cta-split-image.cjs"
-    },
-    "./blocks/cta/cta-stacked-cards": {
-      "types": "./dist/cta-stacked-cards.d.ts",
-      "import": "./dist/cta-stacked-cards.js",
-      "require": "./dist/cta-stacked-cards.cjs"
-    },
-    "./blocks/cta/cta-feature-list": {
-      "types": "./dist/cta-feature-list.d.ts",
-      "import": "./dist/cta-feature-list.js",
-      "require": "./dist/cta-feature-list.cjs"
-    },
-    "./blocks/cta/cta-split-image-logos": {
-      "types": "./dist/cta-split-image-logos.d.ts",
-      "import": "./dist/cta-split-image-logos.js",
-      "require": "./dist/cta-split-image-logos.cjs"
-    },
-    "./blocks/cta/cta-fullwidth-background": {
-      "types": "./dist/cta-fullwidth-background.d.ts",
-      "import": "./dist/cta-fullwidth-background.js",
-      "require": "./dist/cta-fullwidth-background.cjs"
-    },
-    "./blocks/cta/cta-feature-cards-grid": {
-      "types": "./dist/cta-feature-cards-grid.d.ts",
-      "import": "./dist/cta-feature-cards-grid.js",
-      "require": "./dist/cta-feature-cards-grid.cjs"
-    },
-    "./blocks/cta/cta-accent-background": {
-      "types": "./dist/cta-accent-background.d.ts",
-      "import": "./dist/cta-accent-background.js",
-      "require": "./dist/cta-accent-background.cjs"
-    },
-    "./blocks/cta/cta-split-gradient-image": {
-      "types": "./dist/cta-split-gradient-image.d.ts",
-      "import": "./dist/cta-split-gradient-image.js",
-      "require": "./dist/cta-split-gradient-image.cjs"
-    },
-    "./blocks/cta/cta-background-icon-badge": {
-      "types": "./dist/cta-background-icon-badge.d.ts",
-      "import": "./dist/cta-background-icon-badge.js",
-      "require": "./dist/cta-background-icon-badge.cjs"
-    },
-    "./blocks/cta/cta-pattern-background": {
-      "types": "./dist/cta-pattern-background.d.ts",
-      "import": "./dist/cta-pattern-background.js",
-      "require": "./dist/cta-pattern-background.cjs"
-    },
-    "./blocks/cta/cta-platform-demo": {
-      "types": "./dist/cta-platform-demo.d.ts",
-      "import": "./dist/cta-platform-demo.js",
-      "require": "./dist/cta-platform-demo.cjs"
-    },
-    "./blocks/cta/cta-enterprise-split": {
-      "types": "./dist/cta-enterprise-split.d.ts",
-      "import": "./dist/cta-enterprise-split.js",
-      "require": "./dist/cta-enterprise-split.cjs"
-    },
-    "./blocks/cta/cta-minimal-separator": {
-      "types": "./dist/cta-minimal-separator.d.ts",
-      "import": "./dist/cta-minimal-separator.js",
-      "require": "./dist/cta-minimal-separator.cjs"
-    },
-    "./blocks/cta/cta-image-overlay-arrow": {
-      "types": "./dist/cta-image-overlay-arrow.d.ts",
-      "import": "./dist/cta-image-overlay-arrow.js",
-      "require": "./dist/cta-image-overlay-arrow.cjs"
-    },
-    "./blocks/cta/cta-app-download-newsletter": {
-      "types": "./dist/cta-app-download-newsletter.d.ts",
-      "import": "./dist/cta-app-download-newsletter.js",
-      "require": "./dist/cta-app-download-newsletter.cjs"
-    },
-    "./blocks/cta/cta-newsletter-features": {
-      "types": "./dist/cta-newsletter-features.d.ts",
-      "import": "./dist/cta-newsletter-features.js",
-      "require": "./dist/cta-newsletter-features.cjs"
-    },
-    "./blocks/cta/cta-hero-feature-cards": {
-      "types": "./dist/cta-hero-feature-cards.d.ts",
-      "import": "./dist/cta-hero-feature-cards.js",
-      "require": "./dist/cta-hero-feature-cards.cjs"
-    },
-    "./blocks/cta/cta-enterprise-dark-features": {
-      "types": "./dist/cta-enterprise-dark-features.d.ts",
-      "import": "./dist/cta-enterprise-dark-features.js",
-      "require": "./dist/cta-enterprise-dark-features.cjs"
-    },
-    "./blocks/cta/cta-gradient-logos-floating": {
-      "types": "./dist/cta-gradient-logos-floating.d.ts",
-      "import": "./dist/cta-gradient-logos-floating.js",
-      "require": "./dist/cta-gradient-logos-floating.cjs"
-    },
-    "./blocks/cta/cta-gradient-stats-hero": {
-      "types": "./dist/cta-gradient-stats-hero.d.ts",
-      "import": "./dist/cta-gradient-stats-hero.js",
-      "require": "./dist/cta-gradient-stats-hero.cjs"
-    },
-    "./blocks/cta/cta-video-background-hero": {
-      "types": "./dist/cta-video-background-hero.d.ts",
-      "import": "./dist/cta-video-background-hero.js",
-      "require": "./dist/cta-video-background-hero.cjs"
-    },
-    "./blocks/cta/cta-workflow-tabs": {
-      "types": "./dist/cta-workflow-tabs.d.ts",
-      "import": "./dist/cta-workflow-tabs.js",
-      "require": "./dist/cta-workflow-tabs.cjs"
-    },
-    "./blocks/cta/cta-case-study-testimonial": {
-      "types": "./dist/cta-case-study-testimonial.d.ts",
-      "import": "./dist/cta-case-study-testimonial.js",
-      "require": "./dist/cta-case-study-testimonial.cjs"
-    },
-    "./blocks/cta/cta-simple-centered": {
-      "types": "./dist/cta-simple-centered.d.ts",
-      "import": "./dist/cta-simple-centered.js",
-      "require": "./dist/cta-simple-centered.cjs"
-    },
-    "./blocks/features/feature-showcase": {
-      "types": "./dist/feature-showcase.d.ts",
-      "import": "./dist/feature-showcase.js",
-      "require": "./dist/feature-showcase.cjs"
-    },
-    "./blocks/features/feature-split-image": {
-      "types": "./dist/feature-split-image.d.ts",
-      "import": "./dist/feature-split-image.js",
-      "require": "./dist/feature-split-image.cjs"
-    },
-    "./blocks/features/feature-split-image-reverse": {
-      "types": "./dist/feature-split-image-reverse.d.ts",
-      "import": "./dist/feature-split-image-reverse.js",
-      "require": "./dist/feature-split-image-reverse.cjs"
-    },
-    "./blocks/features/feature-icon-grid-bordered": {
-      "types": "./dist/feature-icon-grid-bordered.d.ts",
-      "import": "./dist/feature-icon-grid-bordered.js",
-      "require": "./dist/feature-icon-grid-bordered.cjs"
-    },
-    "./blocks/features/feature-checklist-image": {
-      "types": "./dist/feature-checklist-image.d.ts",
-      "import": "./dist/feature-checklist-image.js",
-      "require": "./dist/feature-checklist-image.cjs"
-    },
-    "./blocks/features/feature-carousel-progress": {
-      "types": "./dist/feature-carousel-progress.d.ts",
-      "import": "./dist/feature-carousel-progress.js",
-      "require": "./dist/feature-carousel-progress.cjs"
-    },
-    "./blocks/features/feature-card-grid-linked": {
-      "types": "./dist/feature-card-grid-linked.d.ts",
-      "import": "./dist/feature-card-grid-linked.js",
-      "require": "./dist/feature-card-grid-linked.cjs"
-    },
-    "./blocks/features/feature-numbered-cards": {
-      "types": "./dist/feature-numbered-cards.d.ts",
-      "import": "./dist/feature-numbered-cards.js",
-      "require": "./dist/feature-numbered-cards.cjs"
-    },
-    "./blocks/features/feature-icon-grid-accent": {
-      "types": "./dist/feature-icon-grid-accent.d.ts",
-      "import": "./dist/feature-icon-grid-accent.js",
-      "require": "./dist/feature-icon-grid-accent.cjs"
-    },
-    "./blocks/features/feature-three-column-values": {
-      "types": "./dist/feature-three-column-values.d.ts",
-      "import": "./dist/feature-three-column-values.js",
-      "require": "./dist/feature-three-column-values.cjs"
-    },
-    "./blocks/features/feature-badge-grid-six": {
-      "types": "./dist/feature-badge-grid-six.d.ts",
-      "import": "./dist/feature-badge-grid-six.js",
-      "require": "./dist/feature-badge-grid-six.cjs"
-    },
-    "./blocks/features/feature-pattern-grid-links": {
-      "types": "./dist/feature-pattern-grid-links.d.ts",
-      "import": "./dist/feature-pattern-grid-links.js",
-      "require": "./dist/feature-pattern-grid-links.cjs"
-    },
-    "./blocks/features/feature-tabbed-content-image": {
-      "types": "./dist/feature-tabbed-content-image.d.ts",
-      "import": "./dist/feature-tabbed-content-image.js",
-      "require": "./dist/feature-tabbed-content-image.cjs"
-    },
-    "./blocks/features/feature-utility-cards-grid": {
-      "types": "./dist/feature-utility-cards-grid.d.ts",
-      "import": "./dist/feature-utility-cards-grid.js",
-      "require": "./dist/feature-utility-cards-grid.cjs"
-    },
-    "./blocks/features/feature-bento-utilities": {
-      "types": "./dist/feature-bento-utilities.d.ts",
-      "import": "./dist/feature-bento-utilities.js",
-      "require": "./dist/feature-bento-utilities.cjs"
-    },
-    "./blocks/features/feature-checklist-three-column": {
-      "types": "./dist/feature-checklist-three-column.d.ts",
-      "import": "./dist/feature-checklist-three-column.js",
-      "require": "./dist/feature-checklist-three-column.cjs"
-    },
-    "./blocks/features/feature-integration-cards": {
-      "types": "./dist/feature-integration-cards.d.ts",
-      "import": "./dist/feature-integration-cards.js",
-      "require": "./dist/feature-integration-cards.cjs"
-    },
-    "./blocks/features/feature-icon-tabs-content": {
-      "types": "./dist/feature-icon-tabs-content.d.ts",
-      "import": "./dist/feature-icon-tabs-content.js",
-      "require": "./dist/feature-icon-tabs-content.cjs"
-    },
-    "./blocks/features/feature-image-overlay-badge": {
-      "types": "./dist/feature-image-overlay-badge.d.ts",
-      "import": "./dist/feature-image-overlay-badge.js",
-      "require": "./dist/feature-image-overlay-badge.cjs"
-    },
-    "./blocks/features/feature-category-image-cards": {
-      "types": "./dist/feature-category-image-cards.d.ts",
-      "import": "./dist/feature-category-image-cards.js",
-      "require": "./dist/feature-category-image-cards.cjs"
-    },
-    "./blocks/features/feature-bento-image-grid": {
-      "types": "./dist/feature-bento-image-grid.d.ts",
-      "import": "./dist/feature-bento-image-grid.js",
-      "require": "./dist/feature-bento-image-grid.cjs"
-    },
-    "./blocks/features/feature-image-cards-three-column": {
-      "types": "./dist/feature-image-cards-three-column.d.ts",
-      "import": "./dist/feature-image-cards-three-column.js",
-      "require": "./dist/feature-image-cards-three-column.cjs"
-    },
-    "./blocks/features/feature-icon-grid-muted": {
-      "types": "./dist/feature-icon-grid-muted.d.ts",
-      "import": "./dist/feature-icon-grid-muted.js",
-      "require": "./dist/feature-icon-grid-muted.cjs"
-    },
-    "./blocks/features/feature-stats-highlight": {
-      "types": "./dist/feature-stats-highlight.d.ts",
-      "import": "./dist/feature-stats-highlight.js",
-      "require": "./dist/feature-stats-highlight.cjs"
-    },
-    "./blocks/features/feature-accordion-image": {
-      "types": "./dist/feature-accordion-image.d.ts",
-      "import": "./dist/feature-accordion-image.js",
-      "require": "./dist/feature-accordion-image.cjs"
-    },
-    "./blocks/team/team-media-showcase": {
-      "types": "./dist/team-media-showcase.d.ts",
-      "import": "./dist/team-media-showcase.js",
-      "require": "./dist/team-media-showcase.cjs"
-    },
-    "./blocks/footers/footer-links-grid": {
-      "types": "./dist/footer-links-grid.d.ts",
-      "import": "./dist/footer-links-grid.js",
-      "require": "./dist/footer-links-grid.cjs"
-    },
-    "./blocks/footers/footer-social-newsletter": {
-      "types": "./dist/footer-social-newsletter.d.ts",
-      "import": "./dist/footer-social-newsletter.js",
-      "require": "./dist/footer-social-newsletter.cjs"
-    },
-    "./blocks/footers/footer-social-apps": {
-      "types": "./dist/footer-social-apps.d.ts",
-      "import": "./dist/footer-social-apps.js",
-      "require": "./dist/footer-social-apps.cjs"
-    },
-    "./blocks/footers/footer-simple-centered": {
-      "types": "./dist/footer-simple-centered.d.ts",
-      "import": "./dist/footer-simple-centered.js",
-      "require": "./dist/footer-simple-centered.cjs"
-    },
-    "./blocks/footers/footer-brand-description": {
-      "types": "./dist/footer-brand-description.d.ts",
-      "import": "./dist/footer-brand-description.js",
-      "require": "./dist/footer-brand-description.cjs"
-    },
-    "./blocks/footers/footer-newsletter-grid": {
-      "types": "./dist/footer-newsletter-grid.d.ts",
-      "import": "./dist/footer-newsletter-grid.js",
-      "require": "./dist/footer-newsletter-grid.cjs"
-    },
-    "./blocks/footers/footer-cta-banner": {
-      "types": "./dist/footer-cta-banner.d.ts",
-      "import": "./dist/footer-cta-banner.js",
-      "require": "./dist/footer-cta-banner.cjs"
-    },
-    "./blocks/footers/footer-contact-card": {
-      "types": "./dist/footer-contact-card.d.ts",
-      "import": "./dist/footer-contact-card.js",
-      "require": "./dist/footer-contact-card.cjs"
-    },
-    "./blocks/footers/footer-background-card": {
-      "types": "./dist/footer-background-card.d.ts",
-      "import": "./dist/footer-background-card.js",
-      "require": "./dist/footer-background-card.cjs"
-    },
-    "./blocks/footers/footer-animated-social": {
-      "types": "./dist/footer-animated-social.d.ts",
-      "import": "./dist/footer-animated-social.js",
-      "require": "./dist/footer-animated-social.cjs"
-    },
-    "./blocks/footers/footer-newsletter-minimal": {
-      "types": "./dist/footer-newsletter-minimal.d.ts",
-      "import": "./dist/footer-newsletter-minimal.js",
-      "require": "./dist/footer-newsletter-minimal.cjs"
-    },
-    "./blocks/footers/footer-cta-social": {
-      "types": "./dist/footer-cta-social.d.ts",
-      "import": "./dist/footer-cta-social.js",
-      "require": "./dist/footer-cta-social.cjs"
-    },
-    "./blocks/footers/footer-nav-social": {
-      "types": "./dist/footer-nav-social.d.ts",
-      "import": "./dist/footer-nav-social.js",
-      "require": "./dist/footer-nav-social.cjs"
-    },
-    "./blocks/gallery/expandable-case-study-cards": {
-      "types": "./dist/expandable-case-study-cards.d.ts",
-      "import": "./dist/expandable-case-study-cards.js",
-      "require": "./dist/expandable-case-study-cards.cjs"
-    },
-    "./blocks/gallery/carousel-badge-cards": {
-      "types": "./dist/carousel-badge-cards.d.ts",
-      "import": "./dist/carousel-badge-cards.js",
-      "require": "./dist/carousel-badge-cards.cjs"
-    },
-    "./blocks/gallery/carousel-gradient-overlay": {
-      "types": "./dist/carousel-gradient-overlay.d.ts",
-      "import": "./dist/carousel-gradient-overlay.js",
-      "require": "./dist/carousel-gradient-overlay.cjs"
-    },
-    "./blocks/gallery/carousel-demo-link": {
-      "types": "./dist/carousel-demo-link.d.ts",
-      "import": "./dist/carousel-demo-link.js",
-      "require": "./dist/carousel-demo-link.cjs"
-    },
-    "./blocks/gallery/auto-scroll-carousel": {
-      "types": "./dist/auto-scroll-carousel.d.ts",
-      "import": "./dist/auto-scroll-carousel.js",
-      "require": "./dist/auto-scroll-carousel.cjs"
-    },
-    "./blocks/gallery/carousel-sidebar-resources": {
-      "types": "./dist/carousel-sidebar-resources.d.ts",
-      "import": "./dist/carousel-sidebar-resources.js",
-      "require": "./dist/carousel-sidebar-resources.cjs"
-    },
-    "./blocks/gallery/carousel-icon-tabs": {
-      "types": "./dist/carousel-icon-tabs.d.ts",
-      "import": "./dist/carousel-icon-tabs.js",
-      "require": "./dist/carousel-icon-tabs.cjs"
-    },
-    "./blocks/gallery/testimonial-carousel-cards": {
-      "types": "./dist/testimonial-carousel-cards.d.ts",
-      "import": "./dist/testimonial-carousel-cards.js",
-      "require": "./dist/testimonial-carousel-cards.cjs"
-    },
-    "./blocks/gallery/carousel-icon-sidebar": {
-      "types": "./dist/carousel-icon-sidebar.d.ts",
-      "import": "./dist/carousel-icon-sidebar.js",
-      "require": "./dist/carousel-icon-sidebar.cjs"
-    },
-    "./blocks/gallery/carousel-gradient-text": {
-      "types": "./dist/carousel-gradient-text.d.ts",
-      "import": "./dist/carousel-gradient-text.js",
-      "require": "./dist/carousel-gradient-text.cjs"
-    },
-    "./blocks/gallery/service-hover-carousel": {
-      "types": "./dist/service-hover-carousel.d.ts",
-      "import": "./dist/service-hover-carousel.js",
-      "require": "./dist/service-hover-carousel.cjs"
-    },
-    "./blocks/gallery/carousel-tabs-content": {
-      "types": "./dist/carousel-tabs-content.d.ts",
-      "import": "./dist/carousel-tabs-content.js",
-      "require": "./dist/carousel-tabs-content.cjs"
-    },
-    "./blocks/gallery/carousel-scale-focus": {
-      "types": "./dist/carousel-scale-focus.d.ts",
-      "import": "./dist/carousel-scale-focus.js",
-      "require": "./dist/carousel-scale-focus.cjs"
-    },
-    "./blocks/gallery/masonry-motion-grid": {
-      "types": "./dist/masonry-motion-grid.d.ts",
-      "import": "./dist/masonry-motion-grid.js",
-      "require": "./dist/masonry-motion-grid.cjs"
-    },
-    "./blocks/gallery/blur-vignette-grid": {
-      "types": "./dist/blur-vignette-grid.d.ts",
-      "import": "./dist/blur-vignette-grid.js",
-      "require": "./dist/blur-vignette-grid.cjs"
-    },
-    "./blocks/gallery/interior-carousel": {
-      "types": "./dist/interior-carousel.d.ts",
-      "import": "./dist/interior-carousel.js",
-      "require": "./dist/interior-carousel.cjs"
-    },
-    "./blocks/background-pattern-hero/radial-gradient-top": {
-      "types": "./dist/radial-gradient-top.d.ts",
-      "import": "./dist/radial-gradient-top.js",
-      "require": "./dist/radial-gradient-top.cjs"
-    },
-    "./blocks/background-pattern-hero/radial-gradient-bottom": {
-      "types": "./dist/radial-gradient-bottom.d.ts",
-      "import": "./dist/radial-gradient-bottom.js",
-      "require": "./dist/radial-gradient-bottom.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-basic": {
-      "types": "./dist/grid-basic.d.ts",
-      "import": "./dist/grid-basic.js",
-      "require": "./dist/grid-basic.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-fade-top-left": {
-      "types": "./dist/grid-fade-top-left.d.ts",
-      "import": "./dist/grid-fade-top-left.js",
-      "require": "./dist/grid-fade-top-left.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-fade-top-right": {
-      "types": "./dist/grid-fade-top-right.d.ts",
-      "import": "./dist/grid-fade-top-right.js",
-      "require": "./dist/grid-fade-top-right.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-fade-top": {
-      "types": "./dist/grid-fade-top.d.ts",
-      "import": "./dist/grid-fade-top.js",
-      "require": "./dist/grid-fade-top.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-fade-bottom": {
-      "types": "./dist/grid-fade-bottom.d.ts",
-      "import": "./dist/grid-fade-bottom.js",
-      "require": "./dist/grid-fade-bottom.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-fade-bottom-left": {
-      "types": "./dist/grid-fade-bottom-left.d.ts",
-      "import": "./dist/grid-fade-bottom-left.js",
-      "require": "./dist/grid-fade-bottom-left.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-fade-bottom-right": {
-      "types": "./dist/grid-fade-bottom-right.d.ts",
-      "import": "./dist/grid-fade-bottom-right.js",
-      "require": "./dist/grid-fade-bottom-right.cjs"
-    },
-    "./blocks/background-pattern-hero/grid-fade-center": {
-      "types": "./dist/grid-fade-center.d.ts",
-      "import": "./dist/grid-fade-center.js",
-      "require": "./dist/grid-fade-center.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-basic": {
-      "types": "./dist/diagonal-cross-basic.d.ts",
-      "import": "./dist/diagonal-cross-basic.js",
-      "require": "./dist/diagonal-cross-basic.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-fade-top-left": {
-      "types": "./dist/diagonal-cross-fade-top-left.d.ts",
-      "import": "./dist/diagonal-cross-fade-top-left.js",
-      "require": "./dist/diagonal-cross-fade-top-left.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-fade-top-right": {
-      "types": "./dist/diagonal-cross-fade-top-right.d.ts",
-      "import": "./dist/diagonal-cross-fade-top-right.js",
-      "require": "./dist/diagonal-cross-fade-top-right.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-fade-top": {
-      "types": "./dist/diagonal-cross-fade-top.d.ts",
-      "import": "./dist/diagonal-cross-fade-top.js",
-      "require": "./dist/diagonal-cross-fade-top.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-fade-bottom": {
-      "types": "./dist/diagonal-cross-fade-bottom.d.ts",
-      "import": "./dist/diagonal-cross-fade-bottom.js",
-      "require": "./dist/diagonal-cross-fade-bottom.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-fade-bottom-left": {
-      "types": "./dist/diagonal-cross-fade-bottom-left.d.ts",
-      "import": "./dist/diagonal-cross-fade-bottom-left.js",
-      "require": "./dist/diagonal-cross-fade-bottom-left.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-fade-bottom-right": {
-      "types": "./dist/diagonal-cross-fade-bottom-right.d.ts",
-      "import": "./dist/diagonal-cross-fade-bottom-right.js",
-      "require": "./dist/diagonal-cross-fade-bottom-right.cjs"
-    },
-    "./blocks/background-pattern-hero/diagonal-cross-fade-center": {
-      "types": "./dist/diagonal-cross-fade-center.d.ts",
-      "import": "./dist/diagonal-cross-fade-center.js",
-      "require": "./dist/diagonal-cross-fade-center.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-basic": {
-      "types": "./dist/dashed-grid-basic.d.ts",
-      "import": "./dist/dashed-grid-basic.js",
-      "require": "./dist/dashed-grid-basic.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-fade-top-left": {
-      "types": "./dist/dashed-grid-fade-top-left.d.ts",
-      "import": "./dist/dashed-grid-fade-top-left.js",
-      "require": "./dist/dashed-grid-fade-top-left.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-fade-top-right": {
-      "types": "./dist/dashed-grid-fade-top-right.d.ts",
-      "import": "./dist/dashed-grid-fade-top-right.js",
-      "require": "./dist/dashed-grid-fade-top-right.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-fade-top": {
-      "types": "./dist/dashed-grid-fade-top.d.ts",
-      "import": "./dist/dashed-grid-fade-top.js",
-      "require": "./dist/dashed-grid-fade-top.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-fade-bottom": {
-      "types": "./dist/dashed-grid-fade-bottom.d.ts",
-      "import": "./dist/dashed-grid-fade-bottom.js",
-      "require": "./dist/dashed-grid-fade-bottom.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-fade-bottom-left": {
-      "types": "./dist/dashed-grid-fade-bottom-left.d.ts",
-      "import": "./dist/dashed-grid-fade-bottom-left.js",
-      "require": "./dist/dashed-grid-fade-bottom-left.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-fade-bottom-right": {
-      "types": "./dist/dashed-grid-fade-bottom-right.d.ts",
-      "import": "./dist/dashed-grid-fade-bottom-right.js",
-      "require": "./dist/dashed-grid-fade-bottom-right.cjs"
-    },
-    "./blocks/background-pattern-hero/dashed-grid-fade-center": {
-      "types": "./dist/dashed-grid-fade-center.d.ts",
-      "import": "./dist/dashed-grid-fade-center.js",
-      "require": "./dist/dashed-grid-fade-center.cjs"
-    },
-    "./blocks/background-pattern-hero/gradient-glow-top": {
-      "types": "./dist/gradient-glow-top.d.ts",
-      "import": "./dist/gradient-glow-top.js",
-      "require": "./dist/gradient-glow-top.cjs"
-    },
-    "./blocks/background-pattern-hero/gradient-glow-bottom": {
-      "types": "./dist/gradient-glow-bottom.d.ts",
-      "import": "./dist/gradient-glow-bottom.js",
-      "require": "./dist/gradient-glow-bottom.cjs"
-    },
-    "./blocks/background-pattern-hero/spotlight-left": {
-      "types": "./dist/spotlight-left.d.ts",
-      "import": "./dist/spotlight-left.js",
-      "require": "./dist/spotlight-left.cjs"
-    },
-    "./blocks/background-pattern-hero/spotlight-right": {
-      "types": "./dist/spotlight-right.d.ts",
-      "import": "./dist/spotlight-right.js",
-      "require": "./dist/spotlight-right.cjs"
+    "./blocks/about/about-mission-features": {
+      "types": "./dist/about-mission-features.d.ts",
+      "import": "./dist/about-mission-features.js",
+      "require": "./dist/about-mission-features.cjs"
+    },
+    "./blocks/about/about-mission-principles": {
+      "types": "./dist/about-mission-principles.d.ts",
+      "import": "./dist/about-mission-principles.js",
+      "require": "./dist/about-mission-principles.cjs"
+    },
+    "./blocks/about/about-split-hero": {
+      "types": "./dist/about-split-hero.d.ts",
+      "import": "./dist/about-split-hero.js",
+      "require": "./dist/about-split-hero.cjs"
+    },
+    "./blocks/about/about-startup-team": {
+      "types": "./dist/about-startup-team.d.ts",
+      "import": "./dist/about-startup-team.js",
+      "require": "./dist/about-startup-team.cjs"
+    },
+    "./blocks/about/about-stats-showcase": {
+      "types": "./dist/about-stats-showcase.d.ts",
+      "import": "./dist/about-stats-showcase.js",
+      "require": "./dist/about-stats-showcase.cjs"
+    },
+    "./blocks/about/about-stats-sidebar": {
+      "types": "./dist/about-stats-sidebar.d.ts",
+      "import": "./dist/about-stats-sidebar.js",
+      "require": "./dist/about-stats-sidebar.cjs"
+    },
+    "./blocks/about/about-story-gallery": {
+      "types": "./dist/about-story-gallery.d.ts",
+      "import": "./dist/about-story-gallery.js",
+      "require": "./dist/about-story-gallery.cjs"
+    },
+    "./blocks/about/about-story-hero": {
+      "types": "./dist/about-story-hero.d.ts",
+      "import": "./dist/about-story-hero.js",
+      "require": "./dist/about-story-hero.cjs"
+    },
+    "./blocks/about/about-streamline-team": {
+      "types": "./dist/about-streamline-team.d.ts",
+      "import": "./dist/about-streamline-team.js",
+      "require": "./dist/about-streamline-team.cjs"
+    },
+    "./blocks/about/about-vision-gallery": {
+      "types": "./dist/about-vision-gallery.d.ts",
+      "import": "./dist/about-vision-gallery.js",
+      "require": "./dist/about-vision-gallery.cjs"
+    },
+    "./blocks/about/alternating-blocks": {
+      "types": "./dist/alternating-blocks.d.ts",
+      "import": "./dist/alternating-blocks.js",
+      "require": "./dist/alternating-blocks.cjs"
+    },
+    "./blocks/about/community-initiatives": {
+      "types": "./dist/community-initiatives.d.ts",
+      "import": "./dist/community-initiatives.js",
+      "require": "./dist/community-initiatives.cjs"
+    },
+    "./blocks/article/article-breadcrumb-social": {
+      "types": "./dist/article-breadcrumb-social.d.ts",
+      "import": "./dist/article-breadcrumb-social.js",
+      "require": "./dist/article-breadcrumb-social.cjs"
+    },
+    "./blocks/article/article-chapters-author": {
+      "types": "./dist/article-chapters-author.d.ts",
+      "import": "./dist/article-chapters-author.js",
+      "require": "./dist/article-chapters-author.cjs"
+    },
+    "./blocks/article/article-compact-toc": {
+      "types": "./dist/article-compact-toc.d.ts",
+      "import": "./dist/article-compact-toc.js",
+      "require": "./dist/article-compact-toc.cjs"
+    },
+    "./blocks/article/article-hero-prose": {
+      "types": "./dist/article-hero-prose.d.ts",
+      "import": "./dist/article-hero-prose.js",
+      "require": "./dist/article-hero-prose.cjs"
+    },
+    "./blocks/article/article-sidebar-sticky": {
+      "types": "./dist/article-sidebar-sticky.d.ts",
+      "import": "./dist/article-sidebar-sticky.js",
+      "require": "./dist/article-sidebar-sticky.cjs"
+    },
+    "./blocks/article/article-split-animated": {
+      "types": "./dist/article-split-animated.d.ts",
+      "import": "./dist/article-split-animated.js",
+      "require": "./dist/article-split-animated.cjs"
+    },
+    "./blocks/article/article-toc-sidebar": {
+      "types": "./dist/article-toc-sidebar.d.ts",
+      "import": "./dist/article-toc-sidebar.js",
+      "require": "./dist/article-toc-sidebar.cjs"
     },
     "./blocks/background-pattern-hero/circuit-board-basic": {
       "types": "./dist/circuit-board-basic.d.ts",
       "import": "./dist/circuit-board-basic.js",
       "require": "./dist/circuit-board-basic.cjs"
+    },
+    "./blocks/background-pattern-hero/circuit-board-fade-bottom-left": {
+      "types": "./dist/circuit-board-fade-bottom-left.d.ts",
+      "import": "./dist/circuit-board-fade-bottom-left.js",
+      "require": "./dist/circuit-board-fade-bottom-left.cjs"
+    },
+    "./blocks/background-pattern-hero/circuit-board-fade-bottom-right": {
+      "types": "./dist/circuit-board-fade-bottom-right.d.ts",
+      "import": "./dist/circuit-board-fade-bottom-right.js",
+      "require": "./dist/circuit-board-fade-bottom-right.cjs"
+    },
+    "./blocks/background-pattern-hero/circuit-board-fade-bottom": {
+      "types": "./dist/circuit-board-fade-bottom.d.ts",
+      "import": "./dist/circuit-board-fade-bottom.js",
+      "require": "./dist/circuit-board-fade-bottom.cjs"
+    },
+    "./blocks/background-pattern-hero/circuit-board-fade-center": {
+      "types": "./dist/circuit-board-fade-center.d.ts",
+      "import": "./dist/circuit-board-fade-center.js",
+      "require": "./dist/circuit-board-fade-center.cjs"
     },
     "./blocks/background-pattern-hero/circuit-board-fade-top-left": {
       "types": "./dist/circuit-board-fade-top-left.d.ts",
@@ -751,25 +211,100 @@
       "import": "./dist/circuit-board-fade-top.js",
       "require": "./dist/circuit-board-fade-top.cjs"
     },
-    "./blocks/background-pattern-hero/circuit-board-fade-bottom": {
-      "types": "./dist/circuit-board-fade-bottom.d.ts",
-      "import": "./dist/circuit-board-fade-bottom.js",
-      "require": "./dist/circuit-board-fade-bottom.cjs"
+    "./blocks/background-pattern-hero/dashed-grid-basic": {
+      "types": "./dist/dashed-grid-basic.d.ts",
+      "import": "./dist/dashed-grid-basic.js",
+      "require": "./dist/dashed-grid-basic.cjs"
     },
-    "./blocks/background-pattern-hero/circuit-board-fade-bottom-left": {
-      "types": "./dist/circuit-board-fade-bottom-left.d.ts",
-      "import": "./dist/circuit-board-fade-bottom-left.js",
-      "require": "./dist/circuit-board-fade-bottom-left.cjs"
+    "./blocks/background-pattern-hero/dashed-grid-fade-bottom-left": {
+      "types": "./dist/dashed-grid-fade-bottom-left.d.ts",
+      "import": "./dist/dashed-grid-fade-bottom-left.js",
+      "require": "./dist/dashed-grid-fade-bottom-left.cjs"
     },
-    "./blocks/background-pattern-hero/circuit-board-fade-bottom-right": {
-      "types": "./dist/circuit-board-fade-bottom-right.d.ts",
-      "import": "./dist/circuit-board-fade-bottom-right.js",
-      "require": "./dist/circuit-board-fade-bottom-right.cjs"
+    "./blocks/background-pattern-hero/dashed-grid-fade-bottom-right": {
+      "types": "./dist/dashed-grid-fade-bottom-right.d.ts",
+      "import": "./dist/dashed-grid-fade-bottom-right.js",
+      "require": "./dist/dashed-grid-fade-bottom-right.cjs"
     },
-    "./blocks/background-pattern-hero/circuit-board-fade-center": {
-      "types": "./dist/circuit-board-fade-center.d.ts",
-      "import": "./dist/circuit-board-fade-center.js",
-      "require": "./dist/circuit-board-fade-center.cjs"
+    "./blocks/background-pattern-hero/dashed-grid-fade-bottom": {
+      "types": "./dist/dashed-grid-fade-bottom.d.ts",
+      "import": "./dist/dashed-grid-fade-bottom.js",
+      "require": "./dist/dashed-grid-fade-bottom.cjs"
+    },
+    "./blocks/background-pattern-hero/dashed-grid-fade-center": {
+      "types": "./dist/dashed-grid-fade-center.d.ts",
+      "import": "./dist/dashed-grid-fade-center.js",
+      "require": "./dist/dashed-grid-fade-center.cjs"
+    },
+    "./blocks/background-pattern-hero/dashed-grid-fade-top-left": {
+      "types": "./dist/dashed-grid-fade-top-left.d.ts",
+      "import": "./dist/dashed-grid-fade-top-left.js",
+      "require": "./dist/dashed-grid-fade-top-left.cjs"
+    },
+    "./blocks/background-pattern-hero/dashed-grid-fade-top-right": {
+      "types": "./dist/dashed-grid-fade-top-right.d.ts",
+      "import": "./dist/dashed-grid-fade-top-right.js",
+      "require": "./dist/dashed-grid-fade-top-right.cjs"
+    },
+    "./blocks/background-pattern-hero/dashed-grid-fade-top": {
+      "types": "./dist/dashed-grid-fade-top.d.ts",
+      "import": "./dist/dashed-grid-fade-top.js",
+      "require": "./dist/dashed-grid-fade-top.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-basic": {
+      "types": "./dist/diagonal-cross-basic.d.ts",
+      "import": "./dist/diagonal-cross-basic.js",
+      "require": "./dist/diagonal-cross-basic.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-fade-bottom-left": {
+      "types": "./dist/diagonal-cross-fade-bottom-left.d.ts",
+      "import": "./dist/diagonal-cross-fade-bottom-left.js",
+      "require": "./dist/diagonal-cross-fade-bottom-left.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-fade-bottom-right": {
+      "types": "./dist/diagonal-cross-fade-bottom-right.d.ts",
+      "import": "./dist/diagonal-cross-fade-bottom-right.js",
+      "require": "./dist/diagonal-cross-fade-bottom-right.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-fade-bottom": {
+      "types": "./dist/diagonal-cross-fade-bottom.d.ts",
+      "import": "./dist/diagonal-cross-fade-bottom.js",
+      "require": "./dist/diagonal-cross-fade-bottom.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-fade-center": {
+      "types": "./dist/diagonal-cross-fade-center.d.ts",
+      "import": "./dist/diagonal-cross-fade-center.js",
+      "require": "./dist/diagonal-cross-fade-center.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-fade-top-left": {
+      "types": "./dist/diagonal-cross-fade-top-left.d.ts",
+      "import": "./dist/diagonal-cross-fade-top-left.js",
+      "require": "./dist/diagonal-cross-fade-top-left.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-fade-top-right": {
+      "types": "./dist/diagonal-cross-fade-top-right.d.ts",
+      "import": "./dist/diagonal-cross-fade-top-right.js",
+      "require": "./dist/diagonal-cross-fade-top-right.cjs"
+    },
+    "./blocks/background-pattern-hero/diagonal-cross-fade-top": {
+      "types": "./dist/diagonal-cross-fade-top.d.ts",
+      "import": "./dist/diagonal-cross-fade-top.js",
+      "require": "./dist/diagonal-cross-fade-top.cjs"
+    },
+    "./blocks/background-pattern-hero/gradient-glow-bottom": {
+      "types": "./dist/gradient-glow-bottom.d.ts",
+      "import": "./dist/gradient-glow-bottom.js",
+      "require": "./dist/gradient-glow-bottom.cjs"
+    },
+    "./blocks/background-pattern-hero/gradient-glow-top": {
+      "types": "./dist/gradient-glow-top.d.ts",
+      "import": "./dist/gradient-glow-top.js",
+      "require": "./dist/gradient-glow-top.cjs"
+    },
+    "./blocks/background-pattern-hero/grid-basic": {
+      "types": "./dist/grid-basic.d.ts",
+      "import": "./dist/grid-basic.js",
+      "require": "./dist/grid-basic.cjs"
     },
     "./blocks/background-pattern-hero/grid-dots-basic": {
       "types": "./dist/grid-dots-basic.d.ts",
@@ -781,20 +316,120 @@
       "import": "./dist/grid-dots-fade-center.js",
       "require": "./dist/grid-dots-fade-center.cjs"
     },
-    "./blocks/blog/blog-grid-author-cards": {
-      "types": "./dist/blog-grid-author-cards.d.ts",
-      "import": "./dist/blog-grid-author-cards.js",
-      "require": "./dist/blog-grid-author-cards.cjs"
+    "./blocks/background-pattern-hero/grid-fade-bottom-left": {
+      "types": "./dist/grid-fade-bottom-left.d.ts",
+      "import": "./dist/grid-fade-bottom-left.js",
+      "require": "./dist/grid-fade-bottom-left.cjs"
     },
-    "./blocks/blog/blog-cards-tagline-cta": {
-      "types": "./dist/blog-cards-tagline-cta.d.ts",
-      "import": "./dist/blog-cards-tagline-cta.js",
-      "require": "./dist/blog-cards-tagline-cta.cjs"
+    "./blocks/background-pattern-hero/grid-fade-bottom-right": {
+      "types": "./dist/grid-fade-bottom-right.d.ts",
+      "import": "./dist/grid-fade-bottom-right.js",
+      "require": "./dist/grid-fade-bottom-right.cjs"
+    },
+    "./blocks/background-pattern-hero/grid-fade-bottom": {
+      "types": "./dist/grid-fade-bottom.d.ts",
+      "import": "./dist/grid-fade-bottom.js",
+      "require": "./dist/grid-fade-bottom.cjs"
+    },
+    "./blocks/background-pattern-hero/grid-fade-center": {
+      "types": "./dist/grid-fade-center.d.ts",
+      "import": "./dist/grid-fade-center.js",
+      "require": "./dist/grid-fade-center.cjs"
+    },
+    "./blocks/background-pattern-hero/grid-fade-top-left": {
+      "types": "./dist/grid-fade-top-left.d.ts",
+      "import": "./dist/grid-fade-top-left.js",
+      "require": "./dist/grid-fade-top-left.cjs"
+    },
+    "./blocks/background-pattern-hero/grid-fade-top-right": {
+      "types": "./dist/grid-fade-top-right.d.ts",
+      "import": "./dist/grid-fade-top-right.js",
+      "require": "./dist/grid-fade-top-right.cjs"
+    },
+    "./blocks/background-pattern-hero/grid-fade-top": {
+      "types": "./dist/grid-fade-top.d.ts",
+      "import": "./dist/grid-fade-top.js",
+      "require": "./dist/grid-fade-top.cjs"
+    },
+    "./blocks/background-pattern-hero/radial-gradient-bottom": {
+      "types": "./dist/radial-gradient-bottom.d.ts",
+      "import": "./dist/radial-gradient-bottom.js",
+      "require": "./dist/radial-gradient-bottom.cjs"
+    },
+    "./blocks/background-pattern-hero/radial-gradient-top": {
+      "types": "./dist/radial-gradient-top.d.ts",
+      "import": "./dist/radial-gradient-top.js",
+      "require": "./dist/radial-gradient-top.cjs"
+    },
+    "./blocks/background-pattern-hero/spotlight-left": {
+      "types": "./dist/spotlight-left.d.ts",
+      "import": "./dist/spotlight-left.js",
+      "require": "./dist/spotlight-left.cjs"
+    },
+    "./blocks/background-pattern-hero/spotlight-right": {
+      "types": "./dist/spotlight-right.d.ts",
+      "import": "./dist/spotlight-right.js",
+      "require": "./dist/spotlight-right.cjs"
+    },
+    "./blocks/banner/banner-announcement-dismissible": {
+      "types": "./dist/banner-announcement-dismissible.d.ts",
+      "import": "./dist/banner-announcement-dismissible.js",
+      "require": "./dist/banner-announcement-dismissible.cjs"
+    },
+    "./blocks/banner/banner-countdown-sale": {
+      "types": "./dist/banner-countdown-sale.d.ts",
+      "import": "./dist/banner-countdown-sale.js",
+      "require": "./dist/banner-countdown-sale.cjs"
+    },
+    "./blocks/banner/banner-delivery-countdown": {
+      "types": "./dist/banner-delivery-countdown.d.ts",
+      "import": "./dist/banner-delivery-countdown.js",
+      "require": "./dist/banner-delivery-countdown.cjs"
+    },
+    "./blocks/banner/banner-event-promo": {
+      "types": "./dist/banner-event-promo.d.ts",
+      "import": "./dist/banner-event-promo.js",
+      "require": "./dist/banner-event-promo.cjs"
+    },
+    "./blocks/banner/banner-floating-offer": {
+      "types": "./dist/banner-floating-offer.d.ts",
+      "import": "./dist/banner-floating-offer.js",
+      "require": "./dist/banner-floating-offer.cjs"
+    },
+    "./blocks/banner/banner-gdpr-rights": {
+      "types": "./dist/banner-gdpr-rights.d.ts",
+      "import": "./dist/banner-gdpr-rights.js",
+      "require": "./dist/banner-gdpr-rights.cjs"
+    },
+    "./blocks/banner/banner-privacy-notice": {
+      "types": "./dist/banner-privacy-notice.d.ts",
+      "import": "./dist/banner-privacy-notice.js",
+      "require": "./dist/banner-privacy-notice.cjs"
+    },
+    "./blocks/banner/banner-promo-cta": {
+      "types": "./dist/banner-promo-cta.d.ts",
+      "import": "./dist/banner-promo-cta.js",
+      "require": "./dist/banner-promo-cta.cjs"
+    },
+    "./blocks/banner/banner-social-follow": {
+      "types": "./dist/banner-social-follow.d.ts",
+      "import": "./dist/banner-social-follow.js",
+      "require": "./dist/banner-social-follow.cjs"
+    },
+    "./blocks/banner/banner-survey-incentive": {
+      "types": "./dist/banner-survey-incentive.d.ts",
+      "import": "./dist/banner-survey-incentive.js",
+      "require": "./dist/banner-survey-incentive.cjs"
     },
     "./blocks/blog/blog-cards-read-time": {
       "types": "./dist/blog-cards-read-time.d.ts",
       "import": "./dist/blog-cards-read-time.js",
       "require": "./dist/blog-cards-read-time.cjs"
+    },
+    "./blocks/blog/blog-cards-tagline-cta": {
+      "types": "./dist/blog-cards-tagline-cta.d.ts",
+      "import": "./dist/blog-cards-tagline-cta.js",
+      "require": "./dist/blog-cards-tagline-cta.cjs"
     },
     "./blocks/blog/blog-category-overlay": {
       "types": "./dist/blog-category-overlay.d.ts",
@@ -806,6 +441,36 @@
       "import": "./dist/blog-featured-popular.js",
       "require": "./dist/blog-featured-popular.cjs"
     },
+    "./blocks/blog/blog-filtered-results": {
+      "types": "./dist/blog-filtered-results.d.ts",
+      "import": "./dist/blog-filtered-results.js",
+      "require": "./dist/blog-filtered-results.cjs"
+    },
+    "./blocks/blog/blog-grid-author-cards": {
+      "types": "./dist/blog-grid-author-cards.d.ts",
+      "import": "./dist/blog-grid-author-cards.js",
+      "require": "./dist/blog-grid-author-cards.cjs"
+    },
+    "./blocks/blog/blog-grid-nine-posts": {
+      "types": "./dist/blog-grid-nine-posts.d.ts",
+      "import": "./dist/blog-grid-nine-posts.js",
+      "require": "./dist/blog-grid-nine-posts.cjs"
+    },
+    "./blocks/blog/blog-horizontal-cards": {
+      "types": "./dist/blog-horizontal-cards.d.ts",
+      "import": "./dist/blog-horizontal-cards.js",
+      "require": "./dist/blog-horizontal-cards.cjs"
+    },
+    "./blocks/blog/blog-horizontal-timeline": {
+      "types": "./dist/blog-horizontal-timeline.d.ts",
+      "import": "./dist/blog-horizontal-timeline.js",
+      "require": "./dist/blog-horizontal-timeline.cjs"
+    },
+    "./blocks/blog/blog-masonry-featured": {
+      "types": "./dist/blog-masonry-featured.d.ts",
+      "import": "./dist/blog-masonry-featured.js",
+      "require": "./dist/blog-masonry-featured.cjs"
+    },
     "./blocks/blog/blog-related-articles": {
       "types": "./dist/blog-related-articles.d.ts",
       "import": "./dist/blog-related-articles.js",
@@ -816,155 +481,935 @@
       "import": "./dist/blog-tech-insights.js",
       "require": "./dist/blog-tech-insights.cjs"
     },
-    "./blocks/blog/blog-horizontal-cards": {
-      "types": "./dist/blog-horizontal-cards.d.ts",
-      "import": "./dist/blog-horizontal-cards.js",
-      "require": "./dist/blog-horizontal-cards.cjs"
+    "./blocks/carousel/carousel-animated-sections": {
+      "types": "./dist/carousel-animated-sections.d.ts",
+      "import": "./dist/carousel-animated-sections.js",
+      "require": "./dist/carousel-animated-sections.cjs"
     },
-    "./blocks/blog/blog-filtered-results": {
-      "types": "./dist/blog-filtered-results.d.ts",
-      "import": "./dist/blog-filtered-results.js",
-      "require": "./dist/blog-filtered-results.cjs"
+    "./blocks/carousel/carousel-auto-progress-slides": {
+      "types": "./dist/carousel-auto-progress-slides.d.ts",
+      "import": "./dist/carousel-auto-progress-slides.js",
+      "require": "./dist/carousel-auto-progress-slides.cjs"
     },
-    "./blocks/blog/blog-masonry-featured": {
-      "types": "./dist/blog-masonry-featured.d.ts",
-      "import": "./dist/blog-masonry-featured.js",
-      "require": "./dist/blog-masonry-featured.cjs"
+    "./blocks/carousel/carousel-autoplay-progress": {
+      "types": "./dist/carousel-autoplay-progress.d.ts",
+      "import": "./dist/carousel-autoplay-progress.js",
+      "require": "./dist/carousel-autoplay-progress.cjs"
     },
-    "./blocks/blog/blog-horizontal-timeline": {
-      "types": "./dist/blog-horizontal-timeline.d.ts",
-      "import": "./dist/blog-horizontal-timeline.js",
-      "require": "./dist/blog-horizontal-timeline.cjs"
+    "./blocks/carousel/carousel-feature-badge": {
+      "types": "./dist/carousel-feature-badge.d.ts",
+      "import": "./dist/carousel-feature-badge.js",
+      "require": "./dist/carousel-feature-badge.cjs"
     },
-    "./blocks/blog/blog-grid-nine-posts": {
-      "types": "./dist/blog-grid-nine-posts.d.ts",
-      "import": "./dist/blog-grid-nine-posts.js",
-      "require": "./dist/blog-grid-nine-posts.cjs"
+    "./blocks/carousel/carousel-fullscreen-scroll-fx": {
+      "types": "./dist/carousel-fullscreen-scroll-fx.d.ts",
+      "import": "./dist/carousel-fullscreen-scroll-fx.js",
+      "require": "./dist/carousel-fullscreen-scroll-fx.cjs"
     },
-    "./blocks/article/article-hero-prose": {
-      "types": "./dist/article-hero-prose.d.ts",
-      "import": "./dist/article-hero-prose.js",
-      "require": "./dist/article-hero-prose.cjs"
+    "./blocks/carousel/carousel-gallery-thumbnails": {
+      "types": "./dist/carousel-gallery-thumbnails.d.ts",
+      "import": "./dist/carousel-gallery-thumbnails.js",
+      "require": "./dist/carousel-gallery-thumbnails.cjs"
     },
-    "./blocks/article/article-sidebar-sticky": {
-      "types": "./dist/article-sidebar-sticky.d.ts",
-      "import": "./dist/article-sidebar-sticky.js",
-      "require": "./dist/article-sidebar-sticky.cjs"
+    "./blocks/carousel/carousel-horizontal-cards": {
+      "types": "./dist/carousel-horizontal-cards.d.ts",
+      "import": "./dist/carousel-horizontal-cards.js",
+      "require": "./dist/carousel-horizontal-cards.cjs"
     },
-    "./blocks/article/article-toc-sidebar": {
-      "types": "./dist/article-toc-sidebar.d.ts",
-      "import": "./dist/article-toc-sidebar.js",
-      "require": "./dist/article-toc-sidebar.cjs"
+    "./blocks/carousel/carousel-image-hero": {
+      "types": "./dist/carousel-image-hero.d.ts",
+      "import": "./dist/carousel-image-hero.js",
+      "require": "./dist/carousel-image-hero.cjs"
     },
-    "./blocks/article/article-breadcrumb-social": {
-      "types": "./dist/article-breadcrumb-social.d.ts",
-      "import": "./dist/article-breadcrumb-social.js",
-      "require": "./dist/article-breadcrumb-social.cjs"
+    "./blocks/carousel/carousel-multi-step-showcase": {
+      "types": "./dist/carousel-multi-step-showcase.d.ts",
+      "import": "./dist/carousel-multi-step-showcase.js",
+      "require": "./dist/carousel-multi-step-showcase.cjs"
     },
-    "./blocks/article/article-compact-toc": {
-      "types": "./dist/article-compact-toc.d.ts",
-      "import": "./dist/article-compact-toc.js",
-      "require": "./dist/article-compact-toc.cjs"
+    "./blocks/carousel/carousel-portfolio-hero": {
+      "types": "./dist/carousel-portfolio-hero.d.ts",
+      "import": "./dist/carousel-portfolio-hero.js",
+      "require": "./dist/carousel-portfolio-hero.cjs"
     },
-    "./blocks/article/article-chapters-author": {
-      "types": "./dist/article-chapters-author.d.ts",
-      "import": "./dist/article-chapters-author.js",
-      "require": "./dist/article-chapters-author.cjs"
+    "./blocks/carousel/carousel-product-feature-showcase": {
+      "types": "./dist/carousel-product-feature-showcase.d.ts",
+      "import": "./dist/carousel-product-feature-showcase.js",
+      "require": "./dist/carousel-product-feature-showcase.cjs"
     },
-    "./blocks/article/article-split-animated": {
-      "types": "./dist/article-split-animated.d.ts",
-      "import": "./dist/article-split-animated.js",
-      "require": "./dist/article-split-animated.cjs"
+    "./blocks/carousel/carousel-progress-slider": {
+      "types": "./dist/carousel-progress-slider.d.ts",
+      "import": "./dist/carousel-progress-slider.js",
+      "require": "./dist/carousel-progress-slider.cjs"
     },
-    "./blocks/faq/faq-simple-accordion": {
-      "types": "./dist/faq-simple-accordion.d.ts",
-      "import": "./dist/faq-simple-accordion.js",
-      "require": "./dist/faq-simple-accordion.cjs"
+    "./blocks/carousel/carousel-scrolling-feature-showcase": {
+      "types": "./dist/carousel-scrolling-feature-showcase.d.ts",
+      "import": "./dist/carousel-scrolling-feature-showcase.js",
+      "require": "./dist/carousel-scrolling-feature-showcase.cjs"
     },
-    "./blocks/faq/faq-static-list": {
-      "types": "./dist/faq-static-list.d.ts",
-      "import": "./dist/faq-static-list.js",
-      "require": "./dist/faq-static-list.cjs"
+    "./blocks/case-studies-list/case-studies-featured-border": {
+      "types": "./dist/case-studies-featured-border.d.ts",
+      "import": "./dist/case-studies-featured-border.js",
+      "require": "./dist/case-studies-featured-border.cjs"
     },
-    "./blocks/faq/faq-centered-accordion": {
-      "types": "./dist/faq-centered-accordion.d.ts",
-      "import": "./dist/faq-centered-accordion.js",
-      "require": "./dist/faq-centered-accordion.cjs"
+    "./blocks/case-studies-list/case-studies-image-grid": {
+      "types": "./dist/case-studies-image-grid.d.ts",
+      "import": "./dist/case-studies-image-grid.js",
+      "require": "./dist/case-studies-image-grid.cjs"
+    },
+    "./blocks/case-studies-list/case-studies-stats-card": {
+      "types": "./dist/case-studies-stats-card.d.ts",
+      "import": "./dist/case-studies-stats-card.js",
+      "require": "./dist/case-studies-stats-card.cjs"
+    },
+    "./blocks/case-studies-list/case-studies-testimonial-stats": {
+      "types": "./dist/case-studies-testimonial-stats.d.ts",
+      "import": "./dist/case-studies-testimonial-stats.js",
+      "require": "./dist/case-studies-testimonial-stats.cjs"
+    },
+    "./blocks/case-study-detail/case-study-prose-sidebar": {
+      "types": "./dist/case-study-prose-sidebar.d.ts",
+      "import": "./dist/case-study-prose-sidebar.js",
+      "require": "./dist/case-study-prose-sidebar.cjs"
+    },
+    "./blocks/case-study-detail/case-study-stats-metrics": {
+      "types": "./dist/case-study-stats-metrics.d.ts",
+      "import": "./dist/case-study-stats-metrics.js",
+      "require": "./dist/case-study-stats-metrics.cjs"
+    },
+    "./blocks/case-study-detail/case-study-toc-social-sidebar": {
+      "types": "./dist/case-study-toc-social-sidebar.d.ts",
+      "import": "./dist/case-study-toc-social-sidebar.js",
+      "require": "./dist/case-study-toc-social-sidebar.cjs"
+    },
+    "./blocks/comparison/comparison-ai-models": {
+      "types": "./dist/comparison-ai-models.d.ts",
+      "import": "./dist/comparison-ai-models.js",
+      "require": "./dist/comparison-ai-models.cjs"
+    },
+    "./blocks/comparison/comparison-feature-cards": {
+      "types": "./dist/comparison-feature-cards.d.ts",
+      "import": "./dist/comparison-feature-cards.js",
+      "require": "./dist/comparison-feature-cards.cjs"
+    },
+    "./blocks/comparison/comparison-feature-grid": {
+      "types": "./dist/comparison-feature-grid.d.ts",
+      "import": "./dist/comparison-feature-grid.js",
+      "require": "./dist/comparison-feature-grid.cjs"
+    },
+    "./blocks/comparison/comparison-grid-badges": {
+      "types": "./dist/comparison-grid-badges.d.ts",
+      "import": "./dist/comparison-grid-badges.js",
+      "require": "./dist/comparison-grid-badges.cjs"
+    },
+    "./blocks/comparison/comparison-image-cards": {
+      "types": "./dist/comparison-image-cards.d.ts",
+      "import": "./dist/comparison-image-cards.js",
+      "require": "./dist/comparison-image-cards.cjs"
+    },
+    "./blocks/comparison/comparison-legacy-modern": {
+      "types": "./dist/comparison-legacy-modern.d.ts",
+      "import": "./dist/comparison-legacy-modern.js",
+      "require": "./dist/comparison-legacy-modern.cjs"
+    },
+    "./blocks/comparison/comparison-metrics-rows": {
+      "types": "./dist/comparison-metrics-rows.d.ts",
+      "import": "./dist/comparison-metrics-rows.js",
+      "require": "./dist/comparison-metrics-rows.cjs"
+    },
+    "./blocks/comparison/comparison-table-tabs": {
+      "types": "./dist/comparison-table-tabs.d.ts",
+      "import": "./dist/comparison-table-tabs.js",
+      "require": "./dist/comparison-table-tabs.cjs"
+    },
+    "./blocks/comparison/comparison-table-tooltips": {
+      "types": "./dist/comparison-table-tooltips.d.ts",
+      "import": "./dist/comparison-table-tooltips.js",
+      "require": "./dist/comparison-table-tooltips.cjs"
+    },
+    "./blocks/comparison/comparison-table-two-column": {
+      "types": "./dist/comparison-table-two-column.d.ts",
+      "import": "./dist/comparison-table-two-column.js",
+      "require": "./dist/comparison-table-two-column.cjs"
+    },
+    "./blocks/contact/contact-callback": {
+      "types": "./dist/contact-callback.d.ts",
+      "import": "./dist/contact-callback.js",
+      "require": "./dist/contact-callback.cjs"
+    },
+    "./blocks/contact/contact-card": {
+      "types": "./dist/contact-card.d.ts",
+      "import": "./dist/contact-card.js",
+      "require": "./dist/contact-card.cjs"
+    },
+    "./blocks/contact/contact-careers": {
+      "types": "./dist/contact-careers.d.ts",
+      "import": "./dist/contact-careers.js",
+      "require": "./dist/contact-careers.cjs"
+    },
+    "./blocks/contact/contact-catering": {
+      "types": "./dist/contact-catering.d.ts",
+      "import": "./dist/contact-catering.js",
+      "require": "./dist/contact-catering.cjs"
+    },
+    "./blocks/contact/contact-consultation": {
+      "types": "./dist/contact-consultation.d.ts",
+      "import": "./dist/contact-consultation.js",
+      "require": "./dist/contact-consultation.cjs"
+    },
+    "./blocks/contact/contact-dark": {
+      "types": "./dist/contact-dark.d.ts",
+      "import": "./dist/contact-dark.js",
+      "require": "./dist/contact-dark.cjs"
+    },
+    "./blocks/contact/contact-demo": {
+      "types": "./dist/contact-demo.d.ts",
+      "import": "./dist/contact-demo.js",
+      "require": "./dist/contact-demo.cjs"
+    },
+    "./blocks/contact/contact-emergency": {
+      "types": "./dist/contact-emergency.d.ts",
+      "import": "./dist/contact-emergency.js",
+      "require": "./dist/contact-emergency.cjs"
+    },
+    "./blocks/contact/contact-event": {
+      "types": "./dist/contact-event.d.ts",
+      "import": "./dist/contact-event.js",
+      "require": "./dist/contact-event.cjs"
+    },
+    "./blocks/contact/contact-faq": {
+      "types": "./dist/contact-faq.d.ts",
+      "import": "./dist/contact-faq.js",
+      "require": "./dist/contact-faq.cjs"
+    },
+    "./blocks/contact/contact-feedback": {
+      "types": "./dist/contact-feedback.d.ts",
+      "import": "./dist/contact-feedback.js",
+      "require": "./dist/contact-feedback.cjs"
+    },
+    "./blocks/contact/contact-fitness": {
+      "types": "./dist/contact-fitness.d.ts",
+      "import": "./dist/contact-fitness.js",
+      "require": "./dist/contact-fitness.cjs"
+    },
+    "./blocks/contact/contact-floating-banner": {
+      "types": "./dist/contact-floating-banner.d.ts",
+      "import": "./dist/contact-floating-banner.js",
+      "require": "./dist/contact-floating-banner.cjs"
+    },
+    "./blocks/contact/contact-guest": {
+      "types": "./dist/contact-guest.d.ts",
+      "import": "./dist/contact-guest.js",
+      "require": "./dist/contact-guest.cjs"
+    },
+    "./blocks/contact/contact-image": {
+      "types": "./dist/contact-image.d.ts",
+      "import": "./dist/contact-image.js",
+      "require": "./dist/contact-image.cjs"
+    },
+    "./blocks/contact/contact-insurance": {
+      "types": "./dist/contact-insurance.d.ts",
+      "import": "./dist/contact-insurance.js",
+      "require": "./dist/contact-insurance.cjs"
+    },
+    "./blocks/contact/contact-interview": {
+      "types": "./dist/contact-interview.d.ts",
+      "import": "./dist/contact-interview.js",
+      "require": "./dist/contact-interview.cjs"
+    },
+    "./blocks/contact/contact-locations": {
+      "types": "./dist/contact-locations.d.ts",
+      "import": "./dist/contact-locations.js",
+      "require": "./dist/contact-locations.cjs"
+    },
+    "./blocks/contact/contact-maintenance": {
+      "types": "./dist/contact-maintenance.d.ts",
+      "import": "./dist/contact-maintenance.js",
+      "require": "./dist/contact-maintenance.cjs"
+    },
+    "./blocks/contact/contact-map": {
+      "types": "./dist/contact-map.d.ts",
+      "import": "./dist/contact-map.js",
+      "require": "./dist/contact-map.cjs"
+    },
+    "./blocks/contact/contact-minimal": {
+      "types": "./dist/contact-minimal.d.ts",
+      "import": "./dist/contact-minimal.js",
+      "require": "./dist/contact-minimal.cjs"
+    },
+    "./blocks/contact/contact-moving": {
+      "types": "./dist/contact-moving.d.ts",
+      "import": "./dist/contact-moving.js",
+      "require": "./dist/contact-moving.cjs"
+    },
+    "./blocks/contact/contact-multistep": {
+      "types": "./dist/contact-multistep.d.ts",
+      "import": "./dist/contact-multistep.js",
+      "require": "./dist/contact-multistep.cjs"
+    },
+    "./blocks/contact/contact-partnership": {
+      "types": "./dist/contact-partnership.d.ts",
+      "import": "./dist/contact-partnership.js",
+      "require": "./dist/contact-partnership.cjs"
+    },
+    "./blocks/contact/contact-photography": {
+      "types": "./dist/contact-photography.d.ts",
+      "import": "./dist/contact-photography.js",
+      "require": "./dist/contact-photography.cjs"
+    },
+    "./blocks/contact/contact-press": {
+      "types": "./dist/contact-press.d.ts",
+      "import": "./dist/contact-press.js",
+      "require": "./dist/contact-press.cjs"
+    },
+    "./blocks/contact/contact-quote": {
+      "types": "./dist/contact-quote.d.ts",
+      "import": "./dist/contact-quote.js",
+      "require": "./dist/contact-quote.cjs"
+    },
+    "./blocks/contact/contact-referral": {
+      "types": "./dist/contact-referral.d.ts",
+      "import": "./dist/contact-referral.js",
+      "require": "./dist/contact-referral.cjs"
+    },
+    "./blocks/contact/contact-report": {
+      "types": "./dist/contact-report.d.ts",
+      "import": "./dist/contact-report.js",
+      "require": "./dist/contact-report.cjs"
+    },
+    "./blocks/contact/contact-reservation": {
+      "types": "./dist/contact-reservation.d.ts",
+      "import": "./dist/contact-reservation.js",
+      "require": "./dist/contact-reservation.cjs"
+    },
+    "./blocks/contact/contact-retreat": {
+      "types": "./dist/contact-retreat.d.ts",
+      "import": "./dist/contact-retreat.js",
+      "require": "./dist/contact-retreat.cjs"
+    },
+    "./blocks/contact/contact-rsvp": {
+      "types": "./dist/contact-rsvp.d.ts",
+      "import": "./dist/contact-rsvp.js",
+      "require": "./dist/contact-rsvp.cjs"
+    },
+    "./blocks/contact/contact-sales": {
+      "types": "./dist/contact-sales.d.ts",
+      "import": "./dist/contact-sales.js",
+      "require": "./dist/contact-sales.cjs"
+    },
+    "./blocks/contact/contact-schedule": {
+      "types": "./dist/contact-schedule.d.ts",
+      "import": "./dist/contact-schedule.js",
+      "require": "./dist/contact-schedule.cjs"
+    },
+    "./blocks/contact/contact-sponsorship": {
+      "types": "./dist/contact-sponsorship.d.ts",
+      "import": "./dist/contact-sponsorship.js",
+      "require": "./dist/contact-sponsorship.cjs"
+    },
+    "./blocks/contact/contact-support": {
+      "types": "./dist/contact-support.d.ts",
+      "import": "./dist/contact-support.js",
+      "require": "./dist/contact-support.cjs"
+    },
+    "./blocks/contact/contact-tenant": {
+      "types": "./dist/contact-tenant.d.ts",
+      "import": "./dist/contact-tenant.js",
+      "require": "./dist/contact-tenant.cjs"
+    },
+    "./blocks/contact/contact-vendor": {
+      "types": "./dist/contact-vendor.d.ts",
+      "import": "./dist/contact-vendor.js",
+      "require": "./dist/contact-vendor.cjs"
+    },
+    "./blocks/contact/contact-volunteer": {
+      "types": "./dist/contact-volunteer.d.ts",
+      "import": "./dist/contact-volunteer.js",
+      "require": "./dist/contact-volunteer.cjs"
+    },
+    "./blocks/contact/contact-warranty": {
+      "types": "./dist/contact-warranty.d.ts",
+      "import": "./dist/contact-warranty.js",
+      "require": "./dist/contact-warranty.cjs"
+    },
+    "./blocks/contact/contact-wedding": {
+      "types": "./dist/contact-wedding.d.ts",
+      "import": "./dist/contact-wedding.js",
+      "require": "./dist/contact-wedding.cjs"
+    },
+    "./blocks/cta/cta-accent-background": {
+      "types": "./dist/cta-accent-background.d.ts",
+      "import": "./dist/cta-accent-background.js",
+      "require": "./dist/cta-accent-background.cjs"
+    },
+    "./blocks/cta/cta-app-download-newsletter": {
+      "types": "./dist/cta-app-download-newsletter.d.ts",
+      "import": "./dist/cta-app-download-newsletter.js",
+      "require": "./dist/cta-app-download-newsletter.cjs"
+    },
+    "./blocks/cta/cta-background-icon-badge": {
+      "types": "./dist/cta-background-icon-badge.d.ts",
+      "import": "./dist/cta-background-icon-badge.js",
+      "require": "./dist/cta-background-icon-badge.cjs"
+    },
+    "./blocks/cta/cta-case-study-testimonial": {
+      "types": "./dist/cta-case-study-testimonial.d.ts",
+      "import": "./dist/cta-case-study-testimonial.js",
+      "require": "./dist/cta-case-study-testimonial.cjs"
+    },
+    "./blocks/cta/cta-documentation-links": {
+      "types": "./dist/cta-documentation-links.d.ts",
+      "import": "./dist/cta-documentation-links.js",
+      "require": "./dist/cta-documentation-links.cjs"
+    },
+    "./blocks/cta/cta-enterprise-dark-features": {
+      "types": "./dist/cta-enterprise-dark-features.d.ts",
+      "import": "./dist/cta-enterprise-dark-features.js",
+      "require": "./dist/cta-enterprise-dark-features.cjs"
+    },
+    "./blocks/cta/cta-enterprise-split": {
+      "types": "./dist/cta-enterprise-split.d.ts",
+      "import": "./dist/cta-enterprise-split.js",
+      "require": "./dist/cta-enterprise-split.cjs"
+    },
+    "./blocks/cta/cta-feature-cards-grid": {
+      "types": "./dist/cta-feature-cards-grid.d.ts",
+      "import": "./dist/cta-feature-cards-grid.js",
+      "require": "./dist/cta-feature-cards-grid.cjs"
+    },
+    "./blocks/cta/cta-feature-checklist": {
+      "types": "./dist/cta-feature-checklist.d.ts",
+      "import": "./dist/cta-feature-checklist.js",
+      "require": "./dist/cta-feature-checklist.cjs"
+    },
+    "./blocks/cta/cta-feature-list": {
+      "types": "./dist/cta-feature-list.d.ts",
+      "import": "./dist/cta-feature-list.js",
+      "require": "./dist/cta-feature-list.cjs"
+    },
+    "./blocks/cta/cta-fullwidth-background": {
+      "types": "./dist/cta-fullwidth-background.d.ts",
+      "import": "./dist/cta-fullwidth-background.js",
+      "require": "./dist/cta-fullwidth-background.cjs"
+    },
+    "./blocks/cta/cta-gradient-logos-floating": {
+      "types": "./dist/cta-gradient-logos-floating.d.ts",
+      "import": "./dist/cta-gradient-logos-floating.js",
+      "require": "./dist/cta-gradient-logos-floating.cjs"
+    },
+    "./blocks/cta/cta-gradient-stats-hero": {
+      "types": "./dist/cta-gradient-stats-hero.d.ts",
+      "import": "./dist/cta-gradient-stats-hero.js",
+      "require": "./dist/cta-gradient-stats-hero.cjs"
+    },
+    "./blocks/cta/cta-hero-feature-cards": {
+      "types": "./dist/cta-hero-feature-cards.d.ts",
+      "import": "./dist/cta-hero-feature-cards.js",
+      "require": "./dist/cta-hero-feature-cards.cjs"
+    },
+    "./blocks/cta/cta-image-overlay-arrow": {
+      "types": "./dist/cta-image-overlay-arrow.d.ts",
+      "import": "./dist/cta-image-overlay-arrow.js",
+      "require": "./dist/cta-image-overlay-arrow.cjs"
+    },
+    "./blocks/cta/cta-minimal-separator": {
+      "types": "./dist/cta-minimal-separator.d.ts",
+      "import": "./dist/cta-minimal-separator.js",
+      "require": "./dist/cta-minimal-separator.cjs"
+    },
+    "./blocks/cta/cta-newsletter-features": {
+      "types": "./dist/cta-newsletter-features.d.ts",
+      "import": "./dist/cta-newsletter-features.js",
+      "require": "./dist/cta-newsletter-features.cjs"
+    },
+    "./blocks/cta/cta-pattern-background": {
+      "types": "./dist/cta-pattern-background.d.ts",
+      "import": "./dist/cta-pattern-background.js",
+      "require": "./dist/cta-pattern-background.cjs"
+    },
+    "./blocks/cta/cta-platform-demo": {
+      "types": "./dist/cta-platform-demo.d.ts",
+      "import": "./dist/cta-platform-demo.js",
+      "require": "./dist/cta-platform-demo.cjs"
+    },
+    "./blocks/cta/cta-simple-centered": {
+      "types": "./dist/cta-simple-centered.d.ts",
+      "import": "./dist/cta-simple-centered.js",
+      "require": "./dist/cta-simple-centered.cjs"
+    },
+    "./blocks/cta/cta-split-gradient-image": {
+      "types": "./dist/cta-split-gradient-image.d.ts",
+      "import": "./dist/cta-split-gradient-image.js",
+      "require": "./dist/cta-split-gradient-image.cjs"
+    },
+    "./blocks/cta/cta-split-image-logos": {
+      "types": "./dist/cta-split-image-logos.d.ts",
+      "import": "./dist/cta-split-image-logos.js",
+      "require": "./dist/cta-split-image-logos.cjs"
+    },
+    "./blocks/cta/cta-split-image": {
+      "types": "./dist/cta-split-image.d.ts",
+      "import": "./dist/cta-split-image.js",
+      "require": "./dist/cta-split-image.cjs"
+    },
+    "./blocks/cta/cta-stacked-cards": {
+      "types": "./dist/cta-stacked-cards.d.ts",
+      "import": "./dist/cta-stacked-cards.js",
+      "require": "./dist/cta-stacked-cards.cjs"
+    },
+    "./blocks/cta/cta-video-background-hero": {
+      "types": "./dist/cta-video-background-hero.d.ts",
+      "import": "./dist/cta-video-background-hero.js",
+      "require": "./dist/cta-video-background-hero.cjs"
+    },
+    "./blocks/cta/cta-workflow-tabs": {
+      "types": "./dist/cta-workflow-tabs.d.ts",
+      "import": "./dist/cta-workflow-tabs.js",
+      "require": "./dist/cta-workflow-tabs.cjs"
+    },
+    "./blocks/cta/media-hover-ctas": {
+      "types": "./dist/media-hover-ctas.d.ts",
+      "import": "./dist/media-hover-ctas.js",
+      "require": "./dist/media-hover-ctas.cjs"
     },
     "./blocks/faq/faq-badge-support": {
       "types": "./dist/faq-badge-support.d.ts",
       "import": "./dist/faq-badge-support.js",
       "require": "./dist/faq-badge-support.cjs"
     },
-    "./blocks/faq/faq-numbered-list": {
-      "types": "./dist/faq-numbered-list.d.ts",
-      "import": "./dist/faq-numbered-list.js",
-      "require": "./dist/faq-numbered-list.cjs"
-    },
-    "./blocks/faq/faq-numbered-grid": {
-      "types": "./dist/faq-numbered-grid.d.ts",
-      "import": "./dist/faq-numbered-grid.js",
-      "require": "./dist/faq-numbered-grid.cjs"
-    },
-    "./blocks/faq/faq-split-help": {
-      "types": "./dist/faq-split-help.d.ts",
-      "import": "./dist/faq-split-help.js",
-      "require": "./dist/faq-split-help.cjs"
-    },
-    "./blocks/faq/faq-categorized-sections": {
-      "types": "./dist/faq-categorized-sections.d.ts",
-      "import": "./dist/faq-categorized-sections.js",
-      "require": "./dist/faq-categorized-sections.cjs"
-    },
-    "./blocks/faq/faq-muted-cards": {
-      "types": "./dist/faq-muted-cards.d.ts",
-      "import": "./dist/faq-muted-cards.js",
-      "require": "./dist/faq-muted-cards.cjs"
-    },
     "./blocks/faq/faq-bordered-badge": {
       "types": "./dist/faq-bordered-badge.d.ts",
       "import": "./dist/faq-bordered-badge.js",
       "require": "./dist/faq-bordered-badge.cjs"
-    },
-    "./blocks/faq/faq-gradient-categories": {
-      "types": "./dist/faq-gradient-categories.d.ts",
-      "import": "./dist/faq-gradient-categories.js",
-      "require": "./dist/faq-gradient-categories.cjs"
-    },
-    "./blocks/faq/faq-sidebar-navigation": {
-      "types": "./dist/faq-sidebar-navigation.d.ts",
-      "import": "./dist/faq-sidebar-navigation.js",
-      "require": "./dist/faq-sidebar-navigation.cjs"
     },
     "./blocks/faq/faq-card-categories": {
       "types": "./dist/faq-card-categories.d.ts",
       "import": "./dist/faq-card-categories.js",
       "require": "./dist/faq-card-categories.cjs"
     },
+    "./blocks/faq/faq-categorized-sections": {
+      "types": "./dist/faq-categorized-sections.d.ts",
+      "import": "./dist/faq-categorized-sections.js",
+      "require": "./dist/faq-categorized-sections.cjs"
+    },
+    "./blocks/faq/faq-centered-accordion": {
+      "types": "./dist/faq-centered-accordion.d.ts",
+      "import": "./dist/faq-centered-accordion.js",
+      "require": "./dist/faq-centered-accordion.cjs"
+    },
+    "./blocks/faq/faq-gradient-categories": {
+      "types": "./dist/faq-gradient-categories.d.ts",
+      "import": "./dist/faq-gradient-categories.js",
+      "require": "./dist/faq-gradient-categories.cjs"
+    },
     "./blocks/faq/faq-icon-benefits": {
       "types": "./dist/faq-icon-benefits.d.ts",
       "import": "./dist/faq-icon-benefits.js",
       "require": "./dist/faq-icon-benefits.cjs"
     },
-    "./blocks/faq/faq-rounded-cards": {
-      "types": "./dist/faq-rounded-cards.d.ts",
-      "import": "./dist/faq-rounded-cards.js",
-      "require": "./dist/faq-rounded-cards.cjs"
+    "./blocks/faq/faq-muted-cards": {
+      "types": "./dist/faq-muted-cards.d.ts",
+      "import": "./dist/faq-muted-cards.js",
+      "require": "./dist/faq-muted-cards.cjs"
+    },
+    "./blocks/faq/faq-numbered-grid": {
+      "types": "./dist/faq-numbered-grid.d.ts",
+      "import": "./dist/faq-numbered-grid.js",
+      "require": "./dist/faq-numbered-grid.cjs"
+    },
+    "./blocks/faq/faq-numbered-list": {
+      "types": "./dist/faq-numbered-list.d.ts",
+      "import": "./dist/faq-numbered-list.js",
+      "require": "./dist/faq-numbered-list.cjs"
     },
     "./blocks/faq/faq-profile-sidebar": {
       "types": "./dist/faq-profile-sidebar.d.ts",
       "import": "./dist/faq-profile-sidebar.js",
       "require": "./dist/faq-profile-sidebar.cjs"
     },
+    "./blocks/faq/faq-rounded-cards": {
+      "types": "./dist/faq-rounded-cards.d.ts",
+      "import": "./dist/faq-rounded-cards.js",
+      "require": "./dist/faq-rounded-cards.cjs"
+    },
+    "./blocks/faq/faq-sidebar-navigation": {
+      "types": "./dist/faq-sidebar-navigation.d.ts",
+      "import": "./dist/faq-sidebar-navigation.js",
+      "require": "./dist/faq-sidebar-navigation.cjs"
+    },
+    "./blocks/faq/faq-simple-accordion": {
+      "types": "./dist/faq-simple-accordion.d.ts",
+      "import": "./dist/faq-simple-accordion.js",
+      "require": "./dist/faq-simple-accordion.cjs"
+    },
+    "./blocks/faq/faq-split-help": {
+      "types": "./dist/faq-split-help.d.ts",
+      "import": "./dist/faq-split-help.js",
+      "require": "./dist/faq-split-help.cjs"
+    },
+    "./blocks/faq/faq-split-hero": {
+      "types": "./dist/faq-split-hero.d.ts",
+      "import": "./dist/faq-split-hero.js",
+      "require": "./dist/faq-split-hero.cjs"
+    },
+    "./blocks/faq/faq-static-list": {
+      "types": "./dist/faq-static-list.d.ts",
+      "import": "./dist/faq-static-list.js",
+      "require": "./dist/faq-static-list.cjs"
+    },
+    "./blocks/features/feature-accordion-image": {
+      "types": "./dist/feature-accordion-image.d.ts",
+      "import": "./dist/feature-accordion-image.js",
+      "require": "./dist/feature-accordion-image.cjs"
+    },
+    "./blocks/features/feature-animated-carousel": {
+      "types": "./dist/feature-animated-carousel.d.ts",
+      "import": "./dist/feature-animated-carousel.js",
+      "require": "./dist/feature-animated-carousel.cjs"
+    },
+    "./blocks/features/feature-badge-grid-six": {
+      "types": "./dist/feature-badge-grid-six.d.ts",
+      "import": "./dist/feature-badge-grid-six.js",
+      "require": "./dist/feature-badge-grid-six.cjs"
+    },
+    "./blocks/features/feature-bento-image-grid": {
+      "types": "./dist/feature-bento-image-grid.d.ts",
+      "import": "./dist/feature-bento-image-grid.js",
+      "require": "./dist/feature-bento-image-grid.cjs"
+    },
+    "./blocks/features/feature-bento-utilities": {
+      "types": "./dist/feature-bento-utilities.d.ts",
+      "import": "./dist/feature-bento-utilities.js",
+      "require": "./dist/feature-bento-utilities.cjs"
+    },
+    "./blocks/features/feature-card-grid-linked": {
+      "types": "./dist/feature-card-grid-linked.d.ts",
+      "import": "./dist/feature-card-grid-linked.js",
+      "require": "./dist/feature-card-grid-linked.cjs"
+    },
+    "./blocks/features/feature-carousel-progress": {
+      "types": "./dist/feature-carousel-progress.d.ts",
+      "import": "./dist/feature-carousel-progress.js",
+      "require": "./dist/feature-carousel-progress.cjs"
+    },
+    "./blocks/features/feature-category-image-cards": {
+      "types": "./dist/feature-category-image-cards.d.ts",
+      "import": "./dist/feature-category-image-cards.js",
+      "require": "./dist/feature-category-image-cards.cjs"
+    },
+    "./blocks/features/feature-checklist-image": {
+      "types": "./dist/feature-checklist-image.d.ts",
+      "import": "./dist/feature-checklist-image.js",
+      "require": "./dist/feature-checklist-image.cjs"
+    },
+    "./blocks/features/feature-checklist-three-column": {
+      "types": "./dist/feature-checklist-three-column.d.ts",
+      "import": "./dist/feature-checklist-three-column.js",
+      "require": "./dist/feature-checklist-three-column.cjs"
+    },
+    "./blocks/features/feature-icon-grid-accent": {
+      "types": "./dist/feature-icon-grid-accent.d.ts",
+      "import": "./dist/feature-icon-grid-accent.js",
+      "require": "./dist/feature-icon-grid-accent.cjs"
+    },
+    "./blocks/features/feature-icon-grid-bordered": {
+      "types": "./dist/feature-icon-grid-bordered.d.ts",
+      "import": "./dist/feature-icon-grid-bordered.js",
+      "require": "./dist/feature-icon-grid-bordered.cjs"
+    },
+    "./blocks/features/feature-icon-grid-muted": {
+      "types": "./dist/feature-icon-grid-muted.d.ts",
+      "import": "./dist/feature-icon-grid-muted.js",
+      "require": "./dist/feature-icon-grid-muted.cjs"
+    },
+    "./blocks/features/feature-icon-tabs-content": {
+      "types": "./dist/feature-icon-tabs-content.d.ts",
+      "import": "./dist/feature-icon-tabs-content.js",
+      "require": "./dist/feature-icon-tabs-content.cjs"
+    },
+    "./blocks/features/feature-image-cards-three-column": {
+      "types": "./dist/feature-image-cards-three-column.d.ts",
+      "import": "./dist/feature-image-cards-three-column.js",
+      "require": "./dist/feature-image-cards-three-column.cjs"
+    },
+    "./blocks/features/feature-image-overlay-badge": {
+      "types": "./dist/feature-image-overlay-badge.d.ts",
+      "import": "./dist/feature-image-overlay-badge.js",
+      "require": "./dist/feature-image-overlay-badge.cjs"
+    },
+    "./blocks/features/feature-integration-cards": {
+      "types": "./dist/feature-integration-cards.d.ts",
+      "import": "./dist/feature-integration-cards.js",
+      "require": "./dist/feature-integration-cards.cjs"
+    },
+    "./blocks/features/feature-numbered-cards": {
+      "types": "./dist/feature-numbered-cards.d.ts",
+      "import": "./dist/feature-numbered-cards.js",
+      "require": "./dist/feature-numbered-cards.cjs"
+    },
+    "./blocks/features/feature-pattern-grid-links": {
+      "types": "./dist/feature-pattern-grid-links.d.ts",
+      "import": "./dist/feature-pattern-grid-links.js",
+      "require": "./dist/feature-pattern-grid-links.cjs"
+    },
+    "./blocks/features/feature-showcase": {
+      "types": "./dist/feature-showcase.d.ts",
+      "import": "./dist/feature-showcase.js",
+      "require": "./dist/feature-showcase.cjs"
+    },
+    "./blocks/features/feature-split-image-reverse": {
+      "types": "./dist/feature-split-image-reverse.d.ts",
+      "import": "./dist/feature-split-image-reverse.js",
+      "require": "./dist/feature-split-image-reverse.cjs"
+    },
+    "./blocks/features/feature-split-image": {
+      "types": "./dist/feature-split-image.d.ts",
+      "import": "./dist/feature-split-image.js",
+      "require": "./dist/feature-split-image.cjs"
+    },
+    "./blocks/features/feature-stats-highlight": {
+      "types": "./dist/feature-stats-highlight.d.ts",
+      "import": "./dist/feature-stats-highlight.js",
+      "require": "./dist/feature-stats-highlight.cjs"
+    },
+    "./blocks/features/feature-tabbed-content-image": {
+      "types": "./dist/feature-tabbed-content-image.d.ts",
+      "import": "./dist/feature-tabbed-content-image.js",
+      "require": "./dist/feature-tabbed-content-image.cjs"
+    },
+    "./blocks/features/feature-three-column-values": {
+      "types": "./dist/feature-three-column-values.d.ts",
+      "import": "./dist/feature-three-column-values.js",
+      "require": "./dist/feature-three-column-values.cjs"
+    },
+    "./blocks/features/feature-utility-cards-grid": {
+      "types": "./dist/feature-utility-cards-grid.d.ts",
+      "import": "./dist/feature-utility-cards-grid.js",
+      "require": "./dist/feature-utility-cards-grid.cjs"
+    },
+    "./blocks/footers/footer-accordion-social": {
+      "types": "./dist/footer-accordion-social.d.ts",
+      "import": "./dist/footer-accordion-social.js",
+      "require": "./dist/footer-accordion-social.cjs"
+    },
+    "./blocks/footers/footer-animated-social": {
+      "types": "./dist/footer-animated-social.d.ts",
+      "import": "./dist/footer-animated-social.js",
+      "require": "./dist/footer-animated-social.cjs"
+    },
+    "./blocks/footers/footer-background-card": {
+      "types": "./dist/footer-background-card.d.ts",
+      "import": "./dist/footer-background-card.js",
+      "require": "./dist/footer-background-card.cjs"
+    },
+    "./blocks/footers/footer-brand-description": {
+      "types": "./dist/footer-brand-description.d.ts",
+      "import": "./dist/footer-brand-description.js",
+      "require": "./dist/footer-brand-description.cjs"
+    },
+    "./blocks/footers/footer-contact-card": {
+      "types": "./dist/footer-contact-card.d.ts",
+      "import": "./dist/footer-contact-card.js",
+      "require": "./dist/footer-contact-card.cjs"
+    },
+    "./blocks/footers/footer-cta-banner": {
+      "types": "./dist/footer-cta-banner.d.ts",
+      "import": "./dist/footer-cta-banner.js",
+      "require": "./dist/footer-cta-banner.cjs"
+    },
+    "./blocks/footers/footer-cta-social": {
+      "types": "./dist/footer-cta-social.d.ts",
+      "import": "./dist/footer-cta-social.js",
+      "require": "./dist/footer-cta-social.cjs"
+    },
+    "./blocks/footers/footer-info-cards-accordion": {
+      "types": "./dist/footer-info-cards-accordion.d.ts",
+      "import": "./dist/footer-info-cards-accordion.js",
+      "require": "./dist/footer-info-cards-accordion.cjs"
+    },
+    "./blocks/footers/footer-links-grid": {
+      "types": "./dist/footer-links-grid.d.ts",
+      "import": "./dist/footer-links-grid.js",
+      "require": "./dist/footer-links-grid.cjs"
+    },
+    "./blocks/footers/footer-nav-social": {
+      "types": "./dist/footer-nav-social.d.ts",
+      "import": "./dist/footer-nav-social.js",
+      "require": "./dist/footer-nav-social.cjs"
+    },
+    "./blocks/footers/footer-newsletter-contact": {
+      "types": "./dist/footer-newsletter-contact.d.ts",
+      "import": "./dist/footer-newsletter-contact.js",
+      "require": "./dist/footer-newsletter-contact.cjs"
+    },
+    "./blocks/footers/footer-newsletter-grid": {
+      "types": "./dist/footer-newsletter-grid.d.ts",
+      "import": "./dist/footer-newsletter-grid.js",
+      "require": "./dist/footer-newsletter-grid.cjs"
+    },
+    "./blocks/footers/footer-newsletter-minimal": {
+      "types": "./dist/footer-newsletter-minimal.d.ts",
+      "import": "./dist/footer-newsletter-minimal.js",
+      "require": "./dist/footer-newsletter-minimal.cjs"
+    },
+    "./blocks/footers/footer-simple-centered": {
+      "types": "./dist/footer-simple-centered.d.ts",
+      "import": "./dist/footer-simple-centered.js",
+      "require": "./dist/footer-simple-centered.cjs"
+    },
+    "./blocks/footers/footer-social-apps": {
+      "types": "./dist/footer-social-apps.d.ts",
+      "import": "./dist/footer-social-apps.js",
+      "require": "./dist/footer-social-apps.cjs"
+    },
+    "./blocks/footers/footer-social-newsletter": {
+      "types": "./dist/footer-social-newsletter.d.ts",
+      "import": "./dist/footer-social-newsletter.js",
+      "require": "./dist/footer-social-newsletter.cjs"
+    },
+    "./blocks/footers/footer-split-image-accordion": {
+      "types": "./dist/footer-split-image-accordion.d.ts",
+      "import": "./dist/footer-split-image-accordion.js",
+      "require": "./dist/footer-split-image-accordion.cjs"
+    },
+    "./blocks/gallery/auto-scroll-carousel": {
+      "types": "./dist/auto-scroll-carousel.d.ts",
+      "import": "./dist/auto-scroll-carousel.js",
+      "require": "./dist/auto-scroll-carousel.cjs"
+    },
+    "./blocks/gallery/blur-vignette-grid": {
+      "types": "./dist/blur-vignette-grid.d.ts",
+      "import": "./dist/blur-vignette-grid.js",
+      "require": "./dist/blur-vignette-grid.cjs"
+    },
+    "./blocks/gallery/carousel-badge-cards": {
+      "types": "./dist/carousel-badge-cards.d.ts",
+      "import": "./dist/carousel-badge-cards.js",
+      "require": "./dist/carousel-badge-cards.cjs"
+    },
+    "./blocks/gallery/carousel-demo-link": {
+      "types": "./dist/carousel-demo-link.d.ts",
+      "import": "./dist/carousel-demo-link.js",
+      "require": "./dist/carousel-demo-link.cjs"
+    },
+    "./blocks/gallery/carousel-gradient-overlay": {
+      "types": "./dist/carousel-gradient-overlay.d.ts",
+      "import": "./dist/carousel-gradient-overlay.js",
+      "require": "./dist/carousel-gradient-overlay.cjs"
+    },
+    "./blocks/gallery/carousel-gradient-text": {
+      "types": "./dist/carousel-gradient-text.d.ts",
+      "import": "./dist/carousel-gradient-text.js",
+      "require": "./dist/carousel-gradient-text.cjs"
+    },
+    "./blocks/gallery/carousel-icon-sidebar": {
+      "types": "./dist/carousel-icon-sidebar.d.ts",
+      "import": "./dist/carousel-icon-sidebar.js",
+      "require": "./dist/carousel-icon-sidebar.cjs"
+    },
+    "./blocks/gallery/carousel-icon-tabs": {
+      "types": "./dist/carousel-icon-tabs.d.ts",
+      "import": "./dist/carousel-icon-tabs.js",
+      "require": "./dist/carousel-icon-tabs.cjs"
+    },
+    "./blocks/gallery/carousel-scale-focus": {
+      "types": "./dist/carousel-scale-focus.d.ts",
+      "import": "./dist/carousel-scale-focus.js",
+      "require": "./dist/carousel-scale-focus.cjs"
+    },
+    "./blocks/gallery/carousel-sidebar-resources": {
+      "types": "./dist/carousel-sidebar-resources.d.ts",
+      "import": "./dist/carousel-sidebar-resources.js",
+      "require": "./dist/carousel-sidebar-resources.cjs"
+    },
+    "./blocks/gallery/carousel-tabs-content": {
+      "types": "./dist/carousel-tabs-content.d.ts",
+      "import": "./dist/carousel-tabs-content.js",
+      "require": "./dist/carousel-tabs-content.cjs"
+    },
+    "./blocks/gallery/expandable-case-study-cards": {
+      "types": "./dist/expandable-case-study-cards.d.ts",
+      "import": "./dist/expandable-case-study-cards.js",
+      "require": "./dist/expandable-case-study-cards.cjs"
+    },
+    "./blocks/gallery/interior-carousel": {
+      "types": "./dist/interior-carousel.d.ts",
+      "import": "./dist/interior-carousel.js",
+      "require": "./dist/interior-carousel.cjs"
+    },
+    "./blocks/gallery/masonry-motion-grid": {
+      "types": "./dist/masonry-motion-grid.d.ts",
+      "import": "./dist/masonry-motion-grid.js",
+      "require": "./dist/masonry-motion-grid.cjs"
+    },
+    "./blocks/gallery/service-hover-carousel": {
+      "types": "./dist/service-hover-carousel.d.ts",
+      "import": "./dist/service-hover-carousel.js",
+      "require": "./dist/service-hover-carousel.cjs"
+    },
+    "./blocks/gallery/testimonial-carousel-cards": {
+      "types": "./dist/testimonial-carousel-cards.d.ts",
+      "import": "./dist/testimonial-carousel-cards.js",
+      "require": "./dist/testimonial-carousel-cards.cjs"
+    },
+    "./blocks/hero/hero-ad-campaign-expert": {
+      "types": "./dist/hero-ad-campaign-expert.d.ts",
+      "import": "./dist/hero-ad-campaign-expert.js",
+      "require": "./dist/hero-ad-campaign-expert.cjs"
+    },
+    "./blocks/hero/hero-adaptable-product-grid": {
+      "types": "./dist/hero-adaptable-product-grid.d.ts",
+      "import": "./dist/hero-adaptable-product-grid.js",
+      "require": "./dist/hero-adaptable-product-grid.cjs"
+    },
+    "./blocks/hero/hero-agency-animated-images": {
+      "types": "./dist/hero-agency-animated-images.d.ts",
+      "import": "./dist/hero-agency-animated-images.js",
+      "require": "./dist/hero-agency-animated-images.cjs"
+    },
+    "./blocks/hero/hero-ai-powered-carousel": {
+      "types": "./dist/hero-ai-powered-carousel.d.ts",
+      "import": "./dist/hero-ai-powered-carousel.js",
+      "require": "./dist/hero-ai-powered-carousel.cjs"
+    },
+    "./blocks/hero/hero-announcement-badge": {
+      "types": "./dist/hero-announcement-badge.d.ts",
+      "import": "./dist/hero-announcement-badge.js",
+      "require": "./dist/hero-announcement-badge.cjs"
+    },
+    "./blocks/hero/hero-architecture-fullscreen": {
+      "types": "./dist/hero-architecture-fullscreen.d.ts",
+      "import": "./dist/hero-architecture-fullscreen.js",
+      "require": "./dist/hero-architecture-fullscreen.cjs"
+    },
     "./blocks/hero/hero-badge-image-split": {
       "types": "./dist/hero-badge-image-split.d.ts",
       "import": "./dist/hero-badge-image-split.js",
       "require": "./dist/hero-badge-image-split.cjs"
     },
-    "./blocks/hero/hero-image-left-content": {
-      "types": "./dist/hero-image-left-content.d.ts",
-      "import": "./dist/hero-image-left-content.js",
-      "require": "./dist/hero-image-left-content.cjs"
+    "./blocks/hero/hero-badge-shadow-overlay": {
+      "types": "./dist/hero-badge-shadow-overlay.d.ts",
+      "import": "./dist/hero-badge-shadow-overlay.js",
+      "require": "./dist/hero-badge-shadow-overlay.cjs"
+    },
+    "./blocks/hero/hero-billing-platform-logos": {
+      "types": "./dist/hero-billing-platform-logos.d.ts",
+      "import": "./dist/hero-billing-platform-logos.js",
+      "require": "./dist/hero-billing-platform-logos.cjs"
+    },
+    "./blocks/hero/hero-business-carousel-dots": {
+      "types": "./dist/hero-business-carousel-dots.d.ts",
+      "import": "./dist/hero-business-carousel-dots.js",
+      "require": "./dist/hero-business-carousel-dots.cjs"
+    },
+    "./blocks/hero/hero-business-operations-mosaic": {
+      "types": "./dist/hero-business-operations-mosaic.d.ts",
+      "import": "./dist/hero-business-operations-mosaic.js",
+      "require": "./dist/hero-business-operations-mosaic.cjs"
+    },
+    "./blocks/hero/hero-centered-gradient-cta": {
+      "types": "./dist/hero-centered-gradient-cta.d.ts",
+      "import": "./dist/hero-centered-gradient-cta.js",
+      "require": "./dist/hero-centered-gradient-cta.cjs"
     },
     "./blocks/hero/hero-centered-image-grid": {
       "types": "./dist/hero-centered-image-grid.d.ts",
@@ -976,80 +1421,40 @@
       "import": "./dist/hero-centered-screenshot.js",
       "require": "./dist/hero-centered-screenshot.cjs"
     },
-    "./blocks/hero/hero-pattern-badge-logos": {
-      "types": "./dist/hero-pattern-badge-logos.d.ts",
-      "import": "./dist/hero-pattern-badge-logos.js",
-      "require": "./dist/hero-pattern-badge-logos.cjs"
-    },
-    "./blocks/hero/hero-logo-centered-screenshot": {
-      "types": "./dist/hero-logo-centered-screenshot.d.ts",
-      "import": "./dist/hero-logo-centered-screenshot.js",
-      "require": "./dist/hero-logo-centered-screenshot.cjs"
-    },
-    "./blocks/hero/hero-pattern-logo-tech-stack": {
-      "types": "./dist/hero-pattern-logo-tech-stack.d.ts",
-      "import": "./dist/hero-pattern-logo-tech-stack.js",
-      "require": "./dist/hero-pattern-logo-tech-stack.cjs"
-    },
-    "./blocks/hero/hero-announcement-badge": {
-      "types": "./dist/hero-announcement-badge.d.ts",
-      "import": "./dist/hero-announcement-badge.js",
-      "require": "./dist/hero-announcement-badge.cjs"
-    },
-    "./blocks/hero/hero-tech-carousel": {
-      "types": "./dist/hero-tech-carousel.d.ts",
-      "import": "./dist/hero-tech-carousel.js",
-      "require": "./dist/hero-tech-carousel.cjs"
-    },
-    "./blocks/hero/hero-simple-centered-image": {
-      "types": "./dist/hero-simple-centered-image.d.ts",
-      "import": "./dist/hero-simple-centered-image.js",
-      "require": "./dist/hero-simple-centered-image.cjs"
-    },
-    "./blocks/hero/hero-platform-features-grid": {
-      "types": "./dist/hero-platform-features-grid.d.ts",
-      "import": "./dist/hero-platform-features-grid.js",
-      "require": "./dist/hero-platform-features-grid.cjs"
-    },
-    "./blocks/hero/hero-spiral-pattern-cards": {
-      "types": "./dist/hero-spiral-pattern-cards.d.ts",
-      "import": "./dist/hero-spiral-pattern-cards.js",
-      "require": "./dist/hero-spiral-pattern-cards.cjs"
-    },
-    "./blocks/hero/hero-split-spiral-shapes": {
-      "types": "./dist/hero-split-spiral-shapes.d.ts",
-      "import": "./dist/hero-split-spiral-shapes.js",
-      "require": "./dist/hero-split-spiral-shapes.cjs"
-    },
-    "./blocks/hero/hero-split-geometric-shapes": {
-      "types": "./dist/hero-split-geometric-shapes.d.ts",
-      "import": "./dist/hero-split-geometric-shapes.js",
-      "require": "./dist/hero-split-geometric-shapes.cjs"
+    "./blocks/hero/hero-coming-soon-countdown": {
+      "types": "./dist/hero-coming-soon-countdown.d.ts",
+      "import": "./dist/hero-coming-soon-countdown.js",
+      "require": "./dist/hero-coming-soon-countdown.cjs"
     },
     "./blocks/hero/hero-community-survey-cta": {
       "types": "./dist/hero-community-survey-cta.d.ts",
       "import": "./dist/hero-community-survey-cta.js",
       "require": "./dist/hero-community-survey-cta.cjs"
     },
-    "./blocks/hero/hero-marketplace-scattered-images": {
-      "types": "./dist/hero-marketplace-scattered-images.d.ts",
-      "import": "./dist/hero-marketplace-scattered-images.js",
-      "require": "./dist/hero-marketplace-scattered-images.cjs"
+    "./blocks/hero/hero-conversation-intelligence": {
+      "types": "./dist/hero-conversation-intelligence.d.ts",
+      "import": "./dist/hero-conversation-intelligence.js",
+      "require": "./dist/hero-conversation-intelligence.cjs"
     },
-    "./blocks/hero/hero-badge-shadow-overlay": {
-      "types": "./dist/hero-badge-shadow-overlay.d.ts",
-      "import": "./dist/hero-badge-shadow-overlay.js",
-      "require": "./dist/hero-badge-shadow-overlay.cjs"
+    "./blocks/hero/hero-conversion-video-play": {
+      "types": "./dist/hero-conversion-video-play.d.ts",
+      "import": "./dist/hero-conversion-video-play.js",
+      "require": "./dist/hero-conversion-video-play.cjs"
     },
-    "./blocks/hero/hero-video-background-dark": {
-      "types": "./dist/hero-video-background-dark.d.ts",
-      "import": "./dist/hero-video-background-dark.js",
-      "require": "./dist/hero-video-background-dark.cjs"
+    "./blocks/hero/hero-creative-studio-stacked": {
+      "types": "./dist/hero-creative-studio-stacked.d.ts",
+      "import": "./dist/hero-creative-studio-stacked.js",
+      "require": "./dist/hero-creative-studio-stacked.cjs"
     },
-    "./blocks/hero/hero-grid-pattern-efficiency": {
-      "types": "./dist/hero-grid-pattern-efficiency.d.ts",
-      "import": "./dist/hero-grid-pattern-efficiency.js",
-      "require": "./dist/hero-grid-pattern-efficiency.cjs"
+    "./blocks/hero/hero-crm-streamlined": {
+      "types": "./dist/hero-crm-streamlined.d.ts",
+      "import": "./dist/hero-crm-streamlined.js",
+      "require": "./dist/hero-crm-streamlined.cjs"
+    },
+    "./blocks/hero/hero-customer-support-layered": {
+      "types": "./dist/hero-customer-support-layered.d.ts",
+      "import": "./dist/hero-customer-support-layered.js",
+      "require": "./dist/hero-customer-support-layered.cjs"
     },
     "./blocks/hero/hero-dashed-border-features": {
       "types": "./dist/hero-dashed-border-features.d.ts",
@@ -1061,20 +1466,45 @@
       "import": "./dist/hero-design-carousel-portfolio.js",
       "require": "./dist/hero-design-carousel-portfolio.cjs"
     },
-    "./blocks/hero/hero-gradient-client-focused": {
-      "types": "./dist/hero-gradient-client-focused.d.ts",
-      "import": "./dist/hero-gradient-client-focused.js",
-      "require": "./dist/hero-gradient-client-focused.cjs"
+    "./blocks/hero/hero-design-showcase-logos": {
+      "types": "./dist/hero-design-showcase-logos.d.ts",
+      "import": "./dist/hero-design-showcase-logos.js",
+      "require": "./dist/hero-design-showcase-logos.cjs"
     },
-    "./blocks/hero/hero-premium-split-avatars": {
-      "types": "./dist/hero-premium-split-avatars.d.ts",
-      "import": "./dist/hero-premium-split-avatars.js",
-      "require": "./dist/hero-premium-split-avatars.cjs"
+    "./blocks/hero/hero-design-system-3d": {
+      "types": "./dist/hero-design-system-3d.d.ts",
+      "import": "./dist/hero-design-system-3d.js",
+      "require": "./dist/hero-design-system-3d.cjs"
     },
-    "./blocks/hero/hero-ui-library-showcase": {
-      "types": "./dist/hero-ui-library-showcase.d.ts",
-      "import": "./dist/hero-ui-library-showcase.js",
-      "require": "./dist/hero-ui-library-showcase.cjs"
+    "./blocks/hero/hero-developer-tools-code": {
+      "types": "./dist/hero-developer-tools-code.d.ts",
+      "import": "./dist/hero-developer-tools-code.js",
+      "require": "./dist/hero-developer-tools-code.cjs"
+    },
+    "./blocks/hero/hero-digital-agency-fullscreen": {
+      "types": "./dist/hero-digital-agency-fullscreen.d.ts",
+      "import": "./dist/hero-digital-agency-fullscreen.js",
+      "require": "./dist/hero-digital-agency-fullscreen.cjs"
+    },
+    "./blocks/hero/hero-ecommerce-product-showcase": {
+      "types": "./dist/hero-ecommerce-product-showcase.d.ts",
+      "import": "./dist/hero-ecommerce-product-showcase.js",
+      "require": "./dist/hero-ecommerce-product-showcase.cjs"
+    },
+    "./blocks/hero/hero-enterprise-security": {
+      "types": "./dist/hero-enterprise-security.d.ts",
+      "import": "./dist/hero-enterprise-security.js",
+      "require": "./dist/hero-enterprise-security.cjs"
+    },
+    "./blocks/hero/hero-event-registration": {
+      "types": "./dist/hero-event-registration.d.ts",
+      "import": "./dist/hero-event-registration.js",
+      "require": "./dist/hero-event-registration.cjs"
+    },
+    "./blocks/hero/hero-feature-cards-grid": {
+      "types": "./dist/hero-feature-cards-grid.d.ts",
+      "import": "./dist/hero-feature-cards-grid.js",
+      "require": "./dist/hero-feature-cards-grid.cjs"
     },
     "./blocks/hero/hero-fullscreen-background-image": {
       "types": "./dist/hero-fullscreen-background-image.d.ts",
@@ -1091,140 +1521,45 @@
       "import": "./dist/hero-gradient-avatars-rating.js",
       "require": "./dist/hero-gradient-avatars-rating.cjs"
     },
-    "./blocks/hero/hero-task-timer-animated": {
-      "types": "./dist/hero-task-timer-animated.d.ts",
-      "import": "./dist/hero-task-timer-animated.js",
-      "require": "./dist/hero-task-timer-animated.cjs"
+    "./blocks/hero/hero-gradient-client-focused": {
+      "types": "./dist/hero-gradient-client-focused.d.ts",
+      "import": "./dist/hero-gradient-client-focused.js",
+      "require": "./dist/hero-gradient-client-focused.cjs"
     },
-    "./blocks/hero/hero-ai-powered-carousel": {
-      "types": "./dist/hero-ai-powered-carousel.d.ts",
-      "import": "./dist/hero-ai-powered-carousel.js",
-      "require": "./dist/hero-ai-powered-carousel.cjs"
-    },
-    "./blocks/hero/hero-ad-campaign-expert": {
-      "types": "./dist/hero-ad-campaign-expert.d.ts",
-      "import": "./dist/hero-ad-campaign-expert.js",
-      "require": "./dist/hero-ad-campaign-expert.cjs"
-    },
-    "./blocks/hero/hero-adaptable-product-grid": {
-      "types": "./dist/hero-adaptable-product-grid.d.ts",
-      "import": "./dist/hero-adaptable-product-grid.js",
-      "require": "./dist/hero-adaptable-product-grid.cjs"
-    },
-    "./blocks/hero/hero-presentation-platform-video": {
-      "types": "./dist/hero-presentation-platform-video.d.ts",
-      "import": "./dist/hero-presentation-platform-video.js",
-      "require": "./dist/hero-presentation-platform-video.cjs"
+    "./blocks/hero/hero-grid-pattern-efficiency": {
+      "types": "./dist/hero-grid-pattern-efficiency.d.ts",
+      "import": "./dist/hero-grid-pattern-efficiency.js",
+      "require": "./dist/hero-grid-pattern-efficiency.cjs"
     },
     "./blocks/hero/hero-grid-pattern-solutions": {
       "types": "./dist/hero-grid-pattern-solutions.d.ts",
       "import": "./dist/hero-grid-pattern-solutions.js",
       "require": "./dist/hero-grid-pattern-solutions.cjs"
     },
-    "./blocks/hero/hero-crm-streamlined": {
-      "types": "./dist/hero-crm-streamlined.d.ts",
-      "import": "./dist/hero-crm-streamlined.js",
-      "require": "./dist/hero-crm-streamlined.cjs"
-    },
-    "./blocks/hero/hero-billing-platform-logos": {
-      "types": "./dist/hero-billing-platform-logos.d.ts",
-      "import": "./dist/hero-billing-platform-logos.js",
-      "require": "./dist/hero-billing-platform-logos.cjs"
-    },
-    "./blocks/hero/hero-software-growth-video-dialog": {
-      "types": "./dist/hero-software-growth-video-dialog.d.ts",
-      "import": "./dist/hero-software-growth-video-dialog.js",
-      "require": "./dist/hero-software-growth-video-dialog.cjs"
-    },
-    "./blocks/hero/hero-conversion-video-play": {
-      "types": "./dist/hero-conversion-video-play.d.ts",
-      "import": "./dist/hero-conversion-video-play.js",
-      "require": "./dist/hero-conversion-video-play.cjs"
-    },
-    "./blocks/hero/hero-design-showcase-logos": {
-      "types": "./dist/hero-design-showcase-logos.d.ts",
-      "import": "./dist/hero-design-showcase-logos.js",
-      "require": "./dist/hero-design-showcase-logos.cjs"
-    },
-    "./blocks/hero/hero-video-overlay-stars": {
-      "types": "./dist/hero-video-overlay-stars.d.ts",
-      "import": "./dist/hero-video-overlay-stars.js",
-      "require": "./dist/hero-video-overlay-stars.cjs"
-    },
-    "./blocks/hero/hero-productivity-launcher-video": {
-      "types": "./dist/hero-productivity-launcher-video.d.ts",
-      "import": "./dist/hero-productivity-launcher-video.js",
-      "require": "./dist/hero-productivity-launcher-video.cjs"
-    },
     "./blocks/hero/hero-hiring-animated-text": {
       "types": "./dist/hero-hiring-animated-text.d.ts",
       "import": "./dist/hero-hiring-animated-text.js",
       "require": "./dist/hero-hiring-animated-text.cjs"
     },
-    "./blocks/hero/hero-split-image-newsletter": {
-      "types": "./dist/hero-split-image-newsletter.d.ts",
-      "import": "./dist/hero-split-image-newsletter.js",
-      "require": "./dist/hero-split-image-newsletter.cjs"
-    },
-    "./blocks/hero/hero-centered-gradient-cta": {
-      "types": "./dist/hero-centered-gradient-cta.d.ts",
-      "import": "./dist/hero-centered-gradient-cta.js",
-      "require": "./dist/hero-centered-gradient-cta.cjs"
-    },
-    "./blocks/hero/hero-stats-social-proof": {
-      "types": "./dist/hero-stats-social-proof.d.ts",
-      "import": "./dist/hero-stats-social-proof.js",
-      "require": "./dist/hero-stats-social-proof.cjs"
-    },
-    "./blocks/hero/hero-feature-cards-grid": {
-      "types": "./dist/hero-feature-cards-grid.d.ts",
-      "import": "./dist/hero-feature-cards-grid.js",
-      "require": "./dist/hero-feature-cards-grid.cjs"
-    },
-    "./blocks/hero/hero-testimonial-image-grid": {
-      "types": "./dist/hero-testimonial-image-grid.d.ts",
-      "import": "./dist/hero-testimonial-image-grid.js",
-      "require": "./dist/hero-testimonial-image-grid.cjs"
-    },
-    "./blocks/hero/hero-design-system-3d": {
-      "types": "./dist/hero-design-system-3d.d.ts",
-      "import": "./dist/hero-design-system-3d.js",
-      "require": "./dist/hero-design-system-3d.cjs"
-    },
-    "./blocks/hero/hero-architecture-fullscreen": {
-      "types": "./dist/hero-architecture-fullscreen.d.ts",
-      "import": "./dist/hero-architecture-fullscreen.js",
-      "require": "./dist/hero-architecture-fullscreen.cjs"
+    "./blocks/hero/hero-image-left-content": {
+      "types": "./dist/hero-image-left-content.d.ts",
+      "import": "./dist/hero-image-left-content.js",
+      "require": "./dist/hero-image-left-content.cjs"
     },
     "./blocks/hero/hero-innovation-image-grid": {
       "types": "./dist/hero-innovation-image-grid.d.ts",
       "import": "./dist/hero-innovation-image-grid.js",
       "require": "./dist/hero-innovation-image-grid.cjs"
     },
-    "./blocks/hero/hero-video-dialog-gradient": {
-      "types": "./dist/hero-video-dialog-gradient.d.ts",
-      "import": "./dist/hero-video-dialog-gradient.js",
-      "require": "./dist/hero-video-dialog-gradient.cjs"
+    "./blocks/hero/hero-logo-centered-screenshot": {
+      "types": "./dist/hero-logo-centered-screenshot.d.ts",
+      "import": "./dist/hero-logo-centered-screenshot.js",
+      "require": "./dist/hero-logo-centered-screenshot.cjs"
     },
-    "./blocks/hero/hero-minimal-centered-dark": {
-      "types": "./dist/hero-minimal-centered-dark.d.ts",
-      "import": "./dist/hero-minimal-centered-dark.js",
-      "require": "./dist/hero-minimal-centered-dark.cjs"
-    },
-    "./blocks/hero/hero-product-showcase-floating": {
-      "types": "./dist/hero-product-showcase-floating.d.ts",
-      "import": "./dist/hero-product-showcase-floating.js",
-      "require": "./dist/hero-product-showcase-floating.cjs"
-    },
-    "./blocks/hero/hero-saas-dashboard-preview": {
-      "types": "./dist/hero-saas-dashboard-preview.d.ts",
-      "import": "./dist/hero-saas-dashboard-preview.js",
-      "require": "./dist/hero-saas-dashboard-preview.cjs"
-    },
-    "./blocks/hero/hero-therapy-testimonial-grid": {
-      "types": "./dist/hero-therapy-testimonial-grid.d.ts",
-      "import": "./dist/hero-therapy-testimonial-grid.js",
-      "require": "./dist/hero-therapy-testimonial-grid.cjs"
+    "./blocks/hero/hero-marketplace-scattered-images": {
+      "types": "./dist/hero-marketplace-scattered-images.d.ts",
+      "import": "./dist/hero-marketplace-scattered-images.js",
+      "require": "./dist/hero-marketplace-scattered-images.cjs"
     },
     "./blocks/hero/hero-mental-health-team": {
       "types": "./dist/hero-mental-health-team.d.ts",
@@ -1236,200 +1571,310 @@
       "import": "./dist/hero-mentorship-video-split.js",
       "require": "./dist/hero-mentorship-video-split.cjs"
     },
-    "./blocks/hero/hero-business-operations-mosaic": {
-      "types": "./dist/hero-business-operations-mosaic.d.ts",
-      "import": "./dist/hero-business-operations-mosaic.js",
-      "require": "./dist/hero-business-operations-mosaic.cjs"
-    },
-    "./blocks/hero/hero-agency-animated-images": {
-      "types": "./dist/hero-agency-animated-images.d.ts",
-      "import": "./dist/hero-agency-animated-images.js",
-      "require": "./dist/hero-agency-animated-images.cjs"
-    },
-    "./blocks/hero/hero-welcome-asymmetric-images": {
-      "types": "./dist/hero-welcome-asymmetric-images.d.ts",
-      "import": "./dist/hero-welcome-asymmetric-images.js",
-      "require": "./dist/hero-welcome-asymmetric-images.cjs"
-    },
-    "./blocks/hero/hero-startup-launch-cta": {
-      "types": "./dist/hero-startup-launch-cta.d.ts",
-      "import": "./dist/hero-startup-launch-cta.js",
-      "require": "./dist/hero-startup-launch-cta.cjs"
-    },
-    "./blocks/hero/hero-enterprise-security": {
-      "types": "./dist/hero-enterprise-security.d.ts",
-      "import": "./dist/hero-enterprise-security.js",
-      "require": "./dist/hero-enterprise-security.cjs"
-    },
-    "./blocks/hero/hero-creative-studio-stacked": {
-      "types": "./dist/hero-creative-studio-stacked.d.ts",
-      "import": "./dist/hero-creative-studio-stacked.js",
-      "require": "./dist/hero-creative-studio-stacked.cjs"
-    },
-    "./blocks/hero/hero-digital-agency-fullscreen": {
-      "types": "./dist/hero-digital-agency-fullscreen.d.ts",
-      "import": "./dist/hero-digital-agency-fullscreen.js",
-      "require": "./dist/hero-digital-agency-fullscreen.cjs"
-    },
-    "./blocks/hero/hero-customer-support-layered": {
-      "types": "./dist/hero-customer-support-layered.d.ts",
-      "import": "./dist/hero-customer-support-layered.js",
-      "require": "./dist/hero-customer-support-layered.cjs"
-    },
-    "./blocks/hero/hero-shared-inbox-layered": {
-      "types": "./dist/hero-shared-inbox-layered.d.ts",
-      "import": "./dist/hero-shared-inbox-layered.js",
-      "require": "./dist/hero-shared-inbox-layered.cjs"
-    },
-    "./blocks/hero/hero-conversation-intelligence": {
-      "types": "./dist/hero-conversation-intelligence.d.ts",
-      "import": "./dist/hero-conversation-intelligence.js",
-      "require": "./dist/hero-conversation-intelligence.cjs"
-    },
-    "./blocks/hero/hero-business-carousel-dots": {
-      "types": "./dist/hero-business-carousel-dots.d.ts",
-      "import": "./dist/hero-business-carousel-dots.js",
-      "require": "./dist/hero-business-carousel-dots.cjs"
-    },
-    "./blocks/hero/hero-developer-tools-code": {
-      "types": "./dist/hero-developer-tools-code.d.ts",
-      "import": "./dist/hero-developer-tools-code.js",
-      "require": "./dist/hero-developer-tools-code.cjs"
-    },
-    "./blocks/hero/hero-ecommerce-product-showcase": {
-      "types": "./dist/hero-ecommerce-product-showcase.d.ts",
-      "import": "./dist/hero-ecommerce-product-showcase.js",
-      "require": "./dist/hero-ecommerce-product-showcase.cjs"
+    "./blocks/hero/hero-minimal-centered-dark": {
+      "types": "./dist/hero-minimal-centered-dark.d.ts",
+      "import": "./dist/hero-minimal-centered-dark.js",
+      "require": "./dist/hero-minimal-centered-dark.cjs"
     },
     "./blocks/hero/hero-mobile-app-download": {
       "types": "./dist/hero-mobile-app-download.d.ts",
       "import": "./dist/hero-mobile-app-download.js",
       "require": "./dist/hero-mobile-app-download.cjs"
     },
-    "./blocks/hero/hero-pricing-comparison": {
-      "types": "./dist/hero-pricing-comparison.d.ts",
-      "import": "./dist/hero-pricing-comparison.js",
-      "require": "./dist/hero-pricing-comparison.cjs"
-    },
     "./blocks/hero/hero-newsletter-minimal": {
       "types": "./dist/hero-newsletter-minimal.d.ts",
       "import": "./dist/hero-newsletter-minimal.js",
       "require": "./dist/hero-newsletter-minimal.cjs"
     },
-    "./blocks/hero/hero-coming-soon-countdown": {
-      "types": "./dist/hero-coming-soon-countdown.d.ts",
-      "import": "./dist/hero-coming-soon-countdown.js",
-      "require": "./dist/hero-coming-soon-countdown.cjs"
+    "./blocks/hero/hero-pattern-badge-logos": {
+      "types": "./dist/hero-pattern-badge-logos.d.ts",
+      "import": "./dist/hero-pattern-badge-logos.js",
+      "require": "./dist/hero-pattern-badge-logos.cjs"
     },
-    "./blocks/hero/hero-event-registration": {
-      "types": "./dist/hero-event-registration.d.ts",
-      "import": "./dist/hero-event-registration.js",
-      "require": "./dist/hero-event-registration.cjs"
+    "./blocks/hero/hero-pattern-logo-tech-stack": {
+      "types": "./dist/hero-pattern-logo-tech-stack.d.ts",
+      "import": "./dist/hero-pattern-logo-tech-stack.js",
+      "require": "./dist/hero-pattern-logo-tech-stack.cjs"
+    },
+    "./blocks/hero/hero-platform-features-grid": {
+      "types": "./dist/hero-platform-features-grid.d.ts",
+      "import": "./dist/hero-platform-features-grid.js",
+      "require": "./dist/hero-platform-features-grid.cjs"
     },
     "./blocks/hero/hero-portfolio-creative": {
       "types": "./dist/hero-portfolio-creative.d.ts",
       "import": "./dist/hero-portfolio-creative.js",
       "require": "./dist/hero-portfolio-creative.cjs"
     },
-    "./blocks/case-studies-list/case-studies-image-grid": {
-      "types": "./dist/case-studies-image-grid.d.ts",
-      "import": "./dist/case-studies-image-grid.js",
-      "require": "./dist/case-studies-image-grid.cjs"
+    "./blocks/hero/hero-premium-split-avatars": {
+      "types": "./dist/hero-premium-split-avatars.d.ts",
+      "import": "./dist/hero-premium-split-avatars.js",
+      "require": "./dist/hero-premium-split-avatars.cjs"
     },
-    "./blocks/case-studies-list/case-studies-testimonial-stats": {
-      "types": "./dist/case-studies-testimonial-stats.d.ts",
-      "import": "./dist/case-studies-testimonial-stats.js",
-      "require": "./dist/case-studies-testimonial-stats.cjs"
+    "./blocks/hero/hero-presentation-platform-video": {
+      "types": "./dist/hero-presentation-platform-video.d.ts",
+      "import": "./dist/hero-presentation-platform-video.js",
+      "require": "./dist/hero-presentation-platform-video.cjs"
     },
-    "./blocks/case-studies-list/case-studies-featured-border": {
-      "types": "./dist/case-studies-featured-border.d.ts",
-      "import": "./dist/case-studies-featured-border.js",
-      "require": "./dist/case-studies-featured-border.cjs"
+    "./blocks/hero/hero-pricing-comparison": {
+      "types": "./dist/hero-pricing-comparison.d.ts",
+      "import": "./dist/hero-pricing-comparison.js",
+      "require": "./dist/hero-pricing-comparison.cjs"
     },
-    "./blocks/case-studies-list/case-studies-stats-card": {
-      "types": "./dist/case-studies-stats-card.d.ts",
-      "import": "./dist/case-studies-stats-card.js",
-      "require": "./dist/case-studies-stats-card.cjs"
+    "./blocks/hero/hero-product-showcase-floating": {
+      "types": "./dist/hero-product-showcase-floating.d.ts",
+      "import": "./dist/hero-product-showcase-floating.js",
+      "require": "./dist/hero-product-showcase-floating.cjs"
     },
-    "./blocks/case-study-detail/case-study-prose-sidebar": {
-      "types": "./dist/case-study-prose-sidebar.d.ts",
-      "import": "./dist/case-study-prose-sidebar.js",
-      "require": "./dist/case-study-prose-sidebar.cjs"
+    "./blocks/hero/hero-productivity-launcher-video": {
+      "types": "./dist/hero-productivity-launcher-video.d.ts",
+      "import": "./dist/hero-productivity-launcher-video.js",
+      "require": "./dist/hero-productivity-launcher-video.cjs"
     },
-    "./blocks/case-study-detail/case-study-toc-social-sidebar": {
-      "types": "./dist/case-study-toc-social-sidebar.d.ts",
-      "import": "./dist/case-study-toc-social-sidebar.js",
-      "require": "./dist/case-study-toc-social-sidebar.cjs"
+    "./blocks/hero/hero-saas-dashboard-preview": {
+      "types": "./dist/hero-saas-dashboard-preview.d.ts",
+      "import": "./dist/hero-saas-dashboard-preview.js",
+      "require": "./dist/hero-saas-dashboard-preview.cjs"
     },
-    "./blocks/case-study-detail/case-study-stats-metrics": {
-      "types": "./dist/case-study-stats-metrics.d.ts",
-      "import": "./dist/case-study-stats-metrics.js",
-      "require": "./dist/case-study-stats-metrics.cjs"
+    "./blocks/hero/hero-shared-inbox-layered": {
+      "types": "./dist/hero-shared-inbox-layered.d.ts",
+      "import": "./dist/hero-shared-inbox-layered.js",
+      "require": "./dist/hero-shared-inbox-layered.cjs"
     },
-    "./blocks/comparison/comparison-table-two-column": {
-      "types": "./dist/comparison-table-two-column.d.ts",
-      "import": "./dist/comparison-table-two-column.js",
-      "require": "./dist/comparison-table-two-column.cjs"
+    "./blocks/hero/hero-simple-centered-image": {
+      "types": "./dist/hero-simple-centered-image.d.ts",
+      "import": "./dist/hero-simple-centered-image.js",
+      "require": "./dist/hero-simple-centered-image.cjs"
     },
-    "./blocks/comparison/comparison-feature-cards": {
-      "types": "./dist/comparison-feature-cards.d.ts",
-      "import": "./dist/comparison-feature-cards.js",
-      "require": "./dist/comparison-feature-cards.cjs"
+    "./blocks/hero/hero-software-growth-video-dialog": {
+      "types": "./dist/hero-software-growth-video-dialog.d.ts",
+      "import": "./dist/hero-software-growth-video-dialog.js",
+      "require": "./dist/hero-software-growth-video-dialog.cjs"
     },
-    "./blocks/comparison/comparison-grid-badges": {
-      "types": "./dist/comparison-grid-badges.d.ts",
-      "import": "./dist/comparison-grid-badges.js",
-      "require": "./dist/comparison-grid-badges.cjs"
+    "./blocks/hero/hero-spiral-pattern-cards": {
+      "types": "./dist/hero-spiral-pattern-cards.d.ts",
+      "import": "./dist/hero-spiral-pattern-cards.js",
+      "require": "./dist/hero-spiral-pattern-cards.cjs"
     },
-    "./blocks/comparison/comparison-metrics-rows": {
-      "types": "./dist/comparison-metrics-rows.d.ts",
-      "import": "./dist/comparison-metrics-rows.js",
-      "require": "./dist/comparison-metrics-rows.cjs"
+    "./blocks/hero/hero-split-geometric-shapes": {
+      "types": "./dist/hero-split-geometric-shapes.d.ts",
+      "import": "./dist/hero-split-geometric-shapes.js",
+      "require": "./dist/hero-split-geometric-shapes.cjs"
     },
-    "./blocks/comparison/comparison-image-cards": {
-      "types": "./dist/comparison-image-cards.d.ts",
-      "import": "./dist/comparison-image-cards.js",
-      "require": "./dist/comparison-image-cards.cjs"
+    "./blocks/hero/hero-split-image-newsletter": {
+      "types": "./dist/hero-split-image-newsletter.d.ts",
+      "import": "./dist/hero-split-image-newsletter.js",
+      "require": "./dist/hero-split-image-newsletter.cjs"
     },
-    "./blocks/comparison/comparison-table-tabs": {
-      "types": "./dist/comparison-table-tabs.d.ts",
-      "import": "./dist/comparison-table-tabs.js",
-      "require": "./dist/comparison-table-tabs.cjs"
+    "./blocks/hero/hero-split-spiral-shapes": {
+      "types": "./dist/hero-split-spiral-shapes.d.ts",
+      "import": "./dist/hero-split-spiral-shapes.js",
+      "require": "./dist/hero-split-spiral-shapes.cjs"
     },
-    "./blocks/comparison/comparison-table-tooltips": {
-      "types": "./dist/comparison-table-tooltips.d.ts",
-      "import": "./dist/comparison-table-tooltips.js",
-      "require": "./dist/comparison-table-tooltips.cjs"
+    "./blocks/hero/hero-startup-launch-cta": {
+      "types": "./dist/hero-startup-launch-cta.d.ts",
+      "import": "./dist/hero-startup-launch-cta.js",
+      "require": "./dist/hero-startup-launch-cta.cjs"
     },
-    "./blocks/comparison/comparison-feature-grid": {
-      "types": "./dist/comparison-feature-grid.d.ts",
-      "import": "./dist/comparison-feature-grid.js",
-      "require": "./dist/comparison-feature-grid.cjs"
+    "./blocks/hero/hero-stats-social-proof": {
+      "types": "./dist/hero-stats-social-proof.d.ts",
+      "import": "./dist/hero-stats-social-proof.js",
+      "require": "./dist/hero-stats-social-proof.cjs"
     },
-    "./blocks/comparison/comparison-ai-models": {
-      "types": "./dist/comparison-ai-models.d.ts",
-      "import": "./dist/comparison-ai-models.js",
-      "require": "./dist/comparison-ai-models.cjs"
+    "./blocks/hero/hero-task-timer-animated": {
+      "types": "./dist/hero-task-timer-animated.d.ts",
+      "import": "./dist/hero-task-timer-animated.js",
+      "require": "./dist/hero-task-timer-animated.cjs"
     },
-    "./blocks/comparison/comparison-legacy-modern": {
-      "types": "./dist/comparison-legacy-modern.d.ts",
-      "import": "./dist/comparison-legacy-modern.js",
-      "require": "./dist/comparison-legacy-modern.cjs"
+    "./blocks/hero/hero-tech-carousel": {
+      "types": "./dist/hero-tech-carousel.d.ts",
+      "import": "./dist/hero-tech-carousel.js",
+      "require": "./dist/hero-tech-carousel.cjs"
     },
-    "./blocks/navbars/navbar-dropdown-menu": {
-      "types": "./dist/navbar-dropdown-menu.d.ts",
-      "import": "./dist/navbar-dropdown-menu.js",
-      "require": "./dist/navbar-dropdown-menu.cjs"
+    "./blocks/hero/hero-testimonial-image-grid": {
+      "types": "./dist/hero-testimonial-image-grid.d.ts",
+      "import": "./dist/hero-testimonial-image-grid.js",
+      "require": "./dist/hero-testimonial-image-grid.cjs"
+    },
+    "./blocks/hero/hero-therapy-testimonial-grid": {
+      "types": "./dist/hero-therapy-testimonial-grid.d.ts",
+      "import": "./dist/hero-therapy-testimonial-grid.js",
+      "require": "./dist/hero-therapy-testimonial-grid.cjs"
+    },
+    "./blocks/hero/hero-ui-library-showcase": {
+      "types": "./dist/hero-ui-library-showcase.d.ts",
+      "import": "./dist/hero-ui-library-showcase.js",
+      "require": "./dist/hero-ui-library-showcase.cjs"
+    },
+    "./blocks/hero/hero-video-background-dark": {
+      "types": "./dist/hero-video-background-dark.d.ts",
+      "import": "./dist/hero-video-background-dark.js",
+      "require": "./dist/hero-video-background-dark.cjs"
+    },
+    "./blocks/hero/hero-video-dialog-gradient": {
+      "types": "./dist/hero-video-dialog-gradient.d.ts",
+      "import": "./dist/hero-video-dialog-gradient.js",
+      "require": "./dist/hero-video-dialog-gradient.cjs"
+    },
+    "./blocks/hero/hero-video-overlay-stars": {
+      "types": "./dist/hero-video-overlay-stars.d.ts",
+      "import": "./dist/hero-video-overlay-stars.js",
+      "require": "./dist/hero-video-overlay-stars.cjs"
+    },
+    "./blocks/hero/hero-welcome-asymmetric-images": {
+      "types": "./dist/hero-welcome-asymmetric-images.d.ts",
+      "import": "./dist/hero-welcome-asymmetric-images.js",
+      "require": "./dist/hero-welcome-asymmetric-images.cjs"
+    },
+    "./blocks/industries/industries-badge-list-bordered": {
+      "types": "./dist/industries-badge-list-bordered.d.ts",
+      "import": "./dist/industries-badge-list-bordered.js",
+      "require": "./dist/industries-badge-list-bordered.cjs"
+    },
+    "./blocks/industries/industries-expandable-showcase": {
+      "types": "./dist/industries-expandable-showcase.d.ts",
+      "import": "./dist/industries-expandable-showcase.js",
+      "require": "./dist/industries-expandable-showcase.cjs"
+    },
+    "./blocks/industries/industries-hover-reveal-grid": {
+      "types": "./dist/industries-hover-reveal-grid.d.ts",
+      "import": "./dist/industries-hover-reveal-grid.js",
+      "require": "./dist/industries-hover-reveal-grid.cjs"
+    },
+    "./blocks/industries/industries-timeline-table": {
+      "types": "./dist/industries-timeline-table.d.ts",
+      "import": "./dist/industries-timeline-table.js",
+      "require": "./dist/industries-timeline-table.cjs"
+    },
+    "./blocks/link-page/link-page-bento-layout": {
+      "types": "./dist/link-page-bento-layout.d.ts",
+      "import": "./dist/link-page-bento-layout.js",
+      "require": "./dist/link-page-bento-layout.cjs"
+    },
+    "./blocks/link-page/link-page-grid-cards": {
+      "types": "./dist/link-page-grid-cards.d.ts",
+      "import": "./dist/link-page-grid-cards.js",
+      "require": "./dist/link-page-grid-cards.cjs"
+    },
+    "./blocks/link-page/link-page-minimal-profile": {
+      "types": "./dist/link-page-minimal-profile.d.ts",
+      "import": "./dist/link-page-minimal-profile.js",
+      "require": "./dist/link-page-minimal-profile.cjs"
+    },
+    "./blocks/link-page/link-page-newsletter-social": {
+      "types": "./dist/link-page-newsletter-social.d.ts",
+      "import": "./dist/link-page-newsletter-social.js",
+      "require": "./dist/link-page-newsletter-social.cjs"
+    },
+    "./blocks/link-page/link-tree-block": {
+      "types": "./dist/link-tree-block.d.ts",
+      "import": "./dist/link-tree-block.js",
+      "require": "./dist/link-tree-block.cjs"
+    },
+    "./blocks/list/list-achievements-showcase": {
+      "types": "./dist/list-achievements-showcase.d.ts",
+      "import": "./dist/list-achievements-showcase.js",
+      "require": "./dist/list-achievements-showcase.cjs"
+    },
+    "./blocks/list/list-career-timeline": {
+      "types": "./dist/list-career-timeline.d.ts",
+      "import": "./dist/list-career-timeline.js",
+      "require": "./dist/list-career-timeline.cjs"
+    },
+    "./blocks/list/list-feature-comparison": {
+      "types": "./dist/list-feature-comparison.d.ts",
+      "import": "./dist/list-feature-comparison.js",
+      "require": "./dist/list-feature-comparison.cjs"
+    },
+    "./blocks/list/list-metrics-dashboard": {
+      "types": "./dist/list-metrics-dashboard.d.ts",
+      "import": "./dist/list-metrics-dashboard.js",
+      "require": "./dist/list-metrics-dashboard.cjs"
+    },
+    "./blocks/list/list-service-category-table": {
+      "types": "./dist/list-service-category-table.d.ts",
+      "import": "./dist/list-service-category-table.js",
+      "require": "./dist/list-service-category-table.cjs"
+    },
+    "./blocks/logos/logos-carousel-heading": {
+      "types": "./dist/logos-carousel-heading.d.ts",
+      "import": "./dist/logos-carousel-heading.js",
+      "require": "./dist/logos-carousel-heading.cjs"
+    },
+    "./blocks/logos/logos-centered-simple": {
+      "types": "./dist/logos-centered-simple.d.ts",
+      "import": "./dist/logos-centered-simple.js",
+      "require": "./dist/logos-centered-simple.cjs"
+    },
+    "./blocks/logos/logos-certifications-grid": {
+      "types": "./dist/logos-certifications-grid.d.ts",
+      "import": "./dist/logos-certifications-grid.js",
+      "require": "./dist/logos-certifications-grid.cjs"
+    },
+    "./blocks/logos/logos-double-carousel-pattern": {
+      "types": "./dist/logos-double-carousel-pattern.d.ts",
+      "import": "./dist/logos-double-carousel-pattern.js",
+      "require": "./dist/logos-double-carousel-pattern.cjs"
+    },
+    "./blocks/logos/logos-inline-tagline": {
+      "types": "./dist/logos-inline-tagline.d.ts",
+      "import": "./dist/logos-inline-tagline.js",
+      "require": "./dist/logos-inline-tagline.cjs"
+    },
+    "./blocks/logos/logos-marquee-muted": {
+      "types": "./dist/logos-marquee-muted.d.ts",
+      "import": "./dist/logos-marquee-muted.js",
+      "require": "./dist/logos-marquee-muted.cjs"
+    },
+    "./blocks/logos/logos-minimal-carousel": {
+      "types": "./dist/logos-minimal-carousel.d.ts",
+      "import": "./dist/logos-minimal-carousel.js",
+      "require": "./dist/logos-minimal-carousel.cjs"
+    },
+    "./blocks/logos/logos-numbered-carousel": {
+      "types": "./dist/logos-numbered-carousel.d.ts",
+      "import": "./dist/logos-numbered-carousel.js",
+      "require": "./dist/logos-numbered-carousel.cjs"
+    },
+    "./blocks/logos/logos-partner-grid-sidebar": {
+      "types": "./dist/logos-partner-grid-sidebar.d.ts",
+      "import": "./dist/logos-partner-grid-sidebar.js",
+      "require": "./dist/logos-partner-grid-sidebar.cjs"
+    },
+    "./blocks/logos/logos-partner-network": {
+      "types": "./dist/logos-partner-network.d.ts",
+      "import": "./dist/logos-partner-network.js",
+      "require": "./dist/logos-partner-network.cjs"
+    },
+    "./blocks/logos/logos-two-row-grid": {
+      "types": "./dist/logos-two-row-grid.d.ts",
+      "import": "./dist/logos-two-row-grid.js",
+      "require": "./dist/logos-two-row-grid.cjs"
+    },
+    "./blocks/navbars/navbar-animated-preview": {
+      "types": "./dist/navbar-animated-preview.d.ts",
+      "import": "./dist/navbar-animated-preview.js",
+      "require": "./dist/navbar-animated-preview.cjs"
     },
     "./blocks/navbars/navbar-centered-menu": {
       "types": "./dist/navbar-centered-menu.d.ts",
       "import": "./dist/navbar-centered-menu.js",
       "require": "./dist/navbar-centered-menu.cjs"
     },
-    "./blocks/navbars/navbar-mega-menu": {
-      "types": "./dist/navbar-mega-menu.d.ts",
-      "import": "./dist/navbar-mega-menu.js",
-      "require": "./dist/navbar-mega-menu.cjs"
+    "./blocks/navbars/navbar-dark-icons": {
+      "types": "./dist/navbar-dark-icons.d.ts",
+      "import": "./dist/navbar-dark-icons.js",
+      "require": "./dist/navbar-dark-icons.cjs"
+    },
+    "./blocks/navbars/navbar-dropdown-menu": {
+      "types": "./dist/navbar-dropdown-menu.d.ts",
+      "import": "./dist/navbar-dropdown-menu.js",
+      "require": "./dist/navbar-dropdown-menu.cjs"
+    },
+    "./blocks/navbars/navbar-education-platform": {
+      "types": "./dist/navbar-education-platform.d.ts",
+      "import": "./dist/navbar-education-platform.js",
+      "require": "./dist/navbar-education-platform.cjs"
     },
     "./blocks/navbars/navbar-enterprise-mega": {
       "types": "./dist/navbar-enterprise-mega.d.ts",
@@ -1446,55 +1891,45 @@
       "import": "./dist/navbar-floating-pill.js",
       "require": "./dist/navbar-floating-pill.cjs"
     },
-    "./blocks/navbars/navbar-platform-resources": {
-      "types": "./dist/navbar-platform-resources.d.ts",
-      "import": "./dist/navbar-platform-resources.js",
-      "require": "./dist/navbar-platform-resources.cjs"
+    "./blocks/navbars/navbar-fullscreen-menu": {
+      "types": "./dist/navbar-fullscreen-menu.d.ts",
+      "import": "./dist/navbar-fullscreen-menu.js",
+      "require": "./dist/navbar-fullscreen-menu.cjs"
+    },
+    "./blocks/navbars/navbar-icon-links": {
+      "types": "./dist/navbar-icon-links.d.ts",
+      "import": "./dist/navbar-icon-links.js",
+      "require": "./dist/navbar-icon-links.cjs"
     },
     "./blocks/navbars/navbar-image-preview": {
       "types": "./dist/navbar-image-preview.d.ts",
       "import": "./dist/navbar-image-preview.js",
       "require": "./dist/navbar-image-preview.cjs"
     },
-    "./blocks/navbars/navbar-dark-icons": {
-      "types": "./dist/navbar-dark-icons.d.ts",
-      "import": "./dist/navbar-dark-icons.js",
-      "require": "./dist/navbar-dark-icons.cjs"
-    },
-    "./blocks/navbars/navbar-animated-preview": {
-      "types": "./dist/navbar-animated-preview.d.ts",
-      "import": "./dist/navbar-animated-preview.js",
-      "require": "./dist/navbar-animated-preview.cjs"
+    "./blocks/navbars/navbar-mega-menu": {
+      "types": "./dist/navbar-mega-menu.d.ts",
+      "import": "./dist/navbar-mega-menu.js",
+      "require": "./dist/navbar-mega-menu.cjs"
     },
     "./blocks/navbars/navbar-multi-column-groups": {
       "types": "./dist/navbar-multi-column-groups.d.ts",
       "import": "./dist/navbar-multi-column-groups.js",
       "require": "./dist/navbar-multi-column-groups.cjs"
     },
-    "./blocks/navbars/navbar-sidebar-mobile": {
-      "types": "./dist/navbar-sidebar-mobile.d.ts",
-      "import": "./dist/navbar-sidebar-mobile.js",
-      "require": "./dist/navbar-sidebar-mobile.cjs"
-    },
-    "./blocks/navbars/navbar-transparent-overlay": {
-      "types": "./dist/navbar-transparent-overlay.d.ts",
-      "import": "./dist/navbar-transparent-overlay.js",
-      "require": "./dist/navbar-transparent-overlay.cjs"
-    },
-    "./blocks/navbars/navbar-education-platform": {
-      "types": "./dist/navbar-education-platform.d.ts",
-      "import": "./dist/navbar-education-platform.js",
-      "require": "./dist/navbar-education-platform.cjs"
-    },
-    "./blocks/navbars/navbar-sticky-compact": {
-      "types": "./dist/navbar-sticky-compact.d.ts",
-      "import": "./dist/navbar-sticky-compact.js",
-      "require": "./dist/navbar-sticky-compact.cjs"
+    "./blocks/navbars/navbar-platform-resources": {
+      "types": "./dist/navbar-platform-resources.d.ts",
+      "import": "./dist/navbar-platform-resources.js",
+      "require": "./dist/navbar-platform-resources.cjs"
     },
     "./blocks/navbars/navbar-search-focused": {
       "types": "./dist/navbar-search-focused.d.ts",
       "import": "./dist/navbar-search-focused.js",
       "require": "./dist/navbar-search-focused.cjs"
+    },
+    "./blocks/navbars/navbar-sidebar-mobile": {
+      "types": "./dist/navbar-sidebar-mobile.d.ts",
+      "import": "./dist/navbar-sidebar-mobile.js",
+      "require": "./dist/navbar-sidebar-mobile.cjs"
     },
     "./blocks/navbars/navbar-simple-links": {
       "types": "./dist/navbar-simple-links.d.ts",
@@ -1506,85 +1941,185 @@
       "import": "./dist/navbar-split-cta.js",
       "require": "./dist/navbar-split-cta.cjs"
     },
-    "./blocks/navbars/navbar-icon-links": {
-      "types": "./dist/navbar-icon-links.d.ts",
-      "import": "./dist/navbar-icon-links.js",
-      "require": "./dist/navbar-icon-links.cjs"
+    "./blocks/navbars/navbar-sticky-compact": {
+      "types": "./dist/navbar-sticky-compact.d.ts",
+      "import": "./dist/navbar-sticky-compact.js",
+      "require": "./dist/navbar-sticky-compact.cjs"
     },
     "./blocks/navbars/navbar-tabbed-sections": {
       "types": "./dist/navbar-tabbed-sections.d.ts",
       "import": "./dist/navbar-tabbed-sections.js",
       "require": "./dist/navbar-tabbed-sections.cjs"
     },
-    "./blocks/navbars/navbar-fullscreen-menu": {
-      "types": "./dist/navbar-fullscreen-menu.d.ts",
-      "import": "./dist/navbar-fullscreen-menu.js",
-      "require": "./dist/navbar-fullscreen-menu.cjs"
+    "./blocks/navbars/navbar-transparent-overlay": {
+      "types": "./dist/navbar-transparent-overlay.d.ts",
+      "import": "./dist/navbar-transparent-overlay.js",
+      "require": "./dist/navbar-transparent-overlay.cjs"
     },
-    "./blocks/logos/logos-inline-tagline": {
-      "types": "./dist/logos-inline-tagline.d.ts",
-      "import": "./dist/logos-inline-tagline.js",
-      "require": "./dist/logos-inline-tagline.cjs"
+    "./blocks/offer-modal/offer-modal-membership-image": {
+      "types": "./dist/offer-modal-membership-image.d.ts",
+      "import": "./dist/offer-modal-membership-image.js",
+      "require": "./dist/offer-modal-membership-image.cjs"
     },
-    "./blocks/logos/logos-certifications-grid": {
-      "types": "./dist/logos-certifications-grid.d.ts",
-      "import": "./dist/logos-certifications-grid.js",
-      "require": "./dist/logos-certifications-grid.cjs"
+    "./blocks/offer-modal/offer-modal-newsletter-discount": {
+      "types": "./dist/offer-modal-newsletter-discount.d.ts",
+      "import": "./dist/offer-modal-newsletter-discount.js",
+      "require": "./dist/offer-modal-newsletter-discount.cjs"
     },
-    "./blocks/logos/logos-carousel-heading": {
-      "types": "./dist/logos-carousel-heading.d.ts",
-      "import": "./dist/logos-carousel-heading.js",
-      "require": "./dist/logos-carousel-heading.cjs"
+    "./blocks/offer-modal/offer-modal-sheet-newsletter": {
+      "types": "./dist/offer-modal-sheet-newsletter.d.ts",
+      "import": "./dist/offer-modal-sheet-newsletter.js",
+      "require": "./dist/offer-modal-sheet-newsletter.cjs"
     },
-    "./blocks/logos/logos-partner-network": {
-      "types": "./dist/logos-partner-network.d.ts",
-      "import": "./dist/logos-partner-network.js",
-      "require": "./dist/logos-partner-network.cjs"
+    "./blocks/pricing/pricing-addons-cards": {
+      "types": "./dist/pricing-addons-cards.d.ts",
+      "import": "./dist/pricing-addons-cards.js",
+      "require": "./dist/pricing-addons-cards.cjs"
     },
-    "./blocks/logos/logos-two-row-grid": {
-      "types": "./dist/logos-two-row-grid.d.ts",
-      "import": "./dist/logos-two-row-grid.js",
-      "require": "./dist/logos-two-row-grid.cjs"
+    "./blocks/pricing/pricing-addons-featured": {
+      "types": "./dist/pricing-addons-featured.d.ts",
+      "import": "./dist/pricing-addons-featured.js",
+      "require": "./dist/pricing-addons-featured.cjs"
     },
-    "./blocks/logos/logos-marquee-muted": {
-      "types": "./dist/logos-marquee-muted.d.ts",
-      "import": "./dist/logos-marquee-muted.js",
-      "require": "./dist/logos-marquee-muted.cjs"
+    "./blocks/pricing/pricing-collapsible-plans": {
+      "types": "./dist/pricing-collapsible-plans.d.ts",
+      "import": "./dist/pricing-collapsible-plans.js",
+      "require": "./dist/pricing-collapsible-plans.cjs"
     },
-    "./blocks/logos/logos-centered-simple": {
-      "types": "./dist/logos-centered-simple.d.ts",
-      "import": "./dist/logos-centered-simple.js",
-      "require": "./dist/logos-centered-simple.cjs"
+    "./blocks/pricing/pricing-columns-toggle": {
+      "types": "./dist/pricing-columns-toggle.d.ts",
+      "import": "./dist/pricing-columns-toggle.js",
+      "require": "./dist/pricing-columns-toggle.cjs"
     },
-    "./blocks/logos/logos-numbered-carousel": {
-      "types": "./dist/logos-numbered-carousel.d.ts",
-      "import": "./dist/logos-numbered-carousel.js",
-      "require": "./dist/logos-numbered-carousel.cjs"
+    "./blocks/pricing/pricing-comparison-headers": {
+      "types": "./dist/pricing-comparison-headers.d.ts",
+      "import": "./dist/pricing-comparison-headers.js",
+      "require": "./dist/pricing-comparison-headers.cjs"
     },
-    "./blocks/logos/logos-double-carousel-pattern": {
-      "types": "./dist/logos-double-carousel-pattern.d.ts",
-      "import": "./dist/logos-double-carousel-pattern.js",
-      "require": "./dist/logos-double-carousel-pattern.cjs"
+    "./blocks/pricing/pricing-comparison-table": {
+      "types": "./dist/pricing-comparison-table.d.ts",
+      "import": "./dist/pricing-comparison-table.js",
+      "require": "./dist/pricing-comparison-table.cjs"
     },
-    "./blocks/logos/logos-minimal-carousel": {
-      "types": "./dist/logos-minimal-carousel.d.ts",
-      "import": "./dist/logos-minimal-carousel.js",
-      "require": "./dist/logos-minimal-carousel.cjs"
+    "./blocks/pricing/pricing-discount-card": {
+      "types": "./dist/pricing-discount-card.d.ts",
+      "import": "./dist/pricing-discount-card.js",
+      "require": "./dist/pricing-discount-card.cjs"
     },
-    "./blocks/logos/logos-partner-grid-sidebar": {
-      "types": "./dist/logos-partner-grid-sidebar.d.ts",
-      "import": "./dist/logos-partner-grid-sidebar.js",
-      "require": "./dist/logos-partner-grid-sidebar.cjs"
+    "./blocks/pricing/pricing-enterprise-contact": {
+      "types": "./dist/pricing-enterprise-contact.d.ts",
+      "import": "./dist/pricing-enterprise-contact.js",
+      "require": "./dist/pricing-enterprise-contact.cjs"
     },
-    "./blocks/process/process-sticky-steps": {
-      "types": "./dist/process-sticky-steps.d.ts",
-      "import": "./dist/process-sticky-steps.js",
-      "require": "./dist/process-sticky-steps.cjs"
+    "./blocks/pricing/pricing-feature-matrix": {
+      "types": "./dist/pricing-feature-matrix.d.ts",
+      "import": "./dist/pricing-feature-matrix.js",
+      "require": "./dist/pricing-feature-matrix.cjs"
     },
-    "./blocks/process/process-scroll-image": {
-      "types": "./dist/process-scroll-image.d.ts",
-      "import": "./dist/process-scroll-image.js",
-      "require": "./dist/process-scroll-image.cjs"
+    "./blocks/pricing/pricing-four-tier-toggle": {
+      "types": "./dist/pricing-four-tier-toggle.d.ts",
+      "import": "./dist/pricing-four-tier-toggle.js",
+      "require": "./dist/pricing-four-tier-toggle.cjs"
+    },
+    "./blocks/pricing/pricing-full-comparison": {
+      "types": "./dist/pricing-full-comparison.d.ts",
+      "import": "./dist/pricing-full-comparison.js",
+      "require": "./dist/pricing-full-comparison.cjs"
+    },
+    "./blocks/pricing/pricing-gradient-cards": {
+      "types": "./dist/pricing-gradient-cards.d.ts",
+      "import": "./dist/pricing-gradient-cards.js",
+      "require": "./dist/pricing-gradient-cards.cjs"
+    },
+    "./blocks/pricing/pricing-icon-headers": {
+      "types": "./dist/pricing-icon-headers.d.ts",
+      "import": "./dist/pricing-icon-headers.js",
+      "require": "./dist/pricing-icon-headers.cjs"
+    },
+    "./blocks/pricing/pricing-minimal-cards": {
+      "types": "./dist/pricing-minimal-cards.d.ts",
+      "import": "./dist/pricing-minimal-cards.js",
+      "require": "./dist/pricing-minimal-cards.cjs"
+    },
+    "./blocks/pricing/pricing-packages-radio": {
+      "types": "./dist/pricing-packages-radio.d.ts",
+      "import": "./dist/pricing-packages-radio.js",
+      "require": "./dist/pricing-packages-radio.cjs"
+    },
+    "./blocks/pricing/pricing-popular-highlight": {
+      "types": "./dist/pricing-popular-highlight.d.ts",
+      "import": "./dist/pricing-popular-highlight.js",
+      "require": "./dist/pricing-popular-highlight.cjs"
+    },
+    "./blocks/pricing/pricing-radio-toggle": {
+      "types": "./dist/pricing-radio-toggle.d.ts",
+      "import": "./dist/pricing-radio-toggle.js",
+      "require": "./dist/pricing-radio-toggle.cjs"
+    },
+    "./blocks/pricing/pricing-responsive-table": {
+      "types": "./dist/pricing-responsive-table.d.ts",
+      "import": "./dist/pricing-responsive-table.js",
+      "require": "./dist/pricing-responsive-table.cjs"
+    },
+    "./blocks/pricing/pricing-services-cards": {
+      "types": "./dist/pricing-services-cards.d.ts",
+      "import": "./dist/pricing-services-cards.js",
+      "require": "./dist/pricing-services-cards.cjs"
+    },
+    "./blocks/pricing/pricing-simple-card": {
+      "types": "./dist/pricing-simple-card.d.ts",
+      "import": "./dist/pricing-simple-card.js",
+      "require": "./dist/pricing-simple-card.cjs"
+    },
+    "./blocks/pricing/pricing-single-card": {
+      "types": "./dist/pricing-single-card.d.ts",
+      "import": "./dist/pricing-single-card.js",
+      "require": "./dist/pricing-single-card.cjs"
+    },
+    "./blocks/pricing/pricing-split-layout": {
+      "types": "./dist/pricing-split-layout.d.ts",
+      "import": "./dist/pricing-split-layout.js",
+      "require": "./dist/pricing-split-layout.cjs"
+    },
+    "./blocks/pricing/pricing-spotlight-card": {
+      "types": "./dist/pricing-spotlight-card.d.ts",
+      "import": "./dist/pricing-spotlight-card.js",
+      "require": "./dist/pricing-spotlight-card.cjs"
+    },
+    "./blocks/pricing/pricing-switch-cards": {
+      "types": "./dist/pricing-switch-cards.d.ts",
+      "import": "./dist/pricing-switch-cards.js",
+      "require": "./dist/pricing-switch-cards.cjs"
+    },
+    "./blocks/pricing/pricing-tabs-toggle": {
+      "types": "./dist/pricing-tabs-toggle.d.ts",
+      "import": "./dist/pricing-tabs-toggle.js",
+      "require": "./dist/pricing-tabs-toggle.cjs"
+    },
+    "./blocks/pricing/pricing-tier-grid": {
+      "types": "./dist/pricing-tier-grid.d.ts",
+      "import": "./dist/pricing-tier-grid.js",
+      "require": "./dist/pricing-tier-grid.cjs"
+    },
+    "./blocks/pricing/pricing-toggle-cards": {
+      "types": "./dist/pricing-toggle-cards.d.ts",
+      "import": "./dist/pricing-toggle-cards.js",
+      "require": "./dist/pricing-toggle-cards.cjs"
+    },
+    "./blocks/pricing/pricing-toggle-period": {
+      "types": "./dist/pricing-toggle-period.d.ts",
+      "import": "./dist/pricing-toggle-period.js",
+      "require": "./dist/pricing-toggle-period.cjs"
+    },
+    "./blocks/pricing/pricing-two-column-basic": {
+      "types": "./dist/pricing-two-column-basic.d.ts",
+      "import": "./dist/pricing-two-column-basic.js",
+      "require": "./dist/pricing-two-column-basic.cjs"
+    },
+    "./blocks/process/process-expandable-timeline": {
+      "types": "./dist/process-expandable-timeline.d.ts",
+      "import": "./dist/process-expandable-timeline.js",
+      "require": "./dist/process-expandable-timeline.cjs"
     },
     "./blocks/process/process-hover-cards": {
       "types": "./dist/process-hover-cards.d.ts",
@@ -1596,30 +2131,145 @@
       "import": "./dist/process-icon-timeline.js",
       "require": "./dist/process-icon-timeline.cjs"
     },
-    "./blocks/process/process-expandable-timeline": {
-      "types": "./dist/process-expandable-timeline.d.ts",
-      "import": "./dist/process-expandable-timeline.js",
-      "require": "./dist/process-expandable-timeline.cjs"
+    "./blocks/process/process-mission-principles": {
+      "types": "./dist/process-mission-principles.d.ts",
+      "import": "./dist/process-mission-principles.js",
+      "require": "./dist/process-mission-principles.cjs"
+    },
+    "./blocks/process/process-numbered-services": {
+      "types": "./dist/process-numbered-services.d.ts",
+      "import": "./dist/process-numbered-services.js",
+      "require": "./dist/process-numbered-services.cjs"
     },
     "./blocks/process/process-roadmap-timeline": {
       "types": "./dist/process-roadmap-timeline.d.ts",
       "import": "./dist/process-roadmap-timeline.js",
       "require": "./dist/process-roadmap-timeline.cjs"
     },
-    "./blocks/process/process-mission-principles": {
-      "types": "./dist/process-mission-principles.d.ts",
-      "import": "./dist/process-mission-principles.js",
-      "require": "./dist/process-mission-principles.cjs"
+    "./blocks/process/process-scroll-image": {
+      "types": "./dist/process-scroll-image.d.ts",
+      "import": "./dist/process-scroll-image.js",
+      "require": "./dist/process-scroll-image.cjs"
     },
     "./blocks/process/process-steps-grid": {
       "types": "./dist/process-steps-grid.d.ts",
       "import": "./dist/process-steps-grid.js",
       "require": "./dist/process-steps-grid.cjs"
     },
-    "./blocks/process/process-numbered-services": {
-      "types": "./dist/process-numbered-services.d.ts",
-      "import": "./dist/process-numbered-services.js",
-      "require": "./dist/process-numbered-services.cjs"
+    "./blocks/process/process-sticky-steps": {
+      "types": "./dist/process-sticky-steps.d.ts",
+      "import": "./dist/process-sticky-steps.js",
+      "require": "./dist/process-sticky-steps.cjs"
+    },
+    "./blocks/project-detail/project-detail-architecture-carousel": {
+      "types": "./dist/project-detail-architecture-carousel.d.ts",
+      "import": "./dist/project-detail-architecture-carousel.js",
+      "require": "./dist/project-detail-architecture-carousel.cjs"
+    },
+    "./blocks/project-detail/project-detail-card-header": {
+      "types": "./dist/project-detail-card-header.d.ts",
+      "import": "./dist/project-detail-card-header.js",
+      "require": "./dist/project-detail-card-header.cjs"
+    },
+    "./blocks/project-detail/project-detail-case-study-prose": {
+      "types": "./dist/project-detail-case-study-prose.d.ts",
+      "import": "./dist/project-detail-case-study-prose.js",
+      "require": "./dist/project-detail-case-study-prose.cjs"
+    },
+    "./blocks/project-detail/project-detail-compact-metadata": {
+      "types": "./dist/project-detail-compact-metadata.d.ts",
+      "import": "./dist/project-detail-compact-metadata.js",
+      "require": "./dist/project-detail-compact-metadata.cjs"
+    },
+    "./blocks/project-detail/project-detail-exhibition-sidebar": {
+      "types": "./dist/project-detail-exhibition-sidebar.d.ts",
+      "import": "./dist/project-detail-exhibition-sidebar.js",
+      "require": "./dist/project-detail-exhibition-sidebar.cjs"
+    },
+    "./blocks/project-detail/project-detail-fashion-editorial": {
+      "types": "./dist/project-detail-fashion-editorial.d.ts",
+      "import": "./dist/project-detail-fashion-editorial.js",
+      "require": "./dist/project-detail-fashion-editorial.cjs"
+    },
+    "./blocks/project-detail/project-detail-fullscreen-hero": {
+      "types": "./dist/project-detail-fullscreen-hero.d.ts",
+      "import": "./dist/project-detail-fullscreen-hero.js",
+      "require": "./dist/project-detail-fullscreen-hero.cjs"
+    },
+    "./blocks/project-detail/project-detail-grid-gallery": {
+      "types": "./dist/project-detail-grid-gallery.d.ts",
+      "import": "./dist/project-detail-grid-gallery.js",
+      "require": "./dist/project-detail-grid-gallery.cjs"
+    },
+    "./blocks/project-detail/project-detail-hero-metadata": {
+      "types": "./dist/project-detail-hero-metadata.d.ts",
+      "import": "./dist/project-detail-hero-metadata.js",
+      "require": "./dist/project-detail-hero-metadata.cjs"
+    },
+    "./blocks/project-detail/project-detail-hover-gallery": {
+      "types": "./dist/project-detail-hover-gallery.d.ts",
+      "import": "./dist/project-detail-hover-gallery.js",
+      "require": "./dist/project-detail-hover-gallery.cjs"
+    },
+    "./blocks/project-detail/project-detail-large-hero-featured": {
+      "types": "./dist/project-detail-large-hero-featured.d.ts",
+      "import": "./dist/project-detail-large-hero-featured.js",
+      "require": "./dist/project-detail-large-hero-featured.cjs"
+    },
+    "./blocks/project-detail/project-detail-list-related": {
+      "types": "./dist/project-detail-list-related.d.ts",
+      "import": "./dist/project-detail-list-related.js",
+      "require": "./dist/project-detail-list-related.cjs"
+    },
+    "./blocks/project-detail/project-detail-mask-reveal": {
+      "types": "./dist/project-detail-mask-reveal.d.ts",
+      "import": "./dist/project-detail-mask-reveal.js",
+      "require": "./dist/project-detail-mask-reveal.cjs"
+    },
+    "./blocks/project-detail/project-detail-minimal-centered": {
+      "types": "./dist/project-detail-minimal-centered.d.ts",
+      "import": "./dist/project-detail-minimal-centered.js",
+      "require": "./dist/project-detail-minimal-centered.cjs"
+    },
+    "./blocks/project-detail/project-detail-numbered-sections": {
+      "types": "./dist/project-detail-numbered-sections.d.ts",
+      "import": "./dist/project-detail-numbered-sections.js",
+      "require": "./dist/project-detail-numbered-sections.cjs"
+    },
+    "./blocks/project-detail/project-detail-parallax-scroll": {
+      "types": "./dist/project-detail-parallax-scroll.d.ts",
+      "import": "./dist/project-detail-parallax-scroll.js",
+      "require": "./dist/project-detail-parallax-scroll.cjs"
+    },
+    "./blocks/project-detail/project-detail-photography-breadcrumb": {
+      "types": "./dist/project-detail-photography-breadcrumb.d.ts",
+      "import": "./dist/project-detail-photography-breadcrumb.js",
+      "require": "./dist/project-detail-photography-breadcrumb.cjs"
+    },
+    "./blocks/project-detail/project-detail-sculpture-showcase": {
+      "types": "./dist/project-detail-sculpture-showcase.d.ts",
+      "import": "./dist/project-detail-sculpture-showcase.js",
+      "require": "./dist/project-detail-sculpture-showcase.cjs"
+    },
+    "./blocks/project-detail/project-detail-sidebar-navigation": {
+      "types": "./dist/project-detail-sidebar-navigation.d.ts",
+      "import": "./dist/project-detail-sidebar-navigation.js",
+      "require": "./dist/project-detail-sidebar-navigation.cjs"
+    },
+    "./blocks/project-detail/project-detail-sidebar-sticky": {
+      "types": "./dist/project-detail-sidebar-sticky.d.ts",
+      "import": "./dist/project-detail-sidebar-sticky.js",
+      "require": "./dist/project-detail-sidebar-sticky.cjs"
+    },
+    "./blocks/project-detail/project-detail-split-materials": {
+      "types": "./dist/project-detail-split-materials.d.ts",
+      "import": "./dist/project-detail-split-materials.js",
+      "require": "./dist/project-detail-split-materials.cjs"
+    },
+    "./blocks/project-detail/project-detail-tabbed-case-study": {
+      "types": "./dist/project-detail-tabbed-case-study.d.ts",
+      "import": "./dist/project-detail-tabbed-case-study.js",
+      "require": "./dist/project-detail-tabbed-case-study.cjs"
     },
     "./blocks/project-list/project-alternating-motion": {
       "types": "./dist/project-alternating-motion.d.ts",
@@ -1771,95 +2421,65 @@
       "import": "./dist/project-zigzag-layout.js",
       "require": "./dist/project-zigzag-layout.cjs"
     },
-    "./blocks/banner/banner-promo-cta": {
-      "types": "./dist/banner-promo-cta.d.ts",
-      "import": "./dist/banner-promo-cta.js",
-      "require": "./dist/banner-promo-cta.cjs"
+    "./blocks/resource-detail/resource-detail-article-hero": {
+      "types": "./dist/resource-detail-article-hero.d.ts",
+      "import": "./dist/resource-detail-article-hero.js",
+      "require": "./dist/resource-detail-article-hero.cjs"
     },
-    "./blocks/banner/banner-countdown-sale": {
-      "types": "./dist/banner-countdown-sale.d.ts",
-      "import": "./dist/banner-countdown-sale.js",
-      "require": "./dist/banner-countdown-sale.cjs"
+    "./blocks/resource-detail/resource-detail-document-sidebar": {
+      "types": "./dist/resource-detail-document-sidebar.d.ts",
+      "import": "./dist/resource-detail-document-sidebar.js",
+      "require": "./dist/resource-detail-document-sidebar.cjs"
     },
-    "./blocks/banner/banner-delivery-countdown": {
-      "types": "./dist/banner-delivery-countdown.d.ts",
-      "import": "./dist/banner-delivery-countdown.js",
-      "require": "./dist/banner-delivery-countdown.cjs"
+    "./blocks/resource-detail/resource-detail-whitepaper-sidebar": {
+      "types": "./dist/resource-detail-whitepaper-sidebar.d.ts",
+      "import": "./dist/resource-detail-whitepaper-sidebar.js",
+      "require": "./dist/resource-detail-whitepaper-sidebar.cjs"
     },
-    "./blocks/banner/banner-announcement-dismissible": {
-      "types": "./dist/banner-announcement-dismissible.d.ts",
-      "import": "./dist/banner-announcement-dismissible.js",
-      "require": "./dist/banner-announcement-dismissible.cjs"
+    "./blocks/resource-list/resource-list-course-cards": {
+      "types": "./dist/resource-list-course-cards.d.ts",
+      "import": "./dist/resource-list-course-cards.js",
+      "require": "./dist/resource-list-course-cards.cjs"
     },
-    "./blocks/banner/banner-privacy-notice": {
-      "types": "./dist/banner-privacy-notice.d.ts",
-      "import": "./dist/banner-privacy-notice.js",
-      "require": "./dist/banner-privacy-notice.cjs"
+    "./blocks/resource-list/resource-list-featured-articles": {
+      "types": "./dist/resource-list-featured-articles.d.ts",
+      "import": "./dist/resource-list-featured-articles.js",
+      "require": "./dist/resource-list-featured-articles.cjs"
     },
-    "./blocks/banner/banner-survey-incentive": {
-      "types": "./dist/banner-survey-incentive.d.ts",
-      "import": "./dist/banner-survey-incentive.js",
-      "require": "./dist/banner-survey-incentive.cjs"
+    "./blocks/resource-list/resource-list-featured-grid": {
+      "types": "./dist/resource-list-featured-grid.d.ts",
+      "import": "./dist/resource-list-featured-grid.js",
+      "require": "./dist/resource-list-featured-grid.cjs"
     },
-    "./blocks/banner/banner-social-follow": {
-      "types": "./dist/banner-social-follow.d.ts",
-      "import": "./dist/banner-social-follow.js",
-      "require": "./dist/banner-social-follow.cjs"
+    "./blocks/resource-list/resource-list-hero-filter": {
+      "types": "./dist/resource-list-hero-filter.d.ts",
+      "import": "./dist/resource-list-hero-filter.js",
+      "require": "./dist/resource-list-hero-filter.cjs"
     },
-    "./blocks/banner/banner-gdpr-rights": {
-      "types": "./dist/banner-gdpr-rights.d.ts",
-      "import": "./dist/banner-gdpr-rights.js",
-      "require": "./dist/banner-gdpr-rights.cjs"
-    },
-    "./blocks/banner/banner-event-promo": {
-      "types": "./dist/banner-event-promo.d.ts",
-      "import": "./dist/banner-event-promo.js",
-      "require": "./dist/banner-event-promo.cjs"
-    },
-    "./blocks/banner/banner-floating-offer": {
-      "types": "./dist/banner-floating-offer.d.ts",
-      "import": "./dist/banner-floating-offer.js",
-      "require": "./dist/banner-floating-offer.cjs"
-    },
-    "./blocks/industries/industries-hover-reveal-grid": {
-      "types": "./dist/industries-hover-reveal-grid.d.ts",
-      "import": "./dist/industries-hover-reveal-grid.js",
-      "require": "./dist/industries-hover-reveal-grid.cjs"
-    },
-    "./blocks/industries/industries-badge-list-bordered": {
-      "types": "./dist/industries-badge-list-bordered.d.ts",
-      "import": "./dist/industries-badge-list-bordered.js",
-      "require": "./dist/industries-badge-list-bordered.cjs"
-    },
-    "./blocks/industries/industries-timeline-table": {
-      "types": "./dist/industries-timeline-table.d.ts",
-      "import": "./dist/industries-timeline-table.js",
-      "require": "./dist/industries-timeline-table.cjs"
-    },
-    "./blocks/industries/industries-expandable-showcase": {
-      "types": "./dist/industries-expandable-showcase.d.ts",
-      "import": "./dist/industries-expandable-showcase.js",
-      "require": "./dist/industries-expandable-showcase.cjs"
-    },
-    "./blocks/reviews/reviews-list-verified": {
-      "types": "./dist/reviews-list-verified.d.ts",
-      "import": "./dist/reviews-list-verified.js",
-      "require": "./dist/reviews-list-verified.cjs"
+    "./blocks/resource-list/resource-list-news-updates": {
+      "types": "./dist/resource-list-news-updates.d.ts",
+      "import": "./dist/resource-list-news-updates.js",
+      "require": "./dist/resource-list-news-updates.cjs"
     },
     "./blocks/reviews/reviews-images-helpful": {
       "types": "./dist/reviews-images-helpful.d.ts",
       "import": "./dist/reviews-images-helpful.js",
       "require": "./dist/reviews-images-helpful.cjs"
     },
+    "./blocks/reviews/reviews-list-verified": {
+      "types": "./dist/reviews-list-verified.d.ts",
+      "import": "./dist/reviews-list-verified.js",
+      "require": "./dist/reviews-list-verified.cjs"
+    },
+    "./blocks/reviews/testimonials-animated-split": {
+      "types": "./dist/testimonials-animated-split.d.ts",
+      "import": "./dist/testimonials-animated-split.js",
+      "require": "./dist/testimonials-animated-split.cjs"
+    },
     "./blocks/reviews/testimonials-bento-grid": {
       "types": "./dist/testimonials-bento-grid.d.ts",
       "import": "./dist/testimonials-bento-grid.js",
       "require": "./dist/testimonials-bento-grid.cjs"
-    },
-    "./blocks/reviews/testimonials-twitter-cards": {
-      "types": "./dist/testimonials-twitter-cards.d.ts",
-      "import": "./dist/testimonials-twitter-cards.js",
-      "require": "./dist/testimonials-twitter-cards.cjs"
     },
     "./blocks/reviews/testimonials-carousel-image": {
       "types": "./dist/testimonials-carousel-image.d.ts",
@@ -1881,10 +2501,50 @@
       "import": "./dist/testimonials-grid-add-review.js",
       "require": "./dist/testimonials-grid-add-review.cjs"
     },
+    "./blocks/reviews/testimonials-large-quote": {
+      "types": "./dist/testimonials-large-quote.d.ts",
+      "import": "./dist/testimonials-large-quote.js",
+      "require": "./dist/testimonials-large-quote.cjs"
+    },
+    "./blocks/reviews/testimonials-logo-cards": {
+      "types": "./dist/testimonials-logo-cards.d.ts",
+      "import": "./dist/testimonials-logo-cards.js",
+      "require": "./dist/testimonials-logo-cards.cjs"
+    },
     "./blocks/reviews/testimonials-marquee": {
       "types": "./dist/testimonials-marquee.d.ts",
       "import": "./dist/testimonials-marquee.js",
       "require": "./dist/testimonials-marquee.cjs"
+    },
+    "./blocks/reviews/testimonials-masonry-grid": {
+      "types": "./dist/testimonials-masonry-grid.d.ts",
+      "import": "./dist/testimonials-masonry-grid.js",
+      "require": "./dist/testimonials-masonry-grid.cjs"
+    },
+    "./blocks/reviews/testimonials-mini-dividers": {
+      "types": "./dist/testimonials-mini-dividers.d.ts",
+      "import": "./dist/testimonials-mini-dividers.js",
+      "require": "./dist/testimonials-mini-dividers.cjs"
+    },
+    "./blocks/reviews/testimonials-minimal-numbered": {
+      "types": "./dist/testimonials-minimal-numbered.d.ts",
+      "import": "./dist/testimonials-minimal-numbered.js",
+      "require": "./dist/testimonials-minimal-numbered.cjs"
+    },
+    "./blocks/reviews/testimonials-parallax-number": {
+      "types": "./dist/testimonials-parallax-number.d.ts",
+      "import": "./dist/testimonials-parallax-number.js",
+      "require": "./dist/testimonials-parallax-number.cjs"
+    },
+    "./blocks/reviews/testimonials-quote-carousel": {
+      "types": "./dist/testimonials-quote-carousel.d.ts",
+      "import": "./dist/testimonials-quote-carousel.js",
+      "require": "./dist/testimonials-quote-carousel.cjs"
+    },
+    "./blocks/reviews/testimonials-scrolling-columns": {
+      "types": "./dist/testimonials-scrolling-columns.d.ts",
+      "import": "./dist/testimonials-scrolling-columns.js",
+      "require": "./dist/testimonials-scrolling-columns.cjs"
     },
     "./blocks/reviews/testimonials-simple-grid": {
       "types": "./dist/testimonials-simple-grid.d.ts",
@@ -1906,80 +2566,15 @@
       "import": "./dist/testimonials-stats-header.js",
       "require": "./dist/testimonials-stats-header.cjs"
     },
+    "./blocks/reviews/testimonials-twitter-cards": {
+      "types": "./dist/testimonials-twitter-cards.d.ts",
+      "import": "./dist/testimonials-twitter-cards.js",
+      "require": "./dist/testimonials-twitter-cards.cjs"
+    },
     "./blocks/reviews/testimonials-wall-compact": {
       "types": "./dist/testimonials-wall-compact.d.ts",
       "import": "./dist/testimonials-wall-compact.js",
       "require": "./dist/testimonials-wall-compact.cjs"
-    },
-    "./blocks/reviews/testimonials-mini-dividers": {
-      "types": "./dist/testimonials-mini-dividers.d.ts",
-      "import": "./dist/testimonials-mini-dividers.js",
-      "require": "./dist/testimonials-mini-dividers.cjs"
-    },
-    "./blocks/reviews/testimonials-logo-cards": {
-      "types": "./dist/testimonials-logo-cards.d.ts",
-      "import": "./dist/testimonials-logo-cards.js",
-      "require": "./dist/testimonials-logo-cards.cjs"
-    },
-    "./blocks/reviews/testimonials-quote-carousel": {
-      "types": "./dist/testimonials-quote-carousel.d.ts",
-      "import": "./dist/testimonials-quote-carousel.js",
-      "require": "./dist/testimonials-quote-carousel.cjs"
-    },
-    "./blocks/reviews/testimonials-animated-split": {
-      "types": "./dist/testimonials-animated-split.d.ts",
-      "import": "./dist/testimonials-animated-split.js",
-      "require": "./dist/testimonials-animated-split.cjs"
-    },
-    "./blocks/reviews/testimonials-scrolling-columns": {
-      "types": "./dist/testimonials-scrolling-columns.d.ts",
-      "import": "./dist/testimonials-scrolling-columns.js",
-      "require": "./dist/testimonials-scrolling-columns.cjs"
-    },
-    "./blocks/reviews/testimonials-minimal-numbered": {
-      "types": "./dist/testimonials-minimal-numbered.d.ts",
-      "import": "./dist/testimonials-minimal-numbered.js",
-      "require": "./dist/testimonials-minimal-numbered.cjs"
-    },
-    "./blocks/reviews/testimonials-parallax-number": {
-      "types": "./dist/testimonials-parallax-number.d.ts",
-      "import": "./dist/testimonials-parallax-number.js",
-      "require": "./dist/testimonials-parallax-number.cjs"
-    },
-    "./blocks/reviews/testimonials-masonry-grid": {
-      "types": "./dist/testimonials-masonry-grid.d.ts",
-      "import": "./dist/testimonials-masonry-grid.js",
-      "require": "./dist/testimonials-masonry-grid.cjs"
-    },
-    "./blocks/reviews/testimonials-large-quote": {
-      "types": "./dist/testimonials-large-quote.d.ts",
-      "import": "./dist/testimonials-large-quote.js",
-      "require": "./dist/testimonials-large-quote.cjs"
-    },
-    "./blocks/service-detail/service-detail-prose-minimal": {
-      "types": "./dist/service-detail-prose-minimal.d.ts",
-      "import": "./dist/service-detail-prose-minimal.js",
-      "require": "./dist/service-detail-prose-minimal.cjs"
-    },
-    "./blocks/service-detail/service-detail-image-hero": {
-      "types": "./dist/service-detail-image-hero.d.ts",
-      "import": "./dist/service-detail-image-hero.js",
-      "require": "./dist/service-detail-image-hero.cjs"
-    },
-    "./blocks/service-detail/service-detail-stats-hero": {
-      "types": "./dist/service-detail-stats-hero.d.ts",
-      "import": "./dist/service-detail-stats-hero.js",
-      "require": "./dist/service-detail-stats-hero.cjs"
-    },
-    "./blocks/service-detail/service-detail-sidebar-stats": {
-      "types": "./dist/service-detail-sidebar-stats.d.ts",
-      "import": "./dist/service-detail-sidebar-stats.js",
-      "require": "./dist/service-detail-sidebar-stats.cjs"
-    },
-    "./blocks/service-detail/service-detail-sidebar-related": {
-      "types": "./dist/service-detail-sidebar-related.d.ts",
-      "import": "./dist/service-detail-sidebar-related.js",
-      "require": "./dist/service-detail-sidebar-related.cjs"
     },
     "./blocks/service-detail/service-detail-centered-expertise": {
       "types": "./dist/service-detail-centered-expertise.d.ts",
@@ -1991,150 +2586,345 @@
       "import": "./dist/service-detail-compact-cards.js",
       "require": "./dist/service-detail-compact-cards.cjs"
     },
-    "./blocks/resource-list/resource-list-hero-filter": {
-      "types": "./dist/resource-list-hero-filter.d.ts",
-      "import": "./dist/resource-list-hero-filter.js",
-      "require": "./dist/resource-list-hero-filter.cjs"
+    "./blocks/service-detail/service-detail-image-hero": {
+      "types": "./dist/service-detail-image-hero.d.ts",
+      "import": "./dist/service-detail-image-hero.js",
+      "require": "./dist/service-detail-image-hero.cjs"
     },
-    "./blocks/resource-list/resource-list-featured-grid": {
-      "types": "./dist/resource-list-featured-grid.d.ts",
-      "import": "./dist/resource-list-featured-grid.js",
-      "require": "./dist/resource-list-featured-grid.cjs"
+    "./blocks/service-detail/service-detail-prose-minimal": {
+      "types": "./dist/service-detail-prose-minimal.d.ts",
+      "import": "./dist/service-detail-prose-minimal.js",
+      "require": "./dist/service-detail-prose-minimal.cjs"
     },
-    "./blocks/resource-list/resource-list-featured-articles": {
-      "types": "./dist/resource-list-featured-articles.d.ts",
-      "import": "./dist/resource-list-featured-articles.js",
-      "require": "./dist/resource-list-featured-articles.cjs"
+    "./blocks/service-detail/service-detail-sidebar-related": {
+      "types": "./dist/service-detail-sidebar-related.d.ts",
+      "import": "./dist/service-detail-sidebar-related.js",
+      "require": "./dist/service-detail-sidebar-related.cjs"
     },
-    "./blocks/resource-list/resource-list-news-updates": {
-      "types": "./dist/resource-list-news-updates.d.ts",
-      "import": "./dist/resource-list-news-updates.js",
-      "require": "./dist/resource-list-news-updates.cjs"
+    "./blocks/service-detail/service-detail-sidebar-stats": {
+      "types": "./dist/service-detail-sidebar-stats.d.ts",
+      "import": "./dist/service-detail-sidebar-stats.js",
+      "require": "./dist/service-detail-sidebar-stats.cjs"
     },
-    "./blocks/resource-list/resource-list-course-cards": {
-      "types": "./dist/resource-list-course-cards.d.ts",
-      "import": "./dist/resource-list-course-cards.js",
-      "require": "./dist/resource-list-course-cards.cjs"
+    "./blocks/service-detail/service-detail-stats-hero": {
+      "types": "./dist/service-detail-stats-hero.d.ts",
+      "import": "./dist/service-detail-stats-hero.js",
+      "require": "./dist/service-detail-stats-hero.cjs"
     },
-    "./blocks/stats/stats-simple-grid": {
-      "types": "./dist/stats-simple-grid.d.ts",
-      "import": "./dist/stats-simple-grid.js",
-      "require": "./dist/stats-simple-grid.cjs"
+    "./blocks/services-list/services-list-accordion-benefits": {
+      "types": "./dist/services-list-accordion-benefits.d.ts",
+      "import": "./dist/services-list-accordion-benefits.js",
+      "require": "./dist/services-list-accordion-benefits.cjs"
     },
-    "./blocks/stats/stats-icon-cards": {
-      "types": "./dist/stats-icon-cards.d.ts",
-      "import": "./dist/stats-icon-cards.js",
-      "require": "./dist/stats-icon-cards.cjs"
+    "./blocks/services-list/services-list-accordion": {
+      "types": "./dist/services-list-accordion.d.ts",
+      "import": "./dist/services-list-accordion.js",
+      "require": "./dist/services-list-accordion.cjs"
     },
-    "./blocks/stats/stats-timeline-tabs": {
-      "types": "./dist/stats-timeline-tabs.d.ts",
-      "import": "./dist/stats-timeline-tabs.js",
-      "require": "./dist/stats-timeline-tabs.cjs"
+    "./blocks/services-list/services-list-cards-hover": {
+      "types": "./dist/services-list-cards-hover.d.ts",
+      "import": "./dist/services-list-cards-hover.js",
+      "require": "./dist/services-list-cards-hover.cjs"
     },
-    "./blocks/stats/stats-primary-secondary": {
-      "types": "./dist/stats-primary-secondary.d.ts",
-      "import": "./dist/stats-primary-secondary.js",
-      "require": "./dist/stats-primary-secondary.cjs"
+    "./blocks/services-list/services-list-category-accordion": {
+      "types": "./dist/services-list-category-accordion.d.ts",
+      "import": "./dist/services-list-category-accordion.js",
+      "require": "./dist/services-list-category-accordion.cjs"
     },
-    "./blocks/stats/stats-growth-timeline": {
-      "types": "./dist/stats-growth-timeline.d.ts",
-      "import": "./dist/stats-growth-timeline.js",
-      "require": "./dist/stats-growth-timeline.cjs"
+    "./blocks/services-list/services-list-centered-icons": {
+      "types": "./dist/services-list-centered-icons.d.ts",
+      "import": "./dist/services-list-centered-icons.js",
+      "require": "./dist/services-list-centered-icons.cjs"
     },
-    "./blocks/stats/stats-impact-grid": {
-      "types": "./dist/stats-impact-grid.d.ts",
-      "import": "./dist/stats-impact-grid.js",
-      "require": "./dist/stats-impact-grid.cjs"
+    "./blocks/services-list/services-list-culture-tabs": {
+      "types": "./dist/services-list-culture-tabs.d.ts",
+      "import": "./dist/services-list-culture-tabs.js",
+      "require": "./dist/services-list-culture-tabs.cjs"
     },
-    "./blocks/stats/stats-circular-progress": {
-      "types": "./dist/stats-circular-progress.d.ts",
-      "import": "./dist/stats-circular-progress.js",
-      "require": "./dist/stats-circular-progress.cjs"
+    "./blocks/services-list/services-list-featured-highlight": {
+      "types": "./dist/services-list-featured-highlight.d.ts",
+      "import": "./dist/services-list-featured-highlight.js",
+      "require": "./dist/services-list-featured-highlight.cjs"
     },
-    "./blocks/stats/stats-card-group": {
-      "types": "./dist/stats-card-group.d.ts",
-      "import": "./dist/stats-card-group.js",
-      "require": "./dist/stats-card-group.cjs"
+    "./blocks/services-list/services-list-hero-cards": {
+      "types": "./dist/services-list-hero-cards.d.ts",
+      "import": "./dist/services-list-hero-cards.js",
+      "require": "./dist/services-list-hero-cards.cjs"
+    },
+    "./blocks/services-list/services-list-icon-grid": {
+      "types": "./dist/services-list-icon-grid.d.ts",
+      "import": "./dist/services-list-icon-grid.js",
+      "require": "./dist/services-list-icon-grid.cjs"
+    },
+    "./blocks/services-list/services-list-image-cards": {
+      "types": "./dist/services-list-image-cards.d.ts",
+      "import": "./dist/services-list-image-cards.js",
+      "require": "./dist/services-list-image-cards.cjs"
+    },
+    "./blocks/services-list/services-list-image-overlay-grid": {
+      "types": "./dist/services-list-image-overlay-grid.d.ts",
+      "import": "./dist/services-list-image-overlay-grid.js",
+      "require": "./dist/services-list-image-overlay-grid.cjs"
+    },
+    "./blocks/services-list/services-list-masonry": {
+      "types": "./dist/services-list-masonry.d.ts",
+      "import": "./dist/services-list-masonry.js",
+      "require": "./dist/services-list-masonry.cjs"
+    },
+    "./blocks/services-list/services-list-methodology-steps": {
+      "types": "./dist/services-list-methodology-steps.d.ts",
+      "import": "./dist/services-list-methodology-steps.js",
+      "require": "./dist/services-list-methodology-steps.cjs"
+    },
+    "./blocks/services-list/services-list-minimal-grid": {
+      "types": "./dist/services-list-minimal-grid.d.ts",
+      "import": "./dist/services-list-minimal-grid.js",
+      "require": "./dist/services-list-minimal-grid.cjs"
+    },
+    "./blocks/services-list/services-list-muted-cards": {
+      "types": "./dist/services-list-muted-cards.d.ts",
+      "import": "./dist/services-list-muted-cards.js",
+      "require": "./dist/services-list-muted-cards.cjs"
+    },
+    "./blocks/services-list/services-list-numbered-steps": {
+      "types": "./dist/services-list-numbered-steps.d.ts",
+      "import": "./dist/services-list-numbered-steps.js",
+      "require": "./dist/services-list-numbered-steps.cjs"
+    },
+    "./blocks/services-list/services-list-pricing-grid": {
+      "types": "./dist/services-list-pricing-grid.d.ts",
+      "import": "./dist/services-list-pricing-grid.js",
+      "require": "./dist/services-list-pricing-grid.cjs"
+    },
+    "./blocks/services-list/services-list-progress-sidebar": {
+      "types": "./dist/services-list-progress-sidebar.d.ts",
+      "import": "./dist/services-list-progress-sidebar.js",
+      "require": "./dist/services-list-progress-sidebar.cjs"
+    },
+    "./blocks/services-list/services-list-split-checklist": {
+      "types": "./dist/services-list-split-checklist.d.ts",
+      "import": "./dist/services-list-split-checklist.js",
+      "require": "./dist/services-list-split-checklist.cjs"
+    },
+    "./blocks/services-list/services-list-sticky-image": {
+      "types": "./dist/services-list-sticky-image.d.ts",
+      "import": "./dist/services-list-sticky-image.js",
+      "require": "./dist/services-list-sticky-image.cjs"
+    },
+    "./blocks/services-list/services-list-table-hover": {
+      "types": "./dist/services-list-table-hover.d.ts",
+      "import": "./dist/services-list-table-hover.js",
+      "require": "./dist/services-list-table-hover.cjs"
+    },
+    "./blocks/services-list/services-list-tabs-features": {
+      "types": "./dist/services-list-tabs-features.d.ts",
+      "import": "./dist/services-list-tabs-features.js",
+      "require": "./dist/services-list-tabs-features.cjs"
+    },
+    "./blocks/services-list/services-list-timeline": {
+      "types": "./dist/services-list-timeline.d.ts",
+      "import": "./dist/services-list-timeline.js",
+      "require": "./dist/services-list-timeline.cjs"
+    },
+    "./blocks/services-list/services-list-two-column-grid": {
+      "types": "./dist/services-list-two-column-grid.d.ts",
+      "import": "./dist/services-list-two-column-grid.js",
+      "require": "./dist/services-list-two-column-grid.cjs"
+    },
+    "./blocks/services-list/services-list-vertical-tags": {
+      "types": "./dist/services-list-vertical-tags.d.ts",
+      "import": "./dist/services-list-vertical-tags.js",
+      "require": "./dist/services-list-vertical-tags.cjs"
+    },
+    "./blocks/services-list/services-list-video-showcase": {
+      "types": "./dist/services-list-video-showcase.d.ts",
+      "import": "./dist/services-list-video-showcase.js",
+      "require": "./dist/services-list-video-showcase.cjs"
     },
     "./blocks/stats/stats-animated-counter": {
       "types": "./dist/stats-animated-counter.d.ts",
       "import": "./dist/stats-animated-counter.js",
       "require": "./dist/stats-animated-counter.cjs"
     },
-    "./blocks/stats/stats-number-ticker": {
-      "types": "./dist/stats-number-ticker.d.ts",
-      "import": "./dist/stats-number-ticker.js",
-      "require": "./dist/stats-number-ticker.cjs"
+    "./blocks/stats/stats-bar-comparison": {
+      "types": "./dist/stats-bar-comparison.d.ts",
+      "import": "./dist/stats-bar-comparison.js",
+      "require": "./dist/stats-bar-comparison.cjs"
+    },
+    "./blocks/stats/stats-card-group": {
+      "types": "./dist/stats-card-group.d.ts",
+      "import": "./dist/stats-card-group.js",
+      "require": "./dist/stats-card-group.cjs"
+    },
+    "./blocks/stats/stats-circular-progress": {
+      "types": "./dist/stats-circular-progress.d.ts",
+      "import": "./dist/stats-circular-progress.js",
+      "require": "./dist/stats-circular-progress.cjs"
+    },
+    "./blocks/stats/stats-growth-timeline": {
+      "types": "./dist/stats-growth-timeline.d.ts",
+      "import": "./dist/stats-growth-timeline.js",
+      "require": "./dist/stats-growth-timeline.cjs"
+    },
+    "./blocks/stats/stats-icon-cards": {
+      "types": "./dist/stats-icon-cards.d.ts",
+      "import": "./dist/stats-icon-cards.js",
+      "require": "./dist/stats-icon-cards.cjs"
+    },
+    "./blocks/stats/stats-impact-grid": {
+      "types": "./dist/stats-impact-grid.d.ts",
+      "import": "./dist/stats-impact-grid.js",
+      "require": "./dist/stats-impact-grid.cjs"
     },
     "./blocks/stats/stats-milestone-sidebar": {
       "types": "./dist/stats-milestone-sidebar.d.ts",
       "import": "./dist/stats-milestone-sidebar.js",
       "require": "./dist/stats-milestone-sidebar.cjs"
     },
-    "./blocks/stats/stats-bar-comparison": {
-      "types": "./dist/stats-bar-comparison.d.ts",
-      "import": "./dist/stats-bar-comparison.js",
-      "require": "./dist/stats-bar-comparison.cjs"
+    "./blocks/stats/stats-number-ticker": {
+      "types": "./dist/stats-number-ticker.d.ts",
+      "import": "./dist/stats-number-ticker.js",
+      "require": "./dist/stats-number-ticker.cjs"
     },
-    "./blocks/link-page/link-tree-block": {
-      "types": "./dist/link-tree-block.d.ts",
-      "import": "./dist/link-tree-block.js",
-      "require": "./dist/link-tree-block.cjs"
+    "./blocks/stats/stats-primary-secondary": {
+      "types": "./dist/stats-primary-secondary.d.ts",
+      "import": "./dist/stats-primary-secondary.js",
+      "require": "./dist/stats-primary-secondary.cjs"
     },
-    "./blocks/link-page/link-page-minimal-profile": {
-      "types": "./dist/link-page-minimal-profile.d.ts",
-      "import": "./dist/link-page-minimal-profile.js",
-      "require": "./dist/link-page-minimal-profile.cjs"
+    "./blocks/stats/stats-simple-grid": {
+      "types": "./dist/stats-simple-grid.d.ts",
+      "import": "./dist/stats-simple-grid.js",
+      "require": "./dist/stats-simple-grid.cjs"
     },
-    "./blocks/link-page/link-page-newsletter-social": {
-      "types": "./dist/link-page-newsletter-social.d.ts",
-      "import": "./dist/link-page-newsletter-social.js",
-      "require": "./dist/link-page-newsletter-social.cjs"
+    "./blocks/stats/stats-timeline-tabs": {
+      "types": "./dist/stats-timeline-tabs.d.ts",
+      "import": "./dist/stats-timeline-tabs.js",
+      "require": "./dist/stats-timeline-tabs.cjs"
     },
-    "./blocks/link-page/link-page-grid-cards": {
-      "types": "./dist/link-page-grid-cards.d.ts",
-      "import": "./dist/link-page-grid-cards.js",
-      "require": "./dist/link-page-grid-cards.cjs"
+    "./blocks/team/team-alternating-bios": {
+      "types": "./dist/team-alternating-bios.d.ts",
+      "import": "./dist/team-alternating-bios.js",
+      "require": "./dist/team-alternating-bios.cjs"
     },
-    "./blocks/link-page/link-page-bento-layout": {
-      "types": "./dist/link-page-bento-layout.d.ts",
-      "import": "./dist/link-page-bento-layout.js",
-      "require": "./dist/link-page-bento-layout.cjs"
+    "./blocks/team/team-avatar-social": {
+      "types": "./dist/team-avatar-social.d.ts",
+      "import": "./dist/team-avatar-social.js",
+      "require": "./dist/team-avatar-social.cjs"
     },
-    "./blocks/timeline/timeline-vertical-icon-dashed": {
-      "types": "./dist/timeline-vertical-icon-dashed.d.ts",
-      "import": "./dist/timeline-vertical-icon-dashed.js",
-      "require": "./dist/timeline-vertical-icon-dashed.cjs"
+    "./blocks/team/team-bio-badges": {
+      "types": "./dist/team-bio-badges.d.ts",
+      "import": "./dist/team-bio-badges.js",
+      "require": "./dist/team-bio-badges.cjs"
     },
-    "./blocks/timeline/timeline-scroll-sticky-image": {
-      "types": "./dist/timeline-scroll-sticky-image.d.ts",
-      "import": "./dist/timeline-scroll-sticky-image.js",
-      "require": "./dist/timeline-scroll-sticky-image.cjs"
+    "./blocks/team/team-carousel-experience": {
+      "types": "./dist/team-carousel-experience.d.ts",
+      "import": "./dist/team-carousel-experience.js",
+      "require": "./dist/team-carousel-experience.cjs"
     },
-    "./blocks/timeline/timeline-two-column-featured": {
-      "types": "./dist/timeline-two-column-featured.d.ts",
-      "import": "./dist/timeline-two-column-featured.js",
-      "require": "./dist/timeline-two-column-featured.cjs"
+    "./blocks/team/team-compact-cta": {
+      "types": "./dist/team-compact-cta.d.ts",
+      "import": "./dist/team-compact-cta.js",
+      "require": "./dist/team-compact-cta.cjs"
     },
-    "./blocks/timeline/timeline-alternating-diagonal": {
-      "types": "./dist/timeline-alternating-diagonal.d.ts",
-      "import": "./dist/timeline-alternating-diagonal.js",
-      "require": "./dist/timeline-alternating-diagonal.cjs"
+    "./blocks/team/team-compact-grid": {
+      "types": "./dist/team-compact-grid.d.ts",
+      "import": "./dist/team-compact-grid.js",
+      "require": "./dist/team-compact-grid.cjs"
+    },
+    "./blocks/team/team-contact-cards": {
+      "types": "./dist/team-contact-cards.d.ts",
+      "import": "./dist/team-contact-cards.js",
+      "require": "./dist/team-contact-cards.cjs"
+    },
+    "./blocks/team/team-department-sections": {
+      "types": "./dist/team-department-sections.d.ts",
+      "import": "./dist/team-department-sections.js",
+      "require": "./dist/team-department-sections.cjs"
+    },
+    "./blocks/team/team-expertise-cards": {
+      "types": "./dist/team-expertise-cards.d.ts",
+      "import": "./dist/team-expertise-cards.js",
+      "require": "./dist/team-expertise-cards.cjs"
+    },
+    "./blocks/team/team-filterable-search": {
+      "types": "./dist/team-filterable-search.d.ts",
+      "import": "./dist/team-filterable-search.js",
+      "require": "./dist/team-filterable-search.cjs"
+    },
+    "./blocks/team/team-gradient-cards": {
+      "types": "./dist/team-gradient-cards.d.ts",
+      "import": "./dist/team-gradient-cards.js",
+      "require": "./dist/team-gradient-cards.cjs"
+    },
+    "./blocks/team/team-grid-animated": {
+      "types": "./dist/team-grid-animated.d.ts",
+      "import": "./dist/team-grid-animated.js",
+      "require": "./dist/team-grid-animated.cjs"
+    },
+    "./blocks/team/team-hover-highlight": {
+      "types": "./dist/team-hover-highlight.d.ts",
+      "import": "./dist/team-hover-highlight.js",
+      "require": "./dist/team-hover-highlight.cjs"
+    },
+    "./blocks/team/team-hover-overlay": {
+      "types": "./dist/team-hover-overlay.d.ts",
+      "import": "./dist/team-hover-overlay.js",
+      "require": "./dist/team-hover-overlay.cjs"
+    },
+    "./blocks/team/team-investor-showcase": {
+      "types": "./dist/team-investor-showcase.d.ts",
+      "import": "./dist/team-investor-showcase.js",
+      "require": "./dist/team-investor-showcase.cjs"
+    },
+    "./blocks/team/team-large-images": {
+      "types": "./dist/team-large-images.d.ts",
+      "import": "./dist/team-large-images.js",
+      "require": "./dist/team-large-images.cjs"
+    },
+    "./blocks/team/team-media-showcase": {
+      "types": "./dist/team-media-showcase.d.ts",
+      "import": "./dist/team-media-showcase.js",
+      "require": "./dist/team-media-showcase.cjs"
+    },
+    "./blocks/team/team-role-filter": {
+      "types": "./dist/team-role-filter.d.ts",
+      "import": "./dist/team-role-filter.js",
+      "require": "./dist/team-role-filter.cjs"
+    },
+    "./blocks/team/team-simple-grid": {
+      "types": "./dist/team-simple-grid.d.ts",
+      "import": "./dist/team-simple-grid.js",
+      "require": "./dist/team-simple-grid.cjs"
+    },
+    "./blocks/team/team-skill-badges": {
+      "types": "./dist/team-skill-badges.d.ts",
+      "import": "./dist/team-skill-badges.js",
+      "require": "./dist/team-skill-badges.cjs"
+    },
+    "./blocks/team/team-social-cards": {
+      "types": "./dist/team-social-cards.d.ts",
+      "import": "./dist/team-social-cards.js",
+      "require": "./dist/team-social-cards.cjs"
+    },
+    "./blocks/team/team-social-grid": {
+      "types": "./dist/team-social-grid.d.ts",
+      "import": "./dist/team-social-grid.js",
+      "require": "./dist/team-social-grid.cjs"
+    },
+    "./blocks/team/team-testimonial-stats": {
+      "types": "./dist/team-testimonial-stats.d.ts",
+      "import": "./dist/team-testimonial-stats.js",
+      "require": "./dist/team-testimonial-stats.cjs"
     },
     "./blocks/timeline/timeline-ai-workflow-cards": {
       "types": "./dist/timeline-ai-workflow-cards.d.ts",
       "import": "./dist/timeline-ai-workflow-cards.js",
       "require": "./dist/timeline-ai-workflow-cards.cjs"
     },
-    "./blocks/timeline/timeline-productivity-list": {
-      "types": "./dist/timeline-productivity-list.d.ts",
-      "import": "./dist/timeline-productivity-list.js",
-      "require": "./dist/timeline-productivity-list.cjs"
-    },
-    "./blocks/timeline/timeline-stepper-animated": {
-      "types": "./dist/timeline-stepper-animated.d.ts",
-      "import": "./dist/timeline-stepper-animated.js",
-      "require": "./dist/timeline-stepper-animated.cjs"
+    "./blocks/timeline/timeline-alternating-diagonal": {
+      "types": "./dist/timeline-alternating-diagonal.d.ts",
+      "import": "./dist/timeline-alternating-diagonal.js",
+      "require": "./dist/timeline-alternating-diagonal.cjs"
     },
     "./blocks/timeline/timeline-changelog-badges": {
       "types": "./dist/timeline-changelog-badges.d.ts",
@@ -2146,30 +2936,215 @@
       "import": "./dist/timeline-history-prose.js",
       "require": "./dist/timeline-history-prose.cjs"
     },
-    "./blocks/timeline/timeline-horizontal-phases": {
-      "types": "./dist/timeline-horizontal-phases.d.ts",
-      "import": "./dist/timeline-horizontal-phases.js",
-      "require": "./dist/timeline-horizontal-phases.cjs"
-    },
     "./blocks/timeline/timeline-horizontal-icons": {
       "types": "./dist/timeline-horizontal-icons.d.ts",
       "import": "./dist/timeline-horizontal-icons.js",
       "require": "./dist/timeline-horizontal-icons.cjs"
     },
-    "./blocks/timeline/timeline-tabbed-phases": {
-      "types": "./dist/timeline-tabbed-phases.d.ts",
-      "import": "./dist/timeline-tabbed-phases.js",
-      "require": "./dist/timeline-tabbed-phases.cjs"
+    "./blocks/timeline/timeline-horizontal-phases": {
+      "types": "./dist/timeline-horizontal-phases.d.ts",
+      "import": "./dist/timeline-horizontal-phases.js",
+      "require": "./dist/timeline-horizontal-phases.cjs"
     },
     "./blocks/timeline/timeline-product-launch": {
       "types": "./dist/timeline-product-launch.d.ts",
       "import": "./dist/timeline-product-launch.js",
       "require": "./dist/timeline-product-launch.cjs"
     },
+    "./blocks/timeline/timeline-productivity-list": {
+      "types": "./dist/timeline-productivity-list.d.ts",
+      "import": "./dist/timeline-productivity-list.js",
+      "require": "./dist/timeline-productivity-list.cjs"
+    },
     "./blocks/timeline/timeline-scroll-highlight": {
       "types": "./dist/timeline-scroll-highlight.d.ts",
       "import": "./dist/timeline-scroll-highlight.js",
       "require": "./dist/timeline-scroll-highlight.cjs"
+    },
+    "./blocks/timeline/timeline-scroll-sticky-image": {
+      "types": "./dist/timeline-scroll-sticky-image.d.ts",
+      "import": "./dist/timeline-scroll-sticky-image.js",
+      "require": "./dist/timeline-scroll-sticky-image.cjs"
+    },
+    "./blocks/timeline/timeline-stepper-animated": {
+      "types": "./dist/timeline-stepper-animated.d.ts",
+      "import": "./dist/timeline-stepper-animated.js",
+      "require": "./dist/timeline-stepper-animated.cjs"
+    },
+    "./blocks/timeline/timeline-tabbed-phases": {
+      "types": "./dist/timeline-tabbed-phases.d.ts",
+      "import": "./dist/timeline-tabbed-phases.js",
+      "require": "./dist/timeline-tabbed-phases.cjs"
+    },
+    "./blocks/timeline/timeline-two-column-featured": {
+      "types": "./dist/timeline-two-column-featured.d.ts",
+      "import": "./dist/timeline-two-column-featured.js",
+      "require": "./dist/timeline-two-column-featured.cjs"
+    },
+    "./blocks/timeline/timeline-vertical-icon-dashed": {
+      "types": "./dist/timeline-vertical-icon-dashed.d.ts",
+      "import": "./dist/timeline-vertical-icon-dashed.js",
+      "require": "./dist/timeline-vertical-icon-dashed.cjs"
+    },
+    "./components/accordion": {
+      "types": "./dist/accordion.d.ts",
+      "import": "./dist/accordion.js",
+      "require": "./dist/accordion.cjs"
+    },
+    "./components/alert": {
+      "types": "./dist/alert.d.ts",
+      "import": "./dist/alert.js",
+      "require": "./dist/alert.cjs"
+    },
+    "./components/animated-dialog": {
+      "types": "./dist/animated-dialog.d.ts",
+      "import": "./dist/animated-dialog.js",
+      "require": "./dist/animated-dialog.cjs"
+    },
+    "./components/aspect-ratio": {
+      "types": "./dist/aspect-ratio.d.ts",
+      "import": "./dist/aspect-ratio.js",
+      "require": "./dist/aspect-ratio.cjs"
+    },
+    "./components/avatar": {
+      "types": "./dist/avatar.d.ts",
+      "import": "./dist/avatar.js",
+      "require": "./dist/avatar.cjs"
+    },
+    "./components/badge": {
+      "types": "./dist/badge.d.ts",
+      "import": "./dist/badge.js",
+      "require": "./dist/badge.cjs"
+    },
+    "./components/bento-grid": {
+      "types": "./dist/bento-grid.d.ts",
+      "import": "./dist/bento-grid.js",
+      "require": "./dist/bento-grid.cjs"
+    },
+    "./components/breadcrumb": {
+      "types": "./dist/breadcrumb.d.ts",
+      "import": "./dist/breadcrumb.js",
+      "require": "./dist/breadcrumb.cjs"
+    },
+    "./components/button": {
+      "types": "./dist/button.d.ts",
+      "import": "./dist/button.js",
+      "require": "./dist/button.cjs"
+    },
+    "./components/card": {
+      "types": "./dist/card.d.ts",
+      "import": "./dist/card.js",
+      "require": "./dist/card.cjs"
+    },
+    "./components/carousel": {
+      "types": "./dist/carousel.d.ts",
+      "import": "./dist/carousel.js",
+      "require": "./dist/carousel.cjs"
+    },
+    "./components/checkbox": {
+      "types": "./dist/checkbox.d.ts",
+      "import": "./dist/checkbox.js",
+      "require": "./dist/checkbox.cjs"
+    },
+    "./components/container": {
+      "types": "./dist/container.d.ts",
+      "import": "./dist/container.js",
+      "require": "./dist/container.cjs"
+    },
+    "./components/dialog": {
+      "types": "./dist/dialog.d.ts",
+      "import": "./dist/dialog.js",
+      "require": "./dist/dialog.cjs"
+    },
+    "./components/dropdown-menu": {
+      "types": "./dist/dropdown-menu.d.ts",
+      "import": "./dist/dropdown-menu.js",
+      "require": "./dist/dropdown-menu.cjs"
+    },
+    "./components/dynamic-icon": {
+      "types": "./dist/dynamic-icon.d.ts",
+      "import": "./dist/dynamic-icon.js",
+      "require": "./dist/dynamic-icon.cjs"
+    },
+    "./components/input": {
+      "types": "./dist/input.d.ts",
+      "import": "./dist/input.js",
+      "require": "./dist/input.cjs"
+    },
+    "./components/label": {
+      "types": "./dist/label.d.ts",
+      "import": "./dist/label.js",
+      "require": "./dist/label.cjs"
+    },
+    "./components/navigation-menu": {
+      "types": "./dist/navigation-menu.d.ts",
+      "import": "./dist/navigation-menu.js",
+      "require": "./dist/navigation-menu.cjs"
+    },
+    "./components/page-hero-banner": {
+      "types": "./dist/page-hero-banner.d.ts",
+      "import": "./dist/page-hero-banner.js",
+      "require": "./dist/page-hero-banner.cjs"
+    },
+    "./components/popover": {
+      "types": "./dist/popover.d.ts",
+      "import": "./dist/popover.js",
+      "require": "./dist/popover.cjs"
+    },
+    "./components/progress": {
+      "types": "./dist/progress.d.ts",
+      "import": "./dist/progress.js",
+      "require": "./dist/progress.cjs"
+    },
+    "./components/section": {
+      "types": "./dist/section.d.ts",
+      "import": "./dist/section.js",
+      "require": "./dist/section.cjs"
+    },
+    "./components/separator": {
+      "types": "./dist/separator.d.ts",
+      "import": "./dist/separator.js",
+      "require": "./dist/separator.cjs"
+    },
+    "./components/sheet": {
+      "types": "./dist/sheet.d.ts",
+      "import": "./dist/sheet.js",
+      "require": "./dist/sheet.cjs"
+    },
+    "./components/switch": {
+      "types": "./dist/switch.d.ts",
+      "import": "./dist/switch.js",
+      "require": "./dist/switch.cjs"
+    },
+    "./components/table": {
+      "types": "./dist/table.d.ts",
+      "import": "./dist/table.js",
+      "require": "./dist/table.cjs"
+    },
+    "./components/tabs": {
+      "types": "./dist/tabs.d.ts",
+      "import": "./dist/tabs.js",
+      "require": "./dist/tabs.cjs"
+    },
+    "./components/tooltip": {
+      "types": "./dist/tooltip.d.ts",
+      "import": "./dist/tooltip.js",
+      "require": "./dist/tooltip.cjs"
+    },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "import": "./dist/hooks.js",
+      "require": "./dist/hooks.cjs"
+    },
+    "./hooks/use-navigation": {
+      "types": "./dist/use-navigation.d.ts",
+      "import": "./dist/use-navigation.js",
+      "require": "./dist/use-navigation.cjs"
+    },
+    "./components/pressable": {
+      "types": "./dist/pressable.d.ts",
+      "import": "./dist/pressable.js",
+      "require": "./dist/pressable.cjs"
     },
     "./registry": {
       "types": "./dist/registry.d.ts",
@@ -2203,6 +3178,7 @@
     "test:ci": "./scripts/test-ci-silent.sh",
     "type-check": "tsc --noEmit",
     "size": "bash -c 'size-limit --silent 2>/dev/null'",
+    "generate:exports": "bash scripts/generate-all-exports.sh && node scripts/merge-exports.js && node scripts/create-organized-exports.js",
     "prepublishOnly": "pnpm run build && pnpm run test:ci"
   },
   "peerDependencies": {

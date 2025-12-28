@@ -1,0 +1,52 @@
+{
+  "./blocks/comparison/comparison-ai-models": {
+    "types": "./dist/comparison-ai-models.d.ts",
+    "import": "./dist/comparison-ai-models.js",
+    "require": "./dist/comparison-ai-models.cjs"
+  },
+  "./blocks/comparison/comparison-feature-cards": {
+    "types": "./dist/comparison-feature-cards.d.ts",
+    "import": "./dist/comparison-feature-cards.js",
+    "require": "./dist/comparison-feature-cards.cjs"
+  },
+  "./blocks/comparison/comparison-feature-grid": {
+    "types": "./dist/comparison-feature-grid.d.ts",
+    "import": "./dist/comparison-feature-grid.js",
+    "require": "./dist/comparison-feature-grid.cjs"
+  },
+  "./blocks/comparison/comparison-grid-badges": {
+    "types": "./dist/comparison-grid-badges.d.ts",
+    "import": "./dist/comparison-grid-badges.js",
+    "require": "./dist/comparison-grid-badges.cjs"
+  },
+  "./blocks/comparison/comparison-image-cards": {
+    "types": "./dist/comparison-image-cards.d.ts",
+    "import": "./dist/comparison-image-cards.js",
+    "require": "./dist/comparison-image-cards.cjs"
+  },
+  "./blocks/comparison/comparison-legacy-modern": {
+    "types": "./dist/comparison-legacy-modern.d.ts",
+    "import": "./dist/comparison-legacy-modern.js",
+    "require": "./dist/comparison-legacy-modern.cjs"
+  },
+  "./blocks/comparison/comparison-metrics-rows": {
+    "types": "./dist/comparison-metrics-rows.d.ts",
+    "import": "./dist/comparison-metrics-rows.js",
+    "require": "./dist/comparison-metrics-rows.cjs"
+  },
+  "./blocks/comparison/comparison-table-tabs": {
+    "types": "./dist/comparison-table-tabs.d.ts",
+    "import": "./dist/comparison-table-tabs.js",
+    "require": "./dist/comparison-table-tabs.cjs"
+  },
+  "./blocks/comparison/comparison-table-tooltips": {
+    "types": "./dist/comparison-table-tooltips.d.ts",
+    "import": "./dist/comparison-table-tooltips.js",
+    "require": "./dist/comparison-table-tooltips.cjs"
+  },
+  "./blocks/comparison/comparison-table-two-column": {
+    "types": "./dist/comparison-table-two-column.d.ts",
+    "import": "./dist/comparison-table-two-column.js",
+    "require": "./dist/comparison-table-two-column.cjs"
+  }
+}

@@ -1,0 +1,282 @@
+[
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-basic",
+    "types": "./dist/circuit-board-basic.d.ts",
+    "import": "./dist/circuit-board-basic.js",
+    "require": "./dist/circuit-board-basic.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-fade-bottom-left",
+    "types": "./dist/circuit-board-fade-bottom-left.d.ts",
+    "import": "./dist/circuit-board-fade-bottom-left.js",
+    "require": "./dist/circuit-board-fade-bottom-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-fade-bottom-right",
+    "types": "./dist/circuit-board-fade-bottom-right.d.ts",
+    "import": "./dist/circuit-board-fade-bottom-right.js",
+    "require": "./dist/circuit-board-fade-bottom-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-fade-bottom",
+    "types": "./dist/circuit-board-fade-bottom.d.ts",
+    "import": "./dist/circuit-board-fade-bottom.js",
+    "require": "./dist/circuit-board-fade-bottom.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-fade-center",
+    "types": "./dist/circuit-board-fade-center.d.ts",
+    "import": "./dist/circuit-board-fade-center.js",
+    "require": "./dist/circuit-board-fade-center.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-fade-top-left",
+    "types": "./dist/circuit-board-fade-top-left.d.ts",
+    "import": "./dist/circuit-board-fade-top-left.js",
+    "require": "./dist/circuit-board-fade-top-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-fade-top-right",
+    "types": "./dist/circuit-board-fade-top-right.d.ts",
+    "import": "./dist/circuit-board-fade-top-right.js",
+    "require": "./dist/circuit-board-fade-top-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/circuit-board-fade-top",
+    "types": "./dist/circuit-board-fade-top.d.ts",
+    "import": "./dist/circuit-board-fade-top.js",
+    "require": "./dist/circuit-board-fade-top.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-basic",
+    "types": "./dist/dashed-grid-basic.d.ts",
+    "import": "./dist/dashed-grid-basic.js",
+    "require": "./dist/dashed-grid-basic.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-fade-bottom-left",
+    "types": "./dist/dashed-grid-fade-bottom-left.d.ts",
+    "import": "./dist/dashed-grid-fade-bottom-left.js",
+    "require": "./dist/dashed-grid-fade-bottom-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-fade-bottom-right",
+    "types": "./dist/dashed-grid-fade-bottom-right.d.ts",
+    "import": "./dist/dashed-grid-fade-bottom-right.js",
+    "require": "./dist/dashed-grid-fade-bottom-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-fade-bottom",
+    "types": "./dist/dashed-grid-fade-bottom.d.ts",
+    "import": "./dist/dashed-grid-fade-bottom.js",
+    "require": "./dist/dashed-grid-fade-bottom.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-fade-center",
+    "types": "./dist/dashed-grid-fade-center.d.ts",
+    "import": "./dist/dashed-grid-fade-center.js",
+    "require": "./dist/dashed-grid-fade-center.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-fade-top-left",
+    "types": "./dist/dashed-grid-fade-top-left.d.ts",
+    "import": "./dist/dashed-grid-fade-top-left.js",
+    "require": "./dist/dashed-grid-fade-top-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-fade-top-right",
+    "types": "./dist/dashed-grid-fade-top-right.d.ts",
+    "import": "./dist/dashed-grid-fade-top-right.js",
+    "require": "./dist/dashed-grid-fade-top-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/dashed-grid-fade-top",
+    "types": "./dist/dashed-grid-fade-top.d.ts",
+    "import": "./dist/dashed-grid-fade-top.js",
+    "require": "./dist/dashed-grid-fade-top.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-basic",
+    "types": "./dist/diagonal-cross-basic.d.ts",
+    "import": "./dist/diagonal-cross-basic.js",
+    "require": "./dist/diagonal-cross-basic.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-fade-bottom-left",
+    "types": "./dist/diagonal-cross-fade-bottom-left.d.ts",
+    "import": "./dist/diagonal-cross-fade-bottom-left.js",
+    "require": "./dist/diagonal-cross-fade-bottom-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-fade-bottom-right",
+    "types": "./dist/diagonal-cross-fade-bottom-right.d.ts",
+    "import": "./dist/diagonal-cross-fade-bottom-right.js",
+    "require": "./dist/diagonal-cross-fade-bottom-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-fade-bottom",
+    "types": "./dist/diagonal-cross-fade-bottom.d.ts",
+    "import": "./dist/diagonal-cross-fade-bottom.js",
+    "require": "./dist/diagonal-cross-fade-bottom.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-fade-center",
+    "types": "./dist/diagonal-cross-fade-center.d.ts",
+    "import": "./dist/diagonal-cross-fade-center.js",
+    "require": "./dist/diagonal-cross-fade-center.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-fade-top-left",
+    "types": "./dist/diagonal-cross-fade-top-left.d.ts",
+    "import": "./dist/diagonal-cross-fade-top-left.js",
+    "require": "./dist/diagonal-cross-fade-top-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-fade-top-right",
+    "types": "./dist/diagonal-cross-fade-top-right.d.ts",
+    "import": "./dist/diagonal-cross-fade-top-right.js",
+    "require": "./dist/diagonal-cross-fade-top-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/diagonal-cross-fade-top",
+    "types": "./dist/diagonal-cross-fade-top.d.ts",
+    "import": "./dist/diagonal-cross-fade-top.js",
+    "require": "./dist/diagonal-cross-fade-top.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/gradient-glow-bottom",
+    "types": "./dist/gradient-glow-bottom.d.ts",
+    "import": "./dist/gradient-glow-bottom.js",
+    "require": "./dist/gradient-glow-bottom.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/gradient-glow-top",
+    "types": "./dist/gradient-glow-top.d.ts",
+    "import": "./dist/gradient-glow-top.js",
+    "require": "./dist/gradient-glow-top.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-basic",
+    "types": "./dist/grid-basic.d.ts",
+    "import": "./dist/grid-basic.js",
+    "require": "./dist/grid-basic.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-dots-basic",
+    "types": "./dist/grid-dots-basic.d.ts",
+    "import": "./dist/grid-dots-basic.js",
+    "require": "./dist/grid-dots-basic.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-dots-fade-center",
+    "types": "./dist/grid-dots-fade-center.d.ts",
+    "import": "./dist/grid-dots-fade-center.js",
+    "require": "./dist/grid-dots-fade-center.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-fade-bottom-left",
+    "types": "./dist/grid-fade-bottom-left.d.ts",
+    "import": "./dist/grid-fade-bottom-left.js",
+    "require": "./dist/grid-fade-bottom-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-fade-bottom-right",
+    "types": "./dist/grid-fade-bottom-right.d.ts",
+    "import": "./dist/grid-fade-bottom-right.js",
+    "require": "./dist/grid-fade-bottom-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-fade-bottom",
+    "types": "./dist/grid-fade-bottom.d.ts",
+    "import": "./dist/grid-fade-bottom.js",
+    "require": "./dist/grid-fade-bottom.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-fade-center",
+    "types": "./dist/grid-fade-center.d.ts",
+    "import": "./dist/grid-fade-center.js",
+    "require": "./dist/grid-fade-center.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-fade-top-left",
+    "types": "./dist/grid-fade-top-left.d.ts",
+    "import": "./dist/grid-fade-top-left.js",
+    "require": "./dist/grid-fade-top-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-fade-top-right",
+    "types": "./dist/grid-fade-top-right.d.ts",
+    "import": "./dist/grid-fade-top-right.js",
+    "require": "./dist/grid-fade-top-right.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/grid-fade-top",
+    "types": "./dist/grid-fade-top.d.ts",
+    "import": "./dist/grid-fade-top.js",
+    "require": "./dist/grid-fade-top.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/radial-gradient-bottom",
+    "types": "./dist/radial-gradient-bottom.d.ts",
+    "import": "./dist/radial-gradient-bottom.js",
+    "require": "./dist/radial-gradient-bottom.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/radial-gradient-top",
+    "types": "./dist/radial-gradient-top.d.ts",
+    "import": "./dist/radial-gradient-top.js",
+    "require": "./dist/radial-gradient-top.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/spotlight-left",
+    "types": "./dist/spotlight-left.d.ts",
+    "import": "./dist/spotlight-left.js",
+    "require": "./dist/spotlight-left.cjs"
+  }
+,
+  {
+    "path": "./blocks/background-pattern-hero/spotlight-right",
+    "types": "./dist/spotlight-right.d.ts",
+    "import": "./dist/spotlight-right.js",
+    "require": "./dist/spotlight-right.cjs"
+  }
+
+]

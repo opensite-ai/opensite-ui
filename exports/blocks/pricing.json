@@ -1,0 +1,147 @@
+{
+  "./blocks/pricing/pricing-addons-cards": {
+    "types": "./dist/pricing-addons-cards.d.ts",
+    "import": "./dist/pricing-addons-cards.js",
+    "require": "./dist/pricing-addons-cards.cjs"
+  },
+  "./blocks/pricing/pricing-addons-featured": {
+    "types": "./dist/pricing-addons-featured.d.ts",
+    "import": "./dist/pricing-addons-featured.js",
+    "require": "./dist/pricing-addons-featured.cjs"
+  },
+  "./blocks/pricing/pricing-collapsible-plans": {
+    "types": "./dist/pricing-collapsible-plans.d.ts",
+    "import": "./dist/pricing-collapsible-plans.js",
+    "require": "./dist/pricing-collapsible-plans.cjs"
+  },
+  "./blocks/pricing/pricing-columns-toggle": {
+    "types": "./dist/pricing-columns-toggle.d.ts",
+    "import": "./dist/pricing-columns-toggle.js",
+    "require": "./dist/pricing-columns-toggle.cjs"
+  },
+  "./blocks/pricing/pricing-comparison-headers": {
+    "types": "./dist/pricing-comparison-headers.d.ts",
+    "import": "./dist/pricing-comparison-headers.js",
+    "require": "./dist/pricing-comparison-headers.cjs"
+  },
+  "./blocks/pricing/pricing-comparison-table": {
+    "types": "./dist/pricing-comparison-table.d.ts",
+    "import": "./dist/pricing-comparison-table.js",
+    "require": "./dist/pricing-comparison-table.cjs"
+  },
+  "./blocks/pricing/pricing-discount-card": {
+    "types": "./dist/pricing-discount-card.d.ts",
+    "import": "./dist/pricing-discount-card.js",
+    "require": "./dist/pricing-discount-card.cjs"
+  },
+  "./blocks/pricing/pricing-enterprise-contact": {
+    "types": "./dist/pricing-enterprise-contact.d.ts",
+    "import": "./dist/pricing-enterprise-contact.js",
+    "require": "./dist/pricing-enterprise-contact.cjs"
+  },
+  "./blocks/pricing/pricing-feature-matrix": {
+    "types": "./dist/pricing-feature-matrix.d.ts",
+    "import": "./dist/pricing-feature-matrix.js",
+    "require": "./dist/pricing-feature-matrix.cjs"
+  },
+  "./blocks/pricing/pricing-four-tier-toggle": {
+    "types": "./dist/pricing-four-tier-toggle.d.ts",
+    "import": "./dist/pricing-four-tier-toggle.js",
+    "require": "./dist/pricing-four-tier-toggle.cjs"
+  },
+  "./blocks/pricing/pricing-full-comparison": {
+    "types": "./dist/pricing-full-comparison.d.ts",
+    "import": "./dist/pricing-full-comparison.js",
+    "require": "./dist/pricing-full-comparison.cjs"
+  },
+  "./blocks/pricing/pricing-gradient-cards": {
+    "types": "./dist/pricing-gradient-cards.d.ts",
+    "import": "./dist/pricing-gradient-cards.js",
+    "require": "./dist/pricing-gradient-cards.cjs"
+  },
+  "./blocks/pricing/pricing-icon-headers": {
+    "types": "./dist/pricing-icon-headers.d.ts",
+    "import": "./dist/pricing-icon-headers.js",
+    "require": "./dist/pricing-icon-headers.cjs"
+  },
+  "./blocks/pricing/pricing-minimal-cards": {
+    "types": "./dist/pricing-minimal-cards.d.ts",
+    "import": "./dist/pricing-minimal-cards.js",
+    "require": "./dist/pricing-minimal-cards.cjs"
+  },
+  "./blocks/pricing/pricing-packages-radio": {
+    "types": "./dist/pricing-packages-radio.d.ts",
+    "import": "./dist/pricing-packages-radio.js",
+    "require": "./dist/pricing-packages-radio.cjs"
+  },
+  "./blocks/pricing/pricing-popular-highlight": {
+    "types": "./dist/pricing-popular-highlight.d.ts",
+    "import": "./dist/pricing-popular-highlight.js",
+    "require": "./dist/pricing-popular-highlight.cjs"
+  },
+  "./blocks/pricing/pricing-radio-toggle": {
+    "types": "./dist/pricing-radio-toggle.d.ts",
+    "import": "./dist/pricing-radio-toggle.js",
+    "require": "./dist/pricing-radio-toggle.cjs"
+  },
+  "./blocks/pricing/pricing-responsive-table": {
+    "types": "./dist/pricing-responsive-table.d.ts",
+    "import": "./dist/pricing-responsive-table.js",
+    "require": "./dist/pricing-responsive-table.cjs"
+  },
+  "./blocks/pricing/pricing-services-cards": {
+    "types": "./dist/pricing-services-cards.d.ts",
+    "import": "./dist/pricing-services-cards.js",
+    "require": "./dist/pricing-services-cards.cjs"
+  },
+  "./blocks/pricing/pricing-simple-card": {
+    "types": "./dist/pricing-simple-card.d.ts",
+    "import": "./dist/pricing-simple-card.js",
+    "require": "./dist/pricing-simple-card.cjs"
+  },
+  "./blocks/pricing/pricing-single-card": {
+    "types": "./dist/pricing-single-card.d.ts",
+    "import": "./dist/pricing-single-card.js",
+    "require": "./dist/pricing-single-card.cjs"
+  },
+  "./blocks/pricing/pricing-split-layout": {
+    "types": "./dist/pricing-split-layout.d.ts",
+    "import": "./dist/pricing-split-layout.js",
+    "require": "./dist/pricing-split-layout.cjs"
+  },
+  "./blocks/pricing/pricing-spotlight-card": {
+    "types": "./dist/pricing-spotlight-card.d.ts",
+    "import": "./dist/pricing-spotlight-card.js",
+    "require": "./dist/pricing-spotlight-card.cjs"
+  },
+  "./blocks/pricing/pricing-switch-cards": {
+    "types": "./dist/pricing-switch-cards.d.ts",
+    "import": "./dist/pricing-switch-cards.js",
+    "require": "./dist/pricing-switch-cards.cjs"
+  },
+  "./blocks/pricing/pricing-tabs-toggle": {
+    "types": "./dist/pricing-tabs-toggle.d.ts",
+    "import": "./dist/pricing-tabs-toggle.js",
+    "require": "./dist/pricing-tabs-toggle.cjs"
+  },
+  "./blocks/pricing/pricing-tier-grid": {
+    "types": "./dist/pricing-tier-grid.d.ts",
+    "import": "./dist/pricing-tier-grid.js",
+    "require": "./dist/pricing-tier-grid.cjs"
+  },
+  "./blocks/pricing/pricing-toggle-cards": {
+    "types": "./dist/pricing-toggle-cards.d.ts",
+    "import": "./dist/pricing-toggle-cards.js",
+    "require": "./dist/pricing-toggle-cards.cjs"
+  },
+  "./blocks/pricing/pricing-toggle-period": {
+    "types": "./dist/pricing-toggle-period.d.ts",
+    "import": "./dist/pricing-toggle-period.js",
+    "require": "./dist/pricing-toggle-period.cjs"
+  },
+  "./blocks/pricing/pricing-two-column-basic": {
+    "types": "./dist/pricing-two-column-basic.d.ts",
+    "import": "./dist/pricing-two-column-basic.js",
+    "require": "./dist/pricing-two-column-basic.cjs"
+  }
+}

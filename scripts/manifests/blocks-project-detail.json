@@ -1,0 +1,156 @@
+[
+  {
+    "path": "./blocks/project-detail/project-detail-architecture-carousel",
+    "types": "./dist/project-detail-architecture-carousel.d.ts",
+    "import": "./dist/project-detail-architecture-carousel.js",
+    "require": "./dist/project-detail-architecture-carousel.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-card-header",
+    "types": "./dist/project-detail-card-header.d.ts",
+    "import": "./dist/project-detail-card-header.js",
+    "require": "./dist/project-detail-card-header.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-case-study-prose",
+    "types": "./dist/project-detail-case-study-prose.d.ts",
+    "import": "./dist/project-detail-case-study-prose.js",
+    "require": "./dist/project-detail-case-study-prose.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-compact-metadata",
+    "types": "./dist/project-detail-compact-metadata.d.ts",
+    "import": "./dist/project-detail-compact-metadata.js",
+    "require": "./dist/project-detail-compact-metadata.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-exhibition-sidebar",
+    "types": "./dist/project-detail-exhibition-sidebar.d.ts",
+    "import": "./dist/project-detail-exhibition-sidebar.js",
+    "require": "./dist/project-detail-exhibition-sidebar.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-fashion-editorial",
+    "types": "./dist/project-detail-fashion-editorial.d.ts",
+    "import": "./dist/project-detail-fashion-editorial.js",
+    "require": "./dist/project-detail-fashion-editorial.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-fullscreen-hero",
+    "types": "./dist/project-detail-fullscreen-hero.d.ts",
+    "import": "./dist/project-detail-fullscreen-hero.js",
+    "require": "./dist/project-detail-fullscreen-hero.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-grid-gallery",
+    "types": "./dist/project-detail-grid-gallery.d.ts",
+    "import": "./dist/project-detail-grid-gallery.js",
+    "require": "./dist/project-detail-grid-gallery.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-hero-metadata",
+    "types": "./dist/project-detail-hero-metadata.d.ts",
+    "import": "./dist/project-detail-hero-metadata.js",
+    "require": "./dist/project-detail-hero-metadata.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-hover-gallery",
+    "types": "./dist/project-detail-hover-gallery.d.ts",
+    "import": "./dist/project-detail-hover-gallery.js",
+    "require": "./dist/project-detail-hover-gallery.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-large-hero-featured",
+    "types": "./dist/project-detail-large-hero-featured.d.ts",
+    "import": "./dist/project-detail-large-hero-featured.js",
+    "require": "./dist/project-detail-large-hero-featured.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-list-related",
+    "types": "./dist/project-detail-list-related.d.ts",
+    "import": "./dist/project-detail-list-related.js",
+    "require": "./dist/project-detail-list-related.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-mask-reveal",
+    "types": "./dist/project-detail-mask-reveal.d.ts",
+    "import": "./dist/project-detail-mask-reveal.js",
+    "require": "./dist/project-detail-mask-reveal.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-minimal-centered",
+    "types": "./dist/project-detail-minimal-centered.d.ts",
+    "import": "./dist/project-detail-minimal-centered.js",
+    "require": "./dist/project-detail-minimal-centered.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-numbered-sections",
+    "types": "./dist/project-detail-numbered-sections.d.ts",
+    "import": "./dist/project-detail-numbered-sections.js",
+    "require": "./dist/project-detail-numbered-sections.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-parallax-scroll",
+    "types": "./dist/project-detail-parallax-scroll.d.ts",
+    "import": "./dist/project-detail-parallax-scroll.js",
+    "require": "./dist/project-detail-parallax-scroll.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-photography-breadcrumb",
+    "types": "./dist/project-detail-photography-breadcrumb.d.ts",
+    "import": "./dist/project-detail-photography-breadcrumb.js",
+    "require": "./dist/project-detail-photography-breadcrumb.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-sculpture-showcase",
+    "types": "./dist/project-detail-sculpture-showcase.d.ts",
+    "import": "./dist/project-detail-sculpture-showcase.js",
+    "require": "./dist/project-detail-sculpture-showcase.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-sidebar-navigation",
+    "types": "./dist/project-detail-sidebar-navigation.d.ts",
+    "import": "./dist/project-detail-sidebar-navigation.js",
+    "require": "./dist/project-detail-sidebar-navigation.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-sidebar-sticky",
+    "types": "./dist/project-detail-sidebar-sticky.d.ts",
+    "import": "./dist/project-detail-sidebar-sticky.js",
+    "require": "./dist/project-detail-sidebar-sticky.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-split-materials",
+    "types": "./dist/project-detail-split-materials.d.ts",
+    "import": "./dist/project-detail-split-materials.js",
+    "require": "./dist/project-detail-split-materials.cjs"
+  }
+,
+  {
+    "path": "./blocks/project-detail/project-detail-tabbed-case-study",
+    "types": "./dist/project-detail-tabbed-case-study.d.ts",
+    "import": "./dist/project-detail-tabbed-case-study.js",
+    "require": "./dist/project-detail-tabbed-case-study.cjs"
+  }
+
+]

@@ -1,0 +1,17 @@
+{
+  "./blocks/resource-detail/resource-detail-article-hero": {
+    "types": "./dist/resource-detail-article-hero.d.ts",
+    "import": "./dist/resource-detail-article-hero.js",
+    "require": "./dist/resource-detail-article-hero.cjs"
+  },
+  "./blocks/resource-detail/resource-detail-document-sidebar": {
+    "types": "./dist/resource-detail-document-sidebar.d.ts",
+    "import": "./dist/resource-detail-document-sidebar.js",
+    "require": "./dist/resource-detail-document-sidebar.cjs"
+  },
+  "./blocks/resource-detail/resource-detail-whitepaper-sidebar": {
+    "types": "./dist/resource-detail-whitepaper-sidebar.d.ts",
+    "import": "./dist/resource-detail-whitepaper-sidebar.js",
+    "require": "./dist/resource-detail-whitepaper-sidebar.cjs"
+  }
+}

@@ -1,0 +1,121 @@
+[
+  {
+    "path": "./blocks/faq/faq-badge-support",
+    "types": "./dist/faq-badge-support.d.ts",
+    "import": "./dist/faq-badge-support.js",
+    "require": "./dist/faq-badge-support.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-bordered-badge",
+    "types": "./dist/faq-bordered-badge.d.ts",
+    "import": "./dist/faq-bordered-badge.js",
+    "require": "./dist/faq-bordered-badge.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-card-categories",
+    "types": "./dist/faq-card-categories.d.ts",
+    "import": "./dist/faq-card-categories.js",
+    "require": "./dist/faq-card-categories.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-categorized-sections",
+    "types": "./dist/faq-categorized-sections.d.ts",
+    "import": "./dist/faq-categorized-sections.js",
+    "require": "./dist/faq-categorized-sections.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-centered-accordion",
+    "types": "./dist/faq-centered-accordion.d.ts",
+    "import": "./dist/faq-centered-accordion.js",
+    "require": "./dist/faq-centered-accordion.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-gradient-categories",
+    "types": "./dist/faq-gradient-categories.d.ts",
+    "import": "./dist/faq-gradient-categories.js",
+    "require": "./dist/faq-gradient-categories.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-icon-benefits",
+    "types": "./dist/faq-icon-benefits.d.ts",
+    "import": "./dist/faq-icon-benefits.js",
+    "require": "./dist/faq-icon-benefits.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-muted-cards",
+    "types": "./dist/faq-muted-cards.d.ts",
+    "import": "./dist/faq-muted-cards.js",
+    "require": "./dist/faq-muted-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-numbered-grid",
+    "types": "./dist/faq-numbered-grid.d.ts",
+    "import": "./dist/faq-numbered-grid.js",
+    "require": "./dist/faq-numbered-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-numbered-list",
+    "types": "./dist/faq-numbered-list.d.ts",
+    "import": "./dist/faq-numbered-list.js",
+    "require": "./dist/faq-numbered-list.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-profile-sidebar",
+    "types": "./dist/faq-profile-sidebar.d.ts",
+    "import": "./dist/faq-profile-sidebar.js",
+    "require": "./dist/faq-profile-sidebar.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-rounded-cards",
+    "types": "./dist/faq-rounded-cards.d.ts",
+    "import": "./dist/faq-rounded-cards.js",
+    "require": "./dist/faq-rounded-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-sidebar-navigation",
+    "types": "./dist/faq-sidebar-navigation.d.ts",
+    "import": "./dist/faq-sidebar-navigation.js",
+    "require": "./dist/faq-sidebar-navigation.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-simple-accordion",
+    "types": "./dist/faq-simple-accordion.d.ts",
+    "import": "./dist/faq-simple-accordion.js",
+    "require": "./dist/faq-simple-accordion.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-split-help",
+    "types": "./dist/faq-split-help.d.ts",
+    "import": "./dist/faq-split-help.js",
+    "require": "./dist/faq-split-help.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-split-hero",
+    "types": "./dist/faq-split-hero.d.ts",
+    "import": "./dist/faq-split-hero.js",
+    "require": "./dist/faq-split-hero.cjs"
+  }
+,
+  {
+    "path": "./blocks/faq/faq-static-list",
+    "types": "./dist/faq-static-list.d.ts",
+    "import": "./dist/faq-static-list.js",
+    "require": "./dist/faq-static-list.cjs"
+  }
+
+]

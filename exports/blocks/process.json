@@ -1,0 +1,47 @@
+{
+  "./blocks/process/process-expandable-timeline": {
+    "types": "./dist/process-expandable-timeline.d.ts",
+    "import": "./dist/process-expandable-timeline.js",
+    "require": "./dist/process-expandable-timeline.cjs"
+  },
+  "./blocks/process/process-hover-cards": {
+    "types": "./dist/process-hover-cards.d.ts",
+    "import": "./dist/process-hover-cards.js",
+    "require": "./dist/process-hover-cards.cjs"
+  },
+  "./blocks/process/process-icon-timeline": {
+    "types": "./dist/process-icon-timeline.d.ts",
+    "import": "./dist/process-icon-timeline.js",
+    "require": "./dist/process-icon-timeline.cjs"
+  },
+  "./blocks/process/process-mission-principles": {
+    "types": "./dist/process-mission-principles.d.ts",
+    "import": "./dist/process-mission-principles.js",
+    "require": "./dist/process-mission-principles.cjs"
+  },
+  "./blocks/process/process-numbered-services": {
+    "types": "./dist/process-numbered-services.d.ts",
+    "import": "./dist/process-numbered-services.js",
+    "require": "./dist/process-numbered-services.cjs"
+  },
+  "./blocks/process/process-roadmap-timeline": {
+    "types": "./dist/process-roadmap-timeline.d.ts",
+    "import": "./dist/process-roadmap-timeline.js",
+    "require": "./dist/process-roadmap-timeline.cjs"
+  },
+  "./blocks/process/process-scroll-image": {
+    "types": "./dist/process-scroll-image.d.ts",
+    "import": "./dist/process-scroll-image.js",
+    "require": "./dist/process-scroll-image.cjs"
+  },
+  "./blocks/process/process-steps-grid": {
+    "types": "./dist/process-steps-grid.d.ts",
+    "import": "./dist/process-steps-grid.js",
+    "require": "./dist/process-steps-grid.cjs"
+  },
+  "./blocks/process/process-sticky-steps": {
+    "types": "./dist/process-sticky-steps.d.ts",
+    "import": "./dist/process-sticky-steps.js",
+    "require": "./dist/process-sticky-steps.cjs"
+  }
+}

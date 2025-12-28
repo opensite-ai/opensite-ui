@@ -1,0 +1,289 @@
+[
+  {
+    "path": "./blocks/contact/contact-callback",
+    "types": "./dist/contact-callback.d.ts",
+    "import": "./dist/contact-callback.js",
+    "require": "./dist/contact-callback.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-card",
+    "types": "./dist/contact-card.d.ts",
+    "import": "./dist/contact-card.js",
+    "require": "./dist/contact-card.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-careers",
+    "types": "./dist/contact-careers.d.ts",
+    "import": "./dist/contact-careers.js",
+    "require": "./dist/contact-careers.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-catering",
+    "types": "./dist/contact-catering.d.ts",
+    "import": "./dist/contact-catering.js",
+    "require": "./dist/contact-catering.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-consultation",
+    "types": "./dist/contact-consultation.d.ts",
+    "import": "./dist/contact-consultation.js",
+    "require": "./dist/contact-consultation.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-dark",
+    "types": "./dist/contact-dark.d.ts",
+    "import": "./dist/contact-dark.js",
+    "require": "./dist/contact-dark.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-demo",
+    "types": "./dist/contact-demo.d.ts",
+    "import": "./dist/contact-demo.js",
+    "require": "./dist/contact-demo.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-emergency",
+    "types": "./dist/contact-emergency.d.ts",
+    "import": "./dist/contact-emergency.js",
+    "require": "./dist/contact-emergency.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-event",
+    "types": "./dist/contact-event.d.ts",
+    "import": "./dist/contact-event.js",
+    "require": "./dist/contact-event.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-faq",
+    "types": "./dist/contact-faq.d.ts",
+    "import": "./dist/contact-faq.js",
+    "require": "./dist/contact-faq.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-feedback",
+    "types": "./dist/contact-feedback.d.ts",
+    "import": "./dist/contact-feedback.js",
+    "require": "./dist/contact-feedback.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-fitness",
+    "types": "./dist/contact-fitness.d.ts",
+    "import": "./dist/contact-fitness.js",
+    "require": "./dist/contact-fitness.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-floating-banner",
+    "types": "./dist/contact-floating-banner.d.ts",
+    "import": "./dist/contact-floating-banner.js",
+    "require": "./dist/contact-floating-banner.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-guest",
+    "types": "./dist/contact-guest.d.ts",
+    "import": "./dist/contact-guest.js",
+    "require": "./dist/contact-guest.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-image",
+    "types": "./dist/contact-image.d.ts",
+    "import": "./dist/contact-image.js",
+    "require": "./dist/contact-image.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-insurance",
+    "types": "./dist/contact-insurance.d.ts",
+    "import": "./dist/contact-insurance.js",
+    "require": "./dist/contact-insurance.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-interview",
+    "types": "./dist/contact-interview.d.ts",
+    "import": "./dist/contact-interview.js",
+    "require": "./dist/contact-interview.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-locations",
+    "types": "./dist/contact-locations.d.ts",
+    "import": "./dist/contact-locations.js",
+    "require": "./dist/contact-locations.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-maintenance",
+    "types": "./dist/contact-maintenance.d.ts",
+    "import": "./dist/contact-maintenance.js",
+    "require": "./dist/contact-maintenance.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-map",
+    "types": "./dist/contact-map.d.ts",
+    "import": "./dist/contact-map.js",
+    "require": "./dist/contact-map.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-minimal",
+    "types": "./dist/contact-minimal.d.ts",
+    "import": "./dist/contact-minimal.js",
+    "require": "./dist/contact-minimal.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-moving",
+    "types": "./dist/contact-moving.d.ts",
+    "import": "./dist/contact-moving.js",
+    "require": "./dist/contact-moving.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-multistep",
+    "types": "./dist/contact-multistep.d.ts",
+    "import": "./dist/contact-multistep.js",
+    "require": "./dist/contact-multistep.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-partnership",
+    "types": "./dist/contact-partnership.d.ts",
+    "import": "./dist/contact-partnership.js",
+    "require": "./dist/contact-partnership.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-photography",
+    "types": "./dist/contact-photography.d.ts",
+    "import": "./dist/contact-photography.js",
+    "require": "./dist/contact-photography.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-press",
+    "types": "./dist/contact-press.d.ts",
+    "import": "./dist/contact-press.js",
+    "require": "./dist/contact-press.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-quote",
+    "types": "./dist/contact-quote.d.ts",
+    "import": "./dist/contact-quote.js",
+    "require": "./dist/contact-quote.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-referral",
+    "types": "./dist/contact-referral.d.ts",
+    "import": "./dist/contact-referral.js",
+    "require": "./dist/contact-referral.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-report",
+    "types": "./dist/contact-report.d.ts",
+    "import": "./dist/contact-report.js",
+    "require": "./dist/contact-report.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-reservation",
+    "types": "./dist/contact-reservation.d.ts",
+    "import": "./dist/contact-reservation.js",
+    "require": "./dist/contact-reservation.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-retreat",
+    "types": "./dist/contact-retreat.d.ts",
+    "import": "./dist/contact-retreat.js",
+    "require": "./dist/contact-retreat.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-rsvp",
+    "types": "./dist/contact-rsvp.d.ts",
+    "import": "./dist/contact-rsvp.js",
+    "require": "./dist/contact-rsvp.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-sales",
+    "types": "./dist/contact-sales.d.ts",
+    "import": "./dist/contact-sales.js",
+    "require": "./dist/contact-sales.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-schedule",
+    "types": "./dist/contact-schedule.d.ts",
+    "import": "./dist/contact-schedule.js",
+    "require": "./dist/contact-schedule.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-sponsorship",
+    "types": "./dist/contact-sponsorship.d.ts",
+    "import": "./dist/contact-sponsorship.js",
+    "require": "./dist/contact-sponsorship.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-support",
+    "types": "./dist/contact-support.d.ts",
+    "import": "./dist/contact-support.js",
+    "require": "./dist/contact-support.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-tenant",
+    "types": "./dist/contact-tenant.d.ts",
+    "import": "./dist/contact-tenant.js",
+    "require": "./dist/contact-tenant.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-vendor",
+    "types": "./dist/contact-vendor.d.ts",
+    "import": "./dist/contact-vendor.js",
+    "require": "./dist/contact-vendor.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-volunteer",
+    "types": "./dist/contact-volunteer.d.ts",
+    "import": "./dist/contact-volunteer.js",
+    "require": "./dist/contact-volunteer.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-warranty",
+    "types": "./dist/contact-warranty.d.ts",
+    "import": "./dist/contact-warranty.js",
+    "require": "./dist/contact-warranty.cjs"
+  }
+,
+  {
+    "path": "./blocks/contact/contact-wedding",
+    "types": "./dist/contact-wedding.d.ts",
+    "import": "./dist/contact-wedding.js",
+    "require": "./dist/contact-wedding.cjs"
+  }
+
+]

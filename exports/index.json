@@ -1,0 +1,53 @@
+{
+  "description": "Master export map for @opensite/ui",
+  "categories": {
+    "core": "./exports/core.json",
+    "uiComponents": "./exports/ui-components.json",
+    "hooks": "./exports/hooks.json",
+    "blocks": {
+      "about": "./exports/blocks/about.json",
+      "article": "./exports/blocks/article.json",
+      "background-pattern-hero": "./exports/blocks/background-pattern-hero.json",
+      "banner": "./exports/blocks/banner.json",
+      "blog": "./exports/blocks/blog.json",
+      "carousel": "./exports/blocks/carousel.json",
+      "case-studies-list": "./exports/blocks/case-studies-list.json",
+      "case-study-detail": "./exports/blocks/case-study-detail.json",
+      "comparison": "./exports/blocks/comparison.json",
+      "contact": "./exports/blocks/contact.json",
+      "cta": "./exports/blocks/cta.json",
+      "faq": "./exports/blocks/faq.json",
+      "features": "./exports/blocks/features.json",
+      "footers": "./exports/blocks/footers.json",
+      "gallery": "./exports/blocks/gallery.json",
+      "hero": "./exports/blocks/hero.json",
+      "industries": "./exports/blocks/industries.json",
+      "link-page": "./exports/blocks/link-page.json",
+      "list": "./exports/blocks/list.json",
+      "logos": "./exports/blocks/logos.json",
+      "navbars": "./exports/blocks/navbars.json",
+      "offer-modal": "./exports/blocks/offer-modal.json",
+      "pricing": "./exports/blocks/pricing.json",
+      "process": "./exports/blocks/process.json",
+      "project-detail": "./exports/blocks/project-detail.json",
+      "project-list": "./exports/blocks/project-list.json",
+      "resource-detail": "./exports/blocks/resource-detail.json",
+      "resource-list": "./exports/blocks/resource-list.json",
+      "reviews": "./exports/blocks/reviews.json",
+      "service-detail": "./exports/blocks/service-detail.json",
+      "services-list": "./exports/blocks/services-list.json",
+      "stats": "./exports/blocks/stats.json",
+      "team": "./exports/blocks/team.json",
+      "timeline": "./exports/blocks/timeline.json"
+    },
+    "utils": "./exports/utils.json"
+  },
+  "stats": {
+    "totalExports": 627,
+    "coreExports": 2,
+    "uiComponentExports": 30,
+    "hooksExports": 2,
+    "blockExports": 590,
+    "utilExports": 3
+  }
+}

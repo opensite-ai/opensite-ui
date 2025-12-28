@@ -1,0 +1,30 @@
+[
+  {
+    "path": "./blocks/industries/industries-badge-list-bordered",
+    "types": "./dist/industries-badge-list-bordered.d.ts",
+    "import": "./dist/industries-badge-list-bordered.js",
+    "require": "./dist/industries-badge-list-bordered.cjs"
+  }
+,
+  {
+    "path": "./blocks/industries/industries-expandable-showcase",
+    "types": "./dist/industries-expandable-showcase.d.ts",
+    "import": "./dist/industries-expandable-showcase.js",
+    "require": "./dist/industries-expandable-showcase.cjs"
+  }
+,
+  {
+    "path": "./blocks/industries/industries-hover-reveal-grid",
+    "types": "./dist/industries-hover-reveal-grid.d.ts",
+    "import": "./dist/industries-hover-reveal-grid.js",
+    "require": "./dist/industries-hover-reveal-grid.cjs"
+  }
+,
+  {
+    "path": "./blocks/industries/industries-timeline-table",
+    "types": "./dist/industries-timeline-table.d.ts",
+    "import": "./dist/industries-timeline-table.js",
+    "require": "./dist/industries-timeline-table.cjs"
+  }
+
+]

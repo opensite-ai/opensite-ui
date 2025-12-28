@@ -1,0 +1,51 @@
+[
+  {
+    "path": "./blocks/article/article-breadcrumb-social",
+    "types": "./dist/article-breadcrumb-social.d.ts",
+    "import": "./dist/article-breadcrumb-social.js",
+    "require": "./dist/article-breadcrumb-social.cjs"
+  }
+,
+  {
+    "path": "./blocks/article/article-chapters-author",
+    "types": "./dist/article-chapters-author.d.ts",
+    "import": "./dist/article-chapters-author.js",
+    "require": "./dist/article-chapters-author.cjs"
+  }
+,
+  {
+    "path": "./blocks/article/article-compact-toc",
+    "types": "./dist/article-compact-toc.d.ts",
+    "import": "./dist/article-compact-toc.js",
+    "require": "./dist/article-compact-toc.cjs"
+  }
+,
+  {
+    "path": "./blocks/article/article-hero-prose",
+    "types": "./dist/article-hero-prose.d.ts",
+    "import": "./dist/article-hero-prose.js",
+    "require": "./dist/article-hero-prose.cjs"
+  }
+,
+  {
+    "path": "./blocks/article/article-sidebar-sticky",
+    "types": "./dist/article-sidebar-sticky.d.ts",
+    "import": "./dist/article-sidebar-sticky.js",
+    "require": "./dist/article-sidebar-sticky.cjs"
+  }
+,
+  {
+    "path": "./blocks/article/article-split-animated",
+    "types": "./dist/article-split-animated.d.ts",
+    "import": "./dist/article-split-animated.js",
+    "require": "./dist/article-split-animated.cjs"
+  }
+,
+  {
+    "path": "./blocks/article/article-toc-sidebar",
+    "types": "./dist/article-toc-sidebar.d.ts",
+    "import": "./dist/article-toc-sidebar.js",
+    "require": "./dist/article-toc-sidebar.cjs"
+  }
+
+]

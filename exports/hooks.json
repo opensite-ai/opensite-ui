@@ -1,0 +1,12 @@
+{
+  "./hooks": {
+    "types": "./dist/hooks.d.ts",
+    "import": "./dist/hooks.js",
+    "require": "./dist/hooks.cjs"
+  },
+  "./hooks/use-navigation": {
+    "types": "./dist/use-navigation.d.ts",
+    "import": "./dist/use-navigation.js",
+    "require": "./dist/use-navigation.cjs"
+  }
+}

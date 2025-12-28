@@ -1,0 +1,86 @@
+[
+  {
+    "path": "./blocks/blog/blog-cards-read-time",
+    "types": "./dist/blog-cards-read-time.d.ts",
+    "import": "./dist/blog-cards-read-time.js",
+    "require": "./dist/blog-cards-read-time.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-cards-tagline-cta",
+    "types": "./dist/blog-cards-tagline-cta.d.ts",
+    "import": "./dist/blog-cards-tagline-cta.js",
+    "require": "./dist/blog-cards-tagline-cta.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-category-overlay",
+    "types": "./dist/blog-category-overlay.d.ts",
+    "import": "./dist/blog-category-overlay.js",
+    "require": "./dist/blog-category-overlay.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-featured-popular",
+    "types": "./dist/blog-featured-popular.d.ts",
+    "import": "./dist/blog-featured-popular.js",
+    "require": "./dist/blog-featured-popular.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-filtered-results",
+    "types": "./dist/blog-filtered-results.d.ts",
+    "import": "./dist/blog-filtered-results.js",
+    "require": "./dist/blog-filtered-results.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-grid-author-cards",
+    "types": "./dist/blog-grid-author-cards.d.ts",
+    "import": "./dist/blog-grid-author-cards.js",
+    "require": "./dist/blog-grid-author-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-grid-nine-posts",
+    "types": "./dist/blog-grid-nine-posts.d.ts",
+    "import": "./dist/blog-grid-nine-posts.js",
+    "require": "./dist/blog-grid-nine-posts.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-horizontal-cards",
+    "types": "./dist/blog-horizontal-cards.d.ts",
+    "import": "./dist/blog-horizontal-cards.js",
+    "require": "./dist/blog-horizontal-cards.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-horizontal-timeline",
+    "types": "./dist/blog-horizontal-timeline.d.ts",
+    "import": "./dist/blog-horizontal-timeline.js",
+    "require": "./dist/blog-horizontal-timeline.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-masonry-featured",
+    "types": "./dist/blog-masonry-featured.d.ts",
+    "import": "./dist/blog-masonry-featured.js",
+    "require": "./dist/blog-masonry-featured.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-related-articles",
+    "types": "./dist/blog-related-articles.d.ts",
+    "import": "./dist/blog-related-articles.js",
+    "require": "./dist/blog-related-articles.cjs"
+  }
+,
+  {
+    "path": "./blocks/blog/blog-tech-insights",
+    "types": "./dist/blog-tech-insights.d.ts",
+    "import": "./dist/blog-tech-insights.js",
+    "require": "./dist/blog-tech-insights.cjs"
+  }
+
+]

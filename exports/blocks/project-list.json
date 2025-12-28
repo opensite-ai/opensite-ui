@@ -1,0 +1,152 @@
+{
+  "./blocks/project-list/project-alternating-motion": {
+    "types": "./dist/project-alternating-motion.d.ts",
+    "import": "./dist/project-alternating-motion.js",
+    "require": "./dist/project-alternating-motion.cjs"
+  },
+  "./blocks/project-list/project-background-reveal": {
+    "types": "./dist/project-background-reveal.d.ts",
+    "import": "./dist/project-background-reveal.js",
+    "require": "./dist/project-background-reveal.cjs"
+  },
+  "./blocks/project-list/project-card-overlay": {
+    "types": "./dist/project-card-overlay.d.ts",
+    "import": "./dist/project-card-overlay.js",
+    "require": "./dist/project-card-overlay.cjs"
+  },
+  "./blocks/project-list/project-carousel-cinematic": {
+    "types": "./dist/project-carousel-cinematic.d.ts",
+    "import": "./dist/project-carousel-cinematic.js",
+    "require": "./dist/project-carousel-cinematic.cjs"
+  },
+  "./blocks/project-list/project-carousel-detail-cards": {
+    "types": "./dist/project-carousel-detail-cards.d.ts",
+    "import": "./dist/project-carousel-detail-cards.js",
+    "require": "./dist/project-carousel-detail-cards.cjs"
+  },
+  "./blocks/project-list/project-carousel-minimal": {
+    "types": "./dist/project-carousel-minimal.d.ts",
+    "import": "./dist/project-carousel-minimal.js",
+    "require": "./dist/project-carousel-minimal.cjs"
+  },
+  "./blocks/project-list/project-experience-quote": {
+    "types": "./dist/project-experience-quote.d.ts",
+    "import": "./dist/project-experience-quote.js",
+    "require": "./dist/project-experience-quote.cjs"
+  },
+  "./blocks/project-list/project-featured-carousel": {
+    "types": "./dist/project-featured-carousel.d.ts",
+    "import": "./dist/project-featured-carousel.js",
+    "require": "./dist/project-featured-carousel.cjs"
+  },
+  "./blocks/project-list/project-filterable-gallery": {
+    "types": "./dist/project-filterable-gallery.d.ts",
+    "import": "./dist/project-filterable-gallery.js",
+    "require": "./dist/project-filterable-gallery.cjs"
+  },
+  "./blocks/project-list/project-filterable-three-column": {
+    "types": "./dist/project-filterable-three-column.d.ts",
+    "import": "./dist/project-filterable-three-column.js",
+    "require": "./dist/project-filterable-three-column.cjs"
+  },
+  "./blocks/project-list/project-grid-gallery": {
+    "types": "./dist/project-grid-gallery.d.ts",
+    "import": "./dist/project-grid-gallery.js",
+    "require": "./dist/project-grid-gallery.cjs"
+  },
+  "./blocks/project-list/project-grid-motion": {
+    "types": "./dist/project-grid-motion.d.ts",
+    "import": "./dist/project-grid-motion.js",
+    "require": "./dist/project-grid-motion.cjs"
+  },
+  "./blocks/project-list/project-horizontal-cards": {
+    "types": "./dist/project-horizontal-cards.d.ts",
+    "import": "./dist/project-horizontal-cards.js",
+    "require": "./dist/project-horizontal-cards.cjs"
+  },
+  "./blocks/project-list/project-hover-reveal-grid": {
+    "types": "./dist/project-hover-reveal-grid.d.ts",
+    "import": "./dist/project-hover-reveal-grid.js",
+    "require": "./dist/project-hover-reveal-grid.cjs"
+  },
+  "./blocks/project-list/project-interactive-hover-reveal": {
+    "types": "./dist/project-interactive-hover-reveal.d.ts",
+    "import": "./dist/project-interactive-hover-reveal.js",
+    "require": "./dist/project-interactive-hover-reveal.cjs"
+  },
+  "./blocks/project-list/project-masonry-columns": {
+    "types": "./dist/project-masonry-columns.d.ts",
+    "import": "./dist/project-masonry-columns.js",
+    "require": "./dist/project-masonry-columns.cjs"
+  },
+  "./blocks/project-list/project-nature-mosaic": {
+    "types": "./dist/project-nature-mosaic.d.ts",
+    "import": "./dist/project-nature-mosaic.js",
+    "require": "./dist/project-nature-mosaic.cjs"
+  },
+  "./blocks/project-list/project-scroll-reveal": {
+    "types": "./dist/project-scroll-reveal.d.ts",
+    "import": "./dist/project-scroll-reveal.js",
+    "require": "./dist/project-scroll-reveal.cjs"
+  },
+  "./blocks/project-list/project-showcase-alternating": {
+    "types": "./dist/project-showcase-alternating.d.ts",
+    "import": "./dist/project-showcase-alternating.js",
+    "require": "./dist/project-showcase-alternating.cjs"
+  },
+  "./blocks/project-list/project-sticky-scroll": {
+    "types": "./dist/project-sticky-scroll.d.ts",
+    "import": "./dist/project-sticky-scroll.js",
+    "require": "./dist/project-sticky-scroll.cjs"
+  },
+  "./blocks/project-list/project-studio-hover-preview": {
+    "types": "./dist/project-studio-hover-preview.d.ts",
+    "import": "./dist/project-studio-hover-preview.js",
+    "require": "./dist/project-studio-hover-preview.cjs"
+  },
+  "./blocks/project-list/project-table-list": {
+    "types": "./dist/project-table-list.d.ts",
+    "import": "./dist/project-table-list.js",
+    "require": "./dist/project-table-list.cjs"
+  },
+  "./blocks/project-list/project-video-carousel": {
+    "types": "./dist/project-video-carousel.d.ts",
+    "import": "./dist/project-video-carousel.js",
+    "require": "./dist/project-video-carousel.cjs"
+  },
+  "./blocks/project-list/project-video-hover-bento": {
+    "types": "./dist/project-video-hover-bento.d.ts",
+    "import": "./dist/project-video-hover-bento.js",
+    "require": "./dist/project-video-hover-bento.cjs"
+  },
+  "./blocks/project-list/project-video-hover-grid": {
+    "types": "./dist/project-video-hover-grid.d.ts",
+    "import": "./dist/project-video-hover-grid.js",
+    "require": "./dist/project-video-hover-grid.cjs"
+  },
+  "./blocks/project-list/project-video-hover-rounded": {
+    "types": "./dist/project-video-hover-rounded.d.ts",
+    "import": "./dist/project-video-hover-rounded.js",
+    "require": "./dist/project-video-hover-rounded.cjs"
+  },
+  "./blocks/project-list/project-video-hover-stack": {
+    "types": "./dist/project-video-hover-stack.d.ts",
+    "import": "./dist/project-video-hover-stack.js",
+    "require": "./dist/project-video-hover-stack.cjs"
+  },
+  "./blocks/project-list/project-video-hover-two-by-two": {
+    "types": "./dist/project-video-hover-two-by-two.d.ts",
+    "import": "./dist/project-video-hover-two-by-two.js",
+    "require": "./dist/project-video-hover-two-by-two.cjs"
+  },
+  "./blocks/project-list/project-work-showcase": {
+    "types": "./dist/project-work-showcase.d.ts",
+    "import": "./dist/project-work-showcase.js",
+    "require": "./dist/project-work-showcase.cjs"
+  },
+  "./blocks/project-list/project-zigzag-layout": {
+    "types": "./dist/project-zigzag-layout.d.ts",
+    "import": "./dist/project-zigzag-layout.js",
+    "require": "./dist/project-zigzag-layout.cjs"
+  }
+}

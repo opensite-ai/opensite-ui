@@ -1,0 +1,27 @@
+{
+  "./blocks/list/list-achievements-showcase": {
+    "types": "./dist/list-achievements-showcase.d.ts",
+    "import": "./dist/list-achievements-showcase.js",
+    "require": "./dist/list-achievements-showcase.cjs"
+  },
+  "./blocks/list/list-career-timeline": {
+    "types": "./dist/list-career-timeline.d.ts",
+    "import": "./dist/list-career-timeline.js",
+    "require": "./dist/list-career-timeline.cjs"
+  },
+  "./blocks/list/list-feature-comparison": {
+    "types": "./dist/list-feature-comparison.d.ts",
+    "import": "./dist/list-feature-comparison.js",
+    "require": "./dist/list-feature-comparison.cjs"
+  },
+  "./blocks/list/list-metrics-dashboard": {
+    "types": "./dist/list-metrics-dashboard.d.ts",
+    "import": "./dist/list-metrics-dashboard.js",
+    "require": "./dist/list-metrics-dashboard.cjs"
+  },
+  "./blocks/list/list-service-category-table": {
+    "types": "./dist/list-service-category-table.d.ts",
+    "import": "./dist/list-service-category-table.js",
+    "require": "./dist/list-service-category-table.cjs"
+  }
+}

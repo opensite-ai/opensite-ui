@@ -1,0 +1,152 @@
+{
+  "./components/accordion": {
+    "types": "./dist/accordion.d.ts",
+    "import": "./dist/accordion.js",
+    "require": "./dist/accordion.cjs"
+  },
+  "./components/alert": {
+    "types": "./dist/alert.d.ts",
+    "import": "./dist/alert.js",
+    "require": "./dist/alert.cjs"
+  },
+  "./components/animated-dialog": {
+    "types": "./dist/animated-dialog.d.ts",
+    "import": "./dist/animated-dialog.js",
+    "require": "./dist/animated-dialog.cjs"
+  },
+  "./components/aspect-ratio": {
+    "types": "./dist/aspect-ratio.d.ts",
+    "import": "./dist/aspect-ratio.js",
+    "require": "./dist/aspect-ratio.cjs"
+  },
+  "./components/avatar": {
+    "types": "./dist/avatar.d.ts",
+    "import": "./dist/avatar.js",
+    "require": "./dist/avatar.cjs"
+  },
+  "./components/badge": {
+    "types": "./dist/badge.d.ts",
+    "import": "./dist/badge.js",
+    "require": "./dist/badge.cjs"
+  },
+  "./components/bento-grid": {
+    "types": "./dist/bento-grid.d.ts",
+    "import": "./dist/bento-grid.js",
+    "require": "./dist/bento-grid.cjs"
+  },
+  "./components/breadcrumb": {
+    "types": "./dist/breadcrumb.d.ts",
+    "import": "./dist/breadcrumb.js",
+    "require": "./dist/breadcrumb.cjs"
+  },
+  "./components/button": {
+    "types": "./dist/button.d.ts",
+    "import": "./dist/button.js",
+    "require": "./dist/button.cjs"
+  },
+  "./components/card": {
+    "types": "./dist/card.d.ts",
+    "import": "./dist/card.js",
+    "require": "./dist/card.cjs"
+  },
+  "./components/carousel": {
+    "types": "./dist/carousel.d.ts",
+    "import": "./dist/carousel.js",
+    "require": "./dist/carousel.cjs"
+  },
+  "./components/checkbox": {
+    "types": "./dist/checkbox.d.ts",
+    "import": "./dist/checkbox.js",
+    "require": "./dist/checkbox.cjs"
+  },
+  "./components/container": {
+    "types": "./dist/container.d.ts",
+    "import": "./dist/container.js",
+    "require": "./dist/container.cjs"
+  },
+  "./components/dialog": {
+    "types": "./dist/dialog.d.ts",
+    "import": "./dist/dialog.js",
+    "require": "./dist/dialog.cjs"
+  },
+  "./components/dropdown-menu": {
+    "types": "./dist/dropdown-menu.d.ts",
+    "import": "./dist/dropdown-menu.js",
+    "require": "./dist/dropdown-menu.cjs"
+  },
+  "./components/dynamic-icon": {
+    "types": "./dist/dynamic-icon.d.ts",
+    "import": "./dist/dynamic-icon.js",
+    "require": "./dist/dynamic-icon.cjs"
+  },
+  "./components/input": {
+    "types": "./dist/input.d.ts",
+    "import": "./dist/input.js",
+    "require": "./dist/input.cjs"
+  },
+  "./components/label": {
+    "types": "./dist/label.d.ts",
+    "import": "./dist/label.js",
+    "require": "./dist/label.cjs"
+  },
+  "./components/navigation-menu": {
+    "types": "./dist/navigation-menu.d.ts",
+    "import": "./dist/navigation-menu.js",
+    "require": "./dist/navigation-menu.cjs"
+  },
+  "./components/page-hero-banner": {
+    "types": "./dist/page-hero-banner.d.ts",
+    "import": "./dist/page-hero-banner.js",
+    "require": "./dist/page-hero-banner.cjs"
+  },
+  "./components/popover": {
+    "types": "./dist/popover.d.ts",
+    "import": "./dist/popover.js",
+    "require": "./dist/popover.cjs"
+  },
+  "./components/progress": {
+    "types": "./dist/progress.d.ts",
+    "import": "./dist/progress.js",
+    "require": "./dist/progress.cjs"
+  },
+  "./components/section": {
+    "types": "./dist/section.d.ts",
+    "import": "./dist/section.js",
+    "require": "./dist/section.cjs"
+  },
+  "./components/separator": {
+    "types": "./dist/separator.d.ts",
+    "import": "./dist/separator.js",
+    "require": "./dist/separator.cjs"
+  },
+  "./components/sheet": {
+    "types": "./dist/sheet.d.ts",
+    "import": "./dist/sheet.js",
+    "require": "./dist/sheet.cjs"
+  },
+  "./components/switch": {
+    "types": "./dist/switch.d.ts",
+    "import": "./dist/switch.js",
+    "require": "./dist/switch.cjs"
+  },
+  "./components/table": {
+    "types": "./dist/table.d.ts",
+    "import": "./dist/table.js",
+    "require": "./dist/table.cjs"
+  },
+  "./components/tabs": {
+    "types": "./dist/tabs.d.ts",
+    "import": "./dist/tabs.js",
+    "require": "./dist/tabs.cjs"
+  },
+  "./components/tooltip": {
+    "types": "./dist/tooltip.d.ts",
+    "import": "./dist/tooltip.js",
+    "require": "./dist/tooltip.cjs"
+  },
+  "./components/pressable": {
+    "types": "./dist/pressable.d.ts",
+    "import": "./dist/pressable.js",
+    "require": "./dist/pressable.cjs"
+  }
+}

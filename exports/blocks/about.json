@@ -1,0 +1,102 @@
+{
+  "./blocks/about/about-company-profile": {
+    "types": "./dist/about-company-profile.d.ts",
+    "import": "./dist/about-company-profile.js",
+    "require": "./dist/about-company-profile.cjs"
+  },
+  "./blocks/about/about-culture-tabs": {
+    "types": "./dist/about-culture-tabs.d.ts",
+    "import": "./dist/about-culture-tabs.js",
+    "require": "./dist/about-culture-tabs.cjs"
+  },
+  "./blocks/about/about-developer-profile": {
+    "types": "./dist/about-developer-profile.d.ts",
+    "import": "./dist/about-developer-profile.js",
+    "require": "./dist/about-developer-profile.cjs"
+  },
+  "./blocks/about/about-developer-story": {
+    "types": "./dist/about-developer-story.d.ts",
+    "import": "./dist/about-developer-story.js",
+    "require": "./dist/about-developer-story.cjs"
+  },
+  "./blocks/about/about-expandable-values": {
+    "types": "./dist/about-expandable-values.d.ts",
+    "import": "./dist/about-expandable-values.js",
+    "require": "./dist/about-expandable-values.cjs"
+  },
+  "./blocks/about/about-interactive-tabs": {
+    "types": "./dist/about-interactive-tabs.d.ts",
+    "import": "./dist/about-interactive-tabs.js",
+    "require": "./dist/about-interactive-tabs.cjs"
+  },
+  "./blocks/about/about-minimal-story": {
+    "types": "./dist/about-minimal-story.d.ts",
+    "import": "./dist/about-minimal-story.js",
+    "require": "./dist/about-minimal-story.cjs"
+  },
+  "./blocks/about/about-mission-dual-image": {
+    "types": "./dist/about-mission-dual-image.d.ts",
+    "import": "./dist/about-mission-dual-image.js",
+    "require": "./dist/about-mission-dual-image.cjs"
+  },
+  "./blocks/about/about-mission-features": {
+    "types": "./dist/about-mission-features.d.ts",
+    "import": "./dist/about-mission-features.js",
+    "require": "./dist/about-mission-features.cjs"
+  },
+  "./blocks/about/about-mission-principles": {
+    "types": "./dist/about-mission-principles.d.ts",
+    "import": "./dist/about-mission-principles.js",
+    "require": "./dist/about-mission-principles.cjs"
+  },
+  "./blocks/about/about-split-hero": {
+    "types": "./dist/about-split-hero.d.ts",
+    "import": "./dist/about-split-hero.js",
+    "require": "./dist/about-split-hero.cjs"
+  },
+  "./blocks/about/about-startup-team": {
+    "types": "./dist/about-startup-team.d.ts",
+    "import": "./dist/about-startup-team.js",
+    "require": "./dist/about-startup-team.cjs"
+  },
+  "./blocks/about/about-stats-showcase": {
+    "types": "./dist/about-stats-showcase.d.ts",
+    "import": "./dist/about-stats-showcase.js",
+    "require": "./dist/about-stats-showcase.cjs"
+  },
+  "./blocks/about/about-stats-sidebar": {
+    "types": "./dist/about-stats-sidebar.d.ts",
+    "import": "./dist/about-stats-sidebar.js",
+    "require": "./dist/about-stats-sidebar.cjs"
+  },
+  "./blocks/about/about-story-gallery": {
+    "types": "./dist/about-story-gallery.d.ts",
+    "import": "./dist/about-story-gallery.js",
+    "require": "./dist/about-story-gallery.cjs"
+  },
+  "./blocks/about/about-story-hero": {
+    "types": "./dist/about-story-hero.d.ts",
+    "import": "./dist/about-story-hero.js",
+    "require": "./dist/about-story-hero.cjs"
+  },
+  "./blocks/about/about-streamline-team": {
+    "types": "./dist/about-streamline-team.d.ts",
+    "import": "./dist/about-streamline-team.js",
+    "require": "./dist/about-streamline-team.cjs"
+  },
+  "./blocks/about/about-vision-gallery": {
+    "types": "./dist/about-vision-gallery.d.ts",
+    "import": "./dist/about-vision-gallery.js",
+    "require": "./dist/about-vision-gallery.cjs"
+  },
+  "./blocks/about/alternating-blocks": {
+    "types": "./dist/alternating-blocks.d.ts",
+    "import": "./dist/alternating-blocks.js",
+    "require": "./dist/alternating-blocks.cjs"
+  },
+  "./blocks/about/community-initiatives": {
+    "types": "./dist/community-initiatives.d.ts",
+    "import": "./dist/community-initiatives.js",
+    "require": "./dist/community-initiatives.cjs"
+  }
+}
