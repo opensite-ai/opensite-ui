@@ -434,6 +434,13 @@ import { ProjectVideoHoverTwoByTwo } from "../../components/blocks/project-list/
 import { ProjectWorkShowcase } from "../../components/blocks/project-list/project-work-showcase";
 import { ProjectZigzagLayout } from "../../components/blocks/project-list/project-zigzag-layout";
 
+// List components
+import { ListServiceCategoryTable } from "../../components/blocks/list/list-service-category-table";
+import { ListAchievementsShowcase } from "../../components/blocks/list/list-achievements-showcase";
+import { ListCareerTimeline } from "../../components/blocks/list/list-career-timeline";
+import { ListMetricsDashboard } from "../../components/blocks/list/list-metrics-dashboard";
+import { ListFeatureComparison } from "../../components/blocks/list/list-feature-comparison";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -467,11 +474,12 @@ export type BlockCategory =
   | "background-pattern-hero"
   | "blog"
   | "article"
-  | "case-studies-list"
-    | "case-study-detail"
-    | "navbar"
-    | "logos"
-    | "project-list";
+    | "case-studies-list"
+      | "case-study-detail"
+      | "navbar"
+      | "logos"
+      | "project-list"
+      | "list";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -9963,6 +9971,181 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   subheading="Detailed showcase"
   projects={[
     { id: 1, title: "E-commerce Platform", category: "Web Development", description: "Full-stack solution", image: "/project1.jpg", technologies: ["React", "Node.js"], link: "#" }
+  ]}
+/>`.trim(),
+  },
+
+  // List components
+  "list-service-category-table": {
+    id: "list-service-category-table",
+    name: "Service Category Table",
+    description:
+      "A responsive table displaying service categories with icons, descriptions, years, offer types, and market segments. Features color-coded offer indicators and a mobile-optimized layout that collapses columns into a compact view. Ideal for showcasing product catalogs, service offerings, or feature comparisons in a structured, scannable format.",
+    semanticTags: [
+      "list",
+      "table",
+      "services",
+      "categories",
+      "products",
+      "catalog",
+      "offerings",
+      "responsive",
+      "data-table",
+      "comparison",
+    ],
+    category: "list",
+    component: ListServiceCategoryTable,
+    props: "ListServiceCategoryTableProps",
+    exampleUsage: `<ListServiceCategoryTable
+  items={[
+    {
+      icon: "lucide/shield",
+      category: "Security",
+      description: "Enterprise security solution",
+      year: 2024,
+      offer: "Professional",
+      segment: "Business"
+    }
+  ]}
+/>`.trim(),
+  },
+  "list-achievements-showcase": {
+    id: "list-achievements-showcase",
+    name: "Achievements Showcase",
+    description:
+      "A vertical list displaying achievements and recognition with icons, titles, categories, descriptions, and action links. Each item is separated by dividers and features a responsive grid layout that adapts to mobile screens. Perfect for showcasing awards, certifications, milestones, or company achievements in a professional, scannable format.",
+    semanticTags: [
+      "list",
+      "achievements",
+      "awards",
+      "recognition",
+      "milestones",
+      "certifications",
+      "accomplishments",
+      "portfolio",
+      "showcase",
+    ],
+    category: "list",
+    component: ListAchievementsShowcase,
+    props: "ListAchievementsShowcaseProps",
+    exampleUsage: `<ListAchievementsShowcase
+  heading="Our Achievements & Recognition"
+  items={[
+    {
+      icon: "lucide/trophy",
+      title: "Industry Recognition",
+      category: "Achievement",
+      description: "Outstanding Performance Award.",
+      link: "/achievements/recognition"
+    }
+  ]}
+  buttonText="View project"
+/>`.trim(),
+  },
+  "list-career-timeline": {
+    id: "list-career-timeline",
+    name: "Career Timeline",
+    description:
+      "A two-section timeline displaying professional experience and achievements/awards. Features a bold heading, experience history with roles and companies, and a comprehensive awards section with organizations. Perfect for portfolio pages, about sections, or resume-style presentations showcasing career progression and professional recognition.",
+    semanticTags: [
+      "list",
+      "timeline",
+      "career",
+      "experience",
+      "resume",
+      "cv",
+      "portfolio",
+      "professional",
+      "awards",
+      "history",
+    ],
+    category: "list",
+    component: ListCareerTimeline,
+    props: "ListCareerTimelineProps",
+    exampleUsage: `<ListCareerTimeline
+  sectionLabel="/ CAREER PATH"
+  heading={<>BUILDING SOLUTIONS,<br /> SHAPING THE FUTURE</>}
+  experienceLabel="/ EXPERIENCE"
+  experiences={[
+    { year: "2019 - PRESENT", role: "SENIOR SOFTWARE ENGINEER", company: "TECH CORP" }
+  ]}
+  achievementsLabel="/ ACHIEVEMENTS"
+  awards={[
+    { year: "2023", title: "BEST SOFTWARE ENGINEER", organization: "TECH AWARDS" }
+  ]}
+/>`.trim(),
+  },
+  "list-metrics-dashboard": {
+    id: "list-metrics-dashboard",
+    name: "Metrics Dashboard",
+    description:
+      "A comprehensive metrics dashboard with tabbed category filtering, status indicators, change percentages, and tooltips. Features a mobile-friendly dropdown for category selection and a responsive grid layout for metric items. Perfect for admin dashboards, analytics pages, or status monitoring displays showcasing KPIs across multiple categories like performance, security, users, and business.",
+    semanticTags: [
+      "list",
+      "metrics",
+      "dashboard",
+      "analytics",
+      "kpi",
+      "statistics",
+      "monitoring",
+      "performance",
+      "tabs",
+      "status",
+    ],
+    category: "list",
+    component: ListMetricsDashboard,
+    props: "ListMetricsDashboardProps",
+    exampleUsage: `<ListMetricsDashboard
+  badgeText="System Metrics"
+  heading="Platform Health & Performance"
+  description="Key metrics across our infrastructure, security, and business operations."
+  metrics={[
+    {
+      id: "uptime",
+      icon: "lucide/server",
+      name: "System Uptime",
+      value: "99.99%",
+      changePercentage: 0.02,
+      status: "positive",
+      category: "performance"
+    }
+  ]}
+  dashboardLinkText="View complete dashboard"
+  dashboardLinkUrl="/dashboard"
+/>`.trim(),
+  },
+  "list-feature-comparison": {
+    id: "list-feature-comparison",
+    name: "Feature Comparison",
+    description:
+      "A hero-style feature comparison table with pricing tiers, trust indicators, and call-to-action buttons. Displays features across Basic, Pro, and Enterprise plans with check/X icons for availability. Perfect for pricing pages, plan comparison sections, or feature matrices that help users choose the right tier for their needs.",
+    semanticTags: [
+      "list",
+      "comparison",
+      "pricing",
+      "features",
+      "plans",
+      "tiers",
+      "table",
+      "hero",
+      "cta",
+      "trust-indicators",
+    ],
+    category: "list",
+    component: ListFeatureComparison,
+    props: "ListFeatureComparisonProps",
+    exampleUsage: `<ListFeatureComparison
+  badgeText="New Enterprise Plan Available"
+  heading="Choose the perfect plan for your needs"
+  description="From startups to enterprises, we have a plan that scales with your business."
+  features={[
+    { name: "Unlimited Projects", basic: false, pro: true, enterprise: true },
+    { name: "API Access", basic: true, pro: true, enterprise: true }
+  ]}
+  primaryButtonText="Get Started"
+  primaryButtonUrl="/signup"
+  trustIndicators={[
+    { icon: "lucide/users", title: "50,000+ Users", description: "Join our community" }
   ]}
 />`.trim(),
   },
