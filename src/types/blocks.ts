@@ -138,6 +138,10 @@ export interface FeatureItem {
    */
   icon?: ReactNode;
   /**
+   * Icon name for dynamic icon loading
+   */
+  iconName?: string;
+  /**
    * Optional link URL
    */
   href?: string;
@@ -145,6 +149,14 @@ export interface FeatureItem {
    * Additional CSS classes
    */
   className?: string;
+  /**
+   * CSS class for icon background
+   */
+  iconBgClass?: string;
+  /**
+   * CSS class for icon color
+   */
+  iconColorClass?: string;
 }
 
 /**
@@ -209,6 +221,14 @@ export interface TestimonialItem {
    */
   avatarSrc?: string;
   /**
+   * Author avatar configuration (alternative to avatarSrc)
+   */
+  avatar?: {
+    src: string;
+    alt?: string;
+    fallback?: string;
+  };
+  /**
    * Company logo URL
    */
   logoSrc?: string;
@@ -267,6 +287,10 @@ export interface SocialLinkItem {
    * Social platform name
    */
   platform?: string;
+  /**
+   * Display label for the link
+   */
+  label?: ReactNode;
   /**
    * Link URL
    */
