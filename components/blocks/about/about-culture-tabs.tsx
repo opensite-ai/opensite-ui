@@ -7,7 +7,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent } from "../../ui/card";
-import { imagePlaceholders, avatarPlaceholders } from "../../../lib/mediaPlaceholders";
+import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 
 export interface CultureTestimonial {
   /**
@@ -121,7 +121,7 @@ const defaultAspects: CultureAspect[] = [
         "I've never worked anywhere that so actively encourages creative thinking. We're given the time and resources to explore new ideas, even if they might not work out. That freedom to innovate without fear has led to our most successful products.",
       author: "Sarah Chen",
       role: "Product Designer",
-      avatar: avatarPlaceholders[0],
+      avatar: imagePlaceholders[15],
     },
   },
   {
@@ -135,7 +135,7 @@ const defaultAspects: CultureAspect[] = [
         "The walls between teams simply don't exist here. Developers, designers, marketers—we all work together with mutual respect. I've seen ideas transform when people from different backgrounds contribute their unique perspectives.",
       author: "Marcus Johnson",
       role: "Engineering Lead",
-      avatar: avatarPlaceholders[1],
+      avatar: imagePlaceholders[16],
     },
   },
   {
@@ -149,7 +149,7 @@ const defaultAspects: CultureAspect[] = [
         "I joined from a company where burnout was considered a badge of honor. Here, I'm encouraged to take time off, pursue hobbies, and bring my whole self to work. The result? I'm happier, healthier, and doing the best work of my career.",
       author: "Elena Rodriguez",
       role: "Customer Success Manager",
-      avatar: avatarPlaceholders[2],
+      avatar: imagePlaceholders[17],
     },
   },
   {
@@ -163,7 +163,7 @@ const defaultAspects: CultureAspect[] = [
         "In three years, I've grown from a junior role to leading a team, supported every step of the way with training, challenges that stretched my abilities, and leaders who saw potential in me before I saw it in myself.",
       author: "James Wilson",
       role: "Marketing Director",
-      avatar: avatarPlaceholders[3],
+      avatar: imagePlaceholders[18],
     },
   },
 ];
