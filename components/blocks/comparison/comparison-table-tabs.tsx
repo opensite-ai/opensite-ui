@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import * as React from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import {
@@ -13,20 +14,80 @@ import {
 } from "../../ui/table";
 import { Tabs, TabsList, TabsTrigger } from "../../ui/tabs";
 
-interface AttributeValue {
+/**
+ * Status indicator for comparison values
+ */
+export type ComparisonStatus = "positive" | "negative" | "neutral";
+
+/**
+ * Attribute value with status indicator
+ */
+export interface AttributeValue {
   value: string;
-  status: "positive" | "negative" | "neutral";
+  status: ComparisonStatus;
 }
 
-interface ComparisonModel {
+/**
+ * Model/option configuration for comparison
+ */
+export interface ComparisonModel {
   name: string;
   attributes: AttributeValue[];
 }
 
 export interface ComparisonTableTabsProps {
-  className?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of feature names for comparison rows
+   */
   features?: string[];
+  /**
+   * Array of model configurations to compare
+   */
   models?: ComparisonModel[];
+  /**
+   * Custom slot for rendering the table (overrides default table)
+   */
+  tableSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the tabs container
+   */
+  tabsClassName?: string;
+  /**
+   * Additional CSS classes for the table
+   */
+  tableClassName?: string;
+  /**
+   * Additional CSS classes for table header cells
+   */
+  tableHeaderClassName?: string;
+  /**
+   * Additional CSS classes for table body cells
+   */
+  tableCellClassName?: string;
 }
 
 const defaultFeatures = [
@@ -86,10 +147,20 @@ const defaultModels: ComparisonModel[] = [
  * options, service tier comparisons with detailed attributes.
  */
 export function ComparisonTableTabs({
-  className,
+  heading,
+  description,
   features = defaultFeatures,
   models = defaultModels,
-}: ComparisonTableTabsProps) {
+  tableSlot,
+  className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
+  tabsClassName,
+  tableClassName,
+  tableHeaderClassName,
+  tableCellClassName,
+}: ComparisonTableTabsProps): React.JSX.Element {
   const [selectedTab, setSelectedTab] = useState(models[0]?.name || "");
 
   const renderStatusIcon = (status: AttributeValue["status"]) => {
@@ -114,13 +185,15 @@ export function ComparisonTableTabs({
     );
   };
 
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+  const renderTable = () => {
+    if (tableSlot) return tableSlot;
+
+    return (
+      <>
         <Tabs
           defaultValue={models[0]?.name}
           onValueChange={setSelectedTab}
-          className="mb-6 block md:hidden"
+          className={cn("mb-6 block md:hidden", tabsClassName)}
         >
           <TabsList className="w-full">
             {models.map((model, idx) => (
@@ -131,10 +204,10 @@ export function ComparisonTableTabs({
           </TabsList>
         </Tabs>
         <div className="[&>div]:overflow-visible">
-          <Table className="table-fixed [&_td]:border [&_th]:border">
+          <Table className={cn("table-fixed [&_td]:border [&_th]:border", tableClassName)}>
             <TableHeader>
               <TableRow>
-                <TableHead className="sticky top-0 mb-24 w-1/4 bg-background p-5 text-base font-medium text-primary after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border">
+                <TableHead className={cn("sticky top-0 mb-24 w-1/4 bg-background p-5 text-base font-medium text-primary after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border", tableHeaderClassName)}>
                   Feature
                 </TableHead>
                 {models.map((model, idx) => (
@@ -142,7 +215,8 @@ export function ComparisonTableTabs({
                     key={idx}
                     className={cn(
                       "sticky top-0 mb-24 w-1/4 bg-background p-5 text-center text-base font-medium text-primary after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border md:table-cell",
-                      model.name !== selectedTab ? "hidden" : ""
+                      model.name !== selectedTab ? "hidden" : "",
+                      tableHeaderClassName
                     )}
                   >
                     {model.name}
@@ -153,7 +227,7 @@ export function ComparisonTableTabs({
             <TableBody>
               {features.map((feature, rowIdx) => (
                 <TableRow key={rowIdx}>
-                  <TableCell className="p-5 font-semibold whitespace-normal">
+                  <TableCell className={cn("p-5 font-semibold whitespace-normal", tableCellClassName)}>
                     {feature}
                   </TableCell>
                   {models.map((model, colIdx) => (
@@ -161,7 +235,8 @@ export function ComparisonTableTabs({
                       key={colIdx}
                       className={cn(
                         "p-5 text-center whitespace-normal md:table-cell",
-                        model.name !== selectedTab ? "hidden" : ""
+                        model.name !== selectedTab ? "hidden" : "",
+                        tableCellClassName
                       )}
                     >
                       <div className="flex flex-col items-center gap-1 text-muted-foreground">
@@ -175,6 +250,36 @@ export function ComparisonTableTabs({
             </TableBody>
           </Table>
         </div>
+      </>
+    );
+  };
+
+  return (
+    <section className={cn("py-32", className)}>
+      <div className={cn("container", containerClassName)}>
+        {(heading || description) && (
+          <div className="mb-8 text-center">
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-3xl font-bold md:text-4xl lg:text-5xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-4 text-muted-foreground md:text-lg", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+          </div>
+        )}
+        {renderTable()}
       </div>
     </section>
   );
