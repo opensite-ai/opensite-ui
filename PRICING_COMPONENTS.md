@@ -5942,3 +5942,1889 @@ const Pricing38 = ({ className }: Pricing38Props) => {
 export { Pricing38 };
 
 ```
+
+
+```tsx
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { CheckIcon, MinusIcon } from "lucide-react";
+import React from "react";
+
+interface PlanFeature {
+  type: string;
+  features: {
+    name: string;
+    free: boolean;
+    startup: boolean;
+    team: boolean;
+    enterprise: boolean;
+  }[];
+}
+
+const planFeatures: PlanFeature[] = [
+  {
+    type: "Financial data",
+    features: [
+      {
+        name: "Open/High/Low/Close",
+        free: true,
+        startup: true,
+        team: true,
+        enterprise: true,
+      },
+      {
+        name: "Price-volume difference indicator ",
+        free: true,
+        startup: true,
+        team: true,
+        enterprise: true,
+      },
+    ],
+  },
+  {
+    type: "On-chain data",
+    features: [
+      {
+        name: "Network growth",
+        free: true,
+        startup: false,
+        team: true,
+        enterprise: true,
+      },
+      {
+        name: "Average token age consumed",
+        free: true,
+        startup: false,
+        team: true,
+        enterprise: true,
+      },
+      {
+        name: "Exchange flow",
+        free: false,
+        startup: false,
+        team: true,
+        enterprise: true,
+      },
+      {
+        name: "Total ERC20 exchange funds flow",
+        free: false,
+        startup: false,
+        team: true,
+        enterprise: true,
+      },
+    ],
+  },
+  {
+    type: "Social data",
+    features: [
+      {
+        name: "Dev activity",
+        free: false,
+        startup: true,
+        team: false,
+        enterprise: true,
+      },
+      {
+        name: "Topic search",
+        free: true,
+        startup: true,
+        team: true,
+        enterprise: true,
+      },
+      {
+        name: "Relative social dominance",
+        free: true,
+        startup: true,
+        team: false,
+        enterprise: true,
+      },
+    ],
+  },
+];
+
+export default function PricingSectionCards() {
+  return (
+    <>
+      {/* Pricing */}
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px] py-24 lg:py-32">
+        {/* Title */}
+        <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            Pricing
+          </h2>
+          <p className="mt-1 text-muted-foreground">
+            Whatever your status, our offers evolve according to your needs.
+          </p>
+        </div>
+        {/* End Title */}
+        {/* Switch */}
+        <div className="flex justify-center items-center">
+          <Label htmlFor="payment-schedule" className="me-3">
+            Monthly
+          </Label>
+          <Switch id="payment-schedule" />
+          <Label htmlFor="payment-schedule" className="relative ms-3">
+            Annual
+            <span className="absolute -top-10 start-auto -end-28">
+              <span className="flex items-center">
+                <svg
+                  className="w-14 h-8 -me-6"
+                  width={45}
+                  height={25}
+                  viewBox="0 0 45 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M43.2951 3.47877C43.8357 3.59191 44.3656 3.24541 44.4788 2.70484C44.5919 2.16427 44.2454 1.63433 43.7049 1.52119L43.2951 3.47877ZM4.63031 24.4936C4.90293 24.9739 5.51329 25.1423 5.99361 24.8697L13.8208 20.4272C14.3011 20.1546 14.4695 19.5443 14.1969 19.0639C13.9242 18.5836 13.3139 18.4152 12.8336 18.6879L5.87608 22.6367L1.92723 15.6792C1.65462 15.1989 1.04426 15.0305 0.563943 15.3031C0.0836291 15.5757 -0.0847477 16.1861 0.187863 16.6664L4.63031 24.4936ZM43.7049 1.52119C32.7389 -0.77401 23.9595 0.99522 17.3905 5.28788C10.8356 9.57127 6.58742 16.2977 4.53601 23.7341L6.46399 24.2659C8.41258 17.2023 12.4144 10.9287 18.4845 6.96211C24.5405 3.00476 32.7611 1.27399 43.2951 3.47877L43.7049 1.52119Z"
+                    fill="currentColor"
+                    className="text-muted-foreground"
+                  />
+                </svg>
+                <Badge className="mt-3 uppercase">Save up to 10%</Badge>
+              </span>
+            </span>
+          </Label>
+        </div>
+        {/* End Switch */}
+        {/* Grid */}
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
+          {/* Card */}
+          <Card className="flex flex-col">
+            <CardHeader className="text-center pb-2">
+              <CardTitle className="mb-7">Free</CardTitle>
+              <span className="font-bold text-5xl">Free</span>
+            </CardHeader>
+            <CardDescription className="text-center">
+              Forever free
+            </CardDescription>
+            <CardContent className="flex-1">
+              <ul className="mt-7 space-y-2.5 text-sm">
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">1 user</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Plan features</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Product support</span>
+                </li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" variant={"outline"}>
+                Sign up
+              </Button>
+            </CardFooter>
+          </Card>
+          {/* End Card */}
+          {/* Card */}
+          <Card className="border-primary flex flex-col">
+            <CardHeader className="text-center pb-2">
+              <Badge className="uppercase w-max self-center mb-3">
+                Most popular
+              </Badge>
+              <CardTitle className="!mb-7">Startup</CardTitle>
+              <span className="font-bold text-5xl">£39</span>
+            </CardHeader>
+            <CardDescription className="text-center w-11/12 mx-auto">
+              All the basics for starting a new business
+            </CardDescription>
+            <CardContent className="flex-1">
+              <ul className="mt-7 space-y-2.5 text-sm">
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">2 user</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Plan features</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Product support</span>
+                </li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full">Sign up</Button>
+            </CardFooter>
+          </Card>
+          {/* End Card */}
+          {/* Card */}
+          <Card className="flex flex-col">
+            <CardHeader className="text-center pb-2">
+              <CardTitle className="mb-7">Team</CardTitle>
+              <span className="font-bold text-5xl">£89</span>
+            </CardHeader>
+            <CardDescription className="text-center  w-11/12 mx-auto">
+              Everything you need for a growing business
+            </CardDescription>
+            <CardContent className="flex-1">
+              <ul className="mt-7 space-y-2.5 text-sm">
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">5 user</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Plan features</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Product support</span>
+                </li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" variant={"outline"}>
+                Sign up
+              </Button>
+            </CardFooter>
+          </Card>
+          {/* End Card */}
+          {/* Card */}
+          <Card className="flex flex-col">
+            <CardHeader className="text-center pb-2">
+              <CardTitle className="mb-7">Enterprise</CardTitle>
+              <span className="font-bold text-5xl">149</span>
+            </CardHeader>
+            <CardDescription className="text-center  w-11/12 mx-auto">
+              Advanced features for scaling your business
+            </CardDescription>
+            <CardContent>
+              <ul className="mt-7 space-y-2.5 text-sm">
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">10 user</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Plan features</span>
+                </li>
+                <li className="flex space-x-2">
+                  <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                  <span className="text-muted-foreground">Product support</span>
+                </li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" variant={"outline"}>
+                Sign up
+              </Button>
+            </CardFooter>
+          </Card>
+          {/* End Card */}
+        </div>
+        {/* End Grid */}
+        {/* Comparison table */}
+        <div className="mt-20 lg:mt-32">
+          <div className="lg:text-center mb-10 lg:mb-20">
+            <h3 className="text-2xl font-semibold dark:text-white">
+              Compare plans
+            </h3>
+          </div>
+          {/* xs to lg */}
+          <Table className="hidden lg:table">
+            <TableHeader>
+              <TableRow className="bg-muted hover:bg-muted">
+                <TableHead className="w-3/12 text-primary">Plans</TableHead>
+                <TableHead className="w-2/12 text-primary text-lg font-medium text-center">
+                  Free
+                </TableHead>
+                <TableHead className="w-2/12 text-primary text-lg font-medium text-center">
+                  Startup
+                </TableHead>
+                <TableHead className="w-2/12 text-primary text-lg font-medium text-center">
+                  Team
+                </TableHead>
+                <TableHead className="w-2/12 text-primary text-lg font-medium text-center">
+                  Enterprise
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {planFeatures.map((featureType) => (
+                <React.Fragment key={featureType.type}>
+                  <TableRow className="bg-muted/50">
+                    <TableCell colSpan={5} className="font-bold">
+                      {featureType.type}
+                    </TableCell>
+                  </TableRow>
+                  {featureType.features.map((feature) => (
+                    <TableRow
+                      key={feature.name}
+                      className="text-muted-foreground"
+                    >
+                      <TableCell>{feature.name}</TableCell>
+                      <TableCell>
+                        <div className="mx-auto w-min">
+                          {feature.free ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="mx-auto w-min">
+                          {feature.startup ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="mx-auto w-min">
+                          {feature.team ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="mx-auto w-min">
+                          {feature.enterprise ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </React.Fragment>
+              ))}
+            </TableBody>
+          </Table>
+
+          <div className="space-y-24 lg:hidden">
+            <section>
+              <div className="mb-4">
+                <h4 className="text-xl font-medium">Free</h4>
+              </div>
+              <Table>
+                {planFeatures.map((featureType) => (
+                  <React.Fragment key={featureType.type}>
+                    <TableRow className="bg-muted hover:bg-muted">
+                      <TableCell
+                        colSpan={2}
+                        className="w-10/12 text-primary font-bold"
+                      >
+                        {featureType.type}
+                      </TableCell>
+                    </TableRow>
+                    {featureType.features.map((feature) => (
+                      <TableRow
+                        className="text-muted-foreground"
+                        key={feature.name}
+                      >
+                        <TableCell className="w-11/12">
+                          {feature.name}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {feature.enterprise ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </Table>
+            </section>
+            <section>
+              <div className="mb-4">
+                <h4 className="text-xl font-medium">Startup</h4>
+              </div>
+              <Table>
+                {planFeatures.map((featureType) => (
+                  <React.Fragment key={featureType.type}>
+                    <TableRow className="bg-muted hover:bg-muted">
+                      <TableCell
+                        colSpan={2}
+                        className="w-10/12 text-primary font-bold"
+                      >
+                        {featureType.type}
+                      </TableCell>
+                    </TableRow>
+                    {featureType.features.map((feature) => (
+                      <TableRow
+                        className="text-muted-foreground"
+                        key={feature.name}
+                      >
+                        <TableCell className="w-11/12">
+                          {feature.name}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {feature.startup ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </Table>
+            </section>
+            <section>
+              <div className="mb-4">
+                <h4 className="text-xl font-medium">Team</h4>
+              </div>
+              <Table>
+                {planFeatures.map((featureType) => (
+                  <React.Fragment key={featureType.type}>
+                    <TableRow className="bg-muted hover:bg-muted">
+                      <TableCell
+                        colSpan={2}
+                        className="w-10/12 text-primary font-bold"
+                      >
+                        {featureType.type}
+                      </TableCell>
+                    </TableRow>
+                    {featureType.features.map((feature) => (
+                      <TableRow
+                        className="text-muted-foreground"
+                        key={feature.name}
+                      >
+                        <TableCell className="w-11/12">
+                          {feature.name}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {feature.team ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </Table>
+            </section>
+            <section>
+              <div className="mb-4">
+                <h4 className="text-xl font-medium">Enterprise</h4>
+              </div>
+              <Table>
+                {planFeatures.map((featureType) => (
+                  <React.Fragment key={featureType.type}>
+                    <TableRow className="bg-muted hover:bg-muted">
+                      <TableCell
+                        colSpan={2}
+                        className="w-10/12 text-primary font-bold"
+                      >
+                        {featureType.type}
+                      </TableCell>
+                    </TableRow>
+                    {featureType.features.map((feature) => (
+                      <TableRow
+                        className="text-muted-foreground"
+                        key={feature.name}
+                      >
+                        <TableCell className="w-11/12">
+                          {feature.name}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {feature.enterprise ? (
+                            <CheckIcon className="h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="h-5 w-5" />
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </Table>
+            </section>
+          </div>
+          {/* End xs to lg */}
+        </div>
+        {/* End Comparison table */}
+      </div>
+      {/* End Pricing */}
+    </>
+  );
+}
+```
+
+```tsx
+import { Button } from '@/components/ui/button';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { CheckIcon, MinusIcon } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
+type Feature = {
+  name: string;
+  basic: string | boolean;
+  pro: string | boolean;
+  enterprise: string | boolean;
+  [key: string]: string | boolean;
+};
+
+const features: Feature[] = [
+  {
+    name: 'Users',
+    basic: '1 user',
+    pro: '5 users',
+    enterprise: 'Unlimited',
+  },
+  {
+    name: 'Storage',
+    basic: '10GB',
+    pro: '50GB',
+    enterprise: '500GB',
+  },
+  {
+    name: 'Support',
+    basic: 'Email',
+    pro: 'Priority',
+    enterprise: '24/7 Phone & Email',
+  },
+  {
+    name: 'Analytics',
+    basic: true,
+    pro: true,
+    enterprise: true,
+  },
+  {
+    name: 'API Access',
+    basic: false,
+    pro: true,
+    enterprise: true,
+  },
+  {
+    name: 'Custom Domain',
+    basic: false,
+    pro: true,
+    enterprise: true,
+  },
+  {
+    name: 'White Labeling',
+    basic: false,
+    pro: false,
+    enterprise: true,
+  },
+  {
+    name: 'Custom Integrations',
+    basic: false,
+    pro: false,
+    enterprise: true,
+  },
+];
+
+type Plan = {
+  name: string;
+  price: string;
+  description: string;
+  popular?: boolean;
+};
+
+const plans: Plan[] = [
+  {
+    name: 'Basic',
+    price: '$9',
+    description: 'For individuals and small projects',
+  },
+  {
+    name: 'Pro',
+    price: '$19',
+    description: 'For growing teams and businesses',
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    price: '$49',
+    description: 'For large organizations',
+  },
+];
+
+export default function PricingSectionHorizontal() {
+  // Helper function to safely access feature properties
+  const getFeatureValue = (
+    feature: Feature,
+    planName: string
+  ): string | boolean => {
+    const key = planName.toLowerCase();
+    return feature[key] || false;
+  };
+
+  return (
+    <section className="w-full py-12">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        {/* Header */}
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Simple pricing for everyone
+          </h2>
+          <p className="text-muted-foreground mt-4">
+            Choose the plan that best suits your needs.
+          </p>
+        </div>
+
+        {/* Mobile pricing cards (visible on small screens) */}
+        <div className="mt-12 grid gap-6 md:hidden">
+          {plans.map((plan) => (
+            <Card
+              key={plan.name}
+              className={plan.popular ? 'border-primary' : ''}
+            >
+              <CardHeader>
+                <CardTitle className="text-xl">{plan.name}</CardTitle>
+                <div className="mt-2 flex items-baseline">
+                  <span className="text-3xl font-bold">{plan.price}</span>
+                  <span className="text-muted-foreground ml-1 text-sm">
+                    /month
+                  </span>
+                </div>
+                <p className="text-muted-foreground text-sm">
+                  {plan.description}
+                </p>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {features.map((feature) => (
+                    <li key={feature.name} className="flex justify-between">
+                      <span className="text-sm">{feature.name}</span>
+                      <span className="text-sm">
+                        {typeof getFeatureValue(feature, plan.name) ===
+                        'boolean' ? (
+                          getFeatureValue(feature, plan.name) ? (
+                            <CheckIcon className="text-primary h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="text-muted-foreground h-5 w-5" />
+                          )
+                        ) : (
+                          getFeatureValue(feature, plan.name)
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  variant={plan.popular ? 'default' : 'outline'}
+                  asChild
+                >
+                  <a href="/signup">Get Started</a>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+
+        {/* Desktop pricing table (hidden on small screens) */}
+        <div className="mt-12 hidden md:block">
+          <div className="grid grid-cols-4 items-end gap-8">
+            <div className="col-span-1">
+              <h3 className="text-lg font-medium">Features</h3>
+            </div>
+            {plans.map((plan) => (
+              <div key={plan.name} className="col-span-1 text-center">
+                <div
+                  className={`rounded-lg border p-4 ${
+                    plan.popular ? 'border-primary' : ''
+                  }`}
+                >
+                  <div className="text-xl font-bold">{plan.name}</div>
+                  <div className="mt-2 text-3xl font-bold">{plan.price}</div>
+                  <div className="text-muted-foreground mt-1 text-sm">
+                    /month
+                  </div>
+                  <p className="text-muted-foreground mt-2 text-sm">
+                    {plan.description}
+                  </p>
+                  <Button
+                    className="mt-6 w-full"
+                    variant={plan.popular ? 'default' : 'outline'}
+                    asChild
+                  >
+                    <a href="/signup">Get Started</a>
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <ScrollArea className="mt-8 rounded-lg border">
+            <div className="min-w-[800px]">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[200px]">Features</TableHead>
+                    <TableHead className="text-center">Basic</TableHead>
+                    <TableHead className="text-center">Pro</TableHead>
+                    <TableHead className="text-center">Enterprise</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {features.map((feature) => (
+                    <TableRow key={feature.name}>
+                      <TableCell className="font-medium">
+                        {feature.name}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {typeof feature.basic === 'boolean' ? (
+                          feature.basic ? (
+                            <CheckIcon className="text-primary mx-auto h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="text-muted-foreground mx-auto h-5 w-5" />
+                          )
+                        ) : (
+                          feature.basic
+                        )}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {typeof feature.pro === 'boolean' ? (
+                          feature.pro ? (
+                            <CheckIcon className="text-primary mx-auto h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="text-muted-foreground mx-auto h-5 w-5" />
+                          )
+                        ) : (
+                          feature.pro
+                        )}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {typeof feature.enterprise === 'boolean' ? (
+                          feature.enterprise ? (
+                            <CheckIcon className="text-primary mx-auto h-5 w-5" />
+                          ) : (
+                            <MinusIcon className="text-muted-foreground mx-auto h-5 w-5" />
+                          )
+                        ) : (
+                          feature.enterprise
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </ScrollArea>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { CheckIcon, XIcon, HelpCircleIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const plans = [
+  {
+    name: 'Free',
+    key: 'free',
+    price: '$0',
+    description: 'For personal projects',
+    cta: 'Get Started',
+    popular: false,
+  },
+  {
+    name: 'Pro',
+    key: 'pro',
+    price: '$29',
+    description: 'For professionals and small teams',
+    cta: 'Start Free Trial',
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    key: 'enterprise',
+    price: '$99',
+    description: 'For large organizations',
+    cta: 'Contact Sales',
+    popular: false,
+  },
+];
+
+const featureGroups = [
+  {
+    name: 'Core Features',
+    features: [
+      {
+        name: 'Projects',
+        description: 'Number of projects you can create',
+        free: '3 projects',
+        pro: 'Unlimited',
+        enterprise: 'Unlimited',
+      },
+      {
+        name: 'Team members',
+        description: 'Number of team members you can invite',
+        free: '1 member',
+        pro: '10 members',
+        enterprise: 'Unlimited',
+      },
+      {
+        name: 'Storage',
+        description: 'Total storage for all your projects',
+        free: '5GB',
+        pro: '50GB',
+        enterprise: 'Unlimited',
+      },
+    ],
+  },
+  {
+    name: 'Collaboration',
+    features: [
+      {
+        name: 'Shared workspaces',
+        description: 'Create shared workspaces for team collaboration',
+        free: false,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: 'User permissions',
+        description: 'Control access with user permissions',
+        free: 'Basic',
+        pro: 'Advanced',
+        enterprise: 'Custom',
+      },
+      {
+        name: 'Version history',
+        description: 'Track changes with version history',
+        free: '7 days',
+        pro: '30 days',
+        enterprise: 'Unlimited',
+      },
+    ],
+  },
+  {
+    name: 'Security & Support',
+    features: [
+      {
+        name: 'Two-factor authentication',
+        description: 'Secure your account with 2FA',
+        free: false,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: 'Priority support',
+        description: 'Get faster responses from our support team',
+        free: false,
+        pro: true,
+        enterprise: true,
+      },
+      {
+        name: 'SLA guarantee',
+        description: 'Service level agreement for uptime and support',
+        free: false,
+        pro: false,
+        enterprise: true,
+      },
+    ],
+  },
+];
+
+export default function PricingSectionFeatureGrid() {
+  return (
+    <TooltipProvider>
+      <section className="w-full py-12 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Choose the Right Plan for You
+              </h2>
+              <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl/relaxed">
+                Compare our plans to find the perfect fit for your needs.
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile View (Tabs) */}
+          <div className="mt-8 md:hidden">
+            <Tabs defaultValue="free" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                {plans.map((plan) => (
+                  <TabsTrigger
+                    key={plan.key}
+                    value={plan.key}
+                    className="relative"
+                  >
+                    {plan.popular && (
+                      <Badge
+                        className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap"
+                        variant="default"
+                      >
+                        Popular
+                      </Badge>
+                    )}
+                    {plan.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              {plans.map((plan) => (
+                <TabsContent key={plan.key} value={plan.key} className="mt-4">
+                  <Card
+                    className={cn(
+                      'overflow-hidden',
+                      plan.popular && 'border-primary'
+                    )}
+                  >
+                    <CardContent className="p-6">
+                      <div className="mb-6 text-center">
+                        <h3 className="text-xl font-bold">{plan.name}</h3>
+                        <div className="mt-2 flex items-baseline justify-center">
+                          <span className="text-3xl font-bold">
+                            {plan.price}
+                          </span>
+                          {plan.price !== '$0' && (
+                            <span className="text-muted-foreground ml-1 text-sm">
+                              /month
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-muted-foreground mt-1 text-sm">
+                          {plan.description}
+                        </p>
+                        <Button
+                          className="mt-4 w-full"
+                          variant={plan.popular ? 'default' : 'outline'}
+                          asChild
+                        >
+                          <a href="#">{plan.cta}</a>
+                        </Button>
+                      </div>
+
+                      {featureGroups.map((group) => (
+                        <div key={group.name} className="mt-6">
+                          <h4 className="mb-2 font-medium">{group.name}</h4>
+                          <ul className="space-y-2">
+                            {group.features.map((feature) => (
+                              <li
+                                key={feature.name}
+                                className="flex items-start gap-2"
+                              >
+                                <div className="mt-1">
+                                  {typeof feature[
+                                    plan.key as keyof typeof feature
+                                  ] === 'boolean' ? (
+                                    feature[
+                                      plan.key as keyof typeof feature
+                                    ] ? (
+                                      <CheckIcon className="text-primary h-5 w-5" />
+                                    ) : (
+                                      <XIcon className="text-muted-foreground h-5 w-5" />
+                                    )
+                                  ) : (
+                                    <CheckIcon className="text-primary h-5 w-5" />
+                                  )}
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-1">
+                                    <span className="font-medium">
+                                      {feature.name}
+                                    </span>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <HelpCircleIcon className="text-muted-foreground h-4 w-4" />
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p className="max-w-xs">
+                                          {feature.description}
+                                        </p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </div>
+                                  {typeof feature[
+                                    plan.key as keyof typeof feature
+                                  ] !== 'boolean' && (
+                                    <span className="text-muted-foreground text-sm">
+                                      {
+                                        feature[
+                                          plan.key as keyof typeof feature
+                                        ]
+                                      }
+                                    </span>
+                                  )}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
+
+          {/* Desktop View (Grid) */}
+          <div className="mx-auto mt-12 hidden max-w-6xl md:block">
+            {/* Plan headers */}
+            <div className="grid grid-cols-4 gap-4">
+              <div className="col-span-1"></div>
+              {plans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className={cn(
+                    'col-span-1 rounded-t-lg p-4 text-center',
+                    plan.popular && 'bg-accent/50'
+                  )}
+                >
+                  <div className="relative">
+                    {plan.popular && (
+                      <Badge
+                        className="absolute -top-8 left-1/2 -translate-x-1/2"
+                        variant="default"
+                      >
+                        Most Popular
+                      </Badge>
+                    )}
+                    <h3 className="text-xl font-bold">{plan.name}</h3>
+                    <div className="mt-2 flex items-baseline justify-center">
+                      <span className="text-3xl font-bold">{plan.price}</span>
+                      {plan.price !== '$0' && (
+                        <span className="text-muted-foreground ml-1 text-sm">
+                          /month
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground mt-1 text-sm">
+                      {plan.description}
+                    </p>
+                    <Button
+                      className="mt-4 w-full"
+                      variant={plan.popular ? 'default' : 'outline'}
+                      asChild
+                    >
+                      <a href="#">{plan.cta}</a>
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Feature groups */}
+            {featureGroups.map((group) => (
+              <div key={group.name} className="mt-8">
+                <div className="mb-4 text-lg font-medium">{group.name}</div>
+                <Card className="p-0">
+                  <CardContent className="p-0">
+                    {group.features.map((feature, index) => (
+                      <div
+                        key={feature.name}
+                        className={cn(
+                          'grid grid-cols-4 gap-4 p-4',
+                          index !== group.features.length - 1 && 'border-b'
+                        )}
+                      >
+                        <div className="col-span-1 flex items-center gap-2">
+                          <span>{feature.name}</span>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <HelpCircleIcon className="text-muted-foreground h-4 w-4" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="max-w-xs">{feature.description}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </div>
+                        {['free', 'pro', 'enterprise'].map((planKey) => (
+                          <div
+                            key={planKey}
+                            className={cn(
+                              'col-span-1 flex items-center justify-center',
+                              planKey === 'pro' && 'bg-accent/50'
+                            )}
+                          >
+                            {typeof feature[planKey as keyof typeof feature] ===
+                            'boolean' ? (
+                              feature[planKey as keyof typeof feature] ? (
+                                <CheckIcon className="text-primary h-5 w-5" />
+                              ) : (
+                                <XIcon className="text-muted-foreground h-5 w-5" />
+                              )
+                            ) : (
+                              <span>
+                                {feature[planKey as keyof typeof feature]}
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-muted/30 mx-auto mt-16 max-w-3xl rounded-lg border p-8 text-center">
+            <h3 className="text-xl font-medium">Need help choosing?</h3>
+            <p className="text-muted-foreground mt-2">
+              Our team can help you find the perfect plan for your specific
+              needs.
+            </p>
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:justify-center">
+              <Button variant="outline" asChild>
+                <a href="#">Schedule a Demo</a>
+              </Button>
+              <Button asChild>
+                <a href="#">Talk to Sales</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </TooltipProvider>
+  );
+}
+
+```
+
+```tsx
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { CheckIcon, ShieldIcon, LockIcon, ServerIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
+
+const plans = [
+  {
+    name: 'Business',
+    price: '$99',
+    description: 'For small to medium-sized businesses',
+    features: [
+      'Up to 25 users',
+      'Unlimited projects',
+      'Priority support',
+      '50GB storage',
+      'API access',
+      'Advanced analytics',
+      'Custom domains',
+    ],
+    securityFeatures: [
+      'Two-factor authentication',
+      'SSO with Google',
+      'Basic audit logs',
+      'Standard encryption',
+    ],
+  },
+  {
+    name: 'Enterprise',
+    price: '$299',
+    description: 'For large organizations with advanced needs',
+    features: [
+      'Unlimited users',
+      'Unlimited projects',
+      '24/7 phone support',
+      '500GB storage',
+      'Advanced API access',
+      'Enterprise analytics',
+      'Custom domains',
+      'Dedicated account manager',
+      'Custom integrations',
+    ],
+    securityFeatures: [
+      'Two-factor authentication',
+      'SSO with any provider',
+      'Advanced audit logs',
+      'End-to-end encryption',
+      'Role-based access control',
+      'IP restrictions',
+      'Data residency options',
+      'Compliance certifications',
+    ],
+    highlight: true,
+  },
+];
+
+const complianceCertifications = [
+  {
+    name: 'SOC 2 Type II',
+    description: 'Security, availability, and confidentiality',
+  },
+  {
+    name: 'HIPAA',
+    description: 'Health Insurance Portability and Accountability Act',
+  },
+  {
+    name: 'GDPR',
+    description: 'General Data Protection Regulation compliance',
+  },
+  { name: 'ISO 27001', description: 'Information security management' },
+  {
+    name: 'PCI DSS',
+    description: 'Payment Card Industry Data Security Standard',
+  },
+];
+
+export default function PricingSectionEnterprise() {
+  return (
+    <section className="w-full py-12 md:py-24 lg:py-32">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Enterprise-grade security and compliance
+            </h2>
+            <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl/relaxed">
+              Secure, compliant solutions for organizations of all sizes.
+            </p>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-6xl gap-8 md:grid-cols-2">
+          {plans.map((plan) => (
+            <Card
+              key={plan.name}
+              className={cn(
+                'flex flex-col',
+                plan.highlight && 'border-primary shadow-lg'
+              )}
+            >
+              <CardHeader>
+                <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                <div className="mt-4 flex items-baseline">
+                  <span className="text-4xl font-bold">{plan.price}</span>
+                  <span className="text-muted-foreground ml-1 text-sm">
+                    /month
+                  </span>
+                </div>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  {plan.description}
+                </p>
+              </CardHeader>
+              <CardContent className="flex-1 space-y-6">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <ServerIcon className="text-primary h-5 w-5" />
+                    <h3 className="font-medium">Core Features</h3>
+                  </div>
+                  <Separator className="my-3" />
+                  <ul className="space-y-2 text-sm">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-center">
+                        <CheckIcon className="text-primary mr-2 h-4 w-4" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-2">
+                    <ShieldIcon className="text-primary h-5 w-5" />
+                    <h3 className="font-medium">Security & Compliance</h3>
+                  </div>
+                  <Separator className="my-3" />
+                  <ul className="space-y-2 text-sm">
+                    {plan.securityFeatures.map((feature) => (
+                      <li key={feature} className="flex items-center">
+                        <CheckIcon className="text-primary mr-2 h-4 w-4" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  variant={plan.highlight ? 'default' : 'outline'}
+                  asChild
+                >
+                  <a href="/contact">
+                    {plan.highlight ? 'Contact Sales' : 'Get Started'}
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-16 max-w-4xl">
+          <div className="bg-card rounded-lg border p-8">
+            <div className="flex items-center gap-3">
+              <LockIcon className="text-primary h-6 w-6" />
+              <h3 className="text-xl font-medium">Compliance Certifications</h3>
+            </div>
+            <p className="text-muted-foreground mt-2">
+              Our Enterprise plan includes all the certifications you need to
+              meet your compliance requirements.
+            </p>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {complianceCertifications.map((cert) => (
+                <div
+                  key={cert.name}
+                  className="bg-background rounded-lg border p-4"
+                >
+                  <div className="font-medium">{cert.name}</div>
+                  <div className="text-muted-foreground mt-1 text-xs">
+                    {cert.description}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-primary/5 mx-auto mt-16 max-w-4xl rounded-lg border p-8">
+          <div className="flex flex-col items-center gap-4 text-center md:flex-row md:text-left">
+            <div className="flex-1 space-y-2">
+              <h3 className="text-xl font-medium">
+                Need a custom enterprise solution?
+              </h3>
+              <p className="text-muted-foreground">
+                Our team can help you customize a plan that meets your specific
+                requirements.
+              </p>
+            </div>
+            <Button size="lg" asChild>
+              <a href="/contact">Contact Enterprise Sales</a>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { CheckIcon } from 'lucide-react';
+
+const StarterIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-12 w-12"
+  >
+    <path
+      d="M12 2L2 7L12 12L22 7L12 2Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 17L12 22L22 17"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 12L12 17L22 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const ProfessionalIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-12 w-12"
+  >
+    <path
+      d="M12 2L2 7L12 12L22 7L12 2Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 17L12 22L22 17"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 12L12 17L22 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12 12L12 22"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const EnterpriseIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-12 w-12"
+  >
+    <path
+      d="M12 2L2 7L12 12L22 7L12 2Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 17L12 22L22 17"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 12L12 17L22 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12 12L12 22"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12 2L12 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$29',
+    description: 'Perfect for individuals and small projects',
+    features: [
+      'Up to 5 projects',
+      'Basic analytics',
+      '24/7 support',
+      '1GB storage',
+      'Basic integrations',
+    ],
+    icon: StarterIcon,
+    cta: 'Get Started',
+    popular: false,
+  },
+  {
+    name: 'Professional',
+    price: '$79',
+    description: 'Ideal for growing businesses',
+    features: [
+      'Unlimited projects',
+      'Advanced analytics',
+      'Priority support',
+      '10GB storage',
+      'Advanced integrations',
+      'Custom branding',
+      'API access',
+    ],
+    icon: ProfessionalIcon,
+    cta: 'Start Free Trial',
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    description: 'For large organizations with custom needs',
+    features: [
+      'Everything in Professional',
+      'Unlimited storage',
+      'Dedicated support',
+      'Custom integrations',
+      'SLA guarantee',
+      'Advanced security',
+      'On-premise deployment',
+    ],
+    icon: EnterpriseIcon,
+    cta: 'Contact Sales',
+    popular: false,
+  },
+];
+
+export default function PricingSectionModern() {
+  return (
+    <section className="bg-muted/50 py-24">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Simple, transparent pricing
+            </h2>
+            <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
+              Choose the perfect plan for your needs. All plans include a 14-day
+              free trial.
+            </p>
+          </div>
+        </div>
+        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-3 lg:gap-8">
+          {plans.map((plan) => (
+            <Card
+              key={plan.name}
+              className={`relative flex flex-col ${
+                plan.popular ? 'border-primary shadow-lg' : ''
+              }`}
+            >
+              {plan.popular && (
+                <Badge
+                  className="absolute -top-3 left-1/2 -translate-x-1/2"
+                  variant="default"
+                >
+                  Most Popular
+                </Badge>
+              )}
+              <CardHeader className="flex flex-col items-center space-y-2">
+                <div className="text-primary mb-4">
+                  <plan.icon />
+                </div>
+                <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                <div className="flex items-baseline space-x-1">
+                  <span className="text-4xl font-bold">{plan.price}</span>
+                  {plan.price !== 'Custom' && (
+                    <span className="text-muted-foreground">/month</span>
+                  )}
+                </div>
+                <CardDescription className="text-center">
+                  {plan.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <ul className="space-y-4">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-center space-x-2">
+                      <CheckIcon className="text-primary h-5 w-5" />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  variant={plan.popular ? 'default' : 'outline'}
+                  asChild
+                >
+                  <a href={plan.price === 'Custom' ? '/contact' : '/signup'}>
+                    {plan.cta}
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <p className="text-muted-foreground text-sm">
+            Need a custom plan?{' '}
+            <a href="/contact" className="text-primary hover:underline">
+              Contact our sales team
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { CheckIcon, StarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+const plans = [
+  {
+    name: 'Basic',
+    price: '$19',
+    description: 'Perfect for individuals and freelancers',
+    features: [
+      'Up to 5 projects',
+      'Basic analytics',
+      '24/7 email support',
+      '10GB storage',
+    ],
+    testimonial: {
+      quote:
+        'As a freelancer, this plan gives me everything I need to manage my clients and projects efficiently.',
+      author: 'Alex Morgan',
+      role: 'Freelance Designer',
+      avatar: '/avatars/alex-morgan.jpg',
+    },
+  },
+  {
+    name: 'Pro',
+    price: '$49',
+    description: 'Ideal for small teams and growing businesses',
+    features: [
+      'Unlimited projects',
+      'Advanced analytics',
+      'Priority support',
+      '50GB storage',
+      'API access',
+      'Team collaboration',
+      'Custom domains',
+    ],
+    popular: true,
+    testimonial: {
+      quote:
+        "We've grown our business by 40% since switching to the Pro plan. The team collaboration features are game-changing.",
+      author: 'Sarah Chen',
+      role: 'Marketing Director, GrowthLabs',
+      avatar: '/avatars/sarah-chen.jpg',
+    },
+  },
+  {
+    name: 'Enterprise',
+    price: '$99',
+    description: 'For large organizations with advanced needs',
+    features: [
+      'Unlimited projects',
+      'Enterprise analytics',
+      '24/7 phone support',
+      '500GB storage',
+      'Advanced API access',
+      'Team collaboration',
+      'Custom domains',
+      'SSO authentication',
+      'Custom integrations',
+    ],
+    testimonial: {
+      quote:
+        'The enterprise features have helped us maintain compliance while scaling our operations across multiple departments.',
+      author: 'Michael Johnson',
+      role: 'CTO, Enterprise Solutions Inc.',
+      avatar: '/avatars/michael-johnson.jpg',
+    },
+  },
+];
+
+export default function PricingSectionTestimonial() {
+  return (
+    <section className="bg-muted/30 w-full py-12 md:py-24 lg:py-32">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Pricing Plans Trusted by Thousands
+            </h2>
+            <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl/relaxed">
+              Choose the perfect plan for your needs and join our satisfied
+              customers.
+            </p>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-6xl gap-8 md:grid-cols-3">
+          {plans.map((plan) => (
+            <div key={plan.name} className="flex flex-col gap-8">
+              <Card
+                className={cn(
+                  'relative flex flex-1 flex-col',
+                  plan.popular && 'border-primary shadow-md'
+                )}
+              >
+                {plan.popular && (
+                  <div className="bg-primary text-primary-foreground absolute top-0 right-0 rounded-tr-lg rounded-bl-lg px-3 py-1 text-xs font-medium">
+                    Most Popular
+                  </div>
+                )}
+                <CardHeader>
+                  <CardTitle>{plan.name}</CardTitle>
+                  <div className="mt-4 flex items-baseline">
+                    <span className="text-4xl font-bold">{plan.price}</span>
+                    <span className="text-muted-foreground ml-1 text-sm">
+                      /month
+                    </span>
+                  </div>
+                  <p className="text-muted-foreground mt-1 text-sm">
+                    {plan.description}
+                  </p>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-2 text-sm">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-center">
+                        <CheckIcon className="text-primary mr-2 h-4 w-4" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button
+                    className="w-full"
+                    variant={plan.popular ? 'default' : 'outline'}
+                    asChild
+                  >
+                    <a href="/signup">Get Started</a>
+                  </Button>
+                </CardFooter>
+              </Card>
+
+              <Card className="bg-background/50 pt-0">
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="space-y-4">
+                      <p className="text-muted-foreground italic">
+                        &quot;{plan.testimonial.quote}&quot;
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <Avatar>
+                          <AvatarFallback>
+                            {plan.testimonial.author
+                              .split(' ')
+                              .map((n) => n[0])
+                              .join('')}
+                          </AvatarFallback>
+                          <AvatarImage
+                            src={plan.testimonial.avatar}
+                            alt={plan.testimonial.author}
+                          />
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">
+                            {plan.testimonial.author}
+                          </div>
+                          <div className="text-muted-foreground text-xs">
+                            {plan.testimonial.role}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <StarIcon
+                            key={i}
+                            className="fill-primary text-primary h-4 w-4"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-card mx-auto mt-16 max-w-3xl rounded-lg border p-8 text-center">
+          <h3 className="text-xl font-medium">
+            Not sure which plan is right for you?
+          </h3>
+          <p className="text-muted-foreground mt-2">
+            Our team can help you find the perfect plan for your specific needs.
+          </p>
+          <Button className="mt-6" asChild>
+            <a href="/contact">Talk to Sales</a>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```

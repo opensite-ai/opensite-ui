@@ -3444,3 +3444,1059 @@ export { Projects18 };
 
 ```
 
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { CalendarDays, MapPin, Quote } from 'lucide-react';
+
+export default function ExperienceQuoteCombo() {
+  const workExperiences = [
+    {
+      role: 'Marketing Director',
+      company: 'Global Brands Inc.',
+      location: 'San Francisco, CA',
+      duration: 'Feb 2020 - Present',
+      description:
+        'Oversee strategic marketing initiatives for enterprise clients across multiple industries, leading a team of 15 marketing specialists.',
+      achievements: [
+        'Increased client acquisition by 45% through targeted digital campaigns',
+        'Launched 3 successful product lines with over $2M in first-year revenue',
+        'Restructured marketing department for improved efficiency and innovation',
+      ],
+      quote: {
+        text: 'Sarah transformed our marketing strategy completely. Her innovative approaches and deep understanding of our audience led to our most successful campaign in company history.',
+        author: 'James Wilson',
+        position: 'CEO, Global Brands Inc.',
+      },
+      link: '#',
+    },
+    {
+      role: 'Senior Marketing Manager',
+      company: 'Innovation Media',
+      location: 'Seattle, WA',
+      duration: 'Aug 2017 - Jan 2020',
+      description:
+        'Managed comprehensive marketing campaigns for technology clients with budgets ranging from $500K to $2M annually.',
+      achievements: [
+        'Directed award-winning rebrand for major software client',
+        'Developed content strategy that increased engagement by 78%',
+        'Built and trained high-performing marketing team of 8 specialists',
+      ],
+      quote: {
+        text: 'Working with Sarah was transformative for our team. She brings both strategic vision and a remarkable attention to execution details that helped us exceed our marketing goals.',
+        author: 'Lisa Chen',
+        position: 'Marketing VP, Tech Solutions',
+      },
+      link: '#',
+    },
+    {
+      role: 'Marketing Specialist',
+      company: 'Creative Solutions',
+      location: 'Portland, OR',
+      duration: 'May 2015 - Jul 2017',
+      description:
+        'Executed marketing campaigns across digital and traditional channels for diverse client portfolio including startups and established brands.',
+      achievements: [
+        'Managed social media growth resulting in 250% audience increase',
+        'Implemented new analytics tracking improving campaign ROI by 35%',
+        'Collaborated with design team to refresh brand identity for 5 clients',
+      ],
+      quote: {
+        text: 'Sarah has that rare combination of creativity and analytical thinking. She consistently delivered results that exceeded our expectations and always found innovative solutions to our marketing challenges.',
+        author: 'Michael Rodriguez',
+        position: 'Founder, Startup Success',
+      },
+      link: '#',
+    },
+  ];
+
+  return (
+    <section className="py-16 md:py-24">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        <div className="mb-12 text-center md:mb-16">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Professional Experience
+          </h2>
+          <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
+            My career journey and the impact I&apos;ve made along the way, as
+            told through my work and the words of those I&apos;ve worked with.
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {workExperiences.map((experience, index) => (
+            <Card
+              key={index}
+              className="flex h-full flex-col overflow-hidden p-0 shadow-sm transition-all hover:shadow-md"
+            >
+              <CardContent className="flex h-full flex-col p-0">
+                {/* Card Header */}
+                <div className="bg-primary text-primary-foreground p-6">
+                  <h3 className="mb-1 text-xl font-bold">{experience.role}</h3>
+                  <p className="text-primary-foreground/90 font-medium">
+                    {experience.company}
+                  </p>
+                </div>
+
+                {/* Card Body */}
+                <div className="flex flex-1 flex-col p-6">
+                  {/* Details */}
+                  <div className="mb-4 flex flex-col gap-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <CalendarDays className="text-muted-foreground/70 h-4 w-4" />
+                      <span className="text-muted-foreground">
+                        {experience.duration}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="text-muted-foreground/70 h-4 w-4" />
+                      <span className="text-muted-foreground">
+                        {experience.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-muted-foreground mb-4 text-sm">
+                    {experience.description}
+                  </p>
+
+                  <div className="mb-6">
+                    <h4 className="mb-2 text-sm font-semibold">
+                      Key Achievements
+                    </h4>
+                    <ul className="text-muted-foreground space-y-1 text-sm">
+                      {experience.achievements.map(
+                        (achievement, achievementIndex) => (
+                          <li
+                            key={achievementIndex}
+                            className="flex items-start"
+                          >
+                            <span className="bg-primary/10 text-primary mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs">
+                              •
+                            </span>
+                            <span>{achievement}</span>
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+
+                  {/* Testimonial Quote */}
+                  <div className="bg-muted/50 mt-auto rounded-lg p-4">
+                    <div className="mb-2 flex items-center gap-2">
+                      <Quote className="text-primary h-4 w-4" />
+                      <span className="text-sm font-medium">Testimonial</span>
+                    </div>
+                    <p className="text-muted-foreground mb-3 text-sm italic">
+                      &quot;{experience.quote.text}&quot;
+                    </p>
+                    <div className="text-sm">
+                      <p className="font-medium">{experience.quote.author}</p>
+                      <p className="text-muted-foreground text-xs">
+                        {experience.quote.position}
+                      </p>
+                    </div>
+                  </div>
+
+                  <Button asChild className="mt-6 w-full">
+                    <a href={experience.link}>View Full Details</a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { ExternalLink } from 'lucide-react';
+
+export default function CardWithProjectShowcase() {
+  const workExperiences = [
+    {
+      role: 'Lead Frontend Developer',
+      company: 'Webflow Solutions',
+      duration: '2021 - Present',
+      description:
+        'Managed a team of developers building responsive and accessible web applications for enterprise clients.',
+      technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
+      projects: [
+        {
+          title: 'Healthcare Portal Redesign',
+          image:
+            'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3',
+          description:
+            'Led the complete overhaul of a healthcare provider&apos;s patient portal, improving accessibility and mobile experience.',
+          link: '#',
+        },
+        {
+          title: 'E-commerce Platform',
+          image:
+            'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3',
+          description:
+            'Built a custom shopping experience with personalized recommendations and seamless checkout flow.',
+          link: '#',
+        },
+      ],
+    },
+    {
+      role: 'Frontend Developer',
+      company: 'Digital Craftsmen',
+      duration: '2018 - 2021',
+      description:
+        'Developed user interfaces for web applications with a focus on performance and responsive design.',
+      technologies: ['JavaScript', 'Vue.js', 'SCSS', 'Webpack'],
+      projects: [
+        {
+          title: 'Banking Dashboard',
+          image:
+            'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3',
+          description:
+            'Created an intuitive dashboard for tracking personal finances and investment portfolios.',
+          link: '#',
+        },
+        {
+          title: 'Real Estate Listings',
+          image:
+            'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1373&auto=format&fit=crop&ixlib=rb-4.0.3',
+          description:
+            'Built a property search platform with advanced filtering and interactive map features.',
+          link: '#',
+        },
+      ],
+    },
+    {
+      role: 'Web Developer',
+      company: 'Creative Tech Labs',
+      duration: '2016 - 2018',
+      description:
+        'Worked on building responsive websites and interactive features for marketing campaigns.',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'jQuery', 'PHP'],
+      projects: [
+        {
+          title: 'Corporate Website Redesign',
+          image:
+            'https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3',
+          description:
+            'Redesigned and implemented a modern website for a financial services company.',
+          link: '#',
+        },
+        {
+          title: 'Interactive Product Showcase',
+          image:
+            'https://images.unsplash.com/photo-1558655146-9f40138edfeb?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3',
+          description:
+            'Created an interactive 3D product visualization tool for a hardware manufacturer.',
+          link: '#',
+        },
+      ],
+    },
+  ];
+
+  return (
+    <section className="py-16 md:py-24">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        <div className="mb-12 text-center md:mb-16">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Work Experience & Projects
+          </h2>
+          <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
+            Explore my professional experience and key projects I&apos;ve
+            contributed to in each role.
+          </p>
+        </div>
+
+        <div className="space-y-10">
+          {workExperiences.map((experience, index) => (
+            <Card key={index} className="overflow-hidden p-0">
+              <CardContent className="p-0">
+                <div className="bg-muted/50 p-6 md:p-8">
+                  <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                    <div>
+                      <h3 className="text-2xl font-bold">{experience.role}</h3>
+                      <div className="text-muted-foreground my-1 flex items-center gap-2">
+                        <span className="font-medium">
+                          {experience.company}
+                        </span>
+                        <span>•</span>
+                        <span>{experience.duration}</span>
+                      </div>
+                      <p className="text-muted-foreground mt-2 max-w-3xl">
+                        {experience.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {experience.technologies.map((tech, techIndex) => (
+                      <Badge key={techIndex} variant="secondary">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-6 md:p-8">
+                  <h4 className="mb-4 font-semibold">Key Projects</h4>
+
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    {experience.projects.map((project, projectIndex) => (
+                      <div
+                        key={projectIndex}
+                        className="group overflow-hidden rounded-lg border"
+                      >
+                        <div className="relative aspect-video overflow-hidden">
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h5 className="font-bold">{project.title}</h5>
+                          <p className="text-muted-foreground mt-1 text-sm">
+                            {project.description}
+                          </p>
+                          <Button
+                            asChild
+                            size="sm"
+                            variant="ghost"
+                            className="mt-2 px-0"
+                          >
+                            <a
+                              href={project.link}
+                              className="flex items-center"
+                            >
+                              View Project
+                              <ExternalLink className="ml-1 h-3.5 w-3.5" />
+                            </a>
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { useMotionValueEvent, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+export const StickyScroll = ({
+  content,
+  contentClassName,
+}: {
+  content: {
+    title: string;
+    description: string;
+    content?: React.ReactNode | any;
+  }[];
+  contentClassName?: string;
+}) => {
+  const [activeCard, setActiveCard] = React.useState(0);
+  const ref = useRef<any>(null);
+  const { scrollYProgress } = useScroll({
+    container: ref,
+    offset: ["start start", "end start"],
+  });
+  const cardLength = content.length;
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const cardsBreakpoints = content.map((_, index) => index / cardLength);
+    const closestBreakpointIndex = cardsBreakpoints.reduce(
+      (acc, breakpoint, index) => {
+        const distance = Math.abs(latest - breakpoint);
+        if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
+          return index;
+        }
+        return acc;
+      },
+      0
+    );
+    setActiveCard(closestBreakpointIndex);
+  });
+
+  const backgroundColors = [
+    "rgb(15 23 42)", // slate-900
+    "rgb(0 0 0)", // black
+    "rgb(23 23 23)", // neutral-900
+  ];
+
+  const linearGradients = [
+    "linear-gradient(to bottom right, rgb(6 182 212), rgb(16 185 129))", // cyan-500 to emerald-500
+    "linear-gradient(to bottom right, rgb(236 72 153), rgb(99 102 241))", // pink-500 to indigo-500
+    "linear-gradient(to bottom right, rgb(249 115 22), rgb(234 179 8))", // orange-500 to yellow-500
+  ];
+
+  const [backgroundGradient, setBackgroundGradient] = useState(
+    linearGradients[0]
+  );
+
+  useEffect(() => {
+    setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
+  }, [activeCard]);
+
+  return (
+    <motion.div
+      animate={{
+        backgroundColor: backgroundColors[activeCard % backgroundColors.length],
+      }}
+      className="h-[30rem] overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10"
+      ref={ref}
+    >
+      <div className="div relative flex items-start px-4">
+        <div className="max-w-2xl">
+          {content.map((item, index) => (
+            <div key={item.title + index} className="my-20">
+              <motion.h2
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: activeCard === index ? 1 : 0.3,
+                }}
+                className="text-2xl font-bold text-slate-100"
+              >
+                {item.title}
+              </motion.h2>
+              <motion.p
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: activeCard === index ? 1 : 0.3,
+                }}
+                className="text-kg text-slate-300 max-w-sm mt-10"
+              >
+                {item.description}
+              </motion.p>
+            </div>
+          ))}
+          <div className="h-40" />
+        </div>
+      </div>
+      <div
+        style={{ background: backgroundGradient }}
+        className={cn(
+          "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
+          contentClassName
+        )}
+      >
+        {content[activeCard].content ?? null}
+      </div>
+    </motion.div>
+  );
+};
+```
+
+```tsx
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+
+// Sample project data with tech-related projects
+const projects = [
+  {
+    id: 1,
+    title: 'Advanced E-Commerce Platform',
+    category: 'Full Stack Development',
+    description:
+      'A comprehensive e-commerce solution with real-time inventory management, advanced search functionality, and seamless payment processing. Built with performance and scalability in mind to handle high-traffic periods.',
+    image:
+      'https://images.unsplash.com/photo-1661956602944-249bcd04b63f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3',
+    technologies: ['Next.js', 'TypeScript', 'Prisma', 'Stripe', 'TailwindCSS'],
+    link: '#',
+  },
+  {
+    id: 2,
+    title: 'Enterprise Dashboard System',
+    category: 'Data Visualization',
+    description:
+      'Interactive analytics dashboard for enterprise clients that processes and visualizes complex datasets with customizable views, real-time updates, and automated reporting features.',
+    image:
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3',
+    technologies: ['React', 'D3.js', 'GraphQL', 'Node.js', 'AWS'],
+    link: '#',
+  },
+  {
+    id: 3,
+    title: 'Multi-platform Mobile Application',
+    category: 'Mobile Development',
+    description:
+      'Cross-platform mobile application for productivity enhancement, featuring offline capabilities, push notifications, and seamless cloud synchronization across devices.',
+    image:
+      'https://images.unsplash.com/photo-1596558450268-9c27524ba856?q=80&w=2050&auto=format&fit=crop&ixlib=rb-4.0.3',
+    technologies: ['React Native', 'Firebase', 'Redux', 'Jest', 'TypeScript'],
+    link: '#',
+  },
+  {
+    id: 4,
+    title: 'AI-Driven Content Management System',
+    category: 'AI/ML Integration',
+    description:
+      'Content management platform powered by machine learning algorithms that automatically categorizes, tags, and optimizes content while providing smart recommendations based on user behavior.',
+    image:
+      'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3',
+    technologies: ['Python', 'TensorFlow', 'Django', 'PostgreSQL', 'Docker'],
+    link: '#',
+  },
+  {
+    id: 5,
+    title: 'DevOps Workflow Automation',
+    category: 'DevOps Engineering',
+    description:
+      'End-to-end CI/CD pipeline automation solution for cloud-native applications, featuring infrastructure as code, automated testing, and observability tooling integration.',
+    image:
+      'https://images.unsplash.com/photo-1607968565043-36af90dde238?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3',
+    technologies: [
+      'Kubernetes',
+      'Terraform',
+      'GitHub Actions',
+      'Prometheus',
+      'Go',
+    ],
+    link: '#',
+  },
+];
+
+export default function PortfolioZigzagLayout() {
+  return (
+    <div className="bg-background py-16 md:py-24">
+      <div className="container mx-auto px-4 2xl:max-w-[1400px]">
+        {/* Section header */}
+        <div className="mb-16 text-center md:mb-24">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Featured Projects
+          </h2>
+          <p className="text-muted-foreground mx-auto mt-4 max-w-2xl">
+            A showcase of my technical projects highlighting various skills
+            across full-stack development, mobile applications, and enterprise
+            solutions.
+          </p>
+        </div>
+
+        {/* Zigzag project layout */}
+        <div className="space-y-24 md:space-y-32">
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              className={cn(
+                'group relative',
+                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse',
+                'flex flex-col gap-8 lg:items-center lg:gap-12'
+              )}
+            >
+              {/* Project image */}
+              <div className="relative w-full overflow-hidden rounded-lg lg:w-1/2">
+                <div className="border-muted/30 relative aspect-video overflow-hidden rounded-lg border">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Category badge */}
+                <div className="absolute top-4 right-4">
+                  <Badge
+                    variant="secondary"
+                    className="bg-black/60 text-white backdrop-blur-sm"
+                  >
+                    {project.category}
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Project content */}
+              <Card className="w-full border-none shadow-none lg:w-1/2">
+                <CardContent className="space-y-6">
+                  <div>
+                    <h3 className="text-2xl font-bold md:text-3xl">
+                      {project.title}
+                    </h3>
+                    <p className="text-muted-foreground mt-4">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Technologies */}
+                  <div className="space-y-3">
+                    <h4 className="text-muted-foreground text-sm font-medium">
+                      Technologies
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <Badge
+                          key={tech}
+                          variant="outline"
+                          className="rounded-md"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <Button className="mt-2 gap-2" asChild>
+                    <a href={project.link}>
+                      View Project Details
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+```
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight } from 'lucide-react';
+
+export default function StackedHighlightCards() {
+  const projects = [
+    {
+      title: 'Brand Identity for Tech Startup',
+      image:
+        'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      description:
+        'Created a complete brand identity system for an AI-driven tech startup, including logo design, color palette, typography, and usage guidelines.',
+      client: 'Nexus AI',
+      role: 'Brand Designer',
+      technologies: [
+        'Adobe Illustrator',
+        'Photoshop',
+        'Figma',
+        'Brand Strategy',
+      ],
+      year: '2023',
+      link: '#',
+    },
+    {
+      title: 'E-Learning Platform Redesign',
+      image:
+        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      description:
+        'Completely redesigned the user experience for an online learning platform, focusing on improving navigation, content organization, and student engagement metrics.',
+      client: 'EduConnect',
+      role: 'UX Designer & Researcher',
+      technologies: ['Figma', 'Maze', 'Miro', 'User Research', 'HTML/CSS'],
+      year: '2022',
+      link: '#',
+    },
+    {
+      title: 'Mobile Banking Application',
+      image:
+        'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      description:
+        'Designed and developed a secure and intuitive mobile banking application that allows users to manage accounts, make payments, and track spending with advanced security features.',
+      client: 'SecureBank Ltd.',
+      role: 'Product Designer & Frontend Developer',
+      technologies: [
+        'React Native',
+        'Redux',
+        'Sketch',
+        'UserTesting',
+        'Biometric Auth',
+      ],
+      year: '2022',
+      link: '#',
+    },
+  ];
+
+  return (
+    <section className="py-16 md:py-24">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        {/* Section Header */}
+        <div className="mb-12 text-center md:mb-16">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Featured Projects
+          </h2>
+          <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
+            A selection of my most impactful work, demonstrating range and depth
+            across industries.
+          </p>
+        </div>
+
+        {/* Project Cards */}
+        <div className="space-y-10">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="bg-card overflow-hidden rounded-xl border shadow-sm transition-all hover:shadow-md"
+            >
+              <div className="grid md:grid-cols-3">
+                {/* Project Image */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden md:aspect-auto md:h-full">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Project Details */}
+                <div className="p-6 md:col-span-2 md:p-8">
+                  <div className="mb-2 flex flex-wrap gap-2">
+                    {project.technologies.slice(0, 3).map((tech, index) => (
+                      <Badge key={index} variant="outline">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  <h3 className="mb-2 text-xl font-bold md:text-2xl">
+                    {project.title}
+                  </h3>
+
+                  <div className="text-muted-foreground mb-4 flex flex-col flex-wrap gap-x-4 text-sm md:flex-row">
+                    <span>{project.client}</span>
+                    <span className="hidden md:inline">•</span>
+                    <span>{project.role}</span>
+                    <span className="hidden md:inline">•</span>
+                    <span>{project.year}</span>
+                  </div>
+
+                  <p className="text-muted-foreground mb-6">
+                    {project.description}
+                  </p>
+
+                  <Button asChild variant="outline" size="sm">
+                    <a href={project.link}>
+                      View Project <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+
+export default function InteractiveHoverReveal() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const projects = [
+    {
+      title: 'Photography Portfolio Website',
+      category: 'Web Design',
+      description:
+        "A minimalist website designed to showcase a professional photographer's work with advanced filtering and gallery features.",
+      image:
+        'https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Health & Fitness App',
+      category: 'Mobile App Design',
+      description:
+        'A comprehensive fitness tracking application designed to help users maintain their health goals with personalized recommendations.',
+      image:
+        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Eco-Friendly Product Packaging',
+      category: 'Brand Design',
+      description:
+        'Sustainable packaging design for an eco-conscious beauty brand, focusing on recyclable materials and minimal waste.',
+      image:
+        'https://images.unsplash.com/photo-1606041011872-596597976b25?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Smart Home Dashboard',
+      category: 'UI/UX Design',
+      description:
+        'An intuitive interface for controlling smart home devices with emphasis on accessibility and ease of use.',
+      image:
+        'https://images.unsplash.com/photo-1560439514-4e9645039924?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Restaurant Ordering System',
+      category: 'Web Application',
+      description:
+        'A comprehensive online ordering system for restaurants that streamlines the takeout and delivery process.',
+      image:
+        'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Travel Experience Platform',
+      category: 'Web Design',
+      description:
+        'A platform connecting travelers with local experiences and hidden gems, featuring interactive maps and booking features.',
+      image:
+        'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+  ];
+
+  return (
+    <section className="py-16 md:py-24">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        {/* Section Header */}
+        <div className="mb-12 text-center md:mb-16">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Portfolio Highlights
+          </h2>
+          <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
+            Explore a selection of my featured work across various disciplines
+            and industries.
+          </p>
+        </div>
+
+        {/* Project Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, index) => (
+            <a
+              href={project.link}
+              key={index}
+              className="group relative block h-80 overflow-hidden rounded-xl"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {/* Project Image */}
+              <div className="absolute inset-0 h-full w-full">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+              </div>
+
+              {/* Project Info - Initial State */}
+              <div
+                className={`absolute bottom-0 left-0 p-6 transition-all duration-300 ease-in-out ${
+                  hoveredIndex === index ? 'opacity-0' : 'opacity-100'
+                }`}
+              >
+                <div className="text-sm font-medium tracking-wider text-white uppercase">
+                  {project.category}
+                </div>
+                <h3 className="text-xl font-bold text-white drop-shadow-md">
+                  {project.title}
+                </h3>
+              </div>
+
+              {/* Expanded Content on Hover */}
+              <div
+                className={`absolute inset-0 flex flex-col justify-end p-6 transition-all duration-300 ease-in-out ${
+                  hoveredIndex === index
+                    ? 'opacity-100'
+                    : 'translate-y-4 opacity-0'
+                }`}
+              >
+                <div className="text-sm font-medium tracking-wider text-white uppercase">
+                  {project.category}
+                </div>
+                <h3 className="mb-2 text-xl font-bold text-white drop-shadow-md">
+                  {project.title}
+                </h3>
+                <p className="mb-3 text-sm font-medium text-white drop-shadow">
+                  {project.description}
+                </p>
+                <span className="inline-flex items-center text-sm font-medium text-white drop-shadow">
+                  View Project <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+
+export default function CarouselOfFeaturedProjects() {
+  const projects = [
+    {
+      title: 'E-commerce Website Redesign',
+      client: 'Fashion Boutique',
+      year: '2023',
+      category: 'Web Design',
+      description:
+        'Complete overhaul of an online fashion store, focusing on improved user experience, mobile responsiveness, and conversion optimization.',
+      image:
+        'https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?q=80&w=2062&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Mobile Banking App',
+      client: 'Financial Services Inc.',
+      year: '2022',
+      category: 'App Development',
+      description:
+        'Streamlined banking application designed with security and ease of use at its core, featuring biometric authentication and personalized insights.',
+      image:
+        'https://images.unsplash.com/photo-1556742111-a301076d9d18?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Corporate Identity Refresh',
+      client: 'Green Technologies',
+      year: '2023',
+      category: 'Branding',
+      description:
+        'Comprehensive brand refresh including logo redesign, typography system, color palette, and visual guidelines for a renewable energy company.',
+      image:
+        'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Interactive Data Dashboard',
+      client: 'Analytics Solutions',
+      year: '2022',
+      category: 'UI/UX Design',
+      description:
+        'Real-time analytics dashboard with customizable widgets, data visualization tools, and collaboration features for enterprise teams.',
+      image:
+        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+    {
+      title: 'Educational Platform Redesign',
+      client: 'Learning Hub',
+      year: '2023',
+      category: 'Web Application',
+      description:
+        'Learning management system with focus on accessibility, engagement, and personalized learning paths for students of all ages.',
+      image:
+        'https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      link: '#',
+    },
+  ];
+
+  return (
+    <section className="overflow-hidden py-16 md:py-24">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        {/* Section Header */}
+        <div className="mb-12 text-center md:mb-16">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Featured Projects
+          </h2>
+          <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
+            Explore my most impactful work that demonstrates my skills,
+            expertise, and creative approach.
+          </p>
+        </div>
+
+        {/* Carousel Container */}
+        <div className="relative">
+          <Carousel
+            opts={{
+              loop: true,
+              align: 'start',
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {projects.map((project, index) => (
+                <CarouselItem key={index} className="md:basis-full">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    {/* Image */}
+                    <div className="relative h-[250px] overflow-hidden rounded-lg md:h-[400px]">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="object-cover"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col justify-center">
+                      <div className="space-y-4">
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="secondary">{project.category}</Badge>
+                          <Badge variant="outline">{project.year}</Badge>
+                        </div>
+
+                        <h3 className="text-2xl font-bold md:text-3xl">
+                          {project.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm font-medium">
+                          Client: {project.client}
+                        </p>
+
+                        <p className="text-muted-foreground">
+                          {project.description}
+                        </p>
+
+                        <div className="pt-4">
+                          <Button asChild>
+                            <a href={project.link}>View Case Study</a>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="mt-6 flex items-center justify-center gap-2">
+              <CarouselPrevious className="static mr-2 translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
+          </Carousel>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```

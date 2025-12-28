@@ -9943,3 +9943,1865 @@ const Feature220b = ({ className }: Feature220bProps) => {
 export { Feature220b };
 
 ```
+
+```tsx
+import {
+  BookOpenIcon,
+  MessagesSquareIcon,
+  Settings2Icon,
+  TabletSmartphoneIcon,
+} from "lucide-react";
+
+export default function IconSectionCircleIconsCentreAligned() {
+  return (
+    <>
+      {/* Icon Blocks */}
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px] py-24 lg:py-32">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 items-center gap-12">
+          {/* Icon Block */}
+          <div className="text-center">
+            <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
+              <TabletSmartphoneIcon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+            </div>
+            <div className="mt-3">
+              <h3 className="text-lg font-semibold ">Responsive</h3>
+              <p className="mt-1 text-muted-foreground">
+                Responsive, and mobile-first project on the web
+              </p>
+            </div>
+          </div>
+          {/* End Icon Block */}
+          {/* Icon Block */}
+          <div className="text-center">
+            <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
+              <Settings2Icon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+            </div>
+            <div className="mt-3">
+              <h3 className="text-lg font-semibold ">Customizable</h3>
+              <p className="mt-1 text-muted-foreground">
+                Components are easily customized and extendable
+              </p>
+            </div>
+          </div>
+          {/* End Icon Block */}
+          {/* Icon Block */}
+          <div className="text-center">
+            <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
+              <BookOpenIcon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+            </div>
+            <div className="mt-3">
+              <h3 className="text-lg font-semibold ">Documentation</h3>
+              <p className="mt-1 text-muted-foreground">
+                Every component and plugin is well documented
+              </p>
+            </div>
+          </div>
+          {/* End Icon Block */}
+          {/* Icon Block */}
+          <div className="text-center">
+            <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
+              <MessagesSquareIcon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+            </div>
+            <div className="mt-3">
+              <h3 className="text-lg font-semibold ">24/7 Support</h3>
+              <p className="mt-1 text-muted-foreground">
+                Contact us 24 hours a day, 7 days a week
+              </p>
+            </div>
+          </div>
+          {/* End Icon Block */}
+        </div>
+      </div>
+      {/* End Icon Blocks */}
+    </>
+  );
+}
+
+```
+
+```tsx
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
+import {
+  ArrowRight,
+  BrainCircuit,
+  Blocks,
+  Fingerprint,
+  MessageSquare,
+  Merge,
+  Server,
+  Shield,
+  ShieldCheck,
+  Zap,
+  Globe,
+  CloudCog,
+  Webhook,
+  LineChart,
+  Layers,
+  Cpu,
+  Users,
+  Bot,
+  Wand2,
+  Code,
+  Database,
+  Settings,
+  SlidersHorizontal,
+  ChevronDown,
+} from 'lucide-react';
+
+interface FeatureIcon {
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  benefit: string;
+  category: string;
+}
+
+export default function FeatureIconTabs() {
+  const [activeTab, setActiveTab] = useState('all');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const featureIcons: FeatureIcon[] = [
+    {
+      id: 'ai-powered',
+      icon: <BrainCircuit className="text-primary h-10 w-10" />,
+      title: 'AI-Powered Analysis',
+      description:
+        'Leverage machine learning to automatically analyze large datasets and identify patterns.',
+      benefit: 'Save countless hours on manual data processing',
+      category: 'intelligence',
+    },
+    {
+      id: 'advanced-security',
+      icon: <ShieldCheck className="h-10 w-10 text-red-500" />,
+      title: 'Advanced Security',
+      description:
+        'Enterprise-grade security with role-based access control and encryption at rest.',
+      benefit: 'Protect sensitive information with military-grade protocols',
+      category: 'security',
+    },
+    {
+      id: 'real-time-collab',
+      icon: <Users className="h-10 w-10 text-blue-500" />,
+      title: 'Real-time Collaboration',
+      description:
+        'Work together with your team simultaneously on shared projects with live updates.',
+      benefit: 'Boost team productivity with seamless coordination',
+      category: 'collaboration',
+    },
+    {
+      id: 'instant-deploy',
+      icon: <Zap className="h-10 w-10 text-yellow-500" />,
+      title: 'Instant Deployment',
+      description:
+        'One-click deployment to any environment with automatic rollback capabilities.',
+      benefit: 'Go from development to production in seconds',
+      category: 'performance',
+    },
+    {
+      id: 'custom-workflows',
+      icon: <Webhook className="h-10 w-10 text-green-500" />,
+      title: 'Custom Workflows',
+      description:
+        'Build automated workflows with our visual editor to streamline your processes.',
+      benefit: 'Automate repetitive tasks without coding knowledge',
+      category: 'customization',
+    },
+    {
+      id: 'smart-integrations',
+      icon: <Merge className="h-10 w-10 text-indigo-500" />,
+      title: 'Smart Integrations',
+      description:
+        'Connect with 200+ apps and services through our intelligent API platform.',
+      benefit: 'Create a unified ecosystem of all your business tools',
+      category: 'integration',
+    },
+    {
+      id: 'global-cdn',
+      icon: <Globe className="h-10 w-10 text-cyan-500" />,
+      title: 'Global CDN',
+      description:
+        'Deliver content with blazing speed through our global content delivery network.',
+      benefit: 'Provide fast experiences to users worldwide',
+      category: 'performance',
+    },
+    {
+      id: 'cloud-processing',
+      icon: <CloudCog className="h-10 w-10 text-sky-500" />,
+      title: 'Cloud Processing',
+      description:
+        'Offload intensive computing tasks to our scalable cloud infrastructure.',
+      benefit: 'Handle massive workloads without hardware limitations',
+      category: 'performance',
+    },
+    {
+      id: 'predictive-analytics',
+      icon: <LineChart className="h-10 w-10 text-violet-500" />,
+      title: 'Predictive Analytics',
+      description:
+        'Anticipate trends and behaviors with forward-looking analytical models.',
+      benefit: 'Make data-driven decisions before issues arise',
+      category: 'intelligence',
+    },
+    {
+      id: 'multi-tenancy',
+      icon: <Layers className="h-10 w-10 text-rose-500" />,
+      title: 'Multi-tenancy',
+      description:
+        'Isolate customer data while maintaining a single application instance.',
+      benefit: 'Scale your SaaS business with optimal resource usage',
+      category: 'architecture',
+    },
+    {
+      id: 'edge-computing',
+      icon: <Cpu className="h-10 w-10 text-amber-500" />,
+      title: 'Edge Computing',
+      description:
+        'Process data closer to the source for reduced latency and bandwidth usage.',
+      benefit: 'Achieve near real-time processing for critical operations',
+      category: 'performance',
+    },
+    {
+      id: 'biometric-auth',
+      icon: <Fingerprint className="h-10 w-10 text-emerald-500" />,
+      title: 'Biometric Authentication',
+      description:
+        'Secure access using fingerprint, face recognition, and other biometric methods.',
+      benefit: 'Balance security and convenience for your users',
+      category: 'security',
+    },
+    {
+      id: 'chatbots',
+      icon: <Bot className="h-10 w-10 text-pink-500" />,
+      title: 'Intelligent Chatbots',
+      description:
+        'Deploy conversational AI to handle customer inquiries and support requests.',
+      benefit: 'Provide 24/7 support without expanding your team',
+      category: 'intelligence',
+    },
+    {
+      id: 'low-code',
+      icon: <Wand2 className="h-10 w-10 text-orange-500" />,
+      title: 'Low-Code Builder',
+      description:
+        'Create custom features and extensions with minimal coding required.',
+      benefit: 'Empower non-technical teams to build solutions',
+      category: 'customization',
+    },
+    {
+      id: 'api-management',
+      icon: <Code className="h-10 w-10 text-neutral-500" />,
+      title: 'API Management',
+      description:
+        'Comprehensive tools to create, publish, maintain, and secure your APIs.',
+      benefit: 'Control and monitor all your API endpoints from one place',
+      category: 'integration',
+    },
+    {
+      id: 'data-warehouse',
+      icon: <Database className="h-10 w-10 text-purple-500" />,
+      title: 'Data Warehouse',
+      description:
+        'Centralized repository optimized for analysis of data from disparate sources.',
+      benefit: 'Transform raw data into actionable business intelligence',
+      category: 'architecture',
+    },
+    {
+      id: 'advanced-config',
+      icon: <Settings className="h-10 w-10 text-slate-500" />,
+      title: 'Advanced Configuration',
+      description:
+        'Granular controls for customizing every aspect of the platform to your needs.',
+      benefit: 'Create a perfectly tailored solution for your business',
+      category: 'customization',
+    },
+    {
+      id: 'adaptive-ai',
+      icon: <SlidersHorizontal className="h-10 w-10 text-teal-500" />,
+      title: 'Adaptive AI',
+      description:
+        'Self-learning systems that adapt to your specific business patterns over time.',
+      benefit: 'Get increasingly accurate insights as you use the platform',
+      category: 'intelligence',
+    },
+  ];
+
+  const categories = [
+    {
+      value: 'all',
+      label: 'All Features',
+      icon: <Blocks className="h-4 w-4" />,
+    },
+    {
+      value: 'intelligence',
+      label: 'Intelligence',
+      icon: <BrainCircuit className="h-4 w-4" />,
+    },
+    {
+      value: 'security',
+      label: 'Security',
+      icon: <Shield className="h-4 w-4" />,
+    },
+    {
+      value: 'performance',
+      label: 'Performance',
+      icon: <Zap className="h-4 w-4" />,
+    },
+    {
+      value: 'collaboration',
+      label: 'Collaboration',
+      icon: <Users className="h-4 w-4" />,
+    },
+    {
+      value: 'customization',
+      label: 'Customization',
+      icon: <SlidersHorizontal className="h-4 w-4" />,
+    },
+    {
+      value: 'integration',
+      label: 'Integration',
+      icon: <Webhook className="h-4 w-4" />,
+    },
+    {
+      value: 'architecture',
+      label: 'Architecture',
+      icon: <Server className="h-4 w-4" />,
+    },
+  ];
+
+  const filteredFeatures =
+    activeTab === 'all'
+      ? featureIcons
+      : featureIcons.filter((feature) => feature.category === activeTab);
+
+  const activeCategory = categories.find((cat) => cat.value === activeTab);
+
+  return (
+    <section className="bg-background w-full py-12 md:py-24">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        <div className="mb-8 flex flex-col items-center justify-center space-y-4 text-center">
+          <Badge className="px-3.5 py-1.5">Features</Badge>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            Powerful Features for Modern Teams
+          </h2>
+          <p className="text-muted-foreground max-w-[700px] md:text-lg">
+            Discover the tools and capabilities that make our platform the
+            choice of leading organizations
+          </p>
+        </div>
+
+        <Tabs
+          defaultValue="all"
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="w-full"
+        >
+          {/* Dropdown for small screens */}
+          <div className="mb-8 flex justify-center lg:hidden">
+            <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="flex w-full max-w-[300px] items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    {activeCategory?.icon}
+                    <span>{activeCategory?.label}</span>
+                  </div>
+                  <ChevronDown className="text-muted-foreground ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-[300px]">
+                {categories.map((category) => (
+                  <DropdownMenuItem
+                    key={category.value}
+                    className="flex items-center gap-2"
+                    onClick={() => {
+                      setActiveTab(category.value);
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    {category.icon}
+                    <span>{category.label}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {/* Tabs for medium and larger screens */}
+          <div className="mb-8 hidden justify-center lg:flex">
+            <TabsList className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-8">
+              {categories.map((category) => (
+                <TabsTrigger
+                  key={category.value}
+                  value={category.value}
+                  className="flex items-center gap-2"
+                >
+                  {category.icon}
+                  <span className="hidden md:inline">{category.label}</span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          <TabsContent value={activeTab} className="space-y-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {filteredFeatures.map((feature) => (
+                <Card
+                  key={feature.id}
+                  className="group overflow-hidden p-0 transition-all hover:shadow-md"
+                >
+                  <CardContent className="p-6">
+                    <div className="space-y-4">
+                      <div className="bg-primary/5 flex h-16 w-16 items-center justify-center rounded-full">
+                        {feature.icon}
+                      </div>
+
+                      <div>
+                        <h3 className="text-xl font-semibold">
+                          {feature.title}
+                        </h3>
+                        <p className="text-muted-foreground mt-2">
+                          {feature.description}
+                        </p>
+                      </div>
+
+                      <div className="border-border border-t pt-4">
+                        <p className="text-primary text-sm font-medium">
+                          <span className="font-bold">Key benefit:</span>{' '}
+                          {feature.benefit}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {filteredFeatures.length === 0 && (
+              <div className="py-12 text-center">
+                <p className="text-muted-foreground">
+                  No features found in this category.
+                </p>
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
+
+        <div className="mt-12 flex flex-col justify-center gap-4 sm:flex-row">
+          <Button size="lg" className="group" asChild>
+            <a href="#">
+              Get started with all features
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <a href="#">
+              Schedule a demo
+              <MessageSquare className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { useEffect, useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+import {
+  ArrowLeft,
+  ArrowRight,
+  BrainCircuit,
+  CloudUpload,
+  Code2,
+  Database,
+  Laptop,
+  LayoutDashboard,
+  LineChart,
+  MessagesSquare,
+  Shield,
+  Sparkles,
+} from 'lucide-react';
+
+interface FeatureSlide {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  color: string;
+  image: string;
+  imageAlt: string;
+}
+
+export default function IconFeatureCarousel() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoplay, setAutoplay] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const features: FeatureSlide[] = [
+    {
+      icon: <Shield className="h-6 w-6" />,
+      title: 'Advanced Security',
+      description:
+        'Our platform implements enterprise-grade encryption, multi-factor authentication, and regular security audits to keep your data safe and protected.',
+      color: 'bg-blue-500 text-white',
+      image:
+        'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1970&auto=format&fit=crop',
+      imageAlt: 'Security dashboard with encryption metrics',
+    },
+    {
+      icon: <BrainCircuit className="h-6 w-6" />,
+      title: 'AI-Powered Insights',
+      description:
+        'Leverage machine learning algorithms that analyze your data to provide actionable insights and recommendations for optimizing performance.',
+      color: 'bg-purple-500 text-white',
+      image:
+        'https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=1974&auto=format&fit=crop',
+      imageAlt: 'AI analytics visualization',
+    },
+    {
+      icon: <LayoutDashboard className="h-6 w-6" />,
+      title: 'Customizable Dashboard',
+      description:
+        'Build your perfect workspace with drag-and-drop widgets, personalized views, and tailored reports that focus on what matters to you.',
+      color: 'bg-teal-500 text-white',
+      image:
+        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+      imageAlt: 'Customizable dashboard interface',
+    },
+    {
+      icon: <CloudUpload className="h-6 w-6" />,
+      title: 'Seamless Cloud Integration',
+      description:
+        'Connect with your favorite cloud services for file storage, sharing, and collaboration with just a few clicks.',
+      color: 'bg-amber-500 text-white',
+      image:
+        'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2070&auto=format&fit=crop',
+      imageAlt: 'Cloud service integration diagram',
+    },
+    {
+      icon: <LineChart className="h-6 w-6" />,
+      title: 'Real-time Analytics',
+      description:
+        'Monitor performance metrics in real-time with interactive charts and reports that update automatically as new data comes in.',
+      color: 'bg-green-500 text-white',
+      image:
+        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+      imageAlt: 'Real-time analytics dashboard',
+    },
+    {
+      icon: <Sparkles className="h-6 w-6" />,
+      title: 'Smart Automation',
+      description:
+        'Create powerful workflows that automate repetitive tasks and processes, saving time and reducing human error.',
+      color: 'bg-rose-500 text-white',
+      image:
+        'https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop',
+      imageAlt: 'Workflow automation interface',
+    },
+  ];
+
+  // Auto-advance slides
+  useEffect(() => {
+    if (!autoplay) return;
+
+    const interval = setInterval(() => {
+      if (!isAnimating) {
+        nextSlide();
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentSlide, autoplay, isAnimating]);
+
+  // Handle next slide
+  const nextSlide = () => {
+    if (isAnimating) return;
+
+    setIsAnimating(true);
+    setCurrentSlide((prev) => (prev + 1) % features.length);
+
+    // Reset animation flag after transition completes
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  // Handle previous slide
+  const prevSlide = () => {
+    if (isAnimating) return;
+
+    setIsAnimating(true);
+    setCurrentSlide((prev) => (prev - 1 + features.length) % features.length);
+
+    // Reset animation flag after transition completes
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  // Get previous, current, and next slide indices
+  const getSlideIndex = (offset: number) => {
+    return (currentSlide + offset + features.length) % features.length;
+  };
+
+  // Handle dot navigation
+  const goToSlide = (index: number) => {
+    if (isAnimating || index === currentSlide) return;
+
+    setIsAnimating(true);
+    setCurrentSlide(index);
+
+    // Reset animation flag after transition completes
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  // Pause autoplay when user interacts
+  const handleUserInteraction = () => {
+    setAutoplay(false);
+
+    // Resume autoplay after some inactivity
+    const resumeTimeout = setTimeout(() => {
+      setAutoplay(true);
+    }, 10000);
+
+    return () => clearTimeout(resumeTimeout);
+  };
+
+  return (
+    <section className="bg-background w-full overflow-hidden py-12 md:py-24 lg:py-32">
+      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
+        <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
+          <Badge className="px-3.5 py-1.5">Features</Badge>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            Discover our powerful tools
+          </h2>
+          <p className="text-muted-foreground max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            Explore our key features designed to enhance productivity and
+            streamline your workflow.
+          </p>
+        </div>
+
+        {/* Feature Carousel */}
+        <div
+          className="relative mt-16"
+          onClick={handleUserInteraction}
+          onMouseEnter={handleUserInteraction}
+        >
+          <div className="relative h-[500px] w-full md:h-[600px]">
+            {/* Slides */}
+            {[-1, 0, 1].map((offset) => {
+              const slideIndex = getSlideIndex(offset);
+              const slide = features[slideIndex];
+
+              return (
+                <div
+                  key={slideIndex}
+                  className={cn(
+                    'pointer-events-none absolute top-0 h-full w-full opacity-0 transition-all duration-500 ease-in-out',
+                    offset === 0 && 'pointer-events-auto opacity-100',
+                    offset === -1 && '-translate-x-full transform',
+                    offset === 1 && 'translate-x-full transform'
+                  )}
+                >
+                  <div className="grid h-full grid-cols-1 items-center gap-8 lg:grid-cols-2">
+                    {/* Feature Info */}
+                    <div className="flex flex-col space-y-6 text-left">
+                      <div
+                        className={cn(
+                          'flex h-16 w-16 items-center justify-center rounded-2xl',
+                          slide.color
+                        )}
+                      >
+                        {slide.icon}
+                      </div>
+
+                      <div className="space-y-4">
+                        <h3 className="text-2xl font-bold">{slide.title}</h3>
+                        <p className="text-muted-foreground">
+                          {slide.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-3 pt-4">
+                          <Button asChild className="group">
+                            <a href="#">
+                              Learn more
+                              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            </a>
+                          </Button>
+                          <Button variant="outline">See demo</Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Feature Image */}
+                    <div className="relative h-full max-h-[350px] overflow-hidden rounded-xl shadow-lg md:max-h-none">
+                      <img
+                        src={slide.image}
+                        alt={slide.imageAlt}
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={offset === 0}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="mt-8 flex justify-between">
+            <div className="flex items-center space-x-4">
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevSlide();
+                }}
+                disabled={isAnimating}
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="sr-only">Previous slide</span>
+              </Button>
+
+              <div className="flex items-center space-x-2">
+                {features.map((_, index) => (
+                  <button
+                    key={index}
+                    className={cn(
+                      'h-2 w-2 rounded-full transition-all',
+                      currentSlide === index
+                        ? 'bg-primary w-6'
+                        : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    )}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      goToSlide(index);
+                    }}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextSlide();
+                }}
+                disabled={isAnimating}
+              >
+                <ArrowRight className="h-4 w-4" />
+                <span className="sr-only">Next slide</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Features Preview */}
+        <div className="mt-24">
+          <h3 className="mb-8 text-center text-xl font-bold">
+            More powerful features
+          </h3>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: <Laptop className="h-5 w-5" />,
+                title: 'Cross-platform Support',
+                description:
+                  'Access your work from any device with our responsive web app and native applications.',
+              },
+              {
+                icon: <MessagesSquare className="h-5 w-5" />,
+                title: 'Team Communication',
+                description:
+                  'Integrated messaging and commenting system to keep discussions organized and accessible.',
+              },
+              {
+                icon: <Database className="h-5 w-5" />,
+                title: 'Reliable Infrastructure',
+                description:
+                  'Built on enterprise-grade servers with 99.9% uptime guarantee and automated backups.',
+              },
+              {
+                icon: <Code2 className="h-5 w-5" />,
+                title: 'Developer API',
+                description:
+                  'Full access to our API to create custom integrations and extend functionality.',
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="flex flex-col rounded-lg border p-6 transition-all duration-200 hover:shadow-sm"
+              >
+                <div className="bg-primary/10 text-primary mb-4 flex h-10 w-10 items-center justify-center rounded-full">
+                  {feature.icon}
+                </div>
+                <h4 className="mb-2 text-base font-medium">{feature.title}</h4>
+                <p className="text-muted-foreground text-sm">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-16 text-center">
+          <Button size="lg" asChild>
+            <a href="#">
+              Explore all features
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowRight,
+  Sparkles,
+  Zap,
+  Shield,
+  Rocket,
+  Cloud,
+  Code,
+} from "lucide-react";
+
+const features = [
+  {
+    title: "AI-Powered Automation",
+    description:
+      "Automate repetitive tasks with advanced machine learning algorithms.",
+    icon: Sparkles,
+    badge: "New",
+  },
+  {
+    title: "Lightning Fast",
+    description: "Optimized for speed with sub-millisecond response times.",
+    icon: Zap,
+  },
+  {
+    title: "Enterprise Security",
+    description: "Bank-grade security with end-to-end encryption.",
+    icon: Shield,
+  },
+  {
+    title: "Scalable Infrastructure",
+    description: "Built to scale with your needs, from startup to enterprise.",
+    icon: Rocket,
+  },
+  {
+    title: "Cloud Native",
+    description: "Deploy anywhere with our cloud-native architecture.",
+    icon: Cloud,
+  },
+  {
+    title: "Developer First",
+    description: "Built by developers, for developers with great DX.",
+    icon: Code,
+  },
+];
+
+export default function FeatureSectionCardGrid() {
+  return (
+    <section className="container mx-auto space-y-8 px-4 py-24 md:px-6 2xl:max-w-[1400px]">
+      <div className="space-y-4 text-center">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          Features that set us apart
+        </h2>
+        <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          Everything you need to build modern applications at scale. Built for
+          developers, designed for growth.
+        </p>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {features.map((feature) => (
+          <Card key={feature.title} className="relative overflow-hidden p-0">
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between">
+                <div className="bg-primary/10 rounded-lg p-3">
+                  <feature.icon className="text-primary size-6" />
+                </div>
+                {feature.badge && (
+                  <Badge variant="secondary" className="absolute top-4 right-4">
+                    {feature.badge}
+                  </Badge>
+                )}
+              </div>
+              <div className="mt-6 space-y-4">
+                <h3 className="text-xl font-semibold">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </div>
+              <div className="flex justify-end">
+                <Button
+                  variant="ghost"
+                  size={"sm"}
+                  className="mt-4 font-semibold"
+                >
+                  Learn more <ArrowRight className="size-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="text-center">
+        <Button size="lg" className="gap-2">
+          Get Started Now <ArrowRight className="size-4" />
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { useEffect, useState, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  ArrowRight,
+  BarChart3,
+  Clock,
+  LucideIcon,
+  Percent,
+  Rocket,
+  TimerReset,
+  TrendingUp,
+  Users,
+  Zap,
+} from 'lucide-react';
+
+import { cn } from '@/lib/utils';
+
+interface Stat {
+  id: string;
+  value: number;
+  label: string;
+  prefix?: string;
+  suffix?: string;
+  icon: LucideIcon;
+  change?: {
+    value: number;
+    trend: 'up' | 'down';
+  };
+}
+
+interface FeatureCategory {
+  id: string;
+  title: string;
+  description: string;
+  metrics: {
+    title: string;
+    description: string;
+    stats: Stat[];
+  };
+  testimonial?: {
+    quote: string;
+    author: string;
+    company: string;
+    image: string;
+  };
+  image: string;
+  color: string;
+}
+
+const featureCategories: FeatureCategory[] = [
+  {
+    id: 'performance',
+    title: 'Performance Optimization',
+    description:
+      'Our platform is built for speed and efficiency, delivering exceptional performance metrics that drive business growth.',
+    metrics: {
+      title: 'Performance Impact',
+      description:
+        'Customers experience significant performance improvements after implementation:',
+      stats: [
+        {
+          id: 'speed',
+          value: 10,
+          label: 'Faster Load Times',
+          suffix: 'x',
+          icon: Zap,
+          change: {
+            value: 15,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'response',
+          value: 50,
+          label: 'Response Time Reduction',
+          suffix: '%',
+          icon: Clock,
+          change: {
+            value: 12,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'uptime',
+          value: 99.99,
+          label: 'System Uptime',
+          suffix: '%',
+          icon: TimerReset,
+        },
+        {
+          id: 'scalability',
+          value: 5,
+          label: 'Scalability Improvement',
+          suffix: 'x',
+          icon: TrendingUp,
+          change: {
+            value: 20,
+            trend: 'up',
+          },
+        },
+      ],
+    },
+    testimonial: {
+      quote:
+        'Since implementing the platform, our page load times decreased by 70% and user retention improved dramatically.',
+      author: 'Sarah Johnson',
+      company: 'TechCorp CTO',
+      image:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    },
+    image:
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    color: 'blue',
+  },
+  {
+    id: 'roi',
+    title: 'Return on Investment',
+    description:
+      'Our platform delivers measurable business impact with proven ROI across various operational metrics.',
+    metrics: {
+      title: 'Business Impact',
+      description:
+        'Average metrics reported by customers after 6 months of implementation:',
+      stats: [
+        {
+          id: 'conversion',
+          value: 40,
+          label: 'Conversion Rate Increase',
+          suffix: '%',
+          icon: Percent,
+          change: {
+            value: 8,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'costs',
+          value: 30,
+          label: 'Operational Cost Reduction',
+          suffix: '%',
+          icon: TrendingUp,
+          change: {
+            value: 5,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'revenue',
+          value: 25,
+          label: 'Revenue Growth',
+          suffix: '%',
+          icon: BarChart3,
+          change: {
+            value: 10,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'productivity',
+          value: 60,
+          label: 'Team Productivity Boost',
+          suffix: '%',
+          icon: Rocket,
+          change: {
+            value: 12,
+            trend: 'up',
+          },
+        },
+      ],
+    },
+    testimonial: {
+      quote:
+        "We've seen a 40% increase in conversions and 30% reduction in operational costs since deploying this solution.",
+      author: 'Michael Chen',
+      company: 'GrowthMetrics CEO',
+      image:
+        'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    },
+    image:
+      'https://images.unsplash.com/photo-1553484771-689277e6fa16?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    color: 'green',
+  },
+  {
+    id: 'adoption',
+    title: 'User Adoption',
+    description:
+      'Our intuitive platform drives exceptional user adoption rates with minimal onboarding friction.',
+    metrics: {
+      title: 'Adoption Metrics',
+      description:
+        'Customer adoption statistics compared to industry averages:',
+      stats: [
+        {
+          id: 'onboarding',
+          value: 85,
+          label: 'Completed Onboarding',
+          suffix: '%',
+          icon: Users,
+          change: {
+            value: 15,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'retention',
+          value: 95,
+          label: 'User Retention Rate',
+          suffix: '%',
+          icon: Users,
+          change: {
+            value: 23,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'engagement',
+          value: 3.5,
+          label: 'Daily User Sessions',
+          prefix: '',
+          icon: Clock,
+          change: {
+            value: 30,
+            trend: 'up',
+          },
+        },
+        {
+          id: 'referral',
+          value: 40,
+          label: 'User Referral Rate',
+          suffix: '%',
+          icon: Users,
+          change: {
+            value: 18,
+            trend: 'up',
+          },
+        },
+      ],
+    },
+    testimonial: {
+      quote:
+        "The platform's intuitive design led to a 95% adoption rate within our organization, far exceeding our expectations.",
+      author: 'Emily Rodriguez',
+      company: 'InnovateCorp Director',
+      image:
+        'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    },
+    image:
+      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    color: 'purple',
+  },
+];
+
+export default function FeatureStats() {
+  const [activeCategory, setActiveCategory] = useState(featureCategories[0].id);
+  const [animatedStats, setAnimatedStats] = useState<{ [key: string]: number }>(
+    {}
+  );
+  const [inViewport, setInViewport] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const currentCategory =
+    featureCategories.find((category) => category.id === activeCategory) ||
+    featureCategories[0];
+
+  // Animate stats when they come into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setInViewport(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  // Animate the stats when category changes or comes into viewport
+  useEffect(() => {
+    if (!inViewport) return;
+
+    // Reset animation values
+    const initialValues: { [key: string]: number } = {};
+    currentCategory.metrics.stats.forEach((stat) => {
+      initialValues[stat.id] = 0;
+    });
+    setAnimatedStats(initialValues);
+
+    // Animate to target values
+    const animationDuration = 1500; // 1.5 seconds
+    const frameDuration = 16; // ~60fps
+    const totalFrames = Math.round(animationDuration / frameDuration);
+    let frame = 0;
+
+    const timer = setInterval(() => {
+      frame++;
+      const progress = frame / totalFrames;
+      const updatedValues: { [key: string]: number } = {};
+
+      currentCategory.metrics.stats.forEach((stat) => {
+        // Easing function for smoother animation
+        const easeOutQuad = (t: number) => t * (2 - t);
+        const easedProgress = easeOutQuad(progress);
+
+        updatedValues[stat.id] = Number(
+          (easedProgress * stat.value).toFixed(stat.value % 1 === 0 ? 0 : 2)
+        );
+      });
+
+      setAnimatedStats(updatedValues);
+
+      if (frame === totalFrames) {
+        clearInterval(timer);
+      }
+    }, frameDuration);
+
+    return () => clearInterval(timer);
+  }, [currentCategory, inViewport]);
+
+  // Handle dropdown change
+  const handleSelectChange = (value: string) => {
+    setActiveCategory(value);
+  };
+
+  return (
+    <section
+      ref={sectionRef}
+      className="container mx-auto space-y-12 px-4 py-24 md:px-6 2xl:max-w-[1400px]"
+    >
+      <div className="space-y-4 text-center">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          Measurable Impact
+        </h2>
+        <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          See the real-world impact our features have on businesses like yours
+        </p>
+      </div>
+
+      {/* Mobile Dropdown (visible on small screens) */}
+      <div className="mb-6 w-full md:hidden">
+        <Select value={activeCategory} onValueChange={handleSelectChange}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select feature category" />
+          </SelectTrigger>
+          <SelectContent>
+            {featureCategories.map((category) => (
+              <SelectItem key={category.id} value={category.id}>
+                {category.title}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <Tabs
+        defaultValue={activeCategory}
+        value={activeCategory}
+        onValueChange={setActiveCategory}
+        className="w-full"
+      >
+        {/* Desktop Tabs (hidden on small screens) */}
+        <div className="hidden justify-center md:flex">
+          <TabsList className="mx-auto">
+            {featureCategories.map((category) => (
+              <TabsTrigger
+                key={category.id}
+                value={category.id}
+                className="px-6"
+              >
+                {category.title}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+
+        {featureCategories.map((category) => (
+          <TabsContent key={category.id} value={category.id} className="mt-8">
+            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+              <div className="space-y-6">
+                <div>
+                  <h3 className="mb-2 text-2xl font-bold">{category.title}</h3>
+                  <p className="text-muted-foreground">
+                    {category.description}
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-lg font-medium">
+                    {category.metrics.title}
+                  </h4>
+                  <p className="text-muted-foreground text-sm">
+                    {category.metrics.description}
+                  </p>
+
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {category.metrics.stats.map((stat) => (
+                      <Card key={stat.id} className="overflow-hidden p-0">
+                        <CardContent className="p-6">
+                          <div className="mb-2 flex items-center justify-between">
+                            <div
+                              className={`rounded-md p-2 bg-${category.color}-100 text-${category.color}-600 dark:bg-${category.color}-950 dark:text-${category.color}-400`}
+                            >
+                              <stat.icon className="h-5 w-5" />
+                            </div>
+                            {stat.change && (
+                              <div
+                                className={cn(
+                                  'flex items-center rounded-full px-2 py-1 text-xs font-medium',
+                                  stat.change.trend === 'up'
+                                    ? 'bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400'
+                                    : 'bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400'
+                                )}
+                              >
+                                {stat.change.trend === 'up' ? '+' : '-'}
+                                {stat.change.value}%
+                                <TrendingUp
+                                  className={cn(
+                                    'ml-1 h-3 w-3',
+                                    stat.change.trend === 'down' && 'rotate-180'
+                                  )}
+                                />
+                              </div>
+                            )}
+                          </div>
+                          <div className="mt-4 mb-1">
+                            <span className="text-3xl font-bold tabular-nums">
+                              {stat.prefix}
+                              {animatedStats[stat.id]?.toLocaleString() || 0}
+                              {stat.suffix}
+                            </span>
+                          </div>
+                          <p className="text-muted-foreground text-sm">
+                            {stat.label}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {category.testimonial && (
+                  <div
+                    className={`rounded-xl border-l-4 p-6 border-${category.color}-500 bg-${category.color}-50 dark:bg-${category.color}-950/20`}
+                  >
+                    <div className="space-y-4">
+                      <p className="text-muted-foreground italic">
+                        &ldquo;{category.testimonial.quote}&rdquo;
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <div className="relative h-10 w-10 overflow-hidden rounded-full">
+                          <img
+                            src={category.testimonial.image}
+                            alt={category.testimonial.author}
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <div className="font-medium">
+                            {category.testimonial.author}
+                          </div>
+                          <div className="text-muted-foreground text-sm">
+                            {category.testimonial.company}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                <img
+                  src={category.image}
+                  alt={category.title}
+                  className="object-cover"
+                />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-tl from-${category.color}-500/20 via-transparent to-transparent`}
+                />
+              </div>
+            </div>
+          </TabsContent>
+        ))}
+      </Tabs>
+
+      <div className="from-muted/80 via-muted to-muted/80 relative mt-16 rounded-xl bg-gradient-to-r p-8">
+        <div className="flex flex-col justify-between gap-6 md:flex-row">
+          <div className="max-w-lg space-y-2">
+            <h3 className="text-2xl font-bold">Ready to see the impact?</h3>
+            <p className="text-muted-foreground">
+              Book a demo to see how our platform can deliver measurable results
+              for your business.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3 sm:flex-row md:items-center">
+            <Button variant="outline" asChild>
+              <a href="#">Explore case studies</a>
+            </Button>
+            <Button asChild>
+              <a href="#">
+                Schedule a demo <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+```tsx
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import {
+  ArrowRight,
+  Check,
+  Code2,
+  LineChart,
+  LucideIcon,
+  RefreshCw,
+  Search,
+  Settings,
+  ShieldCheck,
+  Users,
+  Wand2,
+  Zap,
+} from 'lucide-react';
+
+import { cn } from '@/lib/utils';
+
+interface Feature {
+  id: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  benefits: string[];
+  image: string;
+  imageAlt: string;
+  status: 'New' | 'Popular' | 'Coming Soon' | null;
+}
+
+const features: Feature[] = [
+  {
+    id: 'analytics',
+    title: 'Advanced Analytics',
+    description:
+      'Gain deep insights into your data with our comprehensive analytics suite.',
+    icon: LineChart,
+    benefits: [
+      'Real-time reporting and dashboards',
+      'Custom metrics and KPIs',
+      'Data visualization tools',
+      'Export capabilities',
+      'Predictive analysis',
+    ],
+    image:
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
+    imageAlt: 'Analytics dashboard with charts and graphs',
+    status: 'Popular',
+  },
+  {
+    id: 'security',
+    title: 'Enterprise Security',
+    description:
+      'Keep your data secure with our industry-leading security features.',
+    icon: ShieldCheck,
+    benefits: [
+      'End-to-end encryption',
+      'Two-factor authentication',
+      'Role-based access control',
+      'Security audit logs',
+      'Compliance with industry standards',
+    ],
+    image:
+      'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop',
+    imageAlt: 'Security interface showing protection features',
+    status: null,
+  },
+  {
+    id: 'automation',
+    title: 'Workflow Automation',
+    description:
+      'Automate repetitive tasks and streamline your business processes.',
+    icon: RefreshCw,
+    benefits: [
+      'Visual workflow builder',
+      'Trigger-based automations',
+      'Integration with third-party services',
+      'Scheduled tasks and reminders',
+      'Custom automation rules',
+    ],
+    image:
+      'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop',
+    imageAlt: 'Automation workflow diagram',
+    status: 'New',
+  },
+  {
+    id: 'collaboration',
+    title: 'Team Collaboration',
+    description:
+      'Work together seamlessly with tools designed for modern teams.',
+    icon: Users,
+    benefits: [
+      'Real-time document editing',
+      'Team chat and messaging',
+      'Project management tools',
+      'Task assignments and tracking',
+      'Version history and control',
+    ],
+    image:
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
+    imageAlt: 'Team collaborating around a table with laptops',
+    status: null,
+  },
+  {
+    id: 'ai',
+    title: 'AI Assistant',
+    description:
+      'Leverage artificial intelligence to boost productivity and gain insights.',
+    icon: Wand2,
+    benefits: [
+      'Smart content generation',
+      'Data pattern recognition',
+      'Automated recommendations',
+      'Conversational interface',
+      'Learning from your usage patterns',
+    ],
+    image:
+      'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop',
+    imageAlt: 'AI visualization showing machine learning capabilities',
+    status: 'Coming Soon',
+  },
+  {
+    id: 'api',
+    title: 'Developer API',
+    description: 'Build custom integrations and extend platform functionality.',
+    icon: Code2,
+    benefits: [
+      'Comprehensive documentation',
+      'RESTful API endpoints',
+      'Webhooks for real-time events',
+      'SDKs for popular languages',
+      'API request monitoring',
+    ],
+    image:
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop',
+    imageAlt: 'Developer writing code on multiple screens',
+    status: null,
+  },
+  {
+    id: 'customization',
+    title: 'Advanced Customization',
+    description:
+      'Tailor the platform to your specific needs with extensive customization options.',
+    icon: Settings,
+    benefits: [
+      'Custom fields and attributes',
+      'Branding and white-labeling',
+      'Layout and design options',
+      'Workflow customization',
+      'Module-based architecture',
+    ],
+    image:
+      'https://images.unsplash.com/photo-1607706189992-eae578626c86?q=80&w=1200&auto=format&fit=crop',
+    imageAlt: 'Customization interface with design options',
+    status: null,
+  },
+];
+
+export default function FeatureAccordion() {
+  const [expandedFeature, setExpandedFeature] = useState<string>('analytics');
+  const [hoveredBenefit, setHoveredBenefit] = useState<string | null>(null);
+
+  const activeFeature =
+    features.find((f) => f.id === expandedFeature) || features[0];
+
+  return (
+    <section className="container mx-auto px-4 py-24 md:px-6 2xl:max-w-[1400px]">
+      <div className="mb-16 space-y-4 text-center">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          Comprehensive Features
+        </h2>
+        <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          Explore our powerful tools and capabilities designed to help your
+          business grow
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-12">
+        <div className="lg:col-span-2">
+          <Accordion
+            type="single"
+            value={expandedFeature}
+            onValueChange={setExpandedFeature}
+            collapsible
+            className="w-full"
+          >
+            {features.map((feature) => (
+              <AccordionItem
+                key={feature.id}
+                value={feature.id}
+                className={cn(
+                  'mb-3 rounded-lg border px-2',
+                  expandedFeature === feature.id
+                    ? 'border-primary shadow-sm'
+                    : 'border-border'
+                )}
+              >
+                <AccordionTrigger className="py-4 hover:no-underline">
+                  <div className="flex items-center gap-3 text-left">
+                    <div
+                      className={cn(
+                        'flex-shrink-0 rounded-md p-2',
+                        expandedFeature === feature.id
+                          ? 'bg-primary/10'
+                          : 'bg-muted'
+                      )}
+                    >
+                      <feature.icon
+                        className={cn(
+                          'h-5 w-5',
+                          expandedFeature === feature.id
+                            ? 'text-primary'
+                            : 'text-muted-foreground'
+                        )}
+                      />
+                    </div>
+                    <div className="flex-grow">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-medium">{feature.title}</h3>
+                        {feature.status && (
+                          <span
+                            className={cn(
+                              'rounded-full px-2 py-0.5 text-xs',
+                              feature.status === 'New'
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+                                : feature.status === 'Popular'
+                                  ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
+                                  : 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300'
+                            )}
+                          >
+                            {feature.status}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-muted-foreground line-clamp-1 text-sm">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pr-4 pb-4 pl-12">
+                  <p className="text-muted-foreground mb-3">
+                    {feature.description}
+                  </p>
+                  <ul className="space-y-2">
+                    {feature.benefits.map((benefit) => (
+                      <li
+                        key={benefit}
+                        className="flex items-start gap-2 text-sm"
+                        onMouseEnter={() => setHoveredBenefit(benefit)}
+                        onMouseLeave={() => setHoveredBenefit(null)}
+                      >
+                        <div
+                          className={cn(
+                            'mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full',
+                            hoveredBenefit === benefit
+                              ? 'bg-primary text-primary-foreground'
+                              : 'bg-primary/10 text-primary'
+                          )}
+                        >
+                          <Check className="h-3 w-3" />
+                        </div>
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+
+          <div className="mt-6">
+            <Button asChild size="lg" className="w-full">
+              <a href="#">
+                Explore all features <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+          </div>
+        </div>
+
+        <div className="relative lg:col-span-3">
+          <div className="sticky top-24">
+            <div className="from-muted/50 to-muted rounded-2xl bg-gradient-to-br p-6 lg:p-8">
+              <div className="mb-6 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="bg-background rounded-full p-2">
+                    <activeFeature.icon className="text-primary h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold">
+                    {activeFeature.title}
+                  </h3>
+                </div>
+                {activeFeature.status && (
+                  <span
+                    className={cn(
+                      'rounded-full px-2.5 py-0.5 text-xs',
+                      activeFeature.status === 'New'
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+                        : activeFeature.status === 'Popular'
+                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
+                          : 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300'
+                    )}
+                  >
+                    {activeFeature.status}
+                  </span>
+                )}
+              </div>
+
+              <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-lg">
+                <img
+                  src={activeFeature.image}
+                  alt={activeFeature.imageAlt}
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-muted-foreground">
+                  {activeFeature.description}
+                </p>
+
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                  {activeFeature.benefits.map((benefit) => (
+                    <div key={benefit} className="flex items-start gap-2">
+                      <div className="bg-primary/10 text-primary mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+                        <Check className="h-3 w-3" />
+                      </div>
+                      <span className="text-sm">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-4">
+                  <Button variant="outline" asChild>
+                    <a href="#">Learn more about {activeFeature.title}</a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-muted/50 mt-24 rounded-xl p-8 lg:p-10">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+          <div className="space-y-2">
+            <h3 className="text-2xl font-bold">
+              Ready to experience all features?
+            </h3>
+            <p className="text-muted-foreground">
+              Start your free trial today. No credit card required.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button variant="outline" asChild>
+              <a href="#">
+                <Search className="mr-2 h-4 w-4" />
+                Schedule a demo
+              </a>
+            </Button>
+            <Button asChild>
+              <a href="#">
+                <Zap className="mr-2 h-4 w-4" />
+                Start free trial
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
