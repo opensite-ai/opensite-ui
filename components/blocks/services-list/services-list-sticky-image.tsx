@@ -33,7 +33,12 @@ const defaultServices = [
     title: "Web Development",
     description:
       "Custom websites and web applications built with modern technologies. We specialize in React, Next.js, and Node.js to create fast, scalable solutions that drive results.",
-    items: ["Frontend Development", "Backend Development", "API Integration", "Database Design"],
+    items: [
+      "Frontend Development",
+      "Backend Development",
+      "API Integration",
+      "Database Design",
+    ],
     image: { src: imagePlaceholders[0], alt: "Web Development" },
     ctaText: "Learn More",
     ctaUrl: "#",
@@ -42,7 +47,12 @@ const defaultServices = [
     title: "Mobile App Development",
     description:
       "Native and cross-platform mobile applications for iOS and Android. We build performant apps that users love using React Native and Flutter.",
-    items: ["iOS Development", "Android Development", "Cross-Platform Apps", "App Store Optimization"],
+    items: [
+      "iOS Development",
+      "Android Development",
+      "Cross-Platform Apps",
+      "App Store Optimization",
+    ],
     image: { src: imagePlaceholders[1], alt: "Mobile App Development" },
     ctaText: "Learn More",
     ctaUrl: "#",
@@ -98,21 +108,22 @@ export function ServicesListStickyImage({
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="hidden lg:block">
               <div className="sticky top-32">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                  {services.map((service, index) => (
-                    service.image && (
-                      <Img
-                        key={index}
-                        src={service.image.src}
-                        alt={service.image.alt}
-                        className={cn(
-                          "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
-                          activeIndex === index ? "opacity-100" : "opacity-0"
-                        )}
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    )
-                  ))}
+                <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
+                  {services.map(
+                    (service, index) =>
+                      service.image && (
+                        <Img
+                          key={index}
+                          src={service.image.src}
+                          alt={service.image.alt}
+                          className={cn(
+                            "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
+                            activeIndex === index ? "opacity-100" : "opacity-0"
+                          )}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      )
+                  )}
                 </div>
               </div>
             </div>
@@ -147,7 +158,10 @@ export function ServicesListStickyImage({
                   {service.items && service.items.length > 0 && (
                     <div className="mt-4 grid grid-cols-2 gap-2">
                       {service.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className="flex items-center gap-2">
+                        <div
+                          key={itemIndex}
+                          className="flex items-center gap-2"
+                        >
                           <DynamicIcon
                             name="lucide/check"
                             className="h-4 w-4 text-primary"

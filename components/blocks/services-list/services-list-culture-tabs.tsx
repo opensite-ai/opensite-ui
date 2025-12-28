@@ -61,7 +61,10 @@ const defaultAspects = [
         "The freedom to innovate here has led to our most successful products. We're encouraged to explore new ideas without fear.",
       author: "Sarah Chen",
       role: "Product Designer",
-      avatar: { src: blockBrandedIconsAndPlaceholders.avatar1, alt: "Sarah Chen" },
+      avatar: {
+        src: blockBrandedIconsAndPlaceholders.avatar1,
+        alt: "Sarah Chen",
+      },
     },
   },
   {
@@ -79,7 +82,10 @@ const defaultAspects = [
         "The walls between teams don't exist here. Developers, designers, marketers—we all work together with mutual respect.",
       author: "Marcus Johnson",
       role: "Engineering Lead",
-      avatar: { src: blockBrandedIconsAndPlaceholders.avatar2, alt: "Marcus Johnson" },
+      avatar: {
+        src: blockBrandedIconsAndPlaceholders.avatar2,
+        alt: "Marcus Johnson",
+      },
     },
   },
   {
@@ -97,7 +103,10 @@ const defaultAspects = [
         "In three years, I've grown from a junior role to leading a team, supported every step of the way.",
       author: "James Wilson",
       role: "Marketing Director",
-      avatar: { src: blockBrandedIconsAndPlaceholders.avatar3, alt: "James Wilson" },
+      avatar: {
+        src: blockBrandedIconsAndPlaceholders.avatar3,
+        alt: "James Wilson",
+      },
     },
   },
 ];
@@ -156,7 +165,11 @@ export function ServicesListCultureTabs({
             </div>
 
             {aspects.map((aspect) => (
-              <TabsContent key={aspect.id} value={aspect.id} className="space-y-8">
+              <TabsContent
+                key={aspect.id}
+                value={aspect.id}
+                className="space-y-8"
+              >
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-4">
                     <h3 className="text-2xl font-bold tracking-tight">
@@ -168,7 +181,7 @@ export function ServicesListCultureTabs({
                   </div>
 
                   {aspect.testimonial && (
-                    <Card className="border-0 bg-gradient-to-br from-primary/5 to-primary/10 p-0">
+                    <Card className="border-0 bg-linear-to-br from-primary/5 to-primary/10 p-0">
                       <CardContent className="space-y-4 p-6">
                         <DynamicIcon
                           name="lucide/quote"
@@ -207,7 +220,7 @@ export function ServicesListCultureTabs({
                     {aspect.images.map((image, idx) => (
                       <div
                         key={idx}
-                        className="relative aspect-[4/3] overflow-hidden rounded-lg"
+                        className="relative aspect-4/3 overflow-hidden rounded-lg"
                       >
                         <Img
                           src={image.src}

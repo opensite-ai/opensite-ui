@@ -119,12 +119,14 @@ export function ServicesListImageOverlayGrid({
                     alt={service.image.alt}
                     className={cn(
                       "h-full w-full object-cover transition-transform duration-500 group-hover:scale-110",
-                      index === 0 ? "aspect-square md:aspect-auto" : "aspect-square"
+                      index === 0
+                        ? "aspect-square md:aspect-auto"
+                        : "aspect-square"
                     )}
                     optixFlowConfig={optixFlowConfig}
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
                 <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
                   <h3 className="text-lg font-bold text-white md:text-xl">
                     {service.title}

@@ -68,11 +68,23 @@ const defaultProps: Partial<ServiceDetailCompactCardsProps> = {
   ],
   services: [
     { icon: "lucide/users", title: "User research and persona development" },
-    { icon: "lucide/map", title: "Information architecture and user journey mapping" },
-    { icon: "lucide/pen-tool", title: "Wireframing and interactive prototyping" },
+    {
+      icon: "lucide/map",
+      title: "Information architecture and user journey mapping",
+    },
+    {
+      icon: "lucide/pen-tool",
+      title: "Wireframing and interactive prototyping",
+    },
     { icon: "lucide/palette", title: "Visual design and brand integration" },
-    { icon: "lucide/test-tube", title: "Usability testing and design validation" },
-    { icon: "lucide/book-open", title: "Design system creation and documentation" },
+    {
+      icon: "lucide/test-tube",
+      title: "Usability testing and design validation",
+    },
+    {
+      icon: "lucide/book-open",
+      title: "Design system creation and documentation",
+    },
   ],
   relatedServices: [
     {
@@ -228,7 +240,7 @@ export function ServiceDetailCompactCards({
                     href={service.link}
                     className="group block overflow-hidden rounded-lg border bg-background transition-shadow hover:shadow-lg"
                   >
-                    <div className="aspect-[4/3] overflow-hidden">
+                    <div className="aspect-4/3 overflow-hidden">
                       <Img
                         src={service.image}
                         alt={service.title}

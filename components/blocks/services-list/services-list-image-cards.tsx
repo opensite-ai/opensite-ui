@@ -121,7 +121,7 @@ export function ServicesListImageCards({
                     optixFlowConfig={optixFlowConfig}
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6">
                   <h3 className="text-xl font-bold text-white">
                     {service.title}

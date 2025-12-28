@@ -152,7 +152,7 @@ export function ServicesListTabsFeatures({
                       <Img
                         src={service.image.src}
                         alt={service.image.alt}
-                        className="aspect-[4/3] w-full object-cover"
+                        className="aspect-4/3 w-full object-cover"
                         optixFlowConfig={optixFlowConfig}
                       />
                     </div>

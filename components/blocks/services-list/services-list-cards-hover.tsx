@@ -95,7 +95,9 @@ export function ServicesListCardsHover({
                       <DynamicIcon name={service.icon} className="h-7 w-7" />
                     </div>
                   )}
-                  <h3 className="mb-2 text-lg font-semibold">{service.title}</h3>
+                  <h3 className="mb-2 text-lg font-semibold">
+                    {service.title}
+                  </h3>
                   <p className="text-sm text-muted-foreground transition-all duration-300 group-hover:mb-4">
                     {service.description}
                   </p>
@@ -132,7 +134,7 @@ export function ServicesListCardsHover({
                   </div>
                 </div>
 
-                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-0 -z-10 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
             ))}
           </div>

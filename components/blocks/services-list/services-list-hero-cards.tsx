@@ -116,7 +116,7 @@ export function ServicesListHeroCards({
                     optixFlowConfig={optixFlowConfig}
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-8">
                   {featuredService.badge && (
                     <Badge className="mb-4">{featuredService.badge}</Badge>
@@ -160,9 +160,11 @@ export function ServicesListHeroCards({
                       optixFlowConfig={optixFlowConfig}
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-4">
-                    <h4 className="font-semibold text-white">{service.title}</h4>
+                    <h4 className="font-semibold text-white">
+                      {service.title}
+                    </h4>
                     <p className="mt-1 text-xs text-white/70">
                       {service.description}
                     </p>
