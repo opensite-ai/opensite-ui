@@ -17,115 +17,281 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
+import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig } from "../../../src/types";
 
 export interface HeroConversionVideoPlayProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Primary action configuration
+   */
+  primaryAction?: ActionConfig;
+  /**
+   * Video play button label
+   */
+  videoButtonLabel?: React.ReactNode;
+  /**
+   * Video URL for the dialog
+   */
+  videoUrl?: string;
+  /**
+   * Video dialog title
+   */
+  videoDialogTitle?: string;
+  /**
+   * Custom slot for actions (overrides primaryAction and video button)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Main image configuration
+   */
+  image?: ImageItem;
+  /**
+   * Custom slot for image (overrides image)
+   */
+  imageSlot?: React.ReactNode;
+  /**
+   * Logos tagline text
+   */
+  logosTagline?: React.ReactNode;
+  /**
+   * Array of logo items
+   */
+  logos?: LogoItem[];
+  /**
+   * Custom slot for logos (overrides logos array)
+   */
+  logosSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the image container
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the logos container
+   */
+  logosClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
+const defaultPrimaryAction: ActionConfig = {
+  label: "Start Your Free Trial Today",
+  href: "#",
+  variant: "default",
+  className: "group relative h-fit overflow-hidden rounded-full border-none px-6 py-5 font-semibold text-white max-lg:px-5 max-lg:py-3.5 lg:self-start",
+};
+
+const defaultImage: ImageItem = {
+  src: imagePlaceholders[78],
+  alt: "",
+};
+
+const defaultLogos: LogoItem[] = [
+  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
+  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
+  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
+  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
+];
+
 export function HeroConversionVideoPlay({
+  heading = "Quickly convert visitors into paying customers",
+  description = "Transform your smartphone or tablet into a powerful tool. Effortlessly manage sales and inventory, engage customers, and boost your revenue.",
+  primaryAction = defaultPrimaryAction,
+  videoButtonLabel = "Play Video",
+  videoUrl = "https://www.youtube.com/embed/your-video-id",
+  videoDialogTitle = "Presentation Video",
+  actionsSlot,
+  image = defaultImage,
+  imageSlot,
+  logosTagline = "Trusted by these brands and many others",
+  logos = defaultLogos,
+  logosSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  imageClassName,
+  logosClassName,
   optixFlowConfig,
 }: HeroConversionVideoPlayProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = primaryAction;
+    
+    return (
+      <>
+        <Pressable
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          <div className="relative z-10 flex items-center gap-2.5">
+            {children ?? (
+              <>
+                {icon}
+                <span>{label}</span>
+                {iconAfter}
+              </>
+            )}
+          </div>
+          <div className="absolute bottom-16 -left-16 aspect-square w-16 rounded-full bg-pink-400 transition-all duration-300 group-hover:bottom-1/2 group-hover:-left-5 group-hover:w-[110%] group-hover:translate-y-1/2"></div>
+        </Pressable>
+
+        <Pressable
+          href="#"
+          onClick={() => setIsVideoOpen(true)}
+          asButton
+          variant="ghost"
+          className="flex h-fit w-fit items-center gap-2 text-lg font-semibold uppercase hover:bg-transparent"
+        >
+          <div className="flex h-10 w-10 rounded-full bg-primary">
+            <DynamicIcon
+              name="lucide/play"
+              size={16}
+              className="m-auto fill-white stroke-white"
+            />
+          </div>
+          <div>{videoButtonLabel}</div>
+        </Pressable>
+      </>
+    );
+  };
+
+  const renderLogos = () => {
+    if (logosSlot) return logosSlot;
+    if (!logos || logos.length === 0) return null;
+
+    return logos.map((logo, index) => {
+      const src = typeof logo.src === "string" ? logo.src : logo.src.light;
+      return (
+        <Img
+          key={index}
+          src={src}
+          alt={logo.alt}
+          className={logo.className}
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    });
+  };
+
   return (
     <Fragment>
       <section className={cn("bg-background py-12 md:py-20", className)}>
         <div className="overflow-hidden border-b border-muted">
-          <div className="container">
+          <div className={cn("container", containerClassName)}>
             <div className="flex flex-col items-center gap-16 md:gap-24">
-              <div className="flex flex-col items-center gap-8">
+              <div className={cn("flex flex-col items-center gap-8", contentClassName)}>
                 <div className="flex flex-col items-center gap-7">
-                  <h1 className="max-w-[920px] text-center text-4xl leading-tight font-semibold text-foreground md:text-6xl lg:text-7xl">
-                    Quickly convert visitors into paying customers
-                  </h1>
-                  <p className="max-w-[750px] text-center text-base leading-relaxed font-normal text-muted-foreground md:text-xl">
-                    Transform your smartphone or tablet into a powerful tool.
-                    Effortlessly manage sales and inventory, engage customers,
-                    and boost your revenue.
-                  </p>
+                  {heading && (
+                    typeof heading === "string" ? (
+                      <h1 className={cn("max-w-[920px] text-center text-4xl leading-tight font-semibold text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+                        {heading}
+                      </h1>
+                    ) : (
+                      <div className={headingClassName}>{heading}</div>
+                    )
+                  )}
+                  {description && (
+                    typeof description === "string" ? (
+                      <p className={cn("max-w-[750px] text-center text-base leading-relaxed font-normal text-muted-foreground md:text-xl", descriptionClassName)}>
+                        {description}
+                      </p>
+                    ) : (
+                      <div className={descriptionClassName}>{description}</div>
+                    )
+                  )}
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center gap-8">
-                  <Pressable
-                    href="#"
-                    asButton
-                    variant="default"
-                    className="group relative h-fit overflow-hidden rounded-full border-none px-6 py-5 font-semibold text-white max-lg:px-5 max-lg:py-3.5 lg:self-start"
-                  >
-                    <div className="relative z-10 flex items-center gap-2.5">
-                      <span>Start Your Free Trial Today</span>
-                    </div>
-                    <div className="absolute bottom-16 -left-16 aspect-square w-16 rounded-full bg-pink-400 transition-all duration-300 group-hover:bottom-1/2 group-hover:-left-5 group-hover:w-[110%] group-hover:translate-y-1/2"></div>
-                  </Pressable>
-
-                  <Pressable
-                    href="#"
-                    onClick={() => setIsVideoOpen(true)}
-                    asButton
-                    variant="ghost"
-                    className="flex h-fit w-fit items-center gap-2 text-lg font-semibold uppercase hover:bg-transparent"
-                  >
-                    <div className="flex h-10 w-10 rounded-full bg-primary">
-                      <DynamicIcon
-                        name="lucide/play"
-                        size={16}
-                        className="m-auto fill-white stroke-white"
-                      />
-                    </div>
-                    <div>Play Video</div>
-                  </Pressable>
+                <div className={cn("flex flex-wrap items-center justify-center gap-8", actionsClassName)}>
+                  {renderActions()}
                 </div>
               </div>
               <div className="w-full">
-                <div className="relative h-fit w-full">
-                  <div className="relative z-20 w-full max-w-330 overflow-hidden rounded-t-xl md:rounded-t-3xl">
-                    <AspectRatio ratio={2.095238095 / 1}>
-                      <Img
-                        src={imagePlaceholders[78]}
-                        alt=""
-                        className="size-full object-cover object-center"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </AspectRatio>
+                {imageSlot ? imageSlot : (
+                  <div className={cn("relative h-fit w-full", imageClassName)}>
+                    <div className="relative z-20 w-full max-w-330 overflow-hidden rounded-t-xl md:rounded-t-3xl">
+                      <AspectRatio ratio={2.095238095 / 1}>
+                        <Img
+                          src={image.src}
+                          alt={image.alt}
+                          className={cn("size-full object-cover object-center", image.className)}
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </AspectRatio>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
         </div>
         <div className="container">
-          <div className="flex flex-col items-center gap-16 py-20">
-            <p className="text-center text-xl font-medium text-primary">
-              Trusted by these brands and many others
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-20">
-              {[79, 80, 81, 82].map((idx) => (
-                <Img
-                  key={idx}
-                  src={logoPlaceholders.darkHorizontalLogo}
-                  alt=""
-                  className="w-36 opacity-55"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              ))}
-            </div>
+          <div className={cn("flex flex-col items-center gap-16 py-20", logosClassName)}>
+            {logosTagline && (
+              typeof logosTagline === "string" ? (
+                <p className="text-center text-xl font-medium text-primary">
+                  {logosTagline}
+                </p>
+              ) : (
+                logosTagline
+              )
+            )}
+            {(logosSlot || (logos && logos.length > 0)) && (
+              <div className="flex flex-wrap items-center justify-center gap-20">
+                {renderLogos()}
+              </div>
+            )}
           </div>
         </div>
       </section>
       <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
         <DialogContent className="sm:max-w-[800px]">
           <DialogHeader>
-            <DialogTitle>Presentation Video</DialogTitle>
+            <DialogTitle>{videoDialogTitle}</DialogTitle>
           </DialogHeader>
           <div className="aspect-video">
             <iframe
               className="h-full w-full"
-              src="https://www.youtube.com/embed/your-video-id"
-              title="Presentation Video"
+              src={videoUrl}
+              title={videoDialogTitle}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>

@@ -6,79 +6,179 @@ import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
+import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
 
 export interface HeroAgencyAnimatedImagesProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading/tagline content
+   */
+  subheading?: React.ReactNode;
+  /**
+   * CTA action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Array of images for the grid
+   */
+  images?: ImageItem[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content column
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the images container
+   */
+  imagesContainerClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
+const defaultAction: ActionConfig = {
+  label: "Book a Demo",
+  href: "#",
+  variant: "default",
+  className: "block h-fit w-fit rounded-lg px-7 py-3.5 text-lg font-medium transition-all duration-300 hover:-translate-y-1",
+};
+
+const defaultImages: ImageItem[] = [
+  { src: imagePlaceholders[120], alt: "" },
+  { src: imagePlaceholders[121], alt: "" },
+  { src: imagePlaceholders[122], alt: "" },
+  { src: imagePlaceholders[123], alt: "" },
+];
+
 export function HeroAgencyAnimatedImages({
+  heading = "Revolutionize your business operations",
+  subheading = "The ultimate platform to unlock your agency's capabilities.",
+  action = defaultAction,
+  actionSlot,
+  images = defaultImages,
+  imagesSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  subheadingClassName,
+  imagesContainerClassName,
   optixFlowConfig,
 }: HeroAgencyAnimatedImagesProps): React.JSX.Element {
+  const renderAction = () => {
+    if (actionSlot) return actionSlot;
+    if (!action) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    return (
+      <Pressable
+        asButton
+        className={actionClassName}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
+
+    const leftImages = images.slice(0, 2);
+    const rightImages = images.slice(2, 4);
+
+    return (
+      <div className="grid w-full grid-cols-2 items-center justify-center gap-4">
+        <div className="flex flex-col items-end justify-center gap-4">
+          {leftImages.map((image, index) => (
+            <div key={index} className="relative overflow-hidden rounded-lg">
+              <Img
+                src={image.src}
+                alt={image.alt}
+                className={cn("block h-full w-full object-cover object-center", image.className)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col items-start justify-center gap-4">
+          {rightImages.map((image, index) => (
+            <div key={index} className="relative overflow-hidden rounded-lg">
+              <Img
+                src={image.src}
+                alt={image.alt}
+                className={cn("block h-full w-full object-cover object-center", image.className)}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className={cn("bg-background py-12 md:py-20", className)}>
-      <div className="container max-w-444">
+      <div className={cn("container max-w-444", containerClassName)}>
         <div className="grid w-full grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
-          <div className="flex w-full max-w-125 flex-col gap-8 md:gap-14 lg:max-w-full">
-            <h1 className="font-serif text-5xl text-foreground md:text-6xl lg:text-7xl xl:text-[5rem]">
-              Revolutionize your business operations
-            </h1>
-            <p className="font-montserrat text-2xl leading-snug text-foreground lg:text-3xl xl:text-4xl">
-              The ultimate platform to unlock your agency&apos;s capabilities.
-            </p>
-            <Pressable
-              href="#"
-              asButton
-              variant="default"
-              className="block h-fit w-fit rounded-lg px-7 py-3.5 text-lg font-medium transition-all duration-300 hover:-translate-y-1"
-            >
-              Book a Demo
-            </Pressable>
+          <div className={cn("flex w-full max-w-125 flex-col gap-8 md:gap-14 lg:max-w-full", contentClassName)}>
+            {heading && (
+              typeof heading === "string" ? (
+                <h1 className={cn("font-serif text-5xl text-foreground md:text-6xl lg:text-7xl xl:text-[5rem]", headingClassName)}>
+                  {heading}
+                </h1>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {subheading && (
+              typeof subheading === "string" ? (
+                <p className={cn("font-montserrat text-2xl leading-snug text-foreground lg:text-3xl xl:text-4xl", subheadingClassName)}>
+                  {subheading}
+                </p>
+              ) : (
+                <div className={subheadingClassName}>{subheading}</div>
+              )
+            )}
+            {renderAction()}
           </div>
-          <div className="mx-auto w-full max-w-211.5 lg:mx-0">
+          <div className={cn("mx-auto w-full max-w-211.5 lg:mx-0", imagesContainerClassName)}>
             <AspectRatio ratio={1.049627792 / 1}>
-              <div className="grid w-full grid-cols-2 items-center justify-center gap-4">
-                <div className="flex flex-col items-end justify-center gap-4">
-                  <div className="relative overflow-hidden rounded-lg">
-                    <Img
-                      src={imagePlaceholders[120]}
-                      alt=""
-                      className="block h-full w-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-lg">
-                    <Img
-                      src={imagePlaceholders[121]}
-                      alt=""
-                      className="block h-full w-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col items-start justify-center gap-4">
-                  <div className="relative overflow-hidden rounded-lg">
-                    <Img
-                      src={imagePlaceholders[122]}
-                      alt=""
-                      className="block h-full w-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-lg">
-                    <Img
-                      src={imagePlaceholders[123]}
-                      alt=""
-                      className="block h-full w-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                </div>
-              </div>
+              {renderImages()}
             </AspectRatio>
           </div>
         </div>

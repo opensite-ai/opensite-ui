@@ -6,19 +6,165 @@ import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
+import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
 
 export interface HeroUiLibraryShowcaseProps {
+  /**
+   * Logo image configuration
+   */
+  logo?: ImageItem;
+  /**
+   * Custom slot for logo (overrides logo prop)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Showcase image configuration
+   */
+  image?: ImageItem;
+  /**
+   * Custom slot for image (overrides image prop)
+   */
+  imageSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
+const defaultLogo: ImageItem = {
+  src: logoPlaceholders.logoMark,
+  alt: "",
+};
+
+const defaultImage: ImageItem = {
+  src: imagePlaceholders[32],
+  alt: "",
+};
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Download Now",
+    href: "#",
+    variant: "default",
+    className: "h-fit self-center rounded-full px-6 py-3",
+  },
+];
+
 export function HeroUiLibraryShowcase({
+  logo = defaultLogo,
+  logoSlot,
+  heading = "The continuously growing UI library for Opensite AI",
+  description,
+  actions = defaultActions,
+  actionsSlot,
+  image = defaultImage,
+  imageSlot,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  imageClassName,
   optixFlowConfig,
 }: HeroUiLibraryShowcaseProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    return actions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+
+    return (
+      <Img
+        src={logo.src}
+        alt={logo.alt}
+        className={cn("h-11 w-fit", logo.className)}
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  };
+
+  const renderImage = () => {
+    if (imageSlot) return imageSlot;
+
+    return (
+      <div className="w-full overflow-hidden rounded-lg">
+        <AspectRatio ratio={1.916786227 / 1}>
+          <Img
+            src={image.src}
+            alt={image.alt}
+            className={cn("size-full object-cover", imageClassName, image.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        </AspectRatio>
+      </div>
+    );
+  };
+
+  const defaultDescription = (
+    <div className="text-xl text-muted-foreground">
+      <p>
+        Create quicker, more efficiently, and boost your design expertise.
+      </p>
+      <p>Transform into an elite designer instantly</p>
+    </div>
+  );
+
   return (
     <section
       className={cn(
@@ -26,38 +172,35 @@ export function HeroUiLibraryShowcase({
         className,
       )}
     >
-      <div className="flex flex-col gap-10 md:items-center">
-        <Img
-          src={logoPlaceholders.logoMark}
-          alt=""
-          className="h-11 w-fit"
-          optixFlowConfig={optixFlowConfig}
-        />
+      <div className={cn("flex flex-col gap-10 md:items-center", headerClassName)}>
+        {renderLogo()}
         <div className="flex max-w-[880px] flex-col items-center gap-6">
-          <h1 className="text-4xl tracking-tighter text-foreground capitalize md:text-5xl lg:text-6xl">
-            <p>The continuously growing UI library for Opensite AI</p>
-          </h1>
-          <div className="text-xl text-muted-foreground">
-            <p>
-              Create quicker, more efficiently, and boost your design expertise.
-            </p>
-            <p>Transform into an elite designer instantly</p>
-          </div>
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("text-4xl tracking-tighter text-foreground capitalize md:text-5xl lg:text-6xl", headingClassName)}>
+                <p>{heading}</p>
+              </h1>
+            ) : (
+              <h1 className={cn("text-4xl tracking-tighter text-foreground capitalize md:text-5xl lg:text-6xl", headingClassName)}>
+                {heading}
+              </h1>
+            )
+          )}
+          {description ? (
+            typeof description === "string" ? (
+              <p className={cn("text-xl text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          ) : (
+            defaultDescription
+          )}
         </div>
-        <Pressable href="#" asButton variant="default" className="h-fit self-center rounded-full px-6 py-3">
-          Download Now
-        </Pressable>
+        {renderActions()}
       </div>
-      <div className="w-full overflow-hidden rounded-lg">
-        <AspectRatio ratio={1.916786227 / 1}>
-          <Img
-            src={imagePlaceholders[32]}
-            alt=""
-            className="size-full object-cover"
-            optixFlowConfig={optixFlowConfig}
-          />
-        </AspectRatio>
-      </div>
+      {renderImage()}
     </section>
   );
 }

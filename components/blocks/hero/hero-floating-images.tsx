@@ -4,18 +4,11 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ImageItem, OptixFlowConfig } from "../../../src/types";
 
-export interface HeroFloatingImagesItem {
+export interface HeroFloatingImagesItem extends ImageItem {
   /**
-   * Image source URL
-   */
-  src: string;
-  /**
-   * Alt text for the image
-   */
-  alt: string;
-  /**
-   * Tailwind classes for positioning and sizing
+   * Tailwind classes for positioning and sizing (required for floating images)
    */
   className: string;
 }
@@ -24,26 +17,51 @@ export interface HeroFloatingImagesProps {
   /**
    * Main heading text
    */
-  title?: string;
+  heading?: React.ReactNode;
   /**
    * Supporting description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Floating images to render
    */
   images?: HeroFloatingImagesItem[];
   /**
+   * Custom slot for images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Whether to show decorative swirl backgrounds
+   */
+  showSwirls?: boolean;
+  /**
+   * Custom slot for background decorations (overrides showSwirls)
+   */
+  backgroundSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
   /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the images container
+   */
+  imagesClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultImages: HeroFloatingImagesItem[] = [
@@ -111,24 +129,36 @@ const Swirls = () => (
  * swirl backgrounds. Great for playful, lifestyle, or hospitality landing pages.
  */
 export function HeroFloatingImages({
-  title = "Moments curated with OpenSite AI care",
+  heading = "Moments curated with OpenSite AI care",
   description = "Pair a warm headline with floating imagery to create a playful, immersive hero that feels human and welcoming.",
   images = defaultImages,
+  imagesSlot,
+  showSwirls = true,
+  backgroundSlot,
   className,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  imagesClassName,
   optixFlowConfig,
 }: HeroFloatingImagesProps): React.JSX.Element {
-  return (
-    <section
-      className={cn(
-        "relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-background py-20 md:min-h-[80vh] md:py-32",
-        className,
-      )}
-    >
+  const renderBackground = () => {
+    if (backgroundSlot) return backgroundSlot;
+    if (!showSwirls) return null;
+
+    return (
       <div className="absolute inset-0 z-0">
         <Swirls />
       </div>
+    );
+  };
 
-      <div className="absolute inset-0 z-10">
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
+
+    return (
+      <div className={cn("absolute inset-0 z-10", imagesClassName)}>
         {images.map((image, index) => (
           <Img
             key={`${image.alt}-${index}`}
@@ -140,14 +170,40 @@ export function HeroFloatingImages({
           />
         ))}
       </div>
+    );
+  };
 
-      <div className="relative z-20 mx-auto max-w-2xl px-4 text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl">
-          {title}
-        </h1>
-        <p className="mt-6 text-lg leading-8 text-muted-foreground">
-          {description}
-        </p>
+  return (
+    <section
+      className={cn(
+        "relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-background py-20 md:min-h-[80vh] md:py-32",
+        className,
+      )}
+    >
+      {renderBackground()}
+      {renderImages()}
+
+      <div className={cn("relative z-20 mx-auto max-w-2xl px-4 text-center", contentClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <h1 className={cn("text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl", headingClassName)}>
+              {heading}
+            </h1>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-6 text-lg leading-8 text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
       </div>
     </section>
   );

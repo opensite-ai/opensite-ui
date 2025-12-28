@@ -5,14 +5,148 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
+import type { ActionConfig, StatItem } from "../../../src/types";
 
 export interface HeroNewsletterMinimalProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Email input placeholder text
+   */
+  inputPlaceholder?: string;
+  /**
+   * Submit button configuration
+   */
+  submitAction?: ActionConfig;
+  /**
+   * Custom slot for the form (overrides default input + button)
+   */
+  formSlot?: React.ReactNode;
+  /**
+   * Disclaimer text below form
+   */
+  disclaimer?: React.ReactNode;
+  /**
+   * Array of stat/trust indicators
+   */
+  stats?: StatItem[];
+  /**
+   * Custom slot for rendering stats (overrides stats array)
+   */
+  statsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the form container
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the input
+   */
+  inputClassName?: string;
+  /**
+   * Additional CSS classes for the disclaimer
+   */
+  disclaimerClassName?: string;
+  /**
+   * Additional CSS classes for the stats container
+   */
+  statsClassName?: string;
 }
 
+const defaultSubmitAction: ActionConfig = {
+  label: "Subscribe",
+  href: "#",
+  variant: "default",
+  className: "h-12 px-8",
+  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
+};
+
+const defaultStats: StatItem[] = [
+  { value: "Weekly newsletter", icon: <DynamicIcon name="lucide/mail" size={16} /> },
+  { value: "50K+ subscribers", icon: <DynamicIcon name="lucide/users" size={16} /> },
+  { value: "4.9/5 rating", icon: <DynamicIcon name="lucide/star" size={16} /> },
+];
+
 export function HeroNewsletterMinimal({
+  heading = "Stay ahead of the curve",
+  description = "Join 50,000+ professionals who get our weekly insights on design, development, and business growth.",
+  inputPlaceholder = "Enter your email",
+  submitAction = defaultSubmitAction,
+  formSlot,
+  disclaimer = "Free forever. No spam. Unsubscribe anytime.",
+  stats = defaultStats,
+  statsSlot,
   className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
+  formClassName,
+  inputClassName,
+  disclaimerClassName,
+  statsClassName,
 }: HeroNewsletterMinimalProps): React.JSX.Element {
+  const renderStats = () => {
+    if (statsSlot) return statsSlot;
+    if (!stats || stats.length === 0) return null;
+
+    return stats.map((stat, index) => (
+      <div key={index} className={cn("flex items-center gap-2 text-sm text-muted-foreground", stat.className)}>
+        {stat.icon}
+        <span>{stat.value}</span>
+      </div>
+    ));
+  };
+
+  const renderForm = () => {
+    if (formSlot) return formSlot;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = submitAction;
+
+    return (
+      <>
+        <Input
+          type="email"
+          placeholder={inputPlaceholder}
+          className={cn("h-12 flex-1", inputClassName)}
+        />
+        <Pressable
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      </>
+    );
+  };
+
   return (
     <section
       className={cn(
@@ -20,47 +154,42 @@ export function HeroNewsletterMinimal({
         className,
       )}
     >
-      <div className="container flex flex-col items-center justify-center text-center">
-        <h1 className="max-w-3xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-          Stay ahead of the curve
-        </h1>
-        <p className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl">
-          Join 50,000+ professionals who get our weekly insights on design,
-          development, and business growth.
-        </p>
-        <div className="mt-10 flex w-full max-w-md flex-col gap-4 sm:flex-row">
-          <Input
-            type="email"
-            placeholder="Enter your email"
-            className="h-12 flex-1"
-          />
-          <Pressable
-            href="#"
-            asButton
-            variant="default"
-            className="h-12 px-8"
-          >
-            Subscribe
-            <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-          </Pressable>
+      <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("max-w-3xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-6 max-w-xl text-lg text-muted-foreground md:text-xl", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+        <div className={cn("mt-10 flex w-full max-w-md flex-col gap-4 sm:flex-row", formClassName)}>
+          {renderForm()}
         </div>
-        <p className="mt-4 text-sm text-muted-foreground">
-          Free forever. No spam. Unsubscribe anytime.
-        </p>
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-8">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <DynamicIcon name="lucide/mail" size={16} />
-            <span>Weekly newsletter</span>
+        {disclaimer && (
+          typeof disclaimer === "string" ? (
+            <p className={cn("mt-4 text-sm text-muted-foreground", disclaimerClassName)}>
+              {disclaimer}
+            </p>
+          ) : (
+            <div className={disclaimerClassName}>{disclaimer}</div>
+          )
+        )}
+        {(statsSlot || (stats && stats.length > 0)) && (
+          <div className={cn("mt-16 flex flex-wrap items-center justify-center gap-8", statsClassName)}>
+            {renderStats()}
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <DynamicIcon name="lucide/users" size={16} />
-            <span>50K+ subscribers</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <DynamicIcon name="lucide/star" size={16} />
-            <span>4.9/5 rating</span>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );

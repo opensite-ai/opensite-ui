@@ -4,16 +4,102 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig } from "../../../src/types";
 
 export interface HeroFullscreenBackgroundImageProps {
-  className?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Background image URL
+   */
   backgroundImage?: string;
+  /**
+   * Noise overlay image URL (set to empty string to disable)
+   */
+  noiseOverlayUrl?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
+const defaultActions: ActionConfig[] = [
+  {
+    label: "See all photos",
+    href: "#",
+    variant: "default",
+    className: "h-fit w-fit rounded-full px-7 py-4 text-sm leading-tight font-medium",
+  },
+];
+
 export function HeroFullscreenBackgroundImage({
-  className,
+  heading = "Explore the wonders of science.",
+  description = "From stunning skyscrapers to intricate bridges and innovative architectural marvels, each photo invites you to explore the artificial wonders of the world.",
+  actions = defaultActions,
+  actionsSlot,
   backgroundImage = imagePlaceholders[33],
+  noiseOverlayUrl = "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",
+  className,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
 }: HeroFullscreenBackgroundImageProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
     <section
       className={cn(
@@ -22,25 +108,37 @@ export function HeroFullscreenBackgroundImage({
       )}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className="relative z-30 m-auto flex max-w-185 flex-col items-center justify-center gap-6 px-5">
-        <h1 className="text-center font-serif text-4xl leading-tight text-foreground md:text-6xl xl:text-[4.4rem]">
-          Explore the wonders of science.
-        </h1>
-        <p className="text-center text-base text-foreground">
-          From stunning skyscrapers to intricate bridges and innovative
-          architectural marvels, each photo invites you to explore the
-          artificial wonders of the world.
-        </p>
-        <Pressable
-          href="#"
-          asButton
-          variant="default"
-          className="h-fit w-fit rounded-full px-7 py-4 text-sm leading-tight font-medium"
-        >
-          See all photos
-        </Pressable>
+      <div className={cn("relative z-30 m-auto flex max-w-185 flex-col items-center justify-center gap-6 px-5", contentClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("text-center font-serif text-4xl leading-tight text-foreground md:text-6xl xl:text-[4.4rem]", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("text-center text-base text-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+        {(actionsSlot || (actions && actions.length > 0)) && (
+          <div className={actionsClassName}>
+            {renderActions()}
+          </div>
+        )}
       </div>
-      <div className="pointer-events-none absolute inset-0 z-20 h-full w-full bg-[url('https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png')] bg-repeat opacity-15" />
+      {noiseOverlayUrl && (
+        <div
+          className="pointer-events-none absolute inset-0 z-20 h-full w-full bg-repeat opacity-15"
+          style={{ backgroundImage: `url('${noiseOverlayUrl}')` }}
+        />
+      )}
     </section>
   );
 }
