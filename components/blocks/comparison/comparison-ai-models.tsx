@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import * as React from "react";
+import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -13,20 +14,35 @@ import {
   TableRow,
 } from "../../ui/table";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
 
-interface MetricValue {
+/**
+ * Status type for metric values
+ */
+export type MetricStatus = "best" | "worst" | "neutral";
+
+/**
+ * Metric value with status indicator
+ */
+export interface MetricValue {
   value: string;
-  status: "best" | "worst" | "neutral";
+  status: MetricStatus;
 }
 
-interface ComparisonRow {
+/**
+ * Comparison row data for AI models
+ */
+export interface AiModelComparisonRow {
   metric: string;
   modelA: MetricValue;
   modelB: MetricValue;
   modelC: MetricValue;
 }
 
-interface ModelInfo {
+/**
+ * Model information configuration
+ */
+export interface ModelInfo {
   name: string;
   icon?: string;
   iconAlt?: string;
@@ -34,18 +50,72 @@ interface ModelInfo {
   hoverColor: string;
 }
 
+/**
+ * Models configuration object
+ */
+export interface ModelsConfig {
+  modelA: ModelInfo;
+  modelB: ModelInfo;
+  modelC: ModelInfo;
+}
+
 export interface ComparisonAiModelsProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Models configuration object
+   */
+  models?: ModelsConfig;
+  /**
+   * Array of comparison row data
+   */
+  comparisonData?: AiModelComparisonRow[];
+  /**
+   * Custom slot for rendering the table (overrides default table)
+   */
+  tableSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering the analysis section
+   */
+  analysisSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  models?: {
-    modelA: ModelInfo;
-    modelB: ModelInfo;
-    modelC: ModelInfo;
-  };
-  comparisonData?: ComparisonRow[];
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the table wrapper
+   */
+  tableWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the table
+   */
+  tableClassName?: string;
+  /**
+   * Additional CSS classes for the analysis section
+   */
+  analysisClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultModels = {
@@ -90,7 +160,7 @@ const defaultModels = {
   },
 };
 
-const defaultComparisonData: ComparisonRow[] = [
+const defaultComparisonData: AiModelComparisonRow[] = [
   {
     metric: "Context Window",
     modelA: { value: "128K tokens", status: "worst" },
@@ -154,11 +224,21 @@ const defaultComparisonData: ComparisonRow[] = [
  * specification matrices, performance benchmarks.
  */
 export function ComparisonAiModels({
-  className,
+  heading,
+  description,
   models = defaultModels,
   comparisonData = defaultComparisonData,
+  tableSlot,
+  analysisSlot,
+  className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
+  tableWrapperClassName,
+  tableClassName,
+  analysisClassName,
   optixFlowConfig,
-}: ComparisonAiModelsProps) {
+}: ComparisonAiModelsProps): React.JSX.Element {
   const [hoveredModel, setHoveredModel] = useState<string | null>(null);
 
   const renderStatusIcon = (status: MetricValue["status"]) => {
@@ -205,112 +285,149 @@ export function ComparisonAiModels({
     return baseClass;
   };
 
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container mx-auto">
-        <div className="relative overflow-hidden p-8">
-          <div className="relative overflow-hidden border border-border/50 bg-background/50 backdrop-blur-sm">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-border/50">
-                  <TableHead className="font-semibold text-foreground">
-                    Metric
-                  </TableHead>
-                  {Object.entries(models).map(([key, model]) => (
-                    <TableHead key={key} className="text-center font-semibold text-foreground">
-                      <div className="flex items-center justify-center gap-2">
-                        {model.icon && (
-                          <Img
-                            src={model.icon}
-                            alt={model.iconAlt || model.name}
-                            className="h-4 w-4"
-                            optixFlowConfig={optixFlowConfig}
-                          />
-                        )}
-                        {model.name}
-                      </div>
-                    </TableHead>
-                  ))}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {comparisonData.map((row, index) => (
-                  <TableRow
-                    key={index}
-                    className="border-border/30 transition-colors hover:bg-muted/30"
-                  >
-                    <TableCell className="py-4 font-medium text-foreground">
-                      {row.metric}
-                    </TableCell>
-                    <TableCell
-                      className={getCellClassName(row.modelA.status, "modelA")}
-                      onMouseEnter={() => setHoveredModel("modelA")}
-                      onMouseLeave={() => setHoveredModel(null)}
-                    >
-                      <div className="flex items-center justify-center gap-2">
-                        {renderStatusIcon(row.modelA.status)}
-                        <span>{row.modelA.value}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell
-                      className={getCellClassName(row.modelB.status, "modelB")}
-                      onMouseEnter={() => setHoveredModel("modelB")}
-                      onMouseLeave={() => setHoveredModel(null)}
-                    >
-                      <div className="flex items-center justify-center gap-2">
-                        {renderStatusIcon(row.modelB.status)}
-                        <span>{row.modelB.value}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell
-                      className={getCellClassName(row.modelC.status, "modelC")}
-                      onMouseEnter={() => setHoveredModel("modelC")}
-                      onMouseLeave={() => setHoveredModel(null)}
-                    >
-                      <div className="flex items-center justify-center gap-2">
-                        {renderStatusIcon(row.modelC.status)}
-                        <span>{row.modelC.value}</span>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+  const renderTable = () => {
+    if (tableSlot) return tableSlot;
 
-          <div className="relative mt-8 border border-border/50 bg-muted/20 p-6">
-            <div className="relative">
-              <h4 className="mb-4 font-mono text-sm font-semibold tracking-wider text-foreground uppercase">
-                Technical Analysis
-              </h4>
-              <div className="space-y-3 font-mono text-xs text-muted-foreground">
-                <div className="grid gap-2 md:grid-cols-3">
-                  {Object.entries(models).map(([key, model]) => (
-                    <div key={key} className={getSummaryCardClassName(key)}>
-                      <div className="mb-1 font-medium text-foreground">
-                        {model.name}
-                      </div>
-                      <div className="space-y-1">
-                        {model.summary.map((item, idx) => (
-                          <div key={idx}>• {item}</div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 rounded border border-border/30 bg-background/50 p-3">
-                  <div className="mb-2 font-medium text-foreground">
-                    Performance Summary
+    return (
+      <div className={cn("relative overflow-hidden border border-border/50 bg-background/50 backdrop-blur-sm", tableWrapperClassName)}>
+        <Table className={tableClassName}>
+          <TableHeader>
+            <TableRow className="border-border/50">
+              <TableHead className="font-semibold text-foreground">
+                Metric
+              </TableHead>
+              {Object.entries(models).map(([key, model]) => (
+                <TableHead key={key} className="text-center font-semibold text-foreground">
+                  <div className="flex items-center justify-center gap-2">
+                    {model.icon && (
+                      <Img
+                        src={model.icon}
+                        alt={model.iconAlt || model.name}
+                        className="h-4 w-4"
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    )}
+                    {model.name}
+                  </div>
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {comparisonData.map((row, index) => (
+              <TableRow
+                key={index}
+                className="border-border/30 transition-colors hover:bg-muted/30"
+              >
+                <TableCell className="py-4 font-medium text-foreground">
+                  {row.metric}
+                </TableCell>
+                <TableCell
+                  className={getCellClassName(row.modelA.status, "modelA")}
+                  onMouseEnter={() => setHoveredModel("modelA")}
+                  onMouseLeave={() => setHoveredModel(null)}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    {renderStatusIcon(row.modelA.status)}
+                    <span>{row.modelA.value}</span>
+                  </div>
+                </TableCell>
+                <TableCell
+                  className={getCellClassName(row.modelB.status, "modelB")}
+                  onMouseEnter={() => setHoveredModel("modelB")}
+                  onMouseLeave={() => setHoveredModel(null)}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    {renderStatusIcon(row.modelB.status)}
+                    <span>{row.modelB.value}</span>
+                  </div>
+                </TableCell>
+                <TableCell
+                  className={getCellClassName(row.modelC.status, "modelC")}
+                  onMouseEnter={() => setHoveredModel("modelC")}
+                  onMouseLeave={() => setHoveredModel(null)}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    {renderStatusIcon(row.modelC.status)}
+                    <span>{row.modelC.value}</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    );
+  };
+
+  const renderAnalysis = () => {
+    if (analysisSlot) return analysisSlot;
+
+    return (
+      <div className={cn("relative mt-8 border border-border/50 bg-muted/20 p-6", analysisClassName)}>
+        <div className="relative">
+          <h4 className="mb-4 font-mono text-sm font-semibold tracking-wider text-foreground uppercase">
+            Technical Analysis
+          </h4>
+          <div className="space-y-3 font-mono text-xs text-muted-foreground">
+            <div className="grid gap-2 md:grid-cols-3">
+              {Object.entries(models).map(([key, model]) => (
+                <div key={key} className={getSummaryCardClassName(key)}>
+                  <div className="mb-1 font-medium text-foreground">
+                    {model.name}
                   </div>
                   <div className="space-y-1">
-                    <div>• {models.modelA.name}: Fastest response times with strong code generation</div>
-                    <div>• {models.modelB.name}: Excellent reasoning capabilities and balanced performance</div>
-                    <div>• {models.modelC.name}: Best value proposition with competitive pricing</div>
+                    {model.summary.map((item: string, idx: number) => (
+                      <div key={idx}>• {item}</div>
+                    ))}
                   </div>
                 </div>
+              ))}
+            </div>
+            <div className="mt-4 rounded border border-border/30 bg-background/50 p-3">
+              <div className="mb-2 font-medium text-foreground">
+                Performance Summary
+              </div>
+              <div className="space-y-1">
+                <div>• {models.modelA.name}: Fastest response times with strong code generation</div>
+                <div>• {models.modelB.name}: Excellent reasoning capabilities and balanced performance</div>
+                <div>• {models.modelC.name}: Best value proposition with competitive pricing</div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <section className={cn("py-32", className)}>
+      <div className={cn("container mx-auto", containerClassName)}>
+        {(heading || description) && (
+          <div className="mb-8 text-center">
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-3xl font-bold md:text-4xl lg:text-5xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-4 text-muted-foreground md:text-lg", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+          </div>
+        )}
+        <div className="relative overflow-hidden p-8">
+          {renderTable()}
+          {renderAnalysis()}
         </div>
       </div>
     </section>
