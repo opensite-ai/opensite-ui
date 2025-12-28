@@ -2874,7 +2874,7 @@ export const SparksCarousel = React.forwardRef<
             {items.map((item, index) => (
               <motion.div
                 key={item.id}
-                className="group w-[280px] flex-shrink-0"
+                className="group w-[280px] shrink-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -3004,7 +3004,7 @@ const Carousel: React.FC<PropType> = (props) => {
           }`}
         >
           <div
-            className="bg-foreground absolute w-full top-0 bottom-0 -left-full animate-[autoplay-progress_linear_1] [animation-play-state:running]"
+            className="bg-foreground absolute w-full top-0 bottom-0 -left-full animate-[autoplay-progress_linear_1] running"
             ref={progressNode}
             style={{
               animationPlayState: showAutoplayProgress ? "running" : "paused",
@@ -3405,245 +3405,297 @@ export default function ImageCarouselHero() {
 ```
 
 ```tsx
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
+interface GalleryImage {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export default function CarouselGallery() {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+
+  // Configuration options
+  const autoPlay = true;
+  const autoPlayInterval = 5000;
+  const showThumbnails = true;
+
+  // Static images array
+  const images: GalleryImage[] = [
+    {
+      src: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1470&auto=format&fit=crop',
+      alt: 'Modern architecture with glass and steel structures',
+      width: 1470,
+      height: 980,
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=1474&auto=format&fit=crop',
+      alt: 'Historic building with ornate details and columns',
+      width: 1474,
+      height: 982,
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=1470&auto=format&fit=crop',
+      alt: 'Minimalist concrete structure with clean lines',
+      width: 1470,
+      height: 980,
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1470&auto=format&fit=crop',
+      alt: 'Futuristic museum design with curved surfaces',
+      width: 1470,
+      height: 980,
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=1467&auto=format&fit=crop',
+      alt: 'Brutalist architectural style with raw concrete elements',
+      width: 1467,
+      height: 978,
+    },
+  ];
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  // Auto play functionality
+  React.useEffect(() => {
+    if (!autoPlay) return;
+
+    const interval = setInterval(() => {
+      nextSlide();
+    }, autoPlayInterval);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, autoPlay, autoPlayInterval]);
+
+  // Keyboard navigation for main carousel
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  return (
+    <div className="w-full p-4 md:p-6">
+      {/* Main carousel */}
+      <div className="relative overflow-hidden rounded-lg">
+        <div className="relative aspect-video w-full overflow-hidden">
+          {images.map((image, index) => (
+            <div
+              key={`slide-${index}`}
+              className={cn(
+                'absolute inset-0 transform transition-all duration-500 ease-in-out',
+                index === currentIndex
+                  ? 'translate-x-0 opacity-100'
+                  : index < currentIndex
+                    ? '-translate-x-full opacity-0'
+                    : 'translate-x-full opacity-0'
+              )}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation buttons */}
+        <Button
+          size="icon"
+          className="absolute top-1/2 left-2 -translate-y-1/2"
+          onClick={prevSlide}
+        >
+          <ChevronLeftIcon className="h-6 w-6" />
+        </Button>
+
+        <Button
+          size="icon"
+          className="absolute top-1/2 right-2 -translate-y-1/2"
+          onClick={nextSlide}
+        >
+          <ChevronRightIcon className="h-6 w-6" />
+        </Button>
+
+        {/* Caption */}
+        <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/60 to-transparent p-4 text-sm text-white">
+          {images[currentIndex].alt}
+        </div>
+      </div>
+
+      {/* Thumbnails */}
+      {showThumbnails && (
+        <div className="mt-4 flex gap-2 overflow-x-auto px-2 py-2">
+          {images.map((image, index) => (
+            <button
+              key={`thumb-${index}`}
+              className={cn(
+                'relative h-20 w-20 shrink-0 transition-all duration-200',
+                index === currentIndex
+                  ? 'ring-primary ring-2 ring-offset-2'
+                  : 'opacity-70 hover:opacity-100'
+              )}
+              onClick={() => setCurrentIndex(index)}
+            >
+              <img
+                src={image.src}
+                alt={`Thumbnail ${index + 1}`}
+                width={80}
+                height={80}
+                className="h-full w-full rounded-sm object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 ```
 
 ```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
-```
-
-```tsx
-
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const slides = [
+  {
+    id: 1,
+    image:
+      'https://images.unsplash.com/photo-1567721913486-6585f069b332?q=80&w=2274&auto=format&fit=crop&ixlib=rb-4.0.3',
+    title: 'Web Design Portfolio',
+    description:
+      'Clean, modern interfaces that prioritize user experience and functionality',
+    tag: 'UI/UX Design',
+  },
+  {
+    id: 2,
+    image:
+      'https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3',
+    title: 'Branding & Identity',
+    description:
+      'Crafting memorable brand identities that tell your unique story',
+    tag: 'Brand Design',
+  },
+  {
+    id: 3,
+    image:
+      'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3',
+    title: 'Photography Projects',
+    description: 'Capturing moments and emotions through a creative lens',
+    tag: 'Photography',
+  },
+];
+
+export default function PortfolioHeroCarouselSlider() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+  };
+
+  const goToPrev = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + slides.length) % slides.length
+    );
+  };
+
+  useEffect(() => {
+    const interval = setInterval(goToNext, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative h-screen w-full overflow-hidden">
+      {/* Slide images with animation */}
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ${
+            index === currentIndex ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="object-cover"
+            fetchPriority={index === 0 ? 'high' : 'auto'}
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
+        </div>
+      ))}
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full w-full flex-col justify-end p-4 pb-16 text-white sm:p-8 md:p-12">
+        <div className="container mx-auto">
+          <div className="max-w-3xl">
+            <div className="mb-4">
+              <span className="bg-primary inline-block rounded-full px-3 py-1 text-sm font-medium">
+                {slides[currentIndex].tag}
+              </span>
+            </div>
+
+            <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
+              {slides[currentIndex].title}
+            </h1>
+
+            <p className="mt-4 text-lg text-white/80 sm:text-xl md:max-w-2xl">
+              {slides[currentIndex].description}
+            </p>
+
+            <div className="mt-8 flex items-center gap-4">
+              <Button size="lg" className="min-w-[150px]">
+                View Projects
+              </Button>
+
+              <div className="ml-auto flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full border-white/40 bg-black/30 text-white hover:bg-black/50 hover:text-white"
+                  onClick={goToPrev}
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full border-white/40 bg-black/30 text-white hover:bg-black/50 hover:text-white"
+                  onClick={goToNext}
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </Button>
+
+                <div className="ml-3 text-sm text-white/80">
+                  {currentIndex + 1} / {slides.length}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 ```
