@@ -86,7 +86,7 @@ export function isValidEmail(value: string): boolean {
 
 function buildUrlWithParams(
   endpoint: string,
-  values: Record<string, unknown>
+  values: Record<string, any>
 ): string {
   const base =
     typeof window === "undefined" ? "http://localhost" : window.location.origin;
@@ -124,9 +124,9 @@ function resolveFormat(
 }
 
 function mergeValues(
-  values: Record<string, unknown>,
+  values: Record<string, any>,
   config?: PageSpeedFormConfig
-): Record<string, unknown> {
+): Record<string, any> {
   return {
     ...(config?.values ?? {}),
     ...values,
@@ -134,7 +134,7 @@ function mergeValues(
 }
 
 export async function submitPageSpeedForm(
-  values: Record<string, unknown>,
+  values: Record<string, any>,
   config?: PageSpeedFormConfig
 ): Promise<unknown> {
   if (!config?.endpoint) {

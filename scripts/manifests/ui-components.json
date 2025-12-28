@@ -112,6 +112,13 @@
   }
 ,
   {
+    "path": "./components/form-inputs",
+    "types": "./dist/form-inputs.d.ts",
+    "import": "./dist/form-inputs.js",
+    "require": "./dist/form-inputs.cjs"
+  }
+,
+  {
     "path": "./components/input",
     "types": "./dist/input.d.ts",
     "import": "./dist/input.js",

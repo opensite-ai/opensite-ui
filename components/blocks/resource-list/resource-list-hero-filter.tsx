@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Fragment, useCallback, useMemo, useState } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput } from "@page-speed/forms/inputs";
+import { TextInput } from "../../ui/form-inputs";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";

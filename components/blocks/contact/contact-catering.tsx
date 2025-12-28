@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, Select, TextArea, Radio } from "@page-speed/forms/inputs";
+import { TextInput, Select, TextArea, Radio } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -417,7 +417,7 @@ export function ContactCatering({
                       value={field.value}
                       onChange={field.onChange}
                       options={SERVICE_STYLES}
-                      layout="vertical"
+                      layout="stacked"
                       className="space-y-2"
                     />
                   )}
@@ -615,4 +615,3 @@ export function ContactCatering({
     </section>
   );
 }
-

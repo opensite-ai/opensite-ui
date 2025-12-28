@@ -111,10 +111,10 @@ export function FeatureCapabilitiesGrid({
               className="group relative overflow-visible border-white/10 bg-white/5 p-0 transition-colors duration-300 hover:border-white/20"
             >
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <div className="absolute -inset-[1px] rounded-xl bg-linear-to-br from-white/10 via-white/5 to-transparent" />
+                <div className="absolute -inset-px rounded-xl bg-linear-to-br from-white/10 via-white/5 to-transparent" />
               </div>
 
-              <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-tr from-white/0 to-white/0 transition-colors group-hover:from-white/[0.03] group-hover:to-white/[0.06]" />
+              <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-tr from-white/0 to-white/0 transition-colors group-hover:from-white/3 group-hover:to-white/6" />
 
               <div className="pointer-events-none absolute inset-0 hidden group-hover:block">
                 <div className="absolute -left-2 -top-2 h-3 w-3 bg-white" />

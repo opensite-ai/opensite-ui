@@ -79,6 +79,11 @@
     "import": "./dist/dynamic-icon.js",
     "require": "./dist/dynamic-icon.cjs"
   },
+  "./components/form-inputs": {
+    "types": "./dist/form-inputs.d.ts",
+    "import": "./dist/form-inputs.js",
+    "require": "./dist/form-inputs.cjs"
+  },
   "./components/input": {
     "types": "./dist/input.d.ts",
     "import": "./dist/input.js",

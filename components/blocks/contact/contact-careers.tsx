@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { useFileUpload } from "@page-speed/forms/upload";
-import { TextInput, Select, TextArea, Radio } from "@page-speed/forms/inputs";
+import { TextInput, Select, TextArea, Radio } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -313,19 +313,26 @@ export function ContactCareers({
                         htmlFor="resume-upload"
                         className={cn(
                           "flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed p-6 transition-colors hover:border-foreground",
-                          uploadState.status === "uploading" && "opacity-50 cursor-not-allowed"
+                          uploadState === "uploading" &&
+                            "opacity-50 cursor-not-allowed"
                         )}
                       >
                         <DynamicIcon
-                          name={uploadState.status === "uploading" ? "lucide/loader-2" : "lucide/upload"}
+                          name={
+                            uploadState === "uploading"
+                              ? "lucide/loader-2"
+                              : "lucide/upload"
+                          }
                           size={24}
                           className={cn(
                             "mb-2 text-muted-foreground",
-                            uploadState.status === "uploading" && "animate-spin"
+                            uploadState === "uploading" && "animate-spin"
                           )}
                         />
                         <p className="text-sm">
-                          {uploadState.status === "uploading" ? "Uploading..." : "Upload your resume"}
+                          {uploadState === "uploading"
+                            ? "Uploading..."
+                            : "Upload your resume"}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           PDF or DOCX up to 5MB
@@ -336,24 +343,28 @@ export function ContactCareers({
                           className="hidden"
                           accept=".pdf,.doc,.docx"
                           onChange={handleFileChange}
-                          disabled={uploadState.status === "uploading"}
+                          disabled={uploadState === "uploading"}
                         />
                       </label>
                     ) : (
                       <div className="flex items-center justify-between rounded-lg border p-3">
                         <div className="flex items-center gap-3">
                           <DynamicIcon
-                            name={uploadState.status === "success" ? "lucide/check-circle" : "lucide/file"}
+                            name={
+                              uploadState === "completed"
+                                ? "lucide/check-circle"
+                                : "lucide/file"
+                            }
                             size={20}
                             className={cn(
                               "text-muted-foreground",
-                              uploadState.status === "success" && "text-green-600"
+                              uploadState === "completed" && "text-green-600"
                             )}
                           />
                           <div>
                             <p className="text-sm font-medium">{resume.name}</p>
                             <p className="text-xs text-muted-foreground">
-                              {uploadState.status === "success"
+                              {uploadState === "completed"
                                 ? "Uploaded successfully"
                                 : formatFileSize(resume.size)}
                             </p>
@@ -417,7 +428,7 @@ export function ContactCareers({
                         value={field.value}
                         onChange={field.onChange}
                         options={AVAILABILITY}
-                        layout="vertical"
+                        layout="stacked"
                         className="space-y-2"
                       />
                     )}
@@ -544,4 +555,3 @@ export function ContactCareers({
     </section>
   );
 }
-

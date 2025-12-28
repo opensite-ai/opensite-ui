@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, Select, TextArea } from "@page-speed/forms/inputs";
+import { TextInput, Select, TextArea } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";

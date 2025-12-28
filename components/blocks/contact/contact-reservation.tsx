@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
-import { TextInput, TextArea } from "@page-speed/forms/inputs";
+import { TextInput, TextArea } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
