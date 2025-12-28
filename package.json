@@ -2071,37 +2071,107 @@
           "import": "./dist/stats-milestone-sidebar.js",
           "require": "./dist/stats-milestone-sidebar.cjs"
         },
-                "./blocks/stats/stats-bar-comparison": {
-                  "types": "./dist/stats-bar-comparison.d.ts",
-                  "import": "./dist/stats-bar-comparison.js",
-                  "require": "./dist/stats-bar-comparison.cjs"
-                },
-                "./blocks/link-page/link-tree-block": {
-                  "types": "./dist/link-tree-block.d.ts",
-                  "import": "./dist/link-tree-block.js",
-                  "require": "./dist/link-tree-block.cjs"
-                },
-                "./blocks/link-page/link-page-minimal-profile": {
-                  "types": "./dist/link-page-minimal-profile.d.ts",
-                  "import": "./dist/link-page-minimal-profile.js",
-                  "require": "./dist/link-page-minimal-profile.cjs"
-                },
-                "./blocks/link-page/link-page-newsletter-social": {
-                  "types": "./dist/link-page-newsletter-social.d.ts",
-                  "import": "./dist/link-page-newsletter-social.js",
-                  "require": "./dist/link-page-newsletter-social.cjs"
-                },
-                "./blocks/link-page/link-page-grid-cards": {
-                  "types": "./dist/link-page-grid-cards.d.ts",
-                  "import": "./dist/link-page-grid-cards.js",
-                  "require": "./dist/link-page-grid-cards.cjs"
-                },
-                "./blocks/link-page/link-page-bento-layout": {
-                  "types": "./dist/link-page-bento-layout.d.ts",
-                  "import": "./dist/link-page-bento-layout.js",
-                  "require": "./dist/link-page-bento-layout.cjs"
-                },
-                "./registry": {
+        "./blocks/stats/stats-bar-comparison": {
+          "types": "./dist/stats-bar-comparison.d.ts",
+          "import": "./dist/stats-bar-comparison.js",
+          "require": "./dist/stats-bar-comparison.cjs"
+        },
+        "./blocks/link-page/link-tree-block": {
+          "types": "./dist/link-tree-block.d.ts",
+          "import": "./dist/link-tree-block.js",
+          "require": "./dist/link-tree-block.cjs"
+        },
+        "./blocks/link-page/link-page-minimal-profile": {
+          "types": "./dist/link-page-minimal-profile.d.ts",
+          "import": "./dist/link-page-minimal-profile.js",
+          "require": "./dist/link-page-minimal-profile.cjs"
+        },
+        "./blocks/link-page/link-page-newsletter-social": {
+          "types": "./dist/link-page-newsletter-social.d.ts",
+          "import": "./dist/link-page-newsletter-social.js",
+          "require": "./dist/link-page-newsletter-social.cjs"
+        },
+        "./blocks/link-page/link-page-grid-cards": {
+          "types": "./dist/link-page-grid-cards.d.ts",
+          "import": "./dist/link-page-grid-cards.js",
+          "require": "./dist/link-page-grid-cards.cjs"
+        },
+        "./blocks/link-page/link-page-bento-layout": {
+          "types": "./dist/link-page-bento-layout.d.ts",
+          "import": "./dist/link-page-bento-layout.js",
+          "require": "./dist/link-page-bento-layout.cjs"
+        },
+        "./blocks/timeline/timeline-vertical-icon-dashed": {
+          "types": "./dist/timeline-vertical-icon-dashed.d.ts",
+          "import": "./dist/timeline-vertical-icon-dashed.js",
+          "require": "./dist/timeline-vertical-icon-dashed.cjs"
+        },
+        "./blocks/timeline/timeline-scroll-sticky-image": {
+          "types": "./dist/timeline-scroll-sticky-image.d.ts",
+          "import": "./dist/timeline-scroll-sticky-image.js",
+          "require": "./dist/timeline-scroll-sticky-image.cjs"
+        },
+        "./blocks/timeline/timeline-two-column-featured": {
+          "types": "./dist/timeline-two-column-featured.d.ts",
+          "import": "./dist/timeline-two-column-featured.js",
+          "require": "./dist/timeline-two-column-featured.cjs"
+        },
+        "./blocks/timeline/timeline-alternating-diagonal": {
+          "types": "./dist/timeline-alternating-diagonal.d.ts",
+          "import": "./dist/timeline-alternating-diagonal.js",
+          "require": "./dist/timeline-alternating-diagonal.cjs"
+        },
+        "./blocks/timeline/timeline-ai-workflow-cards": {
+          "types": "./dist/timeline-ai-workflow-cards.d.ts",
+          "import": "./dist/timeline-ai-workflow-cards.js",
+          "require": "./dist/timeline-ai-workflow-cards.cjs"
+        },
+        "./blocks/timeline/timeline-productivity-list": {
+          "types": "./dist/timeline-productivity-list.d.ts",
+          "import": "./dist/timeline-productivity-list.js",
+          "require": "./dist/timeline-productivity-list.cjs"
+        },
+        "./blocks/timeline/timeline-stepper-animated": {
+          "types": "./dist/timeline-stepper-animated.d.ts",
+          "import": "./dist/timeline-stepper-animated.js",
+          "require": "./dist/timeline-stepper-animated.cjs"
+        },
+        "./blocks/timeline/timeline-changelog-badges": {
+          "types": "./dist/timeline-changelog-badges.d.ts",
+          "import": "./dist/timeline-changelog-badges.js",
+          "require": "./dist/timeline-changelog-badges.cjs"
+        },
+        "./blocks/timeline/timeline-history-prose": {
+          "types": "./dist/timeline-history-prose.d.ts",
+          "import": "./dist/timeline-history-prose.js",
+          "require": "./dist/timeline-history-prose.cjs"
+        },
+        "./blocks/timeline/timeline-horizontal-phases": {
+          "types": "./dist/timeline-horizontal-phases.d.ts",
+          "import": "./dist/timeline-horizontal-phases.js",
+          "require": "./dist/timeline-horizontal-phases.cjs"
+        },
+        "./blocks/timeline/timeline-horizontal-icons": {
+          "types": "./dist/timeline-horizontal-icons.d.ts",
+          "import": "./dist/timeline-horizontal-icons.js",
+          "require": "./dist/timeline-horizontal-icons.cjs"
+        },
+        "./blocks/timeline/timeline-tabbed-phases": {
+          "types": "./dist/timeline-tabbed-phases.d.ts",
+          "import": "./dist/timeline-tabbed-phases.js",
+          "require": "./dist/timeline-tabbed-phases.cjs"
+        },
+        "./blocks/timeline/timeline-product-launch": {
+          "types": "./dist/timeline-product-launch.d.ts",
+          "import": "./dist/timeline-product-launch.js",
+          "require": "./dist/timeline-product-launch.cjs"
+        },
+        "./blocks/timeline/timeline-scroll-highlight": {
+          "types": "./dist/timeline-scroll-highlight.d.ts",
+          "import": "./dist/timeline-scroll-highlight.js",
+          "require": "./dist/timeline-scroll-highlight.cjs"
+        },
+        "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
