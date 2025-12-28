@@ -1,6 +1,25 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
 /**
+ * Block Types - Semantic UI Builder Types
+ */
+export type {
+  ActionConfig,
+  LogoItem,
+  ImageItem,
+  FeatureItem,
+  StatItem,
+  TestimonialItem,
+  NavLinkItem,
+  SocialLinkItem,
+  BlockBaseProps,
+  BlockContentProps,
+  BlockActionProps,
+  BlockLogoProps,
+  OptixFlowConfig,
+} from "./blocks";
+
+/**
  * Max width variants for Container component
  */
 export type ContainerMaxWidth =
