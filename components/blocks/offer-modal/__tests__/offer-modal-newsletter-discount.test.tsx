@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { OfferModalNewsletterDiscount } from "../offer-modal-newsletter-discount";
 
 describe("OfferModalNewsletterDiscount", () => {
@@ -47,7 +47,7 @@ describe("OfferModalNewsletterDiscount", () => {
     expect(input.value).toBe("test@example.com");
   });
 
-  it("calls onSubmit with email when form is submitted", () => {
+  it("calls onSubmit with email when form is submitted", async () => {
     const onSubmit = vi.fn();
     render(<OfferModalNewsletterDiscount onSubmit={onSubmit} />);
 
@@ -57,7 +57,9 @@ describe("OfferModalNewsletterDiscount", () => {
     const form = input.closest("form");
     fireEvent.submit(form!);
 
-    expect(onSubmit).toHaveBeenCalledWith("test@example.com");
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledWith("test@example.com");
+    });
   });
 
   it("does not call onSubmit when email is empty", () => {

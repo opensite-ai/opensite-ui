@@ -61,9 +61,59 @@ export interface ResourceListHeroFilterProps {
   buttonText?: string;
   postsPerPage?: number;
   loadMoreText?: string;
+  /**
+   * Optional form submission configuration.
+   *
+   * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
+   * and the form will submit to it in JSON format.
+   *
+   * @example
+   * // Works with any API
+   * formConfig={{ endpoint: "https://api.mysite.com/subscribe", format: "json" }}
+   *
+   * @example
+   * // With custom headers (e.g., authentication)
+   * formConfig={{
+   *   endpoint: "/api/newsletter",
+   *   headers: { "Authorization": "Bearer token123" }
+   * }}
+   *
+   * **Note**: The `apiKey`, `contactCategoryToken`, and other platform-specific fields
+   * are OPTIONAL and only needed when integrating with DashTrack's Rails backend.
+   * For generic REST APIs, just use `endpoint`, `method`, `format`, and `headers`.
+   *
+   * See `FORMS_INTEGRATION_GUIDE.md` for complete examples with Next.js, React, and more.
+   */
   formConfig?: PageSpeedFormConfig;
+  /**
+   * Optional custom submission handler for maximum flexibility.
+   *
+   * Use this when you need complete control over the submission logic,
+   * such as custom API calls, analytics tracking, or multi-step workflows.
+   *
+   * Can be used alone or in combination with `formConfig` for hybrid approaches.
+   *
+   * @example
+   * onSubmit={async (email) => {
+   *   await fetch("/api/subscribe", {
+   *     method: "POST",
+   *     body: JSON.stringify({ email, source: "resource-list" })
+   *   });
+   * }}
+   */
   onSubmit?: (email: string) => void | Promise<void>;
+  /**
+   * Optional success callback invoked after successful submission.
+   *
+   * Called after `formConfig` submission and/or `onSubmit` completes successfully.
+   * Use for showing success messages, redirecting, analytics tracking, etc.
+   */
   onSuccess?: (data: unknown) => void;
+  /**
+   * Optional error callback invoked if submission fails.
+   *
+   * Receives the error object for custom error handling, logging, or user notifications.
+   */
   onError?: (error: Error) => void;
   optixFlowConfig?: {
     apiKey: string;

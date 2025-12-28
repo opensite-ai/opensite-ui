@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { OfferModalSheetNewsletter } from "../offer-modal-sheet-newsletter";
 
 describe("OfferModalSheetNewsletter", () => {
@@ -87,7 +87,7 @@ describe("OfferModalSheetNewsletter", () => {
     expect(input.value).toBe("test@example.com");
   });
 
-  it("calls onSubmit with valid email", () => {
+  it("calls onSubmit with valid email", async () => {
     const onSubmit = vi.fn();
     render(<OfferModalSheetNewsletter onSubmit={onSubmit} />);
 
@@ -97,20 +97,23 @@ describe("OfferModalSheetNewsletter", () => {
     const form = input.closest("form");
     fireEvent.submit(form!);
 
-    expect(onSubmit).toHaveBeenCalledWith("test@example.com");
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledWith("test@example.com");
+    });
   });
 
-  it("shows error for empty email", () => {
+  it("shows error for empty email", async () => {
     render(<OfferModalSheetNewsletter />);
 
     const input = screen.getByPlaceholderText("Email Address");
     const form = input.closest("form");
     fireEvent.submit(form!);
 
-    expect(screen.getByText("Please enter an email address")).toBeInTheDocument();
+    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
+    expect(errorMessage).toBeInTheDocument();
   });
 
-  it("shows error for invalid email format", () => {
+  it("shows error for invalid email format", async () => {
     render(<OfferModalSheetNewsletter />);
 
     const input = screen.getByPlaceholderText("Email Address");
@@ -119,20 +122,28 @@ describe("OfferModalSheetNewsletter", () => {
     const form = input.closest("form");
     fireEvent.submit(form!);
 
-    expect(screen.getByText("Please enter a valid email address")).toBeInTheDocument();
+    const errorMessage = await screen.findByText("Please enter a valid email address", {}, { timeout: 3000 });
+    expect(errorMessage).toBeInTheDocument();
   });
 
-  it("clears error when user types", () => {
+  it("clears error when user types", async () => {
     render(<OfferModalSheetNewsletter />);
 
     const input = screen.getByPlaceholderText("Email Address");
     const form = input.closest("form");
     fireEvent.submit(form!);
 
-    expect(screen.getByText("Please enter an email address")).toBeInTheDocument();
+    // Wait for error to appear
+    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
+    expect(errorMessage).toBeInTheDocument();
 
+    // Type in the field to clear the error
     fireEvent.change(input, { target: { value: "t" } });
-    expect(screen.queryByText("Please enter an email address")).not.toBeInTheDocument();
+
+    // Wait for error to disappear
+    await waitFor(() => {
+      expect(screen.queryByText("Please enter an email address")).not.toBeInTheDocument();
+    }, { timeout: 3000 });
   });
 
   it("does not call onSubmit with invalid email", () => {
