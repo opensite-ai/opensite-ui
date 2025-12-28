@@ -13,4 +13,4 @@
  */
 
 export { BlogRelatedArticles } from "../components/blocks/blog/blog-related-articles";
-export type { BlogRelatedArticlesProps, BlogArticle } from "../components/blocks/blog/blog-related-articles";
+export type { BlogRelatedArticlesProps } from "../components/blocks/blog/blog-related-articles";

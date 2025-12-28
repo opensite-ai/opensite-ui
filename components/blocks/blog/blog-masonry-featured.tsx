@@ -5,30 +5,66 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-
-export interface BlogPost {
-  date: string;
-  author: string;
-  title: string;
-  image: string;
-  link: string;
-  description?: string;
-}
+import type { BlogPostItem, OptixFlowConfig } from "../../../src/types";
 
 export interface BlogMasonryFeaturedProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of blog post configurations (first post is featured)
+   */
+  posts?: BlogPostItem[];
+  /**
+   * Custom slot for rendering the featured post (overrides first post)
+   */
+  featuredSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering other posts (overrides posts array)
+   */
+  postsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  posts?: BlogPost[];
-  optixFlowConfig?: { apiKey: string; compression?: number };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the posts grid
+   */
+  postsClassName?: string;
+  /**
+   * Additional CSS classes for the featured post wrapper
+   */
+  featuredClassName?: string;
+  /**
+   * Additional CSS classes for the featured post image
+   */
+  featuredImageClassName?: string;
+  /**
+   * Additional CSS classes for individual post cards
+   */
+  postCardClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPost[] = [
+const defaultPosts: BlogPostItem[] = [
   {
     date: "June 15, 2024",
     author: "Alex Johnson",
     title: "The Future of AI: How Machine Learning is Transforming Industries",
     image: imagePlaceholders[0],
-    link: "#",
+    href: "#",
     description:
       "Explore how artificial intelligence and machine learning technologies are revolutionizing various industries, from healthcare to manufacturing, and learn about the latest innovations shaping our future.",
   },
@@ -37,7 +73,7 @@ const defaultPosts: BlogPost[] = [
     author: "Maya Patel",
     title: "Principles of Minimalist Design: Less is More in Modern UX/UI",
     image: imagePlaceholders[1],
-    link: "#",
+    href: "#",
     description:
       "Discover the principles of minimalist design and how they can help you create more intuitive and user-friendly interfaces.",
   },
@@ -47,7 +83,7 @@ const defaultPosts: BlogPost[] = [
     title:
       "Remote Work Revolution: How Companies are Adapting to the New Normal",
     image: imagePlaceholders[2],
-    link: "#",
+    href: "#",
     description:
       "Explore the benefits and challenges of remote work and how companies are adapting to the new normal.",
   },
@@ -56,7 +92,7 @@ const defaultPosts: BlogPost[] = [
     author: "Sarah Williams",
     title: "Building Scalable Applications with Microservices Architecture",
     image: imagePlaceholders[3],
-    link: "#",
+    href: "#",
     description:
       "Learn how microservices architecture can help you build scalable and maintainable applications.",
   },
@@ -65,79 +101,128 @@ const defaultPosts: BlogPost[] = [
     author: "James Rodriguez",
     title: "Content Marketing Strategies That Drive Organic Traffic in 2024",
     image: imagePlaceholders[4],
-    link: "#",
+    href: "#",
     description:
       "Discover effective content marketing strategies that can help you drive organic traffic and grow your audience in 2024.",
   },
 ];
 
-const defaultProps: Partial<BlogMasonryFeaturedProps> = {
-  title: "Latest Tech Blog",
-  posts: defaultPosts,
-};
-
 export function BlogMasonryFeatured({
+  heading = "Latest Tech Blog",
+  posts = defaultPosts,
+  featuredSlot,
+  postsSlot,
   className,
-  title = defaultProps.title,
-  posts = defaultProps.posts,
+  containerClassName,
+  headingClassName,
+  postsClassName,
+  featuredClassName,
+  featuredImageClassName,
+  postCardClassName,
   optixFlowConfig,
-}: BlogMasonryFeaturedProps) {
+}: BlogMasonryFeaturedProps): React.JSX.Element {
   const featuredPost = posts?.[0];
   const otherPosts = posts?.slice(1);
 
+  const renderFeaturedPost = () => {
+    if (featuredSlot) return featuredSlot;
+    if (!featuredPost) return null;
+
+    const postHref = featuredPost.href || featuredPost.url || featuredPost.link || "#";
+
+    return (
+      <div className={cn("relative md:row-span-2 lg:col-span-2", featuredClassName)}>
+        <Pressable
+          href={postHref}
+          className="block h-fit rounded-lg p-3 md:top-0"
+        >
+          {featuredPost.image && (
+            <Img
+              src={featuredPost.image}
+              alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured post"}
+              className={cn("h-48 w-full rounded-lg object-cover hover:opacity-80 md:h-80 lg:h-96", featuredImageClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+          <div className="mt-5">
+            <div className="mb-2.5 flex items-center gap-1 text-sm text-muted-foreground">
+              {(featuredPost.date || featuredPost.published) && (
+                <time>{featuredPost.date || featuredPost.published}</time>
+              )}
+              {(featuredPost.date || featuredPost.published) && featuredPost.author && "·"}
+              {featuredPost.author && <span>{featuredPost.author}</span>}
+            </div>
+            {featuredPost.title && (
+              typeof featuredPost.title === "string" ? (
+                <h3 className="text-lg md:text-3xl lg:text-4xl">{featuredPost.title}</h3>
+              ) : (
+                <div className="text-lg md:text-3xl lg:text-4xl">{featuredPost.title}</div>
+              )
+            )}
+            {(featuredPost.description || featuredPost.summary) && (
+              <p className="mt-4 text-muted-foreground">
+                {featuredPost.description || featuredPost.summary}
+              </p>
+            )}
+          </div>
+        </Pressable>
+      </div>
+    );
+  };
+
+  const renderOtherPosts = () => {
+    if (postsSlot) return postsSlot;
+    if (!otherPosts || otherPosts.length === 0) return null;
+
+    return otherPosts.map((post) => {
+      const postHref = post.href || post.url || post.link || "#";
+      const postId = post.id || String(post.title) || Math.random().toString();
+
+      return (
+        <Pressable key={postId} href={postHref} className={cn("rounded-lg p-3", postCardClassName)}>
+          {post.image && (
+            <Img
+              src={post.image}
+              alt={typeof post.title === "string" ? post.title : "Blog post"}
+              className="h-48 w-full rounded-lg object-cover hover:opacity-80"
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+          <div className="mt-5">
+            <div className="mb-2.5 flex items-center gap-1 text-sm text-muted-foreground">
+              {(post.date || post.published) && <time>{post.date || post.published}</time>}
+              {(post.date || post.published) && post.author && "·"}
+              {post.author && <span>{post.author}</span>}
+            </div>
+            {post.title && (
+              typeof post.title === "string" ? (
+                <h3 className="text-lg">{post.title}</h3>
+              ) : (
+                <div className="text-lg">{post.title}</div>
+              )
+            )}
+          </div>
+        </Pressable>
+      );
+    });
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
-        <h1 className="mb-12 text-center text-4xl font-medium md:text-7xl">
-          {title}
-        </h1>
+      <div className={cn("container", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("mb-12 text-center text-4xl font-medium md:text-7xl", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
 
-        <div className="xs:grid-cols-1 mt-24 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredPost && (
-            <div className="relative md:row-span-2 lg:col-span-2">
-              <Pressable
-                href={featuredPost.link}
-                className="block h-fit rounded-lg p-3 md:top-0"
-              >
-                <Img
-                  src={featuredPost.image}
-                  alt={featuredPost.title}
-                  className="h-48 w-full rounded-lg object-cover hover:opacity-80 md:h-80 lg:h-96"
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <div className="mt-5">
-                  <div className="mb-2.5 flex items-center gap-1 text-sm text-muted-foreground">
-                    <time>{featuredPost.date}</time>·
-                    <span>{featuredPost.author}</span>
-                  </div>
-                  <h3 className="text-lg md:text-3xl lg:text-4xl">
-                    {featuredPost.title}
-                  </h3>
-                  {featuredPost.description && (
-                    <p className="mt-4 text-muted-foreground">
-                      {featuredPost.description}
-                    </p>
-                  )}
-                </div>
-              </Pressable>
-            </div>
-          )}
-          {otherPosts?.map((post, idx) => (
-            <Pressable key={idx} href={post.link} className="rounded-lg p-3">
-              <Img
-                src={post.image}
-                alt={post.title}
-                className="h-48 w-full rounded-lg object-cover hover:opacity-80"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <div className="mt-5">
-                <div className="mb-2.5 flex items-center gap-1 text-sm text-muted-foreground">
-                  <time>{post.date}</time>·<span>{post.author}</span>
-                </div>
-                <h3 className="text-lg">{post.title}</h3>
-              </div>
-            </Pressable>
-          ))}
+        <div className={cn("xs:grid-cols-1 mt-24 grid gap-4 sm:grid-cols-2 lg:grid-cols-4", postsClassName)}>
+          {renderFeaturedPost()}
+          {renderOtherPosts()}
         </div>
       </div>
     </section>

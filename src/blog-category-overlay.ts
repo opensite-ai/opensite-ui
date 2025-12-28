@@ -13,4 +13,4 @@
  */
 
 export { BlogCategoryOverlay } from "../components/blocks/blog/blog-category-overlay";
-export type { BlogCategoryOverlayProps, BlogPost } from "../components/blocks/blog/blog-category-overlay";
+export type { BlogCategoryOverlayProps } from "../components/blocks/blog/blog-category-overlay";

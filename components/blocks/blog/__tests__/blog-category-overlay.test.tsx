@@ -32,16 +32,16 @@ describe("BlogCategoryOverlay", () => {
     expect(screen.getByText("Discover the latest trends")).toBeInTheDocument();
   });
 
-  it("renders custom tagline and title", () => {
+  it("renders custom badge and heading", () => {
     render(
       <BlogCategoryOverlay
-        tagline="Custom Tagline"
-        title="Custom Title"
+        badge="Custom Badge"
+        heading="Custom Heading"
         description="Custom description"
       />
     );
-    expect(screen.getByText("Custom Tagline")).toBeInTheDocument();
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
@@ -83,7 +83,7 @@ describe("BlogCategoryOverlay", () => {
   });
 
   it("renders custom view all button text", () => {
-    render(<BlogCategoryOverlay viewAllText="See More" viewAllHref="/more" />);
+    render(<BlogCategoryOverlay viewAllAction={{ label: "See More", href: "/more" }} />);
     expect(screen.getByText("See More")).toBeInTheDocument();
   });
 

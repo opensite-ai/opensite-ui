@@ -8,30 +8,84 @@ import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-
-export interface BlogPost {
-  id: string;
-  title: string;
-  summary: string;
-  label: string;
-  author: string;
-  published: string;
-  url: string;
-  image: string;
-}
+import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
 
 export interface BlogHorizontalCardsProps {
-  tagline?: string;
-  heading?: string;
-  description?: string;
-  buttonText?: string;
-  buttonUrl?: string;
-  posts?: BlogPost[];
+  /**
+   * Badge/tagline content above heading
+   */
+  badge?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Action configuration for the main CTA button
+   */
+  ctaAction?: ActionConfig;
+  /**
+   * Custom slot for rendering the CTA action (overrides ctaAction)
+   */
+  ctaSlot?: React.ReactNode;
+  /**
+   * Array of blog post configurations
+   */
+  posts?: BlogPostItem[];
+  /**
+   * Custom slot for rendering posts (overrides posts array)
+   */
+  postsSlot?: React.ReactNode;
+  /**
+   * Text for "Read more" links on each post
+   */
+  readMoreText?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  optixFlowConfig?: { apiKey: string; compression?: number };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the posts container
+   */
+  postsClassName?: string;
+  /**
+   * Additional CSS classes for individual post cards
+   */
+  postCardClassName?: string;
+  /**
+   * Additional CSS classes for the CTA container
+   */
+  ctaClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPost[] = [
+const defaultPosts: BlogPostItem[] = [
   {
     id: "post-1",
     title: "Getting Started with Opensite AI Components",
@@ -40,7 +94,7 @@ const defaultPosts: BlogPost[] = [
     label: "Tutorial",
     author: "Sarah Chen",
     published: "1 Jan 2024",
-    url: "#",
+    href: "#",
     image: imagePlaceholders[0],
   },
   {
@@ -51,7 +105,7 @@ const defaultPosts: BlogPost[] = [
     label: "Accessibility",
     author: "Marcus Rodriguez",
     published: "1 Jan 2024",
-    url: "#",
+    href: "#",
     image: imagePlaceholders[1],
   },
   {
@@ -62,113 +116,172 @@ const defaultPosts: BlogPost[] = [
     label: "Design Systems",
     author: "Emma Thompson",
     published: "1 Jan 2024",
-    url: "#",
+    href: "#",
     image: imagePlaceholders[2],
   },
 ];
 
-const defaultProps: Partial<BlogHorizontalCardsProps> = {
-  tagline: "Latest Updates",
-  heading: "Blog Posts",
-  description:
-    "Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.",
-  buttonText: "View all articles",
-  buttonUrl: "#",
-  posts: defaultPosts,
+const defaultCtaAction: ActionConfig = {
+  label: "View all articles",
+  href: "#",
+  variant: "outline",
+  size: "lg",
+  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2 size-4" />,
 };
 
 export function BlogHorizontalCards({
-  tagline = defaultProps.tagline,
-  heading = defaultProps.heading,
-  description = defaultProps.description,
-  buttonText = defaultProps.buttonText,
-  buttonUrl = defaultProps.buttonUrl,
-  posts = defaultProps.posts,
+  badge = "Latest Updates",
+  heading = "Blog Posts",
+  description = "Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.",
+  ctaAction = defaultCtaAction,
+  ctaSlot,
+  posts = defaultPosts,
+  postsSlot,
+  readMoreText = "Read more",
   className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  postsClassName,
+  postCardClassName,
+  ctaClassName,
   optixFlowConfig,
-}: BlogHorizontalCardsProps) {
+}: BlogHorizontalCardsProps): React.JSX.Element {
+  const renderCtaAction = () => {
+    if (ctaSlot) return ctaSlot;
+    if (!ctaAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = ctaAction;
+    return (
+      <Pressable
+        asButton
+        className={cn("w-full sm:w-auto", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderPosts = () => {
+    if (postsSlot) return postsSlot;
+    if (!posts || posts.length === 0) return null;
+
+    return posts.map((post) => {
+      const postHref = post.href || post.url || post.link || "#";
+      const postId = post.id || String(post.title) || Math.random().toString();
+      const postTitle = typeof post.title === "string" ? post.title : "Blog post";
+      const postLabel = post.label || post.category;
+      const postSummary = post.summary || post.description;
+      const postDate = post.published || post.date;
+
+      return (
+        <Card
+          key={postId}
+          className={cn("overflow-hidden border-0 bg-transparent shadow-none", postCardClassName)}
+        >
+          <div className="flex flex-col gap-6 sm:flex-row">
+            {post.image && (
+              <div className="shrink-0">
+                <Pressable
+                  href={postHref}
+                  className="block transition-opacity duration-200 hover:opacity-90"
+                >
+                  <Img
+                    src={post.image}
+                    alt={postTitle}
+                    className="aspect-video w-full rounded-lg object-cover object-center sm:w-[260px]"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </Pressable>
+              </div>
+            )}
+            <div className="flex-1 space-y-3">
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                {postLabel && <Badge variant="secondary">{postLabel}</Badge>}
+                {post.author && <span>{post.author}</span>}
+                {postDate && <span>{postDate}</span>}
+              </div>
+              {post.title && (
+                <h3 className="text-xl leading-tight font-bold lg:text-2xl">
+                  <Pressable href={postHref} className="hover:underline">
+                    {post.title}
+                  </Pressable>
+                </h3>
+              )}
+              {postSummary && (
+                <p className="text-base text-muted-foreground">
+                  {postSummary}
+                </p>
+              )}
+              <Pressable
+                href={postHref}
+                className="inline-flex items-center text-primary hover:underline"
+              >
+                {readMoreText}
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2 size-4"
+                />
+              </Pressable>
+            </div>
+          </div>
+        </Card>
+      );
+    });
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container mx-auto">
-        <div className="mx-auto max-w-3xl text-center">
-          <Badge variant="secondary" className="mb-6">
-            {tagline}
-          </Badge>
-          <h2 className="mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-5xl lg:mb-6">
-            {heading}
-          </h2>
-          <p className="mb-12 text-muted-foreground md:text-base lg:text-lg">
-            {description}
-          </p>
+      <div className={cn("container mx-auto", containerClassName)}>
+        <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
+          {badge && (
+            typeof badge === "string" ? (
+              <Badge variant="secondary" className={cn("mb-6", badgeClassName)}>
+                {badge}
+              </Badge>
+            ) : (
+              <div className={cn("mb-6", badgeClassName)}>{badge}</div>
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-5xl lg:mb-6", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mb-12 text-muted-foreground md:text-base lg:text-lg", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
         </div>
 
-        <div className="mx-auto max-w-5xl space-y-12">
-          {posts?.map((post) => (
-            <Card
-              key={post.id}
-              className="overflow-hidden border-0 bg-transparent shadow-none"
-            >
-              <div className="flex flex-col gap-6 sm:flex-row">
-                <div className="shrink-0">
-                  <Pressable
-                    href={post.url}
-                    className="block transition-opacity duration-200 hover:opacity-90"
-                  >
-                    <Img
-                      src={post.image}
-                      alt={post.title}
-                      className="aspect-video w-full rounded-lg object-cover object-center sm:w-[260px]"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </Pressable>
-                </div>
-                <div className="flex-1 space-y-3">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <Badge variant="secondary">{post.label}</Badge>
-                    <span>{post.author}</span>
-                    <span>{post.published}</span>
-                  </div>
-                  <h3 className="text-xl leading-tight font-bold lg:text-2xl">
-                    <Pressable href={post.url} className="hover:underline">
-                      {post.title}
-                    </Pressable>
-                  </h3>
-                  <p className="text-base text-muted-foreground">
-                    {post.summary}
-                  </p>
-                  <Pressable
-                    href={post.url}
-                    className="inline-flex items-center text-primary hover:underline"
-                  >
-                    Read more
-                    <DynamicIcon
-                      name="lucide/arrow-right"
-                      size={16}
-                      className="ml-2 size-4"
-                    />
-                  </Pressable>
-                </div>
-              </div>
-            </Card>
-          ))}
+        <div className={cn("mx-auto max-w-5xl space-y-12", postsClassName)}>
+          {renderPosts()}
         </div>
 
-        <div className="mt-16 text-center">
-          <Pressable
-            href={buttonUrl}
-            asButton
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            {buttonText}
-            <DynamicIcon
-              name="lucide/arrow-right"
-              size={16}
-              className="ml-2 size-4"
-            />
-          </Pressable>
-        </div>
+        {(ctaSlot || ctaAction) && (
+          <div className={cn("mt-16 text-center", ctaClassName)}>
+            {renderCtaAction()}
+          </div>
+        )}
       </div>
     </section>
   );

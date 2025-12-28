@@ -13,4 +13,4 @@
  */
 
 export { BlogGridAuthorCards } from "../components/blocks/blog/blog-grid-author-cards";
-export type { BlogGridAuthorCardsProps, BlogPost } from "../components/blocks/blog/blog-grid-author-cards";
+export type { BlogGridAuthorCardsProps } from "../components/blocks/blog/blog-grid-author-cards";

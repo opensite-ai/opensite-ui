@@ -13,4 +13,4 @@
  */
 
 export { BlogFeaturedPopular } from "../components/blocks/blog/blog-featured-popular";
-export type { BlogFeaturedPopularProps, BlogPost } from "../components/blocks/blog/blog-featured-popular";
+export type { BlogFeaturedPopularProps } from "../components/blocks/blog/blog-featured-popular";

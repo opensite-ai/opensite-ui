@@ -26,10 +26,10 @@ describe("BlogGridAuthorCards", () => {
     expect(screen.getByText(/Insights, tutorials, and thoughts/)).toBeInTheDocument();
   });
 
-  it("renders custom title and description", () => {
+  it("renders custom heading and description", () => {
     render(
       <BlogGridAuthorCards
-        title="Custom Blog"
+        heading="Custom Blog"
         description="Custom description"
       />
     );
@@ -92,7 +92,7 @@ describe("BlogGridAuthorCards", () => {
   });
 
   it("renders custom view all text", () => {
-    render(<BlogGridAuthorCards viewAllText="See More" viewAllHref="/more" />);
+    render(<BlogGridAuthorCards viewAllAction={{ label: "See More", href: "/more" }} />);
     expect(screen.getByText("See More")).toBeInTheDocument();
   });
 
