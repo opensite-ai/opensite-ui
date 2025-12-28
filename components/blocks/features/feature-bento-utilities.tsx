@@ -8,32 +8,168 @@ import { Card } from "../../ui/card";
 import { Separator } from "../../ui/separator";
 import { Img } from "@page-speed/img";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
+
+export interface FeatureBentoUtilitiesCardItem {
+  /**
+   * Card title
+   */
+  title?: React.ReactNode;
+  /**
+   * Card description
+   */
+  description?: React.ReactNode;
+  /**
+   * Image source URL (for image cards)
+   */
+  imageSrc?: string;
+  /**
+   * Image alt text
+   */
+  imageAlt?: string;
+  /**
+   * Image element or ReactNode (overrides imageSrc)
+   */
+  imageSlot?: React.ReactNode;
+  /**
+   * Whether to show sparkle icon next to title
+   */
+  showSparkle?: boolean;
+  /**
+   * Badge text (e.g., "Coming soon")
+   */
+  badge?: React.ReactNode;
+  /**
+   * Whether this is a dashed/coming soon style card
+   */
+  isDashed?: boolean;
+  /**
+   * Additional CSS classes for the card
+   */
+  className?: string;
+}
 
 export interface FeatureBentoUtilitiesProps {
   /**
-   * Section label text
+   * Section label content
    */
-  label?: string;
+  label?: React.ReactNode;
   /**
-   * Main heading text
+   * Icon name for the label
    */
-  title?: string;
+  labelIconName?: string;
   /**
-   * Supporting description text
+   * Icon element for the label (overrides labelIconName)
    */
-  description?: string;
+  labelIcon?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  title?: React.ReactNode;
+  /**
+   * Supporting description content
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of cards for the left column
+   */
+  leftColumnCards?: FeatureBentoUtilitiesCardItem[];
+  /**
+   * Custom slot for left column (overrides leftColumnCards)
+   */
+  leftColumnSlot?: React.ReactNode;
+  /**
+   * Array of cards for the right column
+   */
+  rightColumnCards?: FeatureBentoUtilitiesCardItem[];
+  /**
+   * Custom slot for right column (overrides rightColumnCards)
+   */
+  rightColumnSlot?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
-   * Optional Optix Flow configuration for image optimization
+   * Additional CSS classes for the container
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the label
+   */
+  labelClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid wrapper
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each column
+   */
+  columnClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultLeftColumnCards: FeatureBentoUtilitiesCardItem[] = [
+  {
+    title: "Apps",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+  },
+  {
+    title: "Integrations",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
+    imageAlt: "Integrations",
+  },
+  {
+    title: "Utilities",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+  },
+  {
+    title: "Features",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+    showSparkle: true,
+  },
+];
+
+const defaultRightColumnCards: FeatureBentoUtilitiesCardItem[] = [
+  {
+    title: "Integrations",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
+    imageAlt: "Integrations",
+    showSparkle: true,
+  },
+  {
+    title: "Features",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+  },
+  {
+    title: "Features",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+    showSparkle: true,
+  },
+  {
+    title: "Search",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
+    badge: "Coming soon",
+    isDashed: true,
+  },
+];
 
 /**
  * Feature Bento Utilities - Bento-style grid layout with mixed card sizes
@@ -49,117 +185,145 @@ export interface FeatureBentoUtilitiesProps {
  *   label="Utilities"
  *   title="Utilities for every use case"
  *   description="All the tools you need to get the job done."
+ *   leftColumnCards={[
+ *     { title: "Apps", description: "App management tools" },
+ *     { title: "Integrations", description: "Connect your tools", imageSrc: "/integrations.jpg" },
+ *   ]}
  * />
  * ```
  */
 export function FeatureBentoUtilities({
   label = "Utilities",
+  labelIconName = "lucide/square-dashed-mouse-pointer",
+  labelIcon,
   title = "Utilites for every use case and platform you can think of.",
   description = "All the tools you need to get the job done. From apps to integrations, we have you covered.",
+  leftColumnCards = defaultLeftColumnCards,
+  leftColumnSlot,
+  rightColumnCards = defaultRightColumnCards,
+  rightColumnSlot,
   className,
+  containerClassName,
+  headerClassName,
+  labelClassName,
+  titleClassName,
+  descriptionClassName,
+  gridClassName,
+  columnClassName,
   optixFlowConfig,
-}: FeatureBentoUtilitiesProps) {
+}: FeatureBentoUtilitiesProps): React.JSX.Element {
+  const renderCard = (card: FeatureBentoUtilitiesCardItem, index: number) => {
+    const hasImage = card.imageSrc || card.imageSlot;
+    const cardClasses = cn(
+      hasImage ? "overflow-hidden pt-0" : "p-6",
+      card.isDashed && "border-dashed bg-transparent shadow-none",
+      card.className
+    );
+
+    const renderImage = () => {
+      if (card.imageSlot) return card.imageSlot;
+      if (card.imageSrc) {
+        return (
+          <Img
+            src={card.imageSrc}
+            alt={card.imageAlt || ""}
+            className="aspect-video w-full object-cover"
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        );
+      }
+      return null;
+    };
+
+    const renderTitle = () => {
+      if (!card.title) return null;
+      
+      const titleContent = (
+        <>
+          {card.title}
+          {card.showSparkle && <DynamicIcon name="lucide/sparkles" size={16} />}
+          {card.badge && <Badge variant="outline">{card.badge}</Badge>}
+        </>
+      );
+
+      return (
+        <div className="mb-1 flex items-center gap-2 font-medium">
+          {titleContent}
+        </div>
+      );
+    };
+
+    if (hasImage) {
+      return (
+        <Card key={index} className={cardClasses}>
+          {renderImage()}
+          <div className="p-6">
+            {renderTitle()}
+            {card.description && (
+              <p className="text-muted-foreground">{card.description}</p>
+            )}
+          </div>
+        </Card>
+      );
+    }
+
+    return (
+      <Card key={index} className={cardClasses}>
+        {renderTitle()}
+        {card.description && (
+          <p className="text-muted-foreground">{card.description}</p>
+        )}
+      </Card>
+    );
+  };
+
+  const renderColumn = (cards: FeatureBentoUtilitiesCardItem[] | undefined, slot: React.ReactNode | undefined) => {
+    if (slot) return slot;
+    if (!cards || cards.length === 0) return null;
+    return cards.map((card, index) => renderCard(card, index));
+  };
+
+  const labelIconElement = labelIcon ?? (
+    labelIconName ? <DynamicIcon name={labelIconName} size={20} /> : null
+  );
+
   return (
     <section className={cn("bg-gray-50 py-32 dark:bg-background", className)}>
-      <div className="container max-w-7xl">
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <DynamicIcon name="lucide/square-dashed-mouse-pointer" size={20} />
-          <p className="text-sm">{label}</p>
+      <div className={cn("container max-w-7xl", containerClassName)}>
+        <div className={cn("flex items-center gap-2 text-muted-foreground", labelClassName)}>
+          {labelIconElement}
+          {label && (
+            typeof label === "string" ? (
+              <p className="text-sm">{label}</p>
+            ) : (
+              <div className="text-sm">{label}</div>
+            )
+          )}
         </div>
         <Separator className="mt-3 mb-8" />
-        <div className="flex flex-col justify-between gap-6 md:flex-row">
-          <h2 className="text-3xl font-medium md:w-1/2">{title}</h2>
-          <p className="md:w-1/2">{description}</p>
+        <div className={cn("flex flex-col justify-between gap-6 md:flex-row", headerClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</h2>
+            ) : (
+              <div className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("md:w-1/2", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("md:w-1/2", descriptionClassName)}>{description}</div>
+            )
+          )}
         </div>
-        <div className="mt-11 flex flex-col gap-6 md:flex-row">
-          <div className="flex w-full flex-col gap-6">
-            <Card className="p-6">
-              <p className="mb-1 font-medium">Apps</p>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi
-                laboriosam voluptatibus temporibus doloremque laudantium.
-              </p>
-            </Card>
-            <Card className="overflow-hidden pt-0">
-              <Img
-                src={blockBrandedIconsAndPlaceholders.placeholder1}
-                alt="Integrations"
-                className="aspect-video w-full object-cover"
-                loading="lazy"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <div className="p-6">
-                <p className="mb-1 font-medium">Integrations</p>
-                <p className="text-muted-foreground">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Animi laboriosam voluptatibus temporibus doloremque
-                  laudantium.
-                </p>
-              </div>
-            </Card>
-            <Card className="p-6">
-              <p className="mb-1 font-medium">Utilities</p>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi
-                laboriosam voluptatibus temporibus doloremque laudantium.
-              </p>
-            </Card>
-            <Card className="p-6">
-              <p className="mb-1 flex items-center gap-2 font-medium">
-                Features <DynamicIcon name="lucide/sparkles" size={16} />
-              </p>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi
-                laboriosam voluptatibus temporibus doloremque laudantium.
-              </p>
-            </Card>
+        <div className={cn("mt-11 flex flex-col gap-6 md:flex-row", gridClassName)}>
+          <div className={cn("flex w-full flex-col gap-6", columnClassName)}>
+            {renderColumn(leftColumnCards, leftColumnSlot)}
           </div>
-          <div className="flex w-full flex-col gap-6">
-            <Card className="overflow-hidden pt-0">
-              <Img
-                src={blockBrandedIconsAndPlaceholders.placeholder1}
-                alt="Integrations"
-                className="aspect-video w-full object-cover"
-                loading="lazy"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <div className="p-6">
-                <p className="mb-1 flex items-center gap-2 font-medium">
-                  Integrations <DynamicIcon name="lucide/sparkles" size={16} />
-                </p>
-                <p className="text-muted-foreground">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Animi laboriosam voluptatibus temporibus doloremque
-                  laudantium.
-                </p>
-              </div>
-            </Card>
-            <Card className="p-6">
-              <p className="mb-1 font-medium">Features</p>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi
-                laboriosam voluptatibus temporibus doloremque laudantium.
-              </p>
-            </Card>
-            <Card className="p-6">
-              <p className="mb-1 flex items-center gap-2 font-medium">
-                Features <DynamicIcon name="lucide/sparkles" size={16} />
-              </p>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi
-                laboriosam voluptatibus temporibus doloremque laudantium.
-              </p>
-            </Card>
-            <Card className="border-dashed bg-transparent p-6 shadow-none">
-              <div className="mb-1 flex items-center gap-2 font-medium">
-                Search
-                <Badge variant="outline">Coming soon</Badge>
-              </div>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi
-                laboriosam voluptatibus temporibus doloremque laudantium.
-              </p>
-            </Card>
+          <div className={cn("flex w-full flex-col gap-6", columnClassName)}>
+            {renderColumn(rightColumnCards, rightColumnSlot)}
           </div>
         </div>
       </div>

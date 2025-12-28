@@ -5,48 +5,118 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
+import type { ActionConfig } from "../../../src/types";
 
 export interface FeatureStatsHighlightStat {
   /**
-   * Stat value (e.g., "99%", "24/7")
+   * Stat value content (e.g., "99%", "24/7")
    */
-  value: string;
+  value?: React.ReactNode;
   /**
-   * Stat label
+   * Stat label content
    */
-  label: string;
+  label?: React.ReactNode;
+  /**
+   * Additional CSS classes for the stat card
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the value
+   */
+  valueClassName?: string;
+  /**
+   * Additional CSS classes for the label
+   */
+  labelClassName?: string;
 }
 
 export interface FeatureStatsHighlightProps {
   /**
-   * Badge text
+   * Badge content
    */
-  badge?: string;
+  badge?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
-   * Supporting description text
+   * Supporting description content
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Button text
+   * Array of action configurations for CTA buttons
    */
-  buttonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Button link URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  buttonLink?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Array of stat items
    */
   stats?: FeatureStatsHighlightStat[];
   /**
+   * Custom slot for rendering stats (overrides stats array)
+   */
+  statsSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the grid wrapper
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the stats grid
+   */
+  statsGridClassName?: string;
+  /**
+   * Additional CSS classes for each stat card
+   */
+  statCardClassName?: string;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Get Started",
+    href: "#",
+    variant: "default",
+    size: "lg",
+    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
+  },
+];
+
+const defaultStats: FeatureStatsHighlightStat[] = [
+  { value: "99%", label: "Uptime Guarantee" },
+  { value: "24/7", label: "Customer Support" },
+  { value: "50K+", label: "Active Users" },
+  { value: "100+", label: "Integrations" },
+];
 
 /**
  * Feature Stats Highlight - Feature section with stats grid and CTA button,
@@ -62,7 +132,7 @@ export interface FeatureStatsHighlightProps {
  *   badge="Why Choose Us"
  *   title="We deliver results"
  *   description="Our platform helps businesses grow."
- *   buttonText="Get Started"
+ *   actions={[{ label: "Get Started", href: "#", variant: "default" }]}
  *   stats={[
  *     { value: "99%", label: "Uptime" },
  *     { value: "24/7", label: "Support" },
@@ -74,55 +144,109 @@ export function FeatureStatsHighlight({
   badge = "Why Choose Us",
   title = "We deliver results that matter",
   description = "Our platform is designed to help businesses of all sizes achieve their goals with powerful tools and exceptional support.",
-  buttonText = "Get Started",
-  buttonLink = "#",
-  stats = [
-    { value: "99%", label: "Uptime Guarantee" },
-    { value: "24/7", label: "Customer Support" },
-    { value: "50K+", label: "Active Users" },
-    { value: "100+", label: "Integrations" },
-  ],
+  actions = defaultActions,
+  actionsSlot,
+  stats = defaultStats,
+  statsSlot,
   className,
-}: FeatureStatsHighlightProps) {
+  containerClassName,
+  gridClassName,
+  contentClassName,
+  badgeClassName,
+  titleClassName,
+  descriptionClassName,
+  actionsClassName,
+  statsGridClassName,
+  statCardClassName,
+}: FeatureStatsHighlightProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      if (action.children) {
+        return (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant}
+            size={action.size}
+            className={cn("mt-4 w-fit gap-2", action.className)}
+            aria-label={action["aria-label"]}
+            asButton
+          >
+            {action.children}
+          </Pressable>
+        );
+      }
+
+      return (
+        <Pressable
+          key={index}
+          href={action.href}
+          onClick={action.onClick}
+          variant={action.variant}
+          size={action.size}
+          className={cn("mt-4 w-fit gap-2", action.className)}
+          aria-label={action["aria-label"]}
+          asButton
+        >
+          {action.icon}
+          {action.label}
+          {action.iconAfter}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderStats = () => {
+    if (statsSlot) return statsSlot;
+    if (!stats || stats.length === 0) return null;
+
+    return stats.map((stat, index) => (
+      <div
+        key={index}
+        className={cn("flex flex-col gap-2 rounded-xl border bg-muted/30 p-6", statCardClassName, stat.className)}
+      >
+        <span className={cn("text-4xl font-bold text-primary lg:text-5xl", stat.valueClassName)}>
+          {stat.value}
+        </span>
+        <span className={cn("text-muted-foreground", stat.labelClassName)}>{stat.label}</span>
+      </div>
+    ));
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
-          <div className="flex flex-col gap-5">
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-20", gridClassName)}>
+          <div className={cn("flex flex-col gap-5", contentClassName)}>
             {badge && (
-              <Badge variant="outline" className="w-fit">
+              <Badge variant="outline" className={cn("w-fit", badgeClassName)}>
                 {badge}
               </Badge>
             )}
             {title && (
-              <h2 className="text-3xl font-semibold lg:text-5xl">{title}</h2>
+              typeof title === "string" ? (
+                <h2 className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</h2>
+              ) : (
+                <div className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</div>
+              )
             )}
             {description && (
-              <p className="text-muted-foreground lg:text-lg">{description}</p>
+              typeof description === "string" ? (
+                <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
+              )
             )}
-            <Pressable
-              href={buttonLink}
-              variant="default"
-              size="lg"
-              asButton
-              className="mt-4 w-fit gap-2"
-            >
-              {buttonText}
-              <DynamicIcon name="lucide/arrow-right" size={16} />
-            </Pressable>
+            <div className={actionsClassName}>
+              {renderActions()}
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-6">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="flex flex-col gap-2 rounded-xl border bg-muted/30 p-6"
-              >
-                <span className="text-4xl font-bold text-primary lg:text-5xl">
-                  {stat.value}
-                </span>
-                <span className="text-muted-foreground">{stat.label}</span>
-              </div>
-            ))}
+          <div className={cn("grid grid-cols-2 gap-6", statsGridClassName)}>
+            {renderStats()}
           </div>
         </div>
       </div>
