@@ -582,7 +582,7 @@ const Industries4 = ({
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className={`relative h-full min-w-0 ${
                       contractor.id === contractors[0]?.id
-                        ? "w-96 flex-shrink-0"
+                        ? "w-96 shrink-0"
                         : "flex-1"
                     }`}
                   >

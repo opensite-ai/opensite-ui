@@ -857,7 +857,7 @@ const Resources2 = ({ className }: Resources2Props) => {
               alt="placeholder"
               className="size-full max-h-[550px] object-cover grayscale-100 transition-all duration-300 group-hover:grayscale-50"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-primary to-transparent" />
             <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
               <Badge className="border border-background/20 bg-background/15 backdrop-blur-sm">
                 <Sparkles className="size-4" />
@@ -900,7 +900,7 @@ const Resources2 = ({ className }: Resources2Props) => {
                 alt="placeholder"
                 className="size-full max-h-[267px] object-cover grayscale-100 transition-all duration-300 group-hover:grayscale-50"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-primary to-transparent" />
               <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
                 <Badge className="border border-background/20 bg-background/15 backdrop-blur-sm">
                   Latest
@@ -930,7 +930,7 @@ const Resources2 = ({ className }: Resources2Props) => {
                 alt="placeholder"
                 className="size-full max-h-[267px] object-cover grayscale-100 transition-all duration-300 group-hover:grayscale-50"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-primary to-transparent" />
               <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
                 <Badge className="border border-background/20 bg-background/15 backdrop-blur-sm">
                   Latest
@@ -1419,7 +1419,7 @@ const Resources5 = ({
               {/* Right Visual Element */}
               <div>
                 <div
-                  className={`group grid aspect-video w-full place-items-center bg-gradient-to-br ${course.gradient} rounded-lg pt-6 pr-8 transition duration-200 ease-out hover:scale-[1.03] hover:-rotate-2 dark:from-muted dark:to-muted/50`}
+                  className={`group grid aspect-video w-full place-items-center bg-linear-to-br ${course.gradient} rounded-lg pt-6 pr-8 transition duration-200 ease-out hover:scale-[1.03] hover:-rotate-2 dark:from-muted dark:to-muted/50`}
                 >
                   <div className="shadow-duo col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-6deg] rounded-md border border-border bg-muted/50 transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-2deg] lg:w-32"></div>
                   <div className="col-start-1 row-start-1 flex aspect-square w-24 origin-top-left rotate-[-8deg] rounded-md border border-border bg-muted/50 transition duration-500 ease-out group-hover:scale-[1.1] group-hover:rotate-[-8deg] lg:w-32"></div>

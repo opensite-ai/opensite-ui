@@ -11,7 +11,8 @@ const backgroundStyles = {
   white: "bg-background text-foreground",
   gray: "bg-muted/30 text-foreground",
   dark: "bg-foreground text-background",
-  gradient: "bg-gradient-to-br from-primary via-primary/90 to-foreground text-primary-foreground",
+  gradient:
+    "bg-linear-to-br from-primary via-primary/90 to-foreground text-primary-foreground",
   primary: "bg-primary text-primary-foreground",
   secondary: "bg-secondary text-secondary-foreground",
   muted: "bg-muted text-muted-foreground",

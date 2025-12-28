@@ -85,7 +85,7 @@ export function FaqGradientCategories({
   return (
     <section className={cn("py-32", className)}>
       <div className="container">
-        <div className="rounded-lg bg-gradient-to-b from-muted/50 to-muted p-8 md:p-12 lg:p-16">
+        <div className="rounded-lg bg-linear-to-b from-muted/50 to-muted p-8 md:p-12 lg:p-16">
           <div className="mx-auto flex max-w-3xl flex-col text-left md:text-center">
             <h2 className="mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl">
               {heading}

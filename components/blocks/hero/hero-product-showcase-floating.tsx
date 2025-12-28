@@ -25,7 +25,7 @@ export function HeroProductShowcaseFloating({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="order-2 lg:order-1">
             <div className="relative">
-              <div className="aspect-4/3 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 p-8">
+              <div className="aspect-4/3 overflow-hidden rounded-2xl bg-linear-to-br from-primary/20 to-purple-500/20 p-8">
                 <Img
                   src={imagePlaceholders[102]}
                   alt="Product interface"

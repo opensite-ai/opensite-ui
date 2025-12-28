@@ -3,7 +3,10 @@
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  imagePlaceholders,
+  logoPlaceholders,
+} from "../../../lib/mediaPlaceholders";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 
 export interface CaseStudyImageGridItem {
@@ -116,7 +119,7 @@ export function CaseStudiesImageGrid({
                 loading="lazy"
                 optixFlowConfig={optixFlowConfig}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/10"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 to-black/10"></div>
               <Img
                 src={item.logo}
                 alt="Company logo"

@@ -526,7 +526,7 @@ const Feature13 = ({
               className="flex flex-col justify-between rounded-lg bg-muted"
             >
               <div className="flex justify-between gap-10 border-b">
-                <div className="flex flex-col justify-between justify-start gap-8 py-6 pl-4 md:gap-14 md:py-10 md:pl-8 lg:justify-normal">
+                <div className="flex flex-col justify-between gap-8 py-6 pl-4 md:gap-14 md:py-10 md:pl-8 lg:justify-normal">
                   <span className="font-mono text-xs text-muted-foreground">
                     {feature.label}
                   </span>
@@ -8440,7 +8440,7 @@ const Feature205 = ({ className }: Feature205Props) => {
                   alt="placeholder"
                   className="h-[440px] w-full rounded-3xl object-cover lg:h-[540px]"
                 />
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 rounded-3xl bg-linear-to-tr from-primary/80 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 flex flex-col justify-center gap-8 p-6 text-background">
                   <div className="flex flex-col gap-1.5">
                     <p className="text-4xl font-medium lg:text-5xl">40%</p>
@@ -8463,7 +8463,7 @@ const Feature205 = ({ className }: Feature205Props) => {
                   alt="placeholder"
                   className="h-[440px] w-full rounded-3xl object-cover lg:h-[540px]"
                 />
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 rounded-3xl bg-linear-to-tr from-primary/80 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 flex flex-col justify-center gap-8 p-6 text-background">
                   <div className="flex flex-col gap-1.5">
                     <p className="text-4xl font-medium lg:text-5xl">3x</p>
@@ -8486,7 +8486,7 @@ const Feature205 = ({ className }: Feature205Props) => {
                   alt="placeholder"
                   className="h-[440px] w-full rounded-3xl object-cover lg:h-[540px]"
                 />
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 rounded-3xl bg-linear-to-tr from-primary/80 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 flex flex-col justify-center gap-8 p-6 text-background">
                   <div className="flex flex-col gap-1.5">
                     <p className="text-4xl font-medium lg:text-5xl">65%</p>
@@ -9692,11 +9692,11 @@ const Feature220 = ({ className }: Feature220Props) => {
   return (
     <section
       className={cn(
-        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
+        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-size-[3.125rem_3.125rem] bg-repeat py-20",
         className,
       )}
     >
-      <div className="container flex flex-wrap-reverse gap-12 lg:grid lg:grid-cols-[1fr_1.5fr] lg:gap-[7.5rem]">
+      <div className="container flex flex-wrap-reverse gap-12 lg:grid lg:grid-cols-[1fr_1.5fr] lg:gap-30">
         <div className="flex flex-col justify-between gap-20">
           <div className="mt-10 flex flex-col gap-5">
             <h2 className="text-4xl leading-none font-semibold tracking-tight md:text-5xl">
@@ -9714,7 +9714,7 @@ const Feature220 = ({ className }: Feature220Props) => {
             </div>
           </div>
           <div>
-            <div className="group flex w-full max-w-[30rem] flex-col gap-10 rounded-[.5rem] bg-background p-5 transition-shadow hover:shadow-[0_0_2px_theme('colors.gray.300')]">
+            <div className="group flex w-full max-w-[30rem] flex-col gap-10 rounded-[.5rem] bg-background p-5 transition-shadow hover:shadow-[0_0_2px_var(--color-gray-300)]">
               <div className="flex w-full flex-col gap-8 sm:flex-row">
                 {stats.map((item, i) => (
                   <div
@@ -9731,7 +9731,7 @@ const Feature220 = ({ className }: Feature220Props) => {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-[46.5rem]">
+        <div className="w-full max-w-186">
           <AspectRatio
             ratio={0.873239437}
             className="overflow-hidden rounded-2xl"
@@ -9787,7 +9787,7 @@ const Feature220a = ({ className }: Feature220aProps) => {
   return (
     <section
       className={cn(
-        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-[length:3.125rem_3.125rem] bg-repeat py-24",
+        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-size-[3.125rem_3.125rem] bg-repeat py-24",
         className,
       )}
     >
@@ -9880,7 +9880,7 @@ const Feature220b = ({ className }: Feature220bProps) => {
   return (
     <section
       className={cn(
-        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-[length:3.125rem_3.125rem] bg-repeat py-20",
+        "bg-muted bg-[url('https://cdn.ing/assets/files/record/286189/arez6gd2s7isn9i1o6c7sexdq7bl')] bg-size-[3.125rem_3.125rem] bg-repeat py-20",
         className,
       )}
     >
@@ -9961,7 +9961,7 @@ export default function IconSectionCircleIconsCentreAligned() {
           {/* Icon Block */}
           <div className="text-center">
             <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
-              <TabletSmartphoneIcon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+              <TabletSmartphoneIcon className="shrink-0 w-5 h-5 text-primary-foreground" />
             </div>
             <div className="mt-3">
               <h3 className="text-lg font-semibold ">Responsive</h3>
@@ -9974,7 +9974,7 @@ export default function IconSectionCircleIconsCentreAligned() {
           {/* Icon Block */}
           <div className="text-center">
             <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
-              <Settings2Icon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+              <Settings2Icon className="shrink-0 w-5 h-5 text-primary-foreground" />
             </div>
             <div className="mt-3">
               <h3 className="text-lg font-semibold ">Customizable</h3>
@@ -9987,7 +9987,7 @@ export default function IconSectionCircleIconsCentreAligned() {
           {/* Icon Block */}
           <div className="text-center">
             <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
-              <BookOpenIcon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+              <BookOpenIcon className="shrink-0 w-5 h-5 text-primary-foreground" />
             </div>
             <div className="mt-3">
               <h3 className="text-lg font-semibold ">Documentation</h3>
@@ -10000,7 +10000,7 @@ export default function IconSectionCircleIconsCentreAligned() {
           {/* Icon Block */}
           <div className="text-center">
             <div className="flex justify-center items-center w-12 h-12 bg-primary border rounded-full mx-auto">
-              <MessagesSquareIcon className="flex-shrink-0 w-5 h-5 text-primary-foreground" />
+              <MessagesSquareIcon className="shrink-0 w-5 h-5 text-primary-foreground" />
             </div>
             <div className="mt-3">
               <h3 className="text-lg font-semibold ">24/7 Support</h3>
@@ -10663,7 +10663,7 @@ export default function IconFeatureCarousel() {
                         sizes="(max-width: 768px) 100vw, 50vw"
                         priority={offset === 0}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-tr from-black/20 to-transparent" />
                     </div>
                   </div>
                 </div>
@@ -11382,14 +11382,14 @@ export default function FeatureStats() {
                 )}
               </div>
 
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+              <div className="relative aspect-4/3 overflow-hidden rounded-xl">
                 <img
                   src={category.image}
                   alt={category.title}
                   className="object-cover"
                 />
                 <div
-                  className={`absolute inset-0 bg-gradient-to-tl from-${category.color}-500/20 via-transparent to-transparent`}
+                  className={`absolute inset-0 bg-linear-to-tl from-${category.color}-500/20 via-transparent to-transparent`}
                 />
               </div>
             </div>
@@ -11397,7 +11397,7 @@ export default function FeatureStats() {
         ))}
       </Tabs>
 
-      <div className="from-muted/80 via-muted to-muted/80 relative mt-16 rounded-xl bg-gradient-to-r p-8">
+      <div className="from-muted/80 via-muted to-muted/80 relative mt-16 rounded-xl bg-linear-to-r p-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row">
           <div className="max-w-lg space-y-2">
             <h3 className="text-2xl font-bold">Ready to see the impact?</h3>
@@ -11632,7 +11632,7 @@ export default function FeatureAccordion() {
                   <div className="flex items-center gap-3 text-left">
                     <div
                       className={cn(
-                        'flex-shrink-0 rounded-md p-2',
+                        'shrink-0 rounded-md p-2',
                         expandedFeature === feature.id
                           ? 'bg-primary/10'
                           : 'bg-muted'
@@ -11647,7 +11647,7 @@ export default function FeatureAccordion() {
                         )}
                       />
                     </div>
-                    <div className="flex-grow">
+                    <div className="grow">
                       <div className="flex items-center gap-2">
                         <h3 className="font-medium">{feature.title}</h3>
                         {feature.status && (
@@ -11685,7 +11685,7 @@ export default function FeatureAccordion() {
                       >
                         <div
                           className={cn(
-                            'mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full',
+                            'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full',
                             hoveredBenefit === benefit
                               ? 'bg-primary text-primary-foreground'
                               : 'bg-primary/10 text-primary'
@@ -11713,7 +11713,7 @@ export default function FeatureAccordion() {
 
         <div className="relative lg:col-span-3">
           <div className="sticky top-24">
-            <div className="from-muted/50 to-muted rounded-2xl bg-gradient-to-br p-6 lg:p-8">
+            <div className="from-muted/50 to-muted rounded-2xl bg-linear-to-br p-6 lg:p-8">
               <div className="mb-6 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="bg-background rounded-full p-2">
@@ -11755,7 +11755,7 @@ export default function FeatureAccordion() {
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   {activeFeature.benefits.map((benefit) => (
                     <div key={benefit} className="flex items-start gap-2">
-                      <div className="bg-primary/10 text-primary mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+                      <div className="bg-primary/10 text-primary mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full">
                         <Check className="h-3 w-3" />
                       </div>
                       <span className="text-sm">{benefit}</span>
@@ -11803,5 +11803,619 @@ export default function FeatureAccordion() {
     </section>
   );
 }
+
+```
+
+```tsx
+import { cn } from "@/lib/utils";
+import {
+  IconAdjustmentsBolt,
+  IconCloud,
+  IconCurrencyDollar,
+  IconEaseInOut,
+  IconHeart,
+  IconHelp,
+  IconRouteAltLeft,
+  IconTerminal2,
+} from "@tabler/icons-react";
+
+export function FeaturesSectionDemo() {
+  const features = [
+    {
+      title: "Built for developers",
+      description:
+        "Built for engineers, developers, dreamers, thinkers and doers.",
+      icon: <IconTerminal2 />,
+    },
+    {
+      title: "Ease of use",
+      description:
+        "It's as easy as using an Apple, and as expensive as buying one.",
+      icon: <IconEaseInOut />,
+    },
+    {
+      title: "Pricing like no other",
+      description:
+        "Our prices are best in the market. No cap, no lock, no credit card required.",
+      icon: <IconCurrencyDollar />,
+    },
+    {
+      title: "100% Uptime guarantee",
+      description: "We just cannot be taken down by anyone.",
+      icon: <IconCloud />,
+    },
+    {
+      title: "Multi-tenant Architecture",
+      description: "You can simply share passwords instead of buying new seats",
+      icon: <IconRouteAltLeft />,
+    },
+    {
+      title: "24/7 Customer Support",
+      description:
+        "We are available a 100% of the time. Atleast our AI Agents are.",
+      icon: <IconHelp />,
+    },
+    {
+      title: "Money back guarantee",
+      description:
+        "If you donot like EveryAI, we will convince you to like us.",
+      icon: <IconAdjustmentsBolt />,
+    },
+    {
+      title: "And everything else",
+      description: "I just ran out of copy ideas. Accept my sincere apologies",
+      icon: <IconHeart />,
+    },
+  ];
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  relative z-10 py-10 max-w-7xl mx-auto">
+      {features.map((feature, index) => (
+        <Feature key={feature.title} {...feature} index={index} />
+      ))}
+    </div>
+  );
+}
+
+const Feature = ({
+  title,
+  description,
+  icon,
+  index,
+}: {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  index: number;
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex flex-col lg:border-r  py-10 relative group/feature dark:border-neutral-800",
+        (index === 0 || index === 4) && "lg:border-l dark:border-neutral-800",
+        index < 4 && "lg:border-b dark:border-neutral-800"
+      )}
+    >
+      {index < 4 && (
+        <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-linear-to-t from-neutral-100 dark:from-neutral-800 to-transparent pointer-events-none" />
+      )}
+      {index >= 4 && (
+        <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-linear-to-b from-neutral-100 dark:from-neutral-800 to-transparent pointer-events-none" />
+      )}
+      <div className="mb-4 relative z-10 px-10 text-neutral-600 dark:text-neutral-400">
+        {icon}
+      </div>
+      <div className="text-lg font-bold mb-2 relative z-10 px-10">
+        <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 group-hover/feature:bg-blue-500 transition-all duration-200 origin-center" />
+        <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-800 dark:text-neutral-100">
+          {title}
+        </span>
+      </div>
+      <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xs relative z-10 px-10">
+        {description}
+      </p>
+    </div>
+  );
+};
+
+```
+
+```tsx
+import React from "react";
+import { useId } from "react";
+
+export function FeaturesSectionDemo() {
+  return (
+    <div className="py-20 lg:py-40">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 md:gap-2 max-w-7xl mx-auto">
+        {grid.map((feature) => (
+          <div
+            key={feature.title}
+            className="relative bg-linear-to-b dark:from-neutral-900 from-neutral-100 dark:to-neutral-950 to-white p-6 rounded-3xl overflow-hidden"
+          >
+            <Grid size={20} />
+            <p className="text-base font-bold text-neutral-800 dark:text-white relative z-20">
+              {feature.title}
+            </p>
+            <p className="text-neutral-600 dark:text-neutral-400 mt-4 text-base font-normal relative z-20">
+              {feature.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const grid = [
+  {
+    title: "HIPAA and SOC2 Compliant",
+    description:
+      "Our applications are HIPAA and SOC2 compliant, your data is safe with us, always.",
+  },
+  {
+    title: "Automated Social Media Posting",
+    description:
+      "Schedule and automate your social media posts across multiple platforms to save time and maintain a consistent online presence.",
+  },
+  {
+    title: "Advanced Analytics",
+    description:
+      "Gain insights into your social media performance with detailed analytics and reporting tools to measure engagement and ROI.",
+  },
+  {
+    title: "Content Calendar",
+    description:
+      "Plan and organize your social media content with an intuitive calendar view, ensuring you never miss a post.",
+  },
+  {
+    title: "Audience Targeting",
+    description:
+      "Reach the right audience with advanced targeting options, including demographics, interests, and behaviors.",
+  },
+  {
+    title: "Social Listening",
+    description:
+      "Monitor social media conversations and trends to stay informed about what your audience is saying and respond in real-time.",
+  },
+  {
+    title: "Customizable Templates",
+    description:
+      "Create stunning social media posts with our customizable templates, designed to fit your brand's unique style and voice.",
+  },
+  {
+    title: "Collaboration Tools",
+    description:
+      "Work seamlessly with your team using our collaboration tools, allowing you to assign tasks, share drafts, and provide feedback in real-time.",
+  },
+];
+
+export const Grid = ({
+  pattern,
+  size,
+}: {
+  pattern?: number[][];
+  size?: number;
+}) => {
+  const p = pattern ?? [
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+  ];
+  return (
+    <div className="pointer-events-none absolute left-1/2 top-0  -ml-20 -mt-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+      <div className="absolute inset-0 bg-linear-to-r  [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:from-zinc-900/30 from-zinc-100/30 to-zinc-300/30 dark:to-zinc-900/30 opacity-100">
+        <GridPattern
+          width={size ?? 20}
+          height={size ?? 20}
+          x="-12"
+          y="4"
+          squares={p}
+          className="absolute inset-0 h-full w-full  mix-blend-overlay dark:fill-white/10 dark:stroke-white/10 stroke-black/10 fill-black/10"
+        />
+      </div>
+    </div>
+  );
+};
+
+export function GridPattern({ width, height, x, y, squares, ...props }: any) {
+  const patternId = useId();
+
+  return (
+    <svg aria-hidden="true" {...props}>
+      <defs>
+        <pattern
+          id={patternId}
+          width={width}
+          height={height}
+          patternUnits="userSpaceOnUse"
+          x={x}
+          y={y}
+        >
+          <path d={`M.5 ${height}V.5H${width}`} fill="none" />
+        </pattern>
+      </defs>
+      <rect
+        width="100%"
+        height="100%"
+        strokeWidth={0}
+        fill={`url(#${patternId})`}
+      />
+      {squares && (
+        <svg x={x} y={y} className="overflow-visible">
+          {squares.map(([x, y]: any) => (
+            <rect
+              strokeWidth="0"
+              key={`${x}-${y}`}
+              width={width + 1}
+              height={height + 1}
+              x={x * width}
+              y={y * height}
+            />
+          ))}
+        </svg>
+      )}
+    </svg>
+  );
+}
+
+```
+
+```tsx
+"use client";
+import { cn } from "@/lib/utils";
+import React from "react";
+import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
+import {
+  IconBoxAlignRightFilled,
+  IconClipboardCopy,
+  IconFileBroken,
+  IconSignature,
+  IconTableColumn,
+} from "@tabler/icons-react";
+import { motion } from "motion/react";
+
+
+export function BentoGridThirdDemo() {
+  return (
+    <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem]">
+      {items.map((item, i) => (
+        <BentoGridItem
+          key={i}
+          title={item.title}
+          description={item.description}
+          header={item.header}
+          className={cn("[&>p:text-lg]", item.className)}
+          icon={item.icon}
+        />
+      ))}
+    </BentoGrid>
+  );
+}
+
+const SkeletonOne = () => {
+  const variants = {
+    initial: {
+      x: 0,
+    },
+    animate: {
+      x: 10,
+      rotate: 5,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+  const variantsSecond = {
+    initial: {
+      x: 0,
+    },
+    animate: {
+      x: -10,
+      rotate: -5,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      initial="initial"
+      whileHover="animate"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2"
+    >
+      <motion.div
+        variants={variants}
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-white dark:bg-black"
+      >
+        <div className="h-6 w-6 rounded-full bg-linear-to-r from-pink-500 to-violet-500 shrink-0" />
+        <div className="w-full bg-gray-100 h-4 rounded-full dark:bg-neutral-900" />
+      </motion.div>
+      <motion.div
+        variants={variantsSecond}
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
+      >
+        <div className="w-full bg-gray-100 h-4 rounded-full dark:bg-neutral-900" />
+        <div className="h-6 w-6 rounded-full bg-linear-to-r from-pink-500 to-violet-500 shrink-0" />
+      </motion.div>
+      <motion.div
+        variants={variants}
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center space-x-2 bg-white dark:bg-black"
+      >
+        <div className="h-6 w-6 rounded-full bg-linear-to-r from-pink-500 to-violet-500 shrink-0" />
+        <div className="w-full bg-gray-100 h-4 rounded-full dark:bg-neutral-900" />
+      </motion.div>
+    </motion.div>
+  );
+};
+const SkeletonTwo = () => {
+  const variants = {
+    initial: {
+      width: 0,
+    },
+    animate: {
+      width: "100%",
+      transition: {
+        duration: 0.2,
+      },
+    },
+    hover: {
+      width: ["0%", "100%"],
+      transition: {
+        duration: 2,
+      },
+    },
+  };
+  const arr = new Array(6).fill(0);
+  return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      whileHover="hover"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2"
+    >
+      {arr.map((_, i) => (
+        <motion.div
+          key={"skelenton-two" + i}
+          variants={variants}
+          style={{
+            maxWidth: Math.random() * (100 - 40) + 40 + "%",
+          }}
+          className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-neutral-100 dark:bg-black w-full h-4"
+        ></motion.div>
+      ))}
+    </motion.div>
+  );
+};
+const SkeletonThree = () => {
+  const variants = {
+    initial: {
+      backgroundPosition: "0 50%",
+    },
+    animate: {
+      backgroundPosition: ["0, 50%", "100% 50%", "0 50%"],
+    },
+  };
+  return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      variants={variants}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: "reverse",
+      }}
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2"
+      style={{
+        background:
+          "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
+        backgroundSize: "400% 400%",
+      }}
+    >
+      <motion.div className="h-full w-full rounded-lg"></motion.div>
+    </motion.div>
+  );
+};
+const SkeletonFour = () => {
+  const first = {
+    initial: {
+      x: 20,
+      rotate: -5,
+    },
+    hover: {
+      x: 0,
+      rotate: 0,
+    },
+  };
+  const second = {
+    initial: {
+      x: -20,
+      rotate: 5,
+    },
+    hover: {
+      x: 0,
+      rotate: 0,
+    },
+  };
+  return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      whileHover="hover"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-2"
+    >
+      <motion.div
+        variants={first}
+        className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
+      >
+        <img
+          src="https://pbs.twimg.com/profile_images/1417752099488636931/cs2R59eW_400x400.jpg"
+          alt="avatar"
+          height="100"
+          width="100"
+          className="rounded-full h-10 w-10"
+        />
+        <p className="sm:text-sm text-xs text-center font-semibold text-neutral-500 mt-4">
+          Just code in Vanilla Javascript
+        </p>
+        <p className="border border-red-500 bg-red-100 dark:bg-red-900/20 text-red-600 text-xs rounded-full px-2 py-0.5 mt-4">
+          Delusional
+        </p>
+      </motion.div>
+      <motion.div className="h-full relative z-20 w-1/3 rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center">
+        <img
+          src="https://pbs.twimg.com/profile_images/1417752099488636931/cs2R59eW_400x400.jpg"
+          alt="avatar"
+          height="100"
+          width="100"
+          className="rounded-full h-10 w-10"
+        />
+        <p className="sm:text-sm text-xs text-center font-semibold text-neutral-500 mt-4">
+          Tailwind CSS is cool, you know
+        </p>
+        <p className="border border-green-500 bg-green-100 dark:bg-green-900/20 text-green-600 text-xs rounded-full px-2 py-0.5 mt-4">
+          Sensible
+        </p>
+      </motion.div>
+      <motion.div
+        variants={second}
+        className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
+      >
+        <img
+          src="https://pbs.twimg.com/profile_images/1417752099488636931/cs2R59eW_400x400.jpg"
+          alt="avatar"
+          height="100"
+          width="100"
+          className="rounded-full h-10 w-10"
+        />
+        <p className="sm:text-sm text-xs text-center font-semibold text-neutral-500 mt-4">
+          I love angular, RSC, and Redux.
+        </p>
+        <p className="border border-orange-500 bg-orange-100 dark:bg-orange-900/20 text-orange-600 text-xs rounded-full px-2 py-0.5 mt-4">
+          Helpless
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+};
+const SkeletonFive = () => {
+  const variants = {
+    initial: {
+      x: 0,
+    },
+    animate: {
+      x: 10,
+      rotate: 5,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+  const variantsSecond = {
+    initial: {
+      x: 0,
+    },
+    animate: {
+      x: -10,
+      rotate: -5,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      initial="initial"
+      whileHover="animate"
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-col space-y-2"
+    >
+      <motion.div
+        variants={variants}
+        className="flex flex-row rounded-2xl border border-neutral-100 dark:border-white/[0.2] p-2  items-start space-x-2 bg-white dark:bg-black"
+      >
+        <img
+          src="https://pbs.twimg.com/profile_images/1417752099488636931/cs2R59eW_400x400.jpg"
+          alt="avatar"
+          height="100"
+          width="100"
+          className="rounded-full h-10 w-10"
+        />
+        <p className="text-xs text-neutral-500">
+          There are a lot of cool framerworks out there like React, Angular,
+          Vue, Svelte that can make your life ....
+        </p>
+      </motion.div>
+      <motion.div
+        variants={variantsSecond}
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center justify-end space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
+      >
+        <p className="text-xs text-neutral-500">Use PHP.</p>
+        <div className="h-6 w-6 rounded-full bg-linear-to-r from-pink-500 to-violet-500 shrink-0" />
+      </motion.div>
+    </motion.div>
+  );
+};
+const items = [
+  {
+    title: "AI Content Generation",
+    description: (
+      <span className="text-sm">
+        Experience the power of AI in generating unique content.
+      </span>
+    ),
+    header: <SkeletonOne />,
+    className: "md:col-span-1",
+    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Automated Proofreading",
+    description: (
+      <span className="text-sm">
+        Let AI handle the proofreading of your documents.
+      </span>
+    ),
+    header: <SkeletonTwo />,
+    className: "md:col-span-1",
+    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Contextual Suggestions",
+    description: (
+      <span className="text-sm">
+        Get AI-powered suggestions based on your writing context.
+      </span>
+    ),
+    header: <SkeletonThree />,
+    className: "md:col-span-1",
+    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Sentiment Analysis",
+    description: (
+      <span className="text-sm">
+        Understand the sentiment of your text with AI analysis.
+      </span>
+    ),
+    header: <SkeletonFour />,
+    className: "md:col-span-2",
+    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+  },
+
+  {
+    title: "Text Summarization",
+    description: (
+      <span className="text-sm">
+        Summarize your lengthy documents with AI technology.
+      </span>
+    ),
+    header: <SkeletonFive />,
+    className: "md:col-span-1",
+    icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
+  },
+];
 
 ```

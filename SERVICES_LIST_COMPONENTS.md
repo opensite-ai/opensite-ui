@@ -358,7 +358,7 @@ const Services7 = ({ className }: Services7Props) => {
                 key={index}
                 className="flex flex-col items-start gap-6 rounded-lg border border-border p-6 transition-shadow hover:shadow-sm md:flex-row"
               >
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
                     {service.icon}
                   </div>
@@ -871,7 +871,7 @@ const Services10 = ({ className }: Services10Props) => {
                             key={itemIndex}
                             className="flex items-center gap-3 text-sm"
                           >
-                            <CheckCircle className="h-4 w-4 flex-shrink-0 text-green-600" />
+                            <CheckCircle className="h-4 w-4 shrink-0 text-green-600" />
                             {item}
                           </li>
                         ))}
@@ -931,7 +931,7 @@ const Services10 = ({ className }: Services10Props) => {
             </p>
             <Button
               size="lg"
-              className="bg-gradient-to-r from-primary to-primary/80"
+              className="bg-linear-to-r from-primary to-primary/80"
             >
               Schedule Consultation
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -1137,7 +1137,7 @@ const Services12 = ({ className }: Services12Props) => {
                 whileHover={{ opacity: 0.8 }}
                 className="group block overflow-hidden rounded-xl"
               >
-                <Card className="relative aspect-[4/3] overflow-hidden p-0">
+                <Card className="relative aspect-4/3 overflow-hidden p-0">
                   <img
                     src={service.image}
                     alt={service.title}
@@ -1557,7 +1557,7 @@ const Services15 = ({ className }: Services15Props) => {
                   className="absolute inset-0 h-full w-full object-cover"
                 />
                 {/* Color overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <CardContent className="absolute inset-0 flex flex-col justify-end p-6">
                   <div className="font-semibold text-white">
                     {service.title}
@@ -2748,13 +2748,13 @@ export default function AnimatedFeaturesHero() {
   ];
 
   return (
-    <div className="from-background via-background to-muted/20 relative overflow-hidden bg-gradient-to-b">
+    <div className="from-background via-background to-muted/20 relative overflow-hidden bg-linear-to-b">
       <div className="container mx-auto px-4 py-24 md:px-6 md:py-32 2xl:max-w-[1400px]">
         <div className="mx-auto mb-10 max-w-3xl text-center md:mb-16">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Your platform for{' '}
             <span className="text-primary relative inline-flex">
-              <span className="animate-text-gradient from-primary to-primary via-muted-foreground bg-gradient-to-r bg-[200%_auto] bg-clip-text text-transparent">
+              <span className="animate-text-gradient from-primary to-primary via-muted-foreground bg-linear-to-r bg-[200%_auto] bg-clip-text text-transparent">
                 innovation
               </span>
             </span>
@@ -2925,7 +2925,7 @@ export default function AnimatedFeaturesHero() {
                   activeFeature === 0 ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-gradient-to-br from-blue-50 to-blue-100 p-8 dark:from-blue-950/30 dark:to-blue-900/20">
+                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-linear-to-br from-blue-50 to-blue-100 p-8 dark:from-blue-950/30 dark:to-blue-900/20">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="240"
@@ -2952,7 +2952,7 @@ export default function AnimatedFeaturesHero() {
                   activeFeature === 1 ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-gradient-to-br from-purple-50 to-purple-100 p-8 dark:from-purple-950/30 dark:to-purple-900/20">
+                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-linear-to-br from-purple-50 to-purple-100 p-8 dark:from-purple-950/30 dark:to-purple-900/20">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="240"
@@ -2977,7 +2977,7 @@ export default function AnimatedFeaturesHero() {
                   activeFeature === 2 ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-gradient-to-br from-green-50 to-green-100 p-8 dark:from-green-950/30 dark:to-green-900/20">
+                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-linear-to-br from-green-50 to-green-100 p-8 dark:from-green-950/30 dark:to-green-900/20">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="240"
@@ -3002,7 +3002,7 @@ export default function AnimatedFeaturesHero() {
                   activeFeature === 3 ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-gradient-to-br from-amber-50 to-amber-100 p-8 dark:from-amber-950/30 dark:to-amber-900/20">
+                <div className="flex h-full w-full items-center justify-center rounded-xl border bg-linear-to-br from-amber-50 to-amber-100 p-8 dark:from-amber-950/30 dark:to-amber-900/20">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="240"
@@ -3026,7 +3026,7 @@ export default function AnimatedFeaturesHero() {
       </div>
 
       {/* Background decoration */}
-      <div className="via-foreground/10 absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent to-transparent"></div>
+      <div className="via-foreground/10 absolute top-0 right-0 left-0 h-px bg-linear-to-r from-transparent to-transparent"></div>
     </div>
   );
 }
@@ -3079,7 +3079,7 @@ export default function ProductCarouselHero() {
   };
 
   return (
-    <div className="from-background to-muted/30 relative bg-gradient-to-b">
+    <div className="from-background to-muted/30 relative bg-linear-to-b">
       <div className="container mx-auto px-4 pt-24 pb-20 md:px-6 md:pt-32 md:pb-24 2xl:max-w-[1400px]">
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
           <div className="flex flex-col justify-center space-y-4">
@@ -3141,7 +3141,7 @@ export default function ProductCarouselHero() {
 
           <div className="relative">
             {/* Product showcase */}
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border shadow-xl">
+            <div className="relative aspect-4/3 overflow-hidden rounded-xl border shadow-xl">
               <div
                 className="absolute inset-0 transition-opacity duration-500"
                 style={{
@@ -3154,7 +3154,7 @@ export default function ProductCarouselHero() {
                   alt={products[0].name}
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                 <div className="absolute right-0 bottom-0 left-0 p-6">
                   <h3 className="mb-1 text-xl font-bold text-white">
                     {products[0].name}
@@ -3177,7 +3177,7 @@ export default function ProductCarouselHero() {
                   alt={products[1].name}
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                 <div className="absolute right-0 bottom-0 left-0 p-6">
                   <h3 className="mb-1 text-xl font-bold text-white">
                     {products[1].name}
@@ -3200,7 +3200,7 @@ export default function ProductCarouselHero() {
                   alt={products[2].name}
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
                 <div className="absolute right-0 bottom-0 left-0 p-6">
                   <h3 className="mb-1 text-xl font-bold text-white">
                     {products[2].name}
@@ -4143,7 +4143,7 @@ export default function FeatureVideos() {
 
               {/* Video Controls (visible when playing) */}
               {isPlaying && (
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 to-transparent p-4">
                   <div className="flex items-center justify-between">
                     <Button
                       variant="ghost"
@@ -4197,7 +4197,7 @@ export default function FeatureVideos() {
                     {currentFeature.description}
                   </p>
                 </div>
-                <Button asChild className="md:flex-shrink-0">
+                <Button asChild className="md:shrink-0">
                   <a href="#">
                     Try this feature <ChevronRight className="ml-2 h-4 w-4" />
                   </a>
@@ -4547,7 +4547,7 @@ export default function AboutSectionCompanyCulture() {
                 </div>
 
                 {/* Testimonial */}
-                <Card className="from-primary/5 to-primary/10 border-0 bg-gradient-to-br p-0">
+                <Card className="from-primary/5 to-primary/10 border-0 bg-linear-to-br p-0">
                   <CardContent className="space-y-4 p-6 pt-6">
                     <QuoteIcon className="text-primary/40 h-8 w-8" />
                     <p className="text-muted-foreground italic">
@@ -4579,7 +4579,7 @@ export default function AboutSectionCompanyCulture() {
                 {aspect.images.map((image, idx) => (
                   <div
                     key={idx}
-                    className="relative aspect-[4/3] overflow-hidden rounded-lg"
+                    className="relative aspect-4/3 overflow-hidden rounded-lg"
                   >
                     <img
                       src={image}

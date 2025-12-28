@@ -91,7 +91,8 @@ const defaultMembers: TeamExpertiseCardsMember[] = [
     name: "Sarah Chen",
     role: "CEO & Co-founder",
     department: "Leadership",
-    description: "Former Google PM with 10+ years building products that millions use daily. Passionate about creating meaningful impact through technology.",
+    description:
+      "Former Google PM with 10+ years building products that millions use daily. Passionate about creating meaningful impact through technology.",
     expertise: ["Product Strategy", "Team Leadership", "Growth"],
     avatar: blockBrandedIconsAndPlaceholders.avatar1,
   },
@@ -100,7 +101,8 @@ const defaultMembers: TeamExpertiseCardsMember[] = [
     name: "Marcus Rodriguez",
     role: "CTO & Co-founder",
     department: "Engineering",
-    description: "Ex-Meta engineer who led teams building infrastructure that served billions of users. Loves solving complex technical challenges.",
+    description:
+      "Ex-Meta engineer who led teams building infrastructure that served billions of users. Loves solving complex technical challenges.",
     expertise: ["System Architecture", "AI/ML", "Scalability"],
     avatar: blockBrandedIconsAndPlaceholders.avatar2,
   },
@@ -109,7 +111,8 @@ const defaultMembers: TeamExpertiseCardsMember[] = [
     name: "Priya Patel",
     role: "Head of Design",
     department: "Design",
-    description: "Design leader with experience at Airbnb and Figma. Believes great design should be invisible and solve real user problems.",
+    description:
+      "Design leader with experience at Airbnb and Figma. Believes great design should be invisible and solve real user problems.",
     expertise: ["UX Design", "Design Systems", "User Research"],
     avatar: blockBrandedIconsAndPlaceholders.avatar3,
   },
@@ -118,7 +121,8 @@ const defaultMembers: TeamExpertiseCardsMember[] = [
     name: "David Kim",
     role: "VP of Engineering",
     department: "Engineering",
-    description: "Built and scaled engineering teams at Stripe and Uber. Focuses on creating high-performing teams and robust systems.",
+    description:
+      "Built and scaled engineering teams at Stripe and Uber. Focuses on creating high-performing teams and robust systems.",
     expertise: ["Team Building", "Backend Systems", "DevOps"],
     avatar: blockBrandedIconsAndPlaceholders.avatar4,
   },
@@ -127,7 +131,8 @@ const defaultMembers: TeamExpertiseCardsMember[] = [
     name: "Emma Thompson",
     role: "Head of Marketing",
     department: "Marketing",
-    description: "Marketing strategist who grew multiple startups from 0 to millions in revenue. Expert in growth marketing and brand building.",
+    description:
+      "Marketing strategist who grew multiple startups from 0 to millions in revenue. Expert in growth marketing and brand building.",
     expertise: ["Growth Marketing", "Brand Strategy", "Content"],
     avatar: blockBrandedIconsAndPlaceholders.avatar5,
   },
@@ -136,7 +141,8 @@ const defaultMembers: TeamExpertiseCardsMember[] = [
     name: "Alex Johnson",
     role: "Head of Sales",
     department: "Sales",
-    description: "Sales leader with a track record of building high-performing teams and exceeding revenue targets in competitive markets.",
+    description:
+      "Sales leader with a track record of building high-performing teams and exceeding revenue targets in competitive markets.",
     expertise: ["Enterprise Sales", "Team Management", "Customer Success"],
     avatar: blockBrandedIconsAndPlaceholders.avatar6,
   },
@@ -213,7 +219,7 @@ export function TeamExpertiseCards({
                 <div className="relative mb-6">
                   <Avatar className="mx-auto h-20 w-20">
                     <AvatarImage src={member.avatar} alt={member.name} />
-                    <AvatarFallback className="bg-gradient-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
+                    <AvatarFallback className="bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
                       {member.name
                         .split(" ")
                         .map((n) => n[0])

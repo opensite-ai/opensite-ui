@@ -563,7 +563,7 @@ const Service4 = ({ className }: Service4Props) => {
                 <div className="space-y-6">
                   {stats.map((stat, index) => (
                     <div key={index} className="flex items-center gap-4">
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center">
                         <img
                           src={stat.icon}
                           alt={stat.title}
@@ -757,7 +757,7 @@ const Service5 = ({ className }: Service5Props) => {
               <div className="space-y-6">
                 {stats.map((stat, index) => (
                   <div key={index} className="flex items-center gap-4">
-                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center">
                       <img
                         src={stat.icon}
                         alt={stat.title}

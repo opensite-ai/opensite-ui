@@ -25,15 +25,19 @@ export function HeroSaasDashboardPreview({
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 text-sm">
-            <DynamicIcon name="lucide/sparkles" size={16} className="text-primary" />
+            <DynamicIcon
+              name="lucide/sparkles"
+              size={16}
+              className="text-primary"
+            />
             <span>AI-powered analytics</span>
           </div>
           <h1 className="mt-8 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
             Understand your data like never before
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-            Get actionable insights from your data with our AI-powered
-            analytics platform. No data science degree required.
+            Get actionable insights from your data with our AI-powered analytics
+            platform. No data science degree required.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <div className="flex w-full max-w-md items-center gap-2">
@@ -57,7 +61,7 @@ export function HeroSaasDashboardPreview({
           </p>
         </div>
         <div className="relative mt-20">
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10 pointer-events-none"></div>
           <div className="overflow-hidden rounded-xl border border-border bg-muted/30 shadow-2xl">
             <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-3">
               <div className="flex gap-1.5">

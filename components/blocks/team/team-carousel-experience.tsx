@@ -201,7 +201,7 @@ export function TeamCarouselExperience({
                         {member.role}
                       </p>
                     </div>
-                    <Separator className="my-6 bg-gradient-to-r from-background via-border to-background" />
+                    <Separator className="my-6 bg-linear-to-r from-background via-border to-background" />
                     <p className="text-sm text-muted-foreground">
                       {member.yearsOfExperience}+ years of experience
                     </p>

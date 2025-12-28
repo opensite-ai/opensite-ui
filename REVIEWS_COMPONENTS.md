@@ -907,7 +907,7 @@ export default function TestimonialsCarouselImage01() {
         className="absolute inset-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${current.background})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/30" />
       </div>
 
       <div className="relative flex h-full items-center">
@@ -3297,7 +3297,7 @@ export function Testimonials() {
                 )}
               >
                 {/* Avatar with smooth ring animation */}
-                <div className="relative flex-shrink-0">
+                <div className="relative shrink-0">
                   <img
                     src={testimonial.avatar || "/placeholder.svg"}
                     alt={testimonial.author}
@@ -3573,7 +3573,7 @@ export const TestimonialSection = ({
                   className="h-120 w-full object-cover"
                 />
                 {/* Gradient overlay for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent" />
               </div>
 
               {/* Content within the card */}

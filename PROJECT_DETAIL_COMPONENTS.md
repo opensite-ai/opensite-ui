@@ -517,7 +517,7 @@ const Project10 = ({ className }: Project10Props) => {
               {images.slice(2, 5).map((image, index) => (
                 <motion.div
                   key={index}
-                  className="w-80 flex-shrink-0 overflow-hidden rounded-xl bg-muted/20 sm:w-96"
+                  className="w-80 shrink-0 overflow-hidden rounded-xl bg-muted/20 sm:w-96"
                   variants={imageVariants}
                 >
                   <img
@@ -531,7 +531,7 @@ const Project10 = ({ className }: Project10Props) => {
               {images.slice(2, 5).map((image, index) => (
                 <motion.div
                   key={`duplicate-${index}`}
-                  className="w-80 flex-shrink-0 overflow-hidden rounded-xl bg-muted/20 sm:w-96"
+                  className="w-80 shrink-0 overflow-hidden rounded-xl bg-muted/20 sm:w-96"
                   variants={imageVariants}
                 >
                   <img
@@ -631,7 +631,7 @@ const Project12 = ({ className }: Project12Props) => {
           </div>
 
           <motion.div
-            className="mt-1 flex-shrink-0 lg:w-80"
+            className="mt-1 shrink-0 lg:w-80"
             initial="hidden"
             animate="visible"
             variants={fadeUp}
@@ -1044,7 +1044,7 @@ const Project13a = ({ className }: Project13aProps) => {
             className="absolute inset-0 h-full w-full object-cover"
             variants={imageVariants}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/60" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/40 to-black/60" />
           <motion.div
             className="relative z-10 px-4 text-center"
             style={{ y: textY }}
@@ -3765,7 +3765,7 @@ const Project5e = ({ className }: Project5eProps) => {
                   <div className="absolute inset-0 bg-background/0 transition-all duration-300 group-hover:bg-background/10" />
                 </div>
 
-                <div className="absolute right-0 bottom-0 left-0 translate-y-full bg-gradient-to-t from-background/90 to-transparent p-6 transition-transform duration-300 group-hover:translate-y-0">
+                <div className="absolute right-0 bottom-0 left-0 translate-y-full bg-linear-to-t from-background/90 to-transparent p-6 transition-transform duration-300 group-hover:translate-y-0">
                   <h3 className="mb-2 text-lg font-semibold text-foreground">
                     {image.title}
                   </h3>
@@ -4233,7 +4233,7 @@ const ImageBlock = ({
           <span className="text-sm">Image placeholder</span>
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-muted/50 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-muted/50 via-transparent to-transparent" />
       <motion.div
         className="absolute inset-0 bg-muted/20"
         initial={{ opacity: 0 }}
@@ -4455,7 +4455,7 @@ const ImageBlock = ({
           <span className="text-sm">Image placeholder</span>
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-muted/50 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-muted/50 via-transparent to-transparent" />
       <motion.div
         className="absolute inset-0 bg-muted/20"
         initial={{ opacity: 0 }}
@@ -4474,7 +4474,7 @@ const ProjectRow = ({ title, category, src, alt, index }: Project6aProps) => (
     viewport={{ once: true }}
     className="group flex cursor-pointer items-center gap-4 rounded-lg p-3 transition-all duration-300 hover:bg-muted/20"
   >
-    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg">
+    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
       <motion.img
         src={src}
         alt={alt}

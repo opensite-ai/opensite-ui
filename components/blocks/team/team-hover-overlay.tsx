@@ -173,7 +173,7 @@ export function TeamHoverOverlay({
                     height={420}
                     optixFlowConfig={optixFlowConfig}
                   />
-                  <div className="from-background/80 to-background/0 absolute inset-0 bg-gradient-to-t opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className="from-background/80 to-background/0 absolute inset-0 bg-linear-to-t opacity-0 transition-opacity group-hover:opacity-100" />
                   <div className="absolute right-0 bottom-0 left-0 translate-y-4 p-4 opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100">
                     <p className="text-sm">{member.bio}</p>
                     {member.social && (

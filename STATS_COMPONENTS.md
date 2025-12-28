@@ -12,7 +12,7 @@ const Stats6 = ({ className }: Stats6Props) => {
     <section className={cn("bg-accent py-32", className)}>
       <div className="container flex flex-col items-start text-left">
         <div className="mb-12 w-full md:mb-16">
-          <h2 className="mb-8 w-full max-w-[24rem] text-3xl font-bold text-pretty sm:text-4xl md:max-w-[30rem] lg:max-w-[37rem] lg:text-5xl">
+          <h2 className="mb-8 w-full max-w-[24rem] text-3xl font-bold text-pretty sm:text-4xl md:max-w-120 lg:max-w-148 lg:text-5xl">
             Platform Performance Insights
           </h2>
           <div className="flex flex-col justify-start gap-2 sm:flex-row">
@@ -311,7 +311,7 @@ interface Stats10Props {
 const Stats10 = ({ className }: Stats10Props) => {
   return (
     <section className={cn("py-12 md:py-20", className)}>
-      <div className="container max-w-[75rem]">
+      <div className="container max-w-300">
         <div className="pt-10 pb-10">
           <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
             {statsData.map(
@@ -360,7 +360,7 @@ const Stats11 = ({ className }: Stats11Props) => {
     <section className={cn("py-32", className)}>
       <div className="container">
         <div className="relative isolate overflow-hidden bg-linear-to-b from-primary/10 to-transparent md:border-x md:border-border">
-          <div className="absolute right-0 -left-px -z-20 h-full w-full bg-[linear-gradient(90deg,var(--muted-foreground)_1px,transparent_1px)] [mask-image:linear-gradient(transparent_25%,black_25%,black_75%,transparent_75%)] [background-size:calc(100%/16)_100%] [mask-size:100%_16px] opacity-20 [-webkit-mask-image:linear-gradient(transparent_25%,black_25%,black_75%,transparent_75%)] [-webkit-mask-size:100%_16px]" />
+          <div className="absolute right-0 -left-px -z-20 h-full w-full bg-[linear-gradient(90deg,var(--muted-foreground)_1px,transparent_1px)] mask-[linear-gradient(transparent_25%,black_25%,black_75%,transparent_75%)] bg-size-[calc(100%/16)_100%] mask-size-[100%_16px] opacity-20 [-webkit-mask-image:linear-gradient(transparent_25%,black_25%,black_75%,transparent_75%)] [-webkit-mask-size:100%_16px]" />
 
           <div>
             <h2 className="mb-16 max-w-3xl text-3xl leading-10 font-semibold sm:mb-24 md:mx-10">
@@ -1552,7 +1552,7 @@ export default function ImpactNumbers() {
   return (
     <div className="relative container mx-auto overflow-hidden px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]">
       {/* Background gradient */}
-      <div className="from-primary/5 to-background pointer-events-none absolute inset-0 bg-gradient-to-br" />
+      <div className="from-primary/5 to-background pointer-events-none absolute inset-0 bg-linear-to-br" />
 
       <div className="relative mx-auto max-w-5xl">
         <div className="mb-12 text-center">
@@ -1915,7 +1915,7 @@ export default function CardGroup() {
             <div className="p-4 lg:p-8 rounded-xl">
               <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-y-20 gap-x-12">
                 {/* Stats */}
-                <div className="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-border before:rotate-[60deg] sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:-translate-x-0 before:mt-3.5 sm:before:mt-0">
+                <div className="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-border before:rotate-60 sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:translate-x-0 before:mt-3.5 sm:before:mt-0">
                   <svg
                     className="shrink-0 size-6 sm:size-8  mx-auto"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1946,12 +1946,12 @@ export default function CardGroup() {
                 {/* End Stats */}
 
                 {/* Stats */}
-                <div className="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-border before:rotate-[60deg] sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:-translate-x-0 before:mt-3.5 sm:before:mt-0">
+                <div className="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-border before:rotate-60 sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:translate-x-0 before:mt-3.5 sm:before:mt-0">
                   <div className="flex justify-center items-center -space-x-5">
-                    <Avatar className="relative z-[2] shrink-0 size-8 border-primary border">
+                    <Avatar className="relative z-2 shrink-0 size-8 border-primary border">
                       <AvatarImage src="https://images.unsplash.com/photo-1601935111741-ae98b2b230b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"></AvatarImage>
                     </Avatar>
-                    <Avatar className="relative z-[1] shrink-0 size-8 border-primary border -mt-7">
+                    <Avatar className="relative z-1 shrink-0 size-8 border-primary border -mt-7">
                       <AvatarImage src="https://images.unsplash.com/photo-1570654639102-bdd95efeca7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"></AvatarImage>
                     </Avatar>{" "}
                     <Avatar className="relative shrink-0 size-8 border-primary border">
@@ -1968,7 +1968,7 @@ export default function CardGroup() {
                 {/* End Stats */}
 
                 {/* Stats */}
-                <div className="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-border before:rotate-[60deg] sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:-translate-x-0 before:mt-3.5 sm:before:mt-0">
+                <div className="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-border before:rotate-60 sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:translate-x-0 before:mt-3.5 sm:before:mt-0">
                   <svg
                     className="shrink-0 size-6 sm:size-8 mx-auto"
                     xmlns="http://www.w3.org/2000/svg"
@@ -2132,14 +2132,14 @@ export default function AboutSectionAnimatedStats() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="from-primary/20 to-primary/5 rounded-lg bg-gradient-to-br p-6 text-center">
+            <div className="from-primary/20 to-primary/5 rounded-lg bg-linear-to-br p-6 text-center">
               <p className="text-primary text-lg font-medium">Growing Team</p>
               <p className="text-4xl font-bold">250+</p>
               <p className="text-muted-foreground mt-2 text-sm">
                 Talented professionals across the globe
               </p>
             </div>
-            <div className="from-primary/20 to-primary/5 rounded-lg bg-gradient-to-br p-6 text-center">
+            <div className="from-primary/20 to-primary/5 rounded-lg bg-linear-to-br p-6 text-center">
               <p className="text-primary text-lg font-medium">Global Reach</p>
               <p className="text-4xl font-bold">30+</p>
               <p className="text-muted-foreground mt-2 text-sm">
@@ -2195,4 +2195,99 @@ function AnimatedCounter({ value, isVisible, duration }: AnimatedCounterProps) {
 
   return <span className="text-4xl font-bold">{count}</span>;
 }
+```
+
+```tsx
+"use client";
+import { cn } from "@/lib/utils";
+import React, { useRef } from "react";
+import { motion, useInView, useSpring, useTransform } from "motion/react";
+import { useEffect } from "react";
+
+export function StatsWithNumberTicker() {
+  const items = [
+    {
+      description:
+        "Years in the business trying to build this business from the ground up.",
+      value: 10,
+      subtext: "trillion",
+    },
+    {
+      description: "People Fought trying to establish our brand.",
+      value: 100,
+      subtext: "million",
+    },
+    {
+      description:
+        "Fight Club Attendance so that everyone knows the first rule.",
+      value: 25724,
+      subtext: "million",
+    },
+    {
+      description: "People trying to get access but guess what? they can't.",
+      value: 69420,
+      subtext: "million",
+    },
+  ];
+  return (
+    <section className="group/container relative mx-auto w-full max-w-7xl overflow-hidden rounded-3xl p-10 py-20">
+      <div className="relative z-20">
+        <h2 className="text-center text-xl font-bold text-neutral-700 md:text-3xl dark:text-neutral-100">
+          Trusted by fighters all over the world
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-neutral-800 md:text-base dark:text-neutral-200">
+          We are a team of experienced fighters and boxers who are passionate
+          about helping you grow your business.
+        </p>
+        <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">
+          {items.map((item, index) => (
+            <motion.div
+              initial={{ y: 20, opacity: 0, filter: "blur(4px)" }}
+              animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              key={"card" + index}
+              className={cn("group/card relative overflow-hidden rounded-lg")}
+            >
+              <div className="flex items-center gap-2">
+                <p className="text-3xl font-bold text-neutral-700 dark:text-neutral-200">
+                  <AnimatedNumber value={item.value} />
+                </p>
+              </div>
+              <p className="mt-4 text-balance text-base text-neutral-600 dark:text-neutral-300">
+                {item.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AnimatedNumber({
+  value,
+  initial = 0,
+}: {
+  value: number;
+  initial?: number;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref);
+
+  const spring = useSpring(initial, { mass: 0.8, stiffness: 75, damping: 15 });
+  const display = useTransform(spring, (current) =>
+    Math.round(current).toLocaleString(),
+  );
+
+  useEffect(() => {
+    if (isInView) {
+      spring.set(value);
+    } else {
+      spring.set(initial);
+    }
+  }, [isInView, spring, value, initial]);
+
+  return <motion.span ref={ref}>{display}</motion.span>;
+}
+
 ```

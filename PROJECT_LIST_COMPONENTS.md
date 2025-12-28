@@ -1842,7 +1842,7 @@ const ProjectItem = ({
           }}
         />
         <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
+          className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"
           initial={{ opacity: 0.6 }}
           animate={{ opacity: hoveredIndex === index ? 0.8 : 0.6 }}
           transition={{ duration: 0.4 }}
@@ -2141,7 +2141,7 @@ const ProjectCard = ({
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
         <div className="absolute top-4 left-4">
           <span className="inline-block rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
@@ -4304,7 +4304,7 @@ export default function InteractiveHoverReveal() {
                   alt={project.title}
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/30 opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
               </div>
 
               {/* Project Info - Initial State */}

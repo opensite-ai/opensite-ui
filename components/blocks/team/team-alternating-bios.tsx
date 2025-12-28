@@ -155,7 +155,7 @@ export function TeamAlternatingBios({
                   index % 2 === 1 ? "md:order-last" : ""
                 )}
               >
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-4/3">
                   <Img
                     className="rounded-xl object-cover w-full h-full"
                     src={member.image}

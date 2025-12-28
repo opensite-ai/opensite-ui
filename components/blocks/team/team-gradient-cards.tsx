@@ -198,14 +198,14 @@ export function TeamGradientCards({
           {members.map((member) => (
             <div
               key={member.id}
-              className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+              className="group relative overflow-hidden rounded-xl bg-linear-to-br from-primary/5 via-transparent to-secondary/5 p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
             >
               <div className="flex flex-col items-center text-center">
                 <div className="relative mb-4">
-                  <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary to-secondary opacity-0 blur transition-opacity duration-300 group-hover:opacity-75" />
+                  <div className="absolute -inset-1 rounded-full bg-linear-to-r from-primary to-secondary opacity-0 blur transition-opacity duration-300 group-hover:opacity-75" />
                   <Avatar className="relative size-24 border-2 border-background">
                     <AvatarImage src={member.avatar} alt={member.name} />
-                    <AvatarFallback className="bg-gradient-to-br from-primary/20 to-secondary/20 text-xl font-bold">
+                    <AvatarFallback className="bg-linear-to-br from-primary/20 to-secondary/20 text-xl font-bold">
                       {member.name
                         .split(" ")
                         .map((n) => n[0])

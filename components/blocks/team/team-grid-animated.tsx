@@ -239,7 +239,7 @@ export function TeamGridAnimated({
                 }}
               >
                 <div
-                  className="absolute bottom-0 left-0 right-0 h-1/2 origin-bottom scale-y-0 transform rounded-t-full bg-gradient-to-t from-primary/20 to-transparent transition-transform duration-500 ease-out group-hover:scale-y-100"
+                  className="absolute bottom-0 left-0 right-0 h-1/2 origin-bottom scale-y-0 transform rounded-t-full bg-linear-to-t from-primary/20 to-transparent transition-transform duration-500 ease-out group-hover:scale-y-100"
                   style={{ transitionDelay: `${index * 50}ms` }}
                 />
 

@@ -129,7 +129,7 @@ const Cta4 = ({
                 <ul className="flex flex-col space-y-2 text-sm font-medium">
                   {items.map((item, idx) => (
                     <li className="flex items-center" key={idx}>
-                      <Check className="mr-4 size-4 flex-shrink-0" />
+                      <Check className="mr-4 size-4 shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -1707,7 +1707,7 @@ export default function SplitContentHero() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent"></div>
               <div className="absolute right-0 bottom-0 left-0 p-6">
                 <div className="grid grid-cols-3 gap-2">
                   <div className="rounded-md bg-white/90 p-3 shadow-lg backdrop-blur dark:bg-gray-800/90">
@@ -1739,7 +1739,7 @@ export default function SplitContentHero() {
       </div>
 
       {/* Background decoration */}
-      <div className="via-foreground/10 absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent to-transparent"></div>
+      <div className="via-foreground/10 absolute top-0 right-0 left-0 h-px bg-linear-to-r from-transparent to-transparent"></div>
     </div>
   );
 }
@@ -1772,7 +1772,7 @@ export default function VideoBackgroundHero() {
       </video>
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20"></div>
+      <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-black/20"></div>
 
       {/* Content */}
       <div className="relative container mx-auto flex min-h-[85vh] flex-col items-center justify-center gap-6 px-4 py-24 text-center md:px-6 md:py-32 2xl:max-w-[1400px]">
@@ -2070,7 +2070,7 @@ export default function HeroSectionWithContentTabs() {
                           </div>
                         </div>
                         <div className="relative">
-                          <div className="aspect-[4/3] overflow-hidden rounded-lg">
+                          <div className="aspect-4/3 overflow-hidden rounded-lg">
                             <img
                               src={feature.content.image}
                               alt={feature.title}
@@ -2268,7 +2268,7 @@ export default function CaseStudyCTA() {
               </div>
             </div>
             <div className="lg:col-span-2">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border">
+              <div className="relative aspect-4/3 overflow-hidden rounded-xl border">
                 <img
                   src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3"
                   alt="TechNova team collaborating on the platform"

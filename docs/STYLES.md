@@ -786,7 +786,7 @@ module.exports = {
 All @opensite/ui components accept `className` prop for Tailwind utilities:
 
 ```tsx
-<Container className="bg-gradient-to-b from-blue-500 to-purple-600">
+<Container className="bg-linear-to-b from-blue-500 to-purple-600">
   <Section className="my-8 text-center">
     <Button className="shadow-2xl hover:scale-105 transition-transform">
       Custom Styled Button

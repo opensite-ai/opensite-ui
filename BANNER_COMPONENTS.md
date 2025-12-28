@@ -330,7 +330,7 @@ import { Users, X } from "@mynaui/icons-react";
 
 export default function Banners2() {
   return (
-    <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white">
+    <div className="bg-linear-to-r from-pink-500 to-rose-500 text-white">
       <div className="max-w-7xl mx-auto px-3 py-3 flex items-center justify-center text-left md:text-center gap-2">
         <Users className="size-5 stroke-2 shrink-0" />
         <span className="font-medium">

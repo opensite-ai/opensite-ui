@@ -321,7 +321,7 @@ Added two new props for greater control over overlay and content positioning.
 ```tsx
 <PageHeroBanner
   imageUrl="/hero.jpg"
-  overlayClassName="bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90"
+  overlayClassName="bg-linear-to-b from-primary/80 via-primary/60 to-primary/90"
   contentClassName="items-start pt-32"
 >
   <h1>Custom positioned content with accessible overlay</h1>
@@ -362,7 +362,7 @@ Fixed test failures and import issues in carousel component to ensure all tests 
 Fixed critical bug where overlay was not rendering at all due to typo in Tailwind class name.
 
 **Root Cause:**
-- Line 82 had `bg-linear-to-b` instead of `bg-gradient-to-b`
+- Line 82 had `bg-linear-to-b` instead of `bg-linear-to-b`
 - Invalid Tailwind class prevented gradient overlay from rendering
 - Affected all PageHeroBanner components with `showOverlay={true}` (default)
 
@@ -372,7 +372,7 @@ Fixed critical bug where overlay was not rendering at all due to typo in Tailwin
 <div className="absolute inset-0 bg-linear-to-b from-black via-black to-black" />
 
 // After (working)
-<div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
+<div className="absolute inset-0 bg-linear-to-b from-black via-black to-black" />
 ```
 
 **Impact:**
@@ -381,7 +381,7 @@ Fixed critical bug where overlay was not rendering at all due to typo in Tailwin
 - Gradient overlay properly covers image/video backgrounds
 
 **Test Updates:**
-- Updated test expectation from `.bg-linear-to-b` to `.bg-gradient-to-b`
+- Updated test expectation from `.bg-linear-to-b` to `.bg-linear-to-b`
 - All 69 tests passing
 
 ### Documentation
@@ -478,7 +478,7 @@ AnimatedDialog now includes polished default styles while remaining fully custom
 - Increased padding from `p-4 md:p-10` to `p-6 md:p-12` for more spacious feel
 - Increased viewport margins from `my-10 md:my-16` to `my-12 md:my-20` for better mobile/desktop spacing
 - Updated close button sizing from `h-9 w-9` to `h-10 w-10 md:h-11 md:w-11` for better tap targets
-- Added `flex-shrink-0` to close button to prevent "scrunching" on mobile
+- Added `shrink-0` to close button to prevent "scrunching" on mobile
 - Increased gap between header and close button from `gap-6` to `gap-8`
 - Increased content/footer spacing from `mt-6` to `mt-8 md:mt-10`
 - Changed title color from `text-card-foreground` to `text-foreground` for consistency
@@ -509,13 +509,13 @@ Fixed `showOverlay` prop having no visible effect due to double opacity bug.
 ```tsx
 // Before
 <div
-  className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/50 to-foreground/80"
+  className="absolute inset-0 bg-linear-to-b from-foreground/70 via-foreground/50 to-foreground/80"
   style={{ opacity: overlayOpacity }}
 />
 
 // After
 <div
-  className="absolute inset-0 bg-gradient-to-b from-black via-black to-black"
+  className="absolute inset-0 bg-linear-to-b from-black via-black to-black"
   style={{ opacity: overlayOpacity }}
 />
 ```

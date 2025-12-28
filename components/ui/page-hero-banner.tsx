@@ -42,7 +42,7 @@ export function PageHeroBanner({
 
   if (imageUrl && videoUrl) {
     throw new Error(
-      "PageHeroBanner cannot have both imageUrl and videoUrl. Please provide only one.",
+      "PageHeroBanner cannot have both imageUrl and videoUrl. Please provide only one."
     );
   }
 
@@ -82,7 +82,7 @@ export function PageHeroBanner({
       {showOverlay && (
         <div
           className={cn(
-            "absolute inset-0 bg-gradient-to-b from-black via-black to-black",
+            "absolute inset-0 bg-linear-to-b from-black via-black to-black",
             overlayClassName
           )}
           style={{ opacity: overlayOpacity }}

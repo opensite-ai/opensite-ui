@@ -5,7 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  imagePlaceholders,
+  logoPlaceholders,
+} from "../../../lib/mediaPlaceholders";
 
 export interface HeroStartupLaunchCtaProps {
   className?: string;
@@ -37,21 +40,15 @@ export function HeroStartupLaunchCta({
               fast.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Pressable
-                href="#"
-                asButton
-                variant="default"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="default" size="lg">
                 Start building free
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
               </Pressable>
-              <Pressable
-                href="#"
-                asButton
-                variant="outline"
-                size="lg"
-              >
+              <Pressable href="#" asButton variant="outline" size="lg">
                 See success stories
               </Pressable>
             </div>
@@ -69,12 +66,15 @@ export function HeroStartupLaunchCta({
               </div>
               <div className="text-sm">
                 <span className="font-semibold text-foreground">500+</span>
-                <span className="text-muted-foreground"> startups launched</span>
+                <span className="text-muted-foreground">
+                  {" "}
+                  startups launched
+                </span>
               </div>
             </div>
           </div>
           <div className="relative">
-            <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-green-50 to-blue-50 p-8">
+            <div className="overflow-hidden rounded-2xl bg-linear-to-br from-green-50 to-blue-50 p-8">
               <Img
                 src={imagePlaceholders[6]}
                 alt="Startup dashboard"

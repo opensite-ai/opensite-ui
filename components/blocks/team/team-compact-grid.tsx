@@ -208,7 +208,7 @@ export function TeamCompactGrid({
               <div className="relative mb-6">
                 <Avatar className="mx-auto h-20 w-20">
                   <AvatarImage src={member.avatar} alt={member.name} />
-                  <AvatarFallback className="bg-gradient-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
+                  <AvatarFallback className="bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
                     {member.name
                       .split(" ")
                       .map((n) => n[0])

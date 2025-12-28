@@ -153,7 +153,7 @@ export function TeamLargeImages({
           {members.map((member) => (
             <div key={member.name} className="flex flex-col">
               <Img
-                className="aspect-[4/3] rounded-xl object-cover"
+                className="aspect-4/3 rounded-xl object-cover"
                 src={member.image}
                 alt={member.name}
                 width={320}
@@ -165,7 +165,9 @@ export function TeamLargeImages({
                 <p className="text-muted-foreground mt-1 text-sm">
                   {member.role}
                 </p>
-                <p className="text-muted-foreground mt-3 text-sm">{member.bio}</p>
+                <p className="text-muted-foreground mt-3 text-sm">
+                  {member.bio}
+                </p>
               </div>
               {member.social && (
                 <div className="mt-3 flex gap-2">

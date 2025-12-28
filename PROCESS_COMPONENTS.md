@@ -614,7 +614,7 @@ export default function IconTimeline() {
                           {step.description}
                         </p>
                       </div>
-                      <Badge variant="outline" className="ml-2 flex-shrink-0">
+                      <Badge variant="outline" className="ml-2 shrink-0">
                         {step.timeframe}
                       </Badge>
                     </div>
@@ -628,7 +628,7 @@ export default function IconTimeline() {
                               key={hIndex}
                               className="flex items-start gap-2"
                             >
-                              <CheckCircle2 className="text-primary mt-0.5 h-5 w-5 flex-shrink-0" />
+                              <CheckCircle2 className="text-primary mt-0.5 h-5 w-5 shrink-0" />
                               <span>{highlight}</span>
                             </div>
                           ))}
@@ -853,7 +853,7 @@ export default function HeroSectionWithFeatureTimeline() {
                           milestone.status === "Released"
                             ? "bg-primary"
                             : milestone.status === "In Progress"
-                            ? "bg-gradient-to-b from-primary to-muted"
+                            ? "bg-linear-to-b from-primary to-muted"
                             : "bg-muted"
                         }`}
                       ></div>
