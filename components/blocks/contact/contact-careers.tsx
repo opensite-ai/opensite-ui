@@ -237,24 +237,24 @@ export function ContactCareers({
 
         <Card>
           <CardContent className="p-0">
-            <div className="grid md:grid-cols-2">
-              {/* Left: Position & Resume */}
-              <div className="border-b p-6 md:border-b-0 md:border-r">
-                <div className="mb-6 flex items-center gap-2">
-                  <DynamicIcon
-                    name="lucide/briefcase"
-                    size={20}
-                    className="text-muted-foreground"
-                  />
-                  <h3 className="font-semibold">Position Details</h3>
-                </div>
+            <Form
+              form={form}
+              action={formConfig?.endpoint}
+              method={formMethod}
+            >
+              <div className="grid md:grid-cols-2">
+                {/* Left: Position & Resume */}
+                <div className="border-b p-6 md:border-b-0 md:border-r">
+                  <div className="mb-6 flex items-center gap-2">
+                    <DynamicIcon
+                      name="lucide/briefcase"
+                      size={20}
+                      className="text-muted-foreground"
+                    />
+                    <h3 className="font-semibold">Position Details</h3>
+                  </div>
 
-                <Form
-                  form={form}
-                  action={formConfig?.endpoint}
-                  method={formMethod}
-                  className="space-y-4"
-                >
+                  <div className="space-y-4">
                   <Field name="position">
                     {({ field, meta }) => (
                       <div className="space-y-2">
@@ -378,7 +378,7 @@ export function ContactCareers({
                       />
                     )}
                   </Field>
-                </Form>
+                </div>
               </div>
 
               {/* Right: Personal Info */}
@@ -493,6 +493,7 @@ export function ContactCareers({
                 </div>
               </div>
             </div>
+            </Form>
           </CardContent>
         </Card>
       </div>
