@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { Field, Form, useForm } from "@page-speed/forms";
+import { TextInput } from "@page-speed/forms/inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import {
@@ -10,7 +12,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
-import { Input } from "../../ui/input";
+import {
+  isValidEmail,
+  PageSpeedFormSubmissionError,
+  submitPageSpeedForm,
+  type PageSpeedFormConfig,
+} from "../../../lib/forms";
 
 export interface OfferModalNewsletterDiscountProps {
   /**
@@ -40,7 +47,19 @@ export interface OfferModalNewsletterDiscountProps {
   /**
    * Callback when form is submitted
    */
-  onSubmit?: (email: string) => void;
+  onSubmit?: (email: string) => void | Promise<void>;
+  /**
+   * Form submission configuration for @page-speed/forms
+   */
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Optional success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Optional error callback
+   */
+  onError?: (error: Error) => void;
   /**
    * Additional CSS classes for the dialog content
    */
@@ -79,16 +98,60 @@ export function OfferModalNewsletterDiscount({
   defaultOpen = defaultProps.defaultOpen,
   closeOnOutsideClick = defaultProps.closeOnOutsideClick,
   onSubmit,
+  formConfig,
+  onSuccess,
+  onError,
   className,
 }: OfferModalNewsletterDiscountProps): React.JSX.Element {
-  const [email, setEmail] = React.useState("");
+  const form = useForm<{ email: string }>({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: {
+      email: (value) => {
+        if (!value) return "Email is required";
+        if (!isValidEmail(value)) return "Please enter a valid email address";
+        return undefined;
+      },
+    },
+    onSubmit: async (values, helpers) => {
+      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email && onSubmit) {
-      onSubmit(email);
-    }
-  };
+      if (!shouldAutoSubmit && !onSubmit) {
+        return;
+      }
+
+      try {
+        let result: unknown;
+
+        if (shouldAutoSubmit) {
+          result = await submitPageSpeedForm(values, formConfig);
+        }
+
+        if (onSubmit) {
+          await onSubmit(values.email);
+        }
+
+        if (shouldAutoSubmit || onSubmit) {
+          if (formConfig?.resetOnSuccess !== false) {
+            helpers.resetForm();
+          }
+          onSuccess?.(result);
+        }
+      } catch (error) {
+        if (
+          error instanceof PageSpeedFormSubmissionError &&
+          error.formErrors
+        ) {
+          helpers.setErrors(error.formErrors);
+        }
+        onError?.(error as Error);
+        throw error;
+      }
+    },
+  });
+
+  const formMethod = formConfig?.method === "get" ? "get" : "post";
 
   return (
     <Dialog defaultOpen={defaultOpen} modal={false}>
@@ -121,23 +184,35 @@ export function OfferModalNewsletterDiscount({
             {title}
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-2.5">
-          <Input
-            type="email"
-            placeholder={emailPlaceholder}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <Form
+          form={form}
+          action={formConfig?.endpoint}
+          method={formMethod}
+          className="space-y-2.5"
+        >
+          <Field name="email" errorClassName="text-destructive text-xs">
+            {({ field, meta }) => (
+              <TextInput
+                {...field}
+                type="email"
+                placeholder={emailPlaceholder}
+                error={meta.touched && !!meta.error}
+                className="w-full"
+                aria-label={emailPlaceholder || "Email address"}
+              />
+            )}
+          </Field>
           <Pressable
-            onClick={handleSubmit}
+            componentType="button"
+            type="submit"
             className="w-full text-xs uppercase"
             variant="default"
             asButton
+            disabled={form.isSubmitting}
           >
             {buttonText}
           </Pressable>
-        </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

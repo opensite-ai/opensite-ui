@@ -163,11 +163,7 @@ export function CtaAppDownloadNewsletter({
     },
   });
 
-  const formMethod = (formConfig?.method ?? "post") as
-    | "post"
-    | "get"
-    | "put"
-    | "patch";
+  const formMethod = formConfig?.method === "get" ? "get" : "post";
 
   return (
     <section className={cn("py-32", className)}>

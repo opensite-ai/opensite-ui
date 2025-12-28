@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { Field, Form, useForm } from "@page-speed/forms";
+import { TextInput } from "@page-speed/forms/inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -12,11 +14,16 @@ import {
   SheetTitle,
 } from "../../ui/sheet";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import { Input } from "../../ui/input";
 import {
   logoPlaceholders,
   imagePlaceholders,
 } from "../../../lib/mediaPlaceholders";
+import {
+  isValidEmail,
+  PageSpeedFormSubmissionError,
+  submitPageSpeedForm,
+  type PageSpeedFormConfig,
+} from "../../../lib/forms";
 
 export interface OfferModalSheetNewsletterProps {
   /**
@@ -64,7 +71,19 @@ export interface OfferModalSheetNewsletterProps {
   /**
    * Callback when form is submitted
    */
-  onSubmit?: (email: string) => void;
+  onSubmit?: (email: string) => void | Promise<void>;
+  /**
+   * Form submission configuration for @page-speed/forms
+   */
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Optional success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Optional error callback
+   */
+  onError?: (error: Error) => void;
   /**
    * Additional CSS classes for the sheet content
    */
@@ -128,35 +147,63 @@ export function OfferModalSheetNewsletter({
   privacyUrl = defaultProps.privacyUrl,
   defaultOpen = defaultProps.defaultOpen,
   onSubmit,
+  formConfig,
+  onSuccess,
+  onError,
   className,
   optixFlowConfig,
 }: OfferModalSheetNewsletterProps): React.JSX.Element {
-  const [email, setEmail] = React.useState("");
-  const [error, setError] = React.useState("");
+  const form = useForm<{ email: string }>({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: {
+      email: (value) => {
+        if (!value) return "Please enter an email address";
+        if (!isValidEmail(value)) {
+          return "Please enter a valid email address";
+        }
+        return undefined;
+      },
+    },
+    onSubmit: async (values, helpers) => {
+      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+      if (!shouldAutoSubmit && !onSubmit) {
+        return;
+      }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+      try {
+        let result: unknown;
 
-    if (!email) {
-      setError("Please enter an email address");
-      return;
-    }
+        if (shouldAutoSubmit) {
+          result = await submitPageSpeedForm(values, formConfig);
+        }
 
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
+        if (onSubmit) {
+          await onSubmit(values.email);
+        }
 
-    if (onSubmit) {
-      onSubmit(email);
-    }
-  };
+        if (shouldAutoSubmit || onSubmit) {
+          if (formConfig?.resetOnSuccess !== false) {
+            helpers.resetForm();
+          }
+          onSuccess?.(result);
+        }
+      } catch (error) {
+        if (
+          error instanceof PageSpeedFormSubmissionError &&
+          error.formErrors
+        ) {
+          helpers.setErrors(error.formErrors);
+        }
+        onError?.(error as Error);
+        throw error;
+      }
+    },
+  });
+
+  const formMethod = formConfig?.method === "get" ? "get" : "post";
 
   return (
     <Sheet defaultOpen={defaultOpen}>
@@ -187,35 +234,41 @@ export function OfferModalSheetNewsletter({
                   </SheetDescription>
                 </div>
               </SheetHeader>
-              <form onSubmit={handleSubmit}>
+              <Form
+                form={form}
+                action={formConfig?.endpoint}
+                method={formMethod}
+              >
                 <div className="flex items-start gap-3 max-sm:flex-col">
-                  <div className="w-full flex-1">
-                    <Input
-                      type="email"
-                      className="h-10 rounded-full px-6"
-                      placeholder={emailPlaceholder}
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        setError("");
-                      }}
-                      aria-invalid={!!error}
-                    />
-                    {error && (
-                      <p className="text-destructive text-xs mt-1">{error}</p>
+                  <Field
+                    name="email"
+                    className="w-full flex-1"
+                    errorClassName="text-destructive mt-1 text-xs"
+                  >
+                    {({ field, meta }) => (
+                      <TextInput
+                        {...field}
+                        type="email"
+                        className="h-10 w-full rounded-full px-6"
+                        placeholder={emailPlaceholder}
+                        error={meta.touched && !!meta.error}
+                        aria-label={emailPlaceholder || "Email address"}
+                      />
                     )}
-                  </div>
+                  </Field>
                   <Pressable
                     size="lg"
                     variant="default"
                     className="sm:basis-30 rounded-full max-sm:w-full"
                     asButton
-                    onClick={handleSubmit}
+                    componentType="button"
+                    type="submit"
+                    disabled={form.isSubmitting}
                   >
                     {buttonText}
                   </Pressable>
                 </div>
-              </form>
+              </Form>
             </div>
             <p className="text-muted-foreground text-xs">
               By signing up, you consent to our{" "}

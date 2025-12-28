@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { Field, Form, useForm } from "@page-speed/forms";
+import { TextInput } from "@page-speed/forms/inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -13,8 +15,13 @@ import {
   DialogFooter,
   DialogTitle,
 } from "../../ui/dialog";
-import { Input } from "../../ui/input";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  isValidEmail,
+  PageSpeedFormSubmissionError,
+  submitPageSpeedForm,
+  type PageSpeedFormConfig,
+} from "../../../lib/forms";
 
 export interface OfferModalMembershipImageProps {
   /**
@@ -51,7 +58,19 @@ export interface OfferModalMembershipImageProps {
   /**
    * Callback when form is submitted
    */
-  onSubmit?: (email: string) => void;
+  onSubmit?: (email: string) => void | Promise<void>;
+  /**
+   * Form submission configuration for @page-speed/forms
+   */
+  formConfig?: PageSpeedFormConfig;
+  /**
+   * Optional success callback
+   */
+  onSuccess?: (data: unknown) => void;
+  /**
+   * Optional error callback
+   */
+  onError?: (error: Error) => void;
   /**
    * Additional CSS classes for the dialog content
    */
@@ -105,35 +124,63 @@ export function OfferModalMembershipImage({
   buttonText = defaultProps.buttonText,
   defaultOpen = defaultProps.defaultOpen,
   onSubmit,
+  formConfig,
+  onSuccess,
+  onError,
   className,
   optixFlowConfig,
 }: OfferModalMembershipImageProps): React.JSX.Element {
-  const [email, setEmail] = React.useState("");
-  const [error, setError] = React.useState("");
+  const form = useForm<{ email: string }>({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: {
+      email: (value) => {
+        if (!value) return "Please enter an email address";
+        if (!isValidEmail(value)) {
+          return "Please enter a valid email address";
+        }
+        return undefined;
+      },
+    },
+    onSubmit: async (values, helpers) => {
+      const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+      if (!shouldAutoSubmit && !onSubmit) {
+        return;
+      }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+      try {
+        let result: unknown;
 
-    if (!email) {
-      setError("Please enter an email address");
-      return;
-    }
+        if (shouldAutoSubmit) {
+          result = await submitPageSpeedForm(values, formConfig);
+        }
 
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
+        if (onSubmit) {
+          await onSubmit(values.email);
+        }
 
-    if (onSubmit) {
-      onSubmit(email);
-    }
-  };
+        if (shouldAutoSubmit || onSubmit) {
+          if (formConfig?.resetOnSuccess !== false) {
+            helpers.resetForm();
+          }
+          onSuccess?.(result);
+        }
+      } catch (error) {
+        if (
+          error instanceof PageSpeedFormSubmissionError &&
+          error.formErrors
+        ) {
+          helpers.setErrors(error.formErrors);
+        }
+        onError?.(error as Error);
+        throw error;
+      }
+    },
+  });
+
+  const formMethod = formConfig?.method === "get" ? "get" : "post";
 
   return (
     <Dialog defaultOpen={defaultOpen}>
@@ -175,46 +222,57 @@ export function OfferModalMembershipImage({
               {title}
             </DialogTitle>
           </div>
-          <form className="space-y-2.5" onSubmit={handleSubmit}>
+          <Form
+            form={form}
+            action={formConfig?.endpoint}
+            method={formMethod}
+            className="space-y-2.5"
+          >
             <div className="flex items-center gap-2.5">
-              <div className="relative flex-1">
-                <Input
-                  type="email"
-                  placeholder={emailPlaceholder}
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setError("");
-                  }}
-                  className="pr-10"
-                  aria-invalid={!!error}
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                  <DynamicIcon name="lucide/mail" size={16} />
-                </div>
-              </div>
+              <Field
+                name="email"
+                className="flex-1"
+                errorClassName="text-destructive mt-1 text-xs"
+              >
+                {({ field, meta }) => (
+                  <div className="relative flex-1">
+                    <TextInput
+                      {...field}
+                      type="email"
+                      placeholder={emailPlaceholder}
+                      error={meta.touched && !!meta.error}
+                      className="w-full pr-10"
+                      aria-label={emailPlaceholder || "Email address"}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <DynamicIcon name="lucide/mail" size={16} />
+                    </div>
+                  </div>
+                )}
+              </Field>
               <Pressable
                 size="icon"
                 variant="default"
                 className="lg:hidden"
                 asButton
-                onClick={handleSubmit}
+                componentType="button"
+                type="submit"
+                disabled={form.isSubmitting}
               >
                 <DynamicIcon name="lucide/arrow-right" size={16} />
               </Pressable>
             </div>
-            {error && (
-              <p className="text-destructive text-xs">{error}</p>
-            )}
             <Pressable
               className="w-full max-lg:hidden"
               variant="default"
               asButton
-              onClick={handleSubmit}
+              componentType="button"
+              type="submit"
+              disabled={form.isSubmitting}
             >
               {buttonText}
             </Pressable>
-          </form>
+          </Form>
           <DialogFooter>
             <DialogDescription className="text-muted-foreground text-center text-xs leading-relaxed">
               {description}
