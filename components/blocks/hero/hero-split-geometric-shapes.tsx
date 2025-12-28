@@ -4,53 +4,157 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 export interface HeroSplitGeometricShapesProps {
+  /**
+   * Badge/label text above heading
+   */
+  badgeText?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Custom slot for geometric shapes (overrides default shapes)
+   */
+  shapesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Primary",
+    href: "#",
+    variant: "default",
+    className: "w-full sm:w-auto",
+    icon: <DynamicIcon name="lucide/arrow-right" size={16} className="mr-2" />,
+  },
+];
+
 export function HeroSplitGeometricShapes({
+  badgeText = "New Release",
+  heading = "Welcome to Our Website",
+  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
+  actions = defaultActions,
+  actionsSlot,
+  shapesSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
 }: HeroSplitGeometricShapesProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    return (
+      <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
+        {actions.map((action, index) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderShapes = () => {
+    if (shapesSlot) return shapesSlot;
+
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <div className="relative aspect-7/8 h-full w-full">
+          <div className="absolute top-[12%] right-[50%] flex aspect-square w-[24%] justify-center rounded-lg border border-border bg-accent"></div>
+          <div className="absolute top-[36%] right-[50%] flex aspect-5/6 w-[40%] justify-center rounded-lg border border-border bg-accent"></div>
+          <div className="absolute bottom-[36%] left-[54%] flex aspect-5/6 w-[40%] justify-center rounded-lg border border-border bg-accent"></div>
+          <div className="absolute bottom-[12%] left-[54%] flex aspect-square w-[24%] justify-center rounded-lg border border-border bg-accent"></div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className={cn("", className)}>
-      <div className="container flex flex-col items-center">
+      <div className={cn("container flex flex-col items-center", containerClassName)}>
         <div className="2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))] w-full overflow-clip rounded-lg bg-accent/50">
           <div className="grid items-center gap-8 lg:grid-cols-2">
-            <div className="container flex flex-col items-center px-16 py-16 text-center lg:mx-auto lg:items-start lg:px-16 lg:py-32 lg:text-left">
-              <p>New Release</p>
-              <h1 className="my-6 text-4xl font-bold text-pretty lg:text-6xl">
-                Welcome to Our Website
-              </h1>
-              <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig
-                doloremque mollitia fugiat omnis! Porro facilis quo animi
-                consequatur. Explicabo.
-              </p>
-              <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-                <Pressable
-                  href="#"
-                  asButton
-                  variant="default"
-                  className="w-full sm:w-auto"
-                >
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="mr-2"
-                  />
-                  Primary
-                </Pressable>
-              </div>
+            <div className={cn("container flex flex-col items-center px-16 py-16 text-center lg:mx-auto lg:items-start lg:px-16 lg:py-32 lg:text-left", contentClassName)}>
+              {badgeText && (
+                typeof badgeText === "string" ? (
+                  <p>{badgeText}</p>
+                ) : (
+                  badgeText
+                )
+              )}
+              {heading && (
+                typeof heading === "string" ? (
+                  <h1 className={cn("my-6 text-4xl font-bold text-pretty lg:text-6xl", headingClassName)}>
+                    {heading}
+                  </h1>
+                ) : (
+                  <h1 className={cn("my-6 text-4xl font-bold text-pretty lg:text-6xl", headingClassName)}>
+                    {heading}
+                  </h1>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p className={cn("mb-8 max-w-xl text-muted-foreground lg:text-xl", descriptionClassName)}>
+                    {description}
+                  </p>
+                ) : (
+                  <div className={descriptionClassName}>{description}</div>
+                )
+              )}
+              {renderActions()}
             </div>
-            <div className="flex flex-col items-center justify-center">
-              <div className="relative aspect-7/8 h-full w-full">
-                <div className="absolute top-[12%] right-[50%] flex aspect-square w-[24%] justify-center rounded-lg border border-border bg-accent"></div>
-                <div className="absolute top-[36%] right-[50%] flex aspect-5/6 w-[40%] justify-center rounded-lg border border-border bg-accent"></div>
-                <div className="absolute bottom-[36%] left-[54%] flex aspect-5/6 w-[40%] justify-center rounded-lg border border-border bg-accent"></div>
-                <div className="absolute bottom-[12%] left-[54%] flex aspect-square w-[24%] justify-center rounded-lg border border-border bg-accent"></div>
-              </div>
-            </div>
+            {renderShapes()}
           </div>
         </div>
       </div>
