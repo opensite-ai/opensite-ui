@@ -1,0 +1,184 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
+import { Img, type OptixFlowConfig } from "@page-speed/img";
+
+import { cn } from "../../../lib/utils";
+import { DynamicIcon } from "../../ui/dynamic-icon";
+import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+
+export interface ProjectCardOverlayItem {
+  id: number;
+  category: string;
+  title: string;
+  image: string;
+  description: string;
+}
+
+export interface ProjectCardOverlayProps {
+  className?: string;
+  heading?: string;
+  subheading?: string;
+  projects?: ProjectCardOverlayItem[];
+  optixFlowConfig?: OptixFlowConfig;
+}
+
+const defaultProjects: ProjectCardOverlayItem[] = [
+  {
+    id: 1,
+    category: "NATURE",
+    title: "Puma",
+    image: imagePlaceholders[71],
+    description: "Capturing the essence of wildlife in their habitat.",
+  },
+  {
+    id: 2,
+    category: "CULTURE",
+    title: "Afterparty",
+    image: imagePlaceholders[72],
+    description: "What a party!",
+  },
+  {
+    id: 3,
+    category: "CULTURE",
+    title: "Rider",
+    image: imagePlaceholders[73],
+    description: "Artistic movements that define our generation.",
+  },
+  {
+    id: 4,
+    category: "FASHION",
+    title: "Elegance",
+    image: imagePlaceholders[74],
+    description: "Bold statements and timeless style.",
+  },
+];
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+interface ProjectCardProps {
+  project: ProjectCardOverlayItem;
+  optixFlowConfig?: OptixFlowConfig;
+}
+
+const ProjectCard = ({ project, optixFlowConfig }: ProjectCardProps) => {
+  return (
+    <motion.div
+      variants={itemVariants}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className="group relative cursor-pointer overflow-hidden rounded-3xl bg-black shadow-2xl"
+    >
+      <div className="relative aspect-square overflow-hidden">
+        <Img
+          src={project.image}
+          alt={project.title}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          optixFlowConfig={optixFlowConfig}
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+        <div className="absolute top-4 left-4">
+          <span className="inline-block rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+            {project.category}
+          </span>
+        </div>
+
+        <div className="absolute top-4 right-4 translate-x-2 transform opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/20 backdrop-blur-sm">
+            <DynamicIcon name="lucide/arrow-up-right" size={16} className="text-white" />
+          </div>
+        </div>
+
+        <div className="absolute right-4 bottom-4 left-4">
+          <h3 className="mb-1 text-2xl font-bold tracking-tight text-white md:text-3xl">
+            {project.title}
+          </h3>
+          <p className="text-sm text-white/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {project.description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+/**
+ * ProjectCardOverlay - Bold 2-column grid with gradient overlays and animated arrow indicators.
+ *
+ * Features square aspect ratio cards with full-bleed images, gradient overlays from bottom,
+ * and category badges. On hover, cards scale slightly, images zoom, an arrow icon slides in
+ * from the right, and description text fades in. Includes a dramatic split-line heading with
+ * dot indicator. Perfect for photography portfolios, creative agencies, or any showcase
+ * where bold visuals and interactive hover states create impact.
+ */
+export function ProjectCardOverlay({
+  className,
+  heading = "CAPTURING MOMENTS",
+  subheading = "PROJECT SHOWCASE",
+  projects = defaultProjects,
+  optixFlowConfig,
+}: ProjectCardOverlayProps) {
+  return (
+    <section className={cn("py-32", className)}>
+      <div className="container">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-20 text-center"
+        >
+          <div className="mb-6">
+            <span className="inline-flex items-center gap-2 text-sm font-medium tracking-wide text-muted-foreground">
+              <div className="h-2 w-2 rounded-full bg-foreground"></div>
+              {subheading}
+            </span>
+          </div>
+          <h1 className="text-6xl leading-none font-black tracking-tight md:text-8xl lg:text-9xl">
+            {heading.split(" ").map((word, index) => (
+              <span key={index} className="block">
+                {word}
+              </span>
+            ))}
+          </h1>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2"
+        >
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              optixFlowConfig={optixFlowConfig}
+            />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
