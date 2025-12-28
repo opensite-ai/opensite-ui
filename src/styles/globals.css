@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "./forms.css";
+@import "../../../../prototypes/client-canyon-lands/app/forms.css";
 
 @custom-variant dark (&:is(.dark *));
 

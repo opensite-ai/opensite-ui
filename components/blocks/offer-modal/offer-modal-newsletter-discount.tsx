@@ -151,7 +151,8 @@ export function OfferModalNewsletterDiscount({
     },
   });
 
-  const formMethod = formConfig?.method === "get" ? "get" : "post";
+  const formMethod =
+    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   return (
     <Dialog defaultOpen={defaultOpen} modal={false}>

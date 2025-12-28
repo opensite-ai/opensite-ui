@@ -203,7 +203,8 @@ export function OfferModalSheetNewsletter({
     },
   });
 
-  const formMethod = formConfig?.method === "get" ? "get" : "post";
+  const formMethod =
+    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   return (
     <Sheet defaultOpen={defaultOpen}>

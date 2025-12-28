@@ -159,7 +159,8 @@ export function CtaNewsletterFeatures({
     },
   });
 
-  const formMethod = formConfig?.method === "get" ? "get" : "post";
+  const formMethod =
+    formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   return (
     <section className={cn("py-32", className)}>
