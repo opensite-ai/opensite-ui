@@ -2,17 +2,92 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface FaqItem {
-  question: string;
-  answer: string;
+  question: React.ReactNode;
+  answer: React.ReactNode;
 }
 
 export interface FaqNumberedGridProps {
-  heading?: string;
-  description?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of FAQ items
+   */
   items?: FaqItem[];
+  /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for grid items
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for the number badge
+   */
+  numberClassName?: string;
+  /**
+   * Additional CSS classes for item questions
+   */
+  questionClassName?: string;
+  /**
+   * Additional CSS classes for item answers
+   */
+  answerClassName?: string;
 }
 
 const defaultItems: FaqItem[] = [
@@ -52,36 +127,121 @@ export function FaqNumberedGrid({
   heading = "Frequently asked questions",
   description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
   items = defaultItems,
+  itemsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  itemClassName,
+  numberClassName,
+  questionClassName,
+  answerClassName,
 }: FaqNumberedGridProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mx-auto flex max-w-3xl flex-col text-left md:text-center">
-          <h2 className="mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl">
-            {heading}
-          </h2>
-          <p className="text-muted-foreground lg:text-lg">{description}</p>
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="flex gap-4 rounded-lg border p-4 md:p-5"
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2",
+          gridClassName
+        )}
+      >
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className={cn(
+              "flex gap-4 rounded-lg border p-4 md:p-5",
+              itemClassName
+            )}
+          >
+            <span
+              className={cn(
+                "bg-secondary flex size-6 shrink-0 items-center justify-center rounded-sm text-xs font-medium",
+                numberClassName
+              )}
             >
-              <span className="bg-secondary flex size-6 shrink-0 items-center justify-center rounded-sm text-xs font-medium">
-                {index + 1}
-              </span>
-              <div>
-                <div className="mb-1 flex items-center justify-between">
-                  <h3 className="font-medium">{item.question}</h3>
-                </div>
-                <p className="text-muted-foreground text-sm">{item.answer}</p>
+              {index + 1}
+            </span>
+            <div>
+              <div className="mb-1 flex items-center justify-between">
+                {typeof item.question === "string" ? (
+                  <h3 className={cn("font-medium", questionClassName)}>
+                    {item.question}
+                  </h3>
+                ) : (
+                  <div className={questionClassName}>{item.question}</div>
+                )}
               </div>
+              {typeof item.answer === "string" ? (
+                <p
+                  className={cn(
+                    "text-muted-foreground text-sm",
+                    answerClassName
+                  )}
+                >
+                  {item.answer}
+                </p>
+              ) : (
+                <div className={answerClassName}>{item.answer}</div>
+              )}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={containerClassName}>
+        <div
+          className={cn(
+            "mx-auto flex max-w-3xl flex-col text-left md:text-center",
+            headerClassName
+          )}
+        >
+          {heading && (
+            typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
+                  headingClassName
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+        </div>
+        {renderItems()}
+      </div>
+    </Section>
   );
 }

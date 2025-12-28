@@ -11,26 +11,154 @@ import {
 } from "../../ui/accordion";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig } from "../../../src/types";
 
 export interface FaqItem {
   id: string;
-  question: string;
-  answer: string;
+  question: React.ReactNode;
+  answer: React.ReactNode;
 }
 
 export interface FaqProfileSidebarProps {
-  heading?: string;
-  description?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of FAQ items
+   */
   items?: FaqItem[];
+  /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering the profile section
+   */
+  profileSlot?: React.ReactNode;
+  /**
+   * Profile image URL
+   */
   profileImage?: string;
-  profileName?: string;
-  profileRole?: string;
-  profileDescription?: string;
-  contactText?: string;
-  contactButtonText?: string;
-  contactButtonUrl?: string;
-  optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Profile name
+   */
+  profileName?: React.ReactNode;
+  /**
+   * Profile role/title
+   */
+  profileRole?: React.ReactNode;
+  /**
+   * Profile description text
+   */
+  profileDescription?: React.ReactNode;
+  /**
+   * Contact section text
+   */
+  contactText?: React.ReactNode;
+  /**
+   * Contact action configuration
+   */
+  contactAction?: ActionConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the sidebar
+   */
+  sidebarClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the profile card
+   */
+  profileCardClassName?: string;
+  /**
+   * Additional CSS classes for the profile image
+   */
+  profileImageClassName?: string;
+  /**
+   * Additional CSS classes for the profile name
+   */
+  profileNameClassName?: string;
+  /**
+   * Additional CSS classes for the profile role
+   */
+  profileRoleClassName?: string;
+  /**
+   * Additional CSS classes for the profile description
+   */
+  profileDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the contact section
+   */
+  contactSectionClassName?: string;
+  /**
+   * Additional CSS classes for the FAQ column
+   */
+  faqColumnClassName?: string;
+  /**
+   * Additional CSS classes for the accordion
+   */
+  accordionClassName?: string;
+  /**
+   * Additional CSS classes for accordion items
+   */
+  accordionItemClassName?: string;
+  /**
+   * Additional CSS classes for accordion triggers
+   */
+  accordionTriggerClassName?: string;
+  /**
+   * Additional CSS classes for accordion content
+   */
+  accordionContentClassName?: string;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultItems: FaqItem[] = [
@@ -78,83 +206,190 @@ const defaultItems: FaqItem[] = [
   },
 ];
 
+const defaultContactAction: ActionConfig = {
+  label: "Contact Support",
+  href: "#",
+  variant: "outline",
+};
+
 export function FaqProfileSidebar({
   heading = "Frequently asked questions",
   description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
   items = defaultItems,
+  itemsSlot,
+  profileSlot,
   profileImage = imagePlaceholders[0],
   profileName = "Sarah Johnson",
   profileRole = "Customer Success Manager",
   profileDescription = "I'm here to help you get the most out of our platform. Feel free to reach out with any questions!",
   contactText = "Still have questions?",
-  contactButtonText = "Contact Support",
-  contactButtonUrl = "#",
-  optixFlowConfig,
+  contactAction = defaultContactAction,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   className,
+  containerClassName,
+  contentWrapperClassName,
+  sidebarClassName,
+  headingClassName,
+  descriptionClassName,
+  profileCardClassName,
+  profileImageClassName,
+  profileNameClassName,
+  profileRoleClassName,
+  profileDescriptionClassName,
+  contactSectionClassName,
+  faqColumnClassName,
+  accordionClassName,
+  accordionItemClassName,
+  accordionTriggerClassName,
+  accordionContentClassName,
+  optixFlowConfig,
 }: FaqProfileSidebarProps) {
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return (
+      <Accordion type="single" collapsible className={accordionClassName}>
+        {items.map((item) => (
+          <AccordionItem
+            key={item.id}
+            value={item.id}
+            className={accordionItemClassName}
+          >
+            <AccordionTrigger
+              className={cn(
+                "transition-opacity duration-200 hover:no-underline hover:opacity-60",
+                accordionTriggerClassName
+              )}
+            >
+              <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
+                {item.question}
+              </div>
+            </AccordionTrigger>
+            <AccordionContent
+              className={cn("sm:mb-1 lg:mb-2", accordionContentClassName)}
+            >
+              <div className="text-muted-foreground lg:text-lg">
+                {item.answer}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    );
+  };
+
+  const renderProfileSection = () => {
+    if (profileSlot) return profileSlot;
+
+    return (
+      <div className={cn("rounded-lg border p-6", profileCardClassName)}>
+        <div className="flex items-center gap-4">
+          <Img
+            src={profileImage}
+            alt={typeof profileName === "string" ? profileName : "Profile"}
+            className={cn("size-16 rounded-full object-cover", profileImageClassName)}
+            optixFlowConfig={optixFlowConfig}
+          />
+          <div>
+            {typeof profileName === "string" ? (
+              <h3 className={cn("font-semibold", profileNameClassName)}>
+                {profileName}
+              </h3>
+            ) : (
+              <div className={profileNameClassName}>{profileName}</div>
+            )}
+            {typeof profileRole === "string" ? (
+              <p className={cn("text-muted-foreground text-sm", profileRoleClassName)}>
+                {profileRole}
+              </p>
+            ) : (
+              <div className={profileRoleClassName}>{profileRole}</div>
+            )}
+          </div>
+        </div>
+        {typeof profileDescription === "string" ? (
+          <p className={cn("text-muted-foreground mt-4 text-sm", profileDescriptionClassName)}>
+            {profileDescription}
+          </p>
+        ) : (
+          <div className={profileDescriptionClassName}>{profileDescription}</div>
+        )}
+        <div className={cn("mt-6 border-t pt-6", contactSectionClassName)}>
+          {typeof contactText === "string" ? (
+            <p className="text-sm font-medium">{contactText}</p>
+          ) : (
+            contactText
+          )}
+          <Pressable
+            href={contactAction.href}
+            onClick={contactAction.onClick}
+            variant={contactAction.variant || "outline"}
+            size={contactAction.size}
+            className={cn("mt-3 w-full", contactAction.className)}
+          >
+            {contactAction.children || contactAction.label}
+          </Pressable>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
-          <div className="lg:w-1/3">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={containerClassName}>
+        <div
+          className={cn(
+            "flex flex-col gap-10 lg:flex-row lg:gap-16",
+            contentWrapperClassName
+          )}
+        >
+          <div className={cn("lg:w-1/3", sidebarClassName)}>
             <div className="sticky top-24 space-y-6">
               <div>
-                <h2 className="mb-3 text-3xl font-semibold md:mb-4 lg:text-4xl">
-                  {heading}
-                </h2>
-                <p className="text-muted-foreground">{description}</p>
-              </div>
-              <div className="rounded-lg border p-6">
-                <div className="flex items-center gap-4">
-                  <Img
-                    src={profileImage}
-                    alt={profileName}
-                    className="size-16 rounded-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                  <div>
-                    <h3 className="font-semibold">{profileName}</h3>
-                    <p className="text-muted-foreground text-sm">
-                      {profileRole}
+                {heading && (
+                  typeof heading === "string" ? (
+                    <h2
+                      className={cn(
+                        "mb-3 text-3xl font-semibold md:mb-4 lg:text-4xl",
+                        headingClassName
+                      )}
+                    >
+                      {heading}
+                    </h2>
+                  ) : (
+                    <div className={headingClassName}>{heading}</div>
+                  )
+                )}
+                {description && (
+                  typeof description === "string" ? (
+                    <p className={cn("text-muted-foreground", descriptionClassName)}>
+                      {description}
                     </p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground mt-4 text-sm">
-                  {profileDescription}
-                </p>
-                <div className="mt-6 border-t pt-6">
-                  <p className="text-sm font-medium">{contactText}</p>
-                  <Pressable
-                    href={contactButtonUrl}
-                    variant="outline"
-                    className="mt-3 w-full"
-                  >
-                    {contactButtonText}
-                  </Pressable>
-                </div>
+                  ) : (
+                    <div className={descriptionClassName}>{description}</div>
+                  )
+                )}
               </div>
+              {renderProfileSection()}
             </div>
           </div>
-          <div className="lg:w-2/3">
-            <Accordion type="single" collapsible>
-              {items.map((item) => (
-                <AccordionItem key={item.id} value={item.id}>
-                  <AccordionTrigger className="transition-opacity duration-200 hover:no-underline hover:opacity-60">
-                    <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
-                      {item.question}
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="sm:mb-1 lg:mb-2">
-                    <div className="text-muted-foreground lg:text-lg">
-                      {item.answer}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+          <div className={cn("lg:w-2/3", faqColumnClassName)}>
+            {renderItems()}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
