@@ -633,6 +633,36 @@ import type { StatsMilestoneSidebarProps } from "../../components/blocks/stats/s
 import { StatsBarComparison } from "../../components/blocks/stats/stats-bar-comparison";
 import type { StatsBarComparisonProps } from "../../components/blocks/stats/stats-bar-comparison";
 
+// Timeline components
+import { TimelineVerticalIconDashed } from "../../components/blocks/timeline/timeline-vertical-icon-dashed";
+import type { TimelineVerticalIconDashedProps } from "../../components/blocks/timeline/timeline-vertical-icon-dashed";
+import { TimelineScrollStickyImage } from "../../components/blocks/timeline/timeline-scroll-sticky-image";
+import type { TimelineScrollStickyImageProps } from "../../components/blocks/timeline/timeline-scroll-sticky-image";
+import { TimelineTwoColumnFeatured } from "../../components/blocks/timeline/timeline-two-column-featured";
+import type { TimelineTwoColumnFeaturedProps } from "../../components/blocks/timeline/timeline-two-column-featured";
+import { TimelineAlternatingDiagonal } from "../../components/blocks/timeline/timeline-alternating-diagonal";
+import type { TimelineAlternatingDiagonalProps } from "../../components/blocks/timeline/timeline-alternating-diagonal";
+import { TimelineAIWorkflowCards } from "../../components/blocks/timeline/timeline-ai-workflow-cards";
+import type { TimelineAIWorkflowCardsProps } from "../../components/blocks/timeline/timeline-ai-workflow-cards";
+import { TimelineProductivityList } from "../../components/blocks/timeline/timeline-productivity-list";
+import type { TimelineProductivityListProps } from "../../components/blocks/timeline/timeline-productivity-list";
+import { TimelineStepperAnimated } from "../../components/blocks/timeline/timeline-stepper-animated";
+import type { TimelineStepperAnimatedProps } from "../../components/blocks/timeline/timeline-stepper-animated";
+import { TimelineChangelogBadges } from "../../components/blocks/timeline/timeline-changelog-badges";
+import type { TimelineChangelogBadgesProps } from "../../components/blocks/timeline/timeline-changelog-badges";
+import { TimelineHistoryProse } from "../../components/blocks/timeline/timeline-history-prose";
+import type { TimelineHistoryProseProps } from "../../components/blocks/timeline/timeline-history-prose";
+import { TimelineHorizontalPhases } from "../../components/blocks/timeline/timeline-horizontal-phases";
+import type { TimelineHorizontalPhasesProps } from "../../components/blocks/timeline/timeline-horizontal-phases";
+import { TimelineHorizontalIcons } from "../../components/blocks/timeline/timeline-horizontal-icons";
+import type { TimelineHorizontalIconsProps } from "../../components/blocks/timeline/timeline-horizontal-icons";
+import { TimelineTabbedPhases } from "../../components/blocks/timeline/timeline-tabbed-phases";
+import type { TimelineTabbedPhasesProps } from "../../components/blocks/timeline/timeline-tabbed-phases";
+import { TimelineProductLaunch } from "../../components/blocks/timeline/timeline-product-launch";
+import type { TimelineProductLaunchProps } from "../../components/blocks/timeline/timeline-product-launch";
+import { TimelineScrollHighlight } from "../../components/blocks/timeline/timeline-scroll-highlight";
+import type { TimelineScrollHighlightProps } from "../../components/blocks/timeline/timeline-scroll-highlight";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -14141,6 +14171,383 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
         { label: "Industry Average", value: 34, displayValue: "$920K" },
       ],
     },
+  ]}
+/>`.trim(),
+  },
+  // Timeline components
+  "timeline-vertical-icon-dashed": {
+    id: "timeline-vertical-icon-dashed",
+    name: "Timeline Vertical Icon Dashed",
+    description:
+      "A vertical timeline with centered icon circles and dashed line connectors. Each step displays an icon in a bordered circle, a title, and description. Ideal for showcasing sequential processes, onboarding flows, or step-by-step guides with a clean, minimal aesthetic.",
+    semanticTags: [
+      "timeline",
+      "vertical",
+      "steps",
+      "process",
+      "icons",
+      "dashed",
+      "sequential",
+      "onboarding",
+    ],
+    category: "timeline",
+    component: TimelineVerticalIconDashed,
+    props: "TimelineVerticalIconDashedProps",
+    exampleUsage: `
+<TimelineVerticalIconDashed
+  steps={[
+    { icon: "lucide/files", title: "Data Integration", description: "Connect your existing tools and platforms seamlessly." },
+    { icon: "lucide/layout", title: "Custom Configuration", description: "Tailor the platform to your needs." },
+    { icon: "lucide/circle-arrow-out-up-right", title: "Scale Your Business", description: "Access comprehensive analytics and tools." },
+  ]}
+/>`.trim(),
+  },
+  "timeline-scroll-sticky-image": {
+    id: "timeline-scroll-sticky-image",
+    name: "Timeline Scroll Sticky Image",
+    description:
+      "A scroll-based timeline with a sticky image display that updates as users scroll through content sections. Features a left content column with scrollable sections and a right sticky image that changes based on the active section. Perfect for product tours, feature showcases, or storytelling experiences.",
+    semanticTags: [
+      "timeline",
+      "scroll",
+      "sticky",
+      "image",
+      "interactive",
+      "sections",
+      "product-tour",
+      "storytelling",
+    ],
+    category: "timeline",
+    component: TimelineScrollStickyImage,
+    props: "TimelineScrollStickyImageProps",
+    exampleUsage: `
+<TimelineScrollStickyImage
+  sections={[
+    { title: "Getting Started", description: "Begin your journey with our platform.", image: "/images/step1.jpg" },
+    { title: "Configuration", description: "Set up your preferences and integrations.", image: "/images/step2.jpg" },
+  ]}
+/>`.trim(),
+  },
+  "timeline-two-column-featured": {
+    id: "timeline-two-column-featured",
+    name: "Timeline Two Column Featured",
+    description:
+      "A two-column timeline layout with a sticky left column containing header content and a scrollable right column with feature cards. Each feature card includes an image, title, description, and CTA button. Ideal for showcasing product features, service offerings, or company milestones.",
+    semanticTags: [
+      "timeline",
+      "two-column",
+      "featured",
+      "cards",
+      "sticky",
+      "features",
+      "cta",
+      "product",
+    ],
+    category: "timeline",
+    component: TimelineTwoColumnFeatured,
+    props: "TimelineTwoColumnFeaturedProps",
+    exampleUsage: `
+<TimelineTwoColumnFeatured
+  title="Our Features"
+  description="Discover what makes us different"
+  features={[
+    { title: "Feature One", description: "Description of the feature.", image: "/images/feature1.jpg", ctaText: "Learn More", ctaHref: "/features/1" },
+  ]}
+/>`.trim(),
+  },
+  "timeline-alternating-diagonal": {
+    id: "timeline-alternating-diagonal",
+    name: "Timeline Alternating Diagonal",
+    description:
+      "A multi-step timeline with alternating left/right layout and diagonal pattern backgrounds. Features numbered steps with icons, images, and detailed descriptions. Each step alternates between left and right positioning for visual variety. Perfect for process explanations, company history, or product development stages.",
+    semanticTags: [
+      "timeline",
+      "alternating",
+      "diagonal",
+      "pattern",
+      "steps",
+      "numbered",
+      "process",
+      "history",
+    ],
+    category: "timeline",
+    component: TimelineAlternatingDiagonal,
+    props: "TimelineAlternatingDiagonalProps",
+    exampleUsage: `
+<TimelineAlternatingDiagonal
+  badge="Our Process"
+  title="How We Work"
+  items={[
+    { step: 1, icon: "lucide/lightbulb", title: "Ideation", description: "We brainstorm and conceptualize.", image: "/images/step1.jpg" },
+  ]}
+/>`.trim(),
+  },
+  "timeline-ai-workflow-cards": {
+    id: "timeline-ai-workflow-cards",
+    name: "Timeline AI Workflow Cards",
+    description:
+      "A sticky header timeline with scrollable AI feature cards. Features numbered cards (01, 02, 03) with icons, titles, and descriptions on a muted background. The header section remains sticky while cards scroll. Ideal for showcasing AI capabilities, workflow automation features, or technology highlights.",
+    semanticTags: [
+      "timeline",
+      "ai",
+      "workflow",
+      "cards",
+      "numbered",
+      "sticky",
+      "features",
+      "automation",
+    ],
+    category: "timeline",
+    component: TimelineAIWorkflowCards,
+    props: "TimelineAIWorkflowCardsProps",
+    exampleUsage: `
+<TimelineAIWorkflowCards
+  title="AI-Powered Features"
+  description="Discover our intelligent automation"
+  items={[
+    { icon: "lucide/brain", title: "AI-Driven Insights", description: "Get intelligent recommendations." },
+  ]}
+/>`.trim(),
+  },
+  "timeline-productivity-list": {
+    id: "timeline-productivity-list",
+    name: "Timeline Productivity List",
+    description:
+      "A sticky header timeline with icon-based productivity features displayed as a border-separated list. Each item shows an icon and title in a clean, minimal layout. The header section remains sticky while the list scrolls. Perfect for highlighting benefits, productivity features, or key selling points.",
+    semanticTags: [
+      "timeline",
+      "productivity",
+      "list",
+      "icons",
+      "benefits",
+      "features",
+      "sticky",
+      "minimal",
+    ],
+    category: "timeline",
+    component: TimelineProductivityList,
+    props: "TimelineProductivityListProps",
+    exampleUsage: `
+<TimelineProductivityList
+  title="Boost Your Productivity"
+  description="Key features that help you work smarter"
+  items={[
+    { icon: "lucide/zap", title: "Boost Productivity" },
+    { icon: "lucide/shield-check", title: "Minimize Errors" },
+  ]}
+/>`.trim(),
+  },
+  "timeline-stepper-animated": {
+    id: "timeline-stepper-animated",
+    name: "Timeline Stepper Animated",
+    description:
+      "An interactive stepper timeline with progress bar and navigation buttons. Features animated transitions between steps using Framer Motion, a visual progress indicator, and Previous/Next navigation. Each step displays an image, title, and description. Ideal for multi-step forms, onboarding wizards, or guided tutorials.",
+    semanticTags: [
+      "timeline",
+      "stepper",
+      "animated",
+      "progress",
+      "navigation",
+      "wizard",
+      "onboarding",
+      "interactive",
+    ],
+    category: "timeline",
+    component: TimelineStepperAnimated,
+    props: "TimelineStepperAnimatedProps",
+    exampleUsage: `
+<TimelineStepperAnimated
+  steps={[
+    { title: "Introduction", description: "Welcome to our platform.", image: "/images/step1.jpg" },
+    { title: "Personal Information", description: "Tell us about yourself.", image: "/images/step2.jpg" },
+  ]}
+/>`.trim(),
+  },
+  "timeline-changelog-badges": {
+    id: "timeline-changelog-badges",
+    name: "Timeline Changelog Badges",
+    description:
+      "A vertical changelog timeline with date badges and bullet point content. Each entry displays a date badge, title, and HTML content with bullet points. Features a vertical separator line connecting entries. Perfect for product changelogs, release notes, or version history displays.",
+    semanticTags: [
+      "timeline",
+      "changelog",
+      "badges",
+      "dates",
+      "releases",
+      "versions",
+      "updates",
+      "history",
+    ],
+    category: "timeline",
+    component: TimelineChangelogBadges,
+    props: "TimelineChangelogBadgesProps",
+    exampleUsage: `
+<TimelineChangelogBadges
+  title="Changelog"
+  entries={[
+    { date: "March 2024", title: "Version 2.0", content: "<ul><li>New feature A</li><li>Bug fix B</li></ul>" },
+  ]}
+/>`.trim(),
+  },
+  "timeline-history-prose": {
+    id: "timeline-history-prose",
+    name: "Timeline History Prose",
+    description:
+      "A vertical history timeline with prose content cards. Each entry displays a year, title, and formatted prose content. Features a vertical separator line connecting entries with year markers. Ideal for company history, historical events, or biographical timelines with rich text content.",
+    semanticTags: [
+      "timeline",
+      "history",
+      "prose",
+      "years",
+      "events",
+      "biography",
+      "company",
+      "milestones",
+    ],
+    category: "timeline",
+    component: TimelineHistoryProse,
+    props: "TimelineHistoryProseProps",
+    exampleUsage: `
+<TimelineHistoryProse
+  title="Our History"
+  entries={[
+    { year: "2018", title: "Company Founded", content: "We started with a vision to transform the industry." },
+  ]}
+/>`.trim(),
+  },
+  "timeline-horizontal-phases": {
+    id: "timeline-horizontal-phases",
+    name: "Timeline Horizontal Phases",
+    description:
+      "A horizontal animated phase timeline with progress indicators. Features animated progress bars using Framer Motion, phase cards with dates and descriptions. Displays vertically on mobile and horizontally on desktop. Perfect for project phases, development stages, or roadmap presentations.",
+    semanticTags: [
+      "timeline",
+      "horizontal",
+      "phases",
+      "animated",
+      "progress",
+      "roadmap",
+      "stages",
+      "project",
+    ],
+    category: "timeline",
+    component: TimelineHorizontalPhases,
+    props: "TimelineHorizontalPhasesProps",
+    exampleUsage: `
+<TimelineHorizontalPhases
+  title="Project Phases"
+  phases={[
+    { title: "Phase 1", date: "Q1 2024", description: "Initial planning and research." },
+    { title: "Phase 2", date: "Q2 2024", description: "Development and testing." },
+  ]}
+/>`.trim(),
+  },
+  "timeline-horizontal-icons": {
+    id: "timeline-horizontal-icons",
+    name: "Timeline Horizontal Icons",
+    description:
+      "A horizontal phase timeline with icon indicators displayed in nested bordered containers. Features animated transitions using Framer Motion, with each phase showing an icon, title, and description. Displays vertically on mobile and horizontally on desktop. Ideal for process flows, service stages, or feature highlights.",
+    semanticTags: [
+      "timeline",
+      "horizontal",
+      "icons",
+      "phases",
+      "animated",
+      "process",
+      "stages",
+      "features",
+    ],
+    category: "timeline",
+    component: TimelineHorizontalIcons,
+    props: "TimelineHorizontalIconsProps",
+    exampleUsage: `
+<TimelineHorizontalIcons
+  title="Our Process"
+  phases={[
+    { icon: "lucide/rocket", title: "Phase I", description: "Launch and initial setup." },
+    { icon: "lucide/cpu", title: "Phase II", description: "Core development." },
+  ]}
+/>`.trim(),
+  },
+  "timeline-tabbed-phases": {
+    id: "timeline-tabbed-phases",
+    name: "Timeline Tabbed Phases",
+    description:
+      "A tabbed phase timeline with image cards and animated content transitions. Features tab navigation for switching between phases, each displaying an image, title, description, and optional download button. Uses Framer Motion for smooth content animations. Perfect for product launches, project phases, or feature showcases.",
+    semanticTags: [
+      "timeline",
+      "tabbed",
+      "phases",
+      "animated",
+      "tabs",
+      "images",
+      "product",
+      "launch",
+    ],
+    category: "timeline",
+    component: TimelineTabbedPhases,
+    props: "TimelineTabbedPhasesProps",
+    exampleUsage: `
+<TimelineTabbedPhases
+  title="Product Launch Phases"
+  phases={[
+    { id: "init", label: "Initialize", title: "Project Setup", description: "Configure your environment.", image: "/images/phase1.jpg" },
+  ]}
+/>`.trim(),
+  },
+  "timeline-product-launch": {
+    id: "timeline-product-launch",
+    name: "Timeline Product Launch",
+    description:
+      "A product launch roadmap timeline with progress bars and animated reveal. Features step cards with progress indicators, descriptions, and a CTA button. Animates from top-to-bottom on mobile and left-to-right on desktop. Ideal for product roadmaps, launch timelines, or development milestones.",
+    semanticTags: [
+      "timeline",
+      "product",
+      "launch",
+      "roadmap",
+      "progress",
+      "animated",
+      "milestones",
+      "development",
+    ],
+    category: "timeline",
+    component: TimelineProductLaunch,
+    props: "TimelineProductLaunchProps",
+    exampleUsage: `
+<TimelineProductLaunch
+  title="Product Roadmap"
+  description="Our journey from idea to launch"
+  steps={[
+    { title: "Ideation", description: "Brainstorming and concept development.", progress: 100 },
+    { title: "Development", description: "Building the core features.", progress: 75 },
+  ]}
+  ctaText="Get Started"
+  ctaHref="/signup"
+/>`.trim(),
+  },
+  "timeline-scroll-highlight": {
+    id: "timeline-scroll-highlight",
+    name: "Timeline Scroll Highlight",
+    description:
+      "A scroll-based timeline with active item highlighting using IntersectionObserver. Features a sticky header showing the current item index and date, with items that highlight as they enter the viewport. Each item displays an image, title, and description. Perfect for company milestones, event timelines, or historical narratives.",
+    semanticTags: [
+      "timeline",
+      "scroll",
+      "highlight",
+      "interactive",
+      "milestones",
+      "events",
+      "history",
+      "sticky",
+    ],
+    category: "timeline",
+    component: TimelineScrollHighlight,
+    props: "TimelineScrollHighlightProps",
+    exampleUsage: `
+<TimelineScrollHighlight
+  items={[
+    { date: "2018", title: "Company Foundation", description: "We started our journey.", image: "/images/2018.jpg" },
+    { date: "2020", title: "First Product Launch", description: "Released our flagship product.", image: "/images/2020.jpg" },
   ]}
 />`.trim(),
   },
