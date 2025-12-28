@@ -6,35 +6,81 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 /**
  * Props for the BannerSocialFollow component
  */
 export interface BannerSocialFollowProps {
   /**
-   * Banner message text
-   * @default "Follow us on social media for the latest updates and tips!"
+   * Icon to display (ReactNode for full flexibility)
    */
-  message?: string;
+  icon?: React.ReactNode;
   /**
-   * CTA button text
-   * @default "Follow Us"
+   * Icon name for DynamicIcon (used if icon prop is not provided)
+   * @default "mynaui/users"
    */
-  buttonText?: string;
+  iconName?: string;
   /**
-   * CTA button link
-   * @default "#"
+   * Banner message content
    */
-  buttonLink?: string;
+  message?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Callback when banner is dismissed
    */
   onDismiss?: () => void;
   /**
-   * Additional CSS classes
+   * Dismiss button icon (ReactNode for full flexibility)
+   */
+  dismissIcon?: React.ReactNode;
+  /**
+   * ARIA label for dismiss button
+   * @default "Dismiss banner"
+   */
+  dismissAriaLabel?: string;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the message
+   */
+  messageClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the dismiss button
+   */
+  dismissButtonClassName?: string;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Follow Us",
+    href: "#",
+    variant: "secondary",
+    size: "sm",
+    className: "ml-4",
+  },
+];
 
 /**
  * BannerSocialFollow - A gradient background banner encouraging social media follows.
@@ -47,24 +93,67 @@ export interface BannerSocialFollowProps {
  * ```tsx
  * <BannerSocialFollow
  *   message="Join our community of 50,000+ developers!"
- *   buttonText="Follow Now"
- *   buttonLink="https://twitter.com/example"
+ *   actions={[{ label: "Follow Now", href: "https://twitter.com/example", variant: "secondary", size: "sm" }]}
  *   onDismiss={() => console.log('Dismissed')}
  * />
  * ```
  */
 export function BannerSocialFollow({
+  icon,
+  iconName = "mynaui/users",
   message = "Follow us on social media for the latest updates and tips!",
-  buttonText = "Follow Us",
-  buttonLink = "#",
+  actions = defaultActions,
+  actionsSlot,
   onDismiss,
+  dismissIcon,
+  dismissAriaLabel = "Dismiss banner",
   className,
+  containerClassName,
+  iconClassName,
+  messageClassName,
+  actionsClassName,
+  dismissButtonClassName,
 }: BannerSocialFollowProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleDismiss = () => {
     setIsVisible(false);
     onDismiss?.();
+  };
+
+  const renderIcon = () => {
+    if (icon) return icon;
+    return <DynamicIcon name={iconName} size={20} className={cn("shrink-0", iconClassName)} />;
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {actionIcon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderDismissIcon = () => {
+    if (dismissIcon) return dismissIcon;
+    return <DynamicIcon name="mynaui/x" size={16} />;
   };
 
   if (!isVisible) {
@@ -78,27 +167,29 @@ export function BannerSocialFollow({
         className
       )}
     >
-      <div className="max-w-7xl mx-auto px-3 py-3 flex items-center justify-center text-left md:text-center gap-2">
-        <DynamicIcon name="mynaui/users" size={20} className="shrink-0" />
-        <span className="font-medium">{message}</span>
-        <Pressable
-          href={buttonLink}
-          variant="secondary"
-          size="sm"
-          asButton
-          className="ml-4"
-        >
-          {buttonText}
-        </Pressable>
+      <div className={cn("max-w-7xl mx-auto px-3 py-3 flex items-center justify-center text-left md:text-center gap-2", containerClassName)}>
+        {renderIcon()}
+        {message && (
+          typeof message === "string" ? (
+            <span className={cn("font-medium", messageClassName)}>{message}</span>
+          ) : (
+            <span className={messageClassName}>{message}</span>
+          )
+        )}
+        {(actionsSlot || (actions && actions.length > 0)) && (
+          <span className={actionsClassName}>
+            {renderActions()}
+          </span>
+        )}
         <Pressable
           onClick={handleDismiss}
           variant="ghost"
           size="icon"
           asButton
-          className="size-8"
+          className={cn("size-8", dismissButtonClassName)}
         >
-          <DynamicIcon name="mynaui/x" size={16} />
-          <span className="sr-only">Dismiss banner</span>
+          {renderDismissIcon()}
+          <span className="sr-only">{dismissAriaLabel}</span>
         </Pressable>
       </div>
     </div>

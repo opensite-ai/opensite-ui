@@ -6,40 +6,92 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 /**
  * Props for the BannerPrivacyNotice component
  */
 export interface BannerPrivacyNoticeProps {
   /**
-   * Banner title
-   * @default "Privacy Policy Updated"
+   * Icon to display (ReactNode for full flexibility)
    */
-  title?: string;
+  icon?: React.ReactNode;
   /**
-   * Banner description text
-   * @default "We've updated our privacy policy to better protect your data. Please review the changes."
+   * Icon name for DynamicIcon (used if icon prop is not provided)
+   * @default "mynaui/shield"
    */
-  description?: string;
+  iconName?: string;
   /**
-   * Review link text
-   * @default "Review Changes"
+   * Banner title content
    */
-  linkText?: string;
+  title?: React.ReactNode;
   /**
-   * Review link URL
-   * @default "#"
+   * Banner description content
    */
-  linkUrl?: string;
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for links/buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Callback when banner is dismissed
    */
   onDismiss?: () => void;
   /**
-   * Additional CSS classes
+   * Dismiss button icon (ReactNode for full flexibility)
+   */
+  dismissIcon?: React.ReactNode;
+  /**
+   * ARIA label for dismiss button
+   * @default "Dismiss banner"
+   */
+  dismissAriaLabel?: string;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the dismiss button
+   */
+  dismissButtonClassName?: string;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Review Changes →",
+    href: "#",
+    variant: "link",
+    className: "text-primary px-0 h-auto mt-2",
+  },
+];
 
 /**
  * BannerPrivacyNotice - A bottom-positioned privacy policy update notice.
@@ -54,25 +106,75 @@ export interface BannerPrivacyNoticeProps {
  * <BannerPrivacyNotice
  *   title="Privacy Policy Updated"
  *   description="We've made changes to how we handle your data."
- *   linkText="Read More"
- *   linkUrl="/privacy"
+ *   actions={[{ label: "Read More →", href: "/privacy", variant: "link" }]}
  *   onDismiss={() => console.log('Dismissed')}
  * />
  * ```
  */
 export function BannerPrivacyNotice({
+  icon,
+  iconName = "mynaui/shield",
   title = "Privacy Policy Updated",
   description = "We've updated our privacy policy to better protect your data. Please review the changes.",
-  linkText = "Review Changes",
-  linkUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   onDismiss,
+  dismissIcon,
+  dismissAriaLabel = "Dismiss banner",
   className,
+  containerClassName,
+  contentClassName,
+  iconClassName,
+  titleClassName,
+  descriptionClassName,
+  actionsClassName,
+  dismissButtonClassName,
 }: BannerPrivacyNoticeProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleDismiss = () => {
     setIsVisible(false);
     onDismiss?.();
+  };
+
+  const renderIcon = () => {
+    if (icon) return icon;
+    return (
+      <DynamicIcon
+        name={iconName}
+        size={20}
+        className={cn("mt-0.5 shrink-0", iconClassName)}
+      />
+    );
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {actionIcon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderDismissIcon = () => {
+    if (dismissIcon) return dismissIcon;
+    return <DynamicIcon name="mynaui/x" size={16} />;
   };
 
   if (!isVisible) {
@@ -86,23 +188,29 @@ export function BannerPrivacyNotice({
         className
       )}
     >
-      <div className="flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-start gap-4">
-          <DynamicIcon
-            name="mynaui/shield"
-            size={20}
-            className="mt-0.5 shrink-0"
-          />
+      <div className={cn("flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4", containerClassName)}>
+        <div className={cn("flex items-start gap-4", contentClassName)}>
+          {renderIcon()}
           <div>
-            <h3 className="font-semibold text-sm">{title}</h3>
-            <p className="text-sm text-muted-foreground mt-1">{description}</p>
-            <Pressable
-              href={linkUrl}
-              variant="link"
-              className="text-primary px-0 h-auto mt-2"
-            >
-              {linkText} →
-            </Pressable>
+            {title && (
+              typeof title === "string" ? (
+                <h3 className={cn("font-semibold text-sm", titleClassName)}>{title}</h3>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {(actionsSlot || (actions && actions.length > 0)) && (
+              <div className={actionsClassName}>
+                {renderActions()}
+              </div>
+            )}
           </div>
         </div>
         <Pressable
@@ -110,10 +218,10 @@ export function BannerPrivacyNotice({
           variant="outline"
           size="icon"
           asButton
-          className="size-8"
+          className={cn("size-8", dismissButtonClassName)}
         >
-          <DynamicIcon name="mynaui/x" size={16} />
-          <span className="sr-only">Dismiss banner</span>
+          {renderDismissIcon()}
+          <span className="sr-only">{dismissAriaLabel}</span>
         </Pressable>
       </div>
     </div>

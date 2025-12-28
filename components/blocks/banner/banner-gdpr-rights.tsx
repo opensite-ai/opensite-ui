@@ -6,40 +6,92 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 /**
  * Props for the BannerGdprRights component
  */
 export interface BannerGdprRightsProps {
   /**
-   * Banner title
-   * @default "Your Privacy Rights"
+   * Icon to display (ReactNode for full flexibility)
    */
-  title?: string;
+  icon?: React.ReactNode;
   /**
-   * Banner description text
-   * @default "Under GDPR, you have the right to access, update, or delete your personal data."
+   * Icon name for DynamicIcon (used if icon prop is not provided)
+   * @default "mynaui/globe"
    */
-  description?: string;
+  iconName?: string;
   /**
-   * Manage data link text
-   * @default "Manage your data"
+   * Banner title content
    */
-  linkText?: string;
+  title?: React.ReactNode;
   /**
-   * Manage data link URL
-   * @default "#"
+   * Banner description content
    */
-  linkUrl?: string;
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for links/buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Callback when banner is dismissed
    */
   onDismiss?: () => void;
   /**
-   * Additional CSS classes
+   * Dismiss button icon (ReactNode for full flexibility)
+   */
+  dismissIcon?: React.ReactNode;
+  /**
+   * ARIA label for dismiss button
+   * @default "Dismiss banner"
+   */
+  dismissAriaLabel?: string;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the dismiss button
+   */
+  dismissButtonClassName?: string;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Manage your data →",
+    href: "#",
+    variant: "link",
+    className: "p-0 h-auto ml-1",
+  },
+];
 
 /**
  * BannerGdprRights - A bottom-positioned GDPR privacy rights notice.
@@ -54,25 +106,75 @@ export interface BannerGdprRightsProps {
  * <BannerGdprRights
  *   title="Your Privacy Rights"
  *   description="You can request access to or deletion of your personal data at any time."
- *   linkText="Manage Data"
- *   linkUrl="/privacy/manage"
+ *   actions={[{ label: "Manage Data →", href: "/privacy/manage", variant: "link" }]}
  *   onDismiss={() => console.log('Dismissed')}
  * />
  * ```
  */
 export function BannerGdprRights({
+  icon,
+  iconName = "mynaui/globe",
   title = "Your Privacy Rights",
   description = "Under GDPR, you have the right to access, update, or delete your personal data.",
-  linkText = "Manage your data",
-  linkUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   onDismiss,
+  dismissIcon,
+  dismissAriaLabel = "Dismiss banner",
   className,
+  containerClassName,
+  contentClassName,
+  iconClassName,
+  titleClassName,
+  descriptionClassName,
+  actionsClassName,
+  dismissButtonClassName,
 }: BannerGdprRightsProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleDismiss = () => {
     setIsVisible(false);
     onDismiss?.();
+  };
+
+  const renderIcon = () => {
+    if (icon) return icon;
+    return (
+      <DynamicIcon
+        name={iconName}
+        size={20}
+        className={cn("text-muted-foreground mt-0.5 shrink-0", iconClassName)}
+      />
+    );
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {actionIcon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderDismissIcon = () => {
+    if (dismissIcon) return dismissIcon;
+    return <DynamicIcon name="mynaui/x" size={16} />;
   };
 
   if (!isVisible) {
@@ -86,24 +188,24 @@ export function BannerGdprRights({
         className
       )}
     >
-      <div className="flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-start gap-3">
-          <DynamicIcon
-            name="mynaui/globe"
-            size={20}
-            className="text-muted-foreground mt-0.5 shrink-0"
-          />
+      <div className={cn("flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4", containerClassName)}>
+        <div className={cn("flex items-start gap-3", contentClassName)}>
+          {renderIcon()}
           <div>
-            <h3 className="font-semibold text-sm">{title}</h3>
-            <p className="text-sm text-muted-foreground mt-1">
+            {title && (
+              typeof title === "string" ? (
+                <h3 className={cn("font-semibold text-sm", titleClassName)}>{title}</h3>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              )
+            )}
+            <p className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>
               {description}
-              <Pressable
-                href={linkUrl}
-                variant="link"
-                className="p-0 h-auto ml-1"
-              >
-                {linkText} →
-              </Pressable>
+              {(actionsSlot || (actions && actions.length > 0)) && (
+                <span className={actionsClassName}>
+                  {renderActions()}
+                </span>
+              )}
             </p>
           </div>
         </div>
@@ -112,10 +214,10 @@ export function BannerGdprRights({
           variant="ghost"
           size="icon"
           asButton
-          className="size-8"
+          className={cn("size-8", dismissButtonClassName)}
         >
-          <DynamicIcon name="mynaui/x" size={16} />
-          <span className="sr-only">Dismiss banner</span>
+          {renderDismissIcon()}
+          <span className="sr-only">{dismissAriaLabel}</span>
         </Pressable>
       </div>
     </div>

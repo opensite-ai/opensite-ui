@@ -7,23 +7,80 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 
 /**
+ * Time left object for countdown timer
+ */
+export interface DeliveryCountdownTimeLeft {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+/**
  * Props for the BannerDeliveryCountdown component
  */
 export interface BannerDeliveryCountdownProps {
   /**
-   * Target delivery date display text
-   * @default "Dec 24"
+   * Icon to display (ReactNode for full flexibility)
    */
-  deliveryDate?: string;
+  icon?: React.ReactNode;
+  /**
+   * Icon name for DynamicIcon (used if icon prop is not provided)
+   * @default "lucide/gift"
+   */
+  iconName?: string;
+  /**
+   * Target delivery date content
+   */
+  deliveryDate?: React.ReactNode;
   /**
    * Cutoff time for orders
    * @default 4 hours from now
    */
   cutoffTime?: Date;
   /**
-   * Additional CSS classes
+   * Prefix text before the timer
+   */
+  prefixText?: React.ReactNode;
+  /**
+   * Text between timer and delivery date
+   */
+  middleText?: React.ReactNode;
+  /**
+   * Custom slot for rendering the timer (overrides default timer)
+   */
+  timerSlot?: React.ReactNode;
+  /**
+   * Custom render function for the timer
+   */
+  renderTimer?: (timeLeft: DeliveryCountdownTimeLeft) => React.ReactNode;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the message wrapper
+   */
+  messageClassName?: string;
+  /**
+   * Additional CSS classes for the timer
+   */
+  timerClassName?: string;
+  /**
+   * Additional CSS classes for the delivery date
+   */
+  deliveryDateClassName?: string;
 }
 
 /**
@@ -42,9 +99,21 @@ export interface BannerDeliveryCountdownProps {
  * ```
  */
 export function BannerDeliveryCountdown({
+  icon,
+  iconName = "lucide/gift",
   deliveryDate = "Dec 24",
   cutoffTime,
+  prefixText = "Order within",
+  middleText = "for delivery by",
+  timerSlot,
+  renderTimer,
   className,
+  containerClassName,
+  contentClassName,
+  iconClassName,
+  messageClassName,
+  timerClassName,
+  deliveryDateClassName,
 }: BannerDeliveryCountdownProps) {
   const defaultCutoffTime = useMemo(
     () => new Date(Date.now() + 4 * 60 * 60 * 1000),
@@ -52,14 +121,14 @@ export function BannerDeliveryCountdown({
   );
   const targetTime = cutoffTime ?? defaultCutoffTime;
 
-  const [timeLeft, setTimeLeft] = useState({
+  const [timeLeft, setTimeLeft] = useState<DeliveryCountdownTimeLeft>({
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
+    const calculateTimeLeft = (): DeliveryCountdownTimeLeft => {
       const now = new Date().getTime();
       const target = targetTime.getTime();
       const diff = target - now;
@@ -85,20 +154,39 @@ export function BannerDeliveryCountdown({
 
   const pad = (n: number) => n.toString().padStart(2, "0");
 
+  const renderIcon = () => {
+    if (icon) return icon;
+    return <DynamicIcon name={iconName} size={16} className={iconClassName} />;
+  };
+
+  const renderDefaultTimer = () => {
+    if (timerSlot) return timerSlot;
+    if (renderTimer) return renderTimer(timeLeft);
+
+    return (
+      <span className={cn("font-mono font-bold", timerClassName)}>
+        {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}
+      </span>
+    );
+  };
+
   return (
     <div className={cn("w-full bg-amber-500 text-amber-950", className)}>
-      <div className="container py-2.5">
-        <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
-          <div className="flex items-center gap-2">
-            <DynamicIcon name="lucide/gift" size={16} />
+      <div className={cn("container py-2.5", containerClassName)}>
+        <div className={cn("flex flex-wrap items-center justify-center gap-3 text-sm", contentClassName)}>
+          <div className={cn("flex items-center gap-2", messageClassName)}>
+            {renderIcon()}
             <span>
-              Order within{" "}
-              <span className="font-mono font-bold">
-                {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:
-                {pad(timeLeft.seconds)}
-              </span>{" "}
-              for delivery by{" "}
-              <span className="font-semibold">{deliveryDate}</span>
+              {prefixText}{" "}
+              {renderDefaultTimer()}{" "}
+              {middleText}{" "}
+              {deliveryDate && (
+                typeof deliveryDate === "string" ? (
+                  <span className={cn("font-semibold", deliveryDateClassName)}>{deliveryDate}</span>
+                ) : (
+                  <span className={deliveryDateClassName}>{deliveryDate}</span>
+                )
+              )}
             </span>
           </div>
         </div>

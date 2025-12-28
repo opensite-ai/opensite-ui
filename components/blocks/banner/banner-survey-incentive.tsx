@@ -6,40 +6,95 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 /**
  * Props for the BannerSurveyIncentive component
  */
 export interface BannerSurveyIncentiveProps {
   /**
-   * Main message title
-   * @default "Help us improve!"
+   * Icon to display (ReactNode for full flexibility)
    */
-  title?: string;
+  icon?: React.ReactNode;
   /**
-   * Description with incentive offer
-   * @default "Take our 2-minute survey and get 20% off your next purchase."
+   * Icon name for DynamicIcon (used if icon prop is not provided)
+   * @default "mynaui/shopping-bag"
    */
-  description?: string;
+  iconName?: string;
   /**
-   * CTA button text
-   * @default "Take Survey"
+   * Main message title content
    */
-  buttonText?: string;
+  title?: React.ReactNode;
   /**
-   * CTA button link
-   * @default "#"
+   * Description content with incentive offer
    */
-  buttonLink?: string;
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Callback when banner is dismissed
    */
   onDismiss?: () => void;
   /**
-   * Additional CSS classes
+   * Dismiss button icon (ReactNode for full flexibility)
+   */
+  dismissIcon?: React.ReactNode;
+  /**
+   * ARIA label for dismiss button
+   * @default "Dismiss banner"
+   */
+  dismissAriaLabel?: string;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the text wrapper
+   */
+  textClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the dismiss button
+   */
+  dismissButtonClassName?: string;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Take Survey",
+    href: "#",
+    size: "sm",
+  },
+];
 
 /**
  * BannerSurveyIncentive - A survey invitation banner with shopping bag icon and incentive offer.
@@ -54,19 +109,30 @@ export interface BannerSurveyIncentiveProps {
  * <BannerSurveyIncentive
  *   title="Share your feedback!"
  *   description="Complete our quick survey and receive a 15% discount code."
- *   buttonText="Start Survey"
- *   buttonLink="/survey"
+ *   actions={[{ label: "Start Survey", href: "/survey", size: "sm" }]}
  *   onDismiss={() => console.log('Dismissed')}
  * />
  * ```
  */
 export function BannerSurveyIncentive({
+  icon,
+  iconName = "mynaui/shopping-bag",
   title = "Help us improve!",
   description = "Take our 2-minute survey and get 20% off your next purchase.",
-  buttonText = "Take Survey",
-  buttonLink = "#",
+  actions = defaultActions,
+  actionsSlot,
   onDismiss,
+  dismissIcon,
+  dismissAriaLabel = "Dismiss banner",
   className,
+  containerClassName,
+  contentClassName,
+  iconClassName,
+  textClassName,
+  titleClassName,
+  descriptionClassName,
+  actionsClassName,
+  dismissButtonClassName,
 }: BannerSurveyIncentiveProps) {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -75,37 +141,84 @@ export function BannerSurveyIncentive({
     onDismiss?.();
   };
 
+  const renderIcon = () => {
+    if (icon) return icon;
+    return (
+      <DynamicIcon
+        name={iconName}
+        size={20}
+        className={cn("shrink-0 hidden md:block", iconClassName)}
+      />
+    );
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {actionIcon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderDismissIcon = () => {
+    if (dismissIcon) return dismissIcon;
+    return <DynamicIcon name="mynaui/x" size={16} />;
+  };
+
   if (!isVisible) {
     return null;
   }
 
   return (
     <div className={cn("bg-background border-b text-sm", className)}>
-      <div className="flex md:items-center justify-between max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-center gap-2">
-          <DynamicIcon
-            name="mynaui/shopping-bag"
-            size={20}
-            className="shrink-0 hidden md:block"
-          />
-          <div className="flex flex-col md:flex-row gap-1">
-            <span className="font-medium">{title}</span>
-            <span className="text-muted-foreground">{description}</span>
+      <div className={cn("flex md:items-center justify-between max-w-7xl mx-auto px-4 py-4", containerClassName)}>
+        <div className={cn("flex items-center gap-2", contentClassName)}>
+          {renderIcon()}
+          <div className={cn("flex flex-col md:flex-row gap-1", textClassName)}>
+            {title && (
+              typeof title === "string" ? (
+                <span className={cn("font-medium", titleClassName)}>{title}</span>
+              ) : (
+                <span className={titleClassName}>{title}</span>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <span className={cn("text-muted-foreground", descriptionClassName)}>{description}</span>
+              ) : (
+                <span className={descriptionClassName}>{description}</span>
+              )
+            )}
           </div>
         </div>
-        <div className="flex gap-2">
-          <Pressable href={buttonLink} size="sm" asButton>
-            {buttonText}
-          </Pressable>
+        <div className={cn("flex gap-2", actionsClassName)}>
+          {renderActions()}
           <Pressable
             onClick={handleDismiss}
             variant="outline"
             size="icon"
             asButton
-            className="size-8"
+            className={cn("size-8", dismissButtonClassName)}
           >
-            <DynamicIcon name="mynaui/x" size={16} />
-            <span className="sr-only">Dismiss banner</span>
+            {renderDismissIcon()}
+            <span className="sr-only">{dismissAriaLabel}</span>
           </Pressable>
         </div>
       </div>

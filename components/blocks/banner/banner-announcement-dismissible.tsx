@@ -6,40 +6,84 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig } from "../../../src/types";
 
 /**
  * Props for the BannerAnnouncementDismissible component
  */
 export interface BannerAnnouncementDismissibleProps {
   /**
-   * Icon name in format: prefix/name (e.g., "mynaui/boat")
+   * Icon to display (ReactNode for full flexibility)
+   */
+  icon?: React.ReactNode;
+  /**
+   * Icon name for DynamicIcon (used if icon prop is not provided)
    * @default "mynaui/boat"
    */
-  icon?: string;
+  iconName?: string;
   /**
-   * Announcement message text
-   * @default "Introducing our new AI-powered dashboard - Now available!"
+   * Announcement message content
    */
-  message?: string;
+  message?: React.ReactNode;
   /**
-   * CTA button text
-   * @default "Learn More"
+   * Array of action configurations for CTA buttons
    */
-  buttonText?: string;
+  actions?: ActionConfig[];
   /**
-   * CTA button link
-   * @default "#"
+   * Custom slot for rendering actions (overrides actions array)
    */
-  buttonLink?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Callback when banner is dismissed
    */
   onDismiss?: () => void;
   /**
-   * Additional CSS classes
+   * Dismiss button icon (ReactNode for full flexibility)
+   */
+  dismissIcon?: React.ReactNode;
+  /**
+   * ARIA label for dismiss button
+   * @default "Dismiss banner"
+   */
+  dismissAriaLabel?: string;
+  /**
+   * Additional CSS classes for the banner container
    */
   className?: string;
+  /**
+   * Additional CSS classes for the inner container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the message
+   */
+  messageClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the dismiss button
+   */
+  dismissButtonClassName?: string;
 }
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Learn More",
+    href: "#",
+    variant: "secondary",
+    size: "sm",
+  },
+];
 
 /**
  * BannerAnnouncementDismissible - A top announcement banner with icon, message, CTA button, and dismiss button.
@@ -51,21 +95,29 @@ export interface BannerAnnouncementDismissibleProps {
  * @example
  * ```tsx
  * <BannerAnnouncementDismissible
- *   icon="mynaui/rocket"
+ *   iconName="mynaui/rocket"
  *   message="New feature: AI-powered analytics is now live!"
- *   buttonText="Try It Now"
- *   buttonLink="/features/analytics"
+ *   actions={[{ label: "Try It Now", href: "/features/analytics", variant: "secondary", size: "sm" }]}
  *   onDismiss={() => console.log('Banner dismissed')}
  * />
  * ```
  */
 export function BannerAnnouncementDismissible({
-  icon = "mynaui/boat",
+  icon,
+  iconName = "mynaui/boat",
   message = "Introducing our new AI-powered dashboard - Now available!",
-  buttonText = "Learn More",
-  buttonLink = "#",
+  actions = defaultActions,
+  actionsSlot,
   onDismiss,
+  dismissIcon,
+  dismissAriaLabel = "Dismiss banner",
   className,
+  containerClassName,
+  contentClassName,
+  iconClassName,
+  messageClassName,
+  actionsClassName,
+  dismissButtonClassName,
 }: BannerAnnouncementDismissibleProps) {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -74,34 +126,72 @@ export function BannerAnnouncementDismissible({
     onDismiss?.();
   };
 
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {actionIcon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderIcon = () => {
+    if (icon) return icon;
+    return <DynamicIcon name={iconName} size={20} className={cn("shrink-0", iconClassName)} />;
+  };
+
+  const renderDismissIcon = () => {
+    if (dismissIcon) return dismissIcon;
+    return <DynamicIcon name="mynaui/x" size={16} />;
+  };
+
   if (!isVisible) {
     return null;
   }
 
   return (
     <div className={cn("bg-background border-b", className)}>
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-4">
-          <DynamicIcon name={icon} size={20} className="shrink-0" />
-          <span className="font-medium text-sm">{message}</span>
-          <Pressable
-            href={buttonLink}
-            variant="secondary"
-            size="sm"
-            asButton
-          >
-            {buttonText}
-          </Pressable>
+      <div className={cn("max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2", containerClassName)}>
+        <div className={cn("flex items-center gap-4", contentClassName)}>
+          {renderIcon()}
+          {message && (
+            typeof message === "string" ? (
+              <span className={cn("font-medium text-sm", messageClassName)}>{message}</span>
+            ) : (
+              <div className={messageClassName}>{message}</div>
+            )
+          )}
+          {(actionsSlot || (actions && actions.length > 0)) && (
+            <div className={actionsClassName}>
+              {renderActions()}
+            </div>
+          )}
         </div>
         <Pressable
           onClick={handleDismiss}
           variant="outline"
           size="icon"
           asButton
-          className="size-8"
+          className={cn("size-8", dismissButtonClassName)}
         >
-          <DynamicIcon name="mynaui/x" size={16} />
-          <span className="sr-only">Dismiss banner</span>
+          {renderDismissIcon()}
+          <span className="sr-only">{dismissAriaLabel}</span>
         </Pressable>
       </div>
     </div>
