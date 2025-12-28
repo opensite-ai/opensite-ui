@@ -113,41 +113,6 @@ export const NavbarSearchFocused = ({
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* Search Bar */}
-          <form
-            onSubmit={handleSearch}
-            className={cn(
-              "relative flex-1 transition-all duration-300",
-              isSearchFocused ? "lg:flex-2" : "lg:flex-1"
-            )}
-          >
-            <div className="relative">
-              <DynamicIcon
-                name="lucide/search"
-                size={18}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-              />
-              <Input
-                type="search"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                className="h-10 w-full rounded-full border-muted-foreground/20 bg-muted/50 pl-10 pr-4 transition-all duration-300 focus:bg-background focus:ring-2 focus:ring-primary/20"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                >
-                  <DynamicIcon name="lucide/x" size={16} />
-                </button>
-              )}
-            </div>
-          </form>
-
           {/* Desktop Navigation - Right */}
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>
