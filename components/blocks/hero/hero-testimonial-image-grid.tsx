@@ -8,30 +8,133 @@ import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
 
+/**
+ * Configuration for the testimonial section
+ */
+export interface TestimonialConfig {
+  /**
+   * Testimonial quote text
+   */
+  quote: string;
+  /**
+   * Author name
+   */
+  author: string;
+  /**
+   * Author role/title
+   */
+  role: string;
+  /**
+   * Company name
+   */
+  company: string;
+  /**
+   * Avatar images for the testimonial
+   */
+  avatars: Array<{
+    image: string;
+    fallback: string;
+  }>;
+}
+
+/**
+ * Configuration for grid images
+ */
+export interface GridImageConfig {
+  /**
+   * Image source URL
+   */
+  src: string;
+  /**
+   * Alt text for the image
+   */
+  alt?: string;
+}
+
 export interface HeroTestimonialImageGridProps {
-  heading?: string;
-  description?: string;
+  /**
+   * Main heading text
+   */
+  heading?: React.ReactNode;
+  /**
+   * Supporting description text
+   */
+  description?: React.ReactNode;
+  /**
+   * Primary button configuration
+   */
   button?: {
     text: string;
     url: string;
   };
-  testimonial?: {
-    quote: string;
-    author: string;
-    role: string;
-    company: string;
-    avatars: Array<{
-      image: string;
-      fallback: string;
-    }>;
-  };
+  /**
+   * Custom slot for button (overrides button prop)
+   */
+  buttonSlot?: React.ReactNode;
+  /**
+   * Testimonial configuration
+   */
+  testimonial?: TestimonialConfig;
+  /**
+   * Custom slot for testimonial (overrides testimonial prop)
+   */
+  testimonialSlot?: React.ReactNode;
+  /**
+   * Grid images configuration (4 images for the grid)
+   */
+  gridImages?: GridImageConfig[];
+  /**
+   * Custom slot for images grid (overrides gridImages)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
   optixFlowConfig?: {
     apiKey: string;
     compression?: number;
   };
 }
 
+const defaultGridImages: GridImageConfig[] = [
+  { src: imagePlaceholders[90], alt: "Grid image 1" },
+  { src: imagePlaceholders[91], alt: "Grid image 2" },
+  { src: imagePlaceholders[92], alt: "Grid image 3" },
+  { src: imagePlaceholders[93], alt: "Grid image 4" },
+];
+
+const defaultTestimonial: TestimonialConfig = {
+  quote: "Focused strategy, swift delivery",
+  author: "John Doe",
+  role: "CEO",
+  company: "Company",
+  avatars: [
+    { image: imagePlaceholders[87], fallback: "AB" },
+    { image: imagePlaceholders[88], fallback: "CD" },
+    { image: imagePlaceholders[89], fallback: "EF" },
+  ],
+};
+
+/**
+ * HeroTestimonialImageGrid - A hero layout with heading, description, testimonial,
+ * and a creative 2x2 image grid. Ideal for showcasing product features or portfolio work.
+ */
 export function HeroTestimonialImageGrid({
   heading = "Blocks built with Opensite AI & Tailwind",
   description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
@@ -39,113 +142,152 @@ export function HeroTestimonialImageGrid({
     text: "Get Started",
     url: "#",
   },
-  testimonial = {
-    quote: "Focused strategy, swift delivery",
-    author: "John Doe",
-    role: "CEO",
-    company: "Company",
-    avatars: [
-      { image: imagePlaceholders[87], fallback: "AB" },
-      { image: imagePlaceholders[88], fallback: "CD" },
-      { image: imagePlaceholders[89], fallback: "EF" },
-    ],
-  },
+  buttonSlot,
+  testimonial = defaultTestimonial,
+  testimonialSlot,
+  gridImages = defaultGridImages,
+  imagesSlot,
   className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
   optixFlowConfig,
 }: HeroTestimonialImageGridProps): React.JSX.Element {
+  const renderButton = () => {
+    if (buttonSlot) return buttonSlot;
+
+    return (
+      <Pressable href={button.url} asButton size="lg" variant="default">
+        {button.text}
+      </Pressable>
+    );
+  };
+
+  const renderTestimonial = () => {
+    if (testimonialSlot) return testimonialSlot;
+
+    return (
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex -space-x-2">
+          {testimonial.avatars.map((avatar, index) => (
+            <Avatar
+              key={index}
+              className="size-10 border-2 border-border"
+            >
+              <AvatarImage src={avatar.image} alt="" />
+              <AvatarFallback>{avatar.fallback}</AvatarFallback>
+            </Avatar>
+          ))}
+        </div>
+        <div>
+          <p className="mb-1 text-sm text-foreground/60 italic">
+            &quot;{testimonial.quote}&quot;
+          </p>
+          <p className="text-sm font-medium text-foreground/60">
+            {testimonial.author}, {testimonial.role} @
+            {testimonial.company}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
+  const renderImagesGrid = () => {
+    if (imagesSlot) return imagesSlot;
+
+    const images = gridImages.length >= 4 ? gridImages : defaultGridImages;
+
+    return (
+      <div className="w-full flex-1">
+        <div className="w-full max-w-200">
+          <AspectRatio ratio={1 / 1} className="h-full w-full">
+            <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[3.5%]">
+              <div className="overflow-hidden rounded-[5.2%] border border-muted bg-muted">
+                <Img
+                  src={images[0].src}
+                  alt={images[0].alt || ""}
+                  className="object-fit h-full w-full object-center"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+              <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
+                <div className="absolute top-1/2 left-[5%] w-[110%] max-w-100 -translate-y-1/2 overflow-hidden rounded-md">
+                  <AspectRatio ratio={1.739130435 / 1}>
+                    <Img
+                      src={images[1].src}
+                      alt={images[1].alt || ""}
+                      className="size-full object-cover object-center"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </AspectRatio>
+                </div>
+              </div>
+              <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
+                <div className="absolute top-[9%] left-[9%] w-[200%] max-w-150 overflow-hidden rounded-md">
+                  <AspectRatio ratio={1.6 / 1}>
+                    <Img
+                      src={images[2].src}
+                      alt={images[2].alt || ""}
+                      className="size-full object-cover object-center"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </AspectRatio>
+                </div>
+              </div>
+              <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
+                <div className="relative top-[12%] left-[50%] w-[70%] max-w-70 -translate-x-[50%]">
+                  <AspectRatio ratio={0.52 / 1}>
+                    <Img
+                      src={images[3].src}
+                      alt={images[3].alt || ""}
+                      className="absolute z-10 w-full rounded-[16%]"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </AspectRatio>
+                </div>
+              </div>
+            </div>
+          </AspectRatio>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className={cn("py-12 md:py-20", className)}>
-      <div className="container">
+      <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-center gap-8 md:flex-row">
           <div className="flex-1">
             <div className="flex flex-col gap-4 lg:gap-8">
-              <h1 className="leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight text-foreground lg:text-5xl xl:text-7xl">
-                {heading}
-              </h1>
-              <p className="text-lg leading-relaxed text-muted-foreground xl:text-2xl">
-                {description}
-              </p>
+              {heading && (
+                typeof heading === "string" ? (
+                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight text-foreground lg:text-5xl xl:text-7xl", headingClassName)}>
+                    {heading}
+                  </h1>
+                ) : (
+                  <h1 className={cn("leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight text-foreground lg:text-5xl xl:text-7xl", headingClassName)}>
+                    {heading}
+                  </h1>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p className={cn("text-lg leading-relaxed text-muted-foreground xl:text-2xl", descriptionClassName)}>
+                    {description}
+                  </p>
+                ) : (
+                  <div className={cn("text-lg leading-relaxed text-muted-foreground xl:text-2xl", descriptionClassName)}>
+                    {description}
+                  </div>
+                )
+              )}
             </div>
             <div className="my-6 lg:my-10">
-              <Pressable href={button.url} asButton size="lg" variant="default">
-                {button.text}
-              </Pressable>
+              {renderButton()}
             </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex -space-x-2">
-                {testimonial.avatars.map((avatar, index) => (
-                  <Avatar
-                    key={index}
-                    className="size-10 border-2 border-border"
-                  >
-                    <AvatarImage src={avatar.image} alt="" />
-                    <AvatarFallback>{avatar.fallback}</AvatarFallback>
-                  </Avatar>
-                ))}
-              </div>
-              <div>
-                <p className="mb-1 text-sm text-foreground/60 italic">
-                  &quot;{testimonial.quote}&quot;
-                </p>
-                <p className="text-sm font-medium text-foreground/60">
-                  {testimonial.author}, {testimonial.role} @
-                  {testimonial.company}
-                </p>
-              </div>
-            </div>
+            {renderTestimonial()}
           </div>
-          <div className="w-full flex-1">
-            <div className="w-full max-w-200">
-              <AspectRatio ratio={1 / 1} className="h-full w-full">
-                <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[3.5%]">
-                  <div className="overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <Img
-                      src={imagePlaceholders[90]}
-                      alt=""
-                      className="object-fit h-full w-full object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                  <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="absolute top-1/2 left-[5%] w-[110%] max-w-100 -translate-y-1/2 overflow-hidden rounded-md">
-                      <AspectRatio ratio={1.739130435 / 1}>
-                        <Img
-                          src={imagePlaceholders[91]}
-                          alt=""
-                          className="size-full object-cover object-center"
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </AspectRatio>
-                    </div>
-                  </div>
-                  <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="absolute top-[9%] left-[9%] w-[200%] max-w-150 overflow-hidden rounded-md">
-                      <AspectRatio ratio={1.6 / 1}>
-                        <Img
-                          src={imagePlaceholders[92]}
-                          alt=""
-                          className="size-full object-cover object-center"
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </AspectRatio>
-                    </div>
-                  </div>
-                  <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="relative top-[12%] left-[50%] w-[70%] max-w-70 -translate-x-[50%]">
-                      <AspectRatio ratio={0.52 / 1}>
-                        <Img
-                          src={imagePlaceholders[93]}
-                          alt=""
-                          className="absolute z-10 w-full rounded-[16%]"
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </AspectRatio>
-                    </div>
-                  </div>
-                </div>
-              </AspectRatio>
-            </div>
-          </div>
+          {renderImagesGrid()}
         </div>
       </div>
     </section>

@@ -7,70 +7,189 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 
+import type { ActionConfig, ImageItem } from "../../../src/types/blocks";
+
 export interface HeroWelcomeAsymmetricImagesProps {
+  /**
+   * Main heading text
+   */
+  heading?: React.ReactNode;
+  /**
+   * Supporting description text
+   */
+  description?: React.ReactNode;
+  /**
+   * Action buttons configuration
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Images for the asymmetric grid (4 images)
+   */
+  images?: ImageItem[];
+  /**
+   * Custom slot for images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
   optixFlowConfig?: {
     apiKey: string;
     compression?: number;
   };
 }
 
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Get Started",
+    href: "#",
+    variant: "default",
+    size: "lg",
+    icon: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
+  },
+  {
+    label: "Learn More",
+    href: "#",
+    variant: "outline",
+    size: "lg",
+  },
+];
+
+const defaultImages: ImageItem[] = [
+  { src: imagePlaceholders[124], alt: "Hero image 1" },
+  { src: imagePlaceholders[125], alt: "Hero image 2" },
+  { src: imagePlaceholders[0], alt: "Hero image 3" },
+  { src: imagePlaceholders[1], alt: "Hero image 4" },
+];
+
+/**
+ * HeroWelcomeAsymmetricImages - A hero layout with heading, description, CTAs,
+ * and an asymmetric 2x2 image grid. Ideal for welcoming visitors with visual impact.
+ */
 export function HeroWelcomeAsymmetricImages({
+  heading = "Welcome to Our Website",
+  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi necessitatibus dolorum.",
+  actions = defaultActions,
+  actionsSlot,
+  images = defaultImages,
+  imagesSlot,
   className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
   optixFlowConfig,
 }: HeroWelcomeAsymmetricImagesProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    return (
+      <div className="flex flex-col gap-4 sm:flex-row">
+        {actions.map((action, idx) => (
+          <Pressable
+            key={idx}
+            href={action.href}
+            onClick={action.onClick}
+            asButton
+            variant={action.variant || "default"}
+            size={action.size || "lg"}
+          >
+            {action.label}
+            {action.icon}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+
+    const imgs = images.length >= 4 ? images : defaultImages;
+
+    return (
+      <div className="relative flex w-full items-center justify-end gap-4">
+        <div className="flex flex-col gap-4">
+          <Img
+            src={imgs[0].src}
+            alt={imgs[0].alt || ""}
+            className="h-48 w-64 rounded-lg object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+          <Img
+            src={imgs[1].src}
+            alt={imgs[1].alt || ""}
+            className="h-64 w-64 rounded-lg object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+        <div className="flex flex-col gap-4">
+          <Img
+            src={imgs[2].src}
+            alt={imgs[2].alt || ""}
+            className="h-64 w-64 rounded-lg object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+          <Img
+            src={imgs[3].src}
+            alt={imgs[3].alt || ""}
+            className="h-48 w-64 rounded-lg object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <section className={cn("overflow-hidden py-32", className)}>
-      <div className="container">
+      <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row xl:gap-20">
           <div className="flex w-full flex-col items-start text-left">
-            <h1 className="mb-8 text-4xl font-normal text-pretty md:text-7xl">
-              Welcome to Our Website
-            </h1>
-            <p className="mb-12 max-w-[70%] text-xl font-normal text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-              necessitatibus dolorum.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Pressable href="#" asButton variant="default" size="lg">
-                Get Started
-                <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-              </Pressable>
-              <Pressable href="#" asButton variant="outline" size="lg">
-                Learn More
-              </Pressable>
-            </div>
+            {heading && (
+              typeof heading === "string" ? (
+                <h1 className={cn("mb-8 text-4xl font-normal text-pretty md:text-7xl", headingClassName)}>
+                  {heading}
+                </h1>
+              ) : (
+                <h1 className={cn("mb-8 text-4xl font-normal text-pretty md:text-7xl", headingClassName)}>
+                  {heading}
+                </h1>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mb-12 max-w-[70%] text-xl font-normal text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-12 max-w-[70%] text-xl font-normal text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </div>
+              )
+            )}
+            {renderActions()}
           </div>
-          <div className="relative flex w-full items-center justify-end gap-4">
-            <div className="flex flex-col gap-4">
-              <Img
-                src={imagePlaceholders[124]}
-                alt=""
-                className="h-48 w-64 rounded-lg object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <Img
-                src={imagePlaceholders[125]}
-                alt=""
-                className="h-64 w-64 rounded-lg object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <Img
-                src={imagePlaceholders[0]}
-                alt=""
-                className="h-64 w-64 rounded-lg object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <Img
-                src={imagePlaceholders[1]}
-                alt=""
-                className="h-48 w-64 rounded-lg object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
-          </div>
+          {renderImages()}
         </div>
       </div>
     </section>

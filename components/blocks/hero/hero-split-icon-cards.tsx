@@ -31,15 +31,15 @@ export interface HeroSplitIconCardsProps {
   /**
    * Eyebrow label above the heading
    */
-  eyebrow?: string;
+  eyebrow?: React.ReactNode;
   /**
    * Hero heading text
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Supporting description text
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Primary call-to-action configuration
    */
@@ -55,6 +55,10 @@ export interface HeroSplitIconCardsProps {
     href: string;
   };
   /**
+   * Custom slot for actions (overrides primaryCta and secondaryCta)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
    * Optional custom content for the left column
    */
   children?: React.ReactNode;
@@ -62,6 +66,10 @@ export interface HeroSplitIconCardsProps {
    * Icon card items for the right column
    */
   cardItems?: HeroSplitIconCardsItem[];
+  /**
+   * Custom slot for cards (overrides cardItems array)
+   */
+  cardsSlot?: React.ReactNode;
   /**
    * Background style for the section
    */
@@ -74,6 +82,18 @@ export interface HeroSplitIconCardsProps {
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the content column
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
 }
 
 const defaultCardItems: HeroSplitIconCardsItem[] = [
@@ -108,12 +128,74 @@ export function HeroSplitIconCards({
   description = "Combine a strong narrative with scannable callouts so visitors can understand your value in seconds.",
   primaryCta = { label: "Get Started", href: "/get-started" },
   secondaryCta = { label: "Talk to an Advisor", href: "/contact" },
+  actionsSlot,
   children,
   cardItems = defaultCardItems,
+  cardsSlot,
   background = "white",
   verticalSpacing = "lg",
   className,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
 }: HeroSplitIconCardsProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Pressable href={primaryCta.href} size="lg" variant="default">
+          {primaryCta.label}
+        </Pressable>
+        <Pressable
+          href={secondaryCta.href}
+          size="lg"
+          variant="outline"
+        >
+          {secondaryCta.label}
+        </Pressable>
+      </div>
+    );
+  };
+
+  const renderCards = () => {
+    if (cardsSlot) return cardsSlot;
+
+    return (
+      <div className="grid grid-cols-1 gap-4">
+        {cardItems.map((item, idx) => {
+          const card = (
+            <Card className="h-full border-border/60 px-0 py-0">
+              <div className="flex items-start gap-4 p-6">
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <DynamicIcon name={item.icon} size={24} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">
+                    {item.title}
+                  </h3>
+                  {item.subtitle ? (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {item.subtitle}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </Card>
+          );
+
+          return item.href ? (
+            <Pressable href={item.href} key={idx} className="block">
+              {card}
+            </Pressable>
+          ) : (
+            <div key={idx}>{card}</div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <Section
       background={background}
@@ -121,67 +203,44 @@ export function HeroSplitIconCards({
       className={cn("overflow-hidden", className)}
     >
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
-        <div className="space-y-6">
+        <div className={cn("space-y-6", contentClassName)}>
           {children ? (
             children
           ) : (
             <>
-              {eyebrow ? (
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-                  {eyebrow}
-                </p>
-              ) : null}
-              <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-                {heading}
-              </h2>
-              <p className="text-lg text-muted-foreground">{description}</p>
-              <div className="flex flex-wrap gap-4">
-                <Pressable href={primaryCta.href} size="lg" variant="default">
-                  {primaryCta.label}
-                </Pressable>
-                <Pressable
-                  href={secondaryCta.href}
-                  size="lg"
-                  variant="outline"
-                >
-                  {secondaryCta.label}
-                </Pressable>
-              </div>
+              {eyebrow && (
+                typeof eyebrow === "string" ? (
+                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+                    {eyebrow}
+                  </p>
+                ) : (
+                  eyebrow
+                )
+              )}
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+                    {heading}
+                  </h2>
+                ) : (
+                  <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+                    {heading}
+                  </h2>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+                ) : (
+                  <div className={descriptionClassName}>{description}</div>
+                )
+              )}
+              {renderActions()}
             </>
           )}
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
-          {cardItems.map((item, idx) => {
-            const card = (
-              <Card className="h-full border-border/60 px-0 py-0">
-                <div className="flex items-start gap-4 p-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <DynamicIcon name={item.icon} size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-foreground">
-                      {item.title}
-                    </h3>
-                    {item.subtitle ? (
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        {item.subtitle}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              </Card>
-            );
-
-            return item.href ? (
-              <Pressable href={item.href} key={idx} className="block">
-                {card}
-              </Pressable>
-            ) : (
-              <div key={idx}>{card}</div>
-            );
-          })}
-        </div>
+        {renderCards()}
       </div>
     </Section>
   );
