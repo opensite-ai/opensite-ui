@@ -595,6 +595,18 @@ import type { ServicesListCardsHoverProps } from "../../components/blocks/servic
 import { ServicesListTimeline } from "../../components/blocks/services-list/services-list-timeline";
 import type { ServicesListTimelineProps } from "../../components/blocks/services-list/services-list-timeline";
 
+// Resource List components
+import { ResourceListHeroFilter } from "../../components/blocks/resource-list/resource-list-hero-filter";
+import type { ResourceListHeroFilterProps } from "../../components/blocks/resource-list/resource-list-hero-filter";
+import { ResourceListFeaturedGrid } from "../../components/blocks/resource-list/resource-list-featured-grid";
+import type { ResourceListFeaturedGridProps } from "../../components/blocks/resource-list/resource-list-featured-grid";
+import { ResourceListFeaturedArticles } from "../../components/blocks/resource-list/resource-list-featured-articles";
+import type { ResourceListFeaturedArticlesProps } from "../../components/blocks/resource-list/resource-list-featured-articles";
+import { ResourceListNewsUpdates } from "../../components/blocks/resource-list/resource-list-news-updates";
+import type { ResourceListNewsUpdatesProps } from "../../components/blocks/resource-list/resource-list-news-updates";
+import { ResourceListCourseCards } from "../../components/blocks/resource-list/resource-list-course-cards";
+import type { ResourceListCourseCardsProps } from "../../components/blocks/resource-list/resource-list-course-cards";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -638,9 +650,10 @@ export type BlockCategory =
   | "offer-modal"
   | "banner"
   | "industries"
-  | "resource-detail"
-  | "service-detail"
-  | "services-list";
+    | "resource-detail"
+    | "service-detail"
+    | "services-list"
+    | "resource-list";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -13530,6 +13543,235 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       description: "Understanding requirements",
       duration: "1-2 weeks",
       deliverables: ["Requirements doc", "Project plan"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  // Resource List components
+  "resource-list-hero-filter": {
+    id: "resource-list-hero-filter",
+    name: "Resource List Hero Filter",
+    description:
+      "A comprehensive resource listing page with hero section, breadcrumb navigation, email subscription form, featured post card, and filterable resource grid with category checkboxes and load more functionality. Features a pattern background, email capture with @page-speed/forms integration, and responsive card layout. Ideal for resource centers, blog archives, documentation hubs, report libraries, knowledge bases, and content marketing pages that need category filtering and email capture functionality.",
+    semanticTags: [
+      "resources",
+      "blog",
+      "articles",
+      "reports",
+      "documentation",
+      "knowledge-base",
+      "filter",
+      "categories",
+      "newsletter",
+      "email-capture",
+      "hero",
+      "breadcrumb",
+      "cards",
+      "grid",
+      "load-more",
+      "pagination",
+    ],
+    category: "resource-list",
+    component: ResourceListHeroFilter,
+    props: "ResourceListHeroFilterProps",
+    exampleUsage: `
+<ResourceListHeroFilter
+  title="Explore Reports"
+  description="The best Reports is one that captivates readers with engaging, well-researched content."
+  breadcrumb={[
+    { label: "Resources", link: "#" },
+    { label: "Reports", link: "#" }
+  ]}
+  categories={[
+    { label: "All", value: "all" },
+    { label: "Productivity", value: "productivity" },
+    { label: "Performance", value: "performance" }
+  ]}
+  posts={[
+    {
+      category: "Productivity",
+      title: "5 VS Code Extensions That Will Save You Hours",
+      summary: "Discover must-have extensions to boost your coding efficiency.",
+      link: "#",
+      cta: "Read More",
+      thumbnail: "https://example.com/image.jpg"
+    }
+  ]}
+  formConfig={{
+    endpoint: "/api/subscribe",
+    format: "json"
+  }}
+/>`.trim(),
+  },
+  "resource-list-featured-grid": {
+    id: "resource-list-featured-grid",
+    name: "Resource List Featured Grid",
+    description:
+      "A visually rich resource listing with featured article hero, secondary article cards, and a tabbed category filter for browsing articles. Features large featured article with image overlay, badge, and author avatars, two secondary article cards with grayscale-to-color hover effect, tabbed category filtering, and article list with title, category, date, and author avatars. Ideal for resource centers, whitepapers libraries, research publications, tech blogs, news portals, and content hubs that want to highlight featured content while providing easy category-based navigation.",
+    semanticTags: [
+      "resources",
+      "whitepapers",
+      "articles",
+      "featured",
+      "grid",
+      "tabs",
+      "categories",
+      "filter",
+      "authors",
+      "avatars",
+      "news",
+      "publications",
+      "research",
+    ],
+    category: "resource-list",
+    component: ResourceListFeaturedGrid,
+    props: "ResourceListFeaturedGridProps",
+    exampleUsage: `
+<ResourceListFeaturedGrid
+  title="Resources & Whitepapers"
+  description="Explore our thoughts and perspectives on key topics."
+  categories={["All", "Data", "AI", "Security", "News"]}
+  featuredArticle={{
+    title: "Getting Started With Modern Digital Platforms",
+    imageUrl: "https://example.com/featured.jpg",
+    date: "Dec 4, 2024",
+    authors: ["https://example.com/avatar1.jpg"],
+    link: "#",
+    badge: "Featured Article"
+  }}
+  articles={[
+    {
+      title: "Exploring Modern Data Analytics",
+      category: "Data",
+      date: "Dec 4, 2024",
+      author: ["https://example.com/avatar1.jpg"],
+      link: "#"
+    }
+  ]}
+/>`.trim(),
+  },
+  "resource-list-featured-articles": {
+    id: "resource-list-featured-articles",
+    name: "Resource List Featured Articles",
+    description:
+      "A clean resource listing with a prominent featured post section and a structured article list showing date, category, and title. Features a featured post card with large image, badge, title, and CTA button, plus an article list with three-column layout (date, category, title) and hover effects. Ideal for blog archives, resource libraries, documentation indexes, knowledge bases, tutorial collections, and content hubs that want to highlight a featured piece while providing easy access to other articles.",
+    semanticTags: [
+      "resources",
+      "articles",
+      "blog",
+      "featured",
+      "list",
+      "tutorials",
+      "documentation",
+      "knowledge-base",
+      "archive",
+      "minimal",
+      "clean",
+    ],
+    category: "resource-list",
+    component: ResourceListFeaturedArticles,
+    props: "ResourceListFeaturedArticlesProps",
+    exampleUsage: `
+<ResourceListFeaturedArticles
+  featuredPost={{
+    title: "How to Build Reusable UI Component Blocks",
+    imageUrl: "https://example.com/featured.jpg",
+    link: "#"
+  }}
+  featuredBadgeText="Featured Resource"
+  featuredButtonText="Read more"
+  articlesTitle="Resources"
+  articles={[
+    {
+      date: "Jan 02, 2025",
+      category: "Design Systems",
+      title: "Mastering Reusable UI Block Patterns",
+      link: "#"
+    }
+  ]}
+/>`.trim(),
+  },
+  "resource-list-news-updates": {
+    id: "resource-list-news-updates",
+    name: "Resource List News Updates",
+    description:
+      "A news and updates listing with animated hover effects, category badges, author avatars, and dates in a clean two-column layout. Features section label with accent dot indicator, two-line title with primary/muted color split, news items with hover slide animation and background highlight, and arrow icon that appears on hover. Ideal for company news sections, press release archives, update logs, announcement pages, changelog displays, and any content that benefits from a timeline-style presentation with author attribution.",
+    semanticTags: [
+      "news",
+      "updates",
+      "announcements",
+      "press-releases",
+      "changelog",
+      "timeline",
+      "authors",
+      "avatars",
+      "animated",
+      "hover-effects",
+    ],
+    category: "resource-list",
+    component: ResourceListNewsUpdates,
+    props: "ResourceListNewsUpdatesProps",
+    exampleUsage: `
+<ResourceListNewsUpdates
+  sectionLabel="Resources"
+  title="Stay in the loop?"
+  subtitle="Discover our recent updates."
+  news={[
+    {
+      title: "TechFlow AI Platform now available on Azure Marketplace",
+      category: "Partnership",
+      avatar: "https://example.com/avatar1.jpg",
+      date: "June 15, 2024",
+      link: "#"
+    }
+  ]}
+/>`.trim(),
+  },
+  "resource-list-course-cards": {
+    id: "resource-list-course-cards",
+    name: "Resource List Course Cards",
+    description:
+      "A course/training listing with detailed metadata cards featuring author info, lesson counts, video duration, and animated visual elements. Features course cards with badge, title, description, and author info, metadata display (audience, lessons count, videos count, duration), author section with avatar, name, and title, and animated visual element with stacked cards and gradient background. Ideal for online course platforms, training portals, educational resources, tutorial libraries, certification programs, and learning management systems that need to showcase course details with instructor information.",
+    semanticTags: [
+      "courses",
+      "training",
+      "education",
+      "tutorials",
+      "learning",
+      "lessons",
+      "videos",
+      "instructors",
+      "authors",
+      "certification",
+      "lms",
+      "animated",
+    ],
+    category: "resource-list",
+    component: ResourceListCourseCards,
+    props: "ResourceListCourseCardsProps",
+    exampleUsage: `
+<ResourceListCourseCards
+  courses={[
+    {
+      badge: "Course",
+      title: "Master Sanity Studio Fundamentals",
+      description: "Learn the core concepts of Sanity Studio, from schema design to content modeling.",
+      author: {
+        name: "Alex Chen",
+        title: "Senior Developer",
+        avatar: "https://example.com/avatar1.jpg"
+      },
+      image: "https://example.com/course.jpg",
+      lessons: 12,
+      videos: 15,
+      duration: "42:18 minutes",
+      audience: ["Developers", "Content creators"],
+      gradient: "from-blue-100 to-purple-100",
+      cta: {
+        text: "Start",
+        url: "#"
+      }
     }
   ]}
 />`.trim(),
