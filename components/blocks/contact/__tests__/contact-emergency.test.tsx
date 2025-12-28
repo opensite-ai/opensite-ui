@@ -33,15 +33,16 @@ describe("ContactEmergency", () => {
   it("renders all form fields", () => {
     render(<ContactEmergency />);
 
-    expect(screen.getByLabelText("Full Name")).toBeInTheDocument();
+    expect(screen.getByLabelText("Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(screen.getByLabelText("Phone")).toBeInTheDocument();
-    expect(screen.getByLabelText("Message")).toBeInTheDocument();
+    expect(screen.getByLabelText("Phone (Optional)")).toBeInTheDocument();
+    expect(screen.getByLabelText("Subject")).toBeInTheDocument();
+    expect(screen.getByLabelText("Description")).toBeInTheDocument();
   });
 
   it("renders default heading", () => {
     render(<ContactEmergency />);
-    expect(screen.getByText("Emergency Contact")).toBeInTheDocument();
+    expect(screen.getByText("Urgent Support")).toBeInTheDocument();
   });
 
   it("renders submit button", () => {

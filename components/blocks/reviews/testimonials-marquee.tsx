@@ -189,7 +189,7 @@ export function TestimonialsMarquee({
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes marquee {
           from {
             transform: translateX(0);
