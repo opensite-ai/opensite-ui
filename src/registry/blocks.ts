@@ -227,6 +227,31 @@ import { FaqProfileSidebar } from "../../components/blocks/faq/faq-profile-sideb
 // Case Studies List components
 import { CaseStudiesImageGrid } from "../../components/blocks/case-studies-list/case-studies-image-grid";
 import { CaseStudiesTestimonialStats } from "../../components/blocks/case-studies-list/case-studies-testimonial-stats";
+
+// Reviews components
+import { ReviewsListVerified } from "../../components/blocks/reviews/reviews-list-verified";
+import { ReviewsImagesHelpful } from "../../components/blocks/reviews/reviews-images-helpful";
+import { TestimonialsBentoGrid } from "../../components/blocks/reviews/testimonials-bento-grid";
+import { TestimonialsTwitterCards } from "../../components/blocks/reviews/testimonials-twitter-cards";
+import { TestimonialsCarouselImage } from "../../components/blocks/reviews/testimonials-carousel-image";
+import { TestimonialsCenteredAvatars } from "../../components/blocks/reviews/testimonials-centered-avatars";
+import { TestimonialsCompanyLogo } from "../../components/blocks/reviews/testimonials-company-logo";
+import { TestimonialsGridAddReview } from "../../components/blocks/reviews/testimonials-grid-add-review";
+import { TestimonialsMarquee } from "../../components/blocks/reviews/testimonials-marquee";
+import { TestimonialsSimpleGrid } from "../../components/blocks/reviews/testimonials-simple-grid";
+import { TestimonialsSliderMinimal } from "../../components/blocks/reviews/testimonials-slider-minimal";
+import { TestimonialsSplitImage } from "../../components/blocks/reviews/testimonials-split-image";
+import { TestimonialsStatsHeader } from "../../components/blocks/reviews/testimonials-stats-header";
+import { TestimonialsWallCompact } from "../../components/blocks/reviews/testimonials-wall-compact";
+import { TestimonialsMiniDividers } from "../../components/blocks/reviews/testimonials-mini-dividers";
+import { TestimonialsLogoCards } from "../../components/blocks/reviews/testimonials-logo-cards";
+import { TestimonialsQuoteCarousel } from "../../components/blocks/reviews/testimonials-quote-carousel";
+import { TestimonialsAnimatedSplit } from "../../components/blocks/reviews/testimonials-animated-split";
+import { TestimonialsScrollingColumns } from "../../components/blocks/reviews/testimonials-scrolling-columns";
+import { TestimonialsMinimalNumbered } from "../../components/blocks/reviews/testimonials-minimal-numbered";
+import { TestimonialsParallaxNumber } from "../../components/blocks/reviews/testimonials-parallax-number";
+import { TestimonialsMasonryGrid } from "../../components/blocks/reviews/testimonials-masonry-grid";
+import { TestimonialsLargeQuote } from "../../components/blocks/reviews/testimonials-large-quote";
 import { CaseStudiesFeaturedBorder } from "../../components/blocks/case-studies-list/case-studies-featured-border";
 import { CaseStudiesStatsCard } from "../../components/blocks/case-studies-list/case-studies-stats-card";
 
@@ -11605,6 +11630,725 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     socialLinks: [
       { icon: "linkedin", href: "#", label: "Share on LinkedIn" }
     ]
+  }}
+/>`.trim(),
+  },
+
+  // Reviews components
+  "reviews-list-verified": {
+    id: "reviews-list-verified",
+    name: "Reviews List with Verified Badges",
+    description:
+      "A customer reviews section featuring a rating summary header with overall score, star distribution breakdown, and a list of individual reviews with verified purchase badges, author avatars, dates, and star ratings. Ideal for product pages, service reviews, or any page requiring authentic customer feedback display.",
+    semanticTags: [
+      "reviews",
+      "testimonials",
+      "ratings",
+      "stars",
+      "verified",
+      "customer-feedback",
+      "product-reviews",
+      "social-proof",
+    ],
+    category: "testimonials",
+    component: ReviewsListVerified,
+    props: "ReviewsListVerifiedProps",
+    exampleUsage: `
+<ReviewsListVerified
+  title="Customer Reviews"
+  averageRating={4.8}
+  totalReviews={1250}
+  reviews={[
+    {
+      id: "1",
+      author: { name: "Sarah M.", avatar: "/avatars/sarah.jpg" },
+      rating: 5,
+      date: "2024-01-15",
+      content: "Excellent product! Exceeded my expectations.",
+      verified: true
+    }
+  ]}
+/>`.trim(),
+  },
+  "reviews-images-helpful": {
+    id: "reviews-images-helpful",
+    name: "Reviews with Images and Helpful Voting",
+    description:
+      "An enhanced reviews section featuring customer photos, helpful/not helpful voting buttons, and a write review CTA. Each review displays images in a gallery format with star ratings, author info, and engagement metrics. Perfect for e-commerce product pages requiring visual customer feedback.",
+    semanticTags: [
+      "reviews",
+      "testimonials",
+      "images",
+      "photos",
+      "helpful",
+      "voting",
+      "customer-photos",
+      "product-reviews",
+      "user-generated-content",
+    ],
+    category: "testimonials",
+    component: ReviewsImagesHelpful,
+    props: "ReviewsImagesHelpfulProps",
+    exampleUsage: `
+<ReviewsImagesHelpful
+  title="Customer Reviews"
+  reviews={[
+    {
+      id: "1",
+      author: { name: "John D.", avatar: "/avatars/john.jpg" },
+      rating: 5,
+      date: "2024-01-15",
+      content: "Amazing quality!",
+      images: ["/review-1.jpg", "/review-2.jpg"],
+      helpfulCount: 24,
+      verified: true
+    }
+  ]}
+  onWriteReview={() => console.log("Write review")}
+/>`.trim(),
+  },
+  "testimonials-bento-grid": {
+    id: "testimonials-bento-grid",
+    name: "Testimonials Bento Grid",
+    description:
+      "A bento-style grid layout for testimonials with a featured testimonial spanning multiple rows. Cards display quotes with author avatars, names, roles, and decorative quote icons. The asymmetric grid creates visual interest while highlighting key testimonials. Ideal for landing pages and about sections.",
+    semanticTags: [
+      "testimonials",
+      "bento",
+      "grid",
+      "featured",
+      "quotes",
+      "social-proof",
+      "asymmetric",
+      "cards",
+    ],
+    category: "testimonials",
+    component: TestimonialsBentoGrid,
+    props: "TestimonialsBentoGridProps",
+    exampleUsage: `
+<TestimonialsBentoGrid
+  title="What Our Clients Say"
+  testimonials={[
+    {
+      id: "1",
+      quote: "This platform transformed our workflow...",
+      author: { name: "Sarah Chen", role: "CEO", avatar: "/avatars/sarah.jpg" },
+      featured: true
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-twitter-cards": {
+    id: "testimonials-twitter-cards",
+    name: "Testimonials Twitter/X Style Cards",
+    description:
+      "Twitter/X-style testimonial cards displayed in a responsive grid. Each card mimics the social media post format with author avatar, name, handle, quote content, and a link to the original tweet. Perfect for showcasing social media mentions and building credibility through real social proof.",
+    semanticTags: [
+      "testimonials",
+      "twitter",
+      "social-media",
+      "cards",
+      "grid",
+      "social-proof",
+      "tweets",
+      "mentions",
+    ],
+    category: "testimonials",
+    component: TestimonialsTwitterCards,
+    props: "TestimonialsTwitterCardsProps",
+    exampleUsage: `
+<TestimonialsTwitterCards
+  title="What People Are Saying"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Just tried @company and it's amazing!",
+      author: { name: "John Doe", handle: "@johndoe", avatar: "/avatars/john.jpg" },
+      twitterUrl: "https://twitter.com/johndoe/status/123"
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-carousel-image": {
+    id: "testimonials-carousel-image",
+    name: "Testimonials Full-Width Image Carousel",
+    description:
+      "A full-width testimonial carousel with background images and navigation controls. Each slide features a large background image with gradient overlay, quote text, and author information. Includes previous/next buttons and dot indicators for manual navigation. Ideal for hero sections or impactful testimonial displays.",
+    semanticTags: [
+      "testimonials",
+      "carousel",
+      "slider",
+      "images",
+      "full-width",
+      "hero",
+      "navigation",
+      "background-image",
+    ],
+    category: "testimonials",
+    component: TestimonialsCarouselImage,
+    props: "TestimonialsCarouselImageProps",
+    exampleUsage: `
+<TestimonialsCarouselImage
+  testimonials={[
+    {
+      id: "1",
+      quote: "Working with this team was incredible...",
+      author: { name: "Sarah Chen", role: "CEO", company: "TechCorp" },
+      backgroundImage: "/testimonial-bg-1.jpg"
+    }
+  ]}
+  autoPlayInterval={5000}
+/>`.trim(),
+  },
+  "testimonials-centered-avatars": {
+    id: "testimonials-centered-avatars",
+    name: "Testimonials Centered with Avatar Stack",
+    description:
+      "A centered testimonial section featuring an overlapping avatar stack at the top, creating a community feel. Displays a rotating testimonial with quote, author name, role, and navigation dots. The stacked avatars create visual interest and suggest multiple satisfied customers. Perfect for SaaS landing pages.",
+    semanticTags: [
+      "testimonials",
+      "centered",
+      "avatars",
+      "stack",
+      "community",
+      "social-proof",
+      "minimal",
+      "rotating",
+    ],
+    category: "testimonials",
+    component: TestimonialsCenteredAvatars,
+    props: "TestimonialsCenteredAvatarsProps",
+    exampleUsage: `
+<TestimonialsCenteredAvatars
+  badge="Testimonials"
+  title="Loved by thousands"
+  testimonials={[
+    {
+      id: "1",
+      quote: "The best tool we've ever used...",
+      author: { name: "Sarah Chen", role: "Product Manager", avatar: "/avatars/sarah.jpg" }
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-company-logo": {
+    id: "testimonials-company-logo",
+    name: "Testimonials with Company Logo",
+    description:
+      "A single testimonial section featuring the company logo prominently, along with a large quote, author photo, and attribution. The layout emphasizes the company endorsement with logo placement and professional styling. Ideal for B2B landing pages and enterprise social proof.",
+    semanticTags: [
+      "testimonials",
+      "company",
+      "logo",
+      "enterprise",
+      "b2b",
+      "single",
+      "featured",
+      "corporate",
+    ],
+    category: "testimonials",
+    component: TestimonialsCompanyLogo,
+    props: "TestimonialsCompanyLogoProps",
+    exampleUsage: `
+<TestimonialsCompanyLogo
+  testimonial={{
+    quote: "This solution transformed our operations...",
+    author: { name: "John Smith", role: "CTO", avatar: "/avatars/john.jpg" },
+    companyLogo: "/logos/company.svg",
+    image: "/testimonial-image.jpg"
+  }}
+/>`.trim(),
+  },
+  "testimonials-grid-add-review": {
+    id: "testimonials-grid-add-review",
+    name: "Testimonials Grid with Add Review Card",
+    description:
+      "A testimonial grid featuring customer reviews alongside an 'Add Review' card with dashed border and plus icon. Each review card displays star ratings, quote, and author info. The add review card encourages user engagement. Perfect for product pages and community-driven platforms.",
+    semanticTags: [
+      "testimonials",
+      "grid",
+      "add-review",
+      "interactive",
+      "ratings",
+      "stars",
+      "user-generated",
+      "engagement",
+    ],
+    category: "testimonials",
+    component: TestimonialsGridAddReview,
+    props: "TestimonialsGridAddReviewProps",
+    exampleUsage: `
+<TestimonialsGridAddReview
+  title="Customer Reviews"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Excellent product!",
+      rating: 5,
+      author: { name: "Sarah M.", avatar: "/avatars/sarah.jpg" }
+    }
+  ]}
+  onAddReview={() => console.log("Add review")}
+/>`.trim(),
+  },
+  "testimonials-marquee": {
+    id: "testimonials-marquee",
+    name: "Testimonials Auto-Scrolling Marquee",
+    description:
+      "An auto-scrolling horizontal marquee of testimonial cards that creates continuous movement. Cards display quotes with author avatars and info. Configurable speed (slow/normal/fast) and pause-on-hover functionality. Creates dynamic visual interest and showcases many testimonials in limited space.",
+    semanticTags: [
+      "testimonials",
+      "marquee",
+      "scrolling",
+      "animation",
+      "horizontal",
+      "continuous",
+      "dynamic",
+      "cards",
+    ],
+    category: "testimonials",
+    component: TestimonialsMarquee,
+    props: "TestimonialsMarqueeProps",
+    exampleUsage: `
+<TestimonialsMarquee
+  title="What People Say"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Amazing experience!",
+      author: { name: "John D.", role: "CEO", avatar: "/avatars/john.jpg" }
+    }
+  ]}
+  speed="normal"
+  pauseOnHover={true}
+/>`.trim(),
+  },
+  "testimonials-simple-grid": {
+    id: "testimonials-simple-grid",
+    name: "Testimonials Simple Grid",
+    description:
+      "A clean, straightforward grid of testimonial cards with configurable columns (2, 3, or 4). Each card displays a quote with author avatar, name, and role. The minimal design focuses on content without distractions. Ideal for any page requiring a clean testimonial display.",
+    semanticTags: [
+      "testimonials",
+      "grid",
+      "simple",
+      "clean",
+      "minimal",
+      "cards",
+      "configurable",
+      "responsive",
+    ],
+    category: "testimonials",
+    component: TestimonialsSimpleGrid,
+    props: "TestimonialsSimpleGridProps",
+    exampleUsage: `
+<TestimonialsSimpleGrid
+  title="What Our Clients Say"
+  columns={3}
+  testimonials={[
+    {
+      id: "1",
+      quote: "Great service!",
+      author: { name: "Sarah Chen", role: "Manager", avatar: "/avatars/sarah.jpg" }
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-slider-minimal": {
+    id: "testimonials-slider-minimal",
+    name: "Testimonials Minimal Auto-Rotating Slider",
+    description:
+      "A minimal testimonial slider with smooth fade transitions and auto-rotation. Displays one testimonial at a time with quote, author info, and dot navigation indicators. Configurable auto-play interval. The clean design focuses attention on the testimonial content.",
+    semanticTags: [
+      "testimonials",
+      "slider",
+      "minimal",
+      "auto-rotate",
+      "fade",
+      "transitions",
+      "single",
+      "clean",
+    ],
+    category: "testimonials",
+    component: TestimonialsSliderMinimal,
+    props: "TestimonialsSliderMinimalProps",
+    exampleUsage: `
+<TestimonialsSliderMinimal
+  testimonials={[
+    {
+      id: "1",
+      quote: "Transformed our workflow completely...",
+      author: { name: "John Smith", role: "CTO", avatar: "/avatars/john.jpg" }
+    }
+  ]}
+  autoPlayInterval={4000}
+/>`.trim(),
+  },
+  "testimonials-split-image": {
+    id: "testimonials-split-image",
+    name: "Testimonials Split Layout with Image",
+    description:
+      "A split-screen testimonial layout with a large image on one side and quote content on the other. Configurable image position (left/right). Features decorative quote icon, large typography, and author attribution. Perfect for impactful single testimonial displays on landing pages.",
+    semanticTags: [
+      "testimonials",
+      "split",
+      "image",
+      "two-column",
+      "featured",
+      "large",
+      "hero",
+      "impactful",
+    ],
+    category: "testimonials",
+    component: TestimonialsSplitImage,
+    props: "TestimonialsSplitImageProps",
+    exampleUsage: `
+<TestimonialsSplitImage
+  testimonial={{
+    quote: "This product changed everything for us...",
+    author: { name: "Sarah Chen", role: "CEO", company: "TechCorp" },
+    image: "/testimonial-image.jpg"
+  }}
+  imagePosition="left"
+/>`.trim(),
+  },
+  "testimonials-stats-header": {
+    id: "testimonials-stats-header",
+    name: "Testimonials with Stats Header",
+    description:
+      "A testimonial section with a statistics display header showing key metrics (customers, rating, etc.) above a grid of testimonial cards. The stats create immediate credibility before users read individual testimonials. Ideal for showcasing both quantitative and qualitative social proof.",
+    semanticTags: [
+      "testimonials",
+      "stats",
+      "metrics",
+      "numbers",
+      "header",
+      "grid",
+      "social-proof",
+      "credibility",
+    ],
+    category: "testimonials",
+    component: TestimonialsStatsHeader,
+    props: "TestimonialsStatsHeaderProps",
+    exampleUsage: `
+<TestimonialsStatsHeader
+  title="Trusted by Thousands"
+  stats={[
+    { label: "Happy Customers", value: "10,000+" },
+    { label: "Average Rating", value: "4.9/5" }
+  ]}
+  testimonials={[
+    {
+      id: "1",
+      quote: "Excellent service!",
+      author: { name: "John D.", role: "CEO", avatar: "/avatars/john.jpg" }
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-wall-compact": {
+    id: "testimonials-wall-compact",
+    name: "Testimonials Dense Wall",
+    description:
+      "A dense wall of compact testimonial cards displaying many testimonials in a masonry-like grid. Each card shows a short quote with author avatar, name, and optional badge. The compact format maximizes social proof by showing volume of positive feedback. Ideal for showcasing community support.",
+    semanticTags: [
+      "testimonials",
+      "wall",
+      "compact",
+      "dense",
+      "masonry",
+      "volume",
+      "community",
+      "badges",
+    ],
+    category: "testimonials",
+    component: TestimonialsWallCompact,
+    props: "TestimonialsWallCompactProps",
+    exampleUsage: `
+<TestimonialsWallCompact
+  title="Wall of Love"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Love it!",
+      author: { name: "Sarah M.", avatar: "/avatars/sarah.jpg" },
+      badge: "Verified"
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-mini-dividers": {
+    id: "testimonials-mini-dividers",
+    name: "Testimonials Grid with Dividers",
+    description:
+      "A testimonial grid with subtle dividers separating each card, creating a clean organized layout. Each card displays star ratings, quote, and author info with avatar. The dividers add structure while maintaining a minimal aesthetic. Perfect for professional service pages.",
+    semanticTags: [
+      "testimonials",
+      "grid",
+      "dividers",
+      "organized",
+      "ratings",
+      "stars",
+      "clean",
+      "professional",
+    ],
+    category: "testimonials",
+    component: TestimonialsMiniDividers,
+    props: "TestimonialsMiniDividersProps",
+    exampleUsage: `
+<TestimonialsMiniDividers
+  title="Customer Feedback"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Professional service!",
+      rating: 5,
+      author: { name: "John Smith", role: "Manager", avatar: "/avatars/john.jpg" }
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-logo-cards": {
+    id: "testimonials-logo-cards",
+    name: "Testimonials Cards with Company Logos",
+    description:
+      "Testimonial cards featuring company logos prominently in the header, with the first card spanning multiple columns for a featured effect. Each card displays the company logo, quote, and author info. Ideal for B2B testimonials where company endorsement is key.",
+    semanticTags: [
+      "testimonials",
+      "logos",
+      "company",
+      "b2b",
+      "enterprise",
+      "featured",
+      "cards",
+      "corporate",
+    ],
+    category: "testimonials",
+    component: TestimonialsLogoCards,
+    props: "TestimonialsLogoCardsProps",
+    exampleUsage: `
+<TestimonialsLogoCards
+  title="Trusted by Industry Leaders"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Transformed our operations...",
+      author: { name: "Sarah Chen", role: "CTO", avatar: "/avatars/sarah.jpg" },
+      companyLogo: "/logos/company.svg"
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-quote-carousel": {
+    id: "testimonials-quote-carousel",
+    name: "Testimonials Quote Carousel",
+    description:
+      "A carousel of testimonial quote cards using shadcn's Carousel component with navigation arrows. Each card features a large decorative quote mark, testimonial text, and author info. The carousel format allows browsing multiple testimonials in a compact space.",
+    semanticTags: [
+      "testimonials",
+      "carousel",
+      "quotes",
+      "navigation",
+      "arrows",
+      "cards",
+      "browsable",
+      "compact",
+    ],
+    category: "testimonials",
+    component: TestimonialsQuoteCarousel,
+    props: "TestimonialsQuoteCarouselProps",
+    exampleUsage: `
+<TestimonialsQuoteCarousel
+  title="What Clients Say"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Outstanding results!",
+      author: { name: "John D.", role: "CEO", avatar: "/avatars/john.jpg" }
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-animated-split": {
+    id: "testimonials-animated-split",
+    name: "Testimonials Animated Split Screen",
+    description:
+      "An animated split-screen testimonial section using Framer Motion for smooth transitions. Features a large image on one side with quote and author info on the other. Includes auto-play, navigation buttons, and dot indicators. Creates an engaging, premium testimonial experience.",
+    semanticTags: [
+      "testimonials",
+      "animated",
+      "split",
+      "framer-motion",
+      "transitions",
+      "premium",
+      "interactive",
+      "auto-play",
+    ],
+    category: "testimonials",
+    component: TestimonialsAnimatedSplit,
+    props: "TestimonialsAnimatedSplitProps",
+    exampleUsage: `
+<TestimonialsAnimatedSplit
+  testimonials={[
+    {
+      id: "1",
+      quote: "A game-changer for our team...",
+      author: { name: "Sarah Chen", role: "Director", avatar: "/avatars/sarah.jpg" },
+      image: "/testimonial-1.jpg"
+    }
+  ]}
+  autoPlayInterval={5000}
+/>`.trim(),
+  },
+  "testimonials-scrolling-columns": {
+    id: "testimonials-scrolling-columns",
+    name: "Testimonials Animated Scrolling Columns",
+    description:
+      "An animated testimonial section with staggered card animations powered by Framer Motion. Features large image cards with gradient overlays and quote content positioned at the bottom. Cards animate into view with a staggered effect as they enter the viewport. Ideal for visually rich testimonial sections.",
+    semanticTags: [
+      "testimonials",
+      "animated",
+      "scrolling",
+      "framer-motion",
+      "staggered",
+      "images",
+      "gradient",
+      "viewport",
+    ],
+    category: "testimonials",
+    component: TestimonialsScrollingColumns,
+    props: "TestimonialsScrollingColumnsProps",
+    exampleUsage: `
+<TestimonialsScrollingColumns
+  title="What Our Clients Say"
+  subtitle="Real feedback from real customers"
+  testimonials={[
+    {
+      id: "1",
+      quote: "Amazing experience...",
+      name: "Jane D.",
+      role: "CEO",
+      imageSrc: "/testimonial-1.jpg"
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-minimal-numbered": {
+    id: "testimonials-minimal-numbered",
+    name: "Testimonials Minimal with Large Numbers",
+    description:
+      "A minimal testimonial slider featuring large numbered indicators (01, 02, 03) that transition with the content. Displays one testimonial at a time with smooth fade transitions, author information with avatar, and navigation controls. The oversized numbers create a distinctive visual element.",
+    semanticTags: [
+      "testimonials",
+      "minimal",
+      "numbered",
+      "slider",
+      "large-numbers",
+      "transitions",
+      "navigation",
+      "distinctive",
+    ],
+    category: "testimonials",
+    component: TestimonialsMinimalNumbered,
+    props: "TestimonialsMinimalNumberedProps",
+    exampleUsage: `
+<TestimonialsMinimalNumbered
+  testimonials={[
+    {
+      id: "1",
+      quote: "Transformed our creative process...",
+      author: { name: "Sarah Chen", role: "Design Director", company: "Linear", avatar: "/avatars/sarah.jpg" }
+    }
+  ]}
+  autoPlayInterval={5000}
+/>`.trim(),
+  },
+  "testimonials-parallax-number": {
+    id: "testimonials-parallax-number",
+    name: "Testimonials Parallax Number Effect",
+    description:
+      "A premium testimonial section featuring an oversized animated number with parallax mouse-tracking effect. The large index number responds to mouse movement, creating depth. Includes a vertical progress indicator, company badge, word-by-word quote animation, and smooth navigation controls. Perfect for high-end landing pages.",
+    semanticTags: [
+      "testimonials",
+      "parallax",
+      "animated",
+      "premium",
+      "mouse-tracking",
+      "framer-motion",
+      "interactive",
+      "high-end",
+    ],
+    category: "testimonials",
+    component: TestimonialsParallaxNumber,
+    props: "TestimonialsParallaxNumberProps",
+    exampleUsage: `
+<TestimonialsParallaxNumber
+  testimonials={[
+    {
+      id: "1",
+      quote: "Transformed our entire creative process overnight.",
+      author: "Sarah Chen",
+      role: "Design Director",
+      company: "Linear"
+    }
+  ]}
+  autoPlayInterval={6000}
+/>`.trim(),
+  },
+  "testimonials-masonry-grid": {
+    id: "testimonials-masonry-grid",
+    name: "Testimonials Masonry Grid",
+    description:
+      "A masonry-style grid layout for testimonials with varying card heights based on content length. Cards are distributed across columns creating an organic, Pinterest-like layout. Each card displays a quote with author avatar, name, and role. Ideal for showcasing testimonials of varying lengths.",
+    semanticTags: [
+      "testimonials",
+      "masonry",
+      "grid",
+      "pinterest",
+      "organic",
+      "varying-heights",
+      "cards",
+      "layout",
+    ],
+    category: "testimonials",
+    component: TestimonialsMasonryGrid,
+    props: "TestimonialsMasonryGridProps",
+    exampleUsage: `
+<TestimonialsMasonryGrid
+  title="What People Say"
+  subtitle="Feedback from our community"
+  testimonials={[
+    {
+      id: "1",
+      content: "Amazing product that changed our workflow...",
+      author: { name: "John D.", role: "CEO", avatar: "/avatars/john.jpg" }
+    }
+  ]}
+/>`.trim(),
+  },
+  "testimonials-large-quote": {
+    id: "testimonials-large-quote",
+    name: "Testimonials Large Centered Quote",
+    description:
+      "A centered, single testimonial section featuring an oversized quote with decorative quote icons. The large typography creates visual impact while the centered layout draws focus to the testimonial content. Includes author avatar, name, role, and company. Perfect for hero sections or impactful single testimonials.",
+    semanticTags: [
+      "testimonials",
+      "large",
+      "centered",
+      "quote",
+      "single",
+      "hero",
+      "impactful",
+      "typography",
+    ],
+    category: "testimonials",
+    component: TestimonialsLargeQuote,
+    props: "TestimonialsLargeQuoteProps",
+    exampleUsage: `
+<TestimonialsLargeQuote
+  testimonial={{
+    quote: "This platform has fundamentally changed how we approach our work...",
+    author: { name: "Sarah Chen", role: "CEO", company: "TechVentures Inc.", avatar: "/avatars/sarah.jpg" }
   }}
 />`.trim(),
   },
