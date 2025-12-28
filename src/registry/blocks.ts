@@ -607,6 +607,32 @@ import type { ResourceListNewsUpdatesProps } from "../../components/blocks/resou
 import { ResourceListCourseCards } from "../../components/blocks/resource-list/resource-list-course-cards";
 import type { ResourceListCourseCardsProps } from "../../components/blocks/resource-list/resource-list-course-cards";
 
+// Stats components
+import { StatsSimpleGrid } from "../../components/blocks/stats/stats-simple-grid";
+import type { StatsSimpleGridProps } from "../../components/blocks/stats/stats-simple-grid";
+import { StatsIconCards } from "../../components/blocks/stats/stats-icon-cards";
+import type { StatsIconCardsProps } from "../../components/blocks/stats/stats-icon-cards";
+import { StatsTimelineTabs } from "../../components/blocks/stats/stats-timeline-tabs";
+import type { StatsTimelineTabsProps } from "../../components/blocks/stats/stats-timeline-tabs";
+import { StatsPrimarySecondary } from "../../components/blocks/stats/stats-primary-secondary";
+import type { StatsPrimarySecondaryProps } from "../../components/blocks/stats/stats-primary-secondary";
+import { StatsGrowthTimeline } from "../../components/blocks/stats/stats-growth-timeline";
+import type { StatsGrowthTimelineProps } from "../../components/blocks/stats/stats-growth-timeline";
+import { StatsImpactGrid } from "../../components/blocks/stats/stats-impact-grid";
+import type { StatsImpactGridProps } from "../../components/blocks/stats/stats-impact-grid";
+import { StatsCircularProgress } from "../../components/blocks/stats/stats-circular-progress";
+import type { StatsCircularProgressProps } from "../../components/blocks/stats/stats-circular-progress";
+import { StatsCardGroup } from "../../components/blocks/stats/stats-card-group";
+import type { StatsCardGroupProps } from "../../components/blocks/stats/stats-card-group";
+import { StatsAnimatedCounter } from "../../components/blocks/stats/stats-animated-counter";
+import type { StatsAnimatedCounterProps } from "../../components/blocks/stats/stats-animated-counter";
+import { StatsNumberTicker } from "../../components/blocks/stats/stats-number-ticker";
+import type { StatsNumberTickerProps } from "../../components/blocks/stats/stats-number-ticker";
+import { StatsMilestoneSidebar } from "../../components/blocks/stats/stats-milestone-sidebar";
+import type { StatsMilestoneSidebarProps } from "../../components/blocks/stats/stats-milestone-sidebar";
+import { StatsBarComparison } from "../../components/blocks/stats/stats-bar-comparison";
+import type { StatsBarComparisonProps } from "../../components/blocks/stats/stats-bar-comparison";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -13773,6 +13799,348 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
         url: "#"
       }
     }
+  ]}
+/>`.trim(),
+  },
+  "stats-simple-grid": {
+    id: "stats-simple-grid",
+    name: "Stats Simple Grid",
+    description:
+      "A clean, minimal stats section with a heading, action buttons, and a responsive grid of key metrics. Features a 2x2 grid on mobile that expands to 4 columns on larger screens. Ideal for showcasing company achievements, platform performance, or key business metrics with prominent numerical values.",
+    semanticTags: [
+      "stats",
+      "metrics",
+      "numbers",
+      "achievements",
+      "performance",
+      "grid",
+      "simple",
+      "minimal",
+      "kpi",
+    ],
+    category: "stats",
+    component: StatsSimpleGrid,
+    props: "StatsSimpleGridProps",
+    exampleUsage: `
+<StatsSimpleGrid
+  heading="Platform Performance Insights"
+  stats={[
+    { value: "90%", label: "Customer Satisfaction" },
+    { value: "200+", label: "Enterprise Clients" },
+    { value: "99%", label: "Uptime Guarantee" },
+    { value: "150+", label: "Team Members" },
+  ]}
+  primaryButtonText="Get Started"
+  primaryButtonUrl="/signup"
+/>`.trim(),
+  },
+  "stats-icon-cards": {
+    id: "stats-icon-cards",
+    name: "Stats Icon Cards",
+    description:
+      "A modern stats grid featuring bordered cards with icons, large numerical values, and growth indicators. Each card displays a metric with a circular icon badge, prominent value, and color-coded growth trend. Ideal for dashboards, analytics sections, or showcasing key performance indicators with visual hierarchy.",
+    semanticTags: [
+      "stats",
+      "metrics",
+      "icons",
+      "cards",
+      "growth",
+      "trends",
+      "dashboard",
+      "analytics",
+      "kpi",
+    ],
+    category: "stats",
+    component: StatsIconCards,
+    props: "StatsIconCardsProps",
+    exampleUsage: `
+<StatsIconCards
+  heading="Our Growth in Numbers"
+  description="Key metrics that showcase our impact"
+  stats={[
+    { label: "Active Users", value: "120K+", growth: "18% growth", icon: "lucide/users" },
+    { label: "Revenue", value: "$3.2M", growth: "32% increase", icon: "lucide/dollar-sign" },
+  ]}
+/>`.trim(),
+  },
+  "stats-timeline-tabs": {
+    id: "stats-timeline-tabs",
+    name: "Stats Timeline Tabs",
+    description:
+      "A tabbed stats display showing metrics across different time periods (weekly, monthly, quarterly, yearly). Features a badge header, centered tab navigation, and a responsive grid of stat cards with color-coded trend indicators. Each stat shows the value, percentage change, and comparison period. Ideal for analytics dashboards, performance reports, or any time-series data visualization.",
+    semanticTags: [
+      "stats",
+      "metrics",
+      "tabs",
+      "timeline",
+      "periods",
+      "trends",
+      "analytics",
+      "dashboard",
+      "time-series",
+    ],
+    category: "stats",
+    component: StatsTimelineTabs,
+    props: "StatsTimelineTabsProps",
+    exampleUsage: `
+<StatsTimelineTabs
+  badge="Performance Timeline"
+  heading="Growth Progression"
+  description="Track our key metrics over different time periods"
+  defaultPeriod="monthly"
+/>`.trim(),
+  },
+  "stats-primary-secondary": {
+    id: "stats-primary-secondary",
+    name: "Stats Primary Secondary",
+    description:
+      "A two-column stats layout featuring one prominent primary metric with a badge indicator, alongside a row of secondary supporting stats. The primary stat is emphasized with large typography and a verification badge, while secondary stats are displayed in a clean grid with a vertical divider. Ideal for highlighting a key achievement with supporting metrics.",
+    semanticTags: [
+      "stats",
+      "metrics",
+      "primary",
+      "secondary",
+      "highlight",
+      "achievement",
+      "badge",
+      "two-column",
+    ],
+    category: "stats",
+    component: StatsPrimarySecondary,
+    props: "StatsPrimarySecondaryProps",
+    exampleUsage: `
+<StatsPrimarySecondary
+  primaryValue="92%"
+  primaryBadge="+7% this month"
+  primaryDescription="of U.S. adults have bought from businesses using our platform"
+  secondaryStats={[
+    { value: "99.95%", label: "in fulfilling orders" },
+    { value: "2,000+", label: "partner with us" },
+  ]}
+/>`.trim(),
+  },
+  "stats-growth-timeline": {
+    id: "stats-growth-timeline",
+    name: "Stats Growth Timeline",
+    description:
+      "A vertical timeline showcasing company milestones and growth journey. Features alternating left/right content placement, year badges, milestone cards with icons and metrics, a 'Where We Are Today' summary section, and a future roadmap CTA. Ideal for about pages, investor presentations, or company history sections.",
+    semanticTags: [
+      "stats",
+      "timeline",
+      "milestones",
+      "growth",
+      "history",
+      "journey",
+      "company",
+      "about",
+      "achievements",
+    ],
+    category: "stats",
+    component: StatsGrowthTimeline,
+    props: "StatsGrowthTimelineProps",
+    exampleUsage: `
+<StatsGrowthTimeline
+  badge="Our Journey"
+  heading="Growing From Startup to Industry Leader"
+  milestones={[
+    { id: "launch", year: "2018", title: "Company Founded", description: "Started with a small team", metric: { value: "5", label: "Team Members" }, icon: "lucide/calendar-days" },
+  ]}
+/>`.trim(),
+  },
+  "stats-impact-grid": {
+    id: "stats-impact-grid",
+    name: "Stats Impact Grid",
+    description:
+      "A comprehensive stats section featuring a grid of impact metrics with icons, an industry comparison bar chart, and a call-to-action. Each stat card displays an icon, large value with prefix/suffix, label, and description. Includes a visual comparison between industry average and platform performance. Ideal for showcasing ROI, business impact, or platform benefits with social proof.",
+    semanticTags: [
+      "stats",
+      "impact",
+      "roi",
+      "comparison",
+      "metrics",
+      "icons",
+      "cards",
+      "cta",
+      "benefits",
+    ],
+    category: "stats",
+    component: StatsImpactGrid,
+    props: "StatsImpactGridProps",
+    exampleUsage: `
+<StatsImpactGrid
+  badge="Proven Results"
+  heading="Transforming Businesses With Real Numbers"
+  stats={[
+    { id: "roi", value: "437", suffix: "%", label: "Average ROI", description: "Return on investment", icon: "lucide/line-chart" },
+  ]}
+/>`.trim(),
+  },
+  "stats-circular-progress": {
+    id: "stats-circular-progress",
+    name: "Stats Circular Progress",
+    description:
+      "A tabbed stats display featuring circular progress indicators organized by category (Business, Technical, Customer). Each stat shows a visual circular progress ring with the value centered inside, along with a label and additional info. Includes both desktop tabs and mobile dropdown for category selection. Ideal for KPI dashboards, performance reports, or multi-dimensional metrics visualization.",
+    semanticTags: [
+      "stats",
+      "circular",
+      "progress",
+      "tabs",
+      "categories",
+      "kpi",
+      "dashboard",
+      "visualization",
+    ],
+    category: "stats",
+    component: StatsCircularProgress,
+    props: "StatsCircularProgressProps",
+    exampleUsage: `
+<StatsCircularProgress
+  badge="Performance"
+  heading="Key Performance Indicators"
+  categories={[
+    { id: "business", name: "Business", stats: [{ label: "Revenue Growth", value: 84, suffix: "%", info: "Year over year" }] },
+  ]}
+/>`.trim(),
+  },
+  "stats-card-group": {
+    id: "stats-card-group",
+    name: "Stats Card Group",
+    description:
+      "A compact stats display featuring three metrics in a bordered card with icons and optional avatar stacks. Each stat shows an icon, large value, and label. The first stat can include a stacked avatar group to represent users or customers. Ideal for social proof sections, trust indicators, or compact dashboard summaries.",
+    semanticTags: [
+      "stats",
+      "cards",
+      "icons",
+      "avatars",
+      "social-proof",
+      "trust",
+      "compact",
+      "group",
+    ],
+    category: "stats",
+    component: StatsCardGroup,
+    props: "StatsCardGroupProps",
+    exampleUsage: `
+<StatsCardGroup
+  stats={[
+    { icon: "lucide/users", value: "2,000+", label: "Happy Customers", showAvatars: true },
+    { icon: "lucide/star", value: "4.9/5", label: "Average Rating" },
+  ]}
+/>`.trim(),
+  },
+  "stats-animated-counter": {
+    id: "stats-animated-counter",
+    name: "Stats Animated Counter",
+    description:
+      "A stats section featuring animated number counters that trigger when scrolled into view. Each stat displays an optional icon, animated value with prefix/suffix, and label. Uses intersection observer to start the animation only when visible. Ideal for impact sections, achievements, or any metrics that benefit from engaging number animations.",
+    semanticTags: [
+      "stats",
+      "animated",
+      "counter",
+      "numbers",
+      "scroll",
+      "intersection",
+      "impact",
+      "achievements",
+    ],
+    category: "stats",
+    component: StatsAnimatedCounter,
+    props: "StatsAnimatedCounterProps",
+    exampleUsage: `
+<StatsAnimatedCounter
+  heading="Our Impact in Numbers"
+  stats={[
+    { value: 500, suffix: "+", label: "Projects Completed", icon: "lucide/folder-check" },
+    { value: 98, suffix: "%", label: "Client Satisfaction", icon: "lucide/heart" },
+  ]}
+  animationDuration={2000}
+/>`.trim(),
+  },
+  "stats-number-ticker": {
+    id: "stats-number-ticker",
+    name: "Stats Number Ticker",
+    description:
+      "A stats section featuring smooth number ticker animations that count up when scrolled into view. Each stat card displays an animated value with optional prefix/suffix, label, and description. Uses exponential easing for a polished counting effect. Supports both integer and decimal values. Ideal for landing pages, dashboards, or any section showcasing impressive metrics.",
+    semanticTags: [
+      "stats",
+      "ticker",
+      "animated",
+      "numbers",
+      "scroll",
+      "cards",
+      "metrics",
+      "landing-page",
+    ],
+    category: "stats",
+    component: StatsNumberTicker,
+    props: "StatsNumberTickerProps",
+    exampleUsage: `
+<StatsNumberTicker
+  badge="By The Numbers"
+  heading="Platform Statistics"
+  stats={[
+    { value: 10000, suffix: "+", label: "Active Users", description: "Growing community" },
+    { value: 99.9, suffix: "%", label: "Uptime", description: "Enterprise-grade reliability" },
+  ]}
+/>`.trim(),
+  },
+  "stats-milestone-sidebar": {
+    id: "stats-milestone-sidebar",
+    name: "Stats Milestone Sidebar",
+    description:
+      "A two-column layout featuring a sticky sidebar with heading and description, alongside a scrollable list of company milestones. Each milestone displays a year badge, title, and description. The sidebar remains fixed while users scroll through the timeline. Ideal for company history pages, about sections, or investor presentations.",
+    semanticTags: [
+      "stats",
+      "milestones",
+      "timeline",
+      "sidebar",
+      "sticky",
+      "history",
+      "company",
+      "about",
+    ],
+    category: "stats",
+    component: StatsMilestoneSidebar,
+    props: "StatsMilestoneSidebarProps",
+    exampleUsage: `
+<StatsMilestoneSidebar
+  heading="Our Journey"
+  description="Key moments that shaped who we are today"
+  milestones={[
+    { year: "2018", title: "Company Founded", description: "Started with a vision to transform how businesses operate online." },
+  ]}
+/>`.trim(),
+  },
+  "stats-bar-comparison": {
+    id: "stats-bar-comparison",
+    name: "Stats Bar Comparison",
+    description:
+      "A visual comparison section featuring animated horizontal bar charts that compare platform metrics against industry averages. Each group displays a title and two bars with labels and values. Bars animate from 0 to their target width when scrolled into view. Ideal for competitive analysis, benchmark comparisons, or showcasing platform advantages.",
+    semanticTags: [
+      "stats",
+      "comparison",
+      "bars",
+      "charts",
+      "animated",
+      "benchmark",
+      "competitive",
+      "industry",
+    ],
+    category: "stats",
+    component: StatsBarComparison,
+    props: "StatsBarComparisonProps",
+    exampleUsage: `
+<StatsBarComparison
+  badge="Competitive Edge"
+  heading="How We Compare"
+  comparisons={[
+    {
+      title: "Revenue Growth",
+      bars: [
+        { label: "Our Platform", value: 89, displayValue: "$2.4M", color: "bg-primary" },
+        { label: "Industry Average", value: 34, displayValue: "$920K" },
+      ],
+    },
   ]}
 />`.trim(),
   },
