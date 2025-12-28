@@ -117,8 +117,10 @@ describe("OfferModalSheetNewsletter", () => {
     // Click submit button
     await user.click(submitButton);
 
-    const errorMessage = await screen.findByRole("alert", { name: /please enter an email address/i }, { timeout: 3000 });
+    // Find error by class name since the component renders a plain div
+    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
     expect(errorMessage).toBeInTheDocument();
+    expect(errorMessage).toHaveClass("text-destructive");
   });
 
   it("shows error for invalid email format", async () => {
@@ -135,8 +137,10 @@ describe("OfferModalSheetNewsletter", () => {
     // Click submit button
     await user.click(submitButton);
 
-    const errorMessage = await screen.findByRole("alert", { name: /please enter a valid email address/i }, { timeout: 3000 });
+    // Find error by class name since the component renders a plain div
+    const errorMessage = await screen.findByText("Please enter a valid email address", {}, { timeout: 3000 });
     expect(errorMessage).toBeInTheDocument();
+    expect(errorMessage).toHaveClass("text-destructive");
   });
 
   it("clears error when user types", async () => {
@@ -152,8 +156,9 @@ describe("OfferModalSheetNewsletter", () => {
     await user.click(submitButton);
 
     // Wait for error to appear
-    const errorMessage = await screen.findByRole("alert", { name: /please enter an email address/i }, { timeout: 3000 });
+    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
     expect(errorMessage).toBeInTheDocument();
+    expect(errorMessage).toHaveClass("text-destructive");
 
     // Click input and type to clear the error
     await user.click(input);
@@ -161,7 +166,9 @@ describe("OfferModalSheetNewsletter", () => {
 
     // Wait for error to disappear
     await waitFor(() => {
-      expect(screen.queryByRole("alert", { name: /please enter an email address/i })).not.toBeInTheDocument();
+      const errors = screen.queryAllByText("Please enter an email address");
+      const componentError = errors.find(el => el.classList.contains("text-destructive"));
+      expect(componentError).toBeUndefined();
     }, { timeout: 3000 });
   });
 

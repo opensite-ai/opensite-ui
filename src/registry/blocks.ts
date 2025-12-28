@@ -663,6 +663,18 @@ import type { TimelineProductLaunchProps } from "../../components/blocks/timelin
 import { TimelineScrollHighlight } from "../../components/blocks/timeline/timeline-scroll-highlight";
 import type { TimelineScrollHighlightProps } from "../../components/blocks/timeline/timeline-scroll-highlight";
 
+// Link Page components
+import { LinkTreeBlock } from "../../components/blocks/link-page/link-tree-block";
+import type { LinkTreeBlockProps } from "../../components/blocks/link-page/link-tree-block";
+import { LinkPageMinimalProfile } from "../../components/blocks/link-page/link-page-minimal-profile";
+import type { LinkPageMinimalProfileProps } from "../../components/blocks/link-page/link-page-minimal-profile";
+import { LinkPageNewsletterSocial } from "../../components/blocks/link-page/link-page-newsletter-social";
+import type { LinkPageNewsletterSocialProps } from "../../components/blocks/link-page/link-page-newsletter-social";
+import { LinkPageGridCards } from "../../components/blocks/link-page/link-page-grid-cards";
+import type { LinkPageGridCardsProps } from "../../components/blocks/link-page/link-page-grid-cards";
+import { LinkPageBentoLayout } from "../../components/blocks/link-page/link-page-bento-layout";
+import type { LinkPageBentoLayoutProps } from "../../components/blocks/link-page/link-page-bento-layout";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -705,11 +717,12 @@ export type BlockCategory =
   | "list"
   | "offer-modal"
   | "banner"
-  | "industries"
-    | "resource-detail"
-    | "service-detail"
-    | "services-list"
-    | "resource-list";
+    | "industries"
+      | "resource-detail"
+      | "service-detail"
+      | "services-list"
+      | "resource-list"
+      | "link-page";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -14548,6 +14561,173 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   items={[
     { date: "2018", title: "Company Foundation", description: "We started our journey.", image: "/images/2018.jpg" },
     { date: "2020", title: "First Product Launch", description: "Released our flagship product.", image: "/images/2020.jpg" },
+  ]}
+/>`.trim(),
+  },
+  // Link Page components
+  "link-tree-block": {
+    id: "link-tree-block",
+    name: "Link Tree Block",
+    description:
+      "A customizable link-in-bio style page component with three theme variations (light, dark, glass). Features brand header with avatar and verified badge, customizable link list with icons, descriptions, badges and featured states, media gallery for images and videos, social media links, and background pattern customization. Ideal for creators, influencers, and businesses needing a comprehensive link page.",
+    semanticTags: [
+      "link-page",
+      "link-tree",
+      "bio-link",
+      "linktree",
+      "profile",
+      "creator",
+      "influencer",
+      "social",
+      "media-gallery",
+      "links",
+    ],
+    category: "link-page",
+    component: LinkTreeBlock,
+    props: "LinkTreeBlockProps",
+    exampleUsage: `
+<LinkTreeBlock
+  brandName="Sarah Chen"
+  brandTagline="Digital creator & photographer"
+  theme="dark"
+  backgroundPattern={patternSvgs.dots}
+  links={[
+    { id: "1", label: "My Website", href: "https://example.com", icon: "lucide/globe", featured: true }
+  ]}
+  socialLinks={[
+    { id: "s1", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" }
+  ]}
+/>`.trim(),
+  },
+  "link-page-minimal-profile": {
+    id: "link-page-minimal-profile",
+    name: "Link Page Minimal Profile",
+    description:
+      "A clean, minimal link page focused on simplicity. Features a streamlined avatar and name display, optional bio text, simple link list with subtle hover effects, and social icons at the bottom. Supports light and dark themes. Ideal for professionals, developers, and anyone who prefers a minimalist aesthetic for their link page.",
+    semanticTags: [
+      "link-page",
+      "minimal",
+      "profile",
+      "simple",
+      "clean",
+      "professional",
+      "developer",
+      "portfolio",
+      "links",
+    ],
+    category: "link-page",
+    component: LinkPageMinimalProfile,
+    props: "LinkPageMinimalProfileProps",
+    exampleUsage: `
+<LinkPageMinimalProfile
+  name="Alex Johnson"
+  bio="Software Engineer & Open Source Contributor"
+  avatarUrl="/avatar.jpg"
+  theme="light"
+  links={[
+    { id: "1", label: "Portfolio", href: "https://example.com", icon: "lucide/briefcase" }
+  ]}
+  socialLinks={[
+    { id: "s1", platform: "GitHub", href: "https://github.com", icon: "simple-icons/github" }
+  ]}
+/>`.trim(),
+  },
+  "link-page-newsletter-social": {
+    id: "link-page-newsletter-social",
+    name: "Link Page Newsletter Social",
+    description:
+      "A link page with integrated newsletter signup form. Features profile section with avatar, newsletter signup form with email validation and @page-speed/forms integration, social media links, and additional links section. Supports universal REST API integration, custom submission handlers, and DashTrack Rails backend. Ideal for content creators, bloggers, and marketers who want to grow their email list.",
+    semanticTags: [
+      "link-page",
+      "newsletter",
+      "email",
+      "subscribe",
+      "form",
+      "social",
+      "creator",
+      "marketing",
+      "lead-generation",
+      "links",
+    ],
+    category: "link-page",
+    component: LinkPageNewsletterSocial,
+    props: "LinkPageNewsletterSocialProps",
+    exampleUsage: `
+<LinkPageNewsletterSocial
+  name="Content Creator"
+  bio="Weekly tips on growing your audience"
+  newsletterHeading="Join my newsletter"
+  formConfig={{ endpoint: "/api/subscribe" }}
+  onSuccess={() => console.log("Subscribed!")}
+  links={[
+    { id: "1", label: "My Website", href: "https://example.com", icon: "lucide/globe" }
+  ]}
+/>`.trim(),
+  },
+  "link-page-grid-cards": {
+    id: "link-page-grid-cards",
+    name: "Link Page Grid Cards",
+    description:
+      "A visually rich link page displaying links as a responsive grid of cards. Features profile header with avatar, links as cards with icons, labels and optional descriptions, hover effects with scale and shadow transitions, configurable 2 or 3 column layout, and social media links. Ideal for creators, businesses, and anyone who wants a more visual link page.",
+    semanticTags: [
+      "link-page",
+      "grid",
+      "cards",
+      "visual",
+      "creative",
+      "business",
+      "portfolio",
+      "showcase",
+      "links",
+    ],
+    category: "link-page",
+    component: LinkPageGridCards,
+    props: "LinkPageGridCardsProps",
+    exampleUsage: `
+<LinkPageGridCards
+  name="Creative Studio"
+  bio="Design, Development & Strategy"
+  columns={3}
+  theme="light"
+  links={[
+    { id: "1", label: "Portfolio", href: "/work", icon: "lucide/briefcase", description: "View our work" }
+  ]}
+  socialLinks={[
+    { id: "s1", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" }
+  ]}
+/>`.trim(),
+  },
+  "link-page-bento-layout": {
+    id: "link-page-bento-layout",
+    name: "Link Page Bento Layout",
+    description:
+      "A modern bento grid style link page with visual hierarchy. Features profile header with avatar, bento grid layout with featured links in larger cells with optional background images, regular links in smaller cells, and social media links. Creates visual hierarchy by making featured links more prominent. Ideal for digital creators, entrepreneurs, and anyone wanting a trendy, modern link page design.",
+    semanticTags: [
+      "link-page",
+      "bento",
+      "grid",
+      "modern",
+      "trendy",
+      "visual",
+      "featured",
+      "creator",
+      "entrepreneur",
+      "links",
+    ],
+    category: "link-page",
+    component: LinkPageBentoLayout,
+    props: "LinkPageBentoLayoutProps",
+    exampleUsage: `
+<LinkPageBentoLayout
+  name="Digital Creator"
+  bio="Content creator & entrepreneur"
+  theme="dark"
+  links={[
+    { id: "1", label: "Latest Video", href: "https://youtube.com", icon: "simple-icons/youtube", featured: true, imageUrl: "/thumbnail.jpg" },
+    { id: "2", label: "Blog", href: "/blog", icon: "lucide/pen-line" }
+  ]}
+  socialLinks={[
+    { id: "s1", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" }
   ]}
 />`.trim(),
   },
