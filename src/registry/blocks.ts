@@ -482,6 +482,16 @@ import { BannerGdprRights } from "../../components/blocks/banner/banner-gdpr-rig
 import { BannerEventPromo } from "../../components/blocks/banner/banner-event-promo";
 import { BannerFloatingOffer } from "../../components/blocks/banner/banner-floating-offer";
 
+// Industries components
+import { IndustriesHoverRevealGrid } from "../../components/blocks/industries/industries-hover-reveal-grid";
+import type { IndustriesHoverRevealGridProps } from "../../components/blocks/industries/industries-hover-reveal-grid";
+import { IndustriesBadgeListBordered } from "../../components/blocks/industries/industries-badge-list-bordered";
+import type { IndustriesBadgeListBorderedProps } from "../../components/blocks/industries/industries-badge-list-bordered";
+import { IndustriesTimelineTable } from "../../components/blocks/industries/industries-timeline-table";
+import type { IndustriesTimelineTableProps } from "../../components/blocks/industries/industries-timeline-table";
+import { IndustriesExpandableShowcase } from "../../components/blocks/industries/industries-expandable-showcase";
+import type { IndustriesExpandableShowcaseProps } from "../../components/blocks/industries/industries-expandable-showcase";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -523,7 +533,8 @@ export type BlockCategory =
   | "project-detail"
   | "list"
   | "offer-modal"
-  | "banner";
+  | "banner"
+  | "industries";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -11270,6 +11281,176 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   buttonLink="/pricing"
   dismissible={true}
   onDismiss={() => console.log('Dismissed')}
+/>`.trim(),
+  },
+
+  // Industries blocks
+  "industries-hover-reveal-grid": {
+    id: "industries-hover-reveal-grid",
+    name: "Industries Hover Reveal Grid",
+    description:
+      "A responsive grid of industry cards with animated hover effects. Features image overlays that reveal descriptions on hover, plus button rotation animations, and smooth transitions. Displays 1 column on mobile, 2 on tablet, and 4 on desktop. Ideal for showcasing industry verticals, service categories, or portfolio sectors with engaging visual interactions.",
+    semanticTags: [
+      "industries",
+      "sectors",
+      "verticals",
+      "categories",
+      "services",
+      "portfolio",
+      "grid",
+      "hover",
+      "animation",
+      "cards",
+      "showcase",
+    ],
+    category: "industries",
+    component: IndustriesHoverRevealGrid,
+    props: "IndustriesHoverRevealGridProps",
+    exampleUsage: `<IndustriesHoverRevealGrid
+  title="Industries We Serve"
+  industryLabel="Industry"
+  industries={[
+    {
+      name: "Healthcare",
+      description: "Digital solutions for modern healthcare providers",
+      image: "/healthcare.jpg",
+      imageAlt: "Healthcare industry",
+      url: "/industries/healthcare"
+    },
+    {
+      name: "Finance",
+      description: "Secure fintech applications and banking solutions",
+      image: "/finance.jpg",
+      imageAlt: "Finance industry",
+      url: "/industries/finance"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "industries-badge-list-bordered": {
+    id: "industries-badge-list-bordered",
+    name: "Industries Badge List Bordered",
+    description:
+      "A professional industries listing with badge header and bordered row layout. Each row displays an image, title, and description in a clean grid format. Features responsive reordering on mobile with images appearing first. Perfect for service offerings, industry expertise listings, or capability showcases with a structured, scannable design.",
+    semanticTags: [
+      "industries",
+      "services",
+      "capabilities",
+      "expertise",
+      "list",
+      "badge",
+      "bordered",
+      "professional",
+      "structured",
+    ],
+    category: "industries",
+    component: IndustriesBadgeListBordered,
+    props: "IndustriesBadgeListBorderedProps",
+    exampleUsage: `<IndustriesBadgeListBordered
+  badge="Our Expertise"
+  heading="Industries We Specialize In"
+  services={[
+    {
+      title: "E-Commerce",
+      description: "End-to-end e-commerce solutions from storefront to fulfillment",
+      imageSrc: "/ecommerce.jpg",
+      imageAlt: "E-commerce solutions"
+    },
+    {
+      title: "SaaS Platforms",
+      description: "Scalable software-as-a-service application development",
+      imageSrc: "/saas.jpg",
+      imageAlt: "SaaS development"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "industries-timeline-table": {
+    id: "industries-timeline-table",
+    name: "Industries Timeline Table",
+    description:
+      "A timeline-style table layout displaying industry projects with year, name, description, and background image reveals on hover. Features column headers, hover-triggered background images, and arrow link indicators. Ideal for project portfolios, case study listings, company history, or industry experience timelines with an elegant tabular presentation.",
+    semanticTags: [
+      "industries",
+      "timeline",
+      "table",
+      "projects",
+      "portfolio",
+      "case-studies",
+      "history",
+      "experience",
+      "hover",
+      "background-image",
+    ],
+    category: "industries",
+    component: IndustriesTimelineTable,
+    props: "IndustriesTimelineTableProps",
+    exampleUsage: `<IndustriesTimelineTable
+  labels={["Year", "Project", "Description"]}
+  projects={[
+    {
+      year: "2024",
+      name: "FinTech Platform",
+      description: "Complete digital banking transformation",
+      imageSrc: "/fintech-project.jpg",
+      imageAlt: "FinTech project",
+      url: "/projects/fintech"
+    },
+    {
+      year: "2023",
+      name: "Healthcare Portal",
+      description: "Patient management system redesign",
+      imageSrc: "/healthcare-project.jpg",
+      imageAlt: "Healthcare project",
+      url: "/projects/healthcare"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "industries-expandable-showcase": {
+    id: "industries-expandable-showcase",
+    name: "Industries Expandable Showcase",
+    description:
+      "An interactive expandable showcase for industry categories with accordion-style panels on desktop. Hovering expands a panel to reveal its image and details with smooth animations. On mobile, displays stacked cards with images. Each panel shows category name, title description, and learn more link. Perfect for renewable energy, service verticals, or portfolio categories with engaging hover interactions.",
+    semanticTags: [
+      "industries",
+      "expandable",
+      "accordion",
+      "showcase",
+      "categories",
+      "interactive",
+      "hover",
+      "animation",
+      "panels",
+      "renewable",
+      "energy",
+    ],
+    category: "industries",
+    component: IndustriesExpandableShowcase,
+    props: "IndustriesExpandableShowcaseProps",
+    exampleUsage: `<IndustriesExpandableShowcase
+  heading="Powering Renewable Industries"
+  contractors={[
+    {
+      id: "solar",
+      category: "Solar",
+      title: "Scaling Solar Infrastructure with Advanced Grid Integration",
+      imageSrc: "/solar.jpg",
+      imageAlt: "Solar power generation",
+      learnMoreUrl: "/industries/solar"
+    },
+    {
+      id: "wind",
+      category: "Wind",
+      title: "Maximizing Wind Farm Efficiency with AI Optimization",
+      imageSrc: "/wind.jpg",
+      imageAlt: "Wind power generation",
+      learnMoreUrl: "/industries/wind"
+    }
+  ]}
 />`.trim(),
   },
 };
