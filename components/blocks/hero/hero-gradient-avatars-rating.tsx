@@ -7,121 +7,323 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
 
-export interface HeroGradientAvatarsRatingProps {
-  className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+export interface AvatarItem {
+  /**
+   * Avatar image source URL
+   */
+  src: string;
+  /**
+   * Alt text for the avatar
+   */
+  alt: string;
 }
 
+export interface HeroGradientAvatarsRatingProps {
+  /**
+   * Top link text
+   */
+  topLinkText?: React.ReactNode;
+  /**
+   * Top link href
+   */
+  topLinkHref?: string;
+  /**
+   * Custom slot for top link (overrides topLink props)
+   */
+  topLinkSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Heading subtitle (muted text)
+   */
+  headingSubtitle?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Array of avatar items for social proof
+   */
+  avatars?: AvatarItem[];
+  /**
+   * Custom slot for avatars (overrides avatars array)
+   */
+  avatarsSlot?: React.ReactNode;
+  /**
+   * Rating value (e.g., "5.0")
+   */
+  ratingValue?: string;
+  /**
+   * Rating label (e.g., "1000+ happy developers")
+   */
+  ratingLabel?: React.ReactNode;
+  /**
+   * Number of stars to display
+   */
+  starCount?: number;
+  /**
+   * Array of showcase images (expects 2 images)
+   */
+  images?: ImageItem[];
+  /**
+   * Custom slot for images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content column
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the images container
+   */
+  imagesClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+}
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Browse Components",
+    href: "#",
+    variant: "default",
+    size: "lg",
+    className: "w-full sm:w-auto",
+  },
+  {
+    label: "View Demo",
+    href: "#",
+    variant: "outline",
+    size: "lg",
+    className: "w-full sm:w-auto",
+  },
+];
+
+const defaultAvatars: AvatarItem[] = [
+  { src: imagePlaceholders[35], alt: "Avatar 1" },
+  { src: imagePlaceholders[36], alt: "Avatar 2" },
+  { src: imagePlaceholders[37], alt: "Avatar 3" },
+  { src: imagePlaceholders[38], alt: "Avatar 4" },
+  { src: imagePlaceholders[39], alt: "Avatar 5" },
+];
+
+const defaultImages: ImageItem[] = [
+  { src: imagePlaceholders[40], alt: "UI Components Preview" },
+  { src: imagePlaceholders[41], alt: "Component Examples" },
+];
+
 export function HeroGradientAvatarsRating({
+  topLinkText = "opensiteai.com",
+  topLinkHref = "#",
+  topLinkSlot,
+  heading = "Beautiful UI",
+  headingSubtitle = "Made Simple",
+  description = "Build stunning web applications faster with our premium collection of ready-to-use UI components. Perfect for developers and designers.",
+  actions = defaultActions,
+  actionsSlot,
+  avatars = defaultAvatars,
+  avatarsSlot,
+  ratingValue = "5.0",
+  ratingLabel = "1000+ happy developers",
+  starCount = 5,
+  images = defaultImages,
+  imagesSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  imagesClassName,
   optixFlowConfig,
 }: HeroGradientAvatarsRatingProps): React.JSX.Element {
+  const renderTopLink = () => {
+    if (topLinkSlot) return topLinkSlot;
+
+    return (
+      <Pressable
+        href={topLinkHref}
+        className="my-6 text-xs font-bold tracking-[0.3em] text-muted-foreground uppercase hover:underline"
+      >
+        {topLinkText}
+      </Pressable>
+    );
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    return (
+      <div className={cn("flex w-full flex-col justify-center gap-3 sm:flex-row lg:justify-start", actionsClassName)}>
+        {actions.map((action, index) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderAvatars = () => {
+    if (avatarsSlot) return avatarsSlot;
+    if (!avatars || avatars.length === 0) return null;
+
+    return (
+      <div className="flex -space-x-4">
+        {avatars.map((avatar, index) => (
+          <Avatar
+            key={index}
+            className="size-14 border-2 border-background shadow-sm ring-1 ring-border"
+          >
+            <AvatarImage src={avatar.src} alt={avatar.alt} />
+          </Avatar>
+        ))}
+      </div>
+    );
+  };
+
+  const renderRating = () => {
+    return (
+      <div className="flex flex-col items-center sm:items-start">
+        <div className="flex items-center gap-1">
+          {[...Array(starCount)].map((_, i) => (
+            <DynamicIcon
+              key={i}
+              name="lucide/star"
+              size={20}
+              className="fill-primary"
+            />
+          ))}
+          <span className="font-semibold">{ratingValue}</span>
+        </div>
+        {typeof ratingLabel === "string" ? (
+          <p className="text-sm font-medium text-muted-foreground">{ratingLabel}</p>
+        ) : (
+          ratingLabel
+        )}
+      </div>
+    );
+  };
+
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
+
+    return (
+      <div className={cn("relative grid gap-4 lg:grid-cols-2", imagesClassName)}>
+        {images[0] && (
+          <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted">
+            <Img
+              src={images[0].src}
+              alt={images[0].alt}
+              className={cn("h-full w-full object-cover transition-transform duration-300 hover:scale-105", images[0].className)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        )}
+        {images[1] && (
+          <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted lg:mt-8">
+            <Img
+              src={images[1].src}
+              alt={images[1].alt}
+              className={cn("h-full w-full object-cover transition-transform duration-300 hover:scale-105", images[1].className)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section className={cn("relative overflow-hidden py-32", className)}>
       <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(ellipse_35%_15%_at_40%_55%,hsl(var(--accent))_0%,transparent_100%)] lg:bg-[radial-gradient(ellipse_12%_20%_at_60%_45%,hsl(var(--accent))_0%,transparent_100%)]"></div>
       <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(ellipse_35%_20%_at_70%_75%,hsl(var(--accent))_0%,transparent_80%)] lg:bg-[radial-gradient(ellipse_15%_30%_at_70%_65%,hsl(var(--accent))_0%,transparent_80%)]"></div>
       <div className="pointer-events-none absolute inset-x-0 -top-20 -bottom-20 bg-[radial-gradient(hsl(var(--accent-foreground)/0.1)_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_60%_at_65%_50%,#000_0%,transparent_80%)] bg-size-[8px_8px]"></div>
 
-      <div className="relative z-10 container mx-auto px-4">
+      <div className={cn("relative z-10 container mx-auto px-4", containerClassName)}>
         <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <Pressable
-              href="#"
-              className="my-6 text-xs font-bold tracking-[0.3em] text-muted-foreground uppercase hover:underline"
-            >
-              opensiteai.com
-            </Pressable>
+          <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
+            {renderTopLink()}
 
-            <h1 className="text-4xl font-semibold sm:text-5xl">
-              Beautiful UI
-              <br />
-              <span className="text-muted-foreground">Made Simple</span>
-            </h1>
+            {heading && (
+              <h1 className={cn("text-4xl font-semibold sm:text-5xl", headingClassName)}>
+                {typeof heading === "string" ? heading : heading}
+                {headingSubtitle && (
+                  <>
+                    <br />
+                    <span className="text-muted-foreground">{headingSubtitle}</span>
+                  </>
+                )}
+              </h1>
+            )}
 
-            <p className="my-8 max-w-xl text-muted-foreground lg:text-lg">
-              Build stunning web applications faster with our premium collection
-              of ready-to-use UI components. Perfect for developers and
-              designers.
-            </p>
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("my-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
 
-            <div className="flex w-full flex-col justify-center gap-3 sm:flex-row lg:justify-start">
-              <Pressable
-                href="#"
-                asButton
-                size="lg"
-                variant="default"
-                className="w-full sm:w-auto"
-              >
-                Browse Components
-              </Pressable>
-              <Pressable
-                href="#"
-                asButton
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto"
-              >
-                View Demo
-              </Pressable>
-            </div>
+            {renderActions()}
 
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:items-center">
-              <div className="flex -space-x-4">
-                {[35, 36, 37, 38, 39].map((idx) => (
-                  <Avatar
-                    key={idx}
-                    className="size-14 border-2 border-background shadow-sm ring-1 ring-border"
-                  >
-                    <AvatarImage
-                      src={imagePlaceholders[idx]}
-                      alt={`Avatar ${idx}`}
-                    />
-                  </Avatar>
-                ))}
-              </div>
-
-              <div className="flex flex-col items-center sm:items-start">
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <DynamicIcon
-                      key={i}
-                      name="lucide/star"
-                      size={20}
-                      className="fill-primary"
-                    />
-                  ))}
-                  <span className="font-semibold">5.0</span>
-                </div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  1000+ happy developers
-                </p>
-              </div>
+              {renderAvatars()}
+              {renderRating()}
             </div>
           </div>
 
-          <div className="relative grid gap-4 lg:grid-cols-2">
-            <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted">
-              <Img
-                src={imagePlaceholders[40]}
-                alt="UI Components Preview"
-                className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
-
-            <div className="relative aspect-3/4 w-full overflow-hidden rounded-lg bg-muted lg:mt-8">
-              <Img
-                src={imagePlaceholders[41]}
-                alt="Component Examples"
-                className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
-          </div>
+          {renderImages()}
         </div>
       </div>
     </section>
