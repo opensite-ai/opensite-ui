@@ -124,7 +124,7 @@ export function IndustriesTimelineTable({
           {projects.map((project, index) => (
             <Pressable href={project.url} key={index} className="block">
               <div className="group relative mb-2 flex min-h-[100px] flex-col justify-center md:min-h-0 lg:mb-0">
-                <div className="relative z-[3] grid grid-cols-2 gap-8 transition-all duration-300 md:grid-cols-3 lg:hover:rounded-lg lg:hover:font-medium lg:hover:text-secondary lg:hover:shadow-lg">
+                <div className="relative z-3 grid grid-cols-2 gap-8 transition-all duration-300 md:grid-cols-3 lg:hover:rounded-lg lg:hover:font-medium lg:hover:text-secondary lg:hover:shadow-lg">
                   {/* Year Column */}
                   <div className="order-2 flex items-center md:order-1">
                     <span className="pl-10 text-xs font-medium text-secondary opacity-100 lg:opacity-0 lg:group-hover:opacity-100">
@@ -159,13 +159,13 @@ export function IndustriesTimelineTable({
                 <Img
                   src={project.imageSrc}
                   alt={project.imageAlt}
-                  className="absolute inset-0 z-[1] h-full w-full object-cover opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100"
+                  className="absolute inset-0 z-1 h-full w-full object-cover opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100"
                   loading="lazy"
                   optixFlowConfig={optixFlowConfig}
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 z-[2] bg-black/20 opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100" />
+                <div className="absolute inset-0 z-2 bg-black/20 opacity-100 transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100" />
               </div>
             </Pressable>
           ))}

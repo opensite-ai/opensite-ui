@@ -504,7 +504,7 @@ export function LinkTreeBlock({
         theme === "dark"
           ? "bg-neutral-950"
           : theme === "glass"
-            ? "bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100"
+            ? "bg-linear-to-br from-pink-100 via-purple-50 to-blue-100"
             : "bg-muted/30",
         className,
       )}
