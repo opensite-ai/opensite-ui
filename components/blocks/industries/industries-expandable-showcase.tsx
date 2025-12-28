@@ -7,38 +7,149 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 export interface IndustryContractor {
+  /**
+   * Unique identifier for the contractor
+   */
   id: string;
-  category: string;
-  title: string;
+  /**
+   * Category label (e.g., "Hydro", "Wind", "Solar")
+   */
+  category: React.ReactNode;
+  /**
+   * Title/description for the contractor
+   */
+  title: React.ReactNode;
+  /**
+   * Image source URL
+   */
   imageSrc: string;
+  /**
+   * Alt text for the image
+   */
   imageAlt: string;
+  /**
+   * URL for the "Learn more" link
+   */
   learnMoreUrl: string;
+  /**
+   * Custom label for the learn more link
+   */
+  learnMoreLabel?: React.ReactNode;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
 }
 
 export interface IndustriesExpandableShowcaseProps {
   /**
-   * Main heading text
-   * @default "Powering Renewable Industries"
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
+  /**
+   * Custom slot for heading (overrides heading prop)
+   */
+  headingSlot?: React.ReactNode;
   /**
    * Array of industry contractors/categories to display
    */
   contractors?: IndustryContractor[];
   /**
+   * Custom slot for contractors (overrides contractors array)
+   */
+  contractorsSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the heading wrapper
+   */
+  headingWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the mobile showcase container
+   */
+  mobileClassName?: string;
+  /**
+   * Additional CSS classes for the desktop showcase container
+   */
+  desktopClassName?: string;
+  /**
+   * Additional CSS classes for individual contractor items
+   */
+  itemClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultContractors: IndustryContractor[] = [
+  {
+    id: "hydro-power",
+    category: "Hydro",
+    title:
+      "Revolutionizing Hydroelectric Power Generation Through Smart Dam Management",
+    imageSrc: imagePlaceholders[0],
+    imageAlt: "Hydroelectricity operations site",
+    learnMoreUrl: "#",
+  },
+  {
+    id: "wind-power",
+    category: "Wind",
+    title:
+      "Maximizing Wind Farm Efficiency with AI-Powered Turbine Optimization",
+    imageSrc: imagePlaceholders[1],
+    imageAlt: "Wind power generation",
+    learnMoreUrl: "#",
+  },
+  {
+    id: "solar-power",
+    category: "Solar",
+    title:
+      "Scaling Solar Infrastructure with Advanced Photovoltaic Grid Integration",
+    imageSrc: imagePlaceholders[2],
+    imageAlt: "Solar power generation",
+    learnMoreUrl: "#",
+  },
+];
 
 /**
  * IndustriesExpandableShowcase displays an interactive expandable showcase for industry categories.
@@ -62,43 +173,30 @@ export interface IndustriesExpandableShowcaseProps {
  *       learnMoreUrl: "/industries/hydro"
  *     }
  *   ]}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function IndustriesExpandableShowcase({
-  className,
   heading = "Powering Renewable Industries",
-  contractors = [
-    {
-      id: "hydro-power",
-      category: "Hydro",
-      title:
-        "Revolutionizing Hydroelectric Power Generation Through Smart Dam Management",
-      imageSrc: imagePlaceholders[0],
-      imageAlt: "Hydroelectricity operations site",
-      learnMoreUrl: "#",
-    },
-    {
-      id: "wind-power",
-      category: "Wind",
-      title:
-        "Maximizing Wind Farm Efficiency with AI-Powered Turbine Optimization",
-      imageSrc: imagePlaceholders[1],
-      imageAlt: "Wind power generation",
-      learnMoreUrl: "#",
-    },
-    {
-      id: "solar-power",
-      category: "Solar",
-      title:
-        "Scaling Solar Infrastructure with Advanced Photovoltaic Grid Integration",
-      imageSrc: imagePlaceholders[2],
-      imageAlt: "Solar power generation",
-      learnMoreUrl: "#",
-    },
-  ],
+  headingSlot,
+  contractors = defaultContractors,
+  contractorsSlot,
+  className,
+  containerClassName,
+  headingClassName,
+  headingWrapperClassName,
+  mobileClassName,
+  desktopClassName,
+  itemClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: IndustriesExpandableShowcaseProps) {
+}: IndustriesExpandableShowcaseProps): React.JSX.Element {
   const [activeContractor, setActiveContractor] = React.useState(
     contractors[0]?.id || ""
   );
@@ -107,23 +205,37 @@ export function IndustriesExpandableShowcase({
     setActiveContractor(contractorId);
   };
 
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        {/* Heading */}
-        <div className="mb-12">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl">{heading}</h2>
-        </div>
+  const renderHeading = () => {
+    if (headingSlot) return headingSlot;
+    if (!heading) return null;
 
+    return typeof heading === "string" ? (
+      <h2 className={cn("text-4xl md:text-5xl lg:text-6xl", headingClassName)}>
+        {heading}
+      </h2>
+    ) : (
+      <div className={headingClassName}>{heading}</div>
+    );
+  };
+
+  const renderContractors = () => {
+    if (contractorsSlot) return contractorsSlot;
+    if (!contractors || contractors.length === 0) return null;
+
+    return (
+      <>
         {/* Mobile Contractor Showcase */}
-        <div className="space-y-6 lg:hidden">
+        <div className={cn("space-y-6 lg:hidden", mobileClassName)}>
           {contractors.map((contractor) => (
             <Pressable
               key={contractor.id}
               href={contractor.learnMoreUrl}
-              className="block overflow-hidden rounded-lg border border-border"
+              className={cn(
+                "block overflow-hidden rounded-lg border border-border",
+                itemClassName,
+                contractor.className
+              )}
             >
-              {/* Image */}
               <div className="relative aspect-video w-full">
                 <Img
                   src={contractor.imageSrc}
@@ -133,8 +245,6 @@ export function IndustriesExpandableShowcase({
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
-
-              {/* Content */}
               <div className="space-y-4 p-6">
                 <div className="flex items-center">
                   <span className="text-xl font-semibold">
@@ -150,7 +260,7 @@ export function IndustriesExpandableShowcase({
                     size={12}
                     className="mr-1"
                   />
-                  Learn more
+                  {contractor.learnMoreLabel ?? "Learn more"}
                 </span>
               </div>
             </Pressable>
@@ -158,27 +268,26 @@ export function IndustriesExpandableShowcase({
         </div>
 
         {/* Desktop Contractor Showcase */}
-        <div className="hidden h-128 overflow-hidden border border-border lg:flex">
+        <div className={cn("hidden h-128 overflow-hidden border border-border lg:flex", desktopClassName)}>
           {contractors.map((contractor) => (
             <Pressable
               key={contractor.id}
               href={contractor.learnMoreUrl}
               className={cn(
                 "flex h-full cursor-pointer gap-6 overflow-hidden border-l border-border first:border-l-0",
-                activeContractor === contractor.id ? "flex-1" : "w-48"
+                activeContractor === contractor.id ? "flex-1" : "w-48",
+                itemClassName,
+                contractor.className
               )}
               onMouseEnter={() => handleContractorHover(contractor.id)}
             >
               <div className="flex h-full min-w-0 flex-col justify-between gap-8 p-6">
-                {/* Category Label */}
                 <div className="flex h-14 w-32 items-center">
                   <span className="text-xl font-semibold">
                     {contractor.category}
                   </span>
                 </div>
-
                 <div className="flex flex-col justify-between gap-8">
-                  {/* Expanded Content */}
                   <AnimatePresence>
                     {activeContractor === contractor.id && (
                       <motion.div
@@ -197,15 +306,13 @@ export function IndustriesExpandableShowcase({
                             size={12}
                             className="mr-1"
                           />
-                          Learn more
+                          {contractor.learnMoreLabel ?? "Learn more"}
                         </span>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
               </div>
-
-              {/* Image */}
               <AnimatePresence>
                 {activeContractor === contractor.id && (
                   <motion.div
@@ -234,7 +341,27 @@ export function IndustriesExpandableShowcase({
             </Pressable>
           ))}
         </div>
+      </>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+    >
+      <div className={containerClassName}>
+        {(headingSlot || heading) && (
+          <div className={cn("mb-12", headingWrapperClassName)}>
+            {renderHeading()}
+          </div>
+        )}
+        {renderContractors()}
       </div>
-    </section>
+    </Section>
   );
 }
