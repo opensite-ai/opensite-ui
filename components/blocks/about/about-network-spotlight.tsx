@@ -9,39 +9,37 @@ import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutNetworkSpotlightProps {
   /**
    * Eyebrow label above the heading
    */
-  eyebrow?: string;
+  eyebrow?: React.ReactNode;
   /**
    * Main heading text
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Supporting description text
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Highlight bullet list
    */
-  highlights?: string[];
+  highlights?: React.ReactNode[];
   /**
-   * Primary CTA config
+   * Custom slot for rendering highlights (overrides highlights array)
    */
-  primaryCta?: {
-    label: string;
-    href: string;
-  };
+  highlightsSlot?: React.ReactNode;
   /**
-   * Secondary CTA config
+   * Array of action configurations for CTA buttons
    */
-  secondaryCta?: {
-    label: string;
-    href: string;
-  };
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Spotlight image configuration
    */
@@ -53,15 +51,51 @@ export interface AboutNetworkSpotlightProps {
    * Spotlight card content overlaid on the image
    */
   spotlightCard?: {
-    icon: string;
-    label: string;
-    title: string;
-    description: string;
+    icon: React.ReactNode;
+    label: React.ReactNode;
+    title: React.ReactNode;
+    description: React.ReactNode;
   };
+  /**
+   * Custom slot for rendering spotlight card (overrides spotlightCard object)
+   */
+  spotlightCardSlot?: React.ReactNode;
   /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the eyebrow text
+   */
+  eyebrowClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the highlights list
+   */
+  highlightsClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the spotlight card
+   */
+  spotlightCardClassName?: string;
   /**
    * Background style for the section
    */
@@ -81,10 +115,7 @@ export interface AboutNetworkSpotlightProps {
   /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultHighlights = [
@@ -93,6 +124,18 @@ const defaultHighlights = [
   "Deliver stronger advocacy with OpenSite AI intelligence.",
 ];
 
+const defaultActions: ActionConfig[] = [
+  { label: "Learn More", href: "/network", size: "lg", variant: "default" },
+  { label: "Visit OpenSite AI", href: "https://opensite.ai", size: "lg", variant: "secondary" },
+];
+
+const defaultSpotlightCard = {
+  icon: <DynamicIcon name="lucide/network" size={22} />,
+  label: "OpenSite AI Network",
+  title: "Built for independent advisors",
+  description: "A trusted network where agencies collaborate to deliver better outcomes.",
+};
+
 /**
  * AboutNetworkSpotlight - Dark spotlight section with image overlay and CTA.
  * Ideal for partner programs, network invitations, or alliance highlights.
@@ -100,29 +143,112 @@ const defaultHighlights = [
 export function AboutNetworkSpotlight({
   eyebrow = "Partner Network",
   heading = "Join the OpenSite AI Partner Network",
-  description =
-    "A curated community of independent advisors and agencies that share resources, intelligence, and proven coverage playbooks.",
+  description = "A curated community of independent advisors and agencies that share resources, intelligence, and proven coverage playbooks.",
   highlights = defaultHighlights,
-  primaryCta = { label: "Learn More", href: "/network" },
-  secondaryCta = { label: "Visit OpenSite AI", href: "https://opensite.ai" },
+  highlightsSlot,
+  actions = defaultActions,
+  actionsSlot,
   image = {
     src: imagePlaceholders[24],
     alt: "OpenSite AI partner network spotlight",
   },
-  spotlightCard = {
-    icon: "lucide/network",
-    label: "OpenSite AI Network",
-    title: "Built for independent advisors",
-    description:
-      "A trusted network where agencies collaborate to deliver better outcomes.",
-  },
+  spotlightCard = defaultSpotlightCard,
+  spotlightCardSlot,
   className,
+  contentClassName,
+  eyebrowClassName,
+  headingClassName,
+  descriptionClassName,
+  highlightsClassName,
+  actionsClassName,
+  imageClassName,
+  spotlightCardClassName,
   background = "dark",
   spacing = "lg",
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: AboutNetworkSpotlightProps): React.JSX.Element {
+  const renderHighlights = () => {
+    if (highlightsSlot) return highlightsSlot;
+    if (!highlights || highlights.length === 0) return null;
+
+    return (
+      <ul className={cn("mt-6 space-y-3", highlightsClassName)}>
+        {highlights.map((item, index) => (
+          <li key={index} className="flex items-start gap-3 text-white/80">
+            <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20 text-primary">
+              <DynamicIcon name="lucide/check" size={14} />
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderSpotlightCard = () => {
+    if (spotlightCardSlot) return spotlightCardSlot;
+    if (!spotlightCard) return null;
+
+    return (
+      <div className={cn("rounded-2xl border border-primary/40 bg-black/80 p-5 backdrop-blur-sm", spotlightCardClassName)}>
+        <div className="mb-2 flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            {spotlightCard.icon}
+          </div>
+          <div>
+            {typeof spotlightCard.label === "string" ? (
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                {spotlightCard.label}
+              </p>
+            ) : (
+              spotlightCard.label
+            )}
+            {typeof spotlightCard.title === "string" ? (
+              <h3 className="text-lg font-bold text-white">
+                {spotlightCard.title}
+              </h3>
+            ) : (
+              spotlightCard.title
+            )}
+          </div>
+        </div>
+        {typeof spotlightCard.description === "string" ? (
+          <p className="text-sm text-white/80">
+            {spotlightCard.description}
+          </p>
+        ) : (
+          spotlightCard.description
+        )}
+      </div>
+    );
+  };
+
   return (
     <Section
       background={background}
@@ -131,7 +257,7 @@ export function AboutNetworkSpotlight({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div className={cn("grid grid-cols-1 items-center gap-12 lg:grid-cols-2", contentClassName)}>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -142,29 +268,12 @@ export function AboutNetworkSpotlight({
               <Img
                 src={image.src}
                 alt={image.alt}
-                className="h-full w-full object-cover"
+                className={cn("h-full w-full object-cover", imageClassName)}
                 optixFlowConfig={optixFlowConfig}
               />
               <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
-                <div className="rounded-2xl border border-primary/40 bg-black/80 p-5 backdrop-blur-sm">
-                  <div className="mb-2 flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                      <DynamicIcon name={spotlightCard.icon} size={22} />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                        {spotlightCard.label}
-                      </p>
-                      <h3 className="text-lg font-bold text-white">
-                        {spotlightCard.title}
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="text-sm text-white/80">
-                    {spotlightCard.description}
-                  </p>
-                </div>
+                {renderSpotlightCard()}
               </div>
             </div>
           </motion.div>
@@ -175,31 +284,37 @@ export function AboutNetworkSpotlight({
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-              {eyebrow}
-            </p>
-            <h2 className="mt-2 text-3xl font-bold text-white md:text-4xl">
-              {heading}
-            </h2>
-            <p className="mt-4 text-lg text-white/80">{description}</p>
-            <ul className="mt-6 space-y-3">
-              {highlights.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-white/80">
-                  <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary/20 text-primary">
-                    <DynamicIcon name="lucide/check" size={14} />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Pressable href={primaryCta.href} size="lg" variant="default">
-                {primaryCta.label}
-              </Pressable>
-              <Pressable href={secondaryCta.href} size="lg" variant="secondary">
-                {secondaryCta.label}
-              </Pressable>
-            </div>
+            {eyebrow && (
+              typeof eyebrow === "string" ? (
+                <p className={cn("text-sm font-semibold uppercase tracking-[0.2em] text-primary", eyebrowClassName)}>
+                  {eyebrow}
+                </p>
+              ) : (
+                <div className={eyebrowClassName}>{eyebrow}</div>
+              )
+            )}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("mt-2 text-3xl font-bold text-white md:text-4xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mt-2", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-4 text-lg text-white/80", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {(highlightsSlot || (highlights && highlights.length > 0)) && renderHighlights()}
+            {(actionsSlot || (actions && actions.length > 0)) && (
+              <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
+                {renderActions()}
+              </div>
+            )}
           </motion.div>
         </div>
     </Section>

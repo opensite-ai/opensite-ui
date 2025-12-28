@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
@@ -13,15 +15,19 @@ export interface AlternatingBlocksProps {
   /**
    * Array of sections to display with alternating layout
    */
-  sections: AlternatingBlockSection[];
+  sections?: AlternatingBlockSection[];
+  /**
+   * Custom slot for rendering sections (overrides sections array)
+   */
+  sectionsSlot?: React.ReactNode;
   /**
    * Section title (optional)
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Section subtitle/eyebrow (optional)
    */
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   /**
    * Background style variant
    * @default "white"
@@ -40,6 +46,22 @@ export interface AlternatingBlocksProps {
    * Additional CSS classes for the content container
    */
   contentClassName?: string;
+  /**
+   * Additional CSS classes for the sections container
+   */
+  sectionsClassName?: string;
+  /**
+   * Additional CSS classes for each section item
+   */
+  sectionItemClassName?: string;
+  /**
+   * Additional CSS classes for the content column
+   */
+  sectionContentClassName?: string;
+  /**
+   * Additional CSS classes for the media column
+   */
+  sectionMediaClassName?: string;
 }
 
 /**
@@ -65,45 +87,74 @@ export interface AlternatingBlocksProps {
  */
 export function AlternatingBlocks({
   sections,
+  sectionsSlot,
   title,
   subtitle,
   background = "white",
   spacing = "lg",
   className,
   contentClassName,
-}: AlternatingBlocksProps) {
+  sectionsClassName,
+  sectionItemClassName,
+  sectionContentClassName,
+  sectionMediaClassName,
+}: AlternatingBlocksProps): React.JSX.Element {
+  const renderSections = () => {
+    if (sectionsSlot) return sectionsSlot;
+    if (!sections || sections.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-12", sectionsClassName)}>
+        {sections.map((section, index) => (
+          <div
+            key={index}
+            className={cn("grid items-center gap-8 md:grid-cols-2 md:gap-12", sectionItemClassName)}
+          >
+            <div className={cn(section.mediaLeft ? "md:order-2" : "", sectionContentClassName)}>
+              {section.content}
+            </div>
+
+            <div
+              className={cn(
+                "aspect-4/3 overflow-hidden rounded-lg border",
+                section.mediaLeft ? "md:order-1" : "",
+                sectionMediaClassName,
+              )}
+            >
+              <div className="flex h-full w-full items-center justify-center">
+                {section.media}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Section
-      title={title}
-      subtitle={subtitle}
+      title={typeof title === "string" ? title : undefined}
+      subtitle={typeof subtitle === "string" ? subtitle : undefined}
       background={background}
       spacing={spacing}
       className={className}
     >
-      <div className={cn("mx-auto w-full max-w-[900px]", contentClassName)}>
-        <div className="space-y-12">
-          {sections?.map((section, index) => (
-            <div
-              key={index}
-              className="grid items-center gap-8 md:grid-cols-2 md:gap-12"
-            >
-              <div className={section.mediaLeft ? "md:order-2" : ""}>
-                {section.content}
-              </div>
-
-              <div
-                className={cn(
-                  "aspect-4/3 overflow-hidden rounded-lg border",
-                  section.mediaLeft ? "md:order-1" : "",
-                )}
-              >
-                <div className="flex h-full w-full items-center justify-center">
-                  {section.media}
-                </div>
-              </div>
+      {(title && typeof title !== "string") || (subtitle && typeof subtitle !== "string") ? (
+        <div className="mb-12 text-center md:mb-16">
+          {subtitle && typeof subtitle !== "string" && (
+            <div className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
+              {subtitle}
             </div>
-          ))}
+          )}
+          {title && typeof title !== "string" && (
+            <div className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+              {title}
+            </div>
+          )}
         </div>
+      ) : null}
+      <div className={cn("mx-auto w-full max-w-[900px]", contentClassName)}>
+        {renderSections()}
       </div>
     </Section>
   );

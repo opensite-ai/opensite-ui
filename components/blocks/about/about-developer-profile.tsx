@@ -5,28 +5,104 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import type { ActionConfig, SocialLinkItem, OptixFlowConfig } from "../../../src/types";
 
 export interface AboutDeveloperProfileProps {
-  className?: string;
-  name?: string;
-  role?: string;
-  bio?: string;
+  /**
+   * Developer name
+   */
+  name?: React.ReactNode;
+  /**
+   * Developer role/title
+   */
+  role?: React.ReactNode;
+  /**
+   * Developer bio/description
+   */
+  bio?: React.ReactNode;
+  /**
+   * Avatar image configuration
+   */
   avatar?: {
     src: string;
     alt: string;
   };
+  /**
+   * Array of skill tags
+   */
   skills?: string[];
-  socialLinks?: Array<{
-    icon: string;
-    url: string;
-    label: string;
-  }>;
-  ctaText?: string;
-  ctaUrl?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Custom slot for rendering skills (overrides skills array)
+   */
+  skillsSlot?: React.ReactNode;
+  /**
+   * Skills section title
+   */
+  skillsTitle?: React.ReactNode;
+  /**
+   * Array of social link configurations
+   */
+  socialLinks?: SocialLinkItem[];
+  /**
+   * Custom slot for rendering social links (overrides socialLinks array)
+   */
+  socialLinksSlot?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the name heading
+   */
+  nameClassName?: string;
+  /**
+   * Additional CSS classes for the role text
+   */
+  roleClassName?: string;
+  /**
+   * Additional CSS classes for the bio text
+   */
+  bioClassName?: string;
+  /**
+   * Additional CSS classes for the avatar image
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the skills container
+   */
+  skillsClassName?: string;
+  /**
+   * Additional CSS classes for individual skill tags
+   */
+  skillTagClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultSkills = [
@@ -38,97 +114,170 @@ const defaultSkills = [
   "Docker",
 ];
 
-const defaultSocialLinks = [
-  { icon: "lucide/github", url: "#", label: "GitHub" },
-  { icon: "lucide/linkedin", url: "#", label: "LinkedIn" },
-  { icon: "lucide/twitter", url: "#", label: "Twitter" },
+const defaultSocialLinks: SocialLinkItem[] = [
+  { icon: <DynamicIcon name="lucide/github" size={24} />, href: "#", "aria-label": "GitHub" },
+  { icon: <DynamicIcon name="lucide/linkedin" size={24} />, href: "#", "aria-label": "LinkedIn" },
+  { icon: <DynamicIcon name="lucide/twitter" size={24} />, href: "#", "aria-label": "Twitter" },
 ];
 
-const defaultProps: Partial<AboutDeveloperProfileProps> = {
-  name: "Alex Johnson",
-  role: "Full-Stack Developer",
-  bio: `I'm a passionate full-stack developer with over 8 years of experience building web applications. I specialize in React, TypeScript, and Node.js, with a strong focus on creating performant and accessible user experiences.
-
-When I'm not coding, you can find me contributing to open-source projects, writing technical blog posts, or exploring new technologies. I believe in continuous learning and sharing knowledge with the developer community.`,
-  skills: defaultSkills,
-  socialLinks: defaultSocialLinks,
-  ctaText: "Get in Touch",
-  ctaUrl: "#",
-};
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Get in Touch",
+    href: "#",
+    size: "lg",
+    variant: "default",
+    iconAfter: <DynamicIcon name="lucide/mail" size={16} className="ml-2" />,
+  },
+];
 
 export function AboutDeveloperProfile({
-  className,
-  name = defaultProps.name,
-  role = defaultProps.role,
-  bio = defaultProps.bio,
+  name = "Alex Johnson",
+  role = "Full-Stack Developer",
+  bio = `I'm a passionate full-stack developer with over 8 years of experience building web applications. I specialize in React, TypeScript, and Node.js, with a strong focus on creating performant and accessible user experiences.
+
+When I'm not coding, you can find me contributing to open-source projects, writing technical blog posts, or exploring new technologies. I believe in continuous learning and sharing knowledge with the developer community.`,
   avatar,
-  skills = defaultProps.skills,
-  socialLinks = defaultProps.socialLinks,
-  ctaText = defaultProps.ctaText,
-  ctaUrl = defaultProps.ctaUrl,
+  skills = defaultSkills,
+  skillsSlot,
+  skillsTitle = "Skills & Technologies",
+  socialLinks = defaultSocialLinks,
+  socialLinksSlot,
+  actions = defaultActions,
+  actionsSlot,
+  className,
+  containerClassName,
+  contentClassName,
+  nameClassName,
+  roleClassName,
+  bioClassName,
+  avatarClassName,
+  skillsClassName,
+  skillTagClassName,
+  socialLinksClassName,
+  actionsClassName,
   optixFlowConfig,
-}: AboutDeveloperProfileProps) {
+}: AboutDeveloperProfileProps): React.JSX.Element {
+  const renderSocialLinks = () => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((link, idx) => (
+      <Pressable
+        key={idx}
+        href={link.href}
+        aria-label={link["aria-label"]}
+        className={cn("text-muted-foreground hover:text-foreground", link.className)}
+      >
+        {link.icon}
+      </Pressable>
+    ));
+  };
+
+  const renderSkills = () => {
+    if (skillsSlot) return skillsSlot;
+    if (!skills || skills.length === 0) return null;
+
+    return skills.map((skill, idx) => (
+      <span
+        key={idx}
+        className={cn("rounded-full bg-muted px-4 py-2 text-sm font-medium", skillTagClassName)}
+      >
+        {skill}
+      </span>
+    ));
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
     <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-4xl">
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("mx-auto max-w-4xl", contentClassName)}>
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
             {avatar && (
               <Img
                 src={avatar.src}
                 alt={avatar.alt}
-                className="h-48 w-48 rounded-full object-cover"
+                className={cn("h-48 w-48 rounded-full object-cover", avatarClassName)}
                 optixFlowConfig={optixFlowConfig}
               />
             )}
             <div className="text-center md:text-left">
-              <h1 className="text-4xl font-bold">{name}</h1>
-              <p className="mt-2 text-xl text-primary">{role}</p>
-              {socialLinks && socialLinks.length > 0 && (
-                <div className="mt-4 flex justify-center gap-4 md:justify-start">
-                  {socialLinks.map((link, idx) => (
-                    <Pressable
-                      key={idx}
-                      href={link.url}
-                      aria-label={link.label}
-                      className="text-muted-foreground hover:text-foreground"
-                    >
-                      <DynamicIcon name={link.icon} size={24} />
-                    </Pressable>
-                  ))}
+              {name && (
+                typeof name === "string" ? (
+                  <h1 className={cn("text-4xl font-bold", nameClassName)}>{name}</h1>
+                ) : (
+                  <div className={nameClassName}>{name}</div>
+                )
+              )}
+              {role && (
+                typeof role === "string" ? (
+                  <p className={cn("mt-2 text-xl text-primary", roleClassName)}>{role}</p>
+                ) : (
+                  <div className={cn("mt-2", roleClassName)}>{role}</div>
+                )
+              )}
+              {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
+                <div className={cn("mt-4 flex justify-center gap-4 md:justify-start", socialLinksClassName)}>
+                  {renderSocialLinks()}
                 </div>
               )}
             </div>
           </div>
 
-          <div className="mt-12">
-            <p className="text-lg text-muted-foreground whitespace-pre-line">
-              {bio}
-            </p>
-          </div>
-
-          {skills && skills.length > 0 && (
+          {bio && (
             <div className="mt-12">
-              <h2 className="text-xl font-semibold">Skills & Technologies</h2>
+              {typeof bio === "string" ? (
+                <p className={cn("text-lg text-muted-foreground whitespace-pre-line", bioClassName)}>
+                  {bio}
+                </p>
+              ) : (
+                <div className={bioClassName}>{bio}</div>
+              )}
+            </div>
+          )}
+
+          {(skillsSlot || (skills && skills.length > 0)) && (
+            <div className={cn("mt-12", skillsClassName)}>
+              {skillsTitle && (
+                typeof skillsTitle === "string" ? (
+                  <h2 className="text-xl font-semibold">{skillsTitle}</h2>
+                ) : (
+                  skillsTitle
+                )
+              )}
               <div className="mt-4 flex flex-wrap gap-2">
-                {skills.map((skill, idx) => (
-                  <span
-                    key={idx}
-                    className="rounded-full bg-muted px-4 py-2 text-sm font-medium"
-                  >
-                    {skill}
-                  </span>
-                ))}
+                {renderSkills()}
               </div>
             </div>
           )}
 
-          {ctaText && ctaUrl && (
-            <div className="mt-12 text-center md:text-left">
-              <Pressable href={ctaUrl} size="lg" variant="default" asButton>
-                {ctaText}
-                <DynamicIcon name="lucide/mail" size={16} className="ml-2" />
-              </Pressable>
+          {(actionsSlot || (actions && actions.length > 0)) && (
+            <div className={cn("mt-12 text-center md:text-left", actionsClassName)}>
+              {renderActions()}
             </div>
           )}
         </div>
