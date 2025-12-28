@@ -29,6 +29,11 @@
     "import": "./dist/about-interactive-tabs.js",
     "require": "./dist/about-interactive-tabs.cjs"
   },
+  "./blocks/about/about-location-info-hero": {
+    "types": "./dist/about-location-info-hero.d.ts",
+    "import": "./dist/about-location-info-hero.js",
+    "require": "./dist/about-location-info-hero.cjs"
+  },
   "./blocks/about/about-minimal-story": {
     "types": "./dist/about-minimal-story.d.ts",
     "import": "./dist/about-minimal-story.js",
@@ -49,6 +54,11 @@
     "import": "./dist/about-mission-principles.js",
     "require": "./dist/about-mission-principles.cjs"
   },
+  "./blocks/about/about-network-spotlight": {
+    "types": "./dist/about-network-spotlight.d.ts",
+    "import": "./dist/about-network-spotlight.js",
+    "require": "./dist/about-network-spotlight.cjs"
+  },
   "./blocks/about/about-split-hero": {
     "types": "./dist/about-split-hero.d.ts",
     "import": "./dist/about-split-hero.js",
@@ -68,6 +78,11 @@
     "types": "./dist/about-stats-sidebar.d.ts",
     "import": "./dist/about-stats-sidebar.js",
     "require": "./dist/about-stats-sidebar.cjs"
+  },
+  "./blocks/about/about-story-expertise": {
+    "types": "./dist/about-story-expertise.d.ts",
+    "import": "./dist/about-story-expertise.js",
+    "require": "./dist/about-story-expertise.cjs"
   },
   "./blocks/about/about-story-gallery": {
     "types": "./dist/about-story-gallery.d.ts",

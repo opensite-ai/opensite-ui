@@ -217,6 +217,13 @@
   }
 ,
   {
+    "path": "./blocks/hero/hero-floating-images",
+    "types": "./dist/hero-floating-images.d.ts",
+    "import": "./dist/hero-floating-images.js",
+    "require": "./dist/hero-floating-images.cjs"
+  }
+,
+  {
     "path": "./blocks/hero/hero-fullscreen-background-image",
     "types": "./dist/hero-fullscreen-background-image.d.ts",
     "import": "./dist/hero-fullscreen-background-image.js",
@@ -329,6 +336,13 @@
   }
 ,
   {
+    "path": "./blocks/hero/hero-overlay-cta-grid",
+    "types": "./dist/hero-overlay-cta-grid.d.ts",
+    "import": "./dist/hero-overlay-cta-grid.js",
+    "require": "./dist/hero-overlay-cta-grid.cjs"
+  }
+,
+  {
     "path": "./blocks/hero/hero-pattern-badge-logos",
     "types": "./dist/hero-pattern-badge-logos.d.ts",
     "import": "./dist/hero-pattern-badge-logos.js",
@@ -431,6 +445,13 @@
     "types": "./dist/hero-split-geometric-shapes.d.ts",
     "import": "./dist/hero-split-geometric-shapes.js",
     "require": "./dist/hero-split-geometric-shapes.cjs"
+  }
+,
+  {
+    "path": "./blocks/hero/hero-split-icon-cards",
+    "types": "./dist/hero-split-icon-cards.d.ts",
+    "import": "./dist/hero-split-icon-cards.js",
+    "require": "./dist/hero-split-icon-cards.cjs"
   }
 ,
   {

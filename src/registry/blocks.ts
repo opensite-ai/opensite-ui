@@ -33,6 +33,8 @@ import { AboutStoryExpertise } from "../../components/blocks/about/about-story-e
 import type { AboutStoryExpertiseProps } from "../../components/blocks/about/about-story-expertise";
 import { AboutNetworkSpotlight } from "../../components/blocks/about/about-network-spotlight";
 import type { AboutNetworkSpotlightProps } from "../../components/blocks/about/about-network-spotlight";
+import { AboutLocationInfoHero } from "../../components/blocks/about/about-location-info-hero";
+import type { AboutLocationInfoHeroProps } from "../../components/blocks/about/about-location-info-hero";
 import { MediaHoverCtas } from "../../components/blocks/cta/media-hover-ctas";
 import type { MediaHoverCtasProps } from "../../components/blocks/cta/media-hover-ctas";
 import { CtaDocumentationLinks } from "../../components/blocks/cta/cta-documentation-links";
@@ -163,11 +165,15 @@ import { FeatureImageCardsThreeColumn } from "../../components/blocks/features/f
 import { FeatureIconGridMuted } from "../../components/blocks/features/feature-icon-grid-muted";
 import { FeatureStatsHighlight } from "../../components/blocks/features/feature-stats-highlight";
 import { FeatureAccordionImage } from "../../components/blocks/features/feature-accordion-image";
+import { FeatureCapabilitiesGrid } from "../../components/blocks/features/feature-capabilities-grid";
+import type { FeatureCapabilitiesGridProps } from "../../components/blocks/features/feature-capabilities-grid";
 import { TeamMediaShowcase } from "../../components/blocks/team/team-media-showcase";
 import type { TeamMediaShowcaseProps } from "../../components/blocks/team/team-media-showcase";
 import { TeamSimpleGrid } from "../../components/blocks/team/team-simple-grid";
 import { FooterBrandLinksContact } from "../../components/blocks/footers/footer-brand-links-contact";
 import type { FooterBrandLinksContactProps } from "../../components/blocks/footers/footer-brand-links-contact";
+import { FooterComprehensiveLinks } from "../../components/blocks/footers/footer-comprehensive-links";
+import type { FooterComprehensiveLinksProps } from "../../components/blocks/footers/footer-comprehensive-links";
 import { TeamSocialGrid } from "../../components/blocks/team/team-social-grid";
 import { TeamGradientCards } from "../../components/blocks/team/team-gradient-cards";
 import { TeamBioBadges } from "../../components/blocks/team/team-bio-badges";
@@ -362,6 +368,7 @@ import { CaseStudyStatsMetrics } from "../../components/blocks/case-study-detail
 // Hero components
 import { HeroOverlayCtaGrid } from "../../components/blocks/hero/hero-overlay-cta-grid";
 import { HeroSplitIconCards } from "../../components/blocks/hero/hero-split-icon-cards";
+import { HeroFloatingImages } from "../../components/blocks/hero/hero-floating-images";
 import { HeroBadgeImageSplit } from "../../components/blocks/hero/hero-badge-image-split";
 import { HeroImageLeftContent } from "../../components/blocks/hero/hero-image-left-content";
 import { HeroCenteredImageGrid } from "../../components/blocks/hero/hero-centered-image-grid";
@@ -1364,6 +1371,28 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: AboutNetworkSpotlight,
     props: "AboutNetworkSpotlightProps",
     exampleUsage: `<AboutNetworkSpotlight />`.trim(),
+  },
+  "about-location-info-hero": {
+    id: "about-location-info-hero",
+    name: "Location Info Hero",
+    description:
+      "A split hero section with headline, action links, contact details, hours breakdown, and a one- or two-image showcase. Ideal for service hubs, flagship offices, or location-driven about pages.",
+    semanticTags: [
+      "about",
+      "location",
+      "contact",
+      "hours",
+      "hero",
+      "images",
+      "service-center",
+      "address",
+      "phone",
+      "cta",
+    ],
+    category: "about",
+    component: AboutLocationInfoHero,
+    props: "AboutLocationInfoHeroProps",
+    exampleUsage: `<AboutLocationInfoHero />`.trim(),
   },
   "media-hover-ctas": {
     id: "media-hover-ctas",
@@ -3679,6 +3708,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 />
     `.trim(),
   },
+  "feature-capabilities-grid": {
+    id: "feature-capabilities-grid",
+    name: "Capabilities Feature Grid",
+    description:
+      "A dark, three-column capability grid with animated hover accents, icon badges, and optional labels. Perfect for highlighting platform capabilities, AI features, or service pillars.",
+    semanticTags: [
+      "features",
+      "capabilities",
+      "grid",
+      "cards",
+      "icons",
+      "dark",
+      "hover",
+      "ai",
+      "platform",
+    ],
+    category: "features",
+    component: FeatureCapabilitiesGrid,
+    props: "FeatureCapabilitiesGridProps",
+    exampleUsage: `<FeatureCapabilitiesGrid />`.trim(),
+  },
   "feature-split-image": {
     id: "feature-split-image",
     name: "Feature Split Image",
@@ -5383,6 +5433,26 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: FooterBrandLinksContact,
     props: "FooterBrandLinksContactProps",
     exampleUsage: `<FooterBrandLinksContact />`.trim(),
+  },
+  "footer-comprehensive-links": {
+    id: "footer-comprehensive-links",
+    name: "Comprehensive Links Footer",
+    description:
+      "A full-width footer with brand summary, navigation columns, optional article links, contact details, social icons, and a bottom legal bar. Ideal for content-rich sites that need robust navigation and visibility into resources.",
+    semanticTags: [
+      "footer",
+      "comprehensive",
+      "links",
+      "contact",
+      "social",
+      "articles",
+      "navigation",
+      "legal",
+    ],
+    category: "footer",
+    component: FooterComprehensiveLinks,
+    props: "FooterComprehensiveLinksProps",
+    exampleUsage: `<FooterComprehensiveLinks />`.trim(),
   },
   "footer-newsletter-grid": {
     id: "footer-newsletter-grid",
@@ -8328,6 +8398,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: HeroSplitIconCards,
     props: "HeroSplitIconCardsProps",
     exampleUsage: `<HeroSplitIconCards />`.trim(),
+  },
+  "hero-floating-images": {
+    id: "hero-floating-images",
+    name: "Floating Images Hero",
+    description:
+      "A centered hero with decorative swirl lines and floating image accents around the headline. Great for lifestyle, hospitality, or brand-forward landing pages that need a playful visual tone.",
+    semanticTags: [
+      "hero",
+      "floating",
+      "images",
+      "centered",
+      "decorative",
+      "playful",
+      "brand",
+      "landing",
+      "visual",
+    ],
+    category: "hero",
+    component: HeroFloatingImages,
+    props: "HeroFloatingImagesProps",
+    exampleUsage: `<HeroFloatingImages />`.trim(),
   },
   "hero-badge-image-split": {
     id: "hero-badge-image-split",

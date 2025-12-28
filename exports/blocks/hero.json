@@ -154,6 +154,11 @@
     "import": "./dist/hero-feature-cards-grid.js",
     "require": "./dist/hero-feature-cards-grid.cjs"
   },
+  "./blocks/hero/hero-floating-images": {
+    "types": "./dist/hero-floating-images.d.ts",
+    "import": "./dist/hero-floating-images.js",
+    "require": "./dist/hero-floating-images.cjs"
+  },
   "./blocks/hero/hero-fullscreen-background-image": {
     "types": "./dist/hero-fullscreen-background-image.d.ts",
     "import": "./dist/hero-fullscreen-background-image.js",
@@ -234,6 +239,11 @@
     "import": "./dist/hero-newsletter-minimal.js",
     "require": "./dist/hero-newsletter-minimal.cjs"
   },
+  "./blocks/hero/hero-overlay-cta-grid": {
+    "types": "./dist/hero-overlay-cta-grid.d.ts",
+    "import": "./dist/hero-overlay-cta-grid.js",
+    "require": "./dist/hero-overlay-cta-grid.cjs"
+  },
   "./blocks/hero/hero-pattern-badge-logos": {
     "types": "./dist/hero-pattern-badge-logos.d.ts",
     "import": "./dist/hero-pattern-badge-logos.js",
@@ -308,6 +318,11 @@
     "types": "./dist/hero-split-geometric-shapes.d.ts",
     "import": "./dist/hero-split-geometric-shapes.js",
     "require": "./dist/hero-split-geometric-shapes.cjs"
+  },
+  "./blocks/hero/hero-split-icon-cards": {
+    "types": "./dist/hero-split-icon-cards.d.ts",
+    "import": "./dist/hero-split-icon-cards.js",
+    "require": "./dist/hero-split-icon-cards.cjs"
   },
   "./blocks/hero/hero-split-image-newsletter": {
     "types": "./dist/hero-split-image-newsletter.d.ts",

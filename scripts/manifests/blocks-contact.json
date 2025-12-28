@@ -98,6 +98,13 @@
   }
 ,
   {
+    "path": "./blocks/contact/contact-help-center",
+    "types": "./dist/contact-help-center.d.ts",
+    "import": "./dist/contact-help-center.js",
+    "require": "./dist/contact-help-center.cjs"
+  }
+,
+  {
     "path": "./blocks/contact/contact-image",
     "types": "./dist/contact-image.d.ts",
     "import": "./dist/contact-image.js",

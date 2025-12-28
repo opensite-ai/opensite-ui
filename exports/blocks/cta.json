@@ -74,6 +74,11 @@
     "import": "./dist/cta-image-overlay-arrow.js",
     "require": "./dist/cta-image-overlay-arrow.cjs"
   },
+  "./blocks/cta/cta-image-overlay-centered": {
+    "types": "./dist/cta-image-overlay-centered.d.ts",
+    "import": "./dist/cta-image-overlay-centered.js",
+    "require": "./dist/cta-image-overlay-centered.cjs"
+  },
   "./blocks/cta/cta-minimal-separator": {
     "types": "./dist/cta-minimal-separator.d.ts",
     "import": "./dist/cta-minimal-separator.js",

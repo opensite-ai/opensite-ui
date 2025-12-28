@@ -35,6 +35,13 @@
   }
 ,
   {
+    "path": "./blocks/features/feature-capabilities-grid",
+    "types": "./dist/feature-capabilities-grid.d.ts",
+    "import": "./dist/feature-capabilities-grid.js",
+    "require": "./dist/feature-capabilities-grid.cjs"
+  }
+,
+  {
     "path": "./blocks/features/feature-card-grid-linked",
     "types": "./dist/feature-card-grid-linked.d.ts",
     "import": "./dist/feature-card-grid-linked.js",

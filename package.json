@@ -66,6 +66,11 @@
       "import": "./dist/about-interactive-tabs.js",
       "require": "./dist/about-interactive-tabs.cjs"
     },
+    "./blocks/about/about-location-info-hero": {
+      "types": "./dist/about-location-info-hero.d.ts",
+      "import": "./dist/about-location-info-hero.js",
+      "require": "./dist/about-location-info-hero.cjs"
+    },
     "./blocks/about/about-minimal-story": {
       "types": "./dist/about-minimal-story.d.ts",
       "import": "./dist/about-minimal-story.js",
@@ -86,6 +91,11 @@
       "import": "./dist/about-mission-principles.js",
       "require": "./dist/about-mission-principles.cjs"
     },
+    "./blocks/about/about-network-spotlight": {
+      "types": "./dist/about-network-spotlight.d.ts",
+      "import": "./dist/about-network-spotlight.js",
+      "require": "./dist/about-network-spotlight.cjs"
+    },
     "./blocks/about/about-split-hero": {
       "types": "./dist/about-split-hero.d.ts",
       "import": "./dist/about-split-hero.js",
@@ -105,6 +115,11 @@
       "types": "./dist/about-stats-sidebar.d.ts",
       "import": "./dist/about-stats-sidebar.js",
       "require": "./dist/about-stats-sidebar.cjs"
+    },
+    "./blocks/about/about-story-expertise": {
+      "types": "./dist/about-story-expertise.d.ts",
+      "import": "./dist/about-story-expertise.js",
+      "require": "./dist/about-story-expertise.cjs"
     },
     "./blocks/about/about-story-gallery": {
       "types": "./dist/about-story-gallery.d.ts",
@@ -701,6 +716,11 @@
       "import": "./dist/contact-guest.js",
       "require": "./dist/contact-guest.cjs"
     },
+    "./blocks/contact/contact-help-center": {
+      "types": "./dist/contact-help-center.d.ts",
+      "import": "./dist/contact-help-center.js",
+      "require": "./dist/contact-help-center.cjs"
+    },
     "./blocks/contact/contact-image": {
       "types": "./dist/contact-image.d.ts",
       "import": "./dist/contact-image.js",
@@ -911,6 +931,11 @@
       "import": "./dist/cta-image-overlay-arrow.js",
       "require": "./dist/cta-image-overlay-arrow.cjs"
     },
+    "./blocks/cta/cta-image-overlay-centered": {
+      "types": "./dist/cta-image-overlay-centered.d.ts",
+      "import": "./dist/cta-image-overlay-centered.js",
+      "require": "./dist/cta-image-overlay-centered.cjs"
+    },
     "./blocks/cta/cta-minimal-separator": {
       "types": "./dist/cta-minimal-separator.d.ts",
       "import": "./dist/cta-minimal-separator.js",
@@ -1081,6 +1106,11 @@
       "import": "./dist/feature-bento-utilities.js",
       "require": "./dist/feature-bento-utilities.cjs"
     },
+    "./blocks/features/feature-capabilities-grid": {
+      "types": "./dist/feature-capabilities-grid.d.ts",
+      "import": "./dist/feature-capabilities-grid.js",
+      "require": "./dist/feature-capabilities-grid.cjs"
+    },
     "./blocks/features/feature-card-grid-linked": {
       "types": "./dist/feature-card-grid-linked.d.ts",
       "import": "./dist/feature-card-grid-linked.js",
@@ -1205,6 +1235,16 @@
       "types": "./dist/footer-brand-description.d.ts",
       "import": "./dist/footer-brand-description.js",
       "require": "./dist/footer-brand-description.cjs"
+    },
+    "./blocks/footers/footer-brand-links-contact": {
+      "types": "./dist/footer-brand-links-contact.d.ts",
+      "import": "./dist/footer-brand-links-contact.js",
+      "require": "./dist/footer-brand-links-contact.cjs"
+    },
+    "./blocks/footers/footer-comprehensive-links": {
+      "types": "./dist/footer-comprehensive-links.d.ts",
+      "import": "./dist/footer-comprehensive-links.js",
+      "require": "./dist/footer-comprehensive-links.cjs"
     },
     "./blocks/footers/footer-contact-card": {
       "types": "./dist/footer-contact-card.d.ts",
@@ -1506,6 +1546,11 @@
       "import": "./dist/hero-feature-cards-grid.js",
       "require": "./dist/hero-feature-cards-grid.cjs"
     },
+    "./blocks/hero/hero-floating-images": {
+      "types": "./dist/hero-floating-images.d.ts",
+      "import": "./dist/hero-floating-images.js",
+      "require": "./dist/hero-floating-images.cjs"
+    },
     "./blocks/hero/hero-fullscreen-background-image": {
       "types": "./dist/hero-fullscreen-background-image.d.ts",
       "import": "./dist/hero-fullscreen-background-image.js",
@@ -1586,6 +1631,11 @@
       "import": "./dist/hero-newsletter-minimal.js",
       "require": "./dist/hero-newsletter-minimal.cjs"
     },
+    "./blocks/hero/hero-overlay-cta-grid": {
+      "types": "./dist/hero-overlay-cta-grid.d.ts",
+      "import": "./dist/hero-overlay-cta-grid.js",
+      "require": "./dist/hero-overlay-cta-grid.cjs"
+    },
     "./blocks/hero/hero-pattern-badge-logos": {
       "types": "./dist/hero-pattern-badge-logos.d.ts",
       "import": "./dist/hero-pattern-badge-logos.js",
@@ -1660,6 +1710,11 @@
       "types": "./dist/hero-split-geometric-shapes.d.ts",
       "import": "./dist/hero-split-geometric-shapes.js",
       "require": "./dist/hero-split-geometric-shapes.cjs"
+    },
+    "./blocks/hero/hero-split-icon-cards": {
+      "types": "./dist/hero-split-icon-cards.d.ts",
+      "import": "./dist/hero-split-icon-cards.js",
+      "require": "./dist/hero-split-icon-cards.cjs"
     },
     "./blocks/hero/hero-split-image-newsletter": {
       "types": "./dist/hero-split-image-newsletter.d.ts",
@@ -1790,6 +1845,11 @@
       "types": "./dist/list-metrics-dashboard.d.ts",
       "import": "./dist/list-metrics-dashboard.js",
       "require": "./dist/list-metrics-dashboard.cjs"
+    },
+    "./blocks/list/list-searchable-grid": {
+      "types": "./dist/list-searchable-grid.d.ts",
+      "import": "./dist/list-searchable-grid.js",
+      "require": "./dist/list-searchable-grid.cjs"
     },
     "./blocks/list/list-service-category-table": {
       "types": "./dist/list-service-category-table.d.ts",
@@ -2640,6 +2700,11 @@
       "types": "./dist/services-list-culture-tabs.d.ts",
       "import": "./dist/services-list-culture-tabs.js",
       "require": "./dist/services-list-culture-tabs.cjs"
+    },
+    "./blocks/services-list/services-list-feature-spotlight": {
+      "types": "./dist/services-list-feature-spotlight.d.ts",
+      "import": "./dist/services-list-feature-spotlight.js",
+      "require": "./dist/services-list-feature-spotlight.cjs"
     },
     "./blocks/services-list/services-list-featured-highlight": {
       "types": "./dist/services-list-featured-highlight.d.ts",

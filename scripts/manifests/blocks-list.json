@@ -28,6 +28,13 @@
   }
 ,
   {
+    "path": "./blocks/list/list-searchable-grid",
+    "types": "./dist/list-searchable-grid.d.ts",
+    "import": "./dist/list-searchable-grid.js",
+    "require": "./dist/list-searchable-grid.cjs"
+  }
+,
+  {
     "path": "./blocks/list/list-service-category-table",
     "types": "./dist/list-service-category-table.d.ts",
     "import": "./dist/list-service-category-table.js",

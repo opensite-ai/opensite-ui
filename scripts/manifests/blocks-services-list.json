@@ -42,6 +42,13 @@
   }
 ,
   {
+    "path": "./blocks/services-list/services-list-feature-spotlight",
+    "types": "./dist/services-list-feature-spotlight.d.ts",
+    "import": "./dist/services-list-feature-spotlight.js",
+    "require": "./dist/services-list-feature-spotlight.cjs"
+  }
+,
+  {
     "path": "./blocks/services-list/services-list-featured-highlight",
     "types": "./dist/services-list-featured-highlight.d.ts",
     "import": "./dist/services-list-featured-highlight.js",

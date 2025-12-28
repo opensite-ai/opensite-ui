@@ -28,6 +28,20 @@
   }
 ,
   {
+    "path": "./blocks/footers/footer-brand-links-contact",
+    "types": "./dist/footer-brand-links-contact.d.ts",
+    "import": "./dist/footer-brand-links-contact.js",
+    "require": "./dist/footer-brand-links-contact.cjs"
+  }
+,
+  {
+    "path": "./blocks/footers/footer-comprehensive-links",
+    "types": "./dist/footer-comprehensive-links.d.ts",
+    "import": "./dist/footer-comprehensive-links.js",
+    "require": "./dist/footer-comprehensive-links.cjs"
+  }
+,
+  {
     "path": "./blocks/footers/footer-contact-card",
     "types": "./dist/footer-contact-card.d.ts",
     "import": "./dist/footer-contact-card.js",
