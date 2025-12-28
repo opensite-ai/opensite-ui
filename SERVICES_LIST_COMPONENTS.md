@@ -2250,3 +2250,108 @@ const Services21 = ({ className }: Services21Props) => {
 export { Services21 };
 
 ```
+
+
+```tsx
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Calendar,
+  ClockCircle,
+  Shield,
+  TrendingUp,
+  Users,
+} from "@mynaui/icons-react";
+
+export default function Component() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-24">
+      <div className="mx-auto mb-12 max-w-2xl text-center">
+        <Badge variant="outline">Our Features</Badge>
+        <h2 className="my-3 text-balance text-3xl font-bold tracking-tight">
+          Mastering Project Management
+        </h2>
+        <p className="text-base text-muted-foreground">
+          Elevate your projects with our comprehensive toolkit
+        </p>
+      </div>
+
+      <div className="mb-6 grid gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <Calendar className="mb-2 size-8 stroke-2 text-red-500" />
+            <CardTitle>Timeline Management</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-muted-foreground">
+              Create and manage project timelines with ease. Set milestones,
+              track deadlines, and visualize project progress in real-time.
+            </p>
+            <Button variant="outline">Explore Timelines</Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <Users className="mb-2 size-8 stroke-2 text-blue-500" />
+            <CardTitle>Team Collaboration</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-muted-foreground">
+              Enhance team productivity with our collaboration tools. Share
+              documents, communicate effectively, and work together seamlessly.
+            </p>
+            <Button variant="outline">Boost Teamwork</Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card>
+          <CardHeader>
+            <TrendingUp className="mb-2 size-8 stroke-2 text-green-500" />
+            <CardTitle>Performance Metrics</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-muted-foreground">
+              Track key performance indicators and project health. Generate
+              insightful reports to make data-driven decisions.
+            </p>
+            <Button variant="outline">View Metrics</Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <ClockCircle className="mb-2 size-8 stroke-2 text-yellow-500" />
+            <CardTitle>Time Tracking</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-muted-foreground">
+              Monitor time spent on tasks and projects. Improve estimation
+              accuracy and optimize resource allocation.
+            </p>
+            <Button variant="outline">Start Tracking</Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <Shield className="mb-2 size-8 stroke-2 text-purple-500" />
+            <CardTitle>Risk Management</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-muted-foreground">
+              Identify, assess, and mitigate project risks. Stay prepared with
+              contingency plans and proactive risk strategies.
+            </p>
+            <Button variant="outline">Manage Risks</Button>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
+
+```
