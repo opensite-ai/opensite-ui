@@ -297,6 +297,19 @@ import { NavbarIconLinks } from "../../components/blocks/navbars/navbar-icon-lin
 import { NavbarTabbedSections } from "../../components/blocks/navbars/navbar-tabbed-sections";
 import { NavbarFullscreenMenu } from "../../components/blocks/navbars/navbar-fullscreen-menu";
 
+// Logos components
+import { LogosInlineTagline } from "../../components/blocks/logos/logos-inline-tagline";
+import { LogosCertificationsGrid } from "../../components/blocks/logos/logos-certifications-grid";
+import { LogosCarouselHeading } from "../../components/blocks/logos/logos-carousel-heading";
+import { LogosPartnerNetwork } from "../../components/blocks/logos/logos-partner-network";
+import { LogosTwoRowGrid } from "../../components/blocks/logos/logos-two-row-grid";
+import { LogosMarqueeMuted } from "../../components/blocks/logos/logos-marquee-muted";
+import { LogosCenteredSimple } from "../../components/blocks/logos/logos-centered-simple";
+import { LogosNumberedCarousel } from "../../components/blocks/logos/logos-numbered-carousel";
+import { LogosDoubleCarouselPattern } from "../../components/blocks/logos/logos-double-carousel-pattern";
+import { LogosMinimalCarousel } from "../../components/blocks/logos/logos-minimal-carousel";
+import { LogosPartnerGridSidebar } from "../../components/blocks/logos/logos-partner-grid-sidebar";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -332,7 +345,8 @@ export type BlockCategory =
   | "article"
   | "case-studies-list"
   | "case-study-detail"
-  | "navbar";
+  | "navbar"
+  | "logos";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -6262,6 +6276,341 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   socialLinks={[
     { label: "Instagram", href: "https://instagram.com", icon: "lucide/instagram" },
     { label: "Twitter", href: "https://twitter.com", icon: "lucide/twitter" }
+  ]}
+/>`.trim(),
+  },
+
+  // Logos components
+  "logos-inline-tagline": {
+    id: "logos-inline-tagline",
+    name: "Logos Inline Tagline",
+    description:
+      "A simple horizontal logo strip with a tagline on the left and partner logos on the right. Features grayscale logos with hover effects and responsive flex-wrap layout. Ideal for displaying trusted partners or clients in a compact, professional format at the top or bottom of landing pages.",
+    semanticTags: [
+      "logos",
+      "partners",
+      "clients",
+      "trust",
+      "social-proof",
+      "horizontal",
+      "inline",
+      "tagline",
+      "compact",
+      "grayscale",
+    ],
+    category: "logos",
+    component: LogosInlineTagline,
+    props: "LogosInlineTaglineProps",
+    exampleUsage: `<LogosInlineTagline
+  tagline="Used by the world's leading companies"
+  partners={[
+    { name: "Company 1", logo: "/logos/company1.svg" },
+    { name: "Company 2", logo: "/logos/company2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-certifications-grid": {
+    id: "logos-certifications-grid",
+    name: "Logos Certifications Grid",
+    description:
+      "A split-layout section with text content and CTA on the left, and a 3-column grid of certification/partner logos on the right. Features bordered container with responsive grid layout. Perfect for showcasing certifications, compliance badges, or partner endorsements alongside a compelling call-to-action.",
+    semanticTags: [
+      "logos",
+      "certifications",
+      "compliance",
+      "badges",
+      "grid",
+      "split-layout",
+      "cta",
+      "trust",
+      "endorsements",
+      "bordered",
+    ],
+    category: "logos",
+    component: LogosCertificationsGrid,
+    props: "LogosCertificationsGridProps",
+    exampleUsage: `<LogosCertificationsGrid
+  title="Our certifications say it all."
+  description="Industry-leading compliance and security standards."
+  buttonText="Get in touch"
+  buttonUrl="/contact"
+  logos={[
+    { id: "cert-1", description: "ISO 27001", image: "/certs/iso.svg" },
+    { id: "cert-2", description: "SOC 2", image: "/certs/soc2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-carousel-heading": {
+    id: "logos-carousel-heading",
+    name: "Logos Carousel Heading",
+    description:
+      "An auto-scrolling logo carousel with a centered heading above. Features smooth infinite scroll animation using Embla Carousel with gradient fade overlays on both sides. Ideal for hero sections or trust indicators where you want to showcase many partners in a dynamic, attention-grabbing format.",
+    semanticTags: [
+      "logos",
+      "carousel",
+      "auto-scroll",
+      "infinite",
+      "animated",
+      "heading",
+      "partners",
+      "trust",
+      "hero",
+      "gradient-fade",
+    ],
+    category: "logos",
+    component: LogosCarouselHeading,
+    props: "LogosCarouselHeadingProps",
+    exampleUsage: `<LogosCarouselHeading
+  heading="Trusted by these companies"
+  logos={[
+    { id: "logo-1", description: "Company 1", image: "/logos/company1.svg" },
+    { id: "logo-2", description: "Company 2", image: "/logos/company2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-partner-network": {
+    id: "logos-partner-network",
+    name: "Logos Partner Network",
+    description:
+      "A centered partner showcase with badge, title, description, and CTA button above a responsive logo grid. Features grayscale-to-color hover effects and clean 4-column layout. Perfect for partner program pages or sections highlighting business relationships with a clear call-to-action for potential partners.",
+    semanticTags: [
+      "logos",
+      "partners",
+      "network",
+      "badge",
+      "cta",
+      "grid",
+      "hover-effects",
+      "grayscale",
+      "centered",
+      "program",
+    ],
+    category: "logos",
+    component: LogosPartnerNetwork,
+    props: "LogosPartnerNetworkProps",
+    exampleUsage: `<LogosPartnerNetwork
+  badge="Partner Network"
+  title="Trusted by industry leaders"
+  description="Join thousands of companies that trust our platform."
+  buttonText="Become a partner"
+  buttonUrl="/partners"
+  logos={[
+    { name: "Partner 1", logo: "/logos/partner1.svg" },
+    { name: "Partner 2", logo: "/logos/partner2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-two-row-grid": {
+    id: "logos-two-row-grid",
+    name: "Logos Two Row Grid",
+    description:
+      "A two-row logo display with clickable company logos arranged in centered rows. Features grayscale-to-color hover transitions and optional link support for each logo. Ideal for showcasing a larger number of partners or clients in an organized, balanced layout with interactive elements.",
+    semanticTags: [
+      "logos",
+      "two-row",
+      "grid",
+      "clickable",
+      "links",
+      "partners",
+      "clients",
+      "hover",
+      "grayscale",
+      "balanced",
+    ],
+    category: "logos",
+    component: LogosTwoRowGrid,
+    props: "LogosTwoRowGridProps",
+    exampleUsage: `<LogosTwoRowGrid
+  heading="Trusted by leading companies worldwide"
+  companies={[
+    { name: "Company 1", logo: "/logos/company1.svg", url: "https://company1.com" },
+    { name: "Company 2", logo: "/logos/company2.svg", url: "https://company2.com" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-marquee-muted": {
+    id: "logos-marquee-muted",
+    name: "Logos Marquee Muted",
+    description:
+      "A continuous marquee-style logo carousel on a muted background. Features subtle grayscale logos with smooth infinite scroll animation and gradient fade overlays. Perfect for adding social proof in a non-intrusive way, especially in sections with muted or secondary visual hierarchy.",
+    semanticTags: [
+      "logos",
+      "marquee",
+      "muted",
+      "background",
+      "subtle",
+      "grayscale",
+      "infinite-scroll",
+      "social-proof",
+      "non-intrusive",
+      "secondary",
+    ],
+    category: "logos",
+    component: LogosMarqueeMuted,
+    props: "LogosMarqueeMutedProps",
+    exampleUsage: `<LogosMarqueeMuted
+  heading="Trusted by leading companies"
+  logos={[
+    { name: "Company 1", logo: "/logos/company1.svg" },
+    { name: "Company 2", logo: "/logos/company2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-centered-simple": {
+    id: "logos-centered-simple",
+    name: "Logos Centered Simple",
+    description:
+      "A clean, centered logo section with title, subtitle, and a single row of logos. Features grayscale-to-color hover effects with simple, elegant styling. Ideal for minimalist designs where you want to display trusted partners without overwhelming the page layout.",
+    semanticTags: [
+      "logos",
+      "centered",
+      "simple",
+      "minimal",
+      "clean",
+      "elegant",
+      "title",
+      "subtitle",
+      "hover",
+      "grayscale",
+    ],
+    category: "logos",
+    component: LogosCenteredSimple,
+    props: "LogosCenteredSimpleProps",
+    exampleUsage: `<LogosCenteredSimple
+  title="Trusted by innovative companies"
+  subtitle="Join thousands of businesses that rely on our platform"
+  logos={[
+    { name: "Company 1", logo: "/logos/company1.svg" },
+    { name: "Company 2", logo: "/logos/company2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-numbered-carousel": {
+    id: "logos-numbered-carousel",
+    name: "Logos Numbered Carousel",
+    description:
+      "An auto-scrolling logo carousel with a headline and company count indicator. Features numbered hover states for each logo, gradient overlays, and smooth infinite scroll. Perfect for data-driven presentations where you want to emphasize the quantity of trusted partners alongside their logos.",
+    semanticTags: [
+      "logos",
+      "carousel",
+      "numbered",
+      "count",
+      "data-driven",
+      "headline",
+      "auto-scroll",
+      "gradient",
+      "partners",
+      "quantity",
+    ],
+    category: "logos",
+    component: LogosNumberedCarousel,
+    props: "LogosNumberedCarouselProps",
+    exampleUsage: `<LogosNumberedCarousel
+  headline="Powering the world's best product teams."
+  logos={[
+    { name: "Company 1", logo: "/logos/company1.svg" },
+    { name: "Company 2", logo: "/logos/company2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-double-carousel-pattern": {
+    id: "logos-double-carousel-pattern",
+    name: "Logos Double Carousel Pattern",
+    description:
+      "A visually rich section with two rows of auto-scrolling logos moving in opposite directions, overlaid on a dot pattern background. Features centered title, description, and dual CTA buttons. Ideal for hero-adjacent sections where you want maximum visual impact while showcasing partners.",
+    semanticTags: [
+      "logos",
+      "double-carousel",
+      "pattern",
+      "background",
+      "opposite-directions",
+      "cta",
+      "visual-impact",
+      "hero-adjacent",
+      "animated",
+      "dots",
+    ],
+    category: "logos",
+    component: LogosDoubleCarouselPattern,
+    props: "LogosDoubleCarouselPatternProps",
+    exampleUsage: `<LogosDoubleCarouselPattern
+  title="Trusted by industry leaders worldwide"
+  description="Join thousands of companies that rely on our platform."
+  primaryButtonText="Get started"
+  primaryButtonUrl="/signup"
+  secondaryButtonText="Learn more"
+  secondaryButtonUrl="/about"
+  topRowLogos={[{ name: "Company 1", logo: "/logos/company1.svg" }]}
+  bottomRowLogos={[{ name: "Company 2", logo: "/logos/company2.svg" }]}
+/>`.trim(),
+  },
+
+  "logos-minimal-carousel": {
+    id: "logos-minimal-carousel",
+    name: "Logos Minimal Carousel",
+    description:
+      "A minimal, bordered logo carousel with subtle dividers between logos. Features grayscale logos with hover color transitions and smooth auto-scroll animation. Perfect for clean, professional designs where logos should be present but not dominant in the visual hierarchy.",
+    semanticTags: [
+      "logos",
+      "minimal",
+      "carousel",
+      "bordered",
+      "dividers",
+      "subtle",
+      "grayscale",
+      "professional",
+      "clean",
+      "auto-scroll",
+    ],
+    category: "logos",
+    component: LogosMinimalCarousel,
+    props: "LogosMinimalCarouselProps",
+    exampleUsage: `<LogosMinimalCarousel
+  logos={[
+    { name: "Company 1", logo: "/logos/company1.svg" },
+    { name: "Company 2", logo: "/logos/company2.svg" }
+  ]}
+/>`.trim(),
+  },
+
+  "logos-partner-grid-sidebar": {
+    id: "logos-partner-grid-sidebar",
+    name: "Logos Partner Grid Sidebar",
+    description:
+      "A two-column layout with a sticky sidebar containing title, description, and timeline milestones, alongside a responsive grid of partner logos. Features hover effects and card-style logo containers. Ideal for partner pages that want to tell a story about partnership growth over time while displaying current partners.",
+    semanticTags: [
+      "logos",
+      "partners",
+      "grid",
+      "sidebar",
+      "sticky",
+      "timeline",
+      "milestones",
+      "story",
+      "growth",
+      "cards",
+    ],
+    category: "logos",
+    component: LogosPartnerGridSidebar,
+    props: "LogosPartnerGridSidebarProps",
+    exampleUsage: `<LogosPartnerGridSidebar
+  sidebarTitle="Our Partners"
+  sidebarDescription="We've partnered with industry leaders to deliver exceptional value."
+  yearSections={[
+    { year: "2020", description: "Started with 10 founding partners." },
+    { year: "2024", description: "Now serving 200+ partners globally." }
+  ]}
+  partners={[
+    { name: "Partner 1", logo: "/logos/partner1.svg" },
+    { name: "Partner 2", logo: "/logos/partner2.svg" }
   ]}
 />`.trim(),
   },
