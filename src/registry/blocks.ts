@@ -541,6 +541,60 @@ import type { ServiceDetailCenteredExpertiseProps } from "../../components/block
 import { ServiceDetailCompactCards } from "../../components/blocks/service-detail/service-detail-compact-cards";
 import type { ServiceDetailCompactCardsProps } from "../../components/blocks/service-detail/service-detail-compact-cards";
 
+// Services List components
+import { ServicesListIconGrid } from "../../components/blocks/services-list/services-list-icon-grid";
+import type { ServicesListIconGridProps } from "../../components/blocks/services-list/services-list-icon-grid";
+import { ServicesListMutedCards } from "../../components/blocks/services-list/services-list-muted-cards";
+import type { ServicesListMutedCardsProps } from "../../components/blocks/services-list/services-list-muted-cards";
+import { ServicesListCenteredIcons } from "../../components/blocks/services-list/services-list-centered-icons";
+import type { ServicesListCenteredIconsProps } from "../../components/blocks/services-list/services-list-centered-icons";
+import { ServicesListVerticalTags } from "../../components/blocks/services-list/services-list-vertical-tags";
+import type { ServicesListVerticalTagsProps } from "../../components/blocks/services-list/services-list-vertical-tags";
+import { ServicesListAccordion } from "../../components/blocks/services-list/services-list-accordion";
+import type { ServicesListAccordionProps } from "../../components/blocks/services-list/services-list-accordion";
+import { ServicesListPricingGrid } from "../../components/blocks/services-list/services-list-pricing-grid";
+import type { ServicesListPricingGridProps } from "../../components/blocks/services-list/services-list-pricing-grid";
+import { ServicesListFeaturedHighlight } from "../../components/blocks/services-list/services-list-featured-highlight";
+import type { ServicesListFeaturedHighlightProps } from "../../components/blocks/services-list/services-list-featured-highlight";
+import { ServicesListImageCards } from "../../components/blocks/services-list/services-list-image-cards";
+import type { ServicesListImageCardsProps } from "../../components/blocks/services-list/services-list-image-cards";
+import { ServicesListImageOverlayGrid } from "../../components/blocks/services-list/services-list-image-overlay-grid";
+import type { ServicesListImageOverlayGridProps } from "../../components/blocks/services-list/services-list-image-overlay-grid";
+import { ServicesListHeroCards } from "../../components/blocks/services-list/services-list-hero-cards";
+import type { ServicesListHeroCardsProps } from "../../components/blocks/services-list/services-list-hero-cards";
+import { ServicesListTwoColumnGrid } from "../../components/blocks/services-list/services-list-two-column-grid";
+import type { ServicesListTwoColumnGridProps } from "../../components/blocks/services-list/services-list-two-column-grid";
+import { ServicesListMasonry } from "../../components/blocks/services-list/services-list-masonry";
+import type { ServicesListMasonryProps } from "../../components/blocks/services-list/services-list-masonry";
+import { ServicesListCategoryAccordion } from "../../components/blocks/services-list/services-list-category-accordion";
+import type { ServicesListCategoryAccordionProps } from "../../components/blocks/services-list/services-list-category-accordion";
+import { ServicesListProgressSidebar } from "../../components/blocks/services-list/services-list-progress-sidebar";
+import type { ServicesListProgressSidebarProps } from "../../components/blocks/services-list/services-list-progress-sidebar";
+import { ServicesListTableHover } from "../../components/blocks/services-list/services-list-table-hover";
+import type { ServicesListTableHoverProps } from "../../components/blocks/services-list/services-list-table-hover";
+import { ServicesListMethodologySteps } from "../../components/blocks/services-list/services-list-methodology-steps";
+import type { ServicesListMethodologyStepsProps } from "../../components/blocks/services-list/services-list-methodology-steps";
+import { ServicesListStickyImage } from "../../components/blocks/services-list/services-list-sticky-image";
+import type { ServicesListStickyImageProps } from "../../components/blocks/services-list/services-list-sticky-image";
+import { ServicesListTabsFeatures } from "../../components/blocks/services-list/services-list-tabs-features";
+import type { ServicesListTabsFeaturesProps } from "../../components/blocks/services-list/services-list-tabs-features";
+import { ServicesListVideoShowcase } from "../../components/blocks/services-list/services-list-video-showcase";
+import type { ServicesListVideoShowcaseProps } from "../../components/blocks/services-list/services-list-video-showcase";
+import { ServicesListCultureTabs } from "../../components/blocks/services-list/services-list-culture-tabs";
+import type { ServicesListCultureTabsProps } from "../../components/blocks/services-list/services-list-culture-tabs";
+import { ServicesListAccordionBenefits } from "../../components/blocks/services-list/services-list-accordion-benefits";
+import type { ServicesListAccordionBenefitsProps } from "../../components/blocks/services-list/services-list-accordion-benefits";
+import { ServicesListSplitChecklist } from "../../components/blocks/services-list/services-list-split-checklist";
+import type { ServicesListSplitChecklistProps } from "../../components/blocks/services-list/services-list-split-checklist";
+import { ServicesListMinimalGrid } from "../../components/blocks/services-list/services-list-minimal-grid";
+import type { ServicesListMinimalGridProps } from "../../components/blocks/services-list/services-list-minimal-grid";
+import { ServicesListNumberedSteps } from "../../components/blocks/services-list/services-list-numbered-steps";
+import type { ServicesListNumberedStepsProps } from "../../components/blocks/services-list/services-list-numbered-steps";
+import { ServicesListCardsHover } from "../../components/blocks/services-list/services-list-cards-hover";
+import type { ServicesListCardsHoverProps } from "../../components/blocks/services-list/services-list-cards-hover";
+import { ServicesListTimeline } from "../../components/blocks/services-list/services-list-timeline";
+import type { ServicesListTimelineProps } from "../../components/blocks/services-list/services-list-timeline";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -585,7 +639,8 @@ export type BlockCategory =
   | "banner"
   | "industries"
   | "resource-detail"
-  | "service-detail";
+  | "service-detail"
+  | "services-list";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -12574,6 +12629,909 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   expertise={[{ icon: "/icons/figma.svg", title: "Figma", description: "Expert" }]}
   services={[{ icon: "lucide/users", title: "User research" }]}
   relatedServices={[{ image: "/images/web.jpg", title: "Web Dev", description: "...", link: "#" }]}
+/>`.trim(),
+  },
+
+  // Services List components
+  "services-list-icon-grid": {
+    id: "services-list-icon-grid",
+    name: "Services List Icon Grid",
+    description:
+      "A 2x2 grid layout displaying services with icons, titles, descriptions, and bullet point items. Each service card features a circular icon, bold title, descriptive text, and a list of included items. Ideal for showcasing 4 core services with their key offerings in a clean, organized grid format.",
+    semanticTags: [
+      "services",
+      "grid",
+      "icons",
+      "cards",
+      "offerings",
+      "features",
+      "list",
+      "bullet-points",
+    ],
+    category: "services-list",
+    component: ServicesListIconGrid,
+    props: "ServicesListIconGridProps",
+    exampleUsage: `
+<ServicesListIconGrid
+  title="Our Services"
+  description="Comprehensive solutions for your business"
+  services={[
+    {
+      icon: "lucide/code",
+      title: "Web Development",
+      description: "Custom web solutions",
+      items: ["React", "Next.js", "TypeScript"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-muted-cards": {
+    id: "services-list-muted-cards",
+    name: "Services List Muted Cards",
+    description:
+      "A 2x2 grid layout with muted background cards featuring icons in bordered boxes. Each card includes a 'What's Included' section with a 2-column grid of items. Perfect for displaying comprehensive service offerings with detailed inclusions in a visually distinct format.",
+    semanticTags: [
+      "services",
+      "grid",
+      "cards",
+      "muted",
+      "inclusions",
+      "features",
+      "bordered",
+      "comprehensive",
+    ],
+    category: "services-list",
+    component: ServicesListMutedCards,
+    props: "ServicesListMutedCardsProps",
+    exampleUsage: `
+<ServicesListMutedCards
+  title="What We Offer"
+  description="Full-service solutions"
+  services={[
+    {
+      icon: "lucide/palette",
+      title: "Design Services",
+      description: "Creative design solutions",
+      items: ["UI Design", "Branding", "Prototyping"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-centered-icons": {
+    id: "services-list-centered-icons",
+    name: "Services List Centered Icons",
+    description:
+      "A responsive 1x4 grid layout with centered text and circular icons. Features hover effects on icons that invert colors. Each service displays an icon, title, description, and stacked items. Ideal for a compact, visually balanced presentation of services with interactive hover states.",
+    semanticTags: [
+      "services",
+      "grid",
+      "centered",
+      "icons",
+      "hover",
+      "interactive",
+      "compact",
+      "balanced",
+    ],
+    category: "services-list",
+    component: ServicesListCenteredIcons,
+    props: "ServicesListCenteredIconsProps",
+    exampleUsage: `
+<ServicesListCenteredIcons
+  title="Our Expertise"
+  description="Areas we excel in"
+  services={[
+    {
+      icon: "lucide/rocket",
+      title: "Launch Support",
+      description: "Get your product to market",
+      items: ["Strategy", "Execution", "Support"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-vertical-tags": {
+    id: "services-list-vertical-tags",
+    name: "Services List Vertical Tags",
+    description:
+      "A vertical list layout with services displayed as bordered cards. Each card features an icon, title, description, and pill-shaped tags for included items. Perfect for a scrollable, detailed view of services with tag-based categorization of offerings.",
+    semanticTags: [
+      "services",
+      "vertical",
+      "list",
+      "tags",
+      "pills",
+      "bordered",
+      "scrollable",
+      "detailed",
+    ],
+    category: "services-list",
+    component: ServicesListVerticalTags,
+    props: "ServicesListVerticalTagsProps",
+    exampleUsage: `
+<ServicesListVerticalTags
+  title="Service Packages"
+  description="Choose the right package for you"
+  services={[
+    {
+      icon: "lucide/box",
+      title: "Starter Package",
+      description: "Perfect for small projects",
+      items: ["Basic Setup", "Support", "Updates"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-accordion": {
+    id: "services-list-accordion",
+    name: "Services List Accordion",
+    description:
+      "An accordion-based expandable services section with detailed information. Each accordion item shows icon, title, and short description when collapsed, expanding to reveal full description, included items, and deliverables. Ideal for detailed service presentations where users can explore specific offerings without overwhelming the initial view.",
+    semanticTags: [
+      "services",
+      "accordion",
+      "expandable",
+      "collapsible",
+      "detailed",
+      "deliverables",
+      "interactive",
+      "progressive-disclosure",
+    ],
+    category: "services-list",
+    component: ServicesListAccordion,
+    props: "ServicesListAccordionProps",
+    exampleUsage: `
+<ServicesListAccordion
+  title="Explore Our Services"
+  description="Click to learn more"
+  services={[
+    {
+      icon: "lucide/settings",
+      title: "Consulting",
+      shortDescription: "Expert guidance",
+      fullDescription: "Comprehensive consulting services",
+      items: ["Analysis", "Strategy", "Implementation"],
+      deliverables: ["Report", "Roadmap", "Support"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-pricing-grid": {
+    id: "services-list-pricing-grid",
+    name: "Services List Pricing Grid",
+    description:
+      "A 2x2 grid layout displaying services with duration and pricing information. Each card features an icon, title, description, timeline, price, included items, and a CTA button. Perfect for service-based businesses that want to showcase offerings with transparent pricing.",
+    semanticTags: [
+      "services",
+      "pricing",
+      "grid",
+      "duration",
+      "cost",
+      "transparent",
+      "cta",
+      "packages",
+    ],
+    category: "services-list",
+    component: ServicesListPricingGrid,
+    props: "ServicesListPricingGridProps",
+    exampleUsage: `
+<ServicesListPricingGrid
+  title="Service Pricing"
+  description="Transparent pricing for all services"
+  services={[
+    {
+      icon: "lucide/zap",
+      title: "Quick Start",
+      description: "Fast implementation",
+      duration: "2 weeks",
+      price: "$2,500",
+      items: ["Setup", "Training", "Support"],
+      ctaText: "Get Started",
+      ctaLink: "/contact"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-featured-highlight": {
+    id: "services-list-featured-highlight",
+    name: "Services List Featured Highlight",
+    description:
+      "A 2x2 grid layout with featured service highlighting. Featured services display with a 'Popular' badge, primary-colored styling, and enhanced visual treatment. Each card includes check icons for deliverables and CTA buttons. Ideal for highlighting a recommended or most popular service option among multiple offerings.",
+    semanticTags: [
+      "services",
+      "featured",
+      "highlight",
+      "popular",
+      "badge",
+      "recommended",
+      "grid",
+      "cta",
+    ],
+    category: "services-list",
+    component: ServicesListFeaturedHighlight,
+    props: "ServicesListFeaturedHighlightProps",
+    exampleUsage: `
+<ServicesListFeaturedHighlight
+  title="Choose Your Plan"
+  description="Find the perfect fit"
+  services={[
+    {
+      icon: "lucide/star",
+      title: "Premium",
+      description: "Full-featured solution",
+      featured: true,
+      items: ["All Features", "Priority Support", "Custom Integrations"],
+      ctaText: "Choose Premium",
+      ctaLink: "/signup"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-image-cards": {
+    id: "services-list-image-cards",
+    name: "Services List Image Cards",
+    description:
+      "An asymmetric layout with introductory text on the left and 2 featured service cards on the right. Each service card features a large image overlay with gradient, title, description, and CTA link. Perfect for showcasing 2-3 primary services with strong visual impact and clear calls to action.",
+    semanticTags: [
+      "services",
+      "images",
+      "cards",
+      "asymmetric",
+      "visual",
+      "gradient",
+      "overlay",
+      "cta",
+    ],
+    category: "services-list",
+    component: ServicesListImageCards,
+    props: "ServicesListImageCardsProps",
+    exampleUsage: `
+<ServicesListImageCards
+  title="Featured Services"
+  description="Our most popular offerings"
+  services={[
+    {
+      image: "/images/service1.jpg",
+      title: "Web Design",
+      description: "Beautiful, responsive websites",
+      ctaText: "Learn More",
+      ctaLink: "/services/web-design"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-image-overlay-grid": {
+    id: "services-list-image-overlay-grid",
+    name: "Services List Image Overlay Grid",
+    description:
+      "An asymmetric layout with introductory text on the left and a 5-service grid on the right. Services display as image cards with gradient overlays, titles, and descriptions that appear on hover. The grid features varying card sizes for visual interest. Ideal for showcasing multiple services with strong imagery.",
+    semanticTags: [
+      "services",
+      "images",
+      "grid",
+      "overlay",
+      "hover",
+      "asymmetric",
+      "visual",
+      "gallery",
+    ],
+    category: "services-list",
+    component: ServicesListImageOverlayGrid,
+    props: "ServicesListImageOverlayGridProps",
+    exampleUsage: `
+<ServicesListImageOverlayGrid
+  title="Our Services"
+  description="Explore what we offer"
+  services={[
+    {
+      image: "/images/service.jpg",
+      title: "Consulting",
+      description: "Expert guidance for your business"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-hero-cards": {
+    id: "services-list-hero-cards",
+    name: "Services List Hero Cards",
+    description:
+      "A featured services layout with a large hero card and smaller supporting cards in a grid. The hero card displays prominently with a badge, full description, and CTA button. Supporting cards show as compact image cards with hover effects. Perfect for highlighting a primary service while showcasing related offerings.",
+    semanticTags: [
+      "services",
+      "hero",
+      "featured",
+      "cards",
+      "grid",
+      "badge",
+      "cta",
+      "highlight",
+    ],
+    category: "services-list",
+    component: ServicesListHeroCards,
+    props: "ServicesListHeroCardsProps",
+    exampleUsage: `
+<ServicesListHeroCards
+  title="Our Solutions"
+  description="Comprehensive service offerings"
+  heroService={{
+    image: "/images/hero.jpg",
+    badge: "Featured",
+    title: "Enterprise Solutions",
+    description: "Complete business transformation",
+    ctaText: "Learn More",
+    ctaLink: "/enterprise"
+  }}
+  services={[
+    {
+      image: "/images/service.jpg",
+      title: "Consulting",
+      link: "/consulting"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-two-column-grid": {
+    id: "services-list-two-column-grid",
+    name: "Services List Two Column Grid",
+    description:
+      "A 2-column layout with introductory content on the left and a 2x2 service grid on the right. The left column features a badge, title, description, and dual CTA buttons. The right column displays services as bordered cards with icons and hover effects. Ideal for presenting services alongside compelling marketing copy.",
+    semanticTags: [
+      "services",
+      "two-column",
+      "grid",
+      "marketing",
+      "cta",
+      "icons",
+      "bordered",
+      "split",
+    ],
+    category: "services-list",
+    component: ServicesListTwoColumnGrid,
+    props: "ServicesListTwoColumnGridProps",
+    exampleUsage: `
+<ServicesListTwoColumnGrid
+  badge="Services"
+  title="What We Do"
+  description="Comprehensive solutions"
+  primaryCta={{ text: "Get Started", link: "/contact" }}
+  secondaryCta={{ text: "Learn More", link: "/about" }}
+  services={[
+    {
+      icon: "lucide/code",
+      title: "Development",
+      description: "Custom software solutions"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-masonry": {
+    id: "services-list-masonry",
+    name: "Services List Masonry",
+    description:
+      "A masonry-style grid layout with variable card heights based on content. Featured services display with additional items and larger visual presence. Each card includes an icon, title, description, optional items list, and CTA link. Perfect for showcasing services with varying levels of detail in an organic, Pinterest-style layout.",
+    semanticTags: [
+      "services",
+      "masonry",
+      "grid",
+      "variable",
+      "organic",
+      "pinterest",
+      "featured",
+      "dynamic",
+    ],
+    category: "services-list",
+    component: ServicesListMasonry,
+    props: "ServicesListMasonryProps",
+    exampleUsage: `
+<ServicesListMasonry
+  title="Our Services"
+  description="Explore our offerings"
+  services={[
+    {
+      icon: "lucide/layers",
+      title: "Full Stack Development",
+      description: "End-to-end solutions",
+      featured: true,
+      items: ["Frontend", "Backend", "DevOps"],
+      ctaText: "Learn More",
+      ctaLink: "/services/fullstack"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-category-accordion": {
+    id: "services-list-category-accordion",
+    name: "Services List Category Accordion",
+    description:
+      "An accordion layout with large titles and expandable service items featuring categories and badges. Each accordion item displays a category label, title, and expands to show full description, included items, and technology badges. Ideal for organizing services by category with detailed information revealed on demand.",
+    semanticTags: [
+      "services",
+      "accordion",
+      "categories",
+      "badges",
+      "expandable",
+      "organized",
+      "detailed",
+      "technology",
+    ],
+    category: "services-list",
+    component: ServicesListCategoryAccordion,
+    props: "ServicesListCategoryAccordionProps",
+    exampleUsage: `
+<ServicesListCategoryAccordion
+  title="Services by Category"
+  description="Organized service offerings"
+  services={[
+    {
+      category: "Development",
+      title: "Web Applications",
+      description: "Custom web app development",
+      items: ["React", "Node.js", "PostgreSQL"],
+      badges: ["React", "TypeScript", "AWS"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-progress-sidebar": {
+    id: "services-list-progress-sidebar",
+    name: "Services List Progress Sidebar",
+    description:
+      "A creative solutions layout with a sticky left sidebar and service list with progress indicators. The sidebar contains title, description, and CTA. Each service displays with an icon, title, description, and visual progress bar. Perfect for showcasing a process or methodology with clear status indicators for each phase.",
+    semanticTags: [
+      "services",
+      "progress",
+      "sidebar",
+      "sticky",
+      "process",
+      "methodology",
+      "phases",
+      "status",
+    ],
+    category: "services-list",
+    component: ServicesListProgressSidebar,
+    props: "ServicesListProgressSidebarProps",
+    exampleUsage: `
+<ServicesListProgressSidebar
+  sidebarTitle="Our Process"
+  sidebarDescription="How we work"
+  ctaText="Start Project"
+  ctaLink="/contact"
+  services={[
+    {
+      icon: "lucide/search",
+      title: "Discovery",
+      description: "Understanding your needs",
+      progress: 100
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-table-hover": {
+    id: "services-list-table-hover",
+    name: "Services List Table Hover",
+    description:
+      "A table-based services layout with cursor-following image preview on hover. Services display as rows with category, title, description, and an arrow indicator. On hover, a preview image appears near the cursor. Ideal for a clean, minimal presentation with interactive image previews that add visual interest without cluttering the layout.",
+    semanticTags: [
+      "services",
+      "table",
+      "hover",
+      "preview",
+      "minimal",
+      "clean",
+      "interactive",
+      "cursor",
+    ],
+    category: "services-list",
+    component: ServicesListTableHover,
+    props: "ServicesListTableHoverProps",
+    exampleUsage: `
+<ServicesListTableHover
+  title="Our Services"
+  description="Hover to preview"
+  services={[
+    {
+      category: "Design",
+      title: "UI/UX Design",
+      description: "User-centered design",
+      image: "/images/design.jpg",
+      link: "/services/design"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-methodology-steps": {
+    id: "services-list-methodology-steps",
+    name: "Services List Methodology Steps",
+    description:
+      "A structured methodology layout displaying numbered service steps with options. Each step features a large number, title, description, and a list of included options/deliverables. Perfect for showcasing a process, workflow, or methodology with clear sequential steps.",
+    semanticTags: [
+      "services",
+      "methodology",
+      "steps",
+      "numbered",
+      "process",
+      "workflow",
+      "sequential",
+      "deliverables",
+    ],
+    category: "services-list",
+    component: ServicesListMethodologySteps,
+    props: "ServicesListMethodologyStepsProps",
+    exampleUsage: `
+<ServicesListMethodologySteps
+  title="Our Methodology"
+  description="A proven approach"
+  steps={[
+    {
+      number: 1,
+      title: "Discovery",
+      description: "Understanding your goals",
+      options: ["Stakeholder interviews", "Market research", "Requirements gathering"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-sticky-image": {
+    id: "services-list-sticky-image",
+    name: "Services List Sticky Image",
+    description:
+      "A sticky left sidebar layout with image transitions and a scrollable service list on the right. As users scroll through services, the corresponding image appears in the sticky left panel. Each service includes title, description, items list, and CTA. Perfect for detailed service presentations with strong visual support that changes contextually.",
+    semanticTags: [
+      "services",
+      "sticky",
+      "image",
+      "scroll",
+      "transitions",
+      "contextual",
+      "visual",
+      "detailed",
+    ],
+    category: "services-list",
+    component: ServicesListStickyImage,
+    props: "ServicesListStickyImageProps",
+    exampleUsage: `
+<ServicesListStickyImage
+  title="Our Services"
+  description="Scroll to explore"
+  services={[
+    {
+      image: "/images/service1.jpg",
+      title: "Web Development",
+      description: "Custom web solutions",
+      items: ["React", "Next.js", "Node.js"],
+      ctaText: "Learn More",
+      ctaLink: "/services/web"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-tabs-features": {
+    id: "services-list-tabs-features",
+    name: "Services List Tabs Features",
+    description:
+      "A tabbed services layout with feature lists and images. Users can switch between service categories using tabs, with each tab displaying a description, feature list with check icons, and a corresponding image. Ideal for organizing multiple service categories in a compact, interactive format.",
+    semanticTags: [
+      "services",
+      "tabs",
+      "features",
+      "categories",
+      "interactive",
+      "compact",
+      "checklist",
+      "images",
+    ],
+    category: "services-list",
+    component: ServicesListTabsFeatures,
+    props: "ServicesListTabsFeaturesProps",
+    exampleUsage: `
+<ServicesListTabsFeatures
+  title="Service Categories"
+  description="Explore by category"
+  tabs={[
+    {
+      label: "Development",
+      description: "Custom software solutions",
+      features: ["Web Apps", "Mobile Apps", "APIs"],
+      image: "/images/dev.jpg"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-video-showcase": {
+    id: "services-list-video-showcase",
+    name: "Services List Video Showcase",
+    description:
+      "A services layout featuring video showcases for each service. Each service card includes an icon, title, description, video player with poster image, and CTA. Videos play on hover or click. Perfect for showcasing services with dynamic video content that demonstrates capabilities or processes.",
+    semanticTags: [
+      "services",
+      "video",
+      "showcase",
+      "multimedia",
+      "dynamic",
+      "interactive",
+      "demonstration",
+      "media",
+    ],
+    category: "services-list",
+    component: ServicesListVideoShowcase,
+    props: "ServicesListVideoShowcaseProps",
+    exampleUsage: `
+<ServicesListVideoShowcase
+  title="See Our Work"
+  description="Watch how we deliver"
+  services={[
+    {
+      icon: "lucide/play",
+      title: "Product Demo",
+      description: "See our platform in action",
+      videoUrl: "/videos/demo.mp4",
+      posterImage: "/images/poster.jpg",
+      ctaText: "Try It Free",
+      ctaLink: "/signup"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-culture-tabs": {
+    id: "services-list-culture-tabs",
+    name: "Services List Culture Tabs",
+    description:
+      "A tabbed layout showcasing company culture aspects with testimonials. Each tab displays a culture aspect with description, image gallery, and employee testimonial. Includes a bottom CTA section for recruitment. Ideal for about/careers pages highlighting company values and culture through employee stories and visual content.",
+    semanticTags: [
+      "services",
+      "culture",
+      "tabs",
+      "testimonials",
+      "careers",
+      "values",
+      "gallery",
+      "recruitment",
+    ],
+    category: "services-list",
+    component: ServicesListCultureTabs,
+    props: "ServicesListCultureTabsProps",
+    exampleUsage: `
+<ServicesListCultureTabs
+  title="Our Culture"
+  description="What makes us unique"
+  tabs={[
+    {
+      label: "Innovation",
+      description: "We embrace new ideas",
+      images: ["/images/team1.jpg", "/images/team2.jpg"],
+      testimonial: {
+        quote: "Best place I've worked",
+        author: "Jane Doe",
+        role: "Engineer"
+      }
+    }
+  ]}
+  ctaTitle="Join Our Team"
+  ctaDescription="We're hiring!"
+  ctaLink="/careers"
+/>`.trim(),
+  },
+
+  "services-list-accordion-benefits": {
+    id: "services-list-accordion-benefits",
+    name: "Services List Accordion Benefits",
+    description:
+      "An accordion layout with expandable service items featuring detailed benefits lists. Each accordion item shows title and short description when collapsed, expanding to reveal full description, benefits list with bullet points, and a CTA link. Includes a bottom CTA for custom quotes. Ideal for freelancers or agencies showcasing detailed service offerings with clear value propositions.",
+    semanticTags: [
+      "services",
+      "accordion",
+      "benefits",
+      "expandable",
+      "detailed",
+      "value-proposition",
+      "freelancer",
+      "agency",
+    ],
+    category: "services-list",
+    component: ServicesListAccordionBenefits,
+    props: "ServicesListAccordionBenefitsProps",
+    exampleUsage: `
+<ServicesListAccordionBenefits
+  title="Our Services"
+  description="Explore what we offer"
+  services={[
+    {
+      title: "Brand Strategy",
+      shortDescription: "Define your brand identity",
+      fullDescription: "Comprehensive brand strategy services",
+      benefits: ["Market positioning", "Brand voice", "Visual identity"],
+      ctaText: "Get Started",
+      ctaLink: "/contact"
+    }
+  ]}
+  bottomCtaTitle="Need Something Custom?"
+  bottomCtaLink="/custom-quote"
+/>`.trim(),
+  },
+
+  "services-list-split-checklist": {
+    id: "services-list-split-checklist",
+    name: "Services List Split Checklist",
+    description:
+      "A split layout with introductory content and image on the left, service checklist on the right. The left column features a badge, title, description, dual CTAs, and an optional image. The right column displays services as a checklist with check icons, titles, and descriptions. Perfect for presenting services alongside compelling marketing copy and visual content.",
+    semanticTags: [
+      "services",
+      "split",
+      "checklist",
+      "marketing",
+      "cta",
+      "image",
+      "visual",
+      "two-column",
+    ],
+    category: "services-list",
+    component: ServicesListSplitChecklist,
+    props: "ServicesListSplitChecklistProps",
+    exampleUsage: `
+<ServicesListSplitChecklist
+  badge="Services"
+  title="What's Included"
+  description="Everything you need"
+  image="/images/services.jpg"
+  primaryCta={{ text: "Get Started", link: "/contact" }}
+  secondaryCta={{ text: "Learn More", link: "/about" }}
+  services={[
+    {
+      title: "Strategy",
+      description: "Comprehensive planning"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-minimal-grid": {
+    id: "services-list-minimal-grid",
+    name: "Services List Minimal Grid",
+    description:
+      "A clean, minimal 3-column grid layout for displaying services. Each service card features an icon, title, description, and optional CTA link. The design emphasizes simplicity and readability with subtle hover effects. Ideal for showcasing multiple services in a clean, scannable format.",
+    semanticTags: [
+      "services",
+      "minimal",
+      "grid",
+      "clean",
+      "simple",
+      "scannable",
+      "icons",
+      "three-column",
+    ],
+    category: "services-list",
+    component: ServicesListMinimalGrid,
+    props: "ServicesListMinimalGridProps",
+    exampleUsage: `
+<ServicesListMinimalGrid
+  title="Our Services"
+  description="Simple, effective solutions"
+  services={[
+    {
+      icon: "lucide/globe",
+      title: "Web Design",
+      description: "Beautiful, responsive websites",
+      ctaText: "Learn More",
+      ctaLink: "/services/web"
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-numbered-steps": {
+    id: "services-list-numbered-steps",
+    name: "Services List Numbered Steps",
+    description:
+      "A numbered steps layout displaying services as a sequential process. Each step features a large number, title, description, and optional items list. Connected by a vertical line to show progression. Perfect for showcasing a workflow, process, or methodology with clear sequential steps and deliverables.",
+    semanticTags: [
+      "services",
+      "numbered",
+      "steps",
+      "process",
+      "workflow",
+      "sequential",
+      "timeline",
+      "methodology",
+    ],
+    category: "services-list",
+    component: ServicesListNumberedSteps,
+    props: "ServicesListNumberedStepsProps",
+    exampleUsage: `
+<ServicesListNumberedSteps
+  title="Our Process"
+  description="How we work"
+  steps={[
+    {
+      title: "Discovery",
+      description: "Understanding your needs",
+      items: ["Requirements", "Research", "Planning"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-cards-hover": {
+    id: "services-list-cards-hover",
+    name: "Services List Cards Hover",
+    description:
+      "A grid layout with interactive hover cards that reveal additional features. Each card displays an icon, title, and description, with features appearing on hover. Cards feature smooth transitions and visual feedback. Ideal for showcasing services with progressive disclosure of details through hover interactions.",
+    semanticTags: [
+      "services",
+      "cards",
+      "hover",
+      "interactive",
+      "progressive-disclosure",
+      "features",
+      "transitions",
+      "grid",
+    ],
+    category: "services-list",
+    component: ServicesListCardsHover,
+    props: "ServicesListCardsHoverProps",
+    exampleUsage: `
+<ServicesListCardsHover
+  title="Our Services"
+  description="Hover to explore"
+  services={[
+    {
+      icon: "lucide/code",
+      title: "Development",
+      description: "Custom solutions",
+      features: ["React", "Node.js", "AWS"]
+    }
+  ]}
+/>`.trim(),
+  },
+
+  "services-list-timeline": {
+    id: "services-list-timeline",
+    name: "Services List Timeline",
+    description:
+      "A timeline-style layout displaying services as project phases. Each phase features an icon, title, description, duration badge, and deliverables list. Connected by a vertical timeline line with dot markers. Perfect for showcasing a project workflow or service delivery process with clear timelines and expected outcomes.",
+    semanticTags: [
+      "services",
+      "timeline",
+      "phases",
+      "project",
+      "workflow",
+      "duration",
+      "deliverables",
+      "process",
+    ],
+    category: "services-list",
+    component: ServicesListTimeline,
+    props: "ServicesListTimelineProps",
+    exampleUsage: `
+<ServicesListTimeline
+  title="Project Timeline"
+  description="Our delivery process"
+  phases={[
+    {
+      icon: "lucide/search",
+      title: "Discovery",
+      description: "Understanding requirements",
+      duration: "1-2 weeks",
+      deliverables: ["Requirements doc", "Project plan"]
+    }
+  ]}
 />`.trim(),
   },
 };
