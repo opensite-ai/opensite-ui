@@ -9612,14 +9612,14 @@ const Card = ({ title, summary, images, Icon, number, variant }: Item) => {
   const numberBorderColor = "var(--muted-foreground)";
   return (
     <div
-      className="relative flex h-full min-h-[39.375rem] w-full max-w-[34rem] flex-col justify-between gap-4 overflow-hidden rounded-[0.75rem] bg-muted"
+      className="relative flex h-full min-h-157.5 w-full max-w-136 flex-col justify-between gap-4 overflow-hidden rounded-[0.75rem] bg-muted"
       style={{ backgroundImage: "url('https://cdn.ing/assets/i/r/286196/6kl0rqnd6mjk8j7e525fo8fo0vkc/p6.webp')" }}
     >
-      <div className="flex w-full flex-col gap-4 p-10 pr-[3.75rem] pb-0 md:p-[3.75rem]">
+      <div className="flex w-full flex-col gap-4 p-10 pr-15 pb-0 md:p-15">
         <h3 className="text-2xl leading-none">{title}</h3>
         <p className="text-xl leading-normal">{summary}</p>
       </div>
-      <div className="relative size-full min-h-[21.875rem]">
+      <div className="relative size-full min-h-87.5">
         <CardImage images={images} Icon={Icon} variant={variant} />
       </div>
       <div
@@ -9888,7 +9888,7 @@ const Feature220b = ({ className }: Feature220bProps) => {
         {/* Stats First */}
         <div className="mb-20 flex flex-wrap justify-center gap-12">
           {stats.map((item, i) => (
-            <div key={`stats-${i}`} className="min-w-[12rem] text-center">
+            <div key={`stats-${i}`} className="min-w-48 text-center">
               <div className="mb-2 text-4xl font-semibold md:text-5xl">
                 {item.number}
               </div>
@@ -12004,8 +12004,8 @@ export const Grid = ({
     [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
   ];
   return (
-    <div className="pointer-events-none absolute left-1/2 top-0  -ml-20 -mt-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-      <div className="absolute inset-0 bg-linear-to-r  [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:from-zinc-900/30 from-zinc-100/30 to-zinc-300/30 dark:to-zinc-900/30 opacity-100">
+    <div className="pointer-events-none absolute left-1/2 top-0  -ml-20 -mt-2 h-full w-full mask-[linear-gradient(white,transparent)]">
+      <div className="absolute inset-0 bg-linear-to-r  mask-[radial-gradient(farthest-side_at_top,white,transparent)] dark:from-zinc-900/30 from-zinc-100/30 to-zinc-300/30 dark:to-zinc-900/30 opacity-100">
         <GridPattern
           width={size ?? 20}
           height={size ?? 20}
