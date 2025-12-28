@@ -5,16 +5,195 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig } from "../../../src/types";
 
 export interface HeroHiringAnimatedTextProps {
-  className?: string;
+  /**
+   * Static heading prefix text
+   */
+  headingPrefix?: React.ReactNode;
+  /**
+   * Array of animated text items to cycle through
+   */
+  animatedTexts?: string[];
+  /**
+   * Custom slot for heading (overrides heading props)
+   */
+  headingSlot?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Scroll action configuration
+   */
+  scrollAction?: ActionConfig;
+  /**
+   * Custom slot for scroll action (overrides scrollAction prop)
+   */
+  scrollActionSlot?: React.ReactNode;
+  /**
+   * Background image URL
+   */
   backgroundImage?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
 }
 
+const defaultAnimatedTexts = [
+  "Cybersecurity sales reps",
+  "Pen testers",
+  "Sales engineers",
+  "IAM architects",
+  "Chief Information Security Officers",
+  "Cloud security engineers",
+  "Application Security Engineers",
+];
+
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Join our network",
+    href: "#",
+    variant: "default",
+    className: "h-fit w-fit rounded-full px-7 py-3.5 text-xs font-semibold text-nowrap uppercase lg:px-9 lg:py-5 lg:text-base",
+  },
+  {
+    label: "Hire top talent",
+    href: "#",
+    variant: "outline",
+    className: "h-fit w-fit rounded-full border-white bg-transparent px-7 py-3.5 text-xs font-semibold text-nowrap text-white uppercase hover:bg-background/15 lg:px-9 lg:py-5 lg:text-base",
+  },
+];
+
+const defaultScrollAction: ActionConfig = {
+  label: "Scroll to explore",
+  href: "#",
+  variant: "link",
+  className: "flex h-fit w-fit items-center gap-2 text-xs font-semibold text-nowrap uppercase hover:no-underline lg:text-base",
+  iconAfter: <DynamicIcon name="lucide/arrow-down" size={16} className="stroke-white" />,
+};
+
 export function HeroHiringAnimatedText({
-  className,
+  headingPrefix = "We help you to hire top",
+  animatedTexts = defaultAnimatedTexts,
+  headingSlot,
+  description = "Discover exceptional talent, fast.",
+  actions = defaultActions,
+  actionsSlot,
+  scrollAction = defaultScrollAction,
+  scrollActionSlot,
   backgroundImage = imagePlaceholders[84],
+  className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
 }: HeroHiringAnimatedTextProps): React.JSX.Element {
+  const renderHeading = () => {
+    if (headingSlot) return headingSlot;
+
+    return (
+      <h1 className={cn("text-4xl leading-9 font-bold text-foreground lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22!", headingClassName)}>
+        <div className="mb-2">{headingPrefix}</div>
+        <div className="relative h-[calc(2.25rem*3)] md:h-9 lg:h-12 xl:h-22">
+          {animatedTexts.map((text, index) => (
+            <div
+              key={index}
+              className={cn(
+                "absolute top-0 left-0 will-change-[opacity]",
+                index === 0
+                  ? `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_0s]`
+                  : `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_${index * 2}s] opacity-0`
+              )}
+              style={{
+                animation: `show-text ${animatedTexts.length * 2}s ease-in-out infinite ${index * 2}s`,
+                opacity: index === 0 ? 1 : 0,
+              }}
+            >
+              {text}
+            </div>
+          ))}
+        </div>
+      </h1>
+    );
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+
+    return (
+      <div className={cn("flex flex-wrap items-center gap-5", actionsClassName)}>
+        {actions.map((action, index) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderScrollAction = () => {
+    if (scrollActionSlot) return scrollActionSlot;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = scrollAction;
+    return (
+      <Pressable asButton className={actionClassName} {...pressableProps}>
+        {children ?? (
+          <>
+            {icon}
+            <div>{label}</div>
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
     <section
       className={cn(
@@ -23,70 +202,22 @@ export function HeroHiringAnimatedText({
       )}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className="relative z-10 container flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end">
-        <div className="flex h-full flex-col justify-between gap-6 md:justify-end">
-          <h1 className="text-4xl leading-9 font-bold text-foreground lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22!">
-            <div className="mb-2">We help you to hire top</div>
-            <div className="relative h-[calc(2.25rem*3)] md:h-9 lg:h-12 xl:h-22">
-              <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_0s] will-change-[opacity]">
-                Cybersecurity sales reps
-              </div>
-              <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_2s] opacity-0 will-change-[opacity]">
-                Pen testers
-              </div>
-              <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_4s] opacity-0 will-change-[opacity]">
-                Sales engineers
-              </div>
-              <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_6s] opacity-0 will-change-[opacity]">
-                IAM architects
-              </div>
-              <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_8s] opacity-0 will-change-[opacity]">
-                Chief Information Security Officers
-              </div>
-              <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_10s] opacity-0 will-change-[opacity]">
-                Cloud security engineers
-              </div>
-              <div className="absolute top-0 left-0 animate-[show-text_14s_ease-in-out_infinite_12s] opacity-0 will-change-[opacity]">
-                Application Security Engineers
-              </div>
-            </div>
-          </h1>
+      <div className={cn("relative z-10 container flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end", containerClassName)}>
+        <div className={cn("flex h-full flex-col justify-between gap-6 md:justify-end", contentClassName)}>
+          {renderHeading()}
           <div className="flex flex-col gap-8">
-            <p className="text-lg text-foreground lg:text-2xl">
-              Discover exceptional talent, fast.
-            </p>
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("text-lg text-foreground lg:text-2xl", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
             <div className="flex flex-wrap items-center justify-between gap-5">
-              <div className="flex flex-wrap items-center gap-5">
-                <Pressable
-                  href="#"
-                  asButton
-                  variant="default"
-                  className="h-fit w-fit rounded-full px-7 py-3.5 text-xs font-semibold text-nowrap uppercase lg:px-9 lg:py-5 lg:text-base"
-                >
-                  Join our network
-                </Pressable>
-                <Pressable
-                  href="#"
-                  asButton
-                  variant="outline"
-                  className="h-fit w-fit rounded-full border-white bg-transparent px-7 py-3.5 text-xs font-semibold text-nowrap text-white uppercase hover:bg-background/15 lg:px-9 lg:py-5 lg:text-base"
-                >
-                  Hire top talent
-                </Pressable>
-              </div>
-              <Pressable
-                href="#"
-                asButton
-                variant="link"
-                className="flex h-fit w-fit items-center gap-2 text-xs font-semibold text-nowrap uppercase hover:no-underline lg:text-base"
-              >
-                <div>Scroll to explore</div>
-                <DynamicIcon
-                  name="lucide/arrow-down"
-                  size={16}
-                  className="stroke-white"
-                />
-              </Pressable>
+              {renderActions()}
+              {renderScrollAction()}
             </div>
           </div>
         </div>
