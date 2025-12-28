@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { OfferModalMembershipImage } from "../offer-modal-membership-image";
 
 describe("OfferModalMembershipImage", () => {
@@ -83,46 +84,64 @@ describe("OfferModalMembershipImage", () => {
   });
 
   it("shows error for empty email", async () => {
+    const user = userEvent.setup();
     render(<OfferModalMembershipImage />);
 
     const input = screen.getByPlaceholderText("Email Address");
-    const form = input.closest("form");
-    fireEvent.submit(form!);
+    const submitButton = screen.getByText("Get Offer");
 
-    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
+    // Click the input to focus it
+    await user.click(input);
+    // Tab away to blur and trigger touched state
+    await user.tab();
+    // Click submit button
+    await user.click(submitButton);
+
+    const errorMessage = await screen.findByRole("alert", { name: /please enter an email address/i }, { timeout: 3000 });
     expect(errorMessage).toBeInTheDocument();
   });
 
   it("shows error for invalid email format", async () => {
+    const user = userEvent.setup();
     render(<OfferModalMembershipImage />);
 
     const input = screen.getByPlaceholderText("Email Address");
-    fireEvent.change(input, { target: { value: "invalid-email" } });
+    const submitButton = screen.getByText("Get Offer");
 
-    const form = input.closest("form");
-    fireEvent.submit(form!);
+    // Type invalid email
+    await user.type(input, "invalid-email");
+    // Tab away to blur and trigger touched state
+    await user.tab();
+    // Click submit button
+    await user.click(submitButton);
 
-    const errorMessage = await screen.findByText("Please enter a valid email address", {}, { timeout: 3000 });
+    const errorMessage = await screen.findByRole("alert", { name: /please enter a valid email address/i }, { timeout: 3000 });
     expect(errorMessage).toBeInTheDocument();
   });
 
   it("clears error when user types", async () => {
+    const user = userEvent.setup();
     render(<OfferModalMembershipImage />);
 
     const input = screen.getByPlaceholderText("Email Address");
-    const form = input.closest("form");
-    fireEvent.submit(form!);
+    const submitButton = screen.getByText("Get Offer");
+
+    // Click input, tab to blur, then submit to trigger error
+    await user.click(input);
+    await user.tab();
+    await user.click(submitButton);
 
     // Wait for error to appear
-    const errorMessage = await screen.findByText("Please enter an email address", {}, { timeout: 3000 });
+    const errorMessage = await screen.findByRole("alert", { name: /please enter an email address/i }, { timeout: 3000 });
     expect(errorMessage).toBeInTheDocument();
 
-    // Type in the field to clear the error
-    fireEvent.change(input, { target: { value: "t" } });
+    // Click input and type to clear the error
+    await user.click(input);
+    await user.type(input, "t");
 
     // Wait for error to disappear
     await waitFor(() => {
-      expect(screen.queryByText("Please enter an email address")).not.toBeInTheDocument();
+      expect(screen.queryByRole("alert", { name: /please enter an email address/i })).not.toBeInTheDocument();
     }, { timeout: 3000 });
   });
 
