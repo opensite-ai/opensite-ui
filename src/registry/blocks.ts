@@ -341,6 +341,17 @@ import { PricingToggleCards } from "../../components/blocks/pricing/pricing-togg
 import { PricingTogglePeriod } from "../../components/blocks/pricing/pricing-toggle-period";
 import { PricingTwoColumnBasic } from "../../components/blocks/pricing/pricing-two-column-basic";
 
+// Process components
+import { ProcessStickySteps } from "../../components/blocks/process/process-sticky-steps";
+import { ProcessScrollImage } from "../../components/blocks/process/process-scroll-image";
+import { ProcessHoverCards } from "../../components/blocks/process/process-hover-cards";
+import { ProcessIconTimeline } from "../../components/blocks/process/process-icon-timeline";
+import { ProcessExpandableTimeline } from "../../components/blocks/process/process-expandable-timeline";
+import { ProcessRoadmapTimeline } from "../../components/blocks/process/process-roadmap-timeline";
+import { ProcessMissionPrinciples } from "../../components/blocks/process/process-mission-principles";
+import { ProcessStepsGrid } from "../../components/blocks/process/process-steps-grid";
+import { ProcessNumberedServices } from "../../components/blocks/process/process-numbered-services";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -7374,6 +7385,261 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     { name: "Unlimited everything", description: "No limits" }
   ]}
   buttonText="Contact Sales"
+/>`.trim(),
+  },
+
+  // Process blocks
+  "process-sticky-steps": {
+    id: "process-sticky-steps",
+    name: "Process Sticky Steps",
+    description:
+      "A process section with a sticky left sidebar containing title, description, and CTA, paired with a scrollable right column of numbered step cards. Each step features a decorative corner illustration and displays step number, title, and description. Ideal for showcasing methodologies, workflows, or multi-step processes.",
+    semanticTags: [
+      "process",
+      "steps",
+      "methodology",
+      "workflow",
+      "sticky",
+      "sidebar",
+      "numbered",
+      "how-it-works",
+      "timeline",
+    ],
+    category: "process",
+    component: ProcessStickySteps,
+    props: "ProcessStickyStepsProps",
+    exampleUsage: `<ProcessStickySteps
+  title="Our Process"
+  description="We follow a proven methodology to deliver exceptional results."
+  ctaText="Get in touch"
+  ctaUrl="#contact"
+  steps={[
+    { step: "01", title: "Discover & Research", description: "Understanding your needs..." },
+    { step: "02", title: "Strategy & Planning", description: "Developing a roadmap..." }
+  ]}
+/>`.trim(),
+  },
+  "process-scroll-image": {
+    id: "process-scroll-image",
+    name: "Process Scroll Image",
+    description:
+      "A scroll-triggered process section with a sticky left panel containing title, description, animated image carousel, and CTA. As users scroll through the numbered steps on the right, the corresponding image animates into view with a clip-path reveal effect. Perfect for visual storytelling and step-by-step guides.",
+    semanticTags: [
+      "process",
+      "scroll",
+      "animation",
+      "image",
+      "carousel",
+      "interactive",
+      "visual",
+      "storytelling",
+      "steps",
+    ],
+    category: "process",
+    component: ProcessScrollImage,
+    props: "ProcessScrollImageProps",
+    exampleUsage: `<ProcessScrollImage
+  title="Our Process"
+  description="Watch our process unfold as you scroll."
+  steps={[
+    { step: "01", title: "Discovery", image: "/images/step1.jpg", description: "..." },
+    { step: "02", title: "Planning", image: "/images/step2.jpg", description: "..." }
+  ]}
+/>`.trim(),
+  },
+  "process-hover-cards": {
+    id: "process-hover-cards",
+    name: "Process Hover Cards",
+    description:
+      "A process section with hover-activated cards that reveal floating images on desktop. Each step displays a mono-font number, title, and description with smooth hover transitions. The floating image appears with a fade-in animation when hovering. Ideal for interactive process showcases and service overviews.",
+    semanticTags: [
+      "process",
+      "hover",
+      "interactive",
+      "cards",
+      "image",
+      "animation",
+      "services",
+      "steps",
+    ],
+    category: "process",
+    component: ProcessHoverCards,
+    props: "ProcessHoverCardsProps",
+    exampleUsage: `<ProcessHoverCards
+  title="Our Process"
+  description="Hover over each step to learn more."
+  steps={[
+    { step: "01", title: "Research", image: "/images/research.jpg", description: "..." },
+    { step: "02", title: "Design", image: "/images/design.jpg", description: "..." }
+  ]}
+/>`.trim(),
+  },
+  "process-icon-timeline": {
+    id: "process-icon-timeline",
+    name: "Process Icon Timeline",
+    description:
+      "A vertical timeline with colored icon badges and alternating left/right card layout. Each step features a customizable colored badge with icon, title, description, and optional highlight tags. The timeline line connects all steps visually. Perfect for detailed process flows, project phases, or methodology explanations.",
+    semanticTags: [
+      "process",
+      "timeline",
+      "icons",
+      "badges",
+      "vertical",
+      "alternating",
+      "phases",
+      "methodology",
+      "highlights",
+    ],
+    category: "process",
+    component: ProcessIconTimeline,
+    props: "ProcessIconTimelineProps",
+    exampleUsage: `<ProcessIconTimeline
+  title="Our Process"
+  description="A proven methodology for success."
+  steps={[
+    { icon: "lucide/lightbulb", title: "Discovery", description: "...", highlights: ["Research", "Analysis"], badgeColor: "bg-blue-500" },
+    { icon: "lucide/code", title: "Development", description: "...", highlights: ["Frontend", "Backend"], badgeColor: "bg-green-500" }
+  ]}
+/>`.trim(),
+  },
+  "process-expandable-timeline": {
+    id: "process-expandable-timeline",
+    name: "Process Expandable Timeline",
+    description:
+      "A clickable timeline with expandable content sections. Each step shows a numbered badge, title, and brief description that expands to reveal detailed content when clicked. Features smooth height animations and decorative corner connectors. Ideal for FAQ-style process explanations or detailed methodology breakdowns.",
+    semanticTags: [
+      "process",
+      "timeline",
+      "expandable",
+      "accordion",
+      "interactive",
+      "clickable",
+      "detailed",
+      "faq-style",
+    ],
+    category: "process",
+    component: ProcessExpandableTimeline,
+    props: "ProcessExpandableTimelineProps",
+    exampleUsage: `<ProcessExpandableTimeline
+  title="How We Work"
+  description="Click on each step to learn more."
+  steps={[
+    { title: "Discovery Phase", description: "Understanding your needs", expandedContent: "During the discovery phase..." },
+    { title: "Planning", description: "Creating a roadmap", expandedContent: "We develop a comprehensive plan..." }
+  ]}
+/>`.trim(),
+  },
+  "process-roadmap-timeline": {
+    id: "process-roadmap-timeline",
+    name: "Process Roadmap Timeline",
+    description:
+      "A product roadmap timeline with status badges (completed, in-progress, upcoming) and milestone cards. Features alternating left/right layout, date labels, feature tags, and visual status indicators. The timeline line connects milestones with numbered or checkmark badges. Perfect for product roadmaps and project timelines.",
+    semanticTags: [
+      "process",
+      "roadmap",
+      "timeline",
+      "milestones",
+      "status",
+      "product",
+      "project",
+      "planning",
+      "phases",
+    ],
+    category: "process",
+    component: ProcessRoadmapTimeline,
+    props: "ProcessRoadmapTimelineProps",
+    exampleUsage: `<ProcessRoadmapTimeline
+  title="Product Roadmap"
+  description="Our journey from concept to completion."
+  milestones={[
+    { title: "Foundation", description: "Core infrastructure", date: "Q1 2024", status: "completed", features: ["Architecture", "Database"] },
+    { title: "Enhancement", description: "Advanced features", date: "Q3 2024", status: "in-progress", features: ["Analytics", "Reporting"] }
+  ]}
+/>`.trim(),
+  },
+  "process-mission-principles": {
+    id: "process-mission-principles",
+    name: "Process Mission Principles",
+    description:
+      "A mission statement section with a grid of numbered principle cards. Features a prominent mission title and description followed by a responsive grid of principles, each with a floating number badge, title, and description. Ideal for company values, guiding principles, or core beliefs sections.",
+    semanticTags: [
+      "process",
+      "mission",
+      "principles",
+      "values",
+      "beliefs",
+      "company",
+      "culture",
+      "numbered",
+      "grid",
+    ],
+    category: "process",
+    component: ProcessMissionPrinciples,
+    props: "ProcessMissionPrinciplesProps",
+    exampleUsage: `<ProcessMissionPrinciples
+  missionLabel="OUR MISSION"
+  missionTitle="Building the Future Together"
+  missionDescription="We're on a mission to transform how businesses operate."
+  principlesLabel="OUR PRINCIPLES"
+  principles={[
+    { number: "01", title: "Customer First", description: "Every decision starts with the customer." },
+    { number: "02", title: "Quality Over Speed", description: "Excellence is a habit, not an exception." }
+  ]}
+/>`.trim(),
+  },
+  "process-steps-grid": {
+    id: "process-steps-grid",
+    name: "Process Steps Grid",
+    description:
+      "A grid layout of process step cards with large background numbers and icons. Each card features an icon in a colored badge, title, description, and a decorative oversized step number in the background. Hover effects highlight the active card. Perfect for showcasing methodologies, service processes, or workflow steps.",
+    semanticTags: [
+      "process",
+      "grid",
+      "steps",
+      "cards",
+      "icons",
+      "numbered",
+      "methodology",
+      "services",
+      "workflow",
+    ],
+    category: "process",
+    component: ProcessStepsGrid,
+    props: "ProcessStepsGridProps",
+    exampleUsage: `<ProcessStepsGrid
+  title="Our Process"
+  description="A systematic approach to delivering exceptional results."
+  steps={[
+    { icon: "lucide/search", title: "Research", description: "Understanding your business..." },
+    { icon: "lucide/lightbulb", title: "Ideation", description: "Developing creative solutions..." }
+  ]}
+/>`.trim(),
+  },
+  "process-numbered-services": {
+    id: "process-numbered-services",
+    name: "Process Numbered Services",
+    description:
+      "A services section with large numbered circles and capability lists. Each service displays a prominent number badge, title, description, CTA link, and a grid of capabilities with checkmark icons. The layout uses a 12-column grid for flexible content arrangement. Ideal for service offerings, capabilities, or solution pages.",
+    semanticTags: [
+      "process",
+      "services",
+      "numbered",
+      "capabilities",
+      "offerings",
+      "solutions",
+      "cta",
+      "checkmarks",
+    ],
+    category: "process",
+    component: ProcessNumberedServices,
+    props: "ProcessNumberedServicesProps",
+    exampleUsage: `<ProcessNumberedServices
+  title="Our Services"
+  description="Comprehensive solutions to help you succeed."
+  services={[
+    { number: "01", title: "Strategy", description: "Digital transformation...", capabilities: ["Roadmap", "Assessment"], ctaText: "Learn more", ctaUrl: "#" },
+    { number: "02", title: "Design", description: "User experience...", capabilities: ["UX Research", "UI Design"], ctaText: "Learn more", ctaUrl: "#" }
+  ]}
 />`.trim(),
   },
 };
