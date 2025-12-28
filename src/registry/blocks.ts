@@ -152,6 +152,12 @@ import { FaqIconBenefits } from "../../components/blocks/faq/faq-icon-benefits";
 import { FaqRoundedCards } from "../../components/blocks/faq/faq-rounded-cards";
 import { FaqProfileSidebar } from "../../components/blocks/faq/faq-profile-sidebar";
 
+// Case Studies List components
+import { CaseStudiesImageGrid } from "../../components/blocks/case-studies-list/case-studies-image-grid";
+import { CaseStudiesTestimonialStats } from "../../components/blocks/case-studies-list/case-studies-testimonial-stats";
+import { CaseStudiesFeaturedBorder } from "../../components/blocks/case-studies-list/case-studies-featured-border";
+import { CaseStudiesStatsCard } from "../../components/blocks/case-studies-list/case-studies-stats-card";
+
 // Hero components
 import { HeroBadgeImageSplit } from "../../components/blocks/hero/hero-badge-image-split";
 import { HeroImageLeftContent } from "../../components/blocks/hero/hero-image-left-content";
@@ -261,7 +267,8 @@ export type BlockCategory =
   | "comparison"
   | "background-pattern-hero"
   | "blog"
-  | "article";
+  | "article"
+  | "case-studies-list";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -4805,6 +4812,51 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: HeroPortfolioCreative,
     props: "HeroPortfolioCreativeProps",
     exampleUsage: `<HeroPortfolioCreative />`.trim(),
+  },
+
+  // Case Studies List blocks
+  "case-studies-image-grid": {
+    id: "case-studies-image-grid",
+    name: "Case Studies Image Grid",
+    description: "A responsive grid layout displaying case studies with full-bleed background images, company logos, and hover zoom effects. Features a 2-column asymmetric grid where the first and fifth items span 2 rows for visual hierarchy. Each card shows a gradient overlay, company logo at top, and case study title at bottom. Ideal for showcasing client success stories, portfolio highlights, or featured projects with strong visual impact.",
+    semanticTags: ["case-studies", "portfolio", "grid", "images", "clients", "success-stories", "projects", "showcase", "hover-effects", "visual"],
+    category: "case-studies-list",
+    component: CaseStudiesImageGrid,
+    props: "CaseStudiesImageGridProps",
+    exampleUsage: `<CaseStudiesImageGrid />`.trim(),
+  },
+
+  "case-studies-testimonial-stats": {
+    id: "case-studies-testimonial-stats",
+    name: "Case Studies Testimonial Stats",
+    description: "A split-layout component displaying customer testimonials alongside key metrics. Features customer photo and quote on the left, and performance statistics on the right. Each testimonial includes author details with company logo. Multiple testimonials are separated by horizontal dividers. Ideal for showcasing customer success stories with quantifiable results and social proof metrics.",
+    semanticTags: ["case-studies", "testimonials", "stats", "metrics", "quotes", "customers", "social-proof", "results", "success", "roi"],
+    category: "case-studies-list",
+    component: CaseStudiesTestimonialStats,
+    props: "CaseStudiesTestimonialStatsProps",
+    exampleUsage: `<CaseStudiesTestimonialStats />`.trim(),
+  },
+
+  "case-studies-featured-border": {
+    id: "case-studies-featured-border",
+    name: "Case Studies Featured Border",
+    description: "A bordered card layout with a prominent featured case study and secondary items below. Features a full-width bordered container with dot pattern decorations on the sides. The featured case study shows company logo, tags, title with subtitle, image preview, and a 'Read case study' CTA with arrow icon. Secondary case studies appear in a two-column grid below. Hover states include background color transitions. Ideal for highlighting a primary success story while showcasing additional case studies.",
+    semanticTags: ["case-studies", "featured", "border", "cards", "cta", "hover", "dot-pattern", "enterprise", "b2b", "professional"],
+    category: "case-studies-list",
+    component: CaseStudiesFeaturedBorder,
+    props: "CaseStudiesFeaturedBorderProps",
+    exampleUsage: `<CaseStudiesFeaturedBorder />`.trim(),
+  },
+
+  "case-studies-stats-card": {
+    id: "case-studies-stats-card",
+    name: "Case Studies Stats Card",
+    description: "A single case study card format with company branding, key metrics, author attribution, and call-to-action. Features a two-column layout within a muted background container. The left column shows company logo, key statistics in a row, and author info with avatar. The right column displays the case study title, summary text, and a 'Read Story' button with arrow icon. Ideal for highlighting a featured customer success story with quantifiable results and personal testimonial.",
+    semanticTags: ["case-studies", "stats", "card", "metrics", "author", "cta", "featured", "testimonial", "avatar", "single"],
+    category: "case-studies-list",
+    component: CaseStudiesStatsCard,
+    props: "CaseStudiesStatsCardProps",
+    exampleUsage: `<CaseStudiesStatsCard />`.trim(),
   },
 };
 
