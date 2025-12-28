@@ -2071,12 +2071,37 @@
           "import": "./dist/stats-milestone-sidebar.js",
           "require": "./dist/stats-milestone-sidebar.cjs"
         },
-        "./blocks/stats/stats-bar-comparison": {
-          "types": "./dist/stats-bar-comparison.d.ts",
-          "import": "./dist/stats-bar-comparison.js",
-          "require": "./dist/stats-bar-comparison.cjs"
-        },
-        "./registry": {
+                "./blocks/stats/stats-bar-comparison": {
+                  "types": "./dist/stats-bar-comparison.d.ts",
+                  "import": "./dist/stats-bar-comparison.js",
+                  "require": "./dist/stats-bar-comparison.cjs"
+                },
+                "./blocks/link-page/link-tree-block": {
+                  "types": "./dist/link-tree-block.d.ts",
+                  "import": "./dist/link-tree-block.js",
+                  "require": "./dist/link-tree-block.cjs"
+                },
+                "./blocks/link-page/link-page-minimal-profile": {
+                  "types": "./dist/link-page-minimal-profile.d.ts",
+                  "import": "./dist/link-page-minimal-profile.js",
+                  "require": "./dist/link-page-minimal-profile.cjs"
+                },
+                "./blocks/link-page/link-page-newsletter-social": {
+                  "types": "./dist/link-page-newsletter-social.d.ts",
+                  "import": "./dist/link-page-newsletter-social.js",
+                  "require": "./dist/link-page-newsletter-social.cjs"
+                },
+                "./blocks/link-page/link-page-grid-cards": {
+                  "types": "./dist/link-page-grid-cards.d.ts",
+                  "import": "./dist/link-page-grid-cards.js",
+                  "require": "./dist/link-page-grid-cards.cjs"
+                },
+                "./blocks/link-page/link-page-bento-layout": {
+                  "types": "./dist/link-page-bento-layout.d.ts",
+                  "import": "./dist/link-page-bento-layout.js",
+                  "require": "./dist/link-page-bento-layout.cjs"
+                },
+                "./registry": {
       "types": "./dist/registry.d.ts",
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
