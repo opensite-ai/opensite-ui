@@ -252,6 +252,29 @@ import { ComparisonFeatureGrid } from "../../components/blocks/comparison/compar
 import { ComparisonAiModels } from "../../components/blocks/comparison/comparison-ai-models";
 import { ComparisonLegacyModern } from "../../components/blocks/comparison/comparison-legacy-modern";
 
+// Navbar components
+import { NavbarDropdownMenu } from "../../components/blocks/navbars/navbar-dropdown-menu";
+import { NavbarCenteredMenu } from "../../components/blocks/navbars/navbar-centered-menu";
+import { NavbarMegaMenu } from "../../components/blocks/navbars/navbar-mega-menu";
+import { NavbarEnterpriseMega } from "../../components/blocks/navbars/navbar-enterprise-mega";
+import { NavbarFeatureGrid } from "../../components/blocks/navbars/navbar-feature-grid";
+import { NavbarFloatingPill } from "../../components/blocks/navbars/navbar-floating-pill";
+import { NavbarPlatformResources } from "../../components/blocks/navbars/navbar-platform-resources";
+import { NavbarImagePreview } from "../../components/blocks/navbars/navbar-image-preview";
+import { NavbarDarkIcons } from "../../components/blocks/navbars/navbar-dark-icons";
+import { NavbarAnimatedPreview } from "../../components/blocks/navbars/navbar-animated-preview";
+import { NavbarMultiColumnGroups } from "../../components/blocks/navbars/navbar-multi-column-groups";
+import { NavbarSidebarMobile } from "../../components/blocks/navbars/navbar-sidebar-mobile";
+import { NavbarTransparentOverlay } from "../../components/blocks/navbars/navbar-transparent-overlay";
+import { NavbarEducationPlatform } from "../../components/blocks/navbars/navbar-education-platform";
+import { NavbarStickyCompact } from "../../components/blocks/navbars/navbar-sticky-compact";
+import { NavbarSearchFocused } from "../../components/blocks/navbars/navbar-search-focused";
+import { NavbarSimpleLinks } from "../../components/blocks/navbars/navbar-simple-links";
+import { NavbarSplitCta } from "../../components/blocks/navbars/navbar-split-cta";
+import { NavbarIconLinks } from "../../components/blocks/navbars/navbar-icon-links";
+import { NavbarTabbedSections } from "../../components/blocks/navbars/navbar-tabbed-sections";
+import { NavbarFullscreenMenu } from "../../components/blocks/navbars/navbar-fullscreen-menu";
+
 export interface BlockRegistryEntry<T = any> {
   id: string;
   name: string;
@@ -283,10 +306,11 @@ export type BlockCategory =
   | "benefits"
   | "comparison"
   | "background-pattern-hero"
-    | "blog"
-    | "article"
-    | "case-studies-list"
-    | "case-study-detail";
+  | "blog"
+  | "article"
+  | "case-studies-list"
+  | "case-study-detail"
+  | "navbar";
 
 /**
  * Block Registry - Central registry of all available UI blocks
@@ -5070,6 +5094,379 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   titleHighlight="Moving to Modern Tools"
   legacyFeatures={[{ text: "One-size-fits-all project tools" }]}
   modernFeatures={[{ emoji: "🧭", text: "Built for modern product teams" }]}
+/>`.trim(),
+  },
+
+  // Navbar components
+  "navbar-dropdown-menu": {
+    id: "navbar-dropdown-menu",
+    name: "Navbar Dropdown Menu",
+    description: "A responsive navigation bar with dropdown menus for desktop and a slide-out sheet menu for mobile. Features logo, navigation links with dropdown submenus containing icons and descriptions, and call-to-action buttons. The desktop view shows horizontal navigation with hover-triggered dropdowns, while mobile uses a hamburger menu that opens a full sheet with accordion-style navigation. Ideal for marketing sites, SaaS applications, and corporate websites that need organized multi-level navigation.",
+    semanticTags: ["navbar", "navigation", "header", "dropdown", "menu", "responsive", "mobile-menu", "sheet", "accordion", "cta-buttons"],
+    category: "navbar",
+    component: NavbarDropdownMenu,
+    props: "NavbarDropdownMenuProps",
+    exampleUsage: `<NavbarDropdownMenu
+  logo={{ src: "/logo.svg", alt: "Company" }}
+  menuItems={[
+    { label: "Products", href: "#", subMenuItems: [{ label: "Analytics", href: "/analytics", icon: "lucide/bar-chart", description: "Track metrics" }] }
+  ]}
+  ctaButton={{ label: "Get Started", href: "/signup" }}
+/>`.trim(),
+  },
+
+  "navbar-centered-menu": {
+    id: "navbar-centered-menu",
+    name: "Navbar Centered Menu",
+    description: "A navigation bar with centered navigation links and dropdown menus that appear directly below each trigger. Features logo on the left, centered navigation with dropdowns, and CTA buttons on the right. Uses a custom NavigationMenu implementation that centers dropdown content below each menu item rather than spanning the full width. Mobile view uses a sheet with accordion navigation. Perfect for brands that want a balanced, symmetrical header layout.",
+    semanticTags: ["navbar", "navigation", "header", "centered", "dropdown", "balanced", "symmetrical", "responsive", "mobile-menu"],
+    category: "navbar",
+    component: NavbarCenteredMenu,
+    props: "NavbarCenteredMenuProps",
+    exampleUsage: `<NavbarCenteredMenu
+  logo={{ src: "/logo.svg", alt: "Company" }}
+  menuItems={[
+    { label: "Features", href: "#", subMenuItems: [{ label: "Dashboard", href: "/dashboard", icon: "lucide/layout-dashboard" }] }
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-mega-menu": {
+    id: "navbar-mega-menu",
+    name: "Navbar Mega Menu",
+    description: "A comprehensive navigation bar with multiple mega-menu panels for complex site structures. Features distinct mega-menu styles for Platform (with product features), Use Cases (with industry solutions), Developers (with documentation and resources), and Resources (with company info). Each mega-menu panel spans the full viewport width with organized content sections, featured cards, and quick links. Mobile view uses a multi-level navigation with back buttons for drilling into sections. Ideal for enterprise SaaS, developer platforms, and large-scale websites with extensive navigation needs.",
+    semanticTags: ["navbar", "navigation", "mega-menu", "enterprise", "multi-level", "platform", "developers", "resources", "full-width", "complex-navigation"],
+    category: "navbar",
+    component: NavbarMegaMenu,
+    props: "NavbarMegaMenuProps",
+    exampleUsage: `<NavbarMegaMenu
+  logo={{ src: "/logo.svg", alt: "Company" }}
+  platformItems={[{ label: "Analytics", href: "/analytics", icon: "lucide/bar-chart", description: "Track your metrics" }]}
+  useCaseItems={[{ label: "Marketing", href: "/marketing", icon: "lucide/megaphone" }]}
+  developerItems={[{ label: "Documentation", href: "/docs", icon: "lucide/book" }]}
+  resourceItems={[{ label: "Blog", href: "/blog", icon: "lucide/newspaper" }]}
+/>`.trim(),
+  },
+
+  "navbar-enterprise-mega": {
+    id: "navbar-enterprise-mega",
+    name: "Navbar Enterprise Mega Menu",
+    description: "A comprehensive enterprise-grade navigation bar with five distinct mega-menu styles. Features Solutions menu with bordered cards containing subpages and developer platform section, Products menu with featured image card and categorized listings, Global menu with enterprise features and regional location selectors, Partners menu with large promotional cards and partner type listings, and Resources menu with topic groups and resource cards. Each menu spans full width with rich content layouts. Mobile view uses full-screen sheet with accordion navigation. Ideal for large enterprise SaaS platforms, B2B software companies, and global organizations with complex product offerings.",
+    semanticTags: ["navbar", "navigation", "enterprise", "mega-menu", "solutions", "products", "global", "partners", "resources", "b2b", "corporate"],
+    category: "navbar",
+    component: NavbarEnterpriseMega,
+    props: "NavbarEnterpriseMegaProps",
+    exampleUsage: `<NavbarEnterpriseMega
+  logo={{ src: "/logo.svg", alt: "Enterprise" }}
+  solutionsItems={[{ label: "Analytics Suite", href: "/analytics", subPages: [{ label: "Dashboards", href: "/dashboards" }] }]}
+  productsItems={[{ label: "Platform", href: "/platform", icon: "lucide/layers" }]}
+  globalItems={[{ label: "Enterprise", href: "/enterprise", icon: "lucide/building" }]}
+/>`.trim(),
+  },
+
+  "navbar-feature-grid": {
+    id: "navbar-feature-grid",
+    name: "Navbar Feature Grid",
+    description: "A navigation bar with a two-column feature grid dropdown menu. The dropdown displays navigation items in a clean grid layout with icons, titles, and descriptions. Features logo, main navigation links, feature grid dropdown, and CTA buttons. Desktop view shows the grid dropdown on hover, while mobile uses a sheet with accordion navigation. Perfect for showcasing product features, tools, or services in an organized grid format within the navigation.",
+    semanticTags: ["navbar", "navigation", "feature-grid", "grid-layout", "dropdown", "icons", "descriptions", "product-features", "tools"],
+    category: "navbar",
+    component: NavbarFeatureGrid,
+    props: "NavbarFeatureGridProps",
+    exampleUsage: `<NavbarFeatureGrid
+  logo={{ src: "/logo.svg", alt: "Company" }}
+  features={[
+    { label: "Dashboard", href: "/dashboard", icon: "lucide/layout-dashboard", description: "View your analytics" },
+    { label: "Settings", href: "/settings", icon: "lucide/settings", description: "Configure your account" }
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-floating-pill": {
+    id: "navbar-floating-pill",
+    name: "Navbar Floating Pill",
+    description: "A modern floating navigation bar with pill-shaped design and glassmorphism effect. Positioned absolutely at the top of the page with rounded-full border, backdrop blur, and subtle shadow. Features smooth dropdown animations and a collapsible mobile menu with custom hamburger animation that transforms into an X. The floating design creates a premium, modern aesthetic that works well over hero sections and images. Ideal for creative agencies, portfolios, modern SaaS landing pages, and design-focused websites.",
+    semanticTags: ["navbar", "navigation", "floating", "pill", "glassmorphism", "backdrop-blur", "modern", "premium", "creative", "animated-hamburger"],
+    category: "navbar",
+    component: NavbarFloatingPill,
+    props: "NavbarFloatingPillProps",
+    exampleUsage: `<NavbarFloatingPill
+  logo={{ src: "/logo.svg", alt: "Company" }}
+  menuItems={[
+    { label: "Products", href: "#", subMenuItems: [{ label: "Features", href: "/features" }] }
+  ]}
+  ctaButton={{ label: "Get Started", href: "/signup" }}
+/>`.trim(),
+  },
+
+  "navbar-platform-resources": {
+    id: "navbar-platform-resources",
+    name: "Navbar Platform Resources",
+    description: "A navigation bar with comprehensive platform and resources mega-menus. Features two main dropdowns: Platform menu with solutions grid and use cases section, and Resources menu with a three-column grid of resource links. Includes solution cards with icons and descriptions, use case items, and categorized resource links. Mobile view uses full-screen overlay with accordion navigation. Perfect for SaaS platforms, developer tools, and technology companies that need to showcase both product capabilities and educational resources.",
+    semanticTags: ["navbar", "navigation", "platform", "resources", "mega-menu", "solutions", "use-cases", "documentation", "saas", "developer-tools"],
+    category: "navbar",
+    component: NavbarPlatformResources,
+    props: "NavbarPlatformResourcesProps",
+    exampleUsage: `<NavbarPlatformResources
+  logo={{ src: "/logo.svg", alt: "Platform" }}
+  solutions={[{ label: "Analytics", href: "/analytics", icon: "lucide/bar-chart", description: "Track metrics" }]}
+  useCases={[{ label: "Marketing Teams", href: "/marketing" }]}
+  resources={[{ label: "Documentation", href: "/docs", icon: "lucide/book" }]}
+/>`.trim(),
+  },
+
+  "navbar-image-preview": {
+    id: "navbar-image-preview",
+    name: "Navbar Image Preview",
+    description: "A fixed navigation bar with image preview functionality in dropdown menus. The navigation bar changes background on scroll for better visibility. Desktop dropdowns display a large image preview that dynamically changes when hovering over different menu items, creating an engaging visual experience. Mobile view uses a full-screen dark overlay with categorized link columns and social links at the bottom. Ideal for creative agencies, portfolios, e-commerce sites, and brands that want to showcase visual content directly in their navigation.",
+    semanticTags: ["navbar", "navigation", "image-preview", "hover-preview", "visual", "creative", "portfolio", "e-commerce", "fixed", "scroll-aware"],
+    category: "navbar",
+    component: NavbarImagePreview,
+    props: "NavbarImagePreviewProps",
+    exampleUsage: `<NavbarImagePreview
+  logo={{ src: "/logo.svg", alt: "Company" }}
+  menuItems={[
+    { label: "Products", href: "#", image: "/product-preview.jpg", subMenuItems: [{ label: "New Arrivals", href: "/new", image: "/new-arrivals.jpg" }] }
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-dark-icons": {
+    id: "navbar-dark-icons",
+    name: "Navbar Dark Icons",
+    description: "A dark-themed navigation bar with colorful icon indicators in dropdown menus. Features a dark background with dropdown menus containing items with colorful icon backgrounds that provide visual categorization. Includes a GitHub stars counter button and primary CTA. Mobile view uses a full-screen dark sheet with accordion navigation. Perfect for developer tools, open-source projects, tech startups, and products that want a modern dark aesthetic with visual hierarchy through color-coded icons.",
+    semanticTags: ["navbar", "navigation", "dark-theme", "colorful-icons", "github-stars", "developer-tools", "open-source", "tech", "modern", "icon-indicators"],
+    category: "navbar",
+    component: NavbarDarkIcons,
+    props: "NavbarDarkIconsProps",
+    exampleUsage: `<NavbarDarkIcons
+  logo={{ src: "/logo.svg", alt: "DevTool" }}
+  githubStars={1234}
+  menuItems={[
+    { label: "Features", href: "#", subMenuItems: [{ label: "Analytics", href: "/analytics", icon: "lucide/bar-chart", iconColor: "blue" }] }
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-animated-preview": {
+    id: "navbar-animated-preview",
+    name: "Navbar Animated Preview",
+    description: "A navigation bar with animated image previews and multiple distinct dropdown styles. Features three dropdown menu types: Products menu with animated image preview that transitions smoothly between items, Solutions menu with featured cards and organized grid layout, and Developers menu with grouped links and featured image section. Navigation menu spans full width with smooth fade-in animations. Mobile view uses full-screen sheet with accordion navigation. Ideal for SaaS products, technology platforms, and companies that want engaging, animated navigation experiences.",
+    semanticTags: ["navbar", "navigation", "animated", "image-preview", "transitions", "products", "solutions", "developers", "full-width", "engaging"],
+    category: "navbar",
+    component: NavbarAnimatedPreview,
+    props: "NavbarAnimatedPreviewProps",
+    exampleUsage: `<NavbarAnimatedPreview
+  logo={{ src: "/logo.svg", alt: "Company" }}
+  products={[{ label: "Analytics", href: "/analytics", image: "/analytics-preview.jpg", description: "Track your metrics" }]}
+  solutions={[{ label: "Enterprise", href: "/enterprise", icon: "lucide/building" }]}
+  developers={[{ label: "Documentation", href: "/docs", icon: "lucide/book" }]}
+/>`.trim(),
+  },
+
+  "navbar-multi-column-groups": {
+    id: "navbar-multi-column-groups",
+    name: "Navbar Multi-Column Groups",
+    description: "A navigation bar with multi-column grouped dropdown menus. Dropdown menus organize links into multiple columns by category, with each column having a group title and list of links with icons and descriptions. The dropdown width dynamically adjusts based on the number of groups for optimal layout. Mobile view uses a dark-themed full-screen sheet with accordion navigation and CTA buttons prominently displayed at the top. Perfect for large websites with many navigation categories, enterprise software, and platforms with extensive feature sets.",
+    semanticTags: ["navbar", "navigation", "multi-column", "grouped", "categories", "organized", "enterprise", "extensive", "dynamic-width", "dark-mobile"],
+    category: "navbar",
+    component: NavbarMultiColumnGroups,
+    props: "NavbarMultiColumnGroupsProps",
+    exampleUsage: `<NavbarMultiColumnGroups
+  logo={{ src: "/logo.svg", alt: "Enterprise" }}
+  menuItems={[
+    { label: "Products", href: "#", groups: [
+      { title: "Analytics", items: [{ label: "Dashboard", href: "/dashboard", icon: "lucide/layout-dashboard" }] }
+    ]}
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-sidebar-mobile": {
+    id: "navbar-sidebar-mobile",
+    name: "Navbar Sidebar Mobile",
+    description: "A navigation bar with a slide-out sidebar for mobile devices. Features standard horizontal navigation menu on desktop with dropdown menus containing icons, titles, and descriptions. Mobile view uses a slide-out sidebar from the left with accordion navigation and additional footer links. The sidebar includes a header with logo and close button, providing an app-like mobile navigation experience. Ideal for applications, dashboards, and websites that want a more immersive mobile navigation pattern.",
+    semanticTags: ["navbar", "navigation", "sidebar", "slide-out", "mobile", "app-like", "accordion", "dashboard", "application", "immersive"],
+    category: "navbar",
+    component: NavbarSidebarMobile,
+    props: "NavbarSidebarMobileProps",
+    exampleUsage: `<NavbarSidebarMobile
+  logo={{ src: "/logo.svg", alt: "App" }}
+  menuItems={[
+    { label: "Dashboard", href: "/dashboard", icon: "lucide/layout-dashboard" },
+    { label: "Features", href: "#", subMenuItems: [{ label: "Analytics", href: "/analytics", icon: "lucide/bar-chart" }] }
+  ]}
+  footerLinks={[{ label: "Help Center", href: "/help" }]}
+/>`.trim(),
+  },
+
+  "navbar-transparent-overlay": {
+    id: "navbar-transparent-overlay",
+    name: "Navbar Transparent Overlay",
+    description: "A transparent navigation bar that transitions to solid on scroll. Logo and navigation links are visible against hero images or video backgrounds with appropriate contrast. Mobile view uses a full-screen overlay menu with large, centered navigation links that animate in with a staggered effect. The hamburger menu icon transforms into an X when open. Perfect for landing pages, portfolios, creative websites, and any page with prominent hero sections where the navbar should blend with the background initially.",
+    semanticTags: ["navbar", "navigation", "transparent", "overlay", "scroll-transition", "hero", "landing-page", "portfolio", "creative", "staggered-animation"],
+    category: "navbar",
+    component: NavbarTransparentOverlay,
+    props: "NavbarTransparentOverlayProps",
+    exampleUsage: `<NavbarTransparentOverlay
+  logo={{ src: "/logo-white.svg", alt: "Company" }}
+  menuItems={[
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Work", href: "/work" },
+    { label: "Contact", href: "/contact" }
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-education-platform": {
+    id: "navbar-education-platform",
+    name: "Navbar Education Platform",
+    description: "A navigation bar designed for education and LMS platforms. Features two main dropdown menus: Products menu with tools and quick start sections including a featured image card for latest updates, and Support menu with guides and about us sections. Each menu item displays an icon, title, and description with hover animations. Mobile view uses accordion navigation with categorized sections. Ideal for online learning platforms, educational institutions, course marketplaces, and knowledge management systems.",
+    semanticTags: ["navbar", "navigation", "education", "lms", "learning", "courses", "support", "documentation", "knowledge-base", "e-learning"],
+    category: "navbar",
+    component: NavbarEducationPlatform,
+    props: "NavbarEducationPlatformProps",
+    exampleUsage: `<NavbarEducationPlatform
+  logo={{ src: "/logo.svg", alt: "EduPlatform" }}
+  products={[{ label: "Courses", href: "/courses", icon: "lucide/book-open", description: "Browse all courses" }]}
+  support={[{ label: "Help Center", href: "/help", icon: "lucide/help-circle", description: "Get assistance" }]}
+  featuredUpdate={{ title: "New Feature", description: "Check out our latest tools", image: "/feature.jpg", href: "/updates" }}
+/>`.trim(),
+  },
+
+  "navbar-sticky-compact": {
+    id: "navbar-sticky-compact",
+    name: "Navbar Sticky Compact",
+    description: "A compact sticky navigation bar that shrinks on scroll to maximize content space. The logo shrinks and padding reduces as the user scrolls down, maintaining navigation accessibility while giving more room to content. Desktop view shows dropdown menus with icons, while mobile view uses a slide-out sheet from the right. The smooth transition between normal and compact states provides a polished user experience. Ideal for content-heavy sites, blogs, documentation, and any website where vertical space is valuable.",
+    semanticTags: ["navbar", "navigation", "sticky", "compact", "shrink-on-scroll", "space-efficient", "content-heavy", "blog", "documentation", "smooth-transition"],
+    category: "navbar",
+    component: NavbarStickyCompact,
+    props: "NavbarStickyCompactProps",
+    exampleUsage: `<NavbarStickyCompact
+  logo={{ src: "/logo.svg", alt: "Blog" }}
+  menuItems={[
+    { label: "Articles", href: "/articles" },
+    { label: "Categories", href: "#", subMenuItems: [{ label: "Technology", href: "/tech", icon: "lucide/cpu" }] }
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-search-focused": {
+    id: "navbar-search-focused",
+    name: "Navbar Search Focused",
+    description: "A navigation bar with a prominent search input as the primary action. Features a centered search bar that takes up significant horizontal space, making search the most visible and accessible action. Navigation links are positioned to the sides of the search bar. The search input expands on focus for better usability. Mobile view moves the search bar below the logo and hamburger menu, with navigation in a slide-out sheet. Ideal for e-commerce sites, marketplaces, documentation sites, and content-heavy platforms where search is the primary user action.",
+    semanticTags: ["navbar", "navigation", "search", "search-focused", "e-commerce", "marketplace", "documentation", "content-platform", "prominent-search", "expandable"],
+    category: "navbar",
+    component: NavbarSearchFocused,
+    props: "NavbarSearchFocusedProps",
+    exampleUsage: `<NavbarSearchFocused
+  logo={{ src: "/logo.svg", alt: "Store" }}
+  searchPlaceholder="Search products..."
+  onSearch={(query) => console.log(query)}
+  menuItems={[
+    { label: "Categories", href: "/categories" },
+    { label: "Deals", href: "/deals" }
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-simple-links": {
+    id: "navbar-simple-links",
+    name: "Navbar Simple Links",
+    description: "A clean, minimal navigation bar with animated active indicator. Features horizontal navigation links with an animated underline indicator that slides smoothly to show the currently active item. The simple design focuses on essential navigation without dropdowns or complex menus. Desktop view shows all links inline with the sliding indicator, while mobile uses a popover menu with a left border indicator for the active item. Perfect for simple marketing sites, portfolios, personal websites, and landing pages that need straightforward navigation.",
+    semanticTags: ["navbar", "navigation", "simple", "minimal", "animated-indicator", "underline", "clean", "portfolio", "landing-page", "straightforward"],
+    category: "navbar",
+    component: NavbarSimpleLinks,
+    props: "NavbarSimpleLinksProps",
+    exampleUsage: `<NavbarSimpleLinks
+  logo={{ src: "/logo.svg", alt: "Portfolio" }}
+  menuItems={[
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Work", href: "/work" },
+    { label: "Contact", href: "/contact" }
+  ]}
+  activeItem="Home"
+/>`.trim(),
+  },
+
+  "navbar-split-cta": {
+    id: "navbar-split-cta",
+    name: "Navbar Split CTA",
+    description: "A navigation bar with split primary and secondary call-to-action buttons. Features a balanced layout with navigation links on the left and two distinct CTA buttons on the right: a secondary outline button and a primary filled button. Dropdown menus display items with icons and descriptions in a clean list format. Mobile view uses a slide-out sheet with CTAs prominently displayed at the top. Ideal for SaaS products and services that want to emphasize both login/signup actions or demo/trial options simultaneously.",
+    semanticTags: ["navbar", "navigation", "split-cta", "dual-buttons", "login-signup", "demo-trial", "saas", "conversion", "balanced-layout", "prominent-cta"],
+    category: "navbar",
+    component: NavbarSplitCta,
+    props: "NavbarSplitCtaProps",
+    exampleUsage: `<NavbarSplitCta
+  logo={{ src: "/logo.svg", alt: "SaaS" }}
+  menuItems={[
+    { label: "Features", href: "/features" },
+    { label: "Pricing", href: "/pricing" }
+  ]}
+  secondaryCta={{ label: "Log In", href: "/login" }}
+  primaryCta={{ label: "Start Free Trial", href: "/signup" }}
+/>`.trim(),
+  },
+
+  "navbar-icon-links": {
+    id: "navbar-icon-links",
+    name: "Navbar Icon Links",
+    description: "A compact navigation bar with icon-only links and tooltips. Features a minimalist design with icon-only navigation links that display tooltips on hover to reveal the link label. This approach maximizes horizontal space while maintaining accessibility through tooltips. The active state is indicated by a highlighted background. Mobile view uses a slide-out sheet with full text labels. Ideal for dashboards, admin panels, applications, and interfaces where users are familiar with the navigation structure and icon meanings.",
+    semanticTags: ["navbar", "navigation", "icon-only", "tooltips", "compact", "minimalist", "dashboard", "admin-panel", "application", "space-efficient"],
+    category: "navbar",
+    component: NavbarIconLinks,
+    props: "NavbarIconLinksProps",
+    exampleUsage: `<NavbarIconLinks
+  logo={{ src: "/logo.svg", alt: "Dashboard" }}
+  menuItems={[
+    { label: "Dashboard", href: "/dashboard", icon: "lucide/layout-dashboard" },
+    { label: "Analytics", href: "/analytics", icon: "lucide/bar-chart" },
+    { label: "Settings", href: "/settings", icon: "lucide/settings" }
+  ]}
+  activeItem="Dashboard"
+/>`.trim(),
+  },
+
+  "navbar-tabbed-sections": {
+    id: "navbar-tabbed-sections",
+    name: "Navbar Tabbed Sections",
+    description: "A navigation bar with tabbed dropdown menus for organized content. Features dropdown menus that use tabs to organize content into distinct sections. Each tab displays a list of links with icons and descriptions, and optionally a featured content card with an image. Tabs allow users to quickly switch between different categories within the same dropdown without closing it. Mobile view uses a slide-out sheet with expandable sections. Ideal for products with many features organized into logical categories, enterprise software, and platforms with diverse offerings.",
+    semanticTags: ["navbar", "navigation", "tabbed", "organized", "categories", "featured-content", "enterprise", "diverse-offerings", "multi-section", "switchable"],
+    category: "navbar",
+    component: NavbarTabbedSections,
+    props: "NavbarTabbedSectionsProps",
+    exampleUsage: `<NavbarTabbedSections
+  logo={{ src: "/logo.svg", alt: "Platform" }}
+  menuItems={[
+    { label: "Products", href: "#", tabs: [
+      { label: "Analytics", items: [{ label: "Dashboard", href: "/dashboard", icon: "lucide/layout-dashboard" }] },
+      { label: "Marketing", items: [{ label: "Campaigns", href: "/campaigns", icon: "lucide/megaphone" }] }
+    ]}
+  ]}
+/>`.trim(),
+  },
+
+  "navbar-fullscreen-menu": {
+    id: "navbar-fullscreen-menu",
+    name: "Navbar Fullscreen Menu",
+    description: "A dramatic navigation bar with fullscreen overlay navigation. Features a minimal header with logo and MENU/CLOSE text toggle. When activated, a fullscreen overlay appears with large, centered menu items that animate in with blur effects on hover. Social links appear at the bottom with staggered animations. The theatrical presentation creates a memorable navigation experience. Perfect for creative agencies, portfolios, artistic websites, fashion brands, and any site that wants to make a bold visual statement with their navigation.",
+    semanticTags: ["navbar", "navigation", "fullscreen", "overlay", "dramatic", "creative", "portfolio", "artistic", "fashion", "theatrical", "animated"],
+    category: "navbar",
+    component: NavbarFullscreenMenu,
+    props: "NavbarFullscreenMenuProps",
+    exampleUsage: `<NavbarFullscreenMenu
+  logo={{ src: "/logo.svg", alt: "Agency" }}
+  menuItems={[
+    { label: "Work", href: "/work" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Contact", href: "/contact" }
+  ]}
+  socialLinks={[
+    { label: "Instagram", href: "https://instagram.com", icon: "lucide/instagram" },
+    { label: "Twitter", href: "https://twitter.com", icon: "lucide/twitter" }
+  ]}
 />`.trim(),
   },
 };
