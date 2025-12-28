@@ -1,0 +1,67 @@
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { AboutStoryExpertise } from "../about-story-expertise";
+
+vi.mock("@page-speed/img", () => ({
+  Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+    <img src={src} alt={alt} className={className} data-testid="mock-img" />
+  ),
+}));
+
+vi.mock("framer-motion", () => ({
+  motion: {
+    div: ({ children, className, ...props }: React.PropsWithChildren<{ className?: string }>) => (
+      <div className={className} data-testid="motion-div" {...props}>
+        {children}
+      </div>
+    ),
+  },
+}));
+
+vi.mock("../../../lib/Pressable", () => ({
+  Pressable: ({ children, href, className }: { children: React.ReactNode; href?: string; className?: string }) => (
+    <a href={href} className={className} data-testid="mock-pressable">
+      {children}
+    </a>
+  ),
+}));
+
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
+    <span data-testid="mock-icon" data-name={name} className={className}>
+      icon
+    </span>
+  ),
+}));
+
+vi.mock("../../../lib/mediaPlaceholders", () => ({
+  imagePlaceholders: Array(10).fill("https://placeholder.com/image.jpg"),
+}));
+
+describe("AboutStoryExpertise", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("renders default heading", () => {
+    render(<AboutStoryExpertise />);
+    expect(
+      screen.getByText("Built on trust, powered by OpenSite AI")
+    ).toBeInTheDocument();
+  });
+
+  it("renders expertise heading", () => {
+    render(<AboutStoryExpertise />);
+    expect(
+      screen.getByText("Why teams choose OpenSite AI")
+    ).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(
+      <AboutStoryExpertise className="custom-class" />
+    );
+    const section = container.querySelector("section");
+    expect(section).toHaveClass("custom-class");
+  });
+});

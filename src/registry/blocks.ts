@@ -29,6 +29,10 @@ import { AboutStoryHero } from "../../components/blocks/about/about-story-hero";
 import { AboutStatsSidebar } from "../../components/blocks/about/about-stats-sidebar";
 import { AboutInteractiveTabs } from "../../components/blocks/about/about-interactive-tabs";
 import { AboutMissionDualImage } from "../../components/blocks/about/about-mission-dual-image";
+import { AboutStoryExpertise } from "../../components/blocks/about/about-story-expertise";
+import type { AboutStoryExpertiseProps } from "../../components/blocks/about/about-story-expertise";
+import { AboutNetworkSpotlight } from "../../components/blocks/about/about-network-spotlight";
+import type { AboutNetworkSpotlightProps } from "../../components/blocks/about/about-network-spotlight";
 import { MediaHoverCtas } from "../../components/blocks/cta/media-hover-ctas";
 import type { MediaHoverCtasProps } from "../../components/blocks/cta/media-hover-ctas";
 import { CtaDocumentationLinks } from "../../components/blocks/cta/cta-documentation-links";
@@ -57,6 +61,8 @@ import { CtaVideoBackgroundHero } from "../../components/blocks/cta/cta-video-ba
 import { CtaWorkflowTabs } from "../../components/blocks/cta/cta-workflow-tabs";
 import { CtaCaseStudyTestimonial } from "../../components/blocks/cta/cta-case-study-testimonial";
 import { CtaSimpleCentered } from "../../components/blocks/cta/cta-simple-centered";
+import { CtaImageOverlayCentered } from "../../components/blocks/cta/cta-image-overlay-centered";
+import type { CtaImageOverlayCenteredProps } from "../../components/blocks/cta/cta-image-overlay-centered";
 
 // Contact components
 import { ContactFloatingBanner } from "../../components/blocks/contact/contact-floating-banner";
@@ -100,6 +106,8 @@ import { ContactVendor } from "../../components/blocks/contact/contact-vendor";
 import { ContactVolunteer } from "../../components/blocks/contact/contact-volunteer";
 import { ContactWarranty } from "../../components/blocks/contact/contact-warranty";
 import { ContactWedding } from "../../components/blocks/contact/contact-wedding";
+import { ContactHelpCenter } from "../../components/blocks/contact/contact-help-center";
+import type { ContactHelpCenterProps } from "../../components/blocks/contact/contact-help-center";
 
 // Carousel components
 import { CarouselAnimatedSections } from "../../components/blocks/carousel/carousel-animated-sections";
@@ -158,6 +166,8 @@ import { FeatureAccordionImage } from "../../components/blocks/features/feature-
 import { TeamMediaShowcase } from "../../components/blocks/team/team-media-showcase";
 import type { TeamMediaShowcaseProps } from "../../components/blocks/team/team-media-showcase";
 import { TeamSimpleGrid } from "../../components/blocks/team/team-simple-grid";
+import { FooterBrandLinksContact } from "../../components/blocks/footers/footer-brand-links-contact";
+import type { FooterBrandLinksContactProps } from "../../components/blocks/footers/footer-brand-links-contact";
 import { TeamSocialGrid } from "../../components/blocks/team/team-social-grid";
 import { TeamGradientCards } from "../../components/blocks/team/team-gradient-cards";
 import { TeamBioBadges } from "../../components/blocks/team/team-bio-badges";
@@ -350,6 +360,8 @@ import { CaseStudyTocSocialSidebar } from "../../components/blocks/case-study-de
 import { CaseStudyStatsMetrics } from "../../components/blocks/case-study-detail/case-study-stats-metrics";
 
 // Hero components
+import { HeroOverlayCtaGrid } from "../../components/blocks/hero/hero-overlay-cta-grid";
+import { HeroSplitIconCards } from "../../components/blocks/hero/hero-split-icon-cards";
 import { HeroBadgeImageSplit } from "../../components/blocks/hero/hero-badge-image-split";
 import { HeroImageLeftContent } from "../../components/blocks/hero/hero-image-left-content";
 import { HeroCenteredImageGrid } from "../../components/blocks/hero/hero-centered-image-grid";
@@ -554,6 +566,7 @@ import { ListAchievementsShowcase } from "../../components/blocks/list/list-achi
 import { ListCareerTimeline } from "../../components/blocks/list/list-career-timeline";
 import { ListMetricsDashboard } from "../../components/blocks/list/list-metrics-dashboard";
 import { ListFeatureComparison } from "../../components/blocks/list/list-feature-comparison";
+import { ListSearchableGrid } from "../../components/blocks/list/list-searchable-grid";
 
 // Offer Modal components
 import { OfferModalNewsletterDiscount } from "../../components/blocks/offer-modal/offer-modal-newsletter-discount";
@@ -645,6 +658,8 @@ import { ServicesListPricingGrid } from "../../components/blocks/services-list/s
 import type { ServicesListPricingGridProps } from "../../components/blocks/services-list/services-list-pricing-grid";
 import { ServicesListFeaturedHighlight } from "../../components/blocks/services-list/services-list-featured-highlight";
 import type { ServicesListFeaturedHighlightProps } from "../../components/blocks/services-list/services-list-featured-highlight";
+import { ServicesListFeatureSpotlight } from "../../components/blocks/services-list/services-list-feature-spotlight";
+import type { ServicesListFeatureSpotlightProps } from "../../components/blocks/services-list/services-list-feature-spotlight";
 import { ServicesListImageCards } from "../../components/blocks/services-list/services-list-image-cards";
 import type { ServicesListImageCardsProps } from "../../components/blocks/services-list/services-list-image-cards";
 import { ServicesListImageOverlayGrid } from "../../components/blocks/services-list/services-list-image-overlay-grid";
@@ -1306,6 +1321,50 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 />
     `.trim(),
   },
+  "about-story-expertise": {
+    id: "about-story-expertise",
+    name: "Story & Expertise Spotlight",
+    description:
+      "A two-part about section that pairs a narrative story with CTA buttons alongside a highlighted image card, followed by a grid of expertise tiles. Ideal for trust-building pages that need both brand story and capability proof points.",
+    semanticTags: [
+      "about",
+      "story",
+      "expertise",
+      "narrative",
+      "cta",
+      "image",
+      "highlight",
+      "grid",
+      "trust",
+      "capabilities",
+    ],
+    category: "about",
+    component: AboutStoryExpertise,
+    props: "AboutStoryExpertiseProps",
+    exampleUsage: `<AboutStoryExpertise />`.trim(),
+  },
+  "about-network-spotlight": {
+    id: "about-network-spotlight",
+    name: "Partner Network Spotlight",
+    description:
+      "A high-contrast, two-column spotlight with a featured image overlay card, highlight list, and dual CTAs. Great for partner network invitations, alliance announcements, or community programs.",
+    semanticTags: [
+      "about",
+      "network",
+      "partners",
+      "spotlight",
+      "dark",
+      "image",
+      "highlights",
+      "cta",
+      "alliances",
+      "community",
+    ],
+    category: "about",
+    component: AboutNetworkSpotlight,
+    props: "AboutNetworkSpotlightProps",
+    exampleUsage: `<AboutNetworkSpotlight />`.trim(),
+  },
   "media-hover-ctas": {
     id: "media-hover-ctas",
     name: "Media Hover CTAs",
@@ -1809,6 +1868,26 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   backgroundImage="/images/hero-bg.jpg"
 />
     `.trim(),
+  },
+  "cta-image-overlay-centered": {
+    id: "cta-image-overlay-centered",
+    name: "Image Overlay Centered CTA",
+    description:
+      "A full-width CTA banner with a background image and dark gradient overlay, centered heading, supporting copy, and dual action buttons. Ideal for high-impact conversion moments.",
+    semanticTags: [
+      "cta",
+      "call-to-action",
+      "image",
+      "overlay",
+      "centered",
+      "conversion",
+      "banner",
+      "full-width",
+    ],
+    category: "cta",
+    component: CtaImageOverlayCentered,
+    props: "CtaImageOverlayCenteredProps",
+    exampleUsage: `<CtaImageOverlayCentered />`.trim(),
   },
   "cta-app-download-newsletter": {
     id: "cta-app-download-newsletter",
@@ -2949,6 +3028,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   formConfig={{ endpoint: "/api/support", format: "json" }}
 />
     `.trim(),
+  },
+  "contact-help-center": {
+    id: "contact-help-center",
+    name: "Help Center Contact Cards",
+    description:
+      "A split layout with support copy on the left and a stacked set of contact action cards on the right. Ideal for help centers, service hubs, or onboarding touchpoints that need multiple contact paths.",
+    semanticTags: [
+      "contact",
+      "help",
+      "support",
+      "cards",
+      "split",
+      "service-center",
+      "cta",
+      "links",
+      "support-hub",
+    ],
+    category: "contact",
+    component: ContactHelpCenter,
+    props: "ContactHelpCenterProps",
+    exampleUsage: `<ContactHelpCenter />`.trim(),
   },
   "contact-tenant": {
     id: "contact-tenant",
@@ -5263,6 +5363,26 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   ]}
 />
     `.trim(),
+  },
+  "footer-brand-links-contact": {
+    id: "footer-brand-links-contact",
+    name: "Brand Links + Contact Footer",
+    description:
+      "A multi-column footer with logo and brand summary, navigation link groups, contact details, social icons, and a legal bar. Great for corporate sites that need both navigation depth and clear contact paths.",
+    semanticTags: [
+      "footer",
+      "brand",
+      "links",
+      "contact",
+      "social",
+      "legal",
+      "multi-column",
+      "navigation",
+    ],
+    category: "footer",
+    component: FooterBrandLinksContact,
+    props: "FooterBrandLinksContactProps",
+    exampleUsage: `<FooterBrandLinksContact />`.trim(),
   },
   "footer-newsletter-grid": {
     id: "footer-newsletter-grid",
@@ -8166,6 +8286,49 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   },
 
   // Hero components
+  "hero-overlay-cta-grid": {
+    id: "hero-overlay-cta-grid",
+    name: "Overlay CTA Grid Hero",
+    description:
+      "A background-image hero with a centered badge, headline, dual CTAs, and a grid of icon cards for quick navigation. Ideal for service-focused landing pages that need both narrative impact and fast access to top offerings.",
+    semanticTags: [
+      "hero",
+      "overlay",
+      "background-image",
+      "cta",
+      "grid",
+      "cards",
+      "icons",
+      "landing",
+      "services",
+      "navigation",
+    ],
+    category: "hero",
+    component: HeroOverlayCtaGrid,
+    props: "HeroOverlayCtaGridProps",
+    exampleUsage: `<HeroOverlayCtaGrid />`.trim(),
+  },
+  "hero-split-icon-cards": {
+    id: "hero-split-icon-cards",
+    name: "Split Icon Cards Hero",
+    description:
+      "A two-column hero with heading, description, and CTAs on the left, plus stacked icon cards on the right. Perfect for highlighting key benefits or service pillars in a quick, scannable layout.",
+    semanticTags: [
+      "hero",
+      "split",
+      "two-column",
+      "icon-cards",
+      "benefits",
+      "cta",
+      "services",
+      "features",
+      "callouts",
+    ],
+    category: "hero",
+    component: HeroSplitIconCards,
+    props: "HeroSplitIconCardsProps",
+    exampleUsage: `<HeroSplitIconCards />`.trim(),
+  },
   "hero-badge-image-split": {
     id: "hero-badge-image-split",
     name: "Badge Image Split Hero",
@@ -13113,6 +13276,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
   ]}
 />`.trim(),
   },
+  "list-searchable-grid": {
+    id: "list-searchable-grid",
+    name: "Searchable Resource Grid",
+    description:
+      "A searchable grid of cards with optional icons and tags, plus a keyword input and empty-state messaging. Ideal for resource libraries, catalogs, or partner directories that need fast filtering.",
+    semanticTags: [
+      "list",
+      "search",
+      "filter",
+      "grid",
+      "resources",
+      "catalog",
+      "directory",
+      "cards",
+      "tags",
+    ],
+    category: "list",
+    component: ListSearchableGrid,
+    props: "ListSearchableGridProps",
+    exampleUsage: `<ListSearchableGrid />`.trim(),
+  },
 
   // Offer Modal components
   "offer-modal-newsletter-discount": {
@@ -15674,6 +15858,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     }
   ]}
 />`.trim(),
+  },
+  "services-list-feature-spotlight": {
+    id: "services-list-feature-spotlight",
+    name: "Service Feature Spotlight",
+    description:
+      "An alternating image-and-card layout that spotlights service differentiators with icon headers and badge pills. Great for storytelling sections that need visual depth while highlighting key benefits.",
+    semanticTags: [
+      "services",
+      "features",
+      "spotlight",
+      "alternating",
+      "image",
+      "badges",
+      "icons",
+      "benefits",
+      "storytelling",
+    ],
+    category: "services-list",
+    component: ServicesListFeatureSpotlight,
+    props: "ServicesListFeatureSpotlightProps",
+    exampleUsage: `<ServicesListFeatureSpotlight />`.trim(),
   },
 
   "services-list-image-cards": {
