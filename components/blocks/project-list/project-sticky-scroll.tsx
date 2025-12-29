@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll, motion } from "framer-motion";
 
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectStickyScrollItem {
   title: string;
@@ -12,18 +15,71 @@ export interface ProjectStickyScrollItem {
 }
 
 export interface ProjectStickyScrollProps {
-  className?: string;
+  /**
+   * Array of content sections (required)
+   */
   content: ProjectStickyScrollItem[];
+  /**
+   * Custom slot for rendering content (overrides content array)
+   */
+  contentSlot?: React.ReactNode;
+  /**
+   * Background colors to cycle through
+   */
+  backgroundColors?: string[];
+  /**
+   * Linear gradients for the sticky panel
+   */
+  linearGradients?: string[];
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the scroll container
+   */
+  scrollContainerClassName?: string;
+  /**
+   * Additional CSS classes for the text content area
+   */
+  textContentClassName?: string;
+  /**
+   * Additional CSS classes for the sticky panel
+   */
   contentClassName?: string;
+  /**
+   * Additional CSS classes for each title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for each description
+   */
+  descriptionClassName?: string;
 }
 
-const backgroundColors = [
+const defaultBackgroundColors = [
   "rgb(15 23 42)", // slate-900
   "rgb(0 0 0)", // black
   "rgb(23 23 23)", // neutral-900
 ];
 
-const linearGradients = [
+const defaultLinearGradients = [
   "linear-gradient(to bottom right, rgb(6 182 212), rgb(16 185 129))", // cyan-500 to emerald-500
   "linear-gradient(to bottom right, rgb(236 72 153), rgb(99 102 241))", // pink-500 to indigo-500
   "linear-gradient(to bottom right, rgb(249 115 22), rgb(234 179 8))", // orange-500 to yellow-500
@@ -40,9 +96,20 @@ const linearGradients = [
  * or any narrative content where visual context should remain visible while scrolling.
  */
 export function ProjectStickyScroll({
-  className,
   content,
+  contentSlot,
+  backgroundColors = defaultBackgroundColors,
+  linearGradients = defaultLinearGradients,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  scrollContainerClassName,
+  textContentClassName,
   contentClassName,
+  titleClassName,
+  descriptionClassName,
 }: ProjectStickyScrollProps) {
   const [activeCard, setActiveCard] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -73,59 +140,73 @@ export function ProjectStickyScroll({
 
   useEffect(() => {
     setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
-  }, [activeCard]);
+  }, [activeCard, linearGradients]);
+
+  const renderContent = () => {
+    if (contentSlot) return contentSlot;
+
+    return content.map((item, index) => (
+      <div key={item.title + index} className="my-20">
+        <motion.h2
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: activeCard === index ? 1 : 0.3,
+          }}
+          className={cn("text-2xl font-bold text-slate-100", titleClassName)}
+        >
+          {item.title}
+        </motion.h2>
+        <motion.p
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: activeCard === index ? 1 : 0.3,
+          }}
+          className={cn("text-kg text-slate-300 max-w-sm mt-10", descriptionClassName)}
+        >
+          {item.description}
+        </motion.p>
+      </div>
+    ));
+  };
 
   return (
-    <motion.div
-      animate={{
-        backgroundColor: backgroundColors[activeCard % backgroundColors.length],
-      }}
-      className={cn(
-        "h-120 overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10",
-        className
-      )}
-      ref={ref}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
     >
-      <div className="div relative flex items-start px-4">
-        <div className="max-w-2xl">
-          {content.map((item, index) => (
-            <div key={item.title + index} className="my-20">
-              <motion.h2
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: activeCard === index ? 1 : 0.3,
-                }}
-                className="text-2xl font-bold text-slate-100"
-              >
-                {item.title}
-              </motion.h2>
-              <motion.p
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: activeCard === index ? 1 : 0.3,
-                }}
-                className="text-kg text-slate-300 max-w-sm mt-10"
-              >
-                {item.description}
-              </motion.p>
-            </div>
-          ))}
-          <div className="h-40" />
-        </div>
-      </div>
-      <div
-        style={{ background: backgroundGradient }}
+      <motion.div
+        animate={{
+          backgroundColor: backgroundColors[activeCard % backgroundColors.length],
+        }}
         className={cn(
-          "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
-          contentClassName
+          "h-120 overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10",
+          scrollContainerClassName
         )}
+        ref={ref}
       >
-        {content[activeCard].content ?? null}
-      </div>
-    </motion.div>
+        <div className="div relative flex items-start px-4">
+          <div className={cn("max-w-2xl", textContentClassName)}>
+            {renderContent()}
+            <div className="h-40" />
+          </div>
+        </div>
+        <div
+          style={{ background: backgroundGradient }}
+          className={cn(
+            "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
+            contentClassName
+          )}
+        >
+          {content[activeCard]?.content ?? null}
+        </div>
+      </motion.div>
+    </Section>
   );
 }

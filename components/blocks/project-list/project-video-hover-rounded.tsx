@@ -1,12 +1,14 @@
 "use client";
 
-import type React from "react";
+import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
 import { imagePlaceholders, videoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectVideoHoverRoundedItem {
   thumbnailSrc: string;
@@ -16,11 +18,70 @@ export interface ProjectVideoHoverRoundedItem {
 }
 
 export interface ProjectVideoHoverRoundedProps {
-  className?: string;
-  heading?: string;
-  subheading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading/label content
+   */
+  subheading?: React.ReactNode;
+  /**
+   * Array of video section configurations
+   */
   videoSections?: ProjectVideoHoverRoundedItem[];
+  /**
+   * Custom slot for rendering video sections (overrides videoSections array)
+   */
+  videoSectionsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the video list
+   */
+  listClassName?: string;
+  /**
+   * Additional CSS classes for each video card
+   */
+  cardClassName?: string;
 }
 
 interface VideoSectionProps {
@@ -150,44 +211,80 @@ const defaultVideoSections: ProjectVideoHoverRoundedItem[] = [
  * presentation of video content.
  */
 export function ProjectVideoHoverRounded({
-  className,
   heading = "Explore Our Projects",
   subheading = "Our Work",
   videoSections = defaultVideoSections,
+  videoSectionsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  listClassName,
+  cardClassName,
 }: ProjectVideoHoverRoundedProps) {
+  const renderVideoSections = () => {
+    if (videoSectionsSlot) return videoSectionsSlot;
+    if (!videoSections || videoSections.length === 0) return null;
+
+    return videoSections.map((section, index) => (
+      <div key={index} className={cardClassName}>
+        <VideoSection
+          videoSrc={section.videoSrc}
+          thumbnailSrc={section.thumbnailSrc}
+          studioName={section.studioName}
+          projectTitle={section.projectTitle}
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
+    ));
+  };
+
   return (
-    <section className={cn("bg-background py-8 md:py-32", className)}>
-      <div className="container mx-auto">
-        <div className="mb-12 text-left text-foreground">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:mb-8 lg:text-8xl">
-            {heading}
-          </h1>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container mx-auto", containerClassName)}>
+        <div className={cn("mb-12 text-left text-foreground", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:mb-8 lg:text-8xl", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
 
           <div className="flex items-center">
-            <p className="mr-4 text-sm font-medium tracking-wider uppercase opacity-80">
-              {subheading}
-            </p>
+            {subheading && (
+              typeof subheading === "string" ? (
+                <p className={cn("mr-4 text-sm font-medium tracking-wider uppercase opacity-80", subheadingClassName)}>
+                  {subheading}
+                </p>
+              ) : (
+                <div className={subheadingClassName}>{subheading}</div>
+              )
+            )}
             <div className="opacity-60">
               <DynamicIcon name="lucide/audio-lines" size={24} />
             </div>
           </div>
         </div>
 
-        <div className="space-y-8 md:space-y-12">
-          {videoSections.map((section, index) => (
-            <div key={index}>
-              <VideoSection
-                videoSrc={section.videoSrc}
-                thumbnailSrc={section.thumbnailSrc}
-                studioName={section.studioName}
-                projectTitle={section.projectTitle}
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
-          ))}
+        <div className={cn("space-y-8 md:space-y-12", listClassName)}>
+          {renderVideoSections()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

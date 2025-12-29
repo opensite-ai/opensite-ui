@@ -1,11 +1,12 @@
 "use client";
 
-import type React from "react";
+import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
 import {
   Carousel,
   CarouselContent,
@@ -14,6 +15,7 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import { imagePlaceholders, videoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectVideoCarouselItem {
   thumbnailSrc: string;
@@ -23,11 +25,70 @@ export interface ProjectVideoCarouselItem {
 }
 
 export interface ProjectVideoCarouselProps {
-  className?: string;
-  heading?: string;
-  subheading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading/label content
+   */
+  subheading?: React.ReactNode;
+  /**
+   * Array of video section configurations
+   */
   videoSections?: ProjectVideoCarouselItem[];
+  /**
+   * Custom slot for rendering video sections (overrides videoSections array)
+   */
+  videoSectionsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the carousel
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
 }
 
 interface VideoSectionProps {
@@ -157,24 +218,73 @@ const defaultVideoSections: ProjectVideoCarouselItem[] = [
  * from a cinematic, browsable presentation.
  */
 export function ProjectVideoCarousel({
-  className,
   heading = "Explore Our Projects",
   subheading = "Our Work",
   videoSections = defaultVideoSections,
+  videoSectionsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  carouselClassName,
+  cardClassName,
 }: ProjectVideoCarouselProps) {
+  const renderVideoSections = () => {
+    if (videoSectionsSlot) return videoSectionsSlot;
+    if (!videoSections || videoSections.length === 0) return null;
+
+    return videoSections.map((section, index) => (
+      <CarouselItem
+        key={index}
+        className={cn("pl-2 md:basis-4/5 md:pl-4 lg:basis-3/4 xl:basis-2/3", cardClassName)}
+      >
+        <VideoSection
+          videoSrc={section.videoSrc}
+          thumbnailSrc={section.thumbnailSrc}
+          studioName={section.studioName}
+          projectTitle={section.projectTitle}
+          optixFlowConfig={optixFlowConfig}
+        />
+      </CarouselItem>
+    ));
+  };
+
   return (
-    <section className={cn("w-full bg-background", className)}>
-      <div className="container py-16">
-        <div className="text-left text-foreground">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:mb-8 lg:text-8xl">
-            {heading}
-          </h1>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container py-16", containerClassName)}>
+        <div className={cn("text-left text-foreground", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:mb-8 lg:text-8xl", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
 
           <div className="flex items-center">
-            <p className="mr-4 text-sm font-medium tracking-wider uppercase opacity-80">
-              {subheading}
-            </p>
+            {subheading && (
+              typeof subheading === "string" ? (
+                <p className={cn("mr-4 text-sm font-medium tracking-wider uppercase opacity-80", subheadingClassName)}>
+                  {subheading}
+                </p>
+              ) : (
+                <div className={subheadingClassName}>{subheading}</div>
+              )
+            )}
             <div className="opacity-60">
               <DynamicIcon name="lucide/audio-lines" size={24} />
             </div>
@@ -188,28 +298,15 @@ export function ProjectVideoCarousel({
             align: "start",
             loop: true,
           }}
-          className="w-full"
+          className={cn("w-full", carouselClassName)}
         >
           <CarouselContent className="-ml-2 md:-ml-4">
-            {videoSections.map((section, index) => (
-              <CarouselItem
-                key={index}
-                className="pl-2 md:basis-4/5 md:pl-4 lg:basis-3/4 xl:basis-2/3"
-              >
-                <VideoSection
-                  videoSrc={section.videoSrc}
-                  thumbnailSrc={section.thumbnailSrc}
-                  studioName={section.studioName}
-                  projectTitle={section.projectTitle}
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </CarouselItem>
-            ))}
+            {renderVideoSections()}
           </CarouselContent>
           <CarouselPrevious className="left-4 md:left-8" />
           <CarouselNext className="right-4 md:right-8" />
         </Carousel>
       </div>
-    </section>
+    </Section>
   );
 }
