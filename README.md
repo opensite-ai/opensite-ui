@@ -66,6 +66,7 @@ import { Container } from "@opensite/ui/components/container";
 ```
 
 **Props:**
+
 - `maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "4xl" | "full"` - Maximum width (default: "xl")
 - `as?: keyof JSX.IntrinsicElements` - HTML element to render (default: "div")
 - `className?: string` - Additional CSS classes
@@ -90,6 +91,7 @@ import { Section } from "@opensite/ui/components/section";
 ```
 
 **Props:**
+
 - `id?: string` - Section ID for anchor links
 - `title?: string` - Section title (renders as h2)
 - `subtitle?: string` - Section subtitle/eyebrow
@@ -128,6 +130,7 @@ function MyComponent() {
 ```
 
 **Props:**
+
 - `open: boolean` - Whether the dialog is open (required)
 - `onOpenChange: (open: boolean) => void` - Callback when dialog state changes (required)
 - `title?: string` - Dialog title
@@ -140,6 +143,7 @@ function MyComponent() {
 - `contentClassName?: string` - Additional CSS classes for content area
 
 **Default Styles:**
+
 - Background uses theme background color for proper contrast
 - Generous padding (p-6 on mobile, p-12 on desktop) for spacious feel
 - Proper viewport spacing (my-12 on mobile, my-20 on desktop)
@@ -167,6 +171,7 @@ import { PageHeroBanner } from "@opensite/ui/components/page-hero-banner";
 ```
 
 **Props:**
+
 - `imageUrl?: string` - Image URL or Media ID (either imageUrl or videoUrl required)
 - `videoUrl?: string` - Video URL or Media ID (either imageUrl or videoUrl required)
 - `alt?: string` - Alt text for image (default: "Hero banner")
@@ -191,6 +196,7 @@ import { Button } from "@opensite/ui/components/button";
 ```
 
 **Props:**
+
 - `variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"` (default: "default")
 - `size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg"` (default: "default")
 - `asChild?: boolean` - Render as child component using Radix Slot (default: false)
@@ -243,6 +249,7 @@ import { AlternatingBlocks } from "@opensite/ui/blocks/about/alternating-blocks"
 ```
 
 **Props:**
+
 - `sections: AlternatingBlockSection[]` - Array of content sections (required)
   - `content: ReactNode` - Content to display (text, headings, etc.)
   - `media: ReactNode` - Media to display (image, video, icon, etc.)
@@ -290,6 +297,7 @@ import { MediaHoverCtas } from "@opensite/ui/blocks/cta/media-hover-ctas";
 ```
 
 **Props:**
+
 - `items?: MediaHoverCtaItem[]` - Array of CTA items (default: [])
   - `content?: ReactNode` - Content to render inside the card
   - `onHoverImgSrc?: string` - Image URL to reveal on hover
@@ -325,6 +333,7 @@ const results = searchBlocks("alternating");
 ```
 
 **Available Functions:**
+
 - `getBlocksBySemanticTag(tag: string)` - Find blocks matching semantic tag
 - `getBlocksByCategory(category: BlockCategory)` - Find blocks in category
 - `getBlockById(id: string)` - Get specific block by ID
@@ -333,6 +342,7 @@ const results = searchBlocks("alternating");
 - `searchBlocks(query: string)` - Search blocks by name/description/tags
 
 **Block Categories:**
+
 - about, features, cta, testimonials, services, hero, footer, header, pricing, team, stats, faq, contact, gallery, timeline, process, benefits, comparison
 
 ## Styling
@@ -415,6 +425,7 @@ import type {
 ### Core Web Vitals
 
 All components are optimized for:
+
 - **LCP** (Largest Contentful Paint): ≤2.5s
 - **INP** (Interaction to Next Paint): ≤200ms
 - **CLS** (Cumulative Layout Shift): ≤0.1

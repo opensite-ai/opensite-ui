@@ -8,30 +8,260 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Switch } from "../../ui/switch";
 import { Label } from "../../ui/label";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-interface PricingPlan {
-  name: string;
-  monthlyPrice: number;
-  yearlyPrice: number;
-  description?: string;
-  features: { name: string; included: boolean }[];
-  buttonText?: string;
-  buttonHref?: string;
+export interface PricingFourTierFeature {
+  /**
+   * Feature label
+   */
+  name?: React.ReactNode;
+  /**
+   * Whether the feature is included
+   */
+  included?: boolean;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for the feature item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the feature icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the feature text
+   */
+  textClassName?: string;
+}
+
+export interface PricingFourTierPlan {
+  /**
+   * Plan name
+   */
+  name?: React.ReactNode;
+  /**
+   * Monthly price display
+   */
+  monthlyPrice?: React.ReactNode;
+  /**
+   * Yearly price display
+   */
+  yearlyPrice?: React.ReactNode;
+  /**
+   * Plan description
+   */
+  description?: React.ReactNode;
+  /**
+   * Feature list
+   */
+  features?: PricingFourTierFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Highlight this plan
+   */
   isPopular?: boolean;
+  /**
+   * Badge content for popular plan
+   */
+  badge?: React.ReactNode;
+  /**
+   * Additional CSS classes for the plan card
+   */
+  className?: string;
 }
 
 export interface PricingFourTierToggleProps {
+  /**
+   * Section title
+   */
+  title?: React.ReactNode;
+  /**
+   * Section subtitle
+   */
+  subtitle?: React.ReactNode;
+  /**
+   * Toggle label for monthly billing
+   */
+  monthlyLabel?: React.ReactNode;
+  /**
+   * Toggle label for annual billing
+   */
+  yearlyLabel?: React.ReactNode;
+  /**
+   * Badge displayed on yearly toggle
+   */
+  yearlyBadge?: React.ReactNode;
+  /**
+   * Monthly price suffix
+   */
+  monthlyInterval?: React.ReactNode;
+  /**
+   * Yearly price suffix
+   */
+  yearlyInterval?: React.ReactNode;
+  /**
+   * Pricing plans
+   */
+  plans?: PricingFourTierPlan[];
+  /**
+   * Custom slot for rendering plans (overrides plans array)
+   */
+  plansSlot?: React.ReactNode;
+  /**
+   * Icon used when feature is included
+   */
+  includedIcon?: React.ReactNode;
+  /**
+   * Icon used when feature is excluded
+   */
+  excludedIcon?: React.ReactNode;
+  /**
+   * Icon name used when feature is included
+   */
+  includedIconName?: string;
+  /**
+   * Icon name used when feature is excluded
+   */
+  excludedIconName?: string;
+  /**
+   * Badge content for popular plans
+   */
+  popularBadge?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  subtitle?: string;
-  plans?: PricingPlan[];
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
+  /**
+   * Additional CSS classes for the toggle wrapper
+   */
+  toggleClassName?: string;
+  /**
+   * Additional CSS classes for toggle labels
+   */
+  toggleLabelClassName?: string;
+  /**
+   * Additional CSS classes for yearly badge
+   */
+  yearlyBadgeClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for plan cards
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for popular cards
+   */
+  popularCardClassName?: string;
+  /**
+   * Additional CSS classes for badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for plan titles
+   */
+  planTitleClassName?: string;
+  /**
+   * Additional CSS classes for plan descriptions
+   */
+  planDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for price
+   */
+  priceClassName?: string;
+  /**
+   * Additional CSS classes for price interval
+   */
+  priceIntervalClassName?: string;
+  /**
+   * Additional CSS classes for features list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for feature items
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for feature icons
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for action
+   */
+  actionClassName?: string;
 }
 
-const defaultPlans: PricingPlan[] = [
+const defaultPlans: PricingFourTierPlan[] = [
   {
     name: "Free",
-    monthlyPrice: 0,
-    yearlyPrice: 0,
+    monthlyPrice: "$0",
+    yearlyPrice: "$0",
     description: "For individuals getting started",
     features: [
       { name: "Up to 3 projects", included: true },
@@ -40,13 +270,12 @@ const defaultPlans: PricingPlan[] = [
       { name: "API access", included: false },
       { name: "Custom integrations", included: false },
     ],
-    buttonText: "Get Started",
-    buttonHref: "#",
+    action: { label: "Get Started", href: "#", variant: "outline" },
   },
   {
     name: "Basic",
-    monthlyPrice: 15,
-    yearlyPrice: 150,
+    monthlyPrice: "$15",
+    yearlyPrice: "$150",
     description: "For small teams",
     features: [
       { name: "Up to 10 projects", included: true },
@@ -55,13 +284,12 @@ const defaultPlans: PricingPlan[] = [
       { name: "API access", included: true },
       { name: "Custom integrations", included: false },
     ],
-    buttonText: "Start Trial",
-    buttonHref: "#",
+    action: { label: "Start Trial", href: "#", variant: "outline" },
   },
   {
     name: "Team",
-    monthlyPrice: 39,
-    yearlyPrice: 390,
+    monthlyPrice: "$39",
+    yearlyPrice: "$390",
     description: "For growing teams",
     features: [
       { name: "Unlimited projects", included: true },
@@ -70,14 +298,13 @@ const defaultPlans: PricingPlan[] = [
       { name: "API access", included: true },
       { name: "Custom integrations", included: true },
     ],
-    buttonText: "Start Trial",
-    buttonHref: "#",
+    action: { label: "Start Trial", href: "#", variant: "default" },
     isPopular: true,
   },
   {
     name: "Enterprise",
-    monthlyPrice: 99,
-    yearlyPrice: 990,
+    monthlyPrice: "$99",
+    yearlyPrice: "$990",
     description: "For large organizations",
     features: [
       { name: "Unlimited everything", included: true },
@@ -86,8 +313,7 @@ const defaultPlans: PricingPlan[] = [
       { name: "Full API access", included: true },
       { name: "Custom integrations", included: true },
     ],
-    buttonText: "Contact Sales",
-    buttonHref: "#",
+    action: { label: "Contact Sales", href: "#", variant: "outline" },
   },
 ];
 
@@ -103,37 +329,242 @@ const defaultPlans: PricingPlan[] = [
  * <PricingFourTierToggle
  *   title="Choose Your Plan"
  *   plans={[
- *     { name: "Free", monthlyPrice: 0, yearlyPrice: 0, features: [{ name: "Feature", included: true }] }
+ *     { name: "Free", monthlyPrice: "$0", yearlyPrice: "$0", features: [{ name: "Feature", included: true }] }
  *   ]}
  * />
  * ```
  */
 export function PricingFourTierToggle({
-  className,
   title = "Pricing Plans",
   subtitle = "Choose the perfect plan for your needs",
+  monthlyLabel = "Monthly",
+  yearlyLabel = "Annual",
+  yearlyBadge = "Save 17%",
+  monthlyInterval = "/month",
+  yearlyInterval = "/year",
   plans = defaultPlans,
-}: PricingFourTierToggleProps) {
+  plansSlot,
+  includedIcon,
+  excludedIcon,
+  includedIconName = "lucide/check",
+  excludedIconName = "lucide/x",
+  popularBadge = "Most Popular",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  titleClassName,
+  subtitleClassName,
+  toggleClassName,
+  toggleLabelClassName,
+  yearlyBadgeClassName,
+  gridClassName,
+  cardClassName,
+  popularCardClassName,
+  badgeClassName,
+  planTitleClassName,
+  planDescriptionClassName,
+  priceClassName,
+  priceIntervalClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionClassName,
+}: PricingFourTierToggleProps): React.JSX.Element {
   const [isAnnual, setIsAnnual] = useState(false);
 
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
+  const renderFeatures = (plan: PricingFourTierPlan) => {
+    if (plan.featuresSlot) return plan.featuresSlot;
+    if (!plan.features || plan.features.length === 0) return null;
 
-          <div className="mt-8 flex items-center justify-center gap-3">
+    return (
+      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+        {plan.features.map((feature, featureIndex) => {
+          const isIncluded = feature.included !== false;
+          const fallbackIconName = isIncluded ? includedIconName : excludedIconName;
+          const resolvedIcon = feature.icon
+            ?? (isIncluded ? includedIcon : excludedIcon)
+            ?? (feature.iconName || fallbackIconName ? (
+              <DynamicIcon
+                name={feature.iconName || fallbackIconName}
+                size={16}
+                className={cn(
+                  "mt-0.5 shrink-0",
+                  isIncluded ? "text-primary" : "text-muted-foreground",
+                  featureIconClassName,
+                  feature.iconClassName
+                )}
+              />
+            ) : null);
+
+          return (
+            <li key={featureIndex} className={cn("flex items-start gap-2", featureItemClassName, feature.className)}>
+              {resolvedIcon}
+              {feature.name && (
+                typeof feature.name === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm",
+                      isIncluded ? "text-foreground" : "text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName
+                    )}
+                  >
+                    {feature.name}
+                  </span>
+                ) : (
+                  <div
+                    className={cn(
+                      "text-sm",
+                      isIncluded ? "text-foreground" : "text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName
+                    )}
+                  >
+                    {feature.name}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  const renderAction = (plan: PricingFourTierPlan) => {
+    if (plan.actionSlot) return plan.actionSlot;
+    if (!plan.action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderPlans = () => {
+    if (plansSlot) return plansSlot;
+    if (!plans || plans.length === 0) return null;
+
+    return (
+      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+        {plans.map((plan, index) => {
+          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+
+          return (
+            <div
+              key={index}
+              className={cn(
+                "relative flex flex-col rounded-2xl border p-6",
+                plan.isPopular ? "border-primary shadow-lg" : "border-border",
+                cardClassName,
+                plan.isPopular ? popularCardClassName : null,
+                plan.className
+              )}
+            >
+              {badgeContent && (
+                <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
+                  {typeof badgeContent === "string" ? (
+                    <Badge>{badgeContent}</Badge>
+                  ) : (
+                    badgeContent
+                  )}
+                </div>
+              )}
+
+              <div className="mb-4">
+                {plan.name && (
+                  typeof plan.name === "string" ? (
+                    <h3 className={cn("text-lg font-semibold", planTitleClassName)}>{plan.name}</h3>
+                  ) : (
+                    <div className={planTitleClassName}>{plan.name}</div>
+                  )
+                )}
+                {plan.description && (
+                  typeof plan.description === "string" ? (
+                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                      {plan.description}
+                    </p>
+                  ) : (
+                    <div className={planDescriptionClassName}>{plan.description}</div>
+                  )
+                )}
+              </div>
+
+              <div className="mb-6">
+                <span className={cn("text-3xl font-bold", priceClassName)}>
+                  {isAnnual ? plan.yearlyPrice : plan.monthlyPrice}
+                </span>
+                <span className={cn("text-sm text-muted-foreground", priceIntervalClassName)}>
+                  {isAnnual ? yearlyInterval : monthlyInterval}
+                </span>
+              </div>
+
+              {renderFeatures(plan)}
+              {renderAction(plan)}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto", containerClassName)}>
+        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            )
+          )}
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ) : (
+              <div className={subtitleClassName}>{subtitle}</div>
+            )
+          )}
+
+          <div className={cn("mt-8 flex items-center justify-center gap-3", toggleClassName)}>
             <Label
               htmlFor="billing-toggle"
               className={cn(
                 "text-sm font-medium",
-                !isAnnual ? "text-foreground" : "text-muted-foreground"
+                !isAnnual ? "text-foreground" : "text-muted-foreground",
+                toggleLabelClassName
               )}
             >
-              Monthly
+              {monthlyLabel}
             </Label>
             <Switch
               id="billing-toggle"
@@ -144,95 +575,26 @@ export function PricingFourTierToggle({
               htmlFor="billing-toggle"
               className={cn(
                 "text-sm font-medium",
-                isAnnual ? "text-foreground" : "text-muted-foreground"
+                isAnnual ? "text-foreground" : "text-muted-foreground",
+                toggleLabelClassName
               )}
             >
-              Annual
-              <Badge variant="secondary" className="ml-2">
-                Save 17%
-              </Badge>
+              {yearlyLabel}
+              {yearlyBadge && (
+                typeof yearlyBadge === "string" ? (
+                  <Badge variant="secondary" className={cn("ml-2", yearlyBadgeClassName)}>
+                    {yearlyBadge}
+                  </Badge>
+                ) : (
+                  <span className={yearlyBadgeClassName}>{yearlyBadge}</span>
+                )}
+              )}
             </Label>
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {plans.map((plan, index) => (
-            <div
-              key={index}
-              className={cn(
-                "relative flex flex-col rounded-2xl border p-6",
-                plan.isPopular
-                  ? "border-primary shadow-lg"
-                  : "border-border"
-              )}
-            >
-              {plan.isPopular && (
-                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  Most Popular
-                </Badge>
-              )}
-
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold">{plan.name}</h3>
-                {plan.description && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {plan.description}
-                  </p>
-                )}
-              </div>
-
-              <div className="mb-6">
-                <span className="text-3xl font-bold">
-                  ${isAnnual ? plan.yearlyPrice : plan.monthlyPrice}
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  /{isAnnual ? "year" : "month"}
-                </span>
-              </div>
-
-              <ul className="mb-6 flex-1 space-y-3">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-2">
-                    {feature.included ? (
-                      <DynamicIcon
-                        name="lucide/check"
-                        size={16}
-                        className="mt-0.5 shrink-0 text-primary"
-                      />
-                    ) : (
-                      <DynamicIcon
-                        name="lucide/x"
-                        size={16}
-                        className="mt-0.5 shrink-0 text-muted-foreground"
-                      />
-                    )}
-                    <span
-                      className={cn(
-                        "text-sm",
-                        feature.included
-                          ? "text-foreground"
-                          : "text-muted-foreground"
-                      )}
-                    >
-                      {feature.name}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Pressable
-                href={plan.buttonHref}
-                variant={plan.isPopular ? "default" : "outline"}
-                size="default"
-                asButton
-                className="w-full justify-center"
-              >
-                {plan.buttonText}
-              </Pressable>
-            </div>
-          ))}
-        </div>
+        {renderPlans()}
       </div>
-    </section>
+    </Section>
   );
 }
