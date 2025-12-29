@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { startTransition, useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -11,20 +12,102 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
+/**
+ * Image configuration for carousel scale focus.
+ */
 export interface CarouselScaleFocusImage {
+  /**
+   * Image source URL
+   */
   src: string;
+  /**
+   * Alt text for the image
+   */
   alt: string;
+  /**
+   * Additional CSS classes for the image container
+   */
+  className?: string;
 }
 
 export interface CarouselScaleFocusProps {
+  /**
+   * Array of images to display
+   */
   images?: CarouselScaleFocusImage[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the carousel wrapper
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for the carousel content
+   */
+  carouselContentClassName?: string;
+  /**
+   * Additional CSS classes for each carousel item
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for each image
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the navigation controls container
+   */
+  controlsClassName?: string;
+  /**
+   * Additional CSS classes for the indicators container
+   */
+  indicatorsClassName?: string;
+  /**
+   * Additional CSS classes for each indicator dot
+   */
+  indicatorClassName?: string;
+  /**
+   * Starting index for the carousel
+   * @default 1
+   */
+  startIndex?: number;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultImages: CarouselScaleFocusImage[] = [
@@ -92,9 +175,23 @@ const defaultImages: CarouselScaleFocusImage[] = [
  */
 export function CarouselScaleFocus({
   images = defaultImages,
+  imagesSlot,
   className,
+  carouselClassName,
+  carouselContentClassName,
+  itemClassName,
+  imageClassName,
+  controlsClassName,
+  indicatorsClassName,
+  indicatorClassName,
+  startIndex = 1,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: CarouselScaleFocusProps) {
+}: CarouselScaleFocusProps): React.JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -116,39 +213,54 @@ export function CarouselScaleFocus({
     });
   }, [api]);
 
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
+
+    return images.map((img, index) => (
+      <CarouselItem key={`carousel-img-${index}`} className={itemClassName}>
+        <div
+          className={cn(
+            "aspect-4/3 max-w-200 overflow-hidden rounded-[0.75rem] transition-all duration-300",
+            current === index + 1
+              ? "scale-100 opacity-100"
+              : "scale-70 opacity-40",
+            img.className
+          )}
+        >
+          <Img
+            className={cn("block size-full object-cover object-center", imageClassName)}
+            src={img.src}
+            alt={img.alt}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+      </CarouselItem>
+    ));
+  };
+
   return (
-    <section className={cn("overflow-hidden py-32", className)}>
-      <div className="container md:px-45">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("overflow-hidden", className)}
+    >
+      <div className="md:px-45">
         <Carousel
-          className="mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible"
+          className={cn("mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible", carouselClassName)}
           setApi={setApi}
           opts={{
-            startIndex: 1,
+            startIndex,
           }}
         >
-          <CarouselContent>
-            {images.map((img, index) => (
-              <CarouselItem key={`carousel-img-${index}`}>
-                <div
-                  className={cn(
-                    "aspect-4/3 max-w-200 overflow-hidden rounded-[0.75rem] transition-all duration-300",
-                    current === index + 1
-                      ? "scale-100 opacity-100"
-                      : "scale-70 opacity-40"
-                  )}
-                >
-                  <Img
-                    className="block size-full object-cover object-center"
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-              </CarouselItem>
-            ))}
+          <CarouselContent className={carouselContentClassName}>
+            {renderImages()}
           </CarouselContent>
-          <div className="mt-4 hidden md:block">
+          <div className={cn("mt-4 hidden md:block", controlsClassName)}>
             <CarouselPrevious
               className="size-10 max-[767px]:static max-[767px]:translate-y-0 md:-left-25 md:size-14 lg:-left-39.75 lg:size-14 [&>svg]:size-6!"
               variant="default"
@@ -159,7 +271,7 @@ export function CarouselScaleFocus({
             />
           </div>
         </Carousel>
-        <div className="mx-auto mt-10 flex w-full max-w-135.75 items-center justify-center">
+        <div className={cn("mx-auto mt-10 flex w-full max-w-135.75 items-center justify-center", indicatorsClassName)}>
           {Array.from({ length: count }).map((_, index) => (
             <button
               aria-label={`Go to slide ${index + 1}`}
@@ -172,13 +284,14 @@ export function CarouselScaleFocus({
               <div
                 className={cn(
                   "size-3 rounded-full",
-                  current === index + 1 ? "bg-primary" : "bg-primary/10"
+                  current === index + 1 ? "bg-primary" : "bg-primary/10",
+                  indicatorClassName
                 )}
               />
             </button>
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

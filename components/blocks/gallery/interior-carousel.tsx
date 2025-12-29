@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import {
@@ -9,17 +10,110 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+
+/**
+ * Image configuration for interior carousel.
+ */
+export interface InteriorCarouselImage {
+  /**
+   * Image source URL
+   */
+  src: string;
+  /**
+   * Alt text for the image
+   */
+  alt?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  className?: string;
+}
 
 export interface InteriorCarouselProps {
-  heading?: string;
-  description?: string;
-  images?: string[];
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text (supports newlines for multi-line display)
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of images to display (can be strings or objects)
+   */
+  images?: (string | InteriorCarouselImage)[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the carousel wrapper
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for the carousel content
+   */
+  carouselContentClassName?: string;
+  /**
+   * Additional CSS classes for each carousel item
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for each image
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the navigation controls
+   */
+  controlsClassName?: string;
+  /**
+   * Whether to loop the carousel
+   * @default true
+   */
+  loop?: boolean;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultImages = [
@@ -55,55 +149,94 @@ export function InteriorCarousel({
   heading = "Beautiful Interiors.",
   description = "Explore our curated collection of stunning interior designs.\nEach space tells a unique story through thoughtful design and attention to detail.",
   images = defaultImages,
+  imagesSlot,
   className,
+  headingClassName,
+  descriptionClassName,
+  carouselClassName,
+  carouselContentClassName,
+  itemClassName,
+  imageClassName,
+  controlsClassName,
+  loop = true,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: InteriorCarouselProps) {
-  const descriptionLines = description.split("\n");
+}: InteriorCarouselProps): React.JSX.Element {
+  const renderDescription = () => {
+    if (typeof description === "string") {
+      const descriptionLines = description.split("\n");
+      return descriptionLines.map((line, index) => (
+        <span key={index}>
+          {line}
+          {index < descriptionLines.length - 1 && <br />}
+        </span>
+      ));
+    }
+    return description;
+  };
+
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
+
+    return images.map((image, index) => {
+      const src = typeof image === "string" ? image : image.src;
+      const alt = typeof image === "string" ? "Interior design" : (image.alt || "Interior design");
+      const itemClass = typeof image === "string" ? undefined : image.className;
+
+      return (
+        <CarouselItem key={index} className={cn("basis-1/2", itemClassName)}>
+          <Img
+            src={src}
+            alt={alt}
+            className={cn("aspect-[3.8/5] w-full rounded-xl object-cover", imageClassName, itemClass)}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </CarouselItem>
+      );
+    });
+  };
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <h2 className="mb-4 text-center text-4xl font-semibold">
-          {heading}
-        </h2>
-        <p className="text-center text-sm text-muted-foreground">
-          {descriptionLines.map((line, index) => (
-            <span key={index}>
-              {line}
-              {index < descriptionLines.length - 1 && <br />}
-            </span>
-          ))}
-        </p>
-        <div className="mt-10">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <h2 className={cn("mb-4 text-center text-4xl font-semibold", headingClassName)}>
+        {heading}
+      </h2>
+      <p className={cn("text-center text-sm text-muted-foreground", descriptionClassName)}>
+        {renderDescription()}
+      </p>
+      <div className="mt-10">
+        <Carousel
+          opts={{
+            align: "start",
+            loop,
+          }}
+          className={cn("mx-auto w-full max-w-6xl", carouselClassName)}
+        >
+          <CarouselContent
+            style={{
+              backfaceVisibility: "hidden",
             }}
-            className="mx-auto w-full max-w-6xl"
+            className={carouselContentClassName}
           >
-            <CarouselContent
-              style={{
-                backfaceVisibility: "hidden",
-              }}
-            >
-              {images.map((image, index) => (
-                <CarouselItem key={index} className="basis-1/2">
-                  <Img
-                    src={image}
-                    alt="Interior design"
-                    className="aspect-[3.8/5] w-full rounded-xl object-cover"
-                    loading="lazy"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50" />
-            <CarouselNext className="right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50" />
-          </Carousel>
-        </div>
+            {renderImages()}
+          </CarouselContent>
+          <CarouselPrevious className={cn("left-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50", controlsClassName)} />
+          <CarouselNext className={cn("right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50", controlsClassName)} />
+        </Carousel>
       </div>
-    </section>
+    </Section>
   );
 }
