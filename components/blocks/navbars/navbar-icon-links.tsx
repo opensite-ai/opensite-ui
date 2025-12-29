@@ -227,8 +227,8 @@ export const NavbarIconLinks = ({
     });
   };
 
-  const renderNavItems = () => {
-    if (navItemsSlot) return navItemsSlot;
+  const renderNavItems = (): NavItem[] | null => {
+    if (navItemsSlot) return null;
     if (!navItems || navItems.length === 0) return null;
 
     return navItems;
@@ -250,7 +250,7 @@ export const NavbarIconLinks = ({
             <TooltipProvider delayDuration={0}>
               <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
                 <NavigationMenuList className="gap-1">
-                  {renderNavItems()?.map((item, index) => (
+                  {navItemsSlot ? navItemsSlot : renderNavItems()?.map((item, index) => (
                     <NavigationMenuItem key={index}>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -295,7 +295,7 @@ export const NavbarIconLinks = ({
             <SheetContent side="right" className="w-[280px]">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-4 pt-8">
-                {renderNavItems()?.map((item, index) => (
+                {navItemsSlot ? navItemsSlot : renderNavItems()?.map((item, index) => (
                   <Pressable
                     key={index}
                     href={item.url}

@@ -241,7 +241,7 @@ export const NavbarSplitCta = ({
     if (!finalAuthActions || finalAuthActions.length === 0) return null;
 
     return finalAuthActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action as ActionConfig;
       return (
         <Pressable
           key={index}
@@ -261,8 +261,8 @@ export const NavbarSplitCta = ({
     });
   };
 
-  const renderMenu = () => {
-    if (menuSlot) return menuSlot;
+  const renderMenu = (): MenuItem[] | null => {
+    if (menuSlot) return null;
     if (!menu || menu.length === 0) return null;
 
     return menu;
@@ -283,7 +283,7 @@ export const NavbarSplitCta = ({
 
             <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
               <NavigationMenuList>
-                {renderMenu()?.map((item, index) =>
+                {menuSlot ? menuSlot : renderMenu()?.map((item, index) =>
                   item.items ? (
                     <NavigationMenuItem key={index}>
                       <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
@@ -327,7 +327,7 @@ export const NavbarSplitCta = ({
                         <Pressable href={item.url}>{item.title}</Pressable>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
-                  ),
+                  )
                 )}
               </NavigationMenuList>
             </NavigationMenu>
@@ -351,7 +351,7 @@ export const NavbarSplitCta = ({
                   {renderAuthActions()}
                 </div>
                 <div className="border-t pt-4">
-                  {renderMenu()?.map((item, index) =>
+                  {menuSlot ? menuSlot : renderMenu()?.map((item, index) =>
                     item.items ? (
                       <div key={index} className="mb-4">
                         <div className="mb-2 text-sm font-medium text-muted-foreground">
@@ -382,7 +382,7 @@ export const NavbarSplitCta = ({
                       >
                         {item.title}
                       </Pressable>
-                    ),
+                    )
                   )}
                 </div>
               </div>

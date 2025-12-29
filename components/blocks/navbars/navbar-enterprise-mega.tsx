@@ -800,6 +800,10 @@ export const NavbarEnterpriseMega = ({
         solutions={solutions}
         productCategories={productCategories}
         resources={resources}
+        actionsClassName={actionsClassName}
+        authActions={authActions}
+        authActionsSlot={authActionsSlot}
+        optixFlowConfig={optixFlowConfig}
       />
     </Fragment>
   );
@@ -1384,6 +1388,10 @@ interface MobileNavigationMenuProps {
   solutions: SolutionItem[];
   productCategories: ProductCategory[];
   resources: ResourceItem[];
+  actionsClassName?: string;
+  authActions?: ActionConfig[];
+  authActionsSlot?: React.ReactNode;
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const MobileNavigationMenu = ({
@@ -1392,7 +1400,35 @@ const MobileNavigationMenu = ({
   solutions,
   productCategories,
   resources,
+  actionsClassName,
+  authActions,
+  authActionsSlot,
+  optixFlowConfig,
 }: MobileNavigationMenuProps) => {
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
   return (
     <Sheet open={open}>
       <SheetContent

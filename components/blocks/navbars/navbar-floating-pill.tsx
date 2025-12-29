@@ -174,7 +174,7 @@ export const NavbarFloatingPill = ({
   pillWrapperClassName,
   navigationMenuClassName,
   actionsClassName,
-  background = "transparent",
+  background = "white",
   spacing = "none",
   pattern,
   patternOpacity,
@@ -235,8 +235,8 @@ export const NavbarFloatingPill = ({
     });
   };
 
-  const renderMenu = () => {
-    if (menuSlot) return menuSlot;
+  const renderMenu = (): NavItem[] | null => {
+    if (menuSlot) return null;
     if (!items || items.length === 0) return null;
 
     return items;
@@ -262,7 +262,7 @@ export const NavbarFloatingPill = ({
           {/* Desktop Navigation */}
           <NavigationMenu className={cn("max-lg:hidden", navigationMenuClassName)}>
             <NavigationMenuList>
-              {renderMenu()?.map((link) =>
+              {menuSlot ? menuSlot : renderMenu()?.map((link) =>
                 link.dropdownItems ? (
                   <NavigationMenuItem key={link.label}>
                     <NavigationMenuTrigger className="bg-transparent! px-1.5 data-[state=open]:bg-accent/50">
@@ -348,7 +348,7 @@ export const NavbarFloatingPill = ({
           )}
         >
           <nav className="flex flex-1 flex-col divide-y divide-border">
-            {renderMenu()?.map((link) =>
+            {menuSlot ? menuSlot : renderMenu()?.map((link) =>
               link.dropdownItems ? (
                 <div key={link.label} className="py-4 first:pt-0 last:pb-0">
                   <button

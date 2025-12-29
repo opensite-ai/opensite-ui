@@ -47,6 +47,10 @@ export interface ActionConfig extends VariantProps<typeof buttonVariants> {
    * ARIA label for accessibility
    */
   "aria-label"?: string;
+  /**
+   * Render as a button element instead of an anchor/link
+   */
+  asButton?: boolean;
 }
 
 /**

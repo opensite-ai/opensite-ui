@@ -268,15 +268,15 @@ export const NavbarSidebarMobile = ({
     });
   };
 
-  const renderMenu = () => {
-    if (menuSlot) return menuSlot;
+  const renderMenu = (): MenuItem[] | null => {
+    if (menuSlot) return null;
     if (!menu || menu.length === 0) return null;
 
     return menu;
   };
 
-  const renderMobileExtraLinks = () => {
-    if (mobileExtraLinksSlot) return mobileExtraLinksSlot;
+  const renderMobileExtraLinks = (): { title: string; url: string }[] | null => {
+    if (mobileExtraLinksSlot) return null;
     if (!mobileExtraLinks || mobileExtraLinks.length === 0) return null;
 
     return mobileExtraLinks;
@@ -297,7 +297,7 @@ export const NavbarSidebarMobile = ({
 
             <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
               <NavigationMenuList>
-                {renderMenu()?.map((item, index) =>
+                {menuSlot ? menuSlot : renderMenu()?.map((item, index) =>
                   item.items ? (
                     <NavigationMenuItem key={index}>
                       <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
@@ -365,7 +365,7 @@ export const NavbarSidebarMobile = ({
 
                 <div className="flex-1 overflow-y-auto py-4">
                   <Accordion type="single" collapsible className="w-full">
-                    {renderMenu()?.map((item, index) =>
+                    {menuSlot ? menuSlot : renderMenu()?.map((item, index) =>
                       item.items ? (
                         <AccordionItem key={index} value={`item-${index}`}>
                           <AccordionTrigger className="text-base hover:no-underline">
@@ -409,7 +409,7 @@ export const NavbarSidebarMobile = ({
                     {renderAuthActions()}
                   </div>
                   <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-                    {renderMobileExtraLinks()?.map((link, index) => (
+                    {mobileExtraLinksSlot ? mobileExtraLinksSlot : renderMobileExtraLinks()?.map((link, index) => (
                       <Pressable
                         key={index}
                         href={link.url}
