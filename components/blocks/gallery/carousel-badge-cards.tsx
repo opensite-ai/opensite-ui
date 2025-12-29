@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
@@ -7,26 +8,135 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
-import { Pressable } from "@/src";
+import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
+/**
+ * Item configuration for carousel badge cards.
+ */
 export interface CarouselBadgeCardItem {
+  /**
+   * Unique identifier for the item
+   */
   id: string;
-  title: string;
-  description: string;
-  label: string;
+  /**
+   * Title of the card
+   */
+  title: React.ReactNode;
+  /**
+   * Description text
+   */
+  description: React.ReactNode;
+  /**
+   * Badge label text
+   */
+  label: React.ReactNode;
+  /**
+   * Link URL for the card
+   */
   href: string;
+  /**
+   * Image source URL
+   */
   image: string;
+  /**
+   * Alt text for the image
+   */
+  imageAlt?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  className?: string;
 }
 
 export interface CarouselBadgeCardsProps {
-  heading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of card items to display
+   */
   items?: CarouselBadgeCardItem[];
+  /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Text for the "Read more" link
+   * @default "Read more"
+   */
+  readMoreText?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the navigation controls
+   */
+  controlsClassName?: string;
+  /**
+   * Additional CSS classes for the carousel wrapper
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for the carousel content
+   */
+  carouselContentClassName?: string;
+  /**
+   * Additional CSS classes for each carousel item
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for each image
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for each badge
+   */
+  badgeClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultItems: CarouselBadgeCardItem[] = [
@@ -110,9 +220,25 @@ const defaultItems: CarouselBadgeCardItem[] = [
 export function CarouselBadgeCards({
   heading = "Case Studies",
   items = defaultItems,
+  itemsSlot,
+  readMoreText = "Read more",
   className,
+  headerClassName,
+  headingClassName,
+  controlsClassName,
+  carouselClassName,
+  carouselContentClassName,
+  itemClassName,
+  cardClassName,
+  imageClassName,
+  badgeClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: CarouselBadgeCardsProps) {
+}: CarouselBadgeCardsProps): React.JSX.Element {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -132,40 +258,101 @@ export function CarouselBadgeCards({
     };
   }, [carouselApi]);
 
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mb-8 flex items-end justify-between md:mb-14 lg:mb-16">
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl">
-            {heading}
-          </h2>
-          <div className="shrink-0 gap-2 md:flex">
-            <Pressable
-              size="icon"
-              variant="ghost"
-              onClick={() => {
-                carouselApi?.scrollPrev();
-              }}
-              disabled={!canScrollPrev}
-              className="disabled:pointer-events-auto"
-            >
-              <DynamicIcon name="lucide/arrow-left" size={20} />
-            </Pressable>
-            <Pressable
-              size="icon"
-              variant="ghost"
-              onClick={() => {
-                carouselApi?.scrollNext();
-              }}
-              disabled={!canScrollNext}
-              className="disabled:pointer-events-auto"
-            >
-              <DynamicIcon name="lucide/arrow-right" size={20} />
-            </Pressable>
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return items.map((item) => (
+      <CarouselItem
+        key={item.id}
+        className={cn("max-w-[320px] pl-5 lg:max-w-[360px]", itemClassName)}
+      >
+        <a
+          href={item.href}
+          className={cn("group flex flex-col justify-between rounded-xl bg-muted p-6", item.className, cardClassName)}
+        >
+          <div>
+            <div className="flex aspect-3/2 overflow-clip rounded-xl">
+              <div className="flex-1">
+                <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
+                  <Img
+                    src={item.image}
+                    alt={typeof item.title === "string" ? item.title : (item.imageAlt || "Card image")}
+                    className={cn("h-full w-full object-cover object-center", imageClassName)}
+                    loading="lazy"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
+          <div className="mt-6">
+            <Badge className={badgeClassName}>{item.label}</Badge>
+          </div>
+          <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-xl lg:pt-4 lg:text-2xl">
+            {item.title}
+          </div>
+          <div className="mb-8 line-clamp-2 text-sm text-muted-foreground md:mb-12 md:text-base lg:mb-9">
+            {item.description}
+          </div>
+          <div className="flex items-center text-sm">
+            {readMoreText}{" "}
+            <DynamicIcon
+              name="lucide/arrow-right"
+              size={20}
+              className="ml-2 transition-transform group-hover:translate-x-1"
+            />
+          </div>
+        </a>
+      </CarouselItem>
+    ));
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mb-8 flex items-end justify-between md:mb-14 lg:mb-16", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        <div className={cn("shrink-0 gap-2 md:flex", controlsClassName)}>
+          <Pressable
+            size="icon"
+            variant="ghost"
+            onClick={() => {
+              carouselApi?.scrollPrev();
+            }}
+            disabled={!canScrollPrev}
+            className="disabled:pointer-events-auto"
+          >
+            <DynamicIcon name="lucide/arrow-left" size={20} />
+          </Pressable>
+          <Pressable
+            size="icon"
+            variant="ghost"
+            onClick={() => {
+              carouselApi?.scrollNext();
+            }}
+            disabled={!canScrollNext}
+            className="disabled:pointer-events-auto"
+          >
+            <DynamicIcon name="lucide/arrow-right" size={20} />
+          </Pressable>
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full -mx-4 sm:-mx-6 lg:-mx-8">
         <Carousel
           setApi={setCarouselApi}
           opts={{
@@ -175,55 +362,13 @@ export function CarouselBadgeCards({
               },
             },
           }}
+          className={carouselClassName}
         >
-          <CarouselContent className="mr-5 ml-5 2xl:mr-[calc(50vw-700px+20px)] 2xl:ml-[calc(50vw-700px+20px)]">
-            {items.map((item) => (
-              <CarouselItem
-                key={item.id}
-                className="max-w-[320px] pl-5 lg:max-w-[360px]"
-              >
-                <a
-                  href={item.href}
-                  className="group flex flex-col justify-between rounded-xl bg-muted p-6"
-                >
-                  <div>
-                    <div className="flex aspect-3/2 overflow-clip rounded-xl">
-                      <div className="flex-1">
-                        <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
-                          <Img
-                            src={item.image}
-                            alt={item.title}
-                            className="h-full w-full object-cover object-center"
-                            loading="lazy"
-                            optixFlowConfig={optixFlowConfig}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-6">
-                    <Badge>{item.label}</Badge>
-                  </div>
-                  <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium wrap-break-word md:mb-3 md:pt-4 md:text-xl lg:pt-4 lg:text-2xl">
-                    {item.title}
-                  </div>
-                  <div className="mb-8 line-clamp-2 text-sm text-muted-foreground md:mb-12 md:text-base lg:mb-9">
-                    {item.description}
-                  </div>
-                  <div className="flex items-center text-sm">
-                    Read more{" "}
-                    <DynamicIcon
-                      name="lucide/arrow-right"
-                      size={20}
-                      className="ml-2 transition-transform group-hover:translate-x-1"
-                    />
-                  </div>
-                </a>
-              </CarouselItem>
-            ))}
+          <CarouselContent className={cn("mr-5 ml-5 2xl:mr-[calc(50vw-700px+20px)] 2xl:ml-[calc(50vw-700px+20px)]", carouselContentClassName)}>
+            {renderItems()}
           </CarouselContent>
         </Carousel>
       </div>
-    </section>
+    </Section>
   );
 }
