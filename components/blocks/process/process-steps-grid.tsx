@@ -3,23 +3,116 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-export interface ProcessStepsGridProps {
+/**
+ * Step item configuration for ProcessStepsGrid
+ */
+export interface ProcessStepsGridItem {
+  /**
+   * Icon name for the step (e.g., "lucide/search")
+   */
+  icon?: string;
+  /**
+   * Custom icon element (overrides icon name)
+   */
+  iconSlot?: React.ReactNode;
+  /**
+   * Step title
+   */
+  title?: React.ReactNode;
+  /**
+   * Step description
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the step item
+   */
   className?: string;
-  title?: string;
-  description?: string;
-  steps?: Array<{
-    icon?: string;
-    title: string;
-    description: string;
-  }>;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
 }
 
-const defaultSteps = [
+export interface ProcessStepsGridProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of step configurations
+   */
+  steps?: ProcessStepsGridItem[];
+  /**
+   * Custom slot for rendering steps (overrides steps array)
+   */
+  stepsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the steps grid
+   */
+  stepsGridClassName?: string;
+  /**
+   * Additional CSS classes for each step card
+   */
+  stepCardClassName?: string;
+  /**
+   * Additional CSS classes for the step icon container
+   */
+  stepIconClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+  /**
+   * @deprecated Use `heading` instead
+   */
+  title?: string;
+}
+
+const defaultSteps: ProcessStepsGridItem[] = [
   {
     icon: "lucide/search",
     title: "Research & Discovery",
@@ -58,58 +151,120 @@ const defaultSteps = [
   },
 ];
 
-const defaultProps: Partial<ProcessStepsGridProps> = {
-  title: "Our Process",
-  description:
-    "A systematic approach to delivering exceptional results through careful planning and execution.",
-  steps: defaultSteps,
-};
-
+/**
+ * ProcessStepsGrid - A grid-based process section with numbered step cards.
+ */
 export function ProcessStepsGrid({
+  heading = "Our Process",
+  description = "A systematic approach to delivering exceptional results through careful planning and execution.",
+  steps = defaultSteps,
+  stepsSlot,
   className,
-  title = defaultProps.title,
-  description = defaultProps.description,
-  steps = defaultProps.steps,
-}: ProcessStepsGridProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mb-16 text-center">
-          <h1 className="mb-4 text-4xl font-semibold tracking-tight lg:text-5xl">
-            {title}
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg text-foreground/50">
-            {description}
-          </p>
-        </div>
+  contentClassName,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  stepsGridClassName,
+  stepCardClassName,
+  stepIconClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  // Backwards compatibility
+  title,
+}: ProcessStepsGridProps): React.JSX.Element {
+  // Handle backwards compatibility
+  const resolvedHeading = title ?? heading;
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {steps?.map((step, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-lg border bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg"
-            >
-              <span className="absolute -right-4 -top-4 text-[120px] font-bold leading-none text-muted/20 transition-colors group-hover:text-primary/10">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+  const renderSteps = () => {
+    if (stepsSlot) return stepsSlot;
+    if (!steps || steps.length === 0) return null;
 
-              <div className="relative z-10">
-                {step.icon && (
-                  <div className="mb-6 flex size-14 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                    <DynamicIcon name={step.icon} size={28} />
+    return (
+      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", stepsGridClassName)}>
+        {steps.map((step, index) => (
+          <div
+            key={index}
+            className={cn(
+              "group relative overflow-hidden rounded-lg border bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg",
+              stepCardClassName,
+              step.className
+            )}
+          >
+            <span className="absolute -right-4 -top-4 text-[120px] font-bold leading-none text-muted/20 transition-colors group-hover:text-primary/10">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+
+            <div className="relative z-10">
+              {(step.iconSlot || step.icon) && (
+                <div className={cn(
+                  "mb-6 flex size-14 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+                  stepIconClassName
+                )}>
+                  {step.iconSlot ?? (step.icon && <DynamicIcon name={step.icon} size={28} />)}
+                </div>
+              )}
+              {step.title && (
+                typeof step.title === "string" ? (
+                  <h3 className="mb-3 text-xl font-semibold tracking-tight">
+                    {step.title}
+                  </h3>
+                ) : (
+                  <div className="mb-3 text-xl font-semibold tracking-tight">
+                    {step.title}
                   </div>
-                )}
-                <h3 className="mb-3 text-xl font-semibold tracking-tight">
-                  {step.title}
-                </h3>
-                <p className="text-foreground/50 leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
+                )
+              )}
+              {step.description && (
+                typeof step.description === "string" ? (
+                  <p className="text-foreground/50 leading-relaxed">
+                    {step.description}
+                  </p>
+                ) : (
+                  <div className="text-foreground/50 leading-relaxed">
+                    {step.description}
+                  </div>
+                )
+              )}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={contentClassName}>
+        <div className={cn("mb-16 text-center", headerClassName)}>
+          {resolvedHeading && (
+            typeof resolvedHeading === "string" ? (
+              <h1 className={cn("mb-4 text-4xl font-semibold tracking-tight lg:text-5xl", headingClassName)}>
+                {resolvedHeading}
+              </h1>
+            ) : (
+              <div className={headingClassName}>{resolvedHeading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto max-w-2xl text-lg text-foreground/50", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+        </div>
+        {renderSteps()}
+      </div>
+    </Section>
   );
 }
