@@ -59,8 +59,10 @@ describe("LogosDoubleCarouselPattern", () => {
   it("renders custom button text", () => {
     render(
       <LogosDoubleCarouselPattern
-        primaryButtonText="Start Now"
-        secondaryButtonText="Read More"
+        actions={[
+          { label: "Start Now", href: "#", variant: "default" },
+          { label: "Read More", href: "#", variant: "outline" },
+        ]}
       />
     );
     expect(screen.getByText("Start Now")).toBeInTheDocument();
