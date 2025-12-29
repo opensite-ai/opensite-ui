@@ -5,6 +5,13 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ListAchievementItem {
   /**
@@ -14,38 +21,94 @@ export interface ListAchievementItem {
   /**
    * Title of the achievement
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Category of the achievement
    */
-  category?: string;
+  category?: React.ReactNode;
   /**
    * Description of the achievement
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Link URL for more details
+   * Action configuration for the item
    */
-  link?: string;
+  action?: ActionConfig;
 }
 
 export interface ListAchievementsShowcaseProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
   /**
    * Array of achievement items to display
    */
   items?: ListAchievementItem[];
   /**
-   * Text for the view project button
+   * Custom slot for rendering items (overrides items array)
    */
-  buttonText?: string;
+  itemsSlot?: React.ReactNode;
   /**
-   * Additional CSS classes for the section
+   * Additional CSS classes for the items container
+   */
+  itemsClassName?: string;
+  /**
+   * Additional CSS classes for individual item rows
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for item icons
+   */
+  itemIconClassName?: string;
+  /**
+   * Additional CSS classes for item titles
+   */
+  itemTitleClassName?: string;
+  /**
+   * Additional CSS classes for item categories
+   */
+  itemCategoryClassName?: string;
+  /**
+   * Additional CSS classes for item descriptions
+   */
+  itemDescriptionClassName?: string;
+  /**
+   * Default action configuration for items without specific actions
+   */
+  defaultItemAction?: ActionConfig;
+  /**
+   * Additional CSS classes for item actions
+   */
+  itemActionClassName?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const defaultItems: ListAchievementItem[] = [
@@ -54,44 +117,51 @@ const defaultItems: ListAchievementItem[] = [
     title: "Industry Recognition",
     category: "Achievement",
     description: "Outstanding Performance Award.",
-    link: "#",
+    action: { href: "#", label: "View project", variant: "outline" },
   },
   {
     icon: "lucide/award",
     title: "Excellence Award",
     category: "Recognition",
     description: "Best in Category Winner.",
-    link: "#",
+    action: { href: "#", label: "View project", variant: "outline" },
   },
   {
     icon: "lucide/lightbulb",
     title: "Innovation Prize",
     category: "Technology",
     description: "Breakthrough Solution of the Year.",
-    link: "#",
+    action: { href: "#", label: "View project", variant: "outline" },
   },
   {
     icon: "lucide/heart-handshake",
     title: "Customer Success",
     category: "Service",
     description: "Top-Rated Solution Provider.",
-    link: "#",
+    action: { href: "#", label: "View project", variant: "outline" },
   },
   {
     icon: "lucide/building-2",
     title: "Global Leadership",
     category: "Management",
     description: "Executive Team of the Year.",
-    link: "#",
+    action: { href: "#", label: "View project", variant: "outline" },
   },
   {
     icon: "lucide/leaf",
     title: "Sustainability Impact",
     category: "Environmental",
     description: "Green Initiative Excellence.",
-    link: "#",
+    action: { href: "#", label: "View project", variant: "outline" },
   },
 ];
+
+const defaultItemAction: ActionConfig = {
+  label: "View project",
+  href: "#",
+  variant: "outline",
+  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="text-current" />,
+};
 
 /**
  * ListAchievementsShowcase - A vertical list displaying achievements and recognition
@@ -111,69 +181,134 @@ const defaultItems: ListAchievementItem[] = [
  *       title: "Industry Recognition",
  *       category: "Achievement",
  *       description: "Outstanding Performance Award.",
- *       link: "/achievements/recognition"
+ *       action: { href: "/achievements/recognition", label: "View project" }
  *     }
  *   ]}
- *   buttonText="View project"
  * />
  * ```
  */
 export function ListAchievementsShowcase({
   heading = "Our Achievements & Recognition",
+  headingClassName,
   items = defaultItems,
-  buttonText = "View project",
+  itemsSlot,
+  itemsClassName,
+  itemClassName,
+  itemIconClassName,
+  itemTitleClassName,
+  itemCategoryClassName,
+  itemDescriptionClassName,
+  defaultItemAction: defaultAction = defaultItemAction,
+  itemActionClassName,
+  containerClassName,
   className,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: ListAchievementsShowcaseProps): React.JSX.Element {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container px-0 md:px-8">
-        <h1 className="mb-10 px-4 text-3xl font-semibold md:mb-14 md:text-4xl">
-          {heading}
-        </h1>
-        <div className="flex flex-col">
-          <Separator />
-          {items.map((item, index) => (
-            <React.Fragment key={index}>
-              <div className="grid items-center gap-4 px-4 py-5 md:grid-cols-4">
-                <div className="order-2 flex items-center gap-2 md:order-0">
-                  <span className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md bg-muted">
-                    {item.icon && (
-                      <DynamicIcon
-                        name={item.icon}
-                        size={24}
-                        className="text-foreground"
-                      />
-                    )}
-                  </span>
-                  <div className="flex flex-col gap-1">
-                    <h3 className="font-semibold">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {item.category}
-                    </p>
-                  </div>
+  const renderItemAction = (item: ListAchievementItem) => {
+    const action = item.action ?? defaultAction;
+    if (!action) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("order-3 ml-auto w-fit gap-2 md:order-0", actionClassName, itemActionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label && <span>{label}</span>}
+            {iconAfter ?? <DynamicIcon name="lucide/arrow-right" size={16} className="text-current" />}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return (
+      <div className={cn("flex flex-col", itemsClassName)}>
+        <Separator />
+        {items.map((item, index) => (
+          <React.Fragment key={index}>
+            <div className={cn("grid items-center gap-4 px-4 py-5 md:grid-cols-4", itemClassName)}>
+              <div className="order-2 flex items-center gap-2 md:order-0">
+                <span className={cn("flex h-14 w-16 shrink-0 items-center justify-center rounded-md bg-muted", itemIconClassName)}>
+                  {item.icon && (
+                    <DynamicIcon
+                      name={item.icon}
+                      size={24}
+                      className="text-foreground"
+                    />
+                  )}
+                </span>
+                <div className="flex flex-col gap-1">
+                  {item.title && (
+                    typeof item.title === "string" ? (
+                      <h3 className={cn("font-semibold", itemTitleClassName)}>{item.title}</h3>
+                    ) : (
+                      <div className={itemTitleClassName}>{item.title}</div>
+                    )
+                  )}
+                  {item.category && (
+                    typeof item.category === "string" ? (
+                      <p className={cn("text-sm text-muted-foreground", itemCategoryClassName)}>
+                        {item.category}
+                      </p>
+                    ) : (
+                      <div className={itemCategoryClassName}>{item.category}</div>
+                    )
+                  )}
                 </div>
-                <p className="order-1 text-2xl font-semibold md:order-0 md:col-span-2">
-                  {item.description}
-                </p>
-                <Pressable
-                  href={item.link}
-                  variant="outline"
-                  asButton
-                  className="order-3 ml-auto w-fit gap-2 md:order-0"
-                >
-                  <span>{buttonText}</span>
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="text-current"
-                  />
-                </Pressable>
               </div>
-              <Separator />
-            </React.Fragment>
-          ))}
-        </div>
+              {item.description && (
+                typeof item.description === "string" ? (
+                  <p className={cn("order-1 text-2xl font-semibold md:order-0 md:col-span-2", itemDescriptionClassName)}>
+                    {item.description}
+                  </p>
+                ) : (
+                  <div className={cn("order-1 md:order-0 md:col-span-2", itemDescriptionClassName)}>
+                    {item.description}
+                  </div>
+                )
+              )}
+              {renderItemAction(item)}
+            </div>
+            <Separator />
+          </React.Fragment>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("px-0 md:px-8", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("mb-10 px-4 text-3xl font-semibold md:mb-14 md:text-4xl", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={cn("mb-10 px-4 md:mb-14", headingClassName)}>{heading}</div>
+          )
+        )}
+        {renderItems()}
+      </div>
+    </Section>
   );
 }

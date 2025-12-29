@@ -13,6 +13,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ListMetricItem {
   /**
@@ -55,41 +62,113 @@ export interface ListMetricItem {
 
 export interface ListMetricsDashboardProps {
   /**
-   * Badge text displayed above the heading
+   * Badge content displayed above the heading
    */
-  badgeText?: string;
+  badge?: React.ReactNode;
   /**
-   * Main heading text
+   * Custom slot for rendering badge (overrides badge)
    */
-  heading?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Additional CSS classes for the badge
    */
-  description?: string;
+  badgeClassName?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Description content below the heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
   /**
    * Array of metric items to display
    */
   metrics?: ListMetricItem[];
   /**
+   * Custom slot for rendering metrics (overrides metrics array)
+   */
+  metricsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the metrics container
+   */
+  metricsClassName?: string;
+  /**
    * Categories for tab filtering
    */
   categories?: { value: string; label: string }[];
   /**
-   * Last updated text
+   * Last updated content
    */
-  lastUpdated?: string;
+  lastUpdated?: React.ReactNode;
   /**
-   * Dashboard link text
+   * Additional CSS classes for the last updated text
    */
-  dashboardLinkText?: string;
+  lastUpdatedClassName?: string;
   /**
-   * Dashboard link URL
+   * Dashboard action configuration
    */
-  dashboardLinkUrl?: string;
+  dashboardAction?: ActionConfig;
   /**
-   * Additional CSS classes for the section
+   * Custom slot for rendering dashboard action (overrides dashboardAction)
+   */
+  dashboardActionSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the dashboard action
+   */
+  dashboardActionClassName?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the tabs
+   */
+  tabsClassName?: string;
+  /**
+   * Additional CSS classes for the header section
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the footer section
+   */
+  footerClassName?: string;
+  /**
+   * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Controlled active tab value
+   */
+  activeCategory?: string;
+  /**
+   * Callback when active category changes
+   */
+  onActiveCategoryChange?: (category: string) => void;
 }
 
 const defaultCategories = [
@@ -225,6 +304,14 @@ const defaultMetrics: ListMetricItem[] = [
   },
 ];
 
+const defaultDashboardAction: ActionConfig = {
+  label: "View complete dashboard",
+  href: "#",
+  variant: "outline",
+  size: "sm",
+  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2 transition-transform group-hover:translate-x-1" />,
+};
+
 /**
  * ListMetricsDashboard - A comprehensive metrics dashboard with tabbed category filtering,
  * status indicators, change percentages, and tooltips. Features a mobile-friendly dropdown
@@ -236,7 +323,7 @@ const defaultMetrics: ListMetricItem[] = [
  * @example
  * ```tsx
  * <ListMetricsDashboard
- *   badgeText="System Metrics"
+ *   badge="System Metrics"
  *   heading="Platform Health & Performance"
  *   description="Key metrics across our infrastructure, security, and business operations."
  *   metrics={[
@@ -250,225 +337,271 @@ const defaultMetrics: ListMetricItem[] = [
  *       category: "performance"
  *     }
  *   ]}
- *   dashboardLinkText="View complete dashboard"
- *   dashboardLinkUrl="/dashboard"
+ *   dashboardAction={{ label: "View complete dashboard", href: "/dashboard" }}
  * />
  * ```
  */
 export function ListMetricsDashboard({
-  badgeText = "System Metrics",
+  badge = "System Metrics",
+  badgeSlot,
+  badgeClassName,
   heading = "Platform Health & Performance",
+  headingClassName,
   description = "Key metrics across our infrastructure, security, and business operations.",
+  descriptionClassName,
   metrics = defaultMetrics,
+  metricsSlot,
+  metricsClassName,
   categories = defaultCategories,
   lastUpdated = "Today at 15:42 UTC",
-  dashboardLinkText = "View complete dashboard",
-  dashboardLinkUrl = "#",
+  lastUpdatedClassName,
+  dashboardAction = defaultDashboardAction,
+  dashboardActionSlot,
+  dashboardActionClassName,
+  cardClassName,
+  tabsClassName,
+  headerClassName,
+  footerClassName,
   className,
+  background = "white",
+  spacing = "md",
+  pattern,
+  patternOpacity,
+  activeCategory: controlledActiveCategory,
+  onActiveCategoryChange,
 }: ListMetricsDashboardProps): React.JSX.Element {
-  const [activeTab, setActiveTab] = React.useState("all");
+  const [internalActiveTab, setInternalActiveTab] = React.useState("all");
+  const activeTab = controlledActiveCategory ?? internalActiveTab;
+
+  const handleTabChange = (value: string) => {
+    if (onActiveCategoryChange) {
+      onActiveCategoryChange(value);
+    } else {
+      setInternalActiveTab(value);
+    }
+  };
 
   const filteredMetrics =
     activeTab === "all"
       ? metrics
       : metrics.filter((metric) => metric.category === activeTab);
 
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
+
+    return typeof badge === "string" ? (
+      <Badge className={cn("px-3.5 py-1.5", badgeClassName)}>{badge}</Badge>
+    ) : (
+      <div className={badgeClassName}>{badge}</div>
+    );
+  };
+
+  const renderDashboardAction = () => {
+    if (dashboardActionSlot) return dashboardActionSlot;
+    if (!dashboardAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = dashboardAction;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("group", actionClassName, dashboardActionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderMetrics = () => {
+    if (metricsSlot) return metricsSlot;
+
+    if (filteredMetrics.length === 0) {
+      return (
+        <div className="text-muted-foreground py-8 text-center">
+          No metrics available for this category.
+        </div>
+      );
+    }
+
+    return filteredMetrics.map((metric) => (
+      <div
+        key={metric.id}
+        className={cn(
+          "hover:bg-muted/50 flex items-center justify-between px-4 py-4 transition-colors md:px-6",
+          metricsClassName
+        )}
+      >
+        <div className="flex items-center space-x-3 md:space-x-4">
+          <div
+            className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-full",
+              metric.status === "positive" && "bg-green-100 text-green-600",
+              metric.status === "negative" && "bg-red-100 text-red-600",
+              metric.status === "warning" && "bg-amber-100 text-amber-600",
+              metric.status === "neutral" && "bg-blue-100 text-blue-600"
+            )}
+          >
+            {metric.icon && <DynamicIcon name={metric.icon} size={16} />}
+          </div>
+
+          <div className="flex flex-col">
+            <div className="flex items-center">
+              <span className="text-sm font-medium">{metric.name}</span>
+              {metric.info && (
+                <div className="group relative ml-1.5">
+                  <DynamicIcon
+                    name="lucide/info"
+                    size={14}
+                    className="text-muted-foreground cursor-help"
+                  />
+                  <div className="bg-background invisible absolute bottom-full left-1/2 z-10 mb-2 w-48 -translate-x-1/2 transform rounded border p-2 text-xs opacity-0 shadow-md transition-all group-hover:visible group-hover:opacity-100">
+                    {metric.info}
+                  </div>
+                </div>
+              )}
+            </div>
+            <span className="text-muted-foreground text-xs capitalize">
+              {metric.category}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center space-x-2 md:space-x-4">
+          {metric.previousValue && (
+            <span className="text-muted-foreground hidden text-sm md:inline-block">
+              {metric.previousValue}
+            </span>
+          )}
+
+          <div className="flex flex-col items-end">
+            <span className="font-bold">{metric.value}</span>
+
+            {metric.changePercentage !== undefined && (
+              <div
+                className={cn(
+                  "flex items-center text-xs",
+                  metric.status === "positive" && "text-green-600",
+                  metric.status === "negative" && "text-red-600",
+                  metric.status === "warning" && "text-amber-600",
+                  metric.status === "neutral" && "text-blue-600"
+                )}
+              >
+                {metric.changePercentage > 0 ? (
+                  <DynamicIcon name="lucide/chevron-up" size={12} className="mr-0.5" />
+                ) : metric.changePercentage < 0 ? (
+                  <DynamicIcon name="lucide/chevron-down" size={12} className="mr-0.5" />
+                ) : null}
+                {Math.abs(metric.changePercentage)}%
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    ));
   };
 
   return (
-    <section className={cn("bg-background w-full py-12 md:py-24", className)}>
-      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
-        <div className="mb-8 flex flex-col items-center justify-center space-y-4 text-center">
-          <Badge className="px-3.5 py-1.5">{badgeText}</Badge>
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-            {heading}
-          </h2>
-          <p className="text-muted-foreground max-w-[700px] md:text-lg">
-            {description}
-          </p>
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("mb-8 flex flex-col items-center justify-center space-y-4 text-center", headerClassName)}>
+        {renderBadge()}
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-bold tracking-tighter sm:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("text-muted-foreground max-w-[700px] md:text-lg", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+      </div>
 
-        <Card className="border p-0 shadow-sm">
-          <CardContent className="p-0">
-            <Tabs
-              defaultValue="all"
-              value={activeTab}
-              onValueChange={setActiveTab}
-              className="w-full gap-0"
-            >
-              {/* Mobile view: Dropdown for categories */}
-              <div className="border-b p-3 md:hidden">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button className="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background">
-                      <span>
-                        {activeTab === "all"
-                          ? "All Metrics"
-                          : categories.find((c) => c.value === activeTab)
-                              ?.label || activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
-                      </span>
-                      <DynamicIcon
-                        name="lucide/menu"
-                        size={16}
-                        className="ml-2"
-                      />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-[200px]">
-                    {categories.map((category) => (
-                      <DropdownMenuItem
-                        key={category.value}
-                        onClick={() => handleTabChange(category.value)}
-                      >
-                        {category.label}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-
-              {/* Desktop view: Horizontal tabs */}
-              <div className="hidden border-b px-4 md:block">
-                <TabsList className="h-12 bg-transparent">
+      <Card className={cn("border p-0 shadow-sm", cardClassName)}>
+        <CardContent className="p-0">
+          <Tabs
+            defaultValue="all"
+            value={activeTab}
+            onValueChange={handleTabChange}
+            className={cn("w-full gap-0", tabsClassName)}
+          >
+            <div className="border-b p-3 md:hidden">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background">
+                    <span>
+                      {activeTab === "all"
+                        ? "All Metrics"
+                        : categories.find((c) => c.value === activeTab)?.label ||
+                          activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+                    </span>
+                    <DynamicIcon name="lucide/menu" size={16} className="ml-2" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-[200px]">
                   {categories.map((category) => (
-                    <TabsTrigger
+                    <DropdownMenuItem
                       key={category.value}
-                      value={category.value}
-                      className="data-[state=active]:bg-muted rounded-none data-[state=active]:shadow-none"
+                      onClick={() => handleTabChange(category.value)}
                     >
                       {category.label}
-                    </TabsTrigger>
+                    </DropdownMenuItem>
                   ))}
-                </TabsList>
-              </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
 
-              <TabsContent value={activeTab} className="mt-0 p-0">
-                <div className="grid grid-cols-1 divide-y">
-                  {filteredMetrics.length === 0 ? (
-                    <div className="text-muted-foreground py-8 text-center">
-                      No metrics available for this category.
-                    </div>
-                  ) : (
-                    filteredMetrics.map((metric) => (
-                      <div
-                        key={metric.id}
-                        className="hover:bg-muted/50 flex items-center justify-between px-4 py-4 transition-colors md:px-6"
-                      >
-                        <div className="flex items-center space-x-3 md:space-x-4">
-                          <div
-                            className={cn(
-                              "flex h-8 w-8 items-center justify-center rounded-full",
-                              metric.status === "positive" &&
-                                "bg-green-100 text-green-600",
-                              metric.status === "negative" &&
-                                "bg-red-100 text-red-600",
-                              metric.status === "warning" &&
-                                "bg-amber-100 text-amber-600",
-                              metric.status === "neutral" &&
-                                "bg-blue-100 text-blue-600"
-                            )}
-                          >
-                            {metric.icon && (
-                              <DynamicIcon name={metric.icon} size={16} />
-                            )}
-                          </div>
+            <div className="hidden border-b px-4 md:block">
+              <TabsList className="h-12 bg-transparent">
+                {categories.map((category) => (
+                  <TabsTrigger
+                    key={category.value}
+                    value={category.value}
+                    className="data-[state=active]:bg-muted rounded-none data-[state=active]:shadow-none"
+                  >
+                    {category.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
 
-                          <div className="flex flex-col">
-                            <div className="flex items-center">
-                              <span className="text-sm font-medium">
-                                {metric.name}
-                              </span>
-                              {metric.info && (
-                                <div className="group relative ml-1.5">
-                                  <DynamicIcon
-                                    name="lucide/info"
-                                    size={14}
-                                    className="text-muted-foreground cursor-help"
-                                  />
-                                  <div className="bg-background invisible absolute bottom-full left-1/2 z-10 mb-2 w-48 -translate-x-1/2 transform rounded border p-2 text-xs opacity-0 shadow-md transition-all group-hover:visible group-hover:opacity-100">
-                                    {metric.info}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                            <span className="text-muted-foreground text-xs capitalize">
-                              {metric.category}
-                            </span>
-                          </div>
-                        </div>
+            <TabsContent value={activeTab} className="mt-0 p-0">
+              <div className="grid grid-cols-1 divide-y">{renderMetrics()}</div>
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
 
-                        <div className="flex items-center space-x-2 md:space-x-4">
-                          {metric.previousValue && (
-                            <span className="text-muted-foreground hidden text-sm md:inline-block">
-                              {metric.previousValue}
-                            </span>
-                          )}
-
-                          <div className="flex flex-col items-end">
-                            <span className="font-bold">{metric.value}</span>
-
-                            {metric.changePercentage !== undefined && (
-                              <div
-                                className={cn(
-                                  "flex items-center text-xs",
-                                  metric.status === "positive" &&
-                                    "text-green-600",
-                                  metric.status === "negative" && "text-red-600",
-                                  metric.status === "warning" &&
-                                    "text-amber-600",
-                                  metric.status === "neutral" && "text-blue-600"
-                                )}
-                              >
-                                {metric.changePercentage > 0 ? (
-                                  <DynamicIcon
-                                    name="lucide/chevron-up"
-                                    size={12}
-                                    className="mr-0.5"
-                                  />
-                                ) : metric.changePercentage < 0 ? (
-                                  <DynamicIcon
-                                    name="lucide/chevron-down"
-                                    size={12}
-                                    className="mr-0.5"
-                                  />
-                                ) : null}
-                                {Math.abs(metric.changePercentage)}%
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
-
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="text-muted-foreground order-2 text-sm sm:order-1">
-            <span className="font-medium">Last updated:</span> {lastUpdated}
+      <div className={cn("mt-8 flex flex-col items-center justify-between gap-4 sm:flex-row", footerClassName)}>
+        {lastUpdated && (
+          <div className={cn("text-muted-foreground order-2 text-sm sm:order-1", lastUpdatedClassName)}>
+            <span className="font-medium">Last updated:</span>{" "}
+            {typeof lastUpdated === "string" ? lastUpdated : lastUpdated}
           </div>
-
-          <Pressable
-            href={dashboardLinkUrl}
-            variant="outline"
-            size="sm"
-            asButton
-            className="group order-1 sm:order-2"
-          >
-            {dashboardLinkText}
-            <DynamicIcon
-              name="lucide/arrow-right"
-              size={16}
-              className="ml-2 transition-transform group-hover:translate-x-1"
-            />
-          </Pressable>
-        </div>
+        )}
+        <div className="order-1 sm:order-2">{renderDashboardAction()}</div>
       </div>
-    </section>
+    </Section>
   );
 }
