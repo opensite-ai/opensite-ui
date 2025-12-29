@@ -6,71 +6,286 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Switch } from "../../ui/switch";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-interface PricingPlan {
-  name: string;
-  monthlyPrice: number;
-  yearlyPrice: number;
-  description?: string;
-  features: string[];
-  buttonText?: string;
-  buttonHref?: string;
+export interface PricingSwitchCardsFeature {
+  /**
+   * Feature text
+   */
+  text?: React.ReactNode;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for feature item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for feature icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  textClassName?: string;
+}
+
+export interface PricingSwitchCardsPlan {
+  /**
+   * Plan name
+   */
+  name?: React.ReactNode;
+  /**
+   * Monthly price display
+   */
+  monthlyPrice?: React.ReactNode;
+  /**
+   * Yearly price display
+   */
+  yearlyPrice?: React.ReactNode;
+  /**
+   * Plan description
+   */
+  description?: React.ReactNode;
+  /**
+   * Plan features
+   */
+  features?: PricingSwitchCardsFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Highlight this plan
+   */
   isPopular?: boolean;
+  /**
+   * Badge content for popular plan
+   */
+  badge?: React.ReactNode;
+  /**
+   * Additional CSS classes for the plan card
+   */
+  className?: string;
 }
 
 export interface PricingSwitchCardsProps {
+  /**
+   * Section heading
+   */
+  heading?: React.ReactNode;
+  /**
+   * Supporting subtitle
+   */
+  subtitle?: React.ReactNode;
+  /**
+   * Toggle label for monthly billing
+   */
+  monthlyLabel?: React.ReactNode;
+  /**
+   * Toggle label for yearly billing
+   */
+  yearlyLabel?: React.ReactNode;
+  /**
+   * Badge displayed on yearly toggle
+   */
+  yearlyBadge?: React.ReactNode;
+  /**
+   * Monthly price suffix
+   */
+  monthlyInterval?: React.ReactNode;
+  /**
+   * Yearly price suffix
+   */
+  yearlyInterval?: React.ReactNode;
+  /**
+   * Pricing plans
+   */
+  plans?: PricingSwitchCardsPlan[];
+  /**
+   * Custom slot for rendering plans (overrides plans array)
+   */
+  plansSlot?: React.ReactNode;
+  /**
+   * Default icon used for features
+   */
+  featureIcon?: React.ReactNode;
+  /**
+   * Default icon name for features
+   */
+  featureIconName?: string;
+  /**
+   * Badge content for popular plans
+   */
+  popularBadge?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  subtitle?: string;
-  plans?: PricingPlan[];
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
+  /**
+   * Additional CSS classes for the toggle wrapper
+   */
+  toggleClassName?: string;
+  /**
+   * Additional CSS classes for toggle labels
+   */
+  toggleLabelClassName?: string;
+  /**
+   * Additional CSS classes for yearly badge
+   */
+  yearlyBadgeClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for plan cards
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for popular cards
+   */
+  popularCardClassName?: string;
+  /**
+   * Additional CSS classes for badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for plan title
+   */
+  planTitleClassName?: string;
+  /**
+   * Additional CSS classes for plan description
+   */
+  planDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for price
+   */
+  priceClassName?: string;
+  /**
+   * Additional CSS classes for price interval
+   */
+  priceIntervalClassName?: string;
+  /**
+   * Additional CSS classes for features list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for feature items
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for feature icons
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for the action
+   */
+  actionClassName?: string;
 }
 
-const defaultPlans: PricingPlan[] = [
+const defaultPlans: PricingSwitchCardsPlan[] = [
   {
     name: "Free",
-    monthlyPrice: 0,
-    yearlyPrice: 0,
+    monthlyPrice: "$0",
+    yearlyPrice: "$0",
     description: "For individuals getting started",
     features: [
-      "Up to 3 projects",
-      "Basic analytics",
-      "Community support",
-      "1GB storage",
+      { text: "Up to 3 projects" },
+      { text: "Basic analytics" },
+      { text: "Community support" },
+      { text: "1GB storage" },
     ],
-    buttonText: "Get Started",
-    buttonHref: "#",
+    action: { label: "Get Started", href: "#", variant: "outline" },
   },
   {
     name: "Startup",
-    monthlyPrice: 29,
-    yearlyPrice: 290,
+    monthlyPrice: "$29",
+    yearlyPrice: "$290",
     description: "For small teams",
     features: [
-      "Up to 10 projects",
-      "Advanced analytics",
-      "Email support",
-      "10GB storage",
-      "API access",
+      { text: "Up to 10 projects" },
+      { text: "Advanced analytics" },
+      { text: "Email support" },
+      { text: "10GB storage" },
+      { text: "API access" },
     ],
-    buttonText: "Start Trial",
-    buttonHref: "#",
+    action: { label: "Start Trial", href: "#", variant: "default" },
     isPopular: true,
   },
   {
     name: "Enterprise",
-    monthlyPrice: 99,
-    yearlyPrice: 990,
+    monthlyPrice: "$99",
+    yearlyPrice: "$990",
     description: "For large organizations",
     features: [
-      "Unlimited projects",
-      "Custom analytics",
-      "24/7 support",
-      "Unlimited storage",
-      "Full API access",
-      "Custom integrations",
+      { text: "Unlimited projects" },
+      { text: "Custom analytics" },
+      { text: "24/7 support" },
+      { text: "Unlimited storage" },
+      { text: "Full API access" },
+      { text: "Custom integrations" },
     ],
-    buttonText: "Contact Sales",
-    buttonHref: "#",
+    action: { label: "Contact Sales", href: "#", variant: "outline" },
   },
 ];
 
@@ -84,117 +299,246 @@ const defaultPlans: PricingPlan[] = [
  * @example
  * ```tsx
  * <PricingSwitchCards
- *   title="Pricing Plans"
+ *   heading="Pricing Plans"
  *   plans={[
- *     { name: "Free", monthlyPrice: 0, yearlyPrice: 0, features: ["Feature 1"] }
+ *     { name: "Free", monthlyPrice: "$0", yearlyPrice: "$0", features: [{ text: "Feature 1" }] }
  *   ]}
  * />
  * ```
  */
 export function PricingSwitchCards({
-  className,
-  title = "Simple Pricing",
+  heading = "Simple Pricing",
   subtitle = "Choose the plan that works best for you",
+  monthlyLabel = "Monthly",
+  yearlyLabel = "Yearly",
+  yearlyBadge = "Save 17%",
+  monthlyInterval = "/month",
+  yearlyInterval = "/year",
   plans = defaultPlans,
-}: PricingSwitchCardsProps) {
+  plansSlot,
+  featureIcon,
+  featureIconName = "lucide/check",
+  popularBadge = "Most Popular",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subtitleClassName,
+  toggleClassName,
+  toggleLabelClassName,
+  yearlyBadgeClassName,
+  gridClassName,
+  cardClassName,
+  popularCardClassName,
+  badgeClassName,
+  planTitleClassName,
+  planDescriptionClassName,
+  priceClassName,
+  priceIntervalClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionClassName,
+}: PricingSwitchCardsProps): React.JSX.Element {
   const [isYearly, setIsYearly] = useState(false);
 
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
+  const renderFeatures = (plan: PricingSwitchCardsPlan) => {
+    if (plan.featuresSlot) return plan.featuresSlot;
+    if (!plan.features || plan.features.length === 0) return null;
 
-          <div className="mt-8 flex items-center justify-center gap-3">
-            <span
-              className={cn(
-                "text-sm font-medium",
-                !isYearly ? "text-foreground" : "text-muted-foreground"
-              )}
-            >
-              Monthly
-            </span>
-            <Switch checked={isYearly} onCheckedChange={setIsYearly} />
-            <span
-              className={cn(
-                "text-sm font-medium",
-                isYearly ? "text-foreground" : "text-muted-foreground"
-              )}
-            >
-              Yearly
-              <span className="ml-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700">
-                Save 17%
-              </span>
-            </span>
-          </div>
-        </div>
+    return (
+      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+        {plan.features.map((feature, featureIndex) => {
+          const resolvedIcon = feature.icon
+            ?? featureIcon
+            ?? (feature.iconName || featureIconName ? (
+              <DynamicIcon
+                name={feature.iconName || featureIconName}
+                size={18}
+                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+              />
+            ) : null);
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {plans.map((plan, index) => (
+          return (
+            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+              {resolvedIcon}
+              {feature.text && (
+                typeof feature.text === "string" ? (
+                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </span>
+                ) : (
+                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  const renderAction = (plan: PricingSwitchCardsPlan) => {
+    if (plan.actionSlot) return plan.actionSlot;
+    if (!plan.action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderPlans = () => {
+    if (plansSlot) return plansSlot;
+    if (!plans || plans.length === 0) return null;
+
+    return (
+      <div className={cn("grid gap-6 md:grid-cols-3", gridClassName)}>
+        {plans.map((plan, index) => {
+          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+
+          return (
             <div
               key={index}
               className={cn(
                 "relative flex flex-col rounded-2xl border p-6",
-                plan.isPopular
-                  ? "border-primary shadow-lg"
-                  : "border-border"
+                plan.isPopular ? "border-primary shadow-lg" : "border-border",
+                cardClassName,
+                plan.isPopular ? popularCardClassName : null,
+                plan.className
               )}
             >
-              {plan.isPopular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
-                  Most Popular
+              {badgeContent && (
+                <span
+                  className={cn(
+                    "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground",
+                    badgeClassName
+                  )}
+                >
+                  {badgeContent}
                 </span>
               )}
 
               <div className="mb-4">
-                <h3 className="text-lg font-semibold">{plan.name}</h3>
+                {plan.name && (
+                  typeof plan.name === "string" ? (
+                    <h3 className={cn("text-lg font-semibold", planTitleClassName)}>{plan.name}</h3>
+                  ) : (
+                    <div className={planTitleClassName}>{plan.name}</div>
+                  )
+                )}
                 {plan.description && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {plan.description}
-                  </p>
+                  typeof plan.description === "string" ? (
+                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                      {plan.description}
+                    </p>
+                  ) : (
+                    <div className={planDescriptionClassName}>{plan.description}</div>
+                  )
                 )}
               </div>
 
               <div className="mb-6">
-                <span className="text-4xl font-bold">
-                  ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                <span className={cn("text-4xl font-bold", priceClassName)}>
+                  {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                 </span>
-                <span className="text-muted-foreground">
-                  /{isYearly ? "year" : "month"}
+                <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+                  {isYearly ? yearlyInterval : monthlyInterval}
                 </span>
               </div>
 
-              <ul className="mb-6 flex-1 space-y-3">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <DynamicIcon
-                      name="lucide/check"
-                      size={18}
-                      className="mt-0.5 shrink-0 text-primary"
-                    />
-                    <span className="text-sm text-muted-foreground">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Pressable
-                href={plan.buttonHref}
-                variant={plan.isPopular ? "default" : "outline"}
-                size="default"
-                asButton
-                className="w-full justify-center"
-              >
-                {plan.buttonText}
-              </Pressable>
+              {renderFeatures(plan)}
+              {renderAction(plan)}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto", containerClassName)}>
+        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ) : (
+              <div className={subtitleClassName}>{subtitle}</div>
+            )
+          )}
+
+          <div className={cn("mt-8 flex items-center justify-center gap-3", toggleClassName)}>
+            {monthlyLabel && (
+              <span
+                className={cn(
+                  "text-sm font-medium",
+                  !isYearly ? "text-foreground" : "text-muted-foreground",
+                  toggleLabelClassName
+                )}
+              >
+                {monthlyLabel}
+              </span>
+            )}
+            <Switch checked={isYearly} onCheckedChange={setIsYearly} />
+            {yearlyLabel && (
+              <span
+                className={cn(
+                  "text-sm font-medium",
+                  isYearly ? "text-foreground" : "text-muted-foreground",
+                  toggleLabelClassName
+                )}
+              >
+                {yearlyLabel}
+                {yearlyBadge && (
+                  <span className={cn("ml-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700", yearlyBadgeClassName)}>
+                    {yearlyBadge}
+                  </span>
+                )}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {renderPlans()}
+      </div>
+    </Section>
   );
 }

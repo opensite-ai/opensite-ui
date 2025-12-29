@@ -6,69 +6,292 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Switch } from "../../ui/switch";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-interface PricingPlan {
-  name: string;
-  monthlyPrice: number;
-  yearlyPrice: number;
-  description?: string;
-  features: string[];
-  buttonText?: string;
-  buttonHref?: string;
+export interface PricingGradientCardsFeature {
+  /**
+   * Feature text
+   */
+  text?: React.ReactNode;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for feature item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for feature icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  textClassName?: string;
+}
+
+export interface PricingGradientCardsPlan {
+  /**
+   * Plan name
+   */
+  name?: React.ReactNode;
+  /**
+   * Plan description
+   */
+  description?: React.ReactNode;
+  /**
+   * Monthly price display
+   */
+  monthlyPrice?: React.ReactNode;
+  /**
+   * Yearly price display
+   */
+  yearlyPrice?: React.ReactNode;
+  /**
+   * Plan features
+   */
+  features?: PricingGradientCardsFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Call-to-action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Highlight this plan
+   */
   isPopular?: boolean;
-  gradientClass?: string;
+  /**
+   * Optional badge content
+   */
+  badge?: React.ReactNode;
+  /**
+   * Gradient utility classes for the card background
+   */
+  gradientClassName?: string;
+  /**
+   * Additional CSS classes for the plan card
+   */
+  className?: string;
 }
 
 export interface PricingGradientCardsProps {
+  /**
+   * Section heading
+   */
+  heading?: React.ReactNode;
+  /**
+   * Supporting description
+   */
+  description?: React.ReactNode;
+  /**
+   * Toggle label for monthly billing
+   */
+  monthlyLabel?: React.ReactNode;
+  /**
+   * Toggle label for yearly billing
+   */
+  yearlyLabel?: React.ReactNode;
+  /**
+   * Badge displayed on yearly toggle
+   */
+  yearlyBadge?: React.ReactNode;
+  /**
+   * Monthly price suffix
+   */
+  monthlyInterval?: React.ReactNode;
+  /**
+   * Yearly price suffix
+   */
+  yearlyInterval?: React.ReactNode;
+  /**
+   * Pricing plans
+   */
+  plans?: PricingGradientCardsPlan[];
+  /**
+   * Custom slot for rendering plans (overrides plans array)
+   */
+  plansSlot?: React.ReactNode;
+  /**
+   * Default icon used for feature items
+   */
+  featureIcon?: React.ReactNode;
+  /**
+   * Default icon name used for feature items
+   */
+  featureIconName?: string;
+  /**
+   * Badge content for popular plans
+   */
+  popularBadge?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  subtitle?: string;
-  plans?: PricingPlan[];
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the toggle wrapper
+   */
+  toggleClassName?: string;
+  /**
+   * Additional CSS classes for toggle labels
+   */
+  toggleLabelClassName?: string;
+  /**
+   * Additional CSS classes for the yearly badge
+   */
+  yearlyBadgeClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for plan cards
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for popular cards
+   */
+  popularCardClassName?: string;
+  /**
+   * Additional CSS classes for plan badges
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for plan titles
+   */
+  planTitleClassName?: string;
+  /**
+   * Additional CSS classes for plan descriptions
+   */
+  planDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the price
+   */
+  priceClassName?: string;
+  /**
+   * Additional CSS classes for price interval
+   */
+  priceIntervalClassName?: string;
+  /**
+   * Additional CSS classes for the features list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for feature items
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for feature icons
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for the action
+   */
+  actionClassName?: string;
 }
 
-const defaultPlans: PricingPlan[] = [
+const defaultPlans: PricingGradientCardsPlan[] = [
   {
     name: "Starter",
-    monthlyPrice: 15,
-    yearlyPrice: 150,
+    monthlyPrice: "$15",
+    yearlyPrice: "$150",
     description: "For individuals",
-    features: ["5 projects", "Basic analytics", "Email support", "2GB storage"],
-    buttonText: "Get Started",
-    buttonHref: "#",
-    gradientClass: "from-blue-500/10 to-cyan-500/10",
+    features: [
+      { text: "5 projects" },
+      { text: "Basic analytics" },
+      { text: "Email support" },
+      { text: "2GB storage" },
+    ],
+    action: { label: "Get Started", href: "#", variant: "outline" },
+    gradientClassName: "from-blue-500/10 to-cyan-500/10",
   },
   {
     name: "Professional",
-    monthlyPrice: 39,
-    yearlyPrice: 390,
+    monthlyPrice: "$39",
+    yearlyPrice: "$390",
     description: "For growing teams",
     features: [
-      "Unlimited projects",
-      "Advanced analytics",
-      "Priority support",
-      "50GB storage",
-      "API access",
+      { text: "Unlimited projects" },
+      { text: "Advanced analytics" },
+      { text: "Priority support" },
+      { text: "50GB storage" },
+      { text: "API access" },
     ],
-    buttonText: "Start Trial",
-    buttonHref: "#",
+    action: { label: "Start Trial", href: "#", variant: "default" },
     isPopular: true,
-    gradientClass: "from-purple-500/10 to-pink-500/10",
+    gradientClassName: "from-purple-500/10 to-pink-500/10",
   },
   {
     name: "Enterprise",
-    monthlyPrice: 99,
-    yearlyPrice: 990,
+    monthlyPrice: "$99",
+    yearlyPrice: "$990",
     description: "For organizations",
     features: [
-      "Everything in Pro",
-      "Custom integrations",
-      "Dedicated support",
-      "Unlimited storage",
-      "SLA guarantee",
+      { text: "Everything in Pro" },
+      { text: "Custom integrations" },
+      { text: "Dedicated support" },
+      { text: "Unlimited storage" },
+      { text: "SLA guarantee" },
     ],
-    buttonText: "Contact Sales",
-    buttonHref: "#",
-    gradientClass: "from-orange-500/10 to-red-500/10",
+    action: { label: "Contact Sales", href: "#", variant: "outline" },
+    gradientClassName: "from-orange-500/10 to-red-500/10",
   },
 ];
 
@@ -82,116 +305,248 @@ const defaultPlans: PricingPlan[] = [
  * @example
  * ```tsx
  * <PricingGradientCards
- *   title="Choose Your Plan"
+ *   heading="Choose Your Plan"
  *   plans={[
- *     { name: "Starter", monthlyPrice: 15, yearlyPrice: 150, features: ["Feature 1"], gradientClass: "from-blue-500/10 to-cyan-500/10" }
+ *     { name: "Starter", monthlyPrice: "$15", yearlyPrice: "$150", features: [{ text: "Feature 1" }] }
  *   ]}
  * />
  * ```
  */
 export function PricingGradientCards({
-  className,
-  title = "Pricing Plans",
-  subtitle = "Choose the perfect plan for your needs",
+  heading = "Pricing Plans",
+  description = "Choose the perfect plan for your needs",
+  monthlyLabel = "Monthly",
+  yearlyLabel = "Yearly",
+  yearlyBadge = "Save 17%",
+  monthlyInterval = "/month",
+  yearlyInterval = "/year",
   plans = defaultPlans,
-}: PricingGradientCardsProps) {
+  plansSlot,
+  featureIcon,
+  featureIconName = "lucide/check",
+  popularBadge = "Most Popular",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  toggleClassName,
+  toggleLabelClassName,
+  yearlyBadgeClassName,
+  gridClassName,
+  cardClassName,
+  popularCardClassName,
+  badgeClassName,
+  planTitleClassName,
+  planDescriptionClassName,
+  priceClassName,
+  priceIntervalClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionClassName,
+}: PricingGradientCardsProps): React.JSX.Element {
   const [isYearly, setIsYearly] = useState(false);
 
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
+  const renderFeatures = (plan: PricingGradientCardsPlan) => {
+    if (plan.featuresSlot) return plan.featuresSlot;
+    if (!plan.features || plan.features.length === 0) return null;
 
-          <div className="mt-8 flex items-center justify-center gap-3">
-            <span
-              className={cn(
-                "text-sm font-medium",
-                !isYearly ? "text-foreground" : "text-muted-foreground"
-              )}
-            >
-              Monthly
-            </span>
-            <Switch checked={isYearly} onCheckedChange={setIsYearly} />
-            <span
-              className={cn(
-                "text-sm font-medium",
-                isYearly ? "text-foreground" : "text-muted-foreground"
-              )}
-            >
-              Yearly
-              <span className="ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
-                Save 17%
-              </span>
-            </span>
-          </div>
-        </div>
+    return (
+      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+        {plan.features.map((feature, featureIndex) => {
+          const resolvedIcon = feature.icon
+            ?? featureIcon
+            ?? (feature.iconName || featureIconName ? (
+              <DynamicIcon
+                name={feature.iconName || featureIconName}
+                size={18}
+                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+              />
+            ) : null);
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {plans.map((plan, index) => (
+          return (
+            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+              {resolvedIcon}
+              {feature.text && (
+                typeof feature.text === "string" ? (
+                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </span>
+                ) : (
+                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  const renderAction = (plan: PricingGradientCardsPlan) => {
+    if (plan.actionSlot) return plan.actionSlot;
+    if (!plan.action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderPlans = () => {
+    if (plansSlot) return plansSlot;
+    if (!plans || plans.length === 0) return null;
+
+    return (
+      <div className={cn("grid gap-6 md:grid-cols-3", gridClassName)}>
+        {plans.map((plan, index) => {
+          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+          const gradientClass = plan.gradientClassName ? `bg-linear-to-br ${plan.gradientClassName}` : null;
+
+          return (
             <div
               key={index}
               className={cn(
                 "relative flex flex-col rounded-2xl border p-6",
                 plan.isPopular ? "border-primary shadow-lg" : "border-border",
-                plan.gradientClass && `bg-linear-to-br ${plan.gradientClass}`
+                gradientClass,
+                cardClassName,
+                plan.isPopular ? popularCardClassName : null,
+                plan.className
               )}
             >
-              {plan.isPopular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
-                  Most Popular
+              {badgeContent && (
+                <span
+                  className={cn(
+                    "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground",
+                    badgeClassName
+                  )}
+                >
+                  {badgeContent}
                 </span>
               )}
 
               <div className="mb-4">
-                <h3 className="text-lg font-semibold">{plan.name}</h3>
+                {plan.name && (
+                  typeof plan.name === "string" ? (
+                    <h3 className={cn("text-lg font-semibold", planTitleClassName)}>{plan.name}</h3>
+                  ) : (
+                    <div className={planTitleClassName}>{plan.name}</div>
+                  )
+                )}
                 {plan.description && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {plan.description}
-                  </p>
+                  typeof plan.description === "string" ? (
+                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                      {plan.description}
+                    </p>
+                  ) : (
+                    <div className={planDescriptionClassName}>{plan.description}</div>
+                  )
                 )}
               </div>
 
               <div className="mb-6">
-                <span className="text-4xl font-bold">
-                  ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                <span className={cn("text-4xl font-bold", priceClassName)}>
+                  {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                 </span>
-                <span className="text-muted-foreground">
-                  /{isYearly ? "year" : "month"}
+                <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+                  {isYearly ? yearlyInterval : monthlyInterval}
                 </span>
               </div>
 
-              <ul className="mb-6 flex-1 space-y-3">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <DynamicIcon
-                      name="lucide/check"
-                      size={18}
-                      className="mt-0.5 shrink-0 text-primary"
-                    />
-                    <span className="text-sm text-muted-foreground">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Pressable
-                href={plan.buttonHref}
-                variant={plan.isPopular ? "default" : "outline"}
-                size="default"
-                asButton
-                className="w-full justify-center"
-              >
-                {plan.buttonText}
-              </Pressable>
+              {renderFeatures(plan)}
+              {renderAction(plan)}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto", containerClassName)}>
+        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+
+          <div className={cn("mt-8 flex items-center justify-center gap-3", toggleClassName)}>
+            {monthlyLabel && (
+              <span
+                className={cn(
+                  "text-sm font-medium",
+                  !isYearly ? "text-foreground" : "text-muted-foreground",
+                  toggleLabelClassName
+                )}
+              >
+                {monthlyLabel}
+              </span>
+            )}
+            <Switch checked={isYearly} onCheckedChange={setIsYearly} />
+            {yearlyLabel && (
+              <span
+                className={cn(
+                  "text-sm font-medium",
+                  isYearly ? "text-foreground" : "text-muted-foreground",
+                  toggleLabelClassName
+                )}
+              >
+                {yearlyLabel}
+                {yearlyBadge && (
+                  <span className={cn("ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary", yearlyBadgeClassName)}>
+                    {yearlyBadge}
+                  </span>
+                )}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {renderPlans()}
+      </div>
+    </Section>
   );
 }
