@@ -174,9 +174,14 @@ const defaultMobileExtraLinks = [
   { title: "Terms of Service", url: "#" },
 ];
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Log in", href: "#", variant: "ghost", size: "default" },
+  { label: "Sign up", href: "#", variant: "default", size: "default" },
+];
+
 /**
  * NavbarSidebarMobile - A navigation bar with a slide-out sidebar for mobile devices.
- * 
+ *
  * Features a standard horizontal navigation menu on desktop with dropdown menus containing
  * icons, titles, and descriptions for each item. Mobile view uses a slide-out sidebar from
  * the left with accordion navigation and additional footer links. The sidebar includes a
@@ -184,33 +189,111 @@ const defaultMobileExtraLinks = [
  * mobile navigation experience.
  */
 export const NavbarSidebarMobile = ({
-  className,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   menu = defaultMenu,
+  menuSlot,
   mobileExtraLinks = defaultMobileExtraLinks,
+  mobileExtraLinksSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarSidebarMobileProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            className={cn("h-8", logo.className)}
+            alt={logo.alt || "Logo"}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="text-lg font-semibold">
+              {logo.title}
+            </span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderMenu = () => {
+    if (menuSlot) return menuSlot;
+    if (!menu || menu.length === 0) return null;
+
+    return menu;
+  };
+
+  const renderMobileExtraLinks = () => {
+    if (mobileExtraLinksSlot) return mobileExtraLinksSlot;
+    if (!mobileExtraLinks || mobileExtraLinks.length === 0) return null;
+
+    return mobileExtraLinks;
+  };
+
   return (
-    <section className={cn("border-b", className)}>
-      <div className="container">
-        <nav className="flex items-center justify-between py-4">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("border-b", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <nav className={cn("flex items-center justify-between py-4", navClassName)}>
           <div className="flex items-center gap-8">
-            <Pressable href={logo.url} className="flex items-center gap-2">
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="h-8"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="text-lg font-semibold">{logo.title}</span>
-            </Pressable>
+            {renderLogo()}
 
             <NavigationMenu className="hidden lg:flex">
               <NavigationMenuList>

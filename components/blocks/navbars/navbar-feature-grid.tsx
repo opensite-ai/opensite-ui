@@ -4,7 +4,8 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Accordion,
   AccordionContent,
@@ -28,6 +29,13 @@ import {
   SheetTrigger,
 } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface FeatureItem {
   title: string;
@@ -36,17 +44,83 @@ interface FeatureItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarFeatureGrid component
  */
 export interface NavbarFeatureGridProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Features for Features dropdown
+   */
   features?: FeatureItem[];
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -83,9 +157,14 @@ const defaultFeatures: FeatureItem[] = [
   },
 ];
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Sign in", href: "#", variant: "outline", asButton: true },
+  { label: "Start for free", href: "#", asButton: true },
+];
+
 /**
  * NavbarFeatureGrid - A responsive navigation bar with a two-column feature grid dropdown.
- * 
+ *
  * Features a logo, navigation menu with a grid-based features dropdown showing title and
  * description for each feature. Includes Products, Resources, and Contact links. Mobile
  * view uses a top-sliding sheet with accordion navigation. Ideal for SaaS applications
@@ -93,31 +172,90 @@ const defaultFeatures: FeatureItem[] = [
  */
 export const NavbarFeatureGrid = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
+  logoClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
   features = defaultFeatures,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  background = "white",
+  spacing = "sm",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarFeatureGridProps) => {
-  return (
-    <section className={cn("py-4", className)}>
-      <div className="container">
-        <nav className="flex items-center justify-between">
-          <Pressable href={logo.url} className="flex items-center gap-2">
-            <Img
-              src={logo.src}
-              className="max-h-8"
-              alt={logo.alt}
-              optixFlowConfig={optixFlowConfig}
-            />
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            className={cn("max-h-8", logo.className)}
+            alt={logo.alt || "Logo"}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
             <span className="text-lg font-semibold tracking-tighter">
               {logo.title}
             </span>
-          </Pressable>
-          <NavigationMenu className="hidden lg:block">
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <nav className={cn("flex items-center justify-between", navClassName)}>
+          {renderLogo()}
+          <NavigationMenu className={cn("hidden lg:block", navigationMenuClassName)}>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Features</NavigationMenuTrigger>
@@ -168,13 +306,8 @@ export const NavbarFeatureGrid = ({
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <div className="hidden items-center gap-4 lg:flex">
-            <Pressable href="#" variant="outline" asButton>
-              Sign in
-            </Pressable>
-            <Pressable href="#" asButton>
-              Start for free
-            </Pressable>
+          <div className={cn("hidden items-center gap-4 lg:flex", actionsClassName)}>
+            {renderAuthActions()}
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -185,17 +318,7 @@ export const NavbarFeatureGrid = ({
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
                 <SheetTitle>
-                  <Pressable href={logo.url} className="flex items-center gap-2">
-                    <Img
-                      src={logo.src}
-                      className="max-h-8"
-                      alt={logo.alt}
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                    <span className="text-lg font-semibold tracking-tighter">
-                      {logo.title}
-                    </span>
-                  </Pressable>
+                  {renderLogo()}
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col p-4">
@@ -237,20 +360,15 @@ export const NavbarFeatureGrid = ({
                     Pricing
                   </Pressable>
                 </div>
-                <div className="mt-6 flex flex-col gap-4">
-                  <Pressable href="#" variant="outline" asButton>
-                    Sign in
-                  </Pressable>
-                  <Pressable href="#" asButton>
-                    Start for free
-                  </Pressable>
+                <div className={cn("mt-6 flex flex-col gap-4", actionsClassName)}>
+                  {renderAuthActions()}
                 </div>
               </div>
             </SheetContent>
           </Sheet>
         </nav>
       </div>
-    </section>
+    </Section>
   );
 };
 
