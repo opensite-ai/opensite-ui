@@ -1,31 +1,236 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-interface PricingPackage {
+export interface PricingPackagesRadioFeature {
+  /**
+   * Feature text
+   */
+  text?: React.ReactNode;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for feature item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for feature icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  textClassName?: string;
+}
+
+export interface PricingPackagesRadioPackage {
+  /**
+   * Package ID
+   */
   id: string;
-  name: string;
-  price: string;
-  priceDescription?: string;
-  description?: string;
-  features: string[];
+  /**
+   * Package name
+   */
+  name?: React.ReactNode;
+  /**
+   * Package price
+   */
+  price?: React.ReactNode;
+  /**
+   * Price description/interval
+   */
+  priceDescription?: React.ReactNode;
+  /**
+   * Package description
+   */
+  description?: React.ReactNode;
+  /**
+   * Package features
+   */
+  features?: PricingPackagesRadioFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Highlight this package
+   */
   isPopular?: boolean;
+  /**
+   * Badge content
+   */
+  badge?: React.ReactNode;
+  /**
+   * Additional CSS classes for the package item
+   */
+  className?: string;
 }
 
 export interface PricingPackagesRadioProps {
+  /**
+   * Section title
+   */
+  title?: React.ReactNode;
+  /**
+   * Section subtitle
+   */
+  subtitle?: React.ReactNode;
+  /**
+   * Pricing packages
+   */
+  packages?: PricingPackagesRadioPackage[];
+  /**
+   * Custom slot for rendering packages (overrides packages array)
+   */
+  packagesSlot?: React.ReactNode;
+  /**
+   * Controlled selected package ID
+   */
+  selectedPackageId?: string;
+  /**
+   * Default selected package ID
+   */
+  defaultSelectedPackageId?: string;
+  /**
+   * Callback when selection changes
+   */
+  onSelectionChange?: (packageId: string) => void;
+  /**
+   * Default icon used for features
+   */
+  featureIcon?: React.ReactNode;
+  /**
+   * Default icon name for features
+   */
+  featureIconName?: string;
+  /**
+   * Primary action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  subtitle?: string;
-  packages?: PricingPackage[];
-  buttonText?: string;
-  buttonHref?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
+  /**
+   * Additional CSS classes for the packages wrapper
+   */
+  packagesClassName?: string;
+  /**
+   * Additional CSS classes for package buttons
+   */
+  packageButtonClassName?: string;
+  /**
+   * Additional CSS classes for selected package
+   */
+  selectedPackageClassName?: string;
+  /**
+   * Additional CSS classes for badges
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for selection indicator
+   */
+  selectionIndicatorClassName?: string;
+  /**
+   * Additional CSS classes for package name
+   */
+  packageNameClassName?: string;
+  /**
+   * Additional CSS classes for package description
+   */
+  packageDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for price
+   */
+  priceClassName?: string;
+  /**
+   * Additional CSS classes for price description
+   */
+  priceDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for features list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for feature items
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for feature icons
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for action wrapper
+   */
+  actionWrapperClassName?: string;
+  /**
+   * Additional CSS classes for action
+   */
+  actionClassName?: string;
 }
 
-const defaultPackages: PricingPackage[] = [
+const defaultPackages: PricingPackagesRadioPackage[] = [
   {
     id: "basic",
     name: "Basic Package",
@@ -33,10 +238,10 @@ const defaultPackages: PricingPackage[] = [
     priceDescription: "/month",
     description: "Essential marketing services",
     features: [
-      "Social media management",
-      "Monthly content calendar",
-      "Basic analytics",
-      "Email support",
+      { text: "Social media management" },
+      { text: "Monthly content calendar" },
+      { text: "Basic analytics" },
+      { text: "Email support" },
     ],
   },
   {
@@ -46,11 +251,11 @@ const defaultPackages: PricingPackage[] = [
     priceDescription: "/month",
     description: "Comprehensive marketing solution",
     features: [
-      "Everything in Basic",
-      "SEO optimization",
-      "Paid advertising",
-      "Weekly reporting",
-      "Priority support",
+      { text: "Everything in Basic" },
+      { text: "SEO optimization" },
+      { text: "Paid advertising" },
+      { text: "Weekly reporting" },
+      { text: "Priority support" },
     ],
     isPopular: true,
   },
@@ -61,14 +266,21 @@ const defaultPackages: PricingPackage[] = [
     priceDescription: "/month",
     description: "Full-service marketing agency",
     features: [
-      "Everything in Growth",
-      "Dedicated account manager",
-      "Custom strategy",
-      "24/7 support",
-      "Quarterly reviews",
+      { text: "Everything in Growth" },
+      { text: "Dedicated account manager" },
+      { text: "Custom strategy" },
+      { text: "24/7 support" },
+      { text: "Quarterly reviews" },
     ],
   },
 ];
+
+const defaultAction: ActionConfig = {
+  label: "Get Started",
+  href: "#",
+  variant: "default",
+  size: "lg",
+};
 
 /**
  * PricingPackagesRadio displays pricing packages with radio button selection.
@@ -82,49 +294,135 @@ const defaultPackages: PricingPackage[] = [
  * <PricingPackagesRadio
  *   title="Choose Your Package"
  *   packages={[
- *     { id: "basic", name: "Basic", price: "$499", features: ["Feature 1"] }
+ *     { id: "basic", name: "Basic", price: "$499", features: [{ text: "Feature 1" }] }
  *   ]}
- *   buttonText="Get Started"
+ *   action={{ label: "Get Started", href: "#" }}
  * />
  * ```
  */
 export function PricingPackagesRadio({
-  className,
   title = "Marketing Packages",
   subtitle = "Select the package that fits your business needs",
   packages = defaultPackages,
-  buttonText = "Get Started",
-  buttonHref = "#",
-}: PricingPackagesRadioProps) {
-  const [selectedPackage, setSelectedPackage] = useState(
-    packages.find((p) => p.isPopular)?.id || packages[0]?.id
-  );
+  packagesSlot,
+  selectedPackageId,
+  defaultSelectedPackageId,
+  onSelectionChange,
+  featureIcon,
+  featureIconName = "lucide/check",
+  action = defaultAction,
+  actionSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  titleClassName,
+  subtitleClassName,
+  packagesClassName,
+  packageButtonClassName,
+  selectedPackageClassName,
+  badgeClassName,
+  selectionIndicatorClassName,
+  packageNameClassName,
+  packageDescriptionClassName,
+  priceClassName,
+  priceDescriptionClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionWrapperClassName,
+  actionClassName,
+}: PricingPackagesRadioProps): React.JSX.Element {
+  const defaultSelected = useMemo(() => {
+    if (defaultSelectedPackageId) return defaultSelectedPackageId;
+    return packages.find((pkg) => pkg.isPopular)?.id || packages[0]?.id;
+  }, [defaultSelectedPackageId, packages]);
 
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const [internalSelection, setInternalSelection] = useState(defaultSelected);
+  const activeSelection = selectedPackageId ?? internalSelection;
 
-        <div className="mx-auto max-w-3xl space-y-4">
-          {packages.map((pkg) => (
+  const handleSelect = (packageId: string) => {
+    if (!selectedPackageId) {
+      setInternalSelection(packageId);
+    }
+    onSelectionChange?.(packageId);
+  };
+
+  const renderFeatures = (pkg: PricingPackagesRadioPackage) => {
+    if (pkg.featuresSlot) return pkg.featuresSlot;
+    if (!pkg.features || pkg.features.length === 0) return null;
+
+    return (
+      <ul className={cn("mt-4 grid gap-2 sm:grid-cols-2", featuresClassName)}>
+        {pkg.features.map((feature, index) => {
+          const resolvedIcon = feature.icon
+            ?? featureIcon
+            ?? (feature.iconName || featureIconName ? (
+              <DynamicIcon
+                name={feature.iconName || featureIconName}
+                size={16}
+                className={cn("shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+              />
+            ) : null);
+
+          return (
+            <li key={index} className={cn("flex items-center gap-2", featureItemClassName, feature.className)}>
+              {resolvedIcon}
+              {feature.text && (
+                typeof feature.text === "string" ? (
+                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </span>
+                ) : (
+                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  const renderPackages = () => {
+    if (packagesSlot) return packagesSlot;
+    if (!packages || packages.length === 0) return null;
+
+    return (
+      <div className={cn("mx-auto max-w-3xl space-y-4", packagesClassName)}>
+        {packages.map((pkg) => {
+          const isSelected = activeSelection === pkg.id;
+          const badgeContent = pkg.badge ?? (pkg.isPopular ? "Most Popular" : null);
+
+          return (
             <button
               key={pkg.id}
-              onClick={() => setSelectedPackage(pkg.id)}
+              onClick={() => handleSelect(pkg.id)}
               className={cn(
                 "relative w-full rounded-2xl border p-6 text-left transition-all",
-                selectedPackage === pkg.id
+                isSelected
                   ? "border-primary bg-primary/5 shadow-lg"
-                  : "border-border hover:border-primary/50"
+                  : "border-border hover:border-primary/50",
+                packageButtonClassName,
+                isSelected ? selectedPackageClassName : null,
+                pkg.className
               )}
             >
-              {pkg.isPopular && (
-                <span className="absolute -top-3 right-6 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
-                  Most Popular
+              {badgeContent && (
+                <span
+                  className={cn(
+                    "absolute -top-3 right-6 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground",
+                    badgeClassName
+                  )}
+                >
+                  {badgeContent}
                 </span>
               )}
 
@@ -132,12 +430,13 @@ export function PricingPackagesRadio({
                 <div
                   className={cn(
                     "mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2",
-                    selectedPackage === pkg.id
+                    isSelected
                       ? "border-primary bg-primary"
-                      : "border-muted-foreground"
+                      : "border-muted-foreground",
+                    selectionIndicatorClassName
                   )}
                 >
-                  {selectedPackage === pkg.id && (
+                  {isSelected && (
                     <div className="h-2 w-2 rounded-full bg-primary-foreground" />
                   )}
                 </div>
@@ -145,55 +444,103 @@ export function PricingPackagesRadio({
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-semibold">{pkg.name}</h3>
+                      {pkg.name && (
+                        typeof pkg.name === "string" ? (
+                          <h3 className={cn("font-semibold", packageNameClassName)}>{pkg.name}</h3>
+                        ) : (
+                          <div className={packageNameClassName}>{pkg.name}</div>
+                        )
+                      )}
                       {pkg.description && (
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          {pkg.description}
-                        </p>
+                        typeof pkg.description === "string" ? (
+                          <p className={cn("mt-1 text-sm text-muted-foreground", packageDescriptionClassName)}>
+                            {pkg.description}
+                          </p>
+                        ) : (
+                          <div className={packageDescriptionClassName}>{pkg.description}</div>
+                        )
                       )}
                     </div>
                     <div className="text-right">
-                      <span className="text-2xl font-bold">{pkg.price}</span>
+                      {pkg.price && (
+                        <span className={cn("text-2xl font-bold", priceClassName)}>{pkg.price}</span>
+                      )}
                       {pkg.priceDescription && (
-                        <span className="text-sm text-muted-foreground">
+                        <span className={cn("text-sm text-muted-foreground", priceDescriptionClassName)}>
                           {pkg.priceDescription}
                         </span>
                       )}
                     </div>
                   </div>
 
-                  <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                    {pkg.features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-2">
-                        <DynamicIcon
-                          name="lucide/check"
-                          size={16}
-                          className="shrink-0 text-primary"
-                        />
-                        <span className="text-sm text-muted-foreground">
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  {renderFeatures(pkg)}
                 </div>
               </div>
             </button>
-          ))}
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderAction = () => {
+    if (actionSlot) return actionSlot;
+    if (!action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto", containerClassName)}>
+        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            )
+          )}
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ) : (
+              <div className={subtitleClassName}>{subtitle}</div>
+            )
+          )}
         </div>
 
-        <div className="mx-auto mt-8 max-w-md">
-          <Pressable
-            href={buttonHref}
-            variant="default"
-            size="lg"
-            asButton
-            className="w-full justify-center"
-          >
-            {buttonText}
-          </Pressable>
+        {renderPackages()}
+
+        <div className={cn("mx-auto mt-8 max-w-md", actionWrapperClassName)}>
+          {renderAction()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
