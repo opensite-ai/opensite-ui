@@ -50,8 +50,7 @@ describe("LogosCertificationsGrid", () => {
   it("renders custom button text and url", () => {
     render(
       <LogosCertificationsGrid
-        buttonText="Contact Us"
-        buttonUrl="/contact"
+        actions={[{ label: "Contact Us", href: "/contact", variant: "default" }]}
       />
     );
     expect(screen.getByText("Contact Us")).toBeInTheDocument();

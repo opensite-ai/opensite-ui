@@ -51,7 +51,7 @@ describe("LogosPartnerNetwork", () => {
   });
 
   it("renders custom button text", () => {
-    render(<LogosPartnerNetwork buttonText="Join Now" buttonUrl="/join" />);
+    render(<LogosPartnerNetwork actions={[{ label: "Join Now", href: "/join", variant: "default" }]} />);
     expect(screen.getByText("Join Now")).toBeInTheDocument();
   });
 
