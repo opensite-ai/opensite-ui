@@ -1,25 +1,55 @@
-# OpenSite UI - Comprehensive Styling Guide
+# OpenSite UI - Comprehensive Styling Guide (Tailwind CSS 4)
 
-This document provides a complete reference for customizing all @opensite/ui components using CSS variables and theme configuration.
+This document provides a complete reference for customizing all @opensite/ui components using CSS variables and Tailwind CSS 4 configuration.
+
+> **⚠️ Tailwind CSS 4 Required**: This library is designed exclusively for Tailwind CSS v4.0+. The styling system uses Tailwind 4's new `@theme` directive for optimal performance and flexibility.
 
 ## Table of Contents
 
-1. [CSS Variables Reference](#css-variables-reference)
-2. [Theme Configuration](#theme-configuration)
-3. [Component-Specific Styling](#component-specific-styling)
-4. [Custom Theme Examples](#custom-theme-examples)
-5. [Tailwind CSS Integration](#tailwind-css-integration)
+1. [Quick Start (Tailwind 4)](#quick-start-tailwind-4)
+2. [Complete CSS Template](#complete-css-template)
+3. [Tailwind Config Template](#tailwind-config-template)
+4. [CSS Variables Reference](#css-variables-reference)
+5. [Component-Specific Styling](#component-specific-styling)
+6. [Custom Theme Examples](#custom-theme-examples)
+7. [Server-Side Style Synchronization](#server-side-style-synchronization)
 
 ---
 
-## CSS Variables Reference
+## Quick Start (Tailwind 4)
 
-All @opensite/ui components use CSS custom properties (variables) for theming. Define these variables in your global CSS file to customize the appearance of all components.
+### Step 1: Install Dependencies
 
-### Complete CSS Variables Template
+```bash
+npm install tailwindcss@^4.0.0 @tailwindcss/postcss
+npm install @opensite/ui
+```
+
+### Step 2: Copy Complete CSS Template
+
+Copy the [Complete CSS Template](#complete-css-template) to your `globals.css` or `app.css` file.
+
+### Step 3: Copy Tailwind Config
+
+Copy the [Tailwind Config Template](#tailwind-config-template) to your `tailwind.config.ts` file.
+
+### Step 4: Customize Your Theme
+
+Modify the CSS variables in `:root` to match your brand colors and design system.
+
+---
+
+## Complete CSS Template
+
+This template uses Tailwind CSS 4's `@theme inline` directive to map CSS variables to Tailwind utility classes. **Copy this entire template to your `globals.css` file:**
 
 ```css
-:root {
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+@config "../tailwind.config.ts";
+
+@layer base {
+  :root {
   /* ============================================
      COLOR SYSTEM
      ============================================ */
@@ -348,123 +378,155 @@ All @opensite/ui components use CSS custom properties (variables) for theming. D
   --popover: 222.2 84% 4.9%;
   --popover-foreground: 210 40% 98%;
 }
+
+/* ============================================
+   TAILWIND 4 THEME MAPPING (@theme inline)
+   ============================================
+
+   This section maps CSS variables to Tailwind utility classes.
+   This is the KEY difference in Tailwind CSS 4 - we use @theme inline
+   instead of extending the theme in tailwind.config.js
+   ============================================ */
+
+@theme inline {
+  /* Color Utilities */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  /* Border Radius Utilities */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-full: var(--radius-full);
+
+  /* Animation Keyframes */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  /* Animation Utilities */
+  --animate-fade-in: fade-in 0.6s ease-in-out;
+  --animate-slide-up: slide-up 0.6s ease-out;
+  --animate-slide-down: slide-down 0.6s ease-out;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+}
 ```
 
 ---
 
-## Theme Configuration
+## Tailwind Config Template
 
-### Method 1: Global CSS File
+**Copy this minimal Tailwind 4 configuration to your `tailwind.config.ts` file:**
 
-Add the CSS variables to your global stylesheet:
+```typescript
+import type { Config } from "tailwindcss";
 
-```css
-/* globals.css or app.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    /* Paste CSS variables here */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    /* ... rest of variables */
-  }
-
-  .dark {
-    /* Dark mode overrides */
-  }
-}
-```
-
-### Method 2: Tailwind Configuration
-
-Extend Tailwind's theme in `tailwind.config.js`:
-
-```js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ["class"],
+const config: Config = {
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@opensite/ui/dist/**/*.{js,mjs}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
-      colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        warning: {
-          DEFAULT: "hsl(var(--warning))",
-          foreground: "hsl(var(--warning-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-        button: "var(--button-radius)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
+      // Optional: Add custom animations or other theme extensions here
+      // Most theming is done via CSS variables and @theme inline
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [],
+};
+
+export default config;
 ```
+
+### Key Differences from Tailwind 3
+
+**Tailwind 4 uses a CSS-first approach:**
+
+1. **No `@tailwind` directives** - Use `@import "tailwindcss"` instead
+2. **No extensive `tailwind.config.js` theme** - Most configuration is in CSS via `@theme inline`
+3. **CSS variables directly mapped to utilities** - The `@theme inline` section handles the mapping
+4. **Simpler config file** - Only needs content paths and optional extensions
+
+### What Goes Where?
+
+| Configuration Type | Tailwind 3 | Tailwind 4 |
+|--------------------|------------|------------|
+| Colors | `tailwind.config.js` theme.colors | CSS `@theme inline` |
+| Spacing | `tailwind.config.js` theme.spacing | CSS `@theme inline` |
+| Typography | `tailwind.config.js` theme.fontSize | CSS `@theme inline` |
+| Border Radius | `tailwind.config.js` theme.borderRadius | CSS `@theme inline` |
+| Animations | `tailwind.config.js` theme.animation | CSS `@theme inline` @keyframes |
+| Dark Mode | `darkMode: 'class'` in config | `@custom-variant dark (&:is(.dark *))` in CSS |
 
 ---
 
@@ -937,8 +999,250 @@ Stick to the spacing scale (sm/md/lg/xl) for visual consistency across component
 
 ---
 
+## Server-Side Style Synchronization
+
+### Overview
+
+When managing styles for multiple client sites from a central server/database, it's critical to maintain synchronization between:
+
+1. **CSS Variables** (`:root` declarations in `globals.css`)
+2. **Tailwind Config** (`tailwind.config.ts` theme extensions)
+3. **Database/Server Records** (stored style values)
+
+### Recommended Strategy: CSS Variables as Source of Truth
+
+The most intuitive and maintainable approach is to use **CSS variables as the single source of truth**, then generate Tailwind config dynamically.
+
+#### Architecture
+
+```
+┌─────────────────────────┐
+│  Database/Server        │
+│  (Style Records)        │
+└───────────┬─────────────┘
+            │
+            ▼
+┌─────────────────────────┐
+│  CSS Variables          │
+│  (:root declarations)   │  ◄── SOURCE OF TRUTH
+└───────────┬─────────────┘
+            │
+            ▼
+┌─────────────────────────┐
+│  @theme inline          │
+│  (Tailwind Mapping)     │  ◄── AUTOMATIC MAPPING
+└─────────────────────────┘
+```
+
+#### Why This Works
+
+**Tailwind 4's `@theme inline` automatically reads CSS variables**, so you only need to maintain CSS variables and the mapping happens automatically. This eliminates the sync problem entirely.
+
+### Implementation Steps
+
+#### Step 1: Store Styles in Database
+
+```sql
+-- Example schema for storing client styles
+CREATE TABLE site_styles (
+  site_id INTEGER PRIMARY KEY,
+  primary_color VARCHAR(20),        -- "220 90% 56%"
+  primary_foreground VARCHAR(20),   -- "0 0% 100%"
+  border_radius VARCHAR(10),        -- "0.5rem"
+  button_radius VARCHAR(10),        -- "9999px"
+  -- ... other style properties
+  updated_at TIMESTAMP
+);
+```
+
+#### Step 2: Generate CSS Variables Server-Side
+
+```typescript
+// Example: Generate CSS from database values
+async function generateClientCSS(siteId: number): Promise<string> {
+  const styles = await db.siteStyles.findOne({ siteId });
+
+  return `
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+@config "../tailwind.config.ts";
+
+@layer base {
+  :root {
+    --primary: ${styles.primary_color};
+    --primary-foreground: ${styles.primary_foreground};
+    --radius: ${styles.border_radius};
+    --button-radius: ${styles.button_radius};
+    /* ... other variables ... */
+  }
+}
+
+@theme inline {
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  /* ... mappings are consistent across all sites ... */
+}
+`;
+}
+```
+
+#### Step 3: Serve or Write CSS File
+
+**Option A: Dynamic CSS Endpoint**
+
+```typescript
+// Serve CSS dynamically per client
+app.get("/styles/:siteId.css", async (req, res) => {
+  const css = await generateClientCSS(req.params.siteId);
+  res.setHeader("Content-Type", "text/css");
+  res.setHeader("Cache-Control", "public, max-age=3600");
+  res.send(css);
+});
+```
+
+**Option B: Build-Time Generation**
+
+```typescript
+// Generate CSS file during build process
+async function buildClientSite(siteId: number) {
+  const css = await generateClientCSS(siteId);
+  await fs.writeFile(`./sites/${siteId}/globals.css`, css);
+
+  // Run build
+  await exec(`cd ./sites/${siteId} && npm run build`);
+}
+```
+
+### Handling Style Updates
+
+#### Real-Time Updates
+
+```typescript
+// When user updates styles in admin panel
+async function updateSiteStyles(siteId: number, updates: StyleUpdates) {
+  // 1. Update database
+  await db.siteStyles.update(siteId, updates);
+
+  // 2. Regenerate CSS
+  const newCSS = await generateClientCSS(siteId);
+
+  // 3a. If using dynamic endpoint: invalidate cache
+  cache.delete(`styles:${siteId}`);
+
+  // 3b. If using build-time: trigger rebuild
+  await buildClientSite(siteId);
+
+  // 4. Notify client to reload styles
+  websocket.emit(`site:${siteId}:styles-updated`);
+}
+```
+
+#### Preview vs Production
+
+```typescript
+// Allow preview before publishing
+interface SiteStyles {
+  siteId: number;
+  published: StyleValues;      // Live on site
+  draft: StyleValues | null;   // Preview in editor
+}
+
+async function getClientCSS(siteId: number, mode: 'preview' | 'production') {
+  const styles = await db.siteStyles.findOne({ siteId });
+  const values = mode === 'preview' && styles.draft
+    ? styles.draft
+    : styles.published;
+
+  return generateCSS(values);
+}
+```
+
+### CSS Variable Validation
+
+```typescript
+// Validate HSL color format
+function validateHSLColor(value: string): boolean {
+  return /^\d+\s+\d+%\s+\d+%$/.test(value);
+}
+
+// Validate size/spacing format
+function validateSize(value: string): boolean {
+  return /^\d+(\.\d+)?(px|rem|em|%)$/.test(value);
+}
+
+// Example usage in update handler
+async function updatePrimaryColor(siteId: number, newColor: string) {
+  if (!validateHSLColor(newColor)) {
+    throw new Error("Invalid HSL format. Expected: '220 90% 56%'");
+  }
+
+  await db.siteStyles.update(siteId, { primary_color: newColor });
+  await regenerateStyles(siteId);
+}
+```
+
+### Style Inheritance & Defaults
+
+```typescript
+// Define default theme that all sites inherit from
+const DEFAULT_THEME = {
+  primary: "222.2 47.4% 11.2%",
+  primaryForeground: "210 40% 98%",
+  radius: "0.5rem",
+  buttonRadius: "0.5rem",
+  // ... full default set
+};
+
+// Merge site-specific overrides with defaults
+function mergeWithDefaults(siteStyles: Partial<StyleValues>): StyleValues {
+  return {
+    ...DEFAULT_THEME,
+    ...siteStyles,
+  };
+}
+
+async function generateClientCSS(siteId: number): Promise<string> {
+  const siteStyles = await db.siteStyles.findOne({ siteId });
+  const finalStyles = mergeWithDefaults(siteStyles);
+
+  return generateCSSTemplate(finalStyles);
+}
+```
+
+### Best Practices
+
+1. **Use CSS variables as source of truth** - Let `@theme inline` handle the Tailwind mapping automatically
+2. **Validate on write** - Ensure correct formats before saving to database
+3. **Cache generated CSS** - Avoid regenerating on every request
+4. **Version style changes** - Track history for rollback capability
+5. **Provide preview mode** - Let users see changes before publishing
+6. **Use sensible defaults** - Inherit from base theme, override selectively
+7. **Document HSL format** - Make it clear that colors use "H S% L%" format without `hsl()`
+8. **Batch updates** - When updating multiple values, generate CSS once after all changes
+
+### Common Pitfalls to Avoid
+
+❌ **Don't maintain parallel records** - Storing same values in multiple places creates sync issues
+
+❌ **Don't hardcode Tailwind config** - Use dynamic CSS generation instead
+
+❌ **Don't forget dark mode** - Generate both `:root` and `.dark` sections
+
+❌ **Don't skip validation** - Invalid CSS values will break the entire stylesheet
+
+✅ **Do use single source of truth** - CSS variables
+
+✅ **Do generate dynamically** - Server-side or build-time
+
+✅ **Do cache intelligently** - Balance performance and freshness
+
+✅ **Do validate inputs** - Prevent malformed CSS
+
+---
+
 ## Version History
 
+- **0.0.3** - Added Tailwind 4 support with `@theme inline`, server-side sync documentation
 - **0.0.2** - Added comprehensive Button styling, complete CSS variables reference
 - **0.0.1** - Initial release with Container, Section, AnimatedDialog, PageHeroBanner
 
