@@ -5,29 +5,110 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
+/**
+ * Stat item interface for displaying metrics
+ */
 export interface StatItem {
-  value: string;
-  label: string;
-}
-
-export interface StatsTestimonial {
-  id: string;
-  content: string;
-  author: {
-    name: string;
-    role?: string;
-    avatar?: string;
-  };
+  /**
+   * The stat value (e.g., "10K+", "4.9")
+   */
+  value: React.ReactNode;
+  /**
+   * The stat label (e.g., "Happy Customers")
+   */
+  label: React.ReactNode;
 }
 
 export interface TestimonialsStatsHeaderProps {
+  /**
+   * Array of stats to display in the header
+   */
   stats?: StatItem[];
-  testimonials?: StatsTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Custom slot for rendering stats (overrides stats array)
+   */
+  statsSlot?: React.ReactNode;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: TestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the stats grid
+   */
+  statsGridClassName?: string;
+  /**
+   * Additional CSS classes for each stat item
+   */
+  statItemClassName?: string;
+  /**
+   * Additional CSS classes for the testimonials grid
+   */
+  testimonialsGridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const DEFAULT_STATS: StatItem[] = [
@@ -37,36 +118,27 @@ const DEFAULT_STATS: StatItem[] = [
   { value: "24/7", label: "Support Available" },
 ];
 
-const DEFAULT_TESTIMONIALS: StatsTestimonial[] = [
+const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
-    id: "1",
-    content:
+    quote:
       "The platform has revolutionized our workflow. We've seen a 40% increase in productivity since implementation.",
-    author: {
-      name: "Sarah Chen",
-      role: "Product Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    role: "Product Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
   },
   {
-    id: "2",
-    content:
+    quote:
       "Outstanding support and an even better product. The team goes above and beyond to ensure our success.",
-    author: {
-      name: "Michael Torres",
-      role: "CEO",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Michael Torres",
+    role: "CEO",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "3",
-    content:
+    quote:
       "Best investment we've made this year. The ROI was visible within the first month of using the platform.",
-    author: {
-      name: "Emily Watson",
-      role: "Operations Director",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily Watson",
+    role: "Operations Director",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
 ];
 
@@ -80,50 +152,101 @@ const DEFAULT_TESTIMONIALS: StatsTestimonial[] = [
  * @example
  * ```tsx
  * <TestimonialsStatsHeader
- *   title="Trusted by Thousands"
- *   subtitle="See what our customers have to say"
+ *   heading="Trusted by Thousands"
+ *   description="See what our customers have to say"
  *   stats={[
  *     { value: "10K+", label: "Users" },
  *     { value: "4.9", label: "Rating" }
  *   ]}
- *   testimonials={[...]}
+ *   testimonials={[
+ *     {
+ *       quote: "Amazing platform...",
+ *       author: "Jane D.",
+ *       role: "CEO",
+ *       avatarSrc: "/avatars/jane.jpg"
+ *     }
+ *   ]}
+ *   background="gray"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsStatsHeader({
   stats = DEFAULT_STATS,
+  statsSlot,
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "Trusted by Thousands",
-  subtitle = "Join the growing community of satisfied customers",
+  testimonialsSlot,
+  heading = "Trusted by Thousands",
+  description = "Join the growing community of satisfied customers",
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  statsGridClassName,
+  statItemClassName,
+  testimonialsGridClassName,
+  cardClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsStatsHeaderProps): React.JSX.Element {
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <div className="mb-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="rounded-lg bg-muted/50 p-6 text-center"
-            >
+  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderStats = () => {
+    if (statsSlot) return statsSlot;
+
+    return (
+      <div className={cn("mb-12 grid grid-cols-2 gap-4 md:grid-cols-4", statsGridClassName)}>
+        {stats.map((stat, index) => (
+          <div
+            key={index}
+            className={cn("rounded-lg bg-muted/50 p-6 text-center", statItemClassName)}
+          >
+            {typeof stat.value === "string" ? (
               <p className="text-3xl font-bold text-primary md:text-4xl">
                 {stat.value}
               </p>
+            ) : (
+              stat.value
+            )}
+            {typeof stat.label === "string" ? (
               <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
-        </div>
+            ) : (
+              stat.label
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.id}>
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("grid gap-6 md:grid-cols-3", testimonialsGridClassName)}>
+        {testimonials.map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          const avatarSrc = getAvatarSrc(testimonial);
+          return (
+            <Card key={index} className={cardClassName}>
               <CardContent className="p-6">
                 <div className="mb-4 flex gap-1">
                   {[...Array(5)].map((_, i) => (
@@ -135,38 +258,85 @@ export function TestimonialsStatsHeader({
                     />
                   ))}
                 </div>
-                <p className="mb-6 text-sm leading-relaxed">
-                  &ldquo;{testimonial.content}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
+                {testimonial.quote && (
+                  typeof testimonial.quote === "string" ? (
+                    <p className={cn("mb-6 text-sm leading-relaxed", quoteClassName)}>
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </p>
+                  ) : (
+                    <div className={cn("mb-6", quoteClassName)}>{testimonial.quote}</div>
+                  )
+                )}
+                <div className={cn("flex items-center gap-3", authorClassName)}>
                   <Avatar className="size-10">
                     <AvatarImage
-                      src={testimonial.author.avatar}
-                      alt={testimonial.author.name}
+                      src={avatarSrc}
+                      alt={authorName}
                     />
                     <AvatarFallback>
-                      {testimonial.author.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
+                      {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-medium">
-                      {testimonial.author.name}
-                    </p>
-                    {testimonial.author.role && (
-                      <p className="text-xs text-muted-foreground">
-                        {testimonial.author.role}
-                      </p>
+                    {testimonial.author && (
+                      typeof testimonial.author === "string" ? (
+                        <p className="text-sm font-medium">
+                          {testimonial.author}
+                        </p>
+                      ) : (
+                        testimonial.author
+                      )
+                    )}
+                    {testimonial.role && (
+                      typeof testimonial.role === "string" ? (
+                        <p className="text-xs text-muted-foreground">
+                          {testimonial.role}
+                        </p>
+                      ) : (
+                        testimonial.role
+                      )
                     )}
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderStats()}
+      {renderTestimonials()}
+    </Section>
   );
 }

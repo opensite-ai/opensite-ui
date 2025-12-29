@@ -5,58 +5,101 @@ import { useState, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type {
+  OptixFlowConfig,
+  TestimonialItem,
+} from "../../../src/types";
 
-export interface CarouselTestimonial {
-  id: string;
-  quote: string;
-  author: {
-    name: string;
-    role?: string;
-    company?: string;
-  };
-  backgroundImage: string;
+/**
+ * Extended testimonial item with background image for carousel
+ */
+export interface CarouselTestimonialItem extends TestimonialItem {
+  /**
+   * Background image URL for the slide
+   */
+  backgroundImage?: string;
 }
 
 export interface TestimonialsCarouselImageProps {
-  testimonials?: CarouselTestimonial[];
+  /**
+   * Array of testimonials to display in the carousel
+   */
+  testimonials?: CarouselTestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Height of the carousel section
+   */
+  height?: string;
+  /**
+   * Overlay opacity (0-1)
+   */
+  overlayOpacity?: number;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the quote icon
+   */
+  quoteIconClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the navigation container
+   */
+  navigationClassName?: string;
+  /**
+   * Additional CSS classes for the navigation buttons
+   */
+  navButtonClassName?: string;
+  /**
+   * Additional CSS classes for the dot indicators
+   */
+  dotsClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIALS: CarouselTestimonial[] = [
+const DEFAULT_TESTIMONIALS: CarouselTestimonialItem[] = [
   {
-    id: "1",
     quote:
       "Working with this team has been an absolute game-changer for our business. Their expertise and dedication exceeded all our expectations.",
-    author: {
-      name: "Sarah Chen",
-      role: "CEO",
-      company: "TechVentures",
-    },
+    author: "Sarah Chen",
+    role: "CEO",
+    company: "TechVentures",
     backgroundImage: imagePlaceholders[10],
   },
   {
-    id: "2",
     quote:
       "The level of professionalism and attention to detail is unmatched. They delivered exactly what we needed, on time and on budget.",
-    author: {
-      name: "Michael Torres",
-      role: "Founder",
-      company: "StartupLab",
-    },
+    author: "Michael Torres",
+    role: "Founder",
+    company: "StartupLab",
     backgroundImage: imagePlaceholders[11],
   },
   {
-    id: "3",
     quote:
       "I've worked with many agencies, but none have matched the quality and creativity that this team brings to every project.",
-    author: {
-      name: "Emily Watson",
-      role: "Marketing Director",
-      company: "GrowthCo",
-    },
+    author: "Emily Watson",
+    role: "Marketing Director",
+    company: "GrowthCo",
     backgroundImage: imagePlaceholders[12],
   },
 ];
@@ -73,18 +116,31 @@ const DEFAULT_TESTIMONIALS: CarouselTestimonial[] = [
  * <TestimonialsCarouselImage
  *   testimonials={[
  *     {
- *       id: "1",
  *       quote: "This service transformed our business...",
- *       author: { name: "Jane D.", role: "CEO", company: "TechCo" },
+ *       author: "Jane D.",
+ *       role: "CEO",
+ *       company: "TechCo",
  *       backgroundImage: "/images/testimonial-bg-1.jpg"
  *     }
  *   ]}
+ *   height="h-[600px] md:h-[700px]"
+ *   overlayOpacity={0.6}
  * />
  * ```
  */
 export function TestimonialsCarouselImage({
   testimonials = DEFAULT_TESTIMONIALS,
+  testimonialsSlot,
+  height = "h-[600px] md:h-[700px]",
+  overlayOpacity = 0.6,
   className,
+  contentClassName,
+  quoteIconClassName,
+  quoteClassName,
+  authorClassName,
+  navigationClassName,
+  navButtonClassName,
+  dotsClassName,
   optixFlowConfig,
 }: TestimonialsCarouselImageProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -103,50 +159,83 @@ export function TestimonialsCarouselImage({
 
   const current = testimonials[currentIndex];
 
-  return (
-    <section className={cn("relative h-[600px] md:h-[700px]", className)}>
-      <div className="absolute inset-0">
-        <Img
-          src={current.backgroundImage}
-          alt=""
-          className="size-full object-cover"
-          optixFlowConfig={optixFlowConfig}
+  const renderTestimonialContent = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("mx-auto max-w-4xl text-center text-white", contentClassName)}>
+        <DynamicIcon
+          name="lucide/quote"
+          size={48}
+          className={cn("mx-auto mb-6 opacity-50", quoteIconClassName)}
         />
-        <div className="absolute inset-0 bg-black/60" />
+        {current.quote && (
+          typeof current.quote === "string" ? (
+            <blockquote className={cn("text-2xl font-light leading-relaxed md:text-4xl", quoteClassName)}>
+              &ldquo;{current.quote}&rdquo;
+            </blockquote>
+          ) : (
+            <div className={quoteClassName}>{current.quote}</div>
+          )
+        )}
+        <div className={cn("mt-8", authorClassName)}>
+          {current.author && (
+            typeof current.author === "string" ? (
+              <p className="text-lg font-semibold">{current.author}</p>
+            ) : (
+              current.author
+            )
+          )}
+          {(current.role || current.company) && (
+            <p className="text-sm opacity-80">
+              {current.role && (
+                typeof current.role === "string" ? current.role : current.role
+              )}
+              {current.company && (
+                typeof current.company === "string"
+                  ? `, ${current.company}`
+                  : current.company
+              )}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <section className={cn("relative", height, className)}>
+      <div className="absolute inset-0">
+        {current.backgroundImage && (
+          <Img
+            src={current.backgroundImage}
+            alt=""
+            className="size-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        <div
+          className="absolute inset-0 bg-black"
+          style={{ opacity: overlayOpacity }}
+        />
       </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
-        <div className="mx-auto max-w-4xl text-center text-white">
-          <DynamicIcon
-            name="lucide/quote"
-            size={48}
-            className="mx-auto mb-6 opacity-50"
-          />
-          <blockquote className="text-2xl font-light leading-relaxed md:text-4xl">
-            &ldquo;{current.quote}&rdquo;
-          </blockquote>
-          <div className="mt-8">
-            <p className="text-lg font-semibold">{current.author.name}</p>
-            <p className="text-sm opacity-80">
-              {current.author.role}
-              {current.author.company && `, ${current.author.company}`}
-            </p>
-          </div>
-        </div>
+        {renderTestimonialContent()}
 
-        <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4">
+        <div className={cn("absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4", navigationClassName)}>
           <Pressable
             asButton
             variant="ghost"
             size="icon"
-            className="size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
+            className={cn("size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20", navButtonClassName)}
             onClick={goToPrevious}
             aria-label="Previous testimonial"
           >
             <DynamicIcon name="lucide/chevron-left" size={24} />
           </Pressable>
 
-          <div className="flex gap-2">
+          <div className={cn("flex gap-2", dotsClassName)}>
             {testimonials.map((_, index) => (
               <button
                 key={index}
@@ -166,7 +255,7 @@ export function TestimonialsCarouselImage({
             asButton
             variant="ghost"
             size="icon"
-            className="size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
+            className={cn("size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20", navButtonClassName)}
             onClick={goToNext}
             aria-label="Next testimonial"
           >

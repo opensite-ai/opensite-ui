@@ -4,32 +4,73 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-export interface LargeQuoteTestimonial {
-  quote: string;
-  author: {
-    name: string;
-    role?: string;
-    company?: string;
-    avatar?: string;
-  };
-}
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
 export interface TestimonialsLargeQuoteProps {
-  testimonial?: LargeQuoteTestimonial;
+  /**
+   * Testimonial data using shared TestimonialItem type
+   */
+  testimonial?: TestimonialItem;
+  /**
+   * Custom slot for rendering testimonial (overrides testimonial prop)
+   */
+  testimonialSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the quote icon
+   */
+  quoteIconClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the avatar
+   */
+  avatarClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIAL: LargeQuoteTestimonial = {
+const DEFAULT_TESTIMONIAL: TestimonialItem = {
   quote:
     "This platform has fundamentally changed how we approach our work. The intuitive design, powerful features, and exceptional support have made it an indispensable part of our daily operations. I cannot recommend it highly enough to anyone looking to transform their workflow.",
-  author: {
-    name: "Sarah Chen",
-    role: "Chief Executive Officer",
-    company: "TechVentures Inc.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-  },
+  author: "Sarah Chen",
+  role: "Chief Executive Officer",
+  company: "TechVentures Inc.",
+  avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
 };
 
 /**
@@ -44,53 +85,115 @@ const DEFAULT_TESTIMONIAL: LargeQuoteTestimonial = {
  * <TestimonialsLargeQuote
  *   testimonial={{
  *     quote: "This service transformed our business...",
- *     author: { name: "Jane D.", role: "CEO", company: "TechCo", avatar: "/avatars/jane.jpg" }
+ *     author: "Jane D.",
+ *     role: "CEO",
+ *     company: "TechCo",
+ *     avatarSrc: "/avatars/jane.jpg"
  *   }}
+ *   background="gray"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsLargeQuote({
   testimonial = DEFAULT_TESTIMONIAL,
+  testimonialSlot,
   className,
+  contentClassName,
+  quoteIconClassName,
+  quoteClassName,
+  authorClassName,
+  avatarClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsLargeQuoteProps): React.JSX.Element {
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-4xl text-center">
-          <DynamicIcon
-            name="lucide/quote"
-            size={64}
-            className="mx-auto mb-8 text-primary/20"
-          />
+  const getAuthorName = (): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-          <blockquote className="text-2xl font-medium leading-relaxed md:text-3xl lg:text-4xl">
-            {testimonial.quote}
-          </blockquote>
+  const getAvatarSrc = (): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
 
-          <div className="mt-10 flex flex-col items-center gap-4">
-            <Avatar className="size-16">
-              <AvatarImage
-                src={testimonial.author.avatar}
-                alt={testimonial.author.name}
-              />
-              <AvatarFallback className="text-lg">
-                {testimonial.author.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-lg font-semibold">{testimonial.author.name}</p>
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonial = () => {
+    if (testimonialSlot) return testimonialSlot;
+
+    const authorName = getAuthorName();
+    const avatarSrc = getAvatarSrc();
+
+    return (
+      <div className={cn("mx-auto max-w-4xl text-center", contentClassName)}>
+        <DynamicIcon
+          name="lucide/quote"
+          size={64}
+          className={cn("mx-auto mb-8 text-primary/20", quoteIconClassName)}
+        />
+
+        {testimonial.quote && (
+          typeof testimonial.quote === "string" ? (
+            <blockquote className={cn("text-2xl font-medium leading-relaxed md:text-3xl lg:text-4xl", quoteClassName)}>
+              {testimonial.quote}
+            </blockquote>
+          ) : (
+            <div className={quoteClassName}>{testimonial.quote}</div>
+          )
+        )}
+
+        <div className={cn("mt-10 flex flex-col items-center gap-4", authorClassName)}>
+          <Avatar className={cn("size-16", avatarClassName)}>
+            <AvatarImage
+              src={avatarSrc}
+              alt={authorName}
+            />
+            <AvatarFallback className="text-lg">
+              {getInitials(authorName)}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            {testimonial.author && (
+              typeof testimonial.author === "string" ? (
+                <p className="text-lg font-semibold">{testimonial.author}</p>
+              ) : (
+                testimonial.author
+              )
+            )}
+            {(testimonial.role || testimonial.company) && (
               <p className="text-muted-foreground">
-                {testimonial.author.role}
-                {testimonial.author.company &&
-                  ` at ${testimonial.author.company}`}
+                {testimonial.role && (
+                  typeof testimonial.role === "string" ? testimonial.role : testimonial.role
+                )}
+                {testimonial.company && (
+                  typeof testimonial.company === "string"
+                    ? ` at ${testimonial.company}`
+                    : testimonial.company
+                )}
               </p>
-            </div>
+            )}
           </div>
         </div>
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      {renderTestimonial()}
+    </Section>
   );
 }

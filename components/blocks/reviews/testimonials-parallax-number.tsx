@@ -4,38 +4,83 @@ import * as React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cn } from "../../../lib/utils";
-
-export interface ParallaxTestimonial {
-  id: string;
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
-}
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
 export interface TestimonialsParallaxNumberProps {
-  testimonials?: ParallaxTestimonial[];
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: TestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Auto-play interval in milliseconds (0 to disable)
+   */
   autoPlayInterval?: number;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the number indicator
+   */
+  numberClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the navigation controls
+   */
+  navigationClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: ParallaxTestimonial[] = [
+const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
-    id: "1",
     quote: "Transformed our entire creative process overnight.",
     author: "Sarah Chen",
     role: "Design Director",
     company: "Linear",
   },
   {
-    id: "2",
     quote: "The most elegant solution we've ever implemented.",
     author: "Marcus Webb",
     role: "Creative Lead",
     company: "Vercel",
   },
   {
-    id: "3",
     quote: "Pure craftsmanship in every single detail.",
     author: "Elena Frost",
     role: "Head of Product",
@@ -56,7 +101,6 @@ const DEFAULT_TESTIMONIALS: ParallaxTestimonial[] = [
  * <TestimonialsParallaxNumber
  *   testimonials={[
  *     {
- *       id: "1",
  *       quote: "Amazing product...",
  *       author: "Jane D.",
  *       role: "CEO",
@@ -64,13 +108,25 @@ const DEFAULT_TESTIMONIALS: ParallaxTestimonial[] = [
  *     }
  *   ]}
  *   autoPlayInterval={6000}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsParallaxNumber({
   testimonials = DEFAULT_TESTIMONIALS,
+  testimonialsSlot,
   autoPlayInterval = 6000,
   className,
+  contentClassName,
+  numberClassName,
+  quoteClassName,
+  authorClassName,
+  navigationClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsParallaxNumberProps): React.JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -114,205 +170,250 @@ export function TestimonialsParallaxNumber({
 
   const current = testimonials[activeIndex];
 
-  return (
-    <section className={cn("py-16 md:py-24 overflow-hidden", className)}>
-      <div className="container flex min-h-[500px] items-center justify-center">
-        <div
-          ref={containerRef}
-          className="relative w-full max-w-5xl"
-          onMouseMove={handleMouseMove}
+  const getAuthorName = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
+
+  const getQuoteText = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.quote === "string") return testimonial.quote;
+    return "";
+  };
+
+  const getCompanyName = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.company === "string") return testimonial.company;
+    return "";
+  };
+
+  const renderTestimonial = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    const authorName = getAuthorName(current);
+    const quoteText = getQuoteText(current);
+    const companyName = getCompanyName(current);
+
+    return (
+      <div
+        ref={containerRef}
+        className={cn("relative w-full max-w-5xl", contentClassName)}
+        onMouseMove={handleMouseMove}
+      >
+        <motion.div
+          className={cn("pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter text-foreground/[0.03]", numberClassName)}
+          style={{ x: numberX, y: numberY }}
         >
-          <motion.div
-            className="pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter text-foreground/[0.03]"
-            style={{ x: numberX, y: numberY }}
-          >
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={activeIndex}
+              initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="block"
+            >
+              {String(activeIndex + 1).padStart(2, "0")}
+            </motion.span>
+          </AnimatePresence>
+        </motion.div>
+
+        <div className="relative flex">
+          <div className="flex flex-col items-center justify-center border-r border-border pr-16">
+            <motion.span
+              className="text-xs font-mono tracking-widest text-muted-foreground uppercase"
+              style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              Testimonials
+            </motion.span>
+
+            <div className="relative mt-8 h-32 w-px bg-border">
+              <motion.div
+                className="absolute left-0 top-0 w-full origin-top bg-foreground"
+                animate={{
+                  height: `${((activeIndex + 1) / testimonials.length) * 100}%`,
+                }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </div>
+          </div>
+
+          <div className="flex-1 py-12 pl-16">
             <AnimatePresence mode="wait">
-              <motion.span
+              <motion.div
                 key={activeIndex}
-                initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="block"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.4 }}
+                className="mb-8"
               >
-                {String(activeIndex + 1).padStart(2, "0")}
-              </motion.span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 font-mono text-xs text-muted-foreground">
+                  <span className="size-1.5 rounded-full bg-primary" />
+                  {companyName}
+                </span>
+              </motion.div>
             </AnimatePresence>
-          </motion.div>
 
-          <div className="relative flex">
-            <div className="flex flex-col items-center justify-center border-r border-border pr-16">
-              <motion.span
-                className="text-xs font-mono tracking-widest text-muted-foreground uppercase"
-                style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                Testimonials
-              </motion.span>
-
-              <div className="relative mt-8 h-32 w-px bg-border">
-                <motion.div
-                  className="absolute left-0 top-0 w-full origin-top bg-foreground"
-                  animate={{
-                    height: `${((activeIndex + 1) / testimonials.length) * 100}%`,
-                  }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                />
-              </div>
+            <div className="relative mb-12 min-h-[140px]">
+              <AnimatePresence mode="wait">
+                <motion.blockquote
+                  key={activeIndex}
+                  className={cn("text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl", quoteClassName)}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  {quoteText.split(" ").map((word, i) => (
+                    <motion.span
+                      key={i}
+                      className="mr-[0.3em] inline-block"
+                      variants={{
+                        hidden: { opacity: 0, y: 20, rotateX: 90 },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          rotateX: 0,
+                          transition: {
+                            duration: 0.5,
+                            delay: i * 0.05,
+                            ease: [0.22, 1, 0.36, 1],
+                          },
+                        },
+                        exit: {
+                          opacity: 0,
+                          y: -10,
+                          transition: { duration: 0.2, delay: i * 0.02 },
+                        },
+                      }}
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                </motion.blockquote>
+              </AnimatePresence>
             </div>
 
-            <div className="flex-1 py-12 pl-16">
+            <div className="flex items-end justify-between">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.4 }}
-                  className="mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className={cn("flex items-center gap-4", authorClassName)}
                 >
-                  <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 font-mono text-xs text-muted-foreground">
-                    <span className="size-1.5 rounded-full bg-primary" />
-                    {current.company}
-                  </span>
+                  <motion.div
+                    className="h-px w-8 bg-foreground"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    style={{ originX: 0 }}
+                  />
+                  <div>
+                    {current.author && (
+                      typeof current.author === "string" ? (
+                        <p className="text-base font-medium">{current.author}</p>
+                      ) : (
+                        current.author
+                      )
+                    )}
+                    {current.role && (
+                      typeof current.role === "string" ? (
+                        <p className="text-sm text-muted-foreground">
+                          {current.role}
+                        </p>
+                      ) : (
+                        current.role
+                      )
+                    )}
+                  </div>
                 </motion.div>
               </AnimatePresence>
 
-              <div className="relative mb-12 min-h-[140px]">
-                <AnimatePresence mode="wait">
-                  <motion.blockquote
-                    key={activeIndex}
-                    className="text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl"
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
+              <div className={cn("flex items-center gap-4", navigationClassName)}>
+                <motion.button
+                  onClick={goPrev}
+                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-border"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="relative z-10 text-foreground transition-colors group-hover:text-foreground/70"
                   >
-                    {current.quote.split(" ").map((word, i) => (
-                      <motion.span
-                        key={i}
-                        className="mr-[0.3em] inline-block"
-                        variants={{
-                          hidden: { opacity: 0, y: 20, rotateX: 90 },
-                          visible: {
-                            opacity: 1,
-                            y: 0,
-                            rotateX: 0,
-                            transition: {
-                              duration: 0.5,
-                              delay: i * 0.05,
-                              ease: [0.22, 1, 0.36, 1],
-                            },
-                          },
-                          exit: {
-                            opacity: 0,
-                            y: -10,
-                            transition: { duration: 0.2, delay: i * 0.02 },
-                          },
-                        }}
-                      >
-                        {word}
-                      </motion.span>
-                    ))}
-                  </motion.blockquote>
-                </AnimatePresence>
-              </div>
-
-              <div className="flex items-end justify-between">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
-                    className="flex items-center gap-4"
-                  >
-                    <motion.div
-                      className="h-px w-8 bg-foreground"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.6, delay: 0.3 }}
-                      style={{ originX: 0 }}
+                    <path
+                      d="M10 12L6 8L10 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
-                    <div>
-                      <p className="text-base font-medium">{current.author}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {current.role}
-                      </p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
+                  </svg>
+                </motion.button>
 
-                <div className="flex items-center gap-4">
-                  <motion.button
-                    onClick={goPrev}
-                    className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-border"
-                    whileTap={{ scale: 0.95 }}
+                <motion.button
+                  onClick={goNext}
+                  className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-border"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="relative z-10 text-foreground transition-colors group-hover:text-foreground/70"
                   >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      className="relative z-10 text-foreground transition-colors group-hover:text-foreground/70"
-                    >
-                      <path
-                        d="M10 12L6 8L10 4"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </motion.button>
-
-                  <motion.button
-                    onClick={goNext}
-                    className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-border"
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      className="relative z-10 text-foreground transition-colors group-hover:text-foreground/70"
-                    >
-                      <path
-                        d="M6 4L10 8L6 12"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </motion.button>
-                </div>
+                    <path
+                      d="M6 4L10 8L6 12"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </motion.button>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="pointer-events-none absolute -bottom-20 left-0 right-0 overflow-hidden opacity-[0.08]">
-            <motion.div
-              className="flex whitespace-nowrap text-6xl font-bold tracking-tight"
-              animate={{ x: [0, -1000] }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
-              {[...Array(10)].map((_, i) => (
-                <span key={i} className="mx-8">
-                  {testimonials.map((t) => t.company).join(" • ")} •
-                </span>
-              ))}
-            </motion.div>
-          </div>
+        <div className="pointer-events-none absolute -bottom-20 left-0 right-0 overflow-hidden opacity-[0.08]">
+          <motion.div
+            className="flex whitespace-nowrap text-6xl font-bold tracking-tight"
+            animate={{ x: [0, -1000] }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            {[...Array(10)].map((_, i) => (
+              <span key={i} className="mx-8">
+                {testimonials.map((t) => getCompanyName(t)).join(" • ")} •
+              </span>
+            ))}
+          </motion.div>
         </div>
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("overflow-hidden", className)}
+    >
+      <div className="flex min-h-[500px] items-center justify-center">
+        {renderTestimonial()}
+      </div>
+    </Section>
   );
 }

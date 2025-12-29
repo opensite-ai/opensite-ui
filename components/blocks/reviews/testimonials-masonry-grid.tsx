@@ -4,105 +4,138 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-export interface MasonryTestimonial {
-  id: string;
-  content: string;
-  author: {
-    name: string;
-    role?: string;
-    avatar?: string;
-  };
-}
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
 export interface TestimonialsMasonryGridProps {
-  testimonials?: MasonryTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: TestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: MasonryTestimonial[] = [
+const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
-    id: "1",
-    content:
+    quote:
       "This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive. I can't imagine going back to our old workflow.",
-    author: {
-      name: "Sarah Chen",
-      role: "Product Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    role: "Product Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
   },
   {
-    id: "2",
-    content:
+    quote:
       "Outstanding support and an exceptional product. Highly recommend!",
-    author: {
-      name: "Michael Torres",
-      role: "CEO",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Michael Torres",
+    role: "CEO",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "3",
-    content:
+    quote:
       "The best investment we've made this year. Our team adopted it instantly and the results speak for themselves.",
-    author: {
-      name: "Emily Watson",
-      role: "Operations Director",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily Watson",
+    role: "Operations Director",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
   {
-    id: "4",
-    content:
+    quote:
       "Clean interface, powerful features, and excellent documentation. Everything a developer could ask for. The API is well-designed and the SDK makes integration a breeze.",
-    author: {
-      name: "David Kim",
-      role: "Senior Developer",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    author: "David Kim",
+    role: "Senior Developer",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
   },
   {
-    id: "5",
-    content:
+    quote:
       "Simple, elegant, and powerful. A game-changer for our workflow.",
-    author: {
-      name: "Lisa Park",
-      role: "Engineering Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    author: "Lisa Park",
+    role: "Engineering Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
   },
   {
-    id: "6",
-    content:
+    quote:
       "We've tried many solutions, but this one stands out for its reliability and ease of use. The customer support team is also incredibly responsive.",
-    author: {
-      name: "Alex Rivera",
-      role: "Design Director",
-      avatar: blockBrandedIconsAndPlaceholders.avatar6,
-    },
+    author: "Alex Rivera",
+    role: "Design Director",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
   },
   {
-    id: "7",
-    content:
+    quote:
       "Intuitive design that requires minimal training. Our onboarding time dropped significantly since we started using this platform.",
-    author: {
-      name: "Jordan Lee",
-      role: "HR Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar7,
-    },
+    author: "Jordan Lee",
+    role: "HR Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar7,
   },
   {
-    id: "8",
-    content:
+    quote:
       "The attention to detail is impressive. Every feature feels thoughtfully designed.",
-    author: {
-      name: "Maya Patel",
-      role: "UX Designer",
-      avatar: blockBrandedIconsAndPlaceholders.avatar8,
-    },
+    author: "Maya Patel",
+    role: "UX Designer",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar8,
   },
 ];
 
@@ -116,23 +149,38 @@ const DEFAULT_TESTIMONIALS: MasonryTestimonial[] = [
  * @example
  * ```tsx
  * <TestimonialsMasonryGrid
- *   title="What People Say"
- *   subtitle="Feedback from our community"
+ *   heading="What People Say"
+ *   description="Feedback from our community"
  *   testimonials={[
  *     {
- *       id: "1",
- *       content: "Amazing product that changed our workflow...",
- *       author: { name: "John D.", role: "CEO", avatar: "/avatars/john.jpg" }
+ *       quote: "Amazing product that changed our workflow...",
+ *       author: "John D.",
+ *       role: "CEO",
+ *       avatarSrc: "/avatars/john.jpg"
  *     }
  *   ]}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsMasonryGrid({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "What People Say",
-  subtitle = "Feedback from our community",
+  testimonialsSlot,
+  heading = "What People Say",
+  description = "Feedback from our community",
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  cardClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsMasonryGridProps): React.JSX.Element {
   const columns = [
     testimonials.filter((_, i) => i % 3 === 0),
@@ -140,56 +188,115 @@ export function TestimonialsMasonryGrid({
     testimonials.filter((_, i) => i % 3 === 2),
   ];
 
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {columns.map((column, columnIndex) => (
-            <div key={columnIndex} className="space-y-4">
-              {column.map((testimonial) => (
-                <Card key={testimonial.id}>
+  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("grid gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {columns.map((column, columnIndex) => (
+          <div key={columnIndex} className="space-y-4">
+            {column.map((testimonial, index) => {
+              const authorName = getAuthorName(testimonial);
+              const avatarSrc = getAvatarSrc(testimonial);
+              return (
+                <Card key={index} className={cardClassName}>
                   <CardContent className="p-6">
-                    <p className="mb-4 text-sm leading-relaxed">
-                      &ldquo;{testimonial.content}&rdquo;
-                    </p>
-                    <div className="flex items-center gap-3">
+                    {testimonial.quote && (
+                      typeof testimonial.quote === "string" ? (
+                        <p className={cn("mb-4 text-sm leading-relaxed", quoteClassName)}>
+                          &ldquo;{testimonial.quote}&rdquo;
+                        </p>
+                      ) : (
+                        <div className={cn("mb-4", quoteClassName)}>{testimonial.quote}</div>
+                      )
+                    )}
+                    <div className={cn("flex items-center gap-3", authorClassName)}>
                       <Avatar className="size-9">
                         <AvatarImage
-                          src={testimonial.author.avatar}
-                          alt={testimonial.author.name}
+                          src={avatarSrc}
+                          alt={authorName}
                         />
                         <AvatarFallback className="text-xs">
-                          {testimonial.author.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+                          {getInitials(authorName)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className="text-sm font-medium">
-                          {testimonial.author.name}
-                        </p>
-                        {testimonial.author.role && (
-                          <p className="text-xs text-muted-foreground">
-                            {testimonial.author.role}
-                          </p>
+                        {testimonial.author && (
+                          typeof testimonial.author === "string" ? (
+                            <p className="text-sm font-medium">
+                              {testimonial.author}
+                            </p>
+                          ) : (
+                            testimonial.author
+                          )
+                        )}
+                        {testimonial.role && (
+                          typeof testimonial.role === "string" ? (
+                            <p className="text-xs text-muted-foreground">
+                              {testimonial.role}
+                            </p>
+                          ) : (
+                            testimonial.role
+                          )
                         )}
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
-          ))}
-        </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderTestimonials()}
+    </Section>
   );
 }

@@ -4,59 +4,110 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-export interface CenteredTestimonial {
-  id: string;
-  quote: string;
-  author: {
-    name: string;
-    role?: string;
-    company?: string;
-    avatar?: string;
-  };
-}
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
 export interface TestimonialsCenteredAvatarsProps {
-  testimonials?: CenteredTestimonial[];
-  badge?: string;
-  title?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: TestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Badge/eyebrow content above title
+   */
+  badge?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the avatars container
+   */
+  avatarsClassName?: string;
+  /**
+   * Additional CSS classes for the testimonials list
+   */
+  testimonialsClassName?: string;
+  /**
+   * Additional CSS classes for each testimonial item
+   */
+  testimonialItemClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author info
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: CenteredTestimonial[] = [
+const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
-    id: "1",
     quote:
       "The platform has revolutionized how we handle our daily operations. It's intuitive, powerful, and the support team is always there when we need them.",
-    author: {
-      name: "Sarah Chen",
-      role: "Product Manager",
-      company: "TechCorp",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    role: "Product Manager",
+    company: "TechCorp",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
   },
   {
-    id: "2",
     quote:
       "We've seen a 40% increase in productivity since implementing this solution. It's become an essential part of our workflow.",
-    author: {
-      name: "Michael Torres",
-      role: "Operations Director",
-      company: "GrowthCo",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Michael Torres",
+    role: "Operations Director",
+    company: "GrowthCo",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "3",
     quote:
       "The best investment we've made this year. The ROI was visible within the first month of implementation.",
-    author: {
-      name: "Emily Watson",
-      role: "CEO",
-      company: "StartupXYZ",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily Watson",
+    role: "CEO",
+    company: "StartupXYZ",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
 ];
 
@@ -71,77 +122,152 @@ const DEFAULT_TESTIMONIALS: CenteredTestimonial[] = [
  * ```tsx
  * <TestimonialsCenteredAvatars
  *   badge="Testimonials"
- *   title="Trusted by Industry Leaders"
+ *   heading="Trusted by Industry Leaders"
  *   testimonials={[
  *     {
- *       id: "1",
  *       quote: "This platform changed everything...",
- *       author: { name: "Jane D.", role: "CEO", company: "TechCo", avatar: "/avatars/jane.jpg" }
+ *       author: "Jane D.",
+ *       role: "CEO",
+ *       company: "TechCo",
+ *       avatarSrc: "/avatars/jane.jpg"
  *     }
  *   ]}
+ *   background="gray"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsCenteredAvatars({
   testimonials = DEFAULT_TESTIMONIALS,
+  testimonialsSlot,
   badge = "Testimonials",
-  title = "Trusted by Industry Leaders",
+  heading = "Trusted by Industry Leaders",
   className,
+  contentClassName,
+  badgeClassName,
+  headingClassName,
+  avatarsClassName,
+  testimonialsClassName,
+  testimonialItemClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsCenteredAvatarsProps): React.JSX.Element {
+  const getAuthorName = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
+
+  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("mt-12 space-y-8", testimonialsClassName)}>
+        {testimonials.map((testimonial, index) => (
+          <div key={index} className={cn("space-y-4", testimonialItemClassName)}>
+            {testimonial.quote && (
+              typeof testimonial.quote === "string" ? (
+                <blockquote className={cn("text-lg leading-relaxed text-muted-foreground md:text-xl", quoteClassName)}>
+                  &ldquo;{testimonial.quote}&rdquo;
+                </blockquote>
+              ) : (
+                <div className={quoteClassName}>{testimonial.quote}</div>
+              )
+            )}
+            <div className={authorClassName}>
+              {testimonial.author && (
+                typeof testimonial.author === "string" ? (
+                  <p className="font-semibold">{testimonial.author}</p>
+                ) : (
+                  testimonial.author
+                )
+              )}
+              {(testimonial.role || testimonial.company) && (
+                <p className="text-sm text-muted-foreground">
+                  {testimonial.role && (
+                    typeof testimonial.role === "string" ? testimonial.role : testimonial.role
+                  )}
+                  {testimonial.company && (
+                    typeof testimonial.company === "string"
+                      ? ` at ${testimonial.company}`
+                      : testimonial.company
+                  )}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-3xl text-center">
-          {badge && (
-            <Badge variant="secondary" className="mb-4">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
+        {badge && (
+          typeof badge === "string" ? (
+            <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
               {badge}
             </Badge>
-          )}
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
+          ) : (
+            <div className={cn("mb-4", badgeClassName)}>{badge}</div>
+          )
+        )}
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
 
-          <div className="mt-8 flex justify-center">
-            <div className="flex -space-x-4">
-              {testimonials.map((testimonial) => (
+        <div className={cn("mt-8 flex justify-center", avatarsClassName)}>
+          <div className="flex -space-x-4">
+            {testimonials.map((testimonial, index) => {
+              const authorName = getAuthorName(testimonial);
+              const avatarSrc = getAvatarSrc(testimonial);
+              return (
                 <Avatar
-                  key={testimonial.id}
+                  key={index}
                   className="size-16 border-4 border-background ring-2 ring-border md:size-20"
                 >
                   <AvatarImage
-                    src={testimonial.author.avatar}
-                    alt={testimonial.author.name}
+                    src={avatarSrc}
+                    alt={authorName}
                   />
                   <AvatarFallback className="text-lg">
-                    {testimonial.author.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
+                    {getInitials(authorName)}
                   </AvatarFallback>
                 </Avatar>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-12 space-y-8">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="space-y-4">
-                <blockquote className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </blockquote>
-                <div>
-                  <p className="font-semibold">{testimonial.author.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {testimonial.author.role}
-                    {testimonial.author.company &&
-                      ` at ${testimonial.author.company}`}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
+
+        {renderTestimonials()}
       </div>
-    </section>
+    </Section>
   );
 }

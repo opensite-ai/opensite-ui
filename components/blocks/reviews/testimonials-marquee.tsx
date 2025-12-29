@@ -4,87 +4,132 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-export interface MarqueeTestimonial {
-  id: string;
-  content: string;
-  author: {
-    name: string;
-    role?: string;
-    avatar?: string;
-  };
-}
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
 export interface TestimonialsMarqueeProps {
-  testimonials?: MarqueeTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: TestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Scroll speed
+   */
   speed?: "slow" | "normal" | "fast";
+  /**
+   * Whether to pause on hover
+   */
   pauseOnHover?: boolean;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the marquee container
+   */
+  marqueeClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: MarqueeTestimonial[] = [
+const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
-    id: "1",
-    content:
+    quote:
       "This platform has completely transformed how we work. The efficiency gains have been remarkable.",
-    author: {
-      name: "Sarah Chen",
-      role: "Product Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    role: "Product Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
   },
   {
-    id: "2",
-    content:
+    quote:
       "The best investment we've made this year. Our team loves it and productivity is through the roof.",
-    author: {
-      name: "Michael Torres",
-      role: "CEO",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Michael Torres",
+    role: "CEO",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "3",
-    content:
+    quote:
       "Incredible support team and an even better product. Highly recommend to anyone looking to scale.",
-    author: {
-      name: "Emily Watson",
-      role: "Operations Lead",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily Watson",
+    role: "Operations Lead",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
   {
-    id: "4",
-    content:
+    quote:
       "Simple, elegant, and powerful. Everything we needed in one package. A game-changer for our workflow.",
-    author: {
-      name: "David Kim",
-      role: "CTO",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    author: "David Kim",
+    role: "CTO",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
   },
   {
-    id: "5",
-    content:
+    quote:
       "We've tried many solutions, but this one stands out for its reliability and ease of use.",
-    author: {
-      name: "Lisa Park",
-      role: "Engineering Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    author: "Lisa Park",
+    role: "Engineering Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
   },
   {
-    id: "6",
-    content:
+    quote:
       "The attention to detail is impressive. Every feature feels thoughtfully designed.",
-    author: {
-      name: "Alex Rivera",
-      role: "Design Director",
-      avatar: blockBrandedIconsAndPlaceholders.avatar6,
-    },
+    author: "Alex Rivera",
+    role: "Design Director",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
   },
 ];
 
@@ -104,36 +149,66 @@ const speedMap = {
  * @example
  * ```tsx
  * <TestimonialsMarquee
- *   title="What Our Customers Say"
- *   subtitle="Join thousands of satisfied users"
- *   testimonials={[...]}
+ *   heading="What Our Customers Say"
+ *   description="Join thousands of satisfied users"
+ *   testimonials={[
+ *     {
+ *       quote: "Amazing product!",
+ *       author: "John D.",
+ *       role: "CEO",
+ *       avatarSrc: "/avatars/john.jpg"
+ *     }
+ *   ]}
  *   speed="normal"
  *   pauseOnHover={true}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsMarquee({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "What Our Customers Say",
-  subtitle = "Join thousands of satisfied users",
+  testimonialsSlot,
+  heading = "What Our Customers Say",
+  description = "Join thousands of satisfied users",
   speed = "normal",
   pauseOnHover = true,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  marqueeClassName,
+  cardClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsMarqueeProps): React.JSX.Element {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
-  return (
-    <section className={cn("py-16 md:py-24 overflow-hidden", className)}>
-      <div className="container mb-12">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
-      </div>
+  const getAuthorName = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-      <div className="relative">
+  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("relative", marqueeClassName)}>
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent" />
 
@@ -149,45 +224,97 @@ export function TestimonialsMarquee({
               animationDuration: speedMap[speed],
             }}
           >
-            {duplicatedTestimonials.map((testimonial, index) => (
-              <Card
-                key={`${testimonial.id}-${index}`}
-                className="w-80 shrink-0"
-              >
-                <CardContent className="p-6">
-                  <p className="mb-4 text-sm leading-relaxed">
-                    &ldquo;{testimonial.content}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <Avatar className="size-9">
-                      <AvatarImage
-                        src={testimonial.author.avatar}
-                        alt={testimonial.author.name}
-                      />
-                      <AvatarFallback className="text-xs">
-                        {testimonial.author.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="text-sm font-medium">
-                        {testimonial.author.name}
-                      </p>
-                      {testimonial.author.role && (
-                        <p className="text-xs text-muted-foreground">
-                          {testimonial.author.role}
+            {duplicatedTestimonials.map((testimonial, index) => {
+              const authorName = getAuthorName(testimonial);
+              const avatarSrc = getAvatarSrc(testimonial);
+              return (
+                <Card
+                  key={index}
+                  className={cn("w-80 shrink-0", cardClassName)}
+                >
+                  <CardContent className="p-6">
+                    {testimonial.quote && (
+                      typeof testimonial.quote === "string" ? (
+                        <p className={cn("mb-4 text-sm leading-relaxed", quoteClassName)}>
+                          &ldquo;{testimonial.quote}&rdquo;
                         </p>
-                      )}
+                      ) : (
+                        <div className={cn("mb-4", quoteClassName)}>{testimonial.quote}</div>
+                      )
+                    )}
+                    <div className={cn("flex items-center gap-3", authorClassName)}>
+                      <Avatar className="size-9">
+                        <AvatarImage
+                          src={avatarSrc}
+                          alt={authorName}
+                        />
+                        <AvatarFallback className="text-xs">
+                          {getInitials(authorName)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        {testimonial.author && (
+                          typeof testimonial.author === "string" ? (
+                            <p className="text-sm font-medium">
+                              {testimonial.author}
+                            </p>
+                          ) : (
+                            testimonial.author
+                          )
+                        )}
+                        {testimonial.role && (
+                          typeof testimonial.role === "string" ? (
+                            <p className="text-xs text-muted-foreground">
+                              {testimonial.role}
+                            </p>
+                          ) : (
+                            testimonial.role
+                          )
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("overflow-hidden", className)}
+    >
+      <div className={cn("mb-12", headerClassName)}>
+        <div className="mx-auto max-w-2xl text-center">
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+      </div>
+
+      {renderTestimonials()}
 
       <style>{`
         @keyframes marquee {
@@ -205,6 +332,6 @@ export function TestimonialsMarquee({
           animation-play-state: paused;
         }
       `}</style>
-    </section>
+    </Section>
   );
 }

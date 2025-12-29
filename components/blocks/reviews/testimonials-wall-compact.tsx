@@ -4,135 +4,169 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
-export interface WallTestimonial {
-  id: string;
-  content: string;
-  author: {
-    name: string;
-    handle?: string;
-    avatar?: string;
-  };
-  badge?: string;
+/**
+ * Extended testimonial item with handle and badge for wall display
+ */
+export interface WallTestimonialItem extends TestimonialItem {
+  /**
+   * Social media handle (e.g., "@username")
+   */
+  handle?: string;
+  /**
+   * Badge text to display (e.g., "Featured", "Verified")
+   */
+  badge?: React.ReactNode;
 }
 
 export interface TestimonialsWallCompactProps {
-  testimonials?: WallTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: WallTestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: WallTestimonial[] = [
+const DEFAULT_TESTIMONIALS: WallTestimonialItem[] = [
   {
-    id: "1",
-    content: "Game-changer for our team. Productivity up 50%!",
-    author: {
-      name: "Sarah Chen",
-      handle: "@sarahchen",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    quote: "Game-changer for our team. Productivity up 50%!",
+    author: "Sarah Chen",
+    handle: "@sarahchen",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
     badge: "Featured",
   },
   {
-    id: "2",
-    content: "Best tool I've used in years. Highly recommend.",
-    author: {
-      name: "Michael Torres",
-      handle: "@mtorres",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    quote: "Best tool I've used in years. Highly recommend.",
+    author: "Michael Torres",
+    handle: "@mtorres",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "3",
-    content: "Support team is incredible. Always there when needed.",
-    author: {
-      name: "Emily Watson",
-      handle: "@emilyw",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    quote: "Support team is incredible. Always there when needed.",
+    author: "Emily Watson",
+    handle: "@emilyw",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
   {
-    id: "4",
-    content: "Clean UI, powerful features. Perfect combo.",
-    author: {
-      name: "David Kim",
-      handle: "@davidkim",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    quote: "Clean UI, powerful features. Perfect combo.",
+    author: "David Kim",
+    handle: "@davidkim",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
     badge: "Verified",
   },
   {
-    id: "5",
-    content: "Switched from competitors. Never looking back.",
-    author: {
-      name: "Lisa Park",
-      handle: "@lisapark",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    quote: "Switched from competitors. Never looking back.",
+    author: "Lisa Park",
+    handle: "@lisapark",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
   },
   {
-    id: "6",
-    content: "ROI was visible in the first week. Amazing!",
-    author: {
-      name: "Alex Rivera",
-      handle: "@alexr",
-      avatar: blockBrandedIconsAndPlaceholders.avatar6,
-    },
+    quote: "ROI was visible in the first week. Amazing!",
+    author: "Alex Rivera",
+    handle: "@alexr",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
   },
   {
-    id: "7",
-    content: "Documentation is top-notch. Easy to get started.",
-    author: {
-      name: "Jordan Lee",
-      handle: "@jordanlee",
-      avatar: blockBrandedIconsAndPlaceholders.avatar7,
-    },
+    quote: "Documentation is top-notch. Easy to get started.",
+    author: "Jordan Lee",
+    handle: "@jordanlee",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar7,
   },
   {
-    id: "8",
-    content: "Our whole team adopted it instantly. Love it!",
-    author: {
-      name: "Maya Patel",
-      handle: "@mayap",
-      avatar: blockBrandedIconsAndPlaceholders.avatar8,
-    },
+    quote: "Our whole team adopted it instantly. Love it!",
+    author: "Maya Patel",
+    handle: "@mayap",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar8,
     badge: "Power User",
   },
   {
-    id: "9",
-    content: "Finally, a tool that just works. No fuss.",
-    author: {
-      name: "Chris Wong",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    quote: "Finally, a tool that just works. No fuss.",
+    author: "Chris Wong",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
   },
   {
-    id: "10",
-    content: "Customer service responded in minutes. Impressed!",
-    author: {
-      name: "Emma Davis",
-      handle: "@emmad",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    quote: "Customer service responded in minutes. Impressed!",
+    author: "Emma Davis",
+    handle: "@emmad",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "11",
-    content: "Worth every penny. Quality is unmatched.",
-    author: {
-      name: "Ryan Miller",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    quote: "Worth every penny. Quality is unmatched.",
+    author: "Ryan Miller",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
   {
-    id: "12",
-    content: "Integrations work flawlessly. Saved us hours.",
-    author: {
-      name: "Sophie Brown",
-      handle: "@sophieb",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    quote: "Integrations work flawlessly. Saved us hours.",
+    author: "Sophie Brown",
+    handle: "@sophieb",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
   },
 ];
 
@@ -146,77 +180,151 @@ const DEFAULT_TESTIMONIALS: WallTestimonial[] = [
  * @example
  * ```tsx
  * <TestimonialsWallCompact
- *   title="Wall of Love"
- *   subtitle="What our community is saying"
+ *   heading="Wall of Love"
+ *   description="What our community is saying"
  *   testimonials={[
  *     {
- *       id: "1",
- *       content: "Amazing product!",
- *       author: { name: "John D.", handle: "@johnd", avatar: "/avatars/john.jpg" },
+ *       quote: "Amazing product!",
+ *       author: "John D.",
+ *       handle: "@johnd",
+ *       avatarSrc: "/avatars/john.jpg",
  *       badge: "Featured"
  *     }
  *   ]}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsWallCompact({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "Wall of Love",
-  subtitle = "What our community is saying",
+  testimonialsSlot,
+  heading = "Wall of Love",
+  description = "What our community is saying",
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  cardClassName,
+  authorClassName,
+  quoteClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsWallCompactProps): React.JSX.Element {
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: WallTestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {testimonials.map((testimonial) => (
+  const getAvatarSrc = (testimonial: WallTestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4", gridClassName)}>
+        {testimonials.map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          const avatarSrc = getAvatarSrc(testimonial);
+          return (
             <div
-              key={testimonial.id}
-              className="rounded-lg border bg-card p-4 transition-shadow hover:shadow-md"
+              key={index}
+              className={cn("rounded-lg border bg-card p-4 transition-shadow hover:shadow-md", cardClassName)}
             >
-              <div className="mb-3 flex items-start justify-between gap-2">
+              <div className={cn("mb-3 flex items-start justify-between gap-2", authorClassName)}>
                 <div className="flex items-center gap-2">
                   <Avatar className="size-8">
                     <AvatarImage
-                      src={testimonial.author.avatar}
-                      alt={testimonial.author.name}
+                      src={avatarSrc}
+                      alt={authorName}
                     />
                     <AvatarFallback className="text-xs">
-                      {testimonial.author.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
+                      {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium">
-                      {testimonial.author.name}
-                    </p>
-                    {testimonial.author.handle && (
+                    {testimonial.author && (
+                      typeof testimonial.author === "string" ? (
+                        <p className="truncate text-sm font-medium">
+                          {testimonial.author}
+                        </p>
+                      ) : (
+                        testimonial.author
+                      )
+                    )}
+                    {testimonial.handle && (
                       <p className="truncate text-xs text-muted-foreground">
-                        {testimonial.author.handle}
+                        {testimonial.handle}
                       </p>
                     )}
                   </div>
                 </div>
                 {testimonial.badge && (
-                  <Badge variant="secondary" className="shrink-0 text-xs">
-                    {testimonial.badge}
-                  </Badge>
+                  typeof testimonial.badge === "string" ? (
+                    <Badge variant="secondary" className="shrink-0 text-xs">
+                      {testimonial.badge}
+                    </Badge>
+                  ) : (
+                    testimonial.badge
+                  )
                 )}
               </div>
-              <p className="text-sm leading-relaxed">{testimonial.content}</p>
+              {testimonial.quote && (
+                typeof testimonial.quote === "string" ? (
+                  <p className={cn("text-sm leading-relaxed", quoteClassName)}>{testimonial.quote}</p>
+                ) : (
+                  <div className={quoteClassName}>{testimonial.quote}</div>
+                )
+              )}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderTestimonials()}
+    </Section>
   );
 }
