@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsMinimalNumbered } from "../components/blocks/reviews/testimonials-minimal-numbered";
-export type { TestimonialsMinimalNumberedProps, NumberedTestimonial } from "../components/blocks/reviews/testimonials-minimal-numbered";
+export type { TestimonialsMinimalNumberedProps } from "../components/blocks/reviews/testimonials-minimal-numbered";

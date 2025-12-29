@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsSliderMinimal } from "../components/blocks/reviews/testimonials-slider-minimal";
-export type { TestimonialsSliderMinimalProps, SliderTestimonial } from "../components/blocks/reviews/testimonials-slider-minimal";
+export type { TestimonialsSliderMinimalProps } from "../components/blocks/reviews/testimonials-slider-minimal";

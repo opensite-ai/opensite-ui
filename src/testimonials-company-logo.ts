@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsCompanyLogo } from "../components/blocks/reviews/testimonials-company-logo";
-export type { TestimonialsCompanyLogoProps, CompanyTestimonial } from "../components/blocks/reviews/testimonials-company-logo";
+export type { TestimonialsCompanyLogoProps } from "../components/blocks/reviews/testimonials-company-logo";

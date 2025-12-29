@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsStatsHeader } from "../components/blocks/reviews/testimonials-stats-header";
-export type { TestimonialsStatsHeaderProps, StatItem, StatsTestimonial } from "../components/blocks/reviews/testimonials-stats-header";
+export type { TestimonialsStatsHeaderProps, StatItem } from "../components/blocks/reviews/testimonials-stats-header";

@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsTwitterCards } from "../components/blocks/reviews/testimonials-twitter-cards";
-export type { TestimonialsTwitterCardsProps, TwitterTestimonial } from "../components/blocks/reviews/testimonials-twitter-cards";
+export type { TestimonialsTwitterCardsProps, TwitterTestimonialItem } from "../components/blocks/reviews/testimonials-twitter-cards";

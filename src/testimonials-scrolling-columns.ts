@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsScrollingColumns } from "../components/blocks/reviews/testimonials-scrolling-columns";
-export type { TestimonialsScrollingColumnsProps, ScrollingColumnTestimonial } from "../components/blocks/reviews/testimonials-scrolling-columns";
+export type { TestimonialsScrollingColumnsProps, ScrollingColumnTestimonialItem } from "../components/blocks/reviews/testimonials-scrolling-columns";

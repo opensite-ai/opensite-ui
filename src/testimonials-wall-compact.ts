@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsWallCompact } from "../components/blocks/reviews/testimonials-wall-compact";
-export type { TestimonialsWallCompactProps, WallTestimonial } from "../components/blocks/reviews/testimonials-wall-compact";
+export type { TestimonialsWallCompactProps, WallTestimonialItem } from "../components/blocks/reviews/testimonials-wall-compact";

@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsSimpleGrid } from "../components/blocks/reviews/testimonials-simple-grid";
-export type { TestimonialsSimpleGridProps, SimpleTestimonial } from "../components/blocks/reviews/testimonials-simple-grid";
+export type { TestimonialsSimpleGridProps } from "../components/blocks/reviews/testimonials-simple-grid";

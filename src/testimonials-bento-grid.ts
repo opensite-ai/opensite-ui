@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsBentoGrid } from "../components/blocks/reviews/testimonials-bento-grid";
-export type { TestimonialsBentoGridProps, TestimonialItem } from "../components/blocks/reviews/testimonials-bento-grid";
+export type { TestimonialsBentoGridProps, BentoTestimonialItem } from "../components/blocks/reviews/testimonials-bento-grid";

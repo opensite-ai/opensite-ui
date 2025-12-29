@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsLargeQuote } from "../components/blocks/reviews/testimonials-large-quote";
-export type { TestimonialsLargeQuoteProps, LargeQuoteTestimonial } from "../components/blocks/reviews/testimonials-large-quote";
+export type { TestimonialsLargeQuoteProps } from "../components/blocks/reviews/testimonials-large-quote";
