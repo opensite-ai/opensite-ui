@@ -295,9 +295,9 @@ export const NavbarSidebarMobile = ({
           <div className="flex items-center gap-8">
             {renderLogo()}
 
-            <NavigationMenu className="hidden lg:flex">
+            <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
               <NavigationMenuList>
-                {menu.map((item, index) =>
+                {renderMenu()?.map((item, index) =>
                   item.items ? (
                     <NavigationMenuItem key={index}>
                       <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
@@ -345,13 +345,8 @@ export const NavbarSidebarMobile = ({
             </NavigationMenu>
           </div>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            <Pressable variant="ghost" asButton href="#">
-              Log in
-            </Pressable>
-            <Pressable asButton href="#">
-              Sign up
-            </Pressable>
+          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+            {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -365,20 +360,12 @@ export const NavbarSidebarMobile = ({
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b pb-4">
-                  <Pressable href={logo.url} className="flex items-center gap-2">
-                    <Img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className="h-6"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                    <span className="font-semibold">{logo.title}</span>
-                  </Pressable>
+                  {renderLogo()}
                 </div>
 
                 <div className="flex-1 overflow-y-auto py-4">
                   <Accordion type="single" collapsible className="w-full">
-                    {menu.map((item, index) =>
+                    {renderMenu()?.map((item, index) =>
                       item.items ? (
                         <AccordionItem key={index} value={`item-${index}`}>
                           <AccordionTrigger className="text-base hover:no-underline">
@@ -419,15 +406,10 @@ export const NavbarSidebarMobile = ({
 
                 <div className="border-t pt-4">
                   <div className="flex flex-col gap-2">
-                    <Pressable variant="outline" asButton href="#" className="w-full">
-                      Log in
-                    </Pressable>
-                    <Pressable asButton href="#" className="w-full">
-                      Sign up
-                    </Pressable>
+                    {renderAuthActions()}
                   </div>
                   <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-                    {mobileExtraLinks.map((link, index) => (
+                    {renderMobileExtraLinks()?.map((link, index) => (
                       <Pressable
                         key={index}
                         href={link.url}
@@ -444,7 +426,7 @@ export const NavbarSidebarMobile = ({
           </Sheet>
         </nav>
       </div>
-    </section>
+    </Section>
   );
 };
 
