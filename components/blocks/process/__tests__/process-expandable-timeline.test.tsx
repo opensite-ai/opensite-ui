@@ -137,7 +137,7 @@ describe("ProcessExpandableTimeline", () => {
 
   it("renders container with proper structure", () => {
     const { container } = render(<ProcessExpandableTimeline />);
-    const containerDiv = container.querySelector(".container");
+    const containerDiv = container.querySelector(".max-w-7xl");
     expect(containerDiv).toBeInTheDocument();
   });
 

@@ -69,8 +69,8 @@ describe("TestimonialsTwitterCards", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    const { container } = render(<TestimonialsTwitterCards title="Custom Title" />);
-    expect(container.textContent).toContain("Custom Title");
+  it("renders custom heading", () => {
+    const { container } = render(<TestimonialsTwitterCards heading="Custom Heading" />);
+    expect(container.textContent).toContain("Custom Heading");
   });
 });

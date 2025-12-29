@@ -10,8 +10,7 @@ describe("ProjectDetailHeroMetadata", () => {
     client: "Jane Smith",
     heroImage: { src: "/hero.jpg", alt: "Hero image" },
     description: "A test project description",
-    ctaText: "View Project",
-    ctaHref: "/projects/test",
+    action: { label: "View Project", href: "/projects/test" },
   };
 
   it("renders title correctly", () => {
@@ -42,7 +41,7 @@ describe("ProjectDetailHeroMetadata", () => {
   });
 
   it("renders without CTA when not provided", () => {
-    const props = { ...defaultProps, ctaText: undefined, ctaHref: undefined };
+    const props = { ...defaultProps, action: undefined };
     const { container } = render(<ProjectDetailHeroMetadata {...props} />);
     expect(container.firstChild).toBeInTheDocument();
   });

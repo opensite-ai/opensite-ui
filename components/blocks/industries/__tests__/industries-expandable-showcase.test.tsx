@@ -93,19 +93,19 @@ describe("IndustriesExpandableShowcase", () => {
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 
-  it("renders section with py-16 spacing", () => {
+  it("renders section with lg spacing", () => {
     const { container } = render(
       <IndustriesExpandableShowcase contractors={mockContractors} />
     );
     const section = container.querySelector("section");
-    expect(section?.className).toContain("py-16");
+    expect(section?.className).toContain("py-20");
   });
 
-  it("renders container class", () => {
+  it("renders container with max-w-7xl", () => {
     const { container } = render(
       <IndustriesExpandableShowcase contractors={mockContractors} />
     );
-    const containerDiv = container.querySelector(".container");
+    const containerDiv = container.querySelector(".max-w-7xl");
     expect(containerDiv).toBeInTheDocument();
   });
 

@@ -41,10 +41,10 @@ describe("ComparisonMetricsRows", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders with custom title", () => {
-    render(<ComparisonMetricsRows title="Custom Title" />);
+  it("renders with custom heading", () => {
+    render(<ComparisonMetricsRows heading="Custom Heading" />);
 
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders option labels", () => {
@@ -101,9 +101,9 @@ describe("ComparisonMetricsRows", () => {
     expect(screen.getByText("Footnote 2")).toBeInTheDocument();
   });
 
-  it("renders CTA button", () => {
+  it("renders actions", () => {
     render(
-      <ComparisonMetricsRows ctaText="Learn More" ctaHref="/learn" />
+      <ComparisonMetricsRows actions={[{ label: "Learn More", href: "/learn" }]} />
     );
 
     expect(screen.getByText("Learn More")).toBeInTheDocument();

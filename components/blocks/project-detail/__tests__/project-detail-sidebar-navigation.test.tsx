@@ -54,8 +54,8 @@ describe("ProjectDetailSidebarNavigation", () => {
     expect(container.firstChild).toHaveClass("custom-class");
   });
 
-  it("renders back button when backHref is provided", () => {
-    render(<ProjectDetailSidebarNavigation {...defaultProps} backHref="/projects" backLabel="Back" />);
+  it("renders back button when backAction is provided", () => {
+    render(<ProjectDetailSidebarNavigation {...defaultProps} backAction={{ label: "Back", href: "/projects" }} />);
     const backLink = screen.getByRole("link", { name: /back/i });
     expect(backLink).toHaveAttribute("href", "/projects");
   });

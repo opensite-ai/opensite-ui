@@ -49,7 +49,7 @@ describe("LogosInlineTagline", () => {
     const { container } = render(<LogosInlineTagline />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("container");
+    expect(section).toHaveClass("py-24");
   });
 
   it("handles empty partners array", () => {

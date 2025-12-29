@@ -37,9 +37,9 @@ describe("CarouselHorizontalCards", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    render(<CarouselHorizontalCards title="Custom Title" />);
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  it("renders custom heading", () => {
+    render(<CarouselHorizontalCards heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom subtitle", () => {
@@ -127,14 +127,14 @@ describe("CarouselHorizontalCards", () => {
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 
-  it("renders title as a link", () => {
+  it("renders heading as a link", () => {
     render(
       <CarouselHorizontalCards
-        title="Linked Title"
-        titleHref="/custom-link"
+        heading="Linked Heading"
+        headingHref="/custom-link"
       />
     );
-    const link = screen.getByText("Linked Title").closest("a");
+    const link = screen.getByText("Linked Heading").closest("a");
     expect(link).toHaveAttribute("href", "/custom-link");
   });
 

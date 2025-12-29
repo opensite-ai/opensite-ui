@@ -98,8 +98,9 @@ describe("ResourceDetailArticleHero", () => {
     const { container } = render(
       <ResourceDetailArticleHero className="custom-class" />
     );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
+    // className is applied to the outer div wrapper, not the section
+    const wrapper = container.firstChild as HTMLElement;
+    expect(wrapper).toHaveClass("custom-class");
   });
 
   it("renders hero section with dark background", () => {

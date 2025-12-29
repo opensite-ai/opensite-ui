@@ -73,8 +73,8 @@ describe("ProcessScrollImage", () => {
     expect(screen.getByText("Get in touch")).toBeInTheDocument();
   });
 
-  it("does not render CTA when ctaText is missing", () => {
-    render(<ProcessScrollImage ctaText="" ctaUrl="/contact" />);
+  it("does not render CTA when actions is empty", () => {
+    render(<ProcessScrollImage actions={[]} />);
     expect(screen.queryByText("Get in touch")).not.toBeInTheDocument();
   });
 
@@ -138,7 +138,7 @@ describe("ProcessScrollImage", () => {
 
   it("renders container with proper structure", () => {
     const { container } = render(<ProcessScrollImage />);
-    const containerDiv = container.querySelector(".container");
+    const containerDiv = container.querySelector(".max-w-7xl");
     expect(containerDiv).toBeInTheDocument();
   });
 

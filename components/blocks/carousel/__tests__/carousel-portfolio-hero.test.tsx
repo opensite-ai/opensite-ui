@@ -30,8 +30,8 @@ describe("CarouselPortfolioHero", () => {
     expect(screen.getByText("View Projects")).toBeInTheDocument();
   });
 
-  it("renders custom CTA text", () => {
-    render(<CarouselPortfolioHero ctaText="Explore Work" />);
+  it("renders custom actions", () => {
+    render(<CarouselPortfolioHero actions={[{ label: "Explore Work", href: "#" }]} />);
     expect(screen.getByText("Explore Work")).toBeInTheDocument();
   });
 
@@ -130,7 +130,7 @@ describe("CarouselPortfolioHero", () => {
 
   it("renders CTA as a link", () => {
     render(
-      <CarouselPortfolioHero ctaHref="/portfolio" ctaText="View Portfolio" />
+      <CarouselPortfolioHero actions={[{ label: "View Portfolio", href: "/portfolio" }]} />
     );
     const cta = screen.getByText("View Portfolio");
     expect(cta.closest("a")).toHaveAttribute("href", "/portfolio");

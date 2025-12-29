@@ -41,14 +41,14 @@ describe("ServicesListMutedCards", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title and description", () => {
+  it("renders custom heading and description", () => {
     const { getByText } = render(
       <ServicesListMutedCards
-        title="Custom Title"
+        heading="Custom Heading"
         description="Custom Description"
       />
     );
-    expect(getByText("Custom Title")).toBeInTheDocument();
+    expect(getByText("Custom Heading")).toBeInTheDocument();
     expect(getByText("Custom Description")).toBeInTheDocument();
   });
 });

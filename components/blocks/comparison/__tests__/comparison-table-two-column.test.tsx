@@ -35,10 +35,10 @@ describe("ComparisonTableTwoColumn", () => {
     expect(screen.getByText("Compare us with others.")).toBeInTheDocument();
   });
 
-  it("renders with custom title", () => {
-    render(<ComparisonTableTwoColumn title="Custom Title" />);
+  it("renders with custom heading", () => {
+    render(<ComparisonTableTwoColumn heading="Custom Heading" />);
 
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders default rows", () => {

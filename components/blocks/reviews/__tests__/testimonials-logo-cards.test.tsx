@@ -68,8 +68,8 @@ describe("TestimonialsLogoCards", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    const { container } = render(<TestimonialsLogoCards title="Custom Title" />);
-    expect(container.textContent).toContain("Custom Title");
+  it("renders custom heading", () => {
+    const { container } = render(<TestimonialsLogoCards heading="Custom Heading" />);
+    expect(container.textContent).toContain("Custom Heading");
   });
 });

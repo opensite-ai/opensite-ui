@@ -54,8 +54,8 @@ describe("TestimonialsMiniDividers", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    const { container } = render(<TestimonialsMiniDividers title="Custom Title" />);
-    expect(container.textContent).toContain("Custom Title");
+  it("renders custom heading", () => {
+    const { container } = render(<TestimonialsMiniDividers heading="Custom Heading" />);
+    expect(container.textContent).toContain("Custom Heading");
   });
 });

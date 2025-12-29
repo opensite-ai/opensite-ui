@@ -56,7 +56,7 @@ describe("LogosCenteredSimple", () => {
     const { container } = render(<LogosCenteredSimple />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
+    expect(section).toHaveClass("py-24");
   });
 
   it("handles empty logos array", () => {

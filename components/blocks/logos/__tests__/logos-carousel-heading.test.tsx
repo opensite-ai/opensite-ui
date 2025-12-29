@@ -59,7 +59,7 @@ describe("LogosCarouselHeading", () => {
     const { container } = render(<LogosCarouselHeading />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-64");
+    expect(section).toHaveClass("py-24");
   });
 
   it("renders carousel component", () => {

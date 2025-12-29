@@ -51,8 +51,8 @@ describe("TestimonialsCenteredAvatars", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    const { container } = render(<TestimonialsCenteredAvatars title="Custom Title" />);
-    expect(container.textContent).toContain("Custom Title");
+  it("renders custom heading", () => {
+    const { container } = render(<TestimonialsCenteredAvatars heading="Custom Heading" />);
+    expect(container.textContent).toContain("Custom Heading");
   });
 });

@@ -24,22 +24,22 @@ describe("ComparisonLegacyModern", () => {
     expect(screen.getByText("Moving to Modern Tools")).toBeInTheDocument();
   });
 
-  it("renders with custom title and titleHighlight", () => {
+  it("renders with custom heading and headingHighlight", () => {
     render(
       <ComparisonLegacyModern
-        title="Custom Title"
-        titleHighlight="highlighted text"
+        heading="Custom Heading"
+        headingHighlight="highlighted text"
       />
     );
 
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("highlighted text")).toBeInTheDocument();
   });
 
-  it("renders subtitle", () => {
-    render(<ComparisonLegacyModern subtitle="Custom subtitle" />);
+  it("renders description", () => {
+    render(<ComparisonLegacyModern description="Custom description" />);
 
-    expect(screen.getByText("Custom subtitle")).toBeInTheDocument();
+    expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
   it("renders legacy section", () => {

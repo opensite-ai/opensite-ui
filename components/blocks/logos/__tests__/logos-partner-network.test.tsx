@@ -81,7 +81,7 @@ describe("LogosPartnerNetwork", () => {
     const { container } = render(<LogosPartnerNetwork />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
+    expect(section).toHaveClass("py-24");
   });
 
   it("renders badge component", () => {

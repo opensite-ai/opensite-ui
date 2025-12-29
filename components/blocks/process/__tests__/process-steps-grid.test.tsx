@@ -97,8 +97,9 @@ describe("ProcessStepsGrid", () => {
   it("renders with empty steps array", () => {
     const { container } = render(<ProcessStepsGrid steps={[]} />);
     expect(container.firstChild).toBeInTheDocument();
+    // When steps is empty, the grid is not rendered
     const grid = container.querySelector(".grid");
-    expect(grid?.children.length).toBe(0);
+    expect(grid).toBeNull();
   });
 
   it("renders steps without icons", () => {
@@ -123,7 +124,7 @@ describe("ProcessStepsGrid", () => {
 
   it("renders container with proper structure", () => {
     const { container } = render(<ProcessStepsGrid />);
-    const containerDiv = container.querySelector(".container");
+    const containerDiv = container.querySelector(".max-w-7xl");
     expect(containerDiv).toBeInTheDocument();
   });
 

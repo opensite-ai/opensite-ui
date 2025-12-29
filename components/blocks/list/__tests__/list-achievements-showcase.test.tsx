@@ -10,14 +10,14 @@ describe("ListAchievementsShowcase", () => {
       title: "Industry Recognition",
       category: "Achievement",
       description: "Outstanding Performance Award.",
-      link: "/achievements/recognition",
+      action: { href: "/achievements/recognition", label: "View project" },
     },
     {
       icon: "lucide/award",
       title: "Excellence Award",
       category: "Recognition",
       description: "Best in Category Winner.",
-      link: "/achievements/excellence",
+      action: { href: "/achievements/excellence", label: "View project" },
     },
   ];
 
@@ -48,8 +48,9 @@ describe("ListAchievementsShowcase", () => {
   });
 
   it("renders action buttons with correct text", () => {
-    render(<ListAchievementsShowcase items={mockItems} buttonText="Learn more" />);
-    const buttons = screen.getAllByText("Learn more");
+    // Items have their own actions, so they use those labels
+    render(<ListAchievementsShowcase items={mockItems} />);
+    const buttons = screen.getAllByText("View project");
     expect(buttons.length).toBe(2);
   });
 
@@ -97,7 +98,7 @@ describe("ListAchievementsShowcase", () => {
         title: "Test Achievement",
         category: "Test",
         description: "Test description",
-        link: "#",
+        action: { href: "#", label: "View project" },
       },
     ];
     render(<ListAchievementsShowcase items={itemsWithoutIcons} />);

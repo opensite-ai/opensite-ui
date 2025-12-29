@@ -50,8 +50,8 @@ describe("CarouselMultiStepShowcase", () => {
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
   });
 
-  it("renders custom CTA text", () => {
-    render(<CarouselMultiStepShowcase ctaText="Start Now" />);
+  it("renders custom actions", () => {
+    render(<CarouselMultiStepShowcase actions={[{ label: "Start Now", href: "#" }]} />);
     // CTA only shows on last step, so we need to navigate there
     expect(screen.getByText("Next")).toBeInTheDocument();
   });
@@ -162,8 +162,7 @@ describe("CarouselMultiStepShowcase", () => {
     render(
       <CarouselMultiStepShowcase
         steps={steps}
-        ctaHref="/start"
-        ctaText="Begin"
+        actions={[{ label: "Begin", href: "/start" }]}
       />
     );
     const cta = screen.getByText("Begin");

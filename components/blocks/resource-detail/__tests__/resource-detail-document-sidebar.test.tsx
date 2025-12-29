@@ -141,7 +141,7 @@ describe("ResourceDetailDocumentSidebar", () => {
     const { container } = render(<ResourceDetailDocumentSidebar />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
+    expect(section).toHaveClass("py-24");
   });
 
   it("renders breadcrumb navigation", () => {
