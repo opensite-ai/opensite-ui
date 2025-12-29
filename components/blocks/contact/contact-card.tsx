@@ -14,6 +14,7 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import type { ActionConfig } from "../../../src/types";
 
 interface ContactCardFormValues {
   firstName: string;
@@ -40,29 +41,81 @@ export interface ContactOption {
 
 export interface ContactCardProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Description text below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Form card heading
    */
-  formHeading?: string;
+  formHeading?: React.ReactNode;
   /**
    * Submit button text
    */
   buttonText?: string;
   /**
+   * Submit button icon (displayed before text)
+   */
+  buttonIcon?: React.ReactNode;
+  /**
+   * Array of action configurations for additional buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array and default submit)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
    * Contact options to display
    */
   contactOptions?: ContactOption[];
   /**
+   * Custom slot for rendering contact options (overrides contactOptions array)
+   */
+  contactOptionsSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the form heading
+   */
+  formHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the submit button
+   */
+  submitClassName?: string;
+  /**
+   * Additional CSS classes for the info panel
+   */
+  infoPanelClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the contact options container
+   */
+  contactOptionsClassName?: string;
   /**
    * Optional form submission configuration.
    *
@@ -145,8 +198,21 @@ export function ContactCard({
   description = "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
   formHeading = "Contact us",
   buttonText = "Send Message",
+  buttonIcon,
+  actions,
+  actionsSlot,
   contactOptions = defaultContactOptions,
+  contactOptionsSlot,
   className,
+  containerClassName,
+  cardClassName,
+  formHeadingClassName,
+  formClassName,
+  submitClassName,
+  infoPanelClassName,
+  headingClassName,
+  descriptionClassName,
+  contactOptionsClassName,
   formConfig,
   onSubmit,
   onSuccess,
@@ -213,19 +279,72 @@ export function ContactCard({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (actions && actions.length > 0) {
+      return actions.map((action, index) => {
+        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        return (
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      });
+    }
+    return null;
+  };
+
+  const renderContactOptions = () => {
+    if (contactOptionsSlot) return contactOptionsSlot;
+    if (contactOptions && contactOptions.length > 0) {
+      return contactOptions.map((option, key) => (
+        <div key={key} className="flex items-center gap-4">
+          <DynamicIcon
+            name={option.icon}
+            size={20}
+            className="text-muted-foreground"
+          />
+          {option.href ? (
+            <Pressable href={option.href}>{option.info}</Pressable>
+          ) : (
+            <span>{option.info}</span>
+          )}
+        </div>
+      ));
+    }
+    return null;
+  };
+
   return (
     <section className={cn("py-12", className)}>
-      <div className="mx-auto w-full max-w-4xl px-4">
+      <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
         <div className="grid items-start gap-10 lg:grid-cols-2">
-          <Card className="p-6 lg:p-8">
-            <h3 className="mb-6 text-2xl font-semibold tracking-tight">
-              {formHeading}
-            </h3>
+          <Card className={cn("p-6 lg:p-8", cardClassName)}>
+            {formHeading && (
+              typeof formHeading === "string" ? (
+                <h3 className={cn("mb-6 text-2xl font-semibold tracking-tight", formHeadingClassName)}>
+                  {formHeading}
+                </h3>
+              ) : (
+                <div className={formHeadingClassName}>{formHeading}</div>
+              )
+            )}
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
-              className="space-y-6"
+              className={cn("space-y-6", formClassName)}
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field name="firstName">
@@ -309,36 +428,44 @@ export function ContactCard({
                   </div>
                 )}
               </Field>
-              <Pressable
-                componentType="button"
-                type="submit"
-                className="w-full"
-                asButton
-                disabled={form.isSubmitting}
-              >
-                {buttonText}
-              </Pressable>
+              {actionsSlot || (actions && actions.length > 0) ? (
+                renderActions()
+              ) : (
+                <Pressable
+                  componentType="button"
+                  type="submit"
+                  className={cn("w-full", submitClassName)}
+                  asButton
+                  disabled={form.isSubmitting}
+                >
+                  {buttonIcon}
+                  {buttonText}
+                </Pressable>
+              )}
             </Form>
           </Card>
 
-          <div className="lg:pt-8">
-            <h2 className="mb-3 text-3xl font-bold tracking-tight">{heading}</h2>
-            <p className="leading-relaxed text-muted-foreground">{description}</p>
-            <div className="mt-10 space-y-4">
-              {contactOptions.map((option, key) => (
-                <div key={key} className="flex items-center gap-4">
-                  <DynamicIcon
-                    name={option.icon}
-                    size={20}
-                    className="text-muted-foreground"
-                  />
-                  {option.href ? (
-                    <Pressable href={option.href}>{option.info}</Pressable>
-                  ) : (
-                    <span>{option.info}</span>
-                  )}
-                </div>
-              ))}
+          <div className={cn("lg:pt-8", infoPanelClassName)}>
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+            <div className={cn("mt-10 space-y-4", contactOptionsClassName)}>
+              {renderContactOptions()}
             </div>
           </div>
         </div>
