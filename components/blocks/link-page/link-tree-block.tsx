@@ -593,6 +593,7 @@ export function LinkTreeBlock({
             iconName,
             children,
             className: linkItemClassName,
+            featured: _featured, // Destructure to prevent passing to DOM
             ...pressableProps
           } = link;
           const iconElement =
