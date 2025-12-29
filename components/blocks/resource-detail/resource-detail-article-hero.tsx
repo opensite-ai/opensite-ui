@@ -6,39 +6,199 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  AuthorInfo,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+
+export interface ResourceDetailArticleHeroNavigation {
+  /**
+   * Back link text
+   */
+  backText?: React.ReactNode;
+  /**
+   * Back link URL
+   */
+  backHref?: string;
+  /**
+   * Custom back icon (defaults to arrow-left)
+   */
+  backIcon?: React.ReactNode;
+}
+
+export interface ResourceDetailArticleHeroBlog {
+  /**
+   * Article title
+   */
+  title?: React.ReactNode;
+  /**
+   * Author name
+   */
+  author?: React.ReactNode;
+  /**
+   * Author role/title
+   */
+  role?: React.ReactNode;
+  /**
+   * Publication date
+   */
+  date?: React.ReactNode;
+  /**
+   * Read time estimate
+   */
+  readTime?: React.ReactNode;
+  /**
+   * Author avatar image URL
+   */
+  imageSrc?: string;
+  /**
+   * Article content (prose)
+   */
+  content?: React.ReactNode;
+}
+
+export interface ResourceDetailArticleHeroIllustration {
+  /**
+   * Featured image URL
+   */
+  imageSrc?: string;
+  /**
+   * Featured image alt text
+   */
+  imageAlt?: string;
+}
 
 export interface ResourceDetailArticleHeroProps {
-  navigation?: {
-    backText?: string;
-    backHref?: string;
-  };
-  blog?: {
-    title?: string;
-    author?: string;
-    role?: string;
-    date?: string;
-    readTime?: string;
-    imageSrc?: string;
-    content?: React.ReactNode;
-  };
-  social?: {
-    heading?: string;
-    links?: Array<{
-      icon: "link" | "linkedin" | "twitter" | "facebook";
-      href: string;
-      label: string;
-    }>;
-  };
-  illustration?: {
-    imageSrc?: string;
-    imageAlt?: string;
-  };
+  /**
+   * Navigation configuration
+   */
+  navigation?: ResourceDetailArticleHeroNavigation;
+  /**
+   * Custom slot for navigation (overrides navigation config)
+   */
+  navigationSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the navigation
+   */
+  navigationClassName?: string;
+  /**
+   * Blog/article configuration
+   */
+  blog?: ResourceDetailArticleHeroBlog;
+  /**
+   * Custom slot for blog meta (overrides blog title/author/date)
+   */
+  blogMetaSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the blog meta section
+   */
+  blogMetaClassName?: string;
+  /**
+   * Additional CSS classes for the article title
+   */
+  titleClassName?: string;
+  /**
+   * Share actions configuration
+   */
+  shareActions?: ActionConfig[];
+  /**
+   * Custom slot for share actions (overrides shareActions array)
+   */
+  shareActionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the share actions container
+   */
+  shareActionsClassName?: string;
+  /**
+   * Share section heading
+   */
+  shareHeading?: React.ReactNode;
+  /**
+   * Illustration/featured image configuration
+   */
+  illustration?: ResourceDetailArticleHeroIllustration;
+  /**
+   * Custom slot for illustration (overrides illustration config)
+   */
+  illustrationSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the illustration
+   */
+  illustrationClassName?: string;
+  /**
+   * Author info for the bottom bio section
+   */
+  author?: AuthorInfo;
+  /**
+   * Custom slot for author bio (overrides author config)
+   */
+  authorSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the author bio section
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the prose content
+   */
+  contentClassName?: string;
+  /**
+   * Custom slot for article content (overrides blog.content)
+   */
+  contentSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the outer wrapper
+   */
   className?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Hero section background style
+   */
+  heroBackground?: SectionBackground;
+  /**
+   * Hero section spacing
+   */
+  heroSpacing?: SectionSpacing;
+  /**
+   * Hero section pattern
+   */
+  heroPattern?: PatternName | string;
+  /**
+   * Hero section pattern opacity
+   */
+  heroPatternOpacity?: number;
+  /**
+   * Additional CSS classes for the hero section
+   */
+  heroClassName?: string;
+  /**
+   * Content section background style
+   */
+  contentBackground?: SectionBackground;
+  /**
+   * Content section spacing
+   */
+  contentSpacing?: SectionSpacing;
+  /**
+   * Content section pattern
+   */
+  contentPattern?: PatternName | string;
+  /**
+   * Content section pattern opacity
+   */
+  contentPatternOpacity?: number;
+  /**
+   * Additional CSS classes for the content section
+   */
+  contentSectionClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultBlogContent = (
@@ -146,56 +306,64 @@ const defaultBlogContent = (
   </>
 );
 
-const defaultProps: Partial<ResourceDetailArticleHeroProps> = {
-  navigation: {
-    backText: "All Articles",
-    backHref: "/resources",
+const defaultShareActions: ActionConfig[] = [
+  {
+    icon: <DynamicIcon name="lucide/link" size={16} />,
+    href: "#",
+    "aria-label": "Copy link",
+    variant: "outline",
+    size: "icon",
   },
-  blog: {
-    title:
-      "Building Sustainable Web Applications: A Developer's Guide to Green Coding",
-    author: "Sarah Chen",
-    date: "December 15, 2024",
-    readTime: "8 min read",
-    role: "Senior Developer",
-    imageSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    content: defaultBlogContent,
+  {
+    icon: <DynamicIcon name="lucide/linkedin" size={16} />,
+    href: "#",
+    "aria-label": "Share on LinkedIn",
+    variant: "outline",
+    size: "icon",
   },
-  social: {
-    heading: "Share this article",
-    links: [
-      { icon: "link", href: "#", label: "Copy link" },
-      { icon: "linkedin", href: "#", label: "Share on LinkedIn" },
-      { icon: "twitter", href: "#", label: "Share on X" },
-      { icon: "facebook", href: "#", label: "Share on Facebook" },
-    ],
+  {
+    icon: <DynamicIcon name="lucide/twitter" size={16} />,
+    href: "#",
+    "aria-label": "Share on X",
+    variant: "outline",
+    size: "icon",
   },
-  illustration: {
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder2,
-    imageAlt:
-      "Sustainable web development illustration showing green coding practices and environmental impact",
+  {
+    icon: <DynamicIcon name="lucide/facebook" size={16} />,
+    href: "#",
+    "aria-label": "Share on Facebook",
+    variant: "outline",
+    size: "icon",
   },
+];
+
+const defaultNavigation: ResourceDetailArticleHeroNavigation = {
+  backText: "All Articles",
+  backHref: "/resources",
+  backIcon: <DynamicIcon name="lucide/arrow-left" size={16} />,
 };
 
-const getIcon = (icon: string, className: string) => {
-  switch (icon) {
-    case "link":
-      return <DynamicIcon name="lucide/link" size={16} className={className} />;
-    case "linkedin":
-      return (
-        <DynamicIcon name="lucide/linkedin" size={16} className={className} />
-      );
-    case "twitter":
-      return (
-        <DynamicIcon name="lucide/twitter" size={16} className={className} />
-      );
-    case "facebook":
-      return (
-        <DynamicIcon name="lucide/facebook" size={16} className={className} />
-      );
-    default:
-      return null;
-  }
+const defaultBlog: ResourceDetailArticleHeroBlog = {
+  title:
+    "Building Sustainable Web Applications: A Developer's Guide to Green Coding",
+  author: "Sarah Chen",
+  date: "December 15, 2024",
+  readTime: "8 min read",
+  role: "Senior Developer",
+  imageSrc: blockBrandedIconsAndPlaceholders.avatar1,
+  content: defaultBlogContent,
+};
+
+const defaultIllustration: ResourceDetailArticleHeroIllustration = {
+  imageSrc: blockBrandedIconsAndPlaceholders.placeholder2,
+  imageAlt:
+    "Sustainable web development illustration showing green coding practices and environmental impact",
+};
+
+const defaultAuthor: AuthorInfo = {
+  name: "Sarah Chen",
+  role: "Senior Developer",
+  avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
 };
 
 /**
@@ -217,138 +385,257 @@ const getIcon = (icon: string, className: string) => {
  *     imageSrc: "/avatars/sarah.jpg",
  *     content: <div>Your article content here...</div>,
  *   }}
- *   social={{
- *     heading: "Share this article",
- *     links: [
- *       { icon: "linkedin", href: "#", label: "Share on LinkedIn" },
- *     ],
- *   }}
+ *   shareActions={[
+ *     { icon: <LinkedInIcon />, href: "#", "aria-label": "Share on LinkedIn" },
+ *   ]}
  *   illustration={{
  *     imageSrc: "/images/hero.jpg",
  *     imageAlt: "Article hero image",
  *   }}
+ *   heroBackground="primary"
+ *   contentBackground="white"
  * />
  * ```
  */
 export function ResourceDetailArticleHero({
   className,
-  navigation = defaultProps.navigation,
-  blog = defaultProps.blog,
-  social = defaultProps.social,
-  illustration = defaultProps.illustration,
+  navigation = defaultNavigation,
+  navigationSlot,
+  navigationClassName,
+  blog = defaultBlog,
+  blogMetaSlot,
+  blogMetaClassName,
+  titleClassName,
+  shareActions = defaultShareActions,
+  shareActionsSlot,
+  shareActionsClassName,
+  shareHeading = "Share this article",
+  illustration = defaultIllustration,
+  illustrationSlot,
+  illustrationClassName,
+  author = defaultAuthor,
+  authorSlot,
+  authorClassName,
+  contentClassName,
+  contentSlot,
+  heroBackground = "primary",
+  heroSpacing = "lg",
+  heroPattern,
+  heroPatternOpacity,
+  heroClassName,
+  contentBackground = "white",
+  contentSpacing = "lg",
+  contentPattern,
+  contentPatternOpacity,
+  contentSectionClassName,
   optixFlowConfig,
 }: ResourceDetailArticleHeroProps) {
+  const renderNavigation = () => {
+    if (navigationSlot) return navigationSlot;
+
+    return (
+      <div className={cn("flex items-center gap-2 text-muted-foreground", navigationClassName)}>
+        <Pressable
+          href={navigation?.backHref}
+          className="group/nav flex items-center gap-2 transition-all duration-200 hover:gap-4"
+        >
+          <span className="group-hover/nav:text-primary-foreground">
+            {navigation?.backIcon}
+          </span>
+          {navigation?.backText && (
+            typeof navigation.backText === "string" ? (
+              <span className="transition-colors group-hover/nav:text-primary-foreground group-hover/nav:underline">
+                {navigation.backText}
+              </span>
+            ) : (
+              navigation.backText
+            )
+          )}
+        </Pressable>
+      </div>
+    );
+  };
+
+  const renderBlogMeta = () => {
+    if (blogMetaSlot) return blogMetaSlot;
+
+    return (
+      <div className={cn("space-y-2", blogMetaClassName)}>
+        {blog?.author && (
+          typeof blog.author === "string" ? (
+            <p className="text-lg text-muted-foreground">{blog.author}</p>
+          ) : (
+            blog.author
+          )
+        )}
+        <p className="text-muted-foreground">
+          {blog?.date && (typeof blog.date === "string" ? blog.date : blog.date)}
+          {blog?.date && blog?.readTime && " • "}
+          {blog?.readTime && (typeof blog.readTime === "string" ? blog.readTime : blog.readTime)}
+        </p>
+      </div>
+    );
+  };
+
+  const renderShareActions = (variant: "hero" | "content") => {
+    if (shareActionsSlot) return shareActionsSlot;
+    if (!shareActions || shareActions.length === 0) return null;
+
+    const isHero = variant === "hero";
+    const baseClassName = isHero
+      ? "group/btn h-12 w-12 rounded-full border-border/10 bg-muted/20 transition-colors hover:bg-transparent hover:text-muted"
+      : "group/btn h-12 w-12 rounded-full border-border bg-muted transition-colors hover:bg-transparent hover:text-muted";
+
+    return (
+      <div className={cn("flex gap-3", shareActionsClassName)}>
+        {shareActions.map((action, index) => {
+          const { icon, iconAfter, children, className: actionClassName, label, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn(baseClassName, actionClassName)}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderIllustration = () => {
+    if (illustrationSlot) return illustrationSlot;
+
+    return (
+      <div className={cn("aspect-video min-h-96 w-full", illustrationClassName)}>
+        {illustration?.imageSrc && (
+          <Img
+            src={illustration.imageSrc}
+            alt={illustration.imageAlt || ""}
+            className="h-full w-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+      </div>
+    );
+  };
+
+  const renderAuthor = () => {
+    if (authorSlot) return authorSlot;
+
+    return (
+      <div className={cn("flex items-center gap-3", authorClassName)}>
+        <Avatar className="size-12 border xl:size-16">
+          {author?.avatarSrc && <AvatarImage src={author.avatarSrc} />}
+          <AvatarFallback>
+            {typeof author?.name === "string" ? author.name : ""}
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          {author?.name && (
+            typeof author.name === "string" ? (
+              <p className="font-medium">{author.name}</p>
+            ) : (
+              author.name
+            )
+          )}
+          {author?.role && (
+            typeof author.role === "string" ? (
+              <p className="text-sm text-muted-foreground">{author.role}</p>
+            ) : (
+              author.role
+            )
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderContent = () => {
+    if (contentSlot) return contentSlot;
+    return blog?.content;
+  };
+
   return (
-    <section className={cn("", className)}>
-      <div className="min-h-128 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
-            <div className="flex h-full max-w-md flex-col justify-between gap-8">
-              <div className="space-y-6">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Pressable
-                    href={navigation?.backHref}
-                    className="group/nav flex items-center gap-2 transition-all duration-200 hover:gap-4"
-                  >
-                    <DynamicIcon
-                      name="lucide/arrow-left"
-                      size={16}
-                      className="group-hover/nav:text-primary-foreground"
-                    />
-                    <span className="transition-colors group-hover/nav:text-primary-foreground group-hover/nav:underline">
-                      {navigation?.backText}
-                    </span>
-                  </Pressable>
-                </div>
-                <h1 className="text-3xl leading-tight font-medium">
-                  {blog?.title}
-                </h1>
-              </div>
-              <div className="flex flex-col gap-8">
-                <div className="space-y-2">
-                  <p className="text-lg text-muted-foreground">{blog?.author}</p>
-                  <p className="text-muted-foreground">
-                    {blog?.date} • {blog?.readTime}
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="">{social?.heading}</h3>
-                  <div className="flex gap-3">
-                    {social?.links?.map((link, index) => (
-                      <Pressable
-                        key={index}
-                        href={link.href}
-                        variant="outline"
-                        size="icon"
-                        asButton
-                        className="group/btn h-12 w-12 rounded-full border-border/10 bg-muted/20 transition-colors hover:bg-transparent hover:text-muted"
-                        aria-label={link.label}
-                      >
-                        {getIcon(
-                          link.icon,
-                          "text-muted/30 group-hover/btn:text-primary-foreground transition-colors"
-                        )}
-                      </Pressable>
-                    ))}
-                  </div>
-                </div>
-              </div>
+    <div className={cn(className)}>
+      <Section
+        background={heroBackground}
+        spacing={heroSpacing}
+        pattern={heroPattern}
+        patternOpacity={heroPatternOpacity}
+        className={cn("text-primary-foreground", heroClassName)}
+      >
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
+          <div className="flex h-full max-w-md flex-col justify-between gap-8">
+            <div className="space-y-6">
+              {renderNavigation()}
+              {blog?.title && (
+                typeof blog.title === "string" ? (
+                  <h1 className={cn("text-3xl leading-tight font-medium", titleClassName)}>
+                    {blog.title}
+                  </h1>
+                ) : (
+                  <div className={titleClassName}>{blog.title}</div>
+                )
+              )}
             </div>
-
-            <div className="col-span-2 h-full w-full">
-              <div className="aspect-video min-h-96 w-full">
-                {illustration?.imageSrc && (
-                  <Img
-                    src={illustration.imageSrc}
-                    alt={illustration.imageAlt || ""}
-                    className="h-full w-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
+            <div className="flex flex-col gap-8">
+              {renderBlogMeta()}
+              <div className="space-y-4">
+                {shareHeading && (
+                  typeof shareHeading === "string" ? (
+                    <h3>{shareHeading}</h3>
+                  ) : (
+                    shareHeading
+                  )
                 )}
+                {renderShareActions("hero")}
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-16 md:max-w-2xl xl:max-w-5xl">
-        <div className="prose max-w-none pb-16 prose-headings:text-foreground prose-p:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-strong:text-foreground prose-em:text-foreground prose-ol:text-muted-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground">
-          {blog?.content}
-        </div>
-        <div className="flex flex-col justify-between gap-8 border-t border-border py-8 md:flex-row">
-          <div className="flex items-center gap-3">
-            <Avatar className="size-12 border xl:size-16">
-              {blog?.imageSrc && <AvatarImage src={blog.imageSrc} />}
-              <AvatarFallback>{blog?.author}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="font-medium">{blog?.author}</p>
-              <p className="text-sm text-muted-foreground">{blog?.role}</p>
-            </div>
+          <div className="col-span-2 h-full w-full">
+            {renderIllustration()}
           </div>
-          <div className="space-y-4">
-            <h3 className="">{social?.heading}</h3>
-            <div className="flex gap-3">
-              {social?.links?.map((link, index) => (
-                <Pressable
-                  key={index}
-                  href={link.href}
-                  variant="outline"
-                  size="icon"
-                  asButton
-                  className="group/btn h-12 w-12 rounded-full border-border bg-muted transition-colors hover:bg-transparent hover:text-muted"
-                  aria-label={link.label}
-                >
-                  {getIcon(
-                    link.icon,
-                    "text-muted-foreground group-hover/btn:text-primary transition-colors"
-                  )}
-                </Pressable>
-              ))}
+        </div>
+      </Section>
+
+      <Section
+        background={contentBackground}
+        spacing={contentSpacing}
+        pattern={contentPattern}
+        patternOpacity={contentPatternOpacity}
+        className={contentSectionClassName}
+      >
+        <div className="mx-auto md:max-w-2xl xl:max-w-5xl">
+          <div className={cn(
+            "prose max-w-none pb-16 prose-headings:text-foreground prose-p:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-strong:text-foreground prose-em:text-foreground prose-ol:text-muted-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground",
+            contentClassName
+          )}>
+            {renderContent()}
+          </div>
+          <div className="flex flex-col justify-between gap-8 border-t border-border py-8 md:flex-row">
+            {renderAuthor()}
+            <div className="space-y-4">
+              {shareHeading && (
+                typeof shareHeading === "string" ? (
+                  <h3>{shareHeading}</h3>
+                ) : (
+                  shareHeading
+                )
+              )}
+              {renderShareActions("content")}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </Section>
+    </div>
   );
 }

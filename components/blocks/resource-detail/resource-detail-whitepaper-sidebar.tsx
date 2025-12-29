@@ -4,56 +4,173 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-export interface ResourceDetailWhitepaperSidebarProps {
-  className?: string;
-  sidebar?: {
-    resourceType?: string;
-    resourceTitle?: string;
-    downloadDescription?: string;
-    readTime?: string;
-    primaryDownload?: {
-      text: string;
-      href: string;
-    };
-    secondaryDownload?: {
-      text: string;
-      href: string;
-    };
-    shareTitle?: string;
-    socialLinks?: Array<{
-      platform: "instagram" | "linkedin" | "producthunt" | "twitter";
-      href: string;
-      label: string;
-    }>;
-  };
-  article?: {
-    title?: string;
-    content?: React.ReactNode;
-  };
+export interface ResourceDetailWhitepaperSidebarSidebar {
+  /**
+   * Resource type label (e.g., "Whitepaper", "Guide", "Ebook")
+   */
+  resourceType?: React.ReactNode;
+  /**
+   * Custom icon for resource type (defaults to book icon)
+   */
+  resourceTypeIcon?: React.ReactNode;
+  /**
+   * Resource title
+   */
+  resourceTitle?: React.ReactNode;
+  /**
+   * Download section description
+   */
+  downloadDescription?: React.ReactNode;
+  /**
+   * Download options section title
+   */
+  downloadOptionsTitle?: React.ReactNode;
+  /**
+   * Custom icon for download options (defaults to download icon)
+   */
+  downloadOptionsIcon?: React.ReactNode;
+  /**
+   * Read time estimate
+   */
+  readTime?: React.ReactNode;
+  /**
+   * Primary download action
+   */
+  primaryDownloadAction?: ActionConfig;
+  /**
+   * Secondary download action
+   */
+  secondaryDownloadAction?: ActionConfig;
+  /**
+   * Share section title
+   */
+  shareTitle?: React.ReactNode;
+  /**
+   * Custom icon for share section (defaults to share-2 icon)
+   */
+  shareIcon?: React.ReactNode;
+  /**
+   * Social share actions
+   */
+  shareActions?: ActionConfig[];
 }
 
-const defaultSocialLinks = [
+export interface ResourceDetailWhitepaperSidebarArticle {
+  /**
+   * Article title
+   */
+  title?: React.ReactNode;
+  /**
+   * Article content (prose)
+   */
+  content?: React.ReactNode;
+}
+
+export interface ResourceDetailWhitepaperSidebarProps {
+  /**
+   * Additional CSS classes for the outer wrapper
+   */
+  className?: string;
+  /**
+   * Sidebar configuration
+   */
+  sidebar?: ResourceDetailWhitepaperSidebarSidebar;
+  /**
+   * Custom slot for sidebar (overrides sidebar config)
+   */
+  sidebarSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the sidebar
+   */
+  sidebarClassName?: string;
+  /**
+   * Article configuration
+   */
+  article?: ResourceDetailWhitepaperSidebarArticle;
+  /**
+   * Custom slot for article content (overrides article config)
+   */
+  articleSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the article
+   */
+  articleClassName?: string;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Section pattern
+   */
+  pattern?: PatternName | string;
+  /**
+   * Section pattern opacity
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+}
+
+const defaultShareActions: ActionConfig[] = [
   {
-    platform: "instagram" as const,
+    icon: (
+      <img
+        src={blockBrandedIconsAndPlaceholders.integration1}
+        alt="Instagram"
+        className="size-5"
+      />
+    ),
     href: "#",
-    label: "Share on Instagram",
+    "aria-label": "Share on Instagram",
   },
   {
-    platform: "linkedin" as const,
+    icon: (
+      <img
+        src={blockBrandedIconsAndPlaceholders.integration2}
+        alt="LinkedIn"
+        className="size-5"
+      />
+    ),
     href: "#",
-    label: "Share on LinkedIn",
+    "aria-label": "Share on LinkedIn",
   },
   {
-    platform: "producthunt" as const,
+    icon: (
+      <img
+        src={blockBrandedIconsAndPlaceholders.integration3}
+        alt="Product Hunt"
+        className="size-5"
+      />
+    ),
     href: "#",
-    label: "Share on Product Hunt",
+    "aria-label": "Share on Product Hunt",
   },
   {
-    platform: "twitter" as const,
+    icon: (
+      <img
+        src={blockBrandedIconsAndPlaceholders.integration4}
+        alt="Twitter"
+        className="size-5"
+      />
+    ),
     href: "#",
-    label: "Share on Twitter",
+    "aria-label": "Share on Twitter",
   },
 ];
 
@@ -142,43 +259,53 @@ const defaultArticleContent = (
   </>
 );
 
-const defaultProps: Partial<ResourceDetailWhitepaperSidebarProps> = {
-  sidebar: {
-    resourceType: "Whitepaper",
-    resourceTitle: "The Complete Guide to Launching Your Startup",
-    downloadDescription:
-      "Enjoy this guide? Download it for offline reading or sharing.",
-    readTime: "5 minutes",
-    primaryDownload: {
-      text: "PDF Format",
-      href: "#",
-    },
-    secondaryDownload: {
-      text: "Print Version",
-      href: "#",
-    },
-    shareTitle: "Share this guide",
-    socialLinks: defaultSocialLinks,
+const defaultSidebar: ResourceDetailWhitepaperSidebarSidebar = {
+  resourceType: "Whitepaper",
+  resourceTypeIcon: (
+    <DynamicIcon
+      name="lucide/book"
+      size={14}
+      className="mr-2.5 text-muted-foreground"
+    />
+  ),
+  resourceTitle: "The Complete Guide to Launching Your Startup",
+  downloadDescription:
+    "Enjoy this guide? Download it for offline reading or sharing.",
+  downloadOptionsTitle: "Download Options",
+  downloadOptionsIcon: (
+    <DynamicIcon
+      name="lucide/download"
+      size={14}
+      className="mr-2.5 text-muted-foreground"
+    />
+  ),
+  readTime: "5 minutes",
+  primaryDownloadAction: {
+    children: "PDF Format",
+    href: "#",
+    variant: "default",
+    iconAfter: <DynamicIcon name="lucide/download" size={16} className="ml-2" />,
   },
-  article: {
-    title: "White Paper: The Complete Guide to Launching Your Startup",
-    content: defaultArticleContent,
+  secondaryDownloadAction: {
+    children: "Print Version",
+    href: "#",
+    variant: "outline",
+    iconAfter: <DynamicIcon name="lucide/download" size={16} className="ml-2" />,
   },
+  shareTitle: "Share this guide",
+  shareIcon: (
+    <DynamicIcon
+      name="lucide/share-2"
+      size={14}
+      className="mr-2.5 text-muted-foreground"
+    />
+  ),
+  shareActions: defaultShareActions,
 };
 
-const getSocialIcon = (platform: string) => {
-  switch (platform) {
-    case "instagram":
-      return blockBrandedIconsAndPlaceholders.integration1;
-    case "linkedin":
-      return blockBrandedIconsAndPlaceholders.integration2;
-    case "producthunt":
-      return blockBrandedIconsAndPlaceholders.integration3;
-    case "twitter":
-      return blockBrandedIconsAndPlaceholders.integration4;
-    default:
-      return blockBrandedIconsAndPlaceholders.integration1;
-  }
+const defaultArticle: ResourceDetailWhitepaperSidebarArticle = {
+  title: "White Paper: The Complete Guide to Launching Your Startup",
+  content: defaultArticleContent,
 };
 
 /**
@@ -195,140 +322,190 @@ const getSocialIcon = (platform: string) => {
  *     resourceTitle: "The Complete Guide to Launching Your Startup",
  *     downloadDescription: "Download for offline reading",
  *     readTime: "5 minutes",
- *     primaryDownload: { text: "PDF Format", href: "/download/pdf" },
- *     secondaryDownload: { text: "Print Version", href: "/download/print" },
+ *     primaryDownloadAction: { children: "PDF Format", href: "/download/pdf" },
+ *     secondaryDownloadAction: { children: "Print Version", href: "/download/print" },
  *   }}
  *   article={{
  *     title: "White Paper: The Complete Guide",
  *     content: <div>Your article content here...</div>,
  *   }}
+ *   background="white"
+ *   spacing="xl"
  * />
  * ```
  */
 export function ResourceDetailWhitepaperSidebar({
   className,
-  sidebar = defaultProps.sidebar,
-  article = defaultProps.article,
+  sidebar = defaultSidebar,
+  sidebarSlot,
+  sidebarClassName,
+  article = defaultArticle,
+  articleSlot,
+  articleClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: ResourceDetailWhitepaperSidebarProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container grid gap-12 md:grid-cols-12 md:gap-8">
-        <div className="order-last md:order-0 md:col-span-4 lg:col-span-3">
-          <aside className="flex flex-col gap-2">
-            <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-              <div className="border-b border-border bg-muted/50 px-5 py-4">
-                <h3 className="flex items-center text-sm font-semibold">
-                  <DynamicIcon
-                    name="lucide/book"
-                    size={14}
-                    className="mr-2.5 text-muted-foreground"
-                  />
-                  {sidebar?.resourceType}
-                </h3>
-              </div>
-              <div className="p-5">
-                <div className="gap-4 text-lg leading-snug font-semibold text-foreground">
-                  <p>{sidebar?.resourceTitle}</p>
-                </div>
-              </div>
-            </div>
+  const renderDownloadAction = (action: ActionConfig | undefined, defaultVariant: "default" | "outline") => {
+    if (!action) return null;
 
-            <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-              <div className="border-b border-border bg-muted/50 px-5 py-4">
-                <h3 className="flex items-center text-sm font-semibold">
-                  <DynamicIcon
-                    name="lucide/download"
-                    size={14}
-                    className="mr-2.5 text-muted-foreground"
-                  />
-                  Download Options
-                </h3>
-              </div>
-              <div className="p-5">
-                <div className="space-y-4">
-                  <p className="text-sm text-muted-foreground">
-                    {sidebar?.downloadDescription}
-                  </p>
-                  <div className="flex flex-col space-y-2">
-                    {sidebar?.primaryDownload && (
-                      <Pressable
-                        href={sidebar.primaryDownload.href}
-                        variant="default"
-                        asButton
-                        className="w-full justify-between"
-                      >
-                        {sidebar.primaryDownload.text}
-                        <DynamicIcon
-                          name="lucide/download"
-                          size={16}
-                          className="ml-2"
-                        />
-                      </Pressable>
-                    )}
-                    {sidebar?.secondaryDownload && (
-                      <Pressable
-                        href={sidebar.secondaryDownload.href}
-                        variant="outline"
-                        asButton
-                        className="w-full justify-between"
-                      >
-                        {sidebar.secondaryDownload.text}
-                        <DynamicIcon
-                          name="lucide/download"
-                          size={16}
-                          className="ml-2"
-                        />
-                      </Pressable>
-                    )}
-                  </div>
-                  {sidebar?.readTime && (
-                    <p className="mt-4 text-center text-xs text-muted-foreground">
-                      Read time: {sidebar.readTime}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
+    const { icon, iconAfter, children, className: actionClassName, label, ...pressableProps } = action;
+    return (
+      <Pressable
+        variant={action.variant ?? defaultVariant}
+        asButton
+        className={cn("w-full justify-between", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+          </>
+        )}
+        {iconAfter}
+      </Pressable>
+    );
+  };
 
-            <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-              <div className="border-b border-border bg-muted/50 px-5 py-4">
-                <h3 className="flex items-center text-sm font-semibold">
-                  <DynamicIcon
-                    name="lucide/share-2"
-                    size={14}
-                    className="mr-2.5 text-muted-foreground"
-                  />
-                  {sidebar?.shareTitle}
-                </h3>
+  const renderSidebar = () => {
+    if (sidebarSlot) return sidebarSlot;
+
+    return (
+      <aside className={cn("flex flex-col gap-2", sidebarClassName)}>
+        <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+          <div className="border-b border-border bg-muted/50 px-5 py-4">
+            <h3 className="flex items-center text-sm font-semibold">
+              {sidebar?.resourceTypeIcon}
+              {sidebar?.resourceType && (
+                typeof sidebar.resourceType === "string" ? (
+                  sidebar.resourceType
+                ) : (
+                  sidebar.resourceType
+                )
+              )}
+            </h3>
+          </div>
+          <div className="p-5">
+            <div className="gap-4 text-lg leading-snug font-semibold text-foreground">
+              {sidebar?.resourceTitle && (
+                typeof sidebar.resourceTitle === "string" ? (
+                  <p>{sidebar.resourceTitle}</p>
+                ) : (
+                  sidebar.resourceTitle
+                )
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+          <div className="border-b border-border bg-muted/50 px-5 py-4">
+            <h3 className="flex items-center text-sm font-semibold">
+              {sidebar?.downloadOptionsIcon}
+              {sidebar?.downloadOptionsTitle && (
+                typeof sidebar.downloadOptionsTitle === "string" ? (
+                  sidebar.downloadOptionsTitle
+                ) : (
+                  sidebar.downloadOptionsTitle
+                )
+              )}
+            </h3>
+          </div>
+          <div className="p-5">
+            <div className="space-y-4">
+              {sidebar?.downloadDescription && (
+                typeof sidebar.downloadDescription === "string" ? (
+                  <p className="text-sm text-muted-foreground">{sidebar.downloadDescription}</p>
+                ) : (
+                  sidebar.downloadDescription
+                )
+              )}
+              <div className="flex flex-col space-y-2">
+                {renderDownloadAction(sidebar?.primaryDownloadAction, "default")}
+                {renderDownloadAction(sidebar?.secondaryDownloadAction, "outline")}
               </div>
-              <div className="p-5">
-                <ul className="flex items-center gap-2">
-                  {sidebar?.socialLinks?.map((link, index) => (
+              {sidebar?.readTime && (
+                <p className="mt-4 text-center text-xs text-muted-foreground">
+                  Read time: {typeof sidebar.readTime === "string" ? sidebar.readTime : sidebar.readTime}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+          <div className="border-b border-border bg-muted/50 px-5 py-4">
+            <h3 className="flex items-center text-sm font-semibold">
+              {sidebar?.shareIcon}
+              {sidebar?.shareTitle && (
+                typeof sidebar.shareTitle === "string" ? (
+                  sidebar.shareTitle
+                ) : (
+                  sidebar.shareTitle
+                )
+              )}
+            </h3>
+          </div>
+          <div className="p-5">
+            {sidebar?.shareActions && sidebar.shareActions.length > 0 && (
+              <ul className="flex items-center gap-2">
+                {sidebar.shareActions.map((action, index) => {
+                  const { icon, iconAfter, children, className: actionClassName, label, ...pressableProps } = action;
+                  return (
                     <li key={index}>
                       <Pressable
-                        href={link.href}
-                        className="flex size-10 items-center justify-center rounded-full border border-border bg-muted/50 transition-colors hover:bg-muted"
-                        aria-label={link.label}
+                        className={cn(
+                          "flex size-10 items-center justify-center rounded-full border border-border bg-muted/50 transition-colors hover:bg-muted",
+                          actionClassName
+                        )}
+                        {...pressableProps}
                       >
-                        <img
-                          src={getSocialIcon(link.platform)}
-                          alt={link.platform}
-                          className="size-5"
-                        />
+                        {children ?? (
+                          <>
+                            {icon}
+                            {iconAfter}
+                          </>
+                        )}
                       </Pressable>
                     </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </aside>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
+      </aside>
+    );
+  };
+
+  const renderArticle = () => {
+    if (articleSlot) return articleSlot;
+
+    return (
+      <article className={cn("prose prose-sm dark:prose-invert", articleClassName)}>
+        {article?.content}
+      </article>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className="grid gap-12 md:grid-cols-12 md:gap-8">
+        <div className="order-last md:order-0 md:col-span-4 lg:col-span-3">
+          {renderSidebar()}
         </div>
         <div className="md:col-span-7 md:col-start-5 lg:col-start-6">
-          <article className="prose prose-sm dark:prose-invert">
-            {article?.content}
-          </article>
+          {renderArticle()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
