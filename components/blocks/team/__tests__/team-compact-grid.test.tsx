@@ -113,7 +113,7 @@ describe("TeamCompactGrid", () => {
 
   it("applies custom spacing variant", () => {
     const { container } = render(
-      <TeamCompactGrid members={mockMembers} verticalMargin="sm" />
+      <TeamCompactGrid members={mockMembers} spacing="sm" />
     );
     const section = container.firstChild as HTMLElement;
     expect(section.className).toContain("py-12");

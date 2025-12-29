@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
-import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import { Separator } from "../../ui/separator";
@@ -13,16 +12,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-/**
- * Configuration for Optix Flow image optimization
- */
-export interface OptixFlowConfig {
-  apiKey: string;
-  compression?: number;
-}
 
 /**
  * Individual team member for TeamCarouselExperience
@@ -42,20 +38,24 @@ export interface TeamCarouselExperienceProps {
    * Section heading
    * @default "Tech Pioneers"
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Heading highlight text (displayed in muted color)
    * @default "building the future"
    */
-  headingHighlight?: string;
+  headingHighlight?: React.ReactNode;
   /**
    * Section description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of team members to display
    */
   members?: TeamCarouselExperienceMember[];
+  /**
+   * Custom slot for rendering members (overrides members array)
+   */
+  membersSlot?: React.ReactNode;
   /**
    * Background style variant for the section
    * @default "white"
@@ -65,11 +65,51 @@ export interface TeamCarouselExperienceProps {
    * Vertical spacing/margin variant
    * @default "lg"
    */
-  verticalMargin?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the heading highlight
+   */
+  headingHighlightClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the carousel container
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for each member card
+   */
+  memberCardClassName?: string;
+  /**
+   * Additional CSS classes for the member image
+   */
+  memberImageClassName?: string;
+  /**
+   * Additional CSS classes for the member name
+   */
+  memberNameClassName?: string;
+  /**
+   * Additional CSS classes for the member role
+   */
+  memberRoleClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -158,60 +198,116 @@ export function TeamCarouselExperience({
   headingHighlight = "building the future",
   description = "We bring together brilliant developers, engineers, and tech innovators to create groundbreaking digital solutions.",
   members = defaultMembers,
+  membersSlot,
   background = "white",
-  verticalMargin = "lg",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
+  headingClassName,
+  headingHighlightClassName,
+  descriptionClassName,
+  carouselClassName,
+  memberCardClassName,
+  memberImageClassName,
+  memberNameClassName,
+  memberRoleClassName,
   optixFlowConfig,
 }: TeamCarouselExperienceProps): React.JSX.Element {
+  const renderMembers = () => {
+    if (membersSlot) return membersSlot;
+    if (!members || members.length === 0) return null;
+
+    return members.map((member, idx) => (
+      <CarouselItem key={idx} className="max-w-72">
+        <div
+          className={cn(
+            "rounded-2xl border border-border bg-background p-7 text-center",
+            memberCardClassName
+          )}
+        >
+          <Img
+            src={member.image}
+            alt={member.name}
+            className={cn(
+              "mx-auto size-20 rounded-full border border-border",
+              memberImageClassName
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
+          <div className="mt-6 flex flex-col justify-center">
+            <p
+              className={cn(
+                "text-lg font-medium text-primary",
+                memberNameClassName
+              )}
+            >
+              {member.name}
+            </p>
+            <p
+              className={cn(
+                "text-sm text-muted-foreground",
+                memberRoleClassName
+              )}
+            >
+              {member.role}
+            </p>
+          </div>
+          <Separator className="my-6 bg-linear-to-r from-background via-border to-background" />
+          <p className="text-sm text-muted-foreground">
+            {member.yearsOfExperience}+ years of experience
+          </p>
+        </div>
+      </CarouselItem>
+    ));
+  };
+
   return (
     <Section
       background={background}
-      spacing={verticalMargin}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
     >
-      <Container>
-        <h2 className="text-5xl font-medium md:text-6xl">
-          {heading} <br />
-          <span className="text-primary/50">{headingHighlight}</span>
-        </h2>
-        {description && (
-          <p className="mt-6 max-w-md text-muted-foreground">{description}</p>
-        )}
-        <Carousel>
-          <div className="mt-4 hidden items-center justify-end gap-4 md:flex">
-            <CarouselPrevious className="static size-11 translate-x-0 translate-y-0" />
-            <CarouselNext className="static size-11 translate-x-0 translate-y-0" />
-          </div>
-          <div className="mt-16 [&>div[data-slot=carousel-content]]:overflow-visible">
-            <CarouselContent className="max-w-[min(calc(100vw-4rem),24rem)] select-none">
-              {members.map((member, idx) => (
-                <CarouselItem key={idx} className="max-w-72">
-                  <div className="rounded-2xl border border-border bg-background p-7 text-center">
-                    <Img
-                      src={member.image}
-                      alt={member.name}
-                      className="mx-auto size-20 rounded-full border border-border"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                    <div className="mt-6 flex flex-col justify-center">
-                      <p className="text-lg font-medium text-primary">
-                        {member.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {member.role}
-                      </p>
-                    </div>
-                    <Separator className="my-6 bg-linear-to-r from-background via-border to-background" />
-                    <p className="text-sm text-muted-foreground">
-                      {member.yearsOfExperience}+ years of experience
-                    </p>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </div>
-        </Carousel>
-      </Container>
+      {heading && (
+        typeof heading === "string" ? (
+          <h2 className={cn("text-5xl font-medium md:text-6xl", headingClassName)}>
+            {heading} <br />
+            {headingHighlight && (
+              typeof headingHighlight === "string" ? (
+                <span className={cn("text-primary/50", headingHighlightClassName)}>
+                  {headingHighlight}
+                </span>
+              ) : (
+                <span className={headingHighlightClassName}>{headingHighlight}</span>
+              )
+            )}
+          </h2>
+        ) : (
+          <div className={headingClassName}>{heading}</div>
+        )
+      )}
+      {description && (
+        typeof description === "string" ? (
+          <p className={cn("mt-6 max-w-md text-muted-foreground", descriptionClassName)}>
+            {description}
+          </p>
+        ) : (
+          <div className={descriptionClassName}>{description}</div>
+        )
+      )}
+      <Carousel className={carouselClassName}>
+        <div className="mt-4 hidden items-center justify-end gap-4 md:flex">
+          <CarouselPrevious className="static size-11 translate-x-0 translate-y-0" />
+          <CarouselNext className="static size-11 translate-x-0 translate-y-0" />
+        </div>
+        <div className="mt-16 [&>div[data-slot=carousel-content]]:overflow-visible">
+          <CarouselContent className="max-w-[min(calc(100vw-4rem),24rem)] select-none">
+            {renderMembers()}
+          </CarouselContent>
+        </div>
+      </Carousel>
     </Section>
   );
 }

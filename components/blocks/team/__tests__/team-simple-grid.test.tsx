@@ -78,7 +78,7 @@ describe("TeamSimpleGrid", () => {
 
   it("applies custom spacing variant", () => {
     const { container } = render(
-      <TeamSimpleGrid members={mockMembers} verticalMargin="xl" />
+      <TeamSimpleGrid members={mockMembers} spacing="xl" />
     );
     const section = container.firstChild as HTMLElement;
     expect(section.className).toContain("py-24");

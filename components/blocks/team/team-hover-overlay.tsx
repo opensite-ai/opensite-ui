@@ -1,22 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Container } from "../../ui/container";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Card, CardContent } from "../../ui/card";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-/**
- * Configuration for Optix Flow image optimization
- */
-export interface OptixFlowConfig {
-  apiKey: string;
-  compression?: number;
-}
 
 /**
  * Social links for team member
@@ -46,15 +43,19 @@ export interface TeamHoverOverlayProps {
    * Section heading
    * @default "Meet our team"
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Section description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of team members to display
    */
   members?: TeamHoverOverlayMember[];
+  /**
+   * Custom slot for rendering members (overrides members array)
+   */
+  membersSlot?: React.ReactNode;
   /**
    * Background style variant for the section
    * @default "white"
@@ -64,11 +65,59 @@ export interface TeamHoverOverlayProps {
    * Vertical spacing/margin variant
    * @default "lg"
    */
-  verticalMargin?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each member card
+   */
+  memberCardClassName?: string;
+  /**
+   * Additional CSS classes for the member image
+   */
+  memberImageClassName?: string;
+  /**
+   * Additional CSS classes for the member name
+   */
+  memberNameClassName?: string;
+  /**
+   * Additional CSS classes for the member role
+   */
+  memberRoleClassName?: string;
+  /**
+   * Additional CSS classes for the member bio
+   */
+  memberBioClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -135,96 +184,148 @@ export function TeamHoverOverlay({
   heading = "Meet our team",
   description = "The amazing people behind the scenes",
   members = defaultMembers,
+  membersSlot,
   background = "white",
-  verticalMargin = "lg",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  memberCardClassName,
+  memberImageClassName,
+  memberNameClassName,
+  memberRoleClassName,
+  memberBioClassName,
+  socialLinksClassName,
   optixFlowConfig,
 }: TeamHoverOverlayProps): React.JSX.Element {
+  const renderMembers = () => {
+    if (membersSlot) return membersSlot;
+    if (!members || members.length === 0) return null;
+
+    return members.map((member) => (
+      <Card
+        key={member.name}
+        className={cn(
+          "group relative overflow-hidden p-0 transition-shadow hover:shadow-lg",
+          memberCardClassName
+        )}
+      >
+        <CardContent className="p-0!">
+          <div className="relative">
+            <Img
+              className={cn("aspect-3/4 w-full object-cover", memberImageClassName)}
+              src={member.image}
+              alt={member.name}
+              width={320}
+              height={420}
+              optixFlowConfig={optixFlowConfig}
+            />
+            <div className="from-background/80 to-background/0 absolute inset-0 bg-linear-to-t opacity-0 transition-opacity group-hover:opacity-100" />
+            <div className="absolute right-0 bottom-0 left-0 translate-y-4 p-4 opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100">
+              <p className={cn("text-sm", memberBioClassName)}>{member.bio}</p>
+              {member.social && (
+                <div className={cn("mt-3 flex gap-1", socialLinksClassName)}>
+                  {member.social.twitter && (
+                    <Pressable
+                      href={member.social.twitter}
+                      variant="secondary"
+                      size="icon"
+                      asButton
+                      aria-label={`${member.name}'s Twitter`}
+                    >
+                      <DynamicIcon name="lucide/twitter" size={16} />
+                    </Pressable>
+                  )}
+                  {member.social.github && (
+                    <Pressable
+                      href={member.social.github}
+                      variant="secondary"
+                      size="icon"
+                      asButton
+                      aria-label={`${member.name}'s GitHub`}
+                    >
+                      <DynamicIcon name="lucide/github" size={16} />
+                    </Pressable>
+                  )}
+                  {member.social.linkedin && (
+                    <Pressable
+                      href={member.social.linkedin}
+                      variant="secondary"
+                      size="icon"
+                      asButton
+                      aria-label={`${member.name}'s LinkedIn`}
+                    >
+                      <DynamicIcon name="lucide/linkedin" size={16} />
+                    </Pressable>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="p-4">
+            <h3 className={cn("font-medium", memberNameClassName)}>
+              {member.name}
+            </h3>
+            <p className={cn("text-muted-foreground mt-1 text-sm", memberRoleClassName)}>
+              {member.role}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    ));
+  };
+
   return (
     <Section
       background={background}
-      spacing={verticalMargin}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={className}
     >
-      <Container>
-        <div className="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
-          <h2 className="text-3xl font-bold md:text-4xl md:leading-tight">
-            {heading}
-          </h2>
-          {description && (
-            <p className="text-muted-foreground mt-1 text-lg">{description}</p>
-          )}
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {members.map((member) => (
-            <Card
-              key={member.name}
-              className="group relative overflow-hidden p-0 transition-shadow hover:shadow-lg"
+      <div className={cn("mx-auto mb-10 max-w-2xl text-center lg:mb-14", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-bold md:text-4xl md:leading-tight",
+                headingClassName
+              )}
             >
-              <CardContent className="p-0!">
-                <div className="relative">
-                  <Img
-                    className="aspect-3/4 w-full object-cover"
-                    src={member.image}
-                    alt={member.name}
-                    width={320}
-                    height={420}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                  <div className="from-background/80 to-background/0 absolute inset-0 bg-linear-to-t opacity-0 transition-opacity group-hover:opacity-100" />
-                  <div className="absolute right-0 bottom-0 left-0 translate-y-4 p-4 opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100">
-                    <p className="text-sm">{member.bio}</p>
-                    {member.social && (
-                      <div className="mt-3 flex gap-1">
-                        {member.social.twitter && (
-                          <Pressable
-                            href={member.social.twitter}
-                            variant="secondary"
-                            size="icon"
-                            asButton
-                            aria-label={`${member.name}'s Twitter`}
-                          >
-                            <DynamicIcon name="lucide/twitter" size={16} />
-                          </Pressable>
-                        )}
-                        {member.social.github && (
-                          <Pressable
-                            href={member.social.github}
-                            variant="secondary"
-                            size="icon"
-                            asButton
-                            aria-label={`${member.name}'s GitHub`}
-                          >
-                            <DynamicIcon name="lucide/github" size={16} />
-                          </Pressable>
-                        )}
-                        {member.social.linkedin && (
-                          <Pressable
-                            href={member.social.linkedin}
-                            variant="secondary"
-                            size="icon"
-                            asButton
-                            aria-label={`${member.name}'s LinkedIn`}
-                          >
-                            <DynamicIcon name="lucide/linkedin" size={16} />
-                          </Pressable>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-medium">{member.name}</h3>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    {member.role}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </Container>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-muted-foreground mt-1 text-lg",
+                descriptionClassName
+              )}
+            >
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+      </div>
+
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4",
+          gridClassName
+        )}
+      >
+        {renderMembers()}
+      </div>
     </Section>
   );
 }
