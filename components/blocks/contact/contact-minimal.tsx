@@ -12,6 +12,7 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import type { ActionConfig } from "../../../src/types";
 
 interface ContactMinimalFormValues {
   name: string;
@@ -20,13 +21,85 @@ interface ContactMinimalFormValues {
 }
 
 export interface ContactMinimalProps {
-  heading?: string;
-  description?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Submit button text
+   */
   buttonText?: string;
+  /**
+   * Submit button icon (displayed before text)
+   */
+  buttonIcon?: React.ReactNode;
+  /**
+   * Array of action configurations for additional buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array and default submit)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Footer content (e.g., privacy policy text)
+   */
+  footer?: React.ReactNode;
+  /**
+   * Custom slot for footer content (overrides footer prop)
+   */
+  footerSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the submit button
+   */
+  submitClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
+  /**
+   * Form submission configuration
+   */
   formConfig?: PageSpeedFormConfig;
+  /**
+   * Custom submission handler
+   */
   onSubmit?: (values: ContactMinimalFormValues) => void | Promise<void>;
+  /**
+   * Success callback after submission
+   */
   onSuccess?: (data: unknown) => void;
+  /**
+   * Error callback if submission fails
+   */
   onError?: (error: Error) => void;
 }
 
@@ -42,11 +115,32 @@ export interface ContactMinimalProps {
  * />
  * ```
  */
+const defaultFooter = (
+  <>
+    By submitting this form, you agree to our{" "}
+    <a href="#" className="text-primary hover:underline">
+      Privacy Policy
+    </a>
+  </>
+);
+
 export function ContactMinimal({
   heading = "Let's Talk",
   description = "Send us a message and we'll get back to you within 24 hours.",
   buttonText = "Send Message",
+  buttonIcon = <DynamicIcon name="lucide/send" size={16} />,
+  actions,
+  actionsSlot,
+  footer = defaultFooter,
+  footerSlot,
   className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  formClassName,
+  submitClassName,
+  footerClassName,
   formConfig,
   onSubmit,
   onSuccess,
@@ -108,19 +202,77 @@ export function ContactMinimal({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (actions && actions.length > 0) {
+      return actions.map((action, index) => {
+        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        return (
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      });
+    }
+    return null;
+  };
+
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
+    if (footer) {
+      return typeof footer === "string" ? (
+        <p className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
+          {footer}
+        </p>
+      ) : (
+        <div className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
+          {footer}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <section className={cn("py-12", className)}>
-      <div className="mx-auto w-full max-w-md px-4">
-        <div className="mb-10 text-center">
-          <h2 className="mb-3 text-3xl font-bold tracking-tight">{heading}</h2>
-          <p className="leading-relaxed text-muted-foreground">{description}</p>
+      <div className={cn("mx-auto w-full max-w-md px-4", containerClassName)}>
+        <div className={cn("mb-10 text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
         </div>
 
         <Form
           form={form}
           action={formConfig?.endpoint}
           method={formMethod}
-          className="space-y-4"
+          className={cn("space-y-4", formClassName)}
         >
           <Field name="name">
             {({ field, meta }) => (
@@ -169,25 +321,24 @@ export function ContactMinimal({
             )}
           </Field>
 
-          <Pressable
-            componentType="button"
-            type="submit"
-            className="w-full gap-2"
-            size="lg"
-            asButton
-            disabled={form.isSubmitting}
-          >
-            <DynamicIcon name="lucide/send" size={16} />
-            {buttonText}
-          </Pressable>
+          {actionsSlot || (actions && actions.length > 0) ? (
+            renderActions()
+          ) : (
+            <Pressable
+              componentType="button"
+              type="submit"
+              className={cn("w-full gap-2", submitClassName)}
+              size="lg"
+              asButton
+              disabled={form.isSubmitting}
+            >
+              {buttonIcon}
+              {buttonText}
+            </Pressable>
+          )}
         </Form>
 
-        <p className="mt-6 text-center text-sm text-muted-foreground">
-          By submitting this form, you agree to our{" "}
-          <a href="#" className="text-primary hover:underline">
-            Privacy Policy
-          </a>
-        </p>
+        {renderFooter()}
       </div>
     </section>
   );

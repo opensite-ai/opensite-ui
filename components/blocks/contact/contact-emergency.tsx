@@ -15,6 +15,7 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import { type ActionConfig } from "../../../src/types/blocks";
 
 const PRIORITIES = [
   {
@@ -47,13 +48,81 @@ interface EmergencyFormValues {
 }
 
 export interface ContactEmergencyProps {
-  heading?: string;
-  description?: string;
+  /**
+   * Main heading text
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Submit button text
+   */
   buttonText?: string;
+  /**
+   * Icon to display in submit button
+   */
+  buttonIcon?: React.ReactNode;
+  /**
+   * Array of action configurations for custom buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the card content
+   */
+  cardContentClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the submit button
+   */
+  submitClassName?: string;
+  /**
+   * Form configuration for PageSpeed forms
+   */
   formConfig?: PageSpeedFormConfig;
+  /**
+   * Custom submit handler
+   */
   onSubmit?: (values: EmergencyFormValues) => void | Promise<void>;
+  /**
+   * Success callback
+   */
   onSuccess?: (data: unknown) => void;
+  /**
+   * Error callback
+   */
   onError?: (error: Error) => void;
 }
 
@@ -73,7 +142,18 @@ export function ContactEmergency({
   heading = "Urgent Support",
   description = "Need immediate help? Select your priority level below.",
   buttonText = "Submit Request",
+  buttonIcon,
+  actions,
+  actionsSlot,
   className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  cardClassName,
+  cardContentClassName,
+  formClassName,
+  submitClassName,
   formConfig,
   onSubmit,
   onSuccess,
@@ -144,20 +224,63 @@ export function ContactEmergency({
     (p) => p.value === form.values.priority
   );
 
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (actions && actions.length > 0) {
+      return actions.map((action, index) => {
+        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        return (
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      });
+    }
+    return null;
+  };
+
   return (
     <section className={cn("py-12", className)}>
-      <div className="mx-auto w-full max-w-4xl px-4">
-        <div className="mb-10 text-center">
-          <h2 className="mb-3 text-3xl font-bold tracking-tight">{heading}</h2>
-          <p className="leading-relaxed text-muted-foreground">{description}</p>
+      <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
+        <div className={cn("mb-10 text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
         </div>
 
-        <Card>
-          <CardContent className="p-0">
+        <Card className={cardClassName}>
+          <CardContent className={cn("p-0", cardContentClassName)}>
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
+              className={formClassName}
             >
               <div className="grid md:grid-cols-2">
                 {/* Left: Priority Selection */}
@@ -339,16 +462,21 @@ export function ContactEmergency({
                       </span>
                     </div>
 
-                    <Pressable
-                      componentType="button"
-                      type="submit"
-                      className="w-full"
-                      size="lg"
-                      asButton
-                      disabled={form.isSubmitting}
-                    >
-                      {buttonText}
-                    </Pressable>
+                    {actionsSlot || (actions && actions.length > 0) ? (
+                      renderActions()
+                    ) : (
+                      <Pressable
+                        componentType="button"
+                        type="submit"
+                        className={cn("w-full", submitClassName)}
+                        size="lg"
+                        asButton
+                        disabled={form.isSubmitting}
+                      >
+                        {buttonIcon}
+                        {buttonText}
+                      </Pressable>
+                    )}
                   </div>
                 </div>
               </div>

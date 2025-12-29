@@ -28,27 +28,67 @@ export interface ContactHelpCenterProps {
   /**
    * Eyebrow label above the heading
    */
-  eyebrow?: string;
+  eyebrow?: React.ReactNode;
   /**
    * Heading text for the left column
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Description text for the left column
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Title for the contact card list
    */
-  cardTitle?: string;
+  cardTitle?: React.ReactNode;
   /**
    * Contact items to display
    */
   contactItems?: ContactHelpCenterItem[];
   /**
+   * Custom slot for rendering contact items (overrides contactItems array)
+   */
+  contactItemsSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the left column
+   */
+  leftColumnClassName?: string;
+  /**
+   * Additional CSS classes for the eyebrow text
+   */
+  eyebrowClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the card panel
+   */
+  cardPanelClassName?: string;
+  /**
+   * Additional CSS classes for the card title
+   */
+  cardTitleClassName?: string;
+  /**
+   * Additional CSS classes for the contact items container
+   */
+  contactItemsClassName?: string;
 }
 
 const defaultContactItems: ContactHelpCenterItem[] = [
@@ -84,52 +124,91 @@ export function ContactHelpCenter({
     "Our OpenSite AI advisors are ready to walk through policies, claims, and next steps so you can move forward with confidence.",
   cardTitle = "Contact Our Team",
   contactItems = defaultContactItems,
+  contactItemsSlot,
   className,
+  containerClassName,
+  contentClassName,
+  leftColumnClassName,
+  eyebrowClassName,
+  headingClassName,
+  descriptionClassName,
+  cardPanelClassName,
+  cardTitleClassName,
+  contactItemsClassName,
 }: ContactHelpCenterProps): React.JSX.Element {
+  const renderContactItems = () => {
+    if (contactItemsSlot) return contactItemsSlot;
+    return contactItems.map((item, idx) => (
+      <Pressable
+        key={`${item.title}-${idx}`}
+        href={item.href}
+        className="flex items-start gap-4 rounded-lg p-4 transition-colors hover:bg-muted/40"
+      >
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <DynamicIcon name={item.icon} size={20} />
+        </div>
+        <div>
+          <p className="font-semibold text-foreground">
+            {item.title}
+          </p>
+          {item.subtitle ? (
+            <p className="text-sm text-muted-foreground">
+              {item.subtitle}
+            </p>
+          ) : null}
+        </div>
+      </Pressable>
+    ));
+  };
+
   return (
     <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="rounded-3xl bg-linear-to-br from-primary/5 via-background to-background p-8 md:p-12">
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("rounded-3xl bg-linear-to-br from-primary/5 via-background to-background p-8 md:p-12", contentClassName)}>
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
-            <div className="space-y-5">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-                {eyebrow}
-              </p>
-              <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-                {heading}
-              </h2>
-              <p className="text-muted-foreground">{description}</p>
+            <div className={cn("space-y-5", leftColumnClassName)}>
+              {eyebrow && (
+                typeof eyebrow === "string" ? (
+                  <p className={cn("text-sm font-semibold uppercase tracking-[0.2em] text-primary", eyebrowClassName)}>
+                    {eyebrow}
+                  </p>
+                ) : (
+                  <div className={eyebrowClassName}>{eyebrow}</div>
+                )
+              )}
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+                    {heading}
+                  </h2>
+                ) : (
+                  <div className={headingClassName}>{heading}</div>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p className={cn("text-muted-foreground", descriptionClassName)}>
+                    {description}
+                  </p>
+                ) : (
+                  <div className={descriptionClassName}>{description}</div>
+                )
+              )}
             </div>
 
-            <div className="rounded-2xl bg-background p-8 shadow-lg">
+            <div className={cn("rounded-2xl bg-background p-8 shadow-lg", cardPanelClassName)}>
               {cardTitle ? (
-                <h3 className="text-xl font-bold text-foreground">
-                  {cardTitle}
-                </h3>
+                typeof cardTitle === "string" ? (
+                  <h3 className={cn("text-xl font-bold text-foreground", cardTitleClassName)}>
+                    {cardTitle}
+                  </h3>
+                ) : (
+                  <div className={cardTitleClassName}>{cardTitle}</div>
+                )
               ) : null}
 
-              <div className="mt-6 space-y-4">
-                {contactItems.map((item, idx) => (
-                  <Pressable
-                    key={`${item.title}-${idx}`}
-                    href={item.href}
-                    className="flex items-start gap-4 rounded-lg p-4 transition-colors hover:bg-muted/40"
-                  >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <DynamicIcon name={item.icon} size={20} />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">
-                        {item.title}
-                      </p>
-                      {item.subtitle ? (
-                        <p className="text-sm text-muted-foreground">
-                          {item.subtitle}
-                        </p>
-                      ) : null}
-                    </div>
-                  </Pressable>
-                ))}
+              <div className={cn("mt-6 space-y-4", contactItemsClassName)}>
+                {renderContactItems()}
               </div>
             </div>
           </div>
