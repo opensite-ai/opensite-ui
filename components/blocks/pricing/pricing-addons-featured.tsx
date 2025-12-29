@@ -4,46 +4,271 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-interface FeaturedAddon {
-  name: string;
-  description: string;
-  price: string;
-  priceDescription?: string;
-  features: string[];
-  buttonText?: string;
-  buttonHref?: string;
-  isHighlighted?: boolean;
+export interface PricingAddonsFeaturedFeature {
+  /**
+   * Feature text
+   */
+  text?: React.ReactNode;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for feature item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for feature icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  textClassName?: string;
 }
 
-interface AdditionalAddon {
-  name: string;
-  description: string;
-  price: string;
+export interface PricingAddonsFeaturedCard {
+  /**
+   * Add-on name
+   */
+  name?: React.ReactNode;
+  /**
+   * Add-on description
+   */
+  description?: React.ReactNode;
+  /**
+   * Price display
+   */
+  price?: React.ReactNode;
+  /**
+   * Price description/interval
+   */
+  priceDescription?: React.ReactNode;
+  /**
+   * Feature list
+   */
+  features?: PricingAddonsFeaturedFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Highlight this add-on
+   */
+  isHighlighted?: boolean;
+  /**
+   * Additional CSS classes for the card
+   */
+  className?: string;
+}
+
+export interface PricingAddonsFeaturedAdditional {
+  /**
+   * Add-on name
+   */
+  name?: React.ReactNode;
+  /**
+   * Add-on description
+   */
+  description?: React.ReactNode;
+  /**
+   * Add-on price
+   */
+  price?: React.ReactNode;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
 }
 
 export interface PricingAddonsFeaturedProps {
+  /**
+   * Section heading
+   */
+  heading?: React.ReactNode;
+  /**
+   * Supporting subtitle
+   */
+  subtitle?: React.ReactNode;
+  /**
+   * Featured add-on cards
+   */
+  featuredAddons?: PricingAddonsFeaturedCard[];
+  /**
+   * Custom slot for rendering featured add-ons (overrides featuredAddons array)
+   */
+  featuredAddonsSlot?: React.ReactNode;
+  /**
+   * Additional add-ons list
+   */
+  additionalAddons?: PricingAddonsFeaturedAdditional[];
+  /**
+   * Custom slot for rendering additional add-ons (overrides additionalAddons array)
+   */
+  additionalAddonsSlot?: React.ReactNode;
+  /**
+   * Additional add-ons heading
+   */
+  additionalHeading?: React.ReactNode;
+  /**
+   * Default icon used for features
+   */
+  featureIcon?: React.ReactNode;
+  /**
+   * Default icon name for features
+   */
+  featureIconName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  subtitle?: string;
-  featuredAddons?: FeaturedAddon[];
-  additionalAddons?: AdditionalAddon[];
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
+  /**
+   * Additional CSS classes for the featured grid
+   */
+  featuredGridClassName?: string;
+  /**
+   * Additional CSS classes for featured cards
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for highlighted cards
+   */
+  highlightedCardClassName?: string;
+  /**
+   * Additional CSS classes for card titles
+   */
+  cardTitleClassName?: string;
+  /**
+   * Additional CSS classes for card descriptions
+   */
+  cardDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for price
+   */
+  priceClassName?: string;
+  /**
+   * Additional CSS classes for price description
+   */
+  priceDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for features list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for feature items
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for feature icons
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for action button
+   */
+  actionClassName?: string;
+  /**
+   * Additional CSS classes for additional add-ons section
+   */
+  additionalSectionClassName?: string;
+  /**
+   * Additional CSS classes for additional heading
+   */
+  additionalHeadingClassName?: string;
+  /**
+   * Additional CSS classes for additional grid
+   */
+  additionalGridClassName?: string;
+  /**
+   * Additional CSS classes for additional item
+   */
+  additionalItemClassName?: string;
+  /**
+   * Additional CSS classes for additional item title
+   */
+  additionalItemTitleClassName?: string;
+  /**
+   * Additional CSS classes for additional item description
+   */
+  additionalItemDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for additional item price
+   */
+  additionalItemPriceClassName?: string;
 }
 
-const defaultFeaturedAddons: FeaturedAddon[] = [
+const defaultFeaturedAddons: PricingAddonsFeaturedCard[] = [
   {
     name: "Advanced Analytics",
     description: "Deep insights into your data with custom reports and dashboards",
     price: "$29",
     priceDescription: "/month",
     features: [
-      "Custom dashboards",
-      "Advanced reporting",
-      "Data export",
-      "API access",
+      { text: "Custom dashboards" },
+      { text: "Advanced reporting" },
+      { text: "Data export" },
+      { text: "API access" },
     ],
-    buttonText: "Add to Plan",
-    buttonHref: "#",
+    action: { label: "Add to Plan", href: "#", variant: "outline" },
   },
   {
     name: "Priority Support",
@@ -51,13 +276,12 @@ const defaultFeaturedAddons: FeaturedAddon[] = [
     price: "$49",
     priceDescription: "/month",
     features: [
-      "24/7 support",
-      "Dedicated account manager",
-      "Phone support",
-      "Priority queue",
+      { text: "24/7 support" },
+      { text: "Dedicated account manager" },
+      { text: "Phone support" },
+      { text: "Priority queue" },
     ],
-    buttonText: "Add to Plan",
-    buttonHref: "#",
+    action: { label: "Add to Plan", href: "#", variant: "default" },
     isHighlighted: true,
   },
   {
@@ -66,17 +290,16 @@ const defaultFeaturedAddons: FeaturedAddon[] = [
     price: "$79",
     priceDescription: "/month",
     features: [
-      "SSO integration",
-      "Audit logs",
-      "Custom security policies",
-      "Compliance reports",
+      { text: "SSO integration" },
+      { text: "Audit logs" },
+      { text: "Custom security policies" },
+      { text: "Compliance reports" },
     ],
-    buttonText: "Add to Plan",
-    buttonHref: "#",
+    action: { label: "Add to Plan", href: "#", variant: "outline" },
   },
 ];
 
-const defaultAdditionalAddons: AdditionalAddon[] = [
+const defaultAdditionalAddons: PricingAddonsFeaturedAdditional[] = [
   {
     name: "Extra Storage",
     description: "Add 100GB of additional storage",
@@ -109,9 +332,9 @@ const defaultAdditionalAddons: AdditionalAddon[] = [
  * @example
  * ```tsx
  * <PricingAddonsFeatured
- *   title="Enhance Your Plan"
+ *   heading="Enhance Your Plan"
  *   featuredAddons={[
- *     { name: "Analytics", description: "Deep insights", price: "$29", features: ["Feature 1"] }
+ *     { name: "Analytics", description: "Deep insights", price: "$29", features: [{ text: "Feature 1" }] }
  *   ]}
  *   additionalAddons={[
  *     { name: "Extra Storage", description: "100GB more", price: "$10/month" }
@@ -120,103 +343,248 @@ const defaultAdditionalAddons: AdditionalAddon[] = [
  * ```
  */
 export function PricingAddonsFeatured({
-  className,
-  title = "Enhance Your Plan",
+  heading = "Enhance Your Plan",
   subtitle = "Add powerful features to supercharge your workflow",
   featuredAddons = defaultFeaturedAddons,
+  featuredAddonsSlot,
   additionalAddons = defaultAdditionalAddons,
-}: PricingAddonsFeaturedProps) {
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  additionalAddonsSlot,
+  additionalHeading = "Additional Add-ons",
+  featureIcon,
+  featureIconName = "lucide/check",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subtitleClassName,
+  featuredGridClassName,
+  cardClassName,
+  highlightedCardClassName,
+  cardTitleClassName,
+  cardDescriptionClassName,
+  priceClassName,
+  priceDescriptionClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionClassName,
+  additionalSectionClassName,
+  additionalHeadingClassName,
+  additionalGridClassName,
+  additionalItemClassName,
+  additionalItemTitleClassName,
+  additionalItemDescriptionClassName,
+  additionalItemPriceClassName,
+}: PricingAddonsFeaturedProps): React.JSX.Element {
+  const renderFeatures = (addon: PricingAddonsFeaturedCard) => {
+    if (addon.featuresSlot) return addon.featuresSlot;
+    if (!addon.features || addon.features.length === 0) return null;
 
-        {/* Featured Add-ons */}
-        <div className="grid gap-6 md:grid-cols-3">
-          {featuredAddons.map((addon, index) => (
+    return (
+      <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
+        {addon.features.map((feature, featureIndex) => {
+          const resolvedIcon = feature.icon
+            ?? featureIcon
+            ?? (feature.iconName || featureIconName ? (
+              <DynamicIcon
+                name={feature.iconName || featureIconName}
+                size={16}
+                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+              />
+            ) : null);
+
+          return (
+            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+              {resolvedIcon}
+              {feature.text && (
+                typeof feature.text === "string" ? (
+                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </span>
+                ) : (
+                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  const renderAction = (addon: PricingAddonsFeaturedCard) => {
+    if (addon.actionSlot) return addon.actionSlot;
+    if (!addon.action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = addon.action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderFeatured = () => {
+    if (featuredAddonsSlot) return featuredAddonsSlot;
+    if (!featuredAddons || featuredAddons.length === 0) return null;
+
+    return (
+      <div className={cn("grid gap-6 md:grid-cols-3", featuredGridClassName)}>
+        {featuredAddons.map((addon, index) => (
+          <div
+            key={index}
+            className={cn(
+              "flex flex-col rounded-2xl border p-6",
+              addon.isHighlighted ? "border-primary bg-primary/5 shadow-lg" : "border-border",
+              cardClassName,
+              addon.isHighlighted ? highlightedCardClassName : null,
+              addon.className
+            )}
+          >
+            <div className="mb-4">
+              {addon.name && (
+                typeof addon.name === "string" ? (
+                  <h3 className={cn("text-lg font-semibold", cardTitleClassName)}>{addon.name}</h3>
+                ) : (
+                  <div className={cardTitleClassName}>{addon.name}</div>
+                )
+              )}
+              {addon.description && (
+                typeof addon.description === "string" ? (
+                  <p className={cn("mt-2 text-sm text-muted-foreground", cardDescriptionClassName)}>
+                    {addon.description}
+                  </p>
+                ) : (
+                  <div className={cardDescriptionClassName}>{addon.description}</div>
+                )
+              )}
+            </div>
+
+            <div className="mb-6">
+              {addon.price && (
+                <span className={cn("text-3xl font-bold", priceClassName)}>{addon.price}</span>
+              )}
+              {addon.priceDescription && (
+                <span className={cn("text-muted-foreground", priceDescriptionClassName)}>
+                  {addon.priceDescription}
+                </span>
+              )}
+            </div>
+
+            {renderFeatures(addon)}
+            {renderAction(addon)}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderAdditional = () => {
+    if (additionalAddonsSlot) return additionalAddonsSlot;
+    if (!additionalAddons || additionalAddons.length === 0) return null;
+
+    return (
+      <div className={cn("mt-16", additionalSectionClassName)}>
+        {additionalHeading && (
+          typeof additionalHeading === "string" ? (
+            <h3 className={cn("mb-6 text-xl font-semibold", additionalHeadingClassName)}>
+              {additionalHeading}
+            </h3>
+          ) : (
+            <div className={additionalHeadingClassName}>{additionalHeading}</div>
+          )
+        )}
+        <div className={cn("grid gap-4 md:grid-cols-2", additionalGridClassName)}>
+          {additionalAddons.map((addon, index) => (
             <div
               key={index}
               className={cn(
-                "flex flex-col rounded-2xl border p-6",
-                addon.isHighlighted
-                  ? "border-primary bg-primary/5 shadow-lg"
-                  : "border-border"
+                "flex items-center justify-between rounded-lg border p-4",
+                additionalItemClassName,
+                addon.className
               )}
             >
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold">{addon.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {addon.description}
-                </p>
-              </div>
-
-              <div className="mb-6">
-                <span className="text-3xl font-bold">{addon.price}</span>
-                {addon.priceDescription && (
-                  <span className="text-muted-foreground">
-                    {addon.priceDescription}
-                  </span>
+              <div>
+                {addon.name && (
+                  typeof addon.name === "string" ? (
+                    <h4 className={cn("font-medium", additionalItemTitleClassName)}>{addon.name}</h4>
+                  ) : (
+                    <div className={additionalItemTitleClassName}>{addon.name}</div>
+                  )
+                )}
+                {addon.description && (
+                  typeof addon.description === "string" ? (
+                    <p className={cn("text-sm text-muted-foreground", additionalItemDescriptionClassName)}>
+                      {addon.description}
+                    </p>
+                  ) : (
+                    <div className={additionalItemDescriptionClassName}>{addon.description}</div>
+                  )
                 )}
               </div>
-
-              <ul className="mb-6 flex-1 space-y-3">
-                {addon.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <DynamicIcon
-                      name="lucide/check"
-                      size={16}
-                      className="mt-0.5 shrink-0 text-primary"
-                    />
-                    <span className="text-sm text-muted-foreground">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Pressable
-                href={addon.buttonHref}
-                variant={addon.isHighlighted ? "default" : "outline"}
-                size="default"
-                asButton
-                className="w-full justify-center"
-              >
-                {addon.buttonText}
-              </Pressable>
+              {addon.price && (
+                <div className={cn("ml-4 text-right", additionalItemPriceClassName)}>
+                  <span className="font-semibold">{addon.price}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
-
-        {/* Additional Add-ons */}
-        {additionalAddons.length > 0 && (
-          <div className="mt-16">
-            <h3 className="mb-6 text-xl font-semibold">Additional Add-ons</h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              {additionalAddons.map((addon, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between rounded-lg border p-4"
-                >
-                  <div>
-                    <h4 className="font-medium">{addon.name}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {addon.description}
-                    </p>
-                  </div>
-                  <div className="ml-4 text-right">
-                    <span className="font-semibold">{addon.price}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto", containerClassName)}>
+        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ) : (
+              <div className={subtitleClassName}>{subtitle}</div>
+            )
+          )}
+        </div>
+
+        {renderFeatured()}
+        {renderAdditional()}
+      </div>
+    </Section>
   );
 }

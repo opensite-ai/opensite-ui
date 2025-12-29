@@ -11,57 +11,96 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
+/**
+ * Feature item configuration for spotlight display
+ */
 export interface ServicesListFeatureSpotlightItem {
   /**
    * Unique identifier for the feature
    */
-  id: string;
+  id?: string;
   /**
    * Feature title
    */
-  title: string;
+  title?: React.ReactNode;
   /**
    * Feature description
    */
-  description: string;
+  description?: React.ReactNode;
   /**
    * Eyebrow label for the feature
    */
-  eyebrow?: string;
+  eyebrow?: React.ReactNode;
   /**
    * Badge labels for the feature
    */
-  badges?: [string, string];
+  badges?: [React.ReactNode, React.ReactNode];
   /**
-   * Icon name for the feature
+   * Icon element (overrides iconName)
    */
-  icon: string;
+  icon?: React.ReactNode;
+  /**
+   * Icon name in format: prefix/name (e.g., "lucide/shield-check")
+   */
+  iconName?: string;
   /**
    * Feature image
    */
-  image: {
+  image?: {
     src: string;
     alt: string;
   };
+  /**
+   * Additional CSS classes for the feature item
+   */
+  className?: string;
 }
 
 export interface ServicesListFeatureSpotlightProps {
   /**
    * Section heading
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Section subheading
+   * Section subheading/eyebrow
    */
-  subheading?: string;
+  subheading?: React.ReactNode;
   /**
    * Features list
    */
   features?: ServicesListFeatureSpotlightItem[];
   /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the features container
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for each feature card
+   */
+  cardClassName?: string;
   /**
    * Background style for the section
    */
@@ -95,7 +134,7 @@ const defaultFeatures: ServicesListFeatureSpotlightItem[] = [
       "Unbiased recommendations supported by OpenSite AI coverage intelligence.",
     eyebrow: "Independent Choice",
     badges: ["Transparent advice", "Carrier flexibility"],
-    icon: "lucide/shield-check",
+    iconName: "lucide/shield-check",
     image: {
       src: imagePlaceholders[10],
       alt: "Independent strategy",
@@ -108,7 +147,7 @@ const defaultFeatures: ServicesListFeatureSpotlightItem[] = [
       "Dedicated advisors that translate complex policies into clear actions.",
     eyebrow: "Personal Guidance",
     badges: ["Real experts", "Tailored support"],
-    icon: "lucide/users",
+    iconName: "lucide/users",
     image: {
       src: imagePlaceholders[11],
       alt: "Personal guidance",
@@ -121,7 +160,7 @@ const defaultFeatures: ServicesListFeatureSpotlightItem[] = [
       "AI-assisted insights that surface gaps, opportunities, and next steps.",
     eyebrow: "AI Advantage",
     badges: ["Smart reviews", "Growth-ready"],
-    icon: "lucide/brain",
+    iconName: "lucide/brain",
     image: {
       src: imagePlaceholders[12],
       alt: "Coverage intelligence",
@@ -134,7 +173,7 @@ const defaultFeatures: ServicesListFeatureSpotlightItem[] = [
       "Partner resources and playbooks shared across the OpenSite AI ecosystem.",
     eyebrow: "Network Strength",
     badges: ["Shared expertise", "Trusted partners"],
-    icon: "lucide/network",
+    iconName: "lucide/network",
     image: {
       src: imagePlaceholders[13],
       alt: "Network resources",
@@ -146,48 +185,63 @@ const defaultFeatures: ServicesListFeatureSpotlightItem[] = [
  * ServicesListFeatureSpotlight - Alternating image and card layout that
  * highlights key service differentiators with badges and icons. Works well
  * for service pages needing rich storytelling and visual variety.
+ *
+ * @example
+ * ```tsx
+ * <ServicesListFeatureSpotlight
+ *   heading="Service advantages built for modern teams"
+ *   subheading="The OpenSite AI approach"
+ *   features={[
+ *     { id: "1", title: "Feature", description: "Description", iconName: "lucide/star", image: { src: "/img.jpg", alt: "Feature" } }
+ *   ]}
+ *   background="white"
+ *   spacing="lg"
+ * />
+ * ```
  */
 export function ServicesListFeatureSpotlight({
   heading = "Service advantages built for modern teams",
   subheading = "The OpenSite AI approach",
   features = defaultFeatures,
+  featuresSlot,
   className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  featuresClassName,
+  cardClassName,
   background = "white",
   spacing = "lg",
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: ServicesListFeatureSpotlightProps): React.JSX.Element {
-  return (
-    <Section
-      background={background}
-      spacing={spacing}
-      className={cn(className)}
-      pattern={pattern}
-      patternOpacity={patternOpacity}
-    >
-        <div className="mb-12 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            {subheading}
-          </p>
-          <h2 className="mt-3 text-3xl font-bold text-foreground md:text-4xl">
-            {heading}
-          </h2>
-        </div>
+  const renderFeatureIcon = (feature: ServicesListFeatureSpotlightItem) => {
+    if (feature.icon) return feature.icon;
+    if (feature.iconName) return <DynamicIcon name={feature.iconName} size={24} />;
+    return null;
+  };
 
-        <div className="space-y-12">
-          {features.map((feature, idx) => {
-            const imageFirst = idx % 2 === 0;
-            return (
-              <motion.div
-                key={feature.id}
-                className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2"
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.45, delay: idx * 0.05 }}
-              >
-                <div className={imageFirst ? "order-1" : "order-2 lg:order-1"}>
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-12", featuresClassName)}>
+        {features.map((feature, idx) => {
+          const imageFirst = idx % 2 === 0;
+          return (
+            <motion.div
+              key={feature.id || `feature-${idx}`}
+              className={cn("grid grid-cols-1 items-center gap-8 lg:grid-cols-2", feature.className)}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.45, delay: idx * 0.05 }}
+            >
+              <div className={imageFirst ? "order-1" : "order-2 lg:order-1"}>
+                {feature.image && (
                   <div className="relative overflow-hidden rounded-3xl border border-border/30 shadow-xl">
                     <Img
                       src={feature.image.src}
@@ -197,47 +251,95 @@ export function ServicesListFeatureSpotlight({
                     />
                     <div className="absolute inset-0 bg-linear-to-tr from-foreground/40 via-transparent to-transparent" />
                   </div>
-                </div>
+                )}
+              </div>
 
-                <Card
-                  className={cn(
-                    "border-border/60 shadow-lg",
-                    imageFirst ? "order-2" : "order-1 lg:order-2",
-                  )}
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                        <DynamicIcon name={feature.icon} size={24} />
-                      </div>
-                      <div>
-                        {feature.eyebrow ? (
-                          <p className="text-xs uppercase tracking-[0.2em] text-primary">
-                            {feature.eyebrow}
-                          </p>
-                        ) : null}
-                        <h3 className="mt-1 text-2xl font-bold text-foreground">
-                          {feature.title}
-                        </h3>
-                      </div>
+              <Card
+                className={cn(
+                  "border-border/60 shadow-lg",
+                  imageFirst ? "order-2" : "order-1 lg:order-2",
+                  cardClassName
+                )}
+              >
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      {renderFeatureIcon(feature)}
                     </div>
-                    <p className="text-muted-foreground">{feature.description}</p>
-                    {feature.badges ? (
-                      <div className="flex flex-wrap gap-2">
-                        <span className="rounded-full bg-muted/60 px-3 py-1 text-xs text-foreground">
-                          {feature.badges[0]}
-                        </span>
-                        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary">
-                          {feature.badges[1]}
-                        </span>
-                      </div>
-                    ) : null}
+                    <div>
+                      {feature.eyebrow && (
+                        typeof feature.eyebrow === "string" ? (
+                          <p className="text-xs uppercase tracking-[0.2em] text-primary">{feature.eyebrow}</p>
+                        ) : (
+                          <div className="text-xs uppercase tracking-[0.2em] text-primary">{feature.eyebrow}</div>
+                        )
+                      )}
+                      {feature.title && (
+                        typeof feature.title === "string" ? (
+                          <h3 className="mt-1 text-2xl font-bold text-foreground">{feature.title}</h3>
+                        ) : (
+                          <div className="mt-1 text-2xl font-bold text-foreground">{feature.title}</div>
+                        )
+                      )}
+                    </div>
                   </div>
-                </Card>
-              </motion.div>
-            );
-          })}
+                  {feature.description && (
+                    typeof feature.description === "string" ? (
+                      <p className="text-muted-foreground">{feature.description}</p>
+                    ) : (
+                      <div className="text-muted-foreground">{feature.description}</div>
+                    )
+                  )}
+                  {feature.badges && (
+                    <div className="flex flex-wrap gap-2">
+                      <span className="rounded-full bg-muted/60 px-3 py-1 text-xs text-foreground">
+                        {feature.badges[0]}
+                      </span>
+                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary">
+                        {feature.badges[1]}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            </motion.div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={containerClassName}>
+        <div className={cn("mb-12 text-center", headerClassName)}>
+          {subheading && (
+            typeof subheading === "string" ? (
+              <p className={cn("text-sm font-semibold uppercase tracking-[0.2em] text-primary", subheadingClassName)}>
+                {subheading}
+              </p>
+            ) : (
+              <div className={subheadingClassName}>{subheading}</div>
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mt-3 text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
         </div>
+        {renderFeatures()}
+      </div>
     </Section>
   );
 }

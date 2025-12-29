@@ -9,43 +9,52 @@ import { patternSvgs } from "../../../lib/patternSvgs";
 import {
   imagePlaceholders,
   videoPlaceholders,
-  logoPlaceholders,
 } from "../../../lib/mediaPlaceholders";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  ImageItem,
+  SocialLinkItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Link item for the link tree
  */
-export interface LinkTreeLink {
-  id: string;
-  label: string;
-  href: string;
-  icon?: string;
-  description?: string;
+export interface LinkTreeLink extends ActionConfig {
+  id?: string;
+  description?: React.ReactNode;
   featured?: boolean;
-  badge?: string;
+  badge?: React.ReactNode;
+  badgeVariant?: "default" | "secondary" | "destructive" | "outline";
+  iconName?: string;
 }
 
 /**
  * Social link for the link tree
  */
-export interface SocialLink {
-  id: string;
-  platform: string;
-  href: string;
-  icon: string;
-  label?: string;
+export interface SocialLink extends SocialLinkItem {
+  id?: string;
+  iconName?: string;
 }
 
 /**
  * Media gallery item for the link tree
  */
 export interface MediaGalleryItem {
-  id: string;
+  id?: string;
   type: "image" | "video";
   src: string;
   alt?: string;
   href?: string;
+  poster?: string;
+  className?: string;
+  mediaClassName?: string;
 }
 
 /**
@@ -55,43 +64,183 @@ export interface LinkTreeBlockProps {
   /**
    * Brand/profile name displayed at the top
    */
-  brandName: string;
+  brandName?: React.ReactNode;
   /**
    * Optional tagline or bio displayed below the name
    */
-  brandTagline?: string;
+  brandTagline?: React.ReactNode;
   /**
-   * Optional logo image URL
+   * Optional logo image (used if no avatar is provided)
    */
-  brandLogo?: string;
+  brandLogo?: ImageItem | string;
   /**
-   * Optional avatar image URL (takes precedence over logo for the avatar display)
+   * Optional avatar image (takes precedence over logo)
    */
-  brandAvatar?: string;
+  brandAvatar?: ImageItem | string;
   /**
    * Whether to show a verified badge next to the name
    */
   brandVerified?: boolean;
   /**
+   * Custom verified icon
+   */
+  verifiedIcon?: React.ReactNode;
+  /**
+   * Custom slot for rendering brand header
+   */
+  brandSlot?: React.ReactNode;
+  /**
    * Array of links to display
    */
   links?: LinkTreeLink[];
+  /**
+   * Custom slot for rendering links (overrides links array)
+   */
+  linksSlot?: React.ReactNode;
   /**
    * Array of social media links
    */
   socialLinks?: SocialLink[];
   /**
+   * Custom slot for rendering social links (overrides socialLinks array)
+   */
+  socialLinksSlot?: React.ReactNode;
+  /**
    * Array of media items for the gallery section
    */
   mediaGallery?: MediaGalleryItem[];
   /**
+   * Custom slot for rendering media gallery (overrides mediaGallery array)
+   */
+  mediaGallerySlot?: React.ReactNode;
+  /**
    * Title for the media gallery section
    */
-  mediaGalleryTitle?: string;
+  mediaGalleryTitle?: React.ReactNode;
   /**
-   * Additional CSS classes for the container
+   * Maximum number of media items to show
+   */
+  mediaGalleryLimit?: number;
+  /**
+   * Footer action configuration
+   */
+  footerAction?: ActionConfig;
+  /**
+   * Custom slot for rendering footer content
+   */
+  footerSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the outer wrapper
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the inner content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the brand header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the avatar wrapper
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the brand name
+   */
+  nameClassName?: string;
+  /**
+   * Additional CSS classes for the brand tagline
+   */
+  taglineClassName?: string;
+  /**
+   * Additional CSS classes for the verified badge container
+   */
+  verifiedBadgeClassName?: string;
+  /**
+   * Additional CSS classes for the verified icon
+   */
+  verifiedIconClassName?: string;
+  /**
+   * Additional CSS classes for the links container
+   */
+  linksClassName?: string;
+  /**
+   * Additional CSS classes for link items
+   */
+  linkClassName?: string;
+  /**
+   * Additional CSS classes for featured link items
+   */
+  featuredLinkClassName?: string;
+  /**
+   * Additional CSS classes for link icons
+   */
+  linkIconClassName?: string;
+  /**
+   * Additional CSS classes for link labels
+   */
+  linkLabelClassName?: string;
+  /**
+   * Additional CSS classes for link descriptions
+   */
+  linkDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for link badges
+   */
+  linkBadgeClassName?: string;
+  /**
+   * Additional CSS classes for link chevron icon
+   */
+  linkChevronClassName?: string;
+  /**
+   * Additional CSS classes for the media gallery section
+   */
+  mediaGalleryClassName?: string;
+  /**
+   * Additional CSS classes for the media gallery title
+   */
+  mediaGalleryTitleClassName?: string;
+  /**
+   * Additional CSS classes for the media gallery grid
+   */
+  mediaGalleryGridClassName?: string;
+  /**
+   * Additional CSS classes for media gallery items
+   */
+  mediaGalleryItemClassName?: string;
+  /**
+   * Additional CSS classes for media elements
+   */
+  mediaGalleryMediaClassName?: string;
+  /**
+   * Additional CSS classes for media overlay
+   */
+  mediaGalleryOverlayClassName?: string;
+  /**
+   * Additional CSS classes for media play icon
+   */
+  mediaGalleryPlayIconClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for each social link
+   */
+  socialLinkClassName?: string;
+  /**
+   * Additional CSS classes for social icons
+   */
+  socialIconClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
   /**
    * Theme variation for the component.
    * - "light": Light background with dark text (default)
@@ -100,275 +249,37 @@ export interface LinkTreeBlockProps {
    */
   theme?: "light" | "dark" | "glass";
   /**
-   * Background pattern URL from patternSvgs. Use values from lib/patternSvgs.ts
-   * @example backgroundPattern={patternSvgs.dots}
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Background pattern URL (legacy)
    */
   backgroundPattern?: string;
   /**
    * Custom accent color CSS value (applied as --accent-color CSS variable)
    */
   accentColor?: string;
-}
-
-interface BrandHeaderProps {
-  brandName: string;
-  brandTagline?: string;
-  brandLogo?: string;
-  brandAvatar?: string;
-  brandVerified?: boolean;
-  theme?: "light" | "dark" | "glass";
-}
-
-function BrandHeader({
-  brandName,
-  brandTagline,
-  brandLogo,
-  brandAvatar,
-  brandVerified,
-  theme = "light",
-}: BrandHeaderProps) {
-  const avatarSrc =
-    brandAvatar || brandLogo || blockBrandedIconsAndPlaceholders.avatar1;
-
-  return (
-    <div className="flex flex-col items-center gap-4 text-center">
-      <div className="relative">
-        <div className="h-24 w-24 rounded-full border-4 border-background shadow-xl overflow-hidden bg-muted">
-          <img
-            src={avatarSrc}
-            alt={brandName}
-            className="h-full w-full object-cover"
-          />
-        </div>
-        {brandVerified && (
-          <div className="absolute -bottom-1 -right-1 rounded-full bg-primary p-1">
-            <DynamicIcon
-              name="lucide/check"
-              size={14}
-              className="text-primary-foreground"
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="space-y-1">
-        <h1
-          className={cn(
-            "text-2xl font-bold tracking-tight",
-            theme === "dark" ? "text-white" : "text-foreground"
-          )}
-        >
-          {brandName}
-        </h1>
-        {brandTagline && (
-          <p
-            className={cn(
-              "text-sm max-w-xs text-balance",
-              theme === "dark" ? "text-white/70" : "text-muted-foreground"
-            )}
-          >
-            {brandTagline}
-          </p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-interface LinkItemProps {
-  link: LinkTreeLink;
-  theme?: "light" | "dark" | "glass";
-}
-
-function LinkItem({ link, theme = "light" }: LinkItemProps) {
-  const isFeatured = link.featured;
-
-  return (
-    <Pressable
-      href={link.href}
-      className={cn(
-        "group relative flex items-center gap-3 w-full rounded-xl px-4 py-3.5 transition-all duration-200",
-        "hover:scale-[1.02] active:scale-[0.98]",
-        isFeatured
-          ? cn(
-              "bg-primary text-primary-foreground shadow-lg",
-              "hover:bg-primary/90"
-            )
-          : cn(
-              theme === "dark"
-                ? "bg-white/10 text-white hover:bg-white/20 border border-white/10"
-                : theme === "glass"
-                ? "bg-white/60 backdrop-blur-sm text-foreground hover:bg-white/80 border border-white/30"
-                : "bg-card text-card-foreground hover:bg-accent border border-border"
-            )
-      )}
-    >
-      {link.icon && (
-        <DynamicIcon
-          name={link.icon}
-          size={20}
-          className={cn(
-            "shrink-0",
-            isFeatured
-              ? "text-primary-foreground"
-              : theme === "dark"
-              ? "text-white"
-              : "text-foreground"
-          )}
-        />
-      )}
-
-      <div className="flex-1 min-w-0 text-left">
-        <span className="font-medium text-sm block truncate">{link.label}</span>
-        {link.description && (
-          <span
-            className={cn(
-              "text-xs block truncate mt-0.5",
-              isFeatured
-                ? "text-primary-foreground/70"
-                : theme === "dark"
-                ? "text-white/60"
-                : "text-muted-foreground"
-            )}
-          >
-            {link.description}
-          </span>
-        )}
-      </div>
-
-      {link.badge && (
-        <Badge
-          variant={isFeatured ? "secondary" : "default"}
-          className="shrink-0 text-xs"
-        >
-          {link.badge}
-        </Badge>
-      )}
-
-      <DynamicIcon
-        name="lucide/chevron-right"
-        size={16}
-        className={cn(
-          "shrink-0 transition-transform group-hover:translate-x-0.5",
-          isFeatured
-            ? "text-primary-foreground/70"
-            : theme === "dark"
-            ? "text-white/50"
-            : "text-muted-foreground"
-        )}
-      />
-    </Pressable>
-  );
-}
-
-interface SocialLinksProps {
-  socialLinks: SocialLink[];
-  theme?: "light" | "dark" | "glass";
-}
-
-function SocialLinksSection({
-  socialLinks,
-  theme = "light",
-}: SocialLinksProps) {
-  return (
-    <div className="flex items-center justify-center gap-2 flex-wrap">
-      {socialLinks.map((social) => (
-        <Pressable
-          key={social.id}
-          href={social.href}
-          aria-label={social.label || social.platform}
-          className={cn(
-            "rounded-full h-12 w-12 flex items-center justify-center p-2.5 transition-all duration-200",
-            "hover:scale-110 active:scale-95",
-            theme === "dark"
-              ? "bg-white/10 text-white hover:bg-white/20"
-              : theme === "glass"
-              ? "bg-white/60 backdrop-blur-sm hover:bg-white/80"
-              : "bg-muted hover:bg-accent"
-          )}
-        >
-          <DynamicIcon
-            name={social.icon}
-            size={20}
-            className={theme === "dark" ? "text-white" : "text-foreground"}
-          />
-        </Pressable>
-      ))}
-    </div>
-  );
-}
-
-interface MediaGalleryProps {
-  items: MediaGalleryItem[];
-  title?: string;
-  theme?: "light" | "dark" | "glass";
-}
-
-function MediaGallerySection({
-  items,
-  title,
-  theme = "light",
-}: MediaGalleryProps) {
-  return (
-    <div className="space-y-3">
-      {title && (
-        <h3
-          className={cn(
-            "text-sm font-medium text-center",
-            theme === "dark" ? "text-white/70" : "text-muted-foreground"
-          )}
-        >
-          {title}
-        </h3>
-      )}
-
-      <div className="grid grid-cols-3 gap-2">
-        {items.slice(0, 6).map((item) => (
-          <Pressable
-            key={item.id}
-            href={item.href}
-            className={cn(
-              "group relative aspect-square overflow-hidden rounded-lg",
-              "transition-all duration-200 hover:scale-[1.02]",
-              theme === "dark" ? "ring-1 ring-white/10" : "ring-1 ring-border"
-            )}
-          >
-            {item.type === "video" ? (
-              <video
-                src={item.src}
-                className="h-full w-full object-cover"
-                muted
-                loop
-                playsInline
-                onMouseEnter={(e) => e.currentTarget.play()}
-                onMouseLeave={(e) => {
-                  e.currentTarget.pause();
-                  e.currentTarget.currentTime = 0;
-                }}
-              />
-            ) : (
-              <img
-                src={item.src}
-                alt={item.alt || ""}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
-              />
-            )}
-
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center">
-              {item.type === "video" && (
-                <DynamicIcon
-                  name="lucide/play"
-                  size={24}
-                  className="text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                />
-              )}
-            </div>
-          </Pressable>
-        ))}
-      </div>
-    </div>
-  );
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultLinks: LinkTreeLink[] = [
@@ -376,7 +287,7 @@ const defaultLinks: LinkTreeLink[] = [
     id: "1",
     label: "My Latest YouTube Video",
     href: "https://youtube.com",
-    icon: "simple-icons/youtube",
+    iconName: "simple-icons/youtube",
     featured: true,
     badge: "New",
   },
@@ -384,27 +295,27 @@ const defaultLinks: LinkTreeLink[] = [
     id: "2",
     label: "Shop My Presets",
     href: "https://example.com/shop",
-    icon: "lucide/shopping-bag",
+    iconName: "lucide/shopping-bag",
     description: "Lightroom presets for stunning photos",
   },
   {
     id: "3",
     label: "Book a Consultation",
     href: "https://calendly.com",
-    icon: "lucide/calendar",
+    iconName: "lucide/calendar",
     description: "1-on-1 photography coaching",
   },
   {
     id: "4",
     label: "Join My Newsletter",
     href: "https://example.com/newsletter",
-    icon: "lucide/mail",
+    iconName: "lucide/mail",
   },
   {
     id: "5",
     label: "Listen on Spotify",
     href: "https://spotify.com",
-    icon: "simple-icons/spotify",
+    iconName: "simple-icons/spotify",
   },
 ];
 
@@ -413,25 +324,25 @@ const defaultSocialLinks: SocialLink[] = [
     id: "s1",
     platform: "Instagram",
     href: "https://instagram.com",
-    icon: "simple-icons/instagram",
+    iconName: "simple-icons/instagram",
   },
   {
     id: "s2",
     platform: "TikTok",
     href: "https://tiktok.com",
-    icon: "simple-icons/tiktok",
+    iconName: "simple-icons/tiktok",
   },
   {
     id: "s3",
     platform: "Twitter",
     href: "https://twitter.com",
-    icon: "simple-icons/x",
+    iconName: "simple-icons/x",
   },
   {
     id: "s4",
     platform: "LinkedIn",
     href: "https://linkedin.com",
-    icon: "simple-icons/linkedin",
+    iconName: "simple-icons/linkedin",
   },
 ];
 
@@ -443,6 +354,11 @@ const defaultMediaGallery: MediaGalleryItem[] = [
   { id: "m5", type: "image", src: imagePlaceholders[3], alt: "Photo 4" },
   { id: "m6", type: "image", src: imagePlaceholders[4], alt: "Photo 5" },
 ];
+
+const defaultFooterAction: ActionConfig = {
+  label: "Powered by OpenSite",
+  href: "/",
+};
 
 /**
  * LinkTreeBlock - A customizable link-in-bio style page component with three theme variations.
@@ -462,7 +378,7 @@ const defaultMediaGallery: MediaGalleryItem[] = [
  *   brandName="Sarah Chen"
  *   brandTagline="Digital creator & photographer"
  *   links={[
- *     { id: "1", label: "My Website", href: "https://example.com", icon: "lucide/globe" }
+ *     { id: "1", label: "My Website", href: "https://example.com", iconName: "lucide/globe" }
  *   ]}
  * />
  *
@@ -486,19 +402,490 @@ export function LinkTreeBlock({
   brandLogo,
   brandAvatar = blockBrandedIconsAndPlaceholders.avatar1,
   brandVerified = true,
+  verifiedIcon,
+  brandSlot,
   links = defaultLinks,
+  linksSlot,
   socialLinks = defaultSocialLinks,
+  socialLinksSlot,
   mediaGallery = defaultMediaGallery,
+  mediaGallerySlot,
   mediaGalleryTitle = "Latest Content",
+  mediaGalleryLimit = 6,
+  footerAction,
+  footerSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headerClassName,
+  avatarClassName,
+  nameClassName,
+  taglineClassName,
+  verifiedBadgeClassName,
+  verifiedIconClassName,
+  linksClassName,
+  linkClassName,
+  featuredLinkClassName,
+  linkIconClassName,
+  linkLabelClassName,
+  linkDescriptionClassName,
+  linkBadgeClassName,
+  linkChevronClassName,
+  mediaGalleryClassName,
+  mediaGalleryTitleClassName,
+  mediaGalleryGridClassName,
+  mediaGalleryItemClassName,
+  mediaGalleryMediaClassName,
+  mediaGalleryOverlayClassName,
+  mediaGalleryPlayIconClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  socialIconClassName,
+  footerClassName,
   theme = "light",
+  background,
+  spacing = "none",
+  pattern,
+  patternOpacity,
+  patternClassName,
   backgroundPattern = patternSvgs.dots,
   accentColor,
+  optixFlowConfig,
 }: LinkTreeBlockProps): React.JSX.Element {
+  const isDark = theme === "dark";
+  const isGlass = theme === "glass";
+  const resolvedBackground = background ?? (isDark ? "dark" : "gray");
+  const resolvedPattern = pattern ?? backgroundPattern;
+
+  const resolveImage = (
+    value?: ImageItem | string,
+    fallbackAlt?: string
+  ): ImageItem | undefined => {
+    if (!value) return undefined;
+    if (typeof value === "string") {
+      return { src: value, alt: fallbackAlt ?? "" };
+    }
+    return value;
+  };
+
+  const nameForAlt = typeof brandName === "string" ? brandName : "Brand avatar";
+  const resolvedAvatar =
+    resolveImage(brandAvatar || brandLogo, nameForAlt) ||
+    resolveImage(blockBrandedIconsAndPlaceholders.avatar1, nameForAlt);
+
+  const renderBrandHeader = () => {
+    if (brandSlot) return brandSlot;
+
+    return (
+      <div
+        className={cn(
+          "flex flex-col items-center gap-4 text-center",
+          headerClassName
+        )}
+      >
+        <div className="relative">
+          <div
+            className={cn(
+              "h-24 w-24 overflow-hidden rounded-full border-4 border-background bg-muted shadow-xl",
+              avatarClassName
+            )}
+          >
+            {resolvedAvatar && (
+              <Img
+                src={resolvedAvatar.src}
+                alt={resolvedAvatar.alt}
+                className="h-full w-full object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
+            )}
+          </div>
+          {brandVerified && (
+            <div
+              className={cn(
+                "absolute -bottom-1 -right-1 rounded-full bg-primary p-1",
+                verifiedBadgeClassName
+              )}
+            >
+              {verifiedIcon ?? (
+                <DynamicIcon
+                  name="lucide/check"
+                  size={14}
+                  className={cn("text-primary-foreground", verifiedIconClassName)}
+                />
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-1">
+          {brandName &&
+            (typeof brandName === "string" ? (
+              <h1
+                className={cn(
+                  "text-2xl font-bold tracking-tight",
+                  isDark ? "text-white" : "text-foreground",
+                  nameClassName
+                )}
+              >
+                {brandName}
+              </h1>
+            ) : (
+              <div className={nameClassName}>{brandName}</div>
+            ))}
+          {brandTagline &&
+            (typeof brandTagline === "string" ? (
+              <p
+                className={cn(
+                  "max-w-xs text-balance text-sm",
+                  isDark ? "text-white/70" : "text-muted-foreground",
+                  taglineClassName
+                )}
+              >
+                {brandTagline}
+              </p>
+            ) : (
+              <div className={taglineClassName}>{brandTagline}</div>
+            ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderLinks = () => {
+    if (linksSlot) return linksSlot;
+    if (!links || links.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-3", linksClassName)}>
+        {links.map((link, index) => {
+          const isFeatured = link.featured;
+          const {
+            label,
+            description,
+            icon,
+            children,
+            className: linkItemClassName,
+            ...pressableProps
+          } = link;
+          const iconElement =
+            icon ||
+            (link.iconName ? (
+              <DynamicIcon
+                name={link.iconName}
+                size={20}
+                className={linkIconClassName}
+              />
+            ) : null);
+
+          const badgeVariant =
+            link.badgeVariant ?? (isFeatured ? "secondary" : "default");
+
+          if (children) {
+            return (
+              <Pressable
+                key={link.id ?? index}
+                className={cn(
+                  "group relative flex w-full items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200",
+                  "hover:scale-[1.02] active:scale-[0.98]",
+                  isFeatured
+                    ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
+                    : isDark
+                    ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
+                    : isGlass
+                    ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
+                    : "border border-border bg-card text-card-foreground hover:bg-accent",
+                  linkClassName,
+                  isFeatured ? featuredLinkClassName : null,
+                  linkItemClassName
+                )}
+                {...pressableProps}
+              >
+                {children}
+              </Pressable>
+            );
+          }
+
+          return (
+            <Pressable
+              key={link.id ?? index}
+              className={cn(
+                "group relative flex w-full items-center gap-3 rounded-xl px-4 py-3.5 transition-all duration-200",
+                "hover:scale-[1.02] active:scale-[0.98]",
+                isFeatured
+                  ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
+                  : isDark
+                  ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
+                  : isGlass
+                  ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
+                  : "border border-border bg-card text-card-foreground hover:bg-accent",
+                linkClassName,
+                isFeatured ? featuredLinkClassName : null,
+                linkItemClassName
+              )}
+              {...pressableProps}
+            >
+              {iconElement}
+
+              <div className="min-w-0 flex-1 text-left">
+                {label &&
+                  (typeof label === "string" ? (
+                    <span
+                      className={cn(
+                        "block truncate text-sm font-medium",
+                        linkLabelClassName
+                      )}
+                    >
+                      {label}
+                    </span>
+                  ) : (
+                    <div className={linkLabelClassName}>{label}</div>
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <span
+                      className={cn(
+                        "mt-0.5 block truncate text-xs",
+                        isFeatured
+                          ? "text-primary-foreground/70"
+                          : isDark
+                          ? "text-white/60"
+                          : "text-muted-foreground",
+                        linkDescriptionClassName
+                      )}
+                    >
+                      {description}
+                    </span>
+                  ) : (
+                    <div className={linkDescriptionClassName}>
+                      {description}
+                    </div>
+                  ))}
+              </div>
+
+              {link.badge && (
+                <Badge
+                  variant={badgeVariant}
+                  className={cn("shrink-0 text-xs", linkBadgeClassName)}
+                >
+                  {link.badge}
+                </Badge>
+              )}
+
+              <DynamicIcon
+                name="lucide/chevron-right"
+                size={16}
+                className={cn(
+                  "shrink-0 transition-transform group-hover:translate-x-0.5",
+                  isFeatured
+                    ? "text-primary-foreground/70"
+                    : isDark
+                    ? "text-white/50"
+                    : "text-muted-foreground",
+                  linkChevronClassName
+                )}
+              />
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderMediaGallery = () => {
+    if (mediaGallerySlot) return mediaGallerySlot;
+    if (!mediaGallery || mediaGallery.length === 0) return null;
+
+    const items = mediaGallery.slice(0, mediaGalleryLimit);
+
+    return (
+      <div className={cn("space-y-3", mediaGalleryClassName)}>
+        {mediaGalleryTitle &&
+          (typeof mediaGalleryTitle === "string" ? (
+            <h3
+              className={cn(
+                "text-center text-sm font-medium",
+                isDark ? "text-white/70" : "text-muted-foreground",
+                mediaGalleryTitleClassName
+              )}
+            >
+              {mediaGalleryTitle}
+            </h3>
+          ) : (
+            <div className={mediaGalleryTitleClassName}>
+              {mediaGalleryTitle}
+            </div>
+          ))}
+
+        <div
+          className={cn(
+            "grid grid-cols-3 gap-2",
+            mediaGalleryGridClassName
+          )}
+        >
+          {items.map((item, index) => (
+            <Pressable
+              key={item.id ?? index}
+              href={item.href}
+              className={cn(
+                "group relative aspect-square overflow-hidden rounded-lg",
+                "transition-all duration-200 hover:scale-[1.02]",
+                isDark ? "ring-1 ring-white/10" : "ring-1 ring-border",
+                mediaGalleryItemClassName,
+                item.className
+              )}
+            >
+              {item.type === "video" ? (
+                <video
+                  src={item.src}
+                  poster={item.poster}
+                  className={cn(
+                    "h-full w-full object-cover",
+                    mediaGalleryMediaClassName,
+                    item.mediaClassName
+                  )}
+                  muted
+                  loop
+                  playsInline
+                  onMouseEnter={(e) => e.currentTarget.play()}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.pause();
+                    e.currentTarget.currentTime = 0;
+                  }}
+                />
+              ) : (
+                <Img
+                  src={item.src}
+                  alt={item.alt || ""}
+                  className={cn(
+                    "h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
+                    mediaGalleryMediaClassName,
+                    item.mediaClassName
+                  )}
+                  optixFlowConfig={optixFlowConfig}
+                />
+              )}
+
+              <div
+                className={cn(
+                  "absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-200 group-hover:bg-black/20",
+                  mediaGalleryOverlayClassName
+                )}
+              >
+                {item.type === "video" && (
+                  <DynamicIcon
+                    name="lucide/play"
+                    size={24}
+                    className={cn(
+                      "text-white opacity-0 transition-opacity group-hover:opacity-100",
+                      mediaGalleryPlayIconClassName
+                    )}
+                  />
+                )}
+              </div>
+            </Pressable>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSocialLinks = () => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "flex flex-wrap items-center justify-center gap-2",
+          socialLinksClassName
+        )}
+      >
+        {socialLinks.map((social, index) => {
+          const icon =
+            social.icon ||
+            (social.iconName ? (
+              <DynamicIcon
+                name={social.iconName}
+                size={20}
+                className={socialIconClassName}
+              />
+            ) : null);
+          const ariaLabel =
+            social["aria-label"] ||
+            (typeof social.label === "string" ? social.label : undefined) ||
+            social.platform;
+
+          return (
+            <Pressable
+              key={social.id ?? index}
+              href={social.href}
+              aria-label={ariaLabel}
+              className={cn(
+                "flex h-12 w-12 items-center justify-center rounded-full p-2.5 transition-all duration-200",
+                "hover:scale-110 active:scale-95",
+                isDark
+                  ? "bg-white/10 text-white hover:bg-white/20"
+                  : isGlass
+                  ? "bg-white/60 backdrop-blur-sm hover:bg-white/80"
+                  : "bg-muted hover:bg-accent",
+                socialLinkClassName,
+                social.className
+              )}
+            >
+              {icon}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
+
+    const resolvedFooterAction = footerAction ?? defaultFooterAction;
+    if (!resolvedFooterAction) return null;
+
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = resolvedFooterAction;
+
+    const defaultIcon =
+      footerAction === undefined ? (
+        <DynamicIcon name="lucide/link" size={12} />
+      ) : null;
+
+    return (
+      <Pressable
+        className={cn(
+          "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
+          isDark ? "text-white/40" : "text-muted-foreground/60",
+          footerClassName,
+          actionClassName
+        )}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon ?? defaultIcon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <div
+    <Section
+      background={resolvedBackground}
+      spacing={spacing}
       className={cn(
-        "relative min-h-screen w-full flex items-start justify-center py-12 px-4",
         theme === "dark"
           ? "bg-neutral-950"
           : theme === "glass"
@@ -506,66 +893,29 @@ export function LinkTreeBlock({
           : "bg-muted/30",
         className
       )}
+      pattern={resolvedPattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
       style={
         accentColor
           ? ({ "--accent-color": accentColor } as React.CSSProperties)
           : undefined
       }
     >
-      {backgroundPattern && (
-        <div
-          className="absolute inset-0 opacity-30 pointer-events-none"
-          style={{
-            backgroundImage: `url(${backgroundPattern})`,
-            backgroundRepeat: "repeat",
-            backgroundSize: "100px 100px",
-          }}
-        />
-      )}
-
-      <div className="relative z-10 w-full max-w-md space-y-6">
-        <BrandHeader
-          brandName={brandName}
-          brandTagline={brandTagline}
-          brandLogo={brandLogo}
-          brandAvatar={brandAvatar}
-          brandVerified={brandVerified}
-          theme={theme}
-        />
-
-        {links.length > 0 && (
-          <div className="space-y-3">
-            {links.map((link) => (
-              <LinkItem key={link.id} link={link} theme={theme} />
-            ))}
-          </div>
+      <div
+        className={cn(
+          "flex min-h-screen w-full items-start justify-center py-12",
+          containerClassName
         )}
-
-        {mediaGallery.length > 0 && (
-          <MediaGallerySection
-            items={mediaGallery}
-            title={mediaGalleryTitle}
-            theme={theme}
-          />
-        )}
-
-        {socialLinks.length > 0 && (
-          <SocialLinksSection socialLinks={socialLinks} theme={theme} />
-        )}
-
-        <div className="pt-4">
-          <Pressable
-            href="/"
-            className={cn(
-              "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-              theme === "dark" ? "text-white/40" : "text-muted-foreground/60"
-            )}
-          >
-            <DynamicIcon name="lucide/link" size={12} />
-            <span>Powered by OpenSite</span>
-          </Pressable>
+      >
+        <div className={cn("w-full max-w-md space-y-6", contentClassName)}>
+          {renderBrandHeader()}
+          {renderLinks()}
+          {renderMediaGallery()}
+          {renderSocialLinks()}
+          <div className="pt-4">{renderFooter()}</div>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

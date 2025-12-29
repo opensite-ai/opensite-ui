@@ -585,19 +585,14 @@ export const NavbarPlatformResources = ({
                 Developer
               </Pressable>
 
-              <div className="mx-8 mt-auto flex flex-col gap-4 py-12">
-                <span className="text-center">
-                  Existing Customer? <b>Login</b>
-                </span>
-                <Pressable href="#" size="lg" asButton>
-                  Start now
-                </Pressable>
+              <div className={cn("mx-8 mt-auto flex flex-col gap-4 py-12", actionsClassName)}>
+                {renderAuthActions()}
               </div>
             </div>
           )}
         </NavigationMenu>
       </div>
-    </section>
+    </Section>
   );
 };
 

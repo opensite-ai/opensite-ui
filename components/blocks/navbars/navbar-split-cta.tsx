@@ -5,7 +5,8 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,6 +18,13 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface SubMenuItem {
   title: string;
@@ -32,25 +40,103 @@ interface MenuItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarSplitCta component
  */
 export interface NavbarSplitCtaProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation menu items
+   */
   menu?: MenuItem[];
+  /**
+   * Custom slot for menu items (overrides menu array)
+   */
+  menuSlot?: React.ReactNode;
+  /**
+   * Primary CTA configuration (deprecated - use authActions instead)
+   * @deprecated
+   */
   primaryCta?: {
     label: string;
     url: string;
   };
+  /**
+   * Secondary CTA configuration (deprecated - use authActions instead)
+   * @deprecated
+   */
   secondaryCta?: {
     label: string;
     url: string;
   };
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -75,9 +161,14 @@ const defaultMenu: MenuItem[] = [
   { title: "Resources", url: "#" },
 ];
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Book Demo", href: "#", variant: "outline", size: "default" },
+  { label: "Start Free Trial", href: "#", variant: "default", size: "default", iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1" /> },
+];
+
 /**
  * NavbarSplitCta - A navigation bar with split primary and secondary call-to-action buttons.
- * 
+ *
  * Features a balanced layout with navigation links on the left and two distinct CTA buttons
  * on the right - a secondary outline button and a primary filled button. The dropdown menus
  * display items with icons and descriptions in a clean list format. Mobile view uses a
@@ -85,38 +176,114 @@ const defaultMenu: MenuItem[] = [
  * and services that want to emphasize both login/signup or demo/trial actions.
  */
 export const NavbarSplitCta = ({
-  className,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   menu = defaultMenu,
-  primaryCta = { label: "Start Free Trial", url: "#" },
-  secondaryCta = { label: "Book Demo", url: "#" },
+  menuSlot,
+  primaryCta,
+  secondaryCta,
+  authActions,
+  authActionsSlot,
+  className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarSplitCtaProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <section className={cn("border-b bg-background", className)}>
-      <div className="container">
-        <nav className="flex items-center justify-between py-4">
-          <div className="flex items-center gap-8">
-            <Pressable href={logo.url} className="flex items-center gap-2">
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="h-8"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="text-lg font-semibold">{logo.title}</span>
-            </Pressable>
+  // Support legacy primaryCta/secondaryCta props
+  const finalAuthActions = authActions || (primaryCta || secondaryCta ? [
+    ...(secondaryCta ? [{ label: secondaryCta.label, href: secondaryCta.url, variant: "outline" as const, size: "default" as const }] : []),
+    ...(primaryCta ? [{ label: primaryCta.label, href: primaryCta.url, variant: "default" as const, size: "default" as const, iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1" /> }] : []),
+  ] : defaultAuthActions);
 
-            <NavigationMenu className="hidden lg:flex">
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            className={cn("h-8", logo.className)}
+            alt={logo.alt || "Logo"}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="text-lg font-semibold">
+              {logo.title}
+            </span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!finalAuthActions || finalAuthActions.length === 0) return null;
+
+    return finalAuthActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderMenu = () => {
+    if (menuSlot) return menuSlot;
+    if (!menu || menu.length === 0) return null;
+
+    return menu;
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("border-b", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <nav className={cn("flex items-center justify-between py-4", navClassName)}>
+          <div className="flex items-center gap-8">
+            {renderLogo()}
+
+            <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
               <NavigationMenuList>
-                {menu.map((item, index) =>
+                {renderMenu()?.map((item, index) =>
                   item.items ? (
                     <NavigationMenuItem key={index}>
                       <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
@@ -166,14 +333,8 @@ export const NavbarSplitCta = ({
             </NavigationMenu>
           </div>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <Pressable variant="outline" asButton href={secondaryCta.url}>
-              {secondaryCta.label}
-            </Pressable>
-            <Pressable asButton href={primaryCta.url}>
-              {primaryCta.label}
-              <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1" />
-            </Pressable>
+          <div className={cn("hidden items-center gap-3 lg:flex", actionsClassName)}>
+            {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -187,16 +348,10 @@ export const NavbarSplitCta = ({
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 pt-8">
                 <div className="flex flex-col gap-2">
-                  <Pressable asButton href={primaryCta.url} className="w-full">
-                    {primaryCta.label}
-                    <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1" />
-                  </Pressable>
-                  <Pressable variant="outline" asButton href={secondaryCta.url} className="w-full">
-                    {secondaryCta.label}
-                  </Pressable>
+                  {renderAuthActions()}
                 </div>
                 <div className="border-t pt-4">
-                  {menu.map((item, index) =>
+                  {renderMenu()?.map((item, index) =>
                     item.items ? (
                       <div key={index} className="mb-4">
                         <div className="mb-2 text-sm font-medium text-muted-foreground">
@@ -235,7 +390,7 @@ export const NavbarSplitCta = ({
           </Sheet>
         </nav>
       </div>
-    </section>
+    </Section>
   );
 };
 

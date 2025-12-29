@@ -6,29 +6,196 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-export interface PricingDiscountCardProps {
+export interface PricingDiscountCardFeature {
+  /**
+   * Feature text
+   */
+  text?: React.ReactNode;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for feature item
+   */
   className?: string;
-  title?: string;
-  description?: string;
-  originalPrice?: string;
-  discountedPrice?: string;
-  discountBadge?: string;
-  priceDescription?: string;
-  features?: string[];
-  buttonText?: string;
-  buttonHref?: string;
+  /**
+   * Additional CSS classes for feature icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  textClassName?: string;
 }
 
-const defaultFeatures = [
-  "Unlimited projects",
-  "Advanced analytics",
-  "Priority support",
-  "API access",
-  "Custom integrations",
-  "Team collaboration",
-  "99.9% uptime SLA",
+export interface PricingDiscountCardProps {
+  /**
+   * Card title
+   */
+  title?: React.ReactNode;
+  /**
+   * Supporting description
+   */
+  description?: React.ReactNode;
+  /**
+   * Original price (strikethrough)
+   */
+  originalPrice?: React.ReactNode;
+  /**
+   * Discounted price
+   */
+  discountedPrice?: React.ReactNode;
+  /**
+   * Discount badge content
+   */
+  discountBadge?: React.ReactNode;
+  /**
+   * Price description/subtext
+   */
+  priceDescription?: React.ReactNode;
+  /**
+   * Feature list
+   */
+  features?: PricingDiscountCardFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Default icon for features
+   */
+  featureIcon?: React.ReactNode;
+  /**
+   * Default icon name for features
+   */
+  featureIconName?: string;
+  /**
+   * Primary action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the price wrapper
+   */
+  priceWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the original price
+   */
+  originalPriceClassName?: string;
+  /**
+   * Additional CSS classes for the discounted price
+   */
+  discountedPriceClassName?: string;
+  /**
+   * Additional CSS classes for the price description
+   */
+  priceDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the separator
+   */
+  separatorClassName?: string;
+  /**
+   * Additional CSS classes for the feature list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for the feature item
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for the feature icon
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for the feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for the action
+   */
+  actionClassName?: string;
+}
+
+const defaultFeatures: PricingDiscountCardFeature[] = [
+  { text: "Unlimited projects" },
+  { text: "Advanced analytics" },
+  { text: "Priority support" },
+  { text: "API access" },
+  { text: "Custom integrations" },
+  { text: "Team collaboration" },
+  { text: "99.9% uptime SLA" },
 ];
+
+const defaultAction: ActionConfig = {
+  label: "Get Started Now",
+  href: "#",
+  variant: "default",
+  size: "lg",
+};
 
 /**
  * PricingDiscountCard displays a single pricing card with a discount badge and strikethrough original price.
@@ -45,13 +212,12 @@ const defaultFeatures = [
  *   originalPrice="$99"
  *   discountedPrice="$79"
  *   discountBadge="20% OFF"
- *   features={["Feature 1", "Feature 2"]}
- *   buttonText="Get Started"
+ *   features={[{ text: "Feature 1" }, { text: "Feature 2" }]}
+ *   action={{ label: "Get Started", href: "#" }}
  * />
  * ```
  */
 export function PricingDiscountCard({
-  className,
   title = "Pro Plan",
   description = "Everything you need to grow your business",
   originalPrice = "$99",
@@ -59,64 +225,160 @@ export function PricingDiscountCard({
   discountBadge = "20% OFF",
   priceDescription = "/month, billed annually",
   features = defaultFeatures,
-  buttonText = "Get Started Now",
-  buttonHref = "#",
-}: PricingDiscountCardProps) {
+  featuresSlot,
+  featureIcon,
+  featureIconName = "lucide/check",
+  action = defaultAction,
+  actionSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  cardClassName,
+  badgeClassName,
+  headerClassName,
+  titleClassName,
+  descriptionClassName,
+  priceWrapperClassName,
+  originalPriceClassName,
+  discountedPriceClassName,
+  priceDescriptionClassName,
+  separatorClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionClassName,
+}: PricingDiscountCardProps): React.JSX.Element {
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
+
+    return (
+      <ul className={cn("space-y-3", featuresClassName)}>
+        {features.map((feature, index) => {
+          const resolvedIcon = feature.icon
+            ?? featureIcon
+            ?? (feature.iconName || featureIconName ? (
+              <DynamicIcon
+                name={feature.iconName || featureIconName}
+                size={18}
+                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+              />
+            ) : null);
+
+          return (
+            <li key={index} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+              {resolvedIcon}
+              {feature.text && (
+                typeof feature.text === "string" ? (
+                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </span>
+                ) : (
+                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  const renderAction = () => {
+    if (actionSlot) return actionSlot;
+    if (!action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("mt-8 w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-md">
-          <div className="relative rounded-2xl border bg-card p-8 shadow-lg">
-            {discountBadge && (
-              <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 hover:bg-green-600">
-                {discountBadge}
-              </Badge>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto max-w-md", containerClassName)}>
+        <div className={cn("relative rounded-2xl border bg-card p-8 shadow-lg", cardClassName)}>
+          {discountBadge && (
+            <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
+              {typeof discountBadge === "string" ? (
+                <Badge className="bg-green-500 hover:bg-green-600">
+                  {discountBadge}
+                </Badge>
+              ) : (
+                discountBadge
+              )}
+            </div>
+          )}
+
+          <div className={cn("text-center", headerClassName)}>
+            {title && (
+              typeof title === "string" ? (
+                <h2 className={cn("text-2xl font-bold", titleClassName)}>{title}</h2>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-2 text-muted-foreground", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
             )}
 
-            <div className="text-center">
-              <h2 className="text-2xl font-bold">{title}</h2>
-              <p className="mt-2 text-muted-foreground">{description}</p>
-
-              <div className="mt-6">
-                {originalPrice && (
-                  <span className="mr-2 text-2xl text-muted-foreground line-through">
-                    {originalPrice}
-                  </span>
-                )}
-                <span className="text-5xl font-bold">{discountedPrice}</span>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {priceDescription}
-                </p>
-              </div>
+            <div className={cn("mt-6", priceWrapperClassName)}>
+              {originalPrice && (
+                <span className={cn("mr-2 text-2xl text-muted-foreground line-through", originalPriceClassName)}>
+                  {originalPrice}
+                </span>
+              )}
+              {discountedPrice && (
+                <span className={cn("text-5xl font-bold", discountedPriceClassName)}>{discountedPrice}</span>
+              )}
+              {priceDescription && (
+                typeof priceDescription === "string" ? (
+                  <p className={cn("mt-2 text-sm text-muted-foreground", priceDescriptionClassName)}>
+                    {priceDescription}
+                  </p>
+                ) : (
+                  <div className={priceDescriptionClassName}>{priceDescription}</div>
+                )
+              )}
             </div>
-
-            <Separator className="my-6" />
-
-            <ul className="space-y-3">
-              {features.map((feature, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <DynamicIcon
-                    name="lucide/check"
-                    size={18}
-                    className="mt-0.5 shrink-0 text-primary"
-                  />
-                  <span className="text-sm text-muted-foreground">{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <Pressable
-              href={buttonHref}
-              variant="default"
-              size="lg"
-              asButton
-              className="mt-8 w-full justify-center"
-            >
-              {buttonText}
-            </Pressable>
           </div>
+
+          <Separator className={cn("my-6", separatorClassName)} />
+          {renderFeatures()}
+          {renderAction()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

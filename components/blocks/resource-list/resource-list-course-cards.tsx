@@ -7,38 +7,137 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ResourceListCourseCardsAuthor {
-  name: string;
-  title: string;
+  /**
+   * Author name
+   */
+  name: React.ReactNode;
+  /**
+   * Author title/role
+   */
+  title: React.ReactNode;
+  /**
+   * Author avatar URL
+   */
   avatar: string;
 }
 
 export interface ResourceListCourseCardsCourse {
-  badge?: string;
-  title: string;
-  description: string;
+  /**
+   * Badge text for the course
+   */
+  badge?: React.ReactNode;
+  /**
+   * Course title
+   */
+  title: React.ReactNode;
+  /**
+   * Course description
+   */
+  description: React.ReactNode;
+  /**
+   * Course author information
+   */
   author: ResourceListCourseCardsAuthor;
+  /**
+   * Course image URL
+   */
   image: string;
+  /**
+   * Number of lessons
+   */
   lessons: number;
+  /**
+   * Lessons label (defaults to "Lessons")
+   */
+  lessonsLabel?: React.ReactNode;
+  /**
+   * Number of videos
+   */
   videos: number;
-  duration: string;
-  audience: string[];
+  /**
+   * Videos label (defaults to "Videos")
+   */
+  videosLabel?: React.ReactNode;
+  /**
+   * Course duration
+   */
+  duration: React.ReactNode;
+  /**
+   * Target audience labels
+   */
+  audience: React.ReactNode[];
+  /**
+   * Gradient class for the visual element
+   */
   gradient: string;
+  /**
+   * CTA configuration
+   */
   cta: {
-    text: string;
+    text: React.ReactNode;
     url: string;
   };
+  /**
+   * Additional CSS classes for the course card
+   */
+  className?: string;
 }
 
 export interface ResourceListCourseCardsProps {
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Array of course configurations
+   */
   courses?: ResourceListCourseCardsCourse[];
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Custom slot for rendering courses (overrides courses array)
+   */
+  coursesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the courses container
+   */
+  coursesClassName?: string;
+  /**
+   * Additional CSS classes for each course card
+   */
+  courseCardClassName?: string;
+  /**
+   * Additional CSS classes for the course content area
+   */
+  courseContentClassName?: string;
+  /**
+   * Additional CSS classes for the course visual area
+   */
+  courseVisualClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const defaultCourses: ResourceListCourseCardsCourse[] = [
@@ -105,18 +204,34 @@ const defaultCourses: ResourceListCourseCardsCourse[] = [
 export function ResourceListCourseCards({
   className,
   courses = defaultCourses,
+  coursesSlot,
+  coursesClassName,
+  courseCardClassName,
+  courseContentClassName,
+  courseVisualClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "md",
+  pattern,
+  patternOpacity,
 }: ResourceListCourseCardsProps) {
-  return (
-    <section className={cn("bg-background py-16", className)}>
-      <div className="flex flex-col gap-8">
-        {courses.map((course) => (
+  const renderCourses = () => {
+    if (coursesSlot) return coursesSlot;
+    if (!courses || courses.length === 0) return null;
+
+    return (
+      <div className={cn("flex flex-col gap-8", coursesClassName)}>
+        {courses.map((course, idx) => (
           <div
-            key={course.title}
-            className="relative flex flex-col gap-8 border-t border-border py-16 md:p-8"
+            key={idx}
+            className={cn(
+              "relative flex flex-col gap-8 border-t border-border py-16 md:p-8",
+              courseCardClassName,
+              course.className
+            )}
           >
             <div className="container grid grid-cols-1 gap-10 md:grid-cols-2">
-              <div className="flex flex-col gap-4">
+              <div className={cn("flex flex-col gap-4", courseContentClassName)}>
                 {course.badge && (
                   <div>
                     <Badge variant="secondary" className="rounded-none uppercase">
@@ -125,38 +240,65 @@ export function ResourceListCourseCards({
                   </div>
                 )}
 
-                <h3 className="text-2xl font-bold">{course.title}</h3>
+                {typeof course.title === "string" ? (
+                  <h3 className="text-2xl font-bold">{course.title}</h3>
+                ) : (
+                  <div className="text-2xl font-bold">{course.title}</div>
+                )}
 
                 <div className="space-y-2 text-sm text-foreground/90">
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/users" size={16} />
-                    <span>{course.audience.join(", ")}</span>
+                    <span>
+                      {course.audience.map((item, i) => (
+                        <span key={i}>
+                          {i > 0 && ", "}
+                          {item}
+                        </span>
+                      ))}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/book-open" size={16} />
-                    <span>{course.lessons} Lessons</span>
+                    <span>{course.lessons} {course.lessonsLabel ?? "Lessons"}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/play" size={16} />
                     <span>
-                      {course.videos} Videos, {course.duration}
+                      {course.videos} {course.videosLabel ?? "Videos"}, {course.duration}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-lg leading-relaxed">{course.description}</p>
+                {typeof course.description === "string" ? (
+                  <p className="text-lg leading-relaxed">{course.description}</p>
+                ) : (
+                  <div className="text-lg leading-relaxed">{course.description}</div>
+                )}
 
                 <div>
                   <div className="flex items-center gap-3">
                     <Avatar className="size-10 border xl:size-12">
                       <AvatarImage src={course.author.avatar} />
-                      <AvatarFallback>{course.author.name}</AvatarFallback>
+                      <AvatarFallback>
+                        {typeof course.author.name === "string" ? course.author.name : ""}
+                      </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-medium">{course.author.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {course.author.title}
-                      </p>
+                      {typeof course.author.name === "string" ? (
+                        <p className="font-medium">{course.author.name}</p>
+                      ) : (
+                        <div className="font-medium">{course.author.name}</div>
+                      )}
+                      {typeof course.author.title === "string" ? (
+                        <p className="text-sm text-muted-foreground">
+                          {course.author.title}
+                        </p>
+                      ) : (
+                        <div className="text-sm text-muted-foreground">
+                          {course.author.title}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -174,7 +316,7 @@ export function ResourceListCourseCards({
                 </Pressable>
               </div>
 
-              <div>
+              <div className={courseVisualClassName}>
                 <div
                   className={cn(
                     "group grid aspect-video w-full place-items-center rounded-lg bg-gradient-to-br pt-6 pr-8 transition duration-200 ease-out hover:scale-[1.03] hover:-rotate-2 dark:from-muted dark:to-muted/50",
@@ -188,7 +330,7 @@ export function ResourceListCourseCards({
                     <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-md">
                       <Img
                         src={course.image}
-                        alt={course.title}
+                        alt={typeof course.title === "string" ? course.title : "Course"}
                         className="h-full w-full object-cover"
                         optixFlowConfig={optixFlowConfig}
                       />
@@ -200,6 +342,18 @@ export function ResourceListCourseCards({
           </div>
         ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      {renderCourses()}
+    </Section>
   );
 }

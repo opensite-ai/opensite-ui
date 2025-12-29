@@ -6,32 +6,126 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ResourceListFeaturedArticlesFeaturedPost {
-  title: string;
+  /**
+   * Featured post title
+   */
+  title: React.ReactNode;
+  /**
+   * Featured post image URL
+   */
   imageUrl: string;
+  /**
+   * Featured post link URL
+   */
   link: string;
+  /**
+   * Additional CSS classes for the featured post
+   */
+  className?: string;
 }
 
 export interface ResourceListFeaturedArticlesArticle {
-  date: string;
-  category: string;
-  title: string;
+  /**
+   * Article date
+   */
+  date: React.ReactNode;
+  /**
+   * Article category
+   */
+  category: React.ReactNode;
+  /**
+   * Article title
+   */
+  title: React.ReactNode;
+  /**
+   * Article link URL
+   */
   link: string;
+  /**
+   * Additional CSS classes for the article row
+   */
+  className?: string;
 }
 
 export interface ResourceListFeaturedArticlesProps {
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Featured post configuration
+   */
   featuredPost?: ResourceListFeaturedArticlesFeaturedPost;
-  featuredBadgeText?: string;
-  featuredButtonText?: string;
-  articlesTitle?: string;
+  /**
+   * Custom slot for rendering featured post (overrides featuredPost)
+   */
+  featuredPostSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the featured post container
+   */
+  featuredPostClassName?: string;
+  /**
+   * Badge text for the featured post
+   */
+  featuredBadgeText?: React.ReactNode;
+  /**
+   * Additional CSS classes for the featured badge
+   */
+  featuredBadgeClassName?: string;
+  /**
+   * Button text for the featured post CTA
+   */
+  featuredButtonText?: React.ReactNode;
+  /**
+   * Additional CSS classes for the featured button
+   */
+  featuredButtonClassName?: string;
+  /**
+   * Title for the articles section
+   */
+  articlesTitle?: React.ReactNode;
+  /**
+   * Additional CSS classes for the articles title
+   */
+  articlesTitleClassName?: string;
+  /**
+   * Array of article configurations
+   */
   articles?: ResourceListFeaturedArticlesArticle[];
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Custom slot for rendering articles (overrides articles array)
+   */
+  articlesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the articles container
+   */
+  articlesClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const defaultFeaturedPost: ResourceListFeaturedArticlesFeaturedPost = {
@@ -91,42 +185,51 @@ const defaultArticles: ResourceListFeaturedArticlesArticle[] = [
   },
 ];
 
-interface FeaturedPostProps {
-  title: string;
+interface FeaturedPostComponentProps {
+  title: React.ReactNode;
   imageUrl: string;
   link: string;
-  badgeText: string;
-  buttonText: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  badgeText: React.ReactNode;
+  buttonText: React.ReactNode;
+  className?: string;
+  badgeClassName?: string;
+  buttonClassName?: string;
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-const FeaturedPost = ({
+const FeaturedPostComponent = ({
   title,
   imageUrl,
   link,
   badgeText,
   buttonText,
+  className,
+  badgeClassName,
+  buttonClassName,
   optixFlowConfig,
-}: FeaturedPostProps) => {
+}: FeaturedPostComponentProps) => {
   return (
-    <div className="flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10 xl:flex-row">
+    <div className={cn("flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10 xl:flex-row", className)}>
       <div className="basis-full lg:basis-1/2">
         <div className="flex flex-col gap-5">
-          <Badge variant="outline" className="w-fit bg-background">
+          <Badge variant="outline" className={cn("w-fit bg-background", badgeClassName)}>
             {badgeText}
           </Badge>
-          <h2 className="text-2xl leading-[1.2] font-normal text-foreground md:text-[2.5rem] xl:text-[3.125rem]">
-            {title}
-          </h2>
+          {typeof title === "string" ? (
+            <h2 className="text-2xl leading-[1.2] font-normal text-foreground md:text-[2.5rem] xl:text-[3.125rem]">
+              {title}
+            </h2>
+          ) : (
+            <div className="text-2xl leading-[1.2] font-normal text-foreground md:text-[2.5rem] xl:text-[3.125rem]">
+              {title}
+            </div>
+          )}
           <div>
             <Pressable
               href={link}
               variant="default"
               asButton
-              className="group relative mt-5 px-6 transition-all hover:pr-8 hover:pl-4"
+              className={cn("group relative mt-5 px-6 transition-all hover:pr-8 hover:pl-4", buttonClassName)}
             >
               {buttonText}
               <DynamicIcon
@@ -142,7 +245,7 @@ const FeaturedPost = ({
         <div className="mx-auto aspect-[1.782729805] w-full max-w-160 overflow-hidden rounded-2xl">
           <Img
             src={imageUrl}
-            alt={title}
+            alt={typeof title === "string" ? title : "Featured post"}
             className="block size-full object-cover object-center"
             optixFlowConfig={optixFlowConfig}
           />
@@ -170,42 +273,88 @@ const FeaturedPost = ({
 export function ResourceListFeaturedArticles({
   className,
   featuredPost = defaultFeaturedPost,
+  featuredPostSlot,
+  featuredPostClassName,
   featuredBadgeText = "Featured Resource",
+  featuredBadgeClassName,
   featuredButtonText = "Read more",
+  featuredButtonClassName,
   articlesTitle = "Resources",
+  articlesTitleClassName,
   articles = defaultArticles,
+  articlesSlot,
+  articlesClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: ResourceListFeaturedArticlesProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <FeaturedPost
-          {...featuredPost}
-          badgeText={featuredBadgeText}
-          buttonText={featuredButtonText}
-          optixFlowConfig={optixFlowConfig}
-        />
-        <div className="flex w-full flex-col gap-4">
-          <h2 className="mt-16 text-xl font-semibold">{articlesTitle}</h2>
-          <div>
-            {articles.map((article, index) => (
-              <Pressable
-                href={article.link}
-                key={index}
-                className="block w-full hover:bg-foreground/10"
-              >
-                <div className="flex flex-col items-baseline justify-between gap-2 border-t py-6 text-foreground md:flex-row">
-                  <div className="basis-1/4 font-medium">{article.date}</div>
-                  <div className="basis-1/4">{article.category}</div>
-                  <div className="basis-1/2 text-muted-foreground">
-                    {article.title}
-                  </div>
-                </div>
-              </Pressable>
-            ))}
-          </div>
-        </div>
+  const renderFeaturedPost = () => {
+    if (featuredPostSlot) return featuredPostSlot;
+    if (!featuredPost) return null;
+
+    return (
+      <FeaturedPostComponent
+        {...featuredPost}
+        className={featuredPostClassName}
+        badgeText={featuredBadgeText}
+        badgeClassName={featuredBadgeClassName}
+        buttonText={featuredButtonText}
+        buttonClassName={featuredButtonClassName}
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  };
+
+  const renderArticles = () => {
+    if (articlesSlot) return articlesSlot;
+    if (!articles || articles.length === 0) return null;
+
+    return (
+      <div className={articlesClassName}>
+        {articles.map((article, index) => (
+          <Pressable
+            href={article.link}
+            key={index}
+            className={cn("block w-full hover:bg-foreground/10", article.className)}
+          >
+            <div className="flex flex-col items-baseline justify-between gap-2 border-t py-6 text-foreground md:flex-row">
+              <div className="basis-1/4 font-medium">
+                {typeof article.date === "string" ? article.date : article.date}
+              </div>
+              <div className="basis-1/4">
+                {typeof article.category === "string" ? article.category : article.category}
+              </div>
+              <div className="basis-1/2 text-muted-foreground">
+                {typeof article.title === "string" ? article.title : article.title}
+              </div>
+            </div>
+          </Pressable>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      {renderFeaturedPost()}
+      <div className="flex w-full flex-col gap-4">
+        {articlesTitle && (
+          typeof articlesTitle === "string" ? (
+            <h2 className={cn("mt-16 text-xl font-semibold", articlesTitleClassName)}>{articlesTitle}</h2>
+          ) : (
+            <div className={cn("mt-16", articlesTitleClassName)}>{articlesTitle}</div>
+          )
+        )}
+        {renderArticles()}
+      </div>
+    </Section>
   );
 }

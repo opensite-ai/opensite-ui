@@ -1,66 +1,292 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-interface PricingPlan {
-  name: string;
-  monthlyPrice: number;
-  quarterlyPrice: number;
-  yearlyPrice: number;
-  description?: string;
-  features: string[];
-  buttonText?: string;
-  buttonHref?: string;
+export interface PricingTogglePeriodOption {
+  /**
+   * Unique period identifier
+   */
+  id: string;
+  /**
+   * Display label for the period
+   */
+  label?: React.ReactNode;
+  /**
+   * Optional badge (e.g., Save 35%)
+   */
+  badge?: React.ReactNode;
+  /**
+   * Price suffix (e.g., /month)
+   */
+  priceSuffix?: React.ReactNode;
+  /**
+   * Additional CSS classes for the toggle button
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+}
+
+export interface PricingTogglePeriodFeature {
+  /**
+   * Feature text
+   */
+  text?: React.ReactNode;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for feature item
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for feature icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  textClassName?: string;
+}
+
+export interface PricingTogglePeriodPlan {
+  /**
+   * Plan name
+   */
+  name?: React.ReactNode;
+  /**
+   * Plan description
+   */
+  description?: React.ReactNode;
+  /**
+   * Map of period id to price
+   */
+  prices?: Record<string, React.ReactNode>;
+  /**
+   * Plan features
+   */
+  features?: PricingTogglePeriodFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Highlight this plan
+   */
   isPopular?: boolean;
+  /**
+   * Optional badge content
+   */
+  badge?: React.ReactNode;
+  /**
+   * Additional CSS classes for the plan card
+   */
+  className?: string;
 }
 
 export interface PricingTogglePeriodProps {
+  /**
+   * Section title
+   */
+  title?: React.ReactNode;
+  /**
+   * Section subtitle
+   */
+  subtitle?: React.ReactNode;
+  /**
+   * Billing period toggle options
+   */
+  periods?: PricingTogglePeriodOption[];
+  /**
+   * Default period id
+   */
+  defaultPeriodId?: string;
+  /**
+   * Pricing plans
+   */
+  plans?: PricingTogglePeriodPlan[];
+  /**
+   * Custom slot for rendering plans (overrides plans array)
+   */
+  plansSlot?: React.ReactNode;
+  /**
+   * Default icon used for features
+   */
+  featureIcon?: React.ReactNode;
+  /**
+   * Default icon name for features
+   */
+  featureIconName?: string;
+  /**
+   * Badge content for popular plans
+   */
+  popularBadge?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  title?: string;
-  subtitle?: string;
-  plans?: PricingPlan[];
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
+  /**
+   * Additional CSS classes for the toggle wrapper
+   */
+  toggleClassName?: string;
+  /**
+   * Additional CSS classes for toggle buttons
+   */
+  toggleButtonClassName?: string;
+  /**
+   * Additional CSS classes for active toggle buttons
+   */
+  toggleButtonActiveClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for plan cards
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for popular cards
+   */
+  popularCardClassName?: string;
+  /**
+   * Additional CSS classes for plan badges
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for plan titles
+   */
+  planTitleClassName?: string;
+  /**
+   * Additional CSS classes for plan descriptions
+   */
+  planDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the price
+   */
+  priceClassName?: string;
+  /**
+   * Additional CSS classes for price interval
+   */
+  priceIntervalClassName?: string;
+  /**
+   * Additional CSS classes for the features list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for feature items
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for feature icons
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for the action
+   */
+  actionClassName?: string;
 }
 
-const defaultPlans: PricingPlan[] = [
+const defaultPeriods: PricingTogglePeriodOption[] = [
+  { id: "monthly", label: "Monthly", priceSuffix: "/month" },
+  { id: "quarterly", label: "Quarterly", priceSuffix: "/quarter" },
+  { id: "yearly", label: "Yearly", priceSuffix: "/year", badge: "Save 35%" },
+];
+
+const defaultPlans: PricingTogglePeriodPlan[] = [
   {
     name: "Starter",
-    monthlyPrice: 19,
-    quarterlyPrice: 49,
-    yearlyPrice: 149,
     description: "For individuals",
+    prices: { monthly: "$19", quarterly: "$49", yearly: "$149" },
     features: [
-      "5 projects",
-      "Basic analytics",
-      "Email support",
-      "2GB storage",
+      { text: "5 projects" },
+      { text: "Basic analytics" },
+      { text: "Email support" },
+      { text: "2GB storage" },
     ],
-    buttonText: "Get Started",
-    buttonHref: "#",
+    action: { label: "Get Started", href: "#", variant: "outline", size: "lg" },
   },
   {
     name: "Professional",
-    monthlyPrice: 49,
-    quarterlyPrice: 129,
-    yearlyPrice: 399,
     description: "For teams",
+    prices: { monthly: "$49", quarterly: "$129", yearly: "$399" },
     features: [
-      "Unlimited projects",
-      "Advanced analytics",
-      "Priority support",
-      "50GB storage",
-      "API access",
+      { text: "Unlimited projects" },
+      { text: "Advanced analytics" },
+      { text: "Priority support" },
+      { text: "50GB storage" },
+      { text: "API access" },
     ],
-    buttonText: "Start Trial",
-    buttonHref: "#",
+    action: { label: "Start Trial", href: "#", variant: "default", size: "lg" },
     isPopular: true,
   },
 ];
-
-type BillingPeriod = "monthly" | "quarterly" | "yearly";
 
 /**
  * PricingTogglePeriod displays pricing plans with a toggle group for multiple billing periods.
@@ -73,152 +299,257 @@ type BillingPeriod = "monthly" | "quarterly" | "yearly";
  * ```tsx
  * <PricingTogglePeriod
  *   title="Flexible Pricing"
+ *   periods={[{ id: "monthly", label: "Monthly", priceSuffix: "/month" }]}
  *   plans={[
- *     { name: "Starter", monthlyPrice: 19, quarterlyPrice: 49, yearlyPrice: 149, features: ["Feature 1"] }
+ *     { name: "Starter", prices: { monthly: "$19" }, features: [{ text: "Feature 1" }] }
  *   ]}
  * />
  * ```
  */
 export function PricingTogglePeriod({
-  className,
   title = "Flexible Pricing",
   subtitle = "Choose your billing period",
+  periods = defaultPeriods,
+  defaultPeriodId,
   plans = defaultPlans,
-}: PricingTogglePeriodProps) {
-  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("monthly");
+  plansSlot,
+  featureIcon,
+  featureIconName = "lucide/check",
+  popularBadge = "Most Popular",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  titleClassName,
+  subtitleClassName,
+  toggleClassName,
+  toggleButtonClassName,
+  toggleButtonActiveClassName,
+  gridClassName,
+  cardClassName,
+  popularCardClassName,
+  badgeClassName,
+  planTitleClassName,
+  planDescriptionClassName,
+  priceClassName,
+  priceIntervalClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionClassName,
+}: PricingTogglePeriodProps): React.JSX.Element {
+  const fallbackPeriodId = useMemo(() => {
+    if (defaultPeriodId) return defaultPeriodId;
+    return periods[0]?.id;
+  }, [defaultPeriodId, periods]);
 
-  const getPrice = (plan: PricingPlan) => {
-    switch (billingPeriod) {
-      case "quarterly":
-        return plan.quarterlyPrice;
-      case "yearly":
-        return plan.yearlyPrice;
-      default:
-        return plan.monthlyPrice;
-    }
+  const [billingPeriod, setBillingPeriod] = useState<string | undefined>(fallbackPeriodId);
+
+  const activePeriod = periods.find((period) => period.id === billingPeriod) ?? periods[0];
+
+  const renderFeatures = (plan: PricingTogglePeriodPlan) => {
+    if (plan.featuresSlot) return plan.featuresSlot;
+    if (!plan.features || plan.features.length === 0) return null;
+
+    return (
+      <ul className={cn("mb-8 flex-1 space-y-3", featuresClassName)}>
+        {plan.features.map((feature, featureIndex) => {
+          const resolvedIcon = feature.icon
+            ?? featureIcon
+            ?? (feature.iconName || featureIconName ? (
+              <DynamicIcon
+                name={feature.iconName || featureIconName}
+                size={18}
+                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+              />
+            ) : null);
+
+          return (
+            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+              {resolvedIcon}
+              {feature.text && (
+                typeof feature.text === "string" ? (
+                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </span>
+                ) : (
+                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
   };
 
-  const getPeriodLabel = () => {
-    switch (billingPeriod) {
-      case "quarterly":
-        return "/quarter";
-      case "yearly":
-        return "/year";
-      default:
-        return "/month";
-    }
+  const renderAction = (plan: PricingTogglePeriodPlan) => {
+    if (plan.actionSlot) return plan.actionSlot;
+    if (!plan.action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
   };
 
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
+  const renderPlans = () => {
+    if (plansSlot) return plansSlot;
+    if (!plans || plans.length === 0) return null;
 
-          <div className="mt-8 flex items-center justify-center">
-            <div className="inline-flex rounded-lg border p-1">
-              <button
-                onClick={() => setBillingPeriod("monthly")}
-                className={cn(
-                  "rounded-md px-4 py-2 text-sm font-medium transition-colors",
-                  billingPeriod === "monthly"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setBillingPeriod("quarterly")}
-                className={cn(
-                  "rounded-md px-4 py-2 text-sm font-medium transition-colors",
-                  billingPeriod === "quarterly"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Quarterly
-              </button>
-              <button
-                onClick={() => setBillingPeriod("yearly")}
-                className={cn(
-                  "rounded-md px-4 py-2 text-sm font-medium transition-colors",
-                  billingPeriod === "yearly"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Yearly
-                <span className="ml-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700">
-                  Save 35%
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
+    return (
+      <div className={cn("mx-auto grid max-w-4xl gap-8 md:grid-cols-2", gridClassName)}>
+        {plans.map((plan, index) => {
+          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+          const resolvedPrice = billingPeriod
+            ? plan.prices?.[billingPeriod]
+            : undefined;
+          const fallbackPrice = plan.prices?.[periods[0]?.id ?? ""];
 
-        <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
-          {plans.map((plan, index) => (
+          return (
             <div
               key={index}
               className={cn(
                 "relative flex flex-col rounded-2xl border p-8",
-                plan.isPopular
-                  ? "border-primary shadow-lg"
-                  : "border-border"
+                plan.isPopular ? "border-primary shadow-lg" : "border-border",
+                cardClassName,
+                plan.isPopular ? popularCardClassName : null,
+                plan.className
               )}
             >
-              {plan.isPopular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
-                  Most Popular
+              {badgeContent && (
+                <span
+                  className={cn(
+                    "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground",
+                    badgeClassName
+                  )}
+                >
+                  {badgeContent}
                 </span>
               )}
 
               <div className="mb-4">
-                <h3 className="text-xl font-semibold">{plan.name}</h3>
+                {plan.name && (
+                  typeof plan.name === "string" ? (
+                    <h3 className={cn("text-xl font-semibold", planTitleClassName)}>{plan.name}</h3>
+                  ) : (
+                    <div className={planTitleClassName}>{plan.name}</div>
+                  )
+                )}
                 {plan.description && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {plan.description}
-                  </p>
+                  typeof plan.description === "string" ? (
+                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                      {plan.description}
+                    </p>
+                  ) : (
+                    <div className={planDescriptionClassName}>{plan.description}</div>
+                  )
                 )}
               </div>
 
               <div className="mb-6">
-                <span className="text-4xl font-bold">${getPrice(plan)}</span>
-                <span className="text-muted-foreground">{getPeriodLabel()}</span>
+                <span className={cn("text-4xl font-bold", priceClassName)}>
+                  {resolvedPrice ?? fallbackPrice}
+                </span>
+                {activePeriod?.priceSuffix && (
+                  <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+                    {activePeriod.priceSuffix}
+                  </span>
+                )}
               </div>
 
-              <ul className="mb-8 flex-1 space-y-3">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <DynamicIcon
-                      name="lucide/check"
-                      size={18}
-                      className="mt-0.5 shrink-0 text-primary"
-                    />
-                    <span className="text-sm text-muted-foreground">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Pressable
-                href={plan.buttonHref}
-                variant={plan.isPopular ? "default" : "outline"}
-                size="lg"
-                asButton
-                className="w-full justify-center"
-              >
-                {plan.buttonText}
-              </Pressable>
+              {renderFeatures(plan)}
+              {renderAction(plan)}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto", containerClassName)}>
+        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            )
+          )}
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ) : (
+              <div className={subtitleClassName}>{subtitle}</div>
+            )
+          )}
+
+          {periods.length > 0 && (
+            <div className={cn("mt-8 flex items-center justify-center", toggleClassName)}>
+              <div className="inline-flex rounded-lg border p-1">
+                {periods.map((period) => {
+                  const isActive = period.id === billingPeriod;
+                  return (
+                    <button
+                      key={period.id}
+                      onClick={() => setBillingPeriod(period.id)}
+                      className={cn(
+                        "rounded-md px-4 py-2 text-sm font-medium transition-colors",
+                        isActive
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                        toggleButtonClassName,
+                        isActive ? toggleButtonActiveClassName : null,
+                        period.className
+                      )}
+                    >
+                      {period.label}
+                      {period.badge && (
+                        <span className={cn("ml-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700", period.badgeClassName)}>
+                          {period.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {renderPlans()}
+      </div>
+    </Section>
   );
 }
