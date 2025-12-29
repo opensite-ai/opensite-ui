@@ -4,35 +4,69 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailCardHeaderProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  year?: string;
-  category?: string;
-  artist?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Project year */
+  year?: React.ReactNode;
+  /** Category label */
+  category?: React.ReactNode;
+  /** Artist name */
+  artist?: React.ReactNode;
+  /** Hero image configuration */
   heroImage?: {
     src?: string;
     alt?: string;
   };
-  description?: string;
-  galleryImages?: Array<{
-    src?: string;
-    alt: string;
-  }>;
-  backHref?: string;
-  backLabel?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Description text */
+  description?: React.ReactNode;
+  /** Gallery images */
+  galleryImages?: ImageItem[];
+  /** Back navigation action */
+  backAction?: ActionConfig;
+  /** Custom slot for back action (overrides backAction) */
+  backActionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
+  className?: string;
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the card */
+  cardClassName?: string;
+  /** Additional CSS classes for the header */
+  headerClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the hero image */
+  heroImageClassName?: string;
+  /** Additional CSS classes for the gallery section */
+  galleryClassName?: string;
 }
 
-const defaultGalleryImages = [
+const defaultGalleryImages: ImageItem[] = [
   { src: imagePlaceholders[35], alt: "Gallery image 1" },
   { src: imagePlaceholders[36], alt: "Gallery image 2" },
 ];
@@ -50,8 +84,7 @@ const defaultProps: ProjectDetailCardHeaderProps = {
   description:
     "A sculptural exploration of organic forms that bridges the gap between natural growth patterns and human artistic expression. The work invites contemplation of our relationship with the natural world.",
   galleryImages: defaultGalleryImages,
-  backHref: "/projects",
-  backLabel: "Back",
+  backAction: { label: "Back", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
 };
 
 const fadeInUp = {
@@ -65,7 +98,6 @@ export function ProjectDetailCardHeader(
   props: ProjectDetailCardHeaderProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     year = defaultProps.year,
@@ -74,32 +106,64 @@ export function ProjectDetailCardHeader(
     heroImage = defaultProps.heroImage,
     description = defaultProps.description,
     galleryImages = defaultProps.galleryImages,
-    backHref = defaultProps.backHref,
-    backLabel = defaultProps.backLabel,
+    backAction = defaultProps.backAction,
+    backActionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    cardClassName,
+    headerClassName,
+    titleClassName,
+    heroImageClassName,
+    galleryClassName,
   } = props;
 
+  const renderBackAction = () => {
+    if (backActionSlot) return backActionSlot;
+    if (!backAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    return (
+      <Pressable
+        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <article className={cn("py-24 md:py-32", className)}>
-      <div className="container">
-        {backHref && (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <article className={containerClassName}>
+        {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            <Pressable
-              href={backHref}
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <DynamicIcon name="lucide/arrow-left" size={16} />
-              {backLabel}
-            </Pressable>
+            {renderBackAction()}
           </motion.div>
         )}
 
         <motion.div
           {...fadeInUp}
-          className="mb-16 rounded-3xl border border-border bg-muted/30 p-8 md:p-12"
+          className={cn("mb-16 rounded-3xl border border-border bg-muted/30 p-8 md:p-12", cardClassName)}
         >
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-            <div className="flex flex-col justify-center">
+            <div className={cn("flex flex-col justify-center", headerClassName)}>
               <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
                 <span className="rounded-full bg-background px-3 py-1 font-medium text-foreground">
                   {category}
@@ -109,18 +173,34 @@ export function ProjectDetailCardHeader(
                 <span>{artist}</span>
               </div>
 
-              <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-                {title}
-              </h1>
+              {typeof title === "string" ? (
+                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl", titleClassName)}>
+                  {title}
+                </h1>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              )}
 
-              <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+              {subtitle && (
+                typeof subtitle === "string" ? (
+                  <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+                ) : (
+                  <div className="mt-4">{subtitle}</div>
+                )
+              )}
 
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                {description}
-              </p>
+              {description && (
+                typeof description === "string" ? (
+                  <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                    {description}
+                  </p>
+                ) : (
+                  <div className="mt-6">{description}</div>
+                )
+              )}
             </div>
 
-            <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-muted">
+            <div className={cn("relative aspect-4/3 overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
               <Img
                 src={heroImage?.src || imagePlaceholders[37]}
                 alt={heroImage?.alt || "Project hero image"}
@@ -135,7 +215,7 @@ export function ProjectDetailCardHeader(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="grid gap-6 md:grid-cols-2"
+            className={cn("grid gap-6 md:grid-cols-2", galleryClassName)}
           >
             {galleryImages.map((image, index) => (
               <motion.div
@@ -148,7 +228,7 @@ export function ProjectDetailCardHeader(
               >
                 <Img
                   src={image.src || imagePlaceholders[35 + index]}
-                  alt={image.alt}
+                  alt={image.alt || "Gallery image"}
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -156,7 +236,7 @@ export function ProjectDetailCardHeader(
             ))}
           </motion.div>
         )}
-      </div>
-    </article>
+      </article>
+    </Section>
   );
 }

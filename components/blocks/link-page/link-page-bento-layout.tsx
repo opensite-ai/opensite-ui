@@ -6,28 +6,36 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  ImageItem,
+  SocialLinkItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Bento link item for the bento layout link page
  */
-export interface BentoLink {
-  id: string;
-  label: string;
-  href: string;
-  icon?: string;
-  description?: string;
+export interface BentoLink extends ActionConfig {
+  id?: string;
+  description?: React.ReactNode;
   featured?: boolean;
+  image?: ImageItem;
   imageUrl?: string;
+  iconName?: string;
 }
 
 /**
  * Social link for the bento layout link page
  */
-export interface BentoSocialLink {
-  id: string;
-  platform: string;
-  href: string;
-  icon: string;
+export interface BentoSocialLink extends SocialLinkItem {
+  id?: string;
+  iconName?: string;
 }
 
 /**
@@ -37,31 +45,179 @@ export interface LinkPageBentoLayoutProps {
   /**
    * Profile name displayed at the top
    */
-  name: string;
+  name?: React.ReactNode;
   /**
    * Optional bio or description
    */
-  bio?: string;
+  bio?: React.ReactNode;
   /**
-   * Avatar image URL
+   * Avatar image configuration
+   */
+  avatar?: ImageItem;
+  /**
+   * Avatar image URL (legacy)
    */
   avatarUrl?: string;
+  /**
+   * Custom slot for profile header content
+   */
+  profileSlot?: React.ReactNode;
   /**
    * Array of links to display in bento grid
    */
   links?: BentoLink[];
   /**
+   * Custom slot for rendering all links (overrides links array)
+   */
+  linksSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering featured links (overrides featured links array)
+   */
+  featuredLinksSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering regular links (overrides regular links array)
+   */
+  regularLinksSlot?: React.ReactNode;
+  /**
    * Array of social media links
    */
   socialLinks?: BentoSocialLink[];
   /**
-   * Additional CSS classes
+   * Custom slot for rendering social links (overrides socialLinks array)
+   */
+  socialLinksSlot?: React.ReactNode;
+  /**
+   * Footer action configuration
+   */
+  footerAction?: ActionConfig;
+  /**
+   * Custom slot for rendering footer content
+   */
+  footerSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the outer wrapper
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the inner content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the profile header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the avatar wrapper
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the name
+   */
+  nameClassName?: string;
+  /**
+   * Additional CSS classes for the bio
+   */
+  bioClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for each social link
+   */
+  socialLinkClassName?: string;
+  /**
+   * Additional CSS classes for social link icons
+   */
+  socialIconClassName?: string;
+  /**
+   * Additional CSS classes for the links container
+   */
+  linksClassName?: string;
+  /**
+   * Additional CSS classes for the featured links grid
+   */
+  featuredLinksClassName?: string;
+  /**
+   * Additional CSS classes for a featured link item
+   */
+  featuredLinkClassName?: string;
+  /**
+   * Additional CSS classes for the featured link overlay
+   */
+  featuredLinkOverlayClassName?: string;
+  /**
+   * Additional CSS classes for the featured link image
+   */
+  featuredLinkImageClassName?: string;
+  /**
+   * Additional CSS classes for featured link icons
+   */
+  featuredLinkIconClassName?: string;
+  /**
+   * Additional CSS classes for featured link labels
+   */
+  featuredLinkLabelClassName?: string;
+  /**
+   * Additional CSS classes for featured link descriptions
+   */
+  featuredLinkDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the regular links grid
+   */
+  regularLinksClassName?: string;
+  /**
+   * Additional CSS classes for a regular link item
+   */
+  regularLinkClassName?: string;
+  /**
+   * Additional CSS classes for the regular link icon wrapper
+   */
+  regularLinkIconWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the regular link icon
+   */
+  regularLinkIconClassName?: string;
+  /**
+   * Additional CSS classes for the regular link label
+   */
+  regularLinkLabelClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
   /**
    * Theme variation: "light" or "dark"
    */
   theme?: "light" | "dark";
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultLinks: BentoLink[] = [
@@ -69,43 +225,49 @@ const defaultLinks: BentoLink[] = [
     id: "1",
     label: "Latest Video",
     href: "https://youtube.com",
-    icon: "simple-icons/youtube",
+    iconName: "simple-icons/youtube",
     description: "Watch my newest content",
     featured: true,
-    imageUrl: imagePlaceholders[0],
+    image: {
+      src: imagePlaceholders[0],
+      alt: "Latest video thumbnail",
+    },
   },
   {
     id: "2",
     label: "Shop",
     href: "https://example.com/shop",
-    icon: "lucide/shopping-bag",
+    iconName: "lucide/shopping-bag",
     description: "Browse products",
     featured: true,
-    imageUrl: imagePlaceholders[1],
+    image: {
+      src: imagePlaceholders[1],
+      alt: "Shop preview",
+    },
   },
   {
     id: "3",
     label: "Portfolio",
     href: "https://example.com",
-    icon: "lucide/briefcase",
+    iconName: "lucide/briefcase",
   },
   {
     id: "4",
     label: "Blog",
     href: "https://example.com/blog",
-    icon: "lucide/pen-line",
+    iconName: "lucide/pen-line",
   },
   {
     id: "5",
     label: "Podcast",
     href: "https://example.com/podcast",
-    icon: "lucide/mic",
+    iconName: "lucide/mic",
   },
   {
     id: "6",
     label: "Contact",
     href: "mailto:hello@example.com",
-    icon: "lucide/mail",
+    iconName: "lucide/mail",
   },
 ];
 
@@ -114,27 +276,32 @@ const defaultSocialLinks: BentoSocialLink[] = [
     id: "s1",
     platform: "Twitter",
     href: "https://twitter.com",
-    icon: "simple-icons/x",
+    iconName: "simple-icons/x",
   },
   {
     id: "s2",
     platform: "Instagram",
     href: "https://instagram.com",
-    icon: "simple-icons/instagram",
+    iconName: "simple-icons/instagram",
   },
   {
     id: "s3",
     platform: "TikTok",
     href: "https://tiktok.com",
-    icon: "simple-icons/tiktok",
+    iconName: "simple-icons/tiktok",
   },
   {
     id: "s4",
     platform: "LinkedIn",
     href: "https://linkedin.com",
-    icon: "simple-icons/linkedin",
+    iconName: "simple-icons/linkedin",
   },
 ];
+
+const defaultFooterAction: ActionConfig = {
+  label: "Powered by OpenSite",
+  href: "/",
+};
 
 /**
  * LinkPageBentoLayout - A modern bento grid style link page.
@@ -160,11 +327,11 @@ const defaultSocialLinks: BentoSocialLink[] = [
  *       id: "1",
  *       label: "Latest Video",
  *       href: "https://youtube.com",
- *       icon: "simple-icons/youtube",
+ *       iconName: "simple-icons/youtube",
  *       featured: true,
- *       imageUrl: "/video-thumbnail.jpg"
+ *       image: { src: "/video-thumbnail.jpg", alt: "Video" }
  *     },
- *     { id: "2", label: "Blog", href: "/blog", icon: "lucide/pen-line" }
+ *     { id: "2", label: "Blog", href: "/blog", iconName: "lucide/pen-line" }
  *   ]}
  * />
  * ```
@@ -172,218 +339,473 @@ const defaultSocialLinks: BentoSocialLink[] = [
 export function LinkPageBentoLayout({
   name = "Digital Creator",
   bio = "Content creator, entrepreneur & coffee enthusiast",
+  avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar5,
+  profileSlot,
   links = defaultLinks,
+  linksSlot,
+  featuredLinksSlot,
+  regularLinksSlot,
   socialLinks = defaultSocialLinks,
+  socialLinksSlot,
+  footerAction,
+  footerSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headerClassName,
+  avatarClassName,
+  nameClassName,
+  bioClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  socialIconClassName,
+  linksClassName,
+  featuredLinksClassName,
+  featuredLinkClassName,
+  featuredLinkOverlayClassName,
+  featuredLinkImageClassName,
+  featuredLinkIconClassName,
+  featuredLinkLabelClassName,
+  featuredLinkDescriptionClassName,
+  regularLinksClassName,
+  regularLinkClassName,
+  regularLinkIconWrapperClassName,
+  regularLinkIconClassName,
+  regularLinkLabelClassName,
+  footerClassName,
   theme = "light",
+  background,
+  spacing = "none",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  optixFlowConfig,
 }: LinkPageBentoLayoutProps): React.JSX.Element {
   const isDark = theme === "dark";
+  const resolvedBackground = background ?? (isDark ? "dark" : "white");
+
+  const resolvedAvatar: ImageItem | undefined =
+    avatar ||
+    (avatarUrl
+      ? {
+          src: avatarUrl,
+          alt: typeof name === "string" ? name : "Profile avatar",
+        }
+      : undefined);
 
   const featuredLinks = links.filter((link) => link.featured);
   const regularLinks = links.filter((link) => !link.featured);
 
-  return (
-    <div
-      className={cn(
-        "min-h-screen w-full flex items-start justify-center py-12 px-4",
-        isDark ? "bg-neutral-950" : "bg-white",
-        className
-      )}
-    >
-      <div className="w-full max-w-lg space-y-6">
-        <div className="flex flex-col items-center text-center space-y-3">
-          <div
-            className={cn(
-              "h-20 w-20 rounded-full overflow-hidden",
-              isDark ? "ring-2 ring-white/20" : "ring-2 ring-neutral-200"
-            )}
-          >
-            <img
-              src={avatarUrl}
-              alt={name}
-              className="h-full w-full object-cover"
-            />
-          </div>
+  const renderSocialLinks = () => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (!socialLinks || socialLinks.length === 0) return null;
 
-          <div className="space-y-1">
-            <h1
+    return (
+      <div className={cn("flex items-center gap-2 pt-1", socialLinksClassName)}>
+        {socialLinks.map((social, index) => {
+          const icon =
+            social.icon ||
+            (social.iconName ? (
+              <DynamicIcon
+                name={social.iconName}
+                size={18}
+                className={socialIconClassName}
+              />
+            ) : null);
+          const ariaLabel =
+            social["aria-label"] ||
+            (typeof social.label === "string" ? social.label : undefined) ||
+            social.platform;
+
+          return (
+            <Pressable
+              key={social.id ?? index}
+              href={social.href}
+              aria-label={ariaLabel}
               className={cn(
-                "text-xl font-bold",
-                isDark ? "text-white" : "text-foreground"
+                "rounded-full p-2 transition-all duration-200",
+                "hover:scale-110 active:scale-95",
+                isDark
+                  ? "text-neutral-500 hover:text-white hover:bg-white/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-neutral-100",
+                socialLinkClassName,
+                social.className
               )}
             >
-              {name}
-            </h1>
-            {bio && (
+              {icon}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderFeaturedLinks = () => {
+    if (featuredLinksSlot) return featuredLinksSlot;
+    if (!featuredLinks || featuredLinks.length === 0) return null;
+
+    return featuredLinks.map((link, index) => {
+      const {
+        label,
+        description,
+        icon,
+        children,
+        className: linkClassName,
+        ...pressableProps
+      } = link;
+      const imageSource = link.image?.src ?? link.imageUrl;
+      const imageAlt =
+        link.image?.alt || (typeof label === "string" ? label : "");
+      const iconElement =
+        icon ||
+        (link.iconName ? (
+          <DynamicIcon
+            name={link.iconName}
+            size={18}
+            className={featuredLinkIconClassName}
+          />
+        ) : null);
+
+      if (children) {
+        return (
+          <Pressable
+            key={link.id ?? index}
+            className={cn(
+              "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
+              "hover:scale-[1.02] active:scale-[0.98]",
+              isDark
+                ? "border border-white/10 bg-white/5"
+                : "border border-neutral-200 bg-neutral-100",
+              featuredLinkClassName,
+              linkClassName
+            )}
+            {...pressableProps}
+          >
+            {children}
+          </Pressable>
+        );
+      }
+
+      return (
+        <Pressable
+          key={link.id ?? index}
+          className={cn(
+            "group relative aspect-4/3 overflow-hidden rounded-2xl transition-all duration-200",
+            "hover:scale-[1.02] active:scale-[0.98]",
+            isDark
+              ? "border border-white/10 bg-white/5"
+              : "border border-neutral-200 bg-neutral-100",
+            featuredLinkClassName,
+            linkClassName
+          )}
+          {...pressableProps}
+        >
+          {imageSource && (
+            <Img
+              src={imageSource}
+              alt={imageAlt}
+              className={cn(
+                "absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
+                featuredLinkImageClassName
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
+          <div
+            className={cn(
+              "absolute inset-0 transition-opacity",
+              imageSource
+                ? "bg-linear-to-t from-black/80 via-black/40 to-transparent"
+                : isDark
+                ? "bg-linear-to-t from-white/10 to-transparent"
+                : "bg-linear-to-t from-neutral-200/50 to-transparent",
+              featuredLinkOverlayClassName
+            )}
+          />
+          <div className="absolute inset-0 flex flex-col justify-end p-4">
+            <div className="flex items-center gap-2">
+              {iconElement}
+              {label &&
+                (typeof label === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm font-semibold",
+                      imageSource
+                        ? "text-white"
+                        : isDark
+                        ? "text-white"
+                        : "text-foreground",
+                      featuredLinkLabelClassName
+                    )}
+                  >
+                    {label}
+                  </span>
+                ) : (
+                  <div className={featuredLinkLabelClassName}>{label}</div>
+                ))}
+            </div>
+            {description &&
+              (typeof description === "string" ? (
+                <span
+                  className={cn(
+                    "mt-0.5 text-xs",
+                    imageSource
+                      ? "text-white/70"
+                      : isDark
+                      ? "text-neutral-400"
+                      : "text-muted-foreground",
+                    featuredLinkDescriptionClassName
+                  )}
+                >
+                  {description}
+                </span>
+              ) : (
+                <div className={featuredLinkDescriptionClassName}>
+                  {description}
+                </div>
+              ))}
+          </div>
+        </Pressable>
+      );
+    });
+  };
+
+  const renderRegularLinks = () => {
+    if (regularLinksSlot) return regularLinksSlot;
+    if (!regularLinks || regularLinks.length === 0) return null;
+
+    return regularLinks.map((link, index) => {
+      const {
+        label,
+        icon,
+        children,
+        className: linkClassName,
+        ...pressableProps
+      } = link;
+      const iconElement =
+        icon ||
+        (link.iconName ? (
+          <DynamicIcon
+            name={link.iconName}
+            size={20}
+            className={regularLinkIconClassName}
+          />
+        ) : null);
+
+      if (children) {
+        return (
+          <Pressable
+            key={link.id ?? index}
+            className={cn(
+              "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
+              "hover:scale-[1.02] active:scale-[0.98]",
+              isDark
+                ? "border border-white/10 bg-white/5 hover:bg-white/10"
+                : "border border-neutral-200 bg-neutral-50 hover:bg-neutral-100",
+              regularLinkClassName,
+              linkClassName
+            )}
+            {...pressableProps}
+          >
+            {children}
+          </Pressable>
+        );
+      }
+
+      return (
+        <Pressable
+          key={link.id ?? index}
+          className={cn(
+            "group flex items-center gap-3 rounded-xl p-3 transition-all duration-200",
+            "hover:scale-[1.02] active:scale-[0.98]",
+            isDark
+              ? "border border-white/10 bg-white/5 hover:bg-white/10"
+              : "border border-neutral-200 bg-neutral-50 hover:bg-neutral-100",
+            regularLinkClassName,
+            linkClassName
+          )}
+          {...pressableProps}
+        >
+          <div
+            className={cn(
+              "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+              isDark ? "bg-white/10" : "bg-white",
+              regularLinkIconWrapperClassName
+            )}
+          >
+            {iconElement}
+          </div>
+          {label &&
+            (typeof label === "string" ? (
+              <span
+                className={cn(
+                  "truncate text-sm font-medium",
+                  isDark ? "text-white" : "text-foreground",
+                  regularLinkLabelClassName
+                )}
+              >
+                {label}
+              </span>
+            ) : (
+              <div className={regularLinkLabelClassName}>{label}</div>
+            ))}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderLinks = () => {
+    if (linksSlot) return linksSlot;
+    if (!links || links.length === 0) return null;
+
+    const hasFeatured = Boolean(featuredLinksSlot) || featuredLinks.length > 0;
+    const hasRegular = Boolean(regularLinksSlot) || regularLinks.length > 0;
+
+    return (
+      <div className={cn("space-y-3", linksClassName)}>
+        {hasFeatured && (
+          <div className={cn("grid grid-cols-2 gap-3", featuredLinksClassName)}>
+            {renderFeaturedLinks()}
+          </div>
+        )}
+        {hasRegular && (
+          <div className={cn("grid grid-cols-2 gap-3", regularLinksClassName)}>
+            {renderRegularLinks()}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderProfile = () => {
+    if (profileSlot) return profileSlot;
+
+    return (
+      <div
+        className={cn(
+          "flex flex-col items-center space-y-3 text-center",
+          headerClassName
+        )}
+      >
+        {resolvedAvatar && (
+          <div
+            className={cn(
+              "h-20 w-20 overflow-hidden rounded-full",
+              isDark ? "ring-2 ring-white/20" : "ring-2 ring-neutral-200",
+              avatarClassName
+            )}
+          >
+            <Img
+              src={resolvedAvatar.src}
+              alt={resolvedAvatar.alt}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        )}
+
+        <div className="space-y-1">
+          {name &&
+            (typeof name === "string" ? (
+              <h1
+                className={cn(
+                  "text-xl font-bold",
+                  isDark ? "text-white" : "text-foreground",
+                  nameClassName
+                )}
+              >
+                {name}
+              </h1>
+            ) : (
+              <div className={nameClassName}>{name}</div>
+            ))}
+          {bio &&
+            (typeof bio === "string" ? (
               <p
                 className={cn(
-                  "text-sm max-w-xs",
-                  isDark ? "text-neutral-400" : "text-muted-foreground"
+                  "max-w-xs text-sm",
+                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  bioClassName
                 )}
               >
                 {bio}
               </p>
-            )}
-          </div>
-
-          {socialLinks.length > 0 && (
-            <div className="flex items-center gap-2 pt-1">
-              {socialLinks.map((social) => (
-                <Pressable
-                  key={social.id}
-                  href={social.href}
-                  aria-label={social.platform}
-                  className={cn(
-                    "p-2 rounded-full transition-all duration-200",
-                    "hover:scale-110 active:scale-95",
-                    isDark
-                      ? "text-neutral-500 hover:text-white hover:bg-white/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-neutral-100"
-                  )}
-                >
-                  <DynamicIcon name={social.icon} size={18} />
-                </Pressable>
-              ))}
-            </div>
-          )}
+            ) : (
+              <div className={bioClassName}>{bio}</div>
+            ))}
         </div>
 
-        <div className="space-y-3">
-          {featuredLinks.length > 0 && (
-            <div className="grid grid-cols-2 gap-3">
-              {featuredLinks.map((link) => (
-                <Pressable
-                  key={link.id}
-                  href={link.href}
-                  className={cn(
-                    "group relative aspect-4/3 rounded-2xl overflow-hidden transition-all duration-200",
-                    "hover:scale-[1.02] active:scale-[0.98]",
-                    isDark
-                      ? "bg-white/5 border border-white/10"
-                      : "bg-neutral-100 border border-neutral-200"
-                  )}
-                >
-                  {link.imageUrl && (
-                    <img
-                      src={link.imageUrl}
-                      alt=""
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  )}
-                  <div
-                    className={cn(
-                      "absolute inset-0 transition-opacity",
-                      link.imageUrl
-                        ? "bg-linear-to-t from-black/80 via-black/40 to-transparent"
-                        : isDark
-                        ? "bg-linear-to-t from-white/10 to-transparent"
-                        : "bg-linear-to-t from-neutral-200/50 to-transparent"
-                    )}
-                  />
-                  <div className="absolute inset-0 p-4 flex flex-col justify-end">
-                    <div className="flex items-center gap-2">
-                      {link.icon && (
-                        <DynamicIcon
-                          name={link.icon}
-                          size={18}
-                          className={
-                            link.imageUrl
-                              ? "text-white"
-                              : isDark
-                              ? "text-white"
-                              : "text-foreground"
-                          }
-                        />
-                      )}
-                      <span
-                        className={cn(
-                          "font-semibold text-sm",
-                          link.imageUrl
-                            ? "text-white"
-                            : isDark
-                            ? "text-white"
-                            : "text-foreground"
-                        )}
-                      >
-                        {link.label}
-                      </span>
-                    </div>
-                    {link.description && (
-                      <span
-                        className={cn(
-                          "text-xs mt-0.5",
-                          link.imageUrl
-                            ? "text-white/70"
-                            : isDark
-                            ? "text-neutral-400"
-                            : "text-muted-foreground"
-                        )}
-                      >
-                        {link.description}
-                      </span>
-                    )}
-                  </div>
-                </Pressable>
-              ))}
-            </div>
-          )}
+        {renderSocialLinks()}
+      </div>
+    );
+  };
 
-          {regularLinks.length > 0 && (
-            <div className="grid grid-cols-2 gap-3">
-              {regularLinks.map((link) => (
-                <Pressable
-                  key={link.id}
-                  href={link.href}
-                  className={cn(
-                    "group flex items-center gap-3 p-3 rounded-xl transition-all duration-200",
-                    "hover:scale-[1.02] active:scale-[0.98]",
-                    isDark
-                      ? "bg-white/5 hover:bg-white/10 border border-white/10"
-                      : "bg-neutral-50 hover:bg-neutral-100 border border-neutral-200"
-                  )}
-                >
-                  <div
-                    className={cn(
-                      "w-10 h-10 rounded-lg flex items-center justify-center shrink-0",
-                      isDark ? "bg-white/10" : "bg-white"
-                    )}
-                  >
-                    {link.icon && (
-                      <DynamicIcon
-                        name={link.icon}
-                        size={20}
-                        className={isDark ? "text-white" : "text-foreground"}
-                      />
-                    )}
-                  </div>
-                  <span
-                    className={cn(
-                      "text-sm font-medium truncate",
-                      isDark ? "text-white" : "text-foreground"
-                    )}
-                  >
-                    {link.label}
-                  </span>
-                </Pressable>
-              ))}
-            </div>
-          )}
-        </div>
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
 
-        <div className="pt-4">
-          <Pressable
-            href="/"
-            className={cn(
-              "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-              isDark ? "text-neutral-600" : "text-muted-foreground/50"
-            )}
-          >
-            <DynamicIcon name="lucide/link" size={12} />
-            <span>Powered by OpenSite</span>
-          </Pressable>
+    const resolvedFooterAction = footerAction ?? defaultFooterAction;
+    if (!resolvedFooterAction) return null;
+
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = resolvedFooterAction;
+
+    const defaultIcon =
+      footerAction === undefined ? (
+        <DynamicIcon name="lucide/link" size={12} />
+      ) : null;
+
+    return (
+      <Pressable
+        className={cn(
+          "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
+          isDark ? "text-neutral-600" : "text-muted-foreground/50",
+          footerClassName,
+          actionClassName
+        )}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon ?? defaultIcon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  return (
+    <Section
+      background={resolvedBackground}
+      spacing={spacing}
+      className={cn(
+        isDark ? "bg-neutral-950" : "bg-white",
+        className
+      )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+    >
+      <div
+        className={cn(
+          "flex min-h-screen w-full items-start justify-center py-12",
+          containerClassName
+        )}
+      >
+        <div className={cn("w-full max-w-lg space-y-6", contentClassName)}>
+          {renderProfile()}
+          {renderLinks()}
+          <div className="pt-4">{renderFooter()}</div>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

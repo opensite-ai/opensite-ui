@@ -5,7 +5,8 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -15,6 +16,13 @@ import {
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface NavItem {
   title: string;
@@ -23,17 +31,87 @@ interface NavItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarIconLinks component
  */
 export interface NavbarIconLinksProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation items with icons
+   */
   navItems?: NavItem[];
+  /**
+   * Custom slot for nav items (overrides navItems array)
+   */
+  navItemsSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -45,9 +123,14 @@ const defaultNavItems: NavItem[] = [
   { title: "Settings", url: "#", icon: "lucide/settings" },
 ];
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Notifications", href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/bell" size={20} /> },
+  { label: "Profile", href: "#", variant: "ghost", size: "icon", children: <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground"><span className="text-sm font-medium">JD</span></div> },
+];
+
 /**
  * NavbarIconLinks - A compact navigation bar with icon-only links and tooltips.
- * 
+ *
  * Features a minimalist design with icon-only navigation links that display tooltips
  * on hover to reveal the link title. This design maximizes horizontal space while
  * maintaining accessibility through tooltips. The active state is indicated by a
@@ -56,38 +139,118 @@ const defaultNavItems: NavItem[] = [
  * with the navigation structure.
  */
 export const NavbarIconLinks = ({
-  className,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   navItems = defaultNavItems,
+  navItemsSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarIconLinksProps) => {
   const [activeItem, setActiveItem] = useState(navItems[0]?.title || "");
   const [isOpen, setIsOpen] = useState(false);
 
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            className={cn("h-8", logo.className)}
+            alt={logo.alt || "Logo"}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="text-lg font-semibold">
+              {logo.title}
+            </span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <TooltipProvider delayDuration={0} key={index}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Pressable
+                asButton
+                className={actionClassName}
+                {...pressableProps}
+              >
+                {children ?? (
+                  <>
+                    {icon}
+                    {label && <span className="sr-only">{label}</span>}
+                    {iconAfter}
+                  </>
+                )}
+              </Pressable>
+            </TooltipTrigger>
+            {label && (
+              <TooltipContent side="bottom">
+                <p>{label}</p>
+              </TooltipContent>
+            )}
+          </Tooltip>
+        </TooltipProvider>
+      );
+    });
+  };
+
+  const renderNavItems = () => {
+    if (navItemsSlot) return navItemsSlot;
+    if (!navItems || navItems.length === 0) return null;
+
+    return navItems;
+  };
+
   return (
-    <section className={cn("border-b bg-background", className)}>
-      <div className="container">
-        <nav className="flex items-center justify-between py-3">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("border-b", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <nav className={cn("flex items-center justify-between py-3", navClassName)}>
           <div className="flex items-center gap-6">
-            <Pressable href={logo.url} className="flex items-center gap-2">
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="h-8"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="text-lg font-semibold">{logo.title}</span>
-            </Pressable>
+            {renderLogo()}
 
             <TooltipProvider delayDuration={0}>
-              <NavigationMenu className="hidden lg:flex">
+              <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
                 <NavigationMenuList className="gap-1">
-                  {navItems.map((item, index) => (
+                  {renderNavItems()?.map((item, index) => (
                     <NavigationMenuItem key={index}>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -118,26 +281,8 @@ export const NavbarIconLinks = ({
             </TooltipProvider>
           </div>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            <TooltipProvider delayDuration={0}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Pressable variant="ghost" size="icon" asButton href="#">
-                    <DynamicIcon name="lucide/bell" size={20} />
-                    <span className="sr-only">Notifications</span>
-                  </Pressable>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  <p>Notifications</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <Pressable variant="ghost" size="icon" asButton href="#">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <span className="text-sm font-medium">JD</span>
-              </div>
-              <span className="sr-only">Profile</span>
-            </Pressable>
+          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+            {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -150,7 +295,7 @@ export const NavbarIconLinks = ({
             <SheetContent side="right" className="w-[280px]">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-4 pt-8">
-                {navItems.map((item, index) => (
+                {renderNavItems()?.map((item, index) => (
                   <Pressable
                     key={index}
                     href={item.url}
@@ -170,29 +315,24 @@ export const NavbarIconLinks = ({
                   </Pressable>
                 ))}
                 <div className="mt-4 border-t pt-4">
-                  <Pressable
-                    href="#"
-                    className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <DynamicIcon name="lucide/bell" size={18} />
-                    Notifications
-                  </Pressable>
-                  <Pressable
-                    href="#"
-                    className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <DynamicIcon name="lucide/user" size={18} />
-                    Profile
-                  </Pressable>
+                  {authActions?.map((action, index) => (
+                    <Pressable
+                      key={index}
+                      href={action.href}
+                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {action.icon}
+                      {action.label}
+                    </Pressable>
+                  ))}
                 </div>
               </div>
             </SheetContent>
           </Sheet>
         </nav>
       </div>
-    </section>
+    </Section>
   );
 };
 

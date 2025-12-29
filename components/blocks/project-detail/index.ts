@@ -122,6 +122,7 @@ export {
 export {
   ProjectDetailMaskReveal,
   type ProjectDetailMaskRevealProps,
+  type ProjectDetailMaskRevealImage,
 } from "./project-detail-mask-reveal";
 
 export {

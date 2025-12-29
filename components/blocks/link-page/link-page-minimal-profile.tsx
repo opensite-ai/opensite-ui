@@ -5,25 +5,32 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  ImageItem,
+  SocialLinkItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Link item for the minimal profile link page
  */
-export interface MinimalProfileLink {
-  id: string;
-  label: string;
-  href: string;
-  icon?: string;
+export interface MinimalProfileLink extends ActionConfig {
+  id?: string;
+  iconName?: string;
 }
 
 /**
  * Social link for the minimal profile link page
  */
-export interface MinimalProfileSocialLink {
-  id: string;
-  platform: string;
-  href: string;
-  icon: string;
+export interface MinimalProfileSocialLink extends SocialLinkItem {
+  id?: string;
+  iconName?: string;
 }
 
 /**
@@ -33,44 +40,183 @@ export interface LinkPageMinimalProfileProps {
   /**
    * Profile name displayed at the top
    */
-  name: string;
+  name?: React.ReactNode;
   /**
    * Optional bio or description
    */
-  bio?: string;
+  bio?: React.ReactNode;
   /**
-   * Avatar image URL
+   * Avatar image configuration
+   */
+  avatar?: ImageItem;
+  /**
+   * Avatar image URL (legacy)
    */
   avatarUrl?: string;
+  /**
+   * Custom slot for profile header content
+   */
+  profileSlot?: React.ReactNode;
   /**
    * Array of links to display
    */
   links?: MinimalProfileLink[];
   /**
+   * Custom slot for rendering links (overrides links array)
+   */
+  linksSlot?: React.ReactNode;
+  /**
    * Array of social media links
    */
   socialLinks?: MinimalProfileSocialLink[];
   /**
-   * Additional CSS classes
+   * Custom slot for rendering social links (overrides socialLinks array)
+   */
+  socialLinksSlot?: React.ReactNode;
+  /**
+   * Footer action configuration
+   */
+  footerAction?: ActionConfig;
+  /**
+   * Custom slot for rendering footer content
+   */
+  footerSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the outer wrapper
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the inner content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the profile header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the avatar wrapper
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the name
+   */
+  nameClassName?: string;
+  /**
+   * Additional CSS classes for the bio
+   */
+  bioClassName?: string;
+  /**
+   * Additional CSS classes for the links container
+   */
+  linksClassName?: string;
+  /**
+   * Additional CSS classes for each link
+   */
+  linkClassName?: string;
+  /**
+   * Additional CSS classes for link icons
+   */
+  linkIconClassName?: string;
+  /**
+   * Additional CSS classes for link labels
+   */
+  linkLabelClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for each social link
+   */
+  socialLinkClassName?: string;
+  /**
+   * Additional CSS classes for social icons
+   */
+  socialIconClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
   /**
    * Theme variation: "light" or "dark"
    */
   theme?: "light" | "dark";
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultLinks: MinimalProfileLink[] = [
-  { id: "1", label: "Portfolio", href: "https://example.com", icon: "lucide/briefcase" },
-  { id: "2", label: "Blog", href: "https://example.com/blog", icon: "lucide/pen-line" },
-  { id: "3", label: "Contact", href: "mailto:hello@example.com", icon: "lucide/mail" },
+  {
+    id: "1",
+    label: "Portfolio",
+    href: "https://example.com",
+    iconName: "lucide/briefcase",
+  },
+  {
+    id: "2",
+    label: "Blog",
+    href: "https://example.com/blog",
+    iconName: "lucide/pen-line",
+  },
+  {
+    id: "3",
+    label: "Contact",
+    href: "mailto:hello@example.com",
+    iconName: "lucide/mail",
+  },
 ];
 
 const defaultSocialLinks: MinimalProfileSocialLink[] = [
-  { id: "s1", platform: "Twitter", href: "https://twitter.com", icon: "simple-icons/x" },
-  { id: "s2", platform: "GitHub", href: "https://github.com", icon: "simple-icons/github" },
-  { id: "s3", platform: "LinkedIn", href: "https://linkedin.com", icon: "simple-icons/linkedin" },
+  {
+    id: "s1",
+    platform: "Twitter",
+    href: "https://twitter.com",
+    iconName: "simple-icons/x",
+  },
+  {
+    id: "s2",
+    platform: "GitHub",
+    href: "https://github.com",
+    iconName: "simple-icons/github",
+  },
+  {
+    id: "s3",
+    platform: "LinkedIn",
+    href: "https://linkedin.com",
+    iconName: "simple-icons/linkedin",
+  },
 ];
+
+const defaultFooterAction: ActionConfig = {
+  label: "Powered by OpenSite",
+  href: "/",
+};
 
 /**
  * LinkPageMinimalProfile - A clean, minimal link page focused on simplicity.
@@ -91,7 +237,7 @@ const defaultSocialLinks: MinimalProfileSocialLink[] = [
  *   bio="Software Engineer & Open Source Contributor"
  *   avatarUrl="/avatar.jpg"
  *   links={[
- *     { id: "1", label: "Portfolio", href: "https://example.com", icon: "lucide/briefcase" }
+ *     { id: "1", label: "Portfolio", href: "https://example.com", iconName: "lucide/briefcase" }
  *   ]}
  * />
  * ```
@@ -99,113 +245,298 @@ const defaultSocialLinks: MinimalProfileSocialLink[] = [
 export function LinkPageMinimalProfile({
   name = "Alex Johnson",
   bio = "Software Engineer & Open Source Contributor",
+  avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar2,
+  profileSlot,
   links = defaultLinks,
+  linksSlot,
   socialLinks = defaultSocialLinks,
+  socialLinksSlot,
+  footerAction,
+  footerSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headerClassName,
+  avatarClassName,
+  nameClassName,
+  bioClassName,
+  linksClassName,
+  linkClassName,
+  linkIconClassName,
+  linkLabelClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  socialIconClassName,
+  footerClassName,
   theme = "light",
+  background,
+  spacing = "none",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  optixFlowConfig,
 }: LinkPageMinimalProfileProps): React.JSX.Element {
   const isDark = theme === "dark";
+  const resolvedBackground = background ?? (isDark ? "dark" : "white");
 
-  return (
-    <div
-      className={cn(
-        "min-h-screen w-full flex items-start justify-center py-16 px-4",
-        isDark ? "bg-neutral-900" : "bg-white",
-        className
-      )}
-    >
-      <div className="w-full max-w-sm space-y-8">
-        <div className="flex flex-col items-center text-center space-y-4">
-          <div className="h-20 w-20 rounded-full overflow-hidden bg-muted">
-            <img
-              src={avatarUrl}
-              alt={name}
+  const resolvedAvatar: ImageItem | undefined =
+    avatar ||
+    (avatarUrl
+      ? {
+          src: avatarUrl,
+          alt: typeof name === "string" ? name : "Profile avatar",
+        }
+      : undefined);
+
+  const renderProfile = () => {
+    if (profileSlot) return profileSlot;
+
+    return (
+      <div
+        className={cn(
+          "flex flex-col items-center space-y-4 text-center",
+          headerClassName
+        )}
+      >
+        {resolvedAvatar && (
+          <div
+            className={cn(
+              "h-20 w-20 overflow-hidden rounded-full bg-muted",
+              avatarClassName
+            )}
+          >
+            <Img
+              src={resolvedAvatar.src}
+              alt={resolvedAvatar.alt}
               className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
             />
           </div>
+        )}
 
-          <div className="space-y-1">
-            <h1
-              className={cn(
-                "text-xl font-semibold",
-                isDark ? "text-white" : "text-foreground"
-              )}
-            >
-              {name}
-            </h1>
-            {bio && (
+        <div className="space-y-1">
+          {name &&
+            (typeof name === "string" ? (
+              <h1
+                className={cn(
+                  "text-xl font-semibold",
+                  isDark ? "text-white" : "text-foreground",
+                  nameClassName
+                )}
+              >
+                {name}
+              </h1>
+            ) : (
+              <div className={nameClassName}>{name}</div>
+            ))}
+          {bio &&
+            (typeof bio === "string" ? (
               <p
                 className={cn(
                   "text-sm",
-                  isDark ? "text-neutral-400" : "text-muted-foreground"
+                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  bioClassName
                 )}
               >
                 {bio}
               </p>
-            )}
-          </div>
-        </div>
-
-        {links.length > 0 && (
-          <div className="space-y-2">
-            {links.map((link) => (
-              <Pressable
-                key={link.id}
-                href={link.href}
-                className={cn(
-                  "flex items-center gap-3 w-full px-4 py-3 rounded-lg transition-colors",
-                  isDark
-                    ? "bg-neutral-800 text-white hover:bg-neutral-700"
-                    : "bg-neutral-100 text-foreground hover:bg-neutral-200"
-                )}
-              >
-                {link.icon && (
-                  <DynamicIcon
-                    name={link.icon}
-                    size={18}
-                    className={isDark ? "text-neutral-400" : "text-muted-foreground"}
-                  />
-                )}
-                <span className="text-sm font-medium">{link.label}</span>
-              </Pressable>
+            ) : (
+              <div className={bioClassName}>{bio}</div>
             ))}
-          </div>
-        )}
-
-        {socialLinks.length > 0 && (
-          <div className="flex items-center justify-center gap-4 pt-4">
-            {socialLinks.map((social) => (
-              <Pressable
-                key={social.id}
-                href={social.href}
-                aria-label={social.platform}
-                className={cn(
-                  "p-2 rounded-full transition-colors",
-                  isDark
-                    ? "text-neutral-400 hover:text-white hover:bg-neutral-800"
-                    : "text-muted-foreground hover:text-foreground hover:bg-neutral-100"
-                )}
-              >
-                <DynamicIcon name={social.icon} size={20} />
-              </Pressable>
-            ))}
-          </div>
-        )}
-
-        <div className="pt-8">
-          <Pressable
-            href="/"
-            className={cn(
-              "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-              isDark ? "text-neutral-600" : "text-muted-foreground/50"
-            )}
-          >
-            <DynamicIcon name="lucide/link" size={12} />
-            <span>Powered by OpenSite</span>
-          </Pressable>
         </div>
       </div>
-    </div>
+    );
+  };
+
+  const renderLinks = () => {
+    if (linksSlot) return linksSlot;
+    if (!links || links.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-2", linksClassName)}>
+        {links.map((link, index) => {
+          const {
+            label,
+            icon,
+            children,
+            className: linkItemClassName,
+            ...pressableProps
+          } = link;
+          const iconElement =
+            icon ||
+            (link.iconName ? (
+              <DynamicIcon
+                name={link.iconName}
+                size={18}
+                className={linkIconClassName}
+              />
+            ) : null);
+
+          if (children) {
+            return (
+              <Pressable
+                key={link.id ?? index}
+                className={cn(
+                  "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
+                  isDark
+                    ? "bg-neutral-800 text-white hover:bg-neutral-700"
+                    : "bg-neutral-100 text-foreground hover:bg-neutral-200",
+                  linkClassName,
+                  linkItemClassName
+                )}
+                {...pressableProps}
+              >
+                {children}
+              </Pressable>
+            );
+          }
+
+          return (
+            <Pressable
+              key={link.id ?? index}
+              className={cn(
+                "flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors",
+                isDark
+                  ? "bg-neutral-800 text-white hover:bg-neutral-700"
+                  : "bg-neutral-100 text-foreground hover:bg-neutral-200",
+                linkClassName,
+                linkItemClassName
+              )}
+              {...pressableProps}
+            >
+              {iconElement}
+              {label &&
+                (typeof label === "string" ? (
+                  <span
+                    className={cn("text-sm font-medium", linkLabelClassName)}
+                  >
+                    {label}
+                  </span>
+                ) : (
+                  <div className={linkLabelClassName}>{label}</div>
+                ))}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderSocialLinks = () => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "flex items-center justify-center gap-4 pt-4",
+          socialLinksClassName
+        )}
+      >
+        {socialLinks.map((social, index) => {
+          const icon =
+            social.icon ||
+            (social.iconName ? (
+              <DynamicIcon
+                name={social.iconName}
+                size={20}
+                className={socialIconClassName}
+              />
+            ) : null);
+          const ariaLabel =
+            social["aria-label"] ||
+            (typeof social.label === "string" ? social.label : undefined) ||
+            social.platform;
+
+          return (
+            <Pressable
+              key={social.id ?? index}
+              href={social.href}
+              aria-label={ariaLabel}
+              className={cn(
+                "rounded-full p-2 transition-colors",
+                isDark
+                  ? "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                  : "text-muted-foreground hover:text-foreground hover:bg-neutral-100",
+                socialLinkClassName,
+                social.className
+              )}
+            >
+              {icon}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
+
+    const resolvedFooterAction = footerAction ?? defaultFooterAction;
+    if (!resolvedFooterAction) return null;
+
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = resolvedFooterAction;
+
+    const defaultIcon =
+      footerAction === undefined ? (
+        <DynamicIcon name="lucide/link" size={12} />
+      ) : null;
+
+    return (
+      <Pressable
+        className={cn(
+          "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
+          isDark ? "text-neutral-600" : "text-muted-foreground/50",
+          footerClassName,
+          actionClassName
+        )}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon ?? defaultIcon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  return (
+    <Section
+      background={resolvedBackground}
+      spacing={spacing}
+      className={cn(
+        isDark ? "bg-neutral-900" : "bg-white",
+        className
+      )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+    >
+      <div
+        className={cn(
+          "flex min-h-screen w-full items-start justify-center py-16",
+          containerClassName
+        )}
+      >
+        <div className={cn("w-full max-w-sm space-y-8", contentClassName)}>
+          {renderProfile()}
+          {renderLinks()}
+          {renderSocialLinks()}
+          <div className="pt-8">{renderFooter()}</div>
+        </div>
+      </div>
+    </Section>
   );
 }

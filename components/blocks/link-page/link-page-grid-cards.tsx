@@ -5,26 +5,33 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  ImageItem,
+  SocialLinkItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Link card item for the grid cards link page
  */
-export interface GridCardLink {
-  id: string;
-  label: string;
-  href: string;
-  icon?: string;
-  description?: string;
+export interface GridCardLink extends ActionConfig {
+  id?: string;
+  description?: React.ReactNode;
+  iconName?: string;
 }
 
 /**
  * Social link for the grid cards link page
  */
-export interface GridCardSocialLink {
-  id: string;
-  platform: string;
-  href: string;
-  icon: string;
+export interface GridCardSocialLink extends SocialLinkItem {
+  id?: string;
+  iconName?: string;
 }
 
 /**
@@ -34,52 +41,225 @@ export interface LinkPageGridCardsProps {
   /**
    * Profile name displayed at the top
    */
-  name: string;
+  name?: React.ReactNode;
   /**
    * Optional bio or description
    */
-  bio?: string;
+  bio?: React.ReactNode;
   /**
-   * Avatar image URL
+   * Avatar image configuration
+   */
+  avatar?: ImageItem;
+  /**
+   * Avatar image URL (legacy)
    */
   avatarUrl?: string;
+  /**
+   * Custom slot for profile header content
+   */
+  profileSlot?: React.ReactNode;
   /**
    * Array of links to display as cards
    */
   links?: GridCardLink[];
   /**
+   * Custom slot for rendering links (overrides links array)
+   */
+  linksSlot?: React.ReactNode;
+  /**
    * Array of social media links
    */
   socialLinks?: GridCardSocialLink[];
+  /**
+   * Custom slot for rendering social links (overrides socialLinks array)
+   */
+  socialLinksSlot?: React.ReactNode;
   /**
    * Number of columns in the grid (2 or 3)
    */
   columns?: 2 | 3;
   /**
-   * Additional CSS classes
+   * Footer action configuration
+   */
+  footerAction?: ActionConfig;
+  /**
+   * Custom slot for rendering footer content
+   */
+  footerSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the outer wrapper
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the inner content container
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the profile header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the avatar wrapper
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the name
+   */
+  nameClassName?: string;
+  /**
+   * Additional CSS classes for the bio
+   */
+  bioClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for each social link
+   */
+  socialLinkClassName?: string;
+  /**
+   * Additional CSS classes for social icons
+   */
+  socialIconClassName?: string;
+  /**
+   * Additional CSS classes for the links grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for card icon wrapper
+   */
+  cardIconWrapperClassName?: string;
+  /**
+   * Additional CSS classes for card icons
+   */
+  cardIconClassName?: string;
+  /**
+   * Additional CSS classes for card labels
+   */
+  cardLabelClassName?: string;
+  /**
+   * Additional CSS classes for card descriptions
+   */
+  cardDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
   /**
    * Theme variation: "light" or "dark"
    */
   theme?: "light" | "dark";
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultLinks: GridCardLink[] = [
-  { id: "1", label: "Portfolio", href: "https://example.com", icon: "lucide/briefcase", description: "View my work" },
-  { id: "2", label: "Blog", href: "https://example.com/blog", icon: "lucide/pen-line", description: "Read my thoughts" },
-  { id: "3", label: "Shop", href: "https://example.com/shop", icon: "lucide/shopping-bag", description: "Browse products" },
-  { id: "4", label: "Courses", href: "https://example.com/courses", icon: "lucide/graduation-cap", description: "Learn with me" },
-  { id: "5", label: "Podcast", href: "https://example.com/podcast", icon: "lucide/mic", description: "Listen now" },
-  { id: "6", label: "Contact", href: "mailto:hello@example.com", icon: "lucide/mail", description: "Get in touch" },
+  {
+    id: "1",
+    label: "Portfolio",
+    href: "https://example.com",
+    iconName: "lucide/briefcase",
+    description: "View my work",
+  },
+  {
+    id: "2",
+    label: "Blog",
+    href: "https://example.com/blog",
+    iconName: "lucide/pen-line",
+    description: "Read my thoughts",
+  },
+  {
+    id: "3",
+    label: "Shop",
+    href: "https://example.com/shop",
+    iconName: "lucide/shopping-bag",
+    description: "Browse products",
+  },
+  {
+    id: "4",
+    label: "Courses",
+    href: "https://example.com/courses",
+    iconName: "lucide/graduation-cap",
+    description: "Learn with me",
+  },
+  {
+    id: "5",
+    label: "Podcast",
+    href: "https://example.com/podcast",
+    iconName: "lucide/mic",
+    description: "Listen now",
+  },
+  {
+    id: "6",
+    label: "Contact",
+    href: "mailto:hello@example.com",
+    iconName: "lucide/mail",
+    description: "Get in touch",
+  },
 ];
 
 const defaultSocialLinks: GridCardSocialLink[] = [
-  { id: "s1", platform: "Twitter", href: "https://twitter.com", icon: "simple-icons/x" },
-  { id: "s2", platform: "Instagram", href: "https://instagram.com", icon: "simple-icons/instagram" },
-  { id: "s3", platform: "YouTube", href: "https://youtube.com", icon: "simple-icons/youtube" },
-  { id: "s4", platform: "LinkedIn", href: "https://linkedin.com", icon: "simple-icons/linkedin" },
+  {
+    id: "s1",
+    platform: "Twitter",
+    href: "https://twitter.com",
+    iconName: "simple-icons/x",
+  },
+  {
+    id: "s2",
+    platform: "Instagram",
+    href: "https://instagram.com",
+    iconName: "simple-icons/instagram",
+  },
+  {
+    id: "s3",
+    platform: "YouTube",
+    href: "https://youtube.com",
+    iconName: "simple-icons/youtube",
+  },
+  {
+    id: "s4",
+    platform: "LinkedIn",
+    href: "https://linkedin.com",
+    iconName: "simple-icons/linkedin",
+  },
 ];
+
+const defaultFooterAction: ActionConfig = {
+  label: "Powered by OpenSite",
+  href: "/",
+};
 
 /**
  * LinkPageGridCards - A link page displaying links as a grid of cards.
@@ -102,7 +282,7 @@ const defaultSocialLinks: GridCardSocialLink[] = [
  *   bio="Design, Development & Strategy"
  *   columns={3}
  *   links={[
- *     { id: "1", label: "Portfolio", href: "/work", icon: "lucide/briefcase", description: "View our work" }
+ *     { id: "1", label: "Portfolio", href: "/work", iconName: "lucide/briefcase", description: "View our work" }
  *   ]}
  * />
  * ```
@@ -110,154 +290,344 @@ const defaultSocialLinks: GridCardSocialLink[] = [
 export function LinkPageGridCards({
   name = "Creative Studio",
   bio = "Design, Development & Strategy",
+  avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar4,
+  profileSlot,
   links = defaultLinks,
+  linksSlot,
   socialLinks = defaultSocialLinks,
+  socialLinksSlot,
   columns = 2,
+  footerAction,
+  footerSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headerClassName,
+  avatarClassName,
+  nameClassName,
+  bioClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  socialIconClassName,
+  gridClassName,
+  cardClassName,
+  cardIconWrapperClassName,
+  cardIconClassName,
+  cardLabelClassName,
+  cardDescriptionClassName,
+  footerClassName,
   theme = "light",
+  background,
+  spacing = "none",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  optixFlowConfig,
 }: LinkPageGridCardsProps): React.JSX.Element {
   const isDark = theme === "dark";
+  const resolvedBackground = background ?? (isDark ? "dark" : "gray");
 
-  return (
-    <div
-      className={cn(
-        "min-h-screen w-full flex items-start justify-center py-12 px-4",
-        isDark ? "bg-neutral-950" : "bg-neutral-50",
-        className
-      )}
-    >
-      <div className="w-full max-w-lg space-y-8">
-        <div className="flex flex-col items-center text-center space-y-4">
+  const resolvedAvatar: ImageItem | undefined =
+    avatar ||
+    (avatarUrl
+      ? {
+          src: avatarUrl,
+          alt: typeof name === "string" ? name : "Profile avatar",
+        }
+      : undefined);
+
+  const renderProfile = () => {
+    if (profileSlot) return profileSlot;
+
+    return (
+      <div
+        className={cn(
+          "flex flex-col items-center space-y-4 text-center",
+          headerClassName
+        )}
+      >
+        {resolvedAvatar && (
           <div
             className={cn(
-              "h-20 w-20 rounded-2xl overflow-hidden shadow-lg",
-              isDark ? "ring-2 ring-white/10" : "ring-2 ring-neutral-200"
+              "h-20 w-20 overflow-hidden rounded-2xl shadow-lg",
+              isDark ? "ring-2 ring-white/10" : "ring-2 ring-neutral-200",
+              avatarClassName
             )}
           >
-            <img
-              src={avatarUrl}
-              alt={name}
+            <Img
+              src={resolvedAvatar.src}
+              alt={resolvedAvatar.alt}
               className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
             />
           </div>
+        )}
 
-          <div className="space-y-1">
-            <h1
-              className={cn(
-                "text-2xl font-bold",
-                isDark ? "text-white" : "text-foreground"
-              )}
-            >
-              {name}
-            </h1>
-            {bio && (
+        <div className="space-y-1">
+          {name &&
+            (typeof name === "string" ? (
+              <h1
+                className={cn(
+                  "text-2xl font-bold",
+                  isDark ? "text-white" : "text-foreground",
+                  nameClassName
+                )}
+              >
+                {name}
+              </h1>
+            ) : (
+              <div className={nameClassName}>{name}</div>
+            ))}
+          {bio &&
+            (typeof bio === "string" ? (
               <p
                 className={cn(
                   "text-sm",
-                  isDark ? "text-neutral-400" : "text-muted-foreground"
+                  isDark ? "text-neutral-400" : "text-muted-foreground",
+                  bioClassName
                 )}
               >
                 {bio}
               </p>
-            )}
-          </div>
-        </div>
-
-        {socialLinks.length > 0 && (
-          <div className="flex items-center justify-center gap-2">
-            {socialLinks.map((social) => (
-              <Pressable
-                key={social.id}
-                href={social.href}
-                aria-label={social.platform}
-                className={cn(
-                  "p-2 rounded-lg transition-all duration-200",
-                  "hover:scale-110 active:scale-95",
-                  isDark
-                    ? "bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white"
-                    : "bg-white text-muted-foreground hover:bg-neutral-100 hover:text-foreground"
-                )}
-              >
-                <DynamicIcon name={social.icon} size={18} />
-              </Pressable>
+            ) : (
+              <div className={bioClassName}>{bio}</div>
             ))}
-          </div>
-        )}
-
-        {links.length > 0 && (
-          <div
-            className={cn(
-              "grid gap-3",
-              columns === 3 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2"
-            )}
-          >
-            {links.map((link) => (
-              <Pressable
-                key={link.id}
-                href={link.href}
-                className={cn(
-                  "group flex flex-col items-center gap-2 p-4 rounded-xl transition-all duration-200",
-                  "hover:scale-[1.03] active:scale-[0.97]",
-                  isDark
-                    ? "bg-white/5 hover:bg-white/10 border border-white/10"
-                    : "bg-white hover:bg-white shadow-sm hover:shadow-md border border-neutral-200"
-                )}
-              >
-                <div
-                  className={cn(
-                    "w-12 h-12 rounded-xl flex items-center justify-center transition-colors",
-                    isDark
-                      ? "bg-white/10 group-hover:bg-white/20"
-                      : "bg-neutral-100 group-hover:bg-neutral-200"
-                  )}
-                >
-                  {link.icon && (
-                    <DynamicIcon
-                      name={link.icon}
-                      size={24}
-                      className={isDark ? "text-white" : "text-foreground"}
-                    />
-                  )}
-                </div>
-                <div className="text-center space-y-0.5">
-                  <span
-                    className={cn(
-                      "text-sm font-medium block",
-                      isDark ? "text-white" : "text-foreground"
-                    )}
-                  >
-                    {link.label}
-                  </span>
-                  {link.description && (
-                    <span
-                      className={cn(
-                        "text-xs block",
-                        isDark ? "text-neutral-500" : "text-muted-foreground"
-                      )}
-                    >
-                      {link.description}
-                    </span>
-                  )}
-                </div>
-              </Pressable>
-            ))}
-          </div>
-        )}
-
-        <div className="pt-4">
-          <Pressable
-            href="/"
-            className={cn(
-              "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
-              isDark ? "text-neutral-600" : "text-muted-foreground/50"
-            )}
-          >
-            <DynamicIcon name="lucide/link" size={12} />
-            <span>Powered by OpenSite</span>
-          </Pressable>
         </div>
       </div>
-    </div>
+    );
+  };
+
+  const renderSocialLinks = () => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "flex items-center justify-center gap-2",
+          socialLinksClassName
+        )}
+      >
+        {socialLinks.map((social, index) => {
+          const icon =
+            social.icon ||
+            (social.iconName ? (
+              <DynamicIcon
+                name={social.iconName}
+                size={18}
+                className={socialIconClassName}
+              />
+            ) : null);
+          const ariaLabel =
+            social["aria-label"] ||
+            (typeof social.label === "string" ? social.label : undefined) ||
+            social.platform;
+
+          return (
+            <Pressable
+              key={social.id ?? index}
+              href={social.href}
+              aria-label={ariaLabel}
+              className={cn(
+                "rounded-lg p-2 transition-all duration-200",
+                "hover:scale-110 active:scale-95",
+                isDark
+                  ? "bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white"
+                  : "bg-white text-muted-foreground hover:bg-neutral-100 hover:text-foreground",
+                socialLinkClassName,
+                social.className
+              )}
+            >
+              {icon}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderLinks = () => {
+    if (linksSlot) return linksSlot;
+    if (!links || links.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "grid gap-3",
+          columns === 3 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2",
+          gridClassName
+        )}
+      >
+        {links.map((link, index) => {
+          const {
+            label,
+            description,
+            icon,
+            children,
+            className: linkClassName,
+            ...pressableProps
+          } = link;
+          const iconElement =
+            icon ||
+            (link.iconName ? (
+              <DynamicIcon
+                name={link.iconName}
+                size={24}
+                className={cardIconClassName}
+              />
+            ) : null);
+
+          if (children) {
+            return (
+              <Pressable
+                key={link.id ?? index}
+                className={cn(
+                  "group flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200",
+                  "hover:scale-[1.03] active:scale-[0.97]",
+                  isDark
+                    ? "border border-white/10 bg-white/5 hover:bg-white/10"
+                    : "border border-neutral-200 bg-white shadow-sm hover:bg-white hover:shadow-md",
+                  cardClassName,
+                  linkClassName
+                )}
+                {...pressableProps}
+              >
+                {children}
+              </Pressable>
+            );
+          }
+
+          return (
+            <Pressable
+              key={link.id ?? index}
+              className={cn(
+                "group flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200",
+                "hover:scale-[1.03] active:scale-[0.97]",
+                isDark
+                  ? "border border-white/10 bg-white/5 hover:bg-white/10"
+                  : "border border-neutral-200 bg-white shadow-sm hover:bg-white hover:shadow-md",
+                cardClassName,
+                linkClassName
+              )}
+              {...pressableProps}
+            >
+              <div
+                className={cn(
+                  "flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
+                  isDark
+                    ? "bg-white/10 group-hover:bg-white/20"
+                    : "bg-neutral-100 group-hover:bg-neutral-200",
+                  cardIconWrapperClassName
+                )}
+              >
+                {iconElement}
+              </div>
+              <div className="space-y-0.5 text-center">
+                {label &&
+                  (typeof label === "string" ? (
+                    <span
+                      className={cn(
+                        "block text-sm font-medium",
+                        isDark ? "text-white" : "text-foreground",
+                        cardLabelClassName
+                      )}
+                    >
+                      {label}
+                    </span>
+                  ) : (
+                    <div className={cardLabelClassName}>{label}</div>
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <span
+                      className={cn(
+                        "block text-xs",
+                        isDark ? "text-neutral-500" : "text-muted-foreground",
+                        cardDescriptionClassName
+                      )}
+                    >
+                      {description}
+                    </span>
+                  ) : (
+                    <div className={cardDescriptionClassName}>
+                      {description}
+                    </div>
+                  ))}
+              </div>
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
+
+    const resolvedFooterAction = footerAction ?? defaultFooterAction;
+    if (!resolvedFooterAction) return null;
+
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = resolvedFooterAction;
+
+    const defaultIcon =
+      footerAction === undefined ? (
+        <DynamicIcon name="lucide/link" size={12} />
+      ) : null;
+
+    return (
+      <Pressable
+        className={cn(
+          "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
+          isDark ? "text-neutral-600" : "text-muted-foreground/50",
+          footerClassName,
+          actionClassName
+        )}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon ?? defaultIcon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  return (
+    <Section
+      background={resolvedBackground}
+      spacing={spacing}
+      className={cn(
+        isDark ? "bg-neutral-950" : "bg-neutral-50",
+        className
+      )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+    >
+      <div
+        className={cn(
+          "flex min-h-screen w-full items-start justify-center py-12",
+          containerClassName
+        )}
+      >
+        <div className={cn("w-full max-w-lg space-y-8", contentClassName)}>
+          {renderProfile()}
+          {renderSocialLinks()}
+          {renderLinks()}
+          <div className="pt-4">{renderFooter()}</div>
+        </div>
+      </div>
+    </Section>
   );
 }

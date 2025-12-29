@@ -4,7 +4,8 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Accordion,
   AccordionContent,
@@ -27,11 +28,18 @@ import {
   SheetTrigger,
 } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Menu item interface for navigation
  */
-interface MenuItem {
+export interface MenuItem {
   title: string;
   url: string;
   description?: string;
@@ -40,28 +48,91 @@ interface MenuItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarDropdownMenu component
  */
 export interface NavbarDropdownMenuProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-    className?: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the desktop nav
+   */
+  desktopNavClassName?: string;
+  /**
+   * Additional CSS classes for the mobile nav
+   */
+  mobileNavClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation menu items
+   */
   menu?: MenuItem[];
-  auth?: {
-    login: {
-      title: string;
-      url: string;
-    };
-    signup: {
-      title: string;
-      url: string;
-    };
-  };
+  /**
+   * Custom slot for menu items (overrides menu array)
+   */
+  menuSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -136,6 +207,11 @@ const defaultMenu: MenuItem[] = [
     title: "Blog",
     url: "#",
   },
+];
+
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Login", href: "#", variant: "outline", size: "sm" },
+  { label: "Sign up", href: "#", variant: "default", size: "sm" },
 ];
 
 const SubMenuLink = ({
@@ -220,7 +296,7 @@ const renderMobileMenuItem = (item: MenuItem, optixFlowConfig?: OptixFlowConfig)
 
 /**
  * NavbarDropdownMenu - A responsive navigation bar with dropdown menus and mobile sheet navigation.
- * 
+ *
  * Features a logo, navigation menu with dropdown submenus on desktop, and a slide-out sheet
  * menu with accordion navigation on mobile. Includes login and signup call-to-action buttons.
  * The dropdown menus display icons and descriptions for each submenu item.
@@ -232,62 +308,122 @@ export const NavbarDropdownMenu = ({
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   menu = defaultMenu,
-  auth = {
-    login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
-  },
+  menuSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
   className,
+  containerClassName,
+  desktopNavClassName,
+  mobileNavClassName,
+  navigationMenuClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "sm",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarDropdownMenuProps) => {
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            className={cn("max-h-8 dark:invert", logo.className)}
+            alt={logo.alt || "Logo"}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="text-lg font-semibold tracking-tighter">
+              {logo.title}
+            </span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderMenu = () => {
+    if (menuSlot) return menuSlot;
+    if (!menu || menu.length === 0) return null;
+
+    return menu.map((item) => renderMenuItem(item, optixFlowConfig));
+  };
+
+  const renderMobileMenu = () => {
+    if (menuSlot) return menuSlot;
+    if (!menu || menu.length === 0) return null;
+
+    return menu.map((item) => renderMobileMenuItem(item, optixFlowConfig));
+  };
+
   return (
-    <section className={cn("py-4", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
         {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex">
+        <nav className={cn("hidden items-center justify-between lg:flex", desktopNavClassName)}>
           <div className="flex items-center gap-6">
             {/* Logo */}
-            <Pressable href={logo.url} className="flex items-center gap-2">
-              <Img
-                src={logo.src}
-                className={cn("max-h-8 dark:invert", logo.className)}
-                alt={logo.alt}
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="text-lg font-semibold tracking-tighter">
-                {logo.title}
-              </span>
-            </Pressable>
+            {renderLogo()}
             <div className="flex items-center">
-              <NavigationMenu>
+              <NavigationMenu className={navigationMenuClassName}>
                 <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item, optixFlowConfig))}
+                  {renderMenu()}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Pressable href={auth.login.url} variant="outline" size="sm" asButton>
-              {auth.login.title}
-            </Pressable>
-            <Pressable href={auth.signup.url} size="sm" asButton>
-              {auth.signup.title}
-            </Pressable>
+          <div className={cn("flex gap-2", actionsClassName)}>
+            {renderAuthActions()}
           </div>
         </nav>
 
         {/* Mobile Menu */}
-        <div className="block lg:hidden">
+        <div className={cn("block lg:hidden", mobileNavClassName)}>
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Pressable href={logo.url} className="flex items-center gap-2">
-              <Img
-                src={logo.src}
-                className={cn("max-h-8 dark:invert", logo.className)}
-                alt={logo.alt}
-                optixFlowConfig={optixFlowConfig}
-              />
-            </Pressable>
+            {renderLogo()}
             <Sheet>
               <SheetTrigger asChild>
                 <Pressable variant="outline" size="icon" asButton onClick={() => {}}>
@@ -297,14 +433,7 @@ export const NavbarDropdownMenu = ({
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
-                    <Pressable href={logo.url} className="flex items-center gap-2">
-                      <Img
-                        src={logo.src}
-                        className={cn("max-h-8 dark:invert", logo.className)}
-                        alt={logo.alt}
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </Pressable>
+                    {renderLogo()}
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 p-4">
@@ -313,16 +442,11 @@ export const NavbarDropdownMenu = ({
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menu.map((item) => renderMobileMenuItem(item, optixFlowConfig))}
+                    {renderMobileMenu()}
                   </Accordion>
 
-                  <div className="flex flex-col gap-3">
-                    <Pressable href={auth.login.url} variant="outline" asButton>
-                      {auth.login.title}
-                    </Pressable>
-                    <Pressable href={auth.signup.url} asButton>
-                      {auth.signup.title}
-                    </Pressable>
+                  <div className={cn("flex flex-col gap-3", actionsClassName)}>
+                    {renderAuthActions()}
                   </div>
                 </div>
               </SheetContent>
@@ -330,7 +454,7 @@ export const NavbarDropdownMenu = ({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 

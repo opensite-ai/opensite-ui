@@ -4,19 +4,26 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailTabbedCaseStudyTab {
   id: string;
-  label: string;
-  content: string;
+  label: React.ReactNode;
+  content: React.ReactNode;
 }
 
 export interface ProjectDetailTabbedCaseStudyContentSection {
-  title: string;
-  content: string;
+  title: React.ReactNode;
+  content: React.ReactNode;
   image?: {
     src?: string;
     alt: string;
@@ -25,35 +32,67 @@ export interface ProjectDetailTabbedCaseStudyContentSection {
 }
 
 export interface ProjectDetailTabbedCaseStudyTestimonial {
-  quote: string;
-  author: string;
-  role: string;
+  quote: React.ReactNode;
+  author: React.ReactNode;
+  role: React.ReactNode;
   avatar?: string;
 }
 
 export interface ProjectDetailTabbedCaseStudyTool {
-  name: string;
+  name: React.ReactNode;
   icon?: string;
 }
 
 export interface ProjectDetailTabbedCaseStudyProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Hero image configuration */
   heroImage?: {
     src?: string;
     alt?: string;
   };
+  /** Tab navigation items */
   tabs?: ProjectDetailTabbedCaseStudyTab[];
+  /** Content sections */
   contentSections?: ProjectDetailTabbedCaseStudyContentSection[];
+  /** Testimonial block */
   testimonial?: ProjectDetailTabbedCaseStudyTestimonial;
+  /** Tools and technologies */
   tools?: ProjectDetailTabbedCaseStudyTool[];
-  backHref?: string;
-  backLabel?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Back navigation action */
+  backAction?: ActionConfig;
+  /** Custom slot for back action (overrides backAction) */
+  backActionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
+  className?: string;
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the header */
+  headerClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the hero image */
+  heroImageClassName?: string;
+  /** Additional CSS classes for the tabs */
+  tabsClassName?: string;
+  /** Additional CSS classes for the content sections */
+  contentSectionsClassName?: string;
+  /** Additional CSS classes for the testimonial */
+  testimonialClassName?: string;
+  /** Additional CSS classes for the tools section */
+  toolsClassName?: string;
 }
 
 const defaultTabs: ProjectDetailTabbedCaseStudyTab[] = [
@@ -143,8 +182,11 @@ const defaultProps: ProjectDetailTabbedCaseStudyProps = {
   contentSections: defaultContentSections,
   testimonial: defaultTestimonial,
   tools: defaultTools,
-  backHref: "/projects",
-  backLabel: "Back to Projects",
+  backAction: {
+    label: "Back to Projects",
+    href: "/projects",
+    icon: <DynamicIcon name="lucide/arrow-left" size={16} />,
+  },
 };
 
 const fadeInUp = {
@@ -158,7 +200,6 @@ export function ProjectDetailTabbedCaseStudy(
   props: ProjectDetailTabbedCaseStudyProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     heroImage = defaultProps.heroImage,
@@ -166,37 +207,81 @@ export function ProjectDetailTabbedCaseStudy(
     contentSections = defaultProps.contentSections,
     testimonial = defaultProps.testimonial,
     tools = defaultProps.tools,
-    backHref = defaultProps.backHref,
-    backLabel = defaultProps.backLabel,
+    backAction = defaultProps.backAction,
+    backActionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    headerClassName,
+    titleClassName,
+    heroImageClassName,
+    tabsClassName,
+    contentSectionsClassName,
+    testimonialClassName,
+    toolsClassName,
   } = props;
 
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id || "");
 
+  const renderBackAction = () => {
+    if (backActionSlot) return backActionSlot;
+    if (!backAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    return (
+      <Pressable
+        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <article className={cn("py-24 md:py-32", className)}>
-      <div className="container">
-        {backHref && (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <article className={containerClassName}>
+        {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            <Pressable
-              href={backHref}
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <DynamicIcon name="lucide/arrow-left" size={16} />
-              {backLabel}
-            </Pressable>
+            {renderBackAction()}
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className="mb-16 max-w-3xl">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-6 text-xl text-muted-foreground">{subtitle}</p>
+        <motion.header {...fadeInUp} className={cn("mb-16 max-w-3xl", headerClassName)}>
+          {typeof title === "string" ? (
+            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          )}
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className="mt-6 text-xl text-muted-foreground">{subtitle}</p>
+            ) : (
+              <div className="mt-6">{subtitle}</div>
+            )
+          )}
         </motion.header>
 
         <motion.div {...fadeInUp} className="mb-16">
-          <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted">
+          <div className={cn("relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
             <Img
               src={heroImage?.src || imagePlaceholders[76]}
               alt={heroImage?.alt || "Case study hero"}
@@ -210,7 +295,7 @@ export function ProjectDetailTabbedCaseStudy(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-16"
+            className={cn("mb-16", tabsClassName)}
           >
             <div className="border-b border-border">
               <nav className="flex gap-8 overflow-x-auto">
@@ -239,9 +324,13 @@ export function ProjectDetailTabbedCaseStudy(
                     activeTab === tab.id ? "block" : "hidden"
                   )}
                 >
-                  <p className="text-lg leading-relaxed text-muted-foreground max-w-3xl">
-                    {tab.content}
-                  </p>
+                  {typeof tab.content === "string" ? (
+                    <p className="text-lg leading-relaxed text-muted-foreground max-w-3xl">
+                      {tab.content}
+                    </p>
+                  ) : (
+                    tab.content
+                  )}
                 </div>
               ))}
             </div>
@@ -249,7 +338,7 @@ export function ProjectDetailTabbedCaseStudy(
         )}
 
         {contentSections && contentSections.length > 0 && (
-          <div className="space-y-24">
+          <div className={cn("space-y-24", contentSectionsClassName)}>
             {contentSections.map((section, index) => (
               <motion.div
                 key={index}
@@ -265,12 +354,20 @@ export function ProjectDetailTabbedCaseStudy(
                     section.imagePosition === "left" && "lg:order-2"
                   )}
                 >
-                  <h2 className="mb-6 text-2xl font-semibold text-foreground">
-                    {section.title}
-                  </h2>
-                  <p className="text-lg leading-relaxed text-muted-foreground">
-                    {section.content}
-                  </p>
+                  {typeof section.title === "string" ? (
+                    <h2 className="mb-6 text-2xl font-semibold text-foreground">
+                      {section.title}
+                    </h2>
+                  ) : (
+                    <div className="mb-6">{section.title}</div>
+                  )}
+                  {typeof section.content === "string" ? (
+                    <p className="text-lg leading-relaxed text-muted-foreground">
+                      {section.content}
+                    </p>
+                  ) : (
+                    section.content
+                  )}
                 </div>
                 {section.image && (
                   <div
@@ -296,7 +393,7 @@ export function ProjectDetailTabbedCaseStudy(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-24 rounded-2xl bg-muted/30 p-8 md:p-12"
+            className={cn("mt-24 rounded-2xl bg-muted/30 p-8 md:p-12", testimonialClassName)}
           >
             <blockquote className="text-xl leading-relaxed text-foreground md:text-2xl">
               "{testimonial.quote}"
@@ -306,7 +403,7 @@ export function ProjectDetailTabbedCaseStudy(
                 <div className="h-12 w-12 overflow-hidden rounded-full bg-muted">
                   <Img
                     src={testimonial.avatar}
-                    alt={testimonial.author}
+                    alt={typeof testimonial.author === "string" ? testimonial.author : "Author"}
                     className="h-full w-full object-cover"
                     optixFlowConfig={optixFlowConfig}
                   />
@@ -328,7 +425,7 @@ export function ProjectDetailTabbedCaseStudy(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-16"
+            className={cn("mt-16", toolsClassName)}
           >
             <h2 className="mb-6 text-sm font-medium tracking-wider text-muted-foreground uppercase">
               Tools & Technologies
@@ -354,7 +451,7 @@ export function ProjectDetailTabbedCaseStudy(
             </div>
           </motion.div>
         )}
-      </div>
-    </article>
+      </article>
+    </Section>
   );
 }

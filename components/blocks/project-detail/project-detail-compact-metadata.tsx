@@ -105,42 +105,84 @@ export function ProjectDetailCompactMetadata(
   props: ProjectDetailCompactMetadataProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     heroImage = defaultProps.heroImage,
     description = defaultProps.description,
     metadata = defaultProps.metadata,
     galleryImages = defaultProps.galleryImages,
-    backHref = defaultProps.backHref,
-    backLabel = defaultProps.backLabel,
+    backAction = defaultProps.backAction,
+    backActionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    headerClassName,
+    titleClassName,
+    heroImageClassName,
+    descriptionClassName,
+    metadataClassName,
+    galleryClassName,
   } = props;
 
+  const renderBackAction = () => {
+    if (backActionSlot) return backActionSlot;
+    if (!backAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    return (
+      <Pressable
+        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <article className={cn("py-24 md:py-32", className)}>
-      <div className="container max-w-5xl">
-        {backHref && (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <article className={cn("max-w-5xl mx-auto", containerClassName)}>
+        {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-8">
-            <Pressable
-              href={backHref}
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <DynamicIcon name="lucide/arrow-left" size={16} />
-              {backLabel}
-            </Pressable>
+            {renderBackAction()}
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            {title}
-          </h1>
-          <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+        <motion.header {...fadeInUp} className={cn("mb-12 text-center", headerClassName)}>
+          {typeof title === "string" ? (
+            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl", titleClassName)}>
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          )}
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+            ) : (
+              <div className="mt-4">{subtitle}</div>
+            )
+          )}
         </motion.header>
 
         <motion.div {...fadeInUp} className="mb-12">
-          <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted">
+          <div className={cn("relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
             <Img
               src={heroImage?.src || imagePlaceholders[25]}
               alt={heroImage?.alt || "Project hero image"}
@@ -154,25 +196,29 @@ export function ProjectDetailCompactMetadata(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-2"
+            className={cn("lg:col-span-2", descriptionClassName)}
           >
-            <p className="text-lg leading-relaxed text-muted-foreground">
-              {description}
-            </p>
+            {typeof description === "string" ? (
+              <p className="text-lg leading-relaxed text-muted-foreground">
+                {description}
+              </p>
+            ) : (
+              description
+            )}
           </motion.div>
 
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="rounded-xl border border-border bg-muted/30 p-6">
+            <div className={cn("rounded-xl border border-border bg-muted/30 p-6", metadataClassName)}>
               <h2 className="mb-4 text-sm font-medium tracking-wider text-muted-foreground uppercase">
                 Details
               </h2>
               <div className="space-y-3">
-                {metadata?.map((item) => (
+                {metadata?.map((item, index) => (
                   <div
-                    key={item.label}
+                    key={typeof item.label === "string" ? item.label : index}
                     className="flex justify-between text-sm"
                   >
                     <span className="text-muted-foreground">{item.label}</span>
@@ -190,7 +236,7 @@ export function ProjectDetailCompactMetadata(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-16"
+            className={cn("mt-16", galleryClassName)}
           >
             <div className="grid gap-4 md:grid-cols-3">
               {galleryImages.map((image, index) => (
@@ -204,7 +250,7 @@ export function ProjectDetailCompactMetadata(
                 >
                   <Img
                     src={image.src || imagePlaceholders[22 + index]}
-                    alt={image.alt}
+                    alt={image.alt || "Gallery image"}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     optixFlowConfig={optixFlowConfig}
                   />
@@ -213,7 +259,7 @@ export function ProjectDetailCompactMetadata(
             </div>
           </motion.div>
         )}
-      </div>
-    </article>
+      </article>
+    </Section>
   );
 }

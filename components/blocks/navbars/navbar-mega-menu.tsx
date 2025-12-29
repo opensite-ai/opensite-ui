@@ -5,8 +5,9 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,6 +20,13 @@ import {
   logoPlaceholders,
   imagePlaceholders,
 } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface SolutionItem {
   title: string;
@@ -45,20 +53,99 @@ interface ResourceItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  desktopSrc?: string;
+  mobileSrc?: string;
+  alt?: string;
+  className?: string;
+}
+
+/**
  * Props for the NavbarMegaMenu component
  */
 export interface NavbarMegaMenuProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    desktopSrc: string;
-    mobileSrc: string;
-    alt: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the navigation
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu list
+   */
+  navigationMenuListClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Additional CSS classes for the mobile menu
+   */
+  mobileMenuClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Solutions for Platform menu
+   */
   solutions?: SolutionItem[];
+  /**
+   * Use cases for Platform menu
+   */
   useCases?: UseCaseItem[];
+  /**
+   * Documentation links for Developers menu
+   */
   documentationLinks?: DocumentationLink[];
+  /**
+   * Resources for Resources menu
+   */
   resources?: ResourceItem[];
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -115,6 +202,17 @@ const defaultResources: ResourceItem[] = [
   },
 ];
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Login", href: "#", variant: "ghost", asButton: true },
+  {
+    label: "Start now",
+    href: "#",
+    variant: "outline",
+    asButton: true,
+    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-1" />,
+  },
+];
+
 /**
  * NavbarMegaMenu - A comprehensive navigation bar with rich mega-menu dropdowns.
  *
@@ -125,16 +223,29 @@ const defaultResources: ResourceItem[] = [
  */
 export const NavbarMegaMenu = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuListClassName,
+  actionsClassName,
+  logoClassName,
+  mobileMenuClassName,
   logo = {
     url: "/",
     desktopSrc: logoPlaceholders.darkHorizontalLogo,
     mobileSrc: logoPlaceholders.logoMark,
     alt: "Opensite AI",
   },
+  logoSlot,
   solutions = defaultSolutions,
   useCases = defaultUseCases,
   documentationLinks = defaultDocumentationLinks,
   resources = defaultResources,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarMegaMenuProps) => {
   const [open, setOpen] = useState(false);
@@ -142,29 +253,66 @@ export const NavbarMegaMenu = ({
     "platform" | "usecases" | "developers" | "resources" | null
   >(null);
 
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        <Img
+          src={logo.desktopSrc || logoPlaceholders.darkHorizontalLogo}
+          className={cn("hidden h-7 dark:invert md:block", logo.className)}
+          alt={logo.alt || "Logo"}
+          optixFlowConfig={optixFlowConfig}
+        />
+        <Img
+          src={logo.mobileSrc || logoPlaceholders.logoMark}
+          className={cn("h-7 dark:invert md:hidden", logo.className)}
+          alt={logo.alt || "Logo"}
+          optixFlowConfig={optixFlowConfig}
+        />
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
-    <section className={cn("inset-x-0 top-0 z-20 bg-background", className)}>
-      <div className="container">
-        <NavigationMenu className="min-w-full [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("inset-x-0 top-0 z-20", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <NavigationMenu className={cn("min-w-full [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2", navClassName)}>
           <div className="flex w-full items-center justify-between gap-12 py-4">
             {/* Logo */}
             <div>
-              {(!open || !submenu) && (
-                <Pressable href={logo.url} className="flex items-center gap-2">
-                  <Img
-                    src={logo.desktopSrc}
-                    className="hidden h-7 dark:invert md:block"
-                    alt={logo.alt}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                  <Img
-                    src={logo.mobileSrc}
-                    className="h-7 dark:invert md:hidden"
-                    alt={logo.alt}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </Pressable>
-              )}
+              {(!open || !submenu) && renderLogo()}
               {open && submenu && (
                 <Pressable
                   variant="outline"
@@ -181,7 +329,7 @@ export const NavbarMegaMenu = ({
               )}
             </div>
 
-            <NavigationMenuList className="hidden lg:flex">
+            <NavigationMenuList className={cn("hidden lg:flex", navigationMenuListClassName)}>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
                 <NavigationMenuContent className="min-w-[900px] p-6">
@@ -435,18 +583,8 @@ export const NavbarMegaMenu = ({
               </NavigationMenuItem>
             </NavigationMenuList>
 
-            <div className="hidden items-center gap-2 lg:flex">
-              <Pressable href="#" variant="ghost" asButton>
-                Login
-              </Pressable>
-              <Pressable href="#" variant="outline" asButton>
-                Start now
-                <DynamicIcon
-                  name="lucide/chevron-right"
-                  size={16}
-                  className="ml-1"
-                />
-              </Pressable>
+            <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+              {renderAuthActions()}
             </div>
 
             <div className="flex items-center gap-4 lg:hidden">
@@ -472,7 +610,7 @@ export const NavbarMegaMenu = ({
 
           {/* Mobile Menu (Root) */}
           {open && !submenu && (
-            <div className="fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden">
+            <div className={cn("fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden", mobileMenuClassName)}>
               <div>
                 <button
                   type="button"
@@ -515,20 +653,15 @@ export const NavbarMegaMenu = ({
                   </span>
                 </button>
               </div>
-              <div className="mx-8 mt-auto flex flex-col gap-4 py-12">
-                <Pressable href="#" variant="outline" size="lg" asButton>
-                  Login
-                </Pressable>
-                <Pressable href="#" size="lg" asButton>
-                  Start now
-                </Pressable>
+              <div className={cn("mx-8 mt-auto flex flex-col gap-4 py-12", actionsClassName)}>
+                {renderAuthActions()}
               </div>
             </div>
           )}
 
           {/* Mobile Menu > Platform */}
           {open && submenu === "platform" && (
-            <div className="fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden">
+            <div className={cn("fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden", mobileMenuClassName)}>
               <Pressable href="#" className="block space-y-6 px-8 py-8">
                 <div className="w-full overflow-clip rounded-lg">
                   <Img
@@ -568,7 +701,7 @@ export const NavbarMegaMenu = ({
 
           {/* Mobile Menu > Use Cases */}
           {open && submenu === "usecases" && (
-            <div className="fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden">
+            <div className={cn("fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden", mobileMenuClassName)}>
               <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
                 Use cases
               </div>
@@ -587,7 +720,7 @@ export const NavbarMegaMenu = ({
 
           {/* Mobile Menu > Developers */}
           {open && submenu === "developers" && (
-            <div className="fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden">
+            <div className={cn("fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden", mobileMenuClassName)}>
               <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
                 Documentation
               </div>
@@ -606,7 +739,7 @@ export const NavbarMegaMenu = ({
 
           {/* Mobile Menu > Resources */}
           {open && submenu === "resources" && (
-            <div className="fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden">
+            <div className={cn("fixed inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden", mobileMenuClassName)}>
               <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
                 Resources
               </div>
@@ -628,7 +761,7 @@ export const NavbarMegaMenu = ({
           )}
         </NavigationMenu>
       </div>
-    </section>
+    </Section>
   );
 };
 

@@ -5,7 +5,8 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Accordion,
   AccordionContent,
@@ -23,6 +24,13 @@ import {
 } from "../../ui/navigation-menu";
 import { Separator } from "../../ui/separator";
 import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface FeatureItem {
   title: string;
@@ -45,19 +53,95 @@ interface CompanyItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarEducationPlatform component
  */
 export interface NavbarEducationPlatformProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Additional CSS classes for the mobile menu
+   */
+  mobileMenuClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Features for Products menu
+   */
   features?: FeatureItem[];
+  /**
+   * Documentation items for Support menu
+   */
   docs?: DocItem[];
+  /**
+   * Company items for Support menu
+   */
   company?: CompanyItem[];
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -128,9 +212,14 @@ const defaultCompany: CompanyItem[] = [
   { title: "Join Our Team", icon: "lucide/users", link: "#" },
 ];
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Login", href: "#", variant: "outline", asButton: true },
+  { label: "Demo", href: "#", asButton: true },
+];
+
 /**
  * NavbarEducationPlatform - A comprehensive navigation bar designed for education and LMS platforms.
- * 
+ *
  * Features two main dropdown menus: Products (with tools and quick start sections) and Support
  * (with guides and about us sections). Products dropdown includes a featured image card for
  * latest updates. Each menu item displays an icon, title, and description with hover animations.
@@ -139,40 +228,98 @@ const defaultCompany: CompanyItem[] = [
  */
 export const NavbarEducationPlatform = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
+  logoClassName,
+  mobileMenuClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
   features = defaultFeatures,
   docs = defaultDocs,
   company = defaultCompany,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarEducationPlatformProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn("h-8 dark:invert", logo.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="text-lg font-semibold">{logo.title}</span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
       className={cn(
         "border-b border-border lg:border-b",
         isOpen && "border-b-0",
         className,
       )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
     >
-      <div className="container">
-        <nav className="flex items-center justify-between py-4">
+      <div className={cn("container", containerClassName)}>
+        <nav className={cn("flex items-center justify-between py-4", navClassName)}>
           <div className="flex flex-1 items-center gap-9">
-            <Pressable href={logo.url} className="flex items-center gap-2">
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="h-8 dark:invert"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="text-lg font-semibold">{logo.title}</span>
-            </Pressable>
-            <div className="hidden items-center gap-1.5 lg:flex">
+            {renderLogo()}
+            <div className={cn("hidden items-center gap-1.5 lg:flex", navigationMenuClassName)}>
               <NavigationMenu delayDuration={0}>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -342,13 +489,8 @@ export const NavbarEducationPlatform = ({
             </div>
           </div>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            <Pressable variant="outline" asButton href="#">
-              Login
-            </Pressable>
-            <Pressable asButton href="#">
-              Demo
-            </Pressable>
+          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+            {renderAuthActions()}
           </div>
 
           <Pressable
@@ -369,8 +511,8 @@ export const NavbarEducationPlatform = ({
       </div>
 
       {isOpen && (
-        <div className="border-t bg-background lg:hidden">
-          <div className="container">
+        <div className={cn("border-t bg-background lg:hidden", mobileMenuClassName)}>
+          <div className={cn("container", containerClassName)}>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="learning-hub">
                 <AccordionTrigger className="pr-2.5 text-base font-medium hover:no-underline">
@@ -502,7 +644,7 @@ export const NavbarEducationPlatform = ({
           </div>
         </div>
       )}
-    </section>
+    </Section>
   );
 };
 

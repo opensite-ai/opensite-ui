@@ -4,37 +4,71 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailFashionEditorialCredit {
-  role: string;
-  name: string;
+  role: React.ReactNode;
+  name: React.ReactNode;
 }
 
 export interface ProjectDetailFashionEditorialProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  year?: string;
-  category?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Project year */
+  year?: React.ReactNode;
+  /** Category label */
+  category?: React.ReactNode;
+  /** Hero image configuration */
   heroImage?: {
     src?: string;
     alt?: string;
   };
-  description?: string;
+  /** Description text */
+  description?: React.ReactNode;
+  /** Credits list */
   credits?: ProjectDetailFashionEditorialCredit[];
-  galleryImages?: Array<{
-    src?: string;
-    alt: string;
-  }>;
-  backHref?: string;
-  backLabel?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Gallery images */
+  galleryImages?: ImageItem[];
+  /** Back navigation action */
+  backAction?: ActionConfig;
+  /** Custom slot for back action (overrides backAction) */
+  backActionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
+  className?: string;
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the header */
+  headerClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the hero image */
+  heroImageClassName?: string;
+  /** Additional CSS classes for the credits section */
+  creditsClassName?: string;
+  /** Additional CSS classes for the gallery */
+  galleryClassName?: string;
 }
 
 const defaultCredits: ProjectDetailFashionEditorialCredit[] = [
@@ -45,7 +79,7 @@ const defaultCredits: ProjectDetailFashionEditorialCredit[] = [
   { role: "Creative Direction", name: "David Park" },
 ];
 
-const defaultGalleryImages = [
+const defaultGalleryImages: ImageItem[] = [
   { src: imagePlaceholders[57], alt: "Fashion image 1" },
   { src: imagePlaceholders[58], alt: "Fashion image 2" },
   { src: imagePlaceholders[59], alt: "Fashion image 3" },
@@ -65,8 +99,7 @@ const defaultProps: ProjectDetailFashionEditorialProps = {
     "A neo-noir inspired editorial showcasing the Fall/Winter collection. The series explores themes of urban sophistication and contemporary elegance through dramatic lighting and bold compositions.",
   credits: defaultCredits,
   galleryImages: defaultGalleryImages,
-  backHref: "/projects",
-  backLabel: "Back to Projects",
+  backAction: { label: "Back to Projects", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
 };
 
 const fadeInUp = {
@@ -80,7 +113,6 @@ export function ProjectDetailFashionEditorial(
   props: ProjectDetailFashionEditorialProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     year = defaultProps.year,
@@ -89,27 +121,59 @@ export function ProjectDetailFashionEditorial(
     description = defaultProps.description,
     credits = defaultProps.credits,
     galleryImages = defaultProps.galleryImages,
-    backHref = defaultProps.backHref,
-    backLabel = defaultProps.backLabel,
+    backAction = defaultProps.backAction,
+    backActionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    headerClassName,
+    titleClassName,
+    heroImageClassName,
+    creditsClassName,
+    galleryClassName,
   } = props;
 
+  const renderBackAction = () => {
+    if (backActionSlot) return backActionSlot;
+    if (!backAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    return (
+      <Pressable
+        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <article className={cn("py-24 md:py-32", className)}>
-      <div className="container">
-        {backHref && (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <article className={containerClassName}>
+        {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            <Pressable
-              href={backHref}
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <DynamicIcon name="lucide/arrow-left" size={16} />
-              {backLabel}
-            </Pressable>
+            {renderBackAction()}
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className="mb-16">
+        <motion.header {...fadeInUp} className={cn("mb-16", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
               {category}
@@ -117,15 +181,25 @@ export function ProjectDetailFashionEditorial(
             <span>{year}</span>
           </div>
 
-          <h1 className="text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl uppercase">
-            {title}
-          </h1>
+          {typeof title === "string" ? (
+            <h1 className={cn("text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl uppercase", titleClassName)}>
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          )}
 
-          <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+            ) : (
+              <div className="mt-4">{subtitle}</div>
+            )
+          )}
         </motion.header>
 
         <motion.div {...fadeInUp} className="mb-16">
-          <div className="relative aspect-3/4 md:aspect-video overflow-hidden rounded-2xl bg-muted">
+          <div className={cn("relative aspect-3/4 md:aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
             <Img
               src={heroImage?.src || imagePlaceholders[61]}
               alt={heroImage?.alt || "Fashion editorial hero"}
@@ -141,14 +215,21 @@ export function ProjectDetailFashionEditorial(
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-2"
           >
-            <p className="text-lg leading-relaxed text-muted-foreground">
-              {description}
-            </p>
+            {description && (
+              typeof description === "string" ? (
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  {description}
+                </p>
+              ) : (
+                description
+              )
+            )}
           </motion.div>
 
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className={creditsClassName}
           >
             <h2 className="mb-6 text-sm font-medium tracking-wider text-muted-foreground uppercase">
               Credits
@@ -175,7 +256,7 @@ export function ProjectDetailFashionEditorial(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-16 grid gap-6 md:grid-cols-2"
+            className={cn("mt-16 grid gap-6 md:grid-cols-2", galleryClassName)}
           >
             {galleryImages.map((image, index) => (
               <motion.div
@@ -188,7 +269,7 @@ export function ProjectDetailFashionEditorial(
               >
                 <Img
                   src={image.src || imagePlaceholders[57 + index]}
-                  alt={image.alt}
+                  alt={image.alt || "Gallery image"}
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -196,7 +277,7 @@ export function ProjectDetailFashionEditorial(
             ))}
           </motion.div>
         )}
-      </div>
-    </article>
+      </article>
+    </Section>
   );
 }

@@ -5,7 +5,8 @@ import { Fragment, useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Accordion,
   AccordionContent,
@@ -26,6 +27,13 @@ import {
   logoPlaceholders,
   imagePlaceholders,
 } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface SubpageItem {
   id: string;
@@ -113,24 +121,111 @@ interface MenuItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarEnterpriseMega component
  */
 export interface NavbarEnterpriseMegaProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the navigation wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Navigation menu items
+   */
   navigation?: MenuItem[];
+  /**
+   * Solutions for Solutions menu
+   */
   solutions?: SolutionItem[];
+  /**
+   * Solution technologies for Solutions menu
+   */
   solutionTechnologies?: TechnologyItem[];
+  /**
+   * Product categories for Products menu
+   */
   productCategories?: ProductCategory[];
+  /**
+   * Global categories for Global menu
+   */
   globalCategories?: GlobalCategory[];
+  /**
+   * Regions for Global menu
+   */
   regions?: RegionItem[];
+  /**
+   * Resources for Resources menu
+   */
   resources?: ResourceItem[];
+  /**
+   * Topic groups for Resources menu
+   */
   topicGroups?: TopicGroup[];
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -515,6 +610,11 @@ const defaultTopicGroups: TopicGroup[] = [
 
 const MOBILE_BREAKPOINT = 1024;
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Contact Sales", href: "#", variant: "outline", size: "sm", asButton: true },
+  { label: "Get Started", href: "#", size: "sm", asButton: true },
+];
+
 /**
  * NavbarEnterpriseMega - A comprehensive enterprise-grade navigation bar with multiple mega-menu styles.
  *
@@ -527,12 +627,18 @@ const MOBILE_BREAKPOINT = 1024;
  */
 export const NavbarEnterpriseMega = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
+  logoClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
   navigation = defaultNavigation,
   solutions = defaultSolutions,
   solutionTechnologies = defaultSolutionTechnologies,
@@ -541,6 +647,12 @@ export const NavbarEnterpriseMega = ({
   regions = defaultRegions,
   resources = defaultResources,
   topicGroups = defaultTopicGroups,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarEnterpriseMegaProps) => {
   const [open, setOpen] = useState(false);
@@ -565,29 +677,74 @@ export const NavbarEnterpriseMega = ({
     setOpen(!open);
   };
 
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter", logoClassName)}
+      >
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn("inline-block size-6", logo.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="hidden md:inline-block">{logo.title}</span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
     <Fragment>
-      <section
+      <Section
+        background={background}
+        spacing={spacing}
         className={cn(
-          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center border-b bg-background",
+          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center border-b",
           className
         )}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
       >
-        <div className="container">
-          <div className="flex h-16 items-center justify-between gap-8">
-            <Pressable
-              href={logo.url}
-              className="flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter"
-            >
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="inline-block size-6"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="hidden md:inline-block">{logo.title}</span>
-            </Pressable>
-            <NavigationMenu className="hidden lg:flex" viewport={false}>
+        <div className={cn("container", containerClassName)}>
+          <div className={cn("flex h-16 items-center justify-between gap-8", navClassName)}>
+            {renderLogo()}
+            <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)} viewport={false}>
               <NavigationMenuList>
                 {navigation.map((item, index) => (
                   <DesktopMenuItem
@@ -606,19 +763,10 @@ export const NavbarEnterpriseMega = ({
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
-            <div className="flex items-center gap-3">
-              <Pressable
-                variant="outline"
-                size="sm"
-                asButton
-                href="#"
-                className="hidden lg:flex"
-              >
-                Contact Sales
-              </Pressable>
-              <Pressable size="sm" asButton href="#" className="hidden lg:flex">
-                Get Started
-              </Pressable>
+            <div className={cn("flex items-center gap-3", actionsClassName)}>
+              <div className="hidden lg:flex lg:items-center lg:gap-3">
+                {renderAuthActions()}
+              </div>
               <div className="lg:hidden">
                 <Pressable
                   className="size-11"
@@ -645,7 +793,7 @@ export const NavbarEnterpriseMega = ({
             </div>
           </div>
         </div>
-      </section>
+      </Section>
       <MobileNavigationMenu
         open={open}
         navigation={navigation}
@@ -1259,13 +1407,8 @@ const MobileNavigationMenu = ({
                 Mobile Navigation
               </SheetTitle>
             </div>
-            <div className="flex flex-col gap-4">
-              <Pressable variant="outline" asButton href="#" className="w-full">
-                Contact Sales
-              </Pressable>
-              <Pressable asButton href="#" className="w-full">
-                Get Started
-              </Pressable>
+            <div className={cn("flex flex-col gap-4", actionsClassName)}>
+              {renderAuthActions()}
             </div>
             <Accordion type="multiple" className="mt-6 w-full">
               {navigation.map((item, index) => {

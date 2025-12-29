@@ -5,26 +5,175 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Card } from "../../ui/card";
+import { Section } from "../../ui/section";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-export interface PricingSimpleCardProps {
+export interface PricingSimpleCardFeature {
+  /**
+   * Feature text
+   */
+  text?: React.ReactNode;
+  /**
+   * Optional icon element
+   */
+  icon?: React.ReactNode;
+  /**
+   * Optional icon name for DynamicIcon
+   */
+  iconName?: string;
+  /**
+   * Additional CSS classes for the feature item
+   */
   className?: string;
-  title?: string;
-  description?: string;
-  price?: string;
-  priceInterval?: string;
-  features?: string[];
-  buttonText?: string;
-  buttonHref?: string;
+  /**
+   * Additional CSS classes for the icon
+   */
+  iconClassName?: string;
+  /**
+   * Additional CSS classes for the feature text
+   */
+  textClassName?: string;
 }
 
-const defaultFeatures = [
-  "Unlimited projects",
-  "Advanced analytics",
-  "Priority support",
-  "API access",
-  "Custom integrations",
-  "Team collaboration",
+export interface PricingSimpleCardProps {
+  /**
+   * Plan title
+   */
+  title?: React.ReactNode;
+  /**
+   * Supporting description
+   */
+  description?: React.ReactNode;
+  /**
+   * Main price display
+   */
+  price?: React.ReactNode;
+  /**
+   * Price interval text (e.g., /month)
+   */
+  priceInterval?: React.ReactNode;
+  /**
+   * Feature list
+   */
+  features?: PricingSimpleCardFeature[];
+  /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Default icon used for features if none provided
+   */
+  featureIcon?: React.ReactNode;
+  /**
+   * Default icon name used for features if none provided
+   */
+  featureIconName?: string;
+  /**
+   * Primary action configuration
+   */
+  action?: ActionConfig;
+  /**
+   * Custom slot for rendering the action (overrides action)
+   */
+  actionSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the price
+   */
+  priceClassName?: string;
+  /**
+   * Additional CSS classes for the price interval
+   */
+  priceIntervalClassName?: string;
+  /**
+   * Additional CSS classes for the price wrapper
+   */
+  priceWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the features list
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for the feature item
+   */
+  featureItemClassName?: string;
+  /**
+   * Additional CSS classes for the feature icon
+   */
+  featureIconClassName?: string;
+  /**
+   * Additional CSS classes for the feature text
+   */
+  featureTextClassName?: string;
+  /**
+   * Additional CSS classes for the action
+   */
+  actionClassName?: string;
+}
+
+const defaultFeatures: PricingSimpleCardFeature[] = [
+  { text: "Unlimited projects" },
+  { text: "Advanced analytics" },
+  { text: "Priority support" },
+  { text: "API access" },
+  { text: "Custom integrations" },
+  { text: "Team collaboration" },
 ];
+
+const defaultAction: ActionConfig = {
+  label: "Get Started",
+  href: "#",
+  variant: "default",
+  size: "lg",
+};
 
 /**
  * PricingSimpleCard displays a single, minimal pricing card with a feature list.
@@ -40,61 +189,149 @@ const defaultFeatures = [
  *   description="Everything you need"
  *   price="$49"
  *   priceInterval="/month"
- *   features={["Feature 1", "Feature 2"]}
- *   buttonText="Get Started"
+ *   features={[{ text: "Feature 1" }, { text: "Feature 2" }]}
+ *   action={{ label: "Get Started", href: "#" }}
  * />
  * ```
  */
 export function PricingSimpleCard({
-  className,
   title = "Pro Plan",
   description = "Everything you need to grow your business",
   price = "$49",
   priceInterval = "/month",
   features = defaultFeatures,
-  buttonText = "Get Started",
-  buttonHref = "#",
-}: PricingSimpleCardProps) {
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-md">
-          <Card className="p-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold">{title}</h2>
-              <p className="mt-2 text-muted-foreground">{description}</p>
+  featuresSlot,
+  featureIcon,
+  featureIconName = "lucide/check",
+  action = defaultAction,
+  actionSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  cardClassName,
+  headerClassName,
+  titleClassName,
+  descriptionClassName,
+  priceClassName,
+  priceIntervalClassName,
+  priceWrapperClassName,
+  featuresClassName,
+  featureItemClassName,
+  featureIconClassName,
+  featureTextClassName,
+  actionClassName,
+}: PricingSimpleCardProps): React.JSX.Element {
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
 
-              <div className="mt-6">
-                <span className="text-5xl font-bold">{price}</span>
-                <span className="text-muted-foreground">{priceInterval}</span>
-              </div>
-            </div>
+    return (
+      <ul className={cn("mt-8 space-y-3", featuresClassName)}>
+        {features.map((feature, index) => {
+          const resolvedIcon = feature.icon
+            ?? featureIcon
+            ?? (feature.iconName || featureIconName ? (
+              <DynamicIcon
+                name={feature.iconName || featureIconName}
+                size={18}
+                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+              />
+            ) : null);
 
-            <ul className="mt-8 space-y-3">
-              {features.map((feature, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <DynamicIcon
-                    name="lucide/check"
-                    size={18}
-                    className="mt-0.5 shrink-0 text-primary"
-                  />
-                  <span className="text-sm text-muted-foreground">{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <Pressable
-              href={buttonHref}
-              variant="default"
-              size="lg"
-              asButton
-              className="mt-8 w-full justify-center"
+          return (
+            <li
+              key={index}
+              className={cn("flex items-start gap-3", featureItemClassName, feature.className)}
             >
-              {buttonText}
-            </Pressable>
-          </Card>
-        </div>
+              {resolvedIcon}
+              {feature.text && (
+                typeof feature.text === "string" ? (
+                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </span>
+                ) : (
+                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                    {feature.text}
+                  </div>
+                )
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
+  const renderAction = () => {
+    if (actionSlot) return actionSlot;
+    if (!action) return null;
+
+    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+
+    return (
+      <Pressable
+        asButton
+        className={cn("mt-8 w-full justify-center", actionClassName, actionItemClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto max-w-md", containerClassName)}>
+        <Card className={cn("p-8", cardClassName)}>
+          <div className={cn("text-center", headerClassName)}>
+            {title && (
+              typeof title === "string" ? (
+                <h2 className={cn("text-2xl font-bold", titleClassName)}>{title}</h2>
+              ) : (
+                <div className={titleClassName}>{title}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-2 text-muted-foreground", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+
+            {(price || priceInterval) && (
+              <div className={cn("mt-6", priceWrapperClassName)}>
+                {price && (
+                  <span className={cn("text-5xl font-bold", priceClassName)}>{price}</span>
+                )}
+                {priceInterval && (
+                  <span className={cn("text-muted-foreground", priceIntervalClassName)}>{priceInterval}</span>
+                )}
+              </div>
+            )}
+          </div>
+
+          {renderFeatures()}
+          {renderAction()}
+        </Card>
       </div>
-    </section>
+    </Section>
   );
 }

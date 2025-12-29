@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,6 +18,13 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface SubMenuItem {
   title: string;
@@ -31,17 +39,83 @@ interface MenuItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarStickyCompact component
  */
 export interface NavbarStickyCompactProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation menu items
+   */
   menu?: MenuItem[];
+  /**
+   * Custom slot for menu items (overrides menu array)
+   */
+  menuSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -67,9 +141,14 @@ const defaultMenu: MenuItem[] = [
   { title: "Docs", url: "#" },
 ];
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Log in", href: "#", variant: "ghost", size: "sm" },
+  { label: "Sign up", href: "#", variant: "default", size: "sm" },
+];
+
 /**
  * NavbarStickyCompact - A compact sticky navigation bar that shrinks on scroll.
- * 
+ *
  * Features a standard-height navigation bar that compresses to a more compact size when
  * the user scrolls down. The logo shrinks and padding reduces to maximize content space
  * while maintaining navigation accessibility. Desktop view shows dropdown menus with icons.
@@ -77,14 +156,26 @@ const defaultMenu: MenuItem[] = [
  * vertical space is valuable.
  */
 export const NavbarStickyCompact = ({
-  className,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   menu = defaultMenu,
+  menuSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  className,
+  containerClassName,
+  navClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarStickyCompactProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -100,31 +191,26 @@ export const NavbarStickyCompact = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <section
-      className={cn(
-        "fixed top-0 left-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm transition-all duration-300",
-        isScrolled ? "shadow-sm" : "",
-        className,
-      )}
-    >
-      <div className="container">
-        <nav
-          className={cn(
-            "flex items-center justify-between transition-all duration-300",
-            isScrolled ? "h-14" : "h-16",
-          )}
-        >
-          <Pressable href={logo.url} className="flex items-center gap-2">
-            <Img
-              src={logo.src}
-              alt={logo.alt}
-              className={cn(
-                "transition-all duration-300",
-                isScrolled ? "h-6" : "h-8",
-              )}
-              optixFlowConfig={optixFlowConfig}
-            />
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            className={cn(
+              "transition-all duration-300",
+              isScrolled ? "h-6" : "h-8",
+              logo.className
+            )}
+            alt={logo.alt || "Logo"}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
             <span
               className={cn(
                 "font-semibold transition-all duration-300",
@@ -133,77 +219,161 @@ export const NavbarStickyCompact = ({
             >
               {logo.title}
             </span>
-          </Pressable>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, size: actionSize, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          size={isScrolled ? "sm" : (actionSize || "default")}
+          className={cn("transition-all duration-300", actionClassName)}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderMenu = () => {
+    if (menuSlot) return menuSlot;
+    if (!menu || menu.length === 0) return null;
+
+    return menu.map((item, index) =>
+      item.items ? (
+        <NavigationMenuItem key={index}>
+          <NavigationMenuTrigger
+            className={cn(
+              "transition-all duration-300",
+              isScrolled ? "h-8 text-sm" : "h-10",
+            )}
+          >
+            {item.title}
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[200px] gap-1 p-2">
+              {item.items.map((subItem, subIndex) => (
+                <li key={subIndex}>
+                  <NavigationMenuLink asChild>
+                    <Pressable
+                      href={subItem.url}
+                      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-accent"
+                    >
+                      {subItem.icon && (
+                        <DynamicIcon name={subItem.icon} size={16} />
+                      )}
+                      {subItem.title}
+                    </Pressable>
+                  </NavigationMenuLink>
+                </li>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      ) : (
+        <NavigationMenuItem key={index}>
+          <NavigationMenuLink
+            asChild
+            className={cn(
+              navigationMenuTriggerStyle(),
+              "transition-all duration-300",
+              isScrolled ? "h-8 text-sm" : "h-10",
+            )}
+          >
+            <Pressable href={item.url}>{item.title}</Pressable>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      ),
+    );
+  };
+
+  const renderMobileMenu = () => {
+    if (menuSlot) return menuSlot;
+    if (!menu || menu.length === 0) return null;
+
+    return menu.map((item, index) =>
+      item.items ? (
+        <div key={index} className="space-y-2">
+          <div className="text-sm font-medium text-muted-foreground">
+            {item.title}
+          </div>
+          <div className="flex flex-col gap-1 pl-2">
+            {item.items.map((subItem, subIndex) => (
+              <Pressable
+                key={subIndex}
+                href={subItem.url}
+                className="flex items-center gap-2 rounded-md py-2 text-sm hover:text-foreground"
+                onClick={() => setIsOpen(false)}
+              >
+                {subItem.icon && (
+                  <DynamicIcon name={subItem.icon} size={14} />
+                )}
+                {subItem.title}
+              </Pressable>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Pressable
+          key={index}
+          href={item.url}
+          className="text-sm font-medium"
+          onClick={() => setIsOpen(false)}
+        >
+          {item.title}
+        </Pressable>
+      ),
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(
+        "fixed top-0 left-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm transition-all duration-300",
+        isScrolled ? "shadow-sm" : "",
+        className,
+      )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <nav
+          className={cn(
+            "flex items-center justify-between transition-all duration-300",
+            isScrolled ? "h-14" : "h-16",
+            navClassName,
+          )}
+        >
+          {renderLogo()}
 
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>
-              {menu.map((item, index) =>
-                item.items ? (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuTrigger
-                      className={cn(
-                        "transition-all duration-300",
-                        isScrolled ? "h-8 text-sm" : "h-10",
-                      )}
-                    >
-                      {item.title}
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[200px] gap-1 p-2">
-                        {item.items.map((subItem, subIndex) => (
-                          <li key={subIndex}>
-                            <NavigationMenuLink asChild>
-                              <Pressable
-                                href={subItem.url}
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-accent"
-                              >
-                                {subItem.icon && (
-                                  <DynamicIcon name={subItem.icon} size={16} />
-                                )}
-                                {subItem.title}
-                              </Pressable>
-                            </NavigationMenuLink>
-                          </li>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                ) : (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuLink
-                      asChild
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "transition-all duration-300",
-                        isScrolled ? "h-8 text-sm" : "h-10",
-                      )}
-                    >
-                      <Pressable href={item.url}>{item.title}</Pressable>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ),
-              )}
+              {renderMenu()}
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            <Pressable
-              variant="ghost"
-              size={isScrolled ? "sm" : "default"}
-              asButton
-              href="#"
-              className="transition-all duration-300"
-            >
-              Log in
-            </Pressable>
-            <Pressable
-              size={isScrolled ? "sm" : "default"}
-              asButton
-              href="#"
-              className="transition-all duration-300"
-            >
-              Sign up
-            </Pressable>
+          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+            {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -222,53 +392,16 @@ export const NavbarStickyCompact = ({
             <SheetContent side="right" className="w-[280px]">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-4 pt-8">
-                {menu.map((item, index) =>
-                  item.items ? (
-                    <div key={index} className="space-y-2">
-                      <div className="text-sm font-medium text-muted-foreground">
-                        {item.title}
-                      </div>
-                      <div className="flex flex-col gap-1 pl-2">
-                        {item.items.map((subItem, subIndex) => (
-                          <Pressable
-                            key={subIndex}
-                            href={subItem.url}
-                            className="flex items-center gap-2 rounded-md py-2 text-sm hover:text-foreground"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {subItem.icon && (
-                              <DynamicIcon name={subItem.icon} size={14} />
-                            )}
-                            {subItem.title}
-                          </Pressable>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <Pressable
-                      key={index}
-                      href={item.url}
-                      className="text-sm font-medium"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.title}
-                    </Pressable>
-                  ),
-                )}
-                <div className="mt-4 flex flex-col gap-2 border-t pt-4">
-                  <Pressable variant="outline" asButton href="#" className="w-full">
-                    Log in
-                  </Pressable>
-                  <Pressable asButton href="#" className="w-full">
-                    Sign up
-                  </Pressable>
+                {renderMobileMenu()}
+                <div className={cn("mt-4 flex flex-col gap-2 border-t pt-4", actionsClassName)}>
+                  {renderAuthActions()}
                 </div>
               </div>
             </SheetContent>
           </Sheet>
         </nav>
       </div>
-    </section>
+    </Section>
   );
 };
 
