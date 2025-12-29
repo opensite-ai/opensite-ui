@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsMasonryGrid } from "../components/blocks/reviews/testimonials-masonry-grid";
-export type { TestimonialsMasonryGridProps, MasonryTestimonial } from "../components/blocks/reviews/testimonials-masonry-grid";
+export type { TestimonialsMasonryGridProps } from "../components/blocks/reviews/testimonials-masonry-grid";

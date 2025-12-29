@@ -6,91 +6,154 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-export interface TwitterTestimonial {
-  id: string;
-  content: string;
-  author: {
-    name: string;
-    handle: string;
-    avatar?: string;
-  };
+/**
+ * Twitter/X testimonial item interface
+ */
+export interface TwitterTestimonialItem {
+  /**
+   * Tweet/post content
+   */
+  content: React.ReactNode;
+  /**
+   * Author name
+   */
+  author?: React.ReactNode;
+  /**
+   * Twitter/X handle (e.g., "@username")
+   */
+  handle?: string;
+  /**
+   * Author avatar image URL
+   */
+  avatarSrc?: string;
+  /**
+   * Link to the original tweet/post
+   */
   twitterUrl?: string;
 }
 
 export interface TestimonialsTwitterCardsProps {
-  testimonials?: TwitterTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of Twitter testimonials to display
+   */
+  testimonials?: TwitterTestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the card content
+   */
+  cardContentClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TwitterTestimonial[] = [
+const DEFAULT_TESTIMONIALS: TwitterTestimonialItem[] = [
   {
-    id: "1",
     content:
       "Just shipped our new landing page using @opensiteai components. Took us 2 hours instead of 2 weeks. The quality is incredible!",
-    author: {
-      name: "Sarah Chen",
-      handle: "@sarahchen",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    handle: "@sarahchen",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
     twitterUrl: "https://twitter.com/sarahchen",
   },
   {
-    id: "2",
     content:
       "The attention to detail in these components is next level. Every interaction feels polished and professional.",
-    author: {
-      name: "Alex Rivera",
-      handle: "@alexrivera",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Alex Rivera",
+    handle: "@alexrivera",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
     twitterUrl: "https://twitter.com/alexrivera",
   },
   {
-    id: "3",
     content:
       "Finally, a component library that doesn't require a PhD to customize. Clean code, great docs, amazing support.",
-    author: {
-      name: "Jordan Lee",
-      handle: "@jordanlee",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Jordan Lee",
+    handle: "@jordanlee",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
     twitterUrl: "https://twitter.com/jordanlee",
   },
   {
-    id: "4",
     content:
       "Our design team is obsessed with the consistency across all components. Makes our job so much easier!",
-    author: {
-      name: "Maya Patel",
-      handle: "@mayapatel",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    author: "Maya Patel",
+    handle: "@mayapatel",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
     twitterUrl: "https://twitter.com/mayapatel",
   },
   {
-    id: "5",
     content:
       "Switched from building everything from scratch to using Opensite AI. Best decision we made this quarter.",
-    author: {
-      name: "Chris Wong",
-      handle: "@chriswong",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    author: "Chris Wong",
+    handle: "@chriswong",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
     twitterUrl: "https://twitter.com/chriswong",
   },
   {
-    id: "6",
     content:
       "The semantic component system is genius. Our AI can now pick the perfect component every time.",
-    author: {
-      name: "Emma Davis",
-      handle: "@emmadavis",
-      avatar: blockBrandedIconsAndPlaceholders.avatar6,
-    },
+    author: "Emma Davis",
+    handle: "@emmadavis",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
     twitterUrl: "https://twitter.com/emmadavis",
   },
 ];
@@ -105,60 +168,88 @@ const DEFAULT_TESTIMONIALS: TwitterTestimonial[] = [
  * @example
  * ```tsx
  * <TestimonialsTwitterCards
- *   title="What People Are Saying"
- *   subtitle="Real tweets from real users"
+ *   heading="What People Are Saying"
+ *   description="Real tweets from real users"
  *   testimonials={[
  *     {
- *       id: "1",
  *       content: "This product is amazing!",
- *       author: { name: "John Doe", handle: "@johndoe", avatar: "/avatars/john.jpg" },
+ *       author: "John Doe",
+ *       handle: "@johndoe",
+ *       avatarSrc: "/avatars/john.jpg",
  *       twitterUrl: "https://twitter.com/johndoe/status/123"
  *     }
  *   ]}
+ *   background="gray"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsTwitterCards({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "What People Are Saying",
-  subtitle = "Real feedback from our community",
+  testimonialsSlot,
+  heading = "What People Are Saying",
+  description = "Real feedback from our community",
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  cardClassName,
+  cardContentClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsTwitterCardsProps): React.JSX.Element {
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: TwitterTestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="group">
-              <CardContent className="p-6">
-                <div className="mb-4 flex items-start justify-between">
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {testimonials.map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          return (
+            <Card key={index} className={cn("group", cardClassName)}>
+              <CardContent className={cn("p-6", cardContentClassName)}>
+                <div className={cn("mb-4 flex items-start justify-between", authorClassName)}>
                   <div className="flex items-center gap-3">
                     <Avatar className="size-10">
                       <AvatarImage
-                        src={testimonial.author.avatar}
-                        alt={testimonial.author.name}
+                        src={testimonial.avatarSrc}
+                        alt={authorName}
                       />
                       <AvatarFallback>
-                        {testimonial.author.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
+                        {getInitials(authorName)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-medium leading-none">
-                        {testimonial.author.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {testimonial.author.handle}
-                      </p>
+                      {testimonial.author && (
+                        typeof testimonial.author === "string" ? (
+                          <p className="font-medium leading-none">
+                            {testimonial.author}
+                          </p>
+                        ) : (
+                          testimonial.author
+                        )
+                      )}
+                      {testimonial.handle && (
+                        <p className="text-sm text-muted-foreground">
+                          {testimonial.handle}
+                        </p>
+                      )}
                     </div>
                   </div>
                   {testimonial.twitterUrl && (
@@ -171,12 +262,51 @@ export function TestimonialsTwitterCards({
                     </Pressable>
                   )}
                 </div>
-                <p className="text-sm leading-relaxed">{testimonial.content}</p>
+                {testimonial.content && (
+                  typeof testimonial.content === "string" ? (
+                    <p className="text-sm leading-relaxed">{testimonial.content}</p>
+                  ) : (
+                    testimonial.content
+                  )
+                )}
               </CardContent>
             </Card>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderTestimonials()}
+    </Section>
   );
 }

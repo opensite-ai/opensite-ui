@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsAnimatedSplit } from "../components/blocks/reviews/testimonials-animated-split";
-export type { TestimonialsAnimatedSplitProps, AnimatedSplitTestimonial } from "../components/blocks/reviews/testimonials-animated-split";
+export type { TestimonialsAnimatedSplitProps, AnimatedSplitTestimonialItem } from "../components/blocks/reviews/testimonials-animated-split";

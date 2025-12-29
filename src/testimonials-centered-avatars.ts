@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsCenteredAvatars } from "../components/blocks/reviews/testimonials-centered-avatars";
-export type { TestimonialsCenteredAvatarsProps, CenteredTestimonial } from "../components/blocks/reviews/testimonials-centered-avatars";
+export type { TestimonialsCenteredAvatarsProps } from "../components/blocks/reviews/testimonials-centered-avatars";

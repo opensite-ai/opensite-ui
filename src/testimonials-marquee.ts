@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsMarquee } from "../components/blocks/reviews/testimonials-marquee";
-export type { TestimonialsMarqueeProps, MarqueeTestimonial } from "../components/blocks/reviews/testimonials-marquee";
+export type { TestimonialsMarqueeProps } from "../components/blocks/reviews/testimonials-marquee";

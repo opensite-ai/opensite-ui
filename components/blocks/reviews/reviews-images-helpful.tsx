@@ -9,45 +9,142 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
 import { Separator } from "../../ui/separator";
 import { Pressable } from "../../../lib/Pressable";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
+/**
+ * Review item with images and helpful voting
+ */
 export interface ReviewWithImages {
-  id: string;
+  /**
+   * Star rating (1-5)
+   */
   rating: number;
-  title: string;
-  content: string;
-  author: {
-    name: string;
-    avatar?: string;
-  };
-  date: string;
+  /**
+   * Review title
+   */
+  title: React.ReactNode;
+  /**
+   * Review content/body
+   */
+  content: React.ReactNode;
+  /**
+   * Author name
+   */
+  author?: React.ReactNode;
+  /**
+   * Author avatar image URL
+   */
+  avatarSrc?: string;
+  /**
+   * Review date string
+   */
+  date?: string;
+  /**
+   * Whether the reviewer is verified
+   */
   verified?: boolean;
+  /**
+   * Array of review image URLs
+   */
   images?: string[];
+  /**
+   * Number of helpful votes
+   */
   helpful?: number;
+  /**
+   * Product variant purchased
+   */
   variant?: string;
 }
 
 export interface ReviewsImagesHelpfulProps {
+  /**
+   * Array of reviews to display
+   */
   reviews?: ReviewWithImages[];
-  title?: string;
+  /**
+   * Custom slot for rendering reviews (overrides reviews array)
+   */
+  reviewsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Write review button text
+   */
+  writeReviewLabel?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for each review card
+   */
+  reviewClassName?: string;
+  /**
+   * Additional CSS classes for the review content
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Additional CSS classes for the images container
+   */
+  imagesClassName?: string;
+  /**
+   * Callback when write review button is clicked
+   */
   onWriteReview?: () => void;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
 const DEFAULT_REVIEWS: ReviewWithImages[] = [
   {
-    id: "1",
     rating: 5,
     title: "Absolutely stunning quality",
     content:
       "The craftsmanship on this is incredible. Photos don't do it justice - it looks even better in person. The material feels premium and the fit is perfect. I've already gotten so many compliments!",
-    author: {
-      name: "Sarah M.",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah M.",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
     date: "Dec 10, 2024",
     verified: true,
     images: [imagePlaceholders[0], imagePlaceholders[1]],
@@ -55,30 +152,24 @@ const DEFAULT_REVIEWS: ReviewWithImages[] = [
     variant: "Size M, Navy Blue",
   },
   {
-    id: "2",
     rating: 4,
     title: "Great product, minor sizing issue",
     content:
       "Love the quality and design. Runs slightly small so I'd recommend sizing up. Other than that, it's exactly what I was looking for. Fast shipping too!",
-    author: {
-      name: "James R.",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "James R.",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
     date: "Dec 8, 2024",
     verified: true,
     helpful: 18,
     variant: "Size L, Black",
   },
   {
-    id: "3",
     rating: 5,
     title: "My new favorite!",
     content:
       "I've been searching for something like this for months. The attention to detail is amazing - from the stitching to the hardware, everything is top notch. Worth every penny.",
-    author: {
-      name: "Emily K.",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily K.",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
     date: "Dec 5, 2024",
     verified: true,
     images: [imagePlaceholders[2]],
@@ -86,28 +177,22 @@ const DEFAULT_REVIEWS: ReviewWithImages[] = [
     variant: "One Size, Cream",
   },
   {
-    id: "4",
     rating: 5,
     title: "Exceeded expectations",
     content:
       "Was hesitant to order online but so glad I did. The color is exactly as shown and the quality is exceptional. Customer service was also very responsive when I had questions about care instructions.",
-    author: {
-      name: "Michael T.",
-    },
+    author: "Michael T.",
     date: "Dec 2, 2024",
     verified: false,
     helpful: 12,
   },
   {
-    id: "5",
     rating: 4,
     title: "Beautiful but pricey",
     content:
       "The product is gorgeous and well-made. I debated for a while because of the price, but ultimately happy with my purchase. Would love to see more color options in the future.",
-    author: {
-      name: "Lisa P.",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    author: "Lisa P.",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
     date: "Nov 28, 2024",
     verified: true,
     images: [imagePlaceholders[3]],
@@ -144,14 +229,14 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
  * @example
  * ```tsx
  * <ReviewsImagesHelpful
- *   title="Customer Reviews"
+ *   heading="Customer Reviews"
  *   reviews={[
  *     {
- *       id: "1",
  *       rating: 5,
  *       title: "Amazing quality",
  *       content: "This product exceeded my expectations...",
- *       author: { name: "Jane D.", avatar: "/avatars/jane.jpg" },
+ *       author: "Jane D.",
+ *       avatarSrc: "/avatars/jane.jpg",
  *       date: "Dec 15, 2024",
  *       verified: true,
  *       images: ["/review-images/1.jpg"],
@@ -160,86 +245,94 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
  *     }
  *   ]}
  *   onWriteReview={() => console.log("Open review form")}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function ReviewsImagesHelpful({
   reviews = DEFAULT_REVIEWS,
-  title = "Customer Reviews",
+  reviewsSlot,
+  heading = "Customer Reviews",
+  writeReviewLabel = "Write a Review",
   className,
+  headerClassName,
+  headingClassName,
+  reviewClassName,
+  contentClassName,
+  authorClassName,
+  imagesClassName,
   onWriteReview,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: ReviewsImagesHelpfulProps): React.JSX.Element {
-  const [helpfulClicked, setHelpfulClicked] = useState<Set<string>>(new Set());
+  const [helpfulClicked, setHelpfulClicked] = useState<Set<number>>(new Set());
 
   const totalReviews = reviews.length;
   const averageRating =
     reviews.reduce((sum, review) => sum + review.rating, 0) / totalReviews;
 
-  const handleHelpful = (reviewId: string) => {
+  const handleHelpful = (reviewIndex: number) => {
     setHelpfulClicked((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(reviewId)) {
-        newSet.delete(reviewId);
+      if (newSet.has(reviewIndex)) {
+        newSet.delete(reviewIndex);
       } else {
-        newSet.add(reviewId);
+        newSet.add(reviewIndex);
       }
       return newSet;
     });
   };
 
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container max-w-3xl">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              {title}
-            </h2>
-            <div className="mt-2 flex items-center gap-2">
-              <StarRating rating={Math.round(averageRating)} size={20} />
-              <span className="text-lg font-semibold">
-                {averageRating.toFixed(1)}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                ({totalReviews} reviews)
-              </span>
-            </div>
-          </div>
-          <Pressable
-            asButton
-            variant="outline"
-            onClick={onWriteReview}
-          >
-            Write a Review
-          </Pressable>
-        </div>
+  const getAuthorName = (review: ReviewWithImages): string => {
+    if (typeof review.author === "string") return review.author;
+    return "";
+  };
 
-        <div className="space-y-0">
-          {reviews.map((review, index) => (
-            <div key={review.id}>
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderReviews = () => {
+    if (reviewsSlot) return reviewsSlot;
+
+    return (
+      <div className="space-y-0">
+        {reviews.map((review, index) => {
+          const authorName = getAuthorName(review);
+          return (
+            <div key={index} className={reviewClassName}>
               {index > 0 && <Separator className="my-6" />}
               <Card className="border-0 p-0 shadow-none">
-                <CardContent className="space-y-4 p-0">
-                  <div className="flex items-start justify-between gap-4">
+                <CardContent className={cn("space-y-4 p-0", contentClassName)}>
+                  <div className={cn("flex items-start justify-between gap-4", authorClassName)}>
                     <div className="flex items-center gap-3">
                       <Avatar className="size-10">
                         <AvatarImage
-                          src={review.author.avatar}
-                          alt={review.author.name}
+                          src={review.avatarSrc}
+                          alt={authorName}
                         />
                         <AvatarFallback>
-                          {review.author.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+                          {getInitials(authorName)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-medium">
-                            {review.author.name}
-                          </span>
+                          {review.author && (
+                            typeof review.author === "string" ? (
+                              <span className="font-medium">
+                                {review.author}
+                              </span>
+                            ) : (
+                              review.author
+                            )
+                          )}
                           {review.verified && (
                             <span className="flex items-center gap-1 text-emerald-600">
                               <DynamicIcon name="lucide/badge-check" size={16} />
@@ -247,7 +340,7 @@ export function ReviewsImagesHelpful({
                           )}
                         </div>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <span>{review.date}</span>
+                          {review.date && <span>{review.date}</span>}
                           {review.variant && (
                             <>
                               <span>·</span>
@@ -261,14 +354,26 @@ export function ReviewsImagesHelpful({
                   </div>
 
                   <div>
-                    <h3 className="font-medium">{review.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {review.content}
-                    </p>
+                    {review.title && (
+                      typeof review.title === "string" ? (
+                        <h3 className="font-medium">{review.title}</h3>
+                      ) : (
+                        review.title
+                      )
+                    )}
+                    {review.content && (
+                      typeof review.content === "string" ? (
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                          {review.content}
+                        </p>
+                      ) : (
+                        <div className="mt-2">{review.content}</div>
+                      )
+                    )}
                   </div>
 
                   {review.images && review.images.length > 0 && (
-                    <div className="flex gap-2">
+                    <div className={cn("flex gap-2", imagesClassName)}>
                       {review.images.map((image, imgIndex) => (
                         <div
                           key={imgIndex}
@@ -294,15 +399,15 @@ export function ReviewsImagesHelpful({
                       size="sm"
                       className={cn(
                         "h-8 gap-1.5 text-muted-foreground",
-                        helpfulClicked.has(review.id) && "text-foreground"
+                        helpfulClicked.has(index) && "text-foreground"
                       )}
-                      onClick={() => handleHelpful(review.id)}
+                      onClick={() => handleHelpful(index)}
                     >
                       <DynamicIcon
                         name="lucide/thumbs-up"
                         size={16}
                         className={cn(
-                          helpfulClicked.has(review.id) && "fill-current"
+                          helpfulClicked.has(index) && "fill-current"
                         )}
                       />
                       Helpful
@@ -310,7 +415,7 @@ export function ReviewsImagesHelpful({
                         <span>
                           (
                           {review.helpful +
-                            (helpfulClicked.has(review.id) ? 1 : 0)}
+                            (helpfulClicked.has(index) ? 1 : 0)}
                           )
                         </span>
                       )}
@@ -327,9 +432,53 @@ export function ReviewsImagesHelpful({
                 </CardContent>
               </Card>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className="mx-auto max-w-3xl">
+        <div className={cn("mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between", headerClassName)}>
+          <div>
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-2xl font-semibold tracking-tight md:text-3xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            <div className="mt-2 flex items-center gap-2">
+              <StarRating rating={Math.round(averageRating)} size={20} />
+              <span className="text-lg font-semibold">
+                {averageRating.toFixed(1)}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                ({totalReviews} reviews)
+              </span>
+            </div>
+          </div>
+          <Pressable
+            asButton
+            variant="outline"
+            onClick={onWriteReview}
+          >
+            {writeReviewLabel}
+          </Pressable>
+        </div>
+
+        {renderReviews()}
+      </div>
+    </Section>
   );
 }

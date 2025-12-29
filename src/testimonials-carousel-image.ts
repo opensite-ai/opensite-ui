@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsCarouselImage } from "../components/blocks/reviews/testimonials-carousel-image";
-export type { TestimonialsCarouselImageProps, CarouselTestimonial } from "../components/blocks/reviews/testimonials-carousel-image";
+export type { TestimonialsCarouselImageProps, CarouselTestimonialItem } from "../components/blocks/reviews/testimonials-carousel-image";

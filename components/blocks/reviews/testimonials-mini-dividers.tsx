@@ -4,91 +4,139 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
-export interface MiniTestimonial {
-  id: string;
-  content: string;
-  author: {
-    name: string;
-    role?: string;
-    avatar?: string;
-  };
+/**
+ * Extended testimonial item with rating for mini dividers display
+ */
+export interface MiniTestimonialItem extends TestimonialItem {
+  /**
+   * Star rating (1-5)
+   */
   rating?: number;
 }
 
 export interface TestimonialsMiniDividersProps {
-  testimonials?: MiniTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: MiniTestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each testimonial item
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: MiniTestimonial[] = [
+const DEFAULT_TESTIMONIALS: MiniTestimonialItem[] = [
   {
-    id: "1",
-    content:
+    quote:
       "Exceptional quality and outstanding customer service. Highly recommend!",
-    author: {
-      name: "Sarah Chen",
-      role: "Product Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    role: "Product Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
     rating: 5,
   },
   {
-    id: "2",
-    content:
+    quote:
       "This solution has transformed how our team works. Incredible value.",
-    author: {
-      name: "Michael Torres",
-      role: "CEO",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Michael Torres",
+    role: "CEO",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
     rating: 5,
   },
   {
-    id: "3",
-    content:
+    quote:
       "Simple, elegant, and powerful. Everything we needed in one package.",
-    author: {
-      name: "Emily Watson",
-      role: "Operations Lead",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily Watson",
+    role: "Operations Lead",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
     rating: 5,
   },
   {
-    id: "4",
-    content:
+    quote:
       "The best investment we've made this year. ROI was immediate.",
-    author: {
-      name: "David Kim",
-      role: "CTO",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    author: "David Kim",
+    role: "CTO",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
     rating: 5,
   },
   {
-    id: "5",
-    content:
+    quote:
       "Support team is always responsive and helpful. Great experience overall.",
-    author: {
-      name: "Lisa Park",
-      role: "Engineering Manager",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    author: "Lisa Park",
+    role: "Engineering Manager",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
     rating: 4,
   },
   {
-    id: "6",
-    content:
+    quote:
       "Clean interface and intuitive design. Our team adopted it instantly.",
-    author: {
-      name: "Alex Rivera",
-      role: "Design Director",
-      avatar: blockBrandedIconsAndPlaceholders.avatar6,
-    },
+    author: "Alex Rivera",
+    role: "Design Director",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
     rating: 5,
   },
 ];
@@ -122,79 +170,154 @@ function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
  * @example
  * ```tsx
  * <TestimonialsMiniDividers
- *   title="What People Say"
- *   subtitle="Feedback from our customers"
+ *   heading="What People Say"
+ *   description="Feedback from our customers"
  *   testimonials={[
  *     {
- *       id: "1",
- *       content: "Great product!",
- *       author: { name: "John D.", role: "CEO", avatar: "/avatars/john.jpg" },
+ *       quote: "Great product!",
+ *       author: "John D.",
+ *       role: "CEO",
+ *       avatarSrc: "/avatars/john.jpg",
  *       rating: 5
  *     }
  *   ]}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsMiniDividers({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "What People Say",
-  subtitle = "Feedback from our customers",
+  testimonialsSlot,
+  heading = "What People Say",
+  description = "Feedback from our customers",
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  itemClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsMiniDividersProps): React.JSX.Element {
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: MiniTestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <div className="grid divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3 lg:divide-x">
-          {testimonials.map((testimonial, index) => (
+  const getAvatarSrc = (testimonial: MiniTestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("grid divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3 lg:divide-x", gridClassName)}>
+        {testimonials.map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          const avatarSrc = getAvatarSrc(testimonial);
+          return (
             <div
-              key={testimonial.id}
+              key={index}
               className={cn(
                 "p-6",
                 index >= 2 && "lg:border-t-0",
-                index >= 3 && "sm:border-t lg:border-t-0"
+                index >= 3 && "sm:border-t lg:border-t-0",
+                itemClassName
               )}
             >
               {testimonial.rating && (
                 <StarRating rating={testimonial.rating} />
               )}
-              <p className="mt-3 text-sm leading-relaxed">
-                &ldquo;{testimonial.content}&rdquo;
-              </p>
-              <div className="mt-4 flex items-center gap-3">
+              {testimonial.quote && (
+                typeof testimonial.quote === "string" ? (
+                  <p className={cn("mt-3 text-sm leading-relaxed", quoteClassName)}>
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
+                ) : (
+                  <div className={cn("mt-3", quoteClassName)}>{testimonial.quote}</div>
+                )
+              )}
+              <div className={cn("mt-4 flex items-center gap-3", authorClassName)}>
                 <Avatar className="size-8">
                   <AvatarImage
-                    src={testimonial.author.avatar}
-                    alt={testimonial.author.name}
+                    src={avatarSrc}
+                    alt={authorName}
                   />
                   <AvatarFallback className="text-xs">
-                    {testimonial.author.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
+                    {getInitials(authorName)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-sm font-medium">
-                    {testimonial.author.name}
-                  </p>
-                  {testimonial.author.role && (
-                    <p className="text-xs text-muted-foreground">
-                      {testimonial.author.role}
-                    </p>
+                  {testimonial.author && (
+                    typeof testimonial.author === "string" ? (
+                      <p className="text-sm font-medium">
+                        {testimonial.author}
+                      </p>
+                    ) : (
+                      testimonial.author
+                    )
+                  )}
+                  {testimonial.role && (
+                    typeof testimonial.role === "string" ? (
+                      <p className="text-xs text-muted-foreground">
+                        {testimonial.role}
+                      </p>
+                    ) : (
+                      testimonial.role
+                    )
                   )}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderTestimonials()}
+    </Section>
   );
 }

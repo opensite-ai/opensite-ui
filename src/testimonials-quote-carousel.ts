@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsQuoteCarousel } from "../components/blocks/reviews/testimonials-quote-carousel";
-export type { TestimonialsQuoteCarouselProps, QuoteCarouselTestimonial } from "../components/blocks/reviews/testimonials-quote-carousel";
+export type { TestimonialsQuoteCarouselProps } from "../components/blocks/reviews/testimonials-quote-carousel";

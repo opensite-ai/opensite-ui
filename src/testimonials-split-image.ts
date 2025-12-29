@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsSplitImage } from "../components/blocks/reviews/testimonials-split-image";
-export type { TestimonialsSplitImageProps, SplitTestimonial } from "../components/blocks/reviews/testimonials-split-image";
+export type { TestimonialsSplitImageProps } from "../components/blocks/reviews/testimonials-split-image";

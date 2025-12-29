@@ -5,83 +5,137 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
-export interface TestimonialItem {
-  id: string;
-  quote: string;
-  author: {
-    name: string;
-    role?: string;
-    company?: string;
-    avatar?: string;
-  };
+/**
+ * Extended testimonial item with featured flag for bento grid
+ */
+export interface BentoTestimonialItem extends TestimonialItem {
+  /**
+   * Whether this testimonial should be featured (larger card)
+   */
   featured?: boolean;
 }
 
 export interface TestimonialsBentoGridProps {
-  testimonials?: TestimonialItem[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: BentoTestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for the featured card
+   */
+  featuredCardClassName?: string;
+  /**
+   * Additional CSS classes for regular cards
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
+const DEFAULT_TESTIMONIALS: BentoTestimonialItem[] = [
   {
-    id: "1",
     quote:
       "This platform has completely transformed how we approach our workflow. The intuitive design and powerful features have made our team significantly more productive. I can't imagine going back to our old tools.",
-    author: {
-      name: "Sarah Chen",
-      role: "Product Manager",
-      company: "TechCorp",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    role: "Product Manager",
+    company: "TechCorp",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
     featured: true,
   },
   {
-    id: "2",
     quote:
       "The best investment we've made this year. ROI was visible within the first month.",
-    author: {
-      name: "Michael Torres",
-      role: "CEO",
-      company: "StartupXYZ",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Michael Torres",
+    role: "CEO",
+    company: "StartupXYZ",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "3",
     quote:
       "Customer support is exceptional. They went above and beyond to help us with our specific needs.",
-    author: {
-      name: "Emily Watson",
-      role: "Operations Lead",
-      company: "GrowthCo",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily Watson",
+    role: "Operations Lead",
+    company: "GrowthCo",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
   {
-    id: "4",
     quote:
       "Simple, elegant, and powerful. Everything we needed in one package.",
-    author: {
-      name: "David Kim",
-      role: "CTO",
-      company: "InnovateLabs",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    author: "David Kim",
+    role: "CTO",
+    company: "InnovateLabs",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
   },
   {
-    id: "5",
     quote:
       "We've tried many solutions, but this one stands out for its reliability and ease of use.",
-    author: {
-      name: "Lisa Park",
-      role: "Engineering Manager",
-      company: "DevStudio",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    author: "Lisa Park",
+    role: "Engineering Manager",
+    company: "DevStudio",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
   },
 ];
 
@@ -95,108 +149,206 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * @example
  * ```tsx
  * <TestimonialsBentoGrid
- *   title="What Our Customers Say"
- *   subtitle="Trusted by thousands of companies worldwide"
+ *   heading="What Our Customers Say"
+ *   description="Trusted by thousands of companies worldwide"
  *   testimonials={[
  *     {
- *       id: "1",
  *       quote: "This platform transformed our workflow...",
- *       author: { name: "Jane D.", role: "CEO", company: "TechCo", avatar: "/avatars/jane.jpg" },
+ *       author: "Jane D.",
+ *       role: "CEO",
+ *       company: "TechCo",
+ *       avatarSrc: "/avatars/jane.jpg",
  *       featured: true
  *     }
  *   ]}
+ *   background="gray"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsBentoGrid({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "Loved by Teams Everywhere",
-  subtitle = "See what our customers have to say about their experience",
+  testimonialsSlot,
+  heading = "Loved by Teams Everywhere",
+  description = "See what our customers have to say about their experience",
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  featuredCardClassName,
+  cardClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsBentoGridProps): React.JSX.Element {
   const featured = testimonials.find((t) => t.featured) || testimonials[0];
-  const others = testimonials.filter((t) => t.id !== featured.id);
+  const others = testimonials.filter((t) => t !== featured);
 
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: BentoTestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="md:col-span-2 lg:row-span-2">
-            <CardContent className="flex h-full flex-col justify-between p-6 md:p-8">
-              <div>
-                <DynamicIcon
-                  name="lucide/quote"
-                  size={40}
-                  className="mb-4 text-primary/20"
+  const getAvatarSrc = (testimonial: BentoTestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    const featuredAuthorName = getAuthorName(featured);
+    const featuredAvatarSrc = getAvatarSrc(featured);
+
+    return (
+      <div className={cn("grid gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        <Card className={cn("md:col-span-2 lg:row-span-2", featuredCardClassName)}>
+          <CardContent className="flex h-full flex-col justify-between p-6 md:p-8">
+            <div>
+              <DynamicIcon
+                name="lucide/quote"
+                size={40}
+                className="mb-4 text-primary/20"
+              />
+              {featured.quote && (
+                typeof featured.quote === "string" ? (
+                  <blockquote className={cn("text-xl font-medium leading-relaxed md:text-2xl", quoteClassName)}>
+                    &ldquo;{featured.quote}&rdquo;
+                  </blockquote>
+                ) : (
+                  <div className={quoteClassName}>{featured.quote}</div>
+                )
+              )}
+            </div>
+            <div className={cn("mt-6 flex items-center gap-4", authorClassName)}>
+              <Avatar className="size-12">
+                <AvatarImage
+                  src={featuredAvatarSrc}
+                  alt={featuredAuthorName}
                 />
-                <blockquote className="text-xl font-medium leading-relaxed md:text-2xl">
-                  &ldquo;{featured.quote}&rdquo;
-                </blockquote>
-              </div>
-              <div className="mt-6 flex items-center gap-4">
-                <Avatar className="size-12">
-                  <AvatarImage
-                    src={featured.author.avatar}
-                    alt={featured.author.name}
-                  />
-                  <AvatarFallback>
-                    {featured.author.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-semibold">{featured.author.name}</p>
+                <AvatarFallback>
+                  {getInitials(featuredAuthorName)}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                {featured.author && (
+                  typeof featured.author === "string" ? (
+                    <p className="font-semibold">{featured.author}</p>
+                  ) : (
+                    featured.author
+                  )
+                )}
+                {(featured.role || featured.company) && (
                   <p className="text-sm text-muted-foreground">
-                    {featured.author.role}
-                    {featured.author.company && ` at ${featured.author.company}`}
+                    {featured.role && (
+                      typeof featured.role === "string" ? featured.role : featured.role
+                    )}
+                    {featured.company && (
+                      typeof featured.company === "string"
+                        ? ` at ${featured.company}`
+                        : featured.company
+                    )}
                   </p>
-                </div>
+                )}
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </CardContent>
+        </Card>
 
-          {others.slice(0, 4).map((testimonial) => (
-            <Card key={testimonial.id}>
+        {others.slice(0, 4).map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          const avatarSrc = getAvatarSrc(testimonial);
+          return (
+            <Card key={index} className={cardClassName}>
               <CardContent className="flex h-full flex-col justify-between p-6">
-                <blockquote className="text-sm leading-relaxed">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </blockquote>
+                {testimonial.quote && (
+                  typeof testimonial.quote === "string" ? (
+                    <blockquote className="text-sm leading-relaxed">
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </blockquote>
+                  ) : (
+                    testimonial.quote
+                  )
+                )}
                 <div className="mt-4 flex items-center gap-3">
                   <Avatar className="size-9">
                     <AvatarImage
-                      src={testimonial.author.avatar}
-                      alt={testimonial.author.name}
+                      src={avatarSrc}
+                      alt={authorName}
                     />
                     <AvatarFallback className="text-xs">
-                      {testimonial.author.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
+                      {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-medium">
-                      {testimonial.author.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {testimonial.author.role}
-                    </p>
+                    {testimonial.author && (
+                      typeof testimonial.author === "string" ? (
+                        <p className="text-sm font-medium">
+                          {testimonial.author}
+                        </p>
+                      ) : (
+                        testimonial.author
+                      )
+                    )}
+                    {testimonial.role && (
+                      typeof testimonial.role === "string" ? (
+                        <p className="text-xs text-muted-foreground">
+                          {testimonial.role}
+                        </p>
+                      ) : (
+                        testimonial.role
+                      )
+                    )}
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderTestimonials()}
+    </Section>
   );
 }

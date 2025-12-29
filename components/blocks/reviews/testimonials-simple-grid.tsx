@@ -4,93 +4,134 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-export interface SimpleTestimonial {
-  id: string;
-  content: string;
-  author: {
-    name: string;
-    role?: string;
-    company?: string;
-    avatar?: string;
-  };
-}
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+} from "../../../src/types";
 
 export interface TestimonialsSimpleGridProps {
-  testimonials?: SimpleTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: TestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Number of columns in the grid
+   */
   columns?: 2 | 3 | 4;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const DEFAULT_TESTIMONIALS: SimpleTestimonial[] = [
+const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
-    id: "1",
-    content:
+    quote:
       "The platform exceeded all our expectations. Implementation was smooth and the results were immediate.",
-    author: {
-      name: "Sarah Chen",
-      role: "Product Manager",
-      company: "TechCorp",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
+    author: "Sarah Chen",
+    role: "Product Manager",
+    company: "TechCorp",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
   },
   {
-    id: "2",
-    content:
+    quote:
       "Outstanding customer support and a product that actually delivers on its promises. Rare combination!",
-    author: {
-      name: "Michael Torres",
-      role: "CEO",
-      company: "StartupXYZ",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
+    author: "Michael Torres",
+    role: "CEO",
+    company: "StartupXYZ",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
   },
   {
-    id: "3",
-    content:
+    quote:
       "We've seen a 50% increase in efficiency since switching. The ROI speaks for itself.",
-    author: {
-      name: "Emily Watson",
-      role: "Operations Director",
-      company: "GrowthCo",
-      avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    },
+    author: "Emily Watson",
+    role: "Operations Director",
+    company: "GrowthCo",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar3,
   },
   {
-    id: "4",
-    content:
+    quote:
       "Clean interface, powerful features, and excellent documentation. Everything a developer could ask for.",
-    author: {
-      name: "David Kim",
-      role: "Senior Developer",
-      company: "DevStudio",
-      avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    },
+    author: "David Kim",
+    role: "Senior Developer",
+    company: "DevStudio",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
   },
   {
-    id: "5",
-    content:
+    quote:
       "The best decision we made this quarter. Our team adopted it instantly and loves using it daily.",
-    author: {
-      name: "Lisa Park",
-      role: "Team Lead",
-      company: "InnovateLabs",
-      avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    },
+    author: "Lisa Park",
+    role: "Team Lead",
+    company: "InnovateLabs",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
   },
   {
-    id: "6",
-    content:
+    quote:
       "Intuitive design that requires minimal training. Our onboarding time dropped significantly.",
-    author: {
-      name: "Alex Rivera",
-      role: "HR Manager",
-      company: "PeopleCo",
-      avatar: blockBrandedIconsAndPlaceholders.avatar6,
-    },
+    author: "Alex Rivera",
+    role: "HR Manager",
+    company: "PeopleCo",
+    avatarSrc: blockBrandedIconsAndPlaceholders.avatar6,
   },
 ];
 
@@ -104,25 +145,41 @@ const DEFAULT_TESTIMONIALS: SimpleTestimonial[] = [
  * @example
  * ```tsx
  * <TestimonialsSimpleGrid
- *   title="Customer Stories"
- *   subtitle="Hear from our satisfied customers"
+ *   heading="Customer Stories"
+ *   description="Hear from our satisfied customers"
  *   columns={3}
  *   testimonials={[
  *     {
- *       id: "1",
- *       content: "Great product!",
- *       author: { name: "John D.", role: "CEO", company: "TechCo", avatar: "/avatars/john.jpg" }
+ *       quote: "Great product!",
+ *       author: "John D.",
+ *       role: "CEO",
+ *       company: "TechCo",
+ *       avatarSrc: "/avatars/john.jpg"
  *     }
  *   ]}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsSimpleGrid({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "Customer Stories",
-  subtitle = "Hear from our satisfied customers",
+  testimonialsSlot,
+  heading = "Customer Stories",
+  description = "Hear from our satisfied customers",
   columns = 3,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  cardClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: TestimonialsSimpleGridProps): React.JSX.Element {
   const gridCols = {
     2: "sm:grid-cols-2",
@@ -130,52 +187,110 @@ export function TestimonialsSimpleGrid({
     4: "sm:grid-cols-2 lg:grid-cols-4",
   };
 
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: TestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <div className={cn("grid gap-6", gridCols[columns])}>
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.id}>
+  const getAvatarSrc = (testimonial: TestimonialItem): string | undefined => {
+    return testimonial.avatarSrc || testimonial.avatar?.src;
+  };
+
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <div className={cn("grid gap-6", gridCols[columns], gridClassName)}>
+        {testimonials.map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          const avatarSrc = getAvatarSrc(testimonial);
+          return (
+            <Card key={index} className={cardClassName}>
               <CardContent className="p-6">
-                <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                  &ldquo;{testimonial.content}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
+                {testimonial.quote && (
+                  typeof testimonial.quote === "string" ? (
+                    <p className={cn("mb-6 text-sm leading-relaxed text-muted-foreground", quoteClassName)}>
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </p>
+                  ) : (
+                    <div className={cn("mb-6", quoteClassName)}>{testimonial.quote}</div>
+                  )
+                )}
+                <div className={cn("flex items-center gap-3", authorClassName)}>
                   <Avatar className="size-10">
                     <AvatarImage
-                      src={testimonial.author.avatar}
-                      alt={testimonial.author.name}
+                      src={avatarSrc}
+                      alt={authorName}
                     />
                     <AvatarFallback>
-                      {testimonial.author.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
+                      {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-medium">
-                      {testimonial.author.name}
-                    </p>
+                    {testimonial.author && (
+                      typeof testimonial.author === "string" ? (
+                        <p className="text-sm font-medium">
+                          {testimonial.author}
+                        </p>
+                      ) : (
+                        testimonial.author
+                      )
+                    )}
                     <p className="text-xs text-muted-foreground">
-                      {testimonial.author.role}
-                      {testimonial.author.company &&
-                        `, ${testimonial.author.company}`}
+                      {testimonial.role && (
+                        typeof testimonial.role === "string" ? testimonial.role : null
+                      )}
+                      {testimonial.company && (
+                        typeof testimonial.company === "string" ? `, ${testimonial.company}` : null
+                      )}
                     </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderTestimonials()}
+    </Section>
   );
 }

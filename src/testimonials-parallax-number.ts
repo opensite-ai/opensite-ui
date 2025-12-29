@@ -8,4 +8,4 @@
  */
 
 export { TestimonialsParallaxNumber } from "../components/blocks/reviews/testimonials-parallax-number";
-export type { TestimonialsParallaxNumberProps, ParallaxTestimonial } from "../components/blocks/reviews/testimonials-parallax-number";
+export type { TestimonialsParallaxNumberProps } from "../components/blocks/reviews/testimonials-parallax-number";

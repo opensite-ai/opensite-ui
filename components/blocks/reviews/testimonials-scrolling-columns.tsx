@@ -4,71 +4,138 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Section } from "../../ui/section";
+import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  TestimonialItem,
+  OptixFlowConfig,
+} from "../../../src/types";
 
-export interface ScrollingColumnTestimonial {
-  id: string;
-  quote: string;
-  name: string;
-  role: string;
-  imageSrc: string;
+/**
+ * Extended testimonial item with image for scrolling columns display
+ */
+export interface ScrollingColumnTestimonialItem extends TestimonialItem {
+  /**
+   * Image URL for the testimonial card
+   */
+  imageSrc?: string;
 }
 
 export interface TestimonialsScrollingColumnsProps {
-  testimonials?: ScrollingColumnTestimonial[];
-  title?: string;
-  subtitle?: string;
+  /**
+   * Array of testimonials to display
+   */
+  testimonials?: ScrollingColumnTestimonialItem[];
+  /**
+   * Custom slot for rendering testimonials (overrides testimonials array)
+   */
+  testimonialsSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the header container
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the quote text
+   */
+  quoteClassName?: string;
+  /**
+   * Additional CSS classes for the author section
+   */
+  authorClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization config
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DEFAULT_TESTIMONIALS: ScrollingColumnTestimonial[] = [
+const DEFAULT_TESTIMONIALS: ScrollingColumnTestimonialItem[] = [
   {
-    id: "1",
     quote:
       "This platform has completely transformed how we approach our daily operations. The intuitive design makes everything seamless.",
-    name: "Sarah Chen",
+    author: "Sarah Chen",
     role: "Product Manager",
     imageSrc: imagePlaceholders[40],
   },
   {
-    id: "2",
     quote:
       "The best investment we've made this year. Our team productivity has increased significantly since we started using it.",
-    name: "Michael Torres",
+    author: "Michael Torres",
     role: "CEO",
     imageSrc: imagePlaceholders[41],
   },
   {
-    id: "3",
     quote:
       "Outstanding support and an exceptional product. The team goes above and beyond to ensure our success.",
-    name: "Emily Watson",
+    author: "Emily Watson",
     role: "Operations Director",
     imageSrc: imagePlaceholders[42],
   },
   {
-    id: "4",
     quote:
       "Clean interface, powerful features, and excellent documentation. Everything a developer could ask for.",
-    name: "David Kim",
+    author: "David Kim",
     role: "Senior Developer",
     imageSrc: imagePlaceholders[43],
   },
   {
-    id: "5",
     quote:
       "We've tried many solutions, but this one stands out for its reliability and ease of use.",
-    name: "Lisa Park",
+    author: "Lisa Park",
     role: "Engineering Manager",
     imageSrc: imagePlaceholders[44],
   },
   {
-    id: "6",
     quote:
       "The attention to detail is impressive. Every feature feels thoughtfully designed and implemented.",
-    name: "Alex Rivera",
+    author: "Alex Rivera",
     role: "Design Director",
     imageSrc: imagePlaceholders[45],
   },
@@ -105,57 +172,73 @@ const itemVariants = {
  * @example
  * ```tsx
  * <TestimonialsScrollingColumns
- *   title="What Our Clients Say"
- *   subtitle="Real feedback from real customers"
+ *   heading="What Our Clients Say"
+ *   description="Real feedback from real customers"
  *   testimonials={[
  *     {
- *       id: "1",
  *       quote: "Amazing experience...",
- *       name: "Jane D.",
+ *       author: "Jane D.",
  *       role: "CEO",
  *       imageSrc: "/images/testimonial-1.jpg"
  *     }
  *   ]}
+ *   background="white"
+ *   spacing="lg"
  * />
  * ```
  */
 export function TestimonialsScrollingColumns({
   testimonials = DEFAULT_TESTIMONIALS,
-  title = "What Our Clients Say",
-  subtitle = "Real feedback from real customers",
+  testimonialsSlot,
+  heading = "What Our Clients Say",
+  description = "Real feedback from real customers",
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  cardClassName,
+  quoteClassName,
+  authorClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: TestimonialsScrollingColumnsProps): React.JSX.Element {
-  return (
-    <section className={cn("py-16 md:py-24", className)}>
-      <div className="container">
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">{subtitle}</p>
-        </div>
+  const getAuthorName = (testimonial: ScrollingColumnTestimonialItem): string => {
+    if (typeof testimonial.author === "string") return testimonial.author;
+    return "";
+  };
 
-        <motion.div
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {testimonials.map((testimonial) => (
+  const renderTestimonials = () => {
+    if (testimonialsSlot) return testimonialsSlot;
+
+    return (
+      <motion.div
+        className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {testimonials.map((testimonial, index) => {
+          const authorName = getAuthorName(testimonial);
+          return (
             <motion.div
-              key={testimonial.id}
-              className="relative overflow-hidden rounded-lg bg-card shadow-sm"
+              key={index}
+              className={cn("relative overflow-hidden rounded-lg bg-card shadow-sm", cardClassName)}
               variants={itemVariants}
             >
               <div className="relative">
-                <Img
-                  src={testimonial.imageSrc}
-                  alt={testimonial.name}
-                  className="aspect-4/5 w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
+                {testimonial.imageSrc && (
+                  <Img
+                    src={testimonial.imageSrc}
+                    alt={authorName}
+                    className="aspect-4/5 w-full object-cover"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
               </div>
 
@@ -165,22 +248,67 @@ export function TestimonialsScrollingColumns({
                   size={32}
                   className="mb-4 text-white/40"
                 />
-                <blockquote className="text-base font-medium leading-relaxed">
-                  {testimonial.quote}
-                </blockquote>
-                <figcaption className="mt-4">
+                {testimonial.quote && (
+                  typeof testimonial.quote === "string" ? (
+                    <blockquote className={cn("text-base font-medium leading-relaxed", quoteClassName)}>
+                      {testimonial.quote}
+                    </blockquote>
+                  ) : (
+                    <div className={quoteClassName}>{testimonial.quote}</div>
+                  )
+                )}
+                <figcaption className={cn("mt-4", authorClassName)}>
                   <p className="font-semibold">
-                    &mdash; {testimonial.name},
-                    <span className="ml-1 text-white/60">
-                      {testimonial.role}
-                    </span>
+                    &mdash; {testimonial.author && (
+                      typeof testimonial.author === "string" ? testimonial.author : null
+                    )}
+                    {testimonial.role && (
+                      typeof testimonial.role === "string" ? (
+                        <span className="ml-1 text-white/60">
+                          , {testimonial.role}
+                        </span>
+                      ) : null
+                    )}
                   </p>
                 </figcaption>
               </div>
             </motion.div>
-          ))}
-        </motion.div>
+          );
+        })}
+      </motion.div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+          )
+        )}
       </div>
-    </section>
+
+      {renderTestimonials()}
+    </Section>
   );
 }
