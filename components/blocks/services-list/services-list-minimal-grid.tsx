@@ -4,23 +4,118 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
-export interface ServicesListMinimalGridProps {
+/**
+ * Service item configuration for minimal grid display
+ */
+export interface ServicesListMinimalGridService {
+  /**
+   * Icon element (overrides iconName)
+   */
+  icon?: React.ReactNode;
+  /**
+   * Icon name in format: prefix/name (e.g., "lucide/code")
+   */
+  iconName?: string;
+  /**
+   * Service title
+   */
+  title?: React.ReactNode;
+  /**
+   * Service description
+   */
+  description?: React.ReactNode;
+  /**
+   * CTA button text
+   */
+  ctaText?: React.ReactNode;
+  /**
+   * CTA button URL
+   */
+  ctaUrl?: string;
+  /**
+   * CTA click handler
+   */
+  ctaOnClick?: () => void;
+  /**
+   * Additional CSS classes for the card
+   */
   className?: string;
-  title?: string;
-  description?: string;
-  services?: Array<{
-    icon?: string;
-    title: string;
-    description: string;
-    ctaText?: string;
-    ctaUrl?: string;
-  }>;
 }
 
-const defaultServices = [
+export interface ServicesListMinimalGridProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Supporting description content
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of service configurations
+   */
+  services?: ServicesListMinimalGridService[];
+  /**
+   * Custom slot for rendering services (overrides services array)
+   */
+  servicesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the icon container
+   */
+  iconClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+}
+
+const defaultServices: ServicesListMinimalGridService[] = [
   {
-    icon: "lucide/code",
+    iconName: "lucide/code",
     title: "Web Development",
     description:
       "Custom websites and web applications built with modern technologies.",
@@ -28,7 +123,7 @@ const defaultServices = [
     ctaUrl: "#",
   },
   {
-    icon: "lucide/smartphone",
+    iconName: "lucide/smartphone",
     title: "Mobile Apps",
     description:
       "Native and cross-platform mobile applications for iOS and Android.",
@@ -36,7 +131,7 @@ const defaultServices = [
     ctaUrl: "#",
   },
   {
-    icon: "lucide/palette",
+    iconName: "lucide/palette",
     title: "UI/UX Design",
     description:
       "User-centered design solutions that create engaging experiences.",
@@ -44,7 +139,7 @@ const defaultServices = [
     ctaUrl: "#",
   },
   {
-    icon: "lucide/bar-chart-3",
+    iconName: "lucide/bar-chart-3",
     title: "Analytics",
     description:
       "Data-driven insights to optimize your digital presence.",
@@ -52,7 +147,7 @@ const defaultServices = [
     ctaUrl: "#",
   },
   {
-    icon: "lucide/cloud",
+    iconName: "lucide/cloud",
     title: "Cloud Solutions",
     description:
       "Scalable cloud infrastructure and DevOps services.",
@@ -60,7 +155,7 @@ const defaultServices = [
     ctaUrl: "#",
   },
   {
-    icon: "lucide/shield",
+    iconName: "lucide/shield",
     title: "Security",
     description:
       "Comprehensive security audits and implementations.",
@@ -74,58 +169,128 @@ const defaultServices = [
  * Each service card features an icon, title, description, and optional CTA link.
  * The design emphasizes simplicity and readability with subtle hover effects.
  * Ideal for showcasing multiple services in a clean, scannable format.
+ *
+ * @example
+ * ```tsx
+ * <ServicesListMinimalGrid
+ *   heading="Our Services"
+ *   description="Comprehensive digital solutions."
+ *   services={[
+ *     { iconName: "lucide/code", title: "Web Dev", description: "Custom websites" }
+ *   ]}
+ *   background="white"
+ *   spacing="lg"
+ * />
+ * ```
  */
 export function ServicesListMinimalGrid({
-  className,
-  title = "Our Services",
+  heading = "Our Services",
   description = "Comprehensive digital solutions to help your business succeed.",
   services = defaultServices,
-}: ServicesListMinimalGridProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-6xl space-y-12">
-          <div className="space-y-4 text-center">
-            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              {title}
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl">
-              {description}
-            </p>
-          </div>
+  servicesSlot,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  cardClassName,
+  iconClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+}: ServicesListMinimalGridProps): React.JSX.Element {
+  const renderServiceIcon = (service: ServicesListMinimalGridService) => {
+    if (service.icon) return service.icon;
+    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    return null;
+  };
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="group rounded-lg border border-border p-6 transition-all hover:border-primary/50 hover:shadow-md"
-              >
-                {service.icon && (
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                    <DynamicIcon name={service.icon} className="h-6 w-6" />
-                  </div>
-                )}
-                <h3 className="mb-2 text-lg font-semibold">{service.title}</h3>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  {service.description}
-                </p>
-                {service.ctaText && (
-                  <Pressable
-                    href={service.ctaUrl}
-                    className="inline-flex items-center text-sm font-medium text-primary hover:underline"
-                  >
-                    {service.ctaText}
-                    <DynamicIcon
-                      name="lucide/arrow-right"
-                      className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
-                    />
-                  </Pressable>
-                )}
+  const renderServices = () => {
+    if (servicesSlot) return servicesSlot;
+    if (!services || services.length === 0) return null;
+
+    return (
+      <div className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className={cn(
+              "group rounded-lg border border-border p-6 transition-all hover:border-primary/50 hover:shadow-md",
+              cardClassName,
+              service.className
+            )}
+          >
+            {(service.icon || service.iconName) && (
+              <div className={cn(
+                "mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+                iconClassName
+              )}>
+                {renderServiceIcon(service)}
               </div>
-            ))}
+            )}
+            {service.title && (
+              typeof service.title === "string" ? (
+                <h3 className="mb-2 text-lg font-semibold">{service.title}</h3>
+              ) : (
+                <div className="mb-2 text-lg font-semibold">{service.title}</div>
+              )
+            )}
+            {service.description && (
+              typeof service.description === "string" ? (
+                <p className="mb-4 text-sm text-muted-foreground">{service.description}</p>
+              ) : (
+                <div className="mb-4 text-sm text-muted-foreground">{service.description}</div>
+              )
+            )}
+            {service.ctaText && (
+              <Pressable
+                href={service.ctaUrl}
+                onClick={service.ctaOnClick}
+                className="inline-flex items-center text-sm font-medium text-primary hover:underline"
+              >
+                {service.ctaText}
+                <DynamicIcon name="lucide/arrow-right" className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Pressable>
+            )}
           </div>
-        </div>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
+        <div className={cn("space-y-4 text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+        </div>
+        {renderServices()}
+      </div>
+    </Section>
   );
 }

@@ -4,25 +4,122 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
 
-export interface ServicesListProgressSidebarProps {
+/**
+ * Service item configuration for progress sidebar display
+ */
+export interface ServicesListProgressSidebarService {
+  /**
+   * Icon element (overrides iconName)
+   */
+  icon?: React.ReactNode;
+  /**
+   * Icon name in format: prefix/name (e.g., "lucide/lightbulb")
+   */
+  iconName?: string;
+  /**
+   * Service title
+   */
+  title?: React.ReactNode;
+  /**
+   * Service description
+   */
+  description?: React.ReactNode;
+  /**
+   * Progress percentage (0-100)
+   */
+  progress?: number;
+  /**
+   * Status text
+   */
+  status?: React.ReactNode;
+  /**
+   * Additional CSS classes for the card
+   */
   className?: string;
-  sidebarTitle?: string;
-  sidebarDescription?: string;
-  primaryCtaText?: string;
-  primaryCtaUrl?: string;
-  services?: Array<{
-    icon?: string;
-    title: string;
-    description: string;
-    progress?: number;
-    status?: string;
-  }>;
 }
 
-const defaultServices = [
+export interface ServicesListProgressSidebarProps {
+  /**
+   * Sidebar heading content
+   */
+  sidebarHeading?: React.ReactNode;
+  /**
+   * Sidebar description content
+   */
+  sidebarDescription?: React.ReactNode;
+  /**
+   * Primary CTA configuration
+   */
+  primaryAction?: ActionConfig;
+  /**
+   * Custom slot for actions (overrides primaryAction)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Array of service configurations
+   */
+  services?: ServicesListProgressSidebarService[];
+  /**
+   * Custom slot for rendering services (overrides services array)
+   */
+  servicesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the sidebar
+   */
+  sidebarClassName?: string;
+  /**
+   * Additional CSS classes for the sidebar heading
+   */
+  sidebarHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the sidebar description
+   */
+  sidebarDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the services container
+   */
+  servicesClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the icon container
+   */
+  iconClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+}
+
+const defaultServices: ServicesListProgressSidebarService[] = [
   {
-    icon: "lucide/lightbulb",
+    iconName: "lucide/lightbulb",
     title: "Discovery & Strategy",
     description:
       "We start by understanding your business goals, target audience, and competitive landscape.",
@@ -30,7 +127,7 @@ const defaultServices = [
     status: "Completed",
   },
   {
-    icon: "lucide/pen-tool",
+    iconName: "lucide/pen-tool",
     title: "Design & Prototyping",
     description:
       "Creating wireframes and high-fidelity designs that bring your vision to life.",
@@ -38,7 +135,7 @@ const defaultServices = [
     status: "Completed",
   },
   {
-    icon: "lucide/code",
+    iconName: "lucide/code",
     title: "Development",
     description:
       "Building your solution with clean, maintainable code and modern technologies.",
@@ -46,7 +143,7 @@ const defaultServices = [
     status: "In Progress",
   },
   {
-    icon: "lucide/test-tube",
+    iconName: "lucide/test-tube",
     title: "Testing & QA",
     description:
       "Rigorous testing to ensure quality, performance, and security.",
@@ -54,7 +151,7 @@ const defaultServices = [
     status: "Upcoming",
   },
   {
-    icon: "lucide/rocket",
+    iconName: "lucide/rocket",
     title: "Launch & Support",
     description:
       "Deploying your solution and providing ongoing maintenance and support.",
@@ -63,110 +160,183 @@ const defaultServices = [
   },
 ];
 
+const defaultPrimaryAction: ActionConfig = {
+  label: "Start Your Project",
+  href: "#",
+};
+
 /**
  * ServicesListProgressSidebar - A creative solutions layout with a sticky left sidebar and service list with progress indicators.
  * The sidebar contains title, description, and CTA. Each service displays with an icon, title, description, and visual progress bar.
  * Perfect for showcasing a process or methodology with clear status indicators for each phase.
+ *
+ * @example
+ * ```tsx
+ * <ServicesListProgressSidebar
+ *   sidebarHeading="Our Creative Process"
+ *   sidebarDescription="We follow a proven methodology."
+ *   primaryAction={{ label: "Start Your Project", href: "#" }}
+ *   services={[{ iconName: "lucide/lightbulb", title: "Discovery", progress: 100 }]}
+ *   background="white"
+ *   spacing="lg"
+ * />
+ * ```
  */
 export function ServicesListProgressSidebar({
-  className,
-  sidebarTitle = "Our Creative Process",
+  sidebarHeading = "Our Creative Process",
   sidebarDescription = "We follow a proven methodology to deliver exceptional results. Each phase builds upon the previous to ensure your project's success.",
-  primaryCtaText = "Start Your Project",
-  primaryCtaUrl = "#",
+  primaryAction = defaultPrimaryAction,
+  actionsSlot,
   services = defaultServices,
-}: ServicesListProgressSidebarProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              {sidebarTitle}
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              {sidebarDescription}
-            </p>
-            <div className="mt-8">
-              <Pressable
-                href={primaryCtaUrl}
-                variant="default"
-                size="lg"
-                asButton
+  servicesSlot,
+  className,
+  containerClassName,
+  sidebarClassName,
+  sidebarHeadingClassName,
+  sidebarDescriptionClassName,
+  servicesClassName,
+  cardClassName,
+  iconClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+}: ServicesListProgressSidebarProps): React.JSX.Element {
+  const renderServiceIcon = (service: ServicesListProgressSidebarService) => {
+    if (service.icon) return service.icon;
+    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    return null;
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!primaryAction) return null;
+
+    return (
+      <div className="mt-8">
+        <Pressable
+          href={primaryAction.href}
+          onClick={primaryAction.onClick}
+          variant="default"
+          size="lg"
+          asButton
+        >
+          {primaryAction.label}
+          <DynamicIcon name="lucide/arrow-right" className="ml-2 h-4 w-4" />
+        </Pressable>
+      </div>
+    );
+  };
+
+  const renderServices = () => {
+    if (servicesSlot) return servicesSlot;
+    if (!services || services.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-6 lg:col-span-2", servicesClassName)}>
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className={cn("rounded-xl border border-border p-6 transition-shadow hover:shadow-md", cardClassName, service.className)}
+          >
+            <div className="flex items-start gap-4">
+              <div
+                className={cn(
+                  "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg",
+                  service.progress === 100
+                    ? "bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400"
+                    : service.progress && service.progress > 0
+                      ? "bg-primary/10 text-primary"
+                      : "bg-muted text-muted-foreground",
+                  iconClassName
+                )}
               >
-                {primaryCtaText}
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  className="ml-2 h-4 w-4"
-                />
-              </Pressable>
+                {renderServiceIcon(service)}
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  {service.title && (
+                    typeof service.title === "string" ? (
+                      <h3 className="text-lg font-semibold">{service.title}</h3>
+                    ) : (
+                      <div className="text-lg font-semibold">{service.title}</div>
+                    )
+                  )}
+                  {service.status && (
+                    <span
+                      className={cn(
+                        "text-xs font-medium",
+                        service.progress === 100
+                          ? "text-green-600 dark:text-green-400"
+                          : service.progress && service.progress > 0
+                            ? "text-primary"
+                            : "text-muted-foreground"
+                      )}
+                    >
+                      {typeof service.status === "string" ? service.status : service.status}
+                    </span>
+                  )}
+                </div>
+                {service.description && (
+                  typeof service.description === "string" ? (
+                    <p className="mt-2 text-sm text-muted-foreground">{service.description}</p>
+                  ) : (
+                    <div className="mt-2 text-sm text-muted-foreground">{service.description}</div>
+                  )
+                )}
+                {typeof service.progress === "number" && (
+                  <div className="mt-4">
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                      <div
+                        className={cn(
+                          "h-full rounded-full transition-all",
+                          service.progress === 100 ? "bg-green-500" : "bg-primary"
+                        )}
+                        style={{ width: `${service.progress}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-
-          <div className="space-y-6 lg:col-span-2">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="rounded-xl border border-border p-6 transition-shadow hover:shadow-md"
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className={cn(
-                      "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg",
-                      service.progress === 100
-                        ? "bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400"
-                        : service.progress && service.progress > 0
-                          ? "bg-primary/10 text-primary"
-                          : "bg-muted text-muted-foreground"
-                    )}
-                  >
-                    {service.icon && (
-                      <DynamicIcon name={service.icon} className="h-6 w-6" />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold">{service.title}</h3>
-                      {service.status && (
-                        <span
-                          className={cn(
-                            "text-xs font-medium",
-                            service.progress === 100
-                              ? "text-green-600 dark:text-green-400"
-                              : service.progress && service.progress > 0
-                                ? "text-primary"
-                                : "text-muted-foreground"
-                          )}
-                        >
-                          {service.status}
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {service.description}
-                    </p>
-                    {typeof service.progress === "number" && (
-                      <div className="mt-4">
-                        <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-                          <div
-                            className={cn(
-                              "h-full rounded-full transition-all",
-                              service.progress === 100
-                                ? "bg-green-500"
-                                : "bg-primary"
-                            )}
-                            style={{ width: `${service.progress}%` }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("grid gap-12 lg:grid-cols-3 lg:gap-16", containerClassName)}>
+        <div className={cn("lg:sticky lg:top-32 lg:self-start", sidebarClassName)}>
+          {sidebarHeading && (
+            typeof sidebarHeading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", sidebarHeadingClassName)}>
+                {sidebarHeading}
+              </h2>
+            ) : (
+              <div className={sidebarHeadingClassName}>{sidebarHeading}</div>
+            )
+          )}
+          {sidebarDescription && (
+            typeof sidebarDescription === "string" ? (
+              <p className={cn("mt-6 text-lg leading-relaxed text-muted-foreground", sidebarDescriptionClassName)}>
+                {sidebarDescription}
+              </p>
+            ) : (
+              <div className={sidebarDescriptionClassName}>{sidebarDescription}</div>
+            )
+          )}
+          {renderActions()}
+        </div>
+        {renderServices()}
+      </div>
+    </Section>
   );
 }
