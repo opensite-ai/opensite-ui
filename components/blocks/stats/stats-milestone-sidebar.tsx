@@ -2,6 +2,9 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A milestone item with year and description
@@ -10,15 +13,19 @@ export interface MilestoneItem {
   /**
    * The year of the milestone
    */
-  year: string;
+  year: React.ReactNode;
   /**
    * Title of the milestone
    */
-  title: string;
+  title: React.ReactNode;
   /**
    * Description of the milestone
    */
-  description: string;
+  description: React.ReactNode;
+  /**
+   * Additional CSS classes for the milestone
+   */
+  className?: string;
 }
 
 /**
@@ -26,21 +33,85 @@ export interface MilestoneItem {
  */
 export interface StatsMilestoneSidebarProps {
   /**
-   * Additional CSS classes for the section
+   * Main heading content for the sidebar
    */
-  className?: string;
+  heading?: React.ReactNode;
   /**
-   * Main heading text for the sidebar
+   * Description content for the sidebar
    */
-  heading?: string;
+  description?: React.ReactNode;
   /**
-   * Description text for the sidebar
+   * Custom slot for sidebar content (overrides heading/description)
    */
-  description?: string;
+  sidebarSlot?: React.ReactNode;
   /**
    * Array of milestones to display
    */
   milestones?: MilestoneItem[];
+  /**
+   * Custom slot for milestones (overrides milestones array)
+   */
+  milestonesSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the sidebar
+   */
+  sidebarClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the milestones container
+   */
+  milestonesClassName?: string;
+  /**
+   * Additional CSS classes for individual milestone items
+   */
+  milestoneItemClassName?: string;
+  /**
+   * Additional CSS classes for milestone year badges
+   */
+  milestoneYearClassName?: string;
+  /**
+   * Additional CSS classes for milestone titles
+   */
+  milestoneTitleClassName?: string;
+  /**
+   * Additional CSS classes for milestone descriptions
+   */
+  milestoneDescriptionClassName?: string;
 }
 
 const defaultMilestones: MilestoneItem[] = [
@@ -95,53 +166,120 @@ const defaultMilestones: MilestoneItem[] = [
  * ```
  */
 export function StatsMilestoneSidebar({
-  className,
   heading = "Our Journey",
   description = "From a small startup to an industry leader, here are the key moments that shaped our company.",
+  sidebarSlot,
   milestones = defaultMilestones,
+  milestonesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  sidebarClassName,
+  headingClassName,
+  descriptionClassName,
+  milestonesClassName,
+  milestoneItemClassName,
+  milestoneYearClassName,
+  milestoneTitleClassName,
+  milestoneDescriptionClassName,
 }: StatsMilestoneSidebarProps) {
+  const renderSidebar = () => {
+    if (sidebarSlot) return sidebarSlot;
+
+    return (
+      <div className="lg:sticky lg:top-24">
+        {heading && (
+          typeof heading === "string" ? (
+            <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+              {heading}
+            </h2>
+          ) : (
+            <div className={cn("mb-4", headingClassName)}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+      </div>
+    );
+  };
+
+  const renderMilestones = () => {
+    if (milestonesSlot) return milestonesSlot;
+    if (!milestones || milestones.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-8", milestonesClassName)}>
+        {milestones.map((milestone, index) => (
+          <div
+            key={index}
+            className={cn(
+              "relative border-l-2 border-border pl-8 pb-8 last:pb-0",
+              milestone.className,
+              milestoneItemClassName
+            )}
+          >
+            {/* Timeline dot */}
+            <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-primary bg-background" />
+
+            {/* Year badge */}
+            <div className={cn("mb-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary", milestoneYearClassName)}>
+              {milestone.year}
+            </div>
+
+            {/* Content */}
+            {milestone.title && (
+              typeof milestone.title === "string" ? (
+                <h3 className={cn("mb-2 text-xl font-bold", milestoneTitleClassName)}>{milestone.title}</h3>
+              ) : (
+                <div className={cn("mb-2", milestoneTitleClassName)}>{milestone.title}</div>
+              )
+            )}
+            {milestone.description && (
+              typeof milestone.description === "string" ? (
+                <p className={cn("text-muted-foreground", milestoneDescriptionClassName)}>{milestone.description}</p>
+              ) : (
+                <div className={milestoneDescriptionClassName}>{milestone.description}</div>
+              )
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
     >
-      <div className="mx-auto max-w-6xl">
+      <div className={cn("mx-auto max-w-6xl", containerClassName)}>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Sticky Sidebar */}
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-24">
-              <h2 className="mb-4 text-3xl font-bold md:text-4xl">{heading}</h2>
-              <p className="text-lg text-muted-foreground">{description}</p>
-            </div>
+          <div className={cn("lg:col-span-4", sidebarClassName)}>
+            {renderSidebar()}
           </div>
 
           {/* Milestones List */}
           <div className="lg:col-span-8">
-            <div className="space-y-8">
-              {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className="relative border-l-2 border-border pl-8 pb-8 last:pb-0"
-                >
-                  {/* Timeline dot */}
-                  <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-primary bg-background" />
-
-                  {/* Year badge */}
-                  <div className="mb-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
-                    {milestone.year}
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="mb-2 text-xl font-bold">{milestone.title}</h3>
-                  <p className="text-muted-foreground">{milestone.description}</p>
-                </div>
-              ))}
-            </div>
+            {renderMilestones()}
           </div>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

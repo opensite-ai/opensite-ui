@@ -4,6 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A stat with circular progress indicator
@@ -12,7 +15,7 @@ export interface CircularStat {
   /**
    * The label for the stat
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * The stat value (0-100 for percentage display)
    */
@@ -24,7 +27,11 @@ export interface CircularStat {
   /**
    * Additional info text
    */
-  info: string;
+  info: React.ReactNode;
+  /**
+   * Additional CSS classes for the stat card
+   */
+  className?: string;
 }
 
 /**
@@ -38,11 +45,15 @@ export interface StatCategory {
   /**
    * Display name for the category
    */
-  name: string;
+  name: React.ReactNode;
   /**
    * Stats for this category
    */
   stats: CircularStat[];
+  /**
+   * Additional CSS classes for the category
+   */
+  className?: string;
 }
 
 /**
@@ -50,29 +61,101 @@ export interface StatCategory {
  */
 export interface StatsCircularProgressProps {
   /**
-   * Additional CSS classes for the section
+   * Badge content above the heading
    */
-  className?: string;
+  badge?: React.ReactNode;
   /**
-   * Badge text above the heading
+   * Custom badge slot (overrides badge)
    */
-  badge?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of stat categories
    */
   categories?: StatCategory[];
   /**
+   * Custom slot for rendering categories (overrides categories array)
+   */
+  categoriesSlot?: React.ReactNode;
+  /**
    * Default selected category ID
    */
   defaultCategory?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the tabs
+   */
+  tabsClassName?: string;
+  /**
+   * Additional CSS classes for the stats grid
+   */
+  statsClassName?: string;
+  /**
+   * Additional CSS classes for stat cards
+   */
+  statCardClassName?: string;
+  /**
+   * Additional CSS classes for stat values
+   */
+  statValueClassName?: string;
+  /**
+   * Additional CSS classes for stat labels
+   */
+  statLabelClassName?: string;
+  /**
+   * Additional CSS classes for stat info
+   */
+  statInfoClassName?: string;
 }
 
 const defaultCategories: StatCategory[] = [
@@ -189,33 +272,49 @@ function CircularProgressIndicator({
  * ```
  */
 export function StatsCircularProgress({
-  className,
   badge = "Performance",
+  badgeSlot,
   heading = "Key Performance Indicators",
   description = "Visualizing our achievements across all business aspects",
   categories = defaultCategories,
+  categoriesSlot,
   defaultCategory = "business",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  tabsClassName,
+  statsClassName,
+  statCardClassName,
+  statValueClassName,
+  statLabelClassName,
+  statInfoClassName,
 }: StatsCircularProgressProps) {
   const [category, setCategory] = React.useState(defaultCategory);
 
-  return (
-    <div
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
-    >
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <Badge variant="outline" className="mb-4">
-            {badge}
-          </Badge>
-          <h2 className="text-3xl font-bold md:text-4xl">{heading}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-            {description}
-          </p>
-        </div>
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
+    return (
+      <Badge variant="outline" className={cn("mb-4", badgeClassName)}>
+        {badge}
+      </Badge>
+    );
+  };
 
+  const renderCategories = () => {
+    if (categoriesSlot) return categoriesSlot;
+    if (!categories || categories.length === 0) return null;
+
+    return (
+      <>
         {/* Mobile Dropdown */}
         <div className="mb-8 md:hidden">
           <select
@@ -225,20 +324,20 @@ export function StatsCircularProgress({
           >
             {categories.map((cat) => (
               <option key={`select-${cat.id}`} value={cat.id}>
-                {cat.name} Metrics
+                {typeof cat.name === "string" ? `${cat.name} Metrics` : cat.name}
               </option>
             ))}
           </select>
         </div>
 
         {/* Tabs for desktop */}
-        <Tabs value={category} onValueChange={setCategory} className="w-full">
+        <Tabs value={category} onValueChange={setCategory} className={cn("w-full", tabsClassName)}>
           {/* Desktop Tabs */}
           <div className="mb-12 hidden justify-center md:flex">
             <TabsList>
               {categories.map((cat) => (
                 <TabsTrigger key={cat.id} value={cat.id}>
-                  {cat.name} Metrics
+                  {typeof cat.name === "string" ? `${cat.name} Metrics` : cat.name}
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -246,12 +345,12 @@ export function StatsCircularProgress({
 
           {/* Tab Content */}
           {categories.map((cat) => (
-            <TabsContent key={cat.id} value={cat.id}>
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <TabsContent key={cat.id} value={cat.id} className={cat.className}>
+              <div className={cn("grid gap-8 sm:grid-cols-2 lg:grid-cols-4", statsClassName)}>
                 {cat.stats.map((stat, index) => (
                   <div
                     key={index}
-                    className="flex flex-col items-center justify-center rounded-xl border bg-card p-6"
+                    className={cn("flex flex-col items-center justify-center rounded-xl border bg-card p-6", stat.className, statCardClassName)}
                   >
                     <div className="relative mb-4 flex items-center justify-center">
                       <CircularProgressIndicator value={stat.value} size={120} />
@@ -259,7 +358,8 @@ export function StatsCircularProgress({
                         <span
                           className={cn(
                             "text-2xl font-bold md:text-3xl",
-                            getColorClass(stat.value)
+                            getColorClass(stat.value),
+                            statValueClassName
                           )}
                         >
                           {stat.value}
@@ -267,10 +367,10 @@ export function StatsCircularProgress({
                         </span>
                       </div>
                     </div>
-                    <h3 className="text-center text-lg font-semibold md:text-xl">
+                    <h3 className={cn("text-center text-lg font-semibold md:text-xl", statLabelClassName)}>
                       {stat.label}
                     </h3>
-                    <p className="mt-1 text-center text-xs text-muted-foreground md:text-sm">
+                    <p className={cn("mt-1 text-center text-xs text-muted-foreground md:text-sm", statInfoClassName)}>
                       {stat.info}
                     </p>
                   </div>
@@ -279,7 +379,44 @@ export function StatsCircularProgress({
             </TabsContent>
           ))}
         </Tabs>
+      </>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto max-w-6xl", containerClassName)}>
+        <div className={cn("mb-12 text-center", headerClassName)}>
+          {renderBadge()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto mt-3 max-w-2xl text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mx-auto mt-3 max-w-2xl", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+
+        {renderCategories()}
       </div>
-    </div>
+    </Section>
   );
 }

@@ -5,6 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A single stat entry with value, change, and trend
@@ -13,11 +16,11 @@ export interface TimelineStat {
   /**
    * The label for the stat
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * The stat value (e.g., "1,284", "32,891", "5.2%")
    */
-  value: string;
+  value: React.ReactNode;
   /**
    * The percentage change
    */
@@ -29,11 +32,15 @@ export interface TimelineStat {
   /**
    * Label for the comparison period
    */
-  previousLabel: string;
+  previousLabel: React.ReactNode;
   /**
    * If true, a downward trend is considered positive (e.g., for support tickets)
    */
   inversePositive?: boolean;
+  /**
+   * Additional CSS classes for the stat card
+   */
+  className?: string;
 }
 
 /**
@@ -47,11 +54,15 @@ export interface TimePeriod {
   /**
    * Display label for the period
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * Stats for this time period
    */
   stats: TimelineStat[];
+  /**
+   * Additional CSS classes for the period
+   */
+  className?: string;
 }
 
 /**
@@ -59,29 +70,93 @@ export interface TimePeriod {
  */
 export interface StatsTimelineTabsProps {
   /**
-   * Additional CSS classes for the section
+   * Badge content above the heading
    */
-  className?: string;
+  badge?: React.ReactNode;
   /**
-   * Badge text above the heading
+   * Custom slot for badge (overrides badge prop)
    */
-  badge?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of time periods with their stats
    */
   periods?: TimePeriod[];
   /**
+   * Custom slot for tabs content (overrides periods array)
+   */
+  tabsSlot?: React.ReactNode;
+  /**
    * Default selected period ID
    */
   defaultPeriod?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the tabs container
+   */
+  tabsClassName?: string;
+  /**
+   * Additional CSS classes for the tabs list
+   */
+  tabsListClassName?: string;
+  /**
+   * Additional CSS classes for the stats grid
+   */
+  statsGridClassName?: string;
+  /**
+   * Additional CSS classes for stat cards
+   */
+  statCardClassName?: string;
 }
 
 const defaultPeriods: TimePeriod[] = [
@@ -145,103 +220,154 @@ const defaultPeriods: TimePeriod[] = [
  * ```
  */
 export function StatsTimelineTabs({
-  className,
   badge = "Performance Timeline",
+  badgeSlot,
   heading = "Growth Progression",
   description = "Track our key metrics over different time periods to see our consistent growth and improvements",
   periods = defaultPeriods,
+  tabsSlot,
   defaultPeriod = "monthly",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  tabsClassName,
+  tabsListClassName,
+  statsGridClassName,
+  statCardClassName,
 }: StatsTimelineTabsProps) {
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
+    return <Badge className={cn("mb-2", badgeClassName)}>{badge}</Badge>;
+  };
+
+  const renderTabs = () => {
+    if (tabsSlot) return tabsSlot;
+    if (!periods || periods.length === 0) return null;
+
+    return (
+      <Tabs defaultValue={defaultPeriod} className={cn("mt-8 w-full", tabsClassName)}>
+        <div className="mb-8 flex justify-center">
+          <TabsList className={tabsListClassName}>
+            {periods.map((period) => (
+              <TabsTrigger key={period.id} value={period.id}>
+                {period.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+
+        {periods.map((period) => (
+          <TabsContent key={period.id} value={period.id} className={cn("mt-4", period.className)}>
+            <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-4", statsGridClassName)}>
+              {period.stats.map((stat, index) => {
+                const isPositive =
+                  (stat.trend === "up" && !stat.inversePositive) ||
+                  (stat.trend === "down" && stat.inversePositive);
+
+                return (
+                  <div
+                    key={index}
+                    className={cn(
+                      "rounded-lg border bg-card p-6 transition-shadow hover:shadow-md",
+                      stat.className,
+                      statCardClassName
+                    )}
+                  >
+                    <div className="flex items-start justify-between">
+                      <p className="text-lg font-medium">{stat.label}</p>
+                      <div className="flex items-center">
+                        <DynamicIcon
+                          name="lucide/clock"
+                          size={16}
+                          className="mr-1 text-muted-foreground"
+                        />
+                        <span className="text-xs text-muted-foreground">
+                          {period.label}
+                        </span>
+                      </div>
+                    </div>
+
+                    <h3 className="mt-4 text-3xl font-bold">{stat.value}</h3>
+
+                    <div className="mt-2 flex items-center">
+                      <div
+                        className={cn(
+                          "flex items-center rounded-full px-2 py-1 text-xs font-medium",
+                          isPositive
+                            ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400"
+                            : "bg-rose-50 text-rose-600 dark:bg-rose-950 dark:text-rose-400"
+                        )}
+                      >
+                        <DynamicIcon
+                          name={
+                            stat.trend === "up"
+                              ? "lucide/arrow-up-right"
+                              : "lucide/arrow-down-right"
+                          }
+                          size={12}
+                          className="mr-1"
+                        />
+                        {Math.abs(stat.change)}%
+                      </div>
+                      <p className="ml-2 text-sm text-muted-foreground">
+                        vs {stat.previousLabel}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </TabsContent>
+        ))}
+      </Tabs>
+    );
+  };
+
   return (
-    <div
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
     >
-      <div className="mx-auto max-w-6xl">
+      <div className={cn("mx-auto max-w-6xl", containerClassName)}>
         <div className="flex flex-col space-y-6">
-          <div className="space-y-2 text-center">
-            <Badge className="mb-2">{badge}</Badge>
-            <h2 className="text-3xl font-bold md:text-4xl">{heading}</h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground">
-              {description}
-            </p>
+          <div className={cn("space-y-2 text-center", headerClassName)}>
+            {renderBadge()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
+              )
+            )}
           </div>
 
-          <Tabs defaultValue={defaultPeriod} className="mt-8 w-full">
-            <div className="mb-8 flex justify-center">
-              <TabsList>
-                {periods.map((period) => (
-                  <TabsTrigger key={period.id} value={period.id}>
-                    {period.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-
-            {periods.map((period) => (
-              <TabsContent key={period.id} value={period.id} className="mt-4">
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                  {period.stats.map((stat, index) => {
-                    const isPositive =
-                      (stat.trend === "up" && !stat.inversePositive) ||
-                      (stat.trend === "down" && stat.inversePositive);
-
-                    return (
-                      <div
-                        key={index}
-                        className="rounded-lg border bg-card p-6 transition-shadow hover:shadow-md"
-                      >
-                        <div className="flex items-start justify-between">
-                          <p className="text-lg font-medium">{stat.label}</p>
-                          <div className="flex items-center">
-                            <DynamicIcon
-                              name="lucide/clock"
-                              size={16}
-                              className="mr-1 text-muted-foreground"
-                            />
-                            <span className="text-xs text-muted-foreground">
-                              {period.label}
-                            </span>
-                          </div>
-                        </div>
-
-                        <h3 className="mt-4 text-3xl font-bold">{stat.value}</h3>
-
-                        <div className="mt-2 flex items-center">
-                          <div
-                            className={cn(
-                              "flex items-center rounded-full px-2 py-1 text-xs font-medium",
-                              isPositive
-                                ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400"
-                                : "bg-rose-50 text-rose-600 dark:bg-rose-950 dark:text-rose-400"
-                            )}
-                          >
-                            <DynamicIcon
-                              name={
-                                stat.trend === "up"
-                                  ? "lucide/arrow-up-right"
-                                  : "lucide/arrow-down-right"
-                              }
-                              size={12}
-                              className="mr-1"
-                            />
-                            {Math.abs(stat.change)}%
-                          </div>
-                          <p className="ml-2 text-sm text-muted-foreground">
-                            vs {stat.previousLabel}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+          {renderTabs()}
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

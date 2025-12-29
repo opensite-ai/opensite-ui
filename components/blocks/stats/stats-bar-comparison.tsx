@@ -3,6 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A comparison bar item
@@ -11,7 +14,7 @@ export interface ComparisonBar {
   /**
    * The label for the bar
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * The value (0-100 for percentage width)
    */
@@ -19,11 +22,15 @@ export interface ComparisonBar {
   /**
    * Display value text (e.g., "$2.4M", "89%")
    */
-  displayValue: string;
+  displayValue: React.ReactNode;
   /**
    * Color class for the bar (e.g., "bg-primary", "bg-emerald-500")
    */
   color?: string;
+  /**
+   * Additional CSS classes for the bar
+   */
+  className?: string;
 }
 
 /**
@@ -33,11 +40,15 @@ export interface ComparisonGroup {
   /**
    * Title for the comparison group
    */
-  title: string;
+  title: React.ReactNode;
   /**
    * Bars to compare
    */
   bars: ComparisonBar[];
+  /**
+   * Additional CSS classes for the group
+   */
+  className?: string;
 }
 
 /**
@@ -45,30 +56,102 @@ export interface ComparisonGroup {
  */
 export interface StatsBarComparisonProps {
   /**
-   * Additional CSS classes for the section
+   * Badge content above the heading
    */
-  className?: string;
+  badge?: React.ReactNode;
   /**
-   * Badge text above the heading
+   * Custom badge slot (overrides badge)
    */
-  badge?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of comparison groups
    */
   comparisons?: ComparisonGroup[];
   /**
+   * Custom slot for rendering comparisons (overrides comparisons array)
+   */
+  comparisonsSlot?: React.ReactNode;
+  /**
    * Whether to animate bars on scroll
    * @default true
    */
   animate?: boolean;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the comparisons container
+   */
+  comparisonsClassName?: string;
+  /**
+   * Additional CSS classes for comparison group cards
+   */
+  groupCardClassName?: string;
+  /**
+   * Additional CSS classes for group titles
+   */
+  groupTitleClassName?: string;
+  /**
+   * Additional CSS classes for bar labels
+   */
+  barLabelClassName?: string;
+  /**
+   * Additional CSS classes for bar values
+   */
+  barValueClassName?: string;
+  /**
+   * Additional CSS classes for bar tracks
+   */
+  barTrackClassName?: string;
 }
 
 const defaultComparisons: ComparisonGroup[] = [
@@ -127,12 +210,30 @@ const defaultComparisons: ComparisonGroup[] = [
  * ```
  */
 export function StatsBarComparison({
-  className,
   badge = "Competitive Edge",
+  badgeSlot,
   heading = "How We Compare",
   description = "See how our platform outperforms industry standards across key metrics",
   comparisons = defaultComparisons,
+  comparisonsSlot,
   animate = true,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  comparisonsClassName,
+  groupCardClassName,
+  groupTitleClassName,
+  barLabelClassName,
+  barValueClassName,
+  barTrackClassName,
 }: StatsBarComparisonProps) {
   const [isVisible, setIsVisible] = React.useState(!animate);
   const sectionRef = React.useRef<HTMLDivElement>(null);
@@ -157,55 +258,91 @@ export function StatsBarComparison({
     return () => observer.disconnect();
   }, [animate]);
 
-  return (
-    <div
-      ref={sectionRef}
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
-    >
-      <div className="mx-auto max-w-4xl">
-        <div className="mb-12 text-center">
-          <Badge variant="outline" className="mb-4">
-            {badge}
-          </Badge>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">{heading}</h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground">
-            {description}
-          </p>
-        </div>
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
+    return (
+      <Badge variant="outline" className={cn("mb-4", badgeClassName)}>
+        {badge}
+      </Badge>
+    );
+  };
 
-        <div className="space-y-10">
-          {comparisons.map((group, groupIndex) => (
-            <div key={groupIndex} className="rounded-xl border bg-card p-6">
-              <h3 className="mb-6 text-lg font-semibold">{group.title}</h3>
-              <div className="space-y-4">
-                {group.bars.map((bar, barIndex) => (
-                  <div key={barIndex}>
-                    <div className="mb-2 flex items-center justify-between">
-                      <span className="text-sm font-medium">{bar.label}</span>
-                      <span className="text-sm font-bold">{bar.displayValue}</span>
-                    </div>
-                    <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
-                      <div
-                        className={cn(
-                          "h-full rounded-full transition-all duration-1000 ease-out",
-                          bar.color || "bg-primary"
-                        )}
-                        style={{
-                          width: isVisible ? `${bar.value}%` : "0%",
-                          transitionDelay: `${groupIndex * 100 + barIndex * 50}ms`,
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
+  const renderComparisons = () => {
+    if (comparisonsSlot) return comparisonsSlot;
+    if (!comparisons || comparisons.length === 0) return null;
+
+    return comparisons.map((group, groupIndex) => (
+      <div key={groupIndex} className={cn("rounded-xl border bg-card p-6", group.className, groupCardClassName)}>
+        {group.title && (
+          typeof group.title === "string" ? (
+            <h3 className={cn("mb-6 text-lg font-semibold", groupTitleClassName)}>{group.title}</h3>
+          ) : (
+            <div className={cn("mb-6", groupTitleClassName)}>{group.title}</div>
+          )
+        )}
+        <div className="space-y-4">
+          {group.bars.map((bar, barIndex) => (
+            <div key={barIndex} className={bar.className}>
+              <div className="mb-2 flex items-center justify-between">
+                <span className={cn("text-sm font-medium", barLabelClassName)}>{bar.label}</span>
+                <span className={cn("text-sm font-bold", barValueClassName)}>{bar.displayValue}</span>
+              </div>
+              <div className={cn("h-3 w-full overflow-hidden rounded-full bg-muted", barTrackClassName)}>
+                <div
+                  className={cn(
+                    "h-full rounded-full transition-all duration-1000 ease-out",
+                    bar.color || "bg-primary"
+                  )}
+                  style={{
+                    width: isVisible ? `${bar.value}%` : "0%",
+                    transitionDelay: `${groupIndex * 100 + barIndex * 50}ms`,
+                  }}
+                />
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    ));
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div ref={sectionRef} className={cn("mx-auto max-w-4xl", containerClassName)}>
+        <div className={cn("mb-12 text-center", headerClassName)}>
+          {renderBadge()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+
+        <div className={cn("space-y-10", comparisonsClassName)}>
+          {renderComparisons()}
+        </div>
+      </div>
+    </Section>
   );
 }

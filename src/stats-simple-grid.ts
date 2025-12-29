@@ -8,4 +8,5 @@
  */
 
 export { StatsSimpleGrid } from "../components/blocks/stats/stats-simple-grid";
-export type { StatsSimpleGridProps, StatItem } from "../components/blocks/stats/stats-simple-grid";
+export type { StatsSimpleGridProps } from "../components/blocks/stats/stats-simple-grid";
+export type { StatItem } from "./types";

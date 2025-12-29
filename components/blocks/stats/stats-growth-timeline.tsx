@@ -5,6 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A milestone in the company timeline
@@ -17,26 +20,34 @@ export interface Milestone {
   /**
    * Year of the milestone
    */
-  year: string;
+  year: React.ReactNode;
   /**
    * Title of the milestone
    */
-  title: string;
+  title: React.ReactNode;
   /**
    * Description of the milestone
    */
-  description: string;
+  description: React.ReactNode;
   /**
    * Metric associated with the milestone
    */
   metric: {
-    value: string;
-    label: string;
+    value: React.ReactNode;
+    label: React.ReactNode;
   };
   /**
    * Icon name in format: prefix/name (e.g., "lucide/calendar-days")
    */
-  icon: string;
+  icon?: string;
+  /**
+   * Custom icon element (overrides icon name)
+   */
+  iconSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the milestone
+   */
+  className?: string;
 }
 
 /**
@@ -46,11 +57,15 @@ export interface CurrentStat {
   /**
    * The stat value
    */
-  value: string;
+  value: React.ReactNode;
   /**
    * The stat label
    */
-  label: string;
+  label: React.ReactNode;
+  /**
+   * Additional CSS classes for the stat
+   */
+  className?: string;
 }
 
 /**
@@ -58,45 +73,121 @@ export interface CurrentStat {
  */
 export interface StatsGrowthTimelineProps {
   /**
-   * Additional CSS classes for the section
+   * Badge content above the heading
    */
-  className?: string;
+  badge?: React.ReactNode;
   /**
-   * Badge text above the heading
+   * Custom badge slot (overrides badge)
    */
-  badge?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of milestones to display
    */
   milestones?: Milestone[];
   /**
+   * Custom slot for rendering milestones (overrides milestones array)
+   */
+  milestonesSlot?: React.ReactNode;
+  /**
    * Current stats for the "Where We Are Today" section
    */
   currentStats?: CurrentStat[];
   /**
+   * Custom slot for rendering current stats (overrides currentStats array)
+   */
+  currentStatsSlot?: React.ReactNode;
+  /**
+   * Current stats section heading
+   */
+  currentStatsHeading?: React.ReactNode;
+  /**
    * Future section heading
    */
-  futureHeading?: string;
+  futureHeading?: React.ReactNode;
   /**
    * Future section description
    */
-  futureDescription?: string;
+  futureDescription?: React.ReactNode;
   /**
-   * Roadmap link text
+   * Custom slot for the future section (overrides futureHeading/futureDescription/actions)
    */
-  roadmapLinkText?: string;
+  futureSlot?: React.ReactNode;
   /**
-   * Roadmap link URL
+   * Actions for the future section (replaces roadmapLinkText/roadmapLinkUrl)
    */
-  roadmapLinkUrl?: string;
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the timeline
+   */
+  timelineClassName?: string;
+  /**
+   * Additional CSS classes for milestone cards
+   */
+  milestoneClassName?: string;
+  /**
+   * Additional CSS classes for the current stats section
+   */
+  currentStatsClassName?: string;
+  /**
+   * Additional CSS classes for the future section
+   */
+  futureClassName?: string;
 }
 
 const defaultMilestones: Milestone[] = [
@@ -174,119 +265,232 @@ const defaultCurrentStats: CurrentStat[] = [
  * />
  * ```
  */
+const defaultActions: ActionConfig[] = [
+  { label: "View our roadmap", href: "#", variant: "link" },
+];
+
 export function StatsGrowthTimeline({
-  className,
   badge = "Our Journey",
+  badgeSlot,
   heading = "Growing From Startup to Industry Leader",
   description = "Track our exponential growth journey from a small startup to becoming the market leader.",
   milestones = defaultMilestones,
+  milestonesSlot,
   currentStats = defaultCurrentStats,
+  currentStatsSlot,
+  currentStatsHeading = "Where We Are Today",
   futureHeading = "The Future Is Even Brighter",
   futureDescription = "We're just getting started. Our roadmap includes expansion to new markets, enhanced product offerings, and continued innovation to serve our growing customer base.",
-  roadmapLinkText = "View our roadmap",
-  roadmapLinkUrl = "#",
+  futureSlot,
+  actions = defaultActions,
+  actionsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  timelineClassName,
+  milestoneClassName,
+  currentStatsClassName,
+  futureClassName,
 }: StatsGrowthTimelineProps) {
-  return (
-    <div
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
-    >
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-16 text-center">
-          <Badge className="mb-4">{badge}</Badge>
-          <h2 className="mb-4 text-3xl font-bold md:text-5xl">{heading}</h2>
-          <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
-            {description}
-          </p>
-        </div>
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
+    return <Badge className={cn("mb-4", badgeClassName)}>{badge}</Badge>;
+  };
 
-        {/* Timeline */}
-        <div className="relative mt-24">
-          {/* Timeline line */}
-          <div className="absolute bottom-0 left-0 top-0 w-px transform bg-border md:left-1/2 md:-translate-x-1/2" />
+  const renderMilestoneIcon = (milestone: Milestone) => {
+    if (milestone.iconSlot) return milestone.iconSlot;
+    if (!milestone.icon) return null;
+    return (
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+        <DynamicIcon
+          name={milestone.icon}
+          size={32}
+          className="text-primary"
+        />
+      </div>
+    );
+  };
 
-          {/* Timeline items */}
-          <div className="relative space-y-12 md:space-y-24">
-            {milestones.map((milestone, index) => (
-              <div
-                key={milestone.id}
-                className={cn(
-                  "flex flex-col gap-8 md:flex-row md:gap-0",
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+  const renderMilestones = () => {
+    if (milestonesSlot) return milestonesSlot;
+    if (!milestones || milestones.length === 0) return null;
+
+    return (
+      <div className={cn("relative mt-24", timelineClassName)}>
+        {/* Timeline line */}
+        <div className="absolute bottom-0 left-0 top-0 w-px transform bg-border md:left-1/2 md:-translate-x-1/2" />
+
+        {/* Timeline items */}
+        <div className="relative space-y-12 md:space-y-24">
+          {milestones.map((milestone, index) => (
+            <div
+              key={milestone.id}
+              className={cn(
+                "flex flex-col gap-8 md:flex-row md:gap-0",
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse",
+                milestone.className,
+                milestoneClassName
+              )}
+            >
+              {/* Content */}
+              <div className="ml-6 flex flex-col items-start md:ml-0 md:w-1/2 md:px-8">
+                <div className="mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full bg-muted text-sm font-semibold">
+                  {milestone.year}
+                </div>
+                {milestone.title && (
+                  typeof milestone.title === "string" ? (
+                    <h3 className="mb-2 text-xl font-bold">{milestone.title}</h3>
+                  ) : (
+                    <div className="mb-2">{milestone.title}</div>
+                  )
                 )}
-              >
-                {/* Content */}
-                <div className="ml-6 flex flex-col items-start md:ml-0 md:w-1/2 md:px-8">
-                  <div className="mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full bg-muted text-sm font-semibold">
-                    {milestone.year}
-                  </div>
-                  <h3 className="mb-2 text-xl font-bold">{milestone.title}</h3>
-                  <p className="mb-4 text-muted-foreground">
-                    {milestone.description}
-                  </p>
+                {milestone.description && (
+                  typeof milestone.description === "string" ? (
+                    <p className="mb-4 text-muted-foreground">{milestone.description}</p>
+                  ) : (
+                    <div className="mb-4">{milestone.description}</div>
+                  )
+                )}
 
-                  <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                      <DynamicIcon
-                        name={milestone.icon}
-                        size={32}
-                        className="text-primary"
-                      />
+                <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
+                  {renderMilestoneIcon(milestone)}
+                  <div>
+                    <div className="text-3xl font-bold text-primary">
+                      {milestone.metric.value}
                     </div>
-                    <div>
-                      <div className="text-3xl font-bold text-primary">
-                        {milestone.metric.value}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {milestone.metric.label}
-                      </div>
+                    <div className="text-sm text-muted-foreground">
+                      {milestone.metric.label}
                     </div>
                   </div>
                 </div>
-
-                {/* Timeline point */}
-                <div className="absolute left-0 flex -translate-x-1/2 transform items-center justify-center md:left-1/2">
-                  <div className="h-5 w-5 rounded-full border-4 border-background bg-primary" />
-                </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Current stats */}
-        <div className="mt-24 rounded-lg bg-muted p-8">
-          <h3 className="mb-6 text-center text-2xl font-bold">
-            Where We Are Today
-          </h3>
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {currentStats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="mb-2 text-3xl font-bold text-primary md:text-4xl">
-                  {stat.value}
-                </div>
-                <p className="font-medium text-muted-foreground">{stat.label}</p>
+              {/* Timeline point */}
+              <div className="absolute left-0 flex -translate-x-1/2 transform items-center justify-center md:left-1/2">
+                <div className="h-5 w-5 rounded-full border-4 border-background bg-primary" />
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Future */}
-        <div className="mt-16 text-center">
-          <h3 className="mb-4 text-2xl font-bold">{futureHeading}</h3>
-          <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
-            {futureDescription}
-          </p>
-          <Pressable
-            href={roadmapLinkUrl}
-            className="inline-flex items-center font-medium text-primary hover:underline"
-          >
-            {roadmapLinkText}
-            <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-          </Pressable>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    );
+  };
+
+  const renderCurrentStats = () => {
+    if (currentStatsSlot) return currentStatsSlot;
+    if (!currentStats || currentStats.length === 0) return null;
+
+    return (
+      <div className={cn("mt-24 rounded-lg bg-muted p-8", currentStatsClassName)}>
+        {currentStatsHeading && (
+          typeof currentStatsHeading === "string" ? (
+            <h3 className="mb-6 text-center text-2xl font-bold">{currentStatsHeading}</h3>
+          ) : (
+            <div className="mb-6 text-center">{currentStatsHeading}</div>
+          )
+        )}
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          {currentStats.map((stat, index) => (
+            <div key={index} className={cn("text-center", stat.className)}>
+              <div className="mb-2 text-3xl font-bold text-primary md:text-4xl">
+                {stat.value}
+              </div>
+              <p className="font-medium text-muted-foreground">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => (
+      <Pressable
+        key={index}
+        href={action.href}
+        onClick={action.onClick}
+        variant={action.variant}
+        className="inline-flex items-center font-medium text-primary hover:underline"
+      >
+        {action.label}
+        <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+      </Pressable>
+    ));
+  };
+
+  const renderFuture = () => {
+    if (futureSlot) return futureSlot;
+    if (!futureHeading && !futureDescription && (!actions || actions.length === 0)) return null;
+
+    return (
+      <div className={cn("mt-16 text-center", futureClassName)}>
+        {futureHeading && (
+          typeof futureHeading === "string" ? (
+            <h3 className="mb-4 text-2xl font-bold">{futureHeading}</h3>
+          ) : (
+            <div className="mb-4">{futureHeading}</div>
+          )
+        )}
+        {futureDescription && (
+          typeof futureDescription === "string" ? (
+            <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">{futureDescription}</p>
+          ) : (
+            <div className="mx-auto mb-8 max-w-2xl">{futureDescription}</div>
+          )
+        )}
+        {renderActions()}
+      </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto max-w-5xl", containerClassName)}>
+        <div className={cn("mb-16 text-center", headerClassName)}>
+          {renderBadge()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-4 text-3xl font-bold md:text-5xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto max-w-3xl text-lg text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+
+        {renderMilestones()}
+        {renderCurrentStats()}
+        {renderFuture()}
+      </div>
+    </Section>
   );
 }
