@@ -1,22 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Container } from "../../ui/container";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-/**
- * Configuration for Optix Flow image optimization
- */
-export interface OptixFlowConfig {
-  apiKey: string;
-  compression?: number;
-}
 
 /**
  * Individual team member for TeamExpertiseCards
@@ -39,31 +36,39 @@ export interface TeamExpertiseCardsProps {
    * Section heading
    * @default "Team"
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Section description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of team members to display
    */
   members?: TeamExpertiseCardsMember[];
   /**
+   * Custom slot for rendering members (overrides members array)
+   */
+  membersSlot?: React.ReactNode;
+  /**
    * CTA section heading
    */
-  ctaHeading?: string;
+  ctaHeading?: React.ReactNode;
   /**
    * CTA section description
    */
-  ctaDescription?: string;
+  ctaDescription?: React.ReactNode;
   /**
    * CTA button text
    */
-  ctaButtonText?: string;
+  ctaButtonText?: React.ReactNode;
   /**
    * CTA button URL
    */
   ctaButtonUrl?: string;
+  /**
+   * Custom slot for rendering CTA (overrides CTA props)
+   */
+  ctaSlot?: React.ReactNode;
   /**
    * Background style variant for the section
    * @default "gray"
@@ -73,11 +78,79 @@ export interface TeamExpertiseCardsProps {
    * Vertical spacing/margin variant
    * @default "lg"
    */
-  verticalMargin?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each member card
+   */
+  memberCardClassName?: string;
+  /**
+   * Additional CSS classes for the avatar
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the member name
+   */
+  memberNameClassName?: string;
+  /**
+   * Additional CSS classes for the member role
+   */
+  memberRoleClassName?: string;
+  /**
+   * Additional CSS classes for the department badge
+   */
+  departmentBadgeClassName?: string;
+  /**
+   * Additional CSS classes for the member description
+   */
+  memberDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the expertise badges container
+   */
+  expertiseClassName?: string;
+  /**
+   * Additional CSS classes for the CTA section
+   */
+  ctaSectionClassName?: string;
+  /**
+   * Additional CSS classes for the CTA heading
+   */
+  ctaHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the CTA description
+   */
+  ctaDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the CTA button
+   */
+  ctaButtonClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -182,99 +255,180 @@ export function TeamExpertiseCards({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
   members = defaultMembers,
+  membersSlot,
   ctaHeading = "Ready to build the future with us?",
   ctaDescription = "We're always looking for talented individuals who share our passion for innovation and making a difference. Check out our current openings.",
   ctaButtonText = "Explore Careers",
   ctaButtonUrl = "#",
+  ctaSlot,
   background = "gray",
-  verticalMargin = "lg",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  memberCardClassName,
+  avatarClassName,
+  memberNameClassName,
+  memberRoleClassName,
+  departmentBadgeClassName,
+  memberDescriptionClassName,
+  expertiseClassName,
+  ctaSectionClassName,
+  ctaHeadingClassName,
+  ctaDescriptionClassName,
+  ctaButtonClassName,
 }: TeamExpertiseCardsProps): React.JSX.Element {
+  const renderMembers = () => {
+    if (membersSlot) return membersSlot;
+    if (!members || members.length === 0) return null;
+
+    return members.map((member) => (
+      <Card
+        key={member.id}
+        className={cn(
+          "group border-0 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg",
+          memberCardClassName
+        )}
+      >
+        <CardContent className="p-6">
+          <div className="relative mb-6">
+            <Avatar className={cn("mx-auto h-20 w-20", avatarClassName)}>
+              <AvatarImage src={member.avatar} alt={member.name} />
+              <AvatarFallback className="bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
+                {member.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+              </AvatarFallback>
+            </Avatar>
+          </div>
+
+          <div className="mb-4 text-center">
+            <h3
+              className={cn(
+                "mb-1 text-lg font-semibold transition-colors group-hover:text-primary",
+                memberNameClassName
+              )}
+            >
+              {member.name}
+            </h3>
+            <p className={cn("mb-2 text-sm font-medium text-primary", memberRoleClassName)}>
+              {member.role}
+            </p>
+            <Badge variant="outline" className={cn("text-xs", departmentBadgeClassName)}>
+              {member.department}
+            </Badge>
+          </div>
+
+          <p
+            className={cn(
+              "mb-4 text-sm leading-relaxed text-muted-foreground",
+              memberDescriptionClassName
+            )}
+          >
+            {member.description}
+          </p>
+
+          <div className={cn("flex flex-wrap gap-1", expertiseClassName)}>
+            {member.expertise.map((skill, index) => (
+              <Badge
+                key={index}
+                variant="secondary"
+                className="bg-muted/50 px-2 py-1 text-xs"
+              >
+                {skill}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    ));
+  };
+
+  const renderCta = () => {
+    if (ctaSlot) return ctaSlot;
+
+    return (
+      <div className={cn("mt-16 border-t pt-16 text-center", ctaSectionClassName)}>
+        {ctaHeading && (
+          typeof ctaHeading === "string" ? (
+            <h3 className={cn("mb-4 text-2xl font-semibold", ctaHeadingClassName)}>
+              {ctaHeading}
+            </h3>
+          ) : (
+            <div className={ctaHeadingClassName}>{ctaHeading}</div>
+          )
+        )}
+        {ctaDescription && (
+          typeof ctaDescription === "string" ? (
+            <p className={cn("mx-auto mb-6 max-w-2xl text-muted-foreground", ctaDescriptionClassName)}>
+              {ctaDescription}
+            </p>
+          ) : (
+            <div className={ctaDescriptionClassName}>{ctaDescription}</div>
+          )
+        )}
+        <Pressable
+          href={ctaButtonUrl}
+          variant="default"
+          size="lg"
+          asButton
+          className={cn("px-8", ctaButtonClassName)}
+        >
+          {ctaButtonText}
+        </Pressable>
+      </div>
+    );
+  };
+
   return (
     <Section
       background={background}
-      spacing={verticalMargin}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={className}
     >
-      <Container>
-        <div className="mb-16 text-center">
-          <h2 className="mb-6 text-4xl font-bold tracking-tight lg:text-5xl">
-            {heading}
-          </h2>
-          {description && (
-            <p className="mx-auto max-w-3xl text-xl leading-relaxed text-muted-foreground">
+      <div className={cn("mb-16 text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "mb-6 text-4xl font-bold tracking-tight lg:text-5xl",
+                headingClassName
+              )}
+            >
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p
+              className={cn(
+                "mx-auto max-w-3xl text-xl leading-relaxed text-muted-foreground",
+                descriptionClassName
+              )}
+            >
               {description}
             </p>
-          )}
-        </div>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+      </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {members.map((member) => (
-            <Card
-              key={member.id}
-              className="group border-0 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg"
-            >
-              <CardContent className="p-6">
-                <div className="relative mb-6">
-                  <Avatar className="mx-auto h-20 w-20">
-                    <AvatarImage src={member.avatar} alt={member.name} />
-                    <AvatarFallback className="bg-linear-to-br from-primary/20 to-secondary/20 text-2xl font-bold text-primary">
-                      {member.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
+      <div className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {renderMembers()}
+      </div>
 
-                <div className="mb-4 text-center">
-                  <h3 className="mb-1 text-lg font-semibold transition-colors group-hover:text-primary">
-                    {member.name}
-                  </h3>
-                  <p className="mb-2 text-sm font-medium text-primary">
-                    {member.role}
-                  </p>
-                  <Badge variant="outline" className="text-xs">
-                    {member.department}
-                  </Badge>
-                </div>
-
-                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                  {member.description}
-                </p>
-
-                <div className="flex flex-wrap gap-1">
-                  {member.expertise.map((skill, index) => (
-                    <Badge
-                      key={index}
-                      variant="secondary"
-                      className="bg-muted/50 px-2 py-1 text-xs"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-16 border-t pt-16 text-center">
-          <h3 className="mb-4 text-2xl font-semibold">{ctaHeading}</h3>
-          <p className="mx-auto mb-6 max-w-2xl text-muted-foreground">
-            {ctaDescription}
-          </p>
-          <Pressable
-            href={ctaButtonUrl}
-            variant="default"
-            size="lg"
-            asButton
-            className="px-8"
-          >
-            {ctaButtonText}
-          </Pressable>
-        </div>
-      </Container>
+      {renderCta()}
     </Section>
   );
 }

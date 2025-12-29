@@ -1,20 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Container } from "../../ui/container";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Pressable } from "../../../lib/Pressable";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-/**
- * Configuration for Optix Flow image optimization
- */
-export interface OptixFlowConfig {
-  apiKey: string;
-  compression?: number;
-}
 
 /**
  * Individual team member for TeamCompactCta
@@ -34,25 +31,33 @@ export interface TeamCompactCtaProps {
    * Section heading
    * @default "Team"
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Section description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of team members to display
    */
   members?: TeamCompactCtaMember[];
   /**
+   * Custom slot for rendering members (overrides members array)
+   */
+  membersSlot?: React.ReactNode;
+  /**
    * CTA button text
    * @default "Join Our Team"
    */
-  ctaButtonText?: string;
+  ctaButtonText?: React.ReactNode;
   /**
    * CTA button URL
    * @default "#"
    */
   ctaButtonUrl?: string;
+  /**
+   * Custom slot for rendering CTA (overrides ctaButtonText and ctaButtonUrl)
+   */
+  ctaSlot?: React.ReactNode;
   /**
    * Background style variant for the section
    * @default "white"
@@ -62,11 +67,55 @@ export interface TeamCompactCtaProps {
    * Vertical spacing/margin variant
    * @default "lg"
    */
-  verticalMargin?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each member card
+   */
+  memberCardClassName?: string;
+  /**
+   * Additional CSS classes for the avatar
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the member name
+   */
+  memberNameClassName?: string;
+  /**
+   * Additional CSS classes for the member role
+   */
+  memberRoleClassName?: string;
+  /**
+   * Additional CSS classes for the CTA container
+   */
+  ctaClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -126,61 +175,116 @@ export function TeamCompactCta({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
   members = defaultMembers,
+  membersSlot,
   ctaButtonText = "Join Our Team",
   ctaButtonUrl = "#",
+  ctaSlot,
   background = "white",
-  verticalMargin = "lg",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  memberCardClassName,
+  avatarClassName,
+  memberNameClassName,
+  memberRoleClassName,
+  ctaClassName,
 }: TeamCompactCtaProps): React.JSX.Element {
+  const renderMembers = () => {
+    if (membersSlot) return membersSlot;
+    if (!members || members.length === 0) return null;
+
+    return members.map((member) => (
+      <div
+        key={member.id}
+        className={cn("flex flex-col items-center text-center", memberCardClassName)}
+      >
+        <Avatar className={cn("mb-4 size-20 border lg:size-24", avatarClassName)}>
+          <AvatarImage src={member.avatar} alt={member.name} />
+          <AvatarFallback className="text-xl font-bold">
+            {member.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
+          </AvatarFallback>
+        </Avatar>
+        <h3 className={cn("font-semibold", memberNameClassName)}>{member.name}</h3>
+        <p className={cn("text-sm text-muted-foreground", memberRoleClassName)}>
+          {member.role}
+        </p>
+      </div>
+    ));
+  };
+
+  const renderCta = () => {
+    if (ctaSlot) return ctaSlot;
+
+    return (
+      <Pressable
+        href={ctaButtonUrl}
+        variant="default"
+        size="lg"
+        asButton
+        className="px-8"
+      >
+        {ctaButtonText}
+      </Pressable>
+    );
+  };
+
   return (
     <Section
       background={background}
-      spacing={verticalMargin}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={className}
     >
-      <Container>
-        <div className="flex flex-col items-center text-center">
-          <h2 className="my-6 text-2xl font-bold text-pretty lg:text-4xl">
-            {heading}
-          </h2>
-          {description && (
-            <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">
+      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "my-6 text-2xl font-bold text-pretty lg:text-4xl",
+                headingClassName
+              )}
+            >
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p
+              className={cn(
+                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                descriptionClassName
+              )}
+            >
               {description}
             </p>
-          )}
-        </div>
-        <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {members.map((member) => (
-            <div
-              key={member.id}
-              className="flex flex-col items-center text-center"
-            >
-              <Avatar className="mb-4 size-20 border lg:size-24">
-                <AvatarImage src={member.avatar} alt={member.name} />
-                <AvatarFallback className="text-xl font-bold">
-                  {member.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
-              <h3 className="font-semibold">{member.name}</h3>
-              <p className="text-sm text-muted-foreground">{member.role}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-12 text-center">
-          <Pressable
-            href={ctaButtonUrl}
-            variant="default"
-            size="lg"
-            asButton
-            className="px-8"
-          >
-            {ctaButtonText}
-          </Pressable>
-        </div>
-      </Container>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+      </div>
+      <div
+        className={cn(
+          "mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4",
+          gridClassName
+        )}
+      >
+        {renderMembers()}
+      </div>
+      <div className={cn("mt-12 text-center", ctaClassName)}>
+        {renderCta()}
+      </div>
     </Section>
   );
 }

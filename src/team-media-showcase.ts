@@ -14,5 +14,4 @@ export {
 export type {
   TeamMediaShowcaseProps,
   TeamMediaShowcaseItem,
-  OptixFlowConfig,
 } from "../components/blocks/team/team-media-showcase";

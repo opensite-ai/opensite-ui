@@ -2,24 +2,14 @@
 
 import * as React from "react";
 import { cn } from "../../../lib/utils";
-import { Container } from "../../ui/container";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
-
-/**
- * Configuration for Optix Flow image optimization
- */
-export interface OptixFlowConfig {
-  /**
-   * API key for Optix Flow service
-   */
-  apiKey: string;
-  /**
-   * Compression level (0-100)
-   */
-  compression?: number;
-}
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * Individual team member item for TeamMediaShowcase
@@ -62,13 +52,17 @@ export interface TeamMediaShowcaseProps {
    */
   items: TeamMediaShowcaseItem[];
   /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
    * Optional children to render above the grid (e.g., section header content)
    */
   children?: React.ReactNode;
   /**
    * Eyebrow text displayed above the grid
    */
-  listEyebrow?: string;
+  listEyebrow?: React.ReactNode;
   /**
    * Background style variant for the section
    * @default "white"
@@ -78,7 +72,15 @@ export interface TeamMediaShowcaseProps {
    * Vertical spacing/margin variant
    * @default "lg"
    */
-  verticalMargin?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Custom grid CSS classes
    * @default "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -88,6 +90,22 @@ export interface TeamMediaShowcaseProps {
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the eyebrow text
+   */
+  eyebrowClassName?: string;
+  /**
+   * Additional CSS classes for the member name
+   */
+  memberNameClassName?: string;
+  /**
+   * Additional CSS classes for the member role
+   */
+  memberRoleClassName?: string;
+  /**
+   * Additional CSS classes for the action container
+   */
+  actionClassName?: string;
   /**
    * Optional Optix Flow configuration for @page-speed/img
    */
@@ -186,83 +204,108 @@ TeamMemberBackgroundImageCard.displayName = "TeamMemberBackgroundImageCard";
  */
 export function TeamMediaShowcase({
   items,
+  itemsSlot,
   children,
   listEyebrow,
   background = "white",
-  verticalMargin = "lg",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   gridClassName = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
   className,
+  eyebrowClassName,
+  memberNameClassName,
+  memberRoleClassName,
+  actionClassName,
   optixFlowConfig,
 }: TeamMediaShowcaseProps): React.JSX.Element {
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+
+    return items.map((member, idx) => {
+      const imageAlt =
+        member.imageAlt ||
+        (member.name &&
+        typeof member.name === "string" &&
+        member.name.trim() !== ""
+          ? member.name
+          : `member-${idx}`);
+
+      return (
+        <TeamMemberBackgroundImageCard
+          key={idx}
+          imageUrl={member.imageSrc}
+          imageAlt={imageAlt}
+          className={member.cardClassName}
+          optixFlowConfig={optixFlowConfig}
+        >
+          <div className="relative flex h-full flex-col justify-end p-6 text-card-foreground">
+            <div className="space-y-4 transition-transform duration-500 ease-in-out md:group-hover:-translate-y-12">
+              <div>
+                {member.name &&
+                  typeof member.name === "string" &&
+                  member.name.trim() !== "" && (
+                    <h4 className={cn("text-3xl font-bold text-white", memberNameClassName)}>
+                      {member.name}
+                    </h4>
+                  )}
+                {member.role &&
+                  typeof member.role === "string" &&
+                  member.role.trim() !== "" && (
+                    <p className={cn("text-sm text-white/80", memberRoleClassName)}>
+                      {member.role}
+                    </p>
+                  )}
+              </div>
+            </div>
+
+            {member.action ? (
+              <div
+                className={cn(
+                  "mt-4 w-full md:absolute md:-bottom-20 md:left-0 md:mt-0 md:p-6 md:pt-2 md:opacity-0 md:transition-all md:duration-500 md:ease-in-out md:group-hover:bottom-0 md:group-hover:opacity-100",
+                  actionClassName
+                )}
+              >
+                {member.action}
+              </div>
+            ) : null}
+          </div>
+        </TeamMemberBackgroundImageCard>
+      );
+    });
+  };
+
   return (
     <Section
       background={background}
-      spacing={verticalMargin}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={className}
     >
-      <Container>
-        {children}
+      {children}
 
-        <div className="space-y-12">
-          <div className="space-y-6">
-            {listEyebrow &&
-              typeof listEyebrow === "string" &&
-              listEyebrow.trim() !== "" && (
-                <div className="text-md pt-8 uppercase text-dark-charcoal/70 tracking-[0.2em] font-semibold">
-                  {listEyebrow}
-                </div>
-              )}
-            <div className={gridClassName}>
-              {items.map((member, idx) => {
-                const imageAlt =
-                  member.imageAlt ||
-                  (member.name &&
-                  typeof member.name === "string" &&
-                  member.name.trim() !== ""
-                    ? member.name
-                    : `member-${idx}`);
-
-                return (
-                  <TeamMemberBackgroundImageCard
-                    key={idx}
-                    imageUrl={member.imageSrc}
-                    imageAlt={imageAlt}
-                    className={member.cardClassName}
-                    optixFlowConfig={optixFlowConfig}
-                  >
-                    <div className="relative flex h-full flex-col justify-end p-6 text-card-foreground">
-                      <div className="space-y-4 transition-transform duration-500 ease-in-out md:group-hover:-translate-y-12">
-                        <div>
-                          {member.name &&
-                            typeof member.name === "string" &&
-                            member.name.trim() !== "" && (
-                              <h4 className="text-3xl font-bold text-white">
-                                {member.name}
-                              </h4>
-                            )}
-                          {member.role &&
-                            typeof member.role === "string" &&
-                            member.role.trim() !== "" && (
-                              <p className="text-sm text-white/80">
-                                {member.role}
-                              </p>
-                            )}
-                        </div>
-                      </div>
-
-                      {member.action ? (
-                        <div className="mt-4 w-full md:absolute md:-bottom-20 md:left-0 md:mt-0 md:p-6 md:pt-2 md:opacity-0 md:transition-all md:duration-500 md:ease-in-out md:group-hover:bottom-0 md:group-hover:opacity-100">
-                          {member.action}
-                        </div>
-                      ) : null}
-                    </div>
-                  </TeamMemberBackgroundImageCard>
-                );
-              })}
-            </div>
+      <div className="space-y-12">
+        <div className="space-y-6">
+          {listEyebrow && (
+            typeof listEyebrow === "string" && listEyebrow.trim() !== "" ? (
+              <div
+                className={cn(
+                  "text-md pt-8 uppercase text-dark-charcoal/70 tracking-[0.2em] font-semibold",
+                  eyebrowClassName
+                )}
+              >
+                {listEyebrow}
+              </div>
+            ) : (
+              <div className={eyebrowClassName}>{listEyebrow}</div>
+            )
+          )}
+          <div className={gridClassName}>
+            {renderItems()}
           </div>
         </div>
-      </Container>
+      </div>
     </Section>
   );
 }

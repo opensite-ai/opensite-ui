@@ -1,19 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { Container } from "../../ui/container";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-/**
- * Configuration for Optix Flow image optimization
- */
-export interface OptixFlowConfig {
-  apiKey: string;
-  compression?: number;
-}
 
 /**
  * Individual team member for TeamSimpleGrid
@@ -33,15 +30,19 @@ export interface TeamSimpleGridProps {
    * Section heading
    * @default "Team"
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Section description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of team members to display
    */
   members?: TeamSimpleGridMember[];
+  /**
+   * Custom slot for rendering members (overrides members array)
+   */
+  membersSlot?: React.ReactNode;
   /**
    * Background style variant for the section
    * @default "white"
@@ -51,11 +52,51 @@ export interface TeamSimpleGridProps {
    * Vertical spacing/margin variant
    * @default "lg"
    */
-  verticalMargin?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each member card
+   */
+  memberCardClassName?: string;
+  /**
+   * Additional CSS classes for the avatar
+   */
+  avatarClassName?: string;
+  /**
+   * Additional CSS classes for the member name
+   */
+  memberNameClassName?: string;
+  /**
+   * Additional CSS classes for the member role
+   */
+  memberRoleClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -124,45 +165,105 @@ export function TeamSimpleGrid({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
   members = defaultMembers,
+  membersSlot,
   background = "white",
-  verticalMargin = "lg",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  memberCardClassName,
+  avatarClassName,
+  memberNameClassName,
+  memberRoleClassName,
 }: TeamSimpleGridProps): React.JSX.Element {
+  const renderMembers = () => {
+    if (membersSlot) return membersSlot;
+    if (!members || members.length === 0) return null;
+
+    return members.map((member) => (
+      <div
+        key={member.id}
+        className={cn("flex flex-col items-center", memberCardClassName)}
+      >
+        <Avatar
+          className={cn(
+            "mb-4 size-20 border md:mb-5 lg:size-24",
+            avatarClassName
+          )}
+        >
+          <AvatarImage src={member.avatar} alt={member.name} />
+          <AvatarFallback>
+            {member.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
+          </AvatarFallback>
+        </Avatar>
+        <p className={cn("text-center font-medium", memberNameClassName)}>
+          {member.name}
+        </p>
+        <p
+          className={cn(
+            "text-center text-muted-foreground",
+            memberRoleClassName
+          )}
+        >
+          {member.role}
+        </p>
+      </div>
+    ));
+  };
+
   return (
     <Section
       background={background}
-      spacing={verticalMargin}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={className}
     >
-      <Container>
-        <div className="flex flex-col items-center text-center">
-          <h2 className="my-6 text-2xl font-bold text-pretty lg:text-4xl">
-            {heading}
-          </h2>
-          {description && (
-            <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">
+      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "my-6 text-2xl font-bold text-pretty lg:text-4xl",
+                headingClassName
+              )}
+            >
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p
+              className={cn(
+                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                descriptionClassName
+              )}
+            >
               {description}
             </p>
-          )}
-        </div>
-        <div className="mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-          {members.map((member) => (
-            <div key={member.id} className="flex flex-col items-center">
-              <Avatar className="mb-4 size-20 border md:mb-5 lg:size-24">
-                <AvatarImage src={member.avatar} alt={member.name} />
-                <AvatarFallback>
-                  {member.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
-              <p className="text-center font-medium">{member.name}</p>
-              <p className="text-center text-muted-foreground">{member.role}</p>
-            </div>
-          ))}
-        </div>
-      </Container>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+      </div>
+      <div
+        className={cn(
+          "mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName
+        )}
+      >
+        {renderMembers()}
+      </div>
     </Section>
   );
 }

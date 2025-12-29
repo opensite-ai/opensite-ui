@@ -1,21 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { Container } from "../../ui/container";
+import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-
-/**
- * Configuration for Optix Flow image optimization
- */
-export interface OptixFlowConfig {
-  apiKey: string;
-  compression?: number;
-}
 
 /**
  * Social links for team member
@@ -45,15 +42,19 @@ export interface TeamHoverHighlightProps {
    * Section heading
    * @default "Team"
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Section description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of team members to display
    */
   members?: TeamHoverHighlightMember[];
+  /**
+   * Custom slot for rendering members (overrides members array)
+   */
+  membersSlot?: React.ReactNode;
   /**
    * Background style variant for the section
    * @default "white"
@@ -63,11 +64,55 @@ export interface TeamHoverHighlightProps {
    * Vertical spacing/margin variant
    * @default "lg"
    */
-  verticalMargin?: SectionSpacing;
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each member card
+   */
+  memberCardClassName?: string;
+  /**
+   * Additional CSS classes for the member image
+   */
+  memberImageClassName?: string;
+  /**
+   * Additional CSS classes for the member name
+   */
+  memberNameClassName?: string;
+  /**
+   * Additional CSS classes for the member role
+   */
+  memberRoleClassName?: string;
+  /**
+   * Additional CSS classes for the social links container
+   */
+  socialLinksClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -148,81 +193,140 @@ export function TeamHoverHighlight({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
   members = defaultMembers,
+  membersSlot,
   background = "white",
-  verticalMargin = "lg",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  gridClassName,
+  memberCardClassName,
+  memberImageClassName,
+  memberNameClassName,
+  memberRoleClassName,
+  socialLinksClassName,
   optixFlowConfig,
 }: TeamHoverHighlightProps): React.JSX.Element {
+  const renderMembers = () => {
+    if (membersSlot) return membersSlot;
+    if (!members || members.length === 0) return null;
+
+    return members.map((member) => (
+      <div
+        key={member.id}
+        className={cn(
+          "relative flex flex-col items-center rounded-xl p-6 transition-all duration-300 group-hover:opacity-50 hover:opacity-100! hover:bg-muted/50",
+          memberCardClassName
+        )}
+      >
+        <div className="relative mb-4 overflow-hidden rounded-full">
+          <Img
+            src={member.image}
+            alt={member.name}
+            width={120}
+            height={120}
+            className={cn(
+              "size-28 rounded-full object-cover transition-transform duration-300 hover:scale-110",
+              memberImageClassName
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+        <h3 className={cn("text-lg font-semibold", memberNameClassName)}>
+          {member.name}
+        </h3>
+        <p className={cn("text-sm text-muted-foreground", memberRoleClassName)}>
+          {member.role}
+        </p>
+        {member.social && (
+          <div
+            className={cn(
+              "mt-4 flex gap-3 text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100",
+              socialLinksClassName
+            )}
+          >
+            {member.social.github && (
+              <Pressable
+                href={member.social.github}
+                className="hover:text-foreground transition-colors"
+                aria-label={`${member.name}'s GitHub`}
+              >
+                <DynamicIcon name="lucide/github" size={18} />
+              </Pressable>
+            )}
+            {member.social.twitter && (
+              <Pressable
+                href={member.social.twitter}
+                className="hover:text-foreground transition-colors"
+                aria-label={`${member.name}'s Twitter`}
+              >
+                <DynamicIcon name="lucide/twitter" size={18} />
+              </Pressable>
+            )}
+            {member.social.linkedin && (
+              <Pressable
+                href={member.social.linkedin}
+                className="hover:text-foreground transition-colors"
+                aria-label={`${member.name}'s LinkedIn`}
+              >
+                <DynamicIcon name="lucide/linkedin" size={18} />
+              </Pressable>
+            )}
+          </div>
+        )}
+      </div>
+    ));
+  };
+
   return (
     <Section
       background={background}
-      spacing={verticalMargin}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={className}
     >
-      <Container>
-        <div className="flex flex-col items-center text-center">
-          <h2 className="my-6 text-2xl font-bold text-pretty lg:text-4xl">
-            {heading}
-          </h2>
-          {description && (
-            <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">
+      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "my-6 text-2xl font-bold text-pretty lg:text-4xl",
+                headingClassName
+              )}
+            >
+              {heading}
+            </h2>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p
+              className={cn(
+                "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
+                descriptionClassName
+              )}
+            >
               {description}
             </p>
-          )}
-        </div>
-        <div className="group mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {members.map((member) => (
-            <div
-              key={member.id}
-              className="relative flex flex-col items-center rounded-xl p-6 transition-all duration-300 group-hover:opacity-50 hover:opacity-100! hover:bg-muted/50"
-            >
-              <div className="relative mb-4 overflow-hidden rounded-full">
-                <Img
-                  src={member.image}
-                  alt={member.name}
-                  width={120}
-                  height={120}
-                  className="size-28 rounded-full object-cover transition-transform duration-300 hover:scale-110"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-              <h3 className="text-lg font-semibold">{member.name}</h3>
-              <p className="text-sm text-muted-foreground">{member.role}</p>
-              {member.social && (
-                <div className="mt-4 flex gap-3 text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  {member.social.github && (
-                    <Pressable
-                      href={member.social.github}
-                      className="hover:text-foreground transition-colors"
-                      aria-label={`${member.name}'s GitHub`}
-                    >
-                      <DynamicIcon name="lucide/github" size={18} />
-                    </Pressable>
-                  )}
-                  {member.social.twitter && (
-                    <Pressable
-                      href={member.social.twitter}
-                      className="hover:text-foreground transition-colors"
-                      aria-label={`${member.name}'s Twitter`}
-                    >
-                      <DynamicIcon name="lucide/twitter" size={18} />
-                    </Pressable>
-                  )}
-                  {member.social.linkedin && (
-                    <Pressable
-                      href={member.social.linkedin}
-                      className="hover:text-foreground transition-colors"
-                      aria-label={`${member.name}'s LinkedIn`}
-                    >
-                      <DynamicIcon name="lucide/linkedin" size={18} />
-                    </Pressable>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </Container>
+          ) : (
+            <div className={descriptionClassName}>{description}</div>
+          )
+        )}
+      </div>
+      <div
+        className={cn(
+          "group mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName
+        )}
+      >
+        {renderMembers()}
+      </div>
     </Section>
   );
 }
