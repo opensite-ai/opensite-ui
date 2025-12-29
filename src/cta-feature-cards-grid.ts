@@ -8,7 +8,4 @@
  */
 
 export { CtaFeatureCardsGrid } from "../components/blocks/cta/cta-feature-cards-grid";
-export type {
-  CtaFeatureCardsGridProps,
-  CtaFeatureCard,
-} from "../components/blocks/cta/cta-feature-cards-grid";
+export type { CtaFeatureCardsGridProps } from "../components/blocks/cta/cta-feature-cards-grid";

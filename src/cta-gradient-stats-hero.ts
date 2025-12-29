@@ -8,7 +8,4 @@
  */
 
 export { CtaGradientStatsHero } from "../components/blocks/cta/cta-gradient-stats-hero";
-export type {
-  CtaGradientStatsHeroProps,
-  CtaGradientStatItem,
-} from "../components/blocks/cta/cta-gradient-stats-hero";
+export type { CtaGradientStatsHeroProps } from "../components/blocks/cta/cta-gradient-stats-hero";

@@ -3,43 +3,81 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-
-export interface CtaAccentBackgroundButton {
-  /**
-   * Button text
-   */
-  text?: string;
-  /**
-   * Button URL
-   */
-  url?: string;
-  /**
-   * Additional CSS classes for the button
-   */
-  className?: string;
-}
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaAccentBackgroundProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Primary and secondary button configuration
+   * Array of action configurations for CTA buttons
    */
-  buttons?: {
-    primary?: CtaAccentBackgroundButton;
-    secondary?: CtaAccentBackgroundButton;
-  };
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the card wrapper
+   */
+  cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
+
+const defaultActions: ActionConfig[] = [
+  { label: "Buy Now", href: "#", variant: "default", size: "lg" },
+  { label: "Contact Us", href: "#", variant: "outline", size: "lg" },
+];
 
 /**
  * CtaAccentBackground - A CTA section with an accent-colored background,
@@ -51,66 +89,97 @@ export interface CtaAccentBackgroundProps {
  * <CtaAccentBackground
  *   heading="Ready to get started?"
  *   description="Join thousands of satisfied customers today."
- *   buttons={{
- *     primary: { text: "Buy Now", url: "/pricing" },
- *     secondary: { text: "Contact Us", url: "/contact" }
- *   }}
+ *   actions={[
+ *     { label: "Buy Now", href: "/pricing", variant: "default" },
+ *     { label: "Contact Us", href: "/contact", variant: "outline" }
+ *   ]}
  * />
  * ```
  */
 export function CtaAccentBackground({
   heading = "Call to Action",
   description = "Build faster with our collection of pre-built blocks. Speed up your development and ship features in record time.",
-  buttons = {
-    primary: {
-      text: "Buy Now",
-      url: "#",
-    },
-    secondary: {
-      text: "Contact Us",
-      url: "#",
-    },
-  },
+  actions = defaultActions,
+  actionsSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  cardClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: CtaAccentBackgroundProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "flex flex-col gap-3 sm:flex-row sm:gap-4",
+          actionsClassName
+        )}
+      >
+        {actions.map((action, index) => (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant}
+            size={action.size}
+            className={cn("w-full sm:w-auto", action.className)}
+            aria-label={action["aria-label"]}
+            asButton
+          >
+            {action.icon}
+            {action.children ?? action.label}
+            {action.iconAfter}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="rounded-lg bg-accent p-8 md:rounded-xl lg:p-12">
-          <div className="max-w-4xl">
-            <h3 className="mb-4 text-3xl font-semibold md:text-5xl lg:mb-6 lg:text-6xl">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <div
+          className={cn(
+            "rounded-lg bg-accent p-8 md:rounded-xl lg:p-12",
+            cardClassName
+          )}
+        >
+          <div className={cn("max-w-4xl", contentClassName)}>
+            <h3
+              className={cn(
+                "mb-4 text-3xl font-semibold md:text-5xl lg:mb-6 lg:text-6xl",
+                headingClassName
+              )}
+            >
               {heading}
             </h3>
-            <p className="mb-8 text-lg font-medium text-muted-foreground lg:text-xl">
+            <p
+              className={cn(
+                "mb-8 text-lg font-medium text-muted-foreground lg:text-xl",
+                descriptionClassName
+              )}
+            >
               {description}
             </p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-              {buttons?.primary && (
-                <Pressable
-                  href={buttons.primary.url}
-                  variant="default"
-                  size="lg"
-                  className={cn("w-full sm:w-auto", buttons.primary.className)}
-                  asButton
-                >
-                  {buttons.primary.text}
-                </Pressable>
-              )}
-              {buttons?.secondary && (
-                <Pressable
-                  href={buttons.secondary.url}
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                  asButton
-                >
-                  {buttons.secondary.text}
-                </Pressable>
-              )}
-            </div>
+            {renderActions()}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

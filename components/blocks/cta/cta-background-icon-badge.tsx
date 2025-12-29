@@ -5,36 +5,39 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaBackgroundIconBadgeProps {
   /**
    * Icon name for the badge (e.g., "lucide/zap")
    */
-  badgeIcon?: string;
+  badgeIconName?: string;
+  /**
+   * Custom badge icon element
+   */
+  badgeIcon?: React.ReactNode;
   /**
    * Badge text next to the icon
    */
-  badgeText?: string;
+  badgeText?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Primary button text
+   * Array of action configurations for CTA buttons
    */
-  primaryButtonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  primaryButtonUrl?: string;
-  /**
-   * Secondary button text
-   */
-  secondaryButtonText?: string;
-  /**
-   * Secondary button URL
-   */
-  secondaryButtonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Background image URL
    */
@@ -43,7 +46,52 @@ export interface CtaBackgroundIconBadgeProps {
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the card wrapper
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
+
+const defaultActions: ActionConfig[] = [
+  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
+  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
+];
 
 /**
  * CtaBackgroundIconBadge - A full-width CTA with background image, icon badge,
@@ -53,63 +101,122 @@ export interface CtaBackgroundIconBadgeProps {
  * @example
  * ```tsx
  * <CtaBackgroundIconBadge
- *   badgeIcon="lucide/zap"
+ *   badgeIconName="lucide/zap"
  *   badgeText="Faster"
  *   heading="Build your website faster"
- *   primaryButtonText="Get Started"
- *   primaryButtonUrl="/signup"
+ *   actions={[
+ *     { label: "Get Started", href: "/signup", variant: "secondary", size: "lg" },
+ *     { label: "Learn More", href: "/learn", variant: "outline", size: "lg" }
+ *   ]}
  *   backgroundImage="/hero-bg.jpg"
  * />
  * ```
  */
 export function CtaBackgroundIconBadge({
-  badgeIcon = "lucide/zap",
+  badgeIconName = "lucide/zap",
+  badgeIcon,
   badgeText = "Faster",
   heading = "Build your website faster.",
-  primaryButtonText = "Get Started",
-  primaryButtonUrl = "#",
-  secondaryButtonText = "Learn More",
-  secondaryButtonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   backgroundImage = imagePlaceholders[5],
   className,
+  containerClassName,
+  cardClassName,
+  contentClassName,
+  badgeClassName,
+  headingClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: CtaBackgroundIconBadgeProps): React.JSX.Element {
-  return (
-    <section className={cn("py-32", className)}>
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
       <div
-        className="flex h-[620px] items-center justify-center bg-cover bg-center"
+        className={cn(
+          "flex flex-col justify-center gap-2 sm:flex-row",
+          actionsClassName
+        )}
+      >
+        {actions.map((action, index) => {
+          const isOutlineOnDark =
+            action.variant === "outline" && !action.className;
+          return (
+            <Pressable
+              key={index}
+              href={action.href}
+              onClick={action.onClick}
+              variant={action.variant}
+              size={action.size}
+              className={cn(
+                isOutlineOnDark &&
+                  "border-0 bg-background/20 backdrop-blur-sm hover:bg-background/30 hover:text-primary-foreground",
+                action.className
+              )}
+              aria-label={action["aria-label"]}
+              asButton
+            >
+              {action.icon}
+              {action.children ?? action.label}
+              {action.iconAfter}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div
+        className={cn(
+          "flex h-[620px] items-center justify-center bg-cover bg-center",
+          cardClassName
+        )}
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)), url('${backgroundImage}')`,
         }}
       >
-        <div className="container">
-          <div className="flex flex-col gap-8 p-4 text-center text-primary-foreground">
-            <div className="flex items-center justify-center gap-2 text-2xl font-medium">
-              <DynamicIcon name={badgeIcon} size={28} className="h-full" />
+        <div className={cn("container", containerClassName)}>
+          <div
+            className={cn(
+              "flex flex-col gap-8 p-4 text-center text-primary-foreground",
+              contentClassName
+            )}
+          >
+            <div
+              className={cn(
+                "flex items-center justify-center gap-2 text-2xl font-medium",
+                badgeClassName
+              )}
+            >
+              {badgeIcon ?? (
+                <DynamicIcon
+                  name={badgeIconName}
+                  size={28}
+                  className="h-full"
+                />
+              )}
               {badgeText}
             </div>
-            <h2 className="text-5xl font-bold">{heading}</h2>
-            <div className="flex flex-col justify-center gap-2 sm:flex-row">
-              <Pressable
-                href={primaryButtonUrl}
-                variant="secondary"
-                size="lg"
-                asButton
-              >
-                {primaryButtonText}
-              </Pressable>
-              <Pressable
-                href={secondaryButtonUrl}
-                variant="outline"
-                size="lg"
-                className="border-0 bg-background/20 backdrop-blur-sm hover:bg-background/30 hover:text-primary-foreground"
-                asButton
-              >
-                {secondaryButtonText}
-              </Pressable>
-            </div>
+            <h2 className={cn("text-5xl font-bold", headingClassName)}>
+              {heading}
+            </h2>
+            {renderActions()}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

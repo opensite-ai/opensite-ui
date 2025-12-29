@@ -5,20 +5,27 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaImageOverlayArrowProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Button text
+   * Array of action configurations for CTA buttons
    */
-  buttonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  buttonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Background image URL
    */
@@ -27,7 +34,47 @@ export interface CtaImageOverlayArrowProps {
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the card wrapper
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
+
+const defaultActions: ActionConfig[] = [
+  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
+];
 
 /**
  * CtaImageOverlayArrow - A CTA section with a background image, centered heading,
@@ -38,49 +85,93 @@ export interface CtaImageOverlayArrowProps {
  * ```tsx
  * <CtaImageOverlayArrow
  *   heading="Start Your Journey"
- *   buttonText="Get Started"
- *   buttonUrl="/signup"
+ *   actions={[
+ *     { label: "Get Started", href: "/signup", variant: "secondary", size: "lg" }
+ *   ]}
  *   backgroundImage="/hero-bg.jpg"
  * />
  * ```
  */
 export function CtaImageOverlayArrow({
   heading = "Start Your Journey Today",
-  buttonText = "Get Started",
-  buttonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   backgroundImage = imagePlaceholders[7],
   className,
+  containerClassName,
+  cardClassName,
+  contentClassName,
+  headingClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: CtaImageOverlayArrowProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => (
+      <Pressable
+        key={index}
+        href={action.href}
+        onClick={action.onClick}
+        variant={action.variant}
+        size={action.size}
+        className={cn("group", action.className)}
+        aria-label={action["aria-label"]}
+        asButton
+      >
+        {action.icon}
+        {action.children ?? action.label}
+        {action.iconAfter ?? (
+          <DynamicIcon
+            name="lucide/arrow-right"
+            size={20}
+            className="ml-2 transition-transform group-hover:translate-x-1"
+          />
+        )}
+      </Pressable>
+    ));
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
         <div
-          className="flex h-[500px] items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center"
+          className={cn(
+            "flex h-[500px] items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center",
+            cardClassName
+          )}
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('${backgroundImage}')`,
           }}
         >
-          <div className="flex flex-col items-center gap-8 p-4 text-center">
-            <h2 className="max-w-3xl text-4xl font-bold text-primary-foreground md:text-6xl">
+          <div
+            className={cn(
+              "flex flex-col items-center gap-8 p-4 text-center",
+              contentClassName
+            )}
+          >
+            <h2
+              className={cn(
+                "max-w-3xl text-4xl font-bold text-primary-foreground md:text-6xl",
+                headingClassName
+              )}
+            >
               {heading}
             </h2>
-            <Pressable
-              href={buttonUrl}
-              variant="secondary"
-              size="lg"
-              className="group"
-              asButton
-            >
-              {buttonText}
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={20}
-                className="ml-2 transition-transform group-hover:translate-x-1"
-              />
-            </Pressable>
+            <div className={actionsClassName}>{renderActions()}</div>
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

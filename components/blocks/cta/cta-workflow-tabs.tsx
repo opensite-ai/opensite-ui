@@ -6,6 +6,14 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  StatItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaWorkflowTabItem {
   /**
@@ -15,62 +23,122 @@ export interface CtaWorkflowTabItem {
   /**
    * Tab label
    */
-  label?: string;
+  label?: React.ReactNode;
   /**
    * Tab icon name
    */
-  icon?: string;
+  iconName?: string;
+  /**
+   * Custom tab icon element
+   */
+  icon?: React.ReactNode;
   /**
    * Tab content heading
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Tab content description
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Stats to display
    */
-  stats?: Array<{ value: string; label: string }>;
+  stats?: StatItem[];
   /**
    * Image URL for the tab content
    */
   image?: string;
+  /**
+   * Additional CSS classes for the tab
+   */
+  className?: string;
 }
 
 export interface CtaWorkflowTabsProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Primary button text
+   * Array of action configurations for CTA buttons
    */
-  primaryButtonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  primaryButtonUrl?: string;
-  /**
-   * Secondary button text
-   */
-  secondaryButtonText?: string;
-  /**
-   * Secondary button URL
-   */
-  secondaryButtonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Array of tab items
    */
   tabs?: CtaWorkflowTabItem[];
   /**
+   * Custom slot for rendering tabs (overrides tabs array)
+   */
+  tabsSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the tabs wrapper
+   */
+  tabsWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the tab buttons container
+   */
+  tabButtonsClassName?: string;
+  /**
+   * Additional CSS classes for each tab button
+   */
+  tabButtonClassName?: string;
+  /**
+   * Additional CSS classes for the tab content area
+   */
+  tabContentClassName?: string;
+  /**
+   * Additional CSS classes for the tab image wrapper
+   */
+  tabImageClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -80,11 +148,16 @@ export interface CtaWorkflowTabsProps {
   };
 }
 
+const defaultActions: ActionConfig[] = [
+  { label: "Get Started", href: "#", variant: "default", size: "lg" },
+  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
+];
+
 const defaultTabs: CtaWorkflowTabItem[] = [
   {
     id: "design",
     label: "Design",
-    icon: "lucide/palette",
+    iconName: "lucide/palette",
     heading: "Design with ease",
     description:
       "Create beautiful interfaces with our intuitive design tools. No coding required.",
@@ -97,7 +170,7 @@ const defaultTabs: CtaWorkflowTabItem[] = [
   {
     id: "develop",
     label: "Develop",
-    icon: "lucide/code",
+    iconName: "lucide/code",
     heading: "Develop faster",
     description:
       "Write clean, maintainable code with our powerful development tools.",
@@ -110,7 +183,7 @@ const defaultTabs: CtaWorkflowTabItem[] = [
   {
     id: "deploy",
     label: "Deploy",
-    icon: "lucide/rocket",
+    iconName: "lucide/rocket",
     heading: "Deploy instantly",
     description:
       "Ship to production with one click. Automatic scaling and monitoring included.",
@@ -132,10 +205,12 @@ const defaultTabs: CtaWorkflowTabItem[] = [
  * <CtaWorkflowTabs
  *   heading="Build your workflow"
  *   description="From design to deployment, we've got you covered."
- *   primaryButtonText="Get Started"
- *   primaryButtonUrl="/signup"
+ *   actions={[
+ *     { label: "Get Started", href: "/signup", variant: "default" },
+ *     { label: "Learn More", href: "/about", variant: "outline" }
+ *   ]}
  *   tabs={[
- *     { id: "design", label: "Design", icon: "lucide/palette", ... }
+ *     { id: "design", label: "Design", iconName: "lucide/palette", ... }
  *   ]}
  * />
  * ```
@@ -143,105 +218,188 @@ const defaultTabs: CtaWorkflowTabItem[] = [
 export function CtaWorkflowTabs({
   heading = "Build your workflow",
   description = "From design to deployment, we've got you covered. Choose your path and start building today.",
-  primaryButtonText = "Get Started",
-  primaryButtonUrl = "#",
-  secondaryButtonText = "Learn More",
-  secondaryButtonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   tabs = defaultTabs,
+  tabsSlot,
   className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  tabsWrapperClassName,
+  tabButtonsClassName,
+  tabButtonClassName,
+  tabContentClassName,
+  tabImageClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: CtaWorkflowTabsProps): React.JSX.Element {
   const [activeTab, setActiveTab] = React.useState(tabs[0]?.id || "");
   const activeTabData = tabs.find((tab) => tab.id === activeTab) || tabs[0];
 
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="mb-4 text-3xl font-bold md:text-5xl">{heading}</h2>
-          <p className="mb-8 text-lg text-muted-foreground">{description}</p>
-          <div className="mb-8 flex flex-col justify-center gap-3 sm:flex-row">
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "mb-8 flex flex-col justify-center gap-3 sm:flex-row",
+          actionsClassName
+        )}
+      >
+        {actions.map((action, index) => {
+          const isFirstAction = index === 0;
+          return (
             <Pressable
-              href={primaryButtonUrl}
-              variant="default"
-              size="lg"
+              key={index}
+              href={action.href}
+              onClick={action.onClick}
+              variant={action.variant}
+              size={action.size}
+              className={action.className}
+              aria-label={action["aria-label"]}
               asButton
             >
-              {primaryButtonText}
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={16}
-                className="ml-2"
-              />
+              {action.icon}
+              {action.children ?? action.label}
+              {action.iconAfter ??
+                (isFirstAction && (
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="ml-2"
+                  />
+                ))}
             </Pressable>
-            <Pressable
-              href={secondaryButtonUrl}
-              variant="outline"
-              size="lg"
-              asButton
-            >
-              {secondaryButtonText}
-            </Pressable>
-          </div>
-        </div>
-
-        <div className="mt-12">
-          <div className="mb-8 flex justify-center">
-            <div className="inline-flex rounded-lg border bg-muted p-1">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={cn(
-                    "flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors",
-                    activeTab === tab.id
-                      ? "bg-background text-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  {tab.icon && <DynamicIcon name={tab.icon} size={16} />}
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {activeTabData && (
-            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-              <div>
-                <h3 className="mb-4 text-2xl font-bold md:text-3xl">
-                  {activeTabData.heading}
-                </h3>
-                <p className="mb-6 text-lg text-muted-foreground">
-                  {activeTabData.description}
-                </p>
-                {activeTabData.stats && (
-                  <div className="flex gap-8">
-                    {activeTabData.stats.map((stat, index) => (
-                      <div key={index}>
-                        <div className="text-3xl font-bold text-primary">
-                          {stat.value}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          {stat.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="overflow-hidden rounded-xl border shadow-lg">
-                <Img
-                  src={activeTabData.image || imagePlaceholders[0]}
-                  alt={activeTabData.heading || ""}
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-            </div>
-          )}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    );
+  };
+
+  const renderTabs = () => {
+    if (tabsSlot) return tabsSlot;
+    if (!tabs || tabs.length === 0) return null;
+
+    return (
+      <div className={cn("mt-12", tabsWrapperClassName)}>
+        <div className="mb-8 flex justify-center">
+          <div
+            className={cn(
+              "inline-flex rounded-lg border bg-muted p-1",
+              tabButtonsClassName
+            )}
+          >
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  "flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors",
+                  activeTab === tab.id
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground",
+                  tabButtonClassName,
+                  tab.className
+                )}
+              >
+                {tab.icon ??
+                  (tab.iconName && <DynamicIcon name={tab.iconName} size={16} />)}
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {activeTabData && (
+          <div
+            className={cn(
+              "grid gap-8 lg:grid-cols-2 lg:items-center",
+              tabContentClassName
+            )}
+          >
+            <div>
+              <h3 className="mb-4 text-2xl font-bold md:text-3xl">
+                {activeTabData.heading}
+              </h3>
+              <p className="mb-6 text-lg text-muted-foreground">
+                {activeTabData.description}
+              </p>
+              {activeTabData.stats && activeTabData.stats.length > 0 && (
+                <div className="flex gap-8">
+                  {activeTabData.stats.map((stat, index) => (
+                    <div key={index}>
+                      {stat.icon && <div className="mb-1">{stat.icon}</div>}
+                      <div className="text-3xl font-bold text-primary">
+                        {stat.value}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div
+              className={cn(
+                "overflow-hidden rounded-xl border shadow-lg",
+                tabImageClassName
+              )}
+            >
+              <Img
+                src={activeTabData.image || imagePlaceholders[0]}
+                alt={
+                  typeof activeTabData.heading === "string"
+                    ? activeTabData.heading
+                    : ""
+                }
+                className="h-full w-full object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
+          <h2
+            className={cn(
+              "mb-4 text-3xl font-bold md:text-5xl",
+              headingClassName
+            )}
+          >
+            {heading}
+          </h2>
+          <p
+            className={cn(
+              "mb-8 text-lg text-muted-foreground",
+              descriptionClassName
+            )}
+          >
+            {description}
+          </p>
+          {renderActions()}
+        </div>
+        {renderTabs()}
+      </div>
+    </Section>
   );
 }

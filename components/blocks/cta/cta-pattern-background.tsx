@@ -4,32 +4,32 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { patternSvgs } from "../../../lib/patternSvgs";
+import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaPatternBackgroundProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Primary button text
+   * Array of action configurations for CTA buttons
    */
-  primaryButtonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  primaryButtonUrl?: string;
-  /**
-   * Secondary button text
-   */
-  secondaryButtonText?: string;
-  /**
-   * Secondary button URL
-   */
-  secondaryButtonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Background pattern URL
    */
@@ -38,7 +38,52 @@ export interface CtaPatternBackgroundProps {
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the inner wrapper with pattern
+   */
+  innerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
+
+const defaultActions: ActionConfig[] = [
+  { label: "Get Started", href: "#", variant: "default", size: "lg" },
+  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
+];
 
 /**
  * CtaPatternBackground - A CTA section with a subtle pattern background,
@@ -50,8 +95,10 @@ export interface CtaPatternBackgroundProps {
  * <CtaPatternBackground
  *   heading="Start building your websites faster"
  *   description="Try our tools and services to build your website faster."
- *   primaryButtonText="Get Started"
- *   primaryButtonUrl="/signup"
+ *   actions={[
+ *     { label: "Get Started", href: "/signup", variant: "default", size: "lg" },
+ *     { label: "Learn More", href: "/learn", variant: "outline", size: "lg" }
+ *   ]}
  *   backgroundPattern="/pattern.svg"
  * />
  * ```
@@ -59,41 +106,84 @@ export interface CtaPatternBackgroundProps {
 export function CtaPatternBackground({
   heading = "Start building your websites faster",
   description = "Try our tools and services to build your website faster. Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.",
-  primaryButtonText = "Get Started",
-  primaryButtonUrl = "#",
-  secondaryButtonText = "Learn More",
-  secondaryButtonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   backgroundPattern = patternSvgs.grid1,
   className,
+  containerClassName,
+  innerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: CtaPatternBackgroundProps): React.JSX.Element {
-  return (
-    <section className={cn("py-32", className)}>
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
       <div
-        className="flex items-center justify-center border bg-cover bg-center py-20 text-center md:p-20"
+        className={cn(
+          "mt-11 flex flex-col justify-center gap-2 sm:flex-row",
+          actionsClassName
+        )}
+      >
+        {actions.map((action, index) => (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant}
+            size={action.size}
+            className={action.className}
+            aria-label={action["aria-label"]}
+            asButton
+          >
+            {action.icon}
+            {action.children ?? action.label}
+            {action.iconAfter}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div
+        className={cn(
+          "flex items-center justify-center border bg-cover bg-center py-20 text-center md:p-20",
+          innerClassName
+        )}
         style={{ backgroundImage: `url('${backgroundPattern}')` }}
       >
-        <div className="container">
-          <div className="mx-auto max-w-3xl">
-            <h1 className="mb-4 text-3xl font-semibold text-balance md:text-5xl">
+        <div className={cn("container", containerClassName)}>
+          <div className={cn("mx-auto max-w-3xl", contentClassName)}>
+            <h1
+              className={cn(
+                "mb-4 text-3xl font-semibold text-balance md:text-5xl",
+                headingClassName
+              )}
+            >
               {heading}
             </h1>
-            <p className="md:text-lg">{description}</p>
-            <div className="mt-11 flex flex-col justify-center gap-2 sm:flex-row">
-              <Pressable href={primaryButtonUrl} variant="default" size="lg" asButton>
-                {primaryButtonText}
-              </Pressable>
-              <Pressable
-                href={secondaryButtonUrl}
-                variant="outline"
-                size="lg"
-                asButton
-              >
-                {secondaryButtonText}
-              </Pressable>
-            </div>
+            <p className={cn("md:text-lg", descriptionClassName)}>
+              {description}
+            </p>
+            {renderActions()}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
