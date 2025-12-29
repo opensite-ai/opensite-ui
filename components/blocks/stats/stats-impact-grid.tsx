@@ -6,6 +6,9 @@ import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * An impact stat with icon, value, label, and description
@@ -18,31 +21,39 @@ export interface ImpactStat {
   /**
    * The stat value (e.g., "437", "2.4", "89")
    */
-  value: string;
+  value: React.ReactNode;
   /**
    * Prefix for the value (e.g., "$")
    */
-  prefix?: string;
+  prefix?: React.ReactNode;
   /**
    * Suffix for the value (e.g., "%", "B+", "x")
    */
-  suffix?: string;
+  suffix?: React.ReactNode;
   /**
    * The label for the stat
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * Description of the stat
    */
-  description: string;
+  description: React.ReactNode;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/line-chart")
    */
-  icon: string;
+  icon?: string;
+  /**
+   * Custom slot for icon (overrides icon prop)
+   */
+  iconSlot?: React.ReactNode;
   /**
    * Icon color class (e.g., "text-primary", "text-emerald-500")
    */
   iconColor?: string;
+  /**
+   * Additional CSS classes for the stat card
+   */
+  className?: string;
 }
 
 /**
@@ -50,61 +61,121 @@ export interface ImpactStat {
  */
 export interface StatsImpactGridProps {
   /**
-   * Additional CSS classes for the section
+   * Badge content above the heading
    */
-  className?: string;
+  badge?: React.ReactNode;
   /**
-   * Badge text above the heading
+   * Custom slot for badge (overrides badge prop)
    */
-  badge?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of impact stats to display
    */
   stats?: ImpactStat[];
   /**
+   * Custom slot for stats grid (overrides stats array)
+   */
+  statsSlot?: React.ReactNode;
+  /**
    * Industry comparison section heading
    */
-  comparisonHeading?: string;
+  comparisonHeading?: React.ReactNode;
   /**
    * Industry comparison description
    */
-  comparisonDescription?: string;
+  comparisonDescription?: React.ReactNode;
   /**
    * Industry average value
    */
-  industryAverage?: string;
+  industryAverage?: React.ReactNode;
   /**
    * Platform value
    */
-  platformValue?: string;
+  platformValue?: React.ReactNode;
+  /**
+   * Custom slot for comparison section (overrides comparison props)
+   */
+  comparisonSlot?: React.ReactNode;
   /**
    * CTA heading
    */
-  ctaHeading?: string;
+  ctaHeading?: React.ReactNode;
   /**
-   * Primary CTA button text
+   * Array of action buttons
    */
-  primaryButtonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary CTA button URL
+   * Custom slot for CTA section (overrides ctaHeading and actions)
    */
-  primaryButtonUrl?: string;
+  ctaSlot?: React.ReactNode;
   /**
-   * Secondary CTA button text
+   * Background style for the section
    */
-  secondaryButtonText?: string;
+  background?: SectionBackground;
   /**
-   * Secondary CTA button URL
+   * Vertical spacing for the section
    */
-  secondaryButtonUrl?: string;
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the stats grid
+   */
+  statsGridClassName?: string;
+  /**
+   * Additional CSS classes for stat cards
+   */
+  statCardClassName?: string;
+  /**
+   * Additional CSS classes for the comparison section
+   */
+  comparisonClassName?: string;
+  /**
+   * Additional CSS classes for the CTA section
+   */
+  ctaClassName?: string;
 }
 
 const defaultStats: ImpactStat[] = [
@@ -183,159 +254,253 @@ const defaultStats: ImpactStat[] = [
  * />
  * ```
  */
+const defaultActions: ActionConfig[] = [
+  { label: "Get Started", href: "#", variant: "default" },
+  { label: "View Case Studies", href: "#", variant: "outline" },
+];
+
 export function StatsImpactGrid({
-  className,
   badge = "Proven Results",
+  badgeSlot,
   heading = "Transforming Businesses With Real Numbers",
   description = "Our platform delivers measurable impact for businesses of all sizes. See the difference in black and white.",
   stats = defaultStats,
+  statsSlot,
   comparisonHeading = "How Does This Compare?",
   comparisonDescription = "Our platform delivers results that are 4x better than industry averages across all key performance indicators.",
   industryAverage = "24%",
   platformValue = "89%",
+  comparisonSlot,
   ctaHeading = "Ready to See These Results in Your Business?",
-  primaryButtonText = "Get Started",
-  primaryButtonUrl = "#",
-  secondaryButtonText = "View Case Studies",
-  secondaryButtonUrl = "#",
+  actions = defaultActions,
+  ctaSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  statsGridClassName,
+  statCardClassName,
+  comparisonClassName,
+  ctaClassName,
 }: StatsImpactGridProps) {
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
+    return <Badge className={cn("mb-4", badgeClassName)}>{badge}</Badge>;
+  };
+
+  const renderStatIcon = (stat: ImpactStat) => {
+    if (stat.iconSlot) return stat.iconSlot;
+    if (!stat.icon) return null;
+    return (
+      <div className="mb-6">
+        <DynamicIcon
+          name={stat.icon}
+          size={32}
+          className={stat.iconColor || "text-primary"}
+        />
+      </div>
+    );
+  };
+
+  const renderStats = () => {
+    if (statsSlot) return statsSlot;
+    if (!stats || stats.length === 0) return null;
+
+    return (
+      <div className={cn("mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3", statsGridClassName)}>
+        {stats.map((stat) => (
+          <Card key={stat.id} className={cn("overflow-hidden border p-0", stat.className, statCardClassName)}>
+            <CardContent className="p-6 md:p-8">
+              {renderStatIcon(stat)}
+
+              <div className="mb-2 flex items-end">
+                {stat.prefix && (
+                  <span className="mb-1 mr-1 text-2xl font-bold">
+                    {stat.prefix}
+                  </span>
+                )}
+                <h3 className="text-4xl font-bold tracking-tight md:text-5xl">
+                  {stat.value}
+                </h3>
+                {stat.suffix && (
+                  <span className="mb-1 ml-1 text-2xl font-bold">
+                    {stat.suffix}
+                  </span>
+                )}
+              </div>
+
+              <div className="mb-4 text-xl font-semibold">{stat.label}</div>
+              {stat.description && (
+                typeof stat.description === "string" ? (
+                  <p className="text-muted-foreground">{stat.description}</p>
+                ) : (
+                  <div className="text-muted-foreground">{stat.description}</div>
+                )
+              )}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  };
+
+  const renderComparison = () => {
+    if (comparisonSlot) return comparisonSlot;
+    if (!comparisonHeading && !comparisonDescription && !industryAverage && !platformValue) return null;
+
+    return (
+      <div className={cn("mb-16 rounded-xl bg-muted p-8", comparisonClassName)}>
+        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
+          <div>
+            {comparisonHeading && (
+              typeof comparisonHeading === "string" ? (
+                <h3 className="mb-4 text-2xl font-bold">{comparisonHeading}</h3>
+              ) : (
+                <div className="mb-4">{comparisonHeading}</div>
+              )
+            )}
+            {comparisonDescription && (
+              typeof comparisonDescription === "string" ? (
+                <p className="mb-6 text-muted-foreground">{comparisonDescription}</p>
+              ) : (
+                <div className="mb-6">{comparisonDescription}</div>
+              )
+            )}
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="h-2 w-full overflow-hidden rounded-full bg-muted-foreground/20">
+                  <div className="h-full w-[24%] bg-muted-foreground" />
+                </div>
+                <span className="min-w-[60px] text-sm font-medium">
+                  Industry
+                </span>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="h-2 w-full overflow-hidden rounded-full bg-primary/20">
+                  <div className="h-full w-[89%] bg-primary" />
+                </div>
+                <span className="min-w-[60px] text-sm font-medium">
+                  Our Platform
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 text-center md:border-l md:pl-16 md:text-left">
+            <div>
+              <div className="text-sm text-muted-foreground">
+                INDUSTRY AVERAGE
+              </div>
+              <div className="text-3xl font-bold">{industryAverage}</div>
+            </div>
+            <div className="flex h-12 items-center justify-center md:justify-start">
+              <DynamicIcon
+                name="lucide/arrow-up-right"
+                size={32}
+                className="text-primary"
+              />
+            </div>
+            <div>
+              <div className="text-sm font-medium text-primary">
+                OUR PLATFORM
+              </div>
+              <div className="text-4xl font-bold text-primary">
+                {platformValue}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderActions = () => {
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div className="flex flex-wrap justify-center gap-4">
+        {actions.map((action, index) => (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant || "default"}
+            size="lg"
+            asButton
+            className={index === 0 ? "inline-flex items-center justify-center gap-2" : undefined}
+          >
+            {action.label}
+            {index === 0 && <DynamicIcon name="lucide/arrow-right" size={16} />}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
+  const renderCta = () => {
+    if (ctaSlot) return ctaSlot;
+    if (!ctaHeading && (!actions || actions.length === 0)) return null;
+
+    return (
+      <div className={cn("text-center", ctaClassName)}>
+        {ctaHeading && (
+          typeof ctaHeading === "string" ? (
+            <h3 className="mb-6 text-2xl font-bold">{ctaHeading}</h3>
+          ) : (
+            <div className="mb-6">{ctaHeading}</div>
+          )
+        )}
+        {renderActions()}
+      </div>
+    );
+  };
+
   return (
-    <div
-      className={cn(
-        "container relative mx-auto overflow-hidden px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("relative overflow-hidden", className)}
     >
       {/* Background gradient */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 to-background" />
 
-      <div className="relative mx-auto max-w-5xl">
-        <div className="mb-12 text-center">
-          <Badge className="mb-4">{badge}</Badge>
-          <h2 className="mb-4 text-3xl font-bold md:text-5xl">
-            {heading.split(" ").slice(0, 2).join(" ")}{" "}
-            <br className="hidden md:inline" />
-            {heading.split(" ").slice(2).join(" ")}
-          </h2>
-          <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
-            {description}
-          </p>
-        </div>
-
-        {/* Impact Numbers Grid */}
-        <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {stats.map((stat) => (
-            <Card key={stat.id} className={cn("overflow-hidden border p-0")}>
-              <CardContent className="p-6 md:p-8">
-                <div className="mb-6">
-                  <DynamicIcon
-                    name={stat.icon}
-                    size={32}
-                    className={stat.iconColor || "text-primary"}
-                  />
-                </div>
-
-                <div className="mb-2 flex items-end">
-                  {stat.prefix && (
-                    <span className="mb-1 mr-1 text-2xl font-bold">
-                      {stat.prefix}
-                    </span>
-                  )}
-                  <h3 className="text-4xl font-bold tracking-tight md:text-5xl">
-                    {stat.value}
-                  </h3>
-                  {stat.suffix && (
-                    <span className="mb-1 ml-1 text-2xl font-bold">
-                      {stat.suffix}
-                    </span>
-                  )}
-                </div>
-
-                <div className="mb-4 text-xl font-semibold">{stat.label}</div>
-                <p className="text-muted-foreground">{stat.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Industry comparison */}
-        <div className="mb-16 rounded-xl bg-muted p-8">
-          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
-            <div>
-              <h3 className="mb-4 text-2xl font-bold">{comparisonHeading}</h3>
-              <p className="mb-6 text-muted-foreground">
-                {comparisonDescription}
+      <div className={cn("relative mx-auto max-w-5xl", containerClassName)}>
+        <div className={cn("mb-12 text-center", headerClassName)}>
+          {renderBadge()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-4 text-3xl font-bold md:text-5xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto max-w-3xl text-lg text-muted-foreground", descriptionClassName)}>
+                {description}
               </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-muted-foreground/20">
-                    <div className="h-full w-[24%] bg-muted-foreground" />
-                  </div>
-                  <span className="min-w-[60px] text-sm font-medium">
-                    Industry
-                  </span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-primary/20">
-                    <div className="h-full w-[89%] bg-primary" />
-                  </div>
-                  <span className="min-w-[60px] text-sm font-medium">
-                    Our Platform
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col gap-4 text-center md:border-l md:pl-16 md:text-left">
-              <div>
-                <div className="text-sm text-muted-foreground">
-                  INDUSTRY AVERAGE
-                </div>
-                <div className="text-3xl font-bold">{industryAverage}</div>
-              </div>
-              <div className="flex h-12 items-center justify-center md:justify-start">
-                <DynamicIcon
-                  name="lucide/arrow-up-right"
-                  size={32}
-                  className="text-primary"
-                />
-              </div>
-              <div>
-                <div className="text-sm font-medium text-primary">
-                  OUR PLATFORM
-                </div>
-                <div className="text-4xl font-bold text-primary">
-                  {platformValue}
-                </div>
-              </div>
-            </div>
-          </div>
+            ) : (
+              <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>{description}</div>
+            )
+          )}
         </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <h3 className="mb-6 text-2xl font-bold">{ctaHeading}</h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Pressable
-              href={primaryButtonUrl}
-              variant="default"
-              size="lg"
-              asButton
-              className="inline-flex items-center justify-center gap-2"
-            >
-              {primaryButtonText}
-              <DynamicIcon name="lucide/arrow-right" size={16} />
-            </Pressable>
-            <Pressable
-              href={secondaryButtonUrl}
-              variant="outline"
-              size="lg"
-              asButton
-            >
-              {secondaryButtonText}
-            </Pressable>
-          </div>
-        </div>
+        {renderStats()}
+        {renderComparison()}
+        {renderCta()}
       </div>
-    </div>
+    </Section>
   );
 }

@@ -3,6 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A stat item with icon, value, label, and growth indicator
@@ -11,15 +14,15 @@ export interface StatIconItem {
   /**
    * The label describing the stat
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * The stat value (e.g., "120K+", "$3.2M", "9.5%")
    */
-  value: string;
+  value: React.ReactNode;
   /**
    * Growth indicator text (e.g., "18% growth", "+2 min")
    */
-  growth: string;
+  growth: React.ReactNode;
   /**
    * Whether the growth is positive (green) or negative (red)
    * @default true
@@ -28,7 +31,15 @@ export interface StatIconItem {
   /**
    * Icon name in format: prefix/name (e.g., "lucide/users", "lucide/clock")
    */
-  icon: string;
+  icon?: string;
+  /**
+   * Custom icon element (overrides icon name)
+   */
+  iconSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the stat card
+   */
+  className?: string;
 }
 
 /**
@@ -36,21 +47,85 @@ export interface StatIconItem {
  */
 export interface StatsIconCardsProps {
   /**
-   * Additional CSS classes for the section
+   * Main heading content
    */
-  className?: string;
+  heading?: React.ReactNode;
   /**
-   * Main heading text
+   * Description content below the heading
    */
-  heading?: string;
-  /**
-   * Description text below the heading
-   */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of stat items to display
    */
   stats?: StatIconItem[];
+  /**
+   * Custom slot for rendering stats (overrides stats array)
+   */
+  statsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the stats container
+   */
+  statsClassName?: string;
+  /**
+   * Additional CSS classes for stat cards
+   */
+  statCardClassName?: string;
+  /**
+   * Additional CSS classes for stat values
+   */
+  statValueClassName?: string;
+  /**
+   * Additional CSS classes for stat labels
+   */
+  statLabelClassName?: string;
+  /**
+   * Additional CSS classes for stat growth indicators
+   */
+  statGrowthClassName?: string;
+  /**
+   * Additional CSS classes for stat icons
+   */
+  statIconClassName?: string;
 }
 
 const defaultStats: StatIconItem[] = [
@@ -104,68 +179,120 @@ const defaultStats: StatIconItem[] = [
  * ```
  */
 export function StatsIconCards({
-  className,
   heading = "Our Growth in Numbers",
   description = "Key metrics that showcase our impact in the market",
   stats = defaultStats,
+  statsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  statsClassName,
+  statCardClassName,
+  statValueClassName,
+  statLabelClassName,
+  statGrowthClassName,
+  statIconClassName,
 }: StatsIconCardsProps) {
-  return (
-    <div
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
-    >
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl font-bold md:text-4xl">{heading}</h2>
-          <p className="mt-3 text-muted-foreground">{description}</p>
-        </div>
+  const renderIcon = (stat: StatIconItem) => {
+    if (stat.iconSlot) return stat.iconSlot;
+    if (!stat.icon) return null;
+    return (
+      <div className={cn("flex h-12 w-12 items-center justify-center rounded-full bg-primary/10", statIconClassName)}>
+        <DynamicIcon
+          name={stat.icon}
+          size={24}
+          className="text-primary"
+        />
+      </div>
+    );
+  };
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="relative overflow-hidden rounded-xl border bg-background p-6"
+  const renderStats = () => {
+    if (statsSlot) return statsSlot;
+    if (!stats || stats.length === 0) return null;
+
+    return stats.map((stat, index) => (
+      <div
+        key={index}
+        className={cn("relative overflow-hidden rounded-xl border bg-background p-6", stat.className, statCardClassName)}
+      >
+        <div className="flex items-start justify-between">
+          <div>
+            <p className={cn("font-medium text-muted-foreground", statLabelClassName)}>
+              {stat.label}
+            </p>
+            <h3 className={cn("mt-4 text-4xl font-bold", statValueClassName)}>{stat.value}</h3>
+            <p
+              className={cn(
+                "mt-1 flex items-center text-sm font-medium",
+                stat.isPositive !== false
+                  ? "text-emerald-500"
+                  : "text-rose-500",
+                statGrowthClassName
+              )}
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="font-medium text-muted-foreground">
-                    {stat.label}
-                  </p>
-                  <h3 className="mt-4 text-4xl font-bold">{stat.value}</h3>
-                  <p
-                    className={cn(
-                      "mt-1 flex items-center text-sm font-medium",
-                      stat.isPositive !== false
-                        ? "text-emerald-500"
-                        : "text-rose-500"
-                    )}
-                  >
-                    <DynamicIcon
-                      name={
-                        stat.isPositive !== false
-                          ? "lucide/arrow-up-right"
-                          : "lucide/arrow-down-right"
-                      }
-                      size={16}
-                      className="mr-1"
-                    />
-                    <span>{stat.growth}</span>
-                  </p>
-                </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <DynamicIcon
-                    name={stat.icon}
-                    size={24}
-                    className="text-primary"
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
+              <DynamicIcon
+                name={
+                  stat.isPositive !== false
+                    ? "lucide/arrow-up-right"
+                    : "lucide/arrow-down-right"
+                }
+                size={16}
+                className="mr-1"
+              />
+              <span>{stat.growth}</span>
+            </p>
+          </div>
+          {renderIcon(stat)}
         </div>
       </div>
-    </div>
+    ));
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("mx-auto max-w-5xl", containerClassName)}>
+        <div className={cn("mb-10 text-center", contentClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mt-3 text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mt-3", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+
+        {(statsSlot || (stats && stats.length > 0)) && (
+          <div className={cn("grid gap-8 sm:grid-cols-2 lg:grid-cols-4", statsClassName)}>
+            {renderStats()}
+          </div>
+        )}
+      </div>
+    </Section>
   );
 }

@@ -4,6 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A secondary stat item with value and label
@@ -12,11 +15,15 @@ export interface SecondaryStat {
   /**
    * The stat value (e.g., "99.95%", "2,000+", "85%")
    */
-  value: string;
+  value: React.ReactNode;
   /**
    * The label describing the stat
    */
-  label: string;
+  label: React.ReactNode;
+  /**
+   * Additional CSS classes for the stat
+   */
+  className?: string;
 }
 
 /**
@@ -24,25 +31,89 @@ export interface SecondaryStat {
  */
 export interface StatsPrimarySecondaryProps {
   /**
-   * Additional CSS classes for the section
-   */
-  className?: string;
-  /**
    * Primary stat value (large, prominent)
    */
-  primaryValue?: string;
+  primaryValue?: React.ReactNode;
   /**
-   * Primary stat badge text
+   * Primary stat badge content
    */
-  primaryBadge?: string;
+  primaryBadge?: React.ReactNode;
+  /**
+   * Custom slot for primary badge (overrides primaryBadge)
+   */
+  primaryBadgeSlot?: React.ReactNode;
   /**
    * Primary stat description
    */
-  primaryDescription?: string;
+  primaryDescription?: React.ReactNode;
+  /**
+   * Custom slot for primary section (overrides primaryValue/primaryBadge/primaryDescription)
+   */
+  primarySlot?: React.ReactNode;
   /**
    * Array of secondary stats to display
    */
   secondaryStats?: SecondaryStat[];
+  /**
+   * Custom slot for rendering secondary stats (overrides secondaryStats array)
+   */
+  secondaryStatsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the primary section
+   */
+  primaryClassName?: string;
+  /**
+   * Additional CSS classes for the primary value
+   */
+  primaryValueClassName?: string;
+  /**
+   * Additional CSS classes for the primary badge
+   */
+  primaryBadgeClassName?: string;
+  /**
+   * Additional CSS classes for the primary description
+   */
+  primaryDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the secondary section
+   */
+  secondaryClassName?: string;
+  /**
+   * Additional CSS classes for secondary stat values
+   */
+  secondaryValueClassName?: string;
+  /**
+   * Additional CSS classes for secondary stat labels
+   */
+  secondaryLabelClassName?: string;
 }
 
 const defaultSecondaryStats: SecondaryStat[] = [
@@ -72,46 +143,93 @@ const defaultSecondaryStats: SecondaryStat[] = [
  * ```
  */
 export function StatsPrimarySecondary({
-  className,
   primaryValue = "92%",
   primaryBadge = "+7% this month",
+  primaryBadgeSlot,
   primaryDescription = "of U.S. adults have bought from businesses using our platform",
+  primarySlot,
   secondaryStats = defaultSecondaryStats,
+  secondaryStatsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  primaryClassName,
+  primaryValueClassName,
+  primaryBadgeClassName,
+  primaryDescriptionClassName,
+  secondaryClassName,
+  secondaryValueClassName,
+  secondaryLabelClassName,
 }: StatsPrimarySecondaryProps) {
-  return (
-    <div
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
-    >
-      <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-4">
-          <div className="lg:pe-6 xl:pe-12">
-            <p className="text-6xl font-bold leading-10">
-              {primaryValue}
-              <Badge variant="secondary" className="ml-2 gap-1">
-                <DynamicIcon name="lucide/badge-check" size={16} className="shrink-0" />
-                {primaryBadge}
-              </Badge>
-            </p>
-            <p className="mt-2 text-muted-foreground sm:mt-3">
-              {primaryDescription}
-            </p>
-          </div>
-        </div>
+  const renderPrimaryBadge = () => {
+    if (primaryBadgeSlot) return primaryBadgeSlot;
+    if (!primaryBadge) return null;
+    return (
+      <Badge variant="secondary" className={cn("ml-2 gap-1", primaryBadgeClassName)}>
+        <DynamicIcon name="lucide/badge-check" size={16} className="shrink-0" />
+        {primaryBadge}
+      </Badge>
+    );
+  };
 
-        <div className="relative lg:col-span-8 lg:before:absolute lg:before:-start-12 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-border">
+  const renderPrimary = () => {
+    if (primarySlot) return primarySlot;
+
+    return (
+      <div className={cn("lg:col-span-4", primaryClassName)}>
+        <div className="lg:pe-6 xl:pe-12">
+          <p className={cn("text-6xl font-bold leading-10", primaryValueClassName)}>
+            {primaryValue}
+            {renderPrimaryBadge()}
+          </p>
+          {primaryDescription && (
+            typeof primaryDescription === "string" ? (
+              <p className={cn("mt-2 text-muted-foreground sm:mt-3", primaryDescriptionClassName)}>
+                {primaryDescription}
+              </p>
+            ) : (
+              <div className={cn("mt-2 sm:mt-3", primaryDescriptionClassName)}>{primaryDescription}</div>
+            )
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSecondaryStats = () => {
+    if (secondaryStatsSlot) return secondaryStatsSlot;
+    if (!secondaryStats || secondaryStats.length === 0) return null;
+
+    return secondaryStats.map((stat, index) => (
+      <div key={index} className={stat.className}>
+        <p className={cn("text-3xl font-semibold", secondaryValueClassName)}>{stat.value}</p>
+        <p className={cn("mt-1 text-muted-foreground", secondaryLabelClassName)}>{stat.label}</p>
+      </div>
+    ));
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("grid items-center gap-6 lg:grid-cols-12 lg:gap-12", containerClassName)}>
+        {renderPrimary()}
+
+        <div className={cn("relative lg:col-span-8 lg:before:absolute lg:before:-start-12 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-border", secondaryClassName)}>
           <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 lg:grid-cols-3">
-            {secondaryStats.map((stat, index) => (
-              <div key={index}>
-                <p className="text-3xl font-semibold">{stat.value}</p>
-                <p className="mt-1 text-muted-foreground">{stat.label}</p>
-              </div>
-            ))}
+            {renderSecondaryStats()}
           </div>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

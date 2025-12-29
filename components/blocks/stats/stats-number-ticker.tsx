@@ -3,6 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * A stat with number ticker animation
@@ -15,19 +18,23 @@ export interface TickerStat {
   /**
    * Prefix for the value (e.g., "$", "+")
    */
-  prefix?: string;
+  prefix?: React.ReactNode;
   /**
    * Suffix for the value (e.g., "%", "K", "M", "+")
    */
-  suffix?: string;
+  suffix?: React.ReactNode;
   /**
    * The label for the stat
    */
-  label: string;
+  label: React.ReactNode;
   /**
    * Description text
    */
-  description?: string;
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the stat card
+   */
+  className?: string;
 }
 
 /**
@@ -35,30 +42,98 @@ export interface TickerStat {
  */
 export interface StatsNumberTickerProps {
   /**
-   * Additional CSS classes for the section
+   * Badge content above the heading
    */
-  className?: string;
+  badge?: React.ReactNode;
   /**
-   * Badge text above the heading
+   * Custom slot for badge (overrides badge prop)
    */
-  badge?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of stats to display with ticker animation
    */
   stats?: TickerStat[];
   /**
+   * Custom slot for stats (overrides stats array)
+   */
+  statsSlot?: React.ReactNode;
+  /**
    * Animation duration in milliseconds
    * @default 2500
    */
   animationDuration?: number;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the stats grid
+   */
+  statsGridClassName?: string;
+  /**
+   * Additional CSS classes for stat cards
+   */
+  statCardClassName?: string;
+  /**
+   * Additional CSS classes for stat values
+   */
+  statValueClassName?: string;
+  /**
+   * Additional CSS classes for stat labels
+   */
+  statLabelClassName?: string;
+  /**
+   * Additional CSS classes for stat descriptions
+   */
+  statDescriptionClassName?: string;
 }
 
 const defaultStats: TickerStat[] = [
@@ -149,25 +224,37 @@ function TickerStatItem({
   stat,
   duration,
   isVisible,
+  cardClassName,
+  valueClassName,
+  labelClassName,
+  descriptionClassName,
 }: {
   stat: TickerStat;
   duration: number;
   isVisible: boolean;
+  cardClassName?: string;
+  valueClassName?: string;
+  labelClassName?: string;
+  descriptionClassName?: string;
 }) {
   // Determine decimal places based on the value
   const decimals = stat.value % 1 !== 0 ? 1 : 0;
   const displayValue = useNumberTicker(stat.value, duration, isVisible, decimals);
 
   return (
-    <div className="rounded-xl border bg-card p-6 transition-shadow hover:shadow-md">
-      <div className="mb-2 text-4xl font-bold tabular-nums md:text-5xl">
+    <div className={cn("rounded-xl border bg-card p-6 transition-shadow hover:shadow-md", stat.className, cardClassName)}>
+      <div className={cn("mb-2 text-4xl font-bold tabular-nums md:text-5xl", valueClassName)}>
         {stat.prefix}
         {displayValue}
         {stat.suffix}
       </div>
-      <div className="mb-1 text-lg font-semibold">{stat.label}</div>
+      <div className={cn("mb-1 text-lg font-semibold", labelClassName)}>{stat.label}</div>
       {stat.description && (
-        <p className="text-sm text-muted-foreground">{stat.description}</p>
+        typeof stat.description === "string" ? (
+          <p className={cn("text-sm text-muted-foreground", descriptionClassName)}>{stat.description}</p>
+        ) : (
+          <div className={cn("text-sm", descriptionClassName)}>{stat.description}</div>
+        )
       )}
     </div>
   );
@@ -193,12 +280,29 @@ function TickerStatItem({
  * ```
  */
 export function StatsNumberTicker({
-  className,
   badge = "By The Numbers",
+  badgeSlot,
   heading = "Platform Statistics",
   description = "Key metrics that demonstrate our platform's scale and reliability",
   stats = defaultStats,
+  statsSlot,
   animationDuration = 2500,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  statsGridClassName,
+  statCardClassName,
+  statValueClassName,
+  statLabelClassName,
+  statDescriptionClassName,
 }: StatsNumberTickerProps) {
   const [isVisible, setIsVisible] = React.useState(false);
   const sectionRef = React.useRef<HTMLDivElement>(null);
@@ -221,34 +325,68 @@ export function StatsNumberTicker({
     return () => observer.disconnect();
   }, []);
 
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
+    return <Badge className={cn("mb-4", badgeClassName)}>{badge}</Badge>;
+  };
+
+  const renderStats = () => {
+    if (statsSlot) return statsSlot;
+    if (!stats || stats.length === 0) return null;
+
+    return (
+      <div className={cn("grid gap-6 sm:grid-cols-2 lg:grid-cols-4", statsGridClassName)}>
+        {stats.map((stat, index) => (
+          <TickerStatItem
+            key={index}
+            stat={stat}
+            duration={animationDuration}
+            isVisible={isVisible}
+            cardClassName={statCardClassName}
+            valueClassName={statValueClassName}
+            labelClassName={statLabelClassName}
+            descriptionClassName={statDescriptionClassName}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div
-      ref={sectionRef}
-      className={cn(
-        "container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]",
-        className
-      )}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
     >
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-12 text-center">
-          <Badge className="mb-4">{badge}</Badge>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">{heading}</h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground">
-            {description}
-          </p>
+      <div ref={sectionRef} className={cn("mx-auto max-w-5xl", containerClassName)}>
+        <div className={cn("mb-12 text-center", headerClassName)}>
+          {renderBadge()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
+            )
+          )}
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, index) => (
-            <TickerStatItem
-              key={index}
-              stat={stat}
-              duration={animationDuration}
-              isVisible={isVisible}
-            />
-          ))}
-        </div>
+        {renderStats()}
       </div>
-    </div>
+    </Section>
   );
 }
