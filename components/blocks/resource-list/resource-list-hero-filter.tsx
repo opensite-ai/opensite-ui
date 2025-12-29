@@ -28,39 +28,170 @@ import {
 } from "../../../lib/forms";
 import { patternSvgs } from "../../../lib/patternSvgs";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types";
 
 export interface ResourceListHeroFilterBreadcrumbItem {
-  label: string;
+  /**
+   * Breadcrumb label
+   */
+  label: React.ReactNode;
+  /**
+   * Breadcrumb link URL
+   */
   link: string;
 }
 
 export interface ResourceListHeroFilterPost {
+  /**
+   * Post category (used for filtering - must be string)
+   */
   category: string;
-  title: string;
-  summary: string;
+  /**
+   * Category display label (can be ReactNode for custom rendering)
+   */
+  categoryLabel?: React.ReactNode;
+  /**
+   * Post title
+   */
+  title: React.ReactNode;
+  /**
+   * Post summary/description
+   */
+  summary: React.ReactNode;
+  /**
+   * Post link URL
+   */
   link: string;
-  cta: string;
+  /**
+   * CTA button text
+   */
+  cta: React.ReactNode;
+  /**
+   * Post thumbnail image URL
+   */
   thumbnail: string;
+  /**
+   * Additional CSS classes for the post card
+   */
+  className?: string;
 }
 
 export interface ResourceListHeroFilterCategory {
-  label: string;
+  /**
+   * Category display label
+   */
+  label: React.ReactNode;
+  /**
+   * Category value for filtering (must be string for deterministic filtering)
+   */
   value: string;
 }
 
 export interface ResourceListHeroFilterProps {
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
-  title?: string;
-  description?: string;
+  /**
+   * Main heading content
+   */
+  title?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Breadcrumb navigation items
+   */
   breadcrumb?: ResourceListHeroFilterBreadcrumbItem[];
+  /**
+   * Custom slot for rendering breadcrumb (overrides breadcrumb array)
+   */
+  breadcrumbSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the breadcrumb
+   */
+  breadcrumbClassName?: string;
+  /**
+   * Primary/featured post configuration
+   */
   primaryPost?: ResourceListHeroFilterPost;
+  /**
+   * Custom slot for rendering primary post (overrides primaryPost)
+   */
+  primaryPostSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the primary post container
+   */
+  primaryPostClassName?: string;
+  /**
+   * Array of post configurations for the filtered list
+   */
   posts?: ResourceListHeroFilterPost[];
+  /**
+   * Custom slot for rendering posts (overrides posts array)
+   */
+  postsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the posts container
+   */
+  postsClassName?: string;
+  /**
+   * Category configurations for filtering
+   */
   categories?: ResourceListHeroFilterCategory[];
-  allPostsTitle?: string;
+  /**
+   * Additional CSS classes for the categories filter
+   */
+  categoriesClassName?: string;
+  /**
+   * Title for the all posts section
+   */
+  allPostsTitle?: React.ReactNode;
+  /**
+   * Additional CSS classes for the all posts title
+   */
+  allPostsTitleClassName?: string;
+  /**
+   * Email input placeholder text
+   */
   emailPlaceholder?: string;
-  buttonText?: string;
+  /**
+   * Submit button text
+   */
+  buttonText?: React.ReactNode;
+  /**
+   * Number of posts to show per page
+   */
   postsPerPage?: number;
-  loadMoreText?: string;
+  /**
+   * Load more button text
+   */
+  loadMoreText?: React.ReactNode;
+  /**
+   * Additional CSS classes for the hero section
+   */
+  heroClassName?: string;
+  /**
+   * Additional CSS classes for the content section
+   */
+  contentClassName?: string;
+  /**
+   * Custom hero background pattern URL (defaults to dotPattern2)
+   */
+  heroPatternUrl?: string;
+  /**
+   * Hero background pattern size (defaults to "3.125rem 3.125rem")
+   */
+  heroPatternSize?: string;
   /**
    * Optional form submission configuration.
    *
@@ -115,10 +246,10 @@ export interface ResourceListHeroFilterProps {
    * Receives the error object for custom error handling, logging, or user notifications.
    */
   onError?: (error: Error) => void;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultBreadcrumb: ResourceListHeroFilterBreadcrumbItem[] = [
@@ -261,11 +392,10 @@ interface ResourcesResultProps {
   posts: ResourceListHeroFilterPost[];
   categories: ResourceListHeroFilterCategory[];
   postsPerPage: number;
-  loadMoreText: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  loadMoreText: React.ReactNode;
+  categoriesClassName?: string;
+  postsClassName?: string;
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const ResourcesResult = ({
@@ -273,6 +403,8 @@ const ResourcesResult = ({
   categories,
   postsPerPage,
   loadMoreText,
+  categoriesClassName,
+  postsClassName,
   optixFlowConfig,
 }: ResourcesResultProps) => {
   const [visibleCount, setVisibleCount] = useState(postsPerPage);
@@ -302,14 +434,16 @@ const ResourcesResult = ({
 
   return (
     <div>
-      <FilterForm
-        categories={categories}
-        onCategoryChange={handleCategoryChange}
-      />
-      <div className="flex w-full flex-col gap-4 py-8">
+      <div className={categoriesClassName}>
+        <FilterForm
+          categories={categories}
+          onCategoryChange={handleCategoryChange}
+        />
+      </div>
+      <div className={cn("flex w-full flex-col gap-4 py-8", postsClassName)}>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {postsToDisplay.slice(0, visibleCount).map((post) => (
-            <ResourceCard key={post.title} {...post} optixFlowConfig={optixFlowConfig} />
+          {postsToDisplay.slice(0, visibleCount).map((post, idx) => (
+            <ResourceCard key={idx} {...post} optixFlowConfig={optixFlowConfig} />
           ))}
         </div>
         {hasMore && (
@@ -356,7 +490,7 @@ const BreadcrumbBlog = ({ breadcrumb }: BreadcrumbBlogProps) => {
 
 interface EmailFormProps {
   emailPlaceholder: string;
-  buttonText: string;
+  buttonText: React.ReactNode;
   formConfig?: PageSpeedFormConfig;
   onSubmit?: (email: string) => void | Promise<void>;
   onSuccess?: (data: unknown) => void;
@@ -466,44 +600,55 @@ const EmailForm = ({
 };
 
 interface ResourceCardProps extends ResourceListHeroFilterPost {
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const ResourceCard = ({
   category,
+  categoryLabel,
   title,
   thumbnail,
   summary,
   link,
   cta,
+  className,
   optixFlowConfig,
 }: ResourceCardProps) => {
   return (
-    <Pressable href={link} className="block h-full w-full">
+    <Pressable href={link} className={cn("block h-full w-full", className)}>
       <Card className="size-full border py-0">
         <CardContent className="p-0">
           <div className="border-b p-2.5 text-sm leading-[1.2] font-medium text-muted-foreground">
-            {category}
+            {categoryLabel ?? category}
           </div>
           <AspectRatio ratio={1.520833333} className="overflow-hidden">
             <Img
               src={thumbnail}
-              alt={title}
+              alt={typeof title === "string" ? title : "Resource"}
               className="block size-full object-cover object-center"
               optixFlowConfig={optixFlowConfig}
             />
           </AspectRatio>
           <div className="flex w-full flex-col gap-5 p-5">
-            <h2 className="text-lg leading-none font-bold md:text-2xl">
-              {title}
-            </h2>
+            {typeof title === "string" ? (
+              <h2 className="text-lg leading-none font-bold md:text-2xl">
+                {title}
+              </h2>
+            ) : (
+              <div className="text-lg leading-none font-bold md:text-2xl">
+                {title}
+              </div>
+            )}
             <div className="w-full max-w-[20rem]">
-              <p className="text-sm leading-[1.4] font-medium text-foreground">
-                {summary}
-              </p>
+              {typeof summary === "string" ? (
+                <p className="text-sm leading-[1.4] font-medium text-foreground">
+                  {summary}
+                </p>
+              ) : (
+                <div className="text-sm leading-[1.4] font-medium text-foreground">
+                  {summary}
+                </div>
+              )}
             </div>
             <div>
               <Badge className="rounded-full">
@@ -538,42 +683,104 @@ const ResourceCard = ({
 export function ResourceListHeroFilter({
   className,
   title = "Explore Reports",
+  titleClassName,
   description = "The best Reports is one that captivates readers with engaging, well-researched content presented in a clear and relatable way.",
+  descriptionClassName,
   breadcrumb = defaultBreadcrumb,
+  breadcrumbSlot,
+  breadcrumbClassName,
   primaryPost = defaultPrimaryPost,
+  primaryPostSlot,
+  primaryPostClassName,
   posts = defaultPosts,
+  postsSlot,
+  postsClassName,
   categories = defaultCategories,
+  categoriesClassName,
   allPostsTitle = "All Reports",
+  allPostsTitleClassName,
   emailPlaceholder = "What's your work email?",
   buttonText = "See Company in action",
   postsPerPage = 6,
   loadMoreText = "Load More",
+  heroClassName,
+  contentClassName,
+  heroPatternUrl,
+  heroPatternSize = "3.125rem 3.125rem",
   formConfig,
   onSubmit,
   onSuccess,
   onError,
   optixFlowConfig,
 }: ResourceListHeroFilterProps) {
+  const renderBreadcrumb = () => {
+    if (breadcrumbSlot) return breadcrumbSlot;
+    if (!breadcrumb || breadcrumb.length === 0) return null;
+    return (
+      <div className={breadcrumbClassName}>
+        <BreadcrumbBlog breadcrumb={breadcrumb} />
+      </div>
+    );
+  };
+
+  const renderPrimaryPost = () => {
+    if (primaryPostSlot) return primaryPostSlot;
+    if (!primaryPost) return null;
+    return (
+      <div className={cn("w-full max-w-110", primaryPostClassName)}>
+        <ResourceCard {...primaryPost} optixFlowConfig={optixFlowConfig} />
+      </div>
+    );
+  };
+
+  const renderPosts = () => {
+    if (postsSlot) return postsSlot;
+    if (!posts || posts.length === 0) return null;
+    return (
+      <ResourcesResult
+        posts={posts}
+        categories={categories ?? []}
+        postsPerPage={postsPerPage}
+        loadMoreText={loadMoreText}
+        categoriesClassName={categoriesClassName}
+        postsClassName={postsClassName}
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  };
+
   return (
     <section className={cn("pb-32", className)}>
       <div
-        className="bg-muted bg-repeat"
+        className={cn("bg-muted bg-repeat", heroClassName)}
         style={{
-          backgroundImage: `url('${patternSvgs.dotPattern2}')`,
-          backgroundSize: "3.125rem 3.125rem",
+          backgroundImage: `url('${heroPatternUrl ?? patternSvgs.dotPattern2}')`,
+          backgroundSize: heroPatternSize,
         }}
       >
         <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
             <div className="flex w-full max-w-xl flex-col gap-8">
-              <BreadcrumbBlog breadcrumb={breadcrumb} />
+              {renderBreadcrumb()}
               <div className="flex w-full flex-col gap-5">
-                <h1 className="text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl">
-                  {title}
-                </h1>
-                <p className="text-xl leading-[1.4] font-semibold text-foreground">
-                  {description}
-                </p>
+                {title && (
+                  typeof title === "string" ? (
+                    <h1 className={cn("text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl", titleClassName)}>
+                      {title}
+                    </h1>
+                  ) : (
+                    <div className={titleClassName}>{title}</div>
+                  )
+                )}
+                {description && (
+                  typeof description === "string" ? (
+                    <p className={cn("text-xl leading-[1.4] font-semibold text-foreground", descriptionClassName)}>
+                      {description}
+                    </p>
+                  ) : (
+                    <div className={descriptionClassName}>{description}</div>
+                  )
+                )}
               </div>
               <div className="max-w-120">
                 <EmailForm
@@ -587,24 +794,22 @@ export function ResourceListHeroFilter({
               </div>
             </div>
           </div>
-          <div className="w-full max-w-110">
-            <ResourceCard {...primaryPost} optixFlowConfig={optixFlowConfig} />
-          </div>
+          {renderPrimaryPost()}
         </div>
       </div>
-      <div className="py-20">
+      <div className={cn("py-20", contentClassName)}>
         <div className="container flex flex-col gap-8">
-          <h2 className="text-[1.75rem] leading-none font-medium md:text-[2.25rem] lg:text-[2rem]">
-            {allPostsTitle}
-          </h2>
+          {allPostsTitle && (
+            typeof allPostsTitle === "string" ? (
+              <h2 className={cn("text-[1.75rem] leading-none font-medium md:text-[2.25rem] lg:text-[2rem]", allPostsTitleClassName)}>
+                {allPostsTitle}
+              </h2>
+            ) : (
+              <div className={allPostsTitleClassName}>{allPostsTitle}</div>
+            )
+          )}
           <div>
-            <ResourcesResult
-              posts={posts}
-              categories={categories}
-              postsPerPage={postsPerPage}
-              loadMoreText={loadMoreText}
-              optixFlowConfig={optixFlowConfig}
-            />
+            {renderPosts()}
           </div>
         </div>
       </div>

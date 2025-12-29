@@ -7,22 +7,99 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ResourceListNewsUpdatesItem {
-  title: string;
-  category: string;
+  /**
+   * News item title
+   */
+  title: React.ReactNode;
+  /**
+   * Category label for the news item
+   */
+  category: React.ReactNode;
+  /**
+   * Avatar image URL
+   */
   avatar: string;
-  date: string;
+  /**
+   * Date string or ReactNode
+   */
+  date: React.ReactNode;
+  /**
+   * Link URL for the news item
+   */
   link: string;
+  /**
+   * Additional CSS classes for the news item row
+   */
+  className?: string;
 }
 
 export interface ResourceListNewsUpdatesProps {
+  /**
+   * Additional CSS classes for the section wrapper
+   */
   className?: string;
-  sectionLabel?: string;
-  title?: string;
-  subtitle?: string;
+  /**
+   * Section label with accent dot indicator
+   */
+  sectionLabel?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section label
+   */
+  sectionLabelClassName?: string;
+  /**
+   * Main heading content
+   */
+  title?: React.ReactNode;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Subtitle/secondary heading content
+   */
+  subtitle?: React.ReactNode;
+  /**
+   * Additional CSS classes for the subtitle
+   */
+  subtitleClassName?: string;
+  /**
+   * Array of news item configurations
+   */
   news?: ResourceListNewsUpdatesItem[];
+  /**
+   * Custom slot for rendering news items (overrides news array)
+   */
+  newsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the news list container
+   */
+  newsClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const defaultNews: ResourceListNewsUpdatesItem[] = [
@@ -82,63 +159,109 @@ const defaultNews: ResourceListNewsUpdatesItem[] = [
 export function ResourceListNewsUpdates({
   className,
   sectionLabel = "Resources",
+  sectionLabelClassName,
   title = "Stay in the loop?",
+  titleClassName,
   subtitle = "Discover our recent updates.",
+  subtitleClassName,
   news = defaultNews,
+  newsSlot,
+  newsClassName,
+  contentClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: ResourceListNewsUpdatesProps) {
+  const renderNews = () => {
+    if (newsSlot) return newsSlot;
+    if (!news || news.length === 0) return null;
+
+    return (
+      <div className={cn("mt-14", newsClassName)}>
+        <Separator />
+        {news.map((item, idx) => (
+          <Fragment key={idx}>
+            <Pressable
+              href={item.link}
+              className={cn(
+                "group flex flex-col justify-between gap-10 py-6 transition-all duration-400 lg:flex-row lg:items-center lg:hover:bg-muted",
+                item.className
+              )}
+            >
+              <div className="flex items-center gap-2 text-lg transition-all duration-400 lg:group-hover:translate-x-8">
+                <p className="inline text-pretty text-primary">
+                  {item.title}
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="ml-2 inline shrink-0 opacity-0 transition-all duration-400 lg:group-hover:text-primary lg:group-hover:opacity-100"
+                  />
+                </p>
+              </div>
+              <div className="flex w-full items-center justify-between transition-all duration-400 lg:max-w-72 lg:group-hover:-translate-x-4 xl:max-w-80">
+                {typeof item.category === "string" ? (
+                  <p className="text-xs text-muted-foreground">
+                    {item.category}
+                  </p>
+                ) : (
+                  item.category
+                )}
+                <div className="flex items-center gap-2">
+                  <Avatar className="size-7 rounded-full border border-border">
+                    <AvatarImage src={item.avatar} />
+                  </Avatar>
+                  {typeof item.date === "string" ? (
+                    <time className="text-xs text-muted-foreground">
+                      {item.date}
+                    </time>
+                  ) : (
+                    item.date
+                  )}
+                </div>
+              </div>
+            </Pressable>
+            <Separator />
+          </Fragment>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="flex flex-col items-start justify-between gap-5 lg:flex-row lg:gap-2">
-          <div className="flex w-full max-w-56 items-center gap-3 text-sm">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("flex flex-col items-start justify-between gap-5 lg:flex-row lg:gap-2", contentClassName)}>
+        {sectionLabel && (
+          <div className={cn("flex w-full max-w-56 items-center gap-3 text-sm", sectionLabelClassName)}>
             <span className="size-2 rounded-full bg-primary"></span>
-            {sectionLabel}
+            {typeof sectionLabel === "string" ? sectionLabel : sectionLabel}
           </div>
-          <div className="flex-1">
-            <h2 className="text-3xl">
-              {title}
-              <br />
-              <span className="text-primary/50">{subtitle}</span>
+        )}
+        <div className="flex-1">
+          {(title || subtitle) && (
+            <h2 className={cn("text-3xl", titleClassName)}>
+              {typeof title === "string" ? title : <span>{title}</span>}
+              {subtitle && (
+                <>
+                  <br />
+                  {typeof subtitle === "string" ? (
+                    <span className={cn("text-primary/50", subtitleClassName)}>{subtitle}</span>
+                  ) : (
+                    <span className={subtitleClassName}>{subtitle}</span>
+                  )}
+                </>
+              )}
             </h2>
-            <div className="mt-14">
-              <Separator />
-              {news.map((item, idx) => (
-                <Fragment key={idx}>
-                  <Pressable
-                    href={item.link}
-                    className="group flex flex-col justify-between gap-10 py-6 transition-all duration-400 lg:flex-row lg:items-center lg:hover:bg-muted"
-                  >
-                    <div className="flex items-center gap-2 text-lg transition-all duration-400 lg:group-hover:translate-x-8">
-                      <p className="inline text-pretty text-primary">
-                        {item.title}
-                        <DynamicIcon
-                          name="lucide/arrow-right"
-                          size={16}
-                          className="ml-2 inline shrink-0 opacity-0 transition-all duration-400 lg:group-hover:text-primary lg:group-hover:opacity-100"
-                        />
-                      </p>
-                    </div>
-                    <div className="flex w-full items-center justify-between transition-all duration-400 lg:max-w-72 lg:group-hover:-translate-x-4 xl:max-w-80">
-                      <p className="text-xs text-muted-foreground">
-                        {item.category}
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <Avatar className="size-7 rounded-full border border-border">
-                          <AvatarImage src={item.avatar} />
-                        </Avatar>
-                        <time className="text-xs text-muted-foreground">
-                          {item.date}
-                        </time>
-                      </div>
-                    </div>
-                  </Pressable>
-                  <Separator />
-                </Fragment>
-              ))}
-            </div>
-          </div>
+          )}
+          {renderNews()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

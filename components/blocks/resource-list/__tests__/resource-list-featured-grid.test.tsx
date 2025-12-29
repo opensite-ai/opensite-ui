@@ -86,7 +86,11 @@ describe("ResourceListFeaturedGrid", () => {
   it("renders with custom categories", () => {
     const { container } = render(
       <ResourceListFeaturedGrid 
-        categories={["All", "Tech", "Design"]}
+        categories={[
+          { value: "all", label: "All" },
+          { value: "tech", label: "Tech" },
+          { value: "design", label: "Design" },
+        ]}
       />
     );
     const section = container.querySelector("section");
