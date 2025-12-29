@@ -79,7 +79,7 @@ describe("LogosNumberedCarousel", () => {
     const { container } = render(<LogosNumberedCarousel />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
+    expect(section).toHaveClass("py-24");
   });
 
   it("renders carousel component", () => {

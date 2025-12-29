@@ -43,13 +43,13 @@ describe("CarouselImageHero", () => {
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
-  it("renders custom badge text", () => {
-    render(<CarouselImageHero badgeText="New Feature" />);
+  it("renders custom badge", () => {
+    render(<CarouselImageHero badge="New Feature" />);
     expect(screen.getByText("New Feature")).toBeInTheDocument();
   });
 
-  it("renders custom CTA text", () => {
-    render(<CarouselImageHero ctaText="Learn More" />);
+  it("renders custom actions", () => {
+    render(<CarouselImageHero actions={[{ label: "Learn More", href: "#" }]} />);
     expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 
@@ -130,7 +130,7 @@ describe("CarouselImageHero", () => {
   });
 
   it("renders CTA as a link", () => {
-    render(<CarouselImageHero ctaHref="/custom-link" ctaText="Click Me" />);
+    render(<CarouselImageHero actions={[{ label: "Click Me", href: "/custom-link" }]} />);
     const cta = screen.getByText("Click Me");
     expect(cta.closest("a")).toHaveAttribute("href", "/custom-link");
   });

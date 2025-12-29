@@ -15,8 +15,9 @@ describe("ServiceDetailProseMinimal", () => {
 
   it("applies custom className", () => {
     const { container } = render(<ServiceDetailProseMinimal className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
+    // className is applied to the outer div wrapper, not the section
+    const wrapper = container.firstChild as HTMLElement;
+    expect(wrapper).toHaveClass("custom-class");
   });
 
   it("renders the title", () => {
@@ -70,6 +71,7 @@ describe("ServiceDetailProseMinimal", () => {
     const { container } = render(<ServiceDetailProseMinimal />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(container.querySelector(".container")).toBeInTheDocument();
+    // Component uses max-w-3xl for content width, not .container
+    expect(container.querySelector(".max-w-3xl")).toBeInTheDocument();
   });
 });

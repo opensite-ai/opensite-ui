@@ -51,8 +51,8 @@ describe("TestimonialsScrollingColumns", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    const { container } = render(<TestimonialsScrollingColumns title="Custom Title" />);
-    expect(container.textContent).toContain("Custom Title");
+  it("renders custom heading", () => {
+    const { container } = render(<TestimonialsScrollingColumns heading="Custom Heading" />);
+    expect(container.textContent).toContain("Custom Heading");
   });
 });

@@ -4,10 +4,10 @@ import { PricingSimpleCard } from "../pricing-simple-card";
 
 describe("PricingSimpleCard", () => {
   const mockFeatures = [
-    "Feature 1",
-    "Feature 2",
-    "Feature 3",
-    "Feature 4",
+    { text: "Feature 1" },
+    { text: "Feature 2" },
+    { text: "Feature 3" },
+    { text: "Feature 4" },
   ];
 
   it("renders default title and description", () => {
@@ -66,11 +66,10 @@ describe("PricingSimpleCard", () => {
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 
-  it("renders custom button text and href", () => {
+  it("renders custom action text and href", () => {
     render(
       <PricingSimpleCard
-        buttonText="Subscribe Now"
-        buttonHref="/subscribe"
+        action={{ label: "Subscribe Now", href: "/subscribe" }}
       />
     );
     const button = screen.getByText("Subscribe Now");
@@ -138,14 +137,14 @@ describe("PricingSimpleCard", () => {
   it("applies correct section padding", () => {
     const { container } = render(<PricingSimpleCard />);
     const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-24");
+    expect(section.className).toContain("py-20");
   });
 
   it("renders with empty features array", () => {
     const { container } = render(<PricingSimpleCard features={[]} />);
+    // When features is empty, the ul element is not rendered
     const featureList = container.querySelector("ul");
-    expect(featureList).toBeInTheDocument();
-    expect(featureList?.children.length).toBe(0);
+    expect(featureList).toBeNull();
   });
 
   it("renders title with correct font weight", () => {

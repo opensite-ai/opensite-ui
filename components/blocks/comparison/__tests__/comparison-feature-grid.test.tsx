@@ -28,15 +28,15 @@ describe("ComparisonFeatureGrid", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders with custom title and description", () => {
+  it("renders with custom heading and description", () => {
     render(
       <ComparisonFeatureGrid
-        title="Custom Title"
+        heading="Custom Heading"
         description="Custom description"
       />
     );
 
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 

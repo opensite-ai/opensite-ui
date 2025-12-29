@@ -59,8 +59,8 @@ describe("ReviewsListVerified", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    const { container } = render(<ReviewsListVerified title="Custom Reviews" />);
+  it("renders custom heading", () => {
+    const { container } = render(<ReviewsListVerified heading="Custom Reviews" />);
     expect(container.textContent).toContain("Custom Reviews");
   });
 });

@@ -73,7 +73,7 @@ describe("LogosTwoRowGrid", () => {
     const { container } = render(<LogosTwoRowGrid />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
+    expect(section).toHaveClass("py-24");
   });
 
   it("handles empty companies array", () => {

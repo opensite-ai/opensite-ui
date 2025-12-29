@@ -127,8 +127,8 @@ describe("NavbarSimpleLinks", () => {
 
   it("applies correct padding to container", () => {
     const { container } = render(<NavbarSimpleLinks navItems={mockNavItems} />);
-    const nav = container.querySelector("nav");
-    expect(nav?.className).toContain("container");
+    const containerDiv = container.querySelector(".container");
+    expect(containerDiv).toBeInTheDocument();
   });
 
   it("renders with max-width constraint", () => {

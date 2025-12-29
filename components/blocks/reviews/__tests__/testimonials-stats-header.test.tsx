@@ -60,8 +60,8 @@ describe("TestimonialsStatsHeader", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    const { container } = render(<TestimonialsStatsHeader title="Custom Title" />);
-    expect(container.textContent).toContain("Custom Title");
+  it("renders custom heading", () => {
+    const { container } = render(<TestimonialsStatsHeader heading="Custom Heading" />);
+    expect(container.textContent).toContain("Custom Heading");
   });
 });

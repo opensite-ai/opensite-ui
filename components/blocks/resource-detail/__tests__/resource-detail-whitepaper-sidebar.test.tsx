@@ -69,7 +69,7 @@ describe("ResourceDetailWhitepaperSidebar", () => {
     const { container } = render(<ResourceDetailWhitepaperSidebar />);
     const section = container.querySelector("section");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
+    expect(section).toHaveClass("py-24");
   });
 
   it("renders sidebar with download options", () => {
@@ -105,7 +105,8 @@ describe("ResourceDetailWhitepaperSidebar", () => {
 
   it("renders grid layout with two columns", () => {
     const { container } = render(<ResourceDetailWhitepaperSidebar />);
-    const gridContainer = container.querySelector(".container.grid");
+    // Component uses .grid class for layout
+    const gridContainer = container.querySelector(".grid");
     expect(gridContainer).toBeInTheDocument();
   });
 });

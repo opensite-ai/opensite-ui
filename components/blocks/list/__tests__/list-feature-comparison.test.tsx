@@ -34,7 +34,7 @@ describe("ListFeatureComparison", () => {
   });
 
   it("renders custom badge text", () => {
-    render(<ListFeatureComparison badgeText="Custom Badge" />);
+    render(<ListFeatureComparison badge="Custom Badge" />);
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 
@@ -105,8 +105,7 @@ describe("ListFeatureComparison", () => {
   it("renders primary button with correct text and link", () => {
     render(
       <ListFeatureComparison
-        primaryButtonText="Sign Up Now"
-        primaryButtonUrl="/signup"
+        actions={[{ label: "Sign Up Now", href: "/signup" }]}
       />
     );
     const link = screen.getByRole("link", { name: /Sign Up Now/ });
@@ -116,8 +115,7 @@ describe("ListFeatureComparison", () => {
   it("renders secondary button with correct text and link", () => {
     render(
       <ListFeatureComparison
-        secondaryButtonText="Learn More"
-        secondaryButtonUrl="/features"
+        actions={[{ label: "Learn More", href: "/features", variant: "outline" }]}
       />
     );
     const link = screen.getByRole("link", { name: "Learn More" });

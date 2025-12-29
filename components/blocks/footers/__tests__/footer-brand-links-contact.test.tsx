@@ -52,7 +52,7 @@ describe("FooterBrandLinksContact", () => {
     const { container } = render(
       <FooterBrandLinksContact className="custom-class" />
     );
-    const footer = container.querySelector("footer");
-    expect(footer).toHaveClass("custom-class");
+    const section = container.querySelector("section");
+    expect(section).toHaveClass("custom-class");
   });
 });

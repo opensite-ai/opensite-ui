@@ -10,7 +10,7 @@ vi.mock("@page-speed/img", () => ({
 
 vi.mock("../../../ui/dynamic-icon", () => ({
   DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
-    <span data-testid="mock-icon" data-name={name} className={className}>
+    <span data-testid="mock-dynamic-icon" data-name={name} className={className}>
       icon
     </span>
   ),
@@ -38,8 +38,9 @@ describe("ServiceDetailSidebarStats", () => {
 
   it("applies custom className", () => {
     const { container } = render(<ServiceDetailSidebarStats className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
+    // className is applied to the outer div wrapper, not the section
+    const wrapper = container.firstChild as HTMLElement;
+    expect(wrapper).toHaveClass("custom-class");
   });
 
   it("renders the title", () => {
@@ -51,14 +52,14 @@ describe("ServiceDetailSidebarStats", () => {
     render(
       <ServiceDetailSidebarStats
         services={[
-          { icon: "lucide/users", title: "User research" },
-          { icon: "lucide/map", title: "Journey mapping" },
+          { iconName: "lucide/users", title: "User research" },
+          { iconName: "lucide/map", title: "Journey mapping" },
         ]}
       />
     );
     expect(screen.getByText("User research")).toBeInTheDocument();
     expect(screen.getByText("Journey mapping")).toBeInTheDocument();
-    expect(screen.getAllByTestId("mock-icon").length).toBeGreaterThan(0);
+    expect(screen.getAllByTestId("mock-dynamic-icon").length).toBeGreaterThan(0);
   });
 
   it("renders sidebar stats", () => {

@@ -102,19 +102,19 @@ describe("IndustriesBadgeListBordered", () => {
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 
-  it("renders section with py-32 spacing", () => {
+  it("renders section with xl spacing", () => {
     const { container } = render(
       <IndustriesBadgeListBordered services={mockServices} />
     );
     const section = container.querySelector("section");
-    expect(section?.className).toContain("py-32");
+    expect(section?.className).toContain("py-24");
   });
 
-  it("renders container class", () => {
+  it("renders container with max-w-7xl", () => {
     const { container } = render(
       <IndustriesBadgeListBordered services={mockServices} />
     );
-    const containerDiv = container.querySelector(".container");
+    const containerDiv = container.querySelector(".max-w-7xl");
     expect(containerDiv).toBeInTheDocument();
   });
 

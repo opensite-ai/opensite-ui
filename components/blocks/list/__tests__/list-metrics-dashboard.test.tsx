@@ -44,7 +44,7 @@ describe("ListMetricsDashboard", () => {
   });
 
   it("renders custom badge text", () => {
-    render(<ListMetricsDashboard badgeText="Custom Badge" />);
+    render(<ListMetricsDashboard badge="Custom Badge" />);
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 
@@ -134,8 +134,7 @@ describe("ListMetricsDashboard", () => {
   it("renders dashboard link", () => {
     render(
       <ListMetricsDashboard
-        dashboardLinkText="View dashboard"
-        dashboardLinkUrl="/dashboard"
+        dashboardAction={{ label: "View dashboard", href: "/dashboard" }}
       />
     );
     const link = screen.getByRole("link", { name: /View dashboard/ });

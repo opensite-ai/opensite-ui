@@ -47,16 +47,16 @@ describe("CarouselScrollingFeatureShowcase", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders custom section title", () => {
-    render(<CarouselScrollingFeatureShowcase sectionTitle="Custom Title" />);
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  it("renders custom heading", () => {
+    render(<CarouselScrollingFeatureShowcase heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom section subtitle", () => {
+  it("renders custom subheading", () => {
     render(
-      <CarouselScrollingFeatureShowcase sectionSubtitle="Custom Subtitle" />
+      <CarouselScrollingFeatureShowcase subheading="Custom Subheading" />
     );
-    expect(screen.getByText("Custom Subtitle")).toBeInTheDocument();
+    expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

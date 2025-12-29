@@ -24,8 +24,8 @@ describe("CarouselFeatureBadge", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders custom badge text", () => {
-    render(<CarouselFeatureBadge badgeText="Custom Badge" />);
+  it("renders custom badge", () => {
+    render(<CarouselFeatureBadge badge="Custom Badge" />);
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 

@@ -26,16 +26,10 @@ describe("NavbarDropdownMenu", () => {
     { title: "About", url: "/about" },
   ];
 
-  const mockAuth = {
-    login: {
-      title: "Sign In",
-      url: "/login",
-    },
-    signup: {
-      title: "Sign Up",
-      url: "/signup",
-    },
-  };
+  const mockAuthActions = [
+    { label: "Sign In", href: "/login", variant: "outline" as const, size: "sm" as const },
+    { label: "Sign Up", href: "/signup", variant: "default" as const, size: "sm" as const },
+  ];
 
   const mockLogo = {
     url: "/",
@@ -57,8 +51,8 @@ describe("NavbarDropdownMenu", () => {
     expect(screen.getByText("Products")).toBeInTheDocument();
   });
 
-  it("renders auth buttons when auth prop provided", () => {
-    render(<NavbarDropdownMenu auth={mockAuth} />);
+  it("renders auth buttons when authActions prop provided", () => {
+    render(<NavbarDropdownMenu authActions={mockAuthActions} />);
     expect(screen.getByText("Sign In")).toBeInTheDocument();
     expect(screen.getByText("Sign Up")).toBeInTheDocument();
   });
@@ -148,7 +142,7 @@ describe("NavbarDropdownMenu", () => {
   });
 
   it("renders auth buttons with correct styling", () => {
-    render(<NavbarDropdownMenu auth={mockAuth} />);
+    render(<NavbarDropdownMenu authActions={mockAuthActions} />);
     const signInButton = screen.getByText("Sign In");
     const signUpButton = screen.getByText("Sign Up");
     expect(signInButton).toBeInTheDocument();
@@ -195,7 +189,7 @@ describe("NavbarDropdownMenu", () => {
   });
 
   it("renders auth section with gap spacing", () => {
-    const { container } = render(<NavbarDropdownMenu auth={mockAuth} />);
+    const { container } = render(<NavbarDropdownMenu authActions={mockAuthActions} />);
     const authSection = container.querySelector(".gap-2");
     expect(authSection).toBeInTheDocument();
   });

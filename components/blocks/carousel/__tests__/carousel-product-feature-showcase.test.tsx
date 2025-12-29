@@ -50,8 +50,8 @@ describe("CarouselProductFeatureShowcase", () => {
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
   });
 
-  it("renders custom CTA text", () => {
-    render(<CarouselProductFeatureShowcase ctaText="Shop Now" />);
+  it("renders custom actions", () => {
+    render(<CarouselProductFeatureShowcase actions={[{ label: "Shop Now", href: "#" }]} />);
     expect(screen.getByText("Shop Now")).toBeInTheDocument();
   });
 
@@ -168,8 +168,7 @@ describe("CarouselProductFeatureShowcase", () => {
   it("renders CTA as a link", () => {
     render(
       <CarouselProductFeatureShowcase
-        ctaHref="/products"
-        ctaText="View Products"
+        actions={[{ label: "View Products", href: "/products" }]}
       />
     );
     const cta = screen.getByText("View Products");

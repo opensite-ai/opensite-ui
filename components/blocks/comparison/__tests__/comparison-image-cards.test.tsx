@@ -48,8 +48,8 @@ describe("ComparisonImageCards", () => {
   it("renders with custom heading and description", () => {
     render(
       <ComparisonImageCards
-        title="Custom Heading"
-        subtitle="Custom description"
+        heading="Custom Heading"
+        description="Custom description"
       />
     );
 

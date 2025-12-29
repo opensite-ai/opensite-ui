@@ -34,7 +34,7 @@ describe("ComparisonFeatureCards", () => {
   it("renders with custom heading and description", () => {
     render(
       <ComparisonFeatureCards
-        title="Custom Heading"
+        heading="Custom Heading"
         description="Custom description"
       />
     );
