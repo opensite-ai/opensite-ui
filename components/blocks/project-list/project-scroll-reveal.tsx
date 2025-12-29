@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import {
   AnimatePresence,
   motion,
@@ -12,7 +13,9 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectScrollRevealItem {
   id: number;
@@ -23,10 +26,58 @@ export interface ProjectScrollRevealItem {
 }
 
 export interface ProjectScrollRevealProps {
-  className?: string;
-  heading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of project configurations
+   */
   projects?: ProjectScrollRevealItem[];
+  /**
+   * Custom slot for rendering projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
 }
 
 const defaultProjects: ProjectScrollRevealItem[] = [
@@ -222,26 +273,66 @@ const ProjectItem = ({
  * storytelling and interactive hover states create an engaging browsing experience.
  */
 export function ProjectScrollReveal({
-  className,
   heading = "Our Projects",
   projects = defaultProjects,
+  projectsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headingClassName,
+  gridClassName,
+  cardClassName,
 }: ProjectScrollRevealProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+    if (!projects || projects.length === 0) return null;
+
+    return projects.map((project, index) => (
+      <ProjectItem
+        key={project.id}
+        project={project}
+        index={index}
+        containerRef={containerRef}
+        hoveredIndex={hoveredIndex}
+        setHoveredIndex={setHoveredIndex}
+        mousePos={mousePos}
+        setMousePos={setMousePos}
+        optixFlowConfig={optixFlowConfig}
+      />
+    ));
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container space-y-16">
-        <h1 className="text-center text-4xl font-semibold md:text-6xl">
-          {heading}
-        </h1>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container space-y-16", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("text-center text-4xl font-semibold md:text-6xl", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
 
         <motion.div
           ref={containerRef}
-          className="mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:gap-12"
+          className={cn("mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:gap-12", gridClassName)}
           variants={{
             hidden: { opacity: 0 },
             visible: {
@@ -255,21 +346,9 @@ export function ProjectScrollReveal({
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {projects.map((project, index) => (
-            <ProjectItem
-              key={project.id}
-              project={project}
-              index={index}
-              containerRef={containerRef}
-              hoveredIndex={hoveredIndex}
-              setHoveredIndex={setHoveredIndex}
-              mousePos={mousePos}
-              setMousePos={setMousePos}
-              optixFlowConfig={optixFlowConfig}
-            />
-          ))}
+          {renderProjects()}
         </motion.div>
       </div>
-    </section>
+    </Section>
   );
 }

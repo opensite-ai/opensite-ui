@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { useEffect, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -7,6 +8,7 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
 import type { CarouselApi } from "../../ui/carousel";
 import {
   Carousel,
@@ -14,6 +16,7 @@ import {
   CarouselItem,
 } from "../../ui/carousel";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectCarouselDetailCardsItem {
   id: number;
@@ -26,11 +29,70 @@ export interface ProjectCarouselDetailCardsItem {
 }
 
 export interface ProjectCarouselDetailCardsProps {
-  className?: string;
-  heading?: string;
-  subheading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading content
+   */
+  subheading?: React.ReactNode;
+  /**
+   * Array of project configurations
+   */
   projects?: ProjectCarouselDetailCardsItem[];
+  /**
+   * Custom slot for rendering projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the carousel
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
 }
 
 const defaultProjects: ProjectCarouselDetailCardsItem[] = [
@@ -106,11 +168,22 @@ const defaultProjects: ProjectCarouselDetailCardsItem[] = [
  * or any showcase where comprehensive project information is important alongside visuals.
  */
 export function ProjectCarouselDetailCards({
-  className,
   heading = "Projects",
   subheading = "Detailed showcase with complete metadata",
   projects = defaultProjects,
+  projectsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  carouselClassName,
+  cardClassName,
 }: ProjectCarouselDetailCardsProps) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -129,14 +202,80 @@ export function ProjectCarouselDetailCards({
     };
   }, [carouselApi]);
 
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+    if (!projects || projects.length === 0) return null;
+
+    return projects.map((project) => (
+      <CarouselItem key={project.id} className="basis-auto pl-8">
+        <div className={cn("w-[600px] space-y-5 rounded-2xl border border-border bg-card p-6 shadow-sm", cardClassName)}>
+          <div className="aspect-4/3 overflow-hidden rounded-lg">
+            <Img
+              src={project.image}
+              alt={project.title}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+          <div className="space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {project.title}
+              </h2>
+              <Badge variant="secondary">{project.category}</Badge>
+            </div>
+            <p className="line-clamp-2 text-sm text-muted-foreground">
+              {project.description}
+            </p>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <DynamicIcon name="lucide/calendar" size={14} />
+                {project.year}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <DynamicIcon name="lucide/map-pin" size={14} />
+                {project.location}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <DynamicIcon name="lucide/tag" size={14} />
+                {project.category}
+              </span>
+            </div>
+            <Pressable variant="outline" className="w-full">
+              View Project
+            </Pressable>
+          </div>
+        </div>
+      </CarouselItem>
+    ));
+  };
+
   return (
-    <section className={cn("py-16", className)}>
-      <div className="w-full">
-        <div className="mb-16 px-8">
-          <h1 className="text-3xl font-medium tracking-tight lg:text-6xl">
-            {heading}
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground">{subheading}</p>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("w-full", containerClassName)}>
+        <div className={cn("mb-16 px-8", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("text-3xl font-medium tracking-tight lg:text-6xl", headingClassName)}>
+                {heading}
+              </h1>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {subheading && (
+            typeof subheading === "string" ? (
+              <p className={cn("mt-4 text-lg text-muted-foreground", subheadingClassName)}>{subheading}</p>
+            ) : (
+              <div className={subheadingClassName}>{subheading}</div>
+            )
+          )}
         </div>
         <div className="relative w-full">
           <Carousel
@@ -150,51 +289,10 @@ export function ProjectCarouselDetailCards({
                 },
               },
             }}
-            className="w-full"
+            className={cn("w-full", carouselClassName)}
           >
             <CarouselContent>
-              {projects.map((project) => (
-                <CarouselItem key={project.id} className="basis-auto pl-8">
-                  <div className="w-[600px] space-y-5 rounded-2xl border border-border bg-card p-6 shadow-sm">
-                    <div className="aspect-4/3 overflow-hidden rounded-lg">
-                      <Img
-                        src={project.image}
-                        alt={project.title}
-                        className="h-full w-full object-cover"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-start justify-between gap-4">
-                        <h2 className="text-xl font-semibold tracking-tight">
-                          {project.title}
-                        </h2>
-                        <Badge variant="secondary">{project.category}</Badge>
-                      </div>
-                      <p className="line-clamp-2 text-sm text-muted-foreground">
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1.5">
-                          <DynamicIcon name="lucide/calendar" size={14} />
-                          {project.year}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <DynamicIcon name="lucide/map-pin" size={14} />
-                          {project.location}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <DynamicIcon name="lucide/tag" size={14} />
-                          {project.category}
-                        </span>
-                      </div>
-                      <Pressable variant="outline" className="w-full">
-                        View Project
-                      </Pressable>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
+              {renderProjects()}
             </CarouselContent>
           </Carousel>
           <div className="pointer-events-none absolute inset-y-0 top-64 right-4 left-4 z-10 flex justify-between">
@@ -219,6 +317,6 @@ export function ProjectCarouselDetailCards({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

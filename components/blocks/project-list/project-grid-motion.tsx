@@ -1,10 +1,13 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectGridMotionItem {
   title: string;
@@ -14,10 +17,66 @@ export interface ProjectGridMotionItem {
 }
 
 export interface ProjectGridMotionProps {
-  className?: string;
-  heading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of project configurations
+   */
   projects?: ProjectGridMotionItem[];
+  /**
+   * Custom slot for rendering projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each project card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the card image container
+   */
+  imageContainerClassName?: string;
+  /**
+   * Additional CSS classes for the card footer
+   */
+  cardFooterClassName?: string;
 }
 
 const defaultProjects: ProjectGridMotionItem[] = [
@@ -70,47 +129,82 @@ const defaultProjects: ProjectGridMotionItem[] = [
  * card presentation are important.
  */
 export function ProjectGridMotion({
-  className,
   heading = "Our Work",
   projects = defaultProjects,
+  projectsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headingClassName,
+  gridClassName,
+  cardClassName,
+  imageContainerClassName,
+  cardFooterClassName,
 }: ProjectGridMotionProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <h1 className="text-7xl leading-tight font-bold uppercase">{heading}</h1>
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+    if (!projects || projects.length === 0) return null;
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group overflow-hidden rounded-lg border border-border bg-background"
-            >
-              <div className="overflow-hidden">
-                <Img
-                  src={project.img}
-                  alt={project.title}
-                  className="h-96 w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-              <div className="flex items-center justify-between px-5 py-4">
-                <div>
-                  <h2 className="text-lg font-semibold">{project.title}</h2>
-                  <p className="text-muted-foreground">{project.type}</p>
-                </div>
-                <div className="rounded-2xl border border-border px-5 py-2 text-sm font-semibold">
-                  {project.year}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+    return projects.map((project, index) => (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
+        viewport={{ once: true }}
+        className={cn(
+          "group overflow-hidden rounded-lg border border-border bg-background",
+          cardClassName
+        )}
+      >
+        <div className={cn("overflow-hidden", imageContainerClassName)}>
+          <Img
+            src={project.img}
+            alt={project.title}
+            className="h-96 w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+        <div className={cn("flex items-center justify-between px-5 py-4", cardFooterClassName)}>
+          <div>
+            <h2 className="text-lg font-semibold">{project.title}</h2>
+            <p className="text-muted-foreground">{project.type}</p>
+          </div>
+          <div className="rounded-2xl border border-border px-5 py-2 text-sm font-semibold">
+            {project.year}
+          </div>
+        </div>
+      </motion.div>
+    ));
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("text-7xl leading-tight font-bold uppercase", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+
+        <div className={cn("mt-10 grid grid-cols-1 gap-6 md:grid-cols-2", gridClassName)}>
+          {renderProjects()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -1,19 +1,83 @@
 "use client";
 
+import * as React from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectNatureMosaicProps {
-  className?: string;
-  heading?: string;
-  description?: string;
-  linkText?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description content
+   */
+  description?: React.ReactNode;
+  /**
+   * Link button text
+   */
+  linkText?: React.ReactNode;
+  /**
+   * Link button href
+   */
   linkHref?: string;
+  /**
+   * Array of image URLs
+   */
   images?: string[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the link
+   */
+  linkClassName?: string;
 }
 
 const defaultImages = [
@@ -34,64 +98,109 @@ const defaultImages = [
  * image compositions create an organic, editorial feel.
  */
 export function ProjectNatureMosaic({
-  className,
   heading = "Exploring the wonders of nature,\ncapturing moments of serenity and\nbeauty from forests to mountains.",
   description = "Nature's beauty is ever-changing and endlessly inspiring. From the gentle rustle of leaves to the grandeur of mountain vistas, each day brings a new story to capture and cherish.",
   linkText = "Discover More →",
   linkHref = "#",
   images = defaultImages,
+  imagesSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headingClassName,
+  gridClassName,
+  descriptionClassName,
+  linkClassName,
 }: ProjectNatureMosaicProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <h1 className="mb-12 text-xl leading-tight font-medium md:text-3xl whitespace-pre-line">
-          {heading}
-        </h1>
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
 
-        <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="space-y-4">
-            <Img
-              src={images[0]}
-              alt="Nature scene 1"
-              className="aspect-4/3 w-full rounded-lg object-cover"
-              optixFlowConfig={optixFlowConfig}
-            />
+    return (
+      <>
+        <div className="space-y-4">
+          <Img
+            src={images[0]}
+            alt="Nature scene 1"
+            className="aspect-4/3 w-full rounded-lg object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+          {images[2] && (
             <Img
               src={images[2]}
               alt="Nature scene 3"
               className="aspect-4/5 w-full rounded-lg object-cover"
               optixFlowConfig={optixFlowConfig}
             />
-          </div>
+          )}
+        </div>
 
-          <div className="space-y-4">
+        <div className="space-y-4">
+          {images[1] && (
             <Img
               src={images[1]}
               alt="Nature scene 2"
               className="aspect-4/5 w-full rounded-lg object-cover"
               optixFlowConfig={optixFlowConfig}
             />
+          )}
+          {images[3] && (
             <Img
               src={images[3]}
               alt="Nature scene 4"
               className="aspect-4/3 w-full rounded-lg object-cover"
               optixFlowConfig={optixFlowConfig}
             />
-          </div>
+          )}
+        </div>
+      </>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("mb-12 text-xl leading-tight font-medium md:text-3xl whitespace-pre-line", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+
+        <div className={cn("mb-12 grid grid-cols-1 gap-4 md:grid-cols-2", gridClassName)}>
+          {renderImages()}
         </div>
 
         <div className="max-w-md">
-          <p className="mb-4 text-muted-foreground">{description}</p>
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mb-4 text-muted-foreground", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
           <Pressable
             href={linkHref}
             variant="link"
-            className="h-auto px-0 text-sm font-medium"
+            className={cn("h-auto px-0 text-sm font-medium", linkClassName)}
           >
             {linkText}
           </Pressable>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -1,11 +1,14 @@
 "use client";
 
+import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectFilterableGalleryItem {
   id: number;
@@ -17,10 +20,66 @@ export interface ProjectFilterableGalleryItem {
 }
 
 export interface ProjectFilterableGalleryProps {
-  className?: string;
+  /**
+   * Array of project configurations
+   */
   projects?: ProjectFilterableGalleryItem[];
+  /**
+   * Custom slot for rendering projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
+   * Array of category filter options
+   */
   categories?: string[];
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the filter buttons container
+   */
+  filtersClassName?: string;
+  /**
+   * Additional CSS classes for each filter button
+   */
+  filterButtonClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each project card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the empty state
+   */
+  emptyStateClassName?: string;
 }
 
 const defaultProjects: ProjectFilterableGalleryItem[] = [
@@ -99,10 +158,21 @@ const defaultCategories = [
  * category-based filtering.
  */
 export function ProjectFilterableGallery({
-  className,
   projects = defaultProjects,
+  projectsSlot,
   categories = defaultCategories,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  filtersClassName,
+  filterButtonClassName,
+  gridClassName,
+  cardClassName,
+  emptyStateClassName,
 }: ProjectFilterableGalleryProps) {
   const [activeFilter, setActiveFilter] = useState("ALL");
   const [filteredItems, setFilteredItems] = useState(projects);
@@ -122,65 +192,79 @@ export function ProjectFilterableGallery({
     }
   };
 
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+
+    return filteredItems.map((item) => (
+      <motion.div
+        key={item.id}
+        layout
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{
+          duration: 0.2,
+          ease: "easeInOut",
+        }}
+        className={cn("group relative cursor-pointer overflow-hidden rounded-lg", cardClassName)}
+      >
+        <div className="relative aspect-4/3 h-96 w-full">
+          <Img
+            src={item.image}
+            alt={item.title}
+            className="object-cover transition-transform duration-300"
+            optixFlowConfig={optixFlowConfig}
+          />
+
+          <motion.div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-8 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <motion.div className="translate-y-5 text-center opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              <p className="mb-4 text-xs font-medium tracking-widest text-gray-300">
+                {item.category}
+              </p>
+              <h3 className="mb-4 text-2xl font-light tracking-wide">
+                {item.title}
+              </h3>
+              <p className="max-w-xs text-sm leading-relaxed text-gray-200">
+                {item.description}
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.div>
+    ));
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container", containerClassName)}>
         <div className="mx-auto max-w-7xl">
-          <div className="mb-16 flex flex-wrap justify-center gap-8">
+          <div className={cn("mb-16 flex flex-wrap justify-center gap-8", filtersClassName)}>
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => handleFilterChange(category)}
-                className={`text-sm font-medium tracking-wider transition-colors duration-300 hover:text-foreground ${
+                className={cn(
+                  "text-sm font-medium tracking-wider transition-colors duration-300 hover:text-foreground",
                   activeFilter === category
                     ? "border-b-2 border-border pb-1 text-foreground"
-                    : "text-gray-500"
-                }`}
+                    : "text-gray-500",
+                  filterButtonClassName
+                )}
               >
                 {category}
               </button>
             ))}
           </div>
 
-          <motion.div layout className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <motion.div layout className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}>
             <AnimatePresence mode="wait">
-              {filteredItems.map((item) => (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{
-                    duration: 0.2,
-                    ease: "easeInOut",
-                  }}
-                  className="group relative cursor-pointer overflow-hidden rounded-lg"
-                >
-                  <div className="relative aspect-4/3 h-96 w-full">
-                    <Img
-                      src={item.image}
-                      alt={item.title}
-                      className="object-cover transition-transform duration-300"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-
-                    <motion.div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-8 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                      <motion.div className="translate-y-5 text-center opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                        <p className="mb-4 text-xs font-medium tracking-widest text-gray-300">
-                          {item.category}
-                        </p>
-                        <h3 className="mb-4 text-2xl font-light tracking-wide">
-                          {item.title}
-                        </h3>
-                        <p className="max-w-xs text-sm leading-relaxed text-gray-200">
-                          {item.description}
-                        </p>
-                      </motion.div>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
+              {renderProjects()}
             </AnimatePresence>
           </motion.div>
 
@@ -188,7 +272,7 @@ export function ProjectFilterableGallery({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="py-16 text-center"
+              className={cn("py-16 text-center", emptyStateClassName)}
             >
               <p className="text-lg text-gray-500">
                 No items found for "{activeFilter}" category.
@@ -197,6 +281,6 @@ export function ProjectFilterableGallery({
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

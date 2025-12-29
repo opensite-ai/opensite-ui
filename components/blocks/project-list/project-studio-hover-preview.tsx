@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import {
   AnimatePresence,
   motion,
@@ -10,7 +11,9 @@ import { useCallback, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectStudioHoverPreviewItem {
   title: string;
@@ -20,10 +23,62 @@ export interface ProjectStudioHoverPreviewItem {
 }
 
 export interface ProjectStudioHoverPreviewProps {
-  className?: string;
-  heading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of project configurations
+   */
   projects?: ProjectStudioHoverPreviewItem[];
+  /**
+   * Custom slot for rendering projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
 }
 
 const defaultProjects: ProjectStudioHoverPreviewItem[] = [
@@ -77,10 +132,20 @@ const defaultProjects: ProjectStudioHoverPreviewItem[] = [
  * their portfolio with an interactive, premium feel.
  */
 export function ProjectStudioHoverPreview({
-  className,
   heading = "Studio Gallery",
   projects = defaultProjects,
+  projectsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  gridClassName,
+  cardClassName,
 }: ProjectStudioHoverPreviewProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -124,48 +189,67 @@ export function ProjectStudioHoverPreview({
     setIsHovering(false);
   }, []);
 
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+    if (!projects || projects.length === 0) return null;
+
+    return projects.map((project, index) => (
+      <div key={index} className={cn("group relative", cardClassName)}>
+        <div
+          className="relative cursor-pointer overflow-hidden rounded-xl"
+          onMouseEnter={() => handleProjectMouseEnter(index)}
+        >
+          <Img
+            src={project.img}
+            alt={project.title}
+            className="h-[400px] w-full rounded-lg object-cover transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.05] group-hover:brightness-110"
+            optixFlowConfig={optixFlowConfig}
+          />
+
+          <div className="absolute inset-0 rounded-lg bg-black/0 transition-all duration-500 group-hover:bg-black/10" />
+        </div>
+
+        <div className="mt-4 flex justify-between gap-0.5">
+          <h3 className="text-sm leading-tight font-medium transition-colors duration-300 group-hover:text-neutral-800 md:text-base">
+            {project.title}
+          </h3>
+          <div className="flex flex-col items-end">
+            <p className="text-sm text-neutral-600">{project.year}</p>
+            <p className="text-sm text-muted-foreground">
+              {project.type}
+            </p>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
   return (
-    <section className={cn("py-20", className)}>
-      <div className="container">
-        <div className="mb-10 flex items-end justify-between">
-          <h2 className="text-2xl font-semibold">{heading}</h2>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("mb-10 flex items-end justify-between", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-2xl font-semibold", headingClassName)}>{heading}</h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
         </div>
 
         <div
           ref={containerRef}
-          className="relative grid grid-cols-1 gap-x-6 gap-y-7 sm:grid-cols-2 lg:grid-cols-3"
+          className={cn("relative grid grid-cols-1 gap-x-6 gap-y-7 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}
           onMouseMove={handleContainerMouseMove}
           onMouseLeave={handleContainerMouseLeave}
         >
-          {projects.map((project, index) => (
-            <div key={index} className="group relative">
-              <div
-                className="relative cursor-pointer overflow-hidden rounded-xl"
-                onMouseEnter={() => handleProjectMouseEnter(index)}
-              >
-                <Img
-                  src={project.img}
-                  alt={project.title}
-                  className="h-[400px] w-full rounded-lg object-cover transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.05] group-hover:brightness-110"
-                  optixFlowConfig={optixFlowConfig}
-                />
-
-                <div className="absolute inset-0 rounded-lg bg-black/0 transition-all duration-500 group-hover:bg-black/10" />
-              </div>
-
-              <div className="mt-4 flex justify-between gap-0.5">
-                <h3 className="text-sm leading-tight font-medium transition-colors duration-300 group-hover:text-neutral-800 md:text-base">
-                  {project.title}
-                </h3>
-                <div className="flex flex-col items-end">
-                  <p className="text-sm text-neutral-600">{project.year}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {project.type}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+          {renderProjects()}
 
           <AnimatePresence>
             {isHovering && hoveredIndex !== null && (
@@ -221,6 +305,6 @@ export function ProjectStudioHoverPreview({
           </AnimatePresence>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

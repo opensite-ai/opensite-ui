@@ -1,9 +1,12 @@
 "use client";
 
+import * as React from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectTableListItem {
   id: number;
@@ -14,9 +17,66 @@ export interface ProjectTableListItem {
 }
 
 export interface ProjectTableListProps {
-  className?: string;
+  /**
+   * Array of project configurations
+   */
   projects?: ProjectTableListItem[];
+  /**
+   * Custom slot for rendering projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the list
+   */
+  listClassName?: string;
+  /**
+   * Additional CSS classes for the header row
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for each row
+   */
+  rowClassName?: string;
+  /**
+   * Additional CSS classes for the project info column
+   */
+  infoColumnClassName?: string;
+  /**
+   * Additional CSS classes for the description column
+   */
+  descriptionColumnClassName?: string;
+  /**
+   * Additional CSS classes for the gallery column
+   */
+  galleryColumnClassName?: string;
 }
 
 const defaultProjects: ProjectTableListItem[] = [
@@ -65,46 +125,74 @@ const defaultProjects: ProjectTableListItem[] = [
  * and chronological ordering are important. Responsive layout stacks columns on mobile.
  */
 export function ProjectTableList({
-  className,
   projects = defaultProjects,
+  projectsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  listClassName,
+  headerClassName,
+  rowClassName,
+  infoColumnClassName,
+  descriptionColumnClassName,
+  galleryColumnClassName,
 }: ProjectTableListProps) {
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+    if (!projects || projects.length === 0) return null;
+
+    return projects.map((project, index) => (
+      <li
+        key={project.id}
+        className={cn(
+          "flex w-full flex-col justify-between gap-10 border-b py-10 lg:flex-row lg:py-15",
+          rowClassName
+        )}
+      >
+        <div className={cn("flex gap-4 text-xl font-medium tracking-tighter uppercase lg:w-1/4", infoColumnClassName)}>
+          <p className="">0{index + 1}</p>
+          <div className="flex flex-col gap-1">
+            <p>{project.title}</p>
+            <p>({project.launchDate})</p>
+          </div>
+        </div>
+        <div className={cn("text-2xl lg:w-2/4 lg:text-3xl", descriptionColumnClassName)}>
+          {project.description}
+        </div>
+        <div className={cn("w-full text-right text-sm text-foreground/50 uppercase lg:h-30 lg:w-1/4 lg:pl-20 lg:text-base", galleryColumnClassName)}>
+          <Img
+            src={project.image}
+            alt={project.title}
+            className="h-full w-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+      </li>
+    ));
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <ul className="relative w-full">
-          <li className="hidden justify-between gap-10 border-b pt-15 pb-2 text-sm tracking-tight text-foreground/40 uppercase lg:flex lg:text-base">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container", containerClassName)}>
+        <ul className={cn("relative w-full", listClassName)}>
+          <li className={cn("hidden justify-between gap-10 border-b pt-15 pb-2 text-sm tracking-tight text-foreground/40 uppercase lg:flex lg:text-base", headerClassName)}>
             <p className="w-1/4">PROJECTS</p>
             <p className="w-2/4">DESCRIPTION</p>
             <p className="w-1/4 text-right">GALLERY</p>
           </li>
-          {projects.map((project, index) => (
-            <li
-              key={project.id}
-              className="flex w-full flex-col justify-between gap-10 border-b py-10 lg:flex-row lg:py-15"
-            >
-              <div className="flex gap-4 text-xl font-medium tracking-tighter uppercase lg:w-1/4">
-                <p className="">0{index + 1}</p>
-                <div className="flex flex-col gap-1">
-                  <p>{project.title}</p>
-                  <p>({project.launchDate})</p>
-                </div>
-              </div>
-              <div className="text-2xl lg:w-2/4 lg:text-3xl">
-                {project.description}
-              </div>
-              <div className="w-full text-right text-sm text-foreground/50 uppercase lg:h-30 lg:w-1/4 lg:pl-20 lg:text-base">
-                <Img
-                  src={project.image}
-                  alt={project.title}
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-            </li>
-          ))}
+          {renderProjects()}
         </ul>
       </div>
-    </section>
+    </Section>
   );
 }

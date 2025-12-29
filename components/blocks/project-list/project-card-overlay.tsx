@@ -1,11 +1,14 @@
 "use client";
 
+import * as React from "react";
 import { motion, type Variants } from "framer-motion";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ProjectCardOverlayItem {
   id: number;
@@ -16,11 +19,70 @@ export interface ProjectCardOverlayItem {
 }
 
 export interface ProjectCardOverlayProps {
-  className?: string;
-  heading?: string;
-  subheading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Subheading/eyebrow content
+   */
+  subheading?: React.ReactNode;
+  /**
+   * Array of project configurations
+   */
   projects?: ProjectCardOverlayItem[];
+  /**
+   * Custom slot for rendering projects (overrides projects array)
+   */
+  projectsSlot?: React.ReactNode;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background style
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: string;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header area
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
 }
 
 const defaultProjects: ProjectCardOverlayItem[] = [
@@ -79,15 +141,16 @@ const itemVariants: Variants = {
 interface ProjectCardProps {
   project: ProjectCardOverlayItem;
   optixFlowConfig?: OptixFlowConfig;
+  className?: string;
 }
 
-const ProjectCard = ({ project, optixFlowConfig }: ProjectCardProps) => {
+const ProjectCard = ({ project, optixFlowConfig, className }: ProjectCardProps) => {
   return (
     <motion.div
       variants={itemVariants}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="group relative cursor-pointer overflow-hidden rounded-3xl bg-black shadow-2xl"
+      className={cn("group relative cursor-pointer overflow-hidden rounded-3xl bg-black shadow-2xl", className)}
     >
       <div className="relative aspect-square overflow-hidden">
         <Img
@@ -138,51 +201,88 @@ const ProjectCard = ({ project, optixFlowConfig }: ProjectCardProps) => {
  * where bold visuals and interactive hover states create impact.
  */
 export function ProjectCardOverlay({
-  className,
   heading = "CAPTURING MOMENTS",
   subheading = "PROJECT SHOWCASE",
   projects = defaultProjects,
+  projectsSlot,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  gridClassName,
+  cardClassName,
 }: ProjectCardOverlayProps) {
+  const renderProjects = () => {
+    if (projectsSlot) return projectsSlot;
+    if (!projects || projects.length === 0) return null;
+
+    return projects.map((project) => (
+      <ProjectCard
+        key={project.id}
+        project={project}
+        optixFlowConfig={optixFlowConfig}
+        className={cardClassName}
+      />
+    ));
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("container", containerClassName)}>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-20 text-center"
+          className={cn("mb-20 text-center", headerClassName)}
         >
           <div className="mb-6">
-            <span className="inline-flex items-center gap-2 text-sm font-medium tracking-wide text-muted-foreground">
-              <div className="h-2 w-2 rounded-full bg-foreground"></div>
-              {subheading}
-            </span>
+            {subheading && (
+              typeof subheading === "string" ? (
+                <span className={cn("inline-flex items-center gap-2 text-sm font-medium tracking-wide text-muted-foreground", subheadingClassName)}>
+                  <div className="h-2 w-2 rounded-full bg-foreground"></div>
+                  {subheading}
+                </span>
+              ) : (
+                <div className={subheadingClassName}>{subheading}</div>
+              )
+            )}
           </div>
-          <h1 className="text-6xl leading-none font-black tracking-tight md:text-8xl lg:text-9xl">
-            {heading.split(" ").map((word, index) => (
-              <span key={index} className="block">
-                {word}
-              </span>
-            ))}
-          </h1>
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("text-6xl leading-none font-black tracking-tight md:text-8xl lg:text-9xl", headingClassName)}>
+                {heading.split(" ").map((word, index) => (
+                  <span key={index} className="block">
+                    {word}
+                  </span>
+                ))}
+              </h1>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
         </motion.div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2"
+          className={cn("mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2", gridClassName)}
         >
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              optixFlowConfig={optixFlowConfig}
-            />
-          ))}
+          {renderProjects()}
         </motion.div>
       </div>
-    </section>
+    </Section>
   );
 }
