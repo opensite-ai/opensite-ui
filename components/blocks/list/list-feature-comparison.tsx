@@ -5,12 +5,19 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ListFeatureComparisonFeature {
   /**
    * Feature name
    */
-  name: string;
+  name: React.ReactNode;
   /**
    * Whether the feature is available in Basic plan
    */
@@ -33,63 +40,131 @@ export interface ListFeatureComparisonTrustIndicator {
   /**
    * Title text
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Description text
    */
-  description?: string;
+  description?: React.ReactNode;
 }
 
 export interface ListFeatureComparisonProps {
   /**
-   * Badge text displayed above the heading
+   * Badge content displayed above the heading
    */
-  badgeText?: string;
+  badge?: React.ReactNode;
   /**
-   * Main heading text
+   * Custom slot for rendering badge (overrides badge)
    */
-  heading?: string;
+  badgeSlot?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Additional CSS classes for the badge
    */
-  description?: string;
+  badgeClassName?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Description content below the heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
   /**
    * Array of features to compare
    */
   features?: ListFeatureComparisonFeature[];
   /**
+   * Custom slot for rendering features table (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
    * Plan column headers
    */
   planHeaders?: {
-    feature?: string;
-    basic?: string;
-    pro?: string;
-    enterprise?: string;
+    feature?: React.ReactNode;
+    basic?: React.ReactNode;
+    pro?: React.ReactNode;
+    enterprise?: React.ReactNode;
   };
   /**
-   * Primary CTA button text
+   * Array of action configurations for CTA buttons
    */
-  primaryButtonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary CTA button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  primaryButtonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
-   * Secondary CTA button text
+   * Additional CSS classes for the actions container
    */
-  secondaryButtonText?: string;
-  /**
-   * Secondary CTA button URL
-   */
-  secondaryButtonUrl?: string;
+  actionsClassName?: string;
   /**
    * Trust indicators displayed below the table
    */
   trustIndicators?: ListFeatureComparisonTrustIndicator[];
   /**
-   * Additional CSS classes for the section
+   * Custom slot for rendering trust indicators (overrides trustIndicators array)
+   */
+  trustIndicatorsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the trust indicators container
+   */
+  trustIndicatorsClassName?: string;
+  /**
+   * Additional CSS classes for individual trust indicator items
+   */
+  trustIndicatorClassName?: string;
+  /**
+   * Additional CSS classes for the table wrapper
+   */
+  tableWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the table
+   */
+  tableClassName?: string;
+  /**
+   * Additional CSS classes for the table header
+   */
+  tableHeaderClassName?: string;
+  /**
+   * Additional CSS classes for the table body
+   */
+  tableBodyClassName?: string;
+  /**
+   * Additional CSS classes for table rows
+   */
+  tableRowClassName?: string;
+  /**
+   * Additional CSS classes for the header section
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const defaultFeatures: ListFeatureComparisonFeature[] = [
@@ -121,6 +196,22 @@ const defaultTrustIndicators: ListFeatureComparisonTrustIndicator[] = [
   },
 ];
 
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Compare All Features",
+    href: "#",
+    variant: "outline",
+    size: "lg",
+  },
+  {
+    label: "Get Started",
+    href: "#",
+    variant: "default",
+    size: "lg",
+    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
+  },
+];
+
 /**
  * ListFeatureComparison - A hero-style feature comparison table with pricing tiers,
  * trust indicators, and call-to-action buttons. Displays features across Basic, Pro,
@@ -132,15 +223,16 @@ const defaultTrustIndicators: ListFeatureComparisonTrustIndicator[] = [
  * @example
  * ```tsx
  * <ListFeatureComparison
- *   badgeText="New Enterprise Plan Available"
+ *   badge="New Enterprise Plan Available"
  *   heading="Choose the perfect plan for your needs"
  *   description="From startups to enterprises, we have a plan that scales with your business."
  *   features={[
  *     { name: "Unlimited Projects", basic: false, pro: true, enterprise: true },
  *     { name: "API Access", basic: true, pro: true, enterprise: true }
  *   ]}
- *   primaryButtonText="Get Started"
- *   primaryButtonUrl="/signup"
+ *   actions={[
+ *     { label: "Get Started", href: "/signup", variant: "default" }
+ *   ]}
  *   trustIndicators={[
  *     { icon: "lucide/users", title: "50,000+ Users", description: "Join our community" }
  *   ]}
@@ -148,66 +240,111 @@ const defaultTrustIndicators: ListFeatureComparisonTrustIndicator[] = [
  * ```
  */
 export function ListFeatureComparison({
-  badgeText = "New Enterprise Plan Available",
+  badge = "New Enterprise Plan Available",
+  badgeSlot,
+  badgeClassName,
   heading = "Choose the perfect plan for your needs",
+  headingClassName,
   description = "From startups to enterprises, we have a plan that scales with your business. Compare features and find your fit.",
+  descriptionClassName,
   features = defaultFeatures,
+  featuresSlot,
   planHeaders = {
     feature: "Feature",
     basic: "Basic",
     pro: "Pro",
     enterprise: "Enterprise",
   },
-  primaryButtonText = "Get Started",
-  primaryButtonUrl = "#",
-  secondaryButtonText = "Compare All Features",
-  secondaryButtonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
+  actionsClassName,
   trustIndicators = defaultTrustIndicators,
+  trustIndicatorsSlot,
+  trustIndicatorsClassName,
+  trustIndicatorClassName,
+  tableWrapperClassName,
+  tableClassName,
+  tableHeaderClassName,
+  tableBodyClassName,
+  tableRowClassName,
+  headerClassName,
   className,
+  background = "white",
+  spacing = "md",
+  pattern,
+  patternOpacity,
 }: ListFeatureComparisonProps): React.JSX.Element {
-  return (
-    <div className={cn("container mx-auto px-4 py-24 md:px-6 lg:py-32 2xl:max-w-[1400px]", className)}>
-      {/* Announcement */}
-      <div className="mb-8 flex justify-center">
-        <Badge variant="outline" className="text-sm">
-          {badgeText}
-        </Badge>
-      </div>
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
 
-      {/* Title */}
-      <div className="mb-6 text-center">
-        <h1 className="text-primary mx-auto mb-4 max-w-4xl text-4xl leading-tight font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter">
-          {heading}
-        </h1>
-        <p className="text-foreground mx-auto max-w-4xl text-base text-balance sm:text-lg">
-          {description}
-        </p>
-      </div>
+    return typeof badge === "string" ? (
+      <Badge variant="outline" className={cn("text-sm", badgeClassName)}>
+        {badge}
+      </Badge>
+    ) : (
+      <div className={badgeClassName}>{badge}</div>
+    );
+  };
 
-      {/* Comparison Table */}
-      <div className="overflow-x-auto">
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div className={cn("mt-12 flex flex-col justify-center gap-4 sm:flex-row", actionsClassName)}>
+        {actions.map((action, idx) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+
+          return (
+            <Pressable
+              key={idx}
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
+
+    return (
+      <div className={cn("overflow-x-auto", tableWrapperClassName)}>
         <div className="inline-block min-w-full align-middle">
           <div className="overflow-hidden rounded-lg border">
-            <table className="divide-border min-w-full divide-y">
-              <thead className="bg-muted/50">
+            <table className={cn("divide-border min-w-full divide-y", tableClassName)}>
+              <thead className={cn("bg-muted/50", tableHeaderClassName)}>
                 <tr>
                   <th className="text-foreground px-6 py-3 text-left text-sm font-semibold">
-                    {planHeaders.feature}
+                    {planHeaders?.feature}
                   </th>
                   <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
-                    {planHeaders.basic}
+                    {planHeaders?.basic}
                   </th>
                   <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
-                    {planHeaders.pro}
+                    {planHeaders?.pro}
                   </th>
                   <th className="text-foreground px-6 py-3 text-center text-sm font-semibold">
-                    {planHeaders.enterprise}
+                    {planHeaders?.enterprise}
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-border bg-background divide-y">
+              <tbody className={cn("divide-border bg-background divide-y", tableBodyClassName)}>
                 {features.map((feature, index) => (
-                  <tr key={index}>
+                  <tr key={index} className={tableRowClassName}>
                     <td className="text-foreground px-6 py-4 text-sm whitespace-nowrap">
                       {feature.name}
                     </td>
@@ -255,26 +392,17 @@ export function ListFeatureComparison({
           </div>
         </div>
       </div>
+    );
+  };
 
-      {/* CTA */}
-      <div className="mt-12 flex flex-col justify-center gap-4 sm:flex-row">
-        <Pressable href={secondaryButtonUrl} size="lg" variant="outline" asButton>
-          {secondaryButtonText}
-        </Pressable>
-        <Pressable href={primaryButtonUrl} size="lg" variant="default" asButton>
-          {primaryButtonText}
-          <DynamicIcon
-            name="lucide/arrow-right"
-            size={16}
-            className="ml-2"
-          />
-        </Pressable>
-      </div>
+  const renderTrustIndicators = () => {
+    if (trustIndicatorsSlot) return trustIndicatorsSlot;
+    if (!trustIndicators || trustIndicators.length === 0) return null;
 
-      {/* Trust Indicators */}
-      <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+    return (
+      <div className={cn("mt-16 grid grid-cols-1 gap-8 md:grid-cols-3", trustIndicatorsClassName)}>
         {trustIndicators.map((indicator, index) => (
-          <div key={index} className="text-center">
+          <div key={index} className={cn("text-center", trustIndicatorClassName)}>
             {indicator.icon && (
               <DynamicIcon
                 name={indicator.icon}
@@ -282,11 +410,62 @@ export function ListFeatureComparison({
                 className="text-primary mx-auto mb-4"
               />
             )}
-            <h3 className="mb-2 text-xl font-semibold">{indicator.title}</h3>
-            <p className="text-muted-foreground">{indicator.description}</p>
+            {indicator.title && (
+              typeof indicator.title === "string" ? (
+                <h3 className="mb-2 text-xl font-semibold">{indicator.title}</h3>
+              ) : (
+                <div className="mb-2">{indicator.title}</div>
+              )
+            )}
+            {indicator.description && (
+              typeof indicator.description === "string" ? (
+                <p className="text-muted-foreground">{indicator.description}</p>
+              ) : (
+                <div className="text-muted-foreground">{indicator.description}</div>
+              )
+            )}
           </div>
         ))}
       </div>
-    </div>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("mb-8 flex justify-center", headerClassName)}>
+        {renderBadge()}
+      </div>
+
+      <div className="mb-6 text-center">
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("text-primary mx-auto mb-4 max-w-4xl text-4xl leading-tight font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={cn("mx-auto mb-4 max-w-4xl", headingClassName)}>{heading}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("text-foreground mx-auto max-w-4xl text-base text-balance sm:text-lg", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mx-auto max-w-4xl", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+
+      {renderFeatures()}
+      {renderActions()}
+      {renderTrustIndicators()}
+    </Section>
   );
 }

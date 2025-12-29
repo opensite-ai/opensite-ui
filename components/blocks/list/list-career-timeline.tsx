@@ -3,66 +3,129 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ListExperienceItem {
   /**
    * Time period (e.g., "2019 - PRESENT")
    */
-  year?: string;
+  year?: React.ReactNode;
   /**
    * Job role or position
    */
-  role?: string;
+  role?: React.ReactNode;
   /**
    * Company or organization name
    */
-  company?: string;
+  company?: React.ReactNode;
 }
 
 export interface ListAwardItem {
   /**
    * Year of the award
    */
-  year?: string;
+  year?: React.ReactNode;
   /**
    * Title of the award
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Organization that gave the award
    */
-  organization?: string;
+  organization?: React.ReactNode;
 }
 
 export interface ListCareerTimelineProps {
   /**
    * Section label (e.g., "/ CAREER PATH")
    */
-  sectionLabel?: string;
+  sectionLabel?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section label
+   */
+  sectionLabelClassName?: string;
   /**
    * Main heading text (supports line breaks)
    */
   heading?: React.ReactNode;
   /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
    * Experience section label
    */
-  experienceLabel?: string;
+  experienceLabel?: React.ReactNode;
+  /**
+   * Additional CSS classes for the experience label
+   */
+  experienceLabelClassName?: string;
   /**
    * Array of experience items
    */
   experiences?: ListExperienceItem[];
   /**
+   * Custom slot for rendering experiences (overrides experiences array)
+   */
+  experiencesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the experiences container
+   */
+  experiencesClassName?: string;
+  /**
+   * Additional CSS classes for individual experience rows
+   */
+  experienceRowClassName?: string;
+  /**
    * Achievements section label
    */
-  achievementsLabel?: string;
+  achievementsLabel?: React.ReactNode;
+  /**
+   * Additional CSS classes for the achievements label
+   */
+  achievementsLabelClassName?: string;
   /**
    * Array of award/achievement items
    */
   awards?: ListAwardItem[];
   /**
-   * Additional CSS classes for the section
+   * Custom slot for rendering awards (overrides awards array)
+   */
+  awardsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the awards container
+   */
+  awardsClassName?: string;
+  /**
+   * Additional CSS classes for individual award rows
+   */
+  awardRowClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const defaultExperiences: ListExperienceItem[] = [
@@ -172,58 +235,157 @@ const defaultAwards: ListAwardItem[] = [
  */
 export function ListCareerTimeline({
   sectionLabel = "/ CAREER PATH",
+  sectionLabelClassName,
   heading = (
     <>
       BUILDING SOLUTIONS,
       <br /> SHAPING THE FUTURE
     </>
   ),
+  headingClassName,
   experienceLabel = "/ EXPERIENCE",
+  experienceLabelClassName,
   experiences = defaultExperiences,
+  experiencesSlot,
+  experiencesClassName,
+  experienceRowClassName,
   achievementsLabel = "/ ACHIEVEMENTS",
+  achievementsLabelClassName,
   awards = defaultAwards,
+  awardsSlot,
+  awardsClassName,
+  awardRowClassName,
+  contentClassName,
   className,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: ListCareerTimelineProps): React.JSX.Element {
+  const renderExperiences = () => {
+    if (experiencesSlot) return experiencesSlot;
+    if (!experiences || experiences.length === 0) return null;
+
+    return (
+      <div className={experiencesClassName}>
+        {experiences.map((experience, idx) => (
+          <React.Fragment key={idx}>
+            <Separator />
+            <div className={cn("my-2.5 grid gap-2.5 text-sm sm:grid-cols-3", experienceRowClassName)}>
+              {experience.year && (
+                typeof experience.year === "string" ? (
+                  <p className="text-muted-foreground">{experience.year}</p>
+                ) : (
+                  <div className="text-muted-foreground">{experience.year}</div>
+                )
+              )}
+              {experience.role && (
+                typeof experience.role === "string" ? (
+                  <p>{experience.role}</p>
+                ) : (
+                  <div>{experience.role}</div>
+                )
+              )}
+              {experience.company && (
+                typeof experience.company === "string" ? (
+                  <p className="text-muted-foreground">{experience.company}</p>
+                ) : (
+                  <div className="text-muted-foreground">{experience.company}</div>
+                )
+              )}
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+    );
+  };
+
+  const renderAwards = () => {
+    if (awardsSlot) return awardsSlot;
+    if (!awards || awards.length === 0) return null;
+
+    return (
+      <div className={awardsClassName}>
+        {awards.map((award, idx) => (
+          <React.Fragment key={idx}>
+            <Separator />
+            <div className={cn("my-2.5 grid gap-2.5 text-sm sm:grid-cols-3", awardRowClassName)}>
+              {award.year && (
+                typeof award.year === "string" ? (
+                  <p className="text-muted-foreground">{award.year}</p>
+                ) : (
+                  <div className="text-muted-foreground">{award.year}</div>
+                )
+              )}
+              {award.title && (
+                typeof award.title === "string" ? (
+                  <p>{award.title}</p>
+                ) : (
+                  <div>{award.title}</div>
+                )
+              )}
+              {award.organization && (
+                typeof award.organization === "string" ? (
+                  <p className="text-muted-foreground">{award.organization}</p>
+                ) : (
+                  <div className="text-muted-foreground">{award.organization}</div>
+                )
+              )}
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="flex flex-col gap-12">
-          <div className="flex flex-col gap-5">
-            <span className="text-sm text-muted-foreground">{sectionLabel}</span>
-            <h1 className="text-4xl md:text-6xl">{heading}</h1>
-          </div>
-          <div className="flex flex-col gap-7">
-            <h2 className="text-xl">{experienceLabel}</h2>
-            <div>
-              {experiences.map((experience, idx) => (
-                <React.Fragment key={idx}>
-                  <Separator />
-                  <div className="my-2.5 grid gap-2.5 text-sm sm:grid-cols-3">
-                    <p className="text-muted-foreground">{experience.year}</p>
-                    <p>{experience.role}</p>
-                    <p className="text-muted-foreground">{experience.company}</p>
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col gap-7">
-            <h2 className="text-xl">{achievementsLabel}</h2>
-            <div>
-              {awards.map((award, idx) => (
-                <React.Fragment key={idx}>
-                  <Separator />
-                  <div className="my-2.5 grid gap-2.5 text-sm sm:grid-cols-3">
-                    <p className="text-muted-foreground">{award.year}</p>
-                    <p>{award.title}</p>
-                    <p className="text-muted-foreground">{award.organization}</p>
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("flex flex-col gap-12", contentClassName)}>
+        <div className="flex flex-col gap-5">
+          {sectionLabel && (
+            typeof sectionLabel === "string" ? (
+              <span className={cn("text-sm text-muted-foreground", sectionLabelClassName)}>
+                {sectionLabel}
+              </span>
+            ) : (
+              <div className={sectionLabelClassName}>{sectionLabel}</div>
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h1 className={cn("text-4xl md:text-6xl", headingClassName)}>{heading}</h1>
+            ) : (
+              <div className={cn("text-4xl md:text-6xl", headingClassName)}>{heading}</div>
+            )
+          )}
+        </div>
+        <div className="flex flex-col gap-7">
+          {experienceLabel && (
+            typeof experienceLabel === "string" ? (
+              <h2 className={cn("text-xl", experienceLabelClassName)}>{experienceLabel}</h2>
+            ) : (
+              <div className={experienceLabelClassName}>{experienceLabel}</div>
+            )
+          )}
+          {renderExperiences()}
+        </div>
+        <div className="flex flex-col gap-7">
+          {achievementsLabel && (
+            typeof achievementsLabel === "string" ? (
+              <h2 className={cn("text-xl", achievementsLabelClassName)}>{achievementsLabel}</h2>
+            ) : (
+              <div className={achievementsLabelClassName}>{achievementsLabel}</div>
+            )
+          )}
+          {renderAwards()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
