@@ -1,10 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useState, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
+import { PDFViewer } from "@page-speed/pdf-viewer";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -27,6 +29,20 @@ export interface ResourceDetailWhitepaperSidebarSidebar {
    * Resource title
    */
   resourceTitle?: React.ReactNode;
+  /**
+   * PDF URL for inline preview
+   */
+  pdfUrl?: string;
+  /**
+   * Height of the PDF preview (CSS value)
+   * @default "300px"
+   */
+  pdfPreviewHeight?: string | number;
+  /**
+   * Whether to show the PDF preview
+   * @default true when pdfUrl is provided
+   */
+  showPdfPreview?: boolean;
   /**
    * Download section description
    */
@@ -269,6 +285,9 @@ const defaultSidebar: ResourceDetailWhitepaperSidebarSidebar = {
     />
   ),
   resourceTitle: "The Complete Guide to Launching Your Startup",
+  pdfUrl: "https://cdn.ing/assets/files/record/286359/5fv7u23rr648t363fy2ibs61sflg",
+  pdfPreviewHeight: "300px",
+  showPdfPreview: true,
   downloadDescription:
     "Enjoy this guide? Download it for offline reading or sharing.",
   downloadOptionsTitle: "Download Options",
@@ -347,6 +366,18 @@ export function ResourceDetailWhitepaperSidebar({
   pattern,
   patternOpacity,
 }: ResourceDetailWhitepaperSidebarProps) {
+  const [showFullViewer, setShowFullViewer] = useState(false);
+
+  const handleOpenFullViewer = useCallback(() => {
+    setShowFullViewer(true);
+  }, []);
+
+  const handleCloseFullViewer = useCallback(() => {
+    setShowFullViewer(false);
+  }, []);
+
+  const showPdfPreview = sidebar?.showPdfPreview !== false && !!sidebar?.pdfUrl;
+
   const renderDownloadAction = (action: ActionConfig | undefined, defaultVariant: "default" | "outline") => {
     if (!action) return null;
 
@@ -397,6 +428,34 @@ export function ResourceDetailWhitepaperSidebar({
                 )
               )}
             </div>
+
+            {showPdfPreview && sidebar?.pdfUrl && (
+              <div className="mt-4 overflow-hidden rounded-lg border border-border bg-muted/30">
+                <PDFViewer
+                  url={sidebar.pdfUrl}
+                  height={sidebar.pdfPreviewHeight ?? "300px"}
+                  config={{
+                    showControls: true,
+                    showThumbnails: false,
+                    enableDownload: true,
+                    enablePrint: true,
+                    enableFullscreen: false,
+                    initialPage: 1,
+                    initialZoom: "page-fit",
+                  }}
+                />
+                <div className="border-t border-border p-3">
+                  <button
+                    type="button"
+                    onClick={handleOpenFullViewer}
+                    className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  >
+                    <DynamicIcon name="lucide/maximize-2" size={16} />
+                    View Full Document
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -506,6 +565,40 @@ export function ResourceDetailWhitepaperSidebar({
           {renderArticle()}
         </div>
       </div>
+
+      {showFullViewer && sidebar?.pdfUrl && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-black/90">
+          <div className="flex items-center justify-between border-b border-border bg-background px-6 py-4">
+            <h2 className="text-lg font-semibold">
+              {typeof sidebar.resourceTitle === "string"
+                ? sidebar.resourceTitle
+                : "Document Viewer"}
+            </h2>
+            <button
+              type="button"
+              onClick={handleCloseFullViewer}
+              className="flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-muted"
+              aria-label="Close viewer"
+            >
+              <DynamicIcon name="lucide/x" size={20} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <PDFViewer
+              url={sidebar.pdfUrl}
+              height="100%"
+              config={{
+                showControls: true,
+                showThumbnails: true,
+                enableDownload: true,
+                enablePrint: true,
+                enableFullscreen: true,
+                initialZoom: "page-width",
+              }}
+            />
+          </div>
+        </div>
+      )}
     </Section>
   );
 }

@@ -1,10 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -226,9 +228,51 @@ export function MasonryMotionGrid({
   patternClassName,
   optixFlowConfig,
 }: MasonryMotionGridProps): React.JSX.Element {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const allImages = useMemo(() => [
+    ...column1Images,
+    ...column2Images,
+    ...column3Images,
+    ...column4Images,
+  ], [column1Images, column2Images, column3Images, column4Images]);
+
+  const lightboxItems: LightboxItem[] = useMemo(() =>
+    allImages.map((img, index) => ({
+      id: `masonry-image-${index}`,
+      type: "image" as const,
+      src: img.src,
+      alt: img.alt,
+      download: true,
+      share: true,
+    })),
+    [allImages]
+  );
+
+  const getGlobalIndex = useCallback((columnIndex: number, imageIndex: number): number => {
+    const columnOffsets = [
+      0,
+      column1Images.length,
+      column1Images.length + column2Images.length,
+      column1Images.length + column2Images.length + column3Images.length,
+    ];
+    return columnOffsets[columnIndex] + imageIndex;
+  }, [column1Images.length, column2Images.length, column3Images.length]);
+
+  const handleImageClick = useCallback((globalIndex: number) => {
+    setLightboxIndex(globalIndex);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
   const renderColumn = (
     images: MasonryMotionGridImage[],
-    direction: "up" | "down"
+    direction: "up" | "down",
+    columnIndex: number
   ) => (
     <div className={cn("grid gap-4", columnClassName)}>
       {images.map((image, index) => (
@@ -248,8 +292,21 @@ export function MasonryMotionGrid({
             delay: index * animationDelayMultiplier,
           }}
           key={index}
-          className={cn("w-full overflow-hidden rounded-2xl bg-muted", imageWrapperClassName)}
+          className={cn(
+            "w-full overflow-hidden rounded-2xl bg-muted cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
+            imageWrapperClassName
+          )}
           style={{ height: image.height }}
+          onClick={() => handleImageClick(getGlobalIndex(columnIndex, index))}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleImageClick(getGlobalIndex(columnIndex, index));
+            }
+          }}
+          aria-label={`View ${image.alt} in lightbox`}
         >
           <Img
             className={cn("h-full w-full rounded-2xl object-cover", imageClassName, image.className)}
@@ -282,8 +339,21 @@ export function MasonryMotionGrid({
             delay: index * animationDelayMultiplier,
           }}
           key={index}
-          className={cn("w-full overflow-hidden rounded-2xl bg-muted", imageWrapperClassName)}
+          className={cn(
+            "w-full overflow-hidden rounded-2xl bg-muted cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
+            imageWrapperClassName
+          )}
           style={{ height: image.height }}
+          onClick={() => handleImageClick(getGlobalIndex(3, index))}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleImageClick(getGlobalIndex(3, index));
+            }
+          }}
+          aria-label={`View ${image.alt} in lightbox`}
         >
           <Img
             className={cn("h-full w-full rounded-2xl object-cover", imageClassName, image.className)}
@@ -304,16 +374,16 @@ export function MasonryMotionGrid({
     return (
       <>
         <div className={cn("grid grid-cols-2 gap-4 md:grid-cols-4", gridClassName)}>
-          {renderColumn(column1Images, "up")}
-          {renderColumn(column2Images, "down")}
-          {renderColumn(column3Images, "up")}
+          {renderColumn(column1Images, "up", 0)}
+          {renderColumn(column2Images, "down", 1)}
+          {renderColumn(column3Images, "up", 2)}
           {renderColumn4(column4Images)}
         </div>
         {showDuplicateGrid && (
           <div className={cn("mt-4 grid grid-cols-2 gap-4 md:grid-cols-4", gridClassName)}>
-            {renderColumn(column1Images, "up")}
-            {renderColumn(column2Images, "down")}
-            {renderColumn(column3Images, "up")}
+            {renderColumn(column1Images, "up", 0)}
+            {renderColumn(column2Images, "down", 1)}
+            {renderColumn(column3Images, "up", 2)}
             {renderColumn4(column4Images)}
           </div>
         )}
@@ -331,6 +401,27 @@ export function MasonryMotionGrid({
       className={className}
     >
       {renderGrid()}
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

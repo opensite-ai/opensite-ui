@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -13,6 +14,7 @@ import {
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -457,6 +459,31 @@ export function LinkTreeBlock({
   const resolvedBackground = background ?? (isDark ? "dark" : "gray");
   const resolvedPattern = pattern ?? backgroundPattern;
 
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    if (!mediaGallery || mediaGallery.length === 0) return [];
+    return mediaGallery.slice(0, mediaGalleryLimit).map((item, index) => ({
+      id: item.id ?? `media-${index}`,
+      type: item.type as "image" | "video",
+      src: item.src,
+      alt: item.alt,
+      thumbnail: item.poster || item.src,
+      download: item.type === "image",
+      share: true,
+    }));
+  }, [mediaGallery, mediaGalleryLimit]);
+
+  const handleMediaClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
   const resolveImage = (
     value?: ImageItem | string,
     fallbackAlt?: string
@@ -723,16 +750,25 @@ export function LinkTreeBlock({
           )}
         >
           {items.map((item, index) => (
-            <Pressable
+            <div
               key={item.id ?? index}
-              href={item.href}
               className={cn(
-                "group relative aspect-square overflow-hidden rounded-lg",
+                "group relative aspect-square overflow-hidden rounded-lg cursor-pointer",
                 "transition-all duration-200 hover:scale-[1.02]",
                 isDark ? "ring-1 ring-white/10" : "ring-1 ring-border",
                 mediaGalleryItemClassName,
                 item.className
               )}
+              onClick={() => handleMediaClick(index)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleMediaClick(index);
+                }
+              }}
+              aria-label={`View ${item.alt || item.type} in lightbox`}
             >
               {item.type === "video" ? (
                 <video
@@ -782,7 +818,7 @@ export function LinkTreeBlock({
                   />
                 )}
               </div>
-            </Pressable>
+            </div>
           ))}
         </div>
       </div>
@@ -916,6 +952,27 @@ export function LinkTreeBlock({
           <div className="pt-4">{renderFooter()}</div>
         </div>
       </div>
+
+      {lightboxOpen && lightboxItems.length > 0 && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

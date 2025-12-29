@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -8,6 +9,8 @@ import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
+import { PDFViewer } from "@page-speed/pdf-viewer";
 import type {
   ActionConfig,
   ImageItem,
@@ -75,6 +78,18 @@ export interface ProjectDetailArchitectureCarouselProps {
   sectionsClassName?: string;
   /** Additional CSS classes for the grid */
   gridClassName?: string;
+  /** Video URL for presentation video */
+  videoUrl?: string;
+  /** Video poster image */
+  videoPoster?: string;
+  /** PDF URL for presentation document */
+  pdfUrl?: string;
+  /** Whether to show the video tab */
+  showVideoTab?: boolean;
+  /** Whether to show the PDF tab */
+  showPdfTab?: boolean;
+  /** Whether to enable lightbox for carousel images */
+  enableLightbox?: boolean;
 }
 
 const defaultCarouselImages: ImageItem[] = [
@@ -119,6 +134,12 @@ const defaultProps: ProjectDetailArchitectureCarouselProps = {
   sections: defaultSections,
   gridImages: defaultGridImages,
   backAction: { label: "Back to Projects", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
+  videoUrl: "https://cdn.ing/assets/files/record/286359/architecture-presentation.mp4",
+  videoPoster: imagePlaceholders[49],
+  pdfUrl: "https://cdn.ing/assets/files/record/286359/5fv7u23rr648t363fy2ibs61sflg",
+  showVideoTab: true,
+  showPdfTab: true,
+  enableLightbox: true,
 };
 
 const fadeInUp = {
@@ -157,23 +178,55 @@ export function ProjectDetailArchitectureCarousel(
     carouselClassName,
     sectionsClassName,
     gridClassName,
+    videoUrl = defaultProps.videoUrl,
+    videoPoster = defaultProps.videoPoster,
+    pdfUrl = defaultProps.pdfUrl,
+    showVideoTab = defaultProps.showVideoTab,
+    showPdfTab = defaultProps.showPdfTab,
+    enableLightbox = defaultProps.enableLightbox,
   } = props;
 
-  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedTab, setSelectedTab] = useState<"slides" | "video" | "pdf">("slides");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const nextSlide = () => {
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    if (!carouselImages || carouselImages.length === 0) return [];
+    return carouselImages.map((img, index) => ({
+      id: `carousel-image-${index}`,
+      type: "image" as const,
+      src: img.src || imagePlaceholders[49 + index],
+      alt: img.alt || `Slide ${index + 1}`,
+      download: true,
+      share: true,
+    }));
+  }, [carouselImages]);
+
+  const handleImageClick = useCallback((index: number) => {
+    if (enableLightbox) {
+      setLightboxIndex(index);
+      setLightboxOpen(true);
+    }
+  }, [enableLightbox]);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const nextSlide = useCallback(() => {
     if (carouselImages) {
       setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
     }
-  };
+  }, [carouselImages]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     if (carouselImages) {
       setCurrentSlide(
         (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
       );
     }
-  };
+  }, [carouselImages]);
 
   const renderBackAction = () => {
     if (backActionSlot) return backActionSlot;
@@ -265,14 +318,83 @@ export function ProjectDetailArchitectureCarousel(
           </motion.div>
         )}
 
-        {carouselImages && carouselImages.length > 0 && (
+        {(showVideoTab || showPdfTab) && (
+          <motion.div
+            {...fadeInUp}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mb-8"
+          >
+            <div className="flex flex-wrap gap-2 border-b border-border">
+              <button
+                type="button"
+                onClick={() => setSelectedTab("slides")}
+                className={cn(
+                  "px-4 py-2 text-sm font-medium transition-colors",
+                  selectedTab === "slides"
+                    ? "border-b-2 border-primary text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <DynamicIcon name="lucide/images" size={16} className="mr-2 inline-block" />
+                Slides ({carouselImages?.length || 0})
+              </button>
+              {showVideoTab && videoUrl && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedTab("video")}
+                  className={cn(
+                    "px-4 py-2 text-sm font-medium transition-colors",
+                    selectedTab === "video"
+                      ? "border-b-2 border-primary text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <DynamicIcon name="lucide/play-circle" size={16} className="mr-2 inline-block" />
+                  Video
+                </button>
+              )}
+              {showPdfTab && pdfUrl && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedTab("pdf")}
+                  className={cn(
+                    "px-4 py-2 text-sm font-medium transition-colors",
+                    selectedTab === "pdf"
+                      ? "border-b-2 border-primary text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <DynamicIcon name="lucide/file-text" size={16} className="mr-2 inline-block" />
+                  PDF Document
+                </button>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {selectedTab === "slides" && carouselImages && carouselImages.length > 0 && (
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.2 }}
             className={cn("mb-16", carouselClassName)}
           >
             <div className="relative">
-              <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted">
+              <div
+                className={cn(
+                  "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+                  enableLightbox && "cursor-pointer"
+                )}
+                onClick={() => handleImageClick(currentSlide)}
+                role={enableLightbox ? "button" : undefined}
+                tabIndex={enableLightbox ? 0 : undefined}
+                onKeyDown={enableLightbox ? (e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleImageClick(currentSlide);
+                  }
+                } : undefined}
+                aria-label={enableLightbox ? "Open image in lightbox" : undefined}
+              >
                 <Img
                   src={
                     carouselImages[currentSlide]?.src ||
@@ -282,10 +404,17 @@ export function ProjectDetailArchitectureCarousel(
                   className="h-full w-full object-cover transition-opacity duration-500"
                   optixFlowConfig={optixFlowConfig}
                 />
+                {enableLightbox && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors hover:bg-black/20">
+                    <div className="rounded-full bg-background/80 p-3 opacity-0 transition-opacity group-hover:opacity-100 hover:opacity-100">
+                      <DynamicIcon name="lucide/maximize-2" size={24} />
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="absolute inset-y-0 left-0 flex items-center">
                 <button
-                  onClick={prevSlide}
+                  onClick={(e) => { e.stopPropagation(); prevSlide(); }}
                   className="ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
                   aria-label="Previous slide"
                 >
@@ -294,28 +423,83 @@ export function ProjectDetailArchitectureCarousel(
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center">
                 <button
-                  onClick={nextSlide}
+                  onClick={(e) => { e.stopPropagation(); nextSlide(); }}
                   className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
                   aria-label="Next slide"
                 >
                   <DynamicIcon name="lucide/chevron-right" size={20} />
                 </button>
               </div>
-              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-                {carouselImages.map((_, index) => (
+              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-4">
+                <div className="flex gap-2">
+                  {carouselImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={(e) => { e.stopPropagation(); setCurrentSlide(index); }}
+                      className={cn(
+                        "h-2 w-2 rounded-full transition-colors",
+                        index === currentSlide
+                          ? "bg-foreground"
+                          : "bg-foreground/30"
+                      )}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+                {enableLightbox && (
                   <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={cn(
-                      "h-2 w-2 rounded-full transition-colors",
-                      index === currentSlide
-                        ? "bg-foreground"
-                        : "bg-foreground/30"
-                    )}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
+                    onClick={(e) => { e.stopPropagation(); handleImageClick(currentSlide); }}
+                    className="flex h-8 items-center gap-1.5 rounded-full bg-background/80 px-3 text-sm font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background"
+                    aria-label="Open fullscreen"
+                  >
+                    <DynamicIcon name="lucide/maximize-2" size={14} />
+                    Fullscreen
+                  </button>
+                )}
               </div>
+            </div>
+          </motion.div>
+        )}
+
+        {selectedTab === "video" && showVideoTab && videoUrl && (
+          <motion.div
+            {...fadeInUp}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-16"
+          >
+            <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted">
+              <video
+                src={videoUrl}
+                poster={videoPoster}
+                controls
+                className="h-full w-full object-cover"
+                controlsList="nodownload"
+              >
+                <track kind="captions" />
+              </video>
+            </div>
+          </motion.div>
+        )}
+
+        {selectedTab === "pdf" && showPdfTab && pdfUrl && (
+          <motion.div
+            {...fadeInUp}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-16"
+          >
+            <div className="overflow-hidden rounded-2xl border border-border bg-card">
+              <PDFViewer
+                url={pdfUrl}
+                height="600px"
+                config={{
+                  showControls: true,
+                  showThumbnails: true,
+                  enableDownload: true,
+                  enablePrint: true,
+                  enableFullscreen: true,
+                  initialZoom: "page-fit",
+                }}
+              />
             </div>
           </motion.div>
         )}
@@ -373,6 +557,28 @@ export function ProjectDetailArchitectureCarousel(
           </motion.div>
         )}
       </article>
+
+      {lightboxOpen && lightboxItems.length > 0 && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          onSelect={(index) => setCurrentSlide(index)}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }
