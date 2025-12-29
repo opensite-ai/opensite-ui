@@ -207,3 +207,22 @@ export const videoPlaceholders = [
   "https://toastability-production.s3.amazonaws.com/6wgxszvzxjuc3n129224urjawa1y",
   "https://toastability-production.s3.amazonaws.com/xa1t8a9usk1uyb4oibb2374yp8lx",
 ];
+
+export const architectureShowcase = {
+  presentationVideoSrc:
+    "https://toastability-production.s3.amazonaws.com/lzjll60wz2sjd3sx1dxx440o8st2",
+  presentationPdfSrc:
+    "https://cdn.ing/assets/files/record/286359/5fv7u23rr648t363fy2ibs61sflg",
+  presentationSlideImages: [
+    "https://cdn.ing/assets/i/r/286360/0pf2q15x4i6tnzsb9q69ebs7waxg/enh-slide1-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286361/xexj2n6wv9gjrll4znkknzj2g3gv/enh-slide2-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286362/6dv6yn4xdu6uycxvnj8xh2mn3om6/enh-slide3-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286363/fztoi235xnydwok5nbwqaan3av08/enh-slide4-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286364/t3reblt8t8d56f5sfiw7s2najw5j/enh-slide5-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286365/5jg6o89riei0voyrf6x9ekx50yi1/enh-slide6-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286366/n38048e9urnfvby7oa1jgq6zv5a6/enh-slide7-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286367/i5nrm6bw2h1s6ysqupo5cwr6mhs3/enh-slide8-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286368/uqby7ex8w16gncgp0parfu3eb39h/enh-slide9-enhanced-text-shapes-2x.png",
+    "https://cdn.ing/assets/i/r/286369/zd7l9x70c9u7xojbx4twayulhi6r/enh-slide10-enhanced-text-shapes-2x.png",
+  ],
+};
