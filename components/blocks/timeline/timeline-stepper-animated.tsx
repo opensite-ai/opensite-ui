@@ -8,17 +8,93 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface TimelineStep {
-  title: string;
+  title: React.ReactNode;
   imageSrc: string;
-  description: string;
+  imageAlt?: string;
+  description: React.ReactNode;
 }
 
 export interface TimelineStepperAnimatedProps {
-  className?: string;
-  heading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of timeline steps
+   */
   steps?: TimelineStep[];
+  /**
+   * Initial step index (0-based)
+   */
+  initialStep?: number;
+  /**
+   * Additional CSS classes for the section wrapper
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the process bar
+   */
+  processBarClassName?: string;
+  /**
+   * Additional CSS classes for the step content area
+   */
+  stepContentClassName?: string;
+  /**
+   * Additional CSS classes for step images
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for step descriptions
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for navigation buttons container
+   */
+  navButtonsClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern background
+   */
+  patternClassName?: string;
+  /**
+   * Section ID for anchor links
+   */
+  id?: string;
+  /**
+   * Inline styles for the section
+   */
+  style?: React.CSSProperties;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
   optixFlowConfig?: {
     apiKey: string;
     compression?: number;
@@ -59,7 +135,7 @@ const ProcessBar: React.FC<{
   <div className="relative w-full scale-75">
     <div className="flex items-center justify-between">
       {steps.map((step, index) => (
-        <React.Fragment key={step.title}>
+        <React.Fragment key={index}>
           <div className="flex flex-col items-center">
             <motion.div
               className={cn(
@@ -102,7 +178,9 @@ const StepperContent: React.FC<{
     apiKey: string;
     compression?: number;
   };
-}> = ({ step, optixFlowConfig }) => {
+  imageClassName?: string;
+  descriptionClassName?: string;
+}> = ({ step, optixFlowConfig, imageClassName, descriptionClassName }) => {
   return (
     <div className="my-4 flex min-h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-muted p-6 text-center">
       <motion.div
@@ -114,12 +192,12 @@ const StepperContent: React.FC<{
       >
         <Img
           src={step.imageSrc}
-          alt={step.title}
-          className="w-[500px]"
+          alt={step.imageAlt || (typeof step.title === 'string' ? step.title : 'Step image')}
+          className={cn("w-[500px]", imageClassName)}
           optixFlowConfig={optixFlowConfig}
         />
       </motion.div>
-      <p className="mt-6 px-10 text-base leading-snug font-normal tracking-tight text-muted-foreground">
+      <p className={cn("mt-6 px-10 text-base leading-snug font-normal tracking-tight text-muted-foreground", descriptionClassName)}>
         {step.description}
       </p>
     </div>
@@ -154,12 +232,30 @@ const NavButtons: React.FC<{
 );
 
 export function TimelineStepperAnimated({
-  className,
   heading = "Stepper",
   steps = defaultSteps,
+  initialStep = 1,
+  className,
+  containerClassName,
+  headingClassName,
+  processBarClassName,
+  stepContentClassName,
+  imageClassName,
+  descriptionClassName,
+  navButtonsClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  id,
+  style,
   optixFlowConfig,
 }: TimelineStepperAnimatedProps) {
-  const [currentStep, setCurrentStep] = useState(1);
+  const safeInitialStep = steps.length > 0 
+    ? Math.max(0, Math.min(initialStep, steps.length - 1))
+    : 0;
+  const [currentStep, setCurrentStep] = useState(safeInitialStep);
 
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
@@ -169,16 +265,61 @@ export function TimelineStepperAnimated({
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
+  const safeCurrentStep = steps.length > 0 
+    ? Math.max(0, Math.min(currentStep, steps.length - 1))
+    : 0;
+
+  if (steps.length === 0) {
+    return (
+      <Section
+        id={id}
+        background={background}
+        spacing={spacing}
+        className={className}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        patternClassName={patternClassName}
+        style={style}
+      >
+        <div className={cn("flex max-w-2xl flex-col items-center gap-10 md:gap-0", containerClassName)}>
+          <h1 className={cn("mb-10 text-center text-6xl font-bold tracking-tighter text-foreground", headingClassName)}>
+            {heading}
+          </h1>
+        </div>
+      </Section>
+    );
+  }
+
   return (
-    <section className={cn("bg-background py-32", className)}>
-      <div className="container flex max-w-2xl flex-col items-center gap-10 md:gap-0">
-        <h1 className="mb-10 text-center text-6xl font-bold tracking-tighter text-foreground">
+    <Section
+      id={id}
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      style={style}
+    >
+      <div className={cn("flex max-w-2xl flex-col items-center gap-10 md:gap-0 mx-auto", containerClassName)}>
+        <h1 className={cn("mb-10 text-center text-6xl font-bold tracking-tighter text-foreground", headingClassName)}>
           {heading}
         </h1>
-        <ProcessBar currentStep={currentStep} steps={steps} />
-        <StepperContent step={steps[currentStep]} optixFlowConfig={optixFlowConfig} />
-        <NavButtons handlePrev={handlePrev} handleNext={handleNext} />
+        <div className={processBarClassName}>
+          <ProcessBar currentStep={safeCurrentStep} steps={steps} />
+        </div>
+        <div className={stepContentClassName}>
+          <StepperContent 
+            step={steps[safeCurrentStep]} 
+            optixFlowConfig={optixFlowConfig}
+            imageClassName={imageClassName}
+            descriptionClassName={descriptionClassName}
+          />
+        </div>
+        <div className={navButtonsClassName}>
+          <NavButtons handlePrev={handlePrev} handleNext={handleNext} />
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

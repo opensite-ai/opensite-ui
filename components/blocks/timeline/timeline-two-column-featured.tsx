@@ -5,28 +5,114 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { ActionConfig } from "../../../src/types/blocks";
 
 export interface TimelineFeature {
   image: string;
-  title: string;
-  description: string;
+  imageAlt?: string;
+  title: React.ReactNode;
+  description: React.ReactNode;
 }
 
 export interface TimelineTwoColumnFeaturedProps {
-  className?: string;
-  heading?: string;
-  description?: string;
-  buttons?: {
-    primary: {
-      text: string;
-      url: string;
-    };
-    secondary: {
-      text: string;
-      url: string;
-    };
-  };
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Primary action configuration
+   */
+  primaryAction?: ActionConfig;
+  /**
+   * Secondary action configuration
+   */
+  secondaryAction?: ActionConfig;
+  /**
+   * Custom slot for rendering actions (overrides primaryAction/secondaryAction)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Array of timeline features
+   */
   features?: TimelineFeature[];
+  /**
+   * Additional CSS classes for the section wrapper
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the content container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the features container
+   */
+  featuresClassName?: string;
+  /**
+   * Additional CSS classes for individual feature cards
+   */
+  featureClassName?: string;
+  /**
+   * Additional CSS classes for feature images
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for feature titles
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for feature descriptions
+   */
+  featureDescriptionClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern background
+   */
+  patternClassName?: string;
+  /**
+   * Section ID for anchor links
+   */
+  id?: string;
+  /**
+   * Inline styles for the section
+   */
+  style?: React.CSSProperties;
+  /**
+   * Optional Optix Flow configuration for image optimization
+   */
   optixFlowConfig?: {
     apiKey: string;
     compression?: number;
@@ -36,97 +122,149 @@ export interface TimelineTwoColumnFeaturedProps {
 const defaultFeatures: TimelineFeature[] = [
   {
     image: blockBrandedIconsAndPlaceholders.placeholder4,
+    imageAlt: "Dedicated Support",
     title: "Dedicated Support",
     description:
       "Expanded operations to 5 new countries, reaching millions of new users.",
   },
   {
     image: blockBrandedIconsAndPlaceholders.placeholder5,
+    imageAlt: "Series B Funding",
     title: "Series B Funding",
     description:
       "Secured $50M in Series B funding to accelerate product development.",
   },
   {
     image: blockBrandedIconsAndPlaceholders.placeholder5,
+    imageAlt: "Product Launch",
     title: "Product Launch",
     description: "Successfully launched our flagship product to market.",
   },
   {
     image: blockBrandedIconsAndPlaceholders.placeholder5,
+    imageAlt: "Company Founded",
     title: "Company Founded",
     description: "Started with a vision to revolutionize the industry.",
   },
 ];
 
-const defaultButtons = {
-  primary: {
-    text: "Start Now",
-    url: "#",
-  },
-  secondary: {
-    text: "Book a demo",
-    url: "#",
-  },
+const defaultPrimaryAction: ActionConfig = {
+  label: "Start Now",
+  href: "#",
+  variant: "default",
+};
+
+const defaultSecondaryAction: ActionConfig = {
+  label: "Book a demo",
+  href: "#",
+  variant: "outline",
 };
 
 export function TimelineTwoColumnFeatured({
-  className,
   heading = "Experience the difference with us",
   description = "We believe in creating lasting partnerships with our clients, focusing on long-term success through collaborative innovation and dedicated support.",
-  buttons = defaultButtons,
+  primaryAction = defaultPrimaryAction,
+  secondaryAction = defaultSecondaryAction,
+  actionsSlot,
   features = defaultFeatures,
+  className,
+  containerClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  featuresClassName,
+  featureClassName,
+  imageClassName,
+  titleClassName,
+  featureDescriptionClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
+  id,
+  style,
   optixFlowConfig,
 }: TimelineTwoColumnFeaturedProps) {
+  const renderActions = () => {
+    if (actionsSlot) {
+      return actionsSlot;
+    }
+
+    return (
+      <>
+        {primaryAction && (
+          <Pressable
+            href={primaryAction.href}
+            onClick={primaryAction.onClick}
+            variant={primaryAction.variant || "default"}
+            size={primaryAction.size || "lg"}
+            className={primaryAction.className}
+            asButton
+          >
+            {primaryAction.children || primaryAction.label}
+          </Pressable>
+        )}
+        {secondaryAction && (
+          <Pressable
+            href={secondaryAction.href}
+            onClick={secondaryAction.onClick}
+            variant={secondaryAction.variant || "outline"}
+            size={secondaryAction.size || "lg"}
+            className={secondaryAction.className}
+            asButton
+          >
+            {secondaryAction.children || secondaryAction.label}
+          </Pressable>
+        )}
+      </>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container max-w-6xl">
+    <Section
+      id={id}
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      style={style}
+    >
+      <div className={cn("max-w-6xl mx-auto", containerClassName)}>
         <div className="relative grid gap-16 md:grid-cols-2">
           <div className="top-40 h-fit md:sticky">
-            <h2 className="mt-4 mb-6 text-4xl font-semibold md:text-5xl">
+            <h2 className={cn("mt-4 mb-6 text-4xl font-semibold md:text-5xl", headingClassName)}>
               {heading}
             </h2>
-            <p className="font-medium text-muted-foreground md:text-xl">
+            <p className={cn("font-medium text-muted-foreground md:text-xl", descriptionClassName)}>
               {description}
             </p>
-            <div className="mt-8 flex flex-col gap-4 lg:flex-row">
-              <Pressable
-                href={buttons.primary.url}
-                variant="default"
-                size="lg"
-                asButton
-              >
-                {buttons.primary.text}
-              </Pressable>
-              <Pressable
-                href={buttons.secondary.url}
-                variant="outline"
-                size="lg"
-                asButton
-              >
-                {buttons.secondary.text}
-              </Pressable>
+            <div className={cn("mt-8 flex flex-col gap-4 lg:flex-row", actionsClassName)}>
+              {renderActions()}
             </div>
           </div>
-          <div className="flex flex-col gap-12 md:gap-20">
+          <div className={cn("flex flex-col gap-12 md:gap-20", featuresClassName)}>
             {features.map((feature, index) => (
-              <div key={index} className="rounded-xl border p-2">
+              <div key={index} className={cn("rounded-xl border p-2", featureClassName)}>
                 <Img
                   src={feature.image}
-                  alt={feature.title}
-                  className="aspect-video w-full rounded-xl border border-dashed object-cover"
+                  alt={feature.imageAlt || (typeof feature.title === 'string' ? feature.title : `Feature ${index + 1}`)}
+                  className={cn("aspect-video w-full rounded-xl border border-dashed object-cover", imageClassName)}
                   optixFlowConfig={optixFlowConfig}
                 />
                 <div className="p-6">
-                  <h3 className="mb-1 text-2xl font-semibold">
+                  <h3 className={cn("mb-1 text-2xl font-semibold", titleClassName)}>
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <p className={cn("text-muted-foreground", featureDescriptionClassName)}>{feature.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
