@@ -5,6 +5,23 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { OptixFlowConfig } from "../../../src/types/blocks";
+
+/**
+ * Logo configuration for the footer
+ */
+export interface FooterSocialNewsletterLogo {
+  /** Logo link URL */
+  url: string;
+  /** Logo image source */
+  src: string;
+  /** Logo alt text */
+  alt: string;
+  /** Logo title/brand name */
+  title: string;
+}
 
 /**
  * Social link configuration
@@ -19,14 +36,23 @@ export interface FooterSocialNewsletterSocialLink {
 }
 
 /**
+ * Navigation link configuration
+ */
+export interface FooterSocialNewsletterLink {
+  /** Link name/label */
+  name: string;
+  /** Link URL */
+  href: string;
+}
+
+/**
  * Navigation section configuration
  */
 export interface FooterSocialNewsletterSection {
+  /** Section title */
   title: string;
-  links: {
-    name: string;
-    href: string;
-  }[];
+  /** Links in this section */
+  links: FooterSocialNewsletterLink[];
 }
 
 /**
@@ -34,35 +60,77 @@ export interface FooterSocialNewsletterSection {
  */
 export interface FooterSocialNewsletterProps {
   /** Logo configuration */
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
-  /** Additional CSS classes */
-  className?: string;
+  logo?: FooterSocialNewsletterLogo;
   /** Navigation sections */
   sections?: FooterSocialNewsletterSection[];
   /** Social media links */
   socialLinks?: FooterSocialNewsletterSocialLink[];
   /** Newsletter label text */
-  newsletterLabel?: string;
+  newsletterLabel?: React.ReactNode;
   /** Newsletter placeholder text */
   newsletterPlaceholder?: string;
   /** Newsletter button text */
-  newsletterButtonText?: string;
+  newsletterButtonText?: React.ReactNode;
   /** Privacy policy link text */
-  privacyLinkText?: string;
+  privacyLinkText?: React.ReactNode;
   /** Privacy policy URL */
   privacyLinkUrl?: string;
+  /** Privacy consent text */
+  privacyConsentText?: React.ReactNode;
   /** Copyright text */
-  copyright?: string;
+  copyright?: React.ReactNode;
+  /** Attribution text */
+  attributionText?: React.ReactNode;
+  /** Attribution link URL */
+  attributionHref?: string;
+  /** Additional CSS classes for the section wrapper */
+  className?: string;
+  /** Additional CSS classes for the content wrapper */
+  contentClassName?: string;
+  /** Additional CSS classes for the logo wrapper */
+  logoWrapperClassName?: string;
+  /** Additional CSS classes for the logo image */
+  logoClassName?: string;
+  /** Additional CSS classes for the logo title */
+  logoTitleClassName?: string;
+  /** Additional CSS classes for the main grid */
+  gridClassName?: string;
+  /** Additional CSS classes for navigation sections */
+  navSectionClassName?: string;
+  /** Additional CSS classes for navigation section titles */
+  navTitleClassName?: string;
+  /** Additional CSS classes for navigation link lists */
+  navLinksClassName?: string;
+  /** Additional CSS classes for navigation link items */
+  navLinkClassName?: string;
+  /** Additional CSS classes for the social/newsletter column */
+  socialColumnClassName?: string;
+  /** Additional CSS classes for the social links list */
+  socialLinksClassName?: string;
+  /** Additional CSS classes for social link items */
+  socialLinkClassName?: string;
+  /** Additional CSS classes for the newsletter section */
+  newsletterClassName?: string;
+  /** Additional CSS classes for the newsletter input */
+  newsletterInputClassName?: string;
+  /** Additional CSS classes for the newsletter button */
+  newsletterButtonClassName?: string;
+  /** Additional CSS classes for the privacy text */
+  privacyClassName?: string;
+  /** Additional CSS classes for the bottom section */
+  bottomClassName?: string;
+  /** Additional CSS classes for the copyright section */
+  copyrightClassName?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern */
+  pattern?: string;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultSections: FooterSocialNewsletterSection[] = [
@@ -118,7 +186,6 @@ export function FooterSocialNewsletter({
     alt: "Opensite AI",
     title: "Opensite AI",
   },
-  className,
   sections = defaultSections,
   socialLinks = defaultSocialLinks,
   newsletterLabel = "Subscribe to our newsletter",
@@ -126,31 +193,66 @@ export function FooterSocialNewsletter({
   newsletterButtonText = "Subscribe",
   privacyLinkText = "Privacy Policy",
   privacyLinkUrl = "#",
-  copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,
+  privacyConsentText = "By submitting, you agree to our",
+  copyright,
+  attributionText = "AI Website and Automation Platform by Opensite",
+  attributionHref = "https://opensite.ai",
+  className,
+  contentClassName,
+  logoWrapperClassName,
+  logoClassName,
+  logoTitleClassName,
+  gridClassName,
+  navSectionClassName,
+  navTitleClassName,
+  navLinksClassName,
+  navLinkClassName,
+  socialColumnClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  newsletterClassName,
+  newsletterInputClassName,
+  newsletterButtonClassName,
+  privacyClassName,
+  bottomClassName,
+  copyrightClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: FooterSocialNewsletterProps): React.JSX.Element {
+  const currentYear = new Date().getFullYear();
+  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn(contentClassName)}>
         <footer>
-          <Pressable href={logo.url} className="flex items-center gap-2">
+          <Pressable href={logo.url} className={cn("flex items-center gap-2", logoWrapperClassName)}>
             <Img
               src={logo.src}
               alt={logo.alt}
-              className="h-10"
+              className={cn("h-10", logoClassName)}
               optixFlowConfig={optixFlowConfig}
             />
-            <span className="text-xl font-semibold">{logo.title}</span>
+            <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
           </Pressable>
-          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4">
+          <div className={cn("mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4", gridClassName)}>
             {sections.map((section, sectionIdx) => (
-              <div key={sectionIdx}>
-                <h3 className="mb-4 font-bold">{section.title}</h3>
-                <ul className="space-y-4 text-muted-foreground">
+              <div key={sectionIdx} className={cn(navSectionClassName)}>
+                <h3 className={cn("mb-4 font-bold", navTitleClassName)}>{section.title}</h3>
+                <ul className={cn("space-y-4 text-muted-foreground", navLinksClassName)}>
                   {section.links.map((link, linkIdx) => (
                     <li
                       key={linkIdx}
-                      className="font-medium hover:text-primary"
+                      className={cn("font-medium hover:text-primary", navLinkClassName)}
                     >
                       <Pressable href={link.href}>{link.name}</Pressable>
                     </li>
@@ -158,19 +260,19 @@ export function FooterSocialNewsletter({
                 </ul>
               </div>
             ))}
-            <div className="lg:col-span-2 xl:col-span-1">
-              <ul className="mb-10 flex items-center gap-2 text-muted-foreground">
+            <div className={cn("lg:col-span-2 xl:col-span-1", socialColumnClassName)}>
+              <ul className={cn("mb-10 flex items-center gap-2 text-muted-foreground", socialLinksClassName)}>
                 {socialLinks.map((social, idx) => (
                   <li key={idx} className="font-medium">
                     <Pressable href={social.href} aria-label={social.label}>
-                      <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
+                      <span className={cn("flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary", socialLinkClassName)}>
                         <DynamicIcon name={social.icon} size={24} />
                       </span>
                     </Pressable>
                   </li>
                 ))}
               </ul>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className={cn("grid w-full max-w-sm items-center gap-1.5", newsletterClassName)}>
                 <label htmlFor="newsletter-email" className="text-sm font-medium">
                   {newsletterLabel}
                 </label>
@@ -179,22 +281,22 @@ export function FooterSocialNewsletter({
                     type="email"
                     id="newsletter-email"
                     placeholder={newsletterPlaceholder}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className={cn("flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", newsletterInputClassName)}
                   />
                   <Pressable
                     onClick={(e) => {
                       e.preventDefault();
-                      // Newsletter submission logic would go here
                     }}
                     variant="default"
                     size="default"
                     asButton
+                    className={cn(newsletterButtonClassName)}
                   >
                     {newsletterButtonText}
                   </Pressable>
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  By submitting, you agree to our
+                <p className={cn("mt-1 text-xs text-muted-foreground", privacyClassName)}>
+                  {privacyConsentText}
                   <Pressable href={privacyLinkUrl} className="ml-1 text-primary hover:underline">
                     {privacyLinkText}
                   </Pressable>
@@ -202,19 +304,19 @@ export function FooterSocialNewsletter({
               </div>
             </div>
           </div>
-          <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
-              <p>{copyright}</p>
+          <div className={cn("mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
+            <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
+              <p>{copyrightText}</p>
               <Pressable
-                href="https://opensite.ai"
+                href={attributionHref}
                 className="hover:text-primary"
               >
-                AI Website and Automation Platform by Opensite
+                {attributionText}
               </Pressable>
             </div>
           </div>
         </footer>
       </div>
-    </section>
+    </Section>
   );
 }

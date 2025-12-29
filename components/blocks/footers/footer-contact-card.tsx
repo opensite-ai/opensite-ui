@@ -5,6 +5,23 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { OptixFlowConfig } from "../../../src/types/blocks";
+
+/**
+ * Logo configuration for the footer
+ */
+export interface FooterContactCardLogo {
+  /** Logo link URL */
+  url: string;
+  /** Logo image source */
+  src: string;
+  /** Logo alt text */
+  alt: string;
+  /** Logo title/brand name */
+  title: string;
+}
 
 /**
  * Social link configuration
@@ -22,7 +39,9 @@ export interface FooterContactCardSocialLink {
  * Navigation link configuration
  */
 export interface FooterContactCardNavLink {
+  /** Link name/label */
   name: string;
+  /** Link URL */
   href: string;
 }
 
@@ -31,35 +50,79 @@ export interface FooterContactCardNavLink {
  */
 export interface FooterContactCardProps {
   /** Logo configuration */
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
-  /** Additional CSS classes */
-  className?: string;
+  logo?: FooterContactCardLogo;
   /** Main heading text */
-  heading?: string;
+  heading?: React.ReactNode;
   /** Contact email */
   email?: string;
   /** Contact phone */
   phone?: string;
   /** Contact address */
-  address?: string;
+  address?: React.ReactNode;
   /** Social media links */
   socialLinks?: FooterContactCardSocialLink[];
   /** Navigation links */
   navLinks?: FooterContactCardNavLink[];
+  /** Social section title */
+  socialTitle?: React.ReactNode;
   /** Location text */
-  location?: string;
+  location?: React.ReactNode;
+  /** Location label */
+  locationLabel?: React.ReactNode;
   /** Copyright text */
-  copyright?: string;
+  copyright?: React.ReactNode;
+  /** Attribution text */
+  attributionText?: React.ReactNode;
+  /** Attribution link URL */
+  attributionHref?: string;
+  /** Additional CSS classes for the section wrapper */
+  className?: string;
+  /** Additional CSS classes for the content wrapper */
+  contentClassName?: string;
+  /** Additional CSS classes for the main grid */
+  gridClassName?: string;
+  /** Additional CSS classes for the left column */
+  leftColumnClassName?: string;
+  /** Additional CSS classes for the logo wrapper */
+  logoWrapperClassName?: string;
+  /** Additional CSS classes for the logo image */
+  logoClassName?: string;
+  /** Additional CSS classes for the logo title */
+  logoTitleClassName?: string;
+  /** Additional CSS classes for the heading */
+  headingClassName?: string;
+  /** Additional CSS classes for the contact section */
+  contactClassName?: string;
+  /** Additional CSS classes for the right column */
+  rightColumnClassName?: string;
+  /** Additional CSS classes for the social section */
+  socialSectionClassName?: string;
+  /** Additional CSS classes for the social title */
+  socialTitleClassName?: string;
+  /** Additional CSS classes for the social links list */
+  socialLinksClassName?: string;
+  /** Additional CSS classes for social link items */
+  socialLinkClassName?: string;
+  /** Additional CSS classes for the navigation */
+  navClassName?: string;
+  /** Additional CSS classes for navigation link items */
+  navLinkClassName?: string;
+  /** Additional CSS classes for the bottom section */
+  bottomClassName?: string;
+  /** Additional CSS classes for the copyright section */
+  copyrightClassName?: string;
+  /** Additional CSS classes for the location section */
+  locationClassName?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern */
+  pattern?: string;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultSocialLinks: FooterContactCardSocialLink[] = [
@@ -90,40 +153,75 @@ export function FooterContactCard({
     alt: "Opensite AI",
     title: "Opensite AI",
   },
-  className,
   heading = "Let's work together",
   email = "hello@opensite.ai",
   phone = "+1 (555) 123-4567",
   address = "123 Main Street, San Francisco, CA 94102",
   socialLinks = defaultSocialLinks,
   navLinks = defaultNavLinks,
+  socialTitle = "Follow Us",
   location = "San Francisco",
-  copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,
+  locationLabel = "Designed in",
+  copyright,
+  attributionText = "AI Website and Automation Platform by Opensite",
+  attributionHref = "https://opensite.ai",
+  className,
+  contentClassName,
+  gridClassName,
+  leftColumnClassName,
+  logoWrapperClassName,
+  logoClassName,
+  logoTitleClassName,
+  headingClassName,
+  contactClassName,
+  rightColumnClassName,
+  socialSectionClassName,
+  socialTitleClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  navClassName,
+  navLinkClassName,
+  bottomClassName,
+  copyrightClassName,
+  locationClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: FooterContactCardProps): React.JSX.Element {
+  const currentYear = new Date().getFullYear();
+  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn(contentClassName)}>
         <footer>
-          <div className="grid gap-12 lg:grid-cols-2">
+          <div className={cn("grid gap-12 lg:grid-cols-2", gridClassName)}>
             {/* Left Column - Heading and Contact */}
-            <div>
+            <div className={cn(leftColumnClassName)}>
               <Pressable
                 href={logo.url}
-                className="mb-8 flex items-center gap-2"
+                className={cn("mb-8 flex items-center gap-2", logoWrapperClassName)}
               >
                 <Img
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-10"
+                  className={cn("h-10", logoClassName)}
                   optixFlowConfig={optixFlowConfig}
                 />
-                <span className="text-xl font-semibold">{logo.title}</span>
+                <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
               </Pressable>
-              <h2 className="mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+              <h2 className={cn("mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
               </h2>
-              <div className="space-y-4 text-muted-foreground">
+              <div className={cn("space-y-4 text-muted-foreground", contactClassName)}>
                 <p>
                   <Pressable
                     href={`mailto:${email}`}
@@ -145,30 +243,30 @@ export function FooterContactCard({
             </div>
 
             {/* Right Column - Social and Navigation */}
-            <div className="flex flex-col justify-between">
-              <div>
-                <p className="mb-4 font-medium">Follow Us</p>
-                <ul className="flex items-center gap-4">
+            <div className={cn("flex flex-col justify-between", rightColumnClassName)}>
+              <div className={cn(socialSectionClassName)}>
+                <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
+                <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
                   {socialLinks.map((social, idx) => (
                     <li key={idx}>
-                      <a
+                      <Pressable
                         href={social.href}
                         aria-label={social.label}
-                        className="flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+                        className={cn("flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground", socialLinkClassName)}
                       >
                         <DynamicIcon name={social.icon} size={20} />
-                      </a>
+                      </Pressable>
                     </li>
                   ))}
                 </ul>
               </div>
-              <nav className="mt-8">
+              <nav className={cn("mt-8", navClassName)}>
                 <ul className="flex flex-wrap gap-6">
                   {navLinks.map((link, idx) => (
                     <li key={idx}>
                       <Pressable
                         href={link.href}
-                        className="text-muted-foreground hover:text-primary"
+                        className={cn("text-muted-foreground hover:text-primary", navLinkClassName)}
                       >
                         {link.name}
                       </Pressable>
@@ -180,24 +278,24 @@ export function FooterContactCard({
           </div>
 
           {/* Bottom Section */}
-          <div className="mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center">
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
-              <p>{copyright}</p>
-              <a
-                href="https://opensite.ai"
+          <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
+            <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
+              <p>{copyrightText}</p>
+              <Pressable
+                href={attributionHref}
                 className="hover:text-primary"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                AI Website and Automation Platform by Opensite
-              </a>
+                {attributionText}
+              </Pressable>
             </div>
-            <p>
-              Designed in <strong>{location}</strong>
+            <p className={cn(locationClassName)}>
+              {locationLabel} <strong>{location}</strong>
             </p>
           </div>
         </footer>
       </div>
-    </section>
+    </Section>
   );
 }
