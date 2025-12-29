@@ -4,6 +4,8 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Social link configuration with icon
@@ -21,22 +23,62 @@ export interface FooterCtaSocialLink {
  * Props for the FooterCtaSocial component
  */
 export interface FooterCtaSocialProps {
-  /** Additional CSS classes */
-  className?: string;
   /** Pre-heading text */
-  preHeading?: string;
+  preHeading?: React.ReactNode;
   /** Main heading text */
-  heading?: string;
+  heading?: React.ReactNode;
   /** Description text */
-  description?: string;
+  description?: React.ReactNode;
   /** CTA button text */
-  buttonText?: string;
+  buttonText?: React.ReactNode;
   /** CTA button URL */
   buttonUrl?: string;
   /** Contact email */
   email?: string;
   /** Social links */
   socialLinks?: FooterCtaSocialLink[];
+  /** Copyright text */
+  copyright?: React.ReactNode;
+  /** Attribution text */
+  attributionText?: React.ReactNode;
+  /** Attribution link URL */
+  attributionHref?: string;
+  /** Additional CSS classes for the section wrapper */
+  className?: string;
+  /** Additional CSS classes for the content wrapper */
+  contentClassName?: string;
+  /** Additional CSS classes for the main content container */
+  containerClassName?: string;
+  /** Additional CSS classes for the pre-heading wrapper */
+  preHeadingWrapperClassName?: string;
+  /** Additional CSS classes for the decorative lines */
+  decorativeLineClassName?: string;
+  /** Additional CSS classes for the pre-heading text */
+  preHeadingClassName?: string;
+  /** Additional CSS classes for the heading */
+  headingClassName?: string;
+  /** Additional CSS classes for the description */
+  descriptionClassName?: string;
+  /** Additional CSS classes for the CTA button */
+  buttonClassName?: string;
+  /** Additional CSS classes for the social links section */
+  socialLinksClassName?: string;
+  /** Additional CSS classes for social link items */
+  socialLinkClassName?: string;
+  /** Additional CSS classes for the email section */
+  emailClassName?: string;
+  /** Additional CSS classes for the bottom section */
+  bottomClassName?: string;
+  /** Additional CSS classes for the copyright */
+  copyrightClassName?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern */
+  pattern?: string;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
 }
 
 const defaultSocialLinks: FooterCtaSocialLink[] = [
@@ -54,7 +96,6 @@ const defaultSocialLinks: FooterCtaSocialLink[] = [
  * that want a conversion-focused footer with strong visual appeal.
  */
 export function FooterCtaSocial({
-  className,
   preHeading = "Let's connect",
   heading = "You want to scale faster? Try Opensite today.",
   description = "Join thousands of companies already using our platform to scale their operations",
@@ -62,32 +103,58 @@ export function FooterCtaSocial({
   buttonUrl = "#",
   email = "hello@opensite.ai",
   socialLinks = defaultSocialLinks,
+  copyright,
+  attributionText = "AI Website and Automation Platform by Opensite",
+  attributionHref = "https://opensite.ai",
+  className,
+  contentClassName,
+  containerClassName,
+  preHeadingWrapperClassName,
+  decorativeLineClassName,
+  preHeadingClassName,
+  headingClassName,
+  descriptionClassName,
+  buttonClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  emailClassName,
+  bottomClassName,
+  copyrightClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: FooterCtaSocialProps): React.JSX.Element {
+  const currentYear = new Date().getFullYear();
+  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
+
   return (
-    <section className={cn("relative py-32", className)}>
-      <div className="relative z-10 container">
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-2 text-center">
-          {/* Pre-heading with decorative lines */}
-          <div className="flex w-full items-center gap-4">
-            <div className="h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--primary,0_0%_100%))_0%,hsl(var(--secondary,0_0%_0%))_100%)] opacity-50" />
-            <p className="text-sm text-muted-foreground italic md:text-base">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative", className)}
+    >
+      <div className={cn("relative z-10", contentClassName)}>
+        <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-2 text-center", containerClassName)}>
+          <div className={cn("flex w-full items-center gap-4", preHeadingWrapperClassName)}>
+            <div className={cn("h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--primary,0_0%_100%))_0%,hsl(var(--secondary,0_0%_0%))_100%)] opacity-50", decorativeLineClassName)} />
+            <p className={cn("text-sm text-muted-foreground italic md:text-base", preHeadingClassName)}>
               {preHeading}
             </p>
-            <div className="h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--secondary,0_0%_0%))_0%,hsl(var(--primary,0_0%_100%))_100%)] opacity-50" />
+            <div className={cn("h-px flex-1 bg-[linear-gradient(270deg,hsl(var(--secondary,0_0%_0%))_0%,hsl(var(--primary,0_0%_100%))_100%)] opacity-50", decorativeLineClassName)} />
           </div>
 
-          {/* Main heading */}
-          <h2 className="py-6 text-5xl font-bold md:text-6xl">{heading}</h2>
+          <h2 className={cn("py-6 text-5xl font-bold md:text-6xl", headingClassName)}>{heading}</h2>
 
-          {/* Description */}
-          <p className="max-w-2xl text-base text-muted-foreground md:text-lg">
+          <p className={cn("max-w-2xl text-base text-muted-foreground md:text-lg", descriptionClassName)}>
             {description}
           </p>
 
-          {/* CTA Button */}
           <Pressable
             href={buttonUrl}
-            className="group relative mt-4 inline-flex items-center gap-2 rounded-lg border bg-background px-8 py-4 text-base font-medium transition-all hover:bg-muted"
+            className={cn("group relative mt-4 inline-flex items-center gap-2 rounded-lg border bg-background px-8 py-4 text-base font-medium transition-all hover:bg-muted", buttonClassName)}
           >
             <span>{buttonText}</span>
             <DynamicIcon
@@ -97,13 +164,12 @@ export function FooterCtaSocial({
             />
           </Pressable>
 
-          {/* Social Media Links */}
-          <div className="flex items-center gap-6 pt-8">
+          <div className={cn("flex items-center gap-6 pt-8", socialLinksClassName)}>
             {socialLinks.map((link, idx) => (
               <React.Fragment key={idx}>
                 <Pressable
                   href={link.url}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  className={cn("text-muted-foreground transition-colors hover:text-foreground", socialLinkClassName)}
                   aria-label={link.label}
                 >
                   <DynamicIcon name={link.icon} size={20} />
@@ -115,8 +181,7 @@ export function FooterCtaSocial({
             ))}
           </div>
 
-          {/* Support Email */}
-          <p className="pt-2 text-sm text-muted-foreground md:text-base">
+          <p className={cn("pt-2 text-sm text-muted-foreground md:text-base", emailClassName)}>
             <Pressable
               href={`mailto:${email}`}
               className="transition-colors hover:text-foreground"
@@ -125,22 +190,21 @@ export function FooterCtaSocial({
             </Pressable>
           </p>
 
-          {/* Attribution */}
-          <div className="mt-8 border-t pt-8 text-sm text-muted-foreground">
-            <p>
-              © {new Date().getFullYear()} Opensite AI. All rights reserved.
+          <div className={cn("mt-8 border-t pt-8 text-sm text-muted-foreground", bottomClassName)}>
+            <p className={cn(copyrightClassName)}>
+              {copyrightText}
             </p>
             <Pressable
-              href="https://opensite.ai"
+              href={attributionHref}
               className="mt-2 inline-block hover:text-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
-              AI Website and Automation Platform by Opensite
+              {attributionText}
             </Pressable>
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

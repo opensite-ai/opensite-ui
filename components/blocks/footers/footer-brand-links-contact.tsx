@@ -6,81 +6,130 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { OptixFlowConfig, NavLinkItem } from "../../../src/types/blocks";
 
-export interface FooterBrandLinksContactLink {
-  label: string;
-  href: string;
-}
-
+/**
+ * Link group configuration for footer columns
+ */
 export interface FooterBrandLinksContactGroup {
+  /** Group title */
   title: string;
-  links: FooterBrandLinksContactLink[];
+  /** Links in this group */
+  links: NavLinkItem[];
 }
 
+/**
+ * Contact item configuration
+ */
 export interface FooterBrandLinksContactItem {
+  /** Icon name in format: prefix/name */
   icon: string;
+  /** Contact label/text */
   label: string;
+  /** Contact link URL */
   href: string;
 }
 
+/**
+ * Social link configuration
+ */
 export interface FooterBrandLinksContactSocialLink {
+  /** Icon name in format: prefix/name */
   icon: string;
+  /** Link URL */
   href: string;
+  /** Accessible label */
   label: string;
 }
 
+/**
+ * Legal link configuration
+ */
+export interface FooterBrandLinksContactLegalLink {
+  /** Link label */
+  label: string;
+  /** Link URL */
+  href: string;
+}
+
+/**
+ * Props for the FooterBrandLinksContact component
+ */
 export interface FooterBrandLinksContactProps {
-  /**
-   * Logo source URL
-   */
+  /** Logo source URL */
   logoSrc?: string;
-  /**
-   * Logo alt text
-   */
+  /** Logo alt text */
   logoAlt?: string;
-  /**
-   * Brand tagline text
-   */
-  tagline?: string;
-  /**
-   * Brand description text
-   */
-  description?: string;
-  /**
-   * Link groups for the footer columns
-   */
+  /** Brand tagline text */
+  tagline?: React.ReactNode;
+  /** Brand description text */
+  description?: React.ReactNode;
+  /** Link groups for the footer columns */
   linkGroups?: FooterBrandLinksContactGroup[];
-  /**
-   * Contact items for the contact column
-   */
+  /** Contact items for the contact column */
   contactItems?: FooterBrandLinksContactItem[];
-  /**
-   * Social media links
-   */
+  /** Social media links */
   socialLinks?: FooterBrandLinksContactSocialLink[];
-  /**
-   * Bottom bar links
-   */
-  legalLinks?: FooterBrandLinksContactLink[];
-  /**
-   * Attribution label in the bottom bar
-   */
-  attributionText?: string;
-  /**
-   * Attribution link URL
-   */
+  /** Bottom bar links */
+  legalLinks?: FooterBrandLinksContactLegalLink[];
+  /** Attribution label in the bottom bar */
+  attributionText?: React.ReactNode;
+  /** Attribution link URL */
   attributionHref?: string;
-  /**
-   * Additional CSS classes for the footer wrapper
-   */
+  /** Copyright text */
+  copyright?: React.ReactNode;
+  /** Contact section title */
+  contactTitle?: React.ReactNode;
+  /** Social section title */
+  socialTitle?: React.ReactNode;
+  /** Additional CSS classes for the section wrapper */
   className?: string;
-  /**
-   * Optional Optix Flow configuration for image optimization
-   */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Additional CSS classes for the footer content */
+  contentClassName?: string;
+  /** Additional CSS classes for the grid layout */
+  gridClassName?: string;
+  /** Additional CSS classes for the brand column */
+  brandClassName?: string;
+  /** Additional CSS classes for the logo */
+  logoClassName?: string;
+  /** Additional CSS classes for the tagline */
+  taglineClassName?: string;
+  /** Additional CSS classes for the description */
+  descriptionClassName?: string;
+  /** Additional CSS classes for link group columns */
+  linkGroupClassName?: string;
+  /** Additional CSS classes for link group titles */
+  linkGroupTitleClassName?: string;
+  /** Additional CSS classes for link lists */
+  linkListClassName?: string;
+  /** Additional CSS classes for link items */
+  linkItemClassName?: string;
+  /** Additional CSS classes for the contact column */
+  contactColumnClassName?: string;
+  /** Additional CSS classes for contact items */
+  contactItemClassName?: string;
+  /** Additional CSS classes for the social section */
+  socialSectionClassName?: string;
+  /** Additional CSS classes for social links */
+  socialLinkClassName?: string;
+  /** Additional CSS classes for the bottom bar */
+  bottomBarClassName?: string;
+  /** Additional CSS classes for the copyright section */
+  copyrightClassName?: string;
+  /** Additional CSS classes for legal links */
+  legalLinksClassName?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern */
+  pattern?: string;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
+  /** Optional Optix Flow configuration for image optimization */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultLinkGroups: FooterBrandLinksContactGroup[] = [
@@ -135,7 +184,7 @@ const defaultSocialLinks: FooterBrandLinksContactSocialLink[] = [
   },
 ];
 
-const defaultLegalLinks: FooterBrandLinksContactLink[] = [
+const defaultLegalLinks: FooterBrandLinksContactLegalLink[] = [
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
 ];
@@ -155,36 +204,91 @@ export function FooterBrandLinksContact({
   legalLinks = defaultLegalLinks,
   attributionText = "Built with OpenSite AI",
   attributionHref = "https://opensite.ai",
+  copyright,
+  contactTitle = "Contact",
+  socialTitle = "Follow",
   className,
+  contentClassName,
+  gridClassName,
+  brandClassName,
+  logoClassName,
+  taglineClassName,
+  descriptionClassName,
+  linkGroupClassName,
+  linkGroupTitleClassName,
+  linkListClassName,
+  linkItemClassName,
+  contactColumnClassName,
+  contactItemClassName,
+  socialSectionClassName,
+  socialLinkClassName,
+  bottomBarClassName,
+  copyrightClassName,
+  legalLinksClassName,
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: FooterBrandLinksContactProps): React.JSX.Element {
   const currentYear = new Date().getFullYear();
+  const copyrightText = copyright ?? `© ${currentYear} OpenSite AI. All rights reserved.`;
 
   return (
-    <footer className={cn("bg-foreground text-background", className)}>
-      <div className="container py-16">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn(contentClassName)}>
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4",
+            gridClassName
+          )}
+        >
+          <div className={cn(brandClassName)}>
             <Img
               src={logoSrc}
               alt={logoAlt}
-              className="mb-4 h-10 w-auto"
+              className={cn("mb-4 h-10 w-auto", logoClassName)}
               loading="eager"
               optixFlowConfig={optixFlowConfig}
             />
-            <p className="mb-4 text-base text-white/80">{tagline}</p>
-            <p className="text-sm text-white/60">{description}</p>
+            <p className={cn("mb-4 text-base text-white/80", taglineClassName)}>
+              {tagline}
+            </p>
+            <p className={cn("text-sm text-white/60", descriptionClassName)}>
+              {description}
+            </p>
           </div>
 
           {linkGroups.map((group) => (
-            <div key={group.title}>
-              <h3 className="text-lg font-semibold text-white">{group.title}</h3>
-              <ul className="mt-4 space-y-2 text-sm text-white/70">
+            <div key={group.title} className={cn(linkGroupClassName)}>
+              <h3
+                className={cn(
+                  "text-lg font-semibold text-white",
+                  linkGroupTitleClassName
+                )}
+              >
+                {group.title}
+              </h3>
+              <ul
+                className={cn(
+                  "mt-4 space-y-2 text-sm text-white/70",
+                  linkListClassName
+                )}
+              >
                 {group.links.map((link) => (
                   <li key={link.href}>
                     <Pressable
                       href={link.href}
-                      className="transition-colors hover:text-primary"
+                      className={cn(
+                        "transition-colors hover:text-primary",
+                        linkItemClassName
+                      )}
                     >
                       {link.label}
                     </Pressable>
@@ -194,14 +298,19 @@ export function FooterBrandLinksContact({
             </div>
           ))}
 
-          <div>
-            <h3 className="text-lg font-semibold text-white">Contact</h3>
-            <ul className="mt-4 space-y-3 text-sm text-white/70">
+          <div className={cn(contactColumnClassName)}>
+            <h3 className={cn("text-lg font-semibold text-white", linkGroupTitleClassName)}>
+              {contactTitle}
+            </h3>
+            <ul className={cn("mt-4 space-y-3 text-sm text-white/70", linkListClassName)}>
               {contactItems.map((item) => (
                 <li key={item.label}>
                   <Pressable
                     href={item.href}
-                    className="flex items-start gap-3 transition-colors hover:text-primary"
+                    className={cn(
+                      "flex items-start gap-3 transition-colors hover:text-primary",
+                      contactItemClassName
+                    )}
                   >
                     <DynamicIcon name={item.icon} size={18} className="mt-0.5" />
                     <span>{item.label}</span>
@@ -211,9 +320,9 @@ export function FooterBrandLinksContact({
             </ul>
 
             {socialLinks.length > 0 ? (
-              <div className="mt-8">
+              <div className={cn("mt-8", socialSectionClassName)}>
                 <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
-                  Follow
+                  {socialTitle}
                 </h4>
                 <div className="mt-3 flex gap-4">
                   {socialLinks.map((link) => (
@@ -221,7 +330,10 @@ export function FooterBrandLinksContact({
                       key={link.href}
                       href={link.href}
                       aria-label={link.label}
-                      className="text-white/70 transition-colors hover:text-primary"
+                      className={cn(
+                        "text-white/70 transition-colors hover:text-primary",
+                        socialLinkClassName
+                      )}
                     >
                       <DynamicIcon name={link.icon} size={20} />
                     </Pressable>
@@ -232,10 +344,15 @@ export function FooterBrandLinksContact({
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-8 text-sm text-white/60">
+        <div
+          className={cn(
+            "mt-12 border-t border-white/10 pt-8 text-sm text-white/60",
+            bottomBarClassName
+          )}
+        >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p>© {currentYear} OpenSite AI. All rights reserved.</p>
-            <div className="flex flex-wrap items-center gap-4">
+            <p className={cn(copyrightClassName)}>{copyrightText}</p>
+            <div className={cn("flex flex-wrap items-center gap-4", legalLinksClassName)}>
               <Pressable
                 href={attributionHref}
                 className="underline transition-colors hover:text-primary"
@@ -255,6 +372,6 @@ export function FooterBrandLinksContact({
           </div>
         </div>
       </div>
-    </footer>
+    </Section>
   );
 }

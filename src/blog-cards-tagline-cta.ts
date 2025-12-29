@@ -13,4 +13,4 @@
  */
 
 export { BlogCardsTaglineCta } from "../components/blocks/blog/blog-cards-tagline-cta";
-export type { BlogCardsTaglineCtaProps, BlogPost } from "../components/blocks/blog/blog-cards-tagline-cta";
+export type { BlogCardsTaglineCtaProps } from "../components/blocks/blog/blog-cards-tagline-cta";

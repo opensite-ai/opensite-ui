@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent } from "../../ui/card";
 import { Badge } from "../../ui/badge";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export interface CommunityMetric {
   /**
@@ -70,58 +71,91 @@ export interface CommunityInitiativesProps {
   /**
    * Badge/label text
    */
-  badgeText?: string;
+  badgeText?: React.ReactNode;
   /**
    * Main heading text
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Supporting description text
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Array of DEI categories
    */
   categories?: CommunityCategory[];
   /**
+   * Custom slot for rendering categories (overrides categories array)
+   */
+  categoriesSlot?: React.ReactNode;
+  /**
    * CTA badge text
    */
-  ctaBadgeText?: string;
+  ctaBadgeText?: React.ReactNode;
   /**
    * CTA heading
    */
-  ctaHeading?: string;
+  ctaHeading?: React.ReactNode;
   /**
    * CTA description
    */
-  ctaDescription?: string;
+  ctaDescription?: React.ReactNode;
   /**
-   * Primary CTA button text
+   * Array of action configurations for CTA buttons
    */
-  primaryCtaText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary CTA button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  primaryCtaUrl?: string;
-  /**
-   * Secondary CTA button text
-   */
-  secondaryCtaText?: string;
-  /**
-   * Secondary CTA button URL
-   */
-  secondaryCtaUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the tabs container
+   */
+  tabsClassName?: string;
+  /**
+   * Additional CSS classes for the CTA section
+   */
+  ctaClassName?: string;
+  /**
+   * Additional CSS classes for the CTA heading
+   */
+  ctaHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the CTA description
+   */
+  ctaDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultCategories: CommunityCategory[] = [
@@ -311,6 +345,21 @@ const defaultCategories: CommunityCategory[] = [
   },
 ];
 
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Join Our Team",
+    href: "/careers",
+    variant: "default",
+    size: "lg",
+  },
+  {
+    label: "Read Our Annual Report",
+    href: "/about/dei-report",
+    variant: "outline",
+    size: "lg",
+  },
+];
+
 /**
  * About DEI Initiatives - A comprehensive diversity, equity, and inclusion section
  * with tabbed categories and detailed initiative cards with metrics.
@@ -340,16 +389,25 @@ export function CommunityInitiatives({
   heading = "Building a More Equitable Future Together",
   description = "Our commitment to diversity, equity, and inclusion runs deep in everything we do—from how we build our teams to how we build our products.",
   categories = defaultCategories,
+  categoriesSlot,
   ctaBadgeText = "Join us in making a difference",
   ctaHeading = "Become Part of Our Inclusive Community",
   ctaDescription = "We're always looking for passionate individuals who share our commitment to diversity, equity, and inclusion to join our team.",
-  primaryCtaText = "Join Our Team",
-  primaryCtaUrl = "/careers",
-  secondaryCtaText = "Read Our Annual Report",
-  secondaryCtaUrl = "/about/dei-report",
+  actions = defaultActions,
+  actionsSlot,
   className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  tabsClassName,
+  ctaClassName,
+  ctaHeadingClassName,
+  ctaDescriptionClassName,
+  actionsClassName,
   optixFlowConfig,
-}: CommunityInitiativesProps) {
+}: CommunityInitiativesProps): React.JSX.Element {
   const [activeCategory, setActiveCategory] = React.useState(
     categories[0]?.id || ""
   );
@@ -358,187 +416,233 @@ export function CommunityInitiatives({
     categories.find((category) => category.id === activeCategory) ||
     categories[0];
 
-  return (
-    <section className={cn("py-24", className)}>
-      <div className="container mx-auto px-4 md:px-6 2xl:max-w-[1400px]">
-        <div className="mx-auto mb-16 max-w-3xl space-y-4 text-center">
-          <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
-            {badgeText}
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div className={cn("flex flex-wrap justify-center gap-4", actionsClassName)}>
+        {actions.map((action, idx) => (
+          <Pressable
+            key={idx}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant || "default"}
+            size={action.size || "lg"}
+            asButton
+          >
+            {action.label}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
+  const renderCategories = () => {
+    if (categoriesSlot) return categoriesSlot;
+    if (!categories || categories.length === 0) return null;
+
+    return (
+      <Tabs
+        defaultValue={categories[0]?.id}
+        value={activeCategory}
+        onValueChange={setActiveCategory}
+        className={cn("space-y-8", tabsClassName)}
+      >
+        <div className="flex justify-center">
+          <div className="mb-6 w-full md:hidden">
+            <select
+              value={activeCategory}
+              onChange={(e) => setActiveCategory(e.target.value)}
+              className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            >
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.title}
+                </option>
+              ))}
+            </select>
           </div>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {heading}
-          </h2>
-          <p className="text-muted-foreground">{description}</p>
+
+          <TabsList className="hidden h-auto grid-cols-4 p-1 md:grid">
+            {categories.map((category) => (
+              <TabsTrigger
+                key={category.id}
+                value={category.id}
+                className="px-3 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              >
+                {category.title}
+              </TabsTrigger>
+            ))}
+          </TabsList>
         </div>
 
-        <Tabs
-          defaultValue={categories[0]?.id}
-          value={activeCategory}
-          onValueChange={setActiveCategory}
-          className="space-y-8"
-        >
-          <div className="flex justify-center">
-            <div className="mb-6 w-full md:hidden">
-              <select
-                value={activeCategory}
-                onChange={(e) => setActiveCategory(e.target.value)}
-                className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-              >
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.title}
-                  </option>
-                ))}
-              </select>
-            </div>
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-muted-foreground">
+            {currentCategory?.description}
+          </p>
+        </div>
 
-            <TabsList className="hidden h-auto grid-cols-4 p-1 md:grid">
-              {categories.map((category) => (
-                <TabsTrigger
-                  key={category.id}
-                  value={category.id}
-                  className="px-3 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+        {categories.map((category) => (
+          <TabsContent
+            key={category.id}
+            value={category.id}
+            className="space-y-12"
+          >
+            {category.initiatives.map((initiative, index) => {
+              const isEven = index % 2 === 0;
+
+              return (
+                <div
+                  key={initiative.id}
+                  className="grid items-center gap-8 md:grid-cols-12"
                 >
-                  {category.title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-muted-foreground">
-              {currentCategory?.description}
-            </p>
-          </div>
-
-          {categories.map((category) => (
-            <TabsContent
-              key={category.id}
-              value={category.id}
-              className="space-y-12"
-            >
-              {category.initiatives.map((initiative, index) => {
-                const isEven = index % 2 === 0;
-
-                return (
                   <div
-                    key={initiative.id}
-                    className="grid items-center gap-8 md:grid-cols-12"
+                    className={cn(
+                      "space-y-6 md:col-span-7",
+                      isEven ? "md:order-1" : "md:order-2"
+                    )}
                   >
-                    <div
-                      className={cn(
-                        "space-y-6 md:col-span-7",
-                        isEven ? "md:order-1" : "md:order-2"
-                      )}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="rounded-md bg-primary/10 p-2">
-                          <DynamicIcon
-                            name={initiative.icon}
-                            size={24}
-                            className="text-primary"
-                          />
-                        </div>
-                        <h3 className="text-2xl font-bold">
-                          {initiative.title}
-                        </h3>
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-md bg-primary/10 p-2">
+                        <DynamicIcon
+                          name={initiative.icon}
+                          size={24}
+                          className="text-primary"
+                        />
                       </div>
-
-                      <p className="text-muted-foreground">
-                        {initiative.description}
-                      </p>
-
-                      {initiative.metrics && (
-                        <div className="grid grid-cols-3 gap-4 pt-2">
-                          {initiative.metrics.map((metric, i) => (
-                            <div key={i} className="text-center">
-                              <div className="text-2xl font-bold text-primary">
-                                {metric.value}
-                              </div>
-                              <div className="mt-1 text-xs text-muted-foreground">
-                                {metric.label}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                      <h3 className="text-2xl font-bold">
+                        {initiative.title}
+                      </h3>
                     </div>
 
-                    {initiative.image ? (
-                      <div
-                        className={cn(
-                          "md:col-span-5",
-                          isEven ? "md:order-2" : "md:order-1"
-                        )}
-                      >
-                        <div className="relative aspect-4/3 overflow-hidden rounded-xl">
-                          <Img
-                            src={initiative.image}
-                            alt={initiative.title}
-                            className="h-full w-full object-cover"
-                            optixFlowConfig={optixFlowConfig}
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className={cn(
-                          "flex h-full items-center justify-center md:col-span-5",
-                          isEven ? "md:order-2" : "md:order-1"
-                        )}
-                      >
-                        <Card className="flex h-full min-h-[280px] w-full items-center justify-center bg-muted/30">
-                          <CardContent className="p-6 text-center">
-                            <DynamicIcon
-                              name={initiative.icon}
-                              size={64}
-                              className="mx-auto mb-4 text-muted-foreground/50"
-                            />
-                            <Badge variant="secondary" className="mx-auto">
-                              Learn more about our{" "}
-                              {initiative.title.toLowerCase()} initiative
-                            </Badge>
-                          </CardContent>
-                        </Card>
+                    <p className="text-muted-foreground">
+                      {initiative.description}
+                    </p>
+
+                    {initiative.metrics && (
+                      <div className="grid grid-cols-3 gap-4 pt-2">
+                        {initiative.metrics.map((metric, i) => (
+                          <div key={i} className="text-center">
+                            <div className="text-2xl font-bold text-primary">
+                              {metric.value}
+                            </div>
+                            <div className="mt-1 text-xs text-muted-foreground">
+                              {metric.label}
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
-                );
-              })}
-            </TabsContent>
-          ))}
-        </Tabs>
 
-        <div className="mt-20 text-center">
-          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-muted p-1">
-            <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground">
-              {ctaBadgeText}
-            </Badge>
-          </div>
+                  {initiative.image ? (
+                    <div
+                      className={cn(
+                        "md:col-span-5",
+                        isEven ? "md:order-2" : "md:order-1"
+                      )}
+                    >
+                      <div className="relative aspect-4/3 overflow-hidden rounded-xl">
+                        <Img
+                          src={initiative.image}
+                          alt={initiative.title}
+                          className="h-full w-full object-cover"
+                          optixFlowConfig={optixFlowConfig}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className={cn(
+                        "flex h-full items-center justify-center md:col-span-5",
+                        isEven ? "md:order-2" : "md:order-1"
+                      )}
+                    >
+                      <Card className="flex h-full min-h-[280px] w-full items-center justify-center bg-muted/30">
+                        <CardContent className="p-6 text-center">
+                          <DynamicIcon
+                            name={initiative.icon}
+                            size={64}
+                            className="mx-auto mb-4 text-muted-foreground/50"
+                          />
+                          <Badge variant="secondary" className="mx-auto">
+                            Learn more about our{" "}
+                            {initiative.title.toLowerCase()} initiative
+                          </Badge>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </TabsContent>
+        ))}
+      </Tabs>
+    );
+  };
 
-          <h3 className="mb-4 text-2xl font-bold">{ctaHeading}</h3>
-          <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
-            {ctaDescription}
-          </p>
+  return (
+    <section className={cn("py-24", className)}>
+      <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+        <div className={cn("mx-auto mb-16 max-w-3xl space-y-4 text-center", headerClassName)}>
+          {badgeText && (
+            typeof badgeText === "string" ? (
+              <div className={cn("inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary", badgeClassName)}>
+                {badgeText}
+              </div>
+            ) : (
+              <div className={badgeClassName}>{badgeText}</div>
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+        </div>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <Pressable
-              href={primaryCtaUrl}
-              variant="default"
-              size="lg"
-              asButton
-            >
-              {primaryCtaText}
-            </Pressable>
-            <Pressable
-              href={secondaryCtaUrl}
-              variant="outline"
-              size="lg"
-              asButton
-            >
-              {secondaryCtaText}
-            </Pressable>
-          </div>
+        {renderCategories()}
+
+        <div className={cn("mt-20 text-center", ctaClassName)}>
+          {ctaBadgeText && (
+            <div className="mb-8 inline-flex items-center justify-center rounded-full bg-muted p-1">
+              <Badge className="rounded-full bg-primary px-4 py-1 text-primary-foreground">
+                {ctaBadgeText}
+              </Badge>
+            </div>
+          )}
+
+          {ctaHeading && (
+            typeof ctaHeading === "string" ? (
+              <h3 className={cn("mb-4 text-2xl font-bold", ctaHeadingClassName)}>{ctaHeading}</h3>
+            ) : (
+              <div className={cn("mb-4", ctaHeadingClassName)}>{ctaHeading}</div>
+            )
+          )}
+          {ctaDescription && (
+            typeof ctaDescription === "string" ? (
+              <p className={cn("mx-auto mb-8 max-w-2xl text-muted-foreground", ctaDescriptionClassName)}>
+                {ctaDescription}
+              </p>
+            ) : (
+              <div className={cn("mx-auto mb-8 max-w-2xl", ctaDescriptionClassName)}>{ctaDescription}</div>
+            )
+          )}
+
+          {renderActions()}
         </div>
       </div>
     </section>

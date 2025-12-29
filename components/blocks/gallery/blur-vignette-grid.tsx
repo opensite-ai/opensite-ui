@@ -1,24 +1,132 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
+/**
+ * Image item configuration for the blur vignette grid.
+ */
 export interface BlurVignetteGridImage {
+  /**
+   * Image source URL
+   */
   src: string;
+  /**
+   * Alt text for accessibility
+   */
   alt: string;
+  /**
+   * Number of columns to span (1-5)
+   */
   colSpan: number;
+  /**
+   * Height class for the image (e.g., "h-82", "h-100")
+   */
   height: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  className?: string;
+}
+
+/**
+ * Configuration for the blur vignette effect.
+ */
+export interface BlurVignetteConfig {
+  /**
+   * Border radius of the vignette
+   * @default "24px"
+   */
+  radius?: string;
+  /**
+   * Inset distance from edges
+   * @default "10px"
+   */
+  inset?: string;
+  /**
+   * Length of the blur transition
+   * @default "100px"
+   */
+  transitionLength?: string;
+  /**
+   * Blur intensity
+   * @default "15px"
+   */
+  blur?: string;
 }
 
 export interface BlurVignetteGridProps {
+  /**
+   * Array of images to display in the grid
+   */
   images?: BlurVignetteGridImage[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Configuration for the blur vignette effect
+   */
+  vignetteConfig?: BlurVignetteConfig;
+  /**
+   * Number of grid columns
+   * @default 5
+   */
+  gridColumns?: number;
+  /**
+   * Gap between grid items
+   * @default "gap-4"
+   */
+  gridGap?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each grid item
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for each image
+   */
+  imageClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultImages: BlurVignetteGridImage[] = [
@@ -194,44 +302,78 @@ function BlurVignette({
  *     { src: "/images/photo-1.jpg", alt: "Photo 1", colSpan: 2, height: "h-82" },
  *     { src: "/images/photo-2.jpg", alt: "Photo 2", colSpan: 3, height: "h-82" }
  *   ]}
+ *   vignetteConfig={{ radius: "24px", blur: "15px" }}
  * />
  * ```
  */
 export function BlurVignetteGrid({
   images = defaultImages,
+  imagesSlot,
+  vignetteConfig,
+  gridColumns = 5,
+  gridGap = "gap-4",
   className,
+  gridClassName,
+  itemClassName,
+  imageClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: BlurVignetteGridProps) {
+}: BlurVignetteGridProps): React.JSX.Element {
+  const {
+    radius = "24px",
+    inset = "10px",
+    transitionLength = "100px",
+    blur = "15px",
+  } = vignetteConfig || {};
+
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
+
+    return images.map((image, index) => (
+      <BlurVignette
+        key={index}
+        radius={radius}
+        inset={inset}
+        transitionLength={transitionLength}
+        blur={blur}
+        className={cn(
+          `col-span-${image.colSpan}`,
+          image.height,
+          "rounded-[2.5rem]",
+          image.className,
+          itemClassName
+        )}
+      >
+        <Img
+          width={200}
+          height={200}
+          className={cn("size-full rounded-[2.5rem] object-cover", imageClassName)}
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          optixFlowConfig={optixFlowConfig}
+        />
+      </BlurVignette>
+    ));
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="relative container">
-        <div className="grid grid-cols-5 gap-4">
-          {images.map((image, index) => (
-            <BlurVignette
-              key={index}
-              radius="24px"
-              inset="10px"
-              transitionLength="100px"
-              blur="15px"
-              className={cn(
-                `col-span-${image.colSpan}`,
-                image.height,
-                "rounded-[2.5rem]"
-              )}
-            >
-              <Img
-                width={200}
-                height={200}
-                className="size-full rounded-[2.5rem] object-cover"
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </BlurVignette>
-          ))}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn(`grid grid-cols-${gridColumns}`, gridGap, gridClassName)}>
+        {renderImages()}
       </div>
-    </section>
+    </Section>
   );
 }

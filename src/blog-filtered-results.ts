@@ -14,4 +14,4 @@
  */
 
 export { BlogFilteredResults } from "../components/blocks/blog/blog-filtered-results";
-export type { BlogFilteredResultsProps, BlogPost, Category, BreadcrumbItemType } from "../components/blocks/blog/blog-filtered-results";
+export type { BlogFilteredResultsProps, CategoryFilter, BreadcrumbItemType } from "../components/blocks/blog/blog-filtered-results";

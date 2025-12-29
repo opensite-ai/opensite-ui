@@ -21,6 +21,7 @@ import {
 } from "../../../lib/forms";
 import { Separator } from "../../ui/separator";
 import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { OptixFlowConfig } from "../../../src/types/blocks";
 
 export interface FooterSplitImageAccordionLink {
   /**
@@ -63,11 +64,37 @@ export interface FooterSplitImageAccordionSocialLink {
   label: string;
 }
 
+/**
+ * Footer data configuration
+ */
+export interface FooterSplitImageAccordionData {
+  /** Hero image configuration */
+  image: {
+    src: string;
+    alt: string;
+  };
+  /** Logo configuration with light/dark variants */
+  logo: {
+    light: string;
+    dark: string;
+  };
+  /** Logo link URL */
+  logoUrl: string;
+  /** Brand title */
+  title: string;
+  /** Brand description */
+  description: string;
+}
+
 export interface FooterSplitImageAccordionProps {
   /**
    * Newsletter title
    */
-  newsletterTitle?: string;
+  newsletterTitle?: React.ReactNode;
+  /**
+   * Email input placeholder text
+   */
+  emailPlaceholder?: string;
   /**
    * Footer link sections
    */
@@ -87,34 +114,87 @@ export interface FooterSplitImageAccordionProps {
   /**
    * Footer data configuration
    */
-  footerData?: {
-    image: {
-      src: string;
-      alt: string;
-    };
-    logo: {
-      light: string;
-      dark: string;
-    };
-    logoUrl: string;
-    title: string;
-    description: string;
-  };
+  footerData?: FooterSplitImageAccordionData;
   /**
    * Copyright text
    */
-  copyright?: string;
+  copyright?: React.ReactNode;
   /**
-   * Additional CSS classes
+   * Additional CSS classes for the footer wrapper
    */
   className?: string;
   /**
+   * Additional CSS classes for the grid layout
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for the image column
+   */
+  imageColumnClassName?: string;
+  /**
+   * Additional CSS classes for the hero image
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the content column
+   */
+  contentColumnClassName?: string;
+  /**
+   * Additional CSS classes for the newsletter section
+   */
+  newsletterSectionClassName?: string;
+  /**
+   * Additional CSS classes for the newsletter title
+   */
+  newsletterTitleClassName?: string;
+  /**
+   * Additional CSS classes for the newsletter form
+   */
+  newsletterFormClassName?: string;
+  /**
+   * Additional CSS classes for the social links
+   */
+  socialLinksClassName?: string;
+  /**
+   * Additional CSS classes for the brand section
+   */
+  brandSectionClassName?: string;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Additional CSS classes for the brand title
+   */
+  brandTitleClassName?: string;
+  /**
+   * Additional CSS classes for the brand description
+   */
+  brandDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the accordion section
+   */
+  accordionClassName?: string;
+  /**
+   * Additional CSS classes for payment methods
+   */
+  paymentMethodsClassName?: string;
+  /**
+   * Additional CSS classes for the bottom section
+   */
+  bottomClassName?: string;
+  /**
+   * Additional CSS classes for the copyright
+   */
+  copyrightClassName?: string;
+  /**
+   * Additional CSS classes for submenu links
+   */
+  submenuLinksClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
   /**
    * Optional form submission configuration for newsletter signup.
    */
@@ -205,6 +285,7 @@ const defaultSubmenuLinks: FooterSplitImageAccordionLink[] = [
  */
 export function FooterSplitImageAccordion({
   newsletterTitle = "Get updates on offers and products and save 20% on your first order",
+  emailPlaceholder = "Email Address",
   footerLinks = defaultFooterLinks,
   socialLinks = defaultSocialLinks,
   paymentMethods = [],
@@ -223,14 +304,33 @@ export function FooterSplitImageAccordion({
     description:
       "We design clothing that empowers women to express their individuality through thoughtful details, flattering fits, and beautifully crafted essentials.",
   },
-  copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,
+  copyright,
   className,
+  gridClassName,
+  imageColumnClassName,
+  imageClassName,
+  contentColumnClassName,
+  newsletterSectionClassName,
+  newsletterTitleClassName,
+  newsletterFormClassName,
+  socialLinksClassName,
+  brandSectionClassName,
+  logoClassName,
+  brandTitleClassName,
+  brandDescriptionClassName,
+  accordionClassName,
+  paymentMethodsClassName,
+  bottomClassName,
+  copyrightClassName,
+  submenuLinksClassName,
   optixFlowConfig,
   formConfig,
   onSubmit,
   onSuccess,
   onError,
 }: FooterSplitImageAccordionProps) {
+  const currentYear = new Date().getFullYear();
+  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
   const [isDesktop, setIsDesktop] = React.useState(false);
 
   const form = useForm<{ email: string }>({
@@ -295,34 +395,34 @@ export function FooterSplitImageAccordion({
 
   return (
     <footer className={cn("bg-muted", className)}>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="overflow-hidden max-lg:aspect-square">
+      <div className={cn("grid grid-cols-1 lg:grid-cols-2", gridClassName)}>
+        <div className={cn("overflow-hidden max-lg:aspect-square", imageColumnClassName)}>
           <Img
             src={footerData.image.src}
             alt={footerData.image.alt}
-            className="h-full w-full object-cover"
+            className={cn("h-full w-full object-cover", imageClassName)}
             optixFlowConfig={optixFlowConfig}
           />
         </div>
 
-        <div className="space-y-10 p-6 lg:p-12">
-          <div className="space-y-6">
-            <h3 className="text-2xl font-semibold lg:text-3xl">{newsletterTitle}</h3>
+        <div className={cn("space-y-10 p-6 lg:p-12", contentColumnClassName)}>
+          <div className={cn("space-y-6", newsletterSectionClassName)}>
+            <h3 className={cn("text-2xl font-semibold lg:text-3xl", newsletterTitleClassName)}>{newsletterTitle}</h3>
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
-              className="flex gap-2"
+              className={cn("flex gap-2", newsletterFormClassName)}
             >
               <Field name="email" className="flex-1">
                 {({ field, meta }) => (
                   <TextInput
                     {...field}
                     type="email"
-                    placeholder="Email Address"
+                    placeholder={emailPlaceholder}
                     error={meta.touched && !!meta.error}
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    aria-label="Email Address"
+                    aria-label={emailPlaceholder}
                   />
                 )}
               </Field>
@@ -336,7 +436,7 @@ export function FooterSplitImageAccordion({
                 <DynamicIcon name="lucide/arrow-right" size={16} />
               </Pressable>
             </Form>
-            <ul className="flex flex-wrap gap-4">
+            <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
               {socialLinks.map((social, idx) => (
                 <li key={idx}>
                   <Pressable
@@ -356,8 +456,8 @@ export function FooterSplitImageAccordion({
 
           <Separator />
 
-          <div className="space-y-6">
-            <Pressable href={footerData.logoUrl} className="inline-block max-w-60">
+          <div className={cn("space-y-6", brandSectionClassName)}>
+            <Pressable href={footerData.logoUrl} className={cn("inline-block max-w-60", logoClassName)}>
               <Img
                 src={footerData.logo.light}
                 alt="Logo"
@@ -371,15 +471,15 @@ export function FooterSplitImageAccordion({
                 optixFlowConfig={optixFlowConfig}
               />
             </Pressable>
-            <h4 className="text-xl font-semibold">{footerData.title}</h4>
-            <p className="text-muted-foreground">{footerData.description}</p>
+            <h4 className={cn("text-xl font-semibold", brandTitleClassName)}>{footerData.title}</h4>
+            <p className={cn("text-muted-foreground", brandDescriptionClassName)}>{footerData.description}</p>
           </div>
 
           {isDesktop ? (
             <Accordion
               value={allAccordionIds}
               type="multiple"
-              className="grid gap-4 lg:grid-cols-3"
+              className={cn("grid gap-4 lg:grid-cols-3", accordionClassName)}
             >
               {footerLinks.map((section) => (
                 <AccordionItem
@@ -408,7 +508,7 @@ export function FooterSplitImageAccordion({
               ))}
             </Accordion>
           ) : (
-            <Accordion type="single" collapsible className="grid gap-4">
+            <Accordion type="single" collapsible className={cn("grid gap-4", accordionClassName)}>
               {footerLinks.map((section) => (
                 <AccordionItem
                   key={section.id}
@@ -439,7 +539,7 @@ export function FooterSplitImageAccordion({
           )}
 
           {paymentMethods.length > 0 && (
-            <ul className="flex flex-wrap items-center gap-3">
+            <ul className={cn("flex flex-wrap items-center gap-3", paymentMethodsClassName)}>
               {paymentMethods.map((method, idx) => (
                 <li key={idx}>
                   <Img
@@ -455,9 +555,9 @@ export function FooterSplitImageAccordion({
 
           <Separator />
 
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground">{copyright}</p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          <div className={cn("flex flex-wrap items-center justify-between gap-4", bottomClassName)}>
+            <p className={cn("text-sm text-muted-foreground", copyrightClassName)}>{copyrightText}</p>
+            <ul className={cn("flex flex-wrap gap-x-6 gap-y-2", submenuLinksClassName)}>
               {submenuLinks.map((link, idx) => (
                 <li key={idx}>
                   <Pressable

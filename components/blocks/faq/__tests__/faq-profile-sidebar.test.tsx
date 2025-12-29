@@ -86,8 +86,7 @@ describe("FaqProfileSidebar", () => {
     render(
       <FaqProfileSidebar
         contactText="Need help?"
-        contactButtonText="Contact Us"
-        contactButtonUrl="/contact"
+        contactAction={{ label: "Contact Us", href: "/contact" }}
       />
     );
 

@@ -13,6 +13,7 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import type { ActionConfig } from "../../../src/types";
 
 const TIME_SLOTS = [
   "9:00 AM",
@@ -55,21 +56,77 @@ interface CallbackFormValues {
 
 export interface ContactCallbackProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Description text below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Submit button text
    */
   buttonText?: string;
   /**
+   * Submit button icon (displayed before text)
+   */
+  buttonIcon?: React.ReactNode;
+  /**
+   * Array of action configurations for additional buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array and default submit)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Footer content (e.g., help text)
+   */
+  footer?: React.ReactNode;
+  /**
+   * Custom slot for footer content (overrides footer prop)
+   */
+  footerSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the card content
+   */
+  cardContentClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the submit button
+   */
+  submitClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
   /**
    * Optional form submission configuration.
    *
@@ -141,11 +198,41 @@ export interface ContactCallbackProps {
  * />
  * ```
  */
+const defaultFooter = (
+  <>
+    Need immediate assistance?{" "}
+    <Pressable href="#" className="text-primary hover:underline">
+      Start a live chat
+    </Pressable>{" "}
+    or call us at{" "}
+    <Pressable
+      href="tel:+15551234567"
+      className="text-primary hover:underline"
+    >
+      +1 (555) 123-4567
+    </Pressable>
+  </>
+);
+
 export function ContactCallback({
   heading = "Request a Callback",
   description = "Schedule a time that works for you and we'll call you to discuss your needs.",
   buttonText = "Schedule Callback",
+  buttonIcon = <DynamicIcon name="lucide/phone" size={16} />,
+  actions,
+  actionsSlot,
+  footer = defaultFooter,
+  footerSlot,
   className,
+  containerClassName,
+  headerClassName,
+  headingClassName,
+  descriptionClassName,
+  cardClassName,
+  cardContentClassName,
+  formClassName,
+  submitClassName,
+  footerClassName,
   formConfig,
   onSubmit,
   onSuccess,
@@ -216,21 +303,79 @@ export function ContactCallback({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (actions && actions.length > 0) {
+      return actions.map((action, index) => {
+        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        return (
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      });
+    }
+    return null;
+  };
+
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
+    if (footer) {
+      return typeof footer === "string" ? (
+        <p className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
+          {footer}
+        </p>
+      ) : (
+        <div className={cn("mt-6 text-center text-sm text-muted-foreground", footerClassName)}>
+          {footer}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <section className={cn("pb-12", className)}>
-      <div className="mx-auto max-w-4xl px-4">
-        <div className="mb-10 text-center">
-          <h2 className="mb-3 text-3xl font-bold tracking-tight">{heading}</h2>
-          <p className="leading-relaxed text-muted-foreground">{description}</p>
+      <div className={cn("mx-auto max-w-4xl px-4", containerClassName)}>
+        <div className={cn("mb-10 text-center", headerClassName)}>
+          {heading && (
+            typeof heading === "string" ? (
+              <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("leading-relaxed text-muted-foreground", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
         </div>
 
-        <Card>
-          <CardContent className="p-6 lg:p-8">
+        <Card className={cardClassName}>
+          <CardContent className={cn("p-6 lg:p-8", cardContentClassName)}>
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
-              className="space-y-6"
+              className={cn("space-y-6", formClassName)}
             >
               {/* Contact Information */}
               <div>
@@ -438,34 +583,26 @@ export function ContactCallback({
                 </div>
               </div>
 
-              <Pressable
-                componentType="button"
-                type="submit"
-                className="w-full gap-2"
-                size="lg"
-                asButton
-                disabled={form.isSubmitting}
-              >
-                <DynamicIcon name="lucide/phone" size={16} />
-                {buttonText}
-              </Pressable>
+              {actionsSlot || (actions && actions.length > 0) ? (
+                renderActions()
+              ) : (
+                <Pressable
+                  componentType="button"
+                  type="submit"
+                  className={cn("w-full gap-2", submitClassName)}
+                  size="lg"
+                  asButton
+                  disabled={form.isSubmitting}
+                >
+                  {buttonIcon}
+                  {buttonText}
+                </Pressable>
+              )}
             </Form>
           </CardContent>
         </Card>
 
-        <p className="mt-6 text-center text-sm text-muted-foreground">
-          Need immediate assistance?{" "}
-          <Pressable href="#" className="text-primary hover:underline">
-            Start a live chat
-          </Pressable>{" "}
-          or call us at{" "}
-          <Pressable
-            href="tel:+15551234567"
-            className="text-primary hover:underline"
-          >
-            +1 (555) 123-4567
-          </Pressable>
-        </p>
+        {renderFooter()}
       </div>
     </section>
   );

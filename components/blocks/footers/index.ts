@@ -83,7 +83,6 @@ export type {
 export { FooterNewsletterMinimal } from "./footer-newsletter-minimal";
 export type {
   FooterNewsletterMinimalProps,
-  FooterNewsletterMinimalNavLink,
   FooterNewsletterMinimalSocialLink,
   FooterNewsletterMinimalFooterLink,
 } from "./footer-newsletter-minimal";

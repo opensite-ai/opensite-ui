@@ -409,6 +409,127 @@ export interface OptixFlowConfig {
 }
 
 /**
+ * Blog post item configuration for blog blocks.
+ * Flexible structure supporting various blog layouts.
+ * 
+ * @example
+ * ```tsx
+ * const posts: BlogPostItem[] = [
+ *   { 
+ *     title: "Getting Started", 
+ *     summary: "Learn the basics...", 
+ *     image: "/post1.jpg",
+ *     href: "/blog/getting-started"
+ *   }
+ * ];
+ * ```
+ */
+export interface BlogPostItem {
+  /**
+   * Unique identifier for the post
+   */
+  id?: string | number;
+  /**
+   * Post title
+   */
+  title: ReactNode;
+  /**
+   * Post summary/excerpt
+   */
+  summary?: ReactNode;
+  /**
+   * Post description (alternative to summary)
+   */
+  description?: ReactNode;
+  /**
+   * Post category or label
+   */
+  category?: ReactNode;
+  /**
+   * Post label (alternative to category)
+   */
+  label?: ReactNode;
+  /**
+   * Post author name
+   */
+  author?: ReactNode;
+  /**
+   * Author role/title
+   */
+  authorRole?: ReactNode;
+  /**
+   * Author avatar image URL
+   */
+  authorAvatar?: string;
+  /**
+   * Author initials for avatar fallback
+   */
+  authorInitials?: string;
+  /**
+   * Publication date
+   */
+  date?: ReactNode;
+  /**
+   * Published date (alternative to date)
+   */
+  published?: ReactNode;
+  /**
+   * Read time estimate
+   */
+  readTime?: ReactNode;
+  /**
+   * Post URL/link
+   */
+  href?: string;
+  /**
+   * Post URL (alternative to href)
+   */
+  url?: string;
+  /**
+   * Post URL (alternative to href)
+   */
+  link?: string;
+  /**
+   * Featured image URL
+   */
+  image?: string;
+  /**
+   * Image alt text
+   */
+  imageAlt?: string;
+  /**
+   * Thumbnail image URL (alternative to image)
+   */
+  thumbnail?: string;
+  /**
+   * CTA button text
+   */
+  cta?: ReactNode;
+  /**
+   * Additional CSS classes for the post card
+   */
+  className?: string;
+}
+
+/**
+ * Common blog block props for blocks with posts.
+ */
+export interface BlockBlogProps {
+  /**
+   * Array of blog post configurations
+   */
+  posts?: BlogPostItem[];
+  /**
+   * Custom slot for rendering posts (overrides posts array)
+   */
+  postsSlot?: ReactNode;
+  /**
+   * Additional CSS classes for the posts container/grid
+   */
+  postsClassName?: string;
+}
+
+/**
  * Breadcrumb item configuration for navigation breadcrumbs.
  * 
  * @example

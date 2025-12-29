@@ -5,40 +5,146 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 export interface IndustryService {
-  title: string;
-  description: string;
+  /**
+   * Service title
+   */
+  title: React.ReactNode;
+  /**
+   * Service description
+   */
+  description: React.ReactNode;
+  /**
+   * Image source URL
+   */
   imageSrc: string;
+  /**
+   * Alt text for the image
+   */
   imageAlt: string;
+  /**
+   * Additional CSS classes for the service item
+   */
+  className?: string;
 }
 
 export interface IndustriesBadgeListBorderedProps {
   /**
-   * Badge text displayed above the heading
-   * @default "Industries"
+   * Badge content displayed above the heading
    */
-  badge?: string;
+  badge?: React.ReactNode;
   /**
-   * Main heading text
+   * Custom slot for badge (overrides badge prop)
    */
-  heading?: string;
+  badgeSlot?: React.ReactNode;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Custom slot for heading (overrides heading prop)
+   */
+  headingSlot?: React.ReactNode;
   /**
    * Array of industry services to display
    */
   services?: IndustryService[];
   /**
+   * Custom slot for services (overrides services array)
+   */
+  servicesSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the services container
+   */
+  servicesClassName?: string;
+  /**
+   * Additional CSS classes for individual service items
+   */
+  itemClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultServices: IndustryService[] = [
+  {
+    title: "Mining",
+    description:
+      "Empowering mining operations with advanced automation systems, real-time monitoring solutions, safety management platforms, and resource optimization technologies that maximize efficiency and ensure sustainable extraction practices.",
+    imageSrc: imagePlaceholders[0],
+    imageAlt: "Mining industry icon",
+  },
+  {
+    title: "Finance",
+    description:
+      "Delivering secure, scalable financial technology solutions including digital banking platforms, payment processing systems, risk management tools, and regulatory compliance frameworks that enable financial institutions to innovate and compete effectively.",
+    imageSrc: imagePlaceholders[1],
+    imageAlt: "Finance industry icon",
+  },
+  {
+    title: "Energy",
+    description:
+      "Transforming energy operations with smart grid technologies, renewable energy management systems, predictive maintenance solutions, and demand forecasting tools that optimize resource allocation and improve sustainability.",
+    imageSrc: imagePlaceholders[2],
+    imageAlt: "Energy industry icon",
+  },
+  {
+    title: "Construction",
+    description:
+      "Streamlining construction projects with project management platforms, BIM integration, real-time collaboration tools, and safety monitoring systems that reduce costs, improve timelines, and enhance on-site productivity.",
+    imageSrc: imagePlaceholders[3],
+    imageAlt: "Construction industry icon",
+  },
+];
 
 /**
  * IndustriesBadgeListBordered displays a professional industries listing with badge header and bordered rows.
@@ -61,95 +167,129 @@ export interface IndustriesBadgeListBorderedProps {
  *       imageAlt: "Mining industry icon"
  *     }
  *   ]}
+ *   background="white"
+ *   spacing="xl"
  * />
  * ```
  */
 export function IndustriesBadgeListBordered({
-  className,
   badge = "Industries",
+  badgeSlot,
   heading = "Transforming industries through innovative technology solutions that drive efficiency, growth, and sustainable operations.",
-  services = [
-    {
-      title: "Mining",
-      description:
-        "Empowering mining operations with advanced automation systems, real-time monitoring solutions, safety management platforms, and resource optimization technologies that maximize efficiency and ensure sustainable extraction practices.",
-      imageSrc: imagePlaceholders[0],
-      imageAlt: "Mining industry icon",
-    },
-    {
-      title: "Finance",
-      description:
-        "Delivering secure, scalable financial technology solutions including digital banking platforms, payment processing systems, risk management tools, and regulatory compliance frameworks that enable financial institutions to innovate and compete effectively.",
-      imageSrc: imagePlaceholders[1],
-      imageAlt: "Finance industry icon",
-    },
-    {
-      title: "Energy",
-      description:
-        "Transforming energy operations with smart grid technologies, renewable energy management systems, predictive maintenance solutions, and demand forecasting tools that optimize resource allocation and improve sustainability.",
-      imageSrc: imagePlaceholders[2],
-      imageAlt: "Energy industry icon",
-    },
-    {
-      title: "Construction",
-      description:
-        "Streamlining construction projects with project management platforms, BIM integration, real-time collaboration tools, and safety monitoring systems that reduce costs, improve timelines, and enhance on-site productivity.",
-      imageSrc: imagePlaceholders[3],
-      imageAlt: "Construction industry icon",
-    },
-  ],
+  headingSlot,
+  services = defaultServices,
+  servicesSlot,
+  className,
+  containerClassName,
+  headerClassName,
+  badgeClassName,
+  headingClassName,
+  servicesClassName,
+  itemClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: IndustriesBadgeListBorderedProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        {/* Header Section */}
-        <div className="mb-16">
-          {badge && (
-            <Badge
-              variant="outline"
-              className="mb-4 rounded-none border-0 bg-muted p-2 text-primary uppercase"
-            >
-              {badge}
-            </Badge>
-          )}
-          <h2 className="max-w-2xl text-3xl leading-tight font-bold text-balance lg:text-4xl">
-            {heading}
-          </h2>
-        </div>
+}: IndustriesBadgeListBorderedProps): React.JSX.Element {
+  const renderBadge = () => {
+    if (badgeSlot) return badgeSlot;
+    if (!badge) return null;
 
-        {/* Services Grid */}
-        <div className="space-y-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="border-b border-border pb-8 first:border-t first:pt-8 last:border-b-0"
-            >
-              <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-12 md:items-center md:gap-8">
-                <div className="order-2 md:order-0 md:col-span-4">
-                  <h3 className="text-lg font-semibold text-foreground md:text-xl">
-                    {service.title}
-                  </h3>
-                </div>
-                <div className="order-1 md:order-0 md:col-span-2 md:flex md:justify-center">
-                  <Img
-                    src={service.imageSrc}
-                    alt={service.imageAlt}
-                    className="h-12 w-12 object-contain md:h-16 md:w-16"
-                    loading="lazy"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-                <div className="order-3 md:order-0 md:col-span-6">
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {service.description}
-                  </p>
-                </div>
+    return typeof badge === "string" ? (
+      <Badge
+        variant="outline"
+        className={cn(
+          "mb-4 rounded-none border-0 bg-muted p-2 text-primary uppercase",
+          badgeClassName
+        )}
+      >
+        {badge}
+      </Badge>
+    ) : (
+      <div className={badgeClassName}>{badge}</div>
+    );
+  };
+
+  const renderHeading = () => {
+    if (headingSlot) return headingSlot;
+    if (!heading) return null;
+
+    return typeof heading === "string" ? (
+      <h2
+        className={cn(
+          "max-w-2xl text-3xl leading-tight font-bold text-balance lg:text-4xl",
+          headingClassName
+        )}
+      >
+        {heading}
+      </h2>
+    ) : (
+      <div className={headingClassName}>{heading}</div>
+    );
+  };
+
+  const renderServices = () => {
+    if (servicesSlot) return servicesSlot;
+    if (!services || services.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-8", servicesClassName)}>
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className={cn(
+              "border-b border-border pb-8 first:border-t first:pt-8 last:border-b-0",
+              itemClassName,
+              service.className
+            )}
+          >
+            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-12 md:items-center md:gap-8">
+              <div className="order-2 md:order-0 md:col-span-4">
+                <h3 className="text-lg font-semibold text-foreground md:text-xl">
+                  {service.title}
+                </h3>
+              </div>
+              <div className="order-1 md:order-0 md:col-span-2 md:flex md:justify-center">
+                <Img
+                  src={service.imageSrc}
+                  alt={service.imageAlt}
+                  className="h-12 w-12 object-contain md:h-16 md:w-16"
+                  loading="lazy"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+              <div className="order-3 md:order-0 md:col-span-6">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {service.description}
+                </p>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+    >
+      <div className={containerClassName}>
+        {(badgeSlot || badge || headingSlot || heading) && (
+          <div className={cn("mb-16", headerClassName)}>
+            {renderBadge()}
+            {renderHeading()}
+          </div>
+        )}
+        {renderServices()}
+      </div>
+    </Section>
   );
 }

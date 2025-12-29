@@ -48,14 +48,12 @@ describe("FaqGradientCategories", () => {
   it("renders custom categories", () => {
     const customCategories: FaqGradientCategoriesProps["categories"] = [
       {
-        icon: "Star",
         title: "Category A",
         items: [
           { id: "a1", question: "Question A1", answer: "Answer A1" },
         ],
       },
       {
-        icon: "Heart",
         title: "Category B",
         items: [
           { id: "b1", question: "Question B1", answer: "Answer B1" },
@@ -98,7 +96,6 @@ describe("FaqGradientCategories", () => {
   it("renders categories with multiple items", () => {
     const customCategories: FaqGradientCategoriesProps["categories"] = [
       {
-        icon: "Zap",
         title: "General",
         items: [
           { id: "g1", question: "General Q1", answer: "General A1" },

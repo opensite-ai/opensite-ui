@@ -8,17 +8,77 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../ui/accordion";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface FaqItem {
   id: string;
-  question: string;
-  answer: string;
+  question: React.ReactNode;
+  answer: React.ReactNode;
 }
 
 export interface FaqMutedCardsProps {
-  heading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of FAQ items
+   */
   items?: FaqItem[];
+  /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the accordion
+   */
+  accordionClassName?: string;
+  /**
+   * Additional CSS classes for accordion items
+   */
+  accordionItemClassName?: string;
+  /**
+   * Additional CSS classes for accordion triggers
+   */
+  accordionTriggerClassName?: string;
+  /**
+   * Additional CSS classes for accordion content
+   */
+  accordionContentClassName?: string;
 }
 
 const defaultItems: FaqItem[] = [
@@ -69,31 +129,84 @@ const defaultItems: FaqItem[] = [
 export function FaqMutedCards({
   heading = "Frequently asked questions",
   items = defaultItems,
+  itemsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   className,
+  containerClassName,
+  headingClassName,
+  accordionClassName,
+  accordionItemClassName,
+  accordionTriggerClassName,
+  accordionContentClassName,
 }: FaqMutedCardsProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container max-w-3xl">
-        <h1 className="mb-4 text-3xl font-bold md:mb-11 md:text-4xl">
-          {heading}
-        </h1>
-        <Accordion type="single" collapsible className="space-y-4">
-          {items.map((item) => (
-            <AccordionItem
-              key={item.id}
-              value={item.id}
-              className="bg-muted rounded-lg border-none px-4"
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return (
+      <Accordion
+        type="single"
+        collapsible
+        className={cn("space-y-4", accordionClassName)}
+      >
+        {items.map((item) => (
+          <AccordionItem
+            key={item.id}
+            value={item.id}
+            className={cn(
+              "bg-muted rounded-lg border-none px-4",
+              accordionItemClassName
+            )}
+          >
+            <AccordionTrigger
+              className={cn(
+                "font-semibold hover:no-underline",
+                accordionTriggerClassName
+              )}
             >
-              <AccordionTrigger className="font-semibold hover:no-underline">
-                {item.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+              {item.question}
+            </AccordionTrigger>
+            <AccordionContent
+              className={cn("text-muted-foreground", accordionContentClassName)}
+            >
+              {item.answer}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className={cn("container max-w-3xl", containerClassName)}>
+        {heading && (
+          typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mb-4 text-3xl font-bold md:mb-11 md:text-4xl",
+                headingClassName
+              )}
+            >
+              {heading}
+            </h1>
+          ) : (
+            <div className={headingClassName}>{heading}</div>
+          )
+        )}
+        {renderItems()}
       </div>
-    </section>
+    </Section>
   );
 }

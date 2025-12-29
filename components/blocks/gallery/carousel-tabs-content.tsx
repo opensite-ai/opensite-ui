@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
@@ -11,23 +12,125 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
+/**
+ * Item configuration for carousel tabs content.
+ */
 export interface CarouselTabsContentItem {
-  title: ReactNode;
-  description: ReactNode;
-  note: string;
+  /**
+   * Title content (supports ReactNode for gradient text effects)
+   */
+  title: React.ReactNode;
+  /**
+   * Description content (supports ReactNode for lists, paragraphs)
+   */
+  description: React.ReactNode;
+  /**
+   * Note text displayed at the bottom
+   */
+  note: React.ReactNode;
+  /**
+   * Image source URL
+   */
   image: string;
+  /**
+   * Alt text for the image
+   */
+  imageAlt?: string;
+  /**
+   * Category label used for tab navigation
+   */
   category: string;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
 }
 
 export interface CarouselTabsContentProps {
+  /**
+   * Array of content items to display
+   */
   items?: CarouselTabsContentItem[];
+  /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering the tabs
+   */
+  tabsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the tabs container
+   */
+  tabsClassName?: string;
+  /**
+   * Additional CSS classes for each tab button
+   */
+  tabClassName?: string;
+  /**
+   * Additional CSS classes for the tab indicator
+   */
+  indicatorClassName?: string;
+  /**
+   * Additional CSS classes for the navigation controls
+   */
+  controlsClassName?: string;
+  /**
+   * Additional CSS classes for the carousel wrapper
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for the carousel content
+   */
+  carouselContentClassName?: string;
+  /**
+   * Additional CSS classes for each carousel item
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for each card
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for each image
+   */
+  imageClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultItems: CarouselTabsContentItem[] = [
@@ -146,9 +249,25 @@ const defaultItems: CarouselTabsContentItem[] = [
  */
 export function CarouselTabsContent({
   items = defaultItems,
+  itemsSlot,
+  tabsSlot,
   className,
+  tabsClassName,
+  tabClassName,
+  indicatorClassName,
+  controlsClassName,
+  carouselClassName,
+  carouselContentClassName,
+  itemClassName,
+  cardClassName,
+  imageClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: CarouselTabsContentProps) {
+}: CarouselTabsContentProps): React.JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(items[0]?.category || "");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -189,79 +308,106 @@ export function CarouselTabsContent({
     };
   }, [api, current, items]);
 
-  return (
-    <section className={cn("overflow-hidden py-32", className)}>
-      <div className="container">
-        <Carousel
-          setApi={setApi}
-          className="[&>div[data-slot=carousel-content]]:overflow-visible"
-        >
-          <div className="flex items-center justify-between">
-            <div className="relative mb-8 flex justify-center">
-              <div className="relative flex h-auto gap-6 bg-background">
-                {items.map((item, idx) => (
-                  <button
-                    key={idx}
-                    ref={(el) => {
-                      tabRefs.current[idx] = el;
-                    }}
-                    onClick={() => setCurrent(item.category)}
-                    className={cn(
-                      "text-base transition-all duration-700 ease-out px-3 py-1.5 rounded-sm",
-                      current === item.category
-                        ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {item.category}
-                  </button>
-                ))}
-                <div
-                  className="absolute bottom-0 h-0.5 bg-primary transition-all duration-700 ease-out"
-                  style={{
-                    width: `${indicatorStyle.width}px`,
-                    left: `${indicatorStyle.left}px`,
-                  }}
-                />
+  const renderTabs = () => {
+    if (tabsSlot) return tabsSlot;
+
+    return (
+      <div className={cn("relative mb-8 flex justify-center", tabsClassName)}>
+        <div className="relative flex h-auto gap-6 bg-background">
+          {items.map((item, idx) => (
+            <button
+              key={idx}
+              ref={(el) => {
+                tabRefs.current[idx] = el;
+              }}
+              onClick={() => setCurrent(item.category)}
+              className={cn(
+                "text-base transition-all duration-700 ease-out px-3 py-1.5 rounded-sm",
+                current === item.category
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+                tabClassName
+              )}
+            >
+              {item.category}
+            </button>
+          ))}
+          <div
+            className={cn("absolute bottom-0 h-0.5 bg-primary transition-all duration-700 ease-out", indicatorClassName)}
+            style={{
+              width: `${indicatorStyle.width}px`,
+              left: `${indicatorStyle.left}px`,
+            }}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return items.map((item, idx) => (
+      <CarouselItem key={idx} className={cn("w-fit max-w-4xl", item.className, itemClassName)}>
+        <div className={cn("grid h-full max-w-4xl gap-10 rounded-xl border border-border p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 lg:gap-20", cardClassName)}>
+          <div className="flex flex-col justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-medium sm:text-4xl">
+                {item.title}
+              </h2>
+              <div className="mt-4 text-sm text-muted-foreground sm:mt-6">
+                {item.description}
               </div>
             </div>
-            <div className="hidden items-center gap-4 sm:flex">
-              <CarouselPrevious className="static size-10 translate-x-0 translate-y-0" />
-              <CarouselNext className="static size-10 translate-x-0 translate-y-0" />
-            </div>
+            {typeof item.note === "string" ? (
+              <p className="mt-4 text-xs text-muted-foreground sm:mt-6">
+                {item.note}
+              </p>
+            ) : (
+              <div className="mt-4 text-xs text-muted-foreground sm:mt-6">
+                {item.note}
+              </div>
+            )}
           </div>
-          <CarouselContent className="max-w-4xl">
-            {items.map((item, idx) => (
-              <CarouselItem key={idx} className="w-fit max-w-4xl">
-                <div className="grid h-full max-w-4xl gap-10 rounded-xl border border-border p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 lg:gap-20">
-                  <div className="flex flex-col justify-between gap-4">
-                    <div>
-                      <h2 className="text-2xl font-medium sm:text-4xl">
-                        {item.title}
-                      </h2>
-                      <div className="mt-4 text-sm text-muted-foreground sm:mt-6">
-                        {item.description}
-                      </div>
-                    </div>
-                    <p className="mt-4 text-xs text-muted-foreground sm:mt-6">
-                      {item.note}
-                    </p>
-                  </div>
-                  <div className="rounded-xl border border-border p-2">
-                    <Img
-                      src={item.image}
-                      alt="Content image"
-                      className="h-full w-full rounded-xl object-cover"
-                      loading="lazy"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </div>
-    </section>
+          <div className="rounded-xl border border-border p-2">
+            <Img
+              src={item.image}
+              alt={item.imageAlt || "Content image"}
+              className={cn("h-full w-full rounded-xl object-cover", imageClassName)}
+              loading="lazy"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        </div>
+      </CarouselItem>
+    ));
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("overflow-hidden", className)}
+    >
+      <Carousel
+        setApi={setApi}
+        className={cn("[&>div[data-slot=carousel-content]]:overflow-visible", carouselClassName)}
+      >
+        <div className="flex items-center justify-between">
+          {renderTabs()}
+          <div className={cn("hidden items-center gap-4 sm:flex", controlsClassName)}>
+            <CarouselPrevious className="static size-10 translate-x-0 translate-y-0" />
+            <CarouselNext className="static size-10 translate-x-0 translate-y-0" />
+          </div>
+        </div>
+        <CarouselContent className={cn("max-w-4xl", carouselContentClassName)}>
+          {renderItems()}
+        </CarouselContent>
+      </Carousel>
+    </Section>
   );
 }

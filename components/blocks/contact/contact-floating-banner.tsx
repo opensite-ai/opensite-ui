@@ -4,32 +4,57 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { type ActionConfig } from "../../../src/types/blocks";
 
 export interface ContactFloatingBannerProps {
   /**
    * Badge text before the main message
    */
-  badgeText?: string;
+  badgeText?: React.ReactNode;
   /**
    * Main message text
    */
-  message?: string;
+  message?: React.ReactNode;
   /**
    * Button text
    */
   buttonText?: string;
   /**
-   * Button icon name
+   * Button icon name or ReactNode
    */
-  buttonIcon?: string;
+  buttonIcon?: React.ReactNode;
   /**
    * Button href
    */
   buttonHref?: string;
   /**
-   * Additional CSS classes for the banner
+   * Array of action configurations for custom buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the banner container
+   */
+  bannerClassName?: string;
+  /**
+   * Additional CSS classes for the banner inner content
+   */
+  bannerContentClassName?: string;
+  /**
+   * Additional CSS classes for the message text
+   */
+  messageClassName?: string;
+  /**
+   * Additional CSS classes for the badge text
+   */
+  badgeClassName?: string;
 }
 
 /**
@@ -54,15 +79,47 @@ export function ContactFloatingBanner({
   buttonText = "Get started",
   buttonIcon = "lucide/arrow-right",
   buttonHref = "#",
+  actions,
+  actionsSlot,
   className,
+  bannerClassName,
+  bannerContentClassName,
+  messageClassName,
+  badgeClassName,
 }: ContactFloatingBannerProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (actions && actions.length > 0) {
+      return actions.map((action, index) => {
+        const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+        return (
+          <Pressable
+            key={index}
+            asButton
+            className={actionClassName}
+            {...pressableProps}
+          >
+            {children ?? (
+              <>
+                {icon}
+                {label}
+                {iconAfter}
+              </>
+            )}
+          </Pressable>
+        );
+      });
+    }
+    return null;
+  };
+
   return (
     <div className={cn("container relative mx-auto py-24 lg:py-32", className)}>
       {/* Floating Banner */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8">
-        <div className="pointer-events-auto flex items-center justify-between gap-x-6 bg-primary px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
-          <p className="text-sm leading-6 text-primary-foreground">
-            <strong className="font-semibold">{badgeText}</strong>
+      <div className={cn("pointer-events-none fixed inset-x-0 bottom-0 sm:flex sm:justify-center sm:px-6 sm:pb-5 lg:px-8", bannerClassName)}>
+        <div className={cn("pointer-events-auto flex items-center justify-between gap-x-6 bg-primary px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5", bannerContentClassName)}>
+          <p className={cn("text-sm leading-6 text-primary-foreground", messageClassName)}>
+            <strong className={cn("font-semibold", badgeClassName)}>{badgeText}</strong>
             <svg
               viewBox="0 0 2 2"
               className="mx-2 inline h-0.5 w-0.5 fill-current"
@@ -72,16 +129,24 @@ export function ContactFloatingBanner({
             </svg>
             {message}
           </p>
-          <Pressable
-            href={buttonHref}
-            variant="secondary"
-            size="sm"
-            className="flex items-center gap-x-1"
-            asButton
-          >
-            {buttonText}
-            {buttonIcon && <DynamicIcon name={buttonIcon} size={16} />}
-          </Pressable>
+          {actionsSlot || actions ? (
+            renderActions()
+          ) : (
+            <Pressable
+              href={buttonHref}
+              variant="secondary"
+              size="sm"
+              className="flex items-center gap-x-1"
+              asButton
+            >
+              {buttonText}
+              {typeof buttonIcon === "string" ? (
+                <DynamicIcon name={buttonIcon} size={16} />
+              ) : (
+                buttonIcon
+              )}
+            </Pressable>
+          )}
         </div>
       </div>
       {/* End of Floating Banner */}

@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Social link configuration
@@ -20,20 +22,56 @@ export interface FooterAnimatedSocialLink {
  * Props for the FooterAnimatedSocial component
  */
 export interface FooterAnimatedSocialProps {
-  /** Additional CSS classes */
-  className?: string;
   /** Main heading text */
-  heading?: string;
+  heading?: React.ReactNode;
   /** Description text */
-  description?: string;
+  description?: React.ReactNode;
   /** CTA button text */
-  ctaText?: string;
+  ctaText?: React.ReactNode;
   /** CTA button URL */
   ctaUrl?: string;
   /** Social media links */
   socialLinks?: FooterAnimatedSocialLink[];
   /** Copyright text */
-  copyright?: string;
+  copyright?: React.ReactNode;
+  /** Attribution text */
+  attributionText?: React.ReactNode;
+  /** Attribution link URL */
+  attributionHref?: string;
+  /** Additional CSS classes for the section wrapper */
+  className?: string;
+  /** Additional CSS classes for the content wrapper */
+  contentClassName?: string;
+  /** Additional CSS classes for the main layout */
+  layoutClassName?: string;
+  /** Additional CSS classes for the left column */
+  leftColumnClassName?: string;
+  /** Additional CSS classes for the heading */
+  headingClassName?: string;
+  /** Additional CSS classes for the description */
+  descriptionClassName?: string;
+  /** Additional CSS classes for the CTA button */
+  ctaClassName?: string;
+  /** Additional CSS classes for the right column */
+  rightColumnClassName?: string;
+  /** Additional CSS classes for the social links section */
+  socialLinksClassName?: string;
+  /** Additional CSS classes for social link items */
+  socialLinkClassName?: string;
+  /** Additional CSS classes for the bottom section */
+  bottomClassName?: string;
+  /** Additional CSS classes for the separator */
+  separatorClassName?: string;
+  /** Additional CSS classes for the copyright section */
+  copyrightClassName?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern */
+  pattern?: string;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
 }
 
 const defaultSocialLinks: FooterAnimatedSocialLink[] = [
@@ -70,17 +108,44 @@ const itemVariants = {
  * polish and interactivity to their footer.
  */
 export function FooterAnimatedSocial({
-  className,
   heading = "Connect with Me",
   description = "No commitments. Just a quick chat to see if we click.",
   ctaText = "Get in Touch",
   ctaUrl = "#",
   socialLinks = defaultSocialLinks,
-  copyright = `© Copyright ${new Date().getFullYear()}. All rights Reserved.`,
+  copyright,
+  attributionText = "AI Website and Automation Platform by Opensite",
+  attributionHref = "https://opensite.ai",
+  className,
+  contentClassName,
+  layoutClassName,
+  leftColumnClassName,
+  headingClassName,
+  descriptionClassName,
+  ctaClassName,
+  rightColumnClassName,
+  socialLinksClassName,
+  socialLinkClassName,
+  bottomClassName,
+  separatorClassName,
+  copyrightClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: FooterAnimatedSocialProps): React.JSX.Element {
+  const currentYear = new Date().getFullYear();
+  const copyrightText = copyright ?? `© Copyright ${currentYear}. All rights Reserved.`;
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn(contentClassName)}>
         <footer>
           <div>
             <motion.div
@@ -88,14 +153,14 @@ export function FooterAnimatedSocial({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="flex flex-col justify-between md:flex-row md:items-center"
+              className={cn("flex flex-col justify-between md:flex-row md:items-center", layoutClassName)}
             >
-              <div className="space-y-8">
+              <div className={cn("space-y-8", leftColumnClassName)}>
                 <motion.div variants={itemVariants} className="space-y-6">
-                  <h2 className="text-4xl leading-tight font-bold text-foreground lg:text-5xl">
+                  <h2 className={cn("text-4xl leading-tight font-bold text-foreground lg:text-5xl", headingClassName)}>
                     {heading}
                   </h2>
-                  <p className="max-w-md text-lg leading-relaxed text-muted-foreground">
+                  <p className={cn("max-w-md text-lg leading-relaxed text-muted-foreground", descriptionClassName)}>
                     {description}
                   </p>
                 </motion.div>
@@ -103,16 +168,16 @@ export function FooterAnimatedSocial({
                 <motion.div variants={itemVariants}>
                   <Pressable
                     href={ctaUrl}
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+                    className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8", ctaClassName)}
                   >
                     {ctaText}
                   </Pressable>
                 </motion.div>
               </div>
 
-              <div className="mt-5 space-y-8 md:mt-0">
+              <div className={cn("mt-5 space-y-8 md:mt-0", rightColumnClassName)}>
                 <motion.div variants={itemVariants}>
-                  <div className="space-y-6">
+                  <div className={cn("space-y-6", socialLinksClassName)}>
                     {socialLinks.map((link) => (
                       <motion.div
                         key={link.name}
@@ -126,7 +191,7 @@ export function FooterAnimatedSocial({
                       >
                         <Pressable
                           href={link.href}
-                          className="group flex items-center gap-2 py-2 text-foreground transition-colors hover:text-foreground/80"
+                          className={cn("group flex items-center gap-2 py-2 text-foreground transition-colors hover:text-foreground/80", socialLinkClassName)}
                         >
                           <span className="text-xl font-medium">
                             {link.name}
@@ -149,22 +214,22 @@ export function FooterAnimatedSocial({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="mt-16"
+              className={cn("mt-16", bottomClassName)}
             >
               <motion.div variants={itemVariants}>
-                <div className="mb-8 h-px w-full bg-border" />
+                <div className={cn("mb-8 h-px w-full bg-border", separatorClassName)} />
               </motion.div>
 
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
+                className={cn("flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center", copyrightClassName)}
               >
-                <p className="text-sm text-muted-foreground">{copyright}</p>
+                <p className="text-sm text-muted-foreground">{copyrightText}</p>
 
                 <div className="flex items-center gap-6 text-sm">
                   <span className="text-muted-foreground">
                     <motion.a
-                      href="https://opensite.ai"
+                      href={attributionHref}
                       className="underline underline-offset-4 transition-colors hover:text-foreground"
                       whileHover={{ scale: 1.05 }}
                       transition={{
@@ -174,7 +239,7 @@ export function FooterAnimatedSocial({
                       }}
                       target="_blank"
                     >
-                      AI Website and Automation Platform by Opensite
+                      {attributionText}
                     </motion.a>
                   </span>
                 </div>
@@ -183,6 +248,6 @@ export function FooterAnimatedSocial({
           </div>
         </footer>
       </div>
-    </section>
+    </Section>
   );
 }

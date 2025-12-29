@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { useEffect, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
@@ -8,25 +9,142 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
+/**
+ * Item configuration for service hover carousel.
+ */
 export interface ServiceHoverCarouselItem {
+  /**
+   * Unique identifier for the item
+   */
   id: string;
-  title: string;
-  price: string;
+  /**
+   * Title of the service
+   */
+  title: React.ReactNode;
+  /**
+   * Price display text
+   */
+  price: React.ReactNode;
+  /**
+   * Primary image source URL
+   */
   image: string;
+  /**
+   * Alt text for the primary image
+   */
+  imageAlt?: string;
+  /**
+   * Hover image source URL
+   */
   hoverImage: string;
-  tag: string;
+  /**
+   * Alt text for the hover image
+   */
+  hoverImageAlt?: string;
+  /**
+   * Tag/badge text
+   */
+  tag: React.ReactNode;
+  /**
+   * Link URL for the item
+   */
+  href?: string;
+  /**
+   * Additional CSS classes for the item
+   */
+  className?: string;
 }
 
 export interface ServiceHoverCarouselProps {
-  heading?: string;
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Array of service items to display
+   */
   items?: ServiceHoverCarouselItem[];
+  /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering the header
+   */
+  headerSlot?: React.ReactNode;
+  /**
+   * Text displayed before the price
+   * @default "Starting at"
+   */
+  pricePrefix?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the controls container
+   */
+  controlsClassName?: string;
+  /**
+   * Additional CSS classes for the carousel wrapper
+   */
+  carouselClassName?: string;
+  /**
+   * Additional CSS classes for the carousel content
+   */
+  carouselContentClassName?: string;
+  /**
+   * Additional CSS classes for each carousel item
+   */
+  itemClassName?: string;
+  /**
+   * Additional CSS classes for each image
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for each badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the progress bar
+   */
+  progressClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultItems: ServiceHoverCarouselItem[] = [
@@ -141,9 +259,25 @@ const defaultItems: ServiceHoverCarouselItem[] = [
 export function ServiceHoverCarousel({
   heading = "Our Services",
   items = defaultItems,
+  itemsSlot,
+  headerSlot,
+  pricePrefix = "Starting at",
   className,
+  headingClassName,
+  controlsClassName,
+  carouselClassName,
+  carouselContentClassName,
+  itemClassName,
+  imageClassName,
+  badgeClassName,
+  progressClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: ServiceHoverCarouselProps) {
+}: ServiceHoverCarouselProps): React.JSX.Element {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(true);
@@ -172,14 +306,16 @@ export function ServiceHoverCarousel({
   const progressIndicatorWidth = progressWidth / items.length;
   const progressOffset = currentIndex * progressIndicatorWidth;
 
-  return (
-    <section className={cn("py-32", className)}>
+  const renderHeader = () => {
+    if (headerSlot) return headerSlot;
+
+    return (
       <div className="px-4 lg:px-10">
         <div className="mb-6 flex flex-col justify-between md:flex-row md:items-end">
           <div>
-            <h2 className="text-3xl font-semibold md:text-4xl">{heading}</h2>
+            <h2 className={cn("text-3xl font-semibold md:text-4xl", headingClassName)}>{heading}</h2>
           </div>
-          <div className="mt-8 flex shrink-0 items-center justify-start gap-2">
+          <div className={cn("mt-8 flex shrink-0 items-center justify-start gap-2", controlsClassName)}>
             <Pressable
               size="icon"
               variant="outline"
@@ -203,6 +339,67 @@ export function ServiceHoverCarousel({
           </div>
         </div>
       </div>
+    );
+  };
+
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return items.map((product) => (
+      <CarouselItem key={product.id} className={cn("min-w-[334px] flex-1", itemClassName, product.className)}>
+        <a
+          href={product.href || `/services/${product.id}`}
+          className="group relative flex h-full flex-col items-start justify-start gap-2"
+        >
+          <div className="w-full">
+            <div className="group relative z-10 overflow-hidden rounded-2xl">
+              <Img
+                src={product.image}
+                alt={typeof product.title === "string" ? product.title : (product.imageAlt || "Service image")}
+                className={cn("h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0", imageClassName)}
+                style={{ aspectRatio: "3/4" }}
+                loading="lazy"
+                optixFlowConfig={optixFlowConfig}
+              />
+              <Img
+                src={product.hoverImage}
+                alt={typeof product.title === "string" ? product.title : (product.hoverImageAlt || "Service hover image")}
+                className={cn("absolute top-0 left-0 z-10 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100", imageClassName)}
+                style={{ aspectRatio: "3/4" }}
+                loading="lazy"
+                optixFlowConfig={optixFlowConfig}
+              />
+
+              <Badge
+                className={cn("absolute top-4 left-4 bg-background px-4 py-2", badgeClassName)}
+                variant="outline"
+              >
+                {product.tag}
+              </Badge>
+            </div>
+          </div>
+          <div className="flex flex-col gap-1">
+            <h3>{product.title}</h3>
+            <span>
+              {pricePrefix} <span>{product.price}</span>
+            </span>
+          </div>
+        </a>
+      </CarouselItem>
+    ));
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      {renderHeader()}
 
       <div className="relative w-full overflow-hidden">
         <Carousel
@@ -210,54 +407,14 @@ export function ServiceHoverCarousel({
           opts={{
             align: "start",
           }}
+          className={carouselClassName}
         >
-          <CarouselContent className="px-4 pb-10 lg:px-10">
-            {items.map((product) => (
-              <CarouselItem key={product.id} className="min-w-[334px] flex-1">
-                <a
-                  href={`/services/${product.id}`}
-                  className="group relative flex h-full flex-col items-start justify-start gap-2"
-                >
-                  <div className="w-full">
-                    <div className="group relative z-10 overflow-hidden rounded-2xl">
-                      <Img
-                        src={product.image}
-                        alt={product.title}
-                        className="h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0"
-                        style={{ aspectRatio: "3/4" }}
-                        loading="lazy"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-                      <Img
-                        src={product.hoverImage}
-                        alt={product.title}
-                        className="absolute top-0 left-0 z-10 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                        style={{ aspectRatio: "3/4" }}
-                        loading="lazy"
-                        optixFlowConfig={optixFlowConfig}
-                      />
-
-                      <Badge
-                        className="absolute top-4 left-4 bg-background px-4 py-2"
-                        variant="outline"
-                      >
-                        {product.tag}
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <h3>{product.title}</h3>
-                    <span>
-                      Starting at <span>{product.price}</span>
-                    </span>
-                  </div>
-                </a>
-              </CarouselItem>
-            ))}
+          <CarouselContent className={cn("px-4 pb-10 lg:px-10", carouselContentClassName)}>
+            {renderItems()}
           </CarouselContent>
         </Carousel>
 
-        <div className="absolute bottom-0 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200">
+        <div className={cn("absolute bottom-0 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200", progressClassName)}>
           <div
             className="h-0.5 rounded bg-black transition-transform duration-300 ease-out"
             style={{
@@ -267,6 +424,6 @@ export function ServiceHoverCarousel({
           />
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

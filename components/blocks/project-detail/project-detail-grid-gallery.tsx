@@ -4,32 +4,66 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailGridGalleryImage {
   src?: string;
-  alt: string;
-  caption?: string;
+  alt?: string;
+  caption?: React.ReactNode;
 }
 
 export interface ProjectDetailGridGalleryProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  year?: string;
-  category?: string;
-  artist?: string;
-  description?: string;
-  creativeProcess?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Project year */
+  year?: React.ReactNode;
+  /** Category label */
+  category?: React.ReactNode;
+  /** Artist name */
+  artist?: React.ReactNode;
+  /** Description text */
+  description?: React.ReactNode;
+  /** Creative process description */
+  creativeProcess?: React.ReactNode;
+  /** Gallery images */
   images?: ProjectDetailGridGalleryImage[];
-  backHref?: string;
-  backLabel?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Back navigation action */
+  backAction?: ActionConfig;
+  /** Custom slot for back action (overrides backAction) */
+  backActionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
+  className?: string;
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the header */
+  headerClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the grid layout */
+  gridClassName?: string;
+  /** Additional CSS classes for the gallery section */
+  galleryClassName?: string;
 }
 
 const defaultImages: ProjectDetailGridGalleryImage[] = [
@@ -76,8 +110,7 @@ const defaultProps: ProjectDetailGridGalleryProps = {
   creativeProcess:
     "The creative process began with extensive research into natural growth patterns and biomimicry. Through iterative prototyping and material experimentation, the final form emerged as a dialogue between nature and human intervention.",
   images: defaultImages,
-  backHref: "/projects",
-  backLabel: "Back to Gallery",
+  backAction: { label: "Back to Gallery", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
 };
 
 const fadeInUp = {
@@ -91,7 +124,6 @@ export function ProjectDetailGridGallery(
   props: ProjectDetailGridGalleryProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     year = defaultProps.year,
@@ -100,27 +132,58 @@ export function ProjectDetailGridGallery(
     description = defaultProps.description,
     creativeProcess = defaultProps.creativeProcess,
     images = defaultProps.images,
-    backHref = defaultProps.backHref,
-    backLabel = defaultProps.backLabel,
+    backAction = defaultProps.backAction,
+    backActionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    headerClassName,
+    titleClassName,
+    gridClassName,
+    galleryClassName,
   } = props;
 
+  const renderBackAction = () => {
+    if (backActionSlot) return backActionSlot;
+    if (!backAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    return (
+      <Pressable
+        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <article className={cn("py-24 md:py-32", className)}>
-      <div className="container">
-        {backHref && (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <article className={containerClassName}>
+        {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            <Pressable
-              href={backHref}
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <DynamicIcon name="lucide/arrow-left" size={16} />
-              {backLabel}
-            </Pressable>
+            {renderBackAction()}
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className="mb-16 max-w-3xl">
+        <motion.header {...fadeInUp} className={cn("mb-16 max-w-3xl", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
               {category}
@@ -130,31 +193,49 @@ export function ProjectDetailGridGallery(
             <span>{artist}</span>
           </div>
 
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-            {title}
-          </h1>
+          {typeof title === "string" ? (
+            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          )}
 
-          <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+            ) : (
+              <div className="mt-4">{subtitle}</div>
+            )
+          )}
         </motion.header>
 
-        <div className="grid gap-16 lg:grid-cols-2">
+        <div className={cn("grid gap-16 lg:grid-cols-2", gridClassName)}>
           <motion.div {...fadeInUp} className="space-y-8">
             <div>
               <h2 className="mb-4 text-sm font-medium tracking-wider text-muted-foreground uppercase">
                 About the Work
               </h2>
-              <p className="text-lg leading-relaxed text-foreground">
-                {description}
-              </p>
+              {typeof description === "string" ? (
+                <p className="text-lg leading-relaxed text-foreground">
+                  {description}
+                </p>
+              ) : (
+                description
+              )}
             </div>
 
             <div>
               <h2 className="mb-4 text-sm font-medium tracking-wider text-muted-foreground uppercase">
                 Creative Process
               </h2>
-              <p className="text-lg leading-relaxed text-muted-foreground">
-                {creativeProcess}
-              </p>
+              {typeof creativeProcess === "string" ? (
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  {creativeProcess}
+                </p>
+              ) : (
+                creativeProcess
+              )}
             </div>
           </motion.div>
 
@@ -174,13 +255,17 @@ export function ProjectDetailGridGallery(
               >
                 <Img
                   src={image.src || imagePlaceholders[14 + index]}
-                  alt={image.alt}
+                  alt={image.alt || "Gallery image"}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   optixFlowConfig={optixFlowConfig}
                 />
                 {image.caption && (
                   <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <p className="text-sm text-foreground">{image.caption}</p>
+                    {typeof image.caption === "string" ? (
+                      <p className="text-sm text-foreground">{image.caption}</p>
+                    ) : (
+                      image.caption
+                    )}
                   </div>
                 )}
               </div>
@@ -192,7 +277,7 @@ export function ProjectDetailGridGallery(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-16"
+            className={cn("mt-16", galleryClassName)}
           >
             <h2 className="mb-8 text-sm font-medium tracking-wider text-muted-foreground uppercase">
               More Views
@@ -209,13 +294,17 @@ export function ProjectDetailGridGallery(
                 >
                   <Img
                     src={image.src || imagePlaceholders[18 + index]}
-                    alt={image.alt}
+                    alt={image.alt || "Gallery image"}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     optixFlowConfig={optixFlowConfig}
                   />
                   {image.caption && (
                     <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-background/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                      <p className="text-sm text-foreground">{image.caption}</p>
+                      {typeof image.caption === "string" ? (
+                        <p className="text-sm text-foreground">{image.caption}</p>
+                      ) : (
+                        image.caption
+                      )}
                     </div>
                   )}
                 </motion.div>
@@ -223,7 +312,7 @@ export function ProjectDetailGridGallery(
             </div>
           </motion.div>
         )}
-      </div>
-    </article>
+      </article>
+    </Section>
   );
 }

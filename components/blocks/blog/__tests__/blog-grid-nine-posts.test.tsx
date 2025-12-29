@@ -25,14 +25,14 @@ describe("BlogGridNinePosts", () => {
     expect(screen.getByText("Blog")).toBeInTheDocument();
   });
 
-  it("renders custom title and description", () => {
+  it("renders custom heading and description", () => {
     render(
       <BlogGridNinePosts
-        title="Custom Title"
+        heading="Custom Heading"
         description="Custom description"
       />
     );
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
@@ -90,7 +90,7 @@ describe("BlogGridNinePosts", () => {
   });
 
   it("renders custom CTA text", () => {
-    render(<BlogGridNinePosts ctaText="See More" ctaHref="/more" />);
+    render(<BlogGridNinePosts ctaAction={{ label: "See More", href: "/more" }} />);
     expect(screen.getByText("See More")).toBeInTheDocument();
   });
 

@@ -32,14 +32,14 @@ describe("BlogFilteredResults", () => {
     expect(screen.getByText("All Blogs")).toBeInTheDocument();
   });
 
-  it("renders custom title and description", () => {
+  it("renders custom heading and description", () => {
     render(
       <BlogFilteredResults
-        title="Custom Title"
+        heading="Custom Heading"
         description="Custom description"
       />
     );
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
@@ -104,13 +104,13 @@ describe("BlogFilteredResults", () => {
     expect(images.length).toBeGreaterThan(0);
   });
 
-  it("renders custom all blogs title", () => {
-    render(<BlogFilteredResults allBlogsTitle="All Articles" />);
+  it("renders custom all blogs heading", () => {
+    render(<BlogFilteredResults allBlogsHeading="All Articles" />);
     expect(screen.getByText("All Articles")).toBeInTheDocument();
   });
 
   it("renders custom load more text", () => {
-    render(<BlogFilteredResults loadMoreText="Show More" postsPerPage={2} />);
+    render(<BlogFilteredResults loadMoreAction={{ label: "Show More" }} postsPerPage={2} />);
     expect(screen.getByText("Show More")).toBeInTheDocument();
   });
 

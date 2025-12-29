@@ -47,4 +47,4 @@ export { FaqProfileSidebar } from "./faq-profile-sidebar";
 export type { FaqProfileSidebarProps } from "./faq-profile-sidebar";
 
 export { FaqSplitHero } from "./faq-split-hero";
-export type { FaqSplitHeroProps, FaqSplitHeroItem } from "./faq-split-hero";
+export type { FaqSplitHeroProps, FaqItem as FaqSplitHeroItem } from "./faq-split-hero";

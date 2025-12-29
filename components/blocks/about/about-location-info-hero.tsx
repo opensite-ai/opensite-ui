@@ -7,79 +7,101 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { patternSvgs } from "../../../lib/patternSvgs";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export type PatternName = keyof typeof patternSvgs;
-
-export interface AboutLocationInfoHeroAction {
-  /**
-   * Button label
-   */
-  label: string;
-  /**
-   * Optional link destination
-   */
-  href?: string;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
-}
 
 export interface AboutLocationInfoHeroHours {
   /**
    * Day label
    */
-  day: string;
+  day?: React.ReactNode;
   /**
    * Hours text
    */
-  time: string;
+  time?: React.ReactNode;
 }
 
 export interface AboutLocationInfoHeroHoursSection {
   /**
    * Section label
    */
-  label: string;
+  label?: React.ReactNode;
   /**
    * Hours list for the section
    */
-  hours: AboutLocationInfoHeroHours[];
+  hours?: AboutLocationInfoHeroHours[];
 }
 
 export interface AboutLocationInfoHeroProps {
   /**
    * Main headline text
    */
-  headline?: string;
+  headline?: React.ReactNode;
+  /**
+   * Additional CSS classes for the headline
+   */
+  headlineClassName?: string;
   /**
    * Address text
    */
-  address?: string;
+  address?: React.ReactNode;
   /**
    * Optional address link
    */
   addressHref?: string;
   /**
+   * Additional CSS classes for the address
+   */
+  addressClassName?: string;
+  /**
    * Phone text
    */
-  phone?: string;
+  phone?: React.ReactNode;
   /**
    * Optional phone link
    */
   phoneHref?: string;
   /**
+   * Additional CSS classes for the phone
+   */
+  phoneClassName?: string;
+  /**
    * Action buttons shown below the headline
    */
-  actionButtons?: AboutLocationInfoHeroAction[];
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Hours sections to display
    */
   hoursSections?: AboutLocationInfoHeroHoursSection[];
   /**
+   * Custom slot for rendering hours sections (overrides hoursSections array)
+   */
+  hoursSectionsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the hours sections container
+   */
+  hoursSectionsClassName?: string;
+  /**
    * Image list (one or two images recommended)
    */
   images?: { src: string; alt: string }[];
+  /**
+   * Custom slot for rendering images (overrides images array)
+   */
+  imagesSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the images container
+   */
+  imagesClassName?: string;
   /**
    * Layout direction on desktop
    */
@@ -109,12 +131,13 @@ export interface AboutLocationInfoHeroProps {
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultImages = [
@@ -139,6 +162,11 @@ const defaultHoursSections: AboutLocationInfoHeroHoursSection[] = [
   },
 ];
 
+const defaultActions: ActionConfig[] = [
+  { label: "Schedule a Visit", href: "/contact" },
+  { label: "Get Directions", href: "https://maps.google.com" },
+];
+
 /**
  * AboutLocationInfoHero - Split hero section with contact details, action links,
  * hours breakdown, and a dual-image layout. Great for showcasing location-focused
@@ -146,16 +174,22 @@ const defaultHoursSections: AboutLocationInfoHeroHoursSection[] = [
  */
 export function AboutLocationInfoHero({
   headline = "OpenSite AI service center in the heart of the city",
+  headlineClassName,
   address = "975 Mission St, San Francisco, CA",
   addressHref,
+  addressClassName,
   phone = "+1 (415) 555-0192",
   phoneHref,
-  actionButtons = [
-    { label: "Schedule a Visit", href: "/contact" },
-    { label: "Get Directions", href: "https://maps.google.com" },
-  ],
+  phoneClassName,
+  actions = defaultActions,
+  actionsSlot,
+  actionsClassName,
   hoursSections = defaultHoursSections,
+  hoursSectionsSlot,
+  hoursSectionsClassName,
   images = defaultImages,
+  imagesSlot,
+  imagesClassName,
   contentPosition = "left",
   mobileStackOrder = "content-first",
   backgroundColor = "hsl(var(--foreground))",
@@ -163,6 +197,7 @@ export function AboutLocationInfoHero({
   pattern,
   patternOpacity = 0.12,
   className,
+  containerClassName,
   optixFlowConfig,
 }: AboutLocationInfoHeroProps): React.JSX.Element {
   const patternUrl = pattern
@@ -172,6 +207,115 @@ export function AboutLocationInfoHero({
     : undefined;
 
   const isSingleImage = images.length <= 1;
+
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div className={cn("flex flex-wrap gap-4", actionsClassName)}>
+        {actions.map((action, index) => (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            className="h-auto text-sm font-semibold uppercase tracking-wider text-white underline decoration-2 underline-offset-8 transition hover:no-underline"
+          >
+            {action.label}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
+  const renderHoursSections = () => {
+    if (hoursSectionsSlot) return hoursSectionsSlot;
+    if (!hoursSections || hoursSections.length === 0) return null;
+
+    return (
+      <div className={cn("space-y-4", hoursSectionsClassName)}>
+        {hoursSections.map((section, sectionIndex) => (
+          <div key={sectionIndex}>
+            {section.label && (
+              typeof section.label === "string" ? (
+                <h3
+                  className="mb-2 text-sm font-medium"
+                  style={{ color: accentColor }}
+                >
+                  {section.label}
+                </h3>
+              ) : (
+                section.label
+              )
+            )}
+            {section.hours && section.hours.length > 0 && (
+              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-white">
+                {section.hours.map((item, itemIndex) => (
+                  <div key={itemIndex} className="flex flex-col">
+                    {item.day && (
+                      typeof item.day === "string" ? (
+                        <span className="text-white/80">{item.day}</span>
+                      ) : (
+                        item.day
+                      )
+                    )}
+                    {item.time && (
+                      typeof item.time === "string" ? (
+                        <span>{item.time}</span>
+                      ) : (
+                        item.time
+                      )
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderImages = () => {
+    if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
+
+    if (isSingleImage) {
+      return (
+        <div className="flex justify-center">
+          <div className={cn("relative aspect-[4/3] w-full max-w-lg overflow-hidden rounded-lg shadow-2xl", imagesClassName)}>
+            <Img
+              src={images[0]?.src || imagePlaceholders[5]}
+              alt={images[0]?.alt || "OpenSite AI location"}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className={cn("relative min-h-[350px] md:min-h-[400px] lg:min-h-[450px]", imagesClassName)}>
+        <div className="absolute left-0 top-0 z-10 aspect-[4/3] w-[70%] overflow-hidden rounded-lg shadow-2xl md:w-[65%]">
+          <Img
+            src={images[0]?.src || imagePlaceholders[5]}
+            alt={images[0]?.alt || "OpenSite AI location"}
+            className="h-full w-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+        <div className="absolute bottom-0 right-0 z-20 aspect-[3/4] w-[55%] overflow-hidden rounded-lg shadow-2xl md:w-[50%]">
+          <Img
+            src={images[1]?.src || imagePlaceholders[6]}
+            alt={images[1]?.alt || "OpenSite AI advisors"}
+            className="h-full w-full object-cover"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section
@@ -193,7 +337,7 @@ export function AboutLocationInfoHero({
         />
       ) : null}
 
-      <div className="container relative">
+      <div className={cn("container relative", containerClassName)}>
         <div
           className={cn(
             "flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12",
@@ -202,29 +346,22 @@ export function AboutLocationInfoHero({
           )}
         >
           <div className="flex-1 space-y-6 lg:space-y-8">
-            <h2 className="text-balance text-3xl font-bold uppercase leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
-              {headline}
-            </h2>
+            {headline && (
+              typeof headline === "string" ? (
+                <h2 className={cn("text-balance text-3xl font-bold uppercase leading-tight tracking-tight text-white md:text-4xl lg:text-5xl", headlineClassName)}>
+                  {headline}
+                </h2>
+              ) : (
+                <div className={headlineClassName}>{headline}</div>
+              )
+            )}
 
-            {actionButtons.length > 0 ? (
-              <div className="flex flex-wrap gap-4">
-                {actionButtons.map((button, index) => (
-                  <Pressable
-                    key={`${button.label}-${index}`}
-                    href={button.href}
-                    onClick={button.onClick}
-                    className="h-auto text-sm font-semibold uppercase tracking-wider text-white underline decoration-2 underline-offset-8 transition hover:no-underline"
-                  >
-                    {button.label}
-                  </Pressable>
-                ))}
-              </div>
-            ) : null}
+            {renderActions()}
 
             {(address || phone) ? (
               <div className="space-y-2">
                 {address ? (
-                  <div className="flex items-center gap-3 text-sm text-white">
+                  <div className={cn("flex items-center gap-3 text-sm text-white", addressClassName)}>
                     <DynamicIcon name="lucide/map-pin" size={16} />
                     {addressHref ? (
                       <Pressable
@@ -234,12 +371,16 @@ export function AboutLocationInfoHero({
                         {address}
                       </Pressable>
                     ) : (
-                      <span>{address}</span>
+                      typeof address === "string" ? (
+                        <span>{address}</span>
+                      ) : (
+                        address
+                      )
                     )}
                   </div>
                 ) : null}
                 {phone ? (
-                  <div className="flex items-center gap-3 text-sm text-white">
+                  <div className={cn("flex items-center gap-3 text-sm text-white", phoneClassName)}>
                     <DynamicIcon name="lucide/phone" size={16} />
                     {phoneHref ? (
                       <Pressable
@@ -249,77 +390,27 @@ export function AboutLocationInfoHero({
                         {phone}
                       </Pressable>
                     ) : (
-                      <Pressable
-                        href={phone}
-                        className="transition hover:underline"
-                      >
-                        {phone}
-                      </Pressable>
+                      typeof phone === "string" ? (
+                        <Pressable
+                          href={phone}
+                          className="transition hover:underline"
+                        >
+                          {phone}
+                        </Pressable>
+                      ) : (
+                        phone
+                      )
                     )}
                   </div>
                 ) : null}
               </div>
             ) : null}
 
-            {hoursSections.length > 0 ? (
-              <div className="space-y-4">
-                {hoursSections.map((section, sectionIndex) => (
-                  <div key={`${section.label}-${sectionIndex}`}>
-                    <h3
-                      className="mb-2 text-sm font-medium"
-                      style={{ color: accentColor }}
-                    >
-                      {section.label}
-                    </h3>
-                    <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-white">
-                      {section.hours.map((item, itemIndex) => (
-                        <div
-                          key={`${item.day}-${itemIndex}`}
-                          className="flex flex-col"
-                        >
-                          <span className="text-white/80">{item.day}</span>
-                          <span>{item.time}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : null}
+            {renderHoursSections()}
           </div>
 
           <div className="relative flex-1">
-            {isSingleImage ? (
-              <div className="flex justify-center">
-                <div className="relative aspect-[4/3] w-full max-w-lg overflow-hidden rounded-lg shadow-2xl">
-                  <Img
-                    src={images[0]?.src || imagePlaceholders[5]}
-                    alt={images[0]?.alt || "OpenSite AI location"}
-                    className="h-full w-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="relative min-h-[350px] md:min-h-[400px] lg:min-h-[450px]">
-                <div className="absolute left-0 top-0 z-10 aspect-[4/3] w-[70%] overflow-hidden rounded-lg shadow-2xl md:w-[65%]">
-                  <Img
-                    src={images[0]?.src || imagePlaceholders[5]}
-                    alt={images[0]?.alt || "OpenSite AI location"}
-                    className="h-full w-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-                <div className="absolute bottom-0 right-0 z-20 aspect-[3/4] w-[55%] overflow-hidden rounded-lg shadow-2xl md:w-[50%]">
-                  <Img
-                    src={images[1]?.src || imagePlaceholders[6]}
-                    alt={images[1]?.alt || "OpenSite AI advisors"}
-                    className="h-full w-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </div>
-              </div>
-            )}
+            {renderImages()}
           </div>
         </div>
       </div>

@@ -4,42 +4,80 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-
-export interface ProjectDetailSplitMaterialsSpec {
-  label: string;
-  value: string;
-}
+import type {
+  ActionConfig,
+  DetailItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailSplitMaterialsProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
-  year?: string;
-  category?: string;
-  artist?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Project year */
+  year?: React.ReactNode;
+  /** Category label */
+  category?: React.ReactNode;
+  /** Artist name */
+  artist?: React.ReactNode;
+  /** Hero image configuration */
   heroImage?: {
     src?: string;
     alt?: string;
   };
-  description?: string;
-  specifications?: ProjectDetailSplitMaterialsSpec[];
+  /** Description text */
+  description?: React.ReactNode;
+  /** Specifications list */
+  specifications?: DetailItem[];
+  /** Materials list */
   materials?: string[];
+  /** Secondary image configuration */
   secondaryImage?: {
     src?: string;
     alt?: string;
   };
-  backHref?: string;
-  backLabel?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Back navigation action */
+  backAction?: ActionConfig;
+  /** Custom slot for back action (overrides backAction) */
+  backActionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
+  className?: string;
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the header */
+  headerClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the grid layout */
+  gridClassName?: string;
+  /** Additional CSS classes for the hero image */
+  heroImageClassName?: string;
+  /** Additional CSS classes for the specifications section */
+  specificationsClassName?: string;
+  /** Additional CSS classes for the materials section */
+  materialsClassName?: string;
+  /** Additional CSS classes for the secondary image */
+  secondaryImageClassName?: string;
 }
 
-const defaultSpecifications: ProjectDetailSplitMaterialsSpec[] = [
+const defaultSpecifications: DetailItem[] = [
   { label: "Height", value: "180 cm" },
   { label: "Width", value: "90 cm" },
   { label: "Depth", value: "75 cm" },
@@ -71,8 +109,7 @@ const defaultProps: ProjectDetailSplitMaterialsProps = {
     src: imagePlaceholders[21],
     alt: "Organic Resonance sculpture detail",
   },
-  backHref: "/projects",
-  backLabel: "Back to Gallery",
+  backAction: { label: "Back to Gallery", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
 };
 
 const fadeInUp = {
@@ -86,7 +123,6 @@ export function ProjectDetailSplitMaterials(
   props: ProjectDetailSplitMaterialsProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     year = defaultProps.year,
@@ -97,27 +133,61 @@ export function ProjectDetailSplitMaterials(
     specifications = defaultProps.specifications,
     materials = defaultProps.materials,
     secondaryImage = defaultProps.secondaryImage,
-    backHref = defaultProps.backHref,
-    backLabel = defaultProps.backLabel,
+    backAction = defaultProps.backAction,
+    backActionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    containerClassName,
+    headerClassName,
+    titleClassName,
+    gridClassName,
+    heroImageClassName,
+    specificationsClassName,
+    materialsClassName,
+    secondaryImageClassName,
   } = props;
 
+  const renderBackAction = () => {
+    if (backActionSlot) return backActionSlot;
+    if (!backAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    return (
+      <Pressable
+        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <article className={cn("py-24 md:py-32", className)}>
-      <div className="container">
-        {backHref && (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <article className={containerClassName}>
+        {(backActionSlot || backAction) && (
           <motion.div {...fadeInUp} className="mb-12">
-            <Pressable
-              href={backHref}
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <DynamicIcon name="lucide/arrow-left" size={16} />
-              {backLabel}
-            </Pressable>
+            {renderBackAction()}
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className="mb-16">
+        <motion.header {...fadeInUp} className={cn("mb-16", headerClassName)}>
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
               {category}
@@ -127,16 +197,26 @@ export function ProjectDetailSplitMaterials(
             <span>{artist}</span>
           </div>
 
-          <h1 className="text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            {title}
-          </h1>
+          {typeof title === "string" ? (
+            <h1 className={cn("text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", titleClassName)}>
+              {title}
+            </h1>
+          ) : (
+            <div className={titleClassName}>{title}</div>
+          )}
 
-          <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+          {subtitle && (
+            typeof subtitle === "string" ? (
+              <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
+            ) : (
+              <div className="mt-4">{subtitle}</div>
+            )
+          )}
         </motion.header>
 
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", gridClassName)}>
           <motion.div {...fadeInUp}>
-            <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-muted">
+            <div className={cn("relative aspect-4/5 overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
               <Img
                 src={heroImage?.src || imagePlaceholders[20]}
                 alt={heroImage?.alt || "Sculpture main view"}
@@ -151,11 +231,17 @@ export function ProjectDetailSplitMaterials(
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-col justify-center space-y-8"
           >
-            <p className="text-lg leading-relaxed text-muted-foreground">
-              {description}
-            </p>
+            {description && (
+              typeof description === "string" ? (
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  {description}
+                </p>
+              ) : (
+                description
+              )
+            )}
 
-            <div className="space-y-6">
+            <div className={cn("space-y-6", specificationsClassName)}>
               <h2 className="text-sm font-medium tracking-wider text-muted-foreground uppercase">
                 Specifications
               </h2>
@@ -164,7 +250,7 @@ export function ProjectDetailSplitMaterials(
                   <tbody>
                     {specifications?.map((spec, index) => (
                       <tr
-                        key={spec.label}
+                        key={typeof spec.label === "string" ? spec.label : index}
                         className={cn(
                           "border-b border-border last:border-b-0",
                           index % 2 === 0 ? "bg-muted/30" : "bg-background"
@@ -183,7 +269,7 @@ export function ProjectDetailSplitMaterials(
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className={cn("space-y-4", materialsClassName)}>
               <h2 className="text-sm font-medium tracking-wider text-muted-foreground uppercase">
                 Materials
               </h2>
@@ -205,7 +291,7 @@ export function ProjectDetailSplitMaterials(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-16"
+            className={cn("mt-16", secondaryImageClassName)}
           >
             <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted">
               <Img
@@ -217,7 +303,7 @@ export function ProjectDetailSplitMaterials(
             </div>
           </motion.div>
         )}
-      </div>
-    </article>
+      </article>
+    </Section>
   );
 }

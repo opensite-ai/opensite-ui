@@ -32,14 +32,14 @@ describe("BlogTechInsights", () => {
     expect(screen.getByText(/Exploring cutting-edge technologies/)).toBeInTheDocument();
   });
 
-  it("renders custom title and description", () => {
+  it("renders custom heading and description", () => {
     render(
       <BlogTechInsights
-        title="Custom Title"
+        heading="Custom Heading"
         description="Custom description"
       />
     );
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
@@ -82,13 +82,13 @@ describe("BlogTechInsights", () => {
     const customSecondaryPosts = [
       {
         title: "Custom Secondary",
-        content: "Custom secondary content text",
+        description: "Custom secondary description text",
         image: "/custom.jpg",
       },
     ];
 
     render(<BlogTechInsights secondaryPosts={customSecondaryPosts} />);
-    expect(screen.getByText("Custom secondary content text")).toBeInTheDocument();
+    expect(screen.getByText("Custom secondary description text")).toBeInTheDocument();
   });
 
   it("renders read more button with default text", () => {
@@ -97,7 +97,7 @@ describe("BlogTechInsights", () => {
   });
 
   it("renders custom read more text", () => {
-    render(<BlogTechInsights readMoreText="Learn More" readMoreHref="/more" />);
+    render(<BlogTechInsights readMoreAction={{ label: "Learn More", href: "/more" }} />);
     expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 

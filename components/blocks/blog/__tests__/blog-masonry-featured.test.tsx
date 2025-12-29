@@ -25,9 +25,9 @@ describe("BlogMasonryFeatured", () => {
     expect(screen.getByText("Latest Tech Blog")).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    render(<BlogMasonryFeatured title="Custom Title" />);
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  it("renders custom heading", () => {
+    render(<BlogMasonryFeatured heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders default blog posts", () => {

@@ -1,26 +1,119 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
+/**
+ * Image configuration for masonry motion grid.
+ */
 export interface MasonryMotionGridImage {
+  /**
+   * Image source URL
+   */
   src: string;
+  /**
+   * Alt text for the image
+   */
   alt: string;
+  /**
+   * Height of the image (CSS value)
+   */
   height: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  className?: string;
 }
 
 export interface MasonryMotionGridProps {
+  /**
+   * Images for column 1
+   */
   column1Images?: MasonryMotionGridImage[];
+  /**
+   * Images for column 2
+   */
   column2Images?: MasonryMotionGridImage[];
+  /**
+   * Images for column 3
+   */
   column3Images?: MasonryMotionGridImage[];
+  /**
+   * Images for column 4
+   */
   column4Images?: MasonryMotionGridImage[];
+  /**
+   * Custom slot for rendering the grid (overrides column images)
+   */
+  gridSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  /** Optional Optix Flow configuration for @page-speed/img */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /**
+   * Additional CSS classes for the grid container
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for each column
+   */
+  columnClassName?: string;
+  /**
+   * Additional CSS classes for each image wrapper
+   */
+  imageWrapperClassName?: string;
+  /**
+   * Additional CSS classes for each image
+   */
+  imageClassName?: string;
+  /**
+   * Animation duration in seconds
+   * @default 0.5
+   */
+  animationDuration?: number;
+  /**
+   * Animation delay multiplier for staggered effect
+   * @default 0.1
+   */
+  animationDelayMultiplier?: number;
+  /**
+   * Whether to show the duplicate grid below
+   * @default true
+   */
+  showDuplicateGrid?: boolean;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
 }
 
 const defaultColumn1Images: MasonryMotionGridImage[] = [
@@ -117,14 +210,27 @@ export function MasonryMotionGrid({
   column2Images = defaultColumn2Images,
   column3Images = defaultColumn3Images,
   column4Images = defaultColumn4Images,
+  gridSlot,
   className,
+  gridClassName,
+  columnClassName,
+  imageWrapperClassName,
+  imageClassName,
+  animationDuration = 0.5,
+  animationDelayMultiplier = 0.1,
+  showDuplicateGrid = true,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  patternClassName,
   optixFlowConfig,
-}: MasonryMotionGridProps) {
+}: MasonryMotionGridProps): React.JSX.Element {
   const renderColumn = (
     images: MasonryMotionGridImage[],
     direction: "up" | "down"
   ) => (
-    <div className="grid gap-4">
+    <div className={cn("grid gap-4", columnClassName)}>
       {images.map((image, index) => (
         <motion.div
           initial={{
@@ -138,15 +244,15 @@ export function MasonryMotionGrid({
             y: 0,
           }}
           transition={{
-            duration: 0.5,
-            delay: index * 0.1,
+            duration: animationDuration,
+            delay: index * animationDelayMultiplier,
           }}
           key={index}
-          className="w-full overflow-hidden rounded-2xl bg-muted"
+          className={cn("w-full overflow-hidden rounded-2xl bg-muted", imageWrapperClassName)}
           style={{ height: image.height }}
         >
           <Img
-            className="h-full w-full rounded-2xl object-cover"
+            className={cn("h-full w-full rounded-2xl object-cover", imageClassName, image.className)}
             src={image.src}
             alt={image.alt}
             loading="lazy"
@@ -157,84 +263,74 @@ export function MasonryMotionGrid({
     </div>
   );
 
+  const renderColumn4 = (images: MasonryMotionGridImage[]) => (
+    <div className={cn("grid gap-4", columnClassName)}>
+      {images.map((image, index) => (
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.9,
+            y: -50,
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: animationDuration,
+            delay: index * animationDelayMultiplier,
+          }}
+          key={index}
+          className={cn("w-full overflow-hidden rounded-2xl bg-muted", imageWrapperClassName)}
+          style={{ height: image.height }}
+        >
+          <Img
+            className={cn("h-full w-full rounded-2xl object-cover", imageClassName, image.className)}
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </motion.div>
+      ))}
+      <div className="h-17 w-full rounded-2xl bg-muted" />
+    </div>
+  );
+
+  const renderGrid = () => {
+    if (gridSlot) return gridSlot;
+
+    return (
+      <>
+        <div className={cn("grid grid-cols-2 gap-4 md:grid-cols-4", gridClassName)}>
+          {renderColumn(column1Images, "up")}
+          {renderColumn(column2Images, "down")}
+          {renderColumn(column3Images, "up")}
+          {renderColumn4(column4Images)}
+        </div>
+        {showDuplicateGrid && (
+          <div className={cn("mt-4 grid grid-cols-2 gap-4 md:grid-cols-4", gridClassName)}>
+            {renderColumn(column1Images, "up")}
+            {renderColumn(column2Images, "down")}
+            {renderColumn(column3Images, "up")}
+            {renderColumn4(column4Images)}
+          </div>
+        )}
+      </>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="relative container">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {renderColumn(column1Images, "up")}
-          {renderColumn(column2Images, "down")}
-          {renderColumn(column3Images, "up")}
-          <div className="grid gap-4">
-            {column4Images.map((image, index) => (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  scale: 0.9,
-                  y: -50,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                }}
-                key={index}
-                className="w-full overflow-hidden rounded-2xl bg-muted"
-                style={{ height: image.height }}
-              >
-                <Img
-                  className="h-full w-full rounded-2xl object-cover"
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </motion.div>
-            ))}
-            <div className="h-17 w-full rounded-2xl bg-muted" />
-          </div>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {renderColumn(column1Images, "up")}
-          {renderColumn(column2Images, "down")}
-          {renderColumn(column3Images, "up")}
-          <div className="grid gap-4">
-            {column4Images.map((image, index) => (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  scale: 0.9,
-                  y: -50,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                }}
-                key={index}
-                className="w-full overflow-hidden rounded-2xl bg-muted"
-                style={{ height: image.height }}
-              >
-                <Img
-                  className="h-full w-full rounded-2xl object-cover"
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </motion.div>
-            ))}
-            <div className="h-17 w-full rounded-2xl bg-muted" />
-          </div>
-        </div>
-      </div>
-    </section>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      {renderGrid()}
+    </Section>
   );
 }

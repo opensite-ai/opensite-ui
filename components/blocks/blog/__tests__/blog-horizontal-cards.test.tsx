@@ -33,15 +33,15 @@ describe("BlogHorizontalCards", () => {
     expect(screen.getByText(/Discover the latest trends/)).toBeInTheDocument();
   });
 
-  it("renders custom tagline, heading, and description", () => {
+  it("renders custom badge, heading, and description", () => {
     render(
       <BlogHorizontalCards
-        tagline="Custom Tagline"
+        badge="Custom Badge"
         heading="Custom Heading"
         description="Custom description"
       />
     );
-    expect(screen.getByText("Custom Tagline")).toBeInTheDocument();
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
@@ -99,7 +99,7 @@ describe("BlogHorizontalCards", () => {
   });
 
   it("renders custom button text", () => {
-    render(<BlogHorizontalCards buttonText="See More" buttonUrl="/more" />);
+    render(<BlogHorizontalCards ctaAction={{ label: "See More", href: "/more" }} />);
     expect(screen.getByText("See More")).toBeInTheDocument();
   });
 

@@ -6,32 +6,53 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export interface AboutSplitHeroProps {
   /**
    * Brand/logo text
    */
-  brandText?: string;
+  brandText?: React.ReactNode;
+  /**
+   * Additional CSS classes for the brand text
+   */
+  brandTextClassName?: string;
   /**
    * Highlighted brand text (e.g., "PRO")
    */
-  brandHighlight?: string;
+  brandHighlight?: React.ReactNode;
+  /**
+   * Additional CSS classes for the brand highlight
+   */
+  brandHighlightClassName?: string;
   /**
    * Main heading text
    */
-  heading?: string;
+  heading?: React.ReactNode;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
   /**
    * Supporting description text
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * CTA button text
+   * Additional CSS classes for the description
    */
-  ctaText?: string;
+  descriptionClassName?: string;
   /**
-   * CTA button URL
+   * CTA action configuration
    */
-  ctaUrl?: string;
+  ctaAction?: ActionConfig;
+  /**
+   * Custom slot for rendering CTA (overrides ctaAction)
+   */
+  ctaSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the CTA
+   */
+  ctaClassName?: string;
   /**
    * Image source URL
    */
@@ -41,17 +62,29 @@ export interface AboutSplitHeroProps {
    */
   imageAlt?: string;
   /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
   /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
    * Optional Optix Flow configuration for image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
+
+const defaultCtaAction: ActionConfig = {
+  label: "Upgrade to premium",
+  href: "#",
+  variant: "default",
+  size: "lg",
+};
 
 /**
  * About Split Hero - A split-screen hero section with dark theme styling,
@@ -68,53 +101,81 @@ export interface AboutSplitHeroProps {
  *   brandHighlight="PRO"
  *   heading="Achieve More with Elite Access Pro"
  *   description="Enhance your career hunt with increased visibility."
- *   ctaText="Upgrade to premium"
- *   ctaUrl="/upgrade"
+ *   ctaAction={{ label: "Upgrade to premium", href: "/upgrade" }}
  * />
  * ```
  */
 export function AboutSplitHero({
   brandText = "Business",
+  brandTextClassName,
   brandHighlight = "PRO",
+  brandHighlightClassName,
   heading = "Achieve More with Elite Access Pro",
+  headingClassName,
   description = "Enhance your career hunt with increased visibility, first-look opportunities and monetary incentives!",
-  ctaText = "Upgrade to premium",
-  ctaUrl = "#",
+  descriptionClassName,
+  ctaAction = defaultCtaAction,
+  ctaSlot,
+  ctaClassName,
   imageSrc = blockBrandedIconsAndPlaceholders.placeholderDark1,
   imageAlt = "Hero image",
+  imageClassName,
   className,
+  containerClassName,
   optixFlowConfig,
-}: AboutSplitHeroProps) {
+}: AboutSplitHeroProps): React.JSX.Element {
+  const renderCta = () => {
+    if (ctaSlot) return ctaSlot;
+    if (!ctaAction) return null;
+
+    return (
+      <Pressable
+        href={ctaAction.href}
+        onClick={ctaAction.onClick}
+        variant={ctaAction.variant || "default"}
+        size={ctaAction.size || "lg"}
+        asButton
+        className={cn("mt-10 flex h-fit items-center gap-2.5 rounded-xl px-5 py-4 font-bold", ctaClassName)}
+      >
+        <span>{ctaAction.label}</span>
+        <DynamicIcon name="lucide/chevron-right" size={20} />
+      </Pressable>
+    );
+  };
+
   return (
     <section className={cn("dark flex", className)}>
-      <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
+      <div className={cn("flex w-full items-center justify-center bg-background lg:w-1/2", containerClassName)}>
         <div className="container my-10 flex w-[500px] flex-col gap-24">
-          <h1 className="text-4xl text-foreground">
+          <h1 className={cn("text-4xl text-foreground", brandTextClassName)}>
             {brandText}{" "}
-            <span className="bg-gradient-to-tr from-foreground to-muted bg-clip-text text-transparent">
+            <span className={cn("bg-gradient-to-tr from-foreground to-muted bg-clip-text text-transparent", brandHighlightClassName)}>
               {brandHighlight}
             </span>
           </h1>
           <div>
-            <h2 className="text-4xl text-foreground lg:text-6xl">{heading}</h2>
-            <p className="mt-2.5 text-foreground lg:text-xl">{description}</p>
-            <Pressable
-              href={ctaUrl}
-              variant="default"
-              size="lg"
-              asButton
-              className="mt-10 flex h-fit items-center gap-2.5 rounded-xl px-5 py-4 font-bold"
-            >
-              <span>{ctaText}</span>
-              <DynamicIcon name="lucide/chevron-right" size={20} />
-            </Pressable>
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-4xl text-foreground lg:text-6xl", headingClassName)}>{heading}</h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-2.5 text-foreground lg:text-xl", descriptionClassName)}>{description}</p>
+              ) : (
+                <div className={cn("mt-2.5", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {renderCta()}
           </div>
         </div>
       </div>
       <Img
         src={imageSrc}
         alt={imageAlt}
-        className="hidden h-screen w-1/2 object-cover lg:block"
+        className={cn("hidden h-screen w-1/2 object-cover lg:block", imageClassName)}
         optixFlowConfig={optixFlowConfig}
       />
     </section>

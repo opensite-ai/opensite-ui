@@ -31,9 +31,9 @@ describe("BlogHorizontalTimeline", () => {
     expect(screen.getByText("Discover Our Fresh Content")).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    render(<BlogHorizontalTimeline title="Custom Title" />);
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  it("renders custom heading", () => {
+    render(<BlogHorizontalTimeline heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders default blog posts", () => {

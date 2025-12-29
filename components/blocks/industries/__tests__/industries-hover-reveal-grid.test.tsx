@@ -61,11 +61,11 @@ describe("IndustriesHoverRevealGrid", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
+  it("renders custom heading", () => {
     render(
       <IndustriesHoverRevealGrid
         industries={mockIndustries}
-        title="Our Sectors"
+        heading="Our Sectors"
       />
     );
     expect(screen.getByText("Our Sectors")).toBeInTheDocument();
@@ -138,11 +138,11 @@ describe("IndustriesHoverRevealGrid", () => {
     expect(containerDiv).toBeInTheDocument();
   });
 
-  it("renders header with title and label", () => {
+  it("renders header with heading and label", () => {
     render(
       <IndustriesHoverRevealGrid
         industries={mockIndustries}
-        title="Industries We Serve"
+        heading="Industries We Serve"
         industryLabel="Industry"
       />
     );
@@ -193,7 +193,7 @@ describe("IndustriesHoverRevealGrid", () => {
     const { container } = render(
       <IndustriesHoverRevealGrid
         industries={mockIndustries}
-        title="Our Industries"
+        heading="Our Industries"
         industryLabel="Sector"
         className="custom-section"
       />

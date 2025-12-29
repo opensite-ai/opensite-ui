@@ -29,13 +29,13 @@ describe("BlogRelatedArticles", () => {
     expect(screen.getByText("Related articles")).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
+  it("renders custom heading", () => {
     render(
       <BlogRelatedArticles
-        title="Custom Title"
+        heading="Custom Heading"
       />
     );
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders default related articles", () => {
@@ -89,7 +89,7 @@ describe("BlogRelatedArticles", () => {
   });
 
   it("renders custom see all text", () => {
-    render(<BlogRelatedArticles seeAllText="See More" seeAllHref="/more" />);
+    render(<BlogRelatedArticles seeAllAction={{ label: "See More", href: "/more" }} />);
     expect(screen.getByText("See More")).toBeInTheDocument();
   });
 
