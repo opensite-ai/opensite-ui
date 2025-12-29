@@ -386,10 +386,13 @@ export function PricingFourTierToggle({
       <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
           const isIncluded = feature.included !== false;
-          const fallbackIconName = isIncluded ? includedIconName : excludedIconName;
-          const resolvedIcon = feature.icon
-            ?? (isIncluded ? includedIcon : excludedIcon)
-            ?? (feature.iconName || fallbackIconName ? (
+          const fallbackIconName = isIncluded
+            ? includedIconName
+            : excludedIconName;
+          const resolvedIcon =
+            feature.icon ??
+            (isIncluded ? includedIcon : excludedIcon) ??
+            (feature.iconName || fallbackIconName ? (
               <DynamicIcon
                 name={feature.iconName || fallbackIconName}
                 size={16}
@@ -397,22 +400,29 @@ export function PricingFourTierToggle({
                   "mt-0.5 shrink-0",
                   isIncluded ? "text-primary" : "text-muted-foreground",
                   featureIconClassName,
-                  feature.iconClassName
+                  feature.iconClassName,
                 )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-2", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-2",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.name && (
-                typeof feature.name === "string" ? (
+              {feature.name &&
+                (typeof feature.name === "string" ? (
                   <span
                     className={cn(
                       "text-sm",
                       isIncluded ? "text-foreground" : "text-muted-foreground",
                       featureTextClassName,
-                      feature.textClassName
+                      feature.textClassName,
                     )}
                   >
                     {feature.name}
@@ -423,13 +433,12 @@ export function PricingFourTierToggle({
                       "text-sm",
                       isIncluded ? "text-foreground" : "text-muted-foreground",
                       featureTextClassName,
-                      feature.textClassName
+                      feature.textClassName,
                     )}
                   >
                     {feature.name}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -441,12 +450,23 @@ export function PricingFourTierToggle({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -465,9 +485,15 @@ export function PricingFourTierToggle({
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
         {plans.map((plan, index) => {
-          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+          const badgeContent =
+            plan.badge ?? (plan.isPopular ? popularBadge : null);
 
           return (
             <div
@@ -477,11 +503,16 @@ export function PricingFourTierToggle({
                 plan.isPopular ? "border-primary shadow-lg" : "border-border",
                 cardClassName,
                 plan.isPopular ? popularCardClassName : null,
-                plan.className
+                plan.className,
               )}
             >
               {badgeContent && (
-                <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
+                <div
+                  className={cn(
+                    "absolute -top-3 left-1/2 -translate-x-1/2",
+                    badgeClassName,
+                  )}
+                >
                   {typeof badgeContent === "string" ? (
                     <Badge>{badgeContent}</Badge>
                   ) : (
@@ -491,29 +522,46 @@ export function PricingFourTierToggle({
               )}
 
               <div className="mb-4">
-                {plan.name && (
-                  typeof plan.name === "string" ? (
-                    <h3 className={cn("text-lg font-semibold", planTitleClassName)}>{plan.name}</h3>
+                {plan.name &&
+                  (typeof plan.name === "string" ? (
+                    <h3
+                      className={cn(
+                        "text-lg font-semibold",
+                        planTitleClassName,
+                      )}
+                    >
+                      {plan.name}
+                    </h3>
                   ) : (
                     <div className={planTitleClassName}>{plan.name}</div>
-                  )
-                )}
-                {plan.description && (
-                  typeof plan.description === "string" ? (
-                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                  ))}
+                {plan.description &&
+                  (typeof plan.description === "string" ? (
+                    <p
+                      className={cn(
+                        "mt-1 text-sm text-muted-foreground",
+                        planDescriptionClassName,
+                      )}
+                    >
                       {plan.description}
                     </p>
                   ) : (
-                    <div className={planDescriptionClassName}>{plan.description}</div>
-                  )
-                )}
+                    <div className={planDescriptionClassName}>
+                      {plan.description}
+                    </div>
+                  ))}
               </div>
 
               <div className="mb-6">
                 <span className={cn("text-3xl font-bold", priceClassName)}>
                   {isAnnual ? plan.yearlyPrice : plan.monthlyPrice}
                 </span>
-                <span className={cn("text-sm text-muted-foreground", priceIntervalClassName)}>
+                <span
+                  className={cn(
+                    "text-sm text-muted-foreground",
+                    priceIntervalClassName,
+                  )}
+                >
                   {isAnnual ? yearlyInterval : monthlyInterval}
                 </span>
               </div>
@@ -537,31 +585,48 @@ export function PricingFourTierToggle({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
 
-          <div className={cn("mt-8 flex items-center justify-center gap-3", toggleClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex items-center justify-center gap-3",
+              toggleClassName,
+            )}
+          >
             <Label
               htmlFor="billing-toggle"
               className={cn(
                 "text-sm font-medium",
                 !isAnnual ? "text-foreground" : "text-muted-foreground",
-                toggleLabelClassName
+                toggleLabelClassName,
               )}
             >
               {monthlyLabel}
@@ -576,19 +641,21 @@ export function PricingFourTierToggle({
               className={cn(
                 "text-sm font-medium",
                 isAnnual ? "text-foreground" : "text-muted-foreground",
-                toggleLabelClassName
+                toggleLabelClassName,
               )}
             >
               {yearlyLabel}
-              {yearlyBadge && (
-                typeof yearlyBadge === "string" ? (
-                  <Badge variant="secondary" className={cn("ml-2", yearlyBadgeClassName)}>
+              {yearlyBadge &&
+                (typeof yearlyBadge === "string" ? (
+                  <Badge
+                    variant="secondary"
+                    className={cn("ml-2", yearlyBadgeClassName)}
+                  >
                     {yearlyBadge}
                   </Badge>
                 ) : (
                   <span className={yearlyBadgeClassName}>{yearlyBadge}</span>
-                )}
-              )}
+                ))}
             </Label>
           </div>
         </div>
