@@ -4,6 +4,10 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Container } from "../../ui/container";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ContactHelpCenterItem {
   /**
@@ -14,7 +18,7 @@ export interface ContactHelpCenterItem {
    * Supporting description text
    */
   subtitle?: string;
-  /**
+  /*
    * Icon name for the card
    */
   icon: string;
@@ -39,6 +43,28 @@ export interface ContactHelpCenterProps {
   description?: React.ReactNode;
   /**
    * Title for the contact card list
+   */
+  /**
+   * Background style variant for the section
+   * @default "white"
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing/margin variant
+   * @default "lg"
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
+  /**
+   * Additional CSS classes for the heading
    */
   cardTitle?: React.ReactNode;
   /**
@@ -120,12 +146,15 @@ const defaultContactItems: ContactHelpCenterItem[] = [
 export function ContactHelpCenter({
   eyebrow = "Support Center",
   heading = "Need help navigating coverage decisions?",
-  description =
-    "Our OpenSite AI advisors are ready to walk through policies, claims, and next steps so you can move forward with confidence.",
+  description = "Our OpenSite AI advisors are ready to walk through policies, claims, and next steps so you can move forward with confidence.",
   cardTitle = "Contact Our Team",
   contactItems = defaultContactItems,
-  contactItemsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
+  contactItemsSlot,
   containerClassName,
   contentClassName,
   leftColumnClassName,
@@ -148,13 +177,9 @@ export function ContactHelpCenter({
           <DynamicIcon name={item.icon} size={20} />
         </div>
         <div>
-          <p className="font-semibold text-foreground">
-            {item.title}
-          </p>
+          <p className="font-semibold text-foreground">{item.title}</p>
           {item.subtitle ? (
-            <p className="text-sm text-muted-foreground">
-              {item.subtitle}
-            </p>
+            <p className="text-sm text-muted-foreground">{item.subtitle}</p>
           ) : null}
         </div>
       </Pressable>
@@ -162,44 +187,77 @@ export function ContactHelpCenter({
   };
 
   return (
-    <section className={cn("py-24", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("rounded-3xl bg-linear-to-br from-primary/5 via-background to-background p-8 md:p-12", contentClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
+      <Container className={cn("", containerClassName)}>
+        <div
+          className={cn(
+            "rounded-3xl bg-linear-to-br from-primary/5 via-background to-background p-8 md:p-12",
+            contentClassName
+          )}
+        >
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
             <div className={cn("space-y-5", leftColumnClassName)}>
-              {eyebrow && (
-                typeof eyebrow === "string" ? (
-                  <p className={cn("text-sm font-semibold uppercase tracking-[0.2em] text-primary", eyebrowClassName)}>
+              {eyebrow &&
+                (typeof eyebrow === "string" ? (
+                  <p
+                    className={cn(
+                      "text-sm font-semibold uppercase tracking-[0.2em] text-primary",
+                      eyebrowClassName
+                    )}
+                  >
                     {eyebrow}
                   </p>
                 ) : (
                   <div className={eyebrowClassName}>{eyebrow}</div>
-                )
-              )}
-              {heading && (
-                typeof heading === "string" ? (
-                  <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+                ))}
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-3xl font-bold text-foreground md:text-4xl",
+                      headingClassName
+                    )}
+                  >
                     {heading}
                   </h2>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("text-muted-foreground", descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-muted-foreground",
+                      descriptionClassName
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
             </div>
 
-            <div className={cn("rounded-2xl bg-background p-8 shadow-lg", cardPanelClassName)}>
+            <div
+              className={cn(
+                "rounded-2xl bg-background p-8 shadow-lg",
+                cardPanelClassName
+              )}
+            >
               {cardTitle ? (
                 typeof cardTitle === "string" ? (
-                  <h3 className={cn("text-xl font-bold text-foreground", cardTitleClassName)}>
+                  <h3
+                    className={cn(
+                      "text-xl font-bold text-foreground",
+                      cardTitleClassName
+                    )}
+                  >
                     {cardTitle}
                   </h3>
                 ) : (
@@ -213,7 +271,7 @@ export function ContactHelpCenter({
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

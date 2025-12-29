@@ -590,15 +590,16 @@ export function LinkTreeBlock({
             label,
             description,
             icon,
+            iconName,
             children,
             className: linkItemClassName,
             ...pressableProps
           } = link;
           const iconElement =
             icon ||
-            (link.iconName ? (
+            (iconName ? (
               <DynamicIcon
-                name={link.iconName}
+                name={iconName}
                 size={20}
                 className={linkIconClassName}
               />

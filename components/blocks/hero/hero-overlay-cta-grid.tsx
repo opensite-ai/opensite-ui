@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Container } from "../../ui/container";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 
@@ -203,9 +204,7 @@ export function HeroOverlayCtaGrid({
                 <p className="text-base font-semibold text-foreground">
                   {card.label}
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  {card.subtitle}
-                </p>
+                <p className="text-sm text-muted-foreground">{card.subtitle}</p>
               </div>
               <DynamicIcon
                 name="lucide/arrow-right"
@@ -239,13 +238,15 @@ export function HeroOverlayCtaGrid({
   return (
     <section
       className={cn(
-        "relative flex min-h-dvh items-center overflow-hidden bg-background pb-20 pt-32 md:pt-36",
-        className,
+        "relative flex min-h-dvh items-center justify-center overflow-hidden bg-background pb-20 pt-32 md:pt-36",
+        className
       )}
     >
       {renderBackground()}
 
-      <div className={cn("container relative flex flex-col gap-12", containerClassName)}>
+      <Container
+        className={cn("relative flex flex-col gap-12", containerClassName)}
+      >
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
@@ -253,31 +254,51 @@ export function HeroOverlayCtaGrid({
           className="mx-auto max-w-3xl text-center text-balance text-white"
         >
           {renderBadge()}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl",
+                  headingClassName
+                )}
+              >
                 {heading}
               </h1>
             ) : (
-              <h1 className={cn("mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl", headingClassName)}>
+              <h1
+                className={cn(
+                  "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl",
+                  headingClassName
+                )}
+              >
                 {heading}
               </h1>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-5 text-lg text-white/80 md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-5 text-lg text-white/80 md:text-xl",
+                  descriptionClassName
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-5 text-lg text-white/80 md:text-xl", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div
+                className={cn(
+                  "mt-5 text-lg text-white/80 md:text-xl",
+                  descriptionClassName
+                )}
+              >
+                {description}
+              </div>
+            ))}
           {renderActions()}
         </motion.div>
 
         {renderCards()}
-      </div>
+      </Container>
     </section>
   );
 }

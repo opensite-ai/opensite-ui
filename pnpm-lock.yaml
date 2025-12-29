@@ -18,8 +18,8 @@ importers:
         specifier: ^0.4.3
         version: 0.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/lightbox':
-        specifier: ^0.1.1
-        version: 0.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.1.2
+        version: 0.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
         specifier: ^0.1.0
         version: 0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -88,6 +88,9 @@ importers:
         version: 8.6.0(react@18.3.1)
       framer-motion:
         specifier: ^12.2.0
+        version: 12.23.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      motion:
+        specifier: ^12.23.26
         version: 12.23.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^3.4.0
@@ -678,11 +681,11 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/lightbox@0.1.1':
-    resolution: {integrity: sha512-T6y9vHIauaTu/o7Zg3IM1xYWnQpkXRwWiSDNE+eHbTEeW8Qs4q8vrFtxV4p86ia0z8PLmZBjXtvwsRELtGJrXw==}
+  '@page-speed/lightbox@0.1.2':
+    resolution: {integrity: sha512-mS1GCmAsZTiRiXNJkXCmu1OZPhOgrQT/bdlrk2F+LUDKYuAJUB90u7uUYmJw8s+sgXgRMOfZC4T3/i/GD0uIaQ==}
     peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   '@page-speed/pdf-viewer@0.1.0':
     resolution: {integrity: sha512-HWmkcS/NvocdheeSIVpMa5p8AQjeya9cIBlyvQNLxnc29YPgEqBDKhBREpZz8U6ahqeFQjAFJa6YJyWIJifWuA==}
@@ -1949,6 +1952,20 @@ packages:
   motion-utils@12.23.6:
     resolution: {integrity: sha512-eAWoPgr4eFEOFfg2WjIsMoqJTW6Z8MTUCgn/GZ3VRpClWBdnbjryiA3ZSNLyxCTmCQx4RmYX6jX1iWHbenUPNQ==}
 
+  motion@12.23.26:
+    resolution: {integrity: sha512-Ll8XhVxY8LXMVYTCfme27WH2GjBrCIzY4+ndr5QKxsK+YwCtOi2B/oBi5jcIbik5doXuWT/4KKDOVAZJkeY5VQ==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   mrmime@2.0.1:
     resolution: {integrity: sha512-Y3wQdFg2Va6etvQ5I82yUhGdsKrcYox6p7FfL1LbK2J4V01F9TGlepTIhnK24t7koZibmg82KGglhA1XK5IsLQ==}
     engines: {node: '>=10'}
@@ -2922,7 +2939,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/lightbox@0.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/lightbox@0.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@page-speed/img': 0.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer': 0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -4219,6 +4236,14 @@ snapshots:
       motion-utils: 12.23.6
 
   motion-utils@12.23.6: {}
+
+  motion@12.23.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      framer-motion: 12.23.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   mrmime@2.0.1: {}
 
