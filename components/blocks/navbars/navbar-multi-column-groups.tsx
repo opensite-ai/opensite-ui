@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Accordion,
   AccordionContent,
@@ -23,45 +24,123 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-interface MenuLink {
-  label: string;
-  description?: string;
+export interface MenuLink {
+  label: React.ReactNode;
+  description?: React.ReactNode;
   url: string;
-  icon?: string;
+  icon?: React.ReactNode;
+  iconName?: string;
 }
 
-interface MenuGroup {
-  title: string;
+export interface MenuGroup {
+  title: React.ReactNode;
   links: MenuLink[];
 }
 
-interface MenuItem {
-  title: string;
+export interface MenuItem {
+  title: React.ReactNode;
   url?: string;
   groups?: MenuGroup[];
 }
 
-interface NavButton {
-  label: string;
-  isPrimary: boolean;
-  url: string;
+/**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
 }
 
 /**
  * Props for the NavbarMultiColumnGroups component
  */
 export interface NavbarMultiColumnGroupsProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation menu items
+   */
   navigation?: MenuItem[];
-  desktopButtons?: NavButton[];
-  mobileButtons?: NavButton[];
+  /**
+   * Custom slot for navigation (overrides navigation array)
+   */
+  navigationSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations for desktop
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations for mobile
+   */
+  mobileAuthActions?: ActionConfig[];
+  /**
+   * Custom slot for mobile auth actions (overrides mobileAuthActions array)
+   */
+  mobileAuthActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -259,15 +338,15 @@ const defaultNavigation: MenuItem[] = [
   { title: "Pricing", url: "#" },
 ];
 
-const defaultDesktopButtons: NavButton[] = [
-  { label: "Contact", isPrimary: false, url: "#" },
-  { label: "Log in", isPrimary: false, url: "#" },
-  { label: "Sign up", isPrimary: true, url: "#" },
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Contact", href: "#", variant: "outline", size: "sm" },
+  { label: "Log in", href: "#", variant: "outline", size: "sm" },
+  { label: "Sign up", href: "#", variant: "default", size: "sm" },
 ];
 
-const defaultMobileButtons: NavButton[] = [
-  { label: "Sign up", isPrimary: true, url: "#" },
-  { label: "Log in", isPrimary: false, url: "#" },
+const defaultMobileAuthActions: ActionConfig[] = [
+  { label: "Sign up", href: "#", variant: "default" },
+  { label: "Log in", href: "#", variant: "outline" },
 ];
 
 const MOBILE_BREAKPOINT = 1024;
@@ -283,20 +362,35 @@ const MOBILE_BREAKPOINT = 1024;
  */
 export const NavbarMultiColumnGroups = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   navigation = defaultNavigation,
-  desktopButtons = defaultDesktopButtons,
-  mobileButtons = defaultMobileButtons,
+  navigationSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  mobileAuthActions = defaultMobileAuthActions,
+  mobileAuthActionsSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarMultiColumnGroupsProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleResize = () => {
       if (window.innerWidth > MOBILE_BREAKPOINT) {
         setOpen(false);
@@ -309,97 +403,143 @@ export const NavbarMultiColumnGroups = ({
   }, []);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     document.body.style.overflow = open ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [open]);
 
   const handleMobileMenu = () => {
     setOpen(!open);
   };
 
-  return (
-    <Fragment>
-      <section
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable
+        href={logo.url || "/"}
         className={cn(
-          "pointer-events-auto fixed top-0 z-999 flex h-16 w-full items-center justify-center bg-background",
-          className
+          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
+          logoClassName
         )}
       >
-        <div className="container">
-          <div className="flex items-center justify-between gap-8">
-            <div className="flex items-center gap-8">
-              <Pressable
-                href={logo.url}
-                className="flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter"
-              >
-                <Img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="inline-block size-6"
-                  optixFlowConfig={optixFlowConfig}
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn("inline-block size-6", logo.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="hidden md:inline-block">{logo.title}</span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderNavigation = () => {
+    if (navigationSlot) return navigationSlot;
+    if (!navigation || navigation.length === 0) return null;
+
+    return (
+      <NavigationMenuList>
+        {navigation.map((item, index) => (
+          <DesktopMenuItem
+            key={`desktop-link-${index}`}
+            item={item}
+            index={index}
+          />
+        ))}
+      </NavigationMenuList>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(
+        "pointer-events-auto fixed top-0 z-999 flex h-16 w-full items-center justify-center",
+        className
+      )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("flex items-center justify-between gap-8", navClassName)}>
+          <div className="flex items-center gap-8">
+            {renderLogo()}
+            <NavigationMenu className={cn("hidden xl:flex", navigationMenuClassName)} viewport={false}>
+              {renderNavigation()}
+            </NavigationMenu>
+          </div>
+          <div className={cn("hidden items-center gap-3 xl:flex", actionsClassName)}>
+            {renderAuthActions()}
+          </div>
+          <div className="xl:hidden">
+            <Pressable
+              className="size-11"
+              variant="ghost"
+              asButton
+              onClick={handleMobileMenu}
+            >
+              {open ? (
+                <DynamicIcon
+                  name="lucide/x"
+                  size={22}
+                  className="stroke-foreground"
                 />
-                <span className="hidden md:inline-block">{logo.title}</span>
-              </Pressable>
-              <NavigationMenu className="hidden xl:flex" viewport={false}>
-                <NavigationMenuList>
-                  {navigation.map((item, index) => (
-                    <DesktopMenuItem
-                      key={`desktop-link-${index}`}
-                      item={item}
-                      index={index}
-                    />
-                  ))}
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-            <div className="hidden items-center gap-3 xl:flex">
-              {desktopButtons.map((btn, index) => (
-                <Pressable
-                  key={`navbar-btn-${index}`}
-                  size="sm"
-                  variant={!btn.isPrimary ? "outline" : "default"}
-                  className={
-                    btn.isPrimary
-                      ? "text-primary-foreground"
-                      : "text-foreground"
-                  }
-                  asButton
-                  href={btn.url}
-                >
-                  {btn.label}
-                </Pressable>
-              ))}
-            </div>
-            <div className="xl:hidden">
-              <Pressable
-                className="size-11"
-                variant="ghost"
-                asButton
-                onClick={handleMobileMenu}
-              >
-                {open ? (
-                  <DynamicIcon
-                    name="lucide/x"
-                    size={22}
-                    className="stroke-foreground"
-                  />
-                ) : (
-                  <DynamicIcon
-                    name="lucide/menu"
-                    size={22}
-                    className="stroke-foreground"
-                  />
-                )}
-              </Pressable>
-            </div>
+              ) : (
+                <DynamicIcon
+                  name="lucide/menu"
+                  size={22}
+                  className="stroke-foreground"
+                />
+              )}
+            </Pressable>
           </div>
         </div>
-      </section>
+      </div>
       <MobileNavigationMenu
         open={open}
         navigation={navigation}
-        mobileButtons={mobileButtons}
+        authActions={mobileAuthActions}
+        authActionsSlot={mobileAuthActionsSlot}
       />
-    </Fragment>
+    </Section>
   );
 };
 
@@ -429,16 +569,18 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
                         asChild
                         className="group/link flex-row gap-2 px-3 py-2 transition-colors duration-200"
                       >
-                        <Pressable href={link.url}>
-                          <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
-                            {link.icon && (
-                              <DynamicIcon
-                                name={link.icon}
-                                size={16}
-                                className="m-auto group-hover/link:stroke-black"
-                              />
-                            )}
-                          </div>
+                          <Pressable href={link.url}>
+                            <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
+                              {link.icon ? (
+                                link.icon
+                              ) : link.iconName ? (
+                                <DynamicIcon
+                                  name={link.iconName}
+                                  size={16}
+                                  className="m-auto group-hover/link:stroke-black"
+                                />
+                              ) : null}
+                            </div>
                           <div className="flex flex-col gap-0.5">
                             <div className="text-sm font-medium">
                               {link.label}
@@ -475,14 +617,45 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
 interface MobileNavigationMenuProps {
   open: boolean;
   navigation: MenuItem[];
-  mobileButtons: NavButton[];
+  authActions?: ActionConfig[];
+  authActionsSlot?: React.ReactNode;
 }
 
 const MobileNavigationMenu = ({
   open,
   navigation,
-  mobileButtons,
+  authActions,
+  authActionsSlot,
 }: MobileNavigationMenuProps) => {
+  const renderMobileAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return (
+      <div className="flex flex-col gap-4">
+        {authActions.map((action, index) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn("w-full", actionClassName)}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <Sheet open={open}>
       <SheetContent
@@ -498,23 +671,7 @@ const MobileNavigationMenu = ({
               </SheetTitle>
             </div>
             <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-4">
-                {mobileButtons.map((btn, index) => (
-                  <Pressable
-                    key={`navbar-btn-${index}`}
-                    variant={!btn.isPrimary ? "outline" : "default"}
-                    className={
-                      btn.isPrimary
-                        ? "text-primary-foreground"
-                        : "text-foreground"
-                    }
-                    asButton
-                    href={btn.url}
-                  >
-                    {btn.label}
-                  </Pressable>
-                ))}
-              </div>
+              {renderMobileAuthActions()}
               <Accordion type="multiple" className="w-full">
                 {navigation.map((item, index) =>
                   renderMobileMenuItem(item, index)
@@ -532,7 +689,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
   if (item.groups) {
     return (
       <AccordionItem
-        key={item.title}
+        key={`nav-item-${index}`}
         value={`nav-${index}`}
         className="border-b-0"
       >
@@ -547,13 +704,15 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
                 href={link.url}
                 className="flex h-12 items-center gap-2 rounded-lg px-4 text-muted-foreground transition-colors duration-300 hover:bg-muted hover:text-foreground"
               >
-                {link.icon && (
+                {link.icon ? (
+                  link.icon
+                ) : link.iconName ? (
                   <DynamicIcon
-                    name={link.icon}
+                    name={link.iconName}
                     size={16}
                     className="stroke-muted-foreground"
                   />
-                )}
+                ) : null}
                 {link.label}
               </Pressable>
             ))
@@ -565,7 +724,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
 
   return (
     <Pressable
-      key={item.title}
+      key={`nav-link-${index}`}
       href={item.url}
       className="flex h-15 items-center rounded-md p-0 px-4 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all hover:bg-muted focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
     >

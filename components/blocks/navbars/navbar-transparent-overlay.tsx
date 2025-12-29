@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -14,24 +15,111 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-interface NavItem {
-  title: string;
+export interface NavItem {
+  title: React.ReactNode;
   url: string;
+  icon?: React.ReactNode;
+  iconName?: string;
+}
+
+/**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
 }
 
 /**
  * Props for the NavbarTransparentOverlay component
  */
 export interface NavbarTransparentOverlayProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation items
+   */
   navItems?: NavItem[];
+  /**
+   * Custom slot for navigation (overrides navItems array)
+   */
+  navigationSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations for desktop
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations for mobile
+   */
+  mobileAuthActions?: ActionConfig[];
+  /**
+   * Custom slot for mobile auth actions (overrides mobileAuthActions array)
+   */
+  mobileAuthActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -41,6 +129,16 @@ const defaultNavItems: NavItem[] = [
   { title: "Services", url: "#" },
   { title: "Portfolio", url: "#" },
   { title: "Contact", url: "#" },
+];
+
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Log in", href: "#", variant: "ghost" },
+  { label: "Get Started", href: "#", variant: "default" },
+];
+
+const defaultMobileAuthActions: ActionConfig[] = [
+  { label: "Log in", href: "#", variant: "outline" },
+  { label: "Get Started", href: "#", variant: "default" },
 ];
 
 /**
@@ -54,19 +152,36 @@ const defaultNavItems: NavItem[] = [
  */
 export const NavbarTransparentOverlay = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   navItems = defaultNavItems,
+  navigationSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  mobileAuthActions = defaultMobileAuthActions,
+  mobileAuthActionsSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarTransparentOverlayProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -77,90 +192,171 @@ export const NavbarTransparentOverlay = ({
   }, []);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     document.body.style.overflow = isOpen ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [isOpen]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("z-50 flex items-center gap-2", logoClassName)}
+      >
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn(
+              "h-8 transition-all duration-300",
+              !isScrolled && !isOpen && "brightness-0 invert",
+              logo.className
+            )}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span
+              className={cn(
+                "text-lg font-semibold transition-colors duration-300",
+                !isScrolled && !isOpen ? "text-white" : "text-foreground",
+              )}
+            >
+              {logo.title}
+            </span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderNavigation = () => {
+    if (navigationSlot) return navigationSlot;
+    if (!navItems || navItems.length === 0) return null;
+
+    return (
+      <NavigationMenuList>
+        {navItems.map((item, index) => (
+          <NavigationMenuItem key={index}>
+            <NavigationMenuLink
+              asChild
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "bg-transparent transition-colors duration-300",
+                !isScrolled
+                  ? "text-white/90 hover:text-white hover:bg-white/10"
+                  : "text-foreground/80 hover:text-foreground",
+              )}
+            >
+              <Pressable href={item.url}>
+                {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={16} />)}
+                {item.title}
+              </Pressable>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, variant, ...pressableProps } = action;
+      const isGhost = variant === "ghost";
+      return (
+        <Pressable
+          key={index}
+          asButton
+          variant={variant}
+          className={cn(
+            "transition-colors duration-300",
+            !isScrolled && isGhost
+              ? "text-white hover:text-white hover:bg-white/10"
+              : !isScrolled && !isGhost
+                ? "bg-white text-black hover:bg-white/90"
+                : "",
+            actionClassName
+          )}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderMobileAuthActions = () => {
+    if (mobileAuthActionsSlot) return mobileAuthActionsSlot;
+    if (!mobileAuthActions || mobileAuthActions.length === 0) return null;
+
+    return mobileAuthActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={cn("min-w-[200px]", actionClassName)}
+          onClick={() => setIsOpen(false)}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
-    <section className={cn("", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <nav
         className={cn(
           "fixed top-0 left-0 z-50 w-full transition-all duration-300",
           isScrolled
             ? "bg-background/95 shadow-sm backdrop-blur-sm"
             : "bg-transparent",
+          navClassName
         )}
       >
-        <div className="container">
+        <div className={cn("container", containerClassName)}>
           <div className="flex h-16 items-center justify-between">
-            <Pressable href={logo.url} className="z-50 flex items-center gap-2">
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className={cn(
-                  "h-8 transition-all duration-300",
-                  !isScrolled && !isOpen && "brightness-0 invert",
-                )}
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span
-                className={cn(
-                  "text-lg font-semibold transition-colors duration-300",
-                  !isScrolled && !isOpen ? "text-white" : "text-foreground",
-                )}
-              >
-                {logo.title}
-              </span>
-            </Pressable>
+            {renderLogo()}
 
-            <NavigationMenu className="hidden lg:flex">
-              <NavigationMenuList>
-                {navItems.map((item, index) => (
-                  <NavigationMenuItem key={index}>
-                    <NavigationMenuLink
-                      asChild
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "bg-transparent transition-colors duration-300",
-                        !isScrolled
-                          ? "text-white/90 hover:text-white hover:bg-white/10"
-                          : "text-foreground/80 hover:text-foreground",
-                      )}
-                    >
-                      <Pressable href={item.url}>{item.title}</Pressable>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
+            <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
+              {renderNavigation()}
             </NavigationMenu>
 
-            <div className="hidden items-center gap-2 lg:flex">
-              <Pressable
-                variant="ghost"
-                asButton
-                href="#"
-                className={cn(
-                  "transition-colors duration-300",
-                  !isScrolled
-                    ? "text-white hover:text-white hover:bg-white/10"
-                    : "",
-                )}
-              >
-                Log in
-              </Pressable>
-              <Pressable
-                asButton
-                href="#"
-                className={cn(
-                  "transition-colors duration-300",
-                  !isScrolled
-                    ? "bg-white text-black hover:bg-white/90"
-                    : "",
-                )}
-              >
-                Get Started
-              </Pressable>
+            <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+              {renderAuthActions()}
             </div>
 
             <button
@@ -205,7 +401,6 @@ export const NavbarTransparentOverlay = ({
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <div
         className={cn(
           "fixed inset-0 z-40 bg-background transition-all duration-500 lg:hidden",
@@ -231,6 +426,7 @@ export const NavbarTransparentOverlay = ({
                 }}
                 onClick={() => setIsOpen(false)}
               >
+                {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={24} />)}
                 {item.title}
               </Pressable>
             ))}
@@ -246,27 +442,11 @@ export const NavbarTransparentOverlay = ({
               transitionDelay: isOpen ? `${navItems.length * 100}ms` : "0ms",
             }}
           >
-            <Pressable
-              variant="outline"
-              asButton
-              href="#"
-              className="min-w-[200px]"
-              onClick={() => setIsOpen(false)}
-            >
-              Log in
-            </Pressable>
-            <Pressable
-              asButton
-              href="#"
-              className="min-w-[200px]"
-              onClick={() => setIsOpen(false)}
-            >
-              Get Started
-            </Pressable>
+            {renderMobileAuthActions()}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 
