@@ -14,24 +14,31 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaAppDownloadNewsletterProps {
   /**
    * App section heading
    */
-  appHeading?: string;
+  appHeading?: React.ReactNode;
   /**
    * App section description
    */
-  appDescription?: string;
+  appDescription?: React.ReactNode;
   /**
-   * App Store button URL
+   * Array of action configurations for app download buttons
    */
-  appStoreUrl?: string;
+  appActions?: ActionConfig[];
   /**
-   * Google Play button URL
+   * Custom slot for rendering app actions (overrides appActions array)
    */
-  googlePlayUrl?: string;
+  appActionsSlot?: React.ReactNode;
   /**
    * Phone mockup image URL
    */
@@ -39,11 +46,11 @@ export interface CtaAppDownloadNewsletterProps {
   /**
    * Newsletter section heading
    */
-  newsletterHeading?: string;
+  newsletterHeading?: React.ReactNode;
   /**
    * Newsletter section description
    */
-  newsletterDescription?: string;
+  newsletterDescription?: React.ReactNode;
   /**
    * Newsletter button text
    */
@@ -56,6 +63,62 @@ export interface CtaAppDownloadNewsletterProps {
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the grid
+   */
+  gridClassName?: string;
+  /**
+   * Additional CSS classes for the app card
+   */
+  appCardClassName?: string;
+  /**
+   * Additional CSS classes for the app heading
+   */
+  appHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the app description
+   */
+  appDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the app actions container
+   */
+  appActionsClassName?: string;
+  /**
+   * Additional CSS classes for the newsletter card
+   */
+  newsletterCardClassName?: string;
+  /**
+   * Additional CSS classes for the newsletter heading
+   */
+  newsletterHeadingClassName?: string;
+  /**
+   * Additional CSS classes for the newsletter description
+   */
+  newsletterDescriptionClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Optional form submission configuration.
    *
@@ -119,6 +182,11 @@ export interface CtaAppDownloadNewsletterProps {
   };
 }
 
+const defaultAppActions: ActionConfig[] = [
+  { label: "App Store", href: "#", variant: "default" },
+  { label: "Google Play", href: "#", variant: "outline" },
+];
+
 /**
  * CtaAppDownloadNewsletter - A two-column CTA grid featuring an app download
  * section with phone mockup and a newsletter subscription form. Perfect for
@@ -129,8 +197,10 @@ export interface CtaAppDownloadNewsletterProps {
  * <CtaAppDownloadNewsletter
  *   appHeading="Download Our App"
  *   appDescription="Get the best experience on mobile."
- *   appStoreUrl="https://apps.apple.com"
- *   googlePlayUrl="https://play.google.com"
+ *   appActions={[
+ *     { label: "App Store", href: "https://apps.apple.com", variant: "default" },
+ *     { label: "Google Play", href: "https://play.google.com", variant: "outline" }
+ *   ]}
  *   newsletterHeading="Stay Updated"
  *   newsletterDescription="Subscribe to our newsletter."
  * />
@@ -139,14 +209,28 @@ export interface CtaAppDownloadNewsletterProps {
 export function CtaAppDownloadNewsletter({
   appHeading = "Download Our App",
   appDescription = "Get the best experience on mobile. Download our app and access all features on the go.",
-  appStoreUrl = "#",
-  googlePlayUrl = "#",
+  appActions = defaultAppActions,
+  appActionsSlot,
   phoneMockupImage = imagePlaceholders[8],
   newsletterHeading = "Stay Updated",
   newsletterDescription = "Subscribe to our newsletter and never miss an update. Get the latest news, tips, and exclusive offers.",
   newsletterButtonText = "Subscribe",
   emailPlaceholder = "Enter your email",
   className,
+  containerClassName,
+  gridClassName,
+  appCardClassName,
+  appHeadingClassName,
+  appDescriptionClassName,
+  appActionsClassName,
+  newsletterCardClassName,
+  newsletterHeadingClassName,
+  newsletterDescriptionClassName,
+  formClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   formConfig,
   onSubmit,
   onSuccess,
@@ -204,36 +288,79 @@ export function CtaAppDownloadNewsletter({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
+  const renderAppActions = () => {
+    if (appActionsSlot) return appActionsSlot;
+    if (!appActions || appActions.length === 0) return null;
+
+    return (
+      <div
+        className={cn("flex flex-col gap-3 sm:flex-row", appActionsClassName)}
+      >
+        {appActions.map((action, index) => {
+          const isAppStore =
+            action.label?.toString().toLowerCase().includes("app store") ||
+            action.href?.includes("apple");
+          const isGooglePlay =
+            action.label?.toString().toLowerCase().includes("google") ||
+            action.href?.includes("play.google");
+
+          return (
+            <Pressable
+              key={index}
+              href={action.href}
+              onClick={action.onClick}
+              variant={action.variant}
+              size={action.size}
+              className={cn("gap-2", action.className)}
+              aria-label={action["aria-label"]}
+              asButton
+            >
+              {action.icon ??
+                (isAppStore ? (
+                  <DynamicIcon name="simple-icons/apple" size={20} />
+                ) : isGooglePlay ? (
+                  <DynamicIcon name="simple-icons/googleplay" size={20} />
+                ) : null)}
+              {action.children ?? action.label}
+              {action.iconAfter}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 p-8 lg:p-12">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("grid gap-8 lg:grid-cols-2", gridClassName)}>
+          <div
+            className={cn(
+              "relative overflow-hidden rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 p-8 lg:p-12",
+              appCardClassName
+            )}
+          >
             <div className="relative z-10 max-w-sm">
-              <h2 className="mb-4 text-2xl font-bold md:text-3xl">
+              <h2
+                className={cn(
+                  "mb-4 text-2xl font-bold md:text-3xl",
+                  appHeadingClassName
+                )}
+              >
                 {appHeading}
               </h2>
-              <p className="mb-8 text-muted-foreground">{appDescription}</p>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <Pressable
-                  href={appStoreUrl}
-                  variant="default"
-                  className="gap-2"
-                  asButton
-                >
-                  <DynamicIcon name="simple-icons/apple" size={20} />
-                  App Store
-                </Pressable>
-                <Pressable
-                  href={googlePlayUrl}
-                  variant="outline"
-                  className="gap-2"
-                  asButton
-                >
-                  <DynamicIcon name="simple-icons/googleplay" size={20} />
-                  Google Play
-                </Pressable>
-              </div>
+              <p
+                className={cn("mb-8 text-muted-foreground", appDescriptionClassName)}
+              >
+                {appDescription}
+              </p>
+              {renderAppActions()}
             </div>
             <div className="absolute -right-16 -bottom-16 h-64 w-48 rotate-12 opacity-20 lg:h-80 lg:w-60">
               <Img
@@ -245,18 +372,33 @@ export function CtaAppDownloadNewsletter({
             </div>
           </div>
 
-          <div className="flex flex-col justify-center rounded-2xl border bg-card p-8 lg:p-12">
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl">
+          <div
+            className={cn(
+              "flex flex-col justify-center rounded-2xl border bg-card p-8 lg:p-12",
+              newsletterCardClassName
+            )}
+          >
+            <h2
+              className={cn(
+                "mb-4 text-2xl font-bold md:text-3xl",
+                newsletterHeadingClassName
+              )}
+            >
               {newsletterHeading}
             </h2>
-            <p className="mb-8 text-muted-foreground">
+            <p
+              className={cn(
+                "mb-8 text-muted-foreground",
+                newsletterDescriptionClassName
+              )}
+            >
               {newsletterDescription}
             </p>
             <Form
               form={form}
               action={formConfig?.endpoint}
               method={formMethod}
-              className="flex flex-col gap-3 sm:flex-row"
+              className={cn("flex flex-col gap-3 sm:flex-row", formClassName)}
             >
               <Field name="email" className="flex-1">
                 {({ field, meta }) => (
@@ -285,6 +427,6 @@ export function CtaAppDownloadNewsletter({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

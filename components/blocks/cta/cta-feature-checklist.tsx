@@ -4,35 +4,113 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+
+export interface ChecklistItem {
+  /**
+   * Text content of the checklist item
+   */
+  text: string;
+  /**
+   * Optional icon name (defaults to lucide/check)
+   */
+  iconName?: string;
+  /**
+   * Optional custom icon element
+   */
+  icon?: React.ReactNode;
+}
 
 export interface CtaFeatureChecklistProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  title?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Primary button text
+   * Array of action configurations for CTA buttons
    */
-  buttonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  buttonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
-   * Array of feature items to display in the checklist
+   * Array of checklist items to display
    */
-  items?: string[];
+  items?: (string | ChecklistItem)[];
+  /**
+   * Custom slot for rendering checklist (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
   /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the card wrapper
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the checklist wrapper
+   */
+  checklistClassName?: string;
+  /**
+   * Additional CSS classes for each checklist item
+   */
+  checklistItemClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
-const defaultItems = [
+const defaultActions: ActionConfig[] = [
+  { label: "Get Started", href: "#", variant: "default" },
+];
+
+const defaultItems: (string | ChecklistItem)[] = [
   "Easy Integration",
   "24/7 Support",
   "Customizable Design",
@@ -48,59 +126,141 @@ const defaultItems = [
  * @example
  * ```tsx
  * <CtaFeatureChecklist
- *   title="Start Building Today"
+ *   heading="Start Building Today"
  *   description="Get access to all features with our starter plan."
- *   buttonText="Get Started"
- *   buttonUrl="/signup"
+ *   actions={[{ label: "Get Started", href: "/signup", variant: "default" }]}
  *   items={["Easy Integration", "24/7 Support", "Scalable Performance"]}
  * />
  * ```
  */
 export function CtaFeatureChecklist({
-  title = "Call to Action",
+  heading = "Call to Action",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  buttonText = "Get Started",
-  buttonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   items = defaultItems,
+  itemsSlot,
   className,
+  containerClassName,
+  cardClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  checklistClassName,
+  checklistItemClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
 }: CtaFeatureChecklistProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div className={cn("mt-6", actionsClassName)}>
+        {actions.map((action, index) => (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant}
+            size={action.size}
+            className={action.className}
+            aria-label={action["aria-label"]}
+            asButton
+          >
+            {action.icon}
+            {action.children ?? action.label}
+            {action.iconAfter ?? (
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="ml-2"
+              />
+            )}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
+  const renderChecklist = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
+
+    return (
+      <ul
+        className={cn(
+          "flex flex-col space-y-2 text-sm font-medium",
+          checklistClassName
+        )}
+      >
+        {items.map((item, idx) => {
+          const isString = typeof item === "string";
+          const text = isString ? item : item.text;
+          const iconName = isString ? "lucide/check" : item.iconName || "lucide/check";
+          const icon = isString ? null : item.icon;
+
+          return (
+            <li
+              className={cn("flex items-center", checklistItemClassName)}
+              key={idx}
+            >
+              {icon ?? (
+                <DynamicIcon
+                  name={iconName}
+                  size={16}
+                  className="mr-4 shrink-0"
+                />
+              )}
+              {text}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container mx-auto">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container mx-auto", containerClassName)}>
         <div className="flex justify-center">
           <div className="max-w-5xl">
-            <div className="flex flex-col items-start justify-between gap-8 rounded-lg bg-muted px-6 py-10 md:flex-row lg:px-20 lg:py-16">
-              <div className="md:w-1/2">
-                <h4 className="mb-1 text-2xl font-bold md:text-3xl">{title}</h4>
-                <p className="text-muted-foreground">{description}</p>
-                <Pressable
-                  href={buttonUrl}
-                  variant="default"
-                  className="mt-6"
-                  asButton
+            <div
+              className={cn(
+                "flex flex-col items-start justify-between gap-8 rounded-lg bg-muted px-6 py-10 md:flex-row lg:px-20 lg:py-16",
+                cardClassName
+              )}
+            >
+              <div className={cn("md:w-1/2", contentClassName)}>
+                <h4
+                  className={cn(
+                    "mb-1 text-2xl font-bold md:text-3xl",
+                    headingClassName
+                  )}
                 >
-                  {buttonText}
-                  <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-                </Pressable>
+                  {heading}
+                </h4>
+                <p
+                  className={cn("text-muted-foreground", descriptionClassName)}
+                >
+                  {description}
+                </p>
+                {renderActions()}
               </div>
-              <div className="md:w-1/3">
-                <ul className="flex flex-col space-y-2 text-sm font-medium">
-                  {items.map((item, idx) => (
-                    <li className="flex items-center" key={idx}>
-                      <DynamicIcon
-                        name="lucide/check"
-                        size={16}
-                        className="mr-4 shrink-0"
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <div className="md:w-1/3">{renderChecklist()}</div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

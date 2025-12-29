@@ -8,7 +8,4 @@
  */
 
 export { CtaAccentBackground } from "../components/blocks/cta/cta-accent-background";
-export type {
-  CtaAccentBackgroundProps,
-  CtaAccentBackgroundButton,
-} from "../components/blocks/cta/cta-accent-background";
+export type { CtaAccentBackgroundProps } from "../components/blocks/cta/cta-accent-background";

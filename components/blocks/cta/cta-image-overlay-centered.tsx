@@ -8,31 +8,29 @@ import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaImageOverlayCenteredProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Supporting description text
+   * Supporting description content
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Primary CTA config
+   * Array of action configurations for CTA buttons
    */
-  primaryCta?: {
-    label: string;
-    href: string;
-  };
+  actions?: ActionConfig[];
   /**
-   * Secondary CTA config
+   * Custom slot for rendering actions (overrides actions array)
    */
-  secondaryCta?: {
-    label: string;
-    href: string;
-  };
+  actionsSlot?: React.ReactNode;
   /**
    * Background image URL
    */
@@ -45,6 +43,30 @@ export interface CtaImageOverlayCenteredProps {
    * Additional CSS classes for the section wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the card wrapper
+   */
+  cardClassName?: string;
+  /**
+   * Additional CSS classes for the overlay
+   */
+  overlayClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
   /**
    * Background style for the section
    */
@@ -70,6 +92,11 @@ export interface CtaImageOverlayCenteredProps {
   };
 }
 
+const defaultActions: ActionConfig[] = [
+  { label: "Get a Free Quote", href: "/quote", variant: "default", size: "lg" },
+  { label: "Talk to an Advisor", href: "/contact", variant: "ghost", size: "lg" },
+];
+
 /**
  * CtaImageOverlayCentered - Full-width CTA banner with background image,
  * dark overlay, and centered text/CTAs. Best for final conversion sections.
@@ -77,17 +104,54 @@ export interface CtaImageOverlayCenteredProps {
 export function CtaImageOverlayCentered({
   heading = "Ready to unlock OpenSite AI coverage insights?",
   description = "Connect with an advisor to tailor a plan that protects what matters most today and scales for tomorrow.",
-  primaryCta = { label: "Get a Free Quote", href: "/quote" },
-  secondaryCta = { label: "Talk to an Advisor", href: "/contact" },
+  actions = defaultActions,
+  actionsSlot,
   backgroundImage = imagePlaceholders[20],
   backgroundAlt = "OpenSite AI call to action background",
   className,
+  cardClassName,
+  overlayClassName,
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
   background = "white",
   spacing = "md",
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaImageOverlayCenteredProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "mt-8 flex flex-col justify-center gap-4 sm:flex-row",
+          actionsClassName
+        )}
+      >
+        {actions.map((action, index) => (
+          <Pressable
+            key={index}
+            href={action.href}
+            onClick={action.onClick}
+            variant={action.variant}
+            size={action.size}
+            className={action.className}
+            aria-label={action["aria-label"]}
+            asButton
+          >
+            {action.icon}
+            {action.children ?? action.label}
+            {action.iconAfter}
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Section
       background={background}
@@ -96,7 +160,12 @@ export function CtaImageOverlayCentered({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className="relative overflow-hidden rounded-3xl border border-border/50">
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-3xl border border-border/50",
+          cardClassName
+        )}
+      >
         <Img
           src={backgroundImage}
           alt={backgroundAlt}
@@ -104,26 +173,36 @@ export function CtaImageOverlayCentered({
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
         />
-        <div className="absolute inset-0 bg-linear-to-r from-foreground/90 via-foreground/80 to-foreground/90" />
+        <div
+          className={cn(
+            "absolute inset-0 bg-linear-to-r from-foreground/90 via-foreground/80 to-foreground/90",
+            overlayClassName
+          )}
+        />
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.35 }}
-          className="relative px-6 py-16 text-center text-white md:px-10"
+          className={cn(
+            "relative px-6 py-16 text-center text-white md:px-10",
+            contentClassName
+          )}
         >
-          <h2 className="text-3xl font-bold md:text-5xl">{heading}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
+          <h2
+            className={cn("text-3xl font-bold md:text-5xl", headingClassName)}
+          >
+            {heading}
+          </h2>
+          <p
+            className={cn(
+              "mx-auto mt-4 max-w-2xl text-lg text-white/80",
+              descriptionClassName
+            )}
+          >
             {description}
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Pressable href={primaryCta.href} size="lg" variant="default">
-              {primaryCta.label}
-            </Pressable>
-            <Pressable href={secondaryCta.href} size="lg" variant="ghost">
-              {secondaryCta.label}
-            </Pressable>
-          </div>
+          {renderActions()}
         </motion.div>
       </div>
     </Section>

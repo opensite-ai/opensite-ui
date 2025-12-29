@@ -13,31 +13,42 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface CtaNewsletterFeature {
   /**
    * Icon name for the feature
    */
-  icon?: string;
+  iconName?: string;
+  /**
+   * Custom icon element
+   */
+  icon?: React.ReactNode;
   /**
    * Feature text
    */
-  text?: string;
+  text?: React.ReactNode;
+  /**
+   * Additional CSS classes for the feature
+   */
+  className?: string;
 }
 
 export interface CtaNewsletterFeaturesProps {
   /**
-   * Badge text above the heading
+   * Badge content above the heading
    */
-  badgeText?: string;
+  badge?: React.ReactNode;
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Email input placeholder
    */
@@ -45,15 +56,67 @@ export interface CtaNewsletterFeaturesProps {
   /**
    * Submit button text
    */
-  buttonText?: string;
+  buttonText?: React.ReactNode;
   /**
    * Array of features to display
    */
   features?: CtaNewsletterFeature[];
   /**
+   * Custom slot for rendering features (overrides features array)
+   */
+  featuresSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering the form (overrides default form)
+   */
+  formSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the badge
+   */
+  badgeClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the features list
+   */
+  featuresClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Optional form submission configuration.
    *
@@ -111,10 +174,10 @@ export interface CtaNewsletterFeaturesProps {
 }
 
 const defaultFeatures: CtaNewsletterFeature[] = [
-  { icon: "lucide/check", text: "Weekly insights and tips" },
-  { icon: "lucide/check", text: "Exclusive content and offers" },
-  { icon: "lucide/check", text: "Early access to new features" },
-  { icon: "lucide/check", text: "Unsubscribe anytime" },
+  { iconName: "lucide/check", text: "Weekly insights and tips" },
+  { iconName: "lucide/check", text: "Exclusive content and offers" },
+  { iconName: "lucide/check", text: "Early access to new features" },
+  { iconName: "lucide/check", text: "Unsubscribe anytime" },
 ];
 
 /**
@@ -125,25 +188,38 @@ const defaultFeatures: CtaNewsletterFeature[] = [
  * @example
  * ```tsx
  * <CtaNewsletterFeatures
- *   badgeText="Newsletter"
+ *   badge="Newsletter"
  *   heading="Stay in the loop"
  *   description="Get the latest updates delivered to your inbox."
  *   buttonText="Subscribe"
  *   features={[
- *     { icon: "lucide/check", text: "Weekly insights" },
- *     { icon: "lucide/check", text: "Exclusive content" }
+ *     { iconName: "lucide/check", text: "Weekly insights" },
+ *     { iconName: "lucide/check", text: "Exclusive content" }
  *   ]}
  * />
  * ```
  */
 export function CtaNewsletterFeatures({
-  badgeText = "Newsletter",
+  badge = "Newsletter",
   heading = "Stay in the loop",
   description = "Get the latest updates, tips, and exclusive content delivered straight to your inbox. Join thousands of subscribers.",
   emailPlaceholder = "Enter your email",
   buttonText = "Subscribe",
   features = defaultFeatures,
+  featuresSlot,
+  formSlot,
   className,
+  containerClassName,
+  contentClassName,
+  badgeClassName,
+  headingClassName,
+  descriptionClassName,
+  formClassName,
+  featuresClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   formConfig,
   onSubmit,
   onSuccess,
@@ -200,61 +276,110 @@ export function CtaNewsletterFeatures({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="mx-auto max-w-2xl text-center">
-          <Badge variant="secondary" className="mb-4">
-            {badgeText}
-          </Badge>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">{heading}</h2>
-          <p className="mb-8 text-lg text-muted-foreground">{description}</p>
-          <Form
-            form={form}
-            action={formConfig?.endpoint}
-            method={formMethod}
-            className="mx-auto mb-8 flex max-w-md flex-col gap-3 sm:flex-row"
+  const renderForm = () => {
+    if (formSlot) return formSlot;
+
+    return (
+      <Form
+        form={form}
+        action={formConfig?.endpoint}
+        method={formMethod}
+        className={cn(
+          "mx-auto mb-8 flex max-w-md flex-col gap-3 sm:flex-row",
+          formClassName
+        )}
+      >
+        <Field name="email" className="flex-1">
+          {({ field, meta }) => (
+            <TextInput
+              {...field}
+              type="email"
+              placeholder={emailPlaceholder}
+              error={meta.touched && !!meta.error}
+              className="w-full"
+              aria-label={emailPlaceholder || "Email address"}
+            />
+          )}
+        </Field>
+        <Pressable
+          componentType="button"
+          type="submit"
+          variant="default"
+          className="shrink-0"
+          asButton
+          disabled={form.isSubmitting}
+        >
+          {buttonText}
+          <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
+        </Pressable>
+      </Form>
+    );
+  };
+
+  const renderFeatures = () => {
+    if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
+
+    return (
+      <ul
+        className={cn(
+          "flex flex-wrap justify-center gap-4 text-sm text-muted-foreground",
+          featuresClassName
+        )}
+      >
+        {features.map((feature, index) => (
+          <li
+            key={index}
+            className={cn("flex items-center gap-2", feature.className)}
           >
-            <Field name="email" className="flex-1">
-              {({ field, meta }) => (
-                <TextInput
-                  {...field}
-                  type="email"
-                  placeholder={emailPlaceholder}
-                  error={meta.touched && !!meta.error}
-                  className="w-full"
-                  aria-label={emailPlaceholder || "Email address"}
+            {feature.icon ??
+              (feature.iconName && (
+                <DynamicIcon
+                  name={feature.iconName}
+                  size={16}
+                  className="text-primary"
                 />
-              )}
-            </Field>
-            <Pressable
-              componentType="button"
-              type="submit"
-              variant="default"
-              className="shrink-0"
-              asButton
-              disabled={form.isSubmitting}
-            >
-              {buttonText}
-              <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
-            </Pressable>
-          </Form>
-          <ul className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-            {features.map((feature, index) => (
-              <li key={index} className="flex items-center gap-2">
-                {feature.icon && (
-                  <DynamicIcon
-                    name={feature.icon}
-                    size={16}
-                    className="text-primary"
-                  />
-                )}
-                {feature.text}
-              </li>
-            ))}
-          </ul>
+              ))}
+            {feature.text}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <div className={cn("mx-auto max-w-2xl text-center", contentClassName)}>
+          <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
+            {badge}
+          </Badge>
+          <h2
+            className={cn(
+              "mb-4 text-3xl font-bold md:text-4xl",
+              headingClassName
+            )}
+          >
+            {heading}
+          </h2>
+          <p
+            className={cn(
+              "mb-8 text-lg text-muted-foreground",
+              descriptionClassName
+            )}
+          >
+            {description}
+          </p>
+          {renderForm()}
+          {renderFeatures()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

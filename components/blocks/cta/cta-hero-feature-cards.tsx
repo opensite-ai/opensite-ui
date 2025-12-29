@@ -7,51 +7,58 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Card } from "../../ui/card";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CtaHeroFeatureCard {
   /**
    * Icon name for the card
    */
-  icon?: string;
+  iconName?: string;
+  /**
+   * Custom icon element
+   */
+  icon?: React.ReactNode;
   /**
    * Title of the card
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Description of the card
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Link URL for the card
    */
   href?: string;
+  /**
+   * Additional CSS classes for the card
+   */
+  className?: string;
 }
 
 export interface CtaHeroFeatureCardsProps {
   /**
-   * Main heading text
+   * Main heading content
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
-   * Description text below the heading
+   * Description content below the heading
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
-   * Primary button text
+   * Array of action configurations for CTA buttons
    */
-  primaryButtonText?: string;
+  actions?: ActionConfig[];
   /**
-   * Primary button URL
+   * Custom slot for rendering actions (overrides actions array)
    */
-  primaryButtonUrl?: string;
-  /**
-   * Secondary button text
-   */
-  secondaryButtonText?: string;
-  /**
-   * Secondary button URL
-   */
-  secondaryButtonUrl?: string;
+  actionsSlot?: React.ReactNode;
   /**
    * Hero image URL
    */
@@ -65,9 +72,61 @@ export interface CtaHeroFeatureCardsProps {
    */
   featureCards?: CtaHeroFeatureCard[];
   /**
+   * Custom slot for rendering feature cards (overrides featureCards array)
+   */
+  featureCardsSlot?: React.ReactNode;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the hero wrapper
+   */
+  heroClassName?: string;
+  /**
+   * Additional CSS classes for the overlay content
+   */
+  overlayClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the feature cards grid
+   */
+  cardsGridClassName?: string;
+  /**
+   * Additional CSS classes for each feature card
+   */
+  cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -77,15 +136,20 @@ export interface CtaHeroFeatureCardsProps {
   };
 }
 
+const defaultActions: ActionConfig[] = [
+  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
+  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
+];
+
 const defaultFeatureCards: CtaHeroFeatureCard[] = [
   {
-    icon: "lucide/zap",
+    iconName: "lucide/zap",
     title: "Instant Setup",
     description: "Get started in minutes with our easy setup process.",
     href: "#",
   },
   {
-    icon: "lucide/book-open",
+    iconName: "lucide/book-open",
     title: "Documentation",
     description: "Comprehensive guides and API references.",
     href: "#",
@@ -102,11 +166,13 @@ const defaultFeatureCards: CtaHeroFeatureCard[] = [
  * <CtaHeroFeatureCards
  *   heading="Build Something Amazing"
  *   description="Start building with our powerful tools."
- *   primaryButtonText="Get Started"
- *   primaryButtonUrl="/signup"
+ *   actions={[
+ *     { label: "Get Started", href: "/signup", variant: "secondary", size: "lg" },
+ *     { label: "Learn More", href: "/learn", variant: "outline", size: "lg" }
+ *   ]}
  *   heroImage="/hero.jpg"
  *   featureCards={[
- *     { icon: "lucide/zap", title: "Fast", description: "Lightning fast", href: "/docs" }
+ *     { iconName: "lucide/zap", title: "Fast", description: "Lightning fast", href: "/docs" }
  *   ]}
  * />
  * ```
@@ -114,87 +180,166 @@ const defaultFeatureCards: CtaHeroFeatureCard[] = [
 export function CtaHeroFeatureCards({
   heading = "Build Something Amazing",
   description = "Start building with our powerful tools and comprehensive documentation. Ship faster and scale with confidence.",
-  primaryButtonText = "Get Started",
-  primaryButtonUrl = "#",
-  secondaryButtonText = "Learn More",
-  secondaryButtonUrl = "#",
+  actions = defaultActions,
+  actionsSlot,
   heroImage = imagePlaceholders[9],
   heroImageAlt = "Hero image",
   featureCards = defaultFeatureCards,
+  featureCardsSlot,
   className,
+  containerClassName,
+  heroClassName,
+  overlayClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  cardsGridClassName,
+  cardClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: CtaHeroFeatureCardsProps): React.JSX.Element {
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
+
+    return (
+      <div
+        className={cn(
+          "flex flex-col justify-center gap-3 sm:flex-row",
+          actionsClassName
+        )}
+      >
+        {actions.map((action, index) => {
+          const isFirstAction = index === 0;
+          const isOutlineOnDark =
+            action.variant === "outline" && isFirstAction === false;
+          return (
+            <Pressable
+              key={index}
+              href={action.href}
+              onClick={action.onClick}
+              variant={action.variant}
+              size={action.size}
+              className={cn(
+                isOutlineOnDark &&
+                  "border-white/30 bg-white/10 text-white hover:bg-white/20",
+                action.className
+              )}
+              aria-label={action["aria-label"]}
+              asButton
+            >
+              {action.icon}
+              {action.children ?? action.label}
+              {action.iconAfter ??
+                (isFirstAction && (
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="ml-2"
+                  />
+                ))}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderFeatureCards = () => {
+    if (featureCardsSlot) return featureCardsSlot;
+    if (!featureCards || featureCards.length === 0) return null;
+
+    return (
+      <div className={cn("grid gap-6 md:grid-cols-2", cardsGridClassName)}>
+        {featureCards.map((card, index) => (
+          <Pressable key={index} href={card.href}>
+            <Card
+              className={cn(
+                "flex items-start gap-4 p-6 transition-colors hover:bg-accent",
+                cardClassName,
+                card.className
+              )}
+            >
+              {(card.icon || card.iconName) && (
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  {card.icon ??
+                    (card.iconName && (
+                      <DynamicIcon
+                        name={card.iconName}
+                        size={24}
+                        className="text-primary"
+                      />
+                    ))}
+                </div>
+              )}
+              <div className="flex-1">
+                <h3 className="mb-2 font-semibold">{card.title}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {card.description}
+                </p>
+              </div>
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={20}
+                className="shrink-0 text-muted-foreground"
+              />
+            </Card>
+          </Pressable>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="relative mb-12 overflow-hidden rounded-2xl">
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <div
+          className={cn(
+            "relative mb-12 overflow-hidden rounded-2xl",
+            heroClassName
+          )}
+        >
           <Img
             src={heroImage}
             alt={heroImageAlt}
             className="h-[400px] w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+          <div
+            className={cn(
+              "absolute inset-0 flex items-center justify-center bg-black/40",
+              overlayClassName
+            )}
+          >
             <div className="max-w-2xl p-8 text-center text-white">
-              <h2 className="mb-4 text-3xl font-bold md:text-5xl">{heading}</h2>
-              <p className="mb-8 text-lg opacity-90">{description}</p>
-              <div className="flex flex-col justify-center gap-3 sm:flex-row">
-                <Pressable
-                  href={primaryButtonUrl}
-                  variant="secondary"
-                  size="lg"
-                  asButton
-                >
-                  {primaryButtonText}
-                  <DynamicIcon
-                    name="lucide/arrow-right"
-                    size={16}
-                    className="ml-2"
-                  />
-                </Pressable>
-                <Pressable
-                  href={secondaryButtonUrl}
-                  variant="outline"
-                  size="lg"
-                  className="border-white/30 bg-white/10 text-white hover:bg-white/20"
-                  asButton
-                >
-                  {secondaryButtonText}
-                </Pressable>
-              </div>
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold md:text-5xl",
+                  headingClassName
+                )}
+              >
+                {heading}
+              </h2>
+              <p
+                className={cn("mb-8 text-lg opacity-90", descriptionClassName)}
+              >
+                {description}
+              </p>
+              {renderActions()}
             </div>
           </div>
         </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {featureCards.map((card, index) => (
-            <Pressable key={index} href={card.href}>
-              <Card className="flex items-start gap-4 p-6 transition-colors hover:bg-accent">
-                {card.icon && (
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                    <DynamicIcon
-                      name={card.icon}
-                      size={24}
-                      className="text-primary"
-                    />
-                  </div>
-                )}
-                <div className="flex-1">
-                  <h3 className="mb-2 font-semibold">{card.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {card.description}
-                  </p>
-                </div>
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={20}
-                  className="shrink-0 text-muted-foreground"
-                />
-              </Card>
-            </Pressable>
-          ))}
-        </div>
+        {renderFeatureCards()}
       </div>
-    </section>
+    </Section>
   );
 }
