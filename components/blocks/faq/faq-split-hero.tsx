@@ -10,35 +10,37 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
-export interface FaqSplitHeroItem {
-  /**
-   * Unique identifier
-   */
+export interface FaqItem {
   id: string;
-  /**
-   * FAQ question
-   */
-  question: string;
-  /**
-   * FAQ answer
-   */
-  answer: string;
+  question: React.ReactNode;
+  answer: React.ReactNode;
 }
 
 export interface FaqSplitHeroProps {
   /**
    * Main heading text
    */
-  heading?: string;
+  heading?: React.ReactNode;
   /**
    * Subheading/description text
    */
-  subheading?: string;
+  subheading?: React.ReactNode;
   /**
    * Array of FAQ items
    */
-  items?: FaqSplitHeroItem[];
+  items?: FaqItem[];
+  /**
+   * Custom slot for rendering items (overrides items array)
+   */
+  itemsSlot?: React.ReactNode;
+  /**
+   * Custom slot for rendering the image section
+   */
+  imageSlot?: React.ReactNode;
   /**
    * Image source URL
    */
@@ -48,9 +50,69 @@ export interface FaqSplitHeroProps {
    */
   imageAlt?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the left column
+   */
+  leftColumnClassName?: string;
+  /**
+   * Additional CSS classes for the header wrapper
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the subheading
+   */
+  subheadingClassName?: string;
+  /**
+   * Additional CSS classes for the accordion
+   */
+  accordionClassName?: string;
+  /**
+   * Additional CSS classes for accordion items
+   */
+  accordionItemClassName?: string;
+  /**
+   * Additional CSS classes for accordion triggers
+   */
+  accordionTriggerClassName?: string;
+  /**
+   * Additional CSS classes for accordion content
+   */
+  accordionContentClassName?: string;
+  /**
+   * Additional CSS classes for the image
+   */
+  imageClassName?: string;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -60,7 +122,7 @@ export interface FaqSplitHeroProps {
   };
 }
 
-const defaultItems: FaqSplitHeroItem[] = [
+const defaultItems: FaqItem[] = [
   {
     id: "faq-1",
     question: "What services do you offer?",
@@ -93,69 +155,130 @@ const defaultItems: FaqSplitHeroItem[] = [
   },
 ];
 
-/**
- * FAQ Split Hero - A dark-themed split-screen FAQ section with animated accordion
- * on the left and a large image on the right.
- *
- * Layout: Two-column split with FAQ content on left, full-height image on right.
- * Key features: Dark theme, animated accordion, prominent heading and subheading.
- * Best for: Landing pages, product pages, service pages requiring FAQ visibility.
- *
- * @example
- * ```tsx
- * <FaqSplitHero
- *   heading="Frequently Asked Questions"
- *   subheading="Find answers to common questions about our services."
- *   items={[
- *     { id: "1", question: "What services do you offer?", answer: "..." },
- *   ]}
- * />
- * ```
- */
 export function FaqSplitHero({
   heading = "Frequently Asked Questions",
   subheading = "Find answers to common questions about our services and how we can help you achieve your goals.",
   items = defaultItems,
+  itemsSlot,
+  imageSlot,
   imageSrc = blockBrandedIconsAndPlaceholders.placeholderDark1,
   imageAlt = "FAQ section image",
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
+  patternClassName,
   className,
+  contentWrapperClassName,
+  leftColumnClassName,
+  headerClassName,
+  headingClassName,
+  subheadingClassName,
+  accordionClassName,
+  accordionItemClassName,
+  accordionTriggerClassName,
+  accordionContentClassName,
+  imageClassName,
   optixFlowConfig,
 }: FaqSplitHeroProps) {
-  return (
-    <section className={cn("dark flex", className)}>
-      <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
-        <div className="container my-10 flex w-full max-w-[600px] flex-col gap-8 px-6 lg:px-10">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-foreground lg:text-4xl">
-              {heading}
-            </h2>
-            <p className="text-lg text-muted-foreground">{subheading}</p>
-          </div>
+  const renderItems = () => {
+    if (itemsSlot) return itemsSlot;
+    if (!items || items.length === 0) return null;
 
-          <Accordion type="single" collapsible className="w-full">
-            {items.map((item) => (
-              <AccordionItem
-                key={item.id}
-                value={item.id}
-                className="border-b border-border/50"
-              >
-                <AccordionTrigger className="py-4 text-left text-base font-medium text-foreground transition-colors hover:text-primary hover:no-underline lg:text-lg">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="pb-4 text-muted-foreground">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </div>
+    return (
+      <Accordion
+        type="single"
+        collapsible
+        className={cn("w-full", accordionClassName)}
+      >
+        {items.map((item) => (
+          <AccordionItem
+            key={item.id}
+            value={item.id}
+            className={cn("border-b border-border/50", accordionItemClassName)}
+          >
+            <AccordionTrigger
+              className={cn(
+                "py-4 text-left text-base font-medium text-foreground transition-colors hover:text-primary hover:no-underline lg:text-lg",
+                accordionTriggerClassName
+              )}
+            >
+              {item.question}
+            </AccordionTrigger>
+            <AccordionContent
+              className={cn("pb-4 text-muted-foreground", accordionContentClassName)}
+            >
+              {item.answer}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    );
+  };
+
+  const renderImage = () => {
+    if (imageSlot) return imageSlot;
+
+    return (
       <Img
         src={imageSrc}
         alt={imageAlt}
-        className="hidden h-screen w-1/2 object-cover lg:block"
+        className={cn(
+          "hidden h-screen w-1/2 object-cover lg:block",
+          imageClassName
+        )}
         optixFlowConfig={optixFlowConfig}
       />
-    </section>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("dark flex", className)}
+    >
+      <div className={cn("flex", contentWrapperClassName)}>
+        <div
+          className={cn(
+            "flex w-full items-center justify-center bg-background lg:w-1/2",
+            leftColumnClassName
+          )}
+        >
+          <div className="container my-10 flex w-full max-w-[600px] flex-col gap-8 px-6 lg:px-10">
+            <div className={cn("space-y-4", headerClassName)}>
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-3xl font-bold text-foreground lg:text-4xl",
+                      headingClassName
+                    )}
+                  >
+                    {heading}
+                  </h2>
+                ) : (
+                  <div className={headingClassName}>{heading}</div>
+                )
+              )}
+              {subheading && (
+                typeof subheading === "string" ? (
+                  <p className={cn("text-lg text-muted-foreground", subheadingClassName)}>
+                    {subheading}
+                  </p>
+                ) : (
+                  <div className={subheadingClassName}>{subheading}</div>
+                )
+              )}
+            </div>
+            {renderItems()}
+          </div>
+        </div>
+        {renderImage()}
+      </div>
+    </Section>
   );
 }

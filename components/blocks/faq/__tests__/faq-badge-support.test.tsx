@@ -74,8 +74,7 @@ describe("FaqBadgeSupport", () => {
     render(
       <FaqBadgeSupport
         supportText="Need Help?"
-        supportLinkText="Get Support"
-        supportLinkUrl="/support"
+        supportAction={{ label: "Get Support", href: "/support" }}
       />
     );
 

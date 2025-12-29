@@ -58,8 +58,7 @@ describe("FaqSplitHelp", () => {
       <FaqSplitHelp
         helpHeading="Need Assistance?"
         helpDescription="Our team is ready to help"
-        helpButtonText="Get Help"
-        helpButtonUrl="/help"
+        helpAction={{ label: "Get Help", href: "/help" }}
       />
     );
 
