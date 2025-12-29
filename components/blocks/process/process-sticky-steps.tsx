@@ -4,25 +4,125 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-export interface ProcessStickyStepsProps {
+/**
+ * Step item configuration for ProcessStickySteps
+ */
+export interface ProcessStickyStepItem {
+  /**
+   * Step number or label (e.g., "01", "Step 1")
+   */
+  step?: React.ReactNode;
+  /**
+   * Step title
+   */
+  title?: React.ReactNode;
+  /**
+   * Step description
+   */
+  description?: React.ReactNode;
+  /**
+   * Additional CSS classes for the step item
+   */
   className?: string;
-  title?: string;
-  description?: string;
-  ctaText?: string;
-  ctaUrl?: string;
-  steps?: Array<{
-    step: string;
-    title: string;
-    description: string;
-  }>;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
 }
 
-const defaultSteps = [
+export interface ProcessStickyStepsProps {
+  /**
+   * Main heading content
+   */
+  heading?: React.ReactNode;
+  /**
+   * Description text below heading
+   */
+  description?: React.ReactNode;
+  /**
+   * Array of action configurations for CTA buttons
+   */
+  actions?: ActionConfig[];
+  /**
+   * Custom slot for rendering actions (overrides actions array)
+   */
+  actionsSlot?: React.ReactNode;
+  /**
+   * Array of step configurations
+   */
+  steps?: ProcessStickyStepItem[];
+  /**
+   * Custom slot for rendering steps (overrides steps array)
+   */
+  stepsSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the section
+   */
+  className?: string;
+  /**
+   * Additional CSS classes for the content wrapper
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the heading
+   */
+  headingClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Additional CSS classes for the steps list
+   */
+  stepsClassName?: string;
+  /**
+   * Additional CSS classes for each step item
+   */
+  stepItemClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
+  optixFlowConfig?: OptixFlowConfig;
+  /**
+   * @deprecated Use `heading` instead
+   */
+  title?: string;
+  /**
+   * @deprecated Use `actions` instead
+   */
+  ctaText?: string;
+  /**
+   * @deprecated Use `actions` instead
+   */
+  ctaUrl?: string;
+}
+
+const defaultSteps: ProcessStickyStepItem[] = [
   {
     step: "01",
     title: "Discover & Research",
@@ -49,14 +149,14 @@ const defaultSteps = [
   },
 ];
 
-const defaultProps: Partial<ProcessStickyStepsProps> = {
-  title: "Our Process",
-  description:
-    "We follow a proven methodology to deliver exceptional results for every project we undertake.",
-  ctaText: "Get in touch",
-  ctaUrl: "#contact",
-  steps: defaultSteps,
-};
+const defaultActions: ActionConfig[] = [
+  {
+    label: "Get in touch",
+    href: "#contact",
+    variant: "ghost",
+    icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" />,
+  },
+];
 
 const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
   return (
@@ -88,67 +188,147 @@ const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
+/**
+ * ProcessStickySteps - A process section with sticky sidebar containing heading,
+ * description, and CTA, with scrollable steps on the right side.
+ */
 export function ProcessStickySteps({
+  heading = "Our Process",
+  description = "We follow a proven methodology to deliver exceptional results for every project we undertake.",
+  actions,
+  actionsSlot,
+  steps = defaultSteps,
+  stepsSlot,
   className,
-  title = defaultProps.title,
-  description = defaultProps.description,
-  ctaText = defaultProps.ctaText,
-  ctaUrl = defaultProps.ctaUrl,
-  steps = defaultProps.steps,
-}: ProcessStickyStepsProps) {
-  return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-6 lg:gap-20">
-          <div className="top-10 col-span-2 h-fit w-fit gap-3 space-y-7 py-8 lg:sticky">
-            <div className="relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl">
-              <h1 className="w-fit">{title}</h1>
-              <DynamicIcon
-                name="lucide/asterisk"
-                size={40}
-                className="absolute -top-2 -right-2 text-primary md:size-10 lg:-right-14"
-              />
-            </div>
-            <p className="text-base text-foreground/50">{description}</p>
+  contentClassName,
+  headingClassName,
+  descriptionClassName,
+  actionsClassName,
+  stepsClassName,
+  stepItemClassName,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
+  // Backwards compatibility
+  title,
+  ctaText,
+  ctaUrl,
+}: ProcessStickyStepsProps): React.JSX.Element {
+  // Handle backwards compatibility
+  const resolvedHeading = title ?? heading;
+  const resolvedActions: ActionConfig[] = actions ?? (ctaText && ctaUrl ? [{ label: ctaText, href: ctaUrl, variant: "ghost" as const, icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" /> }] : defaultActions);
 
-            {ctaText && ctaUrl && (
-              <Pressable
-                href={ctaUrl}
-                variant="ghost"
-                asButton
-                className="flex items-center justify-start gap-2"
-              >
-                <DynamicIcon
-                  name="lucide/corner-down-right"
-                  size={20}
-                  className="text-primary"
-                />
-                {ctaText}
-              </Pressable>
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!resolvedActions || resolvedActions.length === 0) return null;
+
+    return (
+      <div className={cn("flex flex-col gap-2", actionsClassName)}>
+        {resolvedActions.map((action, index) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn("flex items-center justify-start gap-2", actionClassName)}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderSteps = () => {
+    if (stepsSlot) return stepsSlot;
+    if (!steps || steps.length === 0) return null;
+
+    return (
+      <ul className={cn("relative col-span-4 w-full lg:pl-22", stepsClassName)}>
+        {steps.map((step, index) => (
+          <li
+            key={index}
+            className={cn(
+              "relative flex flex-col justify-between gap-10 border-t py-8 md:flex-row lg:py-10",
+              stepItemClassName,
+              step.className
             )}
-          </div>
-          <ul className="relative col-span-4 w-full lg:pl-22">
-            {steps?.map((step, index) => (
-              <li
-                key={index}
-                className="relative flex flex-col justify-between gap-10 border-t py-8 md:flex-row lg:py-10"
-              >
-                <CornerIllustration className="absolute top-4 right-0 text-primary" />
+          >
+            <CornerIllustration className="absolute top-4 right-0 text-primary" />
 
-                <div className="flex size-12 items-center justify-center bg-muted px-4 py-1 tracking-tighter">
-                  0{index + 1}
-                </div>
-                <div className="">
+            <div className="flex size-12 items-center justify-center bg-muted px-4 py-1 tracking-tighter">
+              {step.step ?? `0${index + 1}`}
+            </div>
+            <div>
+              {step.title && (
+                typeof step.title === "string" ? (
                   <h3 className="mb-4 text-2xl font-semibold tracking-tighter lg:text-3xl">
                     {step.title}
                   </h3>
+                ) : (
+                  <div className="mb-4">{step.title}</div>
+                )
+              )}
+              {step.description && (
+                typeof step.description === "string" ? (
                   <p className="text-foreground/50">{step.description}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+                ) : (
+                  <div className="text-foreground/50">{step.description}</div>
+                )
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={className}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("grid grid-cols-1 gap-5 lg:grid-cols-6 lg:gap-20", contentClassName)}>
+        <div className="top-10 col-span-2 h-fit w-fit gap-3 space-y-7 py-8 lg:sticky">
+          <div className="relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl">
+            {resolvedHeading && (
+              typeof resolvedHeading === "string" ? (
+                <h1 className={cn("w-fit", headingClassName)}>{resolvedHeading}</h1>
+              ) : (
+                <div className={headingClassName}>{resolvedHeading}</div>
+              )
+            )}
+            <DynamicIcon
+              name="lucide/asterisk"
+              size={40}
+              className="absolute -top-2 -right-2 text-primary md:size-10 lg:-right-14"
+            />
+          </div>
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-base text-foreground/50", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
+          {renderActions()}
         </div>
+        {renderSteps()}
       </div>
-    </section>
+    </Section>
   );
 }
