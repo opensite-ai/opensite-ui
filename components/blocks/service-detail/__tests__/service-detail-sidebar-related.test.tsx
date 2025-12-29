@@ -60,10 +60,10 @@ describe("ServiceDetailSidebarRelated", () => {
       <ServiceDetailSidebarRelated
         relatedServices={[
           {
-            icon: "lucide/code",
+            iconName: "lucide/code",
             title: "Web Development",
             description: "Custom websites",
-            link: "/services/web",
+            href: "/services/web",
           },
         ]}
       />

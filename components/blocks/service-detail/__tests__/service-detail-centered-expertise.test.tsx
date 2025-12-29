@@ -102,7 +102,7 @@ describe("ServiceDetailCenteredExpertise", () => {
             image: "/image.jpg",
             title: "Web Development",
             description: "Custom websites",
-            link: "/services/web",
+            href: "/services/web",
           },
         ]}
       />
