@@ -24,48 +24,83 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import type { ImageItem, LogoItem, OptixFlowConfig } from "../../../src/types";
 
 export interface OfferModalSheetNewsletterProps {
   /**
    * Logo configuration
    */
-  logo?: {
-    src: string;
-    alt: string;
-  };
+  logo?: LogoItem;
   /**
-   * Main title text for the offer
+   * Custom slot for rendering the logo (overrides logo prop)
    */
-  title?: string;
+  logoSlot?: React.ReactNode;
   /**
-   * Description text below the title
+   * Main title content for the offer
    */
-  description?: string;
+  title?: React.ReactNode;
+  /**
+   * Description content below the title
+   */
+  description?: React.ReactNode;
   /**
    * Image configuration for the bottom section
    */
-  image?: {
-    src: string;
-    alt: string;
-  };
+  image?: ImageItem;
+  /**
+   * Custom slot for rendering the image (overrides image prop)
+   */
+  imageSlot?: React.ReactNode;
   /**
    * Placeholder text for the email input
    */
   emailPlaceholder?: string;
   /**
-   * Text for the submit button
+   * Text/content for the submit button
    */
-  buttonText?: string;
+  buttonText?: React.ReactNode;
   /**
    * Terms of use link URL
    */
   termsUrl?: string;
   /**
+   * Terms of use link text
+   */
+  termsText?: React.ReactNode;
+  /**
    * Privacy policy link URL
    */
   privacyUrl?: string;
   /**
-   * Whether the sheet is open by default
+   * Privacy policy link text
+   */
+  privacyText?: React.ReactNode;
+  /**
+   * Custom slot for the legal text area (overrides terms/privacy links)
+   */
+  legalSlot?: React.ReactNode;
+  /**
+   * Custom slot for the close button (overrides default close button)
+   */
+  closeButtonSlot?: React.ReactNode;
+  /**
+   * Custom slot for the form (overrides default form)
+   */
+  formSlot?: React.ReactNode;
+  /**
+   * Custom slot for the header area (overrides logo, title, description)
+   */
+  headerSlot?: React.ReactNode;
+  /**
+   * Whether the sheet is open (controlled mode)
+   */
+  open?: boolean;
+  /**
+   * Callback when the sheet open state changes
+   */
+  onOpenChange?: (open: boolean) => void;
+  /**
+   * Whether the sheet is open by default (uncontrolled mode)
    */
   defaultOpen?: boolean;
   /**
@@ -123,35 +158,67 @@ export interface OfferModalSheetNewsletterProps {
    */
   onError?: (error: Error) => void;
   /**
-   * Additional CSS classes for the sheet content
+   * Additional CSS classes for the sheet content wrapper
    */
   className?: string;
   /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the email input
+   */
+  inputClassName?: string;
+  /**
+   * Additional CSS classes for the submit button
+   */
+  submitClassName?: string;
+  /**
+   * Additional CSS classes for the legal text
+   */
+  legalClassName?: string;
+  /**
+   * Additional CSS classes for the image wrapper
+   */
+  imageWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the image element
+   */
+  imageClassName?: string;
+  /**
    * Optional configuration for OptixFlow image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProps: Partial<OfferModalSheetNewsletterProps> = {
-  logo: {
-    src: logoPlaceholders.logoMark,
-    alt: "Opensite AI",
-  },
-  title: "Join Now & Enjoy 20% Off",
-  description:
-    "Join our mailing list for updates and offers. You can unsubscribe at any time.",
-  image: {
-    src: imagePlaceholders[1],
-    alt: "Newsletter promotional image",
-  },
-  emailPlaceholder: "Email Address",
-  buttonText: "Join",
-  termsUrl: "#",
-  privacyUrl: "#",
-  defaultOpen: true,
+const defaultLogo: LogoItem = {
+  src: logoPlaceholders.logoMark,
+  alt: "Opensite AI",
+};
+
+const defaultImage: ImageItem = {
+  src: imagePlaceholders[1],
+  alt: "Newsletter promotional image",
 };
 
 /**
@@ -175,20 +242,41 @@ const defaultProps: Partial<OfferModalSheetNewsletterProps> = {
  * ```
  */
 export function OfferModalSheetNewsletter({
-  logo = defaultProps.logo,
-  title = defaultProps.title,
-  description = defaultProps.description,
-  image = defaultProps.image,
-  emailPlaceholder = defaultProps.emailPlaceholder,
-  buttonText = defaultProps.buttonText,
-  termsUrl = defaultProps.termsUrl,
-  privacyUrl = defaultProps.privacyUrl,
-  defaultOpen = defaultProps.defaultOpen,
+  logo = defaultLogo,
+  logoSlot,
+  title = "Join Now & Enjoy 20% Off",
+  description = "Join our mailing list for updates and offers. You can unsubscribe at any time.",
+  image = defaultImage,
+  imageSlot,
+  emailPlaceholder = "Email Address",
+  buttonText = "Join",
+  termsUrl = "#",
+  termsText = "Terms of Use",
+  privacyUrl = "#",
+  privacyText = "Privacy Policy",
+  legalSlot,
+  closeButtonSlot,
+  formSlot,
+  headerSlot,
+  open,
+  onOpenChange,
+  defaultOpen = true,
   onSubmit,
   formConfig,
   onSuccess,
   onError,
   className,
+  contentClassName,
+  headerClassName,
+  logoClassName,
+  titleClassName,
+  descriptionClassName,
+  formClassName,
+  inputClassName,
+  submitClassName,
+  legalClassName,
+  imageWrapperClassName,
+  imageClassName,
   optixFlowConfig,
 }: OfferModalSheetNewsletterProps): React.JSX.Element {
   const form = useForm<{ email: string }>({
@@ -244,101 +332,150 @@ export function OfferModalSheetNewsletter({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
+  const sheetProps = open !== undefined
+    ? { open, onOpenChange }
+    : { defaultOpen };
+
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
+
+    return (
+      <Img
+        src={logoSrc}
+        alt={logo.alt}
+        className={cn("size-11 lg:size-16 dark:invert", logoClassName)}
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  };
+
+  const renderHeader = () => {
+    if (headerSlot) return headerSlot;
+
+    return (
+      <SheetHeader className={cn("gap-8 p-0", headerClassName)}>
+        {renderLogo()}
+        <div className="space-y-4">
+          {title && (
+            <SheetTitle className={cn("text-2xl font-medium leading-tight md:text-3xl lg:text-4xl", titleClassName)}>
+              {title}
+            </SheetTitle>
+          )}
+          {description && (
+            <SheetDescription className={cn("text-xl leading-tight", descriptionClassName)}>
+              {description}
+            </SheetDescription>
+          )}
+        </div>
+      </SheetHeader>
+    );
+  };
+
+  const renderForm = () => {
+    if (formSlot) return formSlot;
+
+    return (
+      <Form
+        form={form}
+        action={formConfig?.endpoint}
+        method={formMethod}
+        className={formClassName}
+      >
+        <div className="flex items-start gap-3 max-sm:flex-col">
+          <Field
+            name="email"
+            className="w-full flex-1"
+          >
+            {({ field, meta }) => (
+              <div className="w-full">
+                <TextInput
+                  {...field}
+                  type="email"
+                  className={cn("h-10 w-full rounded-full px-6", inputClassName)}
+                  placeholder={emailPlaceholder}
+                  error={(meta.touched || form.status === 'error') && !!meta.error}
+                  aria-label={emailPlaceholder || "Email address"}
+                />
+                {(meta.touched || form.status === 'error') && meta.error && (
+                  <div className="text-destructive mt-1 text-xs">
+                    {meta.error}
+                  </div>
+                )}
+              </div>
+            )}
+          </Field>
+          <Pressable
+            size="lg"
+            variant="default"
+            className={cn("sm:basis-30 rounded-full max-sm:w-full", submitClassName)}
+            asButton
+            componentType="button"
+            type="submit"
+            disabled={form.isSubmitting}
+          >
+            {buttonText}
+          </Pressable>
+        </div>
+      </Form>
+    );
+  };
+
+  const renderLegal = () => {
+    if (legalSlot) return legalSlot;
+
+    return (
+      <p className={cn("text-muted-foreground text-xs", legalClassName)}>
+        By signing up, you consent to our{" "}
+        <Pressable href={termsUrl} className="underline-offset-3 underline">
+          {termsText}
+        </Pressable>{" "}
+        and{" "}
+        <Pressable href={privacyUrl} className="underline-offset-3 underline">
+          {privacyText}
+        </Pressable>
+        .
+      </p>
+    );
+  };
+
+  const renderImage = () => {
+    if (imageSlot) return imageSlot;
+    if (!image) return null;
+
+    return (
+      <div className={cn("h-1/2 basis-1/2", imageWrapperClassName)}>
+        <AspectRatio ratio={1} className="overflow-hidden">
+          <Img
+            src={image.src}
+            alt={image.alt}
+            className={cn("block size-full object-cover object-center", imageClassName)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        </AspectRatio>
+      </div>
+    );
+  };
+
   return (
-    <Sheet defaultOpen={defaultOpen}>
+    <Sheet {...sheetProps}>
       <SheetContent
         className={cn(
           "md:max-w-[600px] w-full max-md:max-w-[calc(100dvw-2.5rem)]! [&>button:hover>svg]:rotate-180 [&>button>svg]:size-5 [&>button>svg]:transition-all",
           className
         )}
       >
-        <div className="max-h-full overflow-y-auto">
+        <div className={cn("max-h-full overflow-y-auto", contentClassName)}>
           <div className="space-y-4 p-6 md:p-16">
             <div className="basis-1/2 space-y-8">
-              <SheetHeader className="gap-8 p-0">
-                {logo && (
-                  <Img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="size-11 lg:size-16 dark:invert"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                )}
-                <div className="space-y-4">
-                  <SheetTitle className="text-2xl font-medium leading-tight md:text-3xl lg:text-4xl">
-                    {title}
-                  </SheetTitle>
-                  <SheetDescription className="text-xl leading-tight">
-                    {description}
-                  </SheetDescription>
-                </div>
-              </SheetHeader>
-              <Form
-                form={form}
-                action={formConfig?.endpoint}
-                method={formMethod}
-              >
-                <div className="flex items-start gap-3 max-sm:flex-col">
-                  <Field
-                    name="email"
-                    className="w-full flex-1"
-                  >
-                    {({ field, meta }) => (
-                      <div className="w-full">
-                        <TextInput
-                          {...field}
-                          type="email"
-                          className="h-10 w-full rounded-full px-6"
-                          placeholder={emailPlaceholder}
-                          error={(meta.touched || form.status === 'error') && !!meta.error}
-                          aria-label={emailPlaceholder || "Email address"}
-                        />
-                        {(meta.touched || form.status === 'error') && meta.error && (
-                          <div className="text-destructive mt-1 text-xs">
-                            {meta.error}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </Field>
-                  <Pressable
-                    size="lg"
-                    variant="default"
-                    className="sm:basis-30 rounded-full max-sm:w-full"
-                    asButton
-                    componentType="button"
-                    type="submit"
-                    disabled={form.isSubmitting}
-                  >
-                    {buttonText}
-                  </Pressable>
-                </div>
-              </Form>
+              {renderHeader()}
+              {renderForm()}
             </div>
-            <p className="text-muted-foreground text-xs">
-              By signing up, you consent to our{" "}
-              <Pressable href={termsUrl} className="underline-offset-3 underline">
-                Terms of Use
-              </Pressable>{" "}
-              and{" "}
-              <Pressable href={privacyUrl} className="underline-offset-3 underline">
-                Privacy Policy
-              </Pressable>
-              .
-            </p>
+            {renderLegal()}
           </div>
-          {image && (
-            <div className="h-1/2 basis-1/2">
-              <AspectRatio ratio={1} className="overflow-hidden">
-                <Img
-                  src={image.src}
-                  alt={image.alt}
-                  className="block size-full object-cover object-center"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </AspectRatio>
-            </div>
-          )}
+          {renderImage()}
         </div>
       </SheetContent>
     </Sheet>
