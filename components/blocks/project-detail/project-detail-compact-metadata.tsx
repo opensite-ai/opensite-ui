@@ -4,38 +4,68 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
+import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-
-export interface ProjectDetailCompactMetadataItem {
-  label: string;
-  value: string;
-}
+import type {
+  ActionConfig,
+  DetailItem,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ProjectDetailCompactMetadataProps {
-  className?: string;
-  title?: string;
-  subtitle?: string;
+  /** Main title */
+  title?: React.ReactNode;
+  /** Subtitle text */
+  subtitle?: React.ReactNode;
+  /** Hero image configuration */
   heroImage?: {
     src?: string;
     alt?: string;
   };
-  description?: string;
-  metadata?: ProjectDetailCompactMetadataItem[];
-  galleryImages?: Array<{
-    src?: string;
-    alt: string;
-  }>;
-  backHref?: string;
-  backLabel?: string;
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  /** Description text */
+  description?: React.ReactNode;
+  /** Metadata items */
+  metadata?: DetailItem[];
+  /** Gallery images */
+  galleryImages?: ImageItem[];
+  /** Back navigation action */
+  backAction?: ActionConfig;
+  /** Custom slot for back action (overrides backAction) */
+  backActionSlot?: React.ReactNode;
+  /** OptixFlow image optimization configuration */
+  optixFlowConfig?: OptixFlowConfig;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Background pattern */
+  pattern?: string;
+  /** Pattern opacity */
+  patternOpacity?: number;
+  /** Additional CSS classes for the section */
+  className?: string;
+  /** Additional CSS classes for the container */
+  containerClassName?: string;
+  /** Additional CSS classes for the header */
+  headerClassName?: string;
+  /** Additional CSS classes for the title */
+  titleClassName?: string;
+  /** Additional CSS classes for the hero image */
+  heroImageClassName?: string;
+  /** Additional CSS classes for the description */
+  descriptionClassName?: string;
+  /** Additional CSS classes for the metadata section */
+  metadataClassName?: string;
+  /** Additional CSS classes for the gallery section */
+  galleryClassName?: string;
 }
 
-const defaultMetadata: ProjectDetailCompactMetadataItem[] = [
+const defaultMetadata: DetailItem[] = [
   { label: "Year", value: "2024" },
   { label: "Category", value: "Sculpture" },
   { label: "Artist", value: "Elena Vasquez" },
@@ -44,7 +74,7 @@ const defaultMetadata: ProjectDetailCompactMetadataItem[] = [
   { label: "Location", value: "Metropolitan Gallery" },
 ];
 
-const defaultGalleryImages = [
+const defaultGalleryImages: ImageItem[] = [
   { src: imagePlaceholders[22], alt: "Gallery image 1" },
   { src: imagePlaceholders[23], alt: "Gallery image 2" },
   { src: imagePlaceholders[24], alt: "Gallery image 3" },
@@ -61,8 +91,7 @@ const defaultProps: ProjectDetailCompactMetadataProps = {
     "This sculptural work explores the intersection of organic forms and geometric precision. Inspired by natural growth patterns and the mathematical principles underlying biological structures.",
   metadata: defaultMetadata,
   galleryImages: defaultGalleryImages,
-  backHref: "/projects",
-  backLabel: "Back",
+  backAction: { label: "Back", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
 };
 
 const fadeInUp = {

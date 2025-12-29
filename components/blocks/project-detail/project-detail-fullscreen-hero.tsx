@@ -103,7 +103,6 @@ export function ProjectDetailFullscreenHero(
   props: ProjectDetailFullscreenHeroProps
 ): React.JSX.Element {
   const {
-    className,
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,
     year = defaultProps.year,
@@ -111,38 +110,64 @@ export function ProjectDetailFullscreenHero(
     client = defaultProps.client,
     heroImage = defaultProps.heroImage,
     sections = defaultProps.sections,
-    backHref = defaultProps.backHref,
-    backLabel = defaultProps.backLabel,
+    backAction = defaultProps.backAction,
+    backActionSlot,
     optixFlowConfig,
+    background = "white",
+    spacing = "lg",
+    pattern,
+    patternOpacity,
+    className,
+    heroClassName,
+    heroImageClassName,
+    titleClassName,
+    subtitleClassName,
+    contentClassName,
+    sectionsClassName,
   } = props;
 
+  const renderBackAction = () => {
+    if (backActionSlot) return backActionSlot;
+    if (!backAction) return null;
+
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    return (
+      <Pressable
+        className={cn("inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground", actionClassName)}
+        {...pressableProps}
+      >
+        {children ?? (
+          <>
+            {icon}
+            {label}
+            {iconAfter}
+          </>
+        )}
+      </Pressable>
+    );
+  };
+
   return (
-    <article className={cn(className)}>
-      <section className="relative min-h-screen">
+    <article className={className}>
+      <section className={cn("relative min-h-screen", heroClassName)}>
         <div className="absolute inset-0">
           <Img
             src={heroImage?.src || imagePlaceholders[9]}
             alt={heroImage?.alt || "Project hero image"}
-            className="h-full w-full object-cover"
+            className={cn("h-full w-full object-cover", heroImageClassName)}
             optixFlowConfig={optixFlowConfig}
           />
           <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent" />
         </div>
 
         <div className="container relative z-10 flex min-h-screen flex-col justify-between py-8">
-          {backHref && (
+          {(backActionSlot || backAction) && (
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Pressable
-                href={backHref}
-                className="inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-              >
-                <DynamicIcon name="lucide/arrow-left" size={16} />
-                {backLabel}
-              </Pressable>
+              {renderBackAction()}
             </motion.div>
           )}
 
@@ -161,38 +186,61 @@ export function ProjectDetailFullscreenHero(
               <span>{client}</span>
             </div>
 
-            <h1 className="text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              {title}
-            </h1>
-            <p className="mt-4 max-w-xl text-xl text-foreground/80">
-              {subtitle}
-            </p>
+            {typeof title === "string" ? (
+              <h1 className={cn("text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", titleClassName)}>
+                {title}
+              </h1>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            )}
+            {subtitle && (
+              typeof subtitle === "string" ? (
+                <p className={cn("mt-4 max-w-xl text-xl text-foreground/80", subtitleClassName)}>
+                  {subtitle}
+                </p>
+              ) : (
+                <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
+              )
+            )}
           </motion.div>
         </div>
       </section>
 
-      <section className="py-24 md:py-32">
-        <div className="container max-w-4xl">
-          <div className="space-y-20">
-            {sections?.map((section, index) => (
-              <motion.div
-                key={section.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
+      <Section
+        background={background}
+        spacing={spacing}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+        className={contentClassName}
+      >
+        <div className={cn("max-w-4xl mx-auto space-y-20", sectionsClassName)}>
+          {sections?.map((section, index) => (
+            <motion.div
+              key={section.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className={section.className}
+            >
+              {typeof section.title === "string" ? (
                 <h2 className="mb-6 text-2xl font-semibold text-foreground">
                   {section.title}
                 </h2>
+              ) : (
+                section.title
+              )}
+              {typeof section.content === "string" ? (
                 <p className="text-lg leading-relaxed text-muted-foreground">
                   {section.content}
                 </p>
-              </motion.div>
-            ))}
-          </div>
+              ) : (
+                section.content
+              )}
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </Section>
     </article>
   );
 }
