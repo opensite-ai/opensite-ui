@@ -22,27 +22,29 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import type { ImageItem, OptixFlowConfig } from "../../../src/types";
 
 export interface OfferModalMembershipImageProps {
   /**
-   * Overline text displayed above the title
+   * Overline/eyebrow content displayed above the title
    */
-  overline?: string;
+  overline?: React.ReactNode;
   /**
-   * Main title text for the offer
+   * Main title content for the offer
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
-   * Description text displayed below the form
+   * Description content displayed below the form
    */
-  description?: string;
+  description?: React.ReactNode;
   /**
    * Image configuration for the header
    */
-  image?: {
-    src: string;
-    alt: string;
-  };
+  image?: ImageItem;
+  /**
+   * Custom slot for rendering the image (overrides image prop)
+   */
+  imageSlot?: React.ReactNode;
   /**
    * Placeholder text for the email input
    */
@@ -50,9 +52,29 @@ export interface OfferModalMembershipImageProps {
   /**
    * Text for the submit button
    */
-  buttonText?: string;
+  buttonText?: React.ReactNode;
   /**
-   * Whether the dialog is open by default
+   * Custom slot for the close button (overrides default close button)
+   */
+  closeButtonSlot?: React.ReactNode;
+  /**
+   * Custom slot for the form (overrides default form)
+   */
+  formSlot?: React.ReactNode;
+  /**
+   * Custom slot for the footer/description area (overrides description)
+   */
+  footerSlot?: React.ReactNode;
+  /**
+   * Whether the dialog is open (controlled mode)
+   */
+  open?: boolean;
+  /**
+   * Callback when the dialog open state changes
+   */
+  onOpenChange?: (open: boolean) => void;
+  /**
+   * Whether the dialog is open by default (uncontrolled mode)
    */
   defaultOpen?: boolean;
   /**
@@ -110,30 +132,62 @@ export interface OfferModalMembershipImageProps {
    */
   onError?: (error: Error) => void;
   /**
-   * Additional CSS classes for the dialog content
+   * Additional CSS classes for the dialog content wrapper
    */
   className?: string;
   /**
+   * Additional CSS classes for the image wrapper
+   */
+  imageWrapperClassName?: string;
+  /**
+   * Additional CSS classes for the image element
+   */
+  imageClassName?: string;
+  /**
+   * Additional CSS classes for the content area (below image)
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the overline text
+   */
+  overlineClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the description
+   */
+  descriptionClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the email input
+   */
+  inputClassName?: string;
+  /**
+   * Additional CSS classes for the submit button
+   */
+  submitClassName?: string;
+  /**
+   * Additional CSS classes for the close button
+   */
+  closeClassName?: string;
+  /**
+   * Additional CSS classes for the footer
+   */
+  footerClassName?: string;
+  /**
    * Optional configuration for OptixFlow image optimization
    */
-  optixFlowConfig?: {
-    apiKey: string;
-    compression?: number;
-  };
+  optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProps: Partial<OfferModalMembershipImageProps> = {
-  overline: "Treat Yourself!",
-  title: "Become a Member & Enjoy 20% Off",
-  description:
-    "Sign up to receive our latest updates — you can unsubscribe whenever you like.",
-  image: {
-    src: imagePlaceholders[0],
-    alt: "Promotional offer image",
-  },
-  emailPlaceholder: "Email Address",
-  buttonText: "Get Offer",
-  defaultOpen: true,
+const defaultImage: ImageItem = {
+  src: imagePlaceholders[0],
+  alt: "Promotional offer image",
 };
 
 /**
@@ -154,18 +208,35 @@ const defaultProps: Partial<OfferModalMembershipImageProps> = {
  * ```
  */
 export function OfferModalMembershipImage({
-  overline = defaultProps.overline,
-  title = defaultProps.title,
-  description = defaultProps.description,
-  image = defaultProps.image,
-  emailPlaceholder = defaultProps.emailPlaceholder,
-  buttonText = defaultProps.buttonText,
-  defaultOpen = defaultProps.defaultOpen,
+  overline = "Treat Yourself!",
+  title = "Become a Member & Enjoy 20% Off",
+  description = "Sign up to receive our latest updates — you can unsubscribe whenever you like.",
+  image = defaultImage,
+  imageSlot,
+  emailPlaceholder = "Email Address",
+  buttonText = "Get Offer",
+  closeButtonSlot,
+  formSlot,
+  footerSlot,
+  open,
+  onOpenChange,
+  defaultOpen = true,
   onSubmit,
   formConfig,
   onSuccess,
   onError,
   className,
+  imageWrapperClassName,
+  imageClassName,
+  contentClassName,
+  overlineClassName,
+  titleClassName,
+  descriptionClassName,
+  formClassName,
+  inputClassName,
+  submitClassName,
+  closeClassName,
+  footerClassName,
   optixFlowConfig,
 }: OfferModalMembershipImageProps): React.JSX.Element {
   const form = useForm<{ email: string }>({
@@ -184,9 +255,7 @@ export function OfferModalMembershipImage({
     onSubmit: async (values, helpers) => {
       const shouldAutoSubmit = Boolean(formConfig?.endpoint);
 
-      // Allow form submission even without handlers to enable validation
       if (!shouldAutoSubmit && !onSubmit) {
-        // Validation has already run, just return without doing anything
         return;
       }
 
@@ -223,8 +292,125 @@ export function OfferModalMembershipImage({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
+  const dialogProps = open !== undefined
+    ? { open, onOpenChange }
+    : { defaultOpen };
+
+  const renderImage = () => {
+    if (imageSlot) return imageSlot;
+    if (!image) return null;
+
+    return (
+      <div className={cn("max-h-[290px] h-full overflow-hidden max-lg:hidden", imageWrapperClassName)}>
+        <Img
+          src={image.src}
+          alt={image.alt}
+          className={cn("block size-full object-cover object-[50%_15%]", imageClassName)}
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
+    );
+  };
+
+  const renderCloseButton = () => {
+    if (closeButtonSlot) return closeButtonSlot;
+
+    return (
+      <div className="absolute -end-px -top-px z-10">
+        <DialogClose asChild>
+          <Pressable
+            size="icon-sm"
+            variant="default"
+            className={cn(
+              "origin-top-right rounded-none transition-all duration-300 lg:scale-50 lg:opacity-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 [@media(hover:none)]:scale-100 [@media(hover:none)]:opacity-100",
+              closeClassName
+            )}
+            asButton
+          >
+            <DynamicIcon name="lucide/x" size={16} />
+          </Pressable>
+        </DialogClose>
+      </div>
+    );
+  };
+
+  const renderForm = () => {
+    if (formSlot) return formSlot;
+
+    return (
+      <Form
+        form={form}
+        action={formConfig?.endpoint}
+        method={formMethod}
+        className={cn("space-y-2.5", formClassName)}
+      >
+        <div className="flex items-center gap-2.5">
+          <Field
+            name="email"
+            className="flex-1"
+          >
+            {({ field, meta }) => (
+              <div className="relative flex-1">
+                <TextInput
+                  {...field}
+                  type="email"
+                  placeholder={emailPlaceholder}
+                  error={(meta.touched || form.status === 'error') && !!meta.error}
+                  className={cn("w-full pr-10", inputClassName)}
+                  aria-label={emailPlaceholder || "Email address"}
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                  <DynamicIcon name="lucide/mail" size={16} />
+                </div>
+                {(meta.touched || form.status === 'error') && meta.error && (
+                  <div className="text-destructive mt-1 text-xs">
+                    {meta.error}
+                  </div>
+                )}
+              </div>
+            )}
+          </Field>
+          <Pressable
+            size="icon"
+            variant="default"
+            className={cn("lg:hidden", submitClassName)}
+            asButton
+            componentType="button"
+            type="submit"
+            disabled={form.isSubmitting}
+          >
+            <DynamicIcon name="lucide/arrow-right" size={16} />
+          </Pressable>
+        </div>
+        <Pressable
+          className={cn("w-full max-lg:hidden", submitClassName)}
+          variant="default"
+          asButton
+          componentType="button"
+          type="submit"
+          disabled={form.isSubmitting}
+        >
+          {buttonText}
+        </Pressable>
+      </Form>
+    );
+  };
+
+  const renderFooter = () => {
+    if (footerSlot) return footerSlot;
+    if (!description) return null;
+
+    return (
+      <DialogFooter className={footerClassName}>
+        <DialogDescription className={cn("text-muted-foreground text-center text-xs leading-relaxed", descriptionClassName)}>
+          {description}
+        </DialogDescription>
+      </DialogFooter>
+    );
+  };
+
   return (
-    <Dialog defaultOpen={defaultOpen}>
+    <Dialog {...dialogProps}>
       <DialogContent
         showCloseButton={false}
         className={cn(
@@ -232,97 +418,27 @@ export function OfferModalMembershipImage({
           className
         )}
       >
-        <div className="absolute -end-px -top-px z-10">
-          <DialogClose asChild>
-            <Pressable
-              size="icon-sm"
-              variant="default"
-              className="origin-top-right rounded-none transition-all duration-300 lg:scale-50 lg:opacity-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 [@media(hover:none)]:scale-100 [@media(hover:none)]:opacity-100"
-              asButton
-            >
-              <DynamicIcon name="lucide/x" size={16} />
-            </Pressable>
-          </DialogClose>
-        </div>
-        {image && (
-          <div className="max-h-[290px] h-full overflow-hidden max-lg:hidden">
-            <Img
-              src={image.src}
-              alt={image.alt}
-              className="block size-full object-cover object-[50%_15%]"
-              optixFlowConfig={optixFlowConfig}
-            />
-          </div>
-        )}
-        <div className="lg:px-15 space-y-5 overflow-y-auto px-9 py-5 lg:py-7">
+        {renderCloseButton()}
+        {renderImage()}
+        <div className={cn("lg:px-15 space-y-5 overflow-y-auto px-9 py-5 lg:py-7", contentClassName)}>
           <div className="space-y-2.5">
-            <p className="text-center text-sm font-bold uppercase leading-none">
-              {overline}
-            </p>
-            <DialogTitle className="text-center text-3xl font-bold">
-              {title}
-            </DialogTitle>
+            {overline && (
+              typeof overline === "string" ? (
+                <p className={cn("text-center text-sm font-bold uppercase leading-none", overlineClassName)}>
+                  {overline}
+                </p>
+              ) : (
+                <div className={overlineClassName}>{overline}</div>
+              )
+            )}
+            {title && (
+              <DialogTitle className={cn("text-center text-3xl font-bold", titleClassName)}>
+                {title}
+              </DialogTitle>
+            )}
           </div>
-          <Form
-            form={form}
-            action={formConfig?.endpoint}
-            method={formMethod}
-            className="space-y-2.5"
-          >
-            <div className="flex items-center gap-2.5">
-              <Field
-                name="email"
-                className="flex-1"
-              >
-                {({ field, meta }) => (
-                  <div className="relative flex-1">
-                    <TextInput
-                      {...field}
-                      type="email"
-                      placeholder={emailPlaceholder}
-                      error={(meta.touched || form.status === 'error') && !!meta.error}
-                      className="w-full pr-10"
-                      aria-label={emailPlaceholder || "Email address"}
-                    />
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                      <DynamicIcon name="lucide/mail" size={16} />
-                    </div>
-                    {(meta.touched || form.status === 'error') && meta.error && (
-                      <div className="text-destructive mt-1 text-xs">
-                        {meta.error}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </Field>
-              <Pressable
-                size="icon"
-                variant="default"
-                className="lg:hidden"
-                asButton
-                componentType="button"
-                type="submit"
-                disabled={form.isSubmitting}
-              >
-                <DynamicIcon name="lucide/arrow-right" size={16} />
-              </Pressable>
-            </div>
-            <Pressable
-              className="w-full max-lg:hidden"
-              variant="default"
-              asButton
-              componentType="button"
-              type="submit"
-              disabled={form.isSubmitting}
-            >
-              {buttonText}
-            </Pressable>
-          </Form>
-          <DialogFooter>
-            <DialogDescription className="text-muted-foreground text-center text-xs leading-relaxed">
-              {description}
-            </DialogDescription>
-          </DialogFooter>
+          {renderForm()}
+          {renderFooter()}
         </div>
       </DialogContent>
     </Dialog>

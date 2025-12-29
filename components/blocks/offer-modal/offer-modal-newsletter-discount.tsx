@@ -21,23 +21,43 @@ import {
 
 export interface OfferModalNewsletterDiscountProps {
   /**
-   * Main title text for the offer
+   * Main title content for the offer
    */
-  title?: string;
+  title?: React.ReactNode;
   /**
    * Placeholder text for the email input
    */
   emailPlaceholder?: string;
   /**
-   * Text for the subscribe button
+   * Text/content for the subscribe button
    */
-  buttonText?: string;
+  buttonText?: React.ReactNode;
   /**
-   * Text for the close button
+   * Text/content for the close button
    */
-  closeButtonText?: string;
+  closeButtonText?: React.ReactNode;
   /**
-   * Whether the dialog is open by default
+   * Custom slot for the close button (overrides default close button)
+   */
+  closeButtonSlot?: React.ReactNode;
+  /**
+   * Custom slot for the form (overrides default form)
+   */
+  formSlot?: React.ReactNode;
+  /**
+   * Custom slot for the header area (overrides title)
+   */
+  headerSlot?: React.ReactNode;
+  /**
+   * Whether the dialog is open (controlled mode)
+   */
+  open?: boolean;
+  /**
+   * Callback when the dialog open state changes
+   */
+  onOpenChange?: (open: boolean) => void;
+  /**
+   * Whether the dialog is open by default (uncontrolled mode)
    */
   defaultOpen?: boolean;
   /**
@@ -99,19 +119,38 @@ export interface OfferModalNewsletterDiscountProps {
    */
   onError?: (error: Error) => void;
   /**
-   * Additional CSS classes for the dialog content
+   * Additional CSS classes for the dialog content wrapper
    */
   className?: string;
+  /**
+   * Additional CSS classes for the content area
+   */
+  contentClassName?: string;
+  /**
+   * Additional CSS classes for the header
+   */
+  headerClassName?: string;
+  /**
+   * Additional CSS classes for the title
+   */
+  titleClassName?: string;
+  /**
+   * Additional CSS classes for the form
+   */
+  formClassName?: string;
+  /**
+   * Additional CSS classes for the email input
+   */
+  inputClassName?: string;
+  /**
+   * Additional CSS classes for the submit button
+   */
+  submitClassName?: string;
+  /**
+   * Additional CSS classes for the close button
+   */
+  closeClassName?: string;
 }
-
-const defaultProps: Partial<OfferModalNewsletterDiscountProps> = {
-  title: "Join our newsletter and enjoy 35% off your first order",
-  emailPlaceholder: "Email",
-  buttonText: "Subscribe",
-  closeButtonText: "Close",
-  defaultOpen: true,
-  closeOnOutsideClick: false,
-};
 
 /**
  * OfferModalNewsletterDiscount - A compact newsletter signup modal positioned at the bottom-right
@@ -129,17 +168,29 @@ const defaultProps: Partial<OfferModalNewsletterDiscountProps> = {
  * ```
  */
 export function OfferModalNewsletterDiscount({
-  title = defaultProps.title,
-  emailPlaceholder = defaultProps.emailPlaceholder,
-  buttonText = defaultProps.buttonText,
-  closeButtonText = defaultProps.closeButtonText,
-  defaultOpen = defaultProps.defaultOpen,
-  closeOnOutsideClick = defaultProps.closeOnOutsideClick,
+  title = "Join our newsletter and enjoy 35% off your first order",
+  emailPlaceholder = "Email",
+  buttonText = "Subscribe",
+  closeButtonText = "Close",
+  closeButtonSlot,
+  formSlot,
+  headerSlot,
+  open,
+  onOpenChange,
+  defaultOpen = true,
+  closeOnOutsideClick = false,
   onSubmit,
   formConfig,
   onSuccess,
   onError,
   className,
+  contentClassName,
+  headerClassName,
+  titleClassName,
+  formClassName,
+  inputClassName,
+  submitClassName,
+  closeClassName,
 }: OfferModalNewsletterDiscountProps): React.JSX.Element {
   const form = useForm<{ email: string }>({
     initialValues: {
@@ -192,8 +243,94 @@ export function OfferModalNewsletterDiscount({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
+  const dialogProps = open !== undefined
+    ? { open, onOpenChange }
+    : { defaultOpen };
+
+  const renderCloseButton = () => {
+    if (closeButtonSlot) return closeButtonSlot;
+
+    return (
+      <div className="absolute end-1.5 top-1.5">
+        <DialogClose asChild>
+          <Pressable
+            variant="ghost"
+            className={cn("text-muted-foreground text-xs uppercase", closeClassName)}
+            size="sm"
+            asButton
+          >
+            {closeButtonText}
+          </Pressable>
+        </DialogClose>
+      </div>
+    );
+  };
+
+  const renderHeader = () => {
+    if (headerSlot) return headerSlot;
+    if (!title) return null;
+
+    return (
+      <DialogHeader className={headerClassName}>
+        {typeof title === "string" ? (
+          <DialogTitle className={cn("text-start font-serif text-2xl font-normal leading-snug", titleClassName)}>
+            {title}
+          </DialogTitle>
+        ) : (
+          <DialogTitle className={cn("text-start font-serif text-2xl font-normal leading-snug", titleClassName)}>
+            {title}
+          </DialogTitle>
+        )}
+      </DialogHeader>
+    );
+  };
+
+  const renderForm = () => {
+    if (formSlot) return formSlot;
+
+    return (
+      <Form
+        form={form}
+        action={formConfig?.endpoint}
+        method={formMethod}
+        className={cn("space-y-2.5", formClassName)}
+      >
+        <Field name="email">
+          {({ field, meta }) => (
+            <div>
+              <TextInput
+                {...field}
+                type="email"
+                placeholder={emailPlaceholder}
+                error={meta.touched && !!meta.error}
+                className={cn("w-full", inputClassName)}
+                aria-label={emailPlaceholder || "Email address"}
+                required
+              />
+              {meta.touched && meta.error && (
+                <div className="text-destructive text-xs mt-1">
+                  {meta.error}
+                </div>
+              )}
+            </div>
+          )}
+        </Field>
+        <Pressable
+          componentType="button"
+          type="submit"
+          className={cn("w-full text-xs uppercase", submitClassName)}
+          variant="default"
+          asButton
+          disabled={form.isSubmitting}
+        >
+          {buttonText}
+        </Pressable>
+      </Form>
+    );
+  };
+
   return (
-    <Dialog defaultOpen={defaultOpen} modal={false}>
+    <Dialog {...dialogProps} modal={false}>
       <DialogContent
         showCloseButton={false}
         onInteractOutside={(event) => {
@@ -206,60 +343,11 @@ export function OfferModalNewsletterDiscount({
           className
         )}
       >
-        <div className="absolute end-1.5 top-1.5">
-          <DialogClose asChild>
-            <Pressable
-              variant="ghost"
-              className="text-muted-foreground text-xs uppercase"
-              size="sm"
-              asButton
-            >
-              {closeButtonText}
-            </Pressable>
-          </DialogClose>
+        <div className={contentClassName}>
+          {renderCloseButton()}
+          {renderHeader()}
+          {renderForm()}
         </div>
-        <DialogHeader>
-          <DialogTitle className="text-start font-serif text-2xl font-normal leading-snug">
-            {title}
-          </DialogTitle>
-        </DialogHeader>
-        <Form
-          form={form}
-          action={formConfig?.endpoint}
-          method={formMethod}
-          className="space-y-2.5"
-        >
-          <Field name="email">
-            {({ field, meta }) => (
-              <div>
-                <TextInput
-                  {...field}
-                  type="email"
-                  placeholder={emailPlaceholder}
-                  error={meta.touched && !!meta.error}
-                  className="w-full"
-                  aria-label={emailPlaceholder || "Email address"}
-                  required
-                />
-                {meta.touched && meta.error && (
-                  <div className="text-destructive text-xs mt-1">
-                    {meta.error}
-                  </div>
-                )}
-              </div>
-            )}
-          </Field>
-          <Pressable
-            componentType="button"
-            type="submit"
-            className="w-full text-xs uppercase"
-            variant="default"
-            asButton
-            disabled={form.isSubmitting}
-          >
-            {buttonText}
-          </Pressable>
-        </Form>
       </DialogContent>
     </Dialog>
   );
