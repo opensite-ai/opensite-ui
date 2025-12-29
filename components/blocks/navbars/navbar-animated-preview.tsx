@@ -5,7 +5,8 @@ import { Fragment, useState, useEffect, useRef, forwardRef } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Accordion,
   AccordionContent,
@@ -29,28 +30,36 @@ import {
   logoPlaceholders,
   imagePlaceholders,
 } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-interface MenuLink {
-  label: string;
-  description?: string;
+export interface MenuLink {
+  label: React.ReactNode;
+  description?: React.ReactNode;
   url: string;
-  icon?: string;
+  icon?: React.ReactNode;
+  iconName?: string;
   image?: string;
   background?: string;
   company?: {
-    name: string;
+    name: React.ReactNode;
     logo: string;
   };
 }
 
-interface MenuGroup {
-  title: string;
+export interface MenuGroup {
+  title: React.ReactNode;
   links: MenuLink[];
 }
 
-interface MenuItem {
+export interface MenuItem {
   id?: number;
-  title: string;
+  title: React.ReactNode;
   url?: string;
   links?: MenuLink[];
   featuredLinks?: MenuLink[];
@@ -59,21 +68,87 @@ interface MenuItem {
 }
 
 /**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
+}
+
+/**
  * Props for the NavbarAnimatedPreview component
  */
 export interface NavbarAnimatedPreviewProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation menu items
+   */
   navigation?: MenuItem[];
-  primaryButton?: {
-    label: string;
-    url: string;
-  };
+  /**
+   * Custom slot for navigation (overrides navigation array)
+   */
+  navigationSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -221,6 +296,10 @@ const defaultNavigation: MenuItem[] = [
 
 const MOBILE_BREAKPOINT = 1280;
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Sign up", href: "#", variant: "ghost" },
+];
+
 /**
  * NavbarAnimatedPreview - A fixed navigation bar with animated image previews and multiple dropdown styles.
  *
@@ -232,19 +311,33 @@ const MOBILE_BREAKPOINT = 1280;
  */
 export const NavbarAnimatedPreview = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   navigation = defaultNavigation,
-  primaryButton = { label: "Sign up", url: "#" },
+  navigationSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarAnimatedPreviewProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleResize = () => {
       if (window.innerWidth > MOBILE_BREAKPOINT) {
         setOpen(false);
@@ -257,87 +350,151 @@ export const NavbarAnimatedPreview = ({
   }, []);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     document.body.style.overflow = open ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [open]);
 
   const handleMobileMenu = () => {
     setOpen(!open);
   };
 
-  return (
-    <Fragment>
-      <section
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable
+        href={logo.url || "/"}
         className={cn(
-          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center bg-background",
-          className
+          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
+          logoClassName
         )}
       >
-        <NavigationMenu className="h-20 max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!">
-          <div className="relative z-999 container grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3">
-            <Pressable
-              href={logo.url}
-              className="flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter"
-            >
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="inline-block size-6"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="hidden md:inline-block">{logo.title}</span>
-            </Pressable>
-            <div className="hidden xl:flex">
-              <NavigationMenuList>
-                {navigation.map((item, index) => (
-                  <DesktopMenuItem
-                    key={`desktop-link-${index}`}
-                    item={item}
-                    index={index}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                ))}
-              </NavigationMenuList>
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn("inline-block size-6", logo.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="hidden md:inline-block">{logo.title}</span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter ?? <DynamicIcon name="lucide/chevron-right" size={16} />}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderNavigation = () => {
+    if (navigationSlot) return navigationSlot;
+    if (!navigation || navigation.length === 0) return null;
+
+    return (
+      <NavigationMenuList>
+        {navigation.map((item, index) => (
+          <DesktopMenuItem
+            key={`desktop-link-${index}`}
+            item={item}
+            index={index}
+            optixFlowConfig={optixFlowConfig}
+          />
+        ))}
+      </NavigationMenuList>
+    );
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(
+        "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center",
+        className
+      )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <NavigationMenu className={cn(
+        "h-20 max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
+        navigationMenuClassName
+      )}>
+        <div className={cn(
+          "relative z-999 container grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
+          containerClassName
+        )}>
+          {renderLogo()}
+          <div className={cn("hidden xl:flex", navClassName)}>
+            {renderNavigation()}
+          </div>
+          <div className={cn("justify-self-end", actionsClassName)}>
+            <div className="hidden xl:block">
+              {renderAuthActions()}
             </div>
-            <div className="justify-self-end">
-              <div className="hidden xl:block">
-                <Pressable variant="ghost" asButton href={primaryButton.url}>
-                  {primaryButton.label}
-                  <DynamicIcon name="lucide/chevron-right" size={16} />
-                </Pressable>
-              </div>
-              <div className="xl:hidden">
-                <Pressable
-                  className="size-11"
-                  variant="ghost"
-                  size="icon"
-                  asButton
-                  onClick={handleMobileMenu}
-                >
-                  {open ? (
-                    <DynamicIcon
-                      name="lucide/x"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  ) : (
-                    <DynamicIcon
-                      name="lucide/menu"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  )}
-                </Pressable>
-              </div>
+            <div className="xl:hidden">
+              <Pressable
+                className="size-11"
+                variant="ghost"
+                size="icon"
+                asButton
+                onClick={handleMobileMenu}
+              >
+                {open ? (
+                  <DynamicIcon
+                    name="lucide/x"
+                    size={22}
+                    className="stroke-foreground"
+                  />
+                ) : (
+                  <DynamicIcon
+                    name="lucide/menu"
+                    size={22}
+                    className="stroke-foreground"
+                  />
+                )}
+              </Pressable>
             </div>
           </div>
-        </NavigationMenu>
-      </section>
+        </div>
+      </NavigationMenu>
       <MobileNavigationMenu
         open={open}
         navigation={navigation}
-        primaryButton={primaryButton}
+        authActions={authActions}
+        authActionsSlot={authActionsSlot}
       />
-    </Fragment>
+    </Section>
   );
 };
 
@@ -471,7 +628,7 @@ const DropdownMenu1 = ({ links, optixFlowConfig }: DropdownMenu1Props) => {
           >
             <Img
               src={link.image || imagePlaceholders[0]}
-              alt={link.label}
+              alt={typeof link.label === "string" ? link.label : ""}
               className="size-full object-cover object-left-top"
               optixFlowConfig={optixFlowConfig}
             />
@@ -616,7 +773,7 @@ const FeaturedImageLink = ({
                 >
                   <Img
                     src={link.image || imagePlaceholders[0]}
-                    alt={link.label}
+                    alt={typeof link.label === "string" ? link.label : ""}
                     className="size-full object-cover object-left-top"
                     optixFlowConfig={optixFlowConfig}
                   />
@@ -643,13 +800,15 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
     >
       <div className="relative z-10 flex w-full items-center gap-6">
         <div className="flex size-12 shrink-0 rounded-lg border bg-background shadow-lg">
-          {link.icon && (
+          {link.icon ? (
+            link.icon
+          ) : link.iconName ? (
             <DynamicIcon
-              name={link.icon}
+              name={link.iconName}
               size={20}
               className="m-auto stroke-foreground"
             />
-          )}
+          ) : null}
         </div>
         <div className="flex flex-col gap-2">
           <div className="text-lg font-semibold text-white">{link.label}</div>
@@ -658,7 +817,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
       </div>
       <Img
         src={link.background || imagePlaceholders[0]}
-        alt={link.label}
+        alt={typeof link.label === "string" ? link.label : ""}
         className="absolute top-0 left-0 size-full object-cover object-left-top opacity-90 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
         optixFlowConfig={optixFlowConfig}
       />
@@ -682,9 +841,9 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        {link.icon && (
+        {(link.icon || link.iconName) && (
           <div className="flex size-6 shrink-0 rounded-md border shadow">
-            <DynamicIcon name={link.icon} size={14} className="m-auto" />
+            {link.icon ? link.icon : link.iconName && <DynamicIcon name={link.iconName} size={14} className="m-auto" />}
           </div>
         )}
         <div className="flex flex-col items-start gap-2">
@@ -697,7 +856,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
             <Img
               className="hidden h-6 xl:block"
               src={link.company.logo}
-              alt={link.company.name}
+              alt={typeof link.company.name === "string" ? link.company.name : ""}
             />
           )}
           {link.label && (
@@ -717,14 +876,41 @@ NavLink.displayName = "NavLink";
 interface MobileNavigationMenuProps {
   open: boolean;
   navigation: MenuItem[];
-  primaryButton: { label: string; url: string };
+  authActions?: ActionConfig[];
+  authActionsSlot?: React.ReactNode;
 }
 
 const MobileNavigationMenu = ({
   open,
   navigation,
-  primaryButton,
+  authActions,
+  authActionsSlot,
 }: MobileNavigationMenuProps) => {
+  const renderMobileAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
     <Sheet open={open}>
       <SheetContent
@@ -745,9 +931,9 @@ const MobileNavigationMenu = ({
                   renderMobileMenuItem(item, index)
                 )}
               </Accordion>
-              <Pressable asButton href={primaryButton.url}>
-                {primaryButton.label}
-              </Pressable>
+              <div className="flex flex-col gap-2">
+                {renderMobileAuthActions()}
+              </div>
             </div>
           </div>
         </div>
@@ -760,7 +946,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
   if (item.links || item.featuredLinks || item.groupLinks) {
     return (
       <AccordionItem
-        key={item.title}
+        key={`nav-item-${index}`}
         value={`nav-${index}`}
         className="border-b-0"
       >
@@ -807,7 +993,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
 
   return (
     <Pressable
-      key={item.title}
+      key={`nav-link-${index}`}
       href={item.url}
       className="flex h-10 items-center rounded-md text-left text-base leading-[3.75] font-normal text-foreground ring-ring/10 outline-ring/50 transition-all focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
     >

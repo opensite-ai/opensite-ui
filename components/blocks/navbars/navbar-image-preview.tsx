@@ -5,7 +5,8 @@ import { useState, useRef, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -20,53 +21,133 @@ import {
   logoPlaceholders,
   imagePlaceholders,
 } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-interface MenuLink {
-  label: string;
-  description?: string;
+export interface MenuLink {
+  label: React.ReactNode;
+  description?: React.ReactNode;
   url: string;
   image?: string;
 }
 
-interface MenuItem {
-  title: string;
+export interface MenuItem {
+  title: React.ReactNode;
   url?: string;
   className?: string;
   links?: MenuLink[];
 }
 
-interface NavButton {
-  label: string;
+export interface SocialLink {
+  label: React.ReactNode;
   url: string;
-  variant:
-    | "ghost"
-    | "default"
-    | "link"
-    | "destructive"
-    | "outline"
-    | "secondary";
+  icon?: React.ReactNode;
+  iconName?: string;
 }
 
-interface SocialLink {
-  label: string;
-  url: string;
+/**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
 }
 
 /**
  * Props for the NavbarImagePreview component
  */
 export interface NavbarImagePreviewProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation menu items
+   */
   navigation?: MenuItem[];
+  /**
+   * Custom slot for navigation (overrides navigation array)
+   */
+  navigationSlot?: React.ReactNode;
+  /**
+   * Mobile navigation menu items
+   */
   mobileNavigation?: MenuItem[];
-  navButtons?: NavButton[];
+  /**
+   * Custom slot for mobile navigation (overrides mobileNavigation array)
+   */
+  mobileNavigationSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Social links for mobile menu
+   */
   socialLinks?: SocialLink[];
+  /**
+   * Custom slot for social links (overrides socialLinks array)
+   */
+  socialLinksSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -168,15 +249,15 @@ const defaultMobileNavigation: MenuItem[] = [
   },
 ];
 
-const defaultNavButtons: NavButton[] = [
-  { label: "Log in", url: "#", variant: "ghost" },
-  { label: "Sign up", url: "#", variant: "default" },
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Log in", href: "#", variant: "ghost" },
+  { label: "Sign up", href: "#", variant: "default" },
 ];
 
 const defaultSocialLinks: SocialLink[] = [
-  { label: "Linkedin", url: "#" },
-  { label: "Twitter", url: "#" },
-  { label: "Facebook", url: "#" },
+  { label: "Linkedin", url: "#", iconName: "lucide/linkedin" },
+  { label: "Twitter", url: "#", iconName: "lucide/twitter" },
+  { label: "Facebook", url: "#", iconName: "lucide/facebook" },
 ];
 
 const MOBILE_BREAKPOINT = 1024;
@@ -191,22 +272,38 @@ const MOBILE_BREAKPOINT = 1024;
  */
 export const NavbarImagePreview = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   navigation = defaultNavigation,
+  navigationSlot,
   mobileNavigation = defaultMobileNavigation,
-  navButtons = defaultNavButtons,
+  mobileNavigationSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
   socialLinks = defaultSocialLinks,
+  socialLinksSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarImagePreviewProps) => {
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleResize = () => {
       if (window.innerWidth > MOBILE_BREAKPOINT) {
         setOpen(false);
@@ -233,56 +330,117 @@ export const NavbarImagePreview = ({
   }, []);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     document.body.style.overflow = open ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [open]);
 
   const handleMobileMenu = () => {
     setOpen(!open);
   };
 
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable
+        href={logo.url || "/"}
+        className={cn(
+          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
+          logoClassName
+        )}
+      >
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn("inline-block size-8", logo.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="hidden md:inline-block">{logo.title}</span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderNavigation = () => {
+    if (navigationSlot) return navigationSlot;
+    if (!navigation || navigation.length === 0) return null;
+
+    return (
+      <NavigationMenuList>
+        {navigation.map((item, index) => (
+          <DesktopMenuItem
+            key={`desktop-link-${index}`}
+            item={item}
+            index={index}
+            optixFlowConfig={optixFlowConfig}
+          />
+        ))}
+      </NavigationMenuList>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
-    <section className={cn("", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div
-        className="fixed top-0 z-500 w-full bg-transparent transition-colors duration-500"
+        className={cn(
+          "fixed top-0 z-500 w-full bg-transparent transition-colors duration-500",
+          containerClassName
+        )}
         ref={navRef}
       >
         <div className="container border-b">
-          <div className="flex items-center justify-between gap-3.5 py-5">
-            <Pressable
-              href={logo.url}
-              className="flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter"
-            >
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="inline-block size-8"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="hidden md:inline-block">{logo.title}</span>
-            </Pressable>
-            <NavigationMenu className="hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2">
-              <NavigationMenuList>
-                {navigation.map((item, index) => (
-                  <DesktopMenuItem
-                    key={`desktop-link-${index}`}
-                    item={item}
-                    index={index}
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                ))}
-              </NavigationMenuList>
+          <div className={cn("flex items-center justify-between gap-3.5 py-5", navClassName)}>
+            {renderLogo()}
+            <NavigationMenu className={cn(
+              "hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
+              navigationMenuClassName
+            )}>
+              {renderNavigation()}
             </NavigationMenu>
-            <div className="flex items-center gap-3.5">
-              {navButtons.map((button, index) => (
-                <Pressable
-                  key={`nav-button-${index}`}
-                  variant={button.variant}
-                  asButton
-                  href={button.url}
-                >
-                  {button.label}
-                </Pressable>
-              ))}
+            <div className={cn("flex items-center gap-3.5", actionsClassName)}>
+              {renderAuthActions()}
               <div className="lg:hidden">
                 <Pressable
                   variant="ghost"
@@ -301,9 +459,13 @@ export const NavbarImagePreview = ({
         open={open}
         setOpen={setOpen}
         mobileNavigation={mobileNavigation}
+        mobileNavigationSlot={mobileNavigationSlot}
         socialLinks={socialLinks}
+        socialLinksSlot={socialLinksSlot}
+        authActions={authActions}
+        authActionsSlot={authActionsSlot}
       />
-    </section>
+    </Section>
   );
 };
 
@@ -358,7 +520,7 @@ const DesktopMenuItem = ({
                     }
                   }}
                   src={link.image || imagePlaceholders[0]}
-                  alt={link.label}
+                  alt={typeof link.label === "string" ? link.label : ""}
                   className={`absolute top-0 left-0 h-full w-full object-cover transition-opacity duration-300 ${
                     linkIndex === 0 ? "opacity-100" : "opacity-0"
                   }`}
@@ -412,15 +574,113 @@ interface MobileNavigationMenuProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   mobileNavigation: MenuItem[];
+  mobileNavigationSlot?: React.ReactNode;
   socialLinks: SocialLink[];
+  socialLinksSlot?: React.ReactNode;
+  authActions?: ActionConfig[];
+  authActionsSlot?: React.ReactNode;
 }
 
 const MobileNavigationMenu = ({
   open,
   setOpen,
   mobileNavigation,
+  mobileNavigationSlot,
   socialLinks,
+  socialLinksSlot,
+  authActions,
+  authActionsSlot,
 }: MobileNavigationMenuProps) => {
+  const renderMobileNavigation = () => {
+    if (mobileNavigationSlot) return mobileNavigationSlot;
+    if (!mobileNavigation || mobileNavigation.length === 0) return null;
+
+    return (
+      <div className="grid w-full grid-cols-2 gap-x-4 gap-y-10">
+        {mobileNavigation.map((item, index) => (
+          <div
+            className={cn(
+              "flex flex-col gap-4 text-primary-foreground",
+              item.className
+            )}
+            key={`mobile-menu-item-${index}`}
+          >
+            <div className="text-xs text-foreground/60 uppercase">
+              {item.title}
+            </div>
+            <ul className="flex flex-col gap-3">
+              {item.links?.map((link, i) => (
+                <li key={`mobile-nav-link-${i}`}>
+                  <Pressable
+                    href={link.url}
+                    className={cn(
+                      "text-primary-foreground leading-normal font-medium",
+                      index === 0 ? "text-2xl" : "text-base"
+                    )}
+                  >
+                    {link.label}
+                  </Pressable>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderSocialLinks = () => {
+    if (socialLinksSlot) return socialLinksSlot;
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return (
+      <div className="col-span-2 flex flex-col gap-4">
+        <div className="text-xs text-foreground/60 uppercase">SOCIAL</div>
+        <div className="flex gap-4">
+          {socialLinks.map((link, index) => (
+            <Pressable
+              key={`social-link-${index}`}
+              href={link.url}
+              className="text-primary-foreground"
+            >
+              {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
+              {!link.icon && !link.iconName && link.label}
+            </Pressable>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderMobileAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return (
+      <div className="flex flex-col gap-2">
+        {authActions.map((action, index) => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          return (
+            <Pressable
+              key={index}
+              asButton
+              className={cn("w-full", actionClassName)}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
@@ -448,50 +708,9 @@ const MobileNavigationMenu = ({
               </SheetClose>
             </div>
             <div className="flex h-full flex-col justify-between gap-30 pt-24">
-              <div className="grid w-full grid-cols-2 gap-x-4 gap-y-10">
-                {mobileNavigation.map((item, index) => (
-                  <div
-                    className={`flex flex-col gap-4 text-primary-foreground ${
-                      item.className || ""
-                    }`}
-                    key={`mobile-menu-item-${index}`}
-                  >
-                    <div className="text-xs text-foreground/60 uppercase">
-                      {item.title}
-                    </div>
-                    <ul className="flex flex-col gap-3">
-                      {item.links?.map((link, i) => (
-                        <li key={`mobile-nav-link-${i}`}>
-                          <Pressable
-                            href={link.url}
-                            className={`text-primary-foreground ${
-                              index === 0 ? "text-2xl" : "text-base"
-                            } leading-normal font-medium`}
-                          >
-                            {link.label}
-                          </Pressable>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-              <div className="col-span-2 flex flex-col gap-4">
-                <div className="text-xs text-foreground/60 uppercase">
-                  SOCIAL
-                </div>
-                <div className="flex gap-4">
-                  {socialLinks.map((link, index) => (
-                    <Pressable
-                      key={`social-link-${index}`}
-                      href={link.url}
-                      className="text-primary-foreground"
-                    >
-                      {link.label}
-                    </Pressable>
-                  ))}
-                </div>
-              </div>
+              {renderMobileNavigation()}
+              {renderSocialLinks()}
+              {renderMobileAuthActions()}
             </div>
           </div>
         </div>

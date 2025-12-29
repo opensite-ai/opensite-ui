@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   Accordion,
   AccordionContent,
@@ -23,38 +24,119 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-interface MenuLink {
-  label: string;
-  description?: string;
+export interface MenuLink {
+  label: React.ReactNode;
+  description?: React.ReactNode;
   url?: string;
-  icon?: string;
+  icon?: React.ReactNode;
+  iconName?: string;
   iconColor?: string;
 }
 
-interface MenuItem {
-  title: string;
+export interface MenuItem {
+  title: React.ReactNode;
   url?: string;
   links?: MenuLink[];
+}
+
+/**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
 }
 
 /**
  * Props for the NavbarDarkIcons component
  */
 export interface NavbarDarkIconsProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation menu items
+   */
   navigation?: MenuItem[];
-  primaryButton?: {
-    label: string;
-    url: string;
-  };
+  /**
+   * Custom slot for navigation (overrides navigation array)
+   */
+  navigationSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * GitHub repository URL for stars counter
+   */
   githubUrl?: string;
+  /**
+   * Custom slot for GitHub stars (overrides githubUrl)
+   */
+  githubSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -135,6 +217,10 @@ const defaultNavigation: MenuItem[] = [
 
 const MOBILE_BREAKPOINT = 1024;
 
+const defaultAuthActions: ActionConfig[] = [
+  { label: "Sign up", href: "#", variant: "default" },
+];
+
 /**
  * NavbarDarkIcons - A dark-themed navigation bar with colorful icon indicators.
  *
@@ -145,20 +231,35 @@ const MOBILE_BREAKPOINT = 1024;
  */
 export const NavbarDarkIcons = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   navigation = defaultNavigation,
-  primaryButton = { label: "Sign up", url: "#" },
+  navigationSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
   githubUrl = "https://github.com/opensite-ai/opensite-ui",
+  githubSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarDarkIconsProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const handleResize = () => {
       if (window.innerWidth > MOBILE_BREAKPOINT) {
         setOpen(false);
@@ -171,85 +272,147 @@ export const NavbarDarkIcons = ({
   }, []);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     document.body.style.overflow = open ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [open]);
 
   const handleMobileMenu = () => {
     setOpen(!open);
   };
 
-  return (
-    <Fragment>
-      <section
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable
+        href={logo.url || "/"}
         className={cn(
-          "dark pointer-events-auto relative z-999 bg-background",
-          className
+          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
+          logoClassName
         )}
       >
-        <div className="container h-16">
-          <div className="flex h-full items-center justify-between">
-            <Pressable
-              href={logo.url}
-              className="flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter"
-            >
-              <Img
-                src={logo.src}
-                alt={logo.alt}
-                className="inline-block size-8 invert"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <span className="hidden text-foreground md:inline-block">
-                {logo.title}
-              </span>
-            </Pressable>
-            <NavigationMenu className="hidden lg:flex" viewport={false}>
-              <NavigationMenuList>
-                {navigation.map((item, index) => (
-                  <DesktopMenuItem
-                    key={`desktop-link-${index}`}
-                    item={item}
-                    index={index}
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn("inline-block size-8 invert", logo.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="hidden text-foreground md:inline-block">
+              {logo.title}
+            </span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderNavigation = () => {
+    if (navigationSlot) return navigationSlot;
+    if (!navigation || navigation.length === 0) return null;
+
+    return (
+      <NavigationMenuList>
+        {navigation.map((item, index) => (
+          <DesktopMenuItem
+            key={`desktop-link-${index}`}
+            item={item}
+            index={index}
+          />
+        ))}
+      </NavigationMenuList>
+    );
+  };
+
+  const renderGithubStars = () => {
+    if (githubSlot) return githubSlot;
+    if (!githubUrl) return null;
+    return <GithubStars repoUrl={githubUrl} />;
+  };
+
+  return (
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("dark pointer-events-auto relative z-999", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container h-16", containerClassName)}>
+        <div className={cn("flex h-full items-center justify-between", navClassName)}>
+          {renderLogo()}
+          <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)} viewport={false}>
+            {renderNavigation()}
+          </NavigationMenu>
+          <div className={cn("flex items-center gap-4", actionsClassName)}>
+            {renderGithubStars()}
+            {renderAuthActions()}
+            <div className="lg:hidden">
+              <Pressable
+                variant="ghost"
+                size="icon"
+                asButton
+                onClick={handleMobileMenu}
+              >
+                {open ? (
+                  <DynamicIcon
+                    name="lucide/x"
+                    size={22}
+                    className="stroke-foreground"
                   />
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
-            <div className="flex items-center gap-4">
-              <GithubStars repoUrl={githubUrl} />
-              <Pressable href={primaryButton.url} asButton>
-                {primaryButton.label}
+                ) : (
+                  <DynamicIcon
+                    name="lucide/menu"
+                    size={22}
+                    className="stroke-foreground"
+                  />
+                )}
               </Pressable>
-              <div className="lg:hidden">
-                <Pressable
-                  variant="ghost"
-                  size="icon"
-                  asButton
-                  onClick={handleMobileMenu}
-                >
-                  {open ? (
-                    <DynamicIcon
-                      name="lucide/x"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  ) : (
-                    <DynamicIcon
-                      name="lucide/menu"
-                      size={22}
-                      className="stroke-foreground"
-                    />
-                  )}
-                </Pressable>
-              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
       <MobileNavigationMenu
         open={open}
         navigation={navigation}
-        primaryButton={primaryButton}
+        authActions={authActions}
+        authActionsSlot={authActionsSlot}
       />
-    </Fragment>
+    </Section>
   );
 };
 
@@ -302,9 +465,11 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
     >
       <div className="flex w-full items-center justify-between">
         <div className="flex gap-2.5">
-          {link.icon && (
-            <DynamicIcon name={link.icon} size={20} color={link.iconColor} />
-          )}
+          {link.icon ? (
+            link.icon
+          ) : link.iconName ? (
+            <DynamicIcon name={link.iconName} size={20} color={link.iconColor} />
+          ) : null}
           <div className="flex flex-col gap-1.5">
             <h3 className="text-sm leading-none text-foreground">
               {link.label}
@@ -327,14 +492,41 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
 interface MobileNavigationMenuProps {
   open: boolean;
   navigation: MenuItem[];
-  primaryButton: { label: string; url: string };
+  authActions?: ActionConfig[];
+  authActionsSlot?: React.ReactNode;
 }
 
 const MobileNavigationMenu = ({
   open,
   navigation,
-  primaryButton,
+  authActions,
+  authActionsSlot,
 }: MobileNavigationMenuProps) => {
+  const renderMobileAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={cn("w-full", actionClassName)}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
   return (
     <Sheet open={open}>
       <SheetContent
@@ -355,10 +547,8 @@ const MobileNavigationMenu = ({
                   renderMobileMenuItem(item, index)
                 )}
               </Accordion>
-              <div className="pb-20">
-                <Pressable href={primaryButton.url} asButton className="w-full">
-                  {primaryButton.label}
-                </Pressable>
+              <div className="flex flex-col gap-2 pb-20">
+                {renderMobileAuthActions()}
               </div>
             </div>
           </div>
@@ -371,13 +561,13 @@ const MobileNavigationMenu = ({
 const renderMobileMenuItem = (item: MenuItem, index: number) => {
   if (item.links) {
     return (
-      <AccordionItem key={item.title} value={`nav-${index}`}>
+      <AccordionItem key={`nav-item-${index}`} value={`nav-${index}`}>
         <AccordionTrigger className="h-15 items-center p-0 text-base leading-[3.75] font-normal text-muted-foreground hover:no-underline">
           {item.title}
         </AccordionTrigger>
         <AccordionContent>
-          {item.links.map((subItem) => (
-            <MenuSubLink key={subItem.label} link={subItem} />
+          {item.links.map((subItem, subIndex) => (
+            <MenuSubLink key={`sub-link-${index}-${subIndex}`} link={subItem} />
           ))}
         </AccordionContent>
       </AccordionItem>
@@ -386,7 +576,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
 
   return (
     <Pressable
-      key={item.title}
+      key={`nav-link-${index}`}
       href={item.url}
       className="flex h-15 items-center border-b p-0 text-left text-base leading-[3.75] font-normal text-muted-foreground ring-ring/10 outline-ring/50 transition-all focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
     >

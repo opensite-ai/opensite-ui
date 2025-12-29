@@ -5,8 +5,8 @@ import { useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { Img, type OptixFlowConfig } from "@page-speed/img";
-import { Input } from "../../ui/input";
+import { Img } from "@page-speed/img";
+import { Section } from "../../ui/section";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -16,26 +16,123 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
-interface NavItem {
-  title: string;
+export interface NavItem {
+  title: React.ReactNode;
   url: string;
+  icon?: React.ReactNode;
+  iconName?: string;
+}
+
+/**
+ * Logo configuration interface
+ */
+export interface LogoConfig {
+  url?: string;
+  src?: string;
+  alt?: string;
+  title?: React.ReactNode;
+  className?: string;
 }
 
 /**
  * Props for the NavbarSearchFocused component
  */
 export interface NavbarSearchFocusedProps {
+  /**
+   * Additional CSS classes for the section
+   */
   className?: string;
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
+  /**
+   * Additional CSS classes for the container
+   */
+  containerClassName?: string;
+  /**
+   * Additional CSS classes for the nav wrapper
+   */
+  navClassName?: string;
+  /**
+   * Additional CSS classes for the navigation menu
+   */
+  navigationMenuClassName?: string;
+  /**
+   * Additional CSS classes for the actions container
+   */
+  actionsClassName?: string;
+  /**
+   * Logo configuration
+   */
+  logo?: LogoConfig;
+  /**
+   * Custom slot for logo (overrides logo object)
+   */
+  logoSlot?: React.ReactNode;
+  /**
+   * Additional CSS classes for the logo
+   */
+  logoClassName?: string;
+  /**
+   * Navigation items for the left side
+   */
   navItems?: NavItem[];
-  searchPlaceholder?: string;
+  /**
+   * Custom slot for navigation (overrides navItems array)
+   */
+  navigationSlot?: React.ReactNode;
+  /**
+   * Search placeholder text
+   */
+  searchPlaceholder?: React.ReactNode;
+  /**
+   * Callback when search is submitted
+   */
   onSearch?: (query: string) => void;
+  /**
+   * Custom slot for search (overrides default search input)
+   */
+  searchSlot?: React.ReactNode;
+  /**
+   * Authentication action configurations for desktop
+   */
+  authActions?: ActionConfig[];
+  /**
+   * Custom slot for auth actions (overrides authActions array)
+   */
+  authActionsSlot?: React.ReactNode;
+  /**
+   * Mobile menu action configurations
+   */
+  mobileMenuActions?: ActionConfig[];
+  /**
+   * Custom slot for mobile menu actions (overrides mobileMenuActions array)
+   */
+  mobileMenuActionsSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | string;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * OptixFlow image optimization configuration
+   */
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -44,6 +141,18 @@ const defaultNavItems: NavItem[] = [
   { title: "Categories", url: "#" },
   { title: "Trending", url: "#" },
   { title: "Collections", url: "#" },
+];
+
+const defaultAuthActions: ActionConfig[] = [
+  { href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/heart" size={20} />, "aria-label": "Favorites" },
+  { href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/shopping-cart" size={20} />, "aria-label": "Cart" },
+  { href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/user" size={20} />, "aria-label": "Account" },
+];
+
+const defaultMobileMenuActions: ActionConfig[] = [
+  { label: "Favorites", href: "#", icon: <DynamicIcon name="lucide/heart" size={18} /> },
+  { label: "Cart", href: "#", icon: <DynamicIcon name="lucide/shopping-cart" size={18} /> },
+  { label: "Account", href: "#", icon: <DynamicIcon name="lucide/user" size={18} /> },
 ];
 
 /**
@@ -57,95 +166,160 @@ const defaultNavItems: NavItem[] = [
  */
 export const NavbarSearchFocused = ({
   className,
+  containerClassName,
+  navClassName,
+  navigationMenuClassName,
+  actionsClassName,
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
     alt: "Opensite AI",
     title: "Opensite AI",
   },
+  logoSlot,
+  logoClassName,
   navItems = defaultNavItems,
+  navigationSlot,
   searchPlaceholder = "Search for anything...",
   onSearch,
+  searchSlot,
+  authActions = defaultAuthActions,
+  authActionsSlot,
+  mobileMenuActions = defaultMobileMenuActions,
+  mobileMenuActionsSlot,
+  background = "white",
+  spacing = "none",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: NavbarSearchFocusedProps) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch?.(searchQuery);
+  const renderLogo = () => {
+    if (logoSlot) return logoSlot;
+    if (!logo) return null;
+
+    return (
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex shrink-0 items-center gap-2", logoClassName)}
+      >
+        {logo.src && (
+          <Img
+            src={logo.src}
+            alt={logo.alt || "Logo"}
+            className={cn("h-8", logo.className)}
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
+        {logo.title && (
+          typeof logo.title === "string" ? (
+            <span className="hidden text-lg font-semibold sm:inline-block">{logo.title}</span>
+          ) : (
+            logo.title
+          )
+        )}
+      </Pressable>
+    );
+  };
+
+  const renderNavigation = (items: NavItem[]) => {
+    if (navigationSlot) return navigationSlot;
+    if (!items || items.length === 0) return null;
+
+    return (
+      <NavigationMenuList>
+        {items.map((item, index) => (
+          <NavigationMenuItem key={index}>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Pressable href={item.url}>
+                {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={16} />)}
+                {item.title}
+              </Pressable>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    );
+  };
+
+  const renderAuthActions = () => {
+    if (authActionsSlot) return authActionsSlot;
+    if (!authActions || authActions.length === 0) return null;
+
+    return authActions.map((action, index) => {
+      const { label, icon, iconAfter, children, className: actionClassName, "aria-label": ariaLabel, ...pressableProps } = action;
+      return (
+        <Pressable
+          key={index}
+          asButton
+          className={actionClassName}
+          aria-label={ariaLabel}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter}
+            </>
+          )}
+        </Pressable>
+      );
+    });
+  };
+
+  const renderMobileMenuActions = () => {
+    if (mobileMenuActionsSlot) return mobileMenuActionsSlot;
+    if (!mobileMenuActions || mobileMenuActions.length === 0) return null;
+
+    return (
+      <div className="flex flex-col gap-2">
+        {mobileMenuActions.map((action, index) => {
+          const { label, icon, href } = action;
+          return (
+            <Pressable
+              key={index}
+              href={href}
+              className="flex items-center gap-2 rounded-md py-2 text-sm"
+              onClick={() => setIsOpen(false)}
+            >
+              {icon}
+              {label}
+            </Pressable>
+          );
+        })}
+      </div>
+    );
   };
 
   return (
-    <section className={cn("border-b bg-background", className)}>
-      <div className="container">
-        <nav className="flex items-center gap-4 py-3 lg:gap-8">
-          {/* Logo */}
-          <Pressable
-            href={logo.url}
-            className="flex shrink-0 items-center gap-2"
-          >
-            <Img
-              src={logo.src}
-              alt={logo.alt}
-              className="h-8"
-              optixFlowConfig={optixFlowConfig}
-            />
-            <span className="hidden text-lg font-semibold sm:inline-block">
-              {logo.title}
-            </span>
-          </Pressable>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("border-b", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div className={cn("container", containerClassName)}>
+        <nav className={cn("flex items-center gap-4 py-3 lg:gap-8", navClassName)}>
+          {renderLogo()}
 
-          {/* Desktop Navigation - Left */}
-          <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>
-              {navItems.slice(0, 2).map((item, index) => (
-                <NavigationMenuItem key={index}>
-                  <NavigationMenuLink
-                    asChild
-                    className={navigationMenuTriggerStyle()}
-                  >
-                    <Pressable href={item.url}>{item.title}</Pressable>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
+          <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
+            {renderNavigation(navItems.slice(0, 2))}
           </NavigationMenu>
 
-          {/* Desktop Navigation - Right */}
-          <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>
-              {navItems.slice(2).map((item, index) => (
-                <NavigationMenuItem key={index}>
-                  <NavigationMenuLink
-                    asChild
-                    className={navigationMenuTriggerStyle()}
-                  >
-                    <Pressable href={item.url}>{item.title}</Pressable>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
+          <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
+            {renderNavigation(navItems.slice(2))}
           </NavigationMenu>
 
-          {/* Desktop Actions */}
-          <div className="hidden shrink-0 items-center gap-2 lg:flex">
-            <Pressable variant="ghost" size="icon" asButton href="#">
-              <DynamicIcon name="lucide/heart" size={20} />
-              <span className="sr-only">Favorites</span>
-            </Pressable>
-            <Pressable variant="ghost" size="icon" asButton href="#">
-              <DynamicIcon name="lucide/shopping-cart" size={20} />
-              <span className="sr-only">Cart</span>
-            </Pressable>
-            <Pressable variant="ghost" size="icon" asButton href="#">
-              <DynamicIcon name="lucide/user" size={20} />
-              <span className="sr-only">Account</span>
-            </Pressable>
+          <div className={cn("hidden shrink-0 items-center gap-2 lg:flex", actionsClassName)}>
+            {renderAuthActions()}
           </div>
 
-          {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
               <Pressable
@@ -169,37 +343,13 @@ export const NavbarSearchFocused = ({
                       className="flex items-center gap-2 rounded-md py-2 text-base font-medium"
                       onClick={() => setIsOpen(false)}
                     >
+                      {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={16} />)}
                       {item.title}
                     </Pressable>
                   ))}
                 </div>
                 <div className="border-t pt-4">
-                  <div className="flex flex-col gap-2">
-                    <Pressable
-                      href="#"
-                      className="flex items-center gap-2 rounded-md py-2 text-sm"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <DynamicIcon name="lucide/heart" size={18} />
-                      Favorites
-                    </Pressable>
-                    <Pressable
-                      href="#"
-                      className="flex items-center gap-2 rounded-md py-2 text-sm"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <DynamicIcon name="lucide/shopping-cart" size={18} />
-                      Cart
-                    </Pressable>
-                    <Pressable
-                      href="#"
-                      className="flex items-center gap-2 rounded-md py-2 text-sm"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <DynamicIcon name="lucide/user" size={18} />
-                      Account
-                    </Pressable>
-                  </div>
+                  {renderMobileMenuActions()}
                 </div>
                 <div className="border-t pt-4">
                   <Pressable asButton href="#" className="w-full">
@@ -211,7 +361,7 @@ export const NavbarSearchFocused = ({
           </Sheet>
         </nav>
       </div>
-    </section>
+    </Section>
   );
 };
 
