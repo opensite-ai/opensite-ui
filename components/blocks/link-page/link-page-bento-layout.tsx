@@ -452,6 +452,7 @@ export function LinkPageBentoLayout({
         icon,
         children,
         className: linkClassName,
+        featured: _featured, // Destructure to prevent passing to DOM
         ...pressableProps
       } = link;
       const imageSource = link.image?.src ?? link.imageUrl;
