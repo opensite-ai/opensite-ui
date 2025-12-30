@@ -18,11 +18,11 @@ importers:
         specifier: 0.4.3
         version: 0.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/lightbox':
-        specifier: 0.1.9
-        version: 0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.2.0
+        version: 0.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@page-speed/pdf-viewer':
-        specifier: 0.1.7
-        version: 0.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.1.8
+        version: 0.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@18.3.7(@types/react@18.3.27))(@types/react@18.3.27)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -681,14 +681,14 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@page-speed/lightbox@0.1.9':
-    resolution: {integrity: sha512-jkmf0aAyF480JGoxRscyyQDkNIPpQS2Q5DNfgC4j5/K/qUpu+GkD/WKWurIhFiWhf0dwL67VsUCQaHCfM3jvWA==}
+  '@page-speed/lightbox@0.2.0':
+    resolution: {integrity: sha512-c+jEU313QHK/pYE2w38t/4jpQxRGKJrHdM7/S31Vw4oYZ/L9G4PiwzLfpdg313ovQk4LNT8VOdV3ZLcdbmprow==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@page-speed/pdf-viewer@0.1.7':
-    resolution: {integrity: sha512-XcpBqAhOZ7oGGLhINRMcmR4T8UeZ0n1YQ/l7EB3LhAHCffPg8csOUSl1YPM4cut/A6StJ+MI0N+uP9XvwxfVcg==}
+  '@page-speed/pdf-viewer@0.1.8':
+    resolution: {integrity: sha512-tzYwAtuoW+dLt7YEjNUg5sUeGi0lP0WBI0kt/xSglVK39/zRTqKtu2/X4NK39UmDJ6Y81EoyZ09Zn1d8VmK6xA==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -2939,10 +2939,10 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@page-speed/lightbox@0.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/lightbox@0.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@page-speed/img': 0.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@page-speed/pdf-viewer': 0.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@page-speed/pdf-viewer': 0.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       clsx: 2.1.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -2951,7 +2951,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@page-speed/pdf-viewer@0.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@page-speed/pdf-viewer@0.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       pdfjs-dist: 3.11.174
       react: 18.3.1
