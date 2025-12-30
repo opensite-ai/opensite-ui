@@ -15,6 +15,7 @@ const sizeStyles = {
   lg: "max-w-4xl",
   xl: "max-w-5xl",
   full: "max-w-7xl",
+  compact: "max-w-[700px]",
 };
 
 /**
@@ -54,6 +55,7 @@ export function AnimatedDialog({
   size = "lg",
   className,
   contentClassName,
+  featuredMediaHeader,
 }: AnimatedDialogProps) {
   const titleId = useId();
   const descriptionId = useId();
@@ -119,13 +121,50 @@ export function AnimatedDialog({
             aria-labelledby={title ? titleId : undefined}
             aria-describedby={description ? descriptionId : undefined}
             className={cn(
-              "relative z-60 mx-auto my-12 flex w-[92vw] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-background p-6 shadow-2xl ring-1 ring-border/10 md:my-20 md:p-12",
+              "relative z-60 mx-auto my-12 flex w-[92vw] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-background shadow-2xl ring-1 ring-border/10",
+              size === "compact" ? "p-0 md:my-20" : "p-6 md:my-20 md:p-12",
               sizeStyles[size],
               className,
             )}
           >
-            {/* Header */}
-            <div className="flex items-start justify-between gap-8">
+            {/* Featured Media Header (for compact size with media card style) */}
+            {featuredMediaHeader ? (
+              <div className="relative overflow-hidden">
+                {featuredMediaHeader}
+                {/* Close button positioned absolutely over featured media */}
+                <button
+                  type="button"
+                  aria-label="Close dialog"
+                  className="absolute right-4 top-4 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground/90 text-background backdrop-blur-sm transition hover:bg-foreground md:h-11 md:w-11"
+                  onClick={() => onOpenChange(false)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M18 6L6 18M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            ) : null}
+
+            {/* Header section (with padding when not using featured media) */}
+            <div
+              className={cn(
+                "flex items-start justify-between gap-8",
+                size === "compact" && featuredMediaHeader ? "px-6 pt-6 md:px-8 md:pt-8" : "",
+                !featuredMediaHeader ? "" : ""
+              )}
+            >
               {header ? (
                 header
               ) : (
@@ -154,36 +193,41 @@ export function AnimatedDialog({
                 </div>
               )}
 
-              {/* Close button */}
-              <button
-                type="button"
-                aria-label="Close dialog"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition hover:bg-foreground/80 md:h-11 md:w-11"
-                onClick={() => onOpenChange(false)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
+              {/* Close button (only show when not using featured media) */}
+              {!featuredMediaHeader ? (
+                <button
+                  type="button"
+                  aria-label="Close dialog"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition hover:bg-foreground/80 md:h-11 md:w-11"
+                  onClick={() => onOpenChange(false)}
                 >
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M18 6L6 18M6 6l12 12"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M18 6L6 18M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              ) : null}
             </div>
 
             {/* Content */}
             {children ? (
               <div
                 className={cn(
-                  "mt-8 flex-1 min-h-0 overflow-y-auto pr-2 md:mt-10",
+                  "flex-1 min-h-0 overflow-y-auto",
+                  size === "compact" && featuredMediaHeader
+                    ? "mt-6 px-6 pb-6 md:mt-8 md:px-8 md:pb-8"
+                    : "mt-8 pr-2 md:mt-10",
                   contentClassName,
                 )}
               >
@@ -192,7 +236,17 @@ export function AnimatedDialog({
             ) : null}
 
             {/* Footer */}
-            {footer ? <div className="mt-8 md:mt-10">{footer}</div> : null}
+            {footer ? (
+              <div
+                className={cn(
+                  size === "compact" && featuredMediaHeader
+                    ? "px-6 pb-6 md:px-8 md:pb-8"
+                    : "mt-8 md:mt-10"
+                )}
+              >
+                {footer}
+              </div>
+            ) : null}
           </motion.div>
         </div>
       ) : null}

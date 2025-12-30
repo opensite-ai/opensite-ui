@@ -75,3 +75,9 @@ export type { ServicesListCardsHoverProps } from "./services-list-cards-hover";
 
 export { ServicesListTimeline } from "./services-list-timeline";
 export type { ServicesListTimelineProps } from "./services-list-timeline";
+
+export { ServicesListExpandableCards } from "./services-list-expandable-cards";
+export type {
+  ServicesListExpandableCardsProps,
+  ServicesListExpandableCardsService,
+} from "./services-list-expandable-cards";

@@ -58,7 +58,7 @@ export type SectionSpacing = "none" | "sm" | "md" | "lg" | "xl";
 /**
  * Size variants for AnimatedDialog component
  */
-export type AnimatedDialogSize = "sm" | "md" | "lg" | "xl" | "full";
+export type AnimatedDialogSize = "sm" | "md" | "lg" | "xl" | "full" | "compact";
 
 /**
  * Props for Container component
@@ -185,6 +185,11 @@ export interface AnimatedDialogProps {
    * Additional CSS classes for the content area
    */
   contentClassName?: string;
+  /**
+   * Featured media header to display at the top of the dialog (full-width, no padding)
+   * Typically used with size="compact" for media card-style dialogs
+   */
+  featuredMediaHeader?: ReactNode;
 }
 
 /**
