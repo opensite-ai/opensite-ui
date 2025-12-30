@@ -21,6 +21,7 @@ coverage/
 # Environment
 .env
 .env.local
+.selfnotes
 
 # IDE
 .vscode/
