@@ -133,10 +133,16 @@ const defaultProps: ProjectDetailArchitectureCarouselProps = {
   carouselImages: defaultCarouselImages,
   sections: defaultSections,
   gridImages: defaultGridImages,
-  backAction: { label: "Back to Projects", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-  videoUrl: "https://cdn.ing/assets/files/record/286359/architecture-presentation.mp4",
+  backAction: {
+    label: "Back to Projects",
+    href: "/projects",
+    icon: <DynamicIcon name="lucide/arrow-left" size={16} />,
+  },
+  videoUrl:
+    "https://cdn.ing/assets/files/record/286359/architecture-presentation.mp4",
   videoPoster: imagePlaceholders[49],
-  pdfUrl: "https://cdn.ing/assets/files/record/286359/5fv7u23rr648t363fy2ibs61sflg",
+  pdfUrl:
+    "https://cdn.ing/assets/files/record/286359/5fv7u23rr648t363fy2ibs61sflg",
   showVideoTab: true,
   showPdfTab: true,
   enableLightbox: true,
@@ -150,7 +156,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailArchitectureCarousel(
-  props: ProjectDetailArchitectureCarouselProps
+  props: ProjectDetailArchitectureCarouselProps,
 ): React.JSX.Element {
   const {
     title = defaultProps.title,
@@ -187,7 +193,9 @@ export function ProjectDetailArchitectureCarousel(
   } = props;
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [selectedTab, setSelectedTab] = useState<"slides" | "video" | "pdf">("slides");
+  const [selectedTab, setSelectedTab] = useState<"slides" | "video" | "pdf">(
+    "slides",
+  );
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -203,12 +211,15 @@ export function ProjectDetailArchitectureCarousel(
     }));
   }, [carouselImages]);
 
-  const handleImageClick = useCallback((index: number) => {
-    if (enableLightbox) {
-      setLightboxIndex(index);
-      setLightboxOpen(true);
-    }
-  }, [enableLightbox]);
+  const handleImageClick = useCallback(
+    (index: number) => {
+      if (enableLightbox) {
+        setLightboxIndex(index);
+        setLightboxOpen(true);
+      }
+    },
+    [enableLightbox],
+  );
 
   const handleLightboxClose = useCallback(() => {
     setLightboxOpen(false);
@@ -223,7 +234,7 @@ export function ProjectDetailArchitectureCarousel(
   const prevSlide = useCallback(() => {
     if (carouselImages) {
       setCurrentSlide(
-        (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
+        (prev) => (prev - 1 + carouselImages.length) % carouselImages.length,
       );
     }
   }, [carouselImages]);
@@ -232,10 +243,20 @@ export function ProjectDetailArchitectureCarousel(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -275,24 +296,33 @@ export function ProjectDetailArchitectureCarousel(
           </div>
 
           {typeof title === "string" ? (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}
 
-          {subtitle && (
-            typeof subtitle === "string" ? (
+          {subtitle &&
+            (typeof subtitle === "string" ? (
               <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
             ) : (
               <div className="mt-4">{subtitle}</div>
-            )
-          )}
+            ))}
         </motion.header>
 
         <motion.div {...fadeInUp} className="mb-16">
-          <div className={cn("relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
+          <div
+            className={cn(
+              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              heroImageClassName,
+            )}
+          >
             <Img
               src={heroImage?.src || imagePlaceholders[56]}
               alt={heroImage?.alt || "Project hero image"}
@@ -332,10 +362,14 @@ export function ProjectDetailArchitectureCarousel(
                   "px-4 py-2 text-sm font-medium transition-colors",
                   selectedTab === "slides"
                     ? "border-b-2 border-primary text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                <DynamicIcon name="lucide/images" size={16} className="mr-2 inline-block" />
+                <DynamicIcon
+                  name="lucide/images"
+                  size={16}
+                  className="mr-2 inline-block"
+                />
                 Slides ({carouselImages?.length || 0})
               </button>
               {showVideoTab && videoUrl && (
@@ -346,10 +380,14 @@ export function ProjectDetailArchitectureCarousel(
                     "px-4 py-2 text-sm font-medium transition-colors",
                     selectedTab === "video"
                       ? "border-b-2 border-primary text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
                 >
-                  <DynamicIcon name="lucide/play-circle" size={16} className="mr-2 inline-block" />
+                  <DynamicIcon
+                    name="lucide/play-circle"
+                    size={16}
+                    className="mr-2 inline-block"
+                  />
                   Video
                 </button>
               )}
@@ -361,10 +399,14 @@ export function ProjectDetailArchitectureCarousel(
                     "px-4 py-2 text-sm font-medium transition-colors",
                     selectedTab === "pdf"
                       ? "border-b-2 border-primary text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
                 >
-                  <DynamicIcon name="lucide/file-text" size={16} className="mr-2 inline-block" />
+                  <DynamicIcon
+                    name="lucide/file-text"
+                    size={16}
+                    className="mr-2 inline-block"
+                  />
                   PDF Document
                 </button>
               )}
@@ -372,94 +414,114 @@ export function ProjectDetailArchitectureCarousel(
           </motion.div>
         )}
 
-        {selectedTab === "slides" && carouselImages && carouselImages.length > 0 && (
-          <motion.div
-            {...fadeInUp}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className={cn("mb-16", carouselClassName)}
-          >
-            <div className="relative">
-              <div
-                className={cn(
-                  "relative aspect-video overflow-hidden rounded-2xl bg-muted",
-                  enableLightbox && "cursor-pointer"
-                )}
-                onClick={() => handleImageClick(currentSlide)}
-                role={enableLightbox ? "button" : undefined}
-                tabIndex={enableLightbox ? 0 : undefined}
-                onKeyDown={enableLightbox ? (e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleImageClick(currentSlide);
+        {selectedTab === "slides" &&
+          carouselImages &&
+          carouselImages.length > 0 && (
+            <motion.div
+              {...fadeInUp}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className={cn("mb-16", carouselClassName)}
+            >
+              <div className="relative">
+                <div
+                  className={cn(
+                    "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+                    enableLightbox && "cursor-pointer",
+                  )}
+                  onClick={() => handleImageClick(currentSlide)}
+                  role={enableLightbox ? "button" : undefined}
+                  tabIndex={enableLightbox ? 0 : undefined}
+                  onKeyDown={
+                    enableLightbox
+                      ? (e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            handleImageClick(currentSlide);
+                          }
+                        }
+                      : undefined
                   }
-                } : undefined}
-                aria-label={enableLightbox ? "Open image in lightbox" : undefined}
-              >
-                <Img
-                  src={
-                    carouselImages[currentSlide]?.src ||
-                    imagePlaceholders[49 + currentSlide]
+                  aria-label={
+                    enableLightbox ? "Open image in lightbox" : undefined
                   }
-                  alt={carouselImages[currentSlide]?.alt || "Carousel image"}
-                  className="h-full w-full object-cover transition-opacity duration-500"
-                  optixFlowConfig={optixFlowConfig}
-                />
-                {enableLightbox && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors hover:bg-black/20">
-                    <div className="rounded-full bg-background/80 p-3 opacity-0 transition-opacity group-hover:opacity-100 hover:opacity-100">
-                      <DynamicIcon name="lucide/maximize-2" size={24} />
+                >
+                  <Img
+                    src={
+                      carouselImages[currentSlide]?.src ||
+                      imagePlaceholders[49 + currentSlide]
+                    }
+                    alt={carouselImages[currentSlide]?.alt || "Carousel image"}
+                    className="h-full w-full object-cover transition-opacity duration-500"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                  {enableLightbox && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors hover:bg-black/20">
+                      <div className="rounded-full bg-background/80 p-3 opacity-0 transition-opacity group-hover:opacity-100 hover:opacity-100">
+                        <DynamicIcon name="lucide/maximize-2" size={24} />
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-              <div className="absolute inset-y-0 left-0 flex items-center">
-                <button
-                  onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-                  className="ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
-                  aria-label="Previous slide"
-                >
-                  <DynamicIcon name="lucide/chevron-left" size={20} />
-                </button>
-              </div>
-              <div className="absolute inset-y-0 right-0 flex items-center">
-                <button
-                  onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-                  className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
-                  aria-label="Next slide"
-                >
-                  <DynamicIcon name="lucide/chevron-right" size={20} />
-                </button>
-              </div>
-              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-4">
-                <div className="flex gap-2">
-                  {carouselImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={(e) => { e.stopPropagation(); setCurrentSlide(index); }}
-                      className={cn(
-                        "h-2 w-2 rounded-full transition-colors",
-                        index === currentSlide
-                          ? "bg-foreground"
-                          : "bg-foreground/30"
-                      )}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
+                  )}
                 </div>
-                {enableLightbox && (
+                <div className="absolute inset-y-0 left-0 flex items-center">
                   <button
-                    onClick={(e) => { e.stopPropagation(); handleImageClick(currentSlide); }}
-                    className="flex h-8 items-center gap-1.5 rounded-full bg-background/80 px-3 text-sm font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background"
-                    aria-label="Open fullscreen"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prevSlide();
+                    }}
+                    className="ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
+                    aria-label="Previous slide"
                   >
-                    <DynamicIcon name="lucide/maximize-2" size={14} />
-                    Fullscreen
+                    <DynamicIcon name="lucide/chevron-left" size={20} />
                   </button>
-                )}
+                </div>
+                <div className="absolute inset-y-0 right-0 flex items-center">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nextSlide();
+                    }}
+                    className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground backdrop-blur-sm transition-colors hover:bg-background"
+                    aria-label="Next slide"
+                  >
+                    <DynamicIcon name="lucide/chevron-right" size={20} />
+                  </button>
+                </div>
+                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-4">
+                  <div className="flex gap-2">
+                    {carouselImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentSlide(index);
+                        }}
+                        className={cn(
+                          "h-2 w-2 rounded-full transition-colors",
+                          index === currentSlide
+                            ? "bg-foreground"
+                            : "bg-foreground/30",
+                        )}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  {enableLightbox && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleImageClick(currentSlide);
+                      }}
+                      className="flex h-8 items-center gap-1.5 rounded-full bg-background/80 px-3 text-sm font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background"
+                      aria-label="Open fullscreen"
+                    >
+                      <DynamicIcon name="lucide/maximize-2" size={14} />
+                      Fullscreen
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          )}
 
         {selectedTab === "video" && showVideoTab && videoUrl && (
           <motion.div
@@ -508,7 +570,10 @@ export function ProjectDetailArchitectureCarousel(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className={cn("mb-16 grid gap-12 md:grid-cols-2", sectionsClassName)}
+            className={cn(
+              "mb-16 grid gap-12 md:grid-cols-2",
+              sectionsClassName,
+            )}
           >
             {sections.map((section, index) => (
               <div key={index}>
