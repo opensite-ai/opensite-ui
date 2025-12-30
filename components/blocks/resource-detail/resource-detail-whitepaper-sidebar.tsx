@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -367,6 +368,25 @@ export function ResourceDetailWhitepaperSidebar({
   patternOpacity,
 }: ResourceDetailWhitepaperSidebarProps) {
   const [showFullViewer, setShowFullViewer] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after initial render (for SSR safety with portals)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Handle body scroll locking while the full viewer is open
+  useEffect(() => {
+    if (!showFullViewer) return;
+    if (typeof document === "undefined") return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showFullViewer]);
 
   const handleOpenFullViewer = useCallback(() => {
     setShowFullViewer(true);
@@ -566,39 +586,45 @@ export function ResourceDetailWhitepaperSidebar({
         </div>
       </div>
 
-      {showFullViewer && sidebar?.pdfUrl && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-black/90">
-          <div className="flex items-center justify-between border-b border-border bg-background px-6 py-4">
-            <h2 className="text-lg font-semibold">
-              {typeof sidebar.resourceTitle === "string"
-                ? sidebar.resourceTitle
-                : "Document Viewer"}
-            </h2>
-            <button
-              type="button"
-              onClick={handleCloseFullViewer}
-              className="flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-muted"
-              aria-label="Close viewer"
-            >
-              <DynamicIcon name="lucide/x" size={20} />
-            </button>
-          </div>
-          <div className="flex-1 overflow-hidden">
-            <PDFViewer
-              url={sidebar.pdfUrl}
-              height="100%"
-              config={{
-                showControls: true,
-                showThumbnails: true,
-                enableDownload: true,
-                enablePrint: true,
-                enableFullscreen: true,
-                initialZoom: "page-width",
-              }}
-            />
-          </div>
-        </div>
-      )}
+      {showFullViewer && sidebar?.pdfUrl && isMounted && typeof document !== "undefined" &&
+        createPortal(
+          <div 
+            className="fixed inset-0 z-[9999] flex flex-col bg-black/90"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="flex items-center justify-between border-b border-border bg-background px-6 py-4">
+              <h2 className="text-lg font-semibold">
+                {typeof sidebar.resourceTitle === "string"
+                  ? sidebar.resourceTitle
+                  : "Document Viewer"}
+              </h2>
+              <button
+                type="button"
+                onClick={handleCloseFullViewer}
+                className="flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-muted"
+                aria-label="Close viewer"
+              >
+                <DynamicIcon name="lucide/x" size={20} />
+              </button>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <PDFViewer
+                url={sidebar.pdfUrl}
+                height="100%"
+                config={{
+                  showControls: true,
+                  showThumbnails: true,
+                  enableDownload: true,
+                  enablePrint: true,
+                  enableFullscreen: true,
+                  initialZoom: "page-fit",
+                }}
+              />
+            </div>
+          </div>,
+          document.body
+        )}
     </Section>
   );
 }
