@@ -1,0 +1,36 @@
+# Source maps - not needed in published package
+# These add ~50MB to the unpacked size
+dist/*.map
+
+# Development files
+src/
+components/
+lib/
+prototype/
+dev-docs/
+scripts/
+docs/
+
+# Config files
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+tailwind.config.ts
+.size-limit
+.gitignore
+
+# Test files
+**/__tests__/
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Misc
+*.log
+.DS_Store
+node_modules/
