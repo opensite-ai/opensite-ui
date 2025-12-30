@@ -14,6 +14,11 @@
     "import": "./dist/animated-dialog.js",
     "require": "./dist/animated-dialog.cjs"
   },
+  "./components/apple-cards-carousel": {
+    "types": "./dist/apple-cards-carousel.d.ts",
+    "import": "./dist/apple-cards-carousel.js",
+    "require": "./dist/apple-cards-carousel.cjs"
+  },
   "./components/aspect-ratio": {
     "types": "./dist/aspect-ratio.d.ts",
     "import": "./dist/aspect-ratio.js",
@@ -58,6 +63,11 @@
     "types": "./dist/checkbox.d.ts",
     "import": "./dist/checkbox.js",
     "require": "./dist/checkbox.cjs"
+  },
+  "./components/container-scroll-animation": {
+    "types": "./dist/container-scroll-animation.d.ts",
+    "import": "./dist/container-scroll-animation.js",
+    "require": "./dist/container-scroll-animation.cjs"
   },
   "./components/container": {
     "types": "./dist/container.d.ts",

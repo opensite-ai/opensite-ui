@@ -14,6 +14,13 @@
   }
 ,
   {
+    "path": "./blocks/blog/blog-carousel-apple",
+    "types": "./dist/blog-carousel-apple.d.ts",
+    "import": "./dist/blog-carousel-apple.js",
+    "require": "./dist/blog-carousel-apple.cjs"
+  }
+,
+  {
     "path": "./blocks/blog/blog-category-overlay",
     "types": "./dist/blog-category-overlay.d.ts",
     "import": "./dist/blog-category-overlay.js",
