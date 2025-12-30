@@ -371,6 +371,7 @@ import { HeroSplitIconCards } from "../../components/blocks/hero/hero-split-icon
 import { HeroFloatingImages } from "../../components/blocks/hero/hero-floating-images";
 import { HeroBadgeImageSplit } from "../../components/blocks/hero/hero-badge-image-split";
 import { HeroImageLeftContent } from "../../components/blocks/hero/hero-image-left-content";
+import { HeroImageSlider } from "../../components/blocks/hero/hero-image-slider";
 import { HeroCenteredImageGrid } from "../../components/blocks/hero/hero-centered-image-grid";
 import { HeroCenteredScreenshot } from "../../components/blocks/hero/hero-centered-screenshot";
 import { HeroPatternBadgeLogos } from "../../components/blocks/hero/hero-pattern-badge-logos";
@@ -8462,6 +8463,29 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: HeroImageLeftContent,
     props: "HeroImageLeftContentProps",
     exampleUsage: `<HeroImageLeftContent />`.trim(),
+  },
+
+  "hero-image-slider": {
+    id: "hero-image-slider",
+    name: "Image Slider Hero",
+    description:
+      "An immersive hero that layers headline content over a rotating image slider. Ideal for storytelling or product showcases where multiple visuals should share the spotlight.",
+    semanticTags: [
+      "hero",
+      "slider",
+      "carousel",
+      "images",
+      "background",
+      "overlay",
+      "cta",
+      "storytelling",
+      "visual",
+      "rotating",
+    ],
+    category: "hero",
+    component: HeroImageSlider,
+    props: "HeroImageSliderProps",
+    exampleUsage: `<HeroImageSlider />`.trim(),
   },
 
   "hero-centered-image-grid": {

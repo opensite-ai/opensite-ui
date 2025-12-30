@@ -22,6 +22,7 @@ export { AnimatedDialog } from "../components/ui/animated-dialog";
 
 // Hero components
 export { PageHeroBanner } from "../components/ui/page-hero-banner";
+export { ImageSlider } from "../components/ui/image-slider";
 
 // shadcn UI components
 export { Button } from "../components/ui/button";
