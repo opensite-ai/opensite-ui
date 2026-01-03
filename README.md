@@ -13,6 +13,22 @@ Foundational UI component library for the OpenSite Semantic Site Builder ecosyst
 - 🧩 **shadcn/ui Compatible**: Built on shadcn/ui foundations with Tailwind CSS v4
 - 🔧 **Flexible**: Support for both default Tailwind styles and custom semantic builder styles
 
+
+## OpenSite Component UI Showcase
+
+> Below you can see the wide range of layouts that are available automatically, enabling a modern UI experience for users. And since the component was specifically engineered for our Semantic UI engine, in addition to the default layout and style variants.
+
+<p>
+  <br />
+  <div align="center">
+    <img src="https://github.com/user-attachments/assets/ea33b462-1970-4485-908a-e7ac9a7aa1b8" alt="ShadCN and Tailwind Lightbox Library" width="100%">
+  </div>
+  <br />
+</p>
+<br />
+<p></p>
+
+
 ## Installation
 
 ```bash
