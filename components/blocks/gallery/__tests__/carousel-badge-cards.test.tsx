@@ -30,4 +30,51 @@ describe("CarouselBadgeCards", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CarouselBadgeCards />);
+    expect(screen.getByText("Case Studies")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CarouselBadgeCards heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders items when provided", () => {
+    const items = [
+      {
+        id: "1",
+        title: "Case Study 1",
+        description: "Description 1",
+        label: "Analytics",
+        href: "/case-1",
+        image: "https://example.com/image.jpg",
+      },
+    ];
+    render(<CarouselBadgeCards items={items} />);
+    expect(screen.getByText("Case Study 1")).toBeInTheDocument();
+    expect(screen.getByText("Analytics")).toBeInTheDocument();
+    expect(screen.getByText("Read more")).toBeInTheDocument();
+  });
+
+  it("renders custom read more text", () => {
+    const items = [
+      {
+        id: "1",
+        title: "Case Study 1",
+        description: "Description 1",
+        label: "Analytics",
+        href: "/case-1",
+        image: "https://example.com/image.jpg",
+      },
+    ];
+    render(<CarouselBadgeCards items={items} readMoreText="Learn more" />);
+    expect(screen.getByText("Learn more")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CarouselBadgeCards className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
