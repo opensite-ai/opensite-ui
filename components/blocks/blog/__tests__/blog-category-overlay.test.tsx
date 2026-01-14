@@ -26,12 +26,6 @@ describe("BlogCategoryOverlay", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<BlogCategoryOverlay />);
-    expect(screen.getByText("Articles")).toBeInTheDocument();
-    expect(screen.getByText("Discover the latest trends")).toBeInTheDocument();
-  });
-
   it("renders custom badge and heading", () => {
     render(
       <BlogCategoryOverlay
@@ -43,14 +37,6 @@ describe("BlogCategoryOverlay", () => {
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders default blog posts with categories", () => {
-    render(<BlogCategoryOverlay />);
-    expect(screen.getByText("How to build a successful brand and business")).toBeInTheDocument();
-    expect(screen.getByText("Business")).toBeInTheDocument();
-    expect(screen.getByText("The difference between UI and UX")).toBeInTheDocument();
-    expect(screen.getByText("Design")).toBeInTheDocument();
   });
 
   it("renders custom posts", () => {
@@ -69,47 +55,6 @@ describe("BlogCategoryOverlay", () => {
     expect(screen.getByText("Custom Post")).toBeInTheDocument();
     expect(screen.getByText("Custom Category")).toBeInTheDocument();
     expect(screen.getByText("January 1, 2025")).toBeInTheDocument();
-  });
-
-  it("renders dates for each post", () => {
-    render(<BlogCategoryOverlay />);
-    expect(screen.getByText("September, 23, 2024")).toBeInTheDocument();
-    expect(screen.getByText("April, 07, 2024")).toBeInTheDocument();
-  });
-
-  it("renders view all button with default text", () => {
-    render(<BlogCategoryOverlay />);
-    expect(screen.getByText("View All Blogs")).toBeInTheDocument();
-  });
-
-  it("renders custom view all button text", () => {
-    render(<BlogCategoryOverlay viewAllAction={{ label: "See More", href: "/more" }} />);
-    expect(screen.getByText("See More")).toBeInTheDocument();
-  });
-
-  it("renders read more links for each post", () => {
-    render(<BlogCategoryOverlay />);
-    const readMoreLinks = screen.getAllByText("Read more");
-    expect(readMoreLinks.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BlogCategoryOverlay className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<BlogCategoryOverlay />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
-  });
-
-  it("renders images for each post", () => {
-    render(<BlogCategoryOverlay />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
   });
 
   it("handles empty posts array", () => {

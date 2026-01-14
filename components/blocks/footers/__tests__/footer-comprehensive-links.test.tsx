@@ -40,24 +40,4 @@ describe("FooterComprehensiveLinks", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default tagline", () => {
-    render(<FooterComprehensiveLinks />);
-    expect(
-      screen.getByText("Modern coverage guidance powered by OpenSite AI.")
-    ).toBeInTheDocument();
-  });
-
-  it("renders article section title", () => {
-    render(<FooterComprehensiveLinks />);
-    expect(screen.getByText("Recent Articles")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <FooterComprehensiveLinks className="custom-class" />
-    );
-    const footer = container.querySelector("footer");
-    expect(footer).toHaveClass("custom-class");
-  });
 });

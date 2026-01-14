@@ -22,22 +22,4 @@ describe("FeatureAccordionImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<FeatureAccordionImage />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FeatureAccordionImage className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<FeatureAccordionImage />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

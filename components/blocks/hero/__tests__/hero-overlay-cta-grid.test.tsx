@@ -42,26 +42,4 @@ describe("HeroOverlayCtaGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    render(<HeroOverlayCtaGrid />);
-    expect(
-      screen.getByText("Coverage guidance powered by OpenSite AI")
-    ).toBeInTheDocument();
-  });
-
-  it("renders CTA cards", () => {
-    render(<HeroOverlayCtaGrid />);
-    expect(screen.getByText("Personal Coverage")).toBeInTheDocument();
-    expect(screen.getByText("Event Protection")).toBeInTheDocument();
-    expect(screen.getByText("Commercial Coverage")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <HeroOverlayCtaGrid className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

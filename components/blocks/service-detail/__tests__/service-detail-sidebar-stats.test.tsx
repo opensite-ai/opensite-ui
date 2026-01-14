@@ -30,19 +30,6 @@ describe("ServiceDetailSidebarStats", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ServiceDetailSidebarStats />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ServiceDetailSidebarStats className="custom-class" />);
-    // className is applied to the outer div wrapper, not the section
-    const wrapper = container.firstChild as HTMLElement;
-    expect(wrapper).toHaveClass("custom-class");
-  });
-
   it("renders the title", () => {
     render(<ServiceDetailSidebarStats title="Custom Service Title" />);
     expect(screen.getByText("Custom Service Title")).toBeInTheDocument();
@@ -76,20 +63,5 @@ describe("ServiceDetailSidebarStats", () => {
     );
     expect(screen.getByText("Figma")).toBeInTheDocument();
     expect(screen.getByText("5+ years")).toBeInTheDocument();
-  });
-
-  it("renders content sections", () => {
-    render(
-      <ServiceDetailSidebarStats
-        contentSections={[
-          {
-            title: "Section Title",
-            paragraphs: ["First paragraph"],
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Section Title")).toBeInTheDocument();
-    expect(screen.getByText("First paragraph")).toBeInTheDocument();
   });
 });

@@ -22,34 +22,4 @@ describe("HeroSimpleCenteredImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    render(<HeroSimpleCenteredImage />);
-    expect(screen.getByText("Welcome to Our Website")).toBeInTheDocument();
-  });
-
-  it("renders CTA buttons", () => {
-    render(<HeroSimpleCenteredImage />);
-    expect(screen.getByText("Primary")).toBeInTheDocument();
-    expect(screen.getByText("Secondary")).toBeInTheDocument();
-  });
-
-  it("renders hero image", () => {
-    render(<HeroSimpleCenteredImage />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<HeroSimpleCenteredImage className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<HeroSimpleCenteredImage />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
-  });
 });

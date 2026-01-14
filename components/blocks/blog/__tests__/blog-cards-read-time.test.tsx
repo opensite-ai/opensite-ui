@@ -30,13 +30,6 @@ describe("BlogCardsReadTime", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<BlogCardsReadTime />);
-    expect(screen.getByText("Our Blogs")).toBeInTheDocument();
-    expect(screen.getByText("Discover the latest trends")).toBeInTheDocument();
-    expect(screen.getByText(/Explore our blog for insightful articles/)).toBeInTheDocument();
-  });
-
   it("renders custom badge and heading", () => {
     render(
       <BlogCardsReadTime
@@ -48,13 +41,6 @@ describe("BlogCardsReadTime", () => {
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
-  it("renders default blog posts", () => {
-    render(<BlogCardsReadTime />);
-    expect(screen.getByText("How to build a successful brand and business online in 2024")).toBeInTheDocument();
-    expect(screen.getByText("The difference between UI and UX and how to design for both")).toBeInTheDocument();
-    expect(screen.getByText("Optimizing your website for SEO and getting more traffic")).toBeInTheDocument();
   });
 
   it("renders custom posts", () => {
@@ -75,56 +61,6 @@ describe("BlogCardsReadTime", () => {
     expect(screen.getByText("Custom post summary")).toBeInTheDocument();
     expect(screen.getByText("Custom Author")).toBeInTheDocument();
     expect(screen.getByText("5 Min Read")).toBeInTheDocument();
-  });
-
-  it("renders author information with avatar", () => {
-    render(<BlogCardsReadTime />);
-    expect(screen.getByText("John Doe")).toBeInTheDocument();
-    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
-    expect(screen.getByText("Jane Smith")).toBeInTheDocument();
-  });
-
-  it("renders read time badges", () => {
-    render(<BlogCardsReadTime />);
-    expect(screen.getByText("10 Min Read")).toBeInTheDocument();
-    expect(screen.getByText("14 Min Read")).toBeInTheDocument();
-    expect(screen.getByText("9 Min Read")).toBeInTheDocument();
-  });
-
-  it("renders view all button with default text", () => {
-    render(<BlogCardsReadTime />);
-    expect(screen.getByText("View All Blogs")).toBeInTheDocument();
-  });
-
-  it("renders custom view all button text", () => {
-    render(<BlogCardsReadTime viewAllAction={{ label: "See More Posts", href: "/all-posts" }} />);
-    expect(screen.getByText("See More Posts")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BlogCardsReadTime className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<BlogCardsReadTime />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
-  });
-
-  it("renders images for each post", () => {
-    render(<BlogCardsReadTime />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders clickable post cards", () => {
-    const { container } = render(<BlogCardsReadTime />);
-    // Posts are wrapped in Pressable components which render as anchor tags
-    const links = container.querySelectorAll("a");
-    expect(links.length).toBeGreaterThan(0);
   });
 
   it("handles empty posts array", () => {

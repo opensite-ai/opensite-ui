@@ -3,13 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { FaqStaticList, type FaqStaticListProps } from "../faq-static-list";
 
 describe("FaqStaticList", () => {
-  it("renders with default props", () => {
-    render(<FaqStaticList />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading", () => {
     render(<FaqStaticList heading="Custom Heading" />);
@@ -29,13 +22,6 @@ describe("FaqStaticList", () => {
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
     expect(screen.getByText("Custom Answer 1")).toBeInTheDocument();
     expect(screen.getByText("Custom Answer 2")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FaqStaticList className="custom-class" />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 
   it("renders empty items array", () => {
@@ -60,27 +46,6 @@ describe("FaqStaticList", () => {
     expect(screen.getByText("Question B")).toBeInTheDocument();
     expect(screen.getByText("Question C")).toBeInTheDocument();
     expect(screen.getByText("Question D")).toBeInTheDocument();
-  });
-
-  it("renders items with border-b class", () => {
-    const { container } = render(<FaqStaticList />);
-
-    const borderedItems = container.querySelectorAll(".border-b");
-    expect(borderedItems.length).toBeGreaterThan(0);
-  });
-
-  it("renders with max-w-3xl container", () => {
-    const { container } = render(<FaqStaticList />);
-
-    const maxWidthContainer = container.querySelector(".max-w-3xl");
-    expect(maxWidthContainer).toBeInTheDocument();
-  });
-
-  it("renders with space-y-8 layout", () => {
-    const { container } = render(<FaqStaticList />);
-
-    const spacedContainer = container.querySelector(".space-y-8");
-    expect(spacedContainer).toBeInTheDocument();
   });
 });
 

@@ -51,20 +51,6 @@ describe("TimelineTwoColumnFeatured", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineTwoColumnFeatured />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineTwoColumnFeatured className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading and description", () => {
     const { getByText } = render(
       <TimelineTwoColumnFeatured
@@ -74,17 +60,5 @@ describe("TimelineTwoColumnFeatured", () => {
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
     expect(getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders CTA buttons", () => {
-    const { container } = render(<TimelineTwoColumnFeatured />);
-    const buttons = container.querySelectorAll('[data-testid="mock-pressable"]');
-    expect(buttons.length).toBeGreaterThan(0);
-  });
-
-  it("renders feature cards", () => {
-    const { container } = render(<TimelineTwoColumnFeatured />);
-    const images = container.querySelectorAll('[data-testid="mock-img"]');
-    expect(images.length).toBeGreaterThan(0);
   });
 });

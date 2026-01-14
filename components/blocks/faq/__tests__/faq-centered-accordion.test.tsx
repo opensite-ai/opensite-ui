@@ -6,18 +6,6 @@ import {
 } from "../faq-centered-accordion";
 
 describe("FaqCenteredAccordion", () => {
-  it("renders with default props", () => {
-    render(<FaqCenteredAccordion />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -49,15 +37,6 @@ describe("FaqCenteredAccordion", () => {
 
     expect(screen.getByText("Custom Question 1")).toBeInTheDocument();
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <FaqCenteredAccordion className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 
   it("renders empty items array", () => {

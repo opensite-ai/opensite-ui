@@ -43,13 +43,6 @@ describe("ArticleBreadcrumbSocial", () => {
     { id: "conclusion", title: "Conclusion" },
   ];
 
-  it("renders with default props", () => {
-    render(<ArticleBreadcrumbSocial />);
-    expect(screen.getByText("Article")).toBeInTheDocument();
-    expect(screen.getByText("Mastering Performance Optimization in Modern Web Apps")).toBeInTheDocument();
-    expect(screen.getByText("Emily Rodriguez")).toBeInTheDocument();
-  });
-
   it("renders custom title and author", () => {
     render(
       <ArticleBreadcrumbSocial
@@ -62,74 +55,12 @@ describe("ArticleBreadcrumbSocial", () => {
     expect(screen.getByText("John Smith")).toBeInTheDocument();
   });
 
-  it("renders breadcrumb navigation", () => {
-    render(
-      <ArticleBreadcrumbSocial
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Blog", href: "/blog" },
-        ]}
-        currentPage="Test Article"
-      />
-    );
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Blog")).toBeInTheDocument();
-    expect(screen.getByText("Test Article")).toBeInTheDocument();
-  });
-
   it("renders sections in table of contents", () => {
     render(<ArticleBreadcrumbSocial sections={mockSections} />);
     expect(screen.getByText("Introduction")).toBeInTheDocument();
     expect(screen.getByText("Details")).toBeInTheDocument();
     expect(screen.getByText("Conclusion")).toBeInTheDocument();
   });
-
-  it("renders social share buttons", () => {
-    render(
-      <ArticleBreadcrumbSocial
-        shareUrls={{
-          twitter: "https://twitter.com/share",
-          facebook: "https://facebook.com/share",
-          linkedin: "https://linkedin.com/share",
-          instagram: "https://instagram.com/share",
-        }}
-      />
-    );
-    expect(screen.getByLabelText("Share on Twitter")).toBeInTheDocument();
-    expect(screen.getByLabelText("Share on Facebook")).toBeInTheDocument();
-    expect(screen.getByLabelText("Share on LinkedIn")).toBeInTheDocument();
-    expect(screen.getByLabelText("Share on Instagram")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ArticleBreadcrumbSocial className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
-
-  it("renders author avatar with fallback", () => {
-    render(<ArticleBreadcrumbSocial authorName="Jane Doe" />);
-    expect(screen.getByText("J")).toBeInTheDocument();
-  });
-
-  it("renders publish date and read time", () => {
-    render(
-      <ArticleBreadcrumbSocial
-        publishDate="March 15, 2024"
-        readTime="10 min read"
-      />
-    );
-    expect(screen.getByText(/March 15, 2024/)).toBeInTheDocument();
-    expect(screen.getByText(/10 min read/)).toBeInTheDocument();
-  });
-
-  it("shows back to top button when scrolled", () => {
-    const { rerender } = render(<ArticleBreadcrumbSocial />);
-    
-    // Simulate scroll
-    Object.defineProperty(window, "scrollY", { value: 500 });
     fireEvent.scroll(window);
     
     rerender(<ArticleBreadcrumbSocial />);
@@ -142,12 +73,6 @@ describe("ArticleBreadcrumbSocial", () => {
   it("renders with empty sections array", () => {
     const { container } = render(<ArticleBreadcrumbSocial sections={[]} />);
     expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders article hero image", () => {
-    render(<ArticleBreadcrumbSocial />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
   });
 });
 

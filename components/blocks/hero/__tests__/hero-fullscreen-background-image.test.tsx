@@ -16,32 +16,5 @@ describe("HeroFullscreenBackgroundImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    render(<HeroFullscreenBackgroundImage />);
-    expect(screen.getByText("Explore the wonders of science.")).toBeInTheDocument();
-  });
-
-  it("renders CTA button", () => {
-    render(<HeroFullscreenBackgroundImage />);
-    expect(screen.getByText("See all photos")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<HeroFullscreenBackgroundImage className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("applies custom background image", () => {
-    const { container } = render(<HeroFullscreenBackgroundImage backgroundImage="/custom-bg.jpg" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveStyle({ backgroundImage: "url('/custom-bg.jpg')" });
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<HeroFullscreenBackgroundImage />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
   });
 });

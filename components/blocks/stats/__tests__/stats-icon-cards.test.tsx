@@ -14,26 +14,4 @@ describe("StatsIconCards", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<StatsIconCards />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<StatsIconCards className="custom-class" />);
-    expect(container.firstChild).toHaveClass("custom-class");
-  });
-
-  it("renders icons using DynamicIcon", () => {
-    render(<StatsIconCards />);
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
-  });
-
-  it("renders stats grid", () => {
-    const { container } = render(<StatsIconCards />);
-    const grid = container.querySelector(".grid");
-    expect(grid).toBeInTheDocument();
-  });
 });

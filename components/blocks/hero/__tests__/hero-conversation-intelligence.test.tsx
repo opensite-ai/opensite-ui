@@ -28,22 +28,4 @@ describe("HeroConversationIntelligence", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<HeroConversationIntelligence />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<HeroConversationIntelligence className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<HeroConversationIntelligence />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

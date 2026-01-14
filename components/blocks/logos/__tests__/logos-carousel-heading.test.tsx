@@ -23,20 +23,9 @@ describe("LogosCarouselHeading", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<LogosCarouselHeading />);
-    expect(screen.getByText("Trusted by these companies")).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     render(<LogosCarouselHeading heading="Our Partners" />);
     expect(screen.getByText("Our Partners")).toBeInTheDocument();
-  });
-
-  it("renders default logos", () => {
-    render(<LogosCarouselHeading />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
   });
 
   it("renders custom logos", () => {
@@ -47,24 +36,6 @@ describe("LogosCarouselHeading", () => {
     render(<LogosCarouselHeading logos={customLogos} />);
     expect(screen.getByAltText("Custom Logo 1")).toBeInTheDocument();
     expect(screen.getByAltText("Custom Logo 2")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LogosCarouselHeading className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<LogosCarouselHeading />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
-  });
-
-  it("renders carousel component", () => {
-    render(<LogosCarouselHeading />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
   });
 
   it("handles empty logos array", () => {

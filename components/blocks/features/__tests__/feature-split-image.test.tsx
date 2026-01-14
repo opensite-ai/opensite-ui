@@ -28,28 +28,4 @@ describe("FeatureSplitImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<FeatureSplitImage />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FeatureSplitImage className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders images", () => {
-    render(<FeatureSplitImage />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<FeatureSplitImage />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

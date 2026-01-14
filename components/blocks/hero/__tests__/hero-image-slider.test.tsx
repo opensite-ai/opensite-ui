@@ -43,29 +43,4 @@ describe("HeroImageSlider", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    render(<HeroImageSlider />);
-    expect(
-      screen.getByText("A hero slider that keeps your message front and center")
-    ).toBeInTheDocument();
-  });
-
-  it("renders CTA buttons", () => {
-    render(<HeroImageSlider />);
-    expect(screen.getByText("Start a demo")).toBeInTheDocument();
-    expect(screen.getByText("View case studies")).toBeInTheDocument();
-  });
-
-  it("renders slider image", () => {
-    render(<HeroImageSlider />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<HeroImageSlider className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

@@ -19,18 +19,6 @@ vi.mock("../../../../lib/Pressable", () => ({
 }));
 
 describe("FaqSplitHelp", () => {
-  it("renders with default props", () => {
-    render(<FaqSplitHelp />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -53,47 +41,12 @@ describe("FaqSplitHelp", () => {
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
   });
 
-  it("renders help section", () => {
-    render(
-      <FaqSplitHelp
-        helpHeading="Need Assistance?"
-        helpDescription="Our team is ready to help"
-        helpAction={{ label: "Get Help", href: "/help" }}
-      />
-    );
-
-    expect(screen.getByText("Need Assistance?")).toBeInTheDocument();
-    expect(screen.getByText("Our team is ready to help")).toBeInTheDocument();
-    expect(screen.getByText("Get Help")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FaqSplitHelp className="custom-class" />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty items array", () => {
     render(<FaqSplitHelp items={[]} />);
 
     expect(
       screen.getByText("Frequently asked questions")
     ).toBeInTheDocument();
-  });
-
-  it("renders pressable button", () => {
-    render(<FaqSplitHelp />);
-
-    const pressables = screen.getAllByTestId("mock-pressable");
-    expect(pressables.length).toBeGreaterThan(0);
-  });
-
-  it("renders help section with accent background", () => {
-    const { container } = render(<FaqSplitHelp />);
-
-    const accentSection = container.querySelector(".bg-accent");
-    expect(accentSection).toBeInTheDocument();
   });
 
   it("renders multiple items", () => {

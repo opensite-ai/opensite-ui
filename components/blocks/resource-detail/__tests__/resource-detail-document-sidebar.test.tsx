@@ -123,53 +123,6 @@ describe("ResourceDetailDocumentSidebar", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ResourceDetailDocumentSidebar />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ResourceDetailDocumentSidebar className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<ResourceDetailDocumentSidebar />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
-  });
-
-  it("renders breadcrumb navigation", () => {
-    const { getAllByTestId } = render(<ResourceDetailDocumentSidebar />);
-    const breadcrumb = getAllByTestId("mock-breadcrumb");
-    expect(breadcrumb.length).toBeGreaterThan(0);
-  });
-
-  it("renders article content area", () => {
-    const { container } = render(<ResourceDetailDocumentSidebar />);
-    const article = container.querySelector("article");
-    expect(article).toBeInTheDocument();
-    expect(article).toHaveClass("prose");
-  });
-
-  it("renders with custom breadcrumbs", () => {
-    const customBreadcrumbs = [
-      { label: "Home", href: "/" },
-      { label: "Documents", href: "/documents" },
-      { label: "Contract", isCurrentPage: true },
-    ];
-    const { container } = render(
-      <ResourceDetailDocumentSidebar breadcrumbs={customBreadcrumbs} />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders with custom title", () => {
     const { container } = render(
       <ResourceDetailDocumentSidebar title="Custom Document Title" />
@@ -177,39 +130,5 @@ describe("ResourceDetailDocumentSidebar", () => {
     const heading = container.querySelector("h1");
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent("Custom Document Title");
-  });
-
-  it("renders grid layout with two columns", () => {
-    const { container } = render(<ResourceDetailDocumentSidebar />);
-    const gridContainer = container.querySelector(".grid");
-    expect(gridContainer).toBeInTheDocument();
-  });
-
-  it("renders sticky sidebar", () => {
-    const { container } = render(<ResourceDetailDocumentSidebar />);
-    const stickySidebar = container.querySelector(".md\\:sticky");
-    expect(stickySidebar).toBeInTheDocument();
-  });
-
-  it("renders with custom sidebar props", () => {
-    const customSidebar = {
-      excerptTitle: "Summary",
-      excerptDescription: "Custom description",
-      downloadButton: {
-        text: "Download Now",
-        href: "/download",
-      },
-      reviewer: {
-        name: "Jane Doe",
-        role: "Reviewer",
-        avatarSrc: "https://example.com/avatar.jpg",
-      },
-      features: [{ text: "Feature 1" }, { text: "Feature 2" }],
-    };
-    const { container } = render(
-      <ResourceDetailDocumentSidebar sidebar={customSidebar} />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
   });
 });

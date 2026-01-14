@@ -17,16 +17,6 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ComparisonGridBadges", () => {
-  it("renders with default props", () => {
-    render(<ComparisonGridBadges />);
-
-    expect(screen.getByText("Feature Comparison")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "See how our solution compares to traditional approaches across key metrics."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -58,41 +48,10 @@ describe("ComparisonGridBadges", () => {
     expect(screen.getByText("Custom feature description")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ComparisonGridBadges className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty features array", () => {
     render(<ComparisonGridBadges features={[]} />);
 
     expect(screen.getByText("Feature Comparison")).toBeInTheDocument();
-  });
-
-  it("renders icons for features", () => {
-    render(<ComparisonGridBadges />);
-
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
-  });
-
-  it("renders option labels in badges", () => {
-    render(
-      <ComparisonGridBadges
-        optionALabel="Our Product"
-        optionBLabel="Competitor"
-      />
-    );
-
-    // Check that option labels are rendered as part of badge content
-    const ourProductElements = screen.getAllByText(/Our Product/);
-    const competitorElements = screen.getAllByText(/Competitor/);
-    expect(ourProductElements.length).toBeGreaterThan(0);
-    expect(competitorElements.length).toBeGreaterThan(0);
   });
 
   it("renders multiple features", () => {

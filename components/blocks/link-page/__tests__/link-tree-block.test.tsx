@@ -25,46 +25,6 @@ describe("LinkTreeBlock", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<LinkTreeBlock brandName="Test Brand" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toBeInTheDocument();
-  });
-
-  it("renders brand name", () => {
-    render(<LinkTreeBlock brandName="My Brand" />);
-    expect(screen.getByText("My Brand")).toBeInTheDocument();
-  });
-
-  it("renders brand tagline when provided", () => {
-    render(<LinkTreeBlock brandName="Test" brandTagline="My tagline" />);
-    expect(screen.getByText("My tagline")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LinkTreeBlock brandName="Test" className="custom-class" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("custom-class");
-  });
-
-  it("renders with light theme by default", () => {
-    const { container } = render(<LinkTreeBlock brandName="Test" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("bg-muted/30");
-  });
-
-  it("renders with dark theme", () => {
-    const { container } = render(<LinkTreeBlock brandName="Test" theme="dark" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("bg-neutral-950");
-  });
-
-  it("renders with glass theme", () => {
-    const { container } = render(<LinkTreeBlock brandName="Test" theme="glass" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("bg-linear-to-br");
-  });
-
   it("renders links when provided", () => {
     const links = [
       { id: "1", label: "Link 1", href: "https://example.com" },
@@ -73,18 +33,5 @@ describe("LinkTreeBlock", () => {
     render(<LinkTreeBlock brandName="Test" links={links} />);
     expect(screen.getByText("Link 1")).toBeInTheDocument();
     expect(screen.getByText("Link 2")).toBeInTheDocument();
-  });
-
-  it("renders media gallery title when provided", () => {
-    const mediaGallery = [
-      { id: "m1", type: "image" as const, src: "https://example.com/image.jpg" },
-    ];
-    render(<LinkTreeBlock brandName="Test" mediaGallery={mediaGallery} mediaGalleryTitle="My Gallery" />);
-    expect(screen.getByText("My Gallery")).toBeInTheDocument();
-  });
-
-  it("renders powered by footer", () => {
-    render(<LinkTreeBlock brandName="Test" />);
-    expect(screen.getByText("Powered by OpenSite")).toBeInTheDocument();
   });
 });

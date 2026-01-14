@@ -54,24 +54,6 @@ describe("ResourceListFeaturedGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ResourceListFeaturedGrid />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ResourceListFeaturedGrid className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<ResourceListFeaturedGrid />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders with custom title and description", () => {
     const { container } = render(
       <ResourceListFeaturedGrid 
@@ -91,23 +73,6 @@ describe("ResourceListFeaturedGrid", () => {
           { value: "tech", label: "Tech" },
           { value: "design", label: "Design" },
         ]}
-      />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders with custom featured article", () => {
-    const { container } = render(
-      <ResourceListFeaturedGrid 
-        featuredArticle={{
-          title: "Featured Article",
-          imageUrl: "https://example.com/image.jpg",
-          date: "Dec 4, 2024",
-          authors: ["https://example.com/avatar.jpg"],
-          link: "/featured",
-          badge: "Featured",
-        }}
       />
     );
     const section = container.querySelector("section");

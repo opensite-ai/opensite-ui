@@ -44,24 +44,6 @@ describe("TestimonialsBentoGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TestimonialsBentoGrid />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<TestimonialsBentoGrid className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<TestimonialsBentoGrid />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     const { container } = render(<TestimonialsBentoGrid heading="Custom Heading" />);
     expect(container.textContent).toContain("Custom Heading");

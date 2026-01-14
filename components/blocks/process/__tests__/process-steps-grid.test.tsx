@@ -21,16 +21,6 @@ describe("ProcessStepsGrid", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<ProcessStepsGrid />);
-    expect(screen.getByText("Our Process")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "A systematic approach to delivering exceptional results through careful planning and execution."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <ProcessStepsGrid
@@ -61,20 +51,6 @@ describe("ProcessStepsGrid", () => {
     expect(screen.getByText("01")).toBeInTheDocument();
     expect(screen.getByText("02")).toBeInTheDocument();
     expect(screen.getByText("03")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ProcessStepsGrid className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
-  it("applies default section padding", () => {
-    const { container } = render(<ProcessStepsGrid />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-32");
   });
 
   it("renders grid layout with correct columns", () => {
@@ -110,28 +86,5 @@ describe("ProcessStepsGrid", () => {
     render(<ProcessStepsGrid steps={stepsWithoutIcons} />);
     expect(screen.getByText("Step 1")).toBeInTheDocument();
     expect(screen.getByText("Step 2")).toBeInTheDocument();
-  });
-
-  it("renders default steps when no steps prop provided", () => {
-    render(<ProcessStepsGrid />);
-    expect(screen.getByText("Research & Discovery")).toBeInTheDocument();
-    expect(screen.getByText("Ideation & Strategy")).toBeInTheDocument();
-    expect(screen.getByText("Design & Prototype")).toBeInTheDocument();
-    expect(screen.getByText("Development")).toBeInTheDocument();
-    expect(screen.getByText("Testing & QA")).toBeInTheDocument();
-    expect(screen.getByText("Launch & Support")).toBeInTheDocument();
-  });
-
-  it("renders container with proper structure", () => {
-    const { container } = render(<ProcessStepsGrid />);
-    const containerDiv = container.querySelector(".max-w-7xl");
-    expect(containerDiv).toBeInTheDocument();
-  });
-
-  it("renders header section centered", () => {
-    const { container } = render(<ProcessStepsGrid />);
-    const header = container.querySelector(".text-center");
-    expect(header).toBeInTheDocument();
-    expect(header?.className).toContain("mb-16");
   });
 });

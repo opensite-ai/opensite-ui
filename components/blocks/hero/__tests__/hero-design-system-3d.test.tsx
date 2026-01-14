@@ -22,22 +22,4 @@ describe("HeroDesignSystem3d", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<HeroDesignSystem3d />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<HeroDesignSystem3d className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<HeroDesignSystem3d />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

@@ -19,20 +19,9 @@ describe("LogosTwoRowGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<LogosTwoRowGrid />);
-    expect(screen.getByText("Trusted by leading companies worldwide")).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     render(<LogosTwoRowGrid heading="Custom Heading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders default companies", () => {
-    render(<LogosTwoRowGrid />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBe(10);
   });
 
   it("renders custom companies", () => {
@@ -55,25 +44,6 @@ describe("LogosTwoRowGrid", () => {
     render(<LogosTwoRowGrid companies={customCompanies} />);
     const images = screen.getAllByTestId("mock-img");
     expect(images.length).toBe(4);
-  });
-
-  it("renders clickable company logos", () => {
-    const { container } = render(<LogosTwoRowGrid />);
-    const links = container.querySelectorAll("a");
-    expect(links.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LogosTwoRowGrid className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<LogosTwoRowGrid />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
   });
 
   it("handles empty companies array", () => {

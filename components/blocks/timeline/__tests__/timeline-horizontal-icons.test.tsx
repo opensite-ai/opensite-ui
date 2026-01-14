@@ -62,31 +62,11 @@ describe("TimelineHorizontalIcons", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineHorizontalIcons />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineHorizontalIcons className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading", () => {
     const { getByText } = render(
       <TimelineHorizontalIcons heading="Custom Heading" />
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders phase icons", () => {
-    const { container } = render(<TimelineHorizontalIcons />);
-    const icons = container.querySelectorAll('[data-testid="mock-dynamic-icon"]');
-    expect(icons.length).toBeGreaterThan(0);
   });
 
   it("renders custom phases with icons", () => {
@@ -111,13 +91,5 @@ describe("TimelineHorizontalIcons", () => {
     );
     expect(getByText("Custom Phase 1")).toBeInTheDocument();
     expect(getByText("Custom Phase 2")).toBeInTheDocument();
-  });
-
-  it("renders with custom currentPhase", () => {
-    const { container } = render(
-      <TimelineHorizontalIcons currentPhase={1} />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
   });
 });

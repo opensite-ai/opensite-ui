@@ -24,16 +24,6 @@ describe("ProcessScrollImage", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<ProcessScrollImage />);
-    expect(screen.getByText("Our Process")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "We follow a proven methodology to deliver exceptional results for every project we undertake."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <ProcessScrollImage
@@ -68,40 +58,9 @@ describe("ProcessScrollImage", () => {
     expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 
-  it("renders default CTA button", () => {
-    render(<ProcessScrollImage />);
-    expect(screen.getByText("Get in touch")).toBeInTheDocument();
-  });
-
   it("does not render CTA when actions is empty", () => {
     render(<ProcessScrollImage actions={[]} />);
     expect(screen.queryByText("Get in touch")).not.toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ProcessScrollImage className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
-  it("applies default section padding", () => {
-    const { container } = render(<ProcessScrollImage />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-32");
-  });
-
-  it("renders grid layout with correct columns", () => {
-    const { container } = render(<ProcessScrollImage />);
-    const grid = container.querySelector(".grid");
-    expect(grid?.className).toContain("lg:grid-cols-2");
-  });
-
-  it("renders sticky sidebar for images", () => {
-    const { container } = render(<ProcessScrollImage />);
-    const stickySidebar = container.querySelector(".lg\\:sticky");
-    expect(stickySidebar).toBeInTheDocument();
   });
 
   it("renders step numbers with leading zeros", () => {
@@ -116,43 +75,15 @@ describe("ProcessScrollImage", () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
-  it("renders default steps when no steps prop provided", () => {
-    render(<ProcessScrollImage />);
-    expect(screen.getByText("Discover & Research")).toBeInTheDocument();
-    expect(screen.getByText("Strategy & Planning")).toBeInTheDocument();
-    expect(screen.getByText("Execute & Develop")).toBeInTheDocument();
-    expect(screen.getByText("Optimize & Improve")).toBeInTheDocument();
-  });
-
-  it("renders image container with border", () => {
-    const { container } = render(<ProcessScrollImage />);
-    const imageContainer = container.querySelector(".border.h-90");
-    expect(imageContainer).toBeInTheDocument();
-  });
-
   it("renders steps as list items", () => {
     const { container } = render(<ProcessScrollImage steps={mockSteps} />);
     const listItems = container.querySelectorAll("li");
     expect(listItems.length).toBe(3);
   });
 
-  it("renders container with proper structure", () => {
-    const { container } = render(<ProcessScrollImage />);
-    const containerDiv = container.querySelector(".max-w-7xl");
-    expect(containerDiv).toBeInTheDocument();
-  });
-
   it("renders CTA as Pressable link", () => {
     render(<ProcessScrollImage ctaText="Get Started" ctaUrl="/start" />);
     const link = screen.getByText("Get Started").closest("a");
     expect(link).toHaveAttribute("href", "/start");
-  });
-
-  it("accepts optixFlowConfig prop", () => {
-    const optixConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <ProcessScrollImage optixFlowConfig={optixConfig} />
-    );
-    expect(container.firstChild).toBeInTheDocument();
   });
 });

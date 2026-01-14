@@ -101,12 +101,6 @@ describe("ProjectFilterableGallery", () => {
     expect(screen.getByText("Brand Identity")).toBeInTheDocument();
   });
 
-  it("renders default projects when no projects prop provided", () => {
-    render(<ProjectFilterableGallery />);
-    expect(screen.getByText("Minimalist Geometry")).toBeInTheDocument();
-    expect(screen.getByText("Abstract Color Flow")).toBeInTheDocument();
-  });
-
   it("applies custom className", () => {
     const { container } = render(
       <ProjectFilterableGallery

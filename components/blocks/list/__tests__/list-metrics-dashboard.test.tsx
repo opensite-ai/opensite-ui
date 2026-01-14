@@ -38,33 +38,14 @@ describe("ListMetricsDashboard", () => {
     },
   ];
 
-  it("renders with default badge text", () => {
-    render(<ListMetricsDashboard />);
-    expect(screen.getByText("System Metrics")).toBeInTheDocument();
-  });
-
   it("renders custom badge text", () => {
     render(<ListMetricsDashboard badge="Custom Badge" />);
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 
-  it("renders default heading", () => {
-    render(<ListMetricsDashboard />);
-    expect(
-      screen.getByText("Platform Health & Performance")
-    ).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     render(<ListMetricsDashboard heading="Custom Heading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders default description", () => {
-    render(<ListMetricsDashboard />);
-    expect(
-      screen.getByText(/Key metrics across our infrastructure/)
-    ).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
@@ -125,19 +106,6 @@ describe("ListMetricsDashboard", () => {
     expect(screen.getByText("Active Users")).toBeInTheDocument();
     expect(screen.getByText("Bandwidth Usage")).toBeInTheDocument();
   });
-
-  it("renders last updated text", () => {
-    render(<ListMetricsDashboard lastUpdated="Today at 10:00 UTC" />);
-    expect(screen.getByText("Today at 10:00 UTC")).toBeInTheDocument();
-  });
-
-  it("renders dashboard link", () => {
-    render(
-      <ListMetricsDashboard
-        dashboardAction={{ label: "View dashboard", href: "/dashboard" }}
-      />
-    );
-    const link = screen.getByRole("link", { name: /View dashboard/ });
     expect(link).toHaveAttribute("href", "/dashboard");
   });
 

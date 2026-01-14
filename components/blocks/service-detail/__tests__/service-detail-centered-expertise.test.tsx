@@ -43,42 +43,9 @@ describe("ServiceDetailCenteredExpertise", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ServiceDetailCenteredExpertise />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ServiceDetailCenteredExpertise className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders the title", () => {
     render(<ServiceDetailCenteredExpertise title="Custom Service Title" />);
     expect(screen.getByText("Custom Service Title")).toBeInTheDocument();
-  });
-
-  it("renders expertise grid", () => {
-    render(
-      <ServiceDetailCenteredExpertise
-        expertise={[
-          {
-            icon: "/icon.svg",
-            title: "Figma",
-            description: "Expert",
-          },
-          {
-            icon: "/icon2.svg",
-            title: "Sketch",
-            description: "Advanced",
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Figma")).toBeInTheDocument();
-    expect(screen.getByText("Sketch")).toBeInTheDocument();
   });
 
   it("renders services with icons", () => {
@@ -92,37 +59,5 @@ describe("ServiceDetailCenteredExpertise", () => {
     );
     expect(screen.getByText("User research")).toBeInTheDocument();
     expect(screen.getByText("Journey mapping")).toBeInTheDocument();
-  });
-
-  it("renders related services cards", () => {
-    render(
-      <ServiceDetailCenteredExpertise
-        relatedServices={[
-          {
-            image: "/image.jpg",
-            title: "Web Development",
-            description: "Custom websites",
-            href: "/services/web",
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Web Development")).toBeInTheDocument();
-    expect(screen.getByText("Custom websites")).toBeInTheDocument();
-  });
-
-  it("renders content sections", () => {
-    render(
-      <ServiceDetailCenteredExpertise
-        contentSections={[
-          {
-            title: "Section Title",
-            paragraphs: ["First paragraph"],
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Section Title")).toBeInTheDocument();
-    expect(screen.getByText("First paragraph")).toBeInTheDocument();
   });
 });

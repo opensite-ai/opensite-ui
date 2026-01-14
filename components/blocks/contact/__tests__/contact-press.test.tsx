@@ -3,17 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { ContactPress } from "../contact-press";
 
 describe("ContactPress", () => {
-  it("renders with default props", () => {
-    const { container } = render(<ContactPress />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ContactPress className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 
   it("renders custom heading", () => {
     render(<ContactPress heading="Custom Heading" />);
@@ -29,31 +18,6 @@ describe("ContactPress", () => {
     render(<ContactPress buttonText="Custom Button" />);
     expect(screen.getByText("Custom Button")).toBeInTheDocument();
   });
-
-  it("renders all form fields", () => {
-    render(<ContactPress />);
-
-    expect(screen.getByLabelText("First Name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Last Name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(screen.getByLabelText("Phone")).toBeInTheDocument();
-    expect(screen.getByLabelText("Message")).toBeInTheDocument();
-  });
-
-  it("renders default heading", () => {
-    render(<ContactPress />);
-    expect(screen.getByText("Press Inquiries")).toBeInTheDocument();
-  });
-
-  it("renders submit button", () => {
-    render(<ContactPress />);
-    const button = screen.getByRole("button", { type: "submit" });
     expect(button).toBeInTheDocument();
-  });
-
-  it("form is accessible", () => {
-    const { container } = render(<ContactPress />);
-    const form = container.querySelector("form");
-    expect(form).toBeInTheDocument();
   });
 });

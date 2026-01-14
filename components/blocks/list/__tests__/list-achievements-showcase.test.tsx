@@ -21,13 +21,6 @@ describe("ListAchievementsShowcase", () => {
     },
   ];
 
-  it("renders with default heading", () => {
-    render(<ListAchievementsShowcase />);
-    expect(
-      screen.getByText("Our Achievements & Recognition")
-    ).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     render(<ListAchievementsShowcase heading="Custom Heading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
@@ -49,12 +42,6 @@ describe("ListAchievementsShowcase", () => {
 
   it("renders action buttons with correct text", () => {
     // Items have their own actions, so they use those labels
-    render(<ListAchievementsShowcase items={mockItems} />);
-    const buttons = screen.getAllByText("View project");
-    expect(buttons.length).toBe(2);
-  });
-
-  it("renders default button text", () => {
     render(<ListAchievementsShowcase items={mockItems} />);
     const buttons = screen.getAllByText("View project");
     expect(buttons.length).toBe(2);

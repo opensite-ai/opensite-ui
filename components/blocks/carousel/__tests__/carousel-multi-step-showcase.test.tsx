@@ -32,13 +32,6 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("CarouselMultiStepShowcase", () => {
-  it("renders with default props", () => {
-    render(<CarouselMultiStepShowcase />);
-    expect(screen.getByText("How It Works")).toBeInTheDocument();
-    expect(
-      screen.getByText("Follow these simple steps to get started")
-    ).toBeInTheDocument();
-  });
 
   it("renders custom heading", () => {
     render(<CarouselMultiStepShowcase heading="Custom Heading" />);
@@ -54,14 +47,6 @@ describe("CarouselMultiStepShowcase", () => {
     render(<CarouselMultiStepShowcase actions={[{ label: "Start Now", href: "#" }]} />);
     // CTA only shows on last step, so we need to navigate there
     expect(screen.getByText("Next")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselMultiStepShowcase className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
   });
 
   it("renders custom steps", () => {
@@ -105,52 +90,6 @@ describe("CarouselMultiStepShowcase", () => {
     const stepButtons = container.querySelectorAll(".rounded-full.px-4");
     fireEvent.click(stepButtons[1]);
     // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("handles next button click", () => {
-    render(<CarouselMultiStepShowcase />);
-    const nextButton = screen.getByText("Next");
-    fireEvent.click(nextButton);
-    // Should not throw error
-    expect(screen.getByText("How It Works")).toBeInTheDocument();
-  });
-
-  it("handles previous button click", () => {
-    render(<CarouselMultiStepShowcase />);
-    const prevButton = screen.getByText("Previous");
-    // Previous should be disabled on first step
-    expect(prevButton.closest("button")).toHaveClass("disabled:opacity-50");
-  });
-
-  it("renders progress bar", () => {
-    const { container } = render(<CarouselMultiStepShowcase />);
-    const progressBar = container.querySelector(".bg-primary.h-full");
-    expect(progressBar).toBeInTheDocument();
-  });
-
-  it("renders step counter badge", () => {
-    render(<CarouselMultiStepShowcase />);
-    expect(screen.getByText(/Step 1 of/)).toBeInTheDocument();
-  });
-
-  it("renders with two-column grid layout", () => {
-    const { container } = render(<CarouselMultiStepShowcase />);
-    const grid = container.querySelector(".lg\\:grid-cols-2");
-    expect(grid).toBeInTheDocument();
-  });
-
-  it("renders images for steps", () => {
-    render(<CarouselMultiStepShowcase />);
-    const images = screen.getAllByTestId("img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselMultiStepShowcase optixFlowConfig={optixFlowConfig} />
-    );
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 

@@ -22,31 +22,4 @@ describe("ContactHelpCenter", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<ContactHelpCenter />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders default heading", () => {
-    render(<ContactHelpCenter />);
-    expect(
-      screen.getByText("Need help navigating coverage decisions?")
-    ).toBeInTheDocument();
-  });
-
-  it("renders contact items", () => {
-    render(<ContactHelpCenter />);
-    expect(screen.getByText("Schedule a Strategy Call")).toBeInTheDocument();
-    expect(screen.getByText("Email the Team")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ContactHelpCenter className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

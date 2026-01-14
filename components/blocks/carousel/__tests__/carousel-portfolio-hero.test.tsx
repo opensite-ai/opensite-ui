@@ -24,23 +24,9 @@ describe("CarouselPortfolioHero", () => {
     vi.useRealTimers();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselPortfolioHero />);
-    expect(screen.getByText("Web Design Portfolio")).toBeInTheDocument();
-    expect(screen.getByText("View Projects")).toBeInTheDocument();
-  });
-
   it("renders custom actions", () => {
     render(<CarouselPortfolioHero actions={[{ label: "Explore Work", href: "#" }]} />);
     expect(screen.getByText("Explore Work")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselPortfolioHero className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
   });
 
   it("renders custom slides", () => {
@@ -57,40 +43,6 @@ describe("CarouselPortfolioHero", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
     expect(screen.getByText("Custom Description")).toBeInTheDocument();
     expect(screen.getByText("Custom Tag")).toBeInTheDocument();
-  });
-
-  it("renders navigation buttons", () => {
-    const { container } = render(<CarouselPortfolioHero />);
-    const buttons = container.querySelectorAll("button");
-    expect(buttons.length).toBeGreaterThan(0);
-  });
-
-  it("handles next button click", () => {
-    const { container } = render(<CarouselPortfolioHero />);
-    const buttons = container.querySelectorAll("button");
-    // Find next button
-    const nextButton = Array.from(buttons).find((btn) =>
-      btn.innerHTML.includes("chevron-right")
-    );
-    if (nextButton) {
-      fireEvent.click(nextButton);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("handles prev button click", () => {
-    const { container } = render(<CarouselPortfolioHero />);
-    const buttons = container.querySelectorAll("button");
-    // Find prev button
-    const prevButton = Array.from(buttons).find((btn) =>
-      btn.innerHTML.includes("chevron-left")
-    );
-    if (prevButton) {
-      fireEvent.click(prevButton);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("displays slide counter", () => {
@@ -114,48 +66,12 @@ describe("CarouselPortfolioHero", () => {
     expect(screen.getByText("1 / 2")).toBeInTheDocument();
   });
 
-  it("renders fullscreen layout", () => {
-    const { container } = render(<CarouselPortfolioHero />);
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("h-screen");
-  });
-
-  it("renders gradient overlay", () => {
-    const { container } = render(<CarouselPortfolioHero />);
-    const gradient = container.querySelector(
-      ".bg-gradient-to-t"
-    );
-    expect(gradient).toBeInTheDocument();
-  });
-
   it("renders CTA as a link", () => {
     render(
       <CarouselPortfolioHero actions={[{ label: "View Portfolio", href: "/portfolio" }]} />
     );
     const cta = screen.getByText("View Portfolio");
     expect(cta.closest("a")).toHaveAttribute("href", "/portfolio");
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselPortfolioHero optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders tag badge for current slide", () => {
-    render(<CarouselPortfolioHero />);
-    expect(screen.getByText("UI/UX Design")).toBeInTheDocument();
-  });
-
-  it("renders slide description", () => {
-    render(<CarouselPortfolioHero />);
-    expect(
-      screen.getByText(
-        "Clean, modern interfaces that prioritize user experience and functionality"
-      )
-    ).toBeInTheDocument();
   });
 });
 

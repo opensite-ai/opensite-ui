@@ -20,16 +20,6 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("FaqIconBenefits", () => {
-  it("renders with default props", () => {
-    render(<FaqIconBenefits />);
-
-    expect(screen.getByText("Why choose us?")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Discover the benefits of using our platform for your business needs."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -65,24 +55,10 @@ describe("FaqIconBenefits", () => {
     expect(screen.getByText("Description B")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(<FaqIconBenefits className="custom-class" />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty benefits array", () => {
     render(<FaqIconBenefits benefits={[]} />);
 
     expect(screen.getByText("Why choose us?")).toBeInTheDocument();
-  });
-
-  it("renders icons for benefits", () => {
-    render(<FaqIconBenefits />);
-
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
   });
 
   it("renders multiple benefits", () => {

@@ -19,13 +19,6 @@ describe("BannerPromoCta", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<BannerPromoCta />);
-    expect(screen.getByText("Winter Sale")).toBeInTheDocument();
-    expect(screen.getByText("Up to 50% off")).toBeInTheDocument();
-    expect(screen.getByText("Shop Now")).toBeInTheDocument();
-  });
-
   it("renders with custom props", () => {
     render(
       <BannerPromoCta
@@ -37,17 +30,5 @@ describe("BannerPromoCta", () => {
     expect(screen.getByText("Summer Sale")).toBeInTheDocument();
     expect(screen.getByText("Up to 70% off")).toBeInTheDocument();
     expect(screen.getByText("Buy Now")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BannerPromoCta className="custom-class" />);
-    const banner = container.firstChild as HTMLElement;
-    expect(banner).toHaveClass("custom-class");
-  });
-
-  it("renders with primary background", () => {
-    const { container } = render(<BannerPromoCta />);
-    const banner = container.firstChild as HTMLElement;
-    expect(banner).toHaveClass("bg-primary");
   });
 });

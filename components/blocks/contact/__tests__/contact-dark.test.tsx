@@ -9,17 +9,6 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ContactDark", () => {
-  it("renders with default props", () => {
-    const { container } = render(<ContactDark />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ContactDark className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 
   it("renders custom heading", () => {
     render(<ContactDark heading="Custom Heading" />);

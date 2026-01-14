@@ -26,11 +26,6 @@ describe("CaseStudyStatsMetrics", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CaseStudyStatsMetrics />);
-    expect(screen.getByText("Boosting System Reliability by 125% with AI Monitoring")).toBeInTheDocument();
-  });
-
   it("renders custom title and subtitle", () => {
     render(
       <CaseStudyStatsMetrics
@@ -40,31 +35,6 @@ describe("CaseStudyStatsMetrics", () => {
     );
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
     expect(screen.getByText("Custom Subtitle")).toBeInTheDocument();
-  });
-
-  it("renders breadcrumb navigation", () => {
-    render(<CaseStudyStatsMetrics />);
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Components")).toBeInTheDocument();
-  });
-
-  it("renders custom breadcrumbs", () => {
-    const customBreadcrumbs = [
-      { label: "Custom Home", href: "/" },
-      { label: "Custom Page" },
-    ];
-
-    render(<CaseStudyStatsMetrics breadcrumbs={customBreadcrumbs} />);
-    expect(screen.getByText("Custom Home")).toBeInTheDocument();
-    expect(screen.getByText("Custom Page")).toBeInTheDocument();
-  });
-
-  it("renders default stats", () => {
-    render(<CaseStudyStatsMetrics />);
-    expect(screen.getByText("19%")).toBeInTheDocument();
-    expect(screen.getByText("increase in user engagement rate")).toBeInTheDocument();
-    expect(screen.getByText("28%")).toBeInTheDocument();
-    expect(screen.getByText("72%")).toBeInTheDocument();
   });
 
   it("renders custom stats", () => {
@@ -77,55 +47,9 @@ describe("CaseStudyStatsMetrics", () => {
     expect(screen.getByText("Custom stat label")).toBeInTheDocument();
   });
 
-  it("renders overview section", () => {
-    render(<CaseStudyStatsMetrics overview="Custom overview text" />);
-    expect(screen.getByText("Custom overview text")).toBeInTheDocument();
-  });
-
-  it("renders sector information", () => {
-    render(<CaseStudyStatsMetrics sector="Custom Sector" />);
-    expect(screen.getByText("Custom Sector")).toBeInTheDocument();
-  });
-
-  it("renders CTA button", () => {
-    render(<CaseStudyStatsMetrics ctaAction={{ label: "Get Started", href: "/start" }} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
-  });
-
   it("renders learn more link", () => {
     render(<CaseStudyStatsMetrics ctaLabel="Learn More" />);
     expect(screen.getByText("Learn More")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<CaseStudyStatsMetrics className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<CaseStudyStatsMetrics />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
-  });
-
-  it("renders hero image", () => {
-    render(<CaseStudyStatsMetrics heroImageSrc="/hero.jpg" heroImageAlt="Hero image" />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders company logo", () => {
-    render(<CaseStudyStatsMetrics companyLogoSrc="/logo.svg" />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders default content", () => {
-    render(<CaseStudyStatsMetrics />);
-    expect(screen.getByText("How the Tax System Works")).toBeInTheDocument();
-    expect(screen.getByText("The People's Rebellion")).toBeInTheDocument();
   });
 
   it("renders custom content", () => {

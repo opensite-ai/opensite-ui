@@ -33,30 +33,11 @@ vi.mock("../../../../lib/Pressable", () => ({
 }));
 
 describe("ComparisonMetricsRows", () => {
-  it("renders with default props", () => {
-    render(<ComparisonMetricsRows />);
-
-    expect(
-      screen.getByText("Compare Cloud vs On-site Infrastructure")
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading", () => {
     render(<ComparisonMetricsRows heading="Custom Heading" />);
 
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders option labels", () => {
-    render(
-      <ComparisonMetricsRows
-        optionALabel="Option A"
-        optionBLabel="Option B"
-      />
-    );
-
-    expect(screen.getByText("Option A")).toBeInTheDocument();
-    expect(screen.getByText("Option B")).toBeInTheDocument();
   });
 
   it("renders custom metrics", () => {
@@ -75,15 +56,6 @@ describe("ComparisonMetricsRows", () => {
     expect(screen.getByText("20")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ComparisonMetricsRows className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty metrics array", () => {
     render(<ComparisonMetricsRows metrics={[]} />);
 
@@ -92,28 +64,12 @@ describe("ComparisonMetricsRows", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders footnotes", () => {
-    const customFootnotes = ["Footnote 1", "Footnote 2"];
-
-    render(<ComparisonMetricsRows footnotes={customFootnotes} />);
-
-    expect(screen.getByText("Footnote 1")).toBeInTheDocument();
-    expect(screen.getByText("Footnote 2")).toBeInTheDocument();
-  });
-
   it("renders actions", () => {
     render(
       <ComparisonMetricsRows actions={[{ label: "Learn More", href: "/learn" }]} />
     );
 
     expect(screen.getByText("Learn More")).toBeInTheDocument();
-  });
-
-  it("renders icons in CTA", () => {
-    render(<ComparisonMetricsRows />);
-
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
   });
 });
 

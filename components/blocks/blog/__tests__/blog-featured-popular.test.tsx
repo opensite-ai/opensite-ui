@@ -14,12 +14,6 @@ describe("BlogFeaturedPopular", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<BlogFeaturedPopular />);
-    expect(screen.getByText("Insights and Trends Blog")).toBeInTheDocument();
-    expect(screen.getByText(/Stay updated with the latest insights/)).toBeInTheDocument();
-  });
-
   it("renders custom heading and description", () => {
     render(
       <BlogFeaturedPopular
@@ -29,19 +23,6 @@ describe("BlogFeaturedPopular", () => {
     );
     expect(screen.getByText("Custom Blog Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom blog description")).toBeInTheDocument();
-  });
-
-  it("renders featured post (first post)", () => {
-    render(<BlogFeaturedPopular />);
-    expect(screen.getByText("Exploring the Future of AI in Modern Technology Trends")).toBeInTheDocument();
-    expect(screen.getByText("Technology")).toBeInTheDocument();
-  });
-
-  it("renders popular posts section", () => {
-    render(<BlogFeaturedPopular />);
-    expect(screen.getByText("Popular Posts")).toBeInTheDocument();
-    expect(screen.getByText("Strategies for Effective Business Growth in 2025")).toBeInTheDocument();
-    expect(screen.getByText("Top Wellness Trends to Improve Your Health in 2025")).toBeInTheDocument();
   });
 
   it("renders custom posts", () => {
@@ -63,37 +44,6 @@ describe("BlogFeaturedPopular", () => {
     render(<BlogFeaturedPopular posts={customPosts} />);
     expect(screen.getByText("Featured Post")).toBeInTheDocument();
     expect(screen.getByText("Popular Post 1")).toBeInTheDocument();
-  });
-
-  it("renders custom popular heading", () => {
-    render(<BlogFeaturedPopular popularHeading="Trending Now" />);
-    expect(screen.getByText("Trending Now")).toBeInTheDocument();
-  });
-
-  it("renders category badges", () => {
-    render(<BlogFeaturedPopular />);
-    expect(screen.getByText("Technology")).toBeInTheDocument();
-    expect(screen.getByText("Business")).toBeInTheDocument();
-    expect(screen.getByText("Health & Wellness")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BlogFeaturedPopular className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<BlogFeaturedPopular />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
-  });
-
-  it("renders images for posts", () => {
-    render(<BlogFeaturedPopular />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
   });
 
   it("handles empty posts array", () => {

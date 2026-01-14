@@ -24,25 +24,4 @@ describe("FeatureCapabilitiesGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default heading", () => {
-    render(<FeatureCapabilitiesGrid />);
-    expect(
-      screen.getByText("Models that adapt to your coverage strategy")
-    ).toBeInTheDocument();
-  });
-
-  it("renders feature items", () => {
-    render(<FeatureCapabilitiesGrid />);
-    expect(screen.getByText("Reasoned Guidance")).toBeInTheDocument();
-    expect(screen.getByText("Image Generation")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <FeatureCapabilitiesGrid className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

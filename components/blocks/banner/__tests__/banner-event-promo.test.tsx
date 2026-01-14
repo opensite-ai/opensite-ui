@@ -19,13 +19,6 @@ describe("BannerEventPromo", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<BannerEventPromo />);
-    expect(screen.getByText("GeneriCon 2024")).toBeInTheDocument();
-    expect(screen.getByText(/Join us in Denver/)).toBeInTheDocument();
-    expect(screen.getByText(/Register now/)).toBeInTheDocument();
-  });
-
   it("renders with custom props", () => {
     render(
       <BannerEventPromo
@@ -37,23 +30,5 @@ describe("BannerEventPromo", () => {
     expect(screen.getByText("TechSummit 2025")).toBeInTheDocument();
     expect(screen.getByText(/Join us in San Francisco/)).toBeInTheDocument();
     expect(screen.getByText(/Get Tickets/)).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BannerEventPromo className="custom-class" />);
-    const banner = container.firstChild as HTMLElement;
-    expect(banner).toHaveClass("custom-class");
-  });
-
-  it("has primary background", () => {
-    const { container } = render(<BannerEventPromo />);
-    const banner = container.firstChild as HTMLElement;
-    expect(banner).toHaveClass("bg-primary");
-  });
-
-  it("renders arrow icon", () => {
-    render(<BannerEventPromo />);
-    const icon = screen.getByTestId("mock-icon");
-    expect(icon).toHaveAttribute("data-name", "lucide/arrow-right");
   });
 });

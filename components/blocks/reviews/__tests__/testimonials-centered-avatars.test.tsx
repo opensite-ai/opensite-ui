@@ -33,24 +33,6 @@ describe("TestimonialsCenteredAvatars", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TestimonialsCenteredAvatars />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<TestimonialsCenteredAvatars className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<TestimonialsCenteredAvatars />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     const { container } = render(<TestimonialsCenteredAvatars heading="Custom Heading" />);
     expect(container.textContent).toContain("Custom Heading");

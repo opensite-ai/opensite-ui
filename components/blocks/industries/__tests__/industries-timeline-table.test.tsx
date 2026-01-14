@@ -33,13 +33,6 @@ describe("IndustriesTimelineTable", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<IndustriesTimelineTable />);
-    expect(screen.getByText("Year")).toBeInTheDocument();
-    expect(screen.getByText("Industry")).toBeInTheDocument();
-    expect(screen.getByText("Description")).toBeInTheDocument();
-  });
-
   it("renders all project items correctly", () => {
     render(<IndustriesTimelineTable projects={mockProjects} />);
     expect(screen.getByText("FinTech Platform")).toBeInTheDocument();

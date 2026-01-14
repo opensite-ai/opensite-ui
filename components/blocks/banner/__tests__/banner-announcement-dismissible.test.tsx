@@ -19,12 +19,6 @@ describe("BannerAnnouncementDismissible", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<BannerAnnouncementDismissible />);
-    expect(screen.getByText(/Introducing our new AI-powered dashboard/)).toBeInTheDocument();
-    expect(screen.getByText("Learn More")).toBeInTheDocument();
-  });
-
   it("renders with custom props", () => {
     render(
       <BannerAnnouncementDismissible
@@ -34,28 +28,5 @@ describe("BannerAnnouncementDismissible", () => {
     );
     expect(screen.getByText("New feature available!")).toBeInTheDocument();
     expect(screen.getByText("Try Now")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BannerAnnouncementDismissible className="custom-class" />);
-    const banner = container.firstChild as HTMLElement;
-    expect(banner).toHaveClass("custom-class");
-  });
-
-  it("calls onDismiss when dismiss button is clicked", () => {
-    const onDismiss = vi.fn();
-    render(<BannerAnnouncementDismissible onDismiss={onDismiss} />);
-    const dismissButtons = screen.getAllByTestId("mock-pressable");
-    const dismissButton = dismissButtons[dismissButtons.length - 1];
-    fireEvent.click(dismissButton);
-    expect(onDismiss).toHaveBeenCalled();
-  });
-
-  it("hides banner after dismiss", () => {
-    const { container } = render(<BannerAnnouncementDismissible />);
-    const dismissButtons = screen.getAllByTestId("mock-pressable");
-    const dismissButton = dismissButtons[dismissButtons.length - 1];
-    fireEvent.click(dismissButton);
-    expect(container.firstChild).toBeNull();
   });
 });

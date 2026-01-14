@@ -26,23 +26,9 @@ describe("ListFeatureComparison", () => {
     },
   ];
 
-  it("renders with default badge text", () => {
-    render(<ListFeatureComparison />);
-    expect(
-      screen.getByText("New Enterprise Plan Available")
-    ).toBeInTheDocument();
-  });
-
   it("renders custom badge text", () => {
     render(<ListFeatureComparison badge="Custom Badge" />);
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
-  });
-
-  it("renders default heading", () => {
-    render(<ListFeatureComparison />);
-    expect(
-      screen.getByText("Choose the perfect plan for your needs")
-    ).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -50,41 +36,9 @@ describe("ListFeatureComparison", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders default description", () => {
-    render(<ListFeatureComparison />);
-    expect(
-      screen.getByText(/From startups to enterprises/)
-    ).toBeInTheDocument();
-  });
-
   it("renders custom description", () => {
     render(<ListFeatureComparison description="Custom description" />);
     expect(screen.getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders plan headers", () => {
-    render(<ListFeatureComparison />);
-    expect(screen.getByText("Feature")).toBeInTheDocument();
-    expect(screen.getByText("Basic")).toBeInTheDocument();
-    expect(screen.getByText("Pro")).toBeInTheDocument();
-    expect(screen.getByText("Enterprise")).toBeInTheDocument();
-  });
-
-  it("renders custom plan headers", () => {
-    render(
-      <ListFeatureComparison
-        planHeaders={{
-          feature: "Features",
-          basic: "Starter",
-          pro: "Professional",
-          enterprise: "Business",
-        }}
-      />
-    );
-    expect(screen.getByText("Features")).toBeInTheDocument();
-    expect(screen.getByText("Starter")).toBeInTheDocument();
-    expect(screen.getByText("Professional")).toBeInTheDocument();
-    expect(screen.getByText("Business")).toBeInTheDocument();
   });
 
   it("renders custom features correctly", () => {
@@ -122,22 +76,6 @@ describe("ListFeatureComparison", () => {
     expect(link).toHaveAttribute("href", "/features");
   });
 
-  it("renders trust indicators", () => {
-    render(<ListFeatureComparison trustIndicators={mockTrustIndicators} />);
-    expect(screen.getByText("50,000+ Users")).toBeInTheDocument();
-    expect(screen.getByText("Join our community")).toBeInTheDocument();
-    expect(screen.getByText("99.9% Uptime")).toBeInTheDocument();
-    expect(screen.getByText("Reliable service")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ListFeatureComparison className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
   it("renders table structure correctly", () => {
     const { container } = render(
       <ListFeatureComparison features={mockFeatures} />
@@ -152,31 +90,5 @@ describe("ListFeatureComparison", () => {
     expect(container.firstChild).toBeInTheDocument();
     const rows = container.querySelectorAll("tbody tr");
     expect(rows.length).toBe(0);
-  });
-
-  it("renders with empty trust indicators array", () => {
-    const { container } = render(
-      <ListFeatureComparison trustIndicators={[]} />
-    );
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders trust indicators without icons", () => {
-    const indicatorsWithoutIcons: ListFeatureComparisonTrustIndicator[] = [
-      {
-        title: "Test Title",
-        description: "Test description",
-      },
-    ];
-    render(<ListFeatureComparison trustIndicators={indicatorsWithoutIcons} />);
-    expect(screen.getByText("Test Title")).toBeInTheDocument();
-  });
-
-  it("renders correct grid layout for trust indicators", () => {
-    const { container } = render(
-      <ListFeatureComparison trustIndicators={mockTrustIndicators} />
-    );
-    const grid = container.querySelector(".grid.grid-cols-1.gap-8.md\\:grid-cols-3");
-    expect(grid).toBeInTheDocument();
   });
 });

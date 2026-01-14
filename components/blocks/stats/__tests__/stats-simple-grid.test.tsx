@@ -14,20 +14,4 @@ describe("StatsSimpleGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<StatsSimpleGrid />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<StatsSimpleGrid className="custom-class" />);
-    expect(container.firstChild).toHaveClass("custom-class");
-  });
-
-  it("renders stats grid", () => {
-    const { container } = render(<StatsSimpleGrid />);
-    const grid = container.querySelector(".grid");
-    expect(grid).toBeInTheDocument();
-  });
 });

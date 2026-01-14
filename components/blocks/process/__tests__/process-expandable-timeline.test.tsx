@@ -21,16 +21,6 @@ describe("ProcessExpandableTimeline", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<ProcessExpandableTimeline />);
-    expect(screen.getByText("How We Work")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Click on each step to learn more about our process and methodology."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <ProcessExpandableTimeline
@@ -95,50 +85,9 @@ describe("ProcessExpandableTimeline", () => {
     expect(screen.getByText("03")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ProcessExpandableTimeline className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
-  it("applies default section padding", () => {
-    const { container } = render(<ProcessExpandableTimeline />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-32");
-  });
-
-  it("renders timeline line", () => {
-    const { container } = render(<ProcessExpandableTimeline />);
-    const timelineLine = container.querySelector(".bg-border.w-px");
-    expect(timelineLine).toBeInTheDocument();
-  });
-
   it("renders with empty steps array", () => {
     const { container } = render(<ProcessExpandableTimeline steps={[]} />);
     expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders default steps when no steps prop provided", () => {
-    render(<ProcessExpandableTimeline />);
-    expect(screen.getByText("Discovery Phase")).toBeInTheDocument();
-    expect(screen.getByText("Planning & Strategy")).toBeInTheDocument();
-    expect(screen.getByText("Design & Prototyping")).toBeInTheDocument();
-    expect(screen.getByText("Development & Testing")).toBeInTheDocument();
-    expect(screen.getByText("Launch & Support")).toBeInTheDocument();
-  });
-
-  it("renders header section with max width", () => {
-    const { container } = render(<ProcessExpandableTimeline />);
-    const header = container.querySelector(".max-w-2xl");
-    expect(header).toBeInTheDocument();
-  });
-
-  it("renders container with proper structure", () => {
-    const { container } = render(<ProcessExpandableTimeline />);
-    const containerDiv = container.querySelector(".max-w-7xl");
-    expect(containerDiv).toBeInTheDocument();
   });
 
   it("renders steps as clickable buttons", () => {

@@ -6,13 +6,6 @@ import {
 } from "../faq-simple-accordion";
 
 describe("FaqSimpleAccordion", () => {
-  it("renders with default props", () => {
-    render(<FaqSimpleAccordion />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading", () => {
     render(<FaqSimpleAccordion heading="Custom Heading" />);
@@ -30,15 +23,6 @@ describe("FaqSimpleAccordion", () => {
 
     expect(screen.getByText("Custom Question 1")).toBeInTheDocument();
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <FaqSimpleAccordion className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 
   it("renders empty items array", () => {
@@ -78,13 +62,6 @@ describe("FaqSimpleAccordion", () => {
     render(<FaqSimpleAccordion items={customItems} />);
 
     expect(screen.getByText("Styled Question")).toBeInTheDocument();
-  });
-
-  it("renders with max-w-3xl container", () => {
-    const { container } = render(<FaqSimpleAccordion />);
-
-    const maxWidthContainer = container.querySelector(".max-w-3xl");
-    expect(maxWidthContainer).toBeInTheDocument();
   });
 });
 

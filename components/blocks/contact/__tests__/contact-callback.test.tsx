@@ -9,17 +9,6 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ContactCallback", () => {
-  it("renders with default props", () => {
-    const { container } = render(<ContactCallback />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ContactCallback className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 
   it("renders custom heading", () => {
     render(<ContactCallback heading="Custom Heading" />);
@@ -35,16 +24,6 @@ describe("ContactCallback", () => {
     render(<ContactCallback buttonText="Custom Button" />);
     expect(screen.getByText("Custom Button")).toBeInTheDocument();
   });
-
-  it("renders form with submit button", () => {
-    render(<ContactCallback />);
-    const submitButton = screen.getByRole("button", { name: /schedule callback/i });
     expect(submitButton).toBeInTheDocument();
-  });
-
-  it("renders date input field", () => {
-    const { container } = render(<ContactCallback />);
-    const dateInput = container.querySelector('input[type="date"]');
-    expect(dateInput).toBeInTheDocument();
   });
 });

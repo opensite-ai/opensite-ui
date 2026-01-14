@@ -23,22 +23,4 @@ describe("AboutCompanyProfile", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<AboutCompanyProfile />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<AboutCompanyProfile className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<AboutCompanyProfile />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

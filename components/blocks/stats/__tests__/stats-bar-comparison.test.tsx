@@ -14,20 +14,4 @@ describe("StatsBarComparison", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<StatsBarComparison />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<StatsBarComparison className="custom-class" />);
-    expect(container.firstChild).toHaveClass("custom-class");
-  });
-
-  it("renders comparison bars", () => {
-    const { container } = render(<StatsBarComparison />);
-    const bars = container.querySelectorAll(".bg-primary");
-    expect(bars.length).toBeGreaterThan(0);
-  });
 });

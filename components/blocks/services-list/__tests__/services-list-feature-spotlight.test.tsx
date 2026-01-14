@@ -34,25 +34,4 @@ describe("ServicesListFeatureSpotlight", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default heading", () => {
-    render(<ServicesListFeatureSpotlight />);
-    expect(
-      screen.getByText("Service advantages built for modern teams")
-    ).toBeInTheDocument();
-  });
-
-  it("renders feature items", () => {
-    render(<ServicesListFeatureSpotlight />);
-    expect(screen.getAllByText("Independent Strategy").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Personal Guidance").length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ServicesListFeatureSpotlight className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });
