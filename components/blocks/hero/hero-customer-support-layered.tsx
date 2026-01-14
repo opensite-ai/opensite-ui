@@ -62,17 +62,11 @@ export interface HeroCustomerSupportLayeredProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[11], alt: "" },
-  { src: imagePlaceholders[12], alt: "" },
-  { src: imagePlaceholders[13], alt: "" },
-];
-
 export function HeroCustomerSupportLayered({
   tagline = "Customer Support",
   heading = <>Change<br />their life</>,
   description = "Customer challenges and team missteps can cause chaos. Simplify delivering exceptional support with a platform designed for customer-focused teams like yours.",
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

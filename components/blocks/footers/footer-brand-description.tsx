@@ -125,48 +125,6 @@ export interface FooterBrandDescriptionProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: FooterBrandDescriptionSection[] = [
-  {
-    title: "Product",
-    links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About", href: "#" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
-      { name: "Advertise", href: "#" },
-      { name: "Privacy", href: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterBrandDescriptionSocialLink[] = [
-  { icon: "simple-icons/instagram", href: "#", label: "Instagram" },
-  { icon: "simple-icons/facebook", href: "#", label: "Facebook" },
-  { icon: "simple-icons/x", href: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-];
-
-const defaultLegalLinks = [
-  { name: "Terms and Conditions", href: "#" },
-  { name: "Privacy Policy", href: "#" },
-];
-
 /**
  * FooterBrandDescription - A footer with logo, description, social icons, and navigation.
  *
@@ -181,13 +139,13 @@ export function FooterBrandDescription({
     alt: "Opensite AI",
     title: "Opensite AI",
   },
-  sections = defaultSections,
+  sections,
   description = "A collection of components for your startup business or side project.",
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   copyright,
   attributionText = "AI Website and Automation Platform by Opensite",
   attributionHref = "https://opensite.ai",
-  legalLinks = defaultLegalLinks,
+  legalLinks,
   className,
   contentClassName,
   layoutClassName,

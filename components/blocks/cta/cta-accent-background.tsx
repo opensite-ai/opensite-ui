@@ -74,11 +74,6 @@ export interface CtaAccentBackgroundProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Buy Now", href: "#", variant: "default", size: "lg" },
-  { label: "Contact Us", href: "#", variant: "outline", size: "lg" },
-];
-
 /**
  * CtaAccentBackground - A CTA section with an accent-colored background,
  * large heading, description, and dual action buttons. Creates visual
@@ -99,7 +94,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaAccentBackground({
   heading = "Call to Action",
   description = "Build faster with our collection of pre-built blocks. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

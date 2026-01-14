@@ -184,83 +184,6 @@ export interface LinkPageGridCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLinks: GridCardLink[] = [
-  {
-    id: "1",
-    label: "Portfolio",
-    href: "https://example.com",
-    iconName: "lucide/briefcase",
-    description: "View my work",
-  },
-  {
-    id: "2",
-    label: "Blog",
-    href: "https://example.com/blog",
-    iconName: "lucide/pen-line",
-    description: "Read my thoughts",
-  },
-  {
-    id: "3",
-    label: "Shop",
-    href: "https://example.com/shop",
-    iconName: "lucide/shopping-bag",
-    description: "Browse products",
-  },
-  {
-    id: "4",
-    label: "Courses",
-    href: "https://example.com/courses",
-    iconName: "lucide/graduation-cap",
-    description: "Learn with me",
-  },
-  {
-    id: "5",
-    label: "Podcast",
-    href: "https://example.com/podcast",
-    iconName: "lucide/mic",
-    description: "Listen now",
-  },
-  {
-    id: "6",
-    label: "Contact",
-    href: "mailto:hello@example.com",
-    iconName: "lucide/mail",
-    description: "Get in touch",
-  },
-];
-
-const defaultSocialLinks: GridCardSocialLink[] = [
-  {
-    id: "s1",
-    platform: "Twitter",
-    href: "https://twitter.com",
-    iconName: "simple-icons/x",
-  },
-  {
-    id: "s2",
-    platform: "Instagram",
-    href: "https://instagram.com",
-    iconName: "simple-icons/instagram",
-  },
-  {
-    id: "s3",
-    platform: "YouTube",
-    href: "https://youtube.com",
-    iconName: "simple-icons/youtube",
-  },
-  {
-    id: "s4",
-    platform: "LinkedIn",
-    href: "https://linkedin.com",
-    iconName: "simple-icons/linkedin",
-  },
-];
-
-const defaultFooterAction: ActionConfig = {
-  label: "Powered by OpenSite",
-  href: "/",
-};
-
 /**
  * LinkPageGridCards - A link page displaying links as a grid of cards.
  *
@@ -293,9 +216,9 @@ export function LinkPageGridCards({
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar4,
   profileSlot,
-  links = defaultLinks,
+  links,
   linksSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   columns = 2,
   footerAction,

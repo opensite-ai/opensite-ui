@@ -22,33 +22,4 @@ describe("ServicesListProgressSidebar", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<ServicesListProgressSidebar />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ServicesListProgressSidebar className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<ServicesListProgressSidebar />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders custom heading and description", () => {
-    const { getByText } = render(
-      <ServicesListProgressSidebar
-        sidebarHeading="Custom Heading"
-        sidebarDescription="Custom Description"
-      />
-    );
-    expect(getByText("Custom Heading")).toBeInTheDocument();
-    expect(getByText("Custom Description")).toBeInTheDocument();
-  });
 });

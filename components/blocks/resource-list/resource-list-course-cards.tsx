@@ -140,51 +140,6 @@ export interface ResourceListCourseCardsProps {
   patternOpacity?: number;
 }
 
-const defaultCourses: ResourceListCourseCardsCourse[] = [
-  {
-    badge: "Course",
-    title: "Master Sanity Studio Fundamentals",
-    description:
-      "Learn the core concepts of Sanity Studio, from schema design to content modeling. Build your first content management system with hands-on exercises and real-world examples.",
-    author: {
-      name: "Alex Chen",
-      title: "Senior Developer at Sanity",
-      avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    },
-    lessons: 12,
-    videos: 15,
-    duration: "42:18 minutes",
-    audience: ["Developers", "Content creators"],
-    gradient: "from-blue-100 to-purple-100",
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-    cta: {
-      text: "Start",
-      url: "#",
-    },
-  },
-  {
-    badge: "Course",
-    title: "Advanced Content Operations",
-    description:
-      "Dive deep into advanced Sanity features including custom input components, validation rules, and performance optimization. Learn to build scalable content workflows for enterprise applications.",
-    author: {
-      name: "Maria Rodriguez",
-      title: "Lead Content Strategist",
-      avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    },
-    lessons: 18,
-    videos: 22,
-    duration: "58:45 minutes",
-    audience: ["Developers", "Content creators", "Designers"],
-    gradient: "from-green-100 to-emerald-100",
-    image: blockBrandedIconsAndPlaceholders.placeholder2,
-    cta: {
-      text: "Start",
-      url: "#",
-    },
-  },
-];
-
 /**
  * ResourceListCourseCards - A course/training listing with detailed metadata cards
  * featuring author info, lesson counts, video duration, and animated visual elements.
@@ -203,7 +158,7 @@ const defaultCourses: ResourceListCourseCardsCourse[] = [
  */
 export function ResourceListCourseCards({
   className,
-  courses = defaultCourses,
+  courses,
   coursesSlot,
   coursesClassName,
   courseCardClassName,

@@ -28,16 +28,6 @@ describe("IndustriesBadgeListBordered", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<IndustriesBadgeListBordered />);
-    expect(screen.getByText("Industries")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Transforming industries through innovative technology solutions that drive efficiency, growth, and sustainable operations."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders all service items correctly", () => {
     render(<IndustriesBadgeListBordered services={mockServices} />);
     expect(screen.getByText("E-Commerce")).toBeInTheDocument();

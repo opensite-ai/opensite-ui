@@ -79,45 +79,6 @@ export interface ProjectGridMotionProps {
   cardFooterClassName?: string;
 }
 
-const defaultProjects: ProjectGridMotionItem[] = [
-  {
-    title: "Modern Concrete Pavilion",
-    img: imagePlaceholders[65],
-    year: "2025",
-    type: "Architecture",
-  },
-  {
-    title: "Colorful Urban Living",
-    img: imagePlaceholders[66],
-    year: "2025",
-    type: "Urban Design",
-  },
-  {
-    title: "Minimalist Home Retreat",
-    img: imagePlaceholders[67],
-    year: "2025",
-    type: "Interior",
-  },
-  {
-    title: "Urban Concrete House",
-    img: imagePlaceholders[68],
-    year: "2025",
-    type: "Product Design",
-  },
-  {
-    title: "Luxury Concrete Box",
-    img: imagePlaceholders[69],
-    year: "2025",
-    type: "Residential",
-  },
-  {
-    title: "Glasshouse in Nature",
-    img: imagePlaceholders[70],
-    year: "2025",
-    type: "Sustainable Design",
-  },
-];
-
 /**
  * ProjectGridMotion - Two-column grid with staggered motion animations and metadata cards.
  *
@@ -130,7 +91,7 @@ const defaultProjects: ProjectGridMotionItem[] = [
  */
 export function ProjectGridMotion({
   heading = "Our Work",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

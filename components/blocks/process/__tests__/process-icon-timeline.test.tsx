@@ -27,16 +27,6 @@ describe("ProcessIconTimeline", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<ProcessIconTimeline />);
-    expect(screen.getByText("Our Process")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "A proven methodology that delivers exceptional results through careful planning and execution."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <ProcessIconTimeline
@@ -72,26 +62,6 @@ describe("ProcessIconTimeline", () => {
     expect(screen.getByText("Backend")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ProcessIconTimeline className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
-  it("applies default section padding", () => {
-    const { container } = render(<ProcessIconTimeline />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-32");
-  });
-
-  it("renders timeline line", () => {
-    const { container } = render(<ProcessIconTimeline />);
-    const timelineLine = container.querySelector(".bg-border.w-px");
-    expect(timelineLine).toBeInTheDocument();
-  });
-
   it("renders icon badges with custom colors", () => {
     const { container } = render(<ProcessIconTimeline steps={mockSteps} />);
     const badges = container.querySelectorAll(".rounded-full.text-white");
@@ -101,29 +71,6 @@ describe("ProcessIconTimeline", () => {
   it("renders with empty steps array", () => {
     const { container } = render(<ProcessIconTimeline steps={[]} />);
     expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders default steps when no steps prop provided", () => {
-    render(<ProcessIconTimeline />);
-    expect(screen.getByText("Discovery & Research")).toBeInTheDocument();
-    expect(screen.getByText("Strategy & Planning")).toBeInTheDocument();
-    expect(screen.getByText("Design & Development")).toBeInTheDocument();
-    expect(screen.getByText("Testing & QA")).toBeInTheDocument();
-    expect(screen.getByText("Launch & Deploy")).toBeInTheDocument();
-    expect(screen.getByText("Monitor & Optimize")).toBeInTheDocument();
-    expect(screen.getByText("Iterate & Improve")).toBeInTheDocument();
-  });
-
-  it("renders header section with max width", () => {
-    const { container } = render(<ProcessIconTimeline />);
-    const header = container.querySelector(".max-w-2xl");
-    expect(header).toBeInTheDocument();
-  });
-
-  it("renders container with proper structure", () => {
-    const { container } = render(<ProcessIconTimeline />);
-    const containerDiv = container.querySelector(".max-w-7xl");
-    expect(containerDiv).toBeInTheDocument();
   });
 
   it("renders steps with alternating layout", () => {

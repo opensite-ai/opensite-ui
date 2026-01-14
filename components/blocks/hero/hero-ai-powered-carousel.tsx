@@ -93,62 +93,17 @@ export interface HeroAiPoweredCarouselProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Start for Free",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    className: "w-full gap-2 sm:w-auto",
-  },
-  {
-    label: "Schedule a Demo",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-    className: "w-full gap-2 sm:w-auto",
-  },
-];
-
-const defaultMobileCarouselImages1: ImageItem[] = [
-  { src: imagePlaceholders[44], alt: "placeholder" },
-  { src: imagePlaceholders[45], alt: "placeholder" },
-  { src: imagePlaceholders[46], alt: "placeholder" },
-  { src: imagePlaceholders[47], alt: "placeholder" },
-];
-
-const defaultMobileCarouselImages2: ImageItem[] = [
-  { src: imagePlaceholders[48], alt: "placeholder" },
-  { src: imagePlaceholders[49], alt: "placeholder" },
-  { src: imagePlaceholders[50], alt: "placeholder" },
-  { src: imagePlaceholders[51], alt: "placeholder" },
-];
-
-const defaultDesktopCarouselImages1: ImageItem[] = [
-  { src: imagePlaceholders[52], alt: "placeholder" },
-  { src: imagePlaceholders[53], alt: "placeholder" },
-  { src: imagePlaceholders[54], alt: "placeholder" },
-  { src: imagePlaceholders[55], alt: "placeholder" },
-];
-
-const defaultDesktopCarouselImages2: ImageItem[] = [
-  { src: imagePlaceholders[56], alt: "placeholder" },
-  { src: imagePlaceholders[57], alt: "placeholder" },
-  { src: imagePlaceholders[58], alt: "placeholder" },
-  { src: imagePlaceholders[59], alt: "placeholder" },
-];
-
 export function HeroAiPoweredCarousel({
   badge = "AI-powered",
   badgeTagline = "Solutions for new businesses",
   heading = "Revolutionizing Client Collaboration for Modern Services",
   description = "Elevate your service-based business with customizable client portals and advanced back-office management",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  mobileCarouselImages1 = defaultMobileCarouselImages1,
-  mobileCarouselImages2 = defaultMobileCarouselImages2,
-  desktopCarouselImages1 = defaultDesktopCarouselImages1,
-  desktopCarouselImages2 = defaultDesktopCarouselImages2,
+  mobileCarouselImages1,
+  mobileCarouselImages2,
+  desktopCarouselImages1,
+  desktopCarouselImages2,
   carouselSlot,
   className,
   containerClassName,

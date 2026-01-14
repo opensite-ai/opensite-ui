@@ -112,27 +112,6 @@ export interface HeroOverlayCtaGridProps {
   };
 }
 
-const defaultCards: HeroOverlayCtaGridCard[] = [
-  {
-    label: "Personal Coverage",
-    subtitle: "Tailored protection for families, homes, and vehicles.",
-    href: "/personal-coverage",
-    icon: "lucide/user",
-  },
-  {
-    label: "Event Protection",
-    subtitle: "Flexible coverage for special events and gatherings.",
-    href: "/event-coverage",
-    icon: "lucide/ticket-check",
-  },
-  {
-    label: "Commercial Coverage",
-    subtitle: "Business-ready policies backed by OpenSite AI insights.",
-    href: "/business-coverage",
-    icon: "lucide/briefcase",
-  },
-];
-
 /**
  * HeroOverlayCtaGrid - A hero layout with background image overlay, headline, dual CTAs,
  * and a supporting grid of icon cards. Ideal for service-focused landing pages that
@@ -147,7 +126,7 @@ export function HeroOverlayCtaGrid({
   primaryCta = { label: "Get a Free Quote", href: "/quote" },
   secondaryCta = { label: "Explore Coverage", href: "/coverage" },
   actionsSlot,
-  cards = defaultCards,
+  cards,
   cardsSlot,
   backgroundImage = imagePlaceholders[0],
   backgroundAlt = "OpenSite AI coverage advisory hero background",

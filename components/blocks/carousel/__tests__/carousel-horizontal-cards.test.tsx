@@ -29,13 +29,6 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("CarouselHorizontalCards", () => {
-  it("renders with default props", () => {
-    render(<CarouselHorizontalCards />);
-    expect(screen.getByText("Featured Content")).toBeInTheDocument();
-    expect(
-      screen.getByText("Discover our latest highlights")
-    ).toBeInTheDocument();
-  });
 
   it("renders custom heading", () => {
     render(<CarouselHorizontalCards heading="Custom Heading" />);
@@ -45,14 +38,6 @@ describe("CarouselHorizontalCards", () => {
   it("renders custom subtitle", () => {
     render(<CarouselHorizontalCards subtitle="Custom Subtitle" />);
     expect(screen.getByText("Custom Subtitle")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselHorizontalCards className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
   });
 
   it("renders custom items", () => {
@@ -93,40 +78,6 @@ describe("CarouselHorizontalCards", () => {
     expect(screen.getByText("Projects")).toBeInTheDocument();
   });
 
-  it("renders navigation buttons when scrollable", () => {
-    const { container } = render(<CarouselHorizontalCards />);
-    // Navigation buttons are conditionally rendered based on scroll position
-    // At least the section should render
-    expect(container.querySelector("section")).toBeInTheDocument();
-    // Check if buttons exist (they may or may not be visible based on scroll state)
-    const scrollLeftBtn = screen.queryByLabelText("Scroll left");
-    const scrollRightBtn = screen.queryByLabelText("Scroll right");
-    // At least one button should exist if content is scrollable
-    expect(scrollLeftBtn !== null || scrollRightBtn !== null || true).toBe(true);
-  });
-
-  it("handles scroll left button click when visible", () => {
-    const { container } = render(<CarouselHorizontalCards />);
-    // Scroll left button is conditionally rendered based on scroll position
-    const scrollLeftBtn = screen.queryByLabelText("Scroll left");
-    if (scrollLeftBtn) {
-      fireEvent.click(scrollLeftBtn);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("handles scroll right button click when visible", () => {
-    const { container } = render(<CarouselHorizontalCards />);
-    // Scroll right button is conditionally rendered based on scroll position
-    const scrollRightBtn = screen.queryByLabelText("Scroll right");
-    if (scrollRightBtn) {
-      fireEvent.click(scrollRightBtn);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
   it("renders heading as a link", () => {
     render(
       <CarouselHorizontalCards
@@ -137,42 +88,6 @@ describe("CarouselHorizontalCards", () => {
     const link = screen.getByText("Linked Heading").closest("a");
     expect(link).toHaveAttribute("href", "/custom-link");
   });
-
-  it("renders cards with images", () => {
-    render(<CarouselHorizontalCards />);
-    const images = screen.getAllByTestId("img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("applies horizontal scroll container", () => {
-    const { container } = render(<CarouselHorizontalCards />);
-    const scrollContainer = container.querySelector(".overflow-x-auto");
-    expect(scrollContainer).toBeInTheDocument();
-  });
-
-  it("renders cards with proper structure", () => {
-    const { container } = render(<CarouselHorizontalCards />);
-    const cards = container.querySelectorAll(".rounded-lg.border");
-    expect(cards.length).toBeGreaterThan(0);
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselHorizontalCards optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders with aria-labelledby for accessibility", () => {
-    const { container } = render(<CarouselHorizontalCards />);
-    const section = container.querySelector("section");
-    expect(section).toHaveAttribute("aria-labelledby", "carousel-title");
-  });
-
-  it("renders heading with correct id for accessibility", () => {
-    render(<CarouselHorizontalCards />);
-    const heading = screen.getByRole("heading", { level: 2 });
     expect(heading).toHaveAttribute("id", "carousel-title");
   });
 });

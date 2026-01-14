@@ -11,18 +11,6 @@ beforeAll(() => {
 });
 
 describe("FaqSidebarNavigation", () => {
-  it("renders with default props", () => {
-    render(<FaqSidebarNavigation />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -83,15 +71,6 @@ describe("FaqSidebarNavigation", () => {
     const billingButtons = screen.getAllByText("Billing");
     expect(generalButtons.length).toBeGreaterThan(0);
     expect(billingButtons.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <FaqSidebarNavigation className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 
   it("renders empty categories array", () => {

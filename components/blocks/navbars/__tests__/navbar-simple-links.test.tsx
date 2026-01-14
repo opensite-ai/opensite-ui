@@ -25,30 +25,9 @@ describe("NavbarSimpleLinks", () => {
     expect(screen.getByText("Contact")).toBeInTheDocument();
   });
 
-  it("renders default navigation items when no navItems prop provided", () => {
-    render(<NavbarSimpleLinks />);
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("About")).toBeInTheDocument();
-    expect(screen.getByText("Pricing")).toBeInTheDocument();
-    expect(screen.getByText("Contact")).toBeInTheDocument();
-  });
-
   it("renders logo with correct alt text", () => {
     render(<NavbarSimpleLinks logo={mockLogo} />);
     expect(screen.getByAltText("Company Logo")).toBeInTheDocument();
-  });
-
-  it("renders default logo when no logo prop provided", () => {
-    render(<NavbarSimpleLinks />);
-    expect(screen.getByAltText("Opensite AI")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <NavbarSimpleLinks className="custom-navbar" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-navbar");
   });
 
   it("renders navigation links with correct href", () => {

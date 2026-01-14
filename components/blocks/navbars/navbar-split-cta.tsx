@@ -140,32 +140,6 @@ export interface NavbarSplitCtaProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMenu: MenuItem[] = [
-  {
-    title: "Product",
-    items: [
-      { title: "Features", url: "#", description: "Explore all features", icon: "lucide/sparkles" },
-      { title: "Integrations", url: "#", description: "Connect your tools", icon: "lucide/puzzle" },
-      { title: "API", url: "#", description: "Build with our API", icon: "lucide/code" },
-    ],
-  },
-  {
-    title: "Solutions",
-    items: [
-      { title: "Enterprise", url: "#", description: "For large organizations", icon: "lucide/building-2" },
-      { title: "Small Business", url: "#", description: "For growing teams", icon: "lucide/store" },
-      { title: "Developers", url: "#", description: "For technical teams", icon: "lucide/terminal" },
-    ],
-  },
-  { title: "Pricing", url: "#" },
-  { title: "Resources", url: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Book Demo", href: "#", variant: "outline", size: "default" },
-  { label: "Start Free Trial", href: "#", variant: "default", size: "default", iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1" /> },
-];
-
 /**
  * NavbarSplitCta - A navigation bar with split primary and secondary call-to-action buttons.
  *
@@ -184,7 +158,7 @@ export const NavbarSplitCta = ({
   },
   logoSlot,
   logoClassName,
-  menu = defaultMenu,
+  menu,
   menuSlot,
   primaryCta,
   secondaryCta,

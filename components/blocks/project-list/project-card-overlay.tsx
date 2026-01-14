@@ -85,37 +85,6 @@ export interface ProjectCardOverlayProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectCardOverlayItem[] = [
-  {
-    id: 1,
-    category: "NATURE",
-    title: "Puma",
-    image: imagePlaceholders[71],
-    description: "Capturing the essence of wildlife in their habitat.",
-  },
-  {
-    id: 2,
-    category: "CULTURE",
-    title: "Afterparty",
-    image: imagePlaceholders[72],
-    description: "What a party!",
-  },
-  {
-    id: 3,
-    category: "CULTURE",
-    title: "Rider",
-    image: imagePlaceholders[73],
-    description: "Artistic movements that define our generation.",
-  },
-  {
-    id: 4,
-    category: "FASHION",
-    title: "Elegance",
-    image: imagePlaceholders[74],
-    description: "Bold statements and timeless style.",
-  },
-];
-
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -203,7 +172,7 @@ const ProjectCard = ({ project, optixFlowConfig, className }: ProjectCardProps) 
 export function ProjectCardOverlay({
   heading = "CAPTURING MOMENTS",
   subheading = "PROJECT SHOWCASE",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

@@ -54,31 +54,11 @@ describe("TimelineHorizontalPhases", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineHorizontalPhases />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineHorizontalPhases className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading", () => {
     const { getByText } = render(
       <TimelineHorizontalPhases heading="Custom Heading" />
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders default phases", () => {
-    const { getByText } = render(<TimelineHorizontalPhases />);
-    expect(getByText("Phase I")).toBeInTheDocument();
-    expect(getByText("Phase II")).toBeInTheDocument();
   });
 
   it("renders custom phases", () => {
@@ -101,13 +81,5 @@ describe("TimelineHorizontalPhases", () => {
     );
     expect(getByText("Custom Phase 1")).toBeInTheDocument();
     expect(getByText("Custom Phase 2")).toBeInTheDocument();
-  });
-
-  it("renders with custom currentPhase", () => {
-    const { container } = render(
-      <TimelineHorizontalPhases currentPhase={1} />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
   });
 });

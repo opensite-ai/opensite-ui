@@ -38,25 +38,4 @@ describe("AboutLocationInfoHero", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default headline", () => {
-    render(<AboutLocationInfoHero />);
-    expect(
-      screen.getByText("OpenSite AI service center in the heart of the city")
-    ).toBeInTheDocument();
-  });
-
-  it("renders contact details", () => {
-    render(<AboutLocationInfoHero />);
-    expect(screen.getByText("975 Mission St, San Francisco, CA")).toBeInTheDocument();
-    expect(screen.getByText("+1 (415) 555-0192")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <AboutLocationInfoHero className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

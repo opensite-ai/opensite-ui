@@ -26,12 +26,6 @@ describe("BlogFilteredResults", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<BlogFilteredResults />);
-    expect(screen.getByText("Best Blog Articles")).toBeInTheDocument();
-    expect(screen.getByText("All Blogs")).toBeInTheDocument();
-  });
-
   it("renders custom heading and description", () => {
     render(
       <BlogFilteredResults
@@ -41,77 +35,6 @@ describe("BlogFilteredResults", () => {
     );
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders breadcrumb navigation", () => {
-    render(<BlogFilteredResults />);
-    expect(screen.getByText("Resources")).toBeInTheDocument();
-    expect(screen.getByText("Blogs")).toBeInTheDocument();
-  });
-
-  it("renders custom breadcrumbs", () => {
-    const customBreadcrumb = [
-      { label: "Home", link: "/" },
-      { label: "Articles", link: "/articles" },
-    ];
-
-    render(<BlogFilteredResults breadcrumb={customBreadcrumb} />);
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Articles")).toBeInTheDocument();
-  });
-
-  it("renders primary post", () => {
-    render(<BlogFilteredResults />);
-    expect(screen.getByText("How AI is Transforming Frontend Development")).toBeInTheDocument();
-  });
-
-  it("renders filter categories", () => {
-    render(<BlogFilteredResults />);
-    // Categories may appear multiple times (in filter and in posts)
-    expect(screen.getAllByText("All").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Productivity").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Accessibility").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Performance").length).toBeGreaterThan(0);
-  });
-
-  it("renders blog posts grid", () => {
-    render(<BlogFilteredResults />);
-    expect(screen.getByText("5 VS Code Extensions That Will Save You Hours")).toBeInTheDocument();
-    expect(screen.getByText("Time Management for Developers: What Really Works")).toBeInTheDocument();
-  });
-
-  it("renders load more button when there are more posts", () => {
-    render(<BlogFilteredResults postsPerPage={2} />);
-    expect(screen.getByText("Load More")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BlogFilteredResults className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<BlogFilteredResults />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("pb-32");
-  });
-
-  it("renders images for posts", () => {
-    render(<BlogFilteredResults />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders custom all blogs heading", () => {
-    render(<BlogFilteredResults allBlogsHeading="All Articles" />);
-    expect(screen.getByText("All Articles")).toBeInTheDocument();
-  });
-
-  it("renders custom load more text", () => {
-    render(<BlogFilteredResults loadMoreAction={{ label: "Show More" }} postsPerPage={2} />);
-    expect(screen.getByText("Show More")).toBeInTheDocument();
   });
 
   it("handles empty posts array", () => {

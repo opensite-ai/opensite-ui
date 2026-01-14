@@ -26,19 +26,6 @@ describe("ServiceDetailStatsHero", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ServiceDetailStatsHero />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ServiceDetailStatsHero className="custom-class" />);
-    // className is applied to the outer div wrapper, not the section
-    const wrapper = container.firstChild as HTMLElement;
-    expect(wrapper).toHaveClass("custom-class");
-  });
-
   it("renders the title", () => {
     render(<ServiceDetailStatsHero title="Custom Service Title" />);
     expect(screen.getByText("Custom Service Title")).toBeInTheDocument();
@@ -60,33 +47,5 @@ describe("ServiceDetailStatsHero", () => {
     expect(screen.getByText("Adobe Suite")).toBeInTheDocument();
     expect(screen.getByText("100%")).toBeInTheDocument();
     expect(screen.getByText("Proficiency")).toBeInTheDocument();
-  });
-
-  it("renders content sections", () => {
-    render(
-      <ServiceDetailStatsHero
-        contentSections={[
-          {
-            title: "Section Title",
-            paragraphs: ["First paragraph"],
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Section Title")).toBeInTheDocument();
-    expect(screen.getByText("First paragraph")).toBeInTheDocument();
-  });
-
-  it("renders services list", () => {
-    render(
-      <ServiceDetailStatsHero
-        servicesList={{
-          title: "Our Services",
-          items: ["Service 1", "Service 2"],
-        }}
-      />
-    );
-    expect(screen.getByText("Our Services")).toBeInTheDocument();
-    expect(screen.getByText("Service 1")).toBeInTheDocument();
   });
 });

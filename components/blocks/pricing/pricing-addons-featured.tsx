@@ -256,72 +256,6 @@ export interface PricingAddonsFeaturedProps {
   additionalItemPriceClassName?: string;
 }
 
-const defaultFeaturedAddons: PricingAddonsFeaturedCard[] = [
-  {
-    name: "Advanced Analytics",
-    description: "Deep insights into your data with custom reports and dashboards",
-    price: "$29",
-    priceDescription: "/month",
-    features: [
-      { text: "Custom dashboards" },
-      { text: "Advanced reporting" },
-      { text: "Data export" },
-      { text: "API access" },
-    ],
-    action: { label: "Add to Plan", href: "#", variant: "outline" },
-  },
-  {
-    name: "Priority Support",
-    description: "Get faster response times and dedicated support channels",
-    price: "$49",
-    priceDescription: "/month",
-    features: [
-      { text: "24/7 support" },
-      { text: "Dedicated account manager" },
-      { text: "Phone support" },
-      { text: "Priority queue" },
-    ],
-    action: { label: "Add to Plan", href: "#", variant: "default" },
-    isHighlighted: true,
-  },
-  {
-    name: "Enterprise Security",
-    description: "Advanced security features for compliance and protection",
-    price: "$79",
-    priceDescription: "/month",
-    features: [
-      { text: "SSO integration" },
-      { text: "Audit logs" },
-      { text: "Custom security policies" },
-      { text: "Compliance reports" },
-    ],
-    action: { label: "Add to Plan", href: "#", variant: "outline" },
-  },
-];
-
-const defaultAdditionalAddons: PricingAddonsFeaturedAdditional[] = [
-  {
-    name: "Extra Storage",
-    description: "Add 100GB of additional storage",
-    price: "$10/month",
-  },
-  {
-    name: "Additional Users",
-    description: "Add 5 more team members",
-    price: "$25/month",
-  },
-  {
-    name: "Custom Domain",
-    description: "Use your own domain for your workspace",
-    price: "$15/month",
-  },
-  {
-    name: "API Rate Limit Increase",
-    description: "Increase your API rate limit by 10x",
-    price: "$20/month",
-  },
-];
-
 /**
  * PricingAddonsFeatured displays featured add-on options with a secondary list of additional add-ons.
  * Features 3 highlighted add-on cards with feature lists, plus a compact list of smaller add-ons below.
@@ -345,9 +279,9 @@ const defaultAdditionalAddons: PricingAddonsFeaturedAdditional[] = [
 export function PricingAddonsFeatured({
   heading = "Enhance Your Plan",
   subtitle = "Add powerful features to supercharge your workflow",
-  featuredAddons = defaultFeaturedAddons,
+  featuredAddons,
   featuredAddonsSlot,
-  additionalAddons = defaultAdditionalAddons,
+  additionalAddons,
   additionalAddonsSlot,
   additionalHeading = "Additional Add-ons",
   featureIcon,

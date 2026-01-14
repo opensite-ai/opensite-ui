@@ -152,153 +152,7 @@ export interface NavbarAnimatedPreviewProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavigation: MenuItem[] = [
-  {
-    id: 1,
-    title: "Products",
-    links: [
-      {
-        label: "Dashboard",
-        description: "Monitor your metrics and KPIs in real-time",
-        url: "#",
-        icon: "lucide/layout-dashboard",
-        image: imagePlaceholders[0],
-      },
-      {
-        label: "Analytics",
-        description: "Deep insights into your business performance",
-        url: "#",
-        icon: "lucide/bar-chart-3",
-        image: imagePlaceholders[1],
-      },
-      {
-        label: "Automation",
-        description: "Streamline workflows with intelligent automation",
-        url: "#",
-        icon: "lucide/zap",
-        image: imagePlaceholders[2],
-      },
-      {
-        label: "Integrations",
-        description: "Connect with your favorite tools and services",
-        url: "#",
-        icon: "lucide/puzzle",
-        image: imagePlaceholders[3],
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Solutions",
-    featuredLinks: [
-      {
-        label: "Enterprise",
-        description: "Scale your operations with enterprise-grade features",
-        url: "#",
-        icon: "lucide/building-2",
-        background: imagePlaceholders[4],
-      },
-      {
-        label: "Startups",
-        description: "Launch faster with tools built for growth",
-        url: "#",
-        icon: "lucide/rocket",
-        background: imagePlaceholders[5],
-      },
-    ],
-    links: [
-      {
-        label: "Marketing",
-        description: "Grow your audience",
-        url: "#",
-        icon: "lucide/megaphone",
-      },
-      {
-        label: "Sales",
-        description: "Close more deals",
-        url: "#",
-        icon: "lucide/trending-up",
-      },
-      {
-        label: "Support",
-        description: "Delight customers",
-        url: "#",
-        icon: "lucide/headphones",
-      },
-      {
-        label: "Engineering",
-        description: "Ship faster",
-        url: "#",
-        icon: "lucide/code",
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "Developers",
-    groupLinks: [
-      {
-        title: "Documentation",
-        links: [
-          {
-            label: "Getting Started",
-            description: "Quick start guide",
-            url: "#",
-            icon: "lucide/book-open",
-          },
-          {
-            label: "API Reference",
-            description: "Complete API docs",
-            url: "#",
-            icon: "lucide/file-code",
-          },
-          {
-            label: "SDKs",
-            description: "Client libraries",
-            url: "#",
-            icon: "lucide/package",
-          },
-        ],
-      },
-      {
-        title: "Resources",
-        links: [
-          {
-            label: "Tutorials",
-            description: "Step-by-step guides",
-            url: "#",
-            icon: "lucide/graduation-cap",
-          },
-          {
-            label: "Examples",
-            description: "Sample projects",
-            url: "#",
-            icon: "lucide/folder-code",
-          },
-          {
-            label: "Community",
-            description: "Join the discussion",
-            url: "#",
-            icon: "lucide/users",
-          },
-        ],
-      },
-    ],
-    imageLink: {
-      label: "New: AI Assistant",
-      url: "#",
-      image: imagePlaceholders[6],
-    },
-  },
-  { title: "Resources", url: "#" },
-  { title: "Pricing", url: "#" },
-];
-
 const MOBILE_BREAKPOINT = 1280;
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Sign up", href: "#", variant: "ghost" },
-];
 
 /**
  * NavbarAnimatedPreview - A fixed navigation bar with animated image previews and multiple dropdown styles.
@@ -323,9 +177,9 @@ export const NavbarAnimatedPreview = ({
   },
   logoSlot,
   logoClassName,
-  navigation = defaultNavigation,
+  navigation,
   navigationSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   background = "white",
   spacing = "none",

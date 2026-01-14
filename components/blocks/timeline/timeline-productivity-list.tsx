@@ -91,48 +91,9 @@ export interface TimelineProductivityListProps {
   };
 }
 
-const defaultItems: TimelineProductivityItem[] = [
-  {
-    icon: "lucide/cloud",
-    title: "Boost Productivity",
-    description:
-      "Streamline your workflows and eliminate inefficiencies with our advanced task management tools.",
-  },
-  {
-    icon: "lucide/x-circle",
-    title: "Minimize Errors",
-    description:
-      "Automate repetitive tasks to reduce human error and ensure consistent results.",
-  },
-  {
-    icon: "lucide/users",
-    title: "Enhance Collaboration",
-    description:
-      "Improve team communication and collaboration with real-time updates and shared workspaces.",
-  },
-  {
-    icon: "lucide/scale",
-    title: "Scale Seamlessly",
-    description:
-      "Grow your team and projects without hassle, thanks to flexible and scalable solutions.",
-  },
-  {
-    icon: "lucide/file-check",
-    title: "Track Progress",
-    description:
-      "Stay on top of your goals with detailed progress tracking and actionable insights.",
-  },
-  {
-    icon: "lucide/clock",
-    title: "Save Time",
-    description:
-      "Focus on what matters most by automating time-consuming tasks and processes.",
-  },
-];
-
 export function TimelineProductivityList({
   heading,
-  items = defaultItems,
+  items,
   className,
   containerClassName,
   headingClassName,

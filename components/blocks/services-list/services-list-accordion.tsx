@@ -130,77 +130,6 @@ export interface ServicesListAccordionProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListAccordionService[] = [
-  {
-    iconName: "lucide/cog",
-    title: "Product Strategy",
-    shortDescription: "Strategic planning and market positioning",
-    description:
-      "From market research to user personas, we help you build products that matter. Our strategic approach ensures your product meets real user needs.",
-    items: [
-      "Market Research",
-      "User Personas",
-      "Competitive Analysis",
-      "Product Roadmaps",
-    ],
-    deliverables: [
-      "Strategy Document",
-      "User Persona Profiles",
-      "Market Analysis Report",
-    ],
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design",
-    shortDescription: "User-centered design solutions",
-    description:
-      "Beautiful, functional designs that create memorable user experiences. We focus on both aesthetics and usability to create designs that convert.",
-    items: [
-      "UI/UX Design",
-      "Prototyping",
-      "Interaction Design",
-      "Design Systems",
-    ],
-    deliverables: [
-      "Design System",
-      "Interactive Prototypes",
-      "UI/UX Mockups",
-    ],
-  },
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    shortDescription: "Modern, scalable applications",
-    description:
-      "Robust, scalable applications built with modern technologies and frameworks. We ensure your application is fast, secure, and maintainable.",
-    items: [
-      "Frontend Dev",
-      "Backend Dev",
-      "API Integration",
-      "Performance Optimization",
-    ],
-    deliverables: ["Source Code", "Documentation", "Deployment Guide"],
-  },
-  {
-    iconName: "lucide/shrub",
-    title: "Marketing",
-    shortDescription: "Growth and optimization strategies",
-    description:
-      "Strategic growth initiatives to scale your product and maximize impact. We use data-driven approaches to optimize your marketing efforts.",
-    items: [
-      "SEO Strategy",
-      "Analytics & Data",
-      "A/B Testing",
-      "Content Marketing",
-    ],
-    deliverables: [
-      "Marketing Plan",
-      "Analytics Setup",
-      "Performance Reports",
-    ],
-  },
-];
-
 /**
  * ServicesListAccordion - An accordion-based expandable services section with detailed information.
  * Each accordion item shows icon, title, and short description when collapsed, expanding to reveal
@@ -223,7 +152,7 @@ const defaultServices: ServicesListAccordionService[] = [
 export function ServicesListAccordion({
   heading = "Services",
   description = "Click to learn more about each service we offer.",
-  services = defaultServices,
+  services,
   servicesSlot,
   defaultValue = "item-0",
   itemsLabel = "What's Included",

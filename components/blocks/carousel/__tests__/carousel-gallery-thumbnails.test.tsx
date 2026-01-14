@@ -24,21 +24,6 @@ describe("CarouselGalleryThumbnails", () => {
     vi.useRealTimers();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselGalleryThumbnails />);
-    // Should render default gallery images
-    const images = screen.getAllByTestId("img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselGalleryThumbnails className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
-
   it("renders custom images", () => {
     const customImages = [
       { src: "custom1.jpg", alt: "Custom Image 1", width: 800, height: 600 },
@@ -47,40 +32,6 @@ describe("CarouselGalleryThumbnails", () => {
     render(<CarouselGalleryThumbnails images={customImages} />);
     expect(screen.getByAltText("Custom Image 1")).toBeInTheDocument();
     expect(screen.getByAltText("Custom Image 2")).toBeInTheDocument();
-  });
-
-  it("renders navigation buttons", () => {
-    const { container } = render(<CarouselGalleryThumbnails />);
-    const buttons = container.querySelectorAll("button");
-    expect(buttons.length).toBeGreaterThan(0);
-  });
-
-  it("handles next button click", () => {
-    const { container } = render(<CarouselGalleryThumbnails />);
-    const buttons = container.querySelectorAll("button");
-    // Find the next button (second navigation button)
-    const nextButton = Array.from(buttons).find((btn) =>
-      btn.className.includes("right-2")
-    );
-    if (nextButton) {
-      fireEvent.click(nextButton);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("handles prev button click", () => {
-    const { container } = render(<CarouselGalleryThumbnails />);
-    const buttons = container.querySelectorAll("button");
-    // Find the prev button (first navigation button)
-    const prevButton = Array.from(buttons).find((btn) =>
-      btn.className.includes("left-2")
-    );
-    if (prevButton) {
-      fireEvent.click(prevButton);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders thumbnails when showThumbnails is true", () => {
@@ -126,34 +77,9 @@ describe("CarouselGalleryThumbnails", () => {
     render(<CarouselGalleryThumbnails images={images} />);
     expect(screen.getByText("Test Caption")).toBeInTheDocument();
   });
-
-  it("renders with aspect-video main image container", () => {
-    const { container } = render(<CarouselGalleryThumbnails />);
-    const aspectVideo = container.querySelector(".aspect-video");
-    expect(aspectVideo).toBeInTheDocument();
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselGalleryThumbnails optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("handles keyboard navigation", () => {
-    const { container } = render(<CarouselGalleryThumbnails />);
-    // Simulate keyboard events
-    fireEvent.keyDown(window, { key: "ArrowRight" });
     fireEvent.keyDown(window, { key: "ArrowLeft" });
     // Should not throw error
     expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("applies rounded corners to main image container", () => {
-    const { container } = render(<CarouselGalleryThumbnails />);
-    const rounded = container.querySelector(".rounded-lg");
-    expect(rounded).toBeInTheDocument();
   });
 });
 

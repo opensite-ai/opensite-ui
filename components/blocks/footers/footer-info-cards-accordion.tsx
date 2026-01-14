@@ -269,77 +269,6 @@ export interface FooterInfoCardsAccordionProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultInfoItems: FooterInfoCardsAccordionInfoItem[] = [
-  {
-    icon: "lucide/message-square-more",
-    title: "Customer Support",
-    text: "Mon–Fri, 8am–7pm EST.",
-  },
-  {
-    icon: "lucide/phone",
-    title: "Call Us",
-    text: "+1 855-987-4420 (toll-free)",
-    link: "tel:+18559874420",
-  },
-  {
-    icon: "lucide/send",
-    title: "Email Us",
-    text: "support@company.com",
-    link: "mailto:support@company.com",
-  },
-  {
-    icon: "lucide/map-pin",
-    title: "Address",
-    text: "125 Main Avenue, Suite 210, CA",
-  },
-];
-
-const defaultFooterLinks: FooterInfoCardsAccordionSection[] = [
-  {
-    title: "Shop",
-    id: "shop",
-    items: [
-      { text: "New Launches", link: "#" },
-      { text: "Best Sellers", link: "#" },
-      { text: "Collections", link: "#" },
-      { text: "Gifts & Sets", link: "#" },
-    ],
-  },
-  {
-    title: "Support",
-    id: "support",
-    items: [
-      { text: "Contact Us", link: "#" },
-      { text: "FAQs", link: "#" },
-      { text: "Order Tracking", link: "#" },
-      { text: "Returns & Exchanges", link: "#" },
-    ],
-  },
-  {
-    title: "About",
-    id: "about",
-    items: [
-      { text: "Our Story", link: "#" },
-      { text: "Ingredients", link: "#" },
-      { text: "Sustainability", link: "#" },
-      { text: "Press", link: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterInfoCardsAccordionSocialLink[] = [
-  { icon: "simple-icons/facebook", link: "#", label: "Facebook" },
-  { icon: "simple-icons/x", link: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/instagram", link: "#", label: "Instagram" },
-];
-
-const defaultSubmenuLinks: FooterInfoCardsAccordionLink[] = [
-  { text: "Shipping Policy", link: "#" },
-  { text: "Returns Policy", link: "#" },
-  { text: "Terms Of Service", link: "#" },
-  { text: "Privacy Policy", link: "#" },
-];
-
 /**
  * Footer Info Cards Accordion - A comprehensive footer with info cards,
  * newsletter, accordion navigation, payment methods, and social links.
@@ -372,11 +301,11 @@ export function FooterInfoCardsAccordion({
   termsLinkUrl = "#",
   privacyLinkText = "Privacy Policy",
   privacyLinkUrl = "#",
-  infoItems = defaultInfoItems,
-  footerLinks = defaultFooterLinks,
-  socialLinks = defaultSocialLinks,
+  infoItems,
+  footerLinks,
+  socialLinks,
   paymentMethods = [],
-  submenuLinks = defaultSubmenuLinks,
+  submenuLinks,
   footerDetails = {
     image: {
       src: imagePlaceholders[0],

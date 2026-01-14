@@ -101,17 +101,6 @@ export interface AboutDeveloperStoryProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultStats: StatItem[] = [
-  { value: "200+", label: "Projects Completed" },
-  { value: "50+", label: "Happy Clients" },
-  { value: "10+", label: "Years Experience" },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
 export function AboutDeveloperStory({
   className,
   containerClassName,
@@ -119,13 +108,13 @@ export function AboutDeveloperStory({
   titleClassName,
   description = "We build tools that developers love. Our platform provides the flexibility and power you need to create exceptional applications.",
   descriptionClassName,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   actionsClassName,
   logos,
   logosSlot,
   logosClassName,
-  stats = defaultStats,
+  stats,
   statsSlot,
   statsClassName,
   storyTitle = "Our Story",

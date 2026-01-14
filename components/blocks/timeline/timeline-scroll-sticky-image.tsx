@@ -103,40 +103,9 @@ export interface TimelineScrollStickyImageProps {
   };
 }
 
-const defaultSections: TimelineSection[] = [
-  {
-    subTitle: "Smart Dashboard",
-    title: "Streamline Your Workflow Process",
-    description:
-      "Leverage our intuitive interface to streamline your workflow. Access powerful tools and features designed to enhance productivity and efficiency.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-  },
-  {
-    subTitle: "Team Management",
-    title: "Collaborate Seamlessly with Teams",
-    description:
-      "Enable smooth collaboration across your organization. Share resources efficiently with customizable access controls and permission settings.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark2,
-  },
-  {
-    subTitle: "Advanced Analytics",
-    title: "Flexible Configuration Options",
-    description:
-      "Customize your experience with advanced configuration options. Adapt the platform to your specific needs with our versatile solution.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark3,
-  },
-  {
-    subTitle: "Automation Tools",
-    title: "Simplified User Experience",
-    description:
-      "Experience a user-friendly interface designed for efficiency. Our intuitive building blocks make complex tasks simple and accessible.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-  },
-];
-
 export function TimelineScrollStickyImage({
   heading = "Transform your workflow with our solution",
-  sections = defaultSections,
+  sections,
   className,
   containerClassName,
   headingClassName,

@@ -62,45 +62,6 @@ export interface ProjectHoverRevealGridProps {
   cardClassName?: string;
 }
 
-const defaultImages: ProjectHoverRevealGridItem[] = [
-  {
-    src: imagePlaceholders[81],
-    alt: "Woman with flowers",
-    title: "Spring Blossoms",
-    description: "A moment of tranquility captured in nature's embrace",
-  },
-  {
-    src: imagePlaceholders[82],
-    alt: "Red rock formations",
-    title: "Desert Canyon",
-    description: "Ancient stones carved by time and wind",
-  },
-  {
-    src: imagePlaceholders[83],
-    alt: "Mountain landscape",
-    title: "Highland Vista",
-    description: "Where earth meets sky in perfect harmony",
-  },
-  {
-    src: imagePlaceholders[84],
-    alt: "Torii gates",
-    title: "Sacred Path",
-    description: "Traditional gates leading to spiritual awakening",
-  },
-  {
-    src: imagePlaceholders[85],
-    alt: "Zen garden",
-    title: "Meditation Garden",
-    description: "Raked sand patterns creating inner peace",
-  },
-  {
-    src: imagePlaceholders[86],
-    alt: "Campfire flames",
-    title: "Evening Fire",
-    description: "Warmth and light dancing in the darkness",
-  },
-];
-
 /**
  * ProjectHoverRevealGrid - Two-column grid with slide-up text reveal on hover.
  *
@@ -111,7 +72,7 @@ const defaultImages: ProjectHoverRevealGridItem[] = [
  * image presentation is preferred while maintaining the interactive hover reveal.
  */
 export function ProjectHoverRevealGrid({
-  images = defaultImages,
+  images,
   imagesSlot,
   optixFlowConfig,
   background,

@@ -30,27 +30,4 @@ describe("CarouselIconTabs", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<CarouselIconTabs />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<CarouselIconTabs className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders carousel component", () => {
-    render(<CarouselIconTabs />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<CarouselIconTabs />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

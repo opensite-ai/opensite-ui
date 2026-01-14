@@ -37,30 +37,4 @@ describe("StatsTimelineTabs", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<StatsTimelineTabs />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<StatsTimelineTabs className="custom-class" />);
-    expect(container.firstChild).toHaveClass("custom-class");
-  });
-
-  it("renders tabs component", () => {
-    render(<StatsTimelineTabs />);
-    expect(screen.getByTestId("mock-tabs")).toBeInTheDocument();
-  });
-
-  it("renders tabs list", () => {
-    render(<StatsTimelineTabs />);
-    expect(screen.getByTestId("mock-tabs-list")).toBeInTheDocument();
-  });
-
-  it("renders tabs triggers", () => {
-    render(<StatsTimelineTabs />);
-    const triggers = screen.getAllByTestId("mock-tabs-trigger");
-    expect(triggers.length).toBeGreaterThan(0);
-  });
 });

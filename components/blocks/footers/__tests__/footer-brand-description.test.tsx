@@ -18,22 +18,4 @@ describe("FooterBrandDescription", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<FooterBrandDescription />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FooterBrandDescription className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<FooterBrandDescription />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

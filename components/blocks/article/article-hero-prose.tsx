@@ -81,17 +81,6 @@ export interface ArticleHeroProseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPost: ArticleHeroProsePost = {
-  title: "Designing websites faster with Opensite AI",
-  authorName: "John Doe",
-  authorHref: "#",
-  image: imagePlaceholders[0],
-  pubDate: new Date(),
-  description:
-    "A step-by-step guide to building a modern, responsive blog using React and Tailwind CSS.",
-  authorImage: imagePlaceholders[10],
-};
-
 const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
   <>
     <h2 className="text-3xl font-extrabold">The Great Joke Tax</h2>
@@ -187,7 +176,7 @@ const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
 );
 
 export function ArticleHeroProseComponent({
-  post = defaultPost,
+  post,
   className,
   containerClassName,
   headerClassName,

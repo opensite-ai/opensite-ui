@@ -63,26 +63,12 @@ export interface HeroFullscreenLogoCtaProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogo: LogoItem = {
-  src: logoPlaceholders.lightHorizontalLogo,
-  alt: "",
-  className: "size-20",
-};
-
-const defaultAction: ActionConfig = {
-  label: "Read More",
-  href: "#",
-  variant: "ghost",
-  className: "hidden items-center gap-2 text-foreground hover:bg-transparent md:flex",
-  iconAfter: <DynamicIcon name="lucide/arrow-down" size={24} />,
-};
-
 export function HeroFullscreenLogoCta({
-  logo = defaultLogo,
+  logo,
   logoSlot,
   heading = "Create your own fiber optics facility",
   description = "CableCore Partnership. Worldwide network. Regional manufacturing",
-  action = defaultAction,
+  action,
   actionSlot,
   backgroundImage = imagePlaceholders[34],
   className,

@@ -263,52 +263,6 @@ export interface PricingToggleCardsProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingToggleCardsPlan[] = [
-  {
-    name: "Starter",
-    description: "Perfect for individuals",
-    monthlyPrice: "$9",
-    yearlyPrice: "$90",
-    features: [
-      { text: "Up to 3 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-      { text: "1GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline" },
-  },
-  {
-    name: "Professional",
-    description: "Best for growing teams",
-    monthlyPrice: "$29",
-    yearlyPrice: "$290",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "10GB storage" },
-      { text: "Team collaboration" },
-    ],
-    action: { label: "Start Free Trial", href: "#", variant: "default" },
-    isPopular: true,
-  },
-  {
-    name: "Enterprise",
-    description: "For large organizations",
-    monthlyPrice: "$99",
-    yearlyPrice: "$990",
-    features: [
-      { text: "Everything in Professional" },
-      { text: "Custom integrations" },
-      { text: "Dedicated support" },
-      { text: "Unlimited storage" },
-      { text: "SLA guarantee" },
-      { text: "Custom training" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
 /**
  * PricingToggleCards displays pricing plans with a monthly/yearly toggle switch.
  * Features Card components with feature lists, popular plan highlighting, and responsive grid layout.
@@ -335,7 +289,7 @@ export function PricingToggleCards({
   yearlyBadge = "Save 20%",
   monthlyInterval = "/month",
   yearlyInterval = "/year",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/circle-check",

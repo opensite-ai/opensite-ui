@@ -58,30 +58,12 @@ export interface HeroAnnouncementBadgeProps {
   actionsClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get a demo",
-    href: "#",
-    size: "lg",
-    variant: "default",
-    className: "w-full md:w-auto",
-  },
-  {
-    label: "Watch video",
-    href: "#",
-    size: "lg",
-    variant: "outline",
-    icon: <DynamicIcon name="lucide/play-circle" size={16} className="mr-2" />,
-    className: "w-full md:w-auto",
-  },
-];
-
 export function HeroAnnouncementBadge({
   badge = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eaque distinctio iusto voluptas voluptatum sed!",
   badgeIcon = <DynamicIcon name="lucide/bell" size={16} />,
   heading = "Streamline your workflow experience.",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum dolor assumenda voluptatem nemo magni a maiores aspernatur.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

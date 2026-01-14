@@ -42,26 +42,4 @@ describe("AboutNetworkSpotlight", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default heading", () => {
-    render(<AboutNetworkSpotlight />);
-    expect(
-      screen.getByText("Join the OpenSite AI Partner Network")
-    ).toBeInTheDocument();
-  });
-
-  it("renders highlight bullets", () => {
-    render(<AboutNetworkSpotlight />);
-    expect(
-      screen.getByText("Maintain full independence while accessing shared expertise.")
-    ).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <AboutNetworkSpotlight className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

@@ -37,19 +37,4 @@ describe("StatsCircularProgress", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<StatsCircularProgress />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<StatsCircularProgress className="custom-class" />);
-    expect(container.firstChild).toHaveClass("custom-class");
-  });
-
-  it("renders tabs component", () => {
-    render(<StatsCircularProgress />);
-    expect(screen.getByTestId("mock-tabs")).toBeInTheDocument();
-  });
 });

@@ -274,47 +274,6 @@ export interface PricingComparisonTableProps {
   tableCellClassName?: string;
 }
 
-const defaultPlans: PricingComparisonTablePlan[] = [
-  {
-    id: "pro",
-    name: "Pro",
-    price: "$49",
-    description: "For growing teams",
-    features: [
-      { text: "Up to 10 team members" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "API access" },
-    ],
-    action: { label: "Start Free Trial", href: "#", variant: "default" },
-    isHighlighted: true,
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    price: "Custom",
-    description: "For large organizations",
-    features: [
-      { text: "Unlimited team members" },
-      { text: "Custom integrations" },
-      { text: "Dedicated support" },
-      { text: "SLA guarantee" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
-const defaultComparisonFeatures: PricingComparisonTableFeature[] = [
-  { name: "Team members", values: { pro: "Up to 10", enterprise: "Unlimited" } },
-  { name: "Storage", values: { pro: "50GB", enterprise: "Unlimited" } },
-  { name: "API access", values: { pro: true, enterprise: true } },
-  { name: "Custom integrations", values: { pro: false, enterprise: true } },
-  { name: "SSO", values: { pro: false, enterprise: true } },
-  { name: "Dedicated support", values: { pro: false, enterprise: true } },
-  { name: "SLA guarantee", values: { pro: false, enterprise: true } },
-  { name: "Custom contracts", values: { pro: false, enterprise: true } },
-];
-
 /**
  * PricingComparisonTable displays two pricing plans side-by-side with a detailed feature comparison table.
  * Each plan card includes features, pricing, and CTA button, followed by a comprehensive comparison matrix.
@@ -339,9 +298,9 @@ const defaultComparisonFeatures: PricingComparisonTableFeature[] = [
 export function PricingComparisonTable({
   title = "Choose Your Plan",
   subtitle = "Compare features and find the right plan for your team",
-  plans = defaultPlans,
+  plans,
   plansSlot,
-  comparisonFeatures = defaultComparisonFeatures,
+  comparisonFeatures,
   comparisonSlot,
   comparisonHeading = "Feature Comparison",
   featureColumnLabel = "Feature",

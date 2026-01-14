@@ -145,47 +145,6 @@ export interface FooterNavSocialProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: FooterNavSocialSection[] = [
-  {
-    title: "Product",
-    links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About", href: "#" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
-      { name: "Advertise", href: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterNavSocialLink[] = [
-  { icon: "simple-icons/instagram", href: "#", label: "Instagram" },
-  { icon: "simple-icons/facebook", href: "#", label: "Facebook" },
-  { icon: "simple-icons/x", href: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-];
-
-const defaultLegalLinks = [
-  { name: "Terms and Conditions", href: "#" },
-  { name: "Privacy Policy", href: "#" },
-];
-
 /**
  * FooterNavSocial - A comprehensive footer with logo, navigation, newsletter, and social links.
  *
@@ -201,8 +160,8 @@ export function FooterNavSocial({
     alt: "Opensite AI",
     title: "Opensite AI",
   },
-  sections = defaultSections,
-  socialLinks = defaultSocialLinks,
+  sections,
+  socialLinks,
   newsletterHeading = "Stay Updated",
   newsletterDescription = "Subscribe to our newsletter for the latest updates and news.",
   newsletterPlaceholder = "Enter your email",
@@ -211,7 +170,7 @@ export function FooterNavSocial({
   copyright,
   attributionText = "AI Website and Automation Platform by Opensite",
   attributionHref = "https://opensite.ai",
-  legalLinks = defaultLegalLinks,
+  legalLinks,
   className,
   contentClassName,
   gridClassName,

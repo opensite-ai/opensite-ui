@@ -146,44 +146,6 @@ export interface CarouselGradientTextProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CarouselGradientTextItem[] = [
-  {
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    title: "Responsive",
-    description:
-      "Our templates are built with a mobile-first approach, ensuring your website looks stunning on all devices and screen sizes.",
-  },
-  {
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    title: "Clean Code",
-    description:
-      "Each template is crafted with clean, well-structured code following best practices to make customization and maintenance simple.",
-  },
-  {
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    title: "Copy & Paste",
-    description:
-      "Our templates are designed for easy copy and paste functionality, allowing you to quickly implement components and features into your projects.",
-  },
-  {
-    image:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    title: "Easy Updates",
-    description:
-      "Regular updates and maintenance ensure your template stays current with the latest web standards and security practices.",
-  },
-  {
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    title: "Modern Stack",
-    description:
-      "Built with the latest technologies including React, Tailwind CSS and shadcn/ui for a modern development experience.",
-  },
-];
-
 /**
  * CarouselGradientText displays cards with gradient overlay text and expanding indicators.
  *
@@ -212,7 +174,7 @@ export function CarouselGradientText({
   heading = "Code less.",
   subheading = "Build faster.",
   tagline = "Start with our templates, customize to your needs.",
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   headerClassName,

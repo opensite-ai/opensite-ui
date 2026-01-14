@@ -146,54 +146,6 @@ export interface CarouselGradientOverlayProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CarouselGradientOverlayItem[] = [
-  {
-    id: "shadcn-ui",
-    title: "Building a Modern Component Library",
-    description:
-      "Explore how modern component libraries revolutionized React development by providing a unique approach to component distribution and customization.",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-  },
-  {
-    id: "tailwind",
-    title: "The Utility-First Revolution",
-    description:
-      "Discover how utility-first CSS transformed the way developers style their applications, offering a new approach that speeds up development.",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-  },
-  {
-    id: "astro",
-    title: "The All-in-One Web Framework",
-    description:
-      "Learn how innovative architecture and zero-JS-by-default approach is helping developers build faster websites while maintaining rich interactivity.",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-  },
-  {
-    id: "react",
-    title: "Pioneering Component-Based UI",
-    description:
-      "See how React continues to shape modern web development with its component-based architecture, enabling developers to build complex user interfaces.",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-  },
-  {
-    id: "nextjs",
-    title: "The React Framework for Production",
-    description:
-      "Explore how Next.js has become the go-to framework for building full-stack React applications, offering features like server components and file-based routing.",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-  },
-];
-
 /**
  * CarouselGradientOverlay displays cards with gradient overlay and dot indicators.
  *
@@ -222,7 +174,7 @@ const defaultItems: CarouselGradientOverlayItem[] = [
 export function CarouselGradientOverlay({
   title = "Case Studies",
   description = "Discover how leading companies and developers are leveraging modern web technologies to build exceptional digital experiences.",
-  items = defaultItems,
+  items,
   itemsSlot,
   readMoreText = "Read more",
   className,

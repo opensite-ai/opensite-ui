@@ -160,67 +160,6 @@ export interface TeamFilterableSearchProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamFilterableSearchMember[] = [
-  {
-    id: "person-1",
-    name: "Sarah Chen",
-    role: "CEO & Co-founder",
-    department: "Leadership",
-    description:
-      "Former Google PM with 10+ years building products that millions use daily.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "person-2",
-    name: "Marcus Rodriguez",
-    role: "CTO & Co-founder",
-    department: "Engineering",
-    description:
-      "Ex-Meta engineer who led teams building infrastructure that served billions.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "person-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    department: "Design",
-    description: "Design leader with experience at Airbnb and Figma.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "person-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    department: "Engineering",
-    description: "Built and scaled engineering teams at Stripe and Uber.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "person-5",
-    name: "Emma Thompson",
-    role: "Head of Marketing",
-    department: "Marketing",
-    description:
-      "Marketing strategist who grew multiple startups from 0 to millions.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "person-6",
-    name: "Alex Johnson",
-    role: "Head of Sales",
-    department: "Sales",
-    description:
-      "Sales leader with a track record of building high-performing teams.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar6,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamFilterableSearch - Searchable team grid with department tabs
  *
@@ -254,7 +193,7 @@ export function TeamFilterableSearch({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
   searchPlaceholder = "Search team members...",
-  members = defaultMembers,
+  members,
   membersSlot,
   filtersSlot,
   background = "white",

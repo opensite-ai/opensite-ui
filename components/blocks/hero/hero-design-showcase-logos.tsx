@@ -86,52 +86,15 @@ export interface HeroDesignShowcaseLogosProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Join for free",
-    href: "#",
-    variant: "default",
-    className: "h-fit rounded-full border border-primary px-4 py-3 text-base font-semibold",
-  },
-  {
-    label: "See our plans",
-    href: "#",
-    variant: "outline",
-    className: "flex h-fit items-center justify-center gap-2 rounded-full px-4 py-3 text-base font-semibold",
-    iconAfter: (
-      <span className="flex h-6 w-6 rounded-full bg-zinc-100">
-        <DynamicIcon
-          name="lucide/arrow-right"
-          size={16}
-          className="m-auto"
-        />
-      </span>
-    ),
-  },
-];
-
-const defaultLogos: LogoItem[] = [
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "block h-3.5 w-auto opacity-50 md:h-5" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "block h-3.5 w-auto opacity-50 md:h-5" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "block h-3.5 w-auto opacity-50 md:h-5" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "block h-3.5 w-auto opacity-50 md:h-5" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "block h-3.5 w-auto opacity-50 md:h-5" },
-];
-
-const defaultShowcaseImage: ImageItem = {
-  src: imagePlaceholders[83],
-  alt: "",
-};
-
 export function HeroDesignShowcaseLogos({
   heading = "Unveil great design from the real world.",
   description = "Showcasing more than 500,000 screens and 2,000 iOS, Android, and Web apps — fresh content added every week.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   logosLabel = "Trusted by design teams at",
-  logos = defaultLogos,
+  logos,
   logosSlot,
-  showcaseImage = defaultShowcaseImage,
+  showcaseImage,
   showcaseSlot,
   className,
   containerClassName,

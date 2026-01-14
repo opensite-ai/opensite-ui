@@ -186,43 +186,6 @@ export interface PricingSingleCardProps {
   featureTextClassName?: string;
 }
 
-const defaultFeatureGroups: PricingSingleCardFeatureGroup[] = [
-  {
-    title: "Core Features",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "API access" },
-    ],
-  },
-  {
-    title: "Collaboration",
-    features: [
-      { text: "Team workspaces" },
-      { text: "Real-time editing" },
-      { text: "Comments & mentions" },
-      { text: "Version history" },
-    ],
-  },
-  {
-    title: "Security",
-    features: [
-      { text: "SSO authentication" },
-      { text: "Role-based access" },
-      { text: "Audit logs" },
-      { text: "Data encryption" },
-    ],
-  },
-];
-
-const defaultAction: ActionConfig = {
-  label: "Start Free Trial",
-  href: "#",
-  variant: "default",
-  size: "lg",
-};
-
 /**
  * PricingSingleCard displays a single comprehensive pricing card with grouped features.
  * Features are organized into sections with titles, making it easy to understand what's included.
@@ -248,11 +211,11 @@ export function PricingSingleCard({
   description = "Everything you need to build and scale your product",
   price = "$99",
   priceDescription = "per month, billed annually",
-  featureGroups = defaultFeatureGroups,
+  featureGroups,
   featureGroupsSlot,
   featureIcon,
   featureIconName = "lucide/check",
-  action = defaultAction,
+  action,
   actionSlot,
   background = "white",
   spacing = "lg",

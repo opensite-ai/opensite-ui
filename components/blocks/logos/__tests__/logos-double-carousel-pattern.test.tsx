@@ -33,12 +33,6 @@ describe("LogosDoubleCarouselPattern", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<LogosDoubleCarouselPattern />);
-    expect(screen.getByText("Trusted by industry leaders worldwide")).toBeInTheDocument();
-    expect(screen.getByText(/Join thousands of companies/)).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <LogosDoubleCarouselPattern
@@ -48,12 +42,6 @@ describe("LogosDoubleCarouselPattern", () => {
     );
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
     expect(screen.getByText("Custom Description")).toBeInTheDocument();
-  });
-
-  it("renders primary and secondary buttons with default text", () => {
-    render(<LogosDoubleCarouselPattern />);
-    expect(screen.getByText("Get started")).toBeInTheDocument();
-    expect(screen.getByText("Learn more")).toBeInTheDocument();
   });
 
   it("renders custom button text", () => {
@@ -67,50 +55,5 @@ describe("LogosDoubleCarouselPattern", () => {
     );
     expect(screen.getByText("Start Now")).toBeInTheDocument();
     expect(screen.getByText("Read More")).toBeInTheDocument();
-  });
-
-  it("renders two carousels", () => {
-    render(<LogosDoubleCarouselPattern />);
-    const carousels = screen.getAllByTestId("carousel");
-    expect(carousels.length).toBe(2);
-  });
-
-  it("renders logos in both rows", () => {
-    render(<LogosDoubleCarouselPattern />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders custom logos", () => {
-    const customTopLogos = [{ name: "Top Company", logo: "/top.png" }];
-    const customBottomLogos = [{ name: "Bottom Company", logo: "/bottom.png" }];
-    render(
-      <LogosDoubleCarouselPattern
-        topRowLogos={customTopLogos}
-        bottomRowLogos={customBottomLogos}
-      />
-    );
-    const topLogos = screen.getAllByAltText("Top Company logo");
-    const bottomLogos = screen.getAllByAltText("Bottom Company logo");
-    expect(topLogos.length).toBeGreaterThan(0);
-    expect(bottomLogos.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LogosDoubleCarouselPattern className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<LogosDoubleCarouselPattern />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
-  });
-
-  it("handles empty logos arrays", () => {
-    render(<LogosDoubleCarouselPattern topRowLogos={[]} bottomRowLogos={[]} />);
-    expect(screen.getByText("Trusted by industry leaders worldwide")).toBeInTheDocument();
   });
 });

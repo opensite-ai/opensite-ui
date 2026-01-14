@@ -112,45 +112,6 @@ export interface FeatureCategoryImageCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureCategoryImageCardsItem[] = [
-  {
-    title: "Interface",
-    category: "Category",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    imageAlt: "User-Friendly Interface",
-  },
-  {
-    title: "Analytics",
-    category: "Category",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholderDark1,
-    imageAlt: "Advanced Analytics",
-  },
-  {
-    title: "Integration",
-    category: "Category",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-    imageAlt: "Seamless Integration",
-  },
-  {
-    title: "Customizable",
-    category: "Category",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder4,
-    imageAlt: "Customizable Features",
-  },
-  {
-    title: "Support",
-    category: "Category",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder5,
-    imageAlt: "Reliable Support",
-  },
-  {
-    title: "Security",
-    category: "Category",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder6,
-    imageAlt: "Secure Data Management",
-  },
-];
-
 /**
  * Feature Category Image Cards - Six-card grid with category badges and
  * large images showcasing key features.
@@ -174,7 +135,7 @@ export function FeatureCategoryImageCards({
   badge = "Exceptional Software",
   title = "Key Features",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quaerat odit sunt eaque ex, natus vel maxime tenetur odio? Nemo.",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

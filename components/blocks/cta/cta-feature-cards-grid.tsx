@@ -89,34 +89,6 @@ export interface CtaFeatureCardsGridProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultFeatures: FeatureItem[] = [
-  {
-    iconName: "lucide/zap",
-    title: "Lightning Fast",
-    description: "Optimized for speed and performance.",
-  },
-  {
-    iconName: "lucide/shield",
-    title: "Secure",
-    description: "Enterprise-grade security built-in.",
-  },
-  {
-    iconName: "lucide/settings",
-    title: "Customizable",
-    description: "Fully customizable to your needs.",
-  },
-  {
-    iconName: "lucide/users",
-    title: "Collaborative",
-    description: "Built for teams of all sizes.",
-  },
-];
-
 /**
  * CtaFeatureCardsGrid - A CTA section with heading, description, action buttons,
  * and a grid of feature cards with icons and descriptions. Ideal for showcasing
@@ -140,9 +112,9 @@ const defaultFeatures: FeatureItem[] = [
 export function CtaFeatureCardsGrid({
   heading = "Everything you need to build",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

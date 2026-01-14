@@ -22,25 +22,4 @@ describe("HeroSplitIconCards", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default heading", () => {
-    render(<HeroSplitIconCards />);
-    expect(
-      screen.getByText("A hero layout built to clarify your next steps")
-    ).toBeInTheDocument();
-  });
-
-  it("renders card items", () => {
-    render(<HeroSplitIconCards />);
-    expect(screen.getByText("Proactive Reviews")).toBeInTheDocument();
-    expect(screen.getByText("Smart Coverage Guidance")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <HeroSplitIconCards className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

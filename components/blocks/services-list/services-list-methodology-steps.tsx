@@ -109,49 +109,6 @@ export interface ServicesListMethodologyStepsProps {
   patternOpacity?: number;
 }
 
-const defaultSteps: ServicesListMethodologyStepsStep[] = [
-  {
-    number: "01",
-    title: "Discovery",
-    description:
-      "We begin by understanding your business, goals, and target audience through in-depth research and stakeholder interviews.",
-    options: ["Stakeholder Interviews", "Market Research", "Competitive Analysis", "Goal Setting"],
-  },
-  {
-    number: "02",
-    title: "Strategy",
-    description:
-      "Based on our findings, we develop a comprehensive strategy that aligns with your business objectives.",
-    options: ["Project Roadmap", "Technical Architecture", "Content Strategy", "Timeline Planning"],
-  },
-  {
-    number: "03",
-    title: "Design",
-    description:
-      "Our design team creates intuitive, beautiful interfaces that engage users and reflect your brand.",
-    options: ["Wireframing", "UI Design", "Prototyping", "User Testing"],
-  },
-  {
-    number: "04",
-    title: "Development",
-    description:
-      "We build your solution using modern technologies and best practices for performance and scalability.",
-    options: ["Frontend Development", "Backend Development", "API Integration", "Quality Assurance"],
-  },
-  {
-    number: "05",
-    title: "Launch & Support",
-    description:
-      "We deploy your solution and provide ongoing support to ensure continued success.",
-    options: ["Deployment", "Training", "Monitoring", "Maintenance"],
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Start Your Project",
-  href: "#",
-};
-
 /**
  * ServicesListMethodologySteps - A structured methodology layout displaying numbered service steps with options.
  * Each step features a large number, title, description, and a list of included options/deliverables.
@@ -172,9 +129,9 @@ const defaultPrimaryAction: ActionConfig = {
 export function ServicesListMethodologySteps({
   heading = "Our Methodology",
   description = "A proven process that delivers results. Each step is designed to ensure your project's success.",
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   actionsSlot,
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   containerClassName,

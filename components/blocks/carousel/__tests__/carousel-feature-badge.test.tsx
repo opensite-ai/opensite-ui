@@ -16,13 +16,6 @@ vi.mock("@page-speed/img", () => ({
 }));
 
 describe("CarouselFeatureBadge", () => {
-  it("renders with default props", () => {
-    render(<CarouselFeatureBadge />);
-    expect(screen.getByText("Platform")).toBeInTheDocument();
-    expect(
-      screen.getByText("This is the start of something new")
-    ).toBeInTheDocument();
-  });
 
   it("renders custom badge", () => {
     render(<CarouselFeatureBadge badge="Custom Badge" />);
@@ -39,20 +32,6 @@ describe("CarouselFeatureBadge", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselFeatureBadge className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
-
-  it("renders default carousel items", () => {
-    render(<CarouselFeatureBadge />);
-    const images = screen.getAllByTestId("img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
   it("renders custom items", () => {
     const customItems = [
       { src: "custom1.jpg", alt: "Custom Image 1" },
@@ -61,34 +40,6 @@ describe("CarouselFeatureBadge", () => {
     render(<CarouselFeatureBadge items={customItems} />);
     expect(screen.getByAltText("Custom Image 1")).toBeInTheDocument();
     expect(screen.getByAltText("Custom Image 2")).toBeInTheDocument();
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselFeatureBadge optixFlowConfig={optixFlowConfig} />
-    );
-    // Component should render without errors with optixFlowConfig
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders carousel navigation controls", () => {
-    const { container } = render(<CarouselFeatureBadge />);
-    // Check for carousel navigation buttons
-    const buttons = container.querySelectorAll("button");
-    expect(buttons.length).toBeGreaterThan(0);
-  });
-
-  it("applies correct section structure", () => {
-    const { container } = render(<CarouselFeatureBadge />);
-    expect(container.querySelector("section")).toBeInTheDocument();
-    expect(container.querySelector(".container")).toBeInTheDocument();
-  });
-
-  it("renders with two-column grid layout", () => {
-    const { container } = render(<CarouselFeatureBadge />);
-    const grid = container.querySelector(".grid");
-    expect(grid?.className).toContain("lg:grid-cols-2");
   });
 
   it("renders heading with correct styling", () => {
@@ -109,13 +60,6 @@ describe("CarouselFeatureBadge", () => {
     render(<CarouselFeatureBadge items={[]} />);
     // Should render without errors
     expect(screen.getByText("Platform")).toBeInTheDocument();
-  });
-
-  it("applies responsive padding classes", () => {
-    const { container } = render(<CarouselFeatureBadge />);
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("py-20");
-    expect(section?.className).toContain("lg:py-40");
   });
 });
 

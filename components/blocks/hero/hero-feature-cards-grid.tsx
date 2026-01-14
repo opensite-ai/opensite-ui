@@ -61,51 +61,12 @@ export interface HeroFeatureCardsGridProps {
   featuresClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "View documentation",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
-  {
-    iconName: "lucide/zap",
-    title: "Lightning Fast",
-    description: "Optimized for speed and performance",
-  },
-  {
-    iconName: "lucide/shield",
-    title: "Secure by Default",
-    description: "Enterprise-grade security built in",
-  },
-  {
-    iconName: "lucide/code",
-    title: "Developer First",
-    description: "APIs and SDKs for every platform",
-  },
-  {
-    iconName: "lucide/globe",
-    title: "Global Scale",
-    description: "Deploy anywhere in the world",
-  },
-];
-
 export function HeroFeatureCardsGrid({
   heading = "Everything you need to build modern apps",
   description = "A complete platform with all the tools and features you need to create, deploy, and scale your applications.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

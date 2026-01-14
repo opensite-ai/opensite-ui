@@ -115,37 +115,6 @@ export interface IndustriesBadgeListBorderedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: IndustryService[] = [
-  {
-    title: "Mining",
-    description:
-      "Empowering mining operations with advanced automation systems, real-time monitoring solutions, safety management platforms, and resource optimization technologies that maximize efficiency and ensure sustainable extraction practices.",
-    imageSrc: imagePlaceholders[0],
-    imageAlt: "Mining industry icon",
-  },
-  {
-    title: "Finance",
-    description:
-      "Delivering secure, scalable financial technology solutions including digital banking platforms, payment processing systems, risk management tools, and regulatory compliance frameworks that enable financial institutions to innovate and compete effectively.",
-    imageSrc: imagePlaceholders[1],
-    imageAlt: "Finance industry icon",
-  },
-  {
-    title: "Energy",
-    description:
-      "Transforming energy operations with smart grid technologies, renewable energy management systems, predictive maintenance solutions, and demand forecasting tools that optimize resource allocation and improve sustainability.",
-    imageSrc: imagePlaceholders[2],
-    imageAlt: "Energy industry icon",
-  },
-  {
-    title: "Construction",
-    description:
-      "Streamlining construction projects with project management platforms, BIM integration, real-time collaboration tools, and safety monitoring systems that reduce costs, improve timelines, and enhance on-site productivity.",
-    imageSrc: imagePlaceholders[3],
-    imageAlt: "Construction industry icon",
-  },
-];
-
 /**
  * IndustriesBadgeListBordered displays a professional industries listing with badge header and bordered rows.
  *
@@ -177,7 +146,7 @@ export function IndustriesBadgeListBordered({
   badgeSlot,
   heading = "Transforming industries through innovative technology solutions that drive efficiency, growth, and sustainable operations.",
   headingSlot,
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

@@ -104,37 +104,6 @@ export interface ServicesListCenteredIconsProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListCenteredIconsService[] = [
-  {
-    iconName: "lucide/cog",
-    title: "Product Strategy",
-    description:
-      "From market research to user personas, we help you build products that matter.",
-    items: ["Market Research", "User Personas"],
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design",
-    description:
-      "Beautiful, functional designs that create memorable user experiences.",
-    items: ["UI/UX Design", "Prototyping", "Interaction Design"],
-  },
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Robust, scalable applications built with modern technologies and frameworks.",
-    items: ["Frontend Dev", "Backend Dev"],
-  },
-  {
-    iconName: "lucide/shrub",
-    title: "Marketing",
-    description:
-      "Strategic growth initiatives to scale your product and maximize impact.",
-    items: ["SEO Strategy", "Analytics & Data", "A/B Testing"],
-  },
-];
-
 /**
  * ServicesListCenteredIcons - A responsive 1x4 grid layout with centered text and circular icons.
  * Features hover effects on icons that invert colors. Each service displays an icon, title, description, and stacked items.
@@ -156,7 +125,7 @@ const defaultServices: ServicesListCenteredIconsService[] = [
 export function ServicesListCenteredIcons({
   heading = "Services",
   description = "We deliver end-to-end digital solutions that drive results and exceed expectations.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

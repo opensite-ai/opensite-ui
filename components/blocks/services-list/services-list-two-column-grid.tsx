@@ -126,47 +126,6 @@ export interface ServicesListTwoColumnGridProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListTwoColumnGridService[] = [
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies.",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/smartphone",
-    title: "Mobile Apps",
-    description:
-      "Native and cross-platform mobile applications for iOS and Android.",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/palette",
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that create engaging experiences.",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/bar-chart-3",
-    title: "Analytics",
-    description:
-      "Data-driven insights to optimize your digital presence.",
-    ctaUrl: "#",
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Get Started",
-  href: "#",
-};
-
-const defaultSecondaryAction: ActionConfig = {
-  label: "Learn More",
-  href: "#",
-};
-
 /**
  * ServicesListTwoColumnGrid - A 2-column layout with introductory content on the left and a 2x2 service grid on the right.
  * The left column features a badge, title, description, and dual CTA buttons.
@@ -190,10 +149,10 @@ export function ServicesListTwoColumnGrid({
   badge = "Services",
   heading = "Everything You Need to Succeed Online",
   description = "We provide comprehensive digital solutions to help your business grow. From development to design, we've got you covered.",
-  primaryAction = defaultPrimaryAction,
-  secondaryAction = defaultSecondaryAction,
+  primaryAction,
+  secondaryAction,
   actionsSlot,
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

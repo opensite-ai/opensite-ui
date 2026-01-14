@@ -128,63 +128,6 @@ export interface ResourceListFeaturedArticlesProps {
   patternOpacity?: number;
 }
 
-const defaultFeaturedPost: ResourceListFeaturedArticlesFeaturedPost = {
-  title: "How to Build Reusable UI Component Blocks for Beginners",
-  imageUrl: blockBrandedIconsAndPlaceholders.placeholder2,
-  link: "#",
-};
-
-const defaultArticles: ResourceListFeaturedArticlesArticle[] = [
-  {
-    date: "Jan 02, 2025",
-    category: "Design Systems",
-    link: "#",
-    title: "Mastering Reusable UI Block Patterns in React Applications",
-  },
-  {
-    date: "Jan 03, 2025",
-    category: "Best Practices",
-    link: "#",
-    title: "10 Common Mistakes to Avoid When Building UI Components",
-  },
-  {
-    date: "Jan 04, 2025",
-    category: "Components",
-    link: "#",
-    title: "A Step-by-Step Guide to Creating Flexible Card Blocks",
-  },
-  {
-    date: "Jan 05, 2025",
-    category: "Accessibility",
-    link: "#",
-    title: "Ensuring Accessibility in Custom UI Block Components",
-  },
-  {
-    date: "Jan 06, 2025",
-    category: "Performance",
-    link: "#",
-    title: "How to Optimize UI Blocks for Speed and Efficiency",
-  },
-  {
-    date: "Jan 07, 2025",
-    category: "Frameworks",
-    link: "#",
-    title: "Building Scalable UI Blocks with Tailwind and Headless UI",
-  },
-  {
-    date: "Jan 08, 2025",
-    category: "Design Systems",
-    link: "#",
-    title: "Creating Consistent UI Blocks Across a Shared Design System",
-  },
-  {
-    date: "Jan 09, 2025",
-    category: "React",
-    link: "#",
-    title: "Why React Is the Best Tool for Component-Based UI Blocks",
-  },
-];
-
 interface FeaturedPostComponentProps {
   title: React.ReactNode;
   imageUrl: string;
@@ -272,7 +215,7 @@ const FeaturedPostComponent = ({
  */
 export function ResourceListFeaturedArticles({
   className,
-  featuredPost = defaultFeaturedPost,
+  featuredPost,
   featuredPostSlot,
   featuredPostClassName,
   featuredBadgeText = "Featured Resource",
@@ -281,7 +224,7 @@ export function ResourceListFeaturedArticles({
   featuredButtonClassName,
   articlesTitle = "Resources",
   articlesTitleClassName,
-  articles = defaultArticles,
+  articles,
   articlesSlot,
   articlesClassName,
   optixFlowConfig,

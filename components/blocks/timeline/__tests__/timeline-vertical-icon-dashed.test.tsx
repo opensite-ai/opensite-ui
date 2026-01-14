@@ -15,26 +15,6 @@ describe("TimelineVerticalIconDashed", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineVerticalIconDashed />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineVerticalIconDashed className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders default steps", () => {
-    const { container } = render(<TimelineVerticalIconDashed />);
-    const icons = container.querySelectorAll('[data-testid="mock-dynamic-icon"]');
-    expect(icons.length).toBeGreaterThan(0);
-  });
-
   it("renders custom steps", () => {
     const customSteps = [
       {
@@ -53,11 +33,5 @@ describe("TimelineVerticalIconDashed", () => {
     );
     expect(getByText("Custom Step 1")).toBeInTheDocument();
     expect(getByText("Custom Step 2")).toBeInTheDocument();
-  });
-
-  it("renders dashed line connectors between steps", () => {
-    const { container } = render(<TimelineVerticalIconDashed />);
-    const connectors = container.querySelectorAll("span.my-3");
-    expect(connectors.length).toBeGreaterThan(0);
   });
 });

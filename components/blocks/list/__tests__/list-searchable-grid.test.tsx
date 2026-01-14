@@ -32,27 +32,7 @@ describe("ListSearchableGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default heading", () => {
-    render(<ListSearchableGrid />);
-    expect(
-      screen.getByText("Search the OpenSite AI resource library")
-    ).toBeInTheDocument();
-  });
-
-  it("filters items based on search input", () => {
-    render(<ListSearchableGrid />);
-    const input = screen.getByLabelText("Search");
-    fireEvent.change(input, { target: { value: "Claims" } });
     expect(screen.getByText("Claims Guidance")).toBeInTheDocument();
     expect(screen.queryByText("Coverage Audit")).not.toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ListSearchableGrid className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 });

@@ -30,16 +30,6 @@ describe("ProcessNumberedServices", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<ProcessNumberedServices />);
-    expect(screen.getByText("Our Services")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Comprehensive solutions to help you succeed in the digital landscape."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <ProcessNumberedServices
@@ -98,20 +88,6 @@ describe("ProcessNumberedServices", () => {
     expect(consultingLink).toHaveAttribute("href", "/consulting");
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ProcessNumberedServices className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
-  it("applies default section padding", () => {
-    const { container } = render(<ProcessNumberedServices />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-32");
-  });
-
   it("renders grid layout for services", () => {
     const { container } = render(
       <ProcessNumberedServices services={mockServices} />
@@ -123,26 +99,6 @@ describe("ProcessNumberedServices", () => {
   it("renders with empty services array", () => {
     const { container } = render(<ProcessNumberedServices services={[]} />);
     expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders default services when no services prop provided", () => {
-    render(<ProcessNumberedServices />);
-    expect(screen.getByText("Strategy & Consulting")).toBeInTheDocument();
-    expect(screen.getByText("Design & Experience")).toBeInTheDocument();
-    expect(screen.getByText("Development & Engineering")).toBeInTheDocument();
-    expect(screen.getByText("Growth & Optimization")).toBeInTheDocument();
-  });
-
-  it("renders header section with max width", () => {
-    const { container } = render(<ProcessNumberedServices />);
-    const header = container.querySelector(".max-w-2xl");
-    expect(header).toBeInTheDocument();
-  });
-
-  it("renders container with proper structure", () => {
-    const { container } = render(<ProcessNumberedServices />);
-    const containerDiv = container.querySelector(".max-w-7xl");
-    expect(containerDiv).toBeInTheDocument();
   });
 
   it("renders service number badges with hover effect", () => {

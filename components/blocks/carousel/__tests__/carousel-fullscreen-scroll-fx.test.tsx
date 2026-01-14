@@ -19,18 +19,6 @@ vi.mock("@page-speed/img", () => ({
 Element.prototype.scrollIntoView = vi.fn();
 
 describe("CarouselFullscreenScrollFx", () => {
-  it("renders with default props", () => {
-    render(<CarouselFullscreenScrollFx />);
-    expect(screen.getByText("Section 1")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselFullscreenScrollFx className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
 
   it("renders custom slides", () => {
     const customSlides = [
@@ -104,12 +92,6 @@ describe("CarouselFullscreenScrollFx", () => {
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 
-  it("renders fullscreen slides", () => {
-    const { container } = render(<CarouselFullscreenScrollFx />);
-    const fullscreenSlides = container.querySelectorAll(".h-screen");
-    expect(fullscreenSlides.length).toBeGreaterThan(0);
-  });
-
   it("renders slide counter", () => {
     const slides = [
       { id: "s1", title: "Slide 1", subtitle: "Sub 1", description: "Desc 1", image: "img1.jpg" },
@@ -126,20 +108,6 @@ describe("CarouselFullscreenScrollFx", () => {
     ];
     render(<CarouselFullscreenScrollFx slides={slides} />);
     expect(screen.getByText("Scroll")).toBeInTheDocument();
-  });
-
-  it("renders images for slides", () => {
-    render(<CarouselFullscreenScrollFx />);
-    const images = screen.getAllByTestId("img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselFullscreenScrollFx optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders with custom overlay color", () => {

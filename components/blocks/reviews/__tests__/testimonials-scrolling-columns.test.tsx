@@ -33,24 +33,6 @@ describe("TestimonialsScrollingColumns", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TestimonialsScrollingColumns />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<TestimonialsScrollingColumns className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<TestimonialsScrollingColumns />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     const { container } = render(<TestimonialsScrollingColumns heading="Custom Heading" />);
     expect(container.textContent).toContain("Custom Heading");

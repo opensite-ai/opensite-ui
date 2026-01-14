@@ -197,47 +197,6 @@ export interface PricingMinimalCardsProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingMinimalCardsPlan[] = [
-  {
-    name: "Basic",
-    price: "$9",
-    priceDescription: "/month",
-    description: "For individuals",
-    features: [
-      { text: "5 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline" },
-  },
-  {
-    name: "Pro",
-    price: "$29",
-    priceDescription: "/month",
-    description: "For teams",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "API access" },
-    ],
-    action: { label: "Start Trial", href: "#", variant: "default" },
-    isHighlighted: true,
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    description: "For organizations",
-    features: [
-      { text: "Everything in Pro" },
-      { text: "Custom integrations" },
-      { text: "Dedicated support" },
-      { text: "SLA guarantee" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
 /**
  * PricingMinimalCards displays a clean, minimal 3-column pricing layout.
  * Features simple card design with essential information and feature lists.
@@ -258,7 +217,7 @@ const defaultPlans: PricingMinimalCardsPlan[] = [
 export function PricingMinimalCards({
   heading = "Simple Pricing",
   subtitle = "No hidden fees. No surprises.",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

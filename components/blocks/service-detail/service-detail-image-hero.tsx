@@ -56,38 +56,6 @@ export interface ServiceDetailImageHeroProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultContentSections: ImageHeroContentSection[] = [
-  {
-    title: "Creating Meaningful Digital Experiences",
-    paragraphs: [
-      "We combine user research, information architecture, and visual design to deliver experiences that drive engagement and conversions.",
-      "Through comprehensive user research and testing, we validate design decisions with real data. Our iterative design process ensures that every element serves a purpose and contributes to your business goals while providing an exceptional user experience.",
-      "We specialize in creating design systems that scale with your business, ensuring consistency across all touchpoints while maintaining flexibility for future growth and evolution.",
-      "Our collaborative approach involves stakeholders throughout the design process, from initial wireframes to final prototypes. This ensures alignment between business objectives and user needs, resulting in products that succeed in the market.",
-      "Every design decision is backed by research and testing, creating solutions that are not just visually appealing but strategically sound and user-validated.",
-    ],
-  },
-  {
-    title: "Strategic Design for Business Success",
-    paragraphs: [
-      "Our design philosophy centers on creating interfaces that bridge the gap between user needs and business objectives. We understand that great UX/UI design is not just about aesthetics—it's about creating meaningful interactions that drive results.",
-      "From initial concept to final implementation, we ensure that every design element contributes to a cohesive user experience that reflects your brand values and supports your business goals. Our designs are optimized for performance, accessibility, and scalability across all devices and platforms.",
-    ],
-  },
-];
-
-const defaultServicesList: ImageHeroServicesList = {
-  title: "Our UX/UI Design Services",
-  items: [
-    "User research and persona development",
-    "Information architecture and user journey mapping",
-    "Wireframing and interactive prototyping",
-    "Visual design and brand integration",
-    "Usability testing and design validation",
-    "Design system creation and documentation",
-  ],
-};
-
 export function ServiceDetailImageHero({
   title = "UX/UI Design",
   titleClassName,
@@ -105,10 +73,10 @@ export function ServiceDetailImageHero({
   introDescriptionClassName,
   introSlot,
   introClassName,
-  contentSections = defaultContentSections,
+  contentSections,
   contentSectionsSlot,
   contentSectionsClassName,
-  servicesList = defaultServicesList,
+  servicesList,
   servicesListSlot,
   className,
   bodyBackground,

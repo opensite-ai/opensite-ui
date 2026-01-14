@@ -132,63 +132,6 @@ export interface FooterBrandLinksContactProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLinkGroups: FooterBrandLinksContactGroup[] = [
-  {
-    title: "Solutions",
-    links: [
-      { href: "/solutions", label: "Coverage Plans" },
-      { href: "/industries", label: "Industries" },
-      { href: "/partners", label: "Partner Network" },
-      { href: "/resources", label: "Resources" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { href: "/about", label: "About OpenSite AI" },
-      { href: "/team", label: "Meet the Team" },
-      { href: "/service-center", label: "Service Center" },
-      { href: "/contact", label: "Contact" },
-    ],
-  },
-];
-
-const defaultContactItems: FooterBrandLinksContactItem[] = [
-  {
-    icon: "lucide/mail",
-    label: "hello@opensite.ai",
-    href: "mailto:hello@opensite.ai",
-  },
-  {
-    icon: "lucide/phone",
-    label: "+1 (415) 555-0192",
-    href: "tel:+14155550192",
-  },
-  {
-    icon: "lucide/map-pin",
-    label: "975 Mission St, San Francisco, CA",
-    href: "https://maps.google.com",
-  },
-];
-
-const defaultSocialLinks: FooterBrandLinksContactSocialLink[] = [
-  {
-    icon: "simple-icons/linkedin",
-    href: "https://linkedin.com",
-    label: "LinkedIn",
-  },
-  {
-    icon: "simple-icons/facebook",
-    href: "https://facebook.com",
-    label: "Facebook",
-  },
-];
-
-const defaultLegalLinks: FooterBrandLinksContactLegalLink[] = [
-  { href: "/privacy", label: "Privacy Policy" },
-  { href: "/terms", label: "Terms of Service" },
-];
-
 /**
  * FooterBrandLinksContact - Multi-column footer with brand summary,
  * link groups, contact details, and social icons plus a legal bar.
@@ -198,10 +141,10 @@ export function FooterBrandLinksContact({
   logoAlt = "OpenSite AI logo",
   tagline = "Modern coverage guidance powered by OpenSite AI.",
   description = "Independent advisors, AI-driven insights, and proactive reviews for teams that value clarity.",
-  linkGroups = defaultLinkGroups,
-  contactItems = defaultContactItems,
-  socialLinks = defaultSocialLinks,
-  legalLinks = defaultLegalLinks,
+  linkGroups,
+  contactItems,
+  socialLinks,
+  legalLinks,
   attributionText = "Built with OpenSite AI",
   attributionHref = "https://opensite.ai",
   copyright,

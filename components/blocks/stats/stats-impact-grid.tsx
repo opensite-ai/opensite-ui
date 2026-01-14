@@ -178,64 +178,6 @@ export interface StatsImpactGridProps {
   ctaClassName?: string;
 }
 
-const defaultStats: ImpactStat[] = [
-  {
-    id: "roi",
-    value: "437",
-    suffix: "%",
-    label: "Average ROI",
-    description: "Return on investment for businesses using our platform",
-    icon: "lucide/line-chart",
-    iconColor: "text-primary",
-  },
-  {
-    id: "revenue",
-    value: "2.4",
-    prefix: "$",
-    suffix: "B+",
-    label: "Revenue Generated",
-    description: "Total revenue generated for our customers",
-    icon: "lucide/dollar-sign",
-    iconColor: "text-emerald-500",
-  },
-  {
-    id: "conversion",
-    value: "89",
-    suffix: "%",
-    label: "Conversion Increase",
-    description: "Average lift in conversion rates after implementation",
-    icon: "lucide/pie-chart",
-    iconColor: "text-blue-500",
-  },
-  {
-    id: "time",
-    value: "60",
-    suffix: "%",
-    label: "Time Saved",
-    description: "Average reduction in manual workload for marketing teams",
-    icon: "lucide/clock",
-    iconColor: "text-amber-500",
-  },
-  {
-    id: "growth",
-    value: "3.7",
-    suffix: "x",
-    label: "Customer Growth",
-    description: "Average growth in customer base year-over-year",
-    icon: "lucide/target",
-    iconColor: "text-purple-500",
-  },
-  {
-    id: "efficiency",
-    value: "83",
-    suffix: "%",
-    label: "Marketing Efficiency",
-    description: "Improvement in marketing efficiency across channels",
-    icon: "lucide/zap",
-    iconColor: "text-rose-500",
-  },
-];
-
 /**
  * StatsImpactGrid - A comprehensive stats section featuring a grid of impact metrics
  * with icons, an industry comparison bar chart, and a call-to-action. Each stat card
@@ -254,17 +196,12 @@ const defaultStats: ImpactStat[] = [
  * />
  * ```
  */
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-  { label: "View Case Studies", href: "#", variant: "outline" },
-];
-
 export function StatsImpactGrid({
   badge = "Proven Results",
   badgeSlot,
   heading = "Transforming Businesses With Real Numbers",
   description = "Our platform delivers measurable impact for businesses of all sizes. See the difference in black and white.",
-  stats = defaultStats,
+  stats,
   statsSlot,
   comparisonHeading = "How Does This Compare?",
   comparisonDescription = "Our platform delivers results that are 4x better than industry averages across all key performance indicators.",
@@ -272,7 +209,7 @@ export function StatsImpactGrid({
   platformValue = "89%",
   comparisonSlot,
   ctaHeading = "Ready to See These Results in Your Business?",
-  actions = defaultActions,
+  actions,
   ctaSlot,
   background = "white",
   spacing = "lg",

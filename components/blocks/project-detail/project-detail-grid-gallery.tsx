@@ -66,53 +66,6 @@ export interface ProjectDetailGridGalleryProps {
   galleryClassName?: string;
 }
 
-const defaultImages: ProjectDetailGridGalleryImage[] = [
-  {
-    src: imagePlaceholders[14],
-    alt: "Gallery image 1",
-    caption: "Initial concept exploration",
-  },
-  {
-    src: imagePlaceholders[15],
-    alt: "Gallery image 2",
-    caption: "Material studies",
-  },
-  {
-    src: imagePlaceholders[16],
-    alt: "Gallery image 3",
-    caption: "Form development",
-  },
-  {
-    src: imagePlaceholders[17],
-    alt: "Gallery image 4",
-    caption: "Detail refinement",
-  },
-  {
-    src: imagePlaceholders[18],
-    alt: "Gallery image 5",
-    caption: "Final composition",
-  },
-  {
-    src: imagePlaceholders[19],
-    alt: "Gallery image 6",
-    caption: "Installation view",
-  },
-];
-
-const defaultProps: ProjectDetailGridGalleryProps = {
-  title: "Organic Resonance",
-  subtitle: "Sculptural Installation",
-  year: "2024",
-  category: "Installation Art",
-  artist: "Elena Vasquez",
-  description:
-    "An immersive sculptural installation that explores the relationship between organic forms and architectural space. The work invites viewers to experience the interplay of light, shadow, and form.",
-  creativeProcess:
-    "The creative process began with extensive research into natural growth patterns and biomimicry. Through iterative prototyping and material experimentation, the final form emerged as a dialogue between nature and human intervention.",
-  images: defaultImages,
-  backAction: { label: "Back to Gallery", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

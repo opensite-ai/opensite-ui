@@ -35,59 +35,6 @@ describe("ResourceListFeaturedArticles", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ResourceListFeaturedArticles />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ResourceListFeaturedArticles className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<ResourceListFeaturedArticles />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders with custom featured post", () => {
-    const { container } = render(
-      <ResourceListFeaturedArticles 
-        featuredPost={{
-          title: "Featured Post Title",
-          imageUrl: "https://example.com/image.jpg",
-          link: "/featured",
-        }}
-      />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders with custom badge and button text", () => {
-    const { container } = render(
-      <ResourceListFeaturedArticles 
-        featuredBadgeText="Custom Badge"
-        featuredButtonText="Custom Button"
-      />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders with custom articles title", () => {
-    const { container } = render(
-      <ResourceListFeaturedArticles 
-        articlesTitle="Custom Articles Title"
-      />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders with custom articles", () => {
     const { container } = render(
       <ResourceListFeaturedArticles 

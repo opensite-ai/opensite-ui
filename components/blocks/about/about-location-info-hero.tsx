@@ -140,33 +140,6 @@ export interface AboutLocationInfoHeroProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages = [
-  { src: imagePlaceholders[5], alt: "OpenSite AI workspace" },
-  { src: imagePlaceholders[6], alt: "OpenSite AI team collaboration" },
-];
-
-const defaultHoursSections: AboutLocationInfoHeroHoursSection[] = [
-  {
-    label: "Office Hours",
-    hours: [
-      { day: "Mon - Thu", time: "8:00am - 6:00pm" },
-      { day: "Fri", time: "8:00am - 4:00pm" },
-    ],
-  },
-  {
-    label: "Claims Support",
-    hours: [
-      { day: "Sat", time: "9:00am - 2:00pm" },
-      { day: "Sun", time: "On call" },
-    ],
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Schedule a Visit", href: "/contact" },
-  { label: "Get Directions", href: "https://maps.google.com" },
-];
-
 /**
  * AboutLocationInfoHero - Split hero section with contact details, action links,
  * hours breakdown, and a dual-image layout. Great for showcasing location-focused
@@ -181,13 +154,13 @@ export function AboutLocationInfoHero({
   phone = "+1 (415) 555-0192",
   phoneHref,
   phoneClassName,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   actionsClassName,
-  hoursSections = defaultHoursSections,
+  hoursSections,
   hoursSectionsSlot,
   hoursSectionsClassName,
-  images = defaultImages,
+  images,
   imagesSlot,
   imagesClassName,
   contentPosition = "left",

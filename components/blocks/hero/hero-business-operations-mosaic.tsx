@@ -54,16 +54,10 @@ export interface HeroBusinessOperationsMosaicProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[117], alt: "" },
-  { src: imagePlaceholders[118], alt: "" },
-  { src: imagePlaceholders[119], alt: "" },
-];
-
 export function HeroBusinessOperationsMosaic({
   heading = "Revolutionize your business operations",
   subheading = "The ultimate platform to unlock your agency's capabilities.",
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

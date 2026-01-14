@@ -120,42 +120,6 @@ export interface IndustriesTimelineTableProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProjects: IndustryProject[] = [
-  {
-    year: "/2024",
-    name: "/Consumer Tech",
-    description: "Innovative consumer electronics and smart device solutions",
-    imageSrc: imagePlaceholders[0],
-    imageAlt: "Consumer tech project",
-    url: "#",
-  },
-  {
-    year: "/2023",
-    name: "/Biotech",
-    description:
-      "Cutting-edge biotechnology research and pharmaceutical development",
-    imageSrc: imagePlaceholders[1],
-    imageAlt: "Biotech project",
-    url: "#",
-  },
-  {
-    year: "/2023",
-    name: "/Cybersecurity",
-    description: "Enterprise-grade security solution for data protection",
-    imageSrc: imagePlaceholders[2],
-    imageAlt: "Cybersecurity project",
-    url: "#",
-  },
-  {
-    year: "/2022",
-    name: "/Healthtech",
-    description: "Integrated healthcare management system with telemedicine",
-    imageSrc: imagePlaceholders[3],
-    imageAlt: "Healthtech project",
-    url: "#",
-  },
-];
-
 /**
  * IndustriesTimelineTable displays industry projects in a timeline-style table layout.
  *
@@ -189,7 +153,7 @@ export function IndustriesTimelineTable({
   headingSlot,
   labels = ["Year", "Industry", "Description"],
   labelsSlot,
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   className,
   containerClassName,

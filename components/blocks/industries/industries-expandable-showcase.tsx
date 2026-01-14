@@ -121,36 +121,6 @@ export interface IndustriesExpandableShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultContractors: IndustryContractor[] = [
-  {
-    id: "hydro-power",
-    category: "Hydro",
-    title:
-      "Revolutionizing Hydroelectric Power Generation Through Smart Dam Management",
-    imageSrc: imagePlaceholders[0],
-    imageAlt: "Hydroelectricity operations site",
-    learnMoreUrl: "#",
-  },
-  {
-    id: "wind-power",
-    category: "Wind",
-    title:
-      "Maximizing Wind Farm Efficiency with AI-Powered Turbine Optimization",
-    imageSrc: imagePlaceholders[1],
-    imageAlt: "Wind power generation",
-    learnMoreUrl: "#",
-  },
-  {
-    id: "solar-power",
-    category: "Solar",
-    title:
-      "Scaling Solar Infrastructure with Advanced Photovoltaic Grid Integration",
-    imageSrc: imagePlaceholders[2],
-    imageAlt: "Solar power generation",
-    learnMoreUrl: "#",
-  },
-];
-
 /**
  * IndustriesExpandableShowcase displays an interactive expandable showcase for industry categories.
  *
@@ -181,7 +151,7 @@ const defaultContractors: IndustryContractor[] = [
 export function IndustriesExpandableShowcase({
   heading = "Powering Renewable Industries",
   headingSlot,
-  contractors = defaultContractors,
+  contractors,
   contractorsSlot,
   className,
   containerClassName,

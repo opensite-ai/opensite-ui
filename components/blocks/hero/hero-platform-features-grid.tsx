@@ -67,52 +67,14 @@ export interface HeroPlatformFeaturesGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogo: LogoItem = {
-  src: logoPlaceholders.logoMark,
-  alt: "placeholder",
-  imgClassName: "mx-auto mb-5 w-16 md:mb-6 md:w-24 lg:mb-7 lg:w-28",
-};
-
-const defaultAction: ActionConfig = {
-  label: "Start now for free",
-  href: "#",
-  variant: "default",
-  size: "lg",
-  className: "mt-8",
-  iconAfter: <DynamicIcon name="lucide/move-right" size={20} className="ml-2" />,
-};
-
-const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
-  {
-    iconName: "lucide/globe",
-    title: "Robust Infrastructure",
-    description: "Reliable and scalable infrastructure, easy to manage.",
-  },
-  {
-    iconName: "lucide/rocket",
-    title: "Easy Setup",
-    description: "Quick and simple configuration for any use case.",
-  },
-  {
-    iconName: "lucide/expand",
-    title: "Effortless Scaling",
-    description: "Built to handle increased demand with ease.",
-  },
-  {
-    iconName: "lucide/wrench",
-    title: "Low Maintenance",
-    description: "Focus on building, not on maintenance tasks.",
-  },
-];
-
 export function HeroPlatformFeaturesGrid({
-  logo = defaultLogo,
+  logo,
   logoSlot,
   subtitle = "PLATFORM",
   heading = "Develop, launch, and grow your service with our platform",
-  action = defaultAction,
+  action,
   actionSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

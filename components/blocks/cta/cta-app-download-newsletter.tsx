@@ -182,11 +182,6 @@ export interface CtaAppDownloadNewsletterProps {
   };
 }
 
-const defaultAppActions: ActionConfig[] = [
-  { label: "App Store", href: "#", variant: "default" },
-  { label: "Google Play", href: "#", variant: "outline" },
-];
-
 /**
  * CtaAppDownloadNewsletter - A two-column CTA grid featuring an app download
  * section with phone mockup and a newsletter subscription form. Perfect for
@@ -209,7 +204,7 @@ const defaultAppActions: ActionConfig[] = [
 export function CtaAppDownloadNewsletter({
   appHeading = "Download Our App",
   appDescription = "Get the best experience on mobile. Download our app and access all features on the go.",
-  appActions = defaultAppActions,
+  appActions,
   appActionsSlot,
   phoneMockupImage = imagePlaceholders[8],
   newsletterHeading = "Stay Updated",

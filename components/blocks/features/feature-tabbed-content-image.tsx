@@ -166,124 +166,6 @@ export interface FeatureTabbedContentImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSlides: FeatureTabbedContentImageSlide[] = [
-  {
-    id: 1,
-    tabName: "Products",
-    title: "Pre-built Components for Rapid Development",
-    description:
-      "Accelerate your workflow with our library of ready-to-use, fully customizable UI components designed for modern web applications.",
-    features: [
-      "Cross-platform Integrations",
-      "Responsive Components",
-      "Accessible Blocks",
-      "Customizable Templates",
-    ],
-    actions: [
-      {
-        label: "Explore Products",
-        href: "#",
-        variant: "outline",
-        size: "sm",
-        iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-      },
-    ],
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-  },
-  {
-    id: 2,
-    tabName: "Services",
-    title: "Expert Solutions for Every Challenge",
-    description:
-      "Our comprehensive services help you build, scale, and optimize your digital presence with expert guidance every step of the way.",
-    features: [
-      "Technical Consulting",
-      "Implementation Support",
-      "Performance Optimization",
-      "Ongoing Maintenance",
-    ],
-    actions: [
-      {
-        label: "Explore Services",
-        href: "#",
-        variant: "outline",
-        size: "sm",
-        iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-      },
-    ],
-    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-  },
-  {
-    id: 3,
-    tabName: "Company",
-    title: "We Build the Future of Web Development",
-    description:
-      "Founded by industry experts, we're committed to creating tools that empower developers to build better digital experiences faster.",
-    features: [
-      "Remote-first Culture",
-      "Open Source Contributors",
-      "Community-driven",
-      "Continuous Innovation",
-    ],
-    actions: [
-      {
-        label: "Explore Company",
-        href: "#",
-        variant: "outline",
-        size: "sm",
-        iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-      },
-    ],
-    image: blockBrandedIconsAndPlaceholders.placeholder3,
-  },
-  {
-    id: 4,
-    tabName: "Portfolio",
-    title: "Showcasing Client Success Stories",
-    description:
-      "Explore our diverse portfolio of successful implementations across industries, from startups to enterprise-level organizations.",
-    features: [
-      "Case Studies",
-      "Implementation Examples",
-      "Success Metrics",
-      "Client Testimonials",
-    ],
-    actions: [
-      {
-        label: "Explore Portfolio",
-        href: "#",
-        variant: "outline",
-        size: "sm",
-        iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-      },
-    ],
-    image: blockBrandedIconsAndPlaceholders.placeholder4,
-  },
-  {
-    id: 5,
-    tabName: "Resources",
-    title: "Knowledge to Power Your Development",
-    description:
-      "Access our comprehensive collection of tutorials, guides, and best practices to help you get the most from our platform.",
-    features: [
-      "Developer Guides",
-      "Video Tutorials",
-      "API Documentation",
-      "Community Forums",
-    ],
-    actions: [
-      {
-        label: "Explore Resources",
-        href: "#",
-        variant: "outline",
-        size: "sm",
-        iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-      },
-    ],
-    image: blockBrandedIconsAndPlaceholders.placeholder5,
-  },
-];
-
 /**
  * Feature Tabbed Content Image - Tabbed interface with content and images
  * that change based on selected tab.
@@ -313,7 +195,7 @@ const defaultSlides: FeatureTabbedContentImageSlide[] = [
 export function FeatureTabbedContentImage({
   title = "Building Better Digital Experiences",
   description = "Discover how our platform empowers developers and businesses to create exceptional web applications with less code and more creativity.",
-  slides = defaultSlides,
+  slides,
   slidesSlot,
   defaultTab = "1",
   className,

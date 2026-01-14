@@ -29,37 +29,6 @@ export interface TechnologyItem {
   logo?: string;
 }
 
-const defaultTechnologies: TechnologyItem[] = [
-  {
-    name: "Next",
-    command: "npx create-next-app my-app",
-  },
-  {
-    name: "Vite",
-    command: "npm create vite@latest",
-  },
-  {
-    name: "Remix",
-    command: "npx create-remix@latest my-app",
-  },
-  {
-    name: "Gatsby",
-    command: "npm init gatsby",
-  },
-  {
-    name: "Astro",
-    command: "npm create astro@latest",
-  },
-  {
-    name: "Laravel",
-    command: "laravel new my-app",
-  },
-  {
-    name: "React",
-    command: "npx create-react-app my-app",
-  },
-];
-
 export interface HeroTechCarouselProps {
   /**
    * Main heading content
@@ -106,7 +75,7 @@ export interface HeroTechCarouselProps {
 export function HeroTechCarousel({
   heading = "Install with one Command",
   description = "Our library is compatible with all popular frameworks, download our SDK and get started in minutes.",
-  technologies = defaultTechnologies,
+  technologies,
   carouselSlot,
   autoplayDelay = 4000,
   className,

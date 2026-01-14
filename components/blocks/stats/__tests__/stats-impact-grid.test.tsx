@@ -43,26 +43,4 @@ describe("StatsImpactGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<StatsImpactGrid />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<StatsImpactGrid className="custom-class" />);
-    expect(container.firstChild).toHaveClass("custom-class");
-  });
-
-  it("renders icons using DynamicIcon", () => {
-    render(<StatsImpactGrid />);
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
-  });
-
-  it("renders cards", () => {
-    render(<StatsImpactGrid />);
-    const cards = screen.getAllByTestId("mock-card");
-    expect(cards.length).toBeGreaterThan(0);
-  });
 });

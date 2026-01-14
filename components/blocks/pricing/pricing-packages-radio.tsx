@@ -230,58 +230,6 @@ export interface PricingPackagesRadioProps {
   actionClassName?: string;
 }
 
-const defaultPackages: PricingPackagesRadioPackage[] = [
-  {
-    id: "basic",
-    name: "Basic Package",
-    price: "$499",
-    priceDescription: "/month",
-    description: "Essential marketing services",
-    features: [
-      { text: "Social media management" },
-      { text: "Monthly content calendar" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-    ],
-  },
-  {
-    id: "growth",
-    name: "Growth Package",
-    price: "$999",
-    priceDescription: "/month",
-    description: "Comprehensive marketing solution",
-    features: [
-      { text: "Everything in Basic" },
-      { text: "SEO optimization" },
-      { text: "Paid advertising" },
-      { text: "Weekly reporting" },
-      { text: "Priority support" },
-    ],
-    isPopular: true,
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise Package",
-    price: "$2,499",
-    priceDescription: "/month",
-    description: "Full-service marketing agency",
-    features: [
-      { text: "Everything in Growth" },
-      { text: "Dedicated account manager" },
-      { text: "Custom strategy" },
-      { text: "24/7 support" },
-      { text: "Quarterly reviews" },
-    ],
-  },
-];
-
-const defaultAction: ActionConfig = {
-  label: "Get Started",
-  href: "#",
-  variant: "default",
-  size: "lg",
-};
-
 /**
  * PricingPackagesRadio displays pricing packages with radio button selection.
  * Users can select a package and proceed with a single CTA button.
@@ -303,14 +251,14 @@ const defaultAction: ActionConfig = {
 export function PricingPackagesRadio({
   title = "Marketing Packages",
   subtitle = "Select the package that fits your business needs",
-  packages = defaultPackages,
+  packages,
   packagesSlot,
   selectedPackageId,
   defaultSelectedPackageId,
   onSelectionChange,
   featureIcon,
   featureIconName = "lucide/check",
-  action = defaultAction,
+  action,
   actionSlot,
   background = "white",
   spacing = "lg",

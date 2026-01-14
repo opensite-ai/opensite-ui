@@ -93,57 +93,16 @@ export interface HeroBillingPlatformLogosProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get a Demo",
-    href: "#",
-    variant: "default",
-    className: "block h-fit w-fit rounded-full px-6 py-3.5 font-mono text-[0.8125rem] leading-4 font-medium tracking-widest uppercase",
-  },
-  {
-    label: "GUIDE TO EMBRACING USAGE-BASED PRICING",
-    href: "#",
-    variant: "ghost",
-    className: "group flex h-fit items-center gap-2",
-    iconAfter: (
-      <DynamicIcon
-        name="lucide/chevron-right"
-        size={16}
-        className="shrink-0 stroke-foreground transition-transform group-hover:translate-x-2"
-      />
-    ),
-  },
-];
-
-const defaultMainImage: ImageItem = {
-  src: imagePlaceholders[65],
-  alt: "",
-};
-
-const defaultOverlayImages: ImageItem[] = [
-  { src: imagePlaceholders[66], alt: "" },
-  { src: imagePlaceholders[67], alt: "" },
-  { src: imagePlaceholders[68], alt: "" },
-];
-
-const defaultLogos: LogoItem[] = [
-  { src: logoPlaceholders.lightHorizontalLogo, alt: "" },
-  { src: logoPlaceholders.lightHorizontalLogo, alt: "" },
-  { src: logoPlaceholders.lightHorizontalLogo, alt: "" },
-  { src: logoPlaceholders.lightHorizontalLogo, alt: "" },
-  { src: logoPlaceholders.lightHorizontalLogo, alt: "" },
-];
-
 export function HeroBillingPlatformLogos({
   heading = "Anticipate greater value from your billing",
   description = "Our service is a usage-based billing platform designed to accelerate your product launches. Effortlessly shape your pricing today and refine it with confidence tomorrow.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  mainImage = defaultMainImage,
-  overlayImages = defaultOverlayImages,
+  mainImage,
+  overlayImages,
   imagesSlot,
   logosTagline = "Trusted by the FASTEST-GROWING STARTUPS AND ENTERPRISES",
-  logos = defaultLogos,
+  logos,
   logosSlot,
   backgroundNoiseUrl = "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",
   className,

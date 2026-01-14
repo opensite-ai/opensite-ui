@@ -114,39 +114,6 @@ export interface StatsMilestoneSidebarProps {
   milestoneDescriptionClassName?: string;
 }
 
-const defaultMilestones: MilestoneItem[] = [
-  {
-    year: "2018",
-    title: "Company Founded",
-    description: "Started with a vision to transform how businesses operate online.",
-  },
-  {
-    year: "2019",
-    title: "First Major Client",
-    description: "Secured our first enterprise client, validating our product-market fit.",
-  },
-  {
-    year: "2020",
-    title: "Series A Funding",
-    description: "Raised $10M to accelerate product development and team growth.",
-  },
-  {
-    year: "2021",
-    title: "Global Expansion",
-    description: "Expanded operations to Europe and Asia-Pacific regions.",
-  },
-  {
-    year: "2022",
-    title: "1 Million Users",
-    description: "Reached the milestone of serving over 1 million active users.",
-  },
-  {
-    year: "2023",
-    title: "Industry Recognition",
-    description: "Named as a leader in our category by major industry analysts.",
-  },
-];
-
 /**
  * StatsMilestoneSidebar - A two-column layout featuring a sticky sidebar with
  * heading and description, alongside a scrollable list of company milestones.
@@ -169,7 +136,7 @@ export function StatsMilestoneSidebar({
   heading = "Our Journey",
   description = "From a small startup to an industry leader, here are the key moments that shaped our company.",
   sidebarSlot,
-  milestones = defaultMilestones,
+  milestones,
   milestonesSlot,
   background = "white",
   spacing = "lg",

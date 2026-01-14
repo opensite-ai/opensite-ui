@@ -15,20 +15,6 @@ describe("TimelineAIWorkflowCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineAIWorkflowCards />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineAIWorkflowCards className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading", () => {
     const { getByText } = render(
       <TimelineAIWorkflowCards heading={<span>Custom Heading</span>} />
@@ -41,12 +27,6 @@ describe("TimelineAIWorkflowCards", () => {
       <TimelineAIWorkflowCards subheading="Custom subheading text" />
     );
     expect(getByText("Custom subheading text")).toBeInTheDocument();
-  });
-
-  it("renders default workflow items", () => {
-    const { container } = render(<TimelineAIWorkflowCards />);
-    const icons = container.querySelectorAll('[data-testid="mock-dynamic-icon"]');
-    expect(icons.length).toBeGreaterThan(0);
   });
 
   it("renders custom workflow items", () => {
@@ -67,10 +47,5 @@ describe("TimelineAIWorkflowCards", () => {
     );
     expect(getByText("Custom Item 1")).toBeInTheDocument();
     expect(getByText("Custom Item 2")).toBeInTheDocument();
-  });
-
-  it("renders numbered cards", () => {
-    const { getByText } = render(<TimelineAIWorkflowCards />);
-    expect(getByText("01")).toBeInTheDocument();
   });
 });

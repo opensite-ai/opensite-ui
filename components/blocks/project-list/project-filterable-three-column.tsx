@@ -78,72 +78,6 @@ export interface ProjectFilterableThreeColumnProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectFilterableThreeColumnItem[] = [
-  {
-    id: 1,
-    title: "Kinetic Flow",
-    category: "MOONLIGHT VISIONS",
-    description:
-      "A minimal line illustration capturing the dynamic movement of human posture in motion.",
-    image: imagePlaceholders[109],
-    tags: ["line-art", "artwork"],
-  },
-  {
-    id: 2,
-    title: "Echoes of the Canyon",
-    category: "PIXEL PARADE",
-    description:
-      "Breathtaking photo series highlighting the textures and tones of majestic canyon walls.",
-    image: imagePlaceholders[110],
-    tags: ["photos", "nature"],
-  },
-  {
-    id: 3,
-    title: "Serenity in the Highlands",
-    category: "WANDER SKETCHES",
-    description:
-      "A tranquil landscape painting inspired by the rolling hills and cloudy skies of northern Scotland.",
-    image: imagePlaceholders[111],
-    tags: ["paintings", "landscape"],
-  },
-  {
-    id: 4,
-    title: "Visual Tales",
-    category: "ECHO FIELDS",
-    description:
-      "A bold exploration of modern storytelling through layered textures and abstract elements.",
-    image: imagePlaceholders[112],
-    tags: ["artwork", "digital"],
-  },
-  {
-    id: 5,
-    title: "Quiet Garden",
-    category: "NEON TAPESTRY",
-    description:
-      "A meditative pencil sketch inspired by the harmony and simplicity of Japanese zen gardens.",
-    image: imagePlaceholders[113],
-    tags: ["sketches", "traditional"],
-  },
-  {
-    id: 6,
-    title: "Stardust Stories",
-    category: "VIDEOS",
-    description:
-      "A short cinematic video capturing the interplay of sunlight through crystal at golden hour.",
-    image: imagePlaceholders[114],
-    tags: ["videos", "cinematic"],
-  },
-];
-
-const defaultCategories = [
-  "ALL",
-  "MOONLIGHT VISIONS",
-  "PIXEL PARADE",
-  "WANDER SKETCHES",
-  "ECHO FIELDS",
-  "NEON TAPESTRY",
-];
-
 /**
  * ProjectFilterableThreeColumn - Three-column filterable gallery with category tabs and hover overlays.
  *
@@ -155,9 +89,9 @@ const defaultCategories = [
  * filtering experience.
  */
 export function ProjectFilterableThreeColumn({
-  projects = defaultProjects,
+  projects,
   projectsSlot,
-  categories = defaultCategories,
+  categories,
   optixFlowConfig,
   background,
   spacing,

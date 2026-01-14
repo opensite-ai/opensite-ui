@@ -119,54 +119,13 @@ export interface TimelineTwoColumnFeaturedProps {
   };
 }
 
-const defaultFeatures: TimelineFeature[] = [
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder4,
-    imageAlt: "Dedicated Support",
-    title: "Dedicated Support",
-    description:
-      "Expanded operations to 5 new countries, reaching millions of new users.",
-  },
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder5,
-    imageAlt: "Series B Funding",
-    title: "Series B Funding",
-    description:
-      "Secured $50M in Series B funding to accelerate product development.",
-  },
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder5,
-    imageAlt: "Product Launch",
-    title: "Product Launch",
-    description: "Successfully launched our flagship product to market.",
-  },
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder5,
-    imageAlt: "Company Founded",
-    title: "Company Founded",
-    description: "Started with a vision to revolutionize the industry.",
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Start Now",
-  href: "#",
-  variant: "default",
-};
-
-const defaultSecondaryAction: ActionConfig = {
-  label: "Book a demo",
-  href: "#",
-  variant: "outline",
-};
-
 export function TimelineTwoColumnFeatured({
   heading = "Experience the difference with us",
   description = "We believe in creating lasting partnerships with our clients, focusing on long-term success through collaborative innovation and dedicated support.",
-  primaryAction = defaultPrimaryAction,
-  secondaryAction = defaultSecondaryAction,
+  primaryAction,
+  secondaryAction,
   actionsSlot,
-  features = defaultFeatures,
+  features,
   className,
   containerClassName,
   headingClassName,

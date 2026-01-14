@@ -136,26 +136,6 @@ export interface CtaHeroFeatureCardsProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultFeatureCards: CtaHeroFeatureCard[] = [
-  {
-    iconName: "lucide/zap",
-    title: "Instant Setup",
-    description: "Get started in minutes with our easy setup process.",
-    href: "#",
-  },
-  {
-    iconName: "lucide/book-open",
-    title: "Documentation",
-    description: "Comprehensive guides and API references.",
-    href: "#",
-  },
-];
-
 /**
  * CtaHeroFeatureCards - A CTA section with a hero image and centered content,
  * plus feature cards below for instant setup and documentation. Great for
@@ -180,11 +160,11 @@ const defaultFeatureCards: CtaHeroFeatureCard[] = [
 export function CtaHeroFeatureCards({
   heading = "Build Something Amazing",
   description = "Start building with our powerful tools and comprehensive documentation. Ship faster and scale with confidence.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   heroImage = imagePlaceholders[9],
   heroImageAlt = "Hero image",
-  featureCards = defaultFeatureCards,
+  featureCards,
   featureCardsSlot,
   className,
   containerClassName,

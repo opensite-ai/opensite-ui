@@ -33,20 +33,6 @@ describe("TimelineProductLaunch", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineProductLaunch />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineProductLaunch className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading and description", () => {
     const { getByText } = render(
       <TimelineProductLaunch
@@ -56,18 +42,6 @@ describe("TimelineProductLaunch", () => {
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
     expect(getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders CTA button", () => {
-    const { container } = render(<TimelineProductLaunch />);
-    const pressable = container.querySelector('[data-testid="mock-pressable"]');
-    expect(pressable).toBeInTheDocument();
-  });
-
-  it("renders progress bars for each step", () => {
-    const { container } = render(<TimelineProductLaunch />);
-    const progressBars = container.querySelectorAll('[data-testid="mock-progress"]');
-    expect(progressBars.length).toBeGreaterThan(0);
   });
 
   it("renders custom steps", () => {
@@ -86,11 +60,5 @@ describe("TimelineProductLaunch", () => {
     );
     expect(getByText("Custom Step 1")).toBeInTheDocument();
     expect(getByText("Custom heading 1")).toBeInTheDocument();
-  });
-
-  it("renders step numbers and titles", () => {
-    const { getByText } = render(<TimelineProductLaunch />);
-    expect(getByText("01")).toBeInTheDocument();
-    expect(getByText("Ideation")).toBeInTheDocument();
   });
 });

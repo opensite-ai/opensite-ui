@@ -166,18 +166,6 @@ export interface ArticleTocSidebarProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: ArticleTocSection[] = [
-  { id: "introduction", title: "Introduction" },
-  { id: "getting-started", title: "Getting Started" },
-  { id: "core-concepts", title: "Core Concepts" },
-  { id: "best-practices", title: "Best Practices" },
-  { id: "conclusion", title: "Conclusion" },
-];
-
-const defaultCtaActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", className: "w-full" },
-];
-
 const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
   <>
     <section id="introduction">
@@ -283,7 +271,7 @@ export function ArticleTocSidebarComponent({
   authorSlot,
   category = "Architecture",
   categorySlot,
-  sections = defaultSections,
+  sections,
   tocSlot,
   renderSectionLink,
   heroImageSrc = imagePlaceholders[4],

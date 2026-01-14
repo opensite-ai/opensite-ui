@@ -125,53 +125,6 @@ export interface ServicesListPricingGridProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListPricingGridService[] = [
-  {
-    iconName: "lucide/cog",
-    title: "Product Strategy",
-    description:
-      "Strategic planning and market positioning to ensure your product meets user needs.",
-    duration: "2-4 weeks",
-    price: "From $5,000",
-    items: ["Market Research", "User Personas", "Competitive Analysis"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design",
-    description:
-      "Beautiful, user-centered designs that create engaging experiences across all platforms.",
-    duration: "3-6 weeks",
-    price: "From $8,000",
-    items: ["UI/UX Design", "Prototyping", "Design Systems"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Modern, scalable web applications built with the latest technologies.",
-    duration: "4-12 weeks",
-    price: "From $15,000",
-    items: ["Frontend Dev", "Backend Dev", "API Integration"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/shrub",
-    title: "Marketing",
-    description:
-      "Data-driven strategies to launch successfully and scale your product.",
-    duration: "Ongoing",
-    price: "From $2,000/mo",
-    items: ["SEO Strategy", "Analytics", "A/B Testing"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListPricingGrid - A 2x2 grid layout displaying services with duration and pricing information.
  * Each card features an icon, title, description, timeline, price, included items, and a CTA button.
@@ -193,7 +146,7 @@ const defaultServices: ServicesListPricingGridService[] = [
 export function ServicesListPricingGrid({
   heading = "Services & Pricing",
   description = "Transparent pricing for all our digital services. Custom quotes available for complex projects.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

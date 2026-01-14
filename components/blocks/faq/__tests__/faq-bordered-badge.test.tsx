@@ -6,19 +6,6 @@ import {
 } from "../faq-bordered-badge";
 
 describe("FaqBorderedBadge", () => {
-  it("renders with default props", () => {
-    render(<FaqBorderedBadge />);
-
-    expect(screen.getByText("FAQ")).toBeInTheDocument();
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom badge, heading, and description", () => {
     render(
@@ -52,13 +39,6 @@ describe("FaqBorderedBadge", () => {
 
     expect(screen.getByText("Custom Question 1")).toBeInTheDocument();
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FaqBorderedBadge className="custom-class" />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 
   it("renders empty items array", () => {

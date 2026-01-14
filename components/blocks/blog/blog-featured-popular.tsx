@@ -83,46 +83,11 @@ export interface BlogFeaturedPopularProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    title: "Exploring the Future of AI in Modern Technology Trends",
-    category: "Technology",
-    description:
-      "Discover how AI is transforming industries and learn about the latest advancements in artificial intelligence. Discover how AI is transforming industries and learn about the latest advancements in artificial intelligence.",
-    image: imagePlaceholders[0],
-    href: "#",
-  },
-  {
-    title: "Strategies for Effective Business Growth in 2025",
-    category: "Business",
-    description:
-      "Learn proven strategies to grow your business and stay competitive in the ever-evolving market landscape.",
-    image: imagePlaceholders[1],
-    href: "#",
-  },
-  {
-    title: "Top Wellness Trends to Improve Your Health in 2025",
-    category: "Health & Wellness",
-    description:
-      "Explore the top wellness trends that can help you achieve a healthier and more balanced lifestyle.",
-    image: imagePlaceholders[2],
-    href: "#",
-  },
-  {
-    title: "Boosting Productivity with Smart Tools and Techniques",
-    category: "Productivity",
-    description:
-      "Find out how to enhance your productivity using the latest tools and techniques for better time management.",
-    image: imagePlaceholders[3],
-    href: "#",
-  },
-];
-
 export function BlogFeaturedPopular({
   heading = "Insights and Trends Blog",
   description = "Stay updated with the latest insights, trends, and tips across various topics to keep ahead of the curve.",
   popularHeading = "Popular Posts",
-  posts = defaultPosts,
+  posts,
   featuredSlot,
   postsSlot,
   className,

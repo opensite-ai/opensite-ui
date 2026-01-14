@@ -84,15 +84,6 @@ export interface BannerPrivacyNoticeProps {
   dismissButtonClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Review Changes →",
-    href: "#",
-    variant: "link",
-    className: "text-primary px-0 h-auto mt-2",
-  },
-];
-
 /**
  * BannerPrivacyNotice - A bottom-positioned privacy policy update notice.
  *
@@ -116,7 +107,7 @@ export function BannerPrivacyNotice({
   iconName = "mynaui/shield",
   title = "Privacy Policy Updated",
   description = "We've updated our privacy policy to better protect your data. Please review the changes.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   onDismiss,
   dismissIcon,

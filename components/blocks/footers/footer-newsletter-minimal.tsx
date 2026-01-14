@@ -175,25 +175,6 @@ export interface FooterNewsletterMinimalProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavLinks: NavLinkItem[] = [
-  { label: "Home", href: "#" },
-  { label: "Collection", href: "#" },
-  { label: "Projects", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "Login", href: "#" },
-];
-
-const defaultSocialLinks: FooterNewsletterMinimalSocialLink[] = [
-  { label: "Linkedin", href: "#" },
-  { label: "Twitter", href: "#" },
-  { label: "Facebook", href: "#" },
-];
-
-const defaultFooterLinks: FooterNewsletterMinimalFooterLink[] = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms & Conditions", href: "#" },
-];
-
 /**
  * FooterNewsletterMinimal - A dark-themed minimal footer with newsletter and animated logo.
  *
@@ -206,9 +187,9 @@ export function FooterNewsletterMinimal({
   heading = "Unlock 800+ blocks now",
   supportLabel = "Get Support :",
   supportEmail = "hi@opensite.ai",
-  navLinks = defaultNavLinks,
-  socialLinks = defaultSocialLinks,
-  footerLinks = defaultFooterLinks,
+  navLinks,
+  socialLinks,
+  footerLinks,
   newsletterLabel = "Sign up for newsletter :",
   newsletterPlaceholder = "Email*",
   brandText = "OPENSITE",

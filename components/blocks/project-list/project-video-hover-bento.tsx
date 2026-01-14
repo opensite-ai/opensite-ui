@@ -169,33 +169,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   );
 };
 
-const defaultVideoSections: ProjectVideoHoverBentoItem[] = [
-  {
-    thumbnailSrc: imagePlaceholders[44],
-    videoSrc: videoPlaceholders[8],
-    studioName: "MERIDIAN FILMS",
-    projectTitle: "Coastal Reflections",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[45],
-    videoSrc: videoPlaceholders[9],
-    studioName: "ZENITH VISUALS",
-    projectTitle: "Ethereal Moments",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[46],
-    videoSrc: videoPlaceholders[10],
-    studioName: "NEXUS CREATIVE",
-    projectTitle: "Deserted Frontiers",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[47],
-    videoSrc: videoPlaceholders[11],
-    studioName: "PRISM STUDIOS",
-    projectTitle: "Nature's Symphony",
-  },
-];
-
 /**
  * ProjectVideoHoverBento - Bento-style video grid with integrated header cell.
  *
@@ -209,7 +182,7 @@ const defaultVideoSections: ProjectVideoHoverBentoItem[] = [
 export function ProjectVideoHoverBento({
   heading = "Explore Our Projects",
   subheading = "Our Work",
-  videoSections = defaultVideoSections,
+  videoSections,
   videoSectionsSlot,
   optixFlowConfig,
   background,

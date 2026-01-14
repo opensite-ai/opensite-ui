@@ -35,14 +35,6 @@ describe("TeamSimpleGrid", () => {
     expect(screen.getByText("Designer")).toBeInTheDocument();
   });
 
-  it("renders default heading and description", () => {
-    render(<TeamSimpleGrid members={mockMembers} />);
-    expect(screen.getByText("Team")).toBeInTheDocument();
-    expect(
-      screen.getByText(/Our diverse team of experts brings together/)
-    ).toBeInTheDocument();
-  });
-
   it("renders custom heading and description", () => {
     render(
       <TeamSimpleGrid
@@ -97,12 +89,6 @@ describe("TeamSimpleGrid", () => {
     const grid = container.querySelector(".grid");
     expect(grid).toBeInTheDocument();
     expect(grid?.children.length).toBe(0);
-  });
-
-  it("renders default members when no members prop provided", () => {
-    render(<TeamSimpleGrid />);
-    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
-    expect(screen.getByText("Marcus Rodriguez")).toBeInTheDocument();
   });
 
   it("centers content correctly", () => {

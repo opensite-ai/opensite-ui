@@ -235,45 +235,6 @@ export interface PricingComparisonHeadersProps {
   featureValueClassName?: string;
 }
 
-const defaultPlans: PricingComparisonHeadersPlan[] = [
-  {
-    id: "free",
-    name: "Free",
-    monthlyPrice: "$0",
-    yearlyPrice: "$0",
-    description: "For individuals",
-    action: { label: "Get Started", href: "#", variant: "outline" },
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    monthlyPrice: "$29",
-    yearlyPrice: "$290",
-    description: "For teams",
-    action: { label: "Start Trial", href: "#", variant: "default" },
-    isPopular: true,
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    monthlyPrice: "$99",
-    yearlyPrice: "$990",
-    description: "For organizations",
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
-const defaultFeatures: PricingComparisonHeadersFeature[] = [
-  { name: "Projects", values: { free: "3", pro: "Unlimited", enterprise: "Unlimited" } },
-  { name: "Team members", values: { free: "1", pro: "10", enterprise: "Unlimited" } },
-  { name: "Storage", values: { free: "1GB", pro: "100GB", enterprise: "Unlimited" } },
-  { name: "API access", values: { free: false, pro: true, enterprise: true } },
-  { name: "Priority support", values: { free: false, pro: true, enterprise: true } },
-  { name: "Custom integrations", values: { free: false, pro: false, enterprise: true } },
-  { name: "SSO", values: { free: false, pro: false, enterprise: true } },
-  { name: "Dedicated support", values: { free: false, pro: false, enterprise: true } },
-];
-
 /**
  * PricingComparisonHeaders displays a comparison table with plan headers and monthly/yearly toggle.
  * Features sticky plan headers, feature rows with check/X indicators, and responsive design.
@@ -298,9 +259,9 @@ export function PricingComparisonHeaders({
   yearlyBadge = "Save 17%",
   monthlyInterval = "/mo",
   yearlyInterval = "/yr",
-  plans = defaultPlans,
+  plans,
   plansSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   featureColumnLabel = "Feature",
   availableIcon,

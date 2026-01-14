@@ -130,33 +130,6 @@ export interface TeamSkillBadgesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamSkillBadgesMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    bio: "Leading innovation and strategic growth initiatives.",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    skills: ["Leadership", "Strategy", "Innovation", "Product Vision"],
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    bio: "Creating beautiful and intuitive user experiences.",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    skills: ["System Architecture", "AI/ML", "Scalability", "DevOps"],
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Priya Patel",
-    role: "Head of Design",
-    bio: "Building scalable and maintainable applications.",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-    skills: ["UI Design", "UX Research", "Prototyping", "Design Systems"],
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamSkillBadges - Team cards with skill/expertise badges
  *
@@ -187,7 +160,7 @@ const defaultMembers: TeamSkillBadgesMember[] = [
 export function TeamSkillBadges({
   heading = "Meet our experts",
   description = "The skilled professionals behind our success",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

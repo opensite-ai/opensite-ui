@@ -30,12 +30,6 @@ describe("CaseStudiesStatsCard", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CaseStudiesStatsCard />);
-    expect(screen.getByText("How We Optimized Our Onboarding Flow to Triple User Activation")).toBeInTheDocument();
-    expect(screen.getByText(/Learn how we revamped our product onboarding/)).toBeInTheDocument();
-  });
-
   it("renders custom title and summary", () => {
     render(
       <CaseStudiesStatsCard
@@ -45,22 +39,6 @@ describe("CaseStudiesStatsCard", () => {
     );
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
     expect(screen.getByText("Custom summary")).toBeInTheDocument();
-  });
-
-  it("renders default stats", () => {
-    render(<CaseStudiesStatsCard />);
-    expect(screen.getByText("45%")).toBeInTheDocument();
-    expect(screen.getByText("improvement in onboarding completion")).toBeInTheDocument();
-    expect(screen.getByText("61%")).toBeInTheDocument();
-    expect(screen.getByText("reduction in time-to-value")).toBeInTheDocument();
-    expect(screen.getByText("3x")).toBeInTheDocument();
-    expect(screen.getByText("increase in user activation")).toBeInTheDocument();
-  });
-
-  it("renders default author", () => {
-    render(<CaseStudiesStatsCard />);
-    expect(screen.getByText("Sarah Williams")).toBeInTheDocument();
-    expect(screen.getByText("CTO, Opensite AI")).toBeInTheDocument();
   });
 
   it("renders custom stats", () => {
@@ -83,44 +61,6 @@ describe("CaseStudiesStatsCard", () => {
     render(<CaseStudiesStatsCard author={customAuthor} />);
     expect(screen.getByText("Custom Author")).toBeInTheDocument();
     expect(screen.getByText("Custom Role")).toBeInTheDocument();
-  });
-
-  it("renders custom company name as alt text", () => {
-    render(<CaseStudiesStatsCard companyName="Custom Company" />);
-    const img = screen.getAllByTestId("mock-img")[0];
-    expect(img).toHaveAttribute("alt", "Custom Company");
-  });
-
-  it("renders read story button", () => {
-    render(<CaseStudiesStatsCard />);
-    expect(screen.getByText("Read Story")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<CaseStudiesStatsCard className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<CaseStudiesStatsCard />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
-  });
-
-  it("renders images for company logo and author", () => {
-    render(<CaseStudiesStatsCard />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders read story button", () => {
-    const { container } = render(<CaseStudiesStatsCard />);
-    // The Read Story button is wrapped in a Pressable component
-    const buttons = container.querySelectorAll("button, a");
-    expect(buttons.length).toBeGreaterThan(0);
-    expect(screen.getByText("Read Story")).toBeInTheDocument();
   });
 
   it("handles empty stats array", () => {

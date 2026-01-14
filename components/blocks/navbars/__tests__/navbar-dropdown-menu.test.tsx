@@ -45,42 +45,10 @@ describe("NavbarDropdownMenu", () => {
     expect(screen.getByText("About")).toBeInTheDocument();
   });
 
-  it("renders default menu when no menu prop provided", () => {
-    render(<NavbarDropdownMenu />);
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Products")).toBeInTheDocument();
-  });
-
-  it("renders auth buttons when authActions prop provided", () => {
-    render(<NavbarDropdownMenu authActions={mockAuthActions} />);
-    expect(screen.getByText("Sign In")).toBeInTheDocument();
-    expect(screen.getByText("Sign Up")).toBeInTheDocument();
-  });
-
-  it("renders default auth buttons when no auth prop provided", () => {
-    render(<NavbarDropdownMenu />);
-    expect(screen.getByText("Login")).toBeInTheDocument();
-    expect(screen.getByText("Sign up")).toBeInTheDocument();
-  });
-
   it("renders logo with correct alt text", () => {
     render(<NavbarDropdownMenu logo={mockLogo} />);
     const logos = screen.getAllByAltText("Company Logo");
     expect(logos.length).toBeGreaterThan(0);
-  });
-
-  it("renders default logo when no logo prop provided", () => {
-    render(<NavbarDropdownMenu />);
-    const logos = screen.getAllByAltText("Opensite AI");
-    expect(logos.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <NavbarDropdownMenu className="custom-navbar" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-navbar");
   });
 
   it("renders menu items with correct href", () => {
@@ -141,14 +109,6 @@ describe("NavbarDropdownMenu", () => {
     expect(mobileButton).toBeInTheDocument();
   });
 
-  it("renders auth buttons with correct styling", () => {
-    render(<NavbarDropdownMenu authActions={mockAuthActions} />);
-    const signInButton = screen.getByText("Sign In");
-    const signUpButton = screen.getByText("Sign Up");
-    expect(signInButton).toBeInTheDocument();
-    expect(signUpButton).toBeInTheDocument();
-  });
-
   it("applies correct padding to container", () => {
     const { container } = render(<NavbarDropdownMenu menu={mockMenu} />);
     const containerDiv = container.querySelector(".px-4");
@@ -186,12 +146,6 @@ describe("NavbarDropdownMenu", () => {
     const { container } = render(<NavbarDropdownMenu menu={mockMenu} />);
     const navList = container.querySelector("[data-slot='navigation-menu-list']");
     expect(navList).toBeInTheDocument();
-  });
-
-  it("renders auth section with gap spacing", () => {
-    const { container } = render(<NavbarDropdownMenu authActions={mockAuthActions} />);
-    const authSection = container.querySelector(".gap-2");
-    expect(authSection).toBeInTheDocument();
   });
 });
 

@@ -41,13 +41,6 @@ describe("ProjectGridGallery", () => {
     expect(screen.getByText("Beautiful natural scenery")).toBeInTheDocument();
   });
 
-  it("renders default images when no images prop provided", () => {
-    render(<ProjectGridGallery />);
-    expect(screen.getByText("Morning Reflections")).toBeInTheDocument();
-    expect(screen.getByText("Twilight Cliffs")).toBeInTheDocument();
-    expect(screen.getByText("Misty Highlands")).toBeInTheDocument();
-  });
-
   it("applies correct grid layout classes", () => {
     const { container } = render(<ProjectGridGallery images={mockImages} />);
     const grid = container.querySelector(".grid");

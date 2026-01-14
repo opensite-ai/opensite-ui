@@ -103,63 +103,9 @@ export interface TimelineChangelogBadgesProps {
   };
 }
 
-const defaultEntries: TimelineChangelogEntry[] = [
-  {
-    date: "March 21, 2025",
-    items: [
-      {
-        contentHtml:
-          "Launched <strong>AI-powered code generation</strong> in our IDE, allowing developers to generate boilerplate code with natural language prompts.",
-      },
-      {
-        contentHtml:
-          "Introduced <em>contextual code suggestions</em> that understand project structure and coding patterns for more accurate completions.",
-      },
-      {
-        contentHtml:
-          "Added <u>automated code refactoring</u> capabilities that suggest and apply improvements to existing codebases.",
-      },
-    ],
-  },
-  {
-    date: "March 19, 2025",
-    items: [
-      {
-        contentHtml:
-          "Released <strong>AI-driven debugging assistant</strong> that identifies potential issues and suggests fixes before runtime.",
-      },
-      {
-        contentHtml:
-          "Implemented <em>smart documentation generation</em> that automatically creates comprehensive docs from code comments and structure.",
-      },
-      {
-        contentHtml:
-          "Enhanced <u>code review automation</u> with AI-powered analysis of code quality and best practices.",
-      },
-    ],
-  },
-  {
-    date: "March 17, 2025",
-    items: [
-      {
-        contentHtml:
-          "Announced <strong>AI pair programming</strong> feature that provides real-time coding assistance and explanations.",
-      },
-      {
-        contentHtml:
-          "Launched <em>intelligent dependency management</em> that suggests optimal package versions and identifies potential conflicts.",
-      },
-      {
-        contentHtml:
-          "Introduced <u>automated test generation</u> that creates comprehensive test suites based on code functionality.",
-      },
-    ],
-  },
-];
-
 export function TimelineChangelogBadges({
   heading = "Timeline",
-  entries = defaultEntries,
+  entries,
   className,
   containerClassName,
   headingClassName,

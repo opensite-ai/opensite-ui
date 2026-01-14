@@ -82,36 +82,15 @@ export interface HeroDesignSystem3dProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Preview",
-    href: "#",
-    variant: "secondary",
-    className: "group flex h-fit min-w-45 flex-1 items-center justify-center gap-1 rounded-[5rem] border-2 border-black px-4 py-3 text-base font-semibold md:min-w-fit md:flex-none",
-  },
-  {
-    label: "Get Module",
-    href: "#",
-    variant: "default",
-    className: "group flex h-fit min-w-45 flex-1 items-center justify-center gap-1 rounded-[5rem] border-2 border-primary bg-primary px-4 py-3 text-base font-semibold text-nowrap text-white md:min-w-fit md:flex-none",
-  },
-];
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[94], alt: "" },
-  { src: imagePlaceholders[95], alt: "" },
-  { src: imagePlaceholders[96], alt: "" },
-];
-
 export function HeroDesignSystem3d({
   trustBadge = "Trusted by over 7,000 customers",
   trustBadgeSlot,
   heading = "Design system that delivers",
   description = "Create, prototype, and personalize any design—clean and effortless, in just minutes.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   logoMarkSrc = logoPlaceholders.logoMark,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

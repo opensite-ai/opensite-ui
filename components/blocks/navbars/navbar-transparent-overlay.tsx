@@ -123,24 +123,6 @@ export interface NavbarTransparentOverlayProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavItems: NavItem[] = [
-  { title: "Home", url: "#" },
-  { title: "About", url: "#" },
-  { title: "Services", url: "#" },
-  { title: "Portfolio", url: "#" },
-  { title: "Contact", url: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Log in", href: "#", variant: "ghost" },
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
-const defaultMobileAuthActions: ActionConfig[] = [
-  { label: "Log in", href: "#", variant: "outline" },
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
 /**
  * NavbarTransparentOverlay - A transparent navigation bar that transitions to solid on scroll.
  * 
@@ -164,11 +146,11 @@ export const NavbarTransparentOverlay = ({
   },
   logoSlot,
   logoClassName,
-  navItems = defaultNavItems,
+  navItems,
   navigationSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
-  mobileAuthActions = defaultMobileAuthActions,
+  mobileAuthActions,
   mobileAuthActionsSlot,
   background = "white",
   spacing = "none",

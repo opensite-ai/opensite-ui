@@ -140,10 +140,6 @@ export interface ArticleSplitAnimatedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultCtaActions: ActionConfig[] = [
-  { label: "Read Full Article", href: "#", variant: "default", size: "lg" },
-];
-
 export function ArticleSplitAnimatedComponent({
   className,
   containerClassName,

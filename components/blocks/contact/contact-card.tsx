@@ -172,12 +172,6 @@ export interface ContactCardProps {
   onError?: (error: Error) => void;
 }
 
-const defaultContactOptions: ContactOption[] = [
-  { icon: "lucide/phone", info: "+1(424) 535 3523", href: "tel:+14245353523" },
-  { icon: "lucide/mail", info: "hello@mail.com", href: "mailto:hello@mail.com" },
-  { icon: "lucide/ticket", info: "Open Support Ticket", href: "#" },
-];
-
 /**
  * ContactCard - A simple contact form with card layout and contact information sidebar.
  * Perfect for basic contact pages with multiple contact methods displayed.
@@ -201,7 +195,7 @@ export function ContactCard({
   buttonIcon,
   actions,
   actionsSlot,
-  contactOptions = defaultContactOptions,
+  contactOptions,
   contactOptionsSlot,
   className,
   containerClassName,

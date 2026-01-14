@@ -104,33 +104,6 @@ export interface AboutStreamlineTeamProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureItem[] = [
-  {
-    icon: <DynamicIcon name="lucide/zap" size={24} className="text-primary" />,
-    title: "Lightning Fast",
-    description: "Build and deploy in minutes, not months.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/shield" size={24} className="text-primary" />,
-    title: "Enterprise Security",
-    description: "Bank-grade security for all your data.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/users" size={24} className="text-primary" />,
-    title: "Team Collaboration",
-    description: "Work together seamlessly across teams.",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Join Our Team",
-    href: "#",
-    variant: "default",
-    size: "lg",
-  },
-];
-
 export function AboutStreamlineTeam({
   className,
   containerClassName,
@@ -146,10 +119,10 @@ export function AboutStreamlineTeam({
   teamTitleClassName,
   teamDescription = "We're a diverse group of thinkers, builders, and dreamers united by a common goal: making software development accessible to everyone.",
   teamDescriptionClassName,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   actionsClassName,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   featuresClassName,
   teamSectionClassName,

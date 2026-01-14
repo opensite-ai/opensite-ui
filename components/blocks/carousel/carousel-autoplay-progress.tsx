@@ -231,16 +231,8 @@ function useAutoplayProgress(
   return { showAutoplayProgress };
 }
 
-const defaultSlides: AutoplaySlide[] = [
-  { src: imagePlaceholders[0], alt: "Slide 1" },
-  { src: imagePlaceholders[1], alt: "Slide 2" },
-  { src: imagePlaceholders[2], alt: "Slide 3" },
-  { src: imagePlaceholders[3], alt: "Slide 4" },
-  { src: imagePlaceholders[4], alt: "Slide 5" },
-];
-
 export function CarouselAutoplayProgress({
-  slides = defaultSlides,
+  slides,
   slidesSlot,
   options,
   autoplayDelay = 3000,

@@ -121,69 +121,6 @@ export interface ServicesListMasonryProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListMasonryService[] = [
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies and best practices for optimal performance.",
-    items: ["React & Next.js", "Node.js & Python", "Database Design", "API Development"],
-    featured: true,
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/palette",
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that create engaging experiences.",
-    items: ["User Research", "Wireframing", "Prototyping"],
-    featured: false,
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/smartphone",
-    title: "Mobile Apps",
-    description:
-      "Native and cross-platform mobile applications for iOS and Android devices.",
-    items: ["React Native", "Flutter", "Native iOS/Android"],
-    featured: false,
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/cloud",
-    title: "Cloud Solutions",
-    description:
-      "Scalable cloud infrastructure and DevOps services to power your applications with reliability and performance.",
-    items: ["AWS & GCP", "Docker & Kubernetes", "CI/CD Pipelines", "Monitoring"],
-    featured: true,
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/bar-chart-3",
-    title: "Analytics",
-    description:
-      "Data-driven insights to optimize your digital presence.",
-    items: ["Google Analytics", "Custom Dashboards"],
-    featured: false,
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/shield",
-    title: "Security",
-    description:
-      "Comprehensive security audits and implementations to protect your digital assets.",
-    items: ["Security Audits", "Penetration Testing", "Compliance"],
-    featured: false,
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListMasonry - A masonry-style grid layout with variable card heights based on content.
  * Featured services display with additional items and larger visual presence.
@@ -206,7 +143,7 @@ const defaultServices: ServicesListMasonryService[] = [
 export function ServicesListMasonry({
   heading = "Our Services",
   description = "Comprehensive digital solutions tailored to your business needs.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

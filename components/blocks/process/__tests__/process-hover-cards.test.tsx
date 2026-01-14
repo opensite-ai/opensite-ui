@@ -24,16 +24,6 @@ describe("ProcessHoverCards", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<ProcessHoverCards />);
-    expect(screen.getByText("Our Process")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "We follow a proven methodology to deliver exceptional results for every project we undertake."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <ProcessHoverCards
@@ -66,20 +56,6 @@ describe("ProcessHoverCards", () => {
     expect(screen.getByText("03")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ProcessHoverCards className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
-  it("applies default section padding", () => {
-    const { container } = render(<ProcessHoverCards />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-32");
-  });
-
   it("renders steps as list items with group class", () => {
     const { container } = render(<ProcessHoverCards steps={mockSteps} />);
     const listItems = container.querySelectorAll("li.group");
@@ -89,26 +65,6 @@ describe("ProcessHoverCards", () => {
   it("renders with empty steps array", () => {
     const { container } = render(<ProcessHoverCards steps={[]} />);
     expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders default steps when no steps prop provided", () => {
-    render(<ProcessHoverCards />);
-    expect(screen.getByText("Discover & Research")).toBeInTheDocument();
-    expect(screen.getByText("Strategy & Planning")).toBeInTheDocument();
-    expect(screen.getByText("Execute & Develop")).toBeInTheDocument();
-    expect(screen.getByText("Optimize & Improve")).toBeInTheDocument();
-  });
-
-  it("renders header section with max width", () => {
-    const { container } = render(<ProcessHoverCards />);
-    const header = container.querySelector(".max-w-2xl");
-    expect(header).toBeInTheDocument();
-  });
-
-  it("renders container with proper structure", () => {
-    const { container } = render(<ProcessHoverCards />);
-    const containerDiv = container.querySelector(".max-w-7xl");
-    expect(containerDiv).toBeInTheDocument();
   });
 
   it("renders steps with border bottom", () => {
@@ -125,14 +81,6 @@ describe("ProcessHoverCards", () => {
     titles.forEach((title) => {
       expect(title.className).toContain("group-hover:text-primary");
     });
-  });
-
-  it("accepts optixFlowConfig prop", () => {
-    const optixConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <ProcessHoverCards optixFlowConfig={optixConfig} />
-    );
-    expect(container.firstChild).toBeInTheDocument();
   });
 
   it("renders mono font for step numbers", () => {

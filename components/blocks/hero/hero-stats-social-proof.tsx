@@ -103,46 +103,18 @@ export interface HeroStatsSocialProofProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Start building",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "Talk to sales",
-    href: "#",
-    variant: "ghost",
-    size: "lg",
-  },
-];
-
-const defaultStats: StatItem[] = [
-  { value: "10K+", label: "Active users" },
-  { value: "99.9%", label: "Uptime SLA" },
-  { value: "24/7", label: "Support" },
-];
-
-const defaultStatusCard = {
-  title: "All systems operational",
-  subtitle: "Last checked 2 min ago",
-  icon: <DynamicIcon name="lucide/check" size={24} className="text-green-600" />,
-};
-
 export function HeroStatsSocialProof({
   badge = "Growing fast",
   badgeIcon = <DynamicIcon name="lucide/trending-up" size={16} />,
   heading = "Trusted by thousands of teams worldwide",
   description = "Join the companies that are already using our platform to build better products and deliver exceptional experiences.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  stats = defaultStats,
+  stats,
   statsSlot,
   imageSrc = imagePlaceholders[86],
   imageAlt = "Platform dashboard",
-  statusCard = defaultStatusCard,
+  statusCard,
   statusCardSlot,
   className,
   containerClassName,

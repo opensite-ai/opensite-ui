@@ -42,42 +42,9 @@ describe("ServiceDetailCompactCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ServiceDetailCompactCards />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ServiceDetailCompactCards className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders the title", () => {
     render(<ServiceDetailCompactCards title="Custom Service Title" />);
     expect(screen.getByText("Custom Service Title")).toBeInTheDocument();
-  });
-
-  it("renders horizontal expertise badges", () => {
-    render(
-      <ServiceDetailCompactCards
-        expertise={[
-          {
-            icon: "/icon.svg",
-            title: "Figma",
-            description: "Expert",
-          },
-          {
-            icon: "/icon2.svg",
-            title: "Sketch",
-            description: "Advanced",
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Figma")).toBeInTheDocument();
-    expect(screen.getByText("Sketch")).toBeInTheDocument();
   });
 
   it("renders services with icons", () => {
@@ -91,43 +58,5 @@ describe("ServiceDetailCompactCards", () => {
     );
     expect(screen.getByText("User research")).toBeInTheDocument();
     expect(screen.getByText("Journey mapping")).toBeInTheDocument();
-  });
-
-  it("renders related services grid", () => {
-    render(
-      <ServiceDetailCompactCards
-        relatedServices={[
-          {
-            image: "/image.jpg",
-            title: "Web Development",
-            description: "Custom websites",
-            href: "/services/web",
-          },
-          {
-            image: "/image2.jpg",
-            title: "Mobile App",
-            description: "iOS and Android",
-            href: "/services/mobile",
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Web Development")).toBeInTheDocument();
-    expect(screen.getByText("Mobile App")).toBeInTheDocument();
-  });
-
-  it("renders content sections", () => {
-    render(
-      <ServiceDetailCompactCards
-        contentSections={[
-          {
-            title: "Section Title",
-            paragraphs: ["First paragraph"],
-          },
-        ]}
-      />
-    );
-    expect(screen.getByText("Section Title")).toBeInTheDocument();
-    expect(screen.getByText("First paragraph")).toBeInTheDocument();
   });
 });

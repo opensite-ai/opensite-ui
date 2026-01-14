@@ -74,19 +74,6 @@ export interface FeatureSplitImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-  },
-  {
-    label: "Learn More",
-    href: "#",
-    variant: "outline",
-  },
-];
-
 /**
  * Feature Split Image - Two-column feature section with text content on the left
  * and a prominent image on the right.
@@ -114,7 +101,7 @@ export function FeatureSplitImage({
   imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   imageAlt = "Feature illustration",
   imageSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

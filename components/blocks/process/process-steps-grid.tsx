@@ -112,52 +112,13 @@ export interface ProcessStepsGridProps {
   title?: string;
 }
 
-const defaultSteps: ProcessStepsGridItem[] = [
-  {
-    icon: "lucide/search",
-    title: "Research & Discovery",
-    description:
-      "We dive deep into understanding your business, market, and users to identify opportunities and challenges.",
-  },
-  {
-    icon: "lucide/lightbulb",
-    title: "Ideation & Strategy",
-    description:
-      "Based on our research, we develop creative solutions and strategic approaches tailored to your needs.",
-  },
-  {
-    icon: "lucide/pencil-ruler",
-    title: "Design & Prototype",
-    description:
-      "Our design team creates intuitive interfaces and interactive prototypes for validation and feedback.",
-  },
-  {
-    icon: "lucide/code-2",
-    title: "Development",
-    description:
-      "We build robust, scalable solutions using modern technologies and best practices in software engineering.",
-  },
-  {
-    icon: "lucide/test-tube-2",
-    title: "Testing & QA",
-    description:
-      "Rigorous testing ensures your product meets the highest standards of quality and reliability.",
-  },
-  {
-    icon: "lucide/rocket",
-    title: "Launch & Support",
-    description:
-      "We handle deployment and provide ongoing support to ensure your product's continued success.",
-  },
-];
-
 /**
  * ProcessStepsGrid - A grid-based process section with numbered step cards.
  */
 export function ProcessStepsGrid({
   heading = "Our Process",
   description = "A systematic approach to delivering exceptional results through careful planning and execution.",
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   contentClassName,

@@ -149,42 +149,10 @@ describe("TimelineTabbedPhases", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineTabbedPhases />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineTabbedPhases className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading", () => {
     const { getByText } = render(
       <TimelineTabbedPhases heading="Custom Heading" />
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders tabs component", () => {
-    const { container } = render(<TimelineTabbedPhases />);
-    const tabs = container.querySelector('[data-testid="mock-tabs"]');
-    expect(tabs).toBeInTheDocument();
-  });
-
-  it("renders tab triggers for each phase", () => {
-    const { container } = render(<TimelineTabbedPhases />);
-    const triggers = container.querySelectorAll('[data-testid="mock-tabs-trigger"]');
-    expect(triggers.length).toBeGreaterThan(0);
-  });
-
-  it("renders download button", () => {
-    const { container } = render(<TimelineTabbedPhases />);
-    const pressable = container.querySelector('[data-testid="mock-pressable"]');
-    expect(pressable).toBeInTheDocument();
   });
 });

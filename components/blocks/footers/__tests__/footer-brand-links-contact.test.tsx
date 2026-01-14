@@ -34,25 +34,4 @@ describe("FooterBrandLinksContact", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    render(<FooterBrandLinksContact />);
-    expect(
-      screen.getByText("Modern coverage guidance powered by OpenSite AI.")
-    ).toBeInTheDocument();
-  });
-
-  it("renders link group headings", () => {
-    render(<FooterBrandLinksContact />);
-    expect(screen.getByText("Solutions")).toBeInTheDocument();
-    expect(screen.getByText("Company")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <FooterBrandLinksContact className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

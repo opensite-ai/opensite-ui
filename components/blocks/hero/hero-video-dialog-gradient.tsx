@@ -82,24 +82,14 @@ export interface HeroVideoDialogGradientProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[101],
-  alt: "",
-};
-
-const defaultVideoDialog: VideoDialogConfig = {
-  title: "Product Demo",
-  videoUrl: "https://www.youtube.com/embed/your-video-id",
-};
-
 export function HeroVideoDialogGradient({
   heading = "Transform your workflow with intelligent automation",
   description = "Streamline your processes, reduce manual work, and focus on what matters most. Our platform helps teams work smarter, not harder.",
   actions,
   actionsSlot,
-  image = defaultImage,
+  image,
   imageSlot,
-  videoDialog = defaultVideoDialog,
+  videoDialog,
   className,
   containerClassName,
   headingClassName,

@@ -60,57 +60,11 @@ export interface BlogRelatedArticlesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultArticles: BlogPostItem[] = [
-  {
-    id: 1,
-    title: "Getting Started with Modern Web Development",
-    description:
-      "Discover the essential tools and frameworks needed for modern web development. Learn about the latest technologies, best practices, and workflow optimization techniques for building robust web applications.",
-    date: "March 15, 2024",
-    category: "Web Development",
-    href: "#",
-  },
-  {
-    id: 2,
-    title: "Understanding Frontend Design Principles",
-    description:
-      "Explore fundamental principles of frontend design and development. Learn about responsive layouts, user interface patterns, accessibility standards, and how to create engaging user experiences.",
-    date: "March 12, 2024",
-    category: "Frontend",
-    href: "#",
-  },
-  {
-    id: 3,
-    title: "Backend Development Fundamentals Guide",
-    description:
-      "Master the core concepts of backend development including database design, API architecture, and server management. Learn how to build secure, efficient, and scalable backend systems.",
-    date: "March 8, 2024",
-    category: "Backend",
-    href: "#",
-  },
-  {
-    id: 4,
-    title: "Advanced JavaScript Programming Concepts",
-    description:
-      "Deep dive into advanced JavaScript concepts including async programming, design patterns, and modern ES6+ features. Learn how to write clean, maintainable, and efficient JavaScript code.",
-    date: "March 5, 2024",
-    category: "Frontend",
-    href: "#",
-  },
-];
-
-const defaultSeeAllAction: ActionConfig = {
-  label: "See all articles",
-  href: "#",
-  variant: "outline",
-  size: "sm",
-};
-
 export function BlogRelatedArticles({
   heading = "Related articles",
-  seeAllAction = defaultSeeAllAction,
+  seeAllAction,
   seeAllSlot,
-  articles = defaultArticles,
+  articles,
   articlesSlot,
   className,
   containerClassName,

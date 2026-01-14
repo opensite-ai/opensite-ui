@@ -89,18 +89,6 @@ export interface StatsSimpleGridProps {
   statLabelClassName?: string;
 }
 
-const defaultStats: StatItem[] = [
-  { value: "90%", label: "Customer Satisfaction" },
-  { value: "200+", label: "Enterprise Clients" },
-  { value: "99%", label: "Uptime Guarantee" },
-  { value: "150+", label: "Team Members" },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-  { label: "Learn More", href: "#", variant: "outline" },
-];
-
 /**
  * StatsSimpleGrid - A clean, minimal stats section with a heading, action buttons,
  * and a responsive grid of key metrics. Features a 2x2 grid on mobile that expands
@@ -123,9 +111,9 @@ const defaultActions: ActionConfig[] = [
  */
 export function StatsSimpleGrid({
   heading = "Platform Performance Insights",
-  stats = defaultStats,
+  stats,
   statsSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   background = "muted",
   spacing = "lg",

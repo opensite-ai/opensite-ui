@@ -123,30 +123,6 @@ export interface TeamLargeImagesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamLargeImagesMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    bio: "I am an ambitious workaholic, but apart from that, pretty simple person.",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    bio: "I am an ambitious workaholic, but apart from that, pretty simple person.",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Priya Patel",
-    role: "Head of Design",
-    bio: "I am an ambitious workaholic, but apart from that, pretty simple person.",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamLargeImages - Team grid with large 4:3 images and bios
  *
@@ -175,7 +151,7 @@ const defaultMembers: TeamLargeImagesMember[] = [
 export function TeamLargeImages({
   heading = "Our leadership",
   description = "The talented people behind the scenes",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

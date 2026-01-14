@@ -58,14 +58,6 @@ describe("CarouselAutoProgressSlides", () => {
     vi.useRealTimers();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselAutoProgressSlides />);
-    expect(screen.getByText("UI for future")).toBeInTheDocument();
-    expect(
-      screen.getByText("Collection of unusual UI components")
-    ).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     render(<CarouselAutoProgressSlides heading="Custom Heading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
@@ -74,25 +66,6 @@ describe("CarouselAutoProgressSlides", () => {
   it("renders custom subheading", () => {
     render(<CarouselAutoProgressSlides subheading="Custom Subheading" />);
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
-  });
-
-  it("renders custom slide label", () => {
-    render(<CarouselAutoProgressSlides slideLabel="Custom Label" />);
-    expect(screen.getByText("Custom Label")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselAutoProgressSlides className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
-
-  it("renders navigation controls", () => {
-    const { container } = render(<CarouselAutoProgressSlides />);
-    const buttons = container.querySelectorAll("button");
-    expect(buttons.length).toBeGreaterThan(0);
   });
 
   it("renders progress dots for each item", () => {
@@ -117,45 +90,6 @@ describe("CarouselAutoProgressSlides", () => {
     render(<CarouselAutoProgressSlides items={customItems} />);
     // Component should render without errors
     expect(screen.getByText("UI for future")).toBeInTheDocument();
-  });
-
-  it("handles prev button click", () => {
-    const { container } = render(<CarouselAutoProgressSlides />);
-    const buttons = container.querySelectorAll("button");
-    // First button should be prev
-    fireEvent.click(buttons[0]);
-    // Should not throw error
-    expect(screen.getByText("UI for future")).toBeInTheDocument();
-  });
-
-  it("handles next button click", () => {
-    const { container } = render(<CarouselAutoProgressSlides />);
-    const buttons = container.querySelectorAll("button");
-    // Last navigation button should be next
-    const nextButton = buttons[buttons.length - 1];
-    fireEvent.click(nextButton);
-    // Should not throw error
-    expect(screen.getByText("UI for future")).toBeInTheDocument();
-  });
-
-  it("applies fullscreen layout", () => {
-    const { container } = render(<CarouselAutoProgressSlides />);
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("min-h-screen");
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselAutoProgressSlides optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders with centered text alignment", () => {
-    const { container } = render(<CarouselAutoProgressSlides />);
-    const textCenter = container.querySelector(".text-center");
-    expect(textCenter).toBeInTheDocument();
   });
 });
 

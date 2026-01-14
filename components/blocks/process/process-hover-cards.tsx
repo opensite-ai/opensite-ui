@@ -114,37 +114,6 @@ export interface ProcessHoverCardsProps {
   title?: string;
 }
 
-const defaultSteps: ProcessHoverCardItem[] = [
-  {
-    step: "01",
-    title: "Discover & Research",
-    image: imagePlaceholders[4],
-    description:
-      "We begin by understanding your business goals, target audience, and current challenges.",
-  },
-  {
-    step: "02",
-    title: "Strategy & Planning",
-    image: imagePlaceholders[5],
-    description:
-      "Based on our findings, we develop a comprehensive strategy that aligns with your objectives.",
-  },
-  {
-    step: "03",
-    title: "Execute & Develop",
-    image: imagePlaceholders[6],
-    description:
-      "We bring the strategy to life through careful implementation and development.",
-  },
-  {
-    step: "04",
-    title: "Optimize & Improve",
-    image: imagePlaceholders[7],
-    description:
-      "We continuously monitor performance and gather feedback to refine and improve the solution.",
-  },
-];
-
 interface ProcessCardProps {
   step: ProcessHoverCardItem;
   index: number;
@@ -224,7 +193,7 @@ const ProcessCard = ({ step, index, optixFlowConfig, itemClassName, hoverImageCl
 export function ProcessHoverCards({
   heading = "Our Process",
   description = "We follow a proven methodology to deliver exceptional results for every project we undertake.",
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   contentClassName,

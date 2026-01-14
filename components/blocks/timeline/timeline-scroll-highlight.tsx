@@ -99,40 +99,9 @@ export interface TimelineScrollHighlightProps {
   };
 }
 
-const defaultItems: TimelineScrollItem[] = [
-  {
-    title: "Company Foundation",
-    description:
-      "Started our journey with a simple idea: make technology accessible to everyone. What began as a small team of three developers in a garage has now become the foundation of our mission to democratize software development.",
-    date: "2020",
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-  },
-  {
-    title: "First Product Launch",
-    description:
-      "After months of development, we launched our first product to the public. The response was overwhelming - 10,000 users signed up in the first week, validating our vision and giving us the confidence to scale further.",
-    date: "2021",
-    image: blockBrandedIconsAndPlaceholders.placeholder2,
-  },
-  {
-    title: "Series A Funding",
-    description:
-      "Secured our Series A round led by prominent VCs who believed in our mission. This funding allowed us to expand our team, invest in R&D, and prepare for international expansion.",
-    date: "2022",
-    image: blockBrandedIconsAndPlaceholders.placeholder3,
-  },
-  {
-    title: "Global Expansion",
-    description:
-      "Opened offices in London, Tokyo, and São Paulo, marking our transition from a local startup to a global technology company. Our platform now serves over 500,000 users across 50 countries.",
-    date: "2023",
-    image: blockBrandedIconsAndPlaceholders.placeholder4,
-  },
-];
-
 export function TimelineScrollHighlight({
   heading,
-  items = defaultItems,
+  items,
   className,
   containerClassName,
   headingClassName,

@@ -25,40 +25,6 @@ describe("LinkPageBentoLayout", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<LinkPageBentoLayout name="Test Creator" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toBeInTheDocument();
-  });
-
-  it("renders name", () => {
-    render(<LinkPageBentoLayout name="Digital Creator" />);
-    expect(screen.getByText("Digital Creator")).toBeInTheDocument();
-  });
-
-  it("renders bio when provided", () => {
-    render(<LinkPageBentoLayout name="Test" bio="Content creator" />);
-    expect(screen.getByText("Content creator")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LinkPageBentoLayout name="Test" className="custom-class" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("custom-class");
-  });
-
-  it("renders with light theme by default", () => {
-    const { container } = render(<LinkPageBentoLayout name="Test" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("bg-white");
-  });
-
-  it("renders with dark theme", () => {
-    const { container } = render(<LinkPageBentoLayout name="Test" theme="dark" />);
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveClass("bg-neutral-950");
-  });
-
   it("renders featured links in larger cells", () => {
     const links = [
       { id: "1", label: "Featured Link", href: "https://example.com", featured: true },
@@ -75,10 +41,5 @@ describe("LinkPageBentoLayout", () => {
     ];
     render(<LinkPageBentoLayout name="Test" links={links} />);
     expect(screen.getByText("Watch now")).toBeInTheDocument();
-  });
-
-  it("renders powered by footer", () => {
-    render(<LinkPageBentoLayout name="Test" />);
-    expect(screen.getByText("Powered by OpenSite")).toBeInTheDocument();
   });
 });

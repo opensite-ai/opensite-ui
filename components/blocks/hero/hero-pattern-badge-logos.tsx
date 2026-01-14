@@ -91,24 +91,13 @@ export interface HeroPatternBadgeLogosProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-  { label: "Learn More", href: "#", variant: "outline" },
-];
-
-const defaultLogos: LogoItem[] = [
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "Opensite AI", imgClassName: "h-6 dark:invert" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "Partner", imgClassName: "h-5 dark:invert" },
-  { src: { light: logoPlaceholders.darkHorizontalLogo, dark: logoPlaceholders.lightHorizontalLogo }, alt: "Partner", imgClassName: "h-6" },
-];
-
 export function HeroPatternBadgeLogos({
   badge = <Badge variant="outline" className="transition-colors hover:bg-secondary/20">New Release</Badge>,
   heading = "This is a heading for your new project",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  logos = defaultLogos,
+  logos,
   logosSlot,
   logosTagline = "Powering the next generation of digital products",
   backgroundImageUrl = "https://cdn.ing/assets/files/record/286186/nbdflpgp4ostrno079hygibsflp3",

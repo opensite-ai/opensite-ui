@@ -36,16 +36,6 @@ vi.mock("../../../lib/Pressable", () => ({
 }));
 
 describe("FaqCardCategories", () => {
-  it("renders with default props", () => {
-    render(<FaqCardCategories />);
-
-    expect(screen.getByText("Frequently asked questions")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -91,26 +81,10 @@ describe("FaqCardCategories", () => {
     expect(screen.getByText("Question B1")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <FaqCardCategories className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty categories array", () => {
     render(<FaqCardCategories categories={[]} />);
 
     expect(screen.getByText("Frequently asked questions")).toBeInTheDocument();
-  });
-
-  it("renders icons for categories", () => {
-    render(<FaqCardCategories />);
-
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
   });
 });
 

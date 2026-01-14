@@ -126,26 +126,6 @@ export interface AutoScrollCarouselProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: AutoScrollCarouselImage[] = [
-  { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Gallery image 1" },
-  { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Gallery image 2" },
-  { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Gallery image 3" },
-  { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Gallery image 4" },
-  { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Gallery image 5" },
-  { src: "https://toastability-production.s3.amazonaws.com/3qlr5qlwmqxlqvlmxqfhqvqvqvqv", alt: "Gallery image 6" },
-  { src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn", alt: "Gallery image 7" },
-  { src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t", alt: "Gallery image 8" },
-  { src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j", alt: "Gallery image 9" },
-  { src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson", alt: "Gallery image 10" },
-  { src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg", alt: "Gallery image 11" },
-  { src: "https://toastability-production.s3.amazonaws.com/3qlr5qlwmqxlqvlmxqfhqvqvqvqv", alt: "Gallery image 12" },
-];
-
-const defaultAction: ActionConfig = {
-  label: "Explore our solutions",
-  href: "#",
-};
-
 /**
  * AutoScrollCarousel displays images in a continuously auto-scrolling carousel.
  *
@@ -171,9 +151,9 @@ const defaultAction: ActionConfig = {
 export function AutoScrollCarousel({
   heading = "Bringing your data to life with the power of AI",
   description = "We thrive on the power of AI. Our team is made up of some of the most talented people in the world, and we're looking for new ways to push the boundaries of what's possible. We're a team of data scientists.",
-  action = defaultAction,
+  action,
   actionSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   autoScrollSpeed = 0.9,
   className,

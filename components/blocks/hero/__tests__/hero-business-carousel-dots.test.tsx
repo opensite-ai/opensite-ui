@@ -32,27 +32,4 @@ describe("HeroBusinessCarouselDots", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<HeroBusinessCarouselDots />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<HeroBusinessCarouselDots className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders carousel component", () => {
-    render(<HeroBusinessCarouselDots />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<HeroBusinessCarouselDots />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

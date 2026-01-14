@@ -71,37 +71,6 @@ export interface ProjectDetailFashionEditorialProps {
   galleryClassName?: string;
 }
 
-const defaultCredits: ProjectDetailFashionEditorialCredit[] = [
-  { role: "Photography", name: "Marcus Chen" },
-  { role: "Styling", name: "Isabella Torres" },
-  { role: "Hair & Makeup", name: "Yuki Tanaka" },
-  { role: "Model", name: "Aria Williams" },
-  { role: "Creative Direction", name: "David Park" },
-];
-
-const defaultGalleryImages: ImageItem[] = [
-  { src: imagePlaceholders[57], alt: "Fashion image 1" },
-  { src: imagePlaceholders[58], alt: "Fashion image 2" },
-  { src: imagePlaceholders[59], alt: "Fashion image 3" },
-  { src: imagePlaceholders[60], alt: "Fashion image 4" },
-];
-
-const defaultProps: ProjectDetailFashionEditorialProps = {
-  title: "TYRELL FASHION",
-  subtitle: "Fall/Winter Collection",
-  year: "2024",
-  category: "Fashion",
-  heroImage: {
-    src: imagePlaceholders[61],
-    alt: "TYRELL FASHION editorial",
-  },
-  description:
-    "A neo-noir inspired editorial showcasing the Fall/Winter collection. The series explores themes of urban sophistication and contemporary elegance through dramatic lighting and bold compositions.",
-  credits: defaultCredits,
-  galleryImages: defaultGalleryImages,
-  backAction: { label: "Back to Projects", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

@@ -57,20 +57,6 @@ describe("TimelineAlternatingDiagonal", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineAlternatingDiagonal />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineAlternatingDiagonal className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading and description", () => {
     const { getByText } = render(
       <TimelineAlternatingDiagonal
@@ -80,17 +66,5 @@ describe("TimelineAlternatingDiagonal", () => {
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
     expect(getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders badge with icon", () => {
-    const { container } = render(<TimelineAlternatingDiagonal />);
-    const badge = container.querySelector('[data-testid="mock-badge"]');
-    expect(badge).toBeInTheDocument();
-  });
-
-  it("renders timeline items with images", () => {
-    const { container } = render(<TimelineAlternatingDiagonal />);
-    const images = container.querySelectorAll('[data-testid="mock-img"]');
-    expect(images.length).toBeGreaterThan(0);
   });
 });

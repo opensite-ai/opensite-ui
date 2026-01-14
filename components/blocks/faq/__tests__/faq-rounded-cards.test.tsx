@@ -3,18 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { FaqRoundedCards, type FaqRoundedCardsProps } from "../faq-rounded-cards";
 
 describe("FaqRoundedCards", () => {
-  it("renders with default props", () => {
-    render(<FaqRoundedCards />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -40,13 +28,6 @@ describe("FaqRoundedCards", () => {
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(<FaqRoundedCards className="custom-class" />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty items array", () => {
     render(<FaqRoundedCards items={[]} />);
 
@@ -67,13 +48,6 @@ describe("FaqRoundedCards", () => {
     expect(screen.getByText("Question A")).toBeInTheDocument();
     expect(screen.getByText("Question B")).toBeInTheDocument();
     expect(screen.getByText("Question C")).toBeInTheDocument();
-  });
-
-  it("renders with muted background container", () => {
-    const { container } = render(<FaqRoundedCards />);
-
-    const mutedContainer = container.querySelector(".bg-muted\\/50");
-    expect(mutedContainer).toBeInTheDocument();
   });
 });
 

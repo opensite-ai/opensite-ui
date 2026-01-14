@@ -15,31 +15,11 @@ describe("TimelineProductivityList", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineProductivityList />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineProductivityList className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading", () => {
     const { getByText } = render(
       <TimelineProductivityList heading={<span>Custom Heading</span>} />
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders default productivity items", () => {
-    const { container } = render(<TimelineProductivityList />);
-    const icons = container.querySelectorAll('[data-testid="mock-dynamic-icon"]');
-    expect(icons.length).toBeGreaterThan(0);
   });
 
   it("renders custom productivity items", () => {
@@ -60,11 +40,5 @@ describe("TimelineProductivityList", () => {
     );
     expect(getByText("Custom Item 1")).toBeInTheDocument();
     expect(getByText("Custom Item 2")).toBeInTheDocument();
-  });
-
-  it("renders items with border separators", () => {
-    const { container } = render(<TimelineProductivityList />);
-    const items = container.querySelectorAll(".border-b");
-    expect(items.length).toBeGreaterThan(0);
   });
 });

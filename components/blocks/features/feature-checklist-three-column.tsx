@@ -146,64 +146,6 @@ export interface FeatureChecklistThreeColumnProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultChecklistColumn1: string[] = [
-  "Responsive Design and Layout",
-  "Clean and Modern Design",
-  "Easy to Customize",
-  "Cross Browser Compatible",
-  "SEO Friendly",
-];
-
-const defaultChecklistColumn2: string[] = [
-  "High Performance and Speed",
-  "Clean Code and Well Documented",
-  "Fast Loading and Free Updates",
-  "24/7 Support",
-  "Lifetime Access and Updates",
-];
-
-const defaultCards: FeatureChecklistThreeColumnCard[] = [
-  {
-    title: "Responsive Blocks for your Website",
-    description: "Easly customize any block you like and use it in your project.",
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-    badge: "Example",
-    checklistItems: [
-      "Responsive design and layout with clean and modern design",
-      "Easy to customize with cross browser compatibility",
-      "SEO friendly with high performance and speed for improved load times",
-    ],
-    link: "#",
-    linkLabel: "Read more",
-  },
-  {
-    title: "Easy to Customize Blocks",
-    description: "Easly customize any block you like and use it in your project.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-    badge: "Example",
-    checklistItems: [
-      "The blocks are clean and modern with easy to customize features",
-      "All blocks are SEO friendly with cross browser compatibility",
-      "Each block is responsive with high performance and speed",
-    ],
-    link: "#",
-    linkLabel: "Read more",
-  },
-  {
-    title: "Readymade Blocks for you to use",
-    description: "Easly use any block you like and use it in your project.",
-    image: blockBrandedIconsAndPlaceholders.placeholder3,
-    badge: "Example",
-    checklistItems: [
-      "Prebuilt blocks built with Opensite AI & TailwindCSS",
-      "Synced with your project theme and design with easy to customize features",
-      "Various blocks to choose from with high performance and speed",
-    ],
-    link: "#",
-    linkLabel: "Read more",
-  },
-];
-
 /**
  * Feature Checklist Three Column - Three-column layout with heading, dual
  * checklists, and feature cards with images.
@@ -233,11 +175,11 @@ const defaultCards: FeatureChecklistThreeColumnCard[] = [
  */
 export function FeatureChecklistThreeColumn({
   title = "Build any kind of Website with our Blocks",
-  checklistColumn1 = defaultChecklistColumn1,
+  checklistColumn1,
   checklistColumn1Slot,
-  checklistColumn2 = defaultChecklistColumn2,
+  checklistColumn2,
   checklistColumn2Slot,
-  cards = defaultCards,
+  cards,
   cardsSlot,
   className,
   containerClassName,

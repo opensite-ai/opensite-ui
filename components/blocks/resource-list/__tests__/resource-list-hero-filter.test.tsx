@@ -46,42 +46,11 @@ describe("ResourceListHeroFilter", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ResourceListHeroFilter />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ResourceListHeroFilter className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<ResourceListHeroFilter />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders with custom title and description", () => {
     const { container } = render(
       <ResourceListHeroFilter 
         title="Custom Title" 
         description="Custom Description" 
-      />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders with custom breadcrumb", () => {
-    const { container } = render(
-      <ResourceListHeroFilter 
-        breadcrumb={[
-          { label: "Home", link: "/" },
-          { label: "Resources", link: "/resources" },
-        ]}
       />
     );
     const section = container.querySelector("section");

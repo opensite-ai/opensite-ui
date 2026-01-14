@@ -23,21 +23,9 @@ describe("LogosNumberedCarousel", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<LogosNumberedCarousel />);
-    expect(screen.getByText("Powering the world's best product teams.")).toBeInTheDocument();
-  });
-
   it("renders custom headline", () => {
     render(<LogosNumberedCarousel headline="Custom Headline" />);
     expect(screen.getByText("Custom Headline")).toBeInTheDocument();
-  });
-
-  it("renders company count", () => {
-    render(<LogosNumberedCarousel />);
-    const countElements = screen.getAllByText("08");
-    expect(countElements.length).toBeGreaterThan(0);
-    expect(screen.getByText("companies trust us")).toBeInTheDocument();
   });
 
   it("renders correct count for custom logos", () => {
@@ -51,12 +39,6 @@ describe("LogosNumberedCarousel", () => {
     expect(countElements.length).toBeGreaterThan(0);
   });
 
-  it("renders default logos", () => {
-    render(<LogosNumberedCarousel />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
   it("renders custom logos", () => {
     const customLogos = [
       { name: "Numbered Co 1", logo: "/numbered1.png" },
@@ -67,24 +49,6 @@ describe("LogosNumberedCarousel", () => {
     const logos2 = screen.getAllByAltText("Numbered Co 2 logo");
     expect(logos1.length).toBeGreaterThan(0);
     expect(logos2.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LogosNumberedCarousel className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<LogosNumberedCarousel />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
-  });
-
-  it("renders carousel component", () => {
-    render(<LogosNumberedCarousel />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
   });
 
   it("handles empty logos array", () => {

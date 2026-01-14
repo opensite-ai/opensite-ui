@@ -158,39 +158,6 @@ export interface StatsCircularProgressProps {
   statInfoClassName?: string;
 }
 
-const defaultCategories: StatCategory[] = [
-  {
-    id: "business",
-    name: "Business",
-    stats: [
-      { label: "Revenue Growth", value: 84, suffix: "%", info: "Year over year" },
-      { label: "ROI", value: 167, suffix: "%", info: "Return on investment" },
-      { label: "Market Share", value: 42, suffix: "%", info: "In primary markets" },
-      { label: "Profit Margin", value: 23, suffix: "%", info: "Net margin" },
-    ],
-  },
-  {
-    id: "technical",
-    name: "Technical",
-    stats: [
-      { label: "System Uptime", value: 99.97, suffix: "%", info: "Last 30 days" },
-      { label: "Load Time", value: 78, suffix: "%", info: "Faster than average" },
-      { label: "Code Coverage", value: 91, suffix: "%", info: "Test coverage" },
-      { label: "API Performance", value: 88, suffix: "%", info: "Response time" },
-    ],
-  },
-  {
-    id: "customer",
-    name: "Customer",
-    stats: [
-      { label: "Satisfaction", value: 94, suffix: "%", info: "Overall rating" },
-      { label: "Retention", value: 87, suffix: "%", info: "Customer loyalty" },
-      { label: "NPS Score", value: 72, suffix: "", info: "Net promoter score" },
-      { label: "Support Rating", value: 96, suffix: "%", info: "Issue resolution" },
-    ],
-  },
-];
-
 /**
  * Helper function to determine color based on value
  */
@@ -276,7 +243,7 @@ export function StatsCircularProgress({
   badgeSlot,
   heading = "Key Performance Indicators",
   description = "Visualizing our achievements across all business aspects",
-  categories = defaultCategories,
+  categories,
   categoriesSlot,
   defaultCategory = "business",
   background = "white",

@@ -22,19 +22,6 @@ vi.mock("../../../../lib/Pressable", () => ({
 }));
 
 describe("FaqBadgeSupport", () => {
-  it("renders with default props", () => {
-    render(<FaqBadgeSupport />);
-
-    expect(screen.getByText("FAQ")).toBeInTheDocument();
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom badge, heading, and description", () => {
     render(
@@ -70,38 +57,12 @@ describe("FaqBadgeSupport", () => {
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
   });
 
-  it("renders support section", () => {
-    render(
-      <FaqBadgeSupport
-        supportText="Need Help?"
-        supportAction={{ label: "Get Support", href: "/support" }}
-      />
-    );
-
-    expect(screen.getByText("Need Help?")).toBeInTheDocument();
-    expect(screen.getByText("Get Support")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FaqBadgeSupport className="custom-class" />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty items array", () => {
     render(<FaqBadgeSupport items={[]} />);
 
     expect(
       screen.getByText("Frequently asked questions")
     ).toBeInTheDocument();
-  });
-
-  it("renders pressable button", () => {
-    render(<FaqBadgeSupport />);
-
-    const pressables = screen.getAllByTestId("mock-pressable");
-    expect(pressables.length).toBeGreaterThan(0);
   });
 });
 

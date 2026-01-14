@@ -95,42 +95,6 @@ export interface ComparisonTableTwoColumnProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultRows: ComparisonRow[] = [
-  {
-    label: "Onboarding",
-    optionA: "1-2 days",
-    optionB: "30 days",
-  },
-  {
-    label: "Price Range",
-    optionA: "10%",
-    optionB: "50-60%",
-  },
-  {
-    label: "Quality Score",
-    optionA: "Top 3%",
-    optionB: "Varies",
-  },
-  {
-    label: "Verification",
-    optionA: "Multi-step verification process",
-    optionB: "Basic check",
-    hasIcon: true,
-  },
-  {
-    label: "Adaptability",
-    optionA: "Fully flexible",
-    optionB: "Limited",
-    hasIcon: true,
-  },
-  {
-    label: "Support",
-    optionA: "24/7 dedicated team",
-    optionB: "Limited hours",
-    hasIcon: true,
-  },
-];
-
 /**
  * ComparisonTableTwoColumn - A table-based comparison layout with two columns
  *
@@ -145,7 +109,7 @@ const defaultRows: ComparisonRow[] = [
 export function ComparisonTableTwoColumn({
   heading = "Compare us with others.",
   description,
-  rows = defaultRows,
+  rows,
   tableSlot,
   optionALogo,
   optionALogoAlt = "Option A logo",

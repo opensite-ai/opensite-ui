@@ -145,90 +145,6 @@ export interface BlogFilteredResultsProps {
 
 const POSTS_PER_PAGE = 6;
 
-const defaultBreadcrumb: BreadcrumbItemType[] = [
-  { label: "Resources", link: "#" },
-  { label: "Blogs", link: "#" },
-];
-
-const defaultCategories: CategoryFilter[] = [
-  { label: "All", value: "all" },
-  { label: "Productivity", value: "productivity" },
-  { label: "Accessibility", value: "accessibility" },
-  { label: "Performance", value: "performance" },
-];
-
-const defaultPrimaryPost: BlogPostItem = {
-  category: "Innovation Spotlight",
-  title: "How AI is Transforming Frontend Development",
-  summary:
-    "Explore how tools like GitHub Copilot, AI design generators, and code assistants are changing the way developers build UIs and ship features faster.",
-  href: "#",
-  cta: "Discover the Future",
-  thumbnail: imagePlaceholders[0],
-};
-
-const defaultPosts: BlogPostItem[] = [
-  {
-    category: "Productivity",
-    title: "5 VS Code Extensions That Will Save You Hours",
-    summary:
-      "Discover must-have extensions to boost your coding efficiency and streamline your workflow.",
-    href: "#",
-    cta: "Boost Your Editor",
-    thumbnail: imagePlaceholders[1],
-  },
-  {
-    category: "Productivity",
-    title: "Time Management for Developers: What Really Works",
-    summary:
-      "Learn proven strategies to avoid burnout and stay on top of your tasks without stress.",
-    href: "#",
-    cta: "Manage Your Time",
-    thumbnail: imagePlaceholders[2],
-  },
-  {
-    category: "Accessibility",
-    title: "Why Accessibility Should Be Part of Your MVP",
-    summary:
-      "Making your product inclusive from day one improves usability and reach.",
-    href: "#",
-    cta: "Learn Why",
-    thumbnail: imagePlaceholders[3],
-  },
-  {
-    category: "Accessibility",
-    title: "Using ARIA Roles Correctly in Your Web App",
-    summary:
-      "Understand how to enhance screen reader support using ARIA roles and landmarks.",
-    href: "#",
-    cta: "Improve Semantics",
-    thumbnail: imagePlaceholders[4],
-  },
-  {
-    category: "Performance",
-    title: "Lazy Loading Images with Modern HTML",
-    summary:
-      "Improve load times by using native lazy-loading and fallback strategies for images.",
-    href: "#",
-    cta: "Optimize Images",
-    thumbnail: imagePlaceholders[5],
-  },
-  {
-    category: "Performance",
-    title: "Web Vitals Explained: CLS, LCP, FID",
-    summary:
-      "Learn how to measure and improve Core Web Vitals for a better user experience.",
-    href: "#",
-    cta: "Improve Vitals",
-    thumbnail: imagePlaceholders[6],
-  },
-];
-
-const defaultLoadMoreAction: ActionConfig = {
-  label: "Load More",
-  variant: "secondary",
-};
-
 interface BlogCardProps {
   post: BlogPostItem;
   optixFlowConfig?: OptixFlowConfig;
@@ -356,16 +272,16 @@ export function BlogFilteredResults({
   heading = "Best Blog Articles",
   description = "The best blog is one that captivates readers with engaging, well-researched content presented in a clear and relatable way.",
   allBlogsHeading = "All Blogs",
-  breadcrumb = defaultBreadcrumb,
+  breadcrumb,
   breadcrumbSlot,
-  primaryPost = defaultPrimaryPost,
+  primaryPost,
   primaryPostSlot,
-  posts = defaultPosts,
+  posts,
   postsSlot,
-  categories = defaultCategories,
+  categories,
   categoriesSlot,
   postsPerPage = POSTS_PER_PAGE,
-  loadMoreAction = defaultLoadMoreAction,
+  loadMoreAction,
   loadMoreSlot,
   className,
   heroClassName,

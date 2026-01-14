@@ -41,24 +41,6 @@ describe("ReviewsListVerified", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ReviewsListVerified />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ReviewsListVerified className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<ReviewsListVerified />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     const { container } = render(<ReviewsListVerified heading="Custom Reviews" />);
     expect(container.textContent).toContain("Custom Reviews");

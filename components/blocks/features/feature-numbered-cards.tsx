@@ -116,26 +116,6 @@ export interface FeatureNumberedCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureNumberedCardsItem[] = [
-  {
-    title: "Secure Payments",
-    description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur modi et recusandae ducimus eligendi eveniet soluta reprehenderit nostrum expedita omnis.",
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-    checklistItems: [
-      "Secure payment gateway integration with Stripe",
-      "SSL encryption for secure transactions",
-    ],
-  },
-  {
-    title: "Automated Invoicing",
-    description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur modi et recusandae ducimus eligendi eveniet soluta reprehenderit nostrum expedita omnis.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-    checklistItems: ["Automated invoicing for easy billing"],
-  },
-];
-
 /**
  * Feature Numbered Cards - Stacked feature cards with numbered badges and
  * images, featuring checklists.
@@ -159,7 +139,7 @@ const defaultFeatures: FeatureNumberedCardsItem[] = [
  * ```
  */
 export function FeatureNumberedCards({
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

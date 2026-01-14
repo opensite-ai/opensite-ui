@@ -77,41 +77,6 @@ export interface ProjectDetailSplitMaterialsProps {
   secondaryImageClassName?: string;
 }
 
-const defaultSpecifications: DetailItem[] = [
-  { label: "Height", value: "180 cm" },
-  { label: "Width", value: "90 cm" },
-  { label: "Depth", value: "75 cm" },
-  { label: "Weight", value: "45 kg" },
-];
-
-const defaultMaterials = [
-  "Polished Bronze",
-  "Brushed Stainless Steel",
-  "Carrara Marble Base",
-  "LED Lighting System",
-];
-
-const defaultProps: ProjectDetailSplitMaterialsProps = {
-  title: "Organic Resonance",
-  subtitle: "Contemporary Sculpture",
-  year: "2024",
-  category: "Sculpture",
-  artist: "Elena Vasquez",
-  heroImage: {
-    src: imagePlaceholders[20],
-    alt: "Organic Resonance sculpture main view",
-  },
-  description:
-    "A sculptural exploration of organic forms rendered in bronze and steel. The piece captures the tension between natural growth patterns and industrial precision, creating a dialogue between the organic and the manufactured.",
-  specifications: defaultSpecifications,
-  materials: defaultMaterials,
-  secondaryImage: {
-    src: imagePlaceholders[21],
-    alt: "Organic Resonance sculpture detail",
-  },
-  backAction: { label: "Back to Gallery", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

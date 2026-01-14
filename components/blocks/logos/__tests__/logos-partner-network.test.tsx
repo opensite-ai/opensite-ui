@@ -25,13 +25,6 @@ describe("LogosPartnerNetwork", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<LogosPartnerNetwork />);
-    expect(screen.getByText("Partner Network")).toBeInTheDocument();
-    expect(screen.getByText("Trusted by industry leaders")).toBeInTheDocument();
-    expect(screen.getByText(/Join thousands of companies/)).toBeInTheDocument();
-  });
-
   it("renders custom badge, title, and description", () => {
     render(
       <LogosPartnerNetwork
@@ -45,20 +38,9 @@ describe("LogosPartnerNetwork", () => {
     expect(screen.getByText("Custom Description")).toBeInTheDocument();
   });
 
-  it("renders button with default text", () => {
-    render(<LogosPartnerNetwork />);
-    expect(screen.getByText("Become a partner")).toBeInTheDocument();
-  });
-
   it("renders custom button text", () => {
     render(<LogosPartnerNetwork actions={[{ label: "Join Now", href: "/join", variant: "default" }]} />);
     expect(screen.getByText("Join Now")).toBeInTheDocument();
-  });
-
-  it("renders default logos", () => {
-    render(<LogosPartnerNetwork />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBe(8);
   });
 
   it("renders custom logos", () => {
@@ -69,24 +51,6 @@ describe("LogosPartnerNetwork", () => {
     render(<LogosPartnerNetwork logos={customLogos} />);
     expect(screen.getByAltText("Network Partner 1 logo")).toBeInTheDocument();
     expect(screen.getByAltText("Network Partner 2 logo")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LogosPartnerNetwork className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<LogosPartnerNetwork />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
-  });
-
-  it("renders badge component", () => {
-    render(<LogosPartnerNetwork />);
-    expect(screen.getByTestId("mock-badge")).toBeInTheDocument();
   });
 
   it("handles empty logos array", () => {

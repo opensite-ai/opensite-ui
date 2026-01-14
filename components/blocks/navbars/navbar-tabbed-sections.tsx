@@ -131,81 +131,6 @@ export interface NavbarTabbedSectionsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMenu: MenuItem[] = [
-  {
-    title: "Products",
-    tabs: [
-      {
-        id: "platform",
-        title: "Platform",
-        icon: "lucide/layers",
-        links: [
-          { title: "Dashboard", description: "Monitor your metrics", url: "#", icon: "lucide/layout-dashboard" },
-          { title: "Analytics", description: "Deep insights", url: "#", icon: "lucide/bar-chart-3" },
-          { title: "Automation", description: "Streamline workflows", url: "#", icon: "lucide/zap" },
-        ],
-        featured: {
-          title: "New: AI Assistant",
-          description: "Supercharge your productivity with AI-powered features",
-          url: "#",
-          image: imagePlaceholders[0],
-        },
-      },
-      {
-        id: "tools",
-        title: "Tools",
-        icon: "lucide/wrench",
-        links: [
-          { title: "Editor", description: "Visual editing tools", url: "#", icon: "lucide/edit" },
-          { title: "Templates", description: "Pre-built templates", url: "#", icon: "lucide/layout-template" },
-          { title: "Plugins", description: "Extend functionality", url: "#", icon: "lucide/puzzle" },
-        ],
-      },
-      {
-        id: "integrations",
-        title: "Integrations",
-        icon: "lucide/plug",
-        links: [
-          { title: "Slack", description: "Team communication", url: "#", icon: "lucide/message-square" },
-          { title: "GitHub", description: "Code management", url: "#", icon: "lucide/github" },
-          { title: "Figma", description: "Design collaboration", url: "#", icon: "lucide/figma" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Solutions",
-    tabs: [
-      {
-        id: "by-team",
-        title: "By Team",
-        icon: "lucide/users",
-        links: [
-          { title: "Engineering", description: "For dev teams", url: "#", icon: "lucide/code" },
-          { title: "Marketing", description: "For marketers", url: "#", icon: "lucide/megaphone" },
-          { title: "Sales", description: "For sales teams", url: "#", icon: "lucide/trending-up" },
-        ],
-      },
-      {
-        id: "by-size",
-        title: "By Size",
-        icon: "lucide/building",
-        links: [
-          { title: "Startups", description: "For growing companies", url: "#", icon: "lucide/rocket" },
-          { title: "Enterprise", description: "For large orgs", url: "#", icon: "lucide/building-2" },
-        ],
-      },
-    ],
-  },
-  { title: "Pricing", url: "#" },
-  { title: "Docs", url: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Log in", href: "#", variant: "ghost" },
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
 /**
  * NavbarTabbedSections - A navigation bar with tabbed dropdown menus for organized content.
  *
@@ -224,9 +149,9 @@ export const NavbarTabbedSections = ({
   },
   logoSlot,
   logoClassName,
-  menu = defaultMenu,
+  menu,
   menuSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   className,
   containerClassName,

@@ -58,58 +58,9 @@ export interface BlogMasonryFeaturedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    date: "June 15, 2024",
-    author: "Alex Johnson",
-    title: "The Future of AI: How Machine Learning is Transforming Industries",
-    image: imagePlaceholders[0],
-    href: "#",
-    description:
-      "Explore how artificial intelligence and machine learning technologies are revolutionizing various industries, from healthcare to manufacturing, and learn about the latest innovations shaping our future.",
-  },
-  {
-    date: "June 12, 2024",
-    author: "Maya Patel",
-    title: "Principles of Minimalist Design: Less is More in Modern UX/UI",
-    image: imagePlaceholders[1],
-    href: "#",
-    description:
-      "Discover the principles of minimalist design and how they can help you create more intuitive and user-friendly interfaces.",
-  },
-  {
-    date: "June 10, 2024",
-    author: "David Chen",
-    title:
-      "Remote Work Revolution: How Companies are Adapting to the New Normal",
-    image: imagePlaceholders[2],
-    href: "#",
-    description:
-      "Explore the benefits and challenges of remote work and how companies are adapting to the new normal.",
-  },
-  {
-    date: "June 8, 2024",
-    author: "Sarah Williams",
-    title: "Building Scalable Applications with Microservices Architecture",
-    image: imagePlaceholders[3],
-    href: "#",
-    description:
-      "Learn how microservices architecture can help you build scalable and maintainable applications.",
-  },
-  {
-    date: "June 5, 2024",
-    author: "James Rodriguez",
-    title: "Content Marketing Strategies That Drive Organic Traffic in 2024",
-    image: imagePlaceholders[4],
-    href: "#",
-    description:
-      "Discover effective content marketing strategies that can help you drive organic traffic and grow your audience in 2024.",
-  },
-];
-
 export function BlogMasonryFeatured({
   heading = "Latest Tech Blog",
-  posts = defaultPosts,
+  posts,
   featuredSlot,
   postsSlot,
   className,

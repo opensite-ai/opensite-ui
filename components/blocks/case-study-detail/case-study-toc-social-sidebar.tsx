@@ -220,154 +220,6 @@ export interface CaseStudyTocSocialSidebarProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultBreadcrumbs: BreadcrumbItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Components" },
-];
-
-const defaultSocialLinks: SocialLinkItem[] = [
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-  { icon: "simple-icons/x", href: "#", label: "X" },
-  { icon: "simple-icons/facebook", href: "#", label: "Facebook" },
-];
-
-const defaultOutcomes: OutcomeItem[] = [
-  { text: "A streamlined system that accelerates their growth initiatives" },
-  { text: "A customizable CRM that mirrors their data and integrates seamlessly with their tools" },
-  { text: "A scalable, collaborative solution that grows alongside their business" },
-];
-
-const defaultAuthor: AuthorInfo = {
-  name: "Jane Doe",
-  role: "Senior Product Manager",
-  avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-};
-
-const defaultDetails: DetailItem[] = [
-  { label: "Overview", value: "A modern platform designed to simplify workflows, automate processes, and drive innovation at scale. It is the central foundation for product and customer data, on top of which high impact workflows are built." },
-  { label: "Sector", value: "Technology; Automation" },
-  { label: "Team size", value: "10-100" },
-  { label: "Location", value: "San Francisco, California" },
-  { label: "Established", value: "2020" },
-  { label: "Funding", value: "$25m (Series A)" },
-  { label: "Core features", value: "Dashboards Tools API integration" },
-];
-
-const defaultSections: SectionItem[] = [
-  {
-    id: "section1",
-    title: "The King's Plan",
-    content: (
-      <>
-        <p>
-          The king thought long and hard, and finally came up with{" "}
-          <a href="#">a brilliant plan</a>: he would tax the jokes in
-          the kingdom.
-        </p>
-        <blockquote>
-          &ldquo;After all,&rdquo; he said, &ldquo;everyone enjoys a
-          good joke, so it&apos;s only fair that they should pay for
-          the privilege.&rdquo;
-        </blockquote>
-      </>
-    ),
-  },
-  {
-    id: "section2",
-    title: "The Joke Tax",
-    content: (
-      <>
-        <p>
-          The king&apos;s subjects were not amused. They grumbled and
-          complained, but the king was firm:
-        </p>
-        <ul>
-          <li>1st level of puns: 5 gold coins</li>
-          <li>2nd level of jokes: 10 gold coins</li>
-          <li>3rd level of one-liners : 20 gold coins</li>
-        </ul>
-        <p>
-          As a result, people stopped telling jokes, and the kingdom
-          fell into a gloom. But there was one person who refused to
-          let the king&apos;s foolishness get him down: a court jester
-          named Jokester.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "section3",
-    title: "Jokester's Revolt",
-    content: (
-      <>
-        <p className="leading-7 not-first:mt-6">
-          Jokester began sneaking into the castle in the middle of the
-          night and leaving jokes all over the place: under the king's
-          pillow, in his soup, even in the royal toilet. The king was
-          furious, but he couldn't seem to stop Jokester.
-        </p>
-        <p className="leading-7 not-first:mt-6">
-          And then, one day, the people of the kingdom discovered that
-          the jokes left by Jokester were so funny that they couldn't
-          help but laugh. And once they started laughing, they
-          couldn't stop.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "section4",
-    title: "The People's Rebellion",
-    content: (
-      <>
-        <p>
-          The people of the kingdom, feeling uplifted by the laughter,
-          started to tell jokes and puns again, and soon the entire
-          kingdom was in on the joke.
-        </p>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>King&apos;s Treasury</th>
-                <th>People&apos;s happiness</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Empty</td>
-                <td>Overflowing</td>
-              </tr>
-              <tr className="m-0 border-t p-0 even:bg-muted">
-                <td>Modest</td>
-                <td>Satisfied</td>
-              </tr>
-              <tr className="m-0 border-t p-0 even:bg-muted">
-                <td>Full</td>
-                <td>Ecstatic</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>
-          The king, seeing how much happier his subjects were,
-          realized the error of his ways and repealed the joke tax.
-          Jokester was declared a hero, and the kingdom lived happily
-          ever after.
-        </p>
-        <Alert>
-          <DynamicIcon name="lucide/lightbulb" size={16} className="h-4 w-4" />
-          <AlertTitle>Royal Decree!</AlertTitle>
-          <AlertDescription>
-            Remember, all jokes must be registered at the Royal Jest
-            Office before telling them
-          </AlertDescription>
-        </Alert>
-      </>
-    ),
-  },
-];
-
 /**
  * CaseStudyTocSocialSidebar displays a comprehensive case study with breadcrumb
  * navigation, featured author, sticky sidebar with company details, table of
@@ -399,26 +251,26 @@ const defaultSections: SectionItem[] = [
  * ```
  */
 export function CaseStudyTocSocialSidebar({
-  breadcrumbs = defaultBreadcrumbs,
+  breadcrumbs,
   breadcrumbsSlot,
   title = "How this tool helps teams achieve efficient workflows",
   heroImageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   heroImageAlt = "Case study hero image",
   heroMediaSlot,
-  author = defaultAuthor,
+  author,
   authorSlot,
   authorLabel = "Featuring insights from:",
   companyLogoSrc = blockBrandedIconsAndPlaceholders.shadcnUiWordmarkWhite,
   companyLogoAlt = "Company logo",
   companyLogoSlot,
-  details = defaultDetails,
+  details,
   problem = "The team faced difficulties aligning their growth strategy with a rigid data model, causing inefficiencies and limited access to essential customer insights.",
   approach = "Adopted a flexible platform as the central hub for data, enabling the creation of impactful workflows to drive growth.",
-  outcomes = defaultOutcomes,
+  outcomes,
   summarySlot,
-  sections = defaultSections,
+  sections,
   contentSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   socialLinksLabel = "Share this content:",
   sidebarSlot,

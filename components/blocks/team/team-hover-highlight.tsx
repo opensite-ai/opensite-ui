@@ -119,51 +119,6 @@ export interface TeamHoverHighlightProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamHoverHighlightMember[] = [
-  {
-    id: "member-1",
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-2",
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    image: blockBrandedIconsAndPlaceholders.avatar4,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-5",
-    name: "Emma Thompson",
-    role: "Head of Marketing",
-    image: blockBrandedIconsAndPlaceholders.avatar5,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-6",
-    name: "Alex Johnson",
-    role: "Head of Sales",
-    image: blockBrandedIconsAndPlaceholders.avatar6,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamHoverHighlight - Team grid with hover-activated highlight effect
  *
@@ -192,7 +147,7 @@ const defaultMembers: TeamHoverHighlightMember[] = [
 export function TeamHoverHighlight({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

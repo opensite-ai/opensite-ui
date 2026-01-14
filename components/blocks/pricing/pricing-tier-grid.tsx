@@ -209,75 +209,6 @@ export interface PricingTierGridProps {
   featureTextClassName?: string;
 }
 
-const defaultTiers: PricingTierGridTier[] = [
-  {
-    name: "Free",
-    description: "For individuals and small teams getting started",
-    price: "$0",
-    interval: "/month",
-    action: { label: "Get Started", href: "#", variant: "outline" },
-    features: [
-      { text: "Up to 5 projects" },
-      { text: "Basic analytics" },
-      { text: "Community support" },
-      { text: "1GB storage" },
-    ],
-    comparison: "Free forever",
-    isFeatured: false,
-    backgroundClassName: "bg-background",
-  },
-  {
-    name: "Pro",
-    description: "For growing teams that need more power",
-    price: "$29",
-    interval: "/month",
-    action: { label: "Start Free Trial", href: "#", variant: "default" },
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "10GB storage" },
-      { text: "Custom integrations" },
-    ],
-    comparison: "Most popular",
-    isFeatured: true,
-    backgroundClassName: "bg-primary text-primary-foreground",
-  },
-  {
-    name: "Premium",
-    description: "For large teams with advanced needs",
-    price: "$79",
-    interval: "/month",
-    action: { label: "Start Free Trial", href: "#", variant: "outline" },
-    features: [
-      { text: "Everything in Pro" },
-      { text: "Unlimited storage" },
-      { text: "Advanced security" },
-      { text: "Custom branding" },
-      { text: "API access" },
-      { text: "Dedicated support" },
-    ],
-    comparison: "Best value",
-    backgroundClassName: "bg-background",
-  },
-  {
-    name: "Enterprise",
-    description: "For organizations with custom requirements",
-    price: "Custom",
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-    features: [
-      { text: "Everything in Premium" },
-      { text: "Custom contracts" },
-      { text: "SLA guarantees" },
-      { text: "On-premise deployment" },
-      { text: "Dedicated account manager" },
-      { text: "Custom training" },
-    ],
-    comparison: "For large teams",
-    backgroundClassName: "bg-background",
-  },
-];
-
 /**
  * PricingTierGrid displays a 4-column grid of pricing tiers with feature lists.
  * Each tier card includes a name, description, price, CTA button, and feature checklist.
@@ -300,7 +231,7 @@ const defaultTiers: PricingTierGridTier[] = [
 export function PricingTierGrid({
   title = "Simple, transparent pricing",
   subtitle = "Choose the plan that's right for you",
-  tiers = defaultTiers,
+  tiers,
   tiersSlot,
   featureIcon,
   featureIconName = "lucide/check",

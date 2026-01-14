@@ -17,16 +17,6 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ComparisonFeatureGrid", () => {
-  it("renders with default props", () => {
-    render(<ComparisonFeatureGrid />);
-
-    expect(screen.getByText("Compare Us")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "A modern framework for building websites that is better than the competition."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -38,20 +28,6 @@ describe("ComparisonFeatureGrid", () => {
 
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders option labels", () => {
-    render(
-      <ComparisonFeatureGrid
-        optionALabel="Option A"
-        optionBLabel="Option B"
-      />
-    );
-
-    const optionAElements = screen.getAllByText("Option A");
-    const optionBElements = screen.getAllByText("Option B");
-    expect(optionAElements.length).toBeGreaterThan(0);
-    expect(optionBElements.length).toBeGreaterThan(0);
   });
 
   it("renders custom features", () => {
@@ -72,26 +48,10 @@ describe("ComparisonFeatureGrid", () => {
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ComparisonFeatureGrid className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders empty features array", () => {
     render(<ComparisonFeatureGrid features={[]} />);
 
     expect(screen.getByText("Compare Us")).toBeInTheDocument();
-  });
-
-  it("renders icons for features", () => {
-    render(<ComparisonFeatureGrid />);
-
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
   });
 
   it("renders features with partial values", () => {

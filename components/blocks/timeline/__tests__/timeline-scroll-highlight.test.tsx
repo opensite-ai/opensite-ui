@@ -35,31 +35,11 @@ describe("TimelineScrollHighlight", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineScrollHighlight />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineScrollHighlight className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading", () => {
     const { getByText } = render(
       <TimelineScrollHighlight heading={<span>Custom Heading</span>} />
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders default timeline items", () => {
-    const { container } = render(<TimelineScrollHighlight />);
-    const images = container.querySelectorAll('[data-testid="mock-img"]');
-    expect(images.length).toBeGreaterThan(0);
   });
 
   it("renders custom items", () => {
@@ -82,16 +62,5 @@ describe("TimelineScrollHighlight", () => {
     );
     expect(getByText("Custom Title 1")).toBeInTheDocument();
     expect(getByText("Custom Title 2")).toBeInTheDocument();
-  });
-
-  it("renders sticky date header", () => {
-    const { container } = render(<TimelineScrollHighlight />);
-    const stickyHeader = container.querySelector(".sticky");
-    expect(stickyHeader).toBeInTheDocument();
-  });
-
-  it("displays item index in header", () => {
-    const { getByText } = render(<TimelineScrollHighlight />);
-    expect(getByText("01")).toBeInTheDocument();
   });
 });

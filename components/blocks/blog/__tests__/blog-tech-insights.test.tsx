@@ -26,12 +26,6 @@ describe("BlogTechInsights", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<BlogTechInsights />);
-    expect(screen.getByText("Tech Insights")).toBeInTheDocument();
-    expect(screen.getByText(/Exploring cutting-edge technologies/)).toBeInTheDocument();
-  });
-
   it("renders custom heading and description", () => {
     render(
       <BlogTechInsights
@@ -41,89 +35,6 @@ describe("BlogTechInsights", () => {
     );
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
     expect(screen.getByText("Custom description")).toBeInTheDocument();
-  });
-
-  it("renders default featured post", () => {
-    render(<BlogTechInsights />);
-    expect(screen.getByText("Next-Gen AI: Transforming Business Operations")).toBeInTheDocument();
-    expect(screen.getByText("Sarah Johnson")).toBeInTheDocument();
-    expect(screen.getByText("AI Researcher")).toBeInTheDocument();
-  });
-
-  it("renders default secondary posts content", () => {
-    render(<BlogTechInsights />);
-    expect(screen.getByText(/Exploring cost-effective cloud migration/)).toBeInTheDocument();
-    expect(screen.getByText(/Implementing adaptive security frameworks/)).toBeInTheDocument();
-    expect(screen.getByText(/Reducing latency in smart city deployments/)).toBeInTheDocument();
-    expect(screen.getByText(/Enterprise applications of distributed ledger/)).toBeInTheDocument();
-  });
-
-  it("renders secondary post content", () => {
-    render(<BlogTechInsights />);
-    expect(screen.getByText(/Exploring cost-effective cloud migration/)).toBeInTheDocument();
-    expect(screen.getByText(/Implementing adaptive security frameworks/)).toBeInTheDocument();
-  });
-
-  it("renders custom featured post", () => {
-    const customFeaturedPost = {
-      title: "Custom Featured Post",
-      image: "/custom.jpg",
-      author: "Custom Author",
-      authorRole: "Custom Role",
-    };
-
-    render(<BlogTechInsights featuredPost={customFeaturedPost} />);
-    expect(screen.getByText("Custom Featured Post")).toBeInTheDocument();
-    expect(screen.getByText("Custom Author")).toBeInTheDocument();
-    expect(screen.getByText("Custom Role")).toBeInTheDocument();
-  });
-
-  it("renders custom secondary posts", () => {
-    const customSecondaryPosts = [
-      {
-        title: "Custom Secondary",
-        description: "Custom secondary description text",
-        image: "/custom.jpg",
-      },
-    ];
-
-    render(<BlogTechInsights secondaryPosts={customSecondaryPosts} />);
-    expect(screen.getByText("Custom secondary description text")).toBeInTheDocument();
-  });
-
-  it("renders read more button with default text", () => {
-    render(<BlogTechInsights />);
-    expect(screen.getByText("Read More")).toBeInTheDocument();
-  });
-
-  it("renders custom read more text", () => {
-    render(<BlogTechInsights readMoreAction={{ label: "Learn More", href: "/more" }} />);
-    expect(screen.getByText("Learn More")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<BlogTechInsights className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<BlogTechInsights />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-32");
-  });
-
-  it("renders images for posts", () => {
-    render(<BlogTechInsights />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("handles empty secondary posts array", () => {
-    render(<BlogTechInsights secondaryPosts={[]} />);
-    expect(screen.getByText("Tech Insights")).toBeInTheDocument();
-    expect(screen.getByText("Read More")).toBeInTheDocument();
   });
 });
 

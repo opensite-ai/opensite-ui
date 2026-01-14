@@ -72,16 +72,6 @@ export interface BannerSocialFollowProps {
   dismissButtonClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Follow Us",
-    href: "#",
-    variant: "secondary",
-    size: "sm",
-    className: "ml-4",
-  },
-];
-
 /**
  * BannerSocialFollow - A gradient background banner encouraging social media follows.
  *
@@ -102,7 +92,7 @@ export function BannerSocialFollow({
   icon,
   iconName = "mynaui/users",
   message = "Follow us on social media for the latest updates and tips!",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   onDismiss,
   dismissIcon,

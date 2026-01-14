@@ -74,28 +74,14 @@ export interface HeroNewsletterMinimalProps {
   statsClassName?: string;
 }
 
-const defaultSubmitAction: ActionConfig = {
-  label: "Subscribe",
-  href: "#",
-  variant: "default",
-  className: "h-12 px-8",
-  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-};
-
-const defaultStats: StatItem[] = [
-  { value: "Weekly newsletter", icon: <DynamicIcon name="lucide/mail" size={16} /> },
-  { value: "50K+ subscribers", icon: <DynamicIcon name="lucide/users" size={16} /> },
-  { value: "4.9/5 rating", icon: <DynamicIcon name="lucide/star" size={16} /> },
-];
-
 export function HeroNewsletterMinimal({
   heading = "Stay ahead of the curve",
   description = "Join 50,000+ professionals who get our weekly insights on design, development, and business growth.",
   inputPlaceholder = "Enter your email",
-  submitAction = defaultSubmitAction,
+  submitAction,
   formSlot,
   disclaimer = "Free forever. No spam. Unsubscribe anytime.",
-  stats = defaultStats,
+  stats,
   statsSlot,
   className,
   containerClassName,

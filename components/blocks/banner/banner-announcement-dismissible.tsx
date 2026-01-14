@@ -76,15 +76,6 @@ export interface BannerAnnouncementDismissibleProps {
   dismissButtonClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Learn More",
-    href: "#",
-    variant: "secondary",
-    size: "sm",
-  },
-];
-
 /**
  * BannerAnnouncementDismissible - A top announcement banner with icon, message, CTA button, and dismiss button.
  *
@@ -106,7 +97,7 @@ export function BannerAnnouncementDismissible({
   icon,
   iconName = "mynaui/boat",
   message = "Introducing our new AI-powered dashboard - Now available!",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   onDismiss,
   dismissIcon,

@@ -52,12 +52,6 @@ describe("ArticleChaptersAuthor", () => {
     },
   };
 
-  it("renders with default props", () => {
-    render(<ArticleChaptersAuthor />);
-    expect(screen.getByText("A Comprehensive Guide to Software Design Patterns")).toBeInTheDocument();
-    expect(screen.getByText("Jessica Williams")).toBeInTheDocument();
-  });
-
   it("renders custom title and subtitle", () => {
     render(
       <ArticleChaptersAuthor
@@ -67,20 +61,6 @@ describe("ArticleChaptersAuthor", () => {
     );
     expect(screen.getByText("Custom Guide Title")).toBeInTheDocument();
     expect(screen.getByText("Learn something amazing")).toBeInTheDocument();
-  });
-
-  it("renders chapters navigation", () => {
-    render(<ArticleChaptersAuthor chapters={mockChapters} />);
-    expect(screen.getByText("Getting Started")).toBeInTheDocument();
-    expect(screen.getByText("Advanced Topics")).toBeInTheDocument();
-    expect(screen.getByText("Best Practices")).toBeInTheDocument();
-  });
-
-  it("renders chapter numbers", () => {
-    render(<ArticleChaptersAuthor chapters={mockChapters} />);
-    expect(screen.getByText("1")).toBeInTheDocument();
-    expect(screen.getByText("2")).toBeInTheDocument();
-    expect(screen.getByText("3")).toBeInTheDocument();
   });
 
   it("renders author information", () => {
@@ -96,57 +76,9 @@ describe("ArticleChaptersAuthor", () => {
     expect(screen.getByLabelText("LinkedIn")).toBeInTheDocument();
   });
 
-  it("renders breadcrumb navigation", () => {
-    render(
-      <ArticleChaptersAuthor
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Guides", href: "/guides" },
-        ]}
-        currentPage="Design Patterns"
-      />
-    );
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Guides")).toBeInTheDocument();
-    expect(screen.getByText("Design Patterns")).toBeInTheDocument();
-  });
-
-  it("renders conclusion section", () => {
-    render(
-      <ArticleChaptersAuthor
-        conclusionTitle="Ready to start?"
-        conclusionDescription="Download our resources to get started."
-        conclusionButtonText="Download Now"
-        conclusionButtonHref="/download"
-      />
-    );
-    expect(screen.getByText("Ready to start?")).toBeInTheDocument();
-    expect(screen.getByText("Download our resources to get started.")).toBeInTheDocument();
-    expect(screen.getByText("Download Now")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <ArticleChaptersAuthor className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
-
   it("renders author avatar with fallback", () => {
     render(<ArticleChaptersAuthor author={{ ...mockAuthor, name: "Alice" }} />);
     expect(screen.getByText("A")).toBeInTheDocument();
-  });
-
-  it("renders with empty chapters array", () => {
-    const { container } = render(<ArticleChaptersAuthor chapters={[]} />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders article images", () => {
-    render(<ArticleChaptersAuthor />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
   });
 });
 

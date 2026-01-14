@@ -3,13 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { FaqMutedCards, type FaqMutedCardsProps } from "../faq-muted-cards";
 
 describe("FaqMutedCards", () => {
-  it("renders with default props", () => {
-    render(<FaqMutedCards />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -37,13 +30,6 @@ describe("FaqMutedCards", () => {
 
     expect(screen.getByText("Custom Question 1")).toBeInTheDocument();
     expect(screen.getByText("Custom Question 2")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<FaqMutedCards className="custom-class" />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 
   it("renders empty items array", () => {

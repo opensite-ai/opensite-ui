@@ -41,57 +41,11 @@ describe("ResourceListNewsUpdates", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<ResourceListNewsUpdates />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ResourceListNewsUpdates className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<ResourceListNewsUpdates />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders with custom section label", () => {
-    const { container } = render(
-      <ResourceListNewsUpdates 
-        sectionLabel="Custom Label"
-      />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
   it("renders with custom title and subtitle", () => {
     const { container } = render(
       <ResourceListNewsUpdates 
         title="Custom Title"
         subtitle="Custom Subtitle"
-      />
-    );
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("renders with custom news items", () => {
-    const { container } = render(
-      <ResourceListNewsUpdates 
-        news={[
-          {
-            title: "Test News Item",
-            category: "Partnership",
-            avatar: "https://example.com/avatar.jpg",
-            date: "June 15, 2024",
-            link: "/news/test",
-          },
-        ]}
       />
     );
     const section = container.querySelector("section");

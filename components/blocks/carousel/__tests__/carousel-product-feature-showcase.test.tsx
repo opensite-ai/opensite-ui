@@ -32,13 +32,6 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("CarouselProductFeatureShowcase", () => {
-  it("renders with default props", () => {
-    render(<CarouselProductFeatureShowcase />);
-    expect(screen.getByText("Discover Our Products")).toBeInTheDocument();
-    expect(
-      screen.getByText("Explore the features that make our products stand out")
-    ).toBeInTheDocument();
-  });
 
   it("renders custom heading", () => {
     render(<CarouselProductFeatureShowcase heading="Custom Heading" />);
@@ -55,14 +48,6 @@ describe("CarouselProductFeatureShowcase", () => {
     expect(screen.getByText("Shop Now")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselProductFeatureShowcase className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
-
   it("renders custom features", () => {
     const customFeatures = [
       {
@@ -75,40 +60,6 @@ describe("CarouselProductFeatureShowcase", () => {
     render(<CarouselProductFeatureShowcase features={customFeatures} />);
     expect(screen.getByText("Custom Product 1")).toBeInTheDocument();
     expect(screen.getByText("Custom Description 1")).toBeInTheDocument();
-  });
-
-  it("renders navigation buttons", () => {
-    const { container } = render(<CarouselProductFeatureShowcase />);
-    const buttons = container.querySelectorAll("button");
-    expect(buttons.length).toBeGreaterThan(0);
-  });
-
-  it("handles next button click", () => {
-    const { container } = render(<CarouselProductFeatureShowcase />);
-    const buttons = container.querySelectorAll("button");
-    // Find next button
-    const nextButton = Array.from(buttons).find((btn) =>
-      btn.innerHTML.includes("chevron-right")
-    );
-    if (nextButton) {
-      fireEvent.click(nextButton);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("handles prev button click", () => {
-    const { container } = render(<CarouselProductFeatureShowcase />);
-    const buttons = container.querySelectorAll("button");
-    // Find prev button
-    const prevButton = Array.from(buttons).find((btn) =>
-      btn.innerHTML.includes("chevron-left")
-    );
-    if (prevButton) {
-      fireEvent.click(prevButton);
-    }
-    // Should not throw error
-    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders color selectors when colors are provided", () => {
@@ -173,20 +124,6 @@ describe("CarouselProductFeatureShowcase", () => {
     );
     const cta = screen.getByText("View Products");
     expect(cta.closest("a")).toHaveAttribute("href", "/products");
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselProductFeatureShowcase optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders with two-column grid layout", () => {
-    const { container } = render(<CarouselProductFeatureShowcase />);
-    const grid = container.querySelector(".lg\\:grid-cols-2");
-    expect(grid).toBeInTheDocument();
   });
 });
 

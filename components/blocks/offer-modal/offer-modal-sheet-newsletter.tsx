@@ -211,16 +211,6 @@ export interface OfferModalSheetNewsletterProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogo: LogoItem = {
-  src: logoPlaceholders.logoMark,
-  alt: "Opensite AI",
-};
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[1],
-  alt: "Newsletter promotional image",
-};
-
 /**
  * OfferModalSheetNewsletter - A side-sheet style newsletter signup modal that slides in from
  * the right. Features a logo, compelling headline, description, email signup form with rounded
@@ -242,11 +232,11 @@ const defaultImage: ImageItem = {
  * ```
  */
 export function OfferModalSheetNewsletter({
-  logo = defaultLogo,
+  logo,
   logoSlot,
   title = "Join Now & Enjoy 20% Off",
   description = "Join our mailing list for updates and offers. You can unsubscribe at any time.",
-  image = defaultImage,
+  image,
   imageSlot,
   emailPlaceholder = "Email Address",
   buttonText = "Join",

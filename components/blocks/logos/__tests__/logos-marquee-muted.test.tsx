@@ -23,20 +23,9 @@ describe("LogosMarqueeMuted", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<LogosMarqueeMuted />);
-    expect(screen.getByText("Trusted by leading companies")).toBeInTheDocument();
-  });
-
   it("renders custom heading", () => {
     render(<LogosMarqueeMuted heading="Our Clients" />);
     expect(screen.getByText("Our Clients")).toBeInTheDocument();
-  });
-
-  it("renders default logos", () => {
-    render(<LogosMarqueeMuted />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
   });
 
   it("renders custom logos", () => {
@@ -49,24 +38,6 @@ describe("LogosMarqueeMuted", () => {
     const logosY = screen.getAllByAltText("Company Y logo");
     expect(logosX.length).toBeGreaterThan(0);
     expect(logosY.length).toBeGreaterThan(0);
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LogosMarqueeMuted className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with muted background", () => {
-    const { container } = render(<LogosMarqueeMuted />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("bg-muted");
-  });
-
-  it("renders carousel component", () => {
-    render(<LogosMarqueeMuted />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
   });
 
   it("handles empty logos array", () => {

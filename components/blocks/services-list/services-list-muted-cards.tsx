@@ -108,52 +108,6 @@ export interface ServicesListMutedCardsProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListMutedCardsService[] = [
-  {
-    iconName: "lucide/cog",
-    title: "Product Strategy",
-    description:
-      "Comprehensive market analysis and strategic planning to position your product for success in competitive markets.",
-    items: [
-      "Market Research",
-      "User Personas",
-      "Competitive Analysis",
-      "Product Roadmaps",
-    ],
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design",
-    description:
-      "User-centered design solutions that create intuitive and engaging experiences across all digital touchpoints.",
-    items: ["UI/UX Design", "Prototyping", "Design Systems", "User Testing"],
-  },
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Modern, scalable web applications built with cutting-edge technologies and development best practices.",
-    items: [
-      "Frontend Development",
-      "Backend Development",
-      "API Integration",
-      "Performance Optimization",
-    ],
-  },
-  {
-    iconName: "lucide/shrub",
-    title: "Marketing",
-    description:
-      "Strategic marketing and optimization services to successfully launch and scale your digital products.",
-    items: [
-      "SEO Strategy",
-      "Analytics Setup",
-      "A/B Testing",
-      "Growth Marketing",
-    ],
-  },
-];
-
 /**
  * ServicesListMutedCards - A 2x2 grid layout with muted background cards featuring icons in bordered boxes.
  * Each card includes a "What's Included" section with a 2-column grid of items.
@@ -175,7 +129,7 @@ const defaultServices: ServicesListMutedCardsService[] = [
 export function ServicesListMutedCards({
   heading = "Services",
   description = "End-to-end digital solutions designed to help your business thrive in the modern marketplace.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

@@ -40,19 +40,6 @@ describe("CarouselProgressSlider", () => {
     vi.useRealTimers();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselProgressSlider />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselProgressSlider className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
-  });
-
   it("renders custom slides", () => {
     const customSlides = [
       {
@@ -106,46 +93,6 @@ describe("CarouselProgressSlider", () => {
     fireEvent.click(buttons[1]);
     // Should not throw error
     expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders with two-column grid layout", () => {
-    const { container } = render(<CarouselProgressSlider />);
-    const grid = container.querySelector(".lg\\:grid-cols-2");
-    expect(grid).toBeInTheDocument();
-  });
-
-  it("renders images for slides", () => {
-    render(<CarouselProgressSlider />);
-    const images = screen.getAllByTestId("img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselProgressSlider optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders with custom duration", () => {
-    const { container } = render(
-      <CarouselProgressSlider duration={10000} />
-    );
-    // Component should render without errors
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("renders progress bar in buttons", () => {
-    const { container } = render(<CarouselProgressSlider />);
-    const progressBars = container.querySelectorAll('[role="progressbar"]');
-    expect(progressBars.length).toBeGreaterThan(0);
-  });
-
-  it("applies border styling to navigation buttons", () => {
-    const { container } = render(<CarouselProgressSlider />);
-    const borderedButtons = container.querySelectorAll("button.border");
-    expect(borderedButtons.length).toBeGreaterThan(0);
   });
 });
 

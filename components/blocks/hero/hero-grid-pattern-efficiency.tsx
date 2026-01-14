@@ -61,19 +61,11 @@ export interface HeroGridPatternEfficiencyProps {
   actionClassName?: string;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Start Now for free",
-  href: "#",
-  variant: "default",
-  size: "lg",
-  iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />,
-};
-
 export function HeroGridPatternEfficiency({
   heading,
   highlightedWord = "efficiency.",
   description = "A powerful tool to streamline workflows, manage tasks, and deliver results efficiently.",
-  action = defaultAction,
+  action,
   actionSlot,
   actionSubtext = "No credit card required.",
   showGridPattern = true,

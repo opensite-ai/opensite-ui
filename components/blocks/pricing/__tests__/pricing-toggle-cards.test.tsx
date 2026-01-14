@@ -23,14 +23,6 @@ describe("PricingToggleCards", () => {
     },
   ];
 
-  it("renders default heading and description", () => {
-    render(<PricingToggleCards />);
-    expect(screen.getByText("Pricing Plans")).toBeInTheDocument();
-    expect(
-      screen.getByText(/Choose the perfect plan for your needs/)
-    ).toBeInTheDocument();
-  });
-
   it("renders custom heading and description", () => {
     render(
       <PricingToggleCards
@@ -66,13 +58,6 @@ describe("PricingToggleCards", () => {
     expect(screen.getAllByText("/year").length).toBeGreaterThan(0);
   });
 
-  it("renders toggle labels correctly", () => {
-    render(<PricingToggleCards />);
-    expect(screen.getByText("Monthly")).toBeInTheDocument();
-    expect(screen.getByText(/Yearly/)).toBeInTheDocument();
-    expect(screen.getByText("Save 20%")).toBeInTheDocument();
-  });
-
   it("highlights popular plan", () => {
     const { container } = render(<PricingToggleCards plans={mockPlans} />);
     expect(screen.getByText("Most Popular")).toBeInTheDocument();
@@ -93,21 +78,6 @@ describe("PricingToggleCards", () => {
     const proButton = screen.getByText("Start Trial");
     expect(basicButton.closest("a")).toHaveAttribute("href", "/basic");
     expect(proButton.closest("a")).toHaveAttribute("href", "/pro");
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <PricingToggleCards className="custom-pricing" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-pricing");
-  });
-
-  it("renders default plans when no plans prop provided", () => {
-    render(<PricingToggleCards />);
-    expect(screen.getByText("Starter")).toBeInTheDocument();
-    expect(screen.getByText("Professional")).toBeInTheDocument();
-    expect(screen.getByText("Enterprise")).toBeInTheDocument();
   });
 
   it("applies correct grid layout", () => {
@@ -135,18 +105,6 @@ describe("PricingToggleCards", () => {
     const { container } = render(<PricingToggleCards plans={mockPlans} />);
     const cards = container.querySelectorAll("[data-slot='card']");
     expect(cards.length).toBe(mockPlans.length);
-  });
-
-  it("centers heading content", () => {
-    const { container } = render(<PricingToggleCards />);
-    const headerDiv = container.querySelector(".text-center");
-    expect(headerDiv).toBeInTheDocument();
-  });
-
-  it("applies correct section padding", () => {
-    const { container } = render(<PricingToggleCards />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-20");
   });
 
   it("renders with empty plans array", () => {

@@ -106,37 +106,18 @@ export interface HeroConversionVideoPlayProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPrimaryAction: ActionConfig = {
-  label: "Start Your Free Trial Today",
-  href: "#",
-  variant: "default",
-  className: "group relative h-fit overflow-hidden rounded-full border-none px-6 py-5 font-semibold text-white max-lg:px-5 max-lg:py-3.5 lg:self-start",
-};
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[78],
-  alt: "",
-};
-
-const defaultLogos: LogoItem[] = [
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "w-36 opacity-55" },
-];
-
 export function HeroConversionVideoPlay({
   heading = "Quickly convert visitors into paying customers",
   description = "Transform your smartphone or tablet into a powerful tool. Effortlessly manage sales and inventory, engage customers, and boost your revenue.",
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   videoButtonLabel = "Play Video",
   videoUrl = "https://www.youtube.com/embed/your-video-id",
   videoDialogTitle = "Presentation Video",
   actionsSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   logosTagline = "Trusted by these brands and many others",
-  logos = defaultLogos,
+  logos,
   logosSlot,
   className,
   containerClassName,

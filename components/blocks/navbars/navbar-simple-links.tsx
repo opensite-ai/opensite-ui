@@ -124,17 +124,6 @@ export interface NavbarSimpleLinksProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavItems: NavItem[] = [
-  { name: "Home", link: "#" },
-  { name: "About", link: "#" },
-  { name: "Pricing", link: "#" },
-  { name: "Contact", link: "#" },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Sign Up", href: "#", variant: "outline", size: "sm" },
-];
-
 interface MobileNavProps {
   navItems: NavItem[];
   activeItem: string;
@@ -259,10 +248,10 @@ export const NavbarSimpleLinks = ({
   },
   logoSlot,
   logoClassName,
-  navItems = defaultNavItems,
+  navItems,
   navItemsSlot,
   defaultActiveItem,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   background = "white",
   spacing = "sm",

@@ -83,49 +83,15 @@ export interface HeroCenteredImageGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started now",
-    href: "#",
-    variant: "default",
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-1" />,
-  },
-  {
-    label: "Learn more",
-    href: "#",
-    variant: "ghost",
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-1" />,
-  },
-];
-
-const defaultGridImages: ImageItem[] = [
-  { src: imagePlaceholders[2], alt: "placeholder" },
-  { src: imagePlaceholders[3], alt: "placeholder" },
-];
-
-const defaultImageOverlayAction: ActionConfig = {
-  label: "Learn more",
-  href: "#",
-  variant: "outline",
-  className: "absolute right-5 bottom-5",
-  iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-1" />,
-};
-
-const defaultLogos: LogoItem[] = [
-  { src: { light: logoPlaceholders.darkHorizontalLogo, dark: logoPlaceholders.lightHorizontalLogo }, alt: "logo", className: "h-5 sm:h-7" },
-  { src: { light: logoPlaceholders.darkHorizontalLogo, dark: logoPlaceholders.lightHorizontalLogo }, alt: "logo", className: "h-9 sm:h-11" },
-  { src: { light: logoPlaceholders.darkHorizontalLogo, dark: logoPlaceholders.lightHorizontalLogo }, alt: "logo", className: "h-4 sm:h-6" },
-];
-
 export function HeroCenteredImageGrid({
   heading = "Build your next project with Blocks",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  gridImages = defaultGridImages,
+  gridImages,
   gridImagesSlot,
-  imageOverlayAction = defaultImageOverlayAction,
-  logos = defaultLogos,
+  imageOverlayAction,
+  logos,
   logosSlot,
   className,
   containerClassName,

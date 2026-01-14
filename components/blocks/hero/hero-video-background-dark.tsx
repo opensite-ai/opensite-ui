@@ -53,26 +53,11 @@ export interface HeroVideoBackgroundDarkProps {
   descriptionClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Enroll in Beta",
-    href: "#",
-    variant: "default",
-    className: "h-fit flex-1 rounded-full px-6 py-3.5",
-  },
-  {
-    label: "Book a Demo",
-    href: "#",
-    variant: "outline",
-    className: "h-fit flex-1 rounded-full border border-white/50 bg-transparent px-6 py-3.5 text-foreground hover:bg-transparent",
-  },
-];
-
 export function HeroVideoBackgroundDark({
   badgeText = "BETA RELEASE AVAILABLE",
   heading = "Unveiling MyBusiness Edition 1",
   description = "Tailor and oversee any creative process from start to finish with unprecedented speed and efficiency.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   videoSrc = videoPlaceholders[0],
   videoSlot,

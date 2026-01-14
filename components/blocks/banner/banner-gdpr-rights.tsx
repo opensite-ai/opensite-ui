@@ -84,15 +84,6 @@ export interface BannerGdprRightsProps {
   dismissButtonClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Manage your data →",
-    href: "#",
-    variant: "link",
-    className: "p-0 h-auto ml-1",
-  },
-];
-
 /**
  * BannerGdprRights - A bottom-positioned GDPR privacy rights notice.
  *
@@ -116,7 +107,7 @@ export function BannerGdprRights({
   iconName = "mynaui/globe",
   title = "Your Privacy Rights",
   description = "Under GDPR, you have the right to access, update, or delete your personal data.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   onDismiss,
   dismissIcon,

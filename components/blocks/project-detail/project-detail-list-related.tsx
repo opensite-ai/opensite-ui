@@ -68,52 +68,6 @@ export interface ProjectDetailListRelatedProps {
   relatedClassName?: string;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[42], alt: "Project image 1" },
-  { src: imagePlaceholders[43], alt: "Project image 2" },
-  { src: imagePlaceholders[44], alt: "Project image 3" },
-  { src: imagePlaceholders[45], alt: "Project image 4" },
-];
-
-const defaultRelatedProjects: ProjectDetailListRelatedProject[] = [
-  {
-    title: "Night Visions",
-    category: "Photography",
-    year: "2024",
-    src: imagePlaceholders[46],
-    alt: "Night Visions project",
-    href: "#",
-  },
-  {
-    title: "Urban Fragments",
-    category: "Photography",
-    year: "2023",
-    src: imagePlaceholders[47],
-    alt: "Urban Fragments project",
-    href: "#",
-  },
-  {
-    title: "Silent Streets",
-    category: "Photography",
-    year: "2023",
-    src: imagePlaceholders[48],
-    alt: "Silent Streets project",
-    href: "#",
-  },
-];
-
-const defaultProps: ProjectDetailListRelatedProps = {
-  title: "Urban Lens",
-  subtitle: "Street Photography Collection",
-  category: "Photography",
-  year: "2024",
-  description:
-    "A compelling series of street photography capturing the essence of urban life. Through careful observation and timing, these images reveal the poetry hidden in everyday moments.",
-  images: defaultImages,
-  relatedProjects: defaultRelatedProjects,
-  backAction: { label: "Back to Collections", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

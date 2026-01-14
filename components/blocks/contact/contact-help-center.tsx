@@ -117,27 +117,6 @@ export interface ContactHelpCenterProps {
   contactItemsClassName?: string;
 }
 
-const defaultContactItems: ContactHelpCenterItem[] = [
-  {
-    title: "Schedule a Strategy Call",
-    subtitle: "Book a coverage review with an OpenSite AI advisor.",
-    icon: "lucide/calendar-check",
-    href: "/schedule",
-  },
-  {
-    title: "Email the Team",
-    subtitle: "Reach us anytime at hello@opensite.ai.",
-    icon: "lucide/mail",
-    href: "mailto:hello@opensite.ai",
-  },
-  {
-    title: "Call Support",
-    subtitle: "Talk to a specialist at +1 (415) 555-0192.",
-    icon: "lucide/phone",
-    href: "tel:+14155550192",
-  },
-];
-
 /**
  * ContactHelpCenter - Split layout with help copy on the left and
  * a contact card stack on the right. Works well for service centers,
@@ -148,7 +127,7 @@ export function ContactHelpCenter({
   heading = "Need help navigating coverage decisions?",
   description = "Our OpenSite AI advisors are ready to walk through policies, claims, and next steps so you can move forward with confidence.",
   cardTitle = "Contact Our Team",
-  contactItems = defaultContactItems,
+  contactItems,
   background = "white",
   spacing = "lg",
   pattern,

@@ -255,60 +255,6 @@ export interface PricingFullComparisonProps {
   featureValueClassName?: string;
 }
 
-const defaultPlans: PricingFullComparisonPlan[] = [
-  {
-    id: "free",
-    name: "Free",
-    monthlyPrice: "$0",
-    yearlyPrice: "$0",
-    description: "For individuals",
-    action: { label: "Get Started", href: "#", variant: "outline" },
-  },
-  {
-    id: "startup",
-    name: "Startup",
-    monthlyPrice: "$19",
-    yearlyPrice: "$190",
-    description: "For small teams",
-    action: { label: "Start Trial", href: "#", variant: "outline" },
-  },
-  {
-    id: "team",
-    name: "Team",
-    monthlyPrice: "$49",
-    yearlyPrice: "$490",
-    description: "For growing teams",
-    action: { label: "Start Trial", href: "#", variant: "default" },
-    isPopular: true,
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    monthlyPrice: "$99",
-    yearlyPrice: "$990",
-    description: "For organizations",
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
-const defaultFeatures: PricingFullComparisonFeature[] = [
-  { name: "Projects", category: "Usage", values: { free: "3", startup: "10", team: "Unlimited", enterprise: "Unlimited" } },
-  { name: "Team members", category: "Usage", values: { free: "1", startup: "5", team: "20", enterprise: "Unlimited" } },
-  { name: "Storage", category: "Usage", values: { free: "1GB", startup: "10GB", team: "100GB", enterprise: "Unlimited" } },
-  { name: "API requests", category: "Usage", values: { free: "1,000/mo", startup: "10,000/mo", team: "100,000/mo", enterprise: "Unlimited" } },
-  { name: "Basic analytics", category: "Features", values: { free: true, startup: true, team: true, enterprise: true } },
-  { name: "Advanced analytics", category: "Features", values: { free: false, startup: true, team: true, enterprise: true } },
-  { name: "Custom reports", category: "Features", values: { free: false, startup: false, team: true, enterprise: true } },
-  { name: "API access", category: "Features", values: { free: false, startup: true, team: true, enterprise: true } },
-  { name: "Webhooks", category: "Features", values: { free: false, startup: false, team: true, enterprise: true } },
-  { name: "Email support", category: "Support", values: { free: true, startup: true, team: true, enterprise: true } },
-  { name: "Priority support", category: "Support", values: { free: false, startup: false, team: true, enterprise: true } },
-  { name: "Dedicated support", category: "Support", values: { free: false, startup: false, team: false, enterprise: true } },
-  { name: "SSO", category: "Security", values: { free: false, startup: false, team: false, enterprise: true } },
-  { name: "Audit logs", category: "Security", values: { free: false, startup: false, team: true, enterprise: true } },
-  { name: "Custom security", category: "Security", values: { free: false, startup: false, team: false, enterprise: true } },
-];
-
 /**
  * PricingFullComparison displays a comprehensive 4-tier pricing comparison with full feature matrix.
  * Features plan cards at the top followed by a detailed comparison table organized by category.
@@ -333,9 +279,9 @@ export function PricingFullComparison({
   yearlyBadge = "Save 17%",
   monthlyInterval = "/mo",
   yearlyInterval = "/yr",
-  plans = defaultPlans,
+  plans,
   plansSlot,
-  features = defaultFeatures,
+  features,
   comparisonSlot,
   categoryOrder,
   featureColumnLabel = "Features",

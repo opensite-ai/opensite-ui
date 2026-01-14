@@ -142,53 +142,6 @@ export interface FooterNewsletterContactProps {
   onError?: (error: Error) => void;
 }
 
-const defaultFooterLinks: FooterNewsletterContactSection[] = [
-  {
-    title: "Information",
-    items: [
-      { text: "Terms and Conditions", link: "#" },
-      { text: "Privacy Policy", link: "#" },
-      { text: "Warranty Policy", link: "#" },
-      { text: "Terms of Service", link: "#" },
-    ],
-  },
-  {
-    title: "Collections",
-    items: [
-      { text: "New Arrivals", link: "#" },
-      { text: "Best Sellers", link: "#" },
-      { text: "Seasonal Edits", link: "#" },
-      { text: "Wardrobe Essentials", link: "#" },
-    ],
-  },
-];
-
-const defaultContactDetails: FooterNewsletterContactDetail[] = [
-  {
-    icon: "lucide/mail",
-    text: "support@store.com",
-    link: "support@store.com",
-    type: "email",
-  },
-  {
-    icon: "lucide/phone",
-    text: "+1 234 567 8910",
-    link: "+12345678910",
-    type: "phone",
-  },
-  {
-    icon: "lucide/clock",
-    text: "Monday - Friday, 9 am - 9 pm",
-    type: "none",
-  },
-];
-
-const defaultSocialLinks: FooterNewsletterContactSocialLink[] = [
-  { icon: "simple-icons/facebook", link: "#", label: "Facebook" },
-  { icon: "simple-icons/x", link: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/instagram", link: "#", label: "Instagram" },
-];
-
 /**
  * Footer Newsletter Contact - A comprehensive footer with newsletter signup,
  * navigation links, contact details, and social media icons.
@@ -216,9 +169,9 @@ export function FooterNewsletterContact({
   newsletterDescription = "Join our newsletter to receive exclusive deals, tech tips, product launches, and early access to the latest electronics.",
   newsletterPlaceholder = "Email Address",
   newsletterButtonText = "Subscribe",
-  footerLinks = defaultFooterLinks,
-  contactDetails = defaultContactDetails,
-  socialLinks = defaultSocialLinks,
+  footerLinks,
+  contactDetails,
+  socialLinks,
   logo = {
     light: logoPlaceholders.darkHorizontalLogo,
     dark: logoPlaceholders.lightHorizontalLogo,

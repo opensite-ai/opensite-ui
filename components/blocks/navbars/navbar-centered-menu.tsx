@@ -136,84 +136,6 @@ export interface NavbarCenteredMenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMenu: MenuItem[] = [
-  { title: "Home", url: "#" },
-  {
-    title: "Products",
-    url: "#",
-    items: [
-      {
-        title: "Blog",
-        description: "The latest industry news, updates, and info",
-        icon: "lucide/book",
-        url: "#",
-      },
-      {
-        title: "Company",
-        description: "Our mission is to innovate and empower the world",
-        icon: "lucide/trees",
-        url: "#",
-      },
-      {
-        title: "Careers",
-        description: "Browse job listing and discover our workspace",
-        icon: "lucide/sunset",
-        url: "#",
-      },
-      {
-        title: "Support",
-        description:
-          "Get in touch with our support team or visit our community forums",
-        icon: "lucide/zap",
-        url: "#",
-      },
-    ],
-  },
-  {
-    title: "Resources",
-    url: "#",
-    items: [
-      {
-        title: "Help Center",
-        description: "Get all the answers you need right here",
-        icon: "lucide/zap",
-        url: "#",
-      },
-      {
-        title: "Contact Us",
-        description: "We are here to help you with any questions you have",
-        icon: "lucide/sunset",
-        url: "#",
-      },
-      {
-        title: "Status",
-        description: "Check the current status of our services and APIs",
-        icon: "lucide/trees",
-        url: "#",
-      },
-      {
-        title: "Terms of Service",
-        description: "Our terms and conditions for using our services",
-        icon: "lucide/book",
-        url: "#",
-      },
-    ],
-  },
-  {
-    title: "Pricing",
-    url: "#",
-  },
-  {
-    title: "Blog",
-    url: "#",
-  },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Login", href: "#", variant: "outline", size: "sm" },
-  { label: "Sign up", href: "#", variant: "default", size: "sm" },
-];
-
 const NavigationMenuWithoutViewport = ({
   className,
   children,
@@ -324,9 +246,9 @@ export const NavbarCenteredMenu = ({
   },
   logoSlot,
   logoClassName,
-  menu = defaultMenu,
+  menu,
   menuSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   className,
   containerClassName,

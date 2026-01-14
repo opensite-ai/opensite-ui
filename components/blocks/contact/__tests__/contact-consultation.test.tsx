@@ -9,17 +9,6 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ContactConsultation", () => {
-  it("renders with default props", () => {
-    const { container } = render(<ContactConsultation />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ContactConsultation className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 
   it("renders custom heading", () => {
     render(<ContactConsultation heading="Custom Heading" />);

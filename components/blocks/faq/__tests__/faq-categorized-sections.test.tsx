@@ -6,18 +6,6 @@ import {
 } from "../faq-categorized-sections";
 
 describe("FaqCategorizedSections", () => {
-  it("renders with default props", () => {
-    render(<FaqCategorizedSections />);
-
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
-      )
-    ).toBeInTheDocument();
-  });
 
   it("renders with custom heading and description", () => {
     render(
@@ -53,15 +41,6 @@ describe("FaqCategorizedSections", () => {
     expect(screen.getByText("Category B")).toBeInTheDocument();
     expect(screen.getByText("Question A1")).toBeInTheDocument();
     expect(screen.getByText("Question B1")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <FaqCategorizedSections className="custom-class" />
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
   });
 
   it("renders empty categories array", () => {

@@ -119,26 +119,6 @@ export interface CtaDocumentationLinksProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-  { label: "Contact Sales", href: "#", variant: "outline" },
-];
-
-const defaultLinks: CtaDocumentationLink[] = [
-  {
-    iconName: "lucide/file",
-    title: "Documentation",
-    description: "Learn how to integrate our tools with your app.",
-    href: "#",
-  },
-  {
-    iconName: "lucide/book",
-    title: "Getting Started",
-    description: "Get started with our comprehensive guides.",
-    href: "#",
-  },
-];
-
 /**
  * CtaDocumentationLinks - A CTA section with heading, description, dual action buttons,
  * and a grid of documentation/resource links with icons. Ideal for developer-focused
@@ -164,9 +144,9 @@ const defaultLinks: CtaDocumentationLink[] = [
 export function CtaDocumentationLinks({
   heading = "Call To Action",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  links = defaultLinks,
+  links,
   linksSlot,
   className,
   containerClassName,

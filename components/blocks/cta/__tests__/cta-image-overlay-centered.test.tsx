@@ -34,25 +34,4 @@ describe("CtaImageOverlayCentered", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default heading", () => {
-    render(<CtaImageOverlayCentered />);
-    expect(
-      screen.getByText("Ready to unlock OpenSite AI coverage insights?")
-    ).toBeInTheDocument();
-  });
-
-  it("renders CTA buttons", () => {
-    render(<CtaImageOverlayCentered />);
-    expect(screen.getByText("Get a Free Quote")).toBeInTheDocument();
-    expect(screen.getByText("Talk to an Advisor")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CtaImageOverlayCentered className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

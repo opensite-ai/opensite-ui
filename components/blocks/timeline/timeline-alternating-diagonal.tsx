@@ -118,51 +118,6 @@ export interface TimelineAlternatingDiagonalProps {
   };
 }
 
-const defaultItems: TimelineAlternatingItem[] = [
-  {
-    title: "Get Organized",
-    description:
-      "Start strong by syncing your calendars and tools like Google Calendar, Trello, and Slack in one place.",
-    icon: "lucide/layout-list",
-    image: {
-      src: blockBrandedIconsAndPlaceholders.placeholder1,
-      alt: "Get Organized",
-    },
-  },
-  {
-    title: "Track Progress",
-    description:
-      "Monitor your performance with real-time dashboards and detailed analytics. Stay ahead with automated reports.",
-    icon: "lucide/locate-fixed",
-    image: {
-      src: blockBrandedIconsAndPlaceholders.placeholder2,
-      alt: "Track Progress",
-    },
-    reverse: true,
-  },
-  {
-    title: "Collaborate Seamlessly",
-    description:
-      "Empower your team with shared dashboards and instant communication tools. Keep everyone aligned with integrated platforms.",
-    icon: "lucide/users",
-    image: {
-      src: blockBrandedIconsAndPlaceholders.placeholder3,
-      alt: "Collaborate Seamlessly",
-    },
-  },
-  {
-    title: "Integrate Seamlessly",
-    description:
-      "Integrate seamlessly across multiple platforms to enable smooth, automated task handovers.",
-    icon: "lucide/cpu",
-    image: {
-      src: blockBrandedIconsAndPlaceholders.placeholder4,
-      alt: "Integrate Seamlessly",
-    },
-    reverse: true,
-  },
-];
-
 const DiagonalPattern = ({
   className,
   patternOpacity = 0.15,
@@ -190,7 +145,7 @@ export function TimelineAlternatingDiagonal({
   badgeSlot,
   heading = "Accelerate your planning journey",
   description = "Take control of your workflow step-by-step with smart tools, actionable insights, and seamless collaboration",
-  items = defaultItems,
+  items,
   className,
   containerClassName,
   headingClassName,

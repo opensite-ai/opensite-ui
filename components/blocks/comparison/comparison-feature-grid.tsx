@@ -73,72 +73,6 @@ export interface ComparisonFeatureGridProps {
   gridRowClassName?: string;
 }
 
-const defaultFeatures: FeatureGridRow[] = [
-  {
-    icon: "lucide/layout-dashboard",
-    label: "Design System",
-    description: "Modern, utility-first vs classic, component-based.",
-    optionA: true,
-    optionB: true,
-  },
-  {
-    icon: "lucide/settings-2",
-    label: "Customization",
-    description: "Highly customizable vs limited by default.",
-    optionA: true,
-    optionB: false,
-  },
-  {
-    icon: "lucide/moon",
-    label: "Dark Mode",
-    description: "Built-in dark mode vs requires extra setup.",
-    optionA: true,
-    optionB: false,
-  },
-  {
-    icon: "lucide/type",
-    label: "TypeScript Support",
-    description: "First-class TypeScript support vs partial support.",
-    optionA: true,
-    optionB: "partial",
-  },
-  {
-    icon: "lucide/accessibility",
-    label: "Accessibility",
-    description: "Focus on accessibility (a11y) vs basic support.",
-    optionA: true,
-    optionB: false,
-  },
-  {
-    icon: "lucide/list-checks",
-    label: "Component Count",
-    description: "30+ components vs 25+ components.",
-    optionA: true,
-    optionB: true,
-  },
-  {
-    icon: "lucide/badge-check",
-    label: "License",
-    description: "MIT license for both.",
-    optionA: true,
-    optionB: true,
-  },
-  {
-    icon: "lucide/gem",
-    label: "Premium Components",
-    description: "Premium components available vs not included.",
-    optionA: true,
-    optionB: false,
-  },
-  {
-    icon: "lucide/figma",
-    label: "Figma Kit",
-    description: "Official Figma kit available vs not available.",
-    optionA: true,
-    optionB: false,
-  },
-];
-
 /**
  * ComparisonFeatureGrid - Feature grid with icons and status indicators
  *
@@ -155,7 +89,7 @@ export function ComparisonFeatureGrid({
   description = "A modern framework for building websites that is better than the competition.",
   optionALabel = "Our Solution",
   optionBLabel = "Alternative",
-  features = defaultFeatures,
+  features,
   gridSlot,
   className,
   containerClassName,

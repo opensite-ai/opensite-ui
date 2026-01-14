@@ -116,57 +116,6 @@ export interface TeamCarouselExperienceProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamCarouselExperienceMember[] = [
-  {
-    name: "John Smith",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    role: "CEO",
-    yearsOfExperience: 15,
-  },
-  {
-    name: "Sarah Johnson",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    role: "Lead Designer",
-    yearsOfExperience: 8,
-  },
-  {
-    name: "Michael Chen",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-    role: "Senior Engineer",
-    yearsOfExperience: 10,
-  },
-  {
-    name: "Emily Brown",
-    image: blockBrandedIconsAndPlaceholders.avatar4,
-    role: "Marketing Director",
-    yearsOfExperience: 12,
-  },
-  {
-    name: "David Wilson",
-    image: blockBrandedIconsAndPlaceholders.avatar5,
-    role: "Sales Manager",
-    yearsOfExperience: 7,
-  },
-  {
-    name: "Jessica Lee",
-    image: blockBrandedIconsAndPlaceholders.avatar6,
-    role: "Customer Success Lead",
-    yearsOfExperience: 5,
-  },
-  {
-    name: "Robert Taylor",
-    image: blockBrandedIconsAndPlaceholders.avatar7,
-    role: "CTO",
-    yearsOfExperience: 20,
-  },
-  {
-    name: "Amanda Martinez",
-    image: blockBrandedIconsAndPlaceholders.avatar8,
-    role: "Product Designer",
-    yearsOfExperience: 6,
-  },
-];
-
 /**
  * TeamCarouselExperience - Horizontal carousel with experience indicators
  *
@@ -197,7 +146,7 @@ export function TeamCarouselExperience({
   heading = "Tech Pioneers",
   headingHighlight = "building the future",
   description = "We bring together brilliant developers, engineers, and tech innovators to create groundbreaking digital solutions.",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

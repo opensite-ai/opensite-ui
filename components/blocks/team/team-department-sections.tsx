@@ -107,84 +107,6 @@ export interface TeamDepartmentSectionsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultDepartments: TeamDepartmentSectionsDepartment[] = [
-  {
-    name: "Leadership",
-    members: [
-      {
-        name: "Sarah Chen",
-        role: "CEO & Founder",
-        avatar: blockBrandedIconsAndPlaceholders.avatar1,
-      },
-      {
-        name: "Marcus Rodriguez",
-        role: "CTO",
-        avatar: blockBrandedIconsAndPlaceholders.avatar2,
-      },
-      {
-        name: "Priya Patel",
-        role: "COO",
-        avatar: blockBrandedIconsAndPlaceholders.avatar3,
-      },
-      {
-        name: "David Kim",
-        role: "CFO",
-        avatar: blockBrandedIconsAndPlaceholders.avatar4,
-      },
-    ],
-  },
-  {
-    name: "Engineering",
-    members: [
-      {
-        name: "Emma Thompson",
-        role: "VP of Engineering",
-        avatar: blockBrandedIconsAndPlaceholders.avatar5,
-      },
-      {
-        name: "Alex Johnson",
-        role: "Senior Engineer",
-        avatar: blockBrandedIconsAndPlaceholders.avatar6,
-      },
-      {
-        name: "Lisa Wang",
-        role: "Staff Engineer",
-        avatar: blockBrandedIconsAndPlaceholders.avatar7,
-      },
-      {
-        name: "Michael Brown",
-        role: "Senior Engineer",
-        avatar: blockBrandedIconsAndPlaceholders.avatar8,
-      },
-    ],
-  },
-  {
-    name: "Marketing",
-    members: [
-      {
-        name: "Jennifer Lee",
-        role: "Head of Marketing",
-        avatar: blockBrandedIconsAndPlaceholders.avatar1,
-      },
-      {
-        name: "Robert Taylor",
-        role: "Content Lead",
-        avatar: blockBrandedIconsAndPlaceholders.avatar2,
-      },
-      {
-        name: "Amanda Martinez",
-        role: "Growth Manager",
-        avatar: blockBrandedIconsAndPlaceholders.avatar3,
-      },
-      {
-        name: "Chris Wilson",
-        role: "Brand Designer",
-        avatar: blockBrandedIconsAndPlaceholders.avatar4,
-      },
-    ],
-  },
-];
-
 /**
  * TeamDepartmentSections - Team organized by department with section headers
  *
@@ -210,7 +132,7 @@ const defaultDepartments: TeamDepartmentSectionsDepartment[] = [
  */
 export function TeamDepartmentSections({
   heading = "Our team",
-  departments = defaultDepartments,
+  departments,
   departmentsSlot,
   background = "white",
   spacing = "lg",

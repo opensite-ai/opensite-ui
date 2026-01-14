@@ -79,29 +79,15 @@ export interface HeroMarketplaceScatteredImagesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Marketplace",
-  href: "#",
-  variant: "default",
-};
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[10], alt: "placeholder", className: "relative left-1/2 mx-auto max-h-[480px] w-full rounded-xl object-cover shadow-md lg:static lg:max-w-[60vw] xl:max-w-3xl" },
-  { src: imagePlaceholders[11], alt: "placeholder", className: "absolute top-0 right-20 -z-10 hidden max-h-60 -rotate-12 rounded-xl object-cover shadow-md lg:block" },
-  { src: imagePlaceholders[12], alt: "placeholder", className: "absolute right-20 bottom-0 hidden rotate-12 rounded-xl object-cover shadow-md md:max-h-60 lg:block" },
-  { src: imagePlaceholders[13], alt: "placeholder", className: "absolute top-0 left-1/4 -z-10 max-h-44 -rotate-12 rounded-xl object-cover shadow-md min-[450px]:max-h-52 sm:left-1/3 md:max-h-60 lg:left-20" },
-  { src: imagePlaceholders[14], alt: "placeholder", className: "absolute bottom-0 left-1/4 max-h-44 rotate-12 rounded-xl object-cover shadow-md min-[450px]:max-h-52 sm:left-1/3 md:max-h-60 lg:left-20" },
-];
-
 export function HeroMarketplaceScatteredImages({
   heading = "Explore a World of Digital Assets",
   description = "Discover the future of asset management, tokenization, and liquidity with our comprehensive marketplace.",
-  action = defaultAction,
+  action,
   actionSlot,
   tagline = "Global Partnerships and Innovation",
   taglineIcon = "lucide/globe",
   taglineSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   showGridPattern = true,
   className,

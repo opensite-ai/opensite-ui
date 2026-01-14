@@ -89,48 +89,6 @@ export interface ProjectHorizontalCardsProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectHorizontalCardsItem[] = [
-  {
-    title: "Brand Identity for Tech Startup",
-    image: imagePlaceholders[5],
-    description:
-      "Created a complete brand identity system for an AI-driven tech startup, including logo design, color palette, typography, and usage guidelines.",
-    client: "Nexus AI",
-    role: "Brand Designer",
-    technologies: ["Adobe Illustrator", "Photoshop", "Figma", "Brand Strategy"],
-    year: "2023",
-    link: "#",
-  },
-  {
-    title: "E-Learning Platform Redesign",
-    image: imagePlaceholders[6],
-    description:
-      "Completely redesigned the user experience for an online learning platform, focusing on improving navigation, content organization, and student engagement metrics.",
-    client: "EduConnect",
-    role: "UX Designer & Researcher",
-    technologies: ["Figma", "Maze", "Miro", "User Research", "HTML/CSS"],
-    year: "2022",
-    link: "#",
-  },
-  {
-    title: "Mobile Banking Application",
-    image: imagePlaceholders[7],
-    description:
-      "Designed and developed a secure and intuitive mobile banking application that allows users to manage accounts, make payments, and track spending with advanced security features.",
-    client: "SecureBank Ltd.",
-    role: "Product Designer & Frontend Developer",
-    technologies: [
-      "React Native",
-      "Redux",
-      "Sketch",
-      "UserTesting",
-      "Biometric Auth",
-    ],
-    year: "2022",
-    link: "#",
-  },
-];
-
 /**
  * ProjectHorizontalCards - Wide horizontal cards with image sidebar and detailed metadata.
  *
@@ -143,7 +101,7 @@ const defaultProjects: ProjectHorizontalCardsItem[] = [
 export function ProjectHorizontalCards({
   heading = "Featured Projects",
   subheading = "A selection of my most impactful work, demonstrating range and depth across industries.",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

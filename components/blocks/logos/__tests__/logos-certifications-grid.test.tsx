@@ -25,12 +25,6 @@ describe("LogosCertificationsGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<LogosCertificationsGrid />);
-    expect(screen.getByText("Our certifications say it all.")).toBeInTheDocument();
-    expect(screen.getByText(/In non libero bibendum/)).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <LogosCertificationsGrid
@@ -42,11 +36,6 @@ describe("LogosCertificationsGrid", () => {
     expect(screen.getByText("Custom Description")).toBeInTheDocument();
   });
 
-  it("renders button with default text", () => {
-    render(<LogosCertificationsGrid />);
-    expect(screen.getByText("Get in touch")).toBeInTheDocument();
-  });
-
   it("renders custom button text and url", () => {
     render(
       <LogosCertificationsGrid
@@ -54,12 +43,6 @@ describe("LogosCertificationsGrid", () => {
       />
     );
     expect(screen.getByText("Contact Us")).toBeInTheDocument();
-  });
-
-  it("renders default logos", () => {
-    render(<LogosCertificationsGrid />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBe(6);
   });
 
   it("renders custom logos", () => {
@@ -70,24 +53,6 @@ describe("LogosCertificationsGrid", () => {
     render(<LogosCertificationsGrid logos={customLogos} />);
     expect(screen.getByAltText("Certification 1")).toBeInTheDocument();
     expect(screen.getByAltText("Certification 2")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<LogosCertificationsGrid className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<LogosCertificationsGrid />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
-  });
-
-  it("renders icon in button", () => {
-    render(<LogosCertificationsGrid />);
-    expect(screen.getByTestId("mock-icon")).toBeInTheDocument();
   });
 
   it("handles empty logos array", () => {

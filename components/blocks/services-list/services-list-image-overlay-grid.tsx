@@ -118,44 +118,6 @@ export interface ServicesListImageOverlayGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: ServicesListImageOverlayGridService[] = [
-  {
-    title: "Web Development",
-    description: "Custom websites built with modern technologies",
-    image: { src: imagePlaceholders[0], alt: "Web Development" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Mobile Apps",
-    description: "Native and cross-platform mobile applications",
-    image: { src: imagePlaceholders[1], alt: "Mobile Apps" },
-    ctaUrl: "#",
-  },
-  {
-    title: "UI/UX Design",
-    description: "User-centered design solutions",
-    image: { src: imagePlaceholders[2], alt: "UI/UX Design" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Cloud Solutions",
-    description: "Scalable cloud infrastructure",
-    image: { src: imagePlaceholders[3], alt: "Cloud Solutions" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Digital Marketing",
-    description: "Data-driven marketing strategies",
-    image: { src: imagePlaceholders[4], alt: "Digital Marketing" },
-    ctaUrl: "#",
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "View All Services",
-  href: "#",
-};
-
 /**
  * ServicesListImageOverlayGrid - An asymmetric layout with introductory text on the left and a 5-service grid on the right.
  * Services display as image cards with gradient overlays, titles, and descriptions that appear on hover.
@@ -176,9 +138,9 @@ const defaultPrimaryAction: ActionConfig = {
 export function ServicesListImageOverlayGrid({
   heading = "Our Services",
   description = "We offer a comprehensive range of digital services to help your business grow and succeed in the modern marketplace.",
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   actionsSlot,
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

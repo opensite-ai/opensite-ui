@@ -119,33 +119,6 @@ export interface NavbarStickyCompactProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMenu: MenuItem[] = [
-  {
-    title: "Features",
-    items: [
-      { title: "Analytics", url: "#", icon: "lucide/bar-chart-3" },
-      { title: "Automation", url: "#", icon: "lucide/zap" },
-      { title: "Integrations", url: "#", icon: "lucide/puzzle" },
-      { title: "Security", url: "#", icon: "lucide/shield" },
-    ],
-  },
-  {
-    title: "Solutions",
-    items: [
-      { title: "For Teams", url: "#", icon: "lucide/users" },
-      { title: "For Enterprise", url: "#", icon: "lucide/building-2" },
-      { title: "For Startups", url: "#", icon: "lucide/rocket" },
-    ],
-  },
-  { title: "Pricing", url: "#" },
-  { title: "Docs", url: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Log in", href: "#", variant: "ghost", size: "sm" },
-  { label: "Sign up", href: "#", variant: "default", size: "sm" },
-];
-
 /**
  * NavbarStickyCompact - A compact sticky navigation bar that shrinks on scroll.
  *
@@ -164,9 +137,9 @@ export const NavbarStickyCompact = ({
   },
   logoSlot,
   logoClassName,
-  menu = defaultMenu,
+  menu,
   menuSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   className,
   containerClassName,

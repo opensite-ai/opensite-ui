@@ -118,99 +118,6 @@ export interface ComparisonAiModelsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultModels = {
-  modelA: {
-    name: "GPT-4o",
-    icon: blockBrandedIconsAndPlaceholders.openaiIcon,
-    iconAlt: "OpenAI",
-    summary: [
-      "Response latency: 1.2s (best)",
-      "Code accuracy: 94% (neutral)",
-      "Reasoning score: 91/100 (neutral)",
-      "Input cost: $3.50/1M tokens (worst)",
-      "Rate limit: 50K RPM (neutral)",
-    ],
-    hoverColor: "red",
-  },
-  modelB: {
-    name: "Claude 3.5",
-    icon: blockBrandedIconsAndPlaceholders.claudeIcon,
-    iconAlt: "Claude",
-    summary: [
-      "Response latency: 1.8s (neutral)",
-      "Code accuracy: 95% (best)",
-      "Reasoning score: 92/100 (best)",
-      "Input cost: $3.00/1M tokens (neutral)",
-      "Rate limit: 40K RPM (worst)",
-    ],
-    hoverColor: "blue",
-  },
-  modelC: {
-    name: "Gemini Pro 1.5",
-    icon: blockBrandedIconsAndPlaceholders.geminiIcon,
-    iconAlt: "Gemini",
-    summary: [
-      "Context window: 2M tokens (best)",
-      "Input cost: $1.25/1M tokens (best)",
-      "Output cost: $5.00/1M tokens (best)",
-      "Rate limit: 60K RPM (best)",
-      "Free tier: Generous (best)",
-    ],
-    hoverColor: "green",
-  },
-};
-
-const defaultComparisonData: AiModelComparisonRow[] = [
-  {
-    metric: "Context Window",
-    modelA: { value: "128K tokens", status: "worst" },
-    modelB: { value: "200K tokens", status: "neutral" },
-    modelC: { value: "2M tokens", status: "best" },
-  },
-  {
-    metric: "Response Speed",
-    modelA: { value: "1.2 sec", status: "best" },
-    modelB: { value: "1.8 sec", status: "neutral" },
-    modelC: { value: "2.2 sec", status: "worst" },
-  },
-  {
-    metric: "Code Generation",
-    modelA: { value: "94%", status: "neutral" },
-    modelB: { value: "95%", status: "best" },
-    modelC: { value: "88%", status: "worst" },
-  },
-  {
-    metric: "Reasoning Score",
-    modelA: { value: "91/100", status: "neutral" },
-    modelB: { value: "92/100", status: "best" },
-    modelC: { value: "86/100", status: "worst" },
-  },
-  {
-    metric: "Input Tokens",
-    modelA: { value: "$3.50/1M", status: "worst" },
-    modelB: { value: "$3.00/1M", status: "neutral" },
-    modelC: { value: "$1.25/1M", status: "best" },
-  },
-  {
-    metric: "Output Tokens",
-    modelA: { value: "$14.00/1M", status: "neutral" },
-    modelB: { value: "$15.00/1M", status: "worst" },
-    modelC: { value: "$5.00/1M", status: "best" },
-  },
-  {
-    metric: "Rate Limit",
-    modelA: { value: "50K RPM", status: "neutral" },
-    modelB: { value: "40K RPM", status: "worst" },
-    modelC: { value: "60K RPM", status: "best" },
-  },
-  {
-    metric: "Free Tier",
-    modelA: { value: "Very Limited", status: "worst" },
-    modelB: { value: "Limited", status: "neutral" },
-    modelC: { value: "Generous", status: "best" },
-  },
-];
-
 /**
  * ComparisonAiModels - AI model comparison table with hover effects
  *
@@ -226,8 +133,8 @@ const defaultComparisonData: AiModelComparisonRow[] = [
 export function ComparisonAiModels({
   heading,
   description,
-  models = defaultModels,
-  comparisonData = defaultComparisonData,
+  models,
+  comparisonData,
   tableSlot,
   analysisSlot,
   className,

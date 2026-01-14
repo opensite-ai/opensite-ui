@@ -80,28 +80,12 @@ export interface HeroBadgeImageSplitProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Discover all components",
-    href: "#",
-    variant: "default",
-    className: "w-full sm:w-auto",
-  },
-  {
-    label: "View on GitHub",
-    href: "#",
-    variant: "outline",
-    className: "w-full sm:w-auto",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-];
-
 export function HeroBadgeImageSplit({
   badge = "Your Website Builder",
   badgeIcon = <DynamicIcon name="lucide/arrow-up-right" size={16} className="ml-2" />,
   heading = "Blocks Built With React & Tailwind",
   description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = imagePlaceholders[0],
   imageAlt = "Hero section demo image showing interface components",

@@ -185,11 +185,6 @@ export interface OfferModalMembershipImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[0],
-  alt: "Promotional offer image",
-};
-
 /**
  * OfferModalMembershipImage - A visually rich membership offer modal featuring a header image,
  * overline text, compelling title, email signup form with icon, and descriptive footer text.
@@ -211,7 +206,7 @@ export function OfferModalMembershipImage({
   overline = "Treat Yourself!",
   title = "Become a Member & Enjoy 20% Off",
   description = "Sign up to receive our latest updates — you can unsubscribe whenever you like.",
-  image = defaultImage,
+  image,
   imageSlot,
   emailPlaceholder = "Email Address",
   buttonText = "Get Offer",

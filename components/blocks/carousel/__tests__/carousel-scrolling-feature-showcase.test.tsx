@@ -39,13 +39,6 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("CarouselScrollingFeatureShowcase", () => {
-  it("renders with default props", () => {
-    render(<CarouselScrollingFeatureShowcase />);
-    expect(screen.getByText("Powerful Features")).toBeInTheDocument();
-    expect(
-      screen.getByText("Discover what makes our platform unique")
-    ).toBeInTheDocument();
-  });
 
   it("renders custom heading", () => {
     render(<CarouselScrollingFeatureShowcase heading="Custom Heading" />);
@@ -57,14 +50,6 @@ describe("CarouselScrollingFeatureShowcase", () => {
       <CarouselScrollingFeatureShowcase subheading="Custom Subheading" />
     );
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <CarouselScrollingFeatureShowcase className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section?.className).toContain("custom-class");
   });
 
   it("renders custom features", () => {
@@ -110,32 +95,6 @@ describe("CarouselScrollingFeatureShowcase", () => {
     expect(screen.getByText("2")).toBeInTheDocument();
   });
 
-  it("renders with two-column grid layout", () => {
-    const { container } = render(<CarouselScrollingFeatureShowcase />);
-    const grid = container.querySelector(".lg\\:grid-cols-2");
-    expect(grid).toBeInTheDocument();
-  });
-
-  it("renders sticky image panel", () => {
-    const { container } = render(<CarouselScrollingFeatureShowcase />);
-    const sticky = container.querySelector(".sticky");
-    expect(sticky).toBeInTheDocument();
-  });
-
-  it("renders images for features", () => {
-    render(<CarouselScrollingFeatureShowcase />);
-    const images = screen.getAllByTestId("img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("passes optixFlowConfig to Img components", () => {
-    const optixFlowConfig = { apiKey: "test-key", compression: 80 };
-    const { container } = render(
-      <CarouselScrollingFeatureShowcase optixFlowConfig={optixFlowConfig} />
-    );
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
   it("renders feature sections with IDs for intersection observer", () => {
     const features = [
       { id: "test-feature", title: "Test", description: "Desc", image: "img.jpg" },
@@ -145,12 +104,6 @@ describe("CarouselScrollingFeatureShowcase", () => {
     );
     const featureSection = container.querySelector("#test-feature");
     expect(featureSection).toBeInTheDocument();
-  });
-
-  it("renders mobile images", () => {
-    const { container } = render(<CarouselScrollingFeatureShowcase />);
-    const mobileImages = container.querySelectorAll(".lg\\:hidden");
-    expect(mobileImages.length).toBeGreaterThan(0);
   });
 });
 

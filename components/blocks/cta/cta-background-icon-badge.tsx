@@ -88,11 +88,6 @@ export interface CtaBackgroundIconBadgeProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
 /**
  * CtaBackgroundIconBadge - A full-width CTA with background image, icon badge,
  * heading, and action buttons. The icon badge adds visual emphasis to the key message.
@@ -117,7 +112,7 @@ export function CtaBackgroundIconBadge({
   badgeIcon,
   badgeText = "Faster",
   heading = "Build your website faster.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[5],
   className,

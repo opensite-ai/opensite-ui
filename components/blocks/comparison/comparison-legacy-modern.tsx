@@ -85,28 +85,6 @@ export interface ComparisonLegacyModernProps {
   modernColumnClassName?: string;
 }
 
-const defaultLegacyFeatures: LegacyFeature[] = [
-  { text: "One-size-fits-all project tools with generic workflows." },
-  { text: "Clunky, overcomplicated, and hard to adopt." },
-  { text: "Scattered data stitched together with brittle integrations." },
-  { text: "Minimal automation leading to manual reporting." },
-  { text: "Slow, risky migrations that disrupt delivery." },
-  { text: "Aging tech with limited cloud and mobile support." },
-  { text: "High price tags without measurable outcomes." },
-  { text: "Surprise fees for training, support, and integrations." },
-];
-
-const defaultModernFeatures: ModernFeature[] = [
-  { emoji: "🧭", text: "Built for modern product and engineering teams." },
-  { emoji: "💡", text: "Opinionated defaults with a simple, modern UX." },
-  { emoji: "📊", text: "Unified workspace as your single source of truth." },
-  { emoji: "⚡", text: "Automation and AI that cut busywork." },
-  { emoji: "🧰", text: "Guided, low-risk migrations measured in weeks." },
-  { emoji: "☁️", text: "Cloud-native, secure, and always up to date." },
-  { emoji: "📈", text: "Improves velocity with a clear, provable ROI." },
-  { emoji: "💬", text: "Straightforward, transparent pricing." },
-];
-
 /**
  * ComparisonLegacyModern - Legacy vs Modern features split layout
  *
@@ -123,9 +101,9 @@ export function ComparisonLegacyModern({
   headingHighlight = "Moving to Modern Tools",
   description = "Old tools slow your team down and don't help you ship faster. Modern tools help you ship faster.",
   legacyTitle = "Legacy Features",
-  legacyFeatures = defaultLegacyFeatures,
+  legacyFeatures,
   modernTitle = "New Features",
-  modernFeatures = defaultModernFeatures,
+  modernFeatures,
   columnsSlot,
   className,
   containerClassName,

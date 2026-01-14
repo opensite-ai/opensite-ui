@@ -128,45 +128,6 @@ export interface FooterAccordionSocialProps {
   onError?: (error: Error) => void;
 }
 
-const defaultFooterLinks: FooterAccordionSocialSection[] = [
-  {
-    title: "Shop",
-    id: "shop",
-    items: [
-      { text: "New Arrivals", link: "#" },
-      { text: "Best Sellers", link: "#" },
-      { text: "Sale Items", link: "#" },
-      { text: "Gift Cards", link: "#" },
-    ],
-  },
-  {
-    title: "Support",
-    id: "support",
-    items: [
-      { text: "Contact Us", link: "#" },
-      { text: "FAQs", link: "#" },
-      { text: "Shipping Info", link: "#" },
-      { text: "Returns", link: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    id: "company",
-    items: [
-      { text: "About Us", link: "#" },
-      { text: "Careers", link: "#" },
-      { text: "Press", link: "#" },
-      { text: "Email us at:", type: "email", email: "hello@company.com", link: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterAccordionSocialMediaLink[] = [
-  { icon: "simple-icons/facebook", link: "#", label: "Facebook" },
-  { icon: "simple-icons/x", link: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/instagram", link: "#", label: "Instagram" },
-];
-
 /**
  * Footer Accordion Social - A footer with newsletter, accordion navigation links,
  * and social media icons with responsive accordion behavior.
@@ -189,8 +150,8 @@ const defaultSocialLinks: FooterAccordionSocialMediaLink[] = [
 export function FooterAccordionSocial({
   newsletterTitle = "Stay in the loop",
   newsletterDescription = "Subscribe to our newsletter for exclusive offers, new arrivals, and style inspiration delivered straight to your inbox.",
-  footerLinks = defaultFooterLinks,
-  socialLinks = defaultSocialLinks,
+  footerLinks,
+  socialLinks,
   logo = {
     light: logoPlaceholders.darkHorizontalLogo,
     dark: logoPlaceholders.lightHorizontalLogo,

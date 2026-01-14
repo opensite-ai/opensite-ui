@@ -182,25 +182,6 @@ export interface CaseStudyStatsMetricsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultBreadcrumbs: BreadcrumbItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Components" },
-];
-
-const defaultStats: StatItem[] = [
-  { value: "19%", label: "increase in user engagement rate" },
-  { value: "28%", label: "growth in customer retention rate" },
-  { value: "72%", label: "satisfaction rate among users and customers" },
-  { value: ">85%", label: "positive feedback received from users" },
-];
-
-const defaultCtaAction: ActionConfig = {
-  label: "Contact us",
-  href: "#",
-  variant: "default",
-  size: "sm",
-};
-
 const defaultContent = (
   <>
     <h2>How the Tax System Works</h2>
@@ -313,16 +294,16 @@ const defaultContent = (
  * ```
  */
 export function CaseStudyStatsMetrics({
-  breadcrumbs = defaultBreadcrumbs,
+  breadcrumbs,
   breadcrumbsSlot,
   title = "Boosting System Reliability by 125% with AI Monitoring",
   subtitle = "In a kingdom far away, where laughter once flowed freely, a peculiar tale unfolded about a king who decided to tax the very essence of joy itself - jokes and jest.",
   heroImageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   heroImageAlt = "Case study hero image",
   heroMediaSlot,
-  stats = defaultStats,
+  stats,
   statsSlot,
-  content = defaultContent,
+  content,
   contentSlot,
   companyLogoSrc = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo3,
   companyLogoAlt = "Company logo",
@@ -333,7 +314,7 @@ export function CaseStudyStatsMetrics({
   solutionIcon = "lucide/git-branch",
   solutionHref = "#",
   solutionSlot,
-  ctaAction = defaultCtaAction,
+  ctaAction,
   ctaSlot,
   ctaLabel = "Want to learn more?",
   sidebarSlot,

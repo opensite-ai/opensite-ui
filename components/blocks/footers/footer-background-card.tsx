@@ -134,38 +134,6 @@ export interface FooterBackgroundCardProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMenuItems: FooterBackgroundCardMenuItem[] = [
-  {
-    title: "Portfolio",
-    links: [
-      { text: "Overview", url: "#" },
-      { text: "Projects", url: "#" },
-      { text: "Pricing", url: "#" },
-      { text: "About", url: "#" },
-    ],
-  },
-  {
-    title: "Social",
-    links: [
-      { text: "Twitter", url: "#" },
-      { text: "Instagram", url: "#" },
-      { text: "LinkedIn", url: "#" },
-    ],
-  },
-];
-
-const defaultContact: FooterBackgroundCardContact = {
-  phone: "+1 (555) 123-4567",
-  email: "hello@opensite.ai",
-  location: "NYC",
-  timezone: "EST",
-};
-
-const defaultBottomLinks = [
-  { text: "Terms and Conditions", url: "#" },
-  { text: "Privacy Policy", url: "#" },
-];
-
 /**
  * FooterBackgroundCard - A footer with background image and floating contact card.
  *
@@ -188,12 +156,12 @@ export function FooterBackgroundCard({
   ctaText = "Schedule a call",
   ctaUrl = "#",
   contactTitle = "Contact",
-  contact = defaultContact,
-  menuItems = defaultMenuItems,
+  contact,
+  menuItems,
   copyright,
   attributionText = "AI Website and Automation Platform by Opensite",
   attributionHref = "https://opensite.ai",
-  bottomLinks = defaultBottomLinks,
+  bottomLinks,
   className,
   cardClassName,
   gridClassName,

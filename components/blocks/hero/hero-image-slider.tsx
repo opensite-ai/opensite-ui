@@ -113,45 +113,6 @@ export interface HeroImageSliderProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: ImageSliderImage[] = [
-  {
-    src: imagePlaceholders[12],
-    alt: "Workspace with collaboration tools",
-  },
-  {
-    src: imagePlaceholders[28],
-    alt: "Team reviewing design boards",
-  },
-  {
-    src: imagePlaceholders[43],
-    alt: "Creative studio lighting and gear",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Start a demo",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    className: "w-full sm:w-auto",
-  },
-  {
-    label: "View case studies",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-    className: "w-full sm:w-auto",
-    iconAfter: (
-      <DynamicIcon
-        name="lucide/arrow-right"
-        size={16}
-        className="ml-2"
-      />
-    ),
-  },
-];
-
 /**
  * HeroImageSlider - A hero layout that layers headline content over
  * a rotating image slider, ideal for immersive visual storytelling.
@@ -161,10 +122,10 @@ export function HeroImageSlider({
   heading = "A hero slider that keeps your message front and center",
   description =
     "Rotate high-impact visuals while maintaining a clear narrative and call to action for every audience.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   contentSlot,
-  images = defaultImages,
+  images,
   autoplay = true,
   autoplayIntervalMs = 6000,
   direction = "up",

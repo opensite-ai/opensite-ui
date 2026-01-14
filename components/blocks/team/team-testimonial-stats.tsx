@@ -139,35 +139,6 @@ export interface TeamTestimonialStatsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamTestimonialStatsMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    testimonial:
-      "Building great products with an amazing team is what drives me every day.",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    stats: {
-      years: "12+",
-      projects: "140+",
-      clients: "50+",
-    },
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    testimonial:
-      "Design is not just what it looks like, it's how it works. I strive to make both perfect.",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    stats: {
-      years: "8+",
-      projects: "200+",
-      awards: "15",
-    },
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamTestimonialStats - Split cards with testimonials and achievement stats
  *
@@ -198,7 +169,7 @@ const defaultMembers: TeamTestimonialStatsMember[] = [
 export function TeamTestimonialStats({
   heading = "Meet our leadership",
   description = "The talented individuals guiding our vision",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

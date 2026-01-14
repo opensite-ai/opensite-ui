@@ -64,25 +64,12 @@ export interface HeroInnovationImageGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Started for free",
-  href: "#",
-  variant: "default",
-  className: "group flex h-fit w-fit items-center gap-2 rounded-full px-8 py-3",
-};
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[98], alt: "" },
-  { src: imagePlaceholders[99], alt: "" },
-  { src: imagePlaceholders[100], alt: "" },
-];
-
 export function HeroInnovationImageGrid({
   heading = "Uncover our vision for a more innovative, better future",
   description = "Be part of our journey to innovate and develop solutions that enrich lives and fuel progress.",
-  action = defaultAction,
+  action,
   actionSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

@@ -9,17 +9,6 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ContactCard", () => {
-  it("renders with default props", () => {
-    const { container } = render(<ContactCard />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<ContactCard className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 
   it("renders custom heading", () => {
     render(<ContactCard heading="Custom Heading" />);
@@ -35,10 +24,6 @@ describe("ContactCard", () => {
     render(<ContactCard buttonText="Custom Button" />);
     expect(screen.getByText("Custom Button")).toBeInTheDocument();
   });
-
-  it("renders form with submit button", () => {
-    render(<ContactCard />);
-    const submitButton = screen.getByRole("button", { name: /send message/i });
     expect(submitButton).toBeInTheDocument();
   });
 });

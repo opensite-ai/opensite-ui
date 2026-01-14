@@ -42,26 +42,4 @@ describe("AboutStoryExpertise", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default heading", () => {
-    render(<AboutStoryExpertise />);
-    expect(
-      screen.getByText("Built on trust, powered by OpenSite AI")
-    ).toBeInTheDocument();
-  });
-
-  it("renders expertise heading", () => {
-    render(<AboutStoryExpertise />);
-    expect(
-      screen.getByText("Why teams choose OpenSite AI")
-    ).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <AboutStoryExpertise className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

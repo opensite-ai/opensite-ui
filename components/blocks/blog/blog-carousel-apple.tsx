@@ -107,44 +107,6 @@ export interface BlogCarouselAppleProps {
   cardClassName?: string;
 }
 
-const defaultPosts: BlogCarouselApplePost[] = [
-  {
-    image: imagePlaceholders[0],
-    title: "The Future of Web Design",
-    category: "Design Trends",
-    url: "/blog/future-of-web-design",
-    excerpt: "Explore the cutting-edge trends shaping modern web design and how to implement them in your projects.",
-  },
-  {
-    image: imagePlaceholders[1],
-    title: "Building Scalable Applications",
-    category: "Development",
-    url: "/blog/scalable-applications",
-    excerpt: "Learn best practices for building applications that scale effortlessly with your growing user base.",
-  },
-  {
-    image: imagePlaceholders[2],
-    title: "UX Principles That Matter",
-    category: "User Experience",
-    url: "/blog/ux-principles",
-    excerpt: "Discover the fundamental UX principles that make digital products intuitive and delightful to use.",
-  },
-  {
-    image: imagePlaceholders[3],
-    title: "Modern CSS Techniques",
-    category: "Frontend",
-    url: "/blog/modern-css",
-    excerpt: "Master advanced CSS features like Grid, Flexbox, and custom properties to create stunning layouts.",
-  },
-  {
-    image: imagePlaceholders[4],
-    title: "Performance Optimization Guide",
-    category: "Performance",
-    url: "/blog/performance-optimization",
-    excerpt: "Comprehensive guide to optimizing web performance for lightning-fast user experiences.",
-  },
-];
-
 /**
  * BlogCarouselApple - An eye-catching horizontal blog post carousel featuring
  * Apple-style cards with gradient overlays and smooth animations. Each card
@@ -165,7 +127,7 @@ const defaultPosts: BlogCarouselApplePost[] = [
 export function BlogCarouselApple({
   title = "Latest Articles",
   subtitle = "From the Blog",
-  posts = defaultPosts,
+  posts,
   actionType = "link",
   onCardClick,
   enableLayoutAnimations = false,

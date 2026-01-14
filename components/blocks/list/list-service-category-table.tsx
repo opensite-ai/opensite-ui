@@ -117,72 +117,6 @@ export interface ListServiceCategoryTableProps {
   patternOpacity?: number;
 }
 
-const defaultItems: ListServiceCategoryItem[] = [
-  {
-    icon: "lucide/shield",
-    category: "Security",
-    description:
-      "Enterprise security solution providing advanced threat protection and monitoring",
-    year: 2024,
-    offer: "Free",
-    segment: "Business",
-  },
-  {
-    icon: "lucide/cloud",
-    category: "Technology",
-    description:
-      "Cloud-based platform offering scalable solutions for modern businesses",
-    year: 2023,
-    offer: "Professional",
-    segment: "Business",
-  },
-  {
-    icon: "lucide/briefcase",
-    category: "Services",
-    description:
-      "Comprehensive business management suite for growing organizations",
-    year: 2022,
-    offer: "Enterprise",
-    segment: "Enterprise",
-  },
-  {
-    icon: "lucide/bar-chart-3",
-    category: "Analytics",
-    description:
-      "Real-time data analytics platform with customizable dashboards and reporting",
-    year: 2024,
-    offer: "Professional",
-    segment: "Business",
-  },
-  {
-    icon: "lucide/shield",
-    category: "Security",
-    description:
-      "Advanced endpoint protection system with AI-powered threat detection",
-    year: 2023,
-    offer: "Professional",
-    segment: "Enterprise",
-  },
-  {
-    icon: "lucide/cloud",
-    category: "Technology",
-    description:
-      "Serverless computing platform with automatic scaling capabilities",
-    year: 2024,
-    offer: "Enterprise",
-    segment: "Business",
-  },
-  {
-    icon: "lucide/briefcase",
-    category: "Services",
-    description:
-      "Professional consulting services for digital transformation initiatives",
-    year: 2023,
-    offer: "Free",
-    segment: "Business",
-  },
-];
-
 /**
  * ListServiceCategoryTable - A responsive table displaying service categories with icons,
  * descriptions, years, offer types, and market segments. Features color-coded offer indicators
@@ -212,7 +146,7 @@ export function ListServiceCategoryTable({
   headingClassName,
   description,
   descriptionClassName,
-  items = defaultItems,
+  items,
   itemsSlot,
   tableWrapperClassName,
   tableClassName,

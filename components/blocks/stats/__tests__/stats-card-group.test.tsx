@@ -24,26 +24,4 @@ describe("StatsCardGroup", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<StatsCardGroup />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<StatsCardGroup className="custom-class" />);
-    expect(container.firstChild).toHaveClass("custom-class");
-  });
-
-  it("renders icons using DynamicIcon", () => {
-    render(<StatsCardGroup />);
-    const icons = screen.getAllByTestId("mock-icon");
-    expect(icons.length).toBeGreaterThan(0);
-  });
-
-  it("renders avatar images", () => {
-    render(<StatsCardGroup />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
 });

@@ -125,41 +125,6 @@ export interface TeamSocialCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamSocialCardsMember[] = [
-  {
-    id: "member-1",
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    bio: "Former Google PM with 10+ years building products that millions use daily.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-2",
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    bio: "Ex-Meta engineer who led teams building infrastructure that served billions.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    bio: "Design leader with experience at Airbnb and Figma.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-  {
-    id: "member-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    bio: "Built and scaled engineering teams at Stripe and Uber.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    social: { github: "#", twitter: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamSocialCards - Card-based team grid with bios and social links
  *
@@ -190,7 +155,7 @@ const defaultMembers: TeamSocialCardsMember[] = [
 export function TeamSocialCards({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

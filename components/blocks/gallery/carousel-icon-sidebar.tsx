@@ -130,30 +130,6 @@ export interface CarouselIconSidebarProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CarouselIconSidebarItem[] = [
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    title: "Elegant Design",
-    description:
-      "Discover our beautifully crafted designs that blend style and functionality.",
-    icon: "lucide/palette",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    title: "Premium Quality",
-    description:
-      "Experience the finest materials and craftsmanship in every piece.",
-    icon: "lucide/star",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    title: "Modern Aesthetics",
-    description:
-      "Stay ahead of the curve with our contemporary and trendy collections.",
-    icon: "lucide/sparkles",
-  },
-];
-
 /**
  * CarouselIconSidebar displays a carousel with a dynamic icon sidebar panel.
  *
@@ -178,7 +154,7 @@ const defaultItems: CarouselIconSidebarItem[] = [
  * ```
  */
 export function CarouselIconSidebar({
-  items = defaultItems,
+  items,
   itemsSlot,
   sidebarSlot,
   className,

@@ -27,16 +27,6 @@ describe("ProcessRoadmapTimeline", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    render(<ProcessRoadmapTimeline />);
-    expect(screen.getByText("Product Roadmap")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Our journey from concept to completion, with clear milestones and deliverables."
-      )
-    ).toBeInTheDocument();
-  });
-
   it("renders custom title and description", () => {
     render(
       <ProcessRoadmapTimeline
@@ -86,50 +76,9 @@ describe("ProcessRoadmapTimeline", () => {
     expect(screen.getByText("Feature F")).toBeInTheDocument();
   });
 
-  it("applies custom className", () => {
-    const { container } = render(
-      <ProcessRoadmapTimeline className="custom-class" />
-    );
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("custom-class");
-  });
-
-  it("applies default section padding", () => {
-    const { container } = render(<ProcessRoadmapTimeline />);
-    const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("py-32");
-  });
-
-  it("renders timeline line", () => {
-    const { container } = render(<ProcessRoadmapTimeline />);
-    const timelineLine = container.querySelector(".bg-border.w-px");
-    expect(timelineLine).toBeInTheDocument();
-  });
-
   it("renders with empty milestones array", () => {
     const { container } = render(<ProcessRoadmapTimeline milestones={[]} />);
     expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it("renders default milestones when no milestones prop provided", () => {
-    render(<ProcessRoadmapTimeline />);
-    expect(screen.getByText("Foundation")).toBeInTheDocument();
-    expect(screen.getByText("Core Features")).toBeInTheDocument();
-    expect(screen.getByText("Enhancement Phase")).toBeInTheDocument();
-    expect(screen.getByText("Scale & Optimize")).toBeInTheDocument();
-    expect(screen.getByText("Enterprise Features")).toBeInTheDocument();
-  });
-
-  it("renders header section centered", () => {
-    const { container } = render(<ProcessRoadmapTimeline />);
-    const header = container.querySelector(".text-center");
-    expect(header).toBeInTheDocument();
-  });
-
-  it("renders container with proper structure", () => {
-    const { container } = render(<ProcessRoadmapTimeline />);
-    const containerDiv = container.querySelector(".max-w-7xl");
-    expect(containerDiv).toBeInTheDocument();
   });
 
   it("renders milestone cards with border and shadow", () => {
@@ -184,11 +133,5 @@ describe("ProcessRoadmapTimeline", () => {
     ];
     render(<ProcessRoadmapTimeline milestones={milestonesWithoutFeatures} />);
     expect(screen.getByText("Milestone 1")).toBeInTheDocument();
-  });
-
-  it("renders max width container for timeline", () => {
-    const { container } = render(<ProcessRoadmapTimeline />);
-    const maxWidthContainer = container.querySelector(".max-w-4xl");
-    expect(maxWidthContainer).toBeInTheDocument();
   });
 });

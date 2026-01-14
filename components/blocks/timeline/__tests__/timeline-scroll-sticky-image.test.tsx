@@ -35,31 +35,11 @@ describe("TimelineScrollStickyImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<TimelineScrollStickyImage />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <TimelineScrollStickyImage className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
   it("renders custom heading", () => {
     const { getByText } = render(
       <TimelineScrollStickyImage heading="Custom Heading" />
     );
     expect(getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders default sections", () => {
-    const { container } = render(<TimelineScrollStickyImage />);
-    const images = container.querySelectorAll('[data-testid="mock-img"]');
-    expect(images.length).toBeGreaterThan(0);
   });
 
   it("renders custom sections", () => {

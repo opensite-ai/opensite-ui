@@ -57,26 +57,11 @@ export interface HeroPresentationPlatformVideoProps {
   videoClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Try it firsthand →",
-    href: "#",
-    variant: "default",
-    className: "h-fit items-center gap-1 rounded-full px-6 py-3",
-  },
-  {
-    label: "Schedule a demo",
-    href: "#",
-    variant: "secondary",
-    className: "h-fit rounded-full px-6 py-3",
-  },
-];
-
 export function HeroPresentationPlatformVideo({
   subtitle = "Virtual Engagement Maximized & AI-Powered Content Transformation",
   heading = "Presentation Platform for Marketing Professionals",
   description = "Effortlessly Create, Deliver, and Reimagine All-Hands Corporate Meetings",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   videoSrc = videoPlaceholders[0],
   videoSlot,

@@ -186,107 +186,6 @@ export interface ResourceListFeaturedGridProps {
   patternOpacity?: number;
 }
 
-const defaultCategories: ResourceListFeaturedGridCategory[] = [
-  { value: "All", label: "All" },
-  { value: "Data", label: "Data" },
-  { value: "AI", label: "AI" },
-  { value: "Security", label: "Security" },
-  { value: "News", label: "News" },
-];
-
-const defaultFeaturedArticle: ResourceListFeaturedGridFeaturedArticle = {
-  title: "Getting Started With Modern Digital Platforms and Infrastructure",
-  imageUrl: blockBrandedIconsAndPlaceholders.placeholderDark1,
-  date: "Dec 4, 2024",
-  authors: [
-    blockBrandedIconsAndPlaceholders.avatar1,
-    blockBrandedIconsAndPlaceholders.avatar2,
-    blockBrandedIconsAndPlaceholders.avatar3,
-  ],
-  link: "#",
-  badge: "Featured Article",
-};
-
-const defaultSecondaryArticles: ResourceListFeaturedGridFeaturedArticle[] = [
-  {
-    title: "Streamlining Business Operations Through Effective Workflow Automation",
-    imageUrl: blockBrandedIconsAndPlaceholders.placeholderDark2,
-    date: "Feb 12, 2024",
-    authors: [blockBrandedIconsAndPlaceholders.avatar1],
-    link: "#",
-    badge: "Latest",
-  },
-  {
-    title: "Boosting Overall Efficiency: How We Significantly Improved Search Performance",
-    imageUrl: blockBrandedIconsAndPlaceholders.placeholderDark3,
-    date: "Apr 1, 2025",
-    authors: [blockBrandedIconsAndPlaceholders.avatar1],
-    link: "#",
-    badge: "Latest",
-  },
-];
-
-const defaultArticles: ResourceListFeaturedGridArticle[] = [
-  {
-    title: "Exploring the Depths of Modern Data Analytics Techniques and Applications",
-    category: "Data",
-    date: "Dec 4, 2024",
-    author: [
-      blockBrandedIconsAndPlaceholders.avatar1,
-      blockBrandedIconsAndPlaceholders.avatar2,
-      blockBrandedIconsAndPlaceholders.avatar3,
-    ],
-    link: "#",
-  },
-  {
-    title: "Navigating the Complex Landscape of Artificial Intelligence and Advanced Machine Learning",
-    category: "AI",
-    date: "Dec 3, 2024",
-    author: [
-      blockBrandedIconsAndPlaceholders.avatar2,
-      blockBrandedIconsAndPlaceholders.avatar3,
-    ],
-    link: "#",
-  },
-  {
-    title: "Fortifying Digital Defenses: Implementing Advanced Cybersecurity Strategies for Modern Enterprises",
-    category: "Security",
-    date: "Dec 2, 2024",
-    author: [
-      blockBrandedIconsAndPlaceholders.avatar1,
-      blockBrandedIconsAndPlaceholders.avatar3,
-    ],
-    link: "#",
-  },
-  {
-    title: "Understanding and Exploring Distributed Computing Architectures and Concepts",
-    category: "Data",
-    date: "Dec 1, 2024",
-    author: [blockBrandedIconsAndPlaceholders.avatar2],
-    link: "#",
-  },
-  {
-    title: "Recent Significant Scientific Breakthroughs in Advanced Quantum Technology Research",
-    category: "News",
-    date: "Nov 30, 2024",
-    author: [
-      blockBrandedIconsAndPlaceholders.avatar1,
-      blockBrandedIconsAndPlaceholders.avatar2,
-    ],
-    link: "#",
-  },
-  {
-    title: "Applying Practical Machine Learning Techniques in Real-World Business Scenarios and Use Cases",
-    category: "AI",
-    date: "Nov 29, 2024",
-    author: [
-      blockBrandedIconsAndPlaceholders.avatar3,
-      blockBrandedIconsAndPlaceholders.avatar1,
-    ],
-    link: "#",
-  },
-];
-
 /**
  * ResourceListFeaturedGrid - A visually rich resource listing with featured article hero,
  * secondary article cards, and a tabbed category filter for browsing articles.
@@ -308,16 +207,16 @@ export function ResourceListFeaturedGrid({
   titleClassName,
   description = "Explore our thoughts and perspectives on key topics.",
   descriptionClassName,
-  featuredArticle = defaultFeaturedArticle,
+  featuredArticle,
   featuredArticleSlot,
   featuredArticleClassName,
-  secondaryArticles = defaultSecondaryArticles,
+  secondaryArticles,
   secondaryArticlesSlot,
   secondaryArticlesClassName,
-  articles = defaultArticles,
+  articles,
   articlesSlot,
   articlesClassName,
-  categories = defaultCategories,
+  categories,
   categoriesClassName,
   latestUpdatesTitle = "Latest updates",
   latestUpdatesTitleClassName,

@@ -23,15 +23,6 @@ describe("ListServiceCategoryTable", () => {
     },
   ];
 
-  it("renders with default items", () => {
-    render(<ListServiceCategoryTable />);
-    expect(screen.getByText("Category")).toBeInTheDocument();
-    expect(screen.getByText("Description")).toBeInTheDocument();
-    expect(screen.getByText("Year")).toBeInTheDocument();
-    expect(screen.getByText("Offer")).toBeInTheDocument();
-    expect(screen.getByText("Segment")).toBeInTheDocument();
-  });
-
   it("renders custom items correctly", () => {
     render(<ListServiceCategoryTable items={mockItems} />);
     expect(screen.getAllByText("Security").length).toBeGreaterThan(0);

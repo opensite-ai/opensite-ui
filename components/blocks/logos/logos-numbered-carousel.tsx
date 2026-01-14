@@ -107,41 +107,6 @@ export interface LogosNumberedCarouselProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogos: LogosNumberedCarouselLogoItem[] = [
-  {
-    name: "Company 1",
-    logo: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
-  },
-  {
-    name: "Company 2",
-    logo: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
-  },
-  {
-    name: "Company 3",
-    logo: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
-  },
-  {
-    name: "Company 4",
-    logo: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
-  },
-  {
-    name: "Company 5",
-    logo: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
-  },
-  {
-    name: "Company 6",
-    logo: "https://cdn.ing/assets/files/record/286249/ff7m4wdw0zefj7d96v4ajmljuifc",
-  },
-  {
-    name: "Company 7",
-    logo: "https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb",
-  },
-  {
-    name: "Company 8",
-    logo: "https://cdn.ing/assets/files/record/286251/c64yb2c255uig6vpe4gdlnten7rv",
-  },
-];
-
 /**
  * LogosNumberedCarousel - A numbered logo carousel with headline and company count.
  * Features grayscale logos with hover effects and numbered indicators.
@@ -153,7 +118,7 @@ export function LogosNumberedCarousel({
   headerClassName,
   counterSuffix = "companies trust us",
   counterClassName,
-  logos = defaultLogos,
+  logos,
   logosSlot,
   logosClassName,
   carouselClassName,

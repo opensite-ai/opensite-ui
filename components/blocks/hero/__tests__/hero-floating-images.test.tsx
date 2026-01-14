@@ -16,19 +16,4 @@ describe("HeroFloatingImages", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders default title", () => {
-    render(<HeroFloatingImages />);
-    expect(
-      screen.getByText("Moments curated with OpenSite AI care")
-    ).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(
-      <HeroFloatingImages className="custom-class" />
-    );
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
 });

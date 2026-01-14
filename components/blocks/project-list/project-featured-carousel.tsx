@@ -94,59 +94,6 @@ export interface ProjectFeaturedCarouselProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectFeaturedCarouselItem[] = [
-  {
-    title: "E-commerce Website Redesign",
-    client: "Fashion Boutique",
-    year: "2023",
-    category: "Web Design",
-    description:
-      "Complete overhaul of an online fashion store, focusing on improved user experience, mobile responsiveness, and conversion optimization.",
-    image: imagePlaceholders[14],
-    link: "#",
-  },
-  {
-    title: "Mobile Banking App",
-    client: "Financial Services Inc.",
-    year: "2022",
-    category: "App Development",
-    description:
-      "Streamlined banking application designed with security and ease of use at its core, featuring biometric authentication and personalized insights.",
-    image: imagePlaceholders[15],
-    link: "#",
-  },
-  {
-    title: "Corporate Identity Refresh",
-    client: "Green Technologies",
-    year: "2023",
-    category: "Branding",
-    description:
-      "Comprehensive brand refresh including logo redesign, typography system, color palette, and visual guidelines for a renewable energy company.",
-    image: imagePlaceholders[16],
-    link: "#",
-  },
-  {
-    title: "Interactive Data Dashboard",
-    client: "Analytics Solutions",
-    year: "2022",
-    category: "UI/UX Design",
-    description:
-      "Real-time analytics dashboard with customizable widgets, data visualization tools, and collaboration features for enterprise teams.",
-    image: imagePlaceholders[17],
-    link: "#",
-  },
-  {
-    title: "Educational Platform Redesign",
-    client: "Learning Hub",
-    year: "2023",
-    category: "Web Application",
-    description:
-      "Learning management system with focus on accessibility, engagement, and personalized learning paths for students of all ages.",
-    image: imagePlaceholders[18],
-    link: "#",
-  },
-];
-
 /**
  * ProjectFeaturedCarousel - Full-featured carousel with client info, badges, and descriptions.
  *
@@ -159,7 +106,7 @@ const defaultProjects: ProjectFeaturedCarouselItem[] = [
 export function ProjectFeaturedCarousel({
   heading = "Featured Projects",
   subheading = "A selection of recent work showcasing design and development expertise.",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

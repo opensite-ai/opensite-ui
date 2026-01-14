@@ -125,49 +125,6 @@ export interface ProcessRoadmapTimelineProps {
   title?: string;
 }
 
-const defaultMilestones: ProcessRoadmapMilestoneItem[] = [
-  {
-    title: "Foundation",
-    description:
-      "Establishing the core infrastructure and setting up the development environment.",
-    date: "Q1 2024",
-    status: "completed",
-    features: ["Core Architecture", "Database Setup", "Authentication System"],
-  },
-  {
-    title: "Core Features",
-    description:
-      "Building the essential features that form the backbone of the platform.",
-    date: "Q2 2024",
-    status: "completed",
-    features: ["User Dashboard", "API Integration", "Notification System"],
-  },
-  {
-    title: "Enhancement Phase",
-    description:
-      "Adding advanced features and improving user experience based on feedback.",
-    date: "Q3 2024",
-    status: "in-progress",
-    features: ["Analytics Dashboard", "Advanced Reporting", "Team Collaboration"],
-  },
-  {
-    title: "Scale & Optimize",
-    description:
-      "Optimizing performance and preparing the platform for scale.",
-    date: "Q4 2024",
-    status: "upcoming",
-    features: ["Performance Optimization", "CDN Integration", "Load Balancing"],
-  },
-  {
-    title: "Enterprise Features",
-    description:
-      "Rolling out enterprise-grade features for larger organizations.",
-    date: "Q1 2025",
-    status: "upcoming",
-    features: ["SSO Integration", "Audit Logs", "Custom Branding"],
-  },
-];
-
 const StatusBadge = ({ status, className }: { status: MilestoneStatus; className?: string }) => {
   const config = {
     completed: {
@@ -209,7 +166,7 @@ const StatusBadge = ({ status, className }: { status: MilestoneStatus; className
 export function ProcessRoadmapTimeline({
   heading = "Product Roadmap",
   description = "Our journey from concept to completion, with clear milestones and deliverables.",
-  milestones = defaultMilestones,
+  milestones,
   milestonesSlot,
   className,
   contentClassName,

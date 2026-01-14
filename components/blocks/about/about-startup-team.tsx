@@ -90,41 +90,6 @@ export interface AboutStartupTeamProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSidebarLinks: SidebarLinkItem[] = [
-  { label: "About Us", href: "#about", isActive: true },
-  { label: "Our Mission", href: "#mission" },
-  { label: "Our Team", href: "#team" },
-  { label: "Careers", href: "#careers" },
-  { label: "Contact", href: "#contact" },
-];
-
-const defaultTeamMembers: TeamMemberItem[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Co-Founder",
-    socialLinks: [
-      { icon: <DynamicIcon name="lucide/linkedin" size={18} />, url: "#", label: "LinkedIn" },
-      { icon: <DynamicIcon name="lucide/twitter" size={18} />, url: "#", label: "Twitter" },
-    ],
-  },
-  {
-    name: "Michael Park",
-    role: "CTO & Co-Founder",
-    socialLinks: [
-      { icon: <DynamicIcon name="lucide/linkedin" size={18} />, url: "#", label: "LinkedIn" },
-      { icon: <DynamicIcon name="lucide/github" size={18} />, url: "#", label: "GitHub" },
-    ],
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Head of Design",
-    socialLinks: [
-      { icon: <DynamicIcon name="lucide/linkedin" size={18} />, url: "#", label: "LinkedIn" },
-      { icon: <DynamicIcon name="lucide/dribbble" size={18} />, url: "#", label: "Dribbble" },
-    ],
-  },
-];
-
 export function AboutStartupTeam({
   className,
   containerClassName,
@@ -134,12 +99,12 @@ export function AboutStartupTeam({
 
 Founded in 2020, we've grown from a small startup to a platform trusted by thousands of companies worldwide. Our mission is simple: democratize software development and help teams bring their ideas to life faster than ever before.`,
   descriptionClassName,
-  sidebarLinks = defaultSidebarLinks,
+  sidebarLinks,
   sidebarSlot,
   sidebarClassName,
   teamTitle = "Meet Our Leadership",
   teamTitleClassName,
-  teamMembers = defaultTeamMembers,
+  teamMembers,
   teamMembersSlot,
   teamMembersClassName,
   optixFlowConfig,

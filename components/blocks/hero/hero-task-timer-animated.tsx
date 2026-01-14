@@ -52,16 +52,11 @@ export interface HeroTaskTimerAnimatedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[42], alt: "" },
-  { src: imagePlaceholders[43], alt: "" },
-];
-
 export function HeroTaskTimerAnimated({
   heading = "A simple task timer to power your goals",
   actions,
   actionsSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   headerClassName,

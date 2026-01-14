@@ -22,28 +22,4 @@ describe("HeroCenteredScreenshot", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  it("renders with default props", () => {
-    const { container } = render(<HeroCenteredScreenshot />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
-
-  it("applies custom className", () => {
-    const { container } = render(<HeroCenteredScreenshot className="custom-class" />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("custom-class");
-  });
-
-  it("renders screenshot image", () => {
-    render(<HeroCenteredScreenshot />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
-  });
-
-  it("renders section element with proper structure", () => {
-    const { container } = render(<HeroCenteredScreenshot />);
-    const section = container.querySelector("section");
-    expect(section).toBeInTheDocument();
-  });
 });

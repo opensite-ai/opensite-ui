@@ -110,48 +110,19 @@ export interface HeroStartupLaunchCtaProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Start building free",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "See success stories",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultAvatars: ImageItem[] = [
-  { src: imagePlaceholders[2], alt: "" },
-  { src: imagePlaceholders[3], alt: "" },
-  { src: imagePlaceholders[4], alt: "" },
-  { src: imagePlaceholders[5], alt: "" },
-];
-
-const defaultBadgeCard = {
-  title: "YC Backed",
-  subtitle: "W24 Batch",
-  logoSrc: logoPlaceholders.logoMark,
-};
-
 export function HeroStartupLaunchCta({
   badge = "Now launching",
   badgeIcon = <DynamicIcon name="lucide/rocket" size={16} />,
   heading = "Launch your startup in weeks, not months",
   description = "Everything you need to go from idea to launch. Our platform provides the tools, templates, and guidance to build your MVP fast.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  avatars = defaultAvatars,
+  avatars,
   avatarsSlot,
   socialProofText = <><span className="font-semibold text-foreground">500+</span><span className="text-muted-foreground"> startups launched</span></>,
   imageSrc = imagePlaceholders[6],
   imageAlt = "Startup dashboard",
-  badgeCard = defaultBadgeCard,
+  badgeCard,
   badgeCardSlot,
   className,
   containerClassName,
