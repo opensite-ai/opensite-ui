@@ -30,4 +30,55 @@ describe("CarouselDemoLink", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CarouselDemoLink />);
+    expect(screen.getByText("Gallery")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CarouselDemoLink heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders demo action when provided", () => {
+    const demoAction = { label: "Book a demo", href: "https://calendly.com/demo" };
+    render(<CarouselDemoLink demoAction={demoAction} />);
+    expect(screen.getByText("Book a demo")).toBeInTheDocument();
+  });
+
+  it("renders items when provided", () => {
+    const items = [
+      {
+        id: "1",
+        title: "AI Analytics",
+        summary: "Transform your data into insights",
+        url: "/solutions/analytics",
+        image: "https://example.com/image.jpg",
+      },
+    ];
+    render(<CarouselDemoLink items={items} />);
+    expect(screen.getByText("AI Analytics")).toBeInTheDocument();
+    expect(screen.getByText("Transform your data into insights")).toBeInTheDocument();
+    expect(screen.getByText("Read more")).toBeInTheDocument();
+  });
+
+  it("renders custom read more text", () => {
+    const items = [
+      {
+        id: "1",
+        title: "Item 1",
+        summary: "Summary 1",
+        url: "/item-1",
+        image: "https://example.com/image.jpg",
+      },
+    ];
+    render(<CarouselDemoLink items={items} readMoreText="Learn more" />);
+    expect(screen.getByText("Learn more")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CarouselDemoLink className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

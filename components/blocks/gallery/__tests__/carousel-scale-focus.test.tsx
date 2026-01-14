@@ -24,4 +24,30 @@ describe("CarouselScaleFocus", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    const { container } = render(<CarouselScaleFocus />);
+    expect(container.querySelector("section")).toBeInTheDocument();
+  });
+
+  it("renders images when provided", () => {
+    const images = [
+      { src: "https://example.com/image1.jpg", alt: "Image 1" },
+      { src: "https://example.com/image2.jpg", alt: "Image 2" },
+    ];
+    render(<CarouselScaleFocus images={images} />);
+    expect(screen.getByAltText("Image 1")).toBeInTheDocument();
+    expect(screen.getByAltText("Image 2")).toBeInTheDocument();
+  });
+
+  it("renders carousel navigation", () => {
+    render(<CarouselScaleFocus />);
+    expect(screen.getByTestId("carousel-next")).toBeInTheDocument();
+    expect(screen.getByTestId("carousel-prev")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CarouselScaleFocus className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

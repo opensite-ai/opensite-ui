@@ -24,4 +24,36 @@ describe("CarouselTabsContent", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    const { container } = render(<CarouselTabsContent />);
+    expect(container.querySelector("section")).toBeInTheDocument();
+  });
+
+  it("renders items when provided", () => {
+    const items = [
+      {
+        title: "Core Features",
+        description: "Detailed feature description",
+        note: "Additional context",
+        image: "https://example.com/features.jpg",
+        category: "Features",
+      },
+    ];
+    render(<CarouselTabsContent items={items} />);
+    expect(screen.getByText("Core Features")).toBeInTheDocument();
+    expect(screen.getByText("Detailed feature description")).toBeInTheDocument();
+    expect(screen.getByText("Features")).toBeInTheDocument();
+  });
+
+  it("renders carousel navigation", () => {
+    render(<CarouselTabsContent />);
+    expect(screen.getByTestId("carousel-previous")).toBeInTheDocument();
+    expect(screen.getByTestId("carousel-next")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CarouselTabsContent className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
