@@ -153,6 +153,7 @@ export function ComparisonImageCards({
 
   const renderCards = () => {
     if (cardsSlot) return cardsSlot;
+    if (!optionA || !optionB) return null;
 
     return (
       <>

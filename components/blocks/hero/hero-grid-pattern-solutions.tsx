@@ -119,6 +119,7 @@ export function HeroGridPatternSolutions({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("flex flex-col justify-center gap-x-2 gap-y-3 sm:flex-row", actionsClassName)}>

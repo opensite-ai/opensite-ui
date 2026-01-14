@@ -393,7 +393,7 @@ export const NavbarTransparentOverlay = ({
       >
         <div className="flex h-full flex-col items-center justify-center">
           <nav className="flex flex-col items-center gap-8">
-            {navItems.map((item, index) => (
+            {navItems?.map((item, index) => (
               <Pressable
                 key={index}
                 href={item.url}
@@ -421,7 +421,7 @@ export const NavbarTransparentOverlay = ({
                 : "translate-y-4 opacity-0",
             )}
             style={{
-              transitionDelay: isOpen ? `${navItems.length * 100}ms` : "0ms",
+              transitionDelay: isOpen ? `${(navItems?.length ?? 0) * 100}ms` : "0ms",
             }}
           >
             {renderMobileAuthActions()}

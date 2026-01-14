@@ -344,7 +344,7 @@ export const NavbarAnimatedPreview = ({
       </NavigationMenu>
       <MobileNavigationMenu
         open={open}
-        navigation={navigation}
+        navigation={navigation ?? []}
         authActions={authActions}
         authActionsSlot={authActionsSlot}
       />

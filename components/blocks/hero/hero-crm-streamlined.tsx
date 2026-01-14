@@ -89,6 +89,7 @@ export function HeroCrmStreamlined({
 }: HeroCrmStreamlinedProps): React.JSX.Element {
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
     return (
@@ -145,7 +146,7 @@ export function HeroCrmStreamlined({
             </div>
           </div>
           <div className={cn("relative basis-[42%] py-9 md:py-16", imageClassName)}>
-            {imageSlot ? imageSlot : (
+            {imageSlot ? imageSlot : image ? (
               <div className="aspect-square w-full overflow-hidden">
                 <Img
                   src={image.src}
@@ -155,7 +156,7 @@ export function HeroCrmStreamlined({
                 />
                 <div className="absolute top-0 left-25 z-10 aspect-[1.378254211/1] h-full w-225 bg-muted" />
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

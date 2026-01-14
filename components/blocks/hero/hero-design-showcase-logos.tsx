@@ -108,6 +108,7 @@ export function HeroDesignShowcaseLogos({
 }: HeroDesignShowcaseLogosProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("mt-3 flex items-center justify-center gap-3", actionsClassName)}>
@@ -169,6 +170,7 @@ export function HeroDesignShowcaseLogos({
 
   const renderShowcase = () => {
     if (showcaseSlot) return showcaseSlot;
+    if (!showcaseImage) return null;
 
     return (
       <div className={cn("w-full xl:px-8", showcaseClassName)}>

@@ -99,6 +99,7 @@ export function HeroTherapyTestimonialGrid({
 }: HeroTherapyTestimonialGridProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
       const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;

@@ -134,26 +134,29 @@ export function HeroConversionVideoPlay({
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = primaryAction;
-    
     return (
       <>
-        <Pressable
-          asButton
-          className={actionClassName}
-          {...pressableProps}
-        >
-          <div className="relative z-10 flex items-center gap-2.5">
-            {children ?? (
-              <>
-                {icon}
-                <span>{label}</span>
-                {iconAfter}
-              </>
-            )}
-          </div>
-          <div className="absolute bottom-16 -left-16 aspect-square w-16 rounded-full bg-pink-400 transition-all duration-300 group-hover:bottom-1/2 group-hover:-left-5 group-hover:w-[110%] group-hover:translate-y-1/2"></div>
-        </Pressable>
+        {primaryAction && (() => {
+          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = primaryAction;
+          return (
+            <Pressable
+              asButton
+              className={actionClassName}
+              {...pressableProps}
+            >
+              <div className="relative z-10 flex items-center gap-2.5">
+                {children ?? (
+                  <>
+                    {icon}
+                    <span>{label}</span>
+                    {iconAfter}
+                  </>
+                )}
+              </div>
+              <div className="absolute bottom-16 -left-16 aspect-square w-16 rounded-full bg-pink-400 transition-all duration-300 group-hover:bottom-1/2 group-hover:-left-5 group-hover:w-[110%] group-hover:translate-y-1/2"></div>
+            </Pressable>
+          );
+        })()}
 
         <Pressable
           href="#"
@@ -226,7 +229,7 @@ export function HeroConversionVideoPlay({
                 </div>
               </div>
               <div className="w-full">
-                {imageSlot ? imageSlot : (
+                {imageSlot ? imageSlot : image ? (
                   <div className={cn("relative h-fit w-full", imageClassName)}>
                     <div className="relative z-20 w-full max-w-330 overflow-hidden rounded-t-xl md:rounded-t-3xl">
                       <AspectRatio ratio={2.095238095 / 1}>
@@ -239,7 +242,7 @@ export function HeroConversionVideoPlay({
                       </AspectRatio>
                     </div>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

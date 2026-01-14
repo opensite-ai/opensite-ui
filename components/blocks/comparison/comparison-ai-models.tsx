@@ -194,6 +194,7 @@ export function ComparisonAiModels({
 
   const renderTable = () => {
     if (tableSlot) return tableSlot;
+    if (!models || !comparisonData || comparisonData.length === 0) return null;
 
     return (
       <div className={cn("relative overflow-hidden border border-border/50 bg-background/50 backdrop-blur-sm", tableWrapperClassName)}>
@@ -269,6 +270,7 @@ export function ComparisonAiModels({
 
   const renderAnalysis = () => {
     if (analysisSlot) return analysisSlot;
+    if (!models) return null;
 
     return (
       <div className={cn("relative mt-8 border border-border/50 bg-muted/20 p-6", analysisClassName)}>

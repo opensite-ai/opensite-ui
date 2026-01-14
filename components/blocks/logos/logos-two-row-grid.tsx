@@ -105,8 +105,8 @@ export function LogosTwoRowGrid({
   patternOpacity,
   optixFlowConfig,
 }: LogosTwoRowGridProps): React.JSX.Element {
-  const firstRow = companies.slice(0, Math.ceil(companies.length / 2));
-  const secondRow = companies.slice(Math.ceil(companies.length / 2));
+  const firstRow = companies?.slice(0, Math.ceil((companies?.length ?? 0) / 2)) ?? [];
+  const secondRow = companies?.slice(Math.ceil((companies?.length ?? 0) / 2)) ?? [];
 
   const renderCompanyLogo = (company: LogosTwoRowGridCompanyItem, index: number) => (
     <Pressable

@@ -111,6 +111,7 @@ export function ComparisonFeatureGrid({
 
   const renderGrid = () => {
     if (gridSlot) return gridSlot;
+    if (!features || features.length === 0) return null;
 
     return (
       <div className={cn("mx-auto max-w-4xl divide-y divide-border overflow-x-auto rounded-lg border-border bg-background shadow", gridWrapperClassName)}>

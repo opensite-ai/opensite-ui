@@ -99,6 +99,7 @@ export function ComparisonGridBadges({
 }: ComparisonGridBadgesProps): React.JSX.Element {
   const renderFeatures = () => {
     if (featuresSlot) return featuresSlot;
+    if (!features || features.length === 0) return null;
 
     return features.map((feature, idx) => (
       <div

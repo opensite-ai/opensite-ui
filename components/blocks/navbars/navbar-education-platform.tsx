@@ -258,7 +258,7 @@ export const NavbarEducationPlatform = ({
                           <p className="mb-3 text-[10px] text-muted-foreground uppercase">
                             TOOLS
                           </p>
-                          {features.map((feature) => (
+                          {features?.map((feature) => (
                             <NavigationMenuLink key={feature.title} asChild>
                               <Pressable
                                 href={feature.link}
@@ -351,7 +351,7 @@ export const NavbarEducationPlatform = ({
                           <p className="mb-3 text-[10px] text-muted-foreground uppercase">
                             GUIDES
                           </p>
-                          {docs.map((doc) => (
+                          {docs?.map((doc) => (
                             <NavigationMenuLink key={doc.title} asChild>
                               <Pressable
                                 href={doc.link}
@@ -386,7 +386,7 @@ export const NavbarEducationPlatform = ({
                             ABOUT US
                           </p>
                           <div>
-                            {company.map((item) => (
+                            {company?.map((item) => (
                               <NavigationMenuLink key={item.title} asChild>
                                 <Pressable
                                   href={item.link}
@@ -453,7 +453,7 @@ export const NavbarEducationPlatform = ({
                         TOOLS
                       </p>
                       <div className="space-y-5">
-                        {features.map((feature) => (
+                        {features?.map((feature) => (
                           <Pressable
                             key={feature.title}
                             href={feature.link}
@@ -514,7 +514,7 @@ export const NavbarEducationPlatform = ({
                         GUIDES
                       </p>
                       <div className="space-y-5">
-                        {docs.map((doc) => (
+                        {docs?.map((doc) => (
                           <Pressable
                             key={doc.title}
                             href={doc.link}
@@ -542,7 +542,7 @@ export const NavbarEducationPlatform = ({
                         ABOUT US
                       </p>
                       <div className="space-y-5">
-                        {company.map((item) => (
+                        {company?.map((item) => (
                           <Pressable
                             key={item.title}
                             href={item.link}

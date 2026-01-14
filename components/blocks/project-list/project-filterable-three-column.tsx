@@ -113,7 +113,7 @@ export function ProjectFilterableThreeColumn({
     if (category === "ALL") {
       setFilteredItems(projects);
     } else {
-      const filtered = projects.filter(
+      const filtered = projects?.filter(
         (item) =>
           item.category === category ||
           item.tags.includes(category.toLowerCase().replace(" ", "-"))
@@ -176,7 +176,7 @@ export function ProjectFilterableThreeColumn({
       <div className={cn("container", containerClassName)}>
         <div className="mx-auto max-w-7xl">
           <div className={cn("mb-16 flex flex-wrap justify-center gap-8", filterClassName)}>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <button
                 key={category}
                 onClick={() => handleFilterChange(category)}
@@ -199,7 +199,7 @@ export function ProjectFilterableThreeColumn({
             </AnimatePresence>
           </motion.div>
 
-          {filteredItems.length === 0 && (
+          {(filteredItems?.length ?? 0) === 0 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

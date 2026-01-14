@@ -252,7 +252,7 @@ export const NavbarPlatformResources = ({
                         Solutions
                       </div>
                       <div className="grid grid-rows-1 gap-6">
-                        {solutions.map((solution, index) => (
+                        {solutions?.map((solution, index) => (
                           <NavigationMenuLink
                             key={index}
                             href={solution.href}
@@ -282,7 +282,7 @@ export const NavbarPlatformResources = ({
                         By Use Case
                       </div>
                       <div className="mt-4 gap-6">
-                        {platformCases.map((item, index) => (
+                        {platformCases?.map((item, index) => (
                           <NavigationMenuLink
                             key={index}
                             href={item.href}
@@ -311,7 +311,7 @@ export const NavbarPlatformResources = ({
                 <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
                 <NavigationMenuContent className="w-full min-w-[820px] p-4">
                   <div className="grid grid-cols-3 gap-6">
-                    {resources.map((resource, index) => (
+                    {resources?.map((resource, index) => (
                       <NavigationMenuLink
                         key={index}
                         href={resource.href}
@@ -373,7 +373,7 @@ export const NavbarPlatformResources = ({
                           Solutions
                         </div>
                         <div className="space-y-4">
-                          {solutions.map((solution, index) => (
+                          {solutions?.map((solution, index) => (
                             <Pressable
                               key={index}
                               href={solution.href}
@@ -403,7 +403,7 @@ export const NavbarPlatformResources = ({
                           By Use Case
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          {platformCases.map((useCase, index) => (
+                          {platformCases?.map((useCase, index) => (
                             <Pressable
                               key={index}
                               href={useCase.href}
@@ -433,7 +433,7 @@ export const NavbarPlatformResources = ({
                   </AccordionTrigger>
                   <AccordionContent className="px-2 pb-4">
                     <div className="space-y-3">
-                      {resources.map((resource, index) => (
+                      {resources?.map((resource, index) => (
                         <Pressable
                           key={index}
                           href={resource.href}

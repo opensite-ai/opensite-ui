@@ -133,6 +133,7 @@ export function HeroSplitImageNewsletter({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <div className="relative lg:w-1/2">

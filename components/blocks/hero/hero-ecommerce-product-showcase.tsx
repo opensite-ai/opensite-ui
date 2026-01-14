@@ -126,6 +126,7 @@ export function HeroEcommerceProductShowcase({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
@@ -173,6 +174,7 @@ export function HeroEcommerceProductShowcase({
 
   const renderImages = () => {
     if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
 
     return (
       <div className={cn("grid grid-cols-2 gap-4", imagesClassName)}>

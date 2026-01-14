@@ -298,7 +298,7 @@ export const NavbarMegaMenu = ({
                         Solutions
                       </div>
                       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-                        {solutions.map((solution, index) => (
+                        {solutions?.map((solution, index) => (
                           <NavigationMenuLink
                             key={index}
                             href={solution.href}
@@ -330,7 +330,7 @@ export const NavbarMegaMenu = ({
                         Use cases
                       </div>
                       <div className="grid grid-cols-2 gap-4">
-                        {useCases.map((useCase, index) => (
+                        {useCases?.map((useCase, index) => (
                           <NavigationMenuLink
                             key={index}
                             href={useCase.href}
@@ -389,7 +389,7 @@ export const NavbarMegaMenu = ({
                         Call to action for developers
                       </div>
                       <div className="-ml-2.5 space-y-2.5">
-                        {documentationLinks.map((link, index) => (
+                        {documentationLinks?.map((link, index) => (
                           <NavigationMenuLink
                             key={index}
                             href={link.href}
@@ -461,7 +461,7 @@ export const NavbarMegaMenu = ({
                         Resources
                       </div>
                       <div className="grid flex-1 grid-cols-1 gap-6 md:grid-cols-2">
-                        {resources.map((resource, index) => (
+                        {resources?.map((resource, index) => (
                           <NavigationMenuLink
                             key={index}
                             href={resource.href}
@@ -617,7 +617,7 @@ export const NavbarMegaMenu = ({
               <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
                 Solutions
               </div>
-              {solutions.map((solution, index) => (
+              {solutions?.map((solution, index) => (
                 <Pressable
                   key={index}
                   href={solution.href}
@@ -641,7 +641,7 @@ export const NavbarMegaMenu = ({
               <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
                 Use cases
               </div>
-              {useCases.map((useCase, index) => (
+              {useCases?.map((useCase, index) => (
                 <Pressable
                   key={index}
                   href={useCase.href}
@@ -660,7 +660,7 @@ export const NavbarMegaMenu = ({
               <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
                 Documentation
               </div>
-              {documentationLinks.map((link, index) => (
+              {documentationLinks?.map((link, index) => (
                 <Pressable
                   key={index}
                   href={link.href}
@@ -679,7 +679,7 @@ export const NavbarMegaMenu = ({
               <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
                 Resources
               </div>
-              {resources.map((resource, index) => (
+              {resources?.map((resource, index) => (
                 <Pressable
                   key={index}
                   href={resource.href}

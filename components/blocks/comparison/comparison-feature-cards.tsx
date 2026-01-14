@@ -184,6 +184,7 @@ export function ComparisonFeatureCards({
 
   const renderCards = () => {
     if (cardsSlot) return cardsSlot;
+    if (!productA || !productB) return null;
 
     return (
       <>

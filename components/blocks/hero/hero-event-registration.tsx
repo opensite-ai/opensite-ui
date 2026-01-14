@@ -142,6 +142,7 @@ export function HeroEventRegistration({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
@@ -186,6 +187,7 @@ export function HeroEventRegistration({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <div className="relative">

@@ -73,6 +73,7 @@ export function HeroPresentationPlatformVideo({
 }: HeroPresentationPlatformVideoProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex flex-col gap-4 font-medium md:flex-row">

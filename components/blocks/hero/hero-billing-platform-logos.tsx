@@ -202,7 +202,7 @@ export function HeroBillingPlatformLogos({
               )}
             </div>
           </div>
-          {imagesSlot ? imagesSlot : (
+          {imagesSlot ? imagesSlot : mainImage ? (
             <div>
               <div className="relative mr-auto ml-auto aspect-[1.28581291/1] w-full max-w-149 lg:mr-0 lg:ml-auto">
                 <div className="relative mx-auto aspect-[1.020365896/1] h-full w-[79.35%] max-w-118.25 overflow-hidden rounded-3xl">
@@ -213,7 +213,7 @@ export function HeroBillingPlatformLogos({
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
-                {overlayImages[0] && (
+                {overlayImages?.[0] && (
                   <div className="absolute top-[19.84%] -left-[-2%] z-30 aspect-[1.765043789/1] w-[30.49%] max-w-47.5 overflow-hidden rounded-lg shadow-lg">
                     <Img
                       src={overlayImages[0].src}
@@ -223,7 +223,7 @@ export function HeroBillingPlatformLogos({
                     />
                   </div>
                 )}
-                {overlayImages[1] && (
+                {overlayImages?.[1] && (
                   <div className="absolute top-[55%] left-[0%] z-30 aspect-[1.776555024/1] w-[43.6%] max-w-65.5 overflow-hidden rounded-lg shadow-lg">
                     <Img
                       src={overlayImages[1].src}
@@ -233,7 +233,7 @@ export function HeroBillingPlatformLogos({
                     />
                   </div>
                 )}
-                {overlayImages[2] && (
+                {overlayImages?.[2] && (
                   <div className="absolute top-[40%] right-[0%] z-30 aspect-[1.170212766/1] w-[26.48%] max-w-41.25 overflow-hidden rounded-lg shadow-lg">
                     <Img
                       src={overlayImages[2].src}
@@ -245,7 +245,7 @@ export function HeroBillingPlatformLogos({
                 )}
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
       <div className={cn("flex flex-col items-center justify-center gap-8 pt-28", logosClassName)}>
@@ -258,7 +258,7 @@ export function HeroBillingPlatformLogos({
             <div>{logosTagline}</div>
           )
         )}
-        {logosSlot ? logosSlot : (
+        {logosSlot ? logosSlot : logos && logos.length > 0 ? (
           <Carousel
             opts={{
               loop: true,
@@ -288,7 +288,7 @@ export function HeroBillingPlatformLogos({
               ))}
             </CarouselContent>
           </Carousel>
-        )}
+        ) : null}
       </div>
     </section>
   );

@@ -259,7 +259,7 @@ export const NavbarSimpleLinks = ({
   patternOpacity,
   optixFlowConfig,
 }: NavbarSimpleLinksProps) => {
-  const [activeItem, setActiveItem] = useState(defaultActiveItem || navItems[0]?.name || "");
+  const [activeItem, setActiveItem] = useState(defaultActiveItem || navItems?.[0]?.name || "");
   const indicatorRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
 
@@ -386,7 +386,7 @@ export const NavbarSimpleLinks = ({
           </NavigationMenu>
 
           <MobileNav
-            navItems={navItems}
+            navItems={navItems ?? []}
             activeItem={activeItem}
             setActiveItem={setActiveItem}
             actions={actions}

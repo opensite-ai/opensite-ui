@@ -152,6 +152,7 @@ export function HeroVideoDialogGradient({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <div className="mx-auto mt-16 w-full max-w-[1000px] overflow-hidden rounded-xl shadow-[4px_2px_3.123rem_rgba(0,0,0,.15)]">
@@ -210,22 +211,24 @@ export function HeroVideoDialogGradient({
           />
         </div>
       </section>
-      <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
-        <DialogContent className="sm:max-w-[800px]">
-          <DialogHeader>
-            <DialogTitle>{videoDialog.title}</DialogTitle>
-          </DialogHeader>
-          <div className="aspect-video">
-            <iframe
-              className="h-full w-full"
-              src={videoDialog.videoUrl}
-              title={videoDialog.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {videoDialog && (
+        <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+          <DialogContent className="sm:max-w-[800px]">
+            <DialogHeader>
+              <DialogTitle>{videoDialog.title}</DialogTitle>
+            </DialogHeader>
+            <div className="aspect-video">
+              <iframe
+                className="h-full w-full"
+                src={videoDialog.videoUrl}
+                title={videoDialog.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </Fragment>
   );
 }

@@ -160,6 +160,7 @@ export function HeroProductShowcaseFloating({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex flex-col gap-4 sm:flex-row">
@@ -244,6 +245,7 @@ export function HeroProductShowcaseFloating({
 
   const renderProductShowcase = () => {
     if (productImageSlot) return productImageSlot;
+    if (!productImage) return null;
 
     return (
       <div className={cn("order-2 lg:order-1", showcaseClassName)}>

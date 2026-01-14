@@ -115,6 +115,7 @@ export function HeroMentorshipVideoSplit({
 
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
     return (
@@ -132,6 +133,7 @@ export function HeroMentorshipVideoSplit({
 
   const renderVideoSection = () => {
     if (videoSlot) return videoSlot;
+    if (!videoThumbnail) return null;
 
     return (
       <div className="flex max-w-97.5 flex-col gap-6">
@@ -171,6 +173,7 @@ export function HeroMentorshipVideoSplit({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <div>

@@ -94,6 +94,7 @@ export function HeroVideoOverlayStars({
 }: HeroVideoOverlayStarsProps): React.JSX.Element {
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     return (
       <Pressable
@@ -110,6 +111,7 @@ export function HeroVideoOverlayStars({
 
   const renderTrust = () => {
     if (trustSlot) return trustSlot;
+    if (!trust) return null;
 
     const starCount = trust.starCount ?? 5;
 

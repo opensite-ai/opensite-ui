@@ -132,6 +132,7 @@ export function HeroPremiumSplitAvatars({
 
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
     return (
@@ -176,6 +177,7 @@ export function HeroPremiumSplitAvatars({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <Img

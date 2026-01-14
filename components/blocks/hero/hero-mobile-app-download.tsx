@@ -174,6 +174,7 @@ export function HeroMobileAppDownload({
 
   const renderStoreActions = () => {
     if (storeActionsSlot) return storeActionsSlot;
+    if (!storeActions || storeActions.length === 0) return null;
 
     return (
       <div className="flex flex-col gap-4 sm:flex-row">
@@ -238,6 +239,7 @@ export function HeroMobileAppDownload({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <div className={cn("relative flex justify-center", imageClassName)}>

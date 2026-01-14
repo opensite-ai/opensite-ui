@@ -116,7 +116,7 @@ export function ComparisonTableTabs({
   tableHeaderClassName,
   tableCellClassName,
 }: ComparisonTableTabsProps): React.JSX.Element {
-  const [selectedTab, setSelectedTab] = useState(models[0]?.name || "");
+  const [selectedTab, setSelectedTab] = useState(models?.[0]?.name || "");
 
   const renderStatusIcon = (status: AttributeValue["status"]) => {
     if (status === "positive") {
@@ -142,6 +142,7 @@ export function ComparisonTableTabs({
 
   const renderTable = () => {
     if (tableSlot) return tableSlot;
+    if (!models || models.length === 0 || !features || features.length === 0) return null;
 
     return (
       <>
