@@ -42,4 +42,40 @@ describe("AboutStoryExpertise", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutStoryExpertise />);
+    expect(screen.getByText("Our Story")).toBeInTheDocument();
+    expect(screen.getByText("Built on trust, powered by OpenSite AI")).toBeInTheDocument();
+    expect(screen.getByText("Why teams choose OpenSite AI")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<AboutStoryExpertise heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom eyebrow", () => {
+    render(<AboutStoryExpertise eyebrow="Custom Eyebrow" />);
+    expect(screen.getByText("Custom Eyebrow")).toBeInTheDocument();
+  });
+
+  it("renders custom expertise heading and description", () => {
+    render(<AboutStoryExpertise expertiseHeading="Custom Expertise" expertiseDescription="Custom expertise description" />);
+    expect(screen.getByText("Custom Expertise")).toBeInTheDocument();
+    expect(screen.getByText("Custom expertise description")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Learn More", href: "/about", variant: "default" as const },
+    ];
+    render(<AboutStoryExpertise actions={actions} />);
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutStoryExpertise className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
