@@ -22,4 +22,40 @@ describe("CtaSplitImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaSplitImage />);
+    expect(screen.getByText("Call to Action")).toBeInTheDocument();
+    expect(screen.getByText("Build faster with our collection of pre-built components. Speed up your development and ship features in record time.")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaSplitImage heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<CtaSplitImage description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+      { label: "Learn More", href: "/learn", variant: "outline" as const },
+    ];
+    render(<CtaSplitImage actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("renders image with correct alt text", () => {
+    render(<CtaSplitImage imageAlt="Custom alt text" />);
+    expect(screen.getByAltText("Custom alt text")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaSplitImage className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

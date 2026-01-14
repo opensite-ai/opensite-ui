@@ -22,4 +22,35 @@ describe("CtaPlatformDemo", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaPlatformDemo />);
+    expect(screen.getByText("Explore Our Platform")).toBeInTheDocument();
+    expect(screen.getByText("Discover the full potential of our platform. Try our interactive demo or watch a comprehensive walkthrough today.")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaPlatformDemo heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<CtaPlatformDemo description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Try Demo", href: "/demo", variant: "default" as const },
+      { label: "Watch Video", href: "/video", variant: "outline" as const },
+    ];
+    render(<CtaPlatformDemo actions={actions} />);
+    expect(screen.getByText("Try Demo")).toBeInTheDocument();
+    expect(screen.getByText("Watch Video")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaPlatformDemo className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
