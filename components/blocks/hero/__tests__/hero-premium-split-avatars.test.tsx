@@ -39,9 +39,9 @@ describe("HeroPremiumSplitAvatars", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroPremiumSplitAvatars actions={actions} />);
+  it("renders action when provided", () => {
+    const action = { label: "Get Started", href: "/start", variant: "default" as const };
+    render(<HeroPremiumSplitAvatars action={action} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 

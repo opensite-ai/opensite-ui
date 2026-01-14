@@ -38,9 +38,9 @@ describe("HeroSaasDashboardPreview", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroSaasDashboardPreview actions={actions} />);
+  it("renders action when provided", () => {
+    const action = { label: "Get Started", href: "/start", variant: "default" as const };
+    render(<HeroSaasDashboardPreview action={action} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 

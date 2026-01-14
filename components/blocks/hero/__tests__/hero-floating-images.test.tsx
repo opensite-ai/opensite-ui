@@ -32,10 +32,14 @@ describe("HeroFloatingImages", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders images", () => {
-    render(<HeroFloatingImages />);
-    const images = screen.getAllByTestId("mock-img");
-    expect(images.length).toBeGreaterThan(0);
+  it("renders images when provided", () => {
+    const images = [
+      { src: "https://example.com/image1.jpg", alt: "Image 1", className: "w-32 h-32" },
+      { src: "https://example.com/image2.jpg", alt: "Image 2", className: "w-32 h-32" },
+    ];
+    render(<HeroFloatingImages images={images} />);
+    const renderedImages = screen.getAllByTestId("mock-img");
+    expect(renderedImages.length).toBe(2);
   });
 
   it("applies custom className", () => {

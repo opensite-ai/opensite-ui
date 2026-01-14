@@ -42,9 +42,9 @@ describe("HeroAgencyAnimatedImages", () => {
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroAgencyAnimatedImages actions={actions} />);
+  it("renders action when provided", () => {
+    const action = { label: "Get Started", href: "/start", variant: "default" as const };
+    render(<HeroAgencyAnimatedImages action={action} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 
