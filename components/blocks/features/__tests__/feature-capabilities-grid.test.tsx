@@ -35,14 +35,14 @@ describe("FeatureCapabilitiesGrid", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureCapabilitiesGrid description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders eyebrow", () => {
+    render(<FeatureCapabilitiesGrid eyebrow="Custom Eyebrow" />);
+    expect(screen.getByText("Custom Eyebrow")).toBeInTheDocument();
   });
 
-  it("renders capabilities when provided", () => {
-    const capabilities = [{ title: "Capability 1", description: "Description 1" }];
-    render(<FeatureCapabilitiesGrid capabilities={capabilities} />);
+  it("renders items when provided", () => {
+    const items = [{ title: "Capability 1", description: "Description 1" }];
+    render(<FeatureCapabilitiesGrid items={items} />);
     expect(screen.getByText("Capability 1")).toBeInTheDocument();
   });
 

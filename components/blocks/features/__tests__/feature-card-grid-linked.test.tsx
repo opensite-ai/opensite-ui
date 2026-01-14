@@ -21,7 +21,7 @@ describe("FeatureCardGridLinked", () => {
 
   it("renders with default props", () => {
     render(<FeatureCardGridLinked />);
-    expect(screen.getByText("This is where your features go")).toBeInTheDocument();
+    expect(screen.getByText("A collection of extra blocks for Opensite AI & Tailwind")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -29,15 +29,16 @@ describe("FeatureCardGridLinked", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureCardGridLinked description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
   it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1", href: "/feature1" }];
+    const features = [{ heading: "Feature 1", description: "Description 1", url: "/feature1" }];
     render(<FeatureCardGridLinked features={features} />);
     expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("renders feature description", () => {
+    const features = [{ heading: "Feature 1", description: "Custom description text" }];
+    render(<FeatureCardGridLinked features={features} />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
