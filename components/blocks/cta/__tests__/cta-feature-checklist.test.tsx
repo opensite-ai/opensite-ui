@@ -18,4 +18,41 @@ describe("CtaFeatureChecklist", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaFeatureChecklist />);
+    expect(screen.getByText("Call to Action")).toBeInTheDocument();
+    expect(screen.getByText("Build faster with our collection of pre-built components. Speed up your development and ship features in record time.")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaFeatureChecklist heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<CtaFeatureChecklist description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/signup", variant: "default" as const },
+    ];
+    render(<CtaFeatureChecklist actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders checklist items when provided", () => {
+    const items = ["Easy Integration", "24/7 Support", "Scalable Performance"];
+    render(<CtaFeatureChecklist items={items} />);
+    expect(screen.getByText("Easy Integration")).toBeInTheDocument();
+    expect(screen.getByText("24/7 Support")).toBeInTheDocument();
+    expect(screen.getByText("Scalable Performance")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaFeatureChecklist className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

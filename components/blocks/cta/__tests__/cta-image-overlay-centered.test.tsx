@@ -34,4 +34,35 @@ describe("CtaImageOverlayCentered", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaImageOverlayCentered />);
+    expect(screen.getByText("Ready to unlock OpenSite AI coverage insights?")).toBeInTheDocument();
+    expect(screen.getByText("Connect with an advisor to tailor a plan that protects what matters most today and scales for tomorrow.")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaImageOverlayCentered heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<CtaImageOverlayCentered description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+      { label: "Learn More", href: "/learn", variant: "outline" as const },
+    ];
+    render(<CtaImageOverlayCentered actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaImageOverlayCentered className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

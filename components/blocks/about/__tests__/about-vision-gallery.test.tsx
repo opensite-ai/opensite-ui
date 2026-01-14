@@ -22,4 +22,43 @@ describe("AboutVisionGallery", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutVisionGallery />);
+    expect(screen.getByText("About Us")).toBeInTheDocument();
+    expect(screen.getByText(/Meet our team, discover our values/)).toBeInTheDocument();
+    expect(screen.getByText("Our Vision")).toBeInTheDocument();
+    expect(screen.getByText("Our Creators")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<AboutVisionGallery title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom subtitle", () => {
+    render(<AboutVisionGallery subtitle="Custom subtitle text" />);
+    expect(screen.getByText("Custom subtitle text")).toBeInTheDocument();
+  });
+
+  it("renders custom vision title and content", () => {
+    render(<AboutVisionGallery visionTitle="Custom Vision" visionContent="Custom vision content" />);
+    expect(screen.getByText("Custom Vision")).toBeInTheDocument();
+    expect(screen.getByText("Custom vision content")).toBeInTheDocument();
+  });
+
+  it("renders custom creators title", () => {
+    render(<AboutVisionGallery creatorsTitle="Custom Creators" />);
+    expect(screen.getByText("Custom Creators")).toBeInTheDocument();
+  });
+
+  it("renders CTA title", () => {
+    render(<AboutVisionGallery ctaTitle="Join Our Team" />);
+    expect(screen.getByText("Join Our Team")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutVisionGallery className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
