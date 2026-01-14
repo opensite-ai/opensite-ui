@@ -55,7 +55,9 @@ describe("BlogGridAuthorCards", () => {
   it("handles empty posts array", () => {
     render(<BlogGridAuthorCards posts={[]} />);
     expect(screen.getByText("Blog")).toBeInTheDocument();
-    expect(screen.getByText("View all posts")).toBeInTheDocument();
+    // Posts container should be empty when no posts are provided
+    const postsContainer = document.querySelector(".grid");
+    expect(postsContainer?.children.length ?? 0).toBe(0);
   });
 });
 

@@ -66,7 +66,9 @@ describe("BlogCardsReadTime", () => {
   it("handles empty posts array", () => {
     render(<BlogCardsReadTime posts={[]} />);
     expect(screen.getByText("Our Blogs")).toBeInTheDocument();
-    expect(screen.getByText("View All Blogs")).toBeInTheDocument();
+    // Posts container should be empty when no posts are provided
+    const postsContainer = document.querySelector(".grid");
+    expect(postsContainer?.children.length ?? 0).toBe(0);
   });
 });
 

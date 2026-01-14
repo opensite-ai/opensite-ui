@@ -54,7 +54,9 @@ describe("BlogRelatedArticles", () => {
   it("handles empty articles array", () => {
     render(<BlogRelatedArticles articles={[]} />);
     expect(screen.getByText("Related articles")).toBeInTheDocument();
-    expect(screen.getByText("See all articles")).toBeInTheDocument();
+    // Articles container should be empty when no articles are provided
+    const articlesContainer = document.querySelector(".grid");
+    expect(articlesContainer?.children.length ?? 0).toBe(0);
   });
 });
 

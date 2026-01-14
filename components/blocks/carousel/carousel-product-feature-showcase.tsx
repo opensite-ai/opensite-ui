@@ -169,18 +169,18 @@ export function CarouselProductFeatureShowcase({
   const [activeColorIndex, setActiveColorIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
 
-  const activeFeature = features[activeIndex];
+  const activeFeature = features?.[activeIndex];
 
   const goToNext = () => {
     setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % features.length);
+    setActiveIndex((prev) => (prev + 1) % (features?.length ?? 1));
     setActiveColorIndex(0);
   };
 
   const goToPrev = () => {
     setDirection(-1);
     setActiveIndex(
-      (prev) => (prev - 1 + features.length) % features.length
+      (prev) => (prev - 1 + (features?.length ?? 1)) % (features?.length ?? 1)
     );
     setActiveColorIndex(0);
   };
@@ -367,7 +367,7 @@ export function CarouselProductFeatureShowcase({
 
               {/* Dot indicators */}
               <div className={cn("mt-8 flex gap-2", indicatorsClassName)}>
-                {features.map((_, index) => (
+                {features?.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}

@@ -124,7 +124,7 @@ export function CarouselScrollingFeatureShowcase({
   optixFlowConfig,
 }: CarouselScrollingFeatureShowcaseProps): React.JSX.Element {
   const [activeFeature, setActiveFeature] = React.useState<string>(
-    features[0].id
+    features?.[0]?.id ?? ""
   );
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -139,7 +139,7 @@ export function CarouselScrollingFeatureShowcase({
   React.useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
-    features.forEach((feature) => {
+    features?.forEach((feature) => {
       const element = document.getElementById(feature.id);
       if (element) {
         const observer = new IntersectionObserver(
@@ -162,7 +162,7 @@ export function CarouselScrollingFeatureShowcase({
     };
   }, [features]);
 
-  const activeFeatureData = features.find((f) => f.id === activeFeature);
+  const activeFeatureData = features?.find((f) => f.id === activeFeature);
 
   return (
     <section ref={containerRef} className={cn("relative", className)}>
@@ -213,7 +213,7 @@ export function CarouselScrollingFeatureShowcase({
             {featuresSlot ? (
               featuresSlot
             ) : (
-              features.map((feature, index) => (
+              features?.map((feature, index) => (
                 <div
                   key={feature.id}
                   id={feature.id}

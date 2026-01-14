@@ -136,15 +136,15 @@ export function CarouselPortfolioHero({
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const goToNext = React.useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-  }, [slides.length]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (slides?.length ?? 1));
+  }, [slides?.length]);
 
   const goToPrev = React.useCallback(() => {
     setCurrentIndex(
       (prevIndex) =>
-        (prevIndex - 1 + slides.length) % slides.length
+        (prevIndex - 1 + (slides?.length ?? 1)) % (slides?.length ?? 1)
     );
-  }, [slides.length]);
+  }, [slides?.length]);
 
   React.useEffect(() => {
     const interval = setInterval(goToNext, autoPlayInterval);
@@ -176,7 +176,7 @@ export function CarouselPortfolioHero({
     });
   };
 
-  const currentSlide = slides[currentIndex];
+  const currentSlide = slides?.[currentIndex];
 
   return (
     <section
@@ -186,7 +186,7 @@ export function CarouselPortfolioHero({
       {slidesSlot ? (
         slidesSlot
       ) : (
-        slides.map((slide, index) => (
+        slides?.map((slide, index) => (
           <div
             key={slide.id}
             className={cn(
@@ -267,7 +267,7 @@ export function CarouselPortfolioHero({
                 </Pressable>
 
                 <div className={cn("ml-3 text-sm text-white/80", counterClassName)}>
-                  {currentIndex + 1} / {slides.length}
+                  {currentIndex + 1} / {slides?.length ?? 0}
                 </div>
               </div>
             </div>

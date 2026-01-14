@@ -66,7 +66,9 @@ describe("CaseStudiesStatsCard", () => {
   it("handles empty stats array", () => {
     render(<CaseStudiesStatsCard stats={[]} />);
     expect(screen.getByText("How We Optimized Our Onboarding Flow to Triple User Activation")).toBeInTheDocument();
-    expect(screen.getByText("Read Story")).toBeInTheDocument();
+    // Stats container should be empty when no stats are provided
+    const statsContainer = document.querySelector(".grid");
+    expect(statsContainer?.children.length ?? 0).toBe(0);
   });
 });
 

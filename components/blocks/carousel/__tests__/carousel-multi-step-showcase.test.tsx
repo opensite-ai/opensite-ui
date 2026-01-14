@@ -44,7 +44,11 @@ describe("CarouselMultiStepShowcase", () => {
   });
 
   it("renders custom actions", () => {
-    render(<CarouselMultiStepShowcase actions={[{ label: "Start Now", href: "#" }]} />);
+    const steps = [
+      { id: "s1", step: 1, title: "Step 1", description: "Desc 1", image: "img1.jpg" },
+      { id: "s2", step: 2, title: "Step 2", description: "Desc 2", image: "img2.jpg" },
+    ];
+    render(<CarouselMultiStepShowcase steps={steps} actions={[{ label: "Start Now", href: "#" }]} />);
     // CTA only shows on last step, so we need to navigate there
     expect(screen.getByText("Next")).toBeInTheDocument();
   });

@@ -121,19 +121,19 @@ export function CarouselImageHero({
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images?.length ?? 1));
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [images.length, autoPlayInterval]);
+  }, [images?.length, autoPlayInterval]);
 
   const goToNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images?.length ?? 1));
   };
 
   const goToPreviousImage = () => {
     setCurrentImageIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
+      (prevIndex) => (prevIndex - 1 + (images?.length ?? 1)) % (images?.length ?? 1)
     );
   };
 
@@ -166,7 +166,7 @@ export function CarouselImageHero({
     <section className={cn("relative min-h-[600px] overflow-hidden", className)}>
       {/* Image Carousel */}
       <div className={cn("absolute inset-0", imageClassName)}>
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <div
             key={index}
             className={cn(
@@ -209,7 +209,7 @@ export function CarouselImageHero({
 
         {/* Indicators */}
         <div className={cn("absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2", indicatorsClassName)}>
-          {images.map((_, index) => (
+          {images?.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentImageIndex(index)}

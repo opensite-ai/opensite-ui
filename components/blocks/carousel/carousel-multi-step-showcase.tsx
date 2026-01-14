@@ -153,7 +153,7 @@ export function CarouselMultiStepShowcase({
   };
 
   const goToNext = () => {
-    if (activeStep < steps.length - 1) {
+    if (activeStep < (steps?.length ?? 0) - 1) {
       setDirection(1);
       setActiveStep((prev) => prev + 1);
     }
@@ -237,7 +237,7 @@ export function CarouselMultiStepShowcase({
           <div className={stepNavigationClassName}>{stepsSlot}</div>
         ) : (
           <div className={cn("mb-8 flex flex-wrap justify-center gap-2", stepNavigationClassName)}>
-            {steps.map((step, index) => (
+            {steps?.map((step, index) => (
               <button
                 key={step.id}
                 onClick={() => goToStep(index)}
@@ -273,7 +273,7 @@ export function CarouselMultiStepShowcase({
             className="h-full bg-primary"
             initial={{ width: 0 }}
             animate={{
-              width: `${((activeStep + 1) / steps.length) * 100}%`,
+              width: `${((activeStep + 1) / (steps?.length ?? 1)) * 100}%`,
             }}
             transition={{ duration: 0.3 }}
           />
@@ -292,11 +292,11 @@ export function CarouselMultiStepShowcase({
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={cn("absolute inset-0", steps[activeStep]?.imageClassName)}
+                className={cn("absolute inset-0", steps?.[activeStep]?.imageClassName)}
               >
                 <Img
-                  src={steps[activeStep]?.image}
-                  alt={typeof steps[activeStep]?.title === "string" ? steps[activeStep].title : `Step ${activeStep + 1}`}
+                  src={steps?.[activeStep]?.image}
+                  alt={typeof steps?.[activeStep]?.title === "string" ? steps[activeStep].title : `Step ${activeStep + 1}`}
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -316,10 +316,10 @@ export function CarouselMultiStepShowcase({
               >
                 <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
                   <DynamicIcon name="lucide/check-circle" size={16} />
-                  Step {steps[activeStep]?.step} of {steps.length}
+                  Step {steps?.[activeStep]?.step} of {steps?.length ?? 0}
                 </div>
 
-                {steps[activeStep]?.title && (
+                {steps?.[activeStep]?.title && (
                   typeof steps[activeStep].title === "string" ? (
                     <h3 className="text-2xl font-semibold md:text-3xl">
                       {steps[activeStep].title}
@@ -329,7 +329,7 @@ export function CarouselMultiStepShowcase({
                   )
                 )}
 
-                {steps[activeStep]?.description && (
+                {steps?.[activeStep]?.description && (
                   typeof steps[activeStep].description === "string" ? (
                     <p className="mt-4 text-lg text-muted-foreground">
                       {steps[activeStep].description}
@@ -355,7 +355,7 @@ export function CarouselMultiStepShowcase({
                     Previous
                   </Pressable>
 
-                  {activeStep < steps.length - 1 ? (
+                  {activeStep < (steps?.length ?? 0) - 1 ? (
                     <Pressable onClick={goToNext} asButton>
                       Next
                       <DynamicIcon
