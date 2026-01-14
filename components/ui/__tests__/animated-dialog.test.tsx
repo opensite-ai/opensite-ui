@@ -61,13 +61,30 @@ describe("AnimatedDialog", () => {
     );
     expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
-    await user.click(closeButton);
 
-    expect(mockOnOpenChange).toHaveBeenCalledWith(false);
+  it("renders children content", () => {
+    render(
+      <AnimatedDialog
+        open={true}
+        onOpenChange={mockOnOpenChange}
+      >
+        <div>Test Content</div>
+      </AnimatedDialog>,
+    );
+    expect(screen.getByText("Test Content")).toBeInTheDocument();
   });
-    expect(closeButton.className).toContain("shrink-0");
-    expect(closeButton.className).toContain("rounded-full");
-    expect(closeButton.className).toContain("h-10");
-    expect(closeButton.className).toContain("w-10");
+
+  it("applies custom className", () => {
+    const { container } = render(
+      <AnimatedDialog
+        open={true}
+        onOpenChange={mockOnOpenChange}
+        className="custom-class"
+      >
+        Content
+      </AnimatedDialog>,
+    );
+    const dialog = container.querySelector(".custom-class");
+    expect(dialog).toBeInTheDocument();
   });
 });

@@ -25,5 +25,70 @@ describe("CaseStudiesFeaturedBorder", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  const mockFeaturedCaseStudy = {
+    logo: "https://example.com/logo.png",
+    company: "Test Company",
+    tags: "AI / ENTERPRISE",
+    title: "Featured Case Study",
+    subtitle: "How we helped Test Company",
+    image: "https://example.com/featured.jpg",
+    href: "/case-studies/test",
+    ctaLabel: "Read More",
+  };
+
+  const mockCaseStudies = [
+    {
+      logo: "https://example.com/logo1.png",
+      company: "Company 1",
+      tags: "TECH / SAAS",
+      title: "Case Study 1",
+      subtitle: "Success story 1",
+      href: "/case-studies/1",
+      ctaLabel: "Learn More",
+    },
+    {
+      logo: "https://example.com/logo2.png",
+      company: "Company 2",
+      tags: "FINANCE / FINTECH",
+      title: "Case Study 2",
+      subtitle: "Success story 2",
+      href: "/case-studies/2",
+      ctaLabel: "View Details",
+    },
+  ];
+
+  it("renders with default props", () => {
+    const { container } = render(<CaseStudiesFeaturedBorder />);
+    expect(container.querySelector("section")).toBeInTheDocument();
+  });
+
+  it("renders featured case study", () => {
+    render(<CaseStudiesFeaturedBorder featuredCaseStudy={mockFeaturedCaseStudy} />);
+    expect(screen.getByText("Featured Case Study")).toBeInTheDocument();
+    expect(screen.getByText("Test Company")).toBeInTheDocument();
+  });
+
+  it("renders case studies list", () => {
+    render(<CaseStudiesFeaturedBorder caseStudies={mockCaseStudies} />);
+    expect(screen.getByText("Case Study 1")).toBeInTheDocument();
+    expect(screen.getByText("Case Study 2")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CaseStudiesFeaturedBorder className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
+
+  it("renders both featured and regular case studies", () => {
+    render(
+      <CaseStudiesFeaturedBorder
+        featuredCaseStudy={mockFeaturedCaseStudy}
+        caseStudies={mockCaseStudies}
+      />
+    );
+    expect(screen.getByText("Featured Case Study")).toBeInTheDocument();
+    expect(screen.getByText("Case Study 1")).toBeInTheDocument();
+  });
 });
 

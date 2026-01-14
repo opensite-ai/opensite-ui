@@ -24,6 +24,9 @@ describe("ContactCallback", () => {
     render(<ContactCallback buttonText="Custom Button" />);
     expect(screen.getByText("Custom Button")).toBeInTheDocument();
   });
-    expect(submitButton).toBeInTheDocument();
+
+  it("applies custom className", () => {
+    const { container } = render(<ContactCallback className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

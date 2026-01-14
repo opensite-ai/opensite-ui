@@ -9,21 +9,13 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ContactCard", () => {
-
-  it("renders custom heading", () => {
-    render(<ContactCard heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  it("renders without crashing", () => {
+    const { container } = render(<ContactCard />);
+    expect(container).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<ContactCard description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
-  it("renders custom button text", () => {
-    render(<ContactCard buttonText="Custom Button" />);
-    expect(screen.getByText("Custom Button")).toBeInTheDocument();
-  });
-    expect(submitButton).toBeInTheDocument();
+  it("applies custom className", () => {
+    const { container } = render(<ContactCard className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

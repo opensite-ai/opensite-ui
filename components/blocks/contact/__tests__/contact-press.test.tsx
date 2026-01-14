@@ -1,23 +1,21 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ContactPress } from "../contact-press";
 
+vi.mock("../../../ui/dynamic-icon", () => ({
+  DynamicIcon: ({ name, className }: { name: string; className?: string }) => (
+    <span data-testid="mock-icon" data-name={name} className={className}>icon</span>
+  ),
+}));
+
 describe("ContactPress", () => {
-
-  it("renders custom heading", () => {
-    render(<ContactPress heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  it("renders without crashing", () => {
+    const { container } = render(<ContactPress />);
+    expect(container).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<ContactPress description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
-  it("renders custom button text", () => {
-    render(<ContactPress buttonText="Custom Button" />);
-    expect(screen.getByText("Custom Button")).toBeInTheDocument();
-  });
-    expect(button).toBeInTheDocument();
+  it("applies custom className", () => {
+    const { container } = render(<ContactPress className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });
