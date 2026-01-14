@@ -21,7 +21,13 @@ describe("FeatureBadgeGridSix", () => {
 
   it("renders with default props", () => {
     render(<FeatureBadgeGridSix />);
+    expect(screen.getByText("Features")).toBeInTheDocument();
     expect(screen.getByText("Fully featured components for Opensite AI & Tailwind")).toBeInTheDocument();
+  });
+
+  it("renders custom label", () => {
+    render(<FeatureBadgeGridSix label="Custom Label" />);
+    expect(screen.getByText("Custom Label")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -29,14 +35,14 @@ describe("FeatureBadgeGridSix", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureBadgeGridSix description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
-  it("renders badge when provided", () => {
-    render(<FeatureBadgeGridSix badge="New Feature" />);
-    expect(screen.getByText("New Feature")).toBeInTheDocument();
+  it("renders features when provided", () => {
+    const features = [
+      { heading: "Feature One", description: "Description one" },
+      { heading: "Feature Two", description: "Description two" },
+    ];
+    render(<FeatureBadgeGridSix features={features} />);
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

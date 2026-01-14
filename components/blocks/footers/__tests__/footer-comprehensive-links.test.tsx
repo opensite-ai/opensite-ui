@@ -40,4 +40,33 @@ describe("FooterComprehensiveLinks", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FooterComprehensiveLinks />);
+    expect(screen.getByText("Modern coverage guidance powered by OpenSite AI.")).toBeInTheDocument();
+  });
+
+  it("renders custom tagline", () => {
+    render(<FooterComprehensiveLinks tagline="Custom tagline" />);
+    expect(screen.getByText("Custom tagline")).toBeInTheDocument();
+  });
+
+  it("renders custom summary", () => {
+    render(<FooterComprehensiveLinks summary="Custom summary" />);
+    expect(screen.getByText("Custom summary")).toBeInTheDocument();
+  });
+
+  it("renders link columns when provided", () => {
+    const linkColumns = [
+      { title: "Products", links: [{ label: "Feature 1", href: "/feature1" }] },
+    ];
+    render(<FooterComprehensiveLinks linkColumns={linkColumns} />);
+    expect(screen.getByText("Products")).toBeInTheDocument();
+    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FooterComprehensiveLinks className="custom-class" />);
+    expect(container.querySelector("footer")).toHaveClass("custom-class");
+  });
 });

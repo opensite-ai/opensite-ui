@@ -40,9 +40,13 @@ describe("FeatureIntegrationCards", () => {
   });
 
   it("renders integrations when provided", () => {
-    const integrations = [{ title: "Integration 1", description: "Description 1" }];
+    const integrations = [
+      { title: "Integration One", description: "Description one" },
+      { title: "Integration Two", description: "Description two" },
+    ];
     render(<FeatureIntegrationCards integrations={integrations} />);
-    expect(screen.getByText("Integration 1")).toBeInTheDocument();
+    expect(screen.getByText("Integration One")).toBeInTheDocument();
+    expect(screen.getByText("Integration Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -26,6 +26,7 @@ describe("FeatureBentoImageGrid", () => {
   it("renders with default props", () => {
     render(<FeatureBentoImageGrid />);
     expect(screen.getByText("Dynamic Layouts")).toBeInTheDocument();
+    expect(screen.getByText("Adapt the box to suit any purpose")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -38,10 +39,14 @@ describe("FeatureBentoImageGrid", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
-    render(<FeatureBentoImageGrid features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  it("renders items when provided", () => {
+    const items = [
+      { title: "Item One", iconBadge: "Badge One", size: "large" as const },
+      { title: "Item Two", iconBadge: "Badge Two" },
+    ];
+    render(<FeatureBentoImageGrid items={items} />);
+    expect(screen.getByText("Item One")).toBeInTheDocument();
+    expect(screen.getByText("Item Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

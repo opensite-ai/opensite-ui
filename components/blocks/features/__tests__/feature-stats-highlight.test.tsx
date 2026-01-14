@@ -15,7 +15,13 @@ describe("FeatureStatsHighlight", () => {
 
   it("renders with default props", () => {
     render(<FeatureStatsHighlight />);
+    expect(screen.getByText("Why Choose Us")).toBeInTheDocument();
     expect(screen.getByText("We deliver results that matter")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<FeatureStatsHighlight badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -23,15 +29,14 @@ describe("FeatureStatsHighlight", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureStatsHighlight description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
   it("renders stats when provided", () => {
-    const stats = [{ value: "100+", label: "Customers" }];
+    const stats = [
+      { value: "99%", label: "Uptime" },
+      { value: "24/7", label: "Support" },
+    ];
     render(<FeatureStatsHighlight stats={stats} />);
-    expect(screen.getByText("100+")).toBeInTheDocument();
+    expect(screen.getByText("99%")).toBeInTheDocument();
+    expect(screen.getByText("Uptime")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

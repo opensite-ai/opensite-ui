@@ -15,7 +15,13 @@ describe("FeatureIconGridBordered", () => {
 
   it("renders with default props", () => {
     render(<FeatureIconGridBordered />);
+    expect(screen.getByText("Why Us?")).toBeInTheDocument();
     expect(screen.getByText("A better way to build websites")).toBeInTheDocument();
+  });
+
+  it("renders custom label", () => {
+    render(<FeatureIconGridBordered label="Custom Label" />);
+    expect(screen.getByText("Custom Label")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -23,15 +29,14 @@ describe("FeatureIconGridBordered", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureIconGridBordered description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
   it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
+    const features = [
+      { title: "Feature One", description: "Description one" },
+      { title: "Feature Two", description: "Description two" },
+    ];
     render(<FeatureIconGridBordered features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

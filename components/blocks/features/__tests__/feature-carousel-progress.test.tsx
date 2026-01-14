@@ -27,7 +27,13 @@ describe("FeatureCarouselProgress", () => {
 
   it("renders with default props", () => {
     render(<FeatureCarouselProgress />);
+    expect(screen.getByText("Badge")).toBeInTheDocument();
     expect(screen.getByText("This is where your features go")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<FeatureCarouselProgress badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -35,15 +41,14 @@ describe("FeatureCarouselProgress", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders badge", () => {
-    render(<FeatureCarouselProgress badge="Custom Badge" />);
-    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
-  });
-
   it("renders slides when provided", () => {
-    const slides = [{ title: "Slide 1", description: "Description 1" }];
+    const slides = [
+      { title: "Slide One", description: "Description one" },
+      { title: "Slide Two", description: "Description two" },
+    ];
     render(<FeatureCarouselProgress slides={slides} />);
-    expect(screen.getByText("Slide 1")).toBeInTheDocument();
+    expect(screen.getByText("Slide One")).toBeInTheDocument();
+    expect(screen.getByText("Slide Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

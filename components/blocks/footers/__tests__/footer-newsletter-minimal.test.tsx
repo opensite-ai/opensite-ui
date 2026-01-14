@@ -18,4 +18,30 @@ describe("FooterNewsletterMinimal", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FooterNewsletterMinimal />);
+    expect(screen.getByText("Unlock 800+ blocks now")).toBeInTheDocument();
+    expect(screen.getByText("Sign up for newsletter :")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<FooterNewsletterMinimal heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom support email", () => {
+    render(<FooterNewsletterMinimal supportEmail="test@example.com" />);
+    expect(screen.getByText("test@example.com")).toBeInTheDocument();
+  });
+
+  it("renders custom brand text", () => {
+    render(<FooterNewsletterMinimal brandText="CUSTOM BRAND" />);
+    expect(screen.getByText("CUSTOM BRAND")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FooterNewsletterMinimal className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

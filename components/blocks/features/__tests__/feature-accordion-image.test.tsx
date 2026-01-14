@@ -25,7 +25,7 @@ describe("FeatureAccordionImage", () => {
 
   it("renders with default props", () => {
     render(<FeatureAccordionImage />);
-    expect(screen.getByText("Key Features That Save You Time")).toBeInTheDocument();
+    expect(screen.getByText("How It Works")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -38,10 +38,14 @@ describe("FeatureAccordionImage", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
-    render(<FeatureAccordionImage features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  it("renders accordion items when provided", () => {
+    const items = [
+      { title: "Step One", content: "Content one" },
+      { title: "Step Two", content: "Content two" },
+    ];
+    render(<FeatureAccordionImage items={items} />);
+    expect(screen.getByText("Step One")).toBeInTheDocument();
+    expect(screen.getByText("Step Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

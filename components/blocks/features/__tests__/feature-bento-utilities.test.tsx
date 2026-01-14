@@ -25,7 +25,13 @@ describe("FeatureBentoUtilities", () => {
 
   it("renders with default props", () => {
     render(<FeatureBentoUtilities />);
+    expect(screen.getByText("Utilities")).toBeInTheDocument();
     expect(screen.getByText("Utilites for every use case and platform you can think of.")).toBeInTheDocument();
+  });
+
+  it("renders custom label", () => {
+    render(<FeatureBentoUtilities label="Custom Label" />);
+    expect(screen.getByText("Custom Label")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -38,10 +44,14 @@ describe("FeatureBentoUtilities", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
-    render(<FeatureBentoUtilities features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  it("renders left column cards when provided", () => {
+    const leftColumnCards = [
+      { title: "Card One", description: "Description one" },
+      { title: "Card Two", description: "Description two" },
+    ];
+    render(<FeatureBentoUtilities leftColumnCards={leftColumnCards} />);
+    expect(screen.getByText("Card One")).toBeInTheDocument();
+    expect(screen.getByText("Card Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

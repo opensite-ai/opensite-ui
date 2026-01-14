@@ -38,10 +38,14 @@ describe("FeatureTabbedContentImage", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders tabs when provided", () => {
-    const tabs = [{ title: "Tab 1", content: "Content 1" }];
-    render(<FeatureTabbedContentImage tabs={tabs} />);
-    expect(screen.getByText("Tab 1")).toBeInTheDocument();
+  it("renders slides when provided", () => {
+    const slides = [
+      { id: 1, tabName: "Tab One", title: "Slide One Title" },
+      { id: 2, tabName: "Tab Two", title: "Slide Two Title" },
+    ];
+    render(<FeatureTabbedContentImage slides={slides} />);
+    expect(screen.getByText("Tab One")).toBeInTheDocument();
+    expect(screen.getByText("Tab Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -15,7 +15,13 @@ describe("FeatureIconGridAccent", () => {
 
   it("renders with default props", () => {
     render(<FeatureIconGridAccent />);
+    expect(screen.getByText("WHY WE ARE UNIQUE")).toBeInTheDocument();
     expect(screen.getByText("Bringing the best to you by the best in the industry")).toBeInTheDocument();
+  });
+
+  it("renders custom label", () => {
+    render(<FeatureIconGridAccent label="Custom Label" />);
+    expect(screen.getByText("Custom Label")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -23,15 +29,14 @@ describe("FeatureIconGridAccent", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureIconGridAccent description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
   it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
+    const features = [
+      { title: "Feature One", description: "Description one" },
+      { title: "Feature Two", description: "Description two" },
+    ];
     render(<FeatureIconGridAccent features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

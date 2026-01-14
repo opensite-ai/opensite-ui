@@ -26,6 +26,12 @@ describe("FeatureCategoryImageCards", () => {
   it("renders with default props", () => {
     render(<FeatureCategoryImageCards />);
     expect(screen.getByText("Key Features")).toBeInTheDocument();
+    expect(screen.getByText("Exceptional Software")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<FeatureCategoryImageCards badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -38,9 +44,14 @@ describe("FeatureCategoryImageCards", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders badge when provided", () => {
-    render(<FeatureCategoryImageCards badge="New Feature" />);
-    expect(screen.getByText("New Feature")).toBeInTheDocument();
+  it("renders features when provided", () => {
+    const features = [
+      { title: "Feature One", description: "Description one" },
+      { title: "Feature Two", description: "Description two" },
+    ];
+    render(<FeatureCategoryImageCards features={features} />);
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -19,12 +19,13 @@ describe("FeatureImageCardsThreeColumn", () => {
 
   it("renders with default props", () => {
     render(<FeatureImageCardsThreeColumn />);
-    expect(screen.getByText("A Collection of Components Built With Opensite AI & Tailwind")).toBeInTheDocument();
+    expect(screen.getByText("Versatile Designs")).toBeInTheDocument();
+    expect(screen.getByText("Personalize the box to fit your requirements")).toBeInTheDocument();
   });
 
-  it("renders custom heading", () => {
-    render(<FeatureImageCardsThreeColumn heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  it("renders custom title", () => {
+    render(<FeatureImageCardsThreeColumn title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
@@ -32,10 +33,14 @@ describe("FeatureImageCardsThreeColumn", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
-    render(<FeatureImageCardsThreeColumn features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  it("renders cards when provided", () => {
+    const cards = [
+      { title: "Card One", badgeText: "Badge One" },
+      { title: "Card Two", badgeText: "Badge Two" },
+    ];
+    render(<FeatureImageCardsThreeColumn cards={cards} />);
+    expect(screen.getByText("Card One")).toBeInTheDocument();
+    expect(screen.getByText("Card Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -25,7 +25,13 @@ describe("FeatureImageOverlayBadge", () => {
 
   it("renders with default props", () => {
     render(<FeatureImageOverlayBadge />);
+    expect(screen.getByText("Modern Tactics")).toBeInTheDocument();
     expect(screen.getByText("Make your site a true standout.")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<FeatureImageOverlayBadge badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -33,14 +39,14 @@ describe("FeatureImageOverlayBadge", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureImageOverlayBadge description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders overlay title", () => {
+    render(<FeatureImageOverlayBadge overlayTitle="Custom Overlay Title" />);
+    expect(screen.getByText("Custom Overlay Title")).toBeInTheDocument();
   });
 
-  it("renders badge when provided", () => {
-    render(<FeatureImageOverlayBadge badge="New Feature" />);
-    expect(screen.getByText("New Feature")).toBeInTheDocument();
+  it("renders avatar badge text", () => {
+    render(<FeatureImageOverlayBadge avatarBadgeText="Custom Avatar Badge" />);
+    expect(screen.getByText("Custom Avatar Badge")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

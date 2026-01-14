@@ -27,7 +27,13 @@ describe("FeatureCapabilitiesGrid", () => {
 
   it("renders with default props", () => {
     render(<FeatureCapabilitiesGrid />);
+    expect(screen.getByText("[ CAPABILITIES ]")).toBeInTheDocument();
     expect(screen.getByText("Models that adapt to your coverage strategy")).toBeInTheDocument();
+  });
+
+  it("renders custom eyebrow", () => {
+    render(<FeatureCapabilitiesGrid eyebrow="Custom Eyebrow" />);
+    expect(screen.getByText("Custom Eyebrow")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -35,15 +41,14 @@ describe("FeatureCapabilitiesGrid", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders eyebrow", () => {
-    render(<FeatureCapabilitiesGrid eyebrow="Custom Eyebrow" />);
-    expect(screen.getByText("Custom Eyebrow")).toBeInTheDocument();
-  });
-
   it("renders items when provided", () => {
-    const items = [{ title: "Capability 1", description: "Description 1" }];
+    const items = [
+      { title: "Item One", description: "Description one" },
+      { title: "Item Two", description: "Description two" },
+    ];
     render(<FeatureCapabilitiesGrid items={items} />);
-    expect(screen.getByText("Capability 1")).toBeInTheDocument();
+    expect(screen.getByText("Item One")).toBeInTheDocument();
+    expect(screen.getByText("Item Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

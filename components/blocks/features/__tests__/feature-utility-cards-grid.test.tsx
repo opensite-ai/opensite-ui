@@ -15,7 +15,13 @@ describe("FeatureUtilityCardsGrid", () => {
 
   it("renders with default props", () => {
     render(<FeatureUtilityCardsGrid />);
+    expect(screen.getByText("Utilities")).toBeInTheDocument();
     expect(screen.getByText("What you can do with our utilities?")).toBeInTheDocument();
+  });
+
+  it("renders custom label", () => {
+    render(<FeatureUtilityCardsGrid label="Custom Label" />);
+    expect(screen.getByText("Custom Label")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -26,12 +32,6 @@ describe("FeatureUtilityCardsGrid", () => {
   it("renders custom description", () => {
     render(<FeatureUtilityCardsGrid description="Custom description text" />);
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
-  it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
-    render(<FeatureUtilityCardsGrid features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

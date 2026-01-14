@@ -44,10 +44,20 @@ describe("FeatureSplitImage", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
+  it("renders image with correct alt text", () => {
+    render(<FeatureSplitImage imageAlt="Custom alt text" />);
+    const img = screen.getByTestId("mock-img");
+    expect(img).toHaveAttribute("alt", "Custom alt text");
+  });
+
   it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+      { label: "Learn More", href: "/learn", variant: "outline" as const },
+    ];
     render(<FeatureSplitImage actions={actions} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

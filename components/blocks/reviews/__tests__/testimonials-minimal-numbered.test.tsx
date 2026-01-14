@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { TestimonialsMinimalNumbered } from "../testimonials-minimal-numbered";
 
 vi.mock("../../../ui/avatar", () => ({
@@ -25,5 +25,31 @@ vi.mock("../../../../lib/blockBrandedIconsAndPlaceholders", () => ({
 describe("TestimonialsMinimalNumbered", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("renders with default props", () => {
+    render(<TestimonialsMinimalNumbered />);
+    expect(screen.getByText("This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive.")).toBeInTheDocument();
+    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  });
+
+  it("renders custom testimonials", () => {
+    const testimonials = [
+      { quote: "Custom quote", author: "John Doe", role: "CEO", company: "TestCo" },
+    ];
+    render(<TestimonialsMinimalNumbered testimonials={testimonials} />);
+    expect(screen.getByText("Custom quote")).toBeInTheDocument();
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+  });
+
+  it("renders author role and company", () => {
+    render(<TestimonialsMinimalNumbered />);
+    expect(screen.getByText("Design Director")).toBeInTheDocument();
+    expect(screen.getByText("Linear")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<TestimonialsMinimalNumbered className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

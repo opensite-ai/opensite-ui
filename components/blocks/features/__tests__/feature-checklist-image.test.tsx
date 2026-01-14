@@ -38,11 +38,20 @@ describe("FeatureChecklistImage", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
+  it("renders image with correct alt text", () => {
+    render(<FeatureChecklistImage imageAlt="Custom alt text" />);
+    const img = screen.getByTestId("mock-img");
+    expect(img).toHaveAttribute("alt", "Custom alt text");
+  });
+
   it("renders checklist items when provided", () => {
-    const checklistItems = ["Quality", "Multi-purpose", "Easy to use"];
+    const checklistItems = [
+      { content: "Feature one" },
+      { content: "Feature two" },
+    ];
     render(<FeatureChecklistImage checklistItems={checklistItems} />);
-    expect(screen.getByText("Quality")).toBeInTheDocument();
-    expect(screen.getByText("Multi-purpose")).toBeInTheDocument();
+    expect(screen.getByText("Feature one")).toBeInTheDocument();
+    expect(screen.getByText("Feature two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

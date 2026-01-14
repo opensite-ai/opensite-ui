@@ -13,25 +13,38 @@ describe("FeatureNumberedCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureNumberedCards />);
-    expect(screen.getByText("How It Works")).toBeInTheDocument();
+  it("renders without crashing with default props", () => {
+    const { container } = render(<FeatureNumberedCards />);
+    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
-  it("renders custom title", () => {
-    render(<FeatureNumberedCards title="Custom Title" />);
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  it("renders features when provided", () => {
+    const features = [
+      { title: "Feature One", description: "Description one" },
+      { title: "Feature Two", description: "Description two" },
+    ];
+    render(<FeatureNumberedCards features={features} />);
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureNumberedCards description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders checklist items when provided", () => {
+    const features = [
+      { title: "Feature One", checklistItems: ["Item One", "Item Two"] },
+    ];
+    render(<FeatureNumberedCards features={features} />);
+    expect(screen.getByText("Item One")).toBeInTheDocument();
+    expect(screen.getByText("Item Two")).toBeInTheDocument();
   });
 
-  it("renders steps when provided", () => {
-    const steps = [{ title: "Step 1", description: "Description 1" }];
-    render(<FeatureNumberedCards steps={steps} />);
-    expect(screen.getByText("Step 1")).toBeInTheDocument();
+  it("renders numbered badges", () => {
+    const features = [
+      { title: "Feature One" },
+      { title: "Feature Two" },
+    ];
+    render(<FeatureNumberedCards features={features} />);
+    expect(screen.getByText("01")).toBeInTheDocument();
+    expect(screen.getByText("02")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

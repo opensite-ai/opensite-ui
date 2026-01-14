@@ -23,15 +23,21 @@ describe("FeatureChecklistThreeColumn", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureChecklistThreeColumn description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders checklist column 1 items when provided", () => {
+    const checklistColumn1 = ["Item One", "Item Two"];
+    render(<FeatureChecklistThreeColumn checklistColumn1={checklistColumn1} />);
+    expect(screen.getByText("Item One")).toBeInTheDocument();
+    expect(screen.getByText("Item Two")).toBeInTheDocument();
   });
 
-  it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", items: ["Item 1", "Item 2"] }];
-    render(<FeatureChecklistThreeColumn features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  it("renders cards when provided", () => {
+    const cards = [
+      { title: "Card One", description: "Description one" },
+      { title: "Card Two", description: "Description two" },
+    ];
+    render(<FeatureChecklistThreeColumn cards={cards} />);
+    expect(screen.getByText("Card One")).toBeInTheDocument();
+    expect(screen.getByText("Card Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

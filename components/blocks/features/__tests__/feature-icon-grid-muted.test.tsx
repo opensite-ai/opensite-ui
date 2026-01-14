@@ -29,9 +29,13 @@ describe("FeatureIconGridMuted", () => {
   });
 
   it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
+    const features = [
+      { title: "Feature One", description: "Description one" },
+      { title: "Feature Two", description: "Description two" },
+    ];
     render(<FeatureIconGridMuted features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

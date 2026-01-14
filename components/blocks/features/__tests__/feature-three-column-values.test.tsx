@@ -15,7 +15,13 @@ describe("FeatureThreeColumnValues", () => {
 
   it("renders with default props", () => {
     render(<FeatureThreeColumnValues />);
+    expect(screen.getByText("OUR VALUES")).toBeInTheDocument();
     expect(screen.getByText("Why Choose Us?")).toBeInTheDocument();
+  });
+
+  it("renders custom label", () => {
+    render(<FeatureThreeColumnValues label="Custom Label" />);
+    expect(screen.getByText("Custom Label")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
@@ -23,15 +29,14 @@ describe("FeatureThreeColumnValues", () => {
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<FeatureThreeColumnValues description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
-  });
-
-  it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1" }];
-    render(<FeatureThreeColumnValues features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  it("renders values when provided", () => {
+    const values = [
+      { title: "Value One", description: "Description one" },
+      { title: "Value Two", description: "Description two" },
+    ];
+    render(<FeatureThreeColumnValues values={values} />);
+    expect(screen.getByText("Value One")).toBeInTheDocument();
+    expect(screen.getByText("Value Two")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

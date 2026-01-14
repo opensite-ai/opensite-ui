@@ -19,15 +19,27 @@ describe("FeaturePatternGridLinks", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
+  it("renders without crashing with default props", () => {
     const { container } = render(<FeaturePatternGridLinks />);
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1", link: "/feature1" }];
+    const features = [
+      { title: "Feature One", description: "Description one" },
+      { title: "Feature Two", description: "Description two" },
+    ];
     render(<FeaturePatternGridLinks features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
+  });
+
+  it("renders feature links when provided", () => {
+    const features = [
+      { title: "Feature One", link: "/feature-one", linkLabel: "Learn More" },
+    ];
+    render(<FeaturePatternGridLinks features={features} />);
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 
   it("renders feature description", () => {

@@ -43,4 +43,30 @@ describe("StatsImpactGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<StatsImpactGrid />);
+    expect(screen.getByText("Proven Results")).toBeInTheDocument();
+    expect(screen.getByText("Transforming Businesses With Real Numbers")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<StatsImpactGrid badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<StatsImpactGrid heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<StatsImpactGrid description="Custom description" />);
+    expect(screen.getByText("Custom description")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<StatsImpactGrid className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

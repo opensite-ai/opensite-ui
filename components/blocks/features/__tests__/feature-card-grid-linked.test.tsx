@@ -30,9 +30,21 @@ describe("FeatureCardGridLinked", () => {
   });
 
   it("renders features when provided", () => {
-    const features = [{ heading: "Feature 1", description: "Description 1", url: "/feature1" }];
+    const features = [
+      { heading: "Feature One", description: "Description one" },
+      { heading: "Feature Two", description: "Description two" },
+    ];
     render(<FeatureCardGridLinked features={features} />);
-    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
+  });
+
+  it("renders feature labels when provided", () => {
+    const features = [
+      { heading: "Feature One", label: "FOR DESIGNERS" },
+    ];
+    render(<FeatureCardGridLinked features={features} />);
+    expect(screen.getByText("FOR DESIGNERS")).toBeInTheDocument();
   });
 
   it("renders feature description", () => {
