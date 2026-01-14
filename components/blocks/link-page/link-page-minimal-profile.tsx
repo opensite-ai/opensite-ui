@@ -427,8 +427,8 @@ export function LinkPageMinimalProfile({
   const renderFooter = () => {
     if (footerSlot) return footerSlot;
 
-    const resolvedFooterAction = footerAction ?? defaultFooterAction;
-    if (!resolvedFooterAction) return null;
+    if (!footerAction) return null;
+    const resolvedFooterAction = footerAction;
 
     const {
       label,

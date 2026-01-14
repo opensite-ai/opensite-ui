@@ -307,7 +307,7 @@ export function ArticleChaptersAuthorComponent({
   enableChapterTracking = true,
   optixFlowConfig,
 }: ArticleChaptersAuthorProps) {
-  const conclusionActions = conclusionActionsProp ?? (conclusionButtonText ? [{ label: conclusionButtonText, href: conclusionButtonHref || "#", variant: "default" as const }] : defaultConclusionActions);
+  const conclusionActions = conclusionActionsProp ?? (conclusionButtonText ? [{ label: conclusionButtonText, href: conclusionButtonHref || "#", variant: "default" as const }] : []);
   const [activeChapter, setActiveChapter] = React.useState<string>(
     chapters?.[0]?.id || ""
   );

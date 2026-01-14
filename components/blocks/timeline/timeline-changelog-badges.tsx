@@ -122,7 +122,7 @@ export function TimelineChangelogBadges({
   id,
   style,
 }: TimelineChangelogBadgesProps) {
-  if (entries.length === 0) {
+  if (!entries || entries.length === 0) {
     return (
       <Section
         id={id}

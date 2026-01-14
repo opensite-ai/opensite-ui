@@ -181,7 +181,7 @@ export const NavbarSplitCta = ({
   const finalAuthActions = authActions || (primaryCta || secondaryCta ? [
     ...(secondaryCta ? [{ label: secondaryCta.label, href: secondaryCta.url, variant: "outline" as const, size: "default" as const }] : []),
     ...(primaryCta ? [{ label: primaryCta.label, href: primaryCta.url, variant: "default" as const, size: "default" as const, iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-1" /> }] : []),
-  ] : defaultAuthActions);
+  ] : []);
 
   const renderLogo = () => {
     if (logoSlot) return logoSlot;

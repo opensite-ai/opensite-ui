@@ -123,11 +123,11 @@ export function TimelineHorizontalPhases({
   id,
   style,
 }: TimelineHorizontalPhasesProps) {
-  const safeCurrentPhase = phases.length > 0 
-    ? Math.max(0, Math.min(currentPhase, phases.length - 1))
+  const safeCurrentPhase = (phases?.length ?? 0) > 0 
+    ? Math.max(0, Math.min(currentPhase, (phases?.length ?? 1) - 1))
     : 0;
 
-  if (phases.length === 0) {
+  if (!phases || phases.length === 0) {
     return (
       <Section
         id={id}

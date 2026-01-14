@@ -123,12 +123,12 @@ export function TimelineScrollHighlight({
   const [activeIndex, setActiveIndex] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const safeActiveIndex = items.length > 0 
-    ? Math.max(0, Math.min(activeIndex, items.length - 1))
+  const safeActiveIndex = (items?.length ?? 0) > 0 
+    ? Math.max(0, Math.min(activeIndex, (items?.length ?? 1) - 1))
     : 0;
 
   useEffect(() => {
-    if (items.length === 0) return;
+    if (!items || items.length === 0) return;
 
     const observerOptions = {
       root: null,
@@ -163,7 +163,7 @@ export function TimelineScrollHighlight({
     return () => {
       observer.disconnect();
     };
-  }, [items.length]);
+  }, [items?.length]);
 
   const defaultHeading = (
     <>
@@ -173,7 +173,7 @@ export function TimelineScrollHighlight({
     </>
   );
 
-  if (items.length === 0) {
+  if (!items || items.length === 0) {
     return (
       <Section
         id={id}

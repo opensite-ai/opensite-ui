@@ -110,18 +110,18 @@ export function ProjectFilterableGallery({
   emptyStateClassName,
 }: ProjectFilterableGalleryProps) {
   const [activeFilter, setActiveFilter] = useState("ALL");
-  const [filteredItems, setFilteredItems] = useState(projects);
+  const [filteredItems, setFilteredItems] = useState(projects ?? []);
 
   const handleFilterChange = (category: string) => {
     setActiveFilter(category);
 
     if (category === "ALL") {
-      setFilteredItems(projects);
+      setFilteredItems(projects ?? []);
     } else {
-      const filtered = projects.filter(
+      const filtered = (projects ?? []).filter(
         (item) =>
           item.category === category ||
-          item.tags.includes(category.toLowerCase().replace(" ", "-"))
+          item.tags?.includes(category.toLowerCase().replace(" ", "-"))
       );
       setFilteredItems(filtered);
     }
@@ -130,7 +130,7 @@ export function ProjectFilterableGallery({
   const renderProjects = () => {
     if (projectsSlot) return projectsSlot;
 
-    return filteredItems.map((item) => (
+    return filteredItems?.map((item) => (
       <motion.div
         key={item.id}
         layout
@@ -180,7 +180,7 @@ export function ProjectFilterableGallery({
       <div className={cn("container", containerClassName)}>
         <div className="mx-auto max-w-7xl">
           <div className={cn("mb-16 flex flex-wrap justify-center gap-8", filtersClassName)}>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <button
                 key={category}
                 onClick={() => handleFilterChange(category)}
@@ -203,7 +203,7 @@ export function ProjectFilterableGallery({
             </AnimatePresence>
           </motion.div>
 
-          {filteredItems.length === 0 && (
+          {filteredItems?.length === 0 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

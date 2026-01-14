@@ -205,7 +205,7 @@ export function TimelineTwoColumnFeatured({
             </div>
           </div>
           <div className={cn("flex flex-col gap-12 md:gap-20", featuresClassName)}>
-            {features.map((feature, index) => (
+            {features?.map((feature, index) => (
               <div key={index} className={cn("rounded-xl border p-2", featureClassName)}>
                 <Img
                   src={feature.image}

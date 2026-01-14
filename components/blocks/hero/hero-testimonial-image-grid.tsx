@@ -136,6 +136,7 @@ export function HeroTestimonialImageGrid({
 }: HeroTestimonialImageGridProps): React.JSX.Element {
   const renderButton = () => {
     if (buttonSlot) return buttonSlot;
+    if (!button || !button.url) return null;
 
     return (
       <Pressable href={button.url} asButton size="lg" variant="default">
@@ -146,6 +147,7 @@ export function HeroTestimonialImageGrid({
 
   const renderTestimonial = () => {
     if (testimonialSlot) return testimonialSlot;
+    if (!testimonial || !testimonial.avatars) return null;
 
     return (
       <div className="flex flex-wrap items-center gap-3">
@@ -175,8 +177,9 @@ export function HeroTestimonialImageGrid({
 
   const renderImagesGrid = () => {
     if (imagesSlot) return imagesSlot;
+    if (!gridImages || gridImages.length < 4) return null;
 
-    const images = gridImages.length >= 4 ? gridImages : defaultGridImages;
+    const images = gridImages;
 
     return (
       <div className="w-full flex-1">

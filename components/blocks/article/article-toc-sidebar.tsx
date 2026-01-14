@@ -287,7 +287,7 @@ export function ArticleTocSidebarComponent({
   enableTocTracking = true,
   optixFlowConfig,
 }: ArticleTocSidebarProps) {
-  const ctaActions = ctaActionsProp ?? (ctaButtonText ? [{ label: ctaButtonText, href: ctaButtonHref || "#", variant: "default" as const, className: "w-full" }] : defaultCtaActions);
+  const ctaActions = ctaActionsProp ?? (ctaButtonText ? [{ label: ctaButtonText, href: ctaButtonHref || "#", variant: "default" as const, className: "w-full" }] : []);
 
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || ""
