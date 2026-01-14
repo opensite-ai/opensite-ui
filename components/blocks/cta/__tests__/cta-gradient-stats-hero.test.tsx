@@ -18,4 +18,47 @@ describe("CtaGradientStatsHero", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaGradientStatsHero />);
+    expect(screen.getByText("Scale with confidence")).toBeInTheDocument();
+    expect(screen.getByText("Built for enterprise-grade performance and reliability. Join thousands of companies that trust us with their mission-critical applications.")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaGradientStatsHero heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<CtaGradientStatsHero description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "secondary" as const },
+      { label: "View Pricing", href: "/pricing", variant: "outline" as const },
+    ];
+    render(<CtaGradientStatsHero actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+    expect(screen.getByText("View Pricing")).toBeInTheDocument();
+  });
+
+  it("renders stats when provided", () => {
+    const stats = [
+      { value: "99.9%", label: "Uptime" },
+      { value: "10K+", label: "Customers" },
+    ];
+    render(<CtaGradientStatsHero stats={stats} />);
+    expect(screen.getByText("99.9%")).toBeInTheDocument();
+    expect(screen.getByText("Uptime")).toBeInTheDocument();
+    expect(screen.getByText("10K+")).toBeInTheDocument();
+    expect(screen.getByText("Customers")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaGradientStatsHero className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

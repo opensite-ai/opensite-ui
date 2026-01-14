@@ -24,4 +24,40 @@ describe("CtaBackgroundIconBadge", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaBackgroundIconBadge />);
+    expect(screen.getByText("Build your website faster.")).toBeInTheDocument();
+    expect(screen.getByText("Faster")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaBackgroundIconBadge heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom badge text", () => {
+    render(<CtaBackgroundIconBadge badgeText="Speed" />);
+    expect(screen.getByText("Speed")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "secondary" as const },
+      { label: "Learn More", href: "/learn", variant: "outline" as const },
+    ];
+    render(<CtaBackgroundIconBadge actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("renders badge icon", () => {
+    render(<CtaBackgroundIconBadge badgeIconName="lucide/zap" />);
+    expect(screen.getByTestId("mock-icon")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaBackgroundIconBadge className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

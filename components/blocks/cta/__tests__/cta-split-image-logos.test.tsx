@@ -23,4 +23,43 @@ describe("CtaSplitImageLogos", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaSplitImageLogos />);
+    expect(screen.getByText("Build your website faster")).toBeInTheDocument();
+    expect(screen.getByText("Build faster with our collection of pre-built components. Speed up your development and ship features in record time.")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaSplitImageLogos heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<CtaSplitImageLogos description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+      { label: "Learn More", href: "/learn", variant: "outline" as const },
+    ];
+    render(<CtaSplitImageLogos actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("renders logos when provided", () => {
+    const logos = ["/logo1.png", "/logo2.png"];
+    render(<CtaSplitImageLogos logos={logos} />);
+    expect(screen.getByText("Trusted by leading companies")).toBeInTheDocument();
+    const logoImages = screen.getAllByTestId("mock-img");
+    expect(logoImages.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaSplitImageLogos className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
