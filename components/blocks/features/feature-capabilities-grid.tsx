@@ -97,8 +97,8 @@ export interface FeatureCapabilitiesGridProps {
  * Ideal for showcasing platform features, AI capabilities, or service pillars.
  */
 export function FeatureCapabilitiesGrid({
-  eyebrow = "[ CAPABILITIES ]",
-  heading = "Models that adapt to your coverage strategy",
+  eyebrow,
+  heading,
   items,
   itemsSlot,
   className,

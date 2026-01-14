@@ -119,8 +119,8 @@ export interface CtaVideoBackgroundHeroProps {
  * ```
  */
 export function CtaVideoBackgroundHero({
-  heading = "Experience the Future",
-  description = "See how our platform transforms your workflow. Join thousands of teams already building amazing products.",
+  heading,
+  description,
   actions,
   actionsSlot,
   modalVideoUrl = videoPlaceholders[0],

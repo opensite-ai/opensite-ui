@@ -93,7 +93,7 @@ export interface AboutStartupTeamProps {
 export function AboutStartupTeam({
   className,
   containerClassName,
-  title = "Building the Future of Software Development",
+  title,
   titleClassName,
   description = `We're a team of passionate builders who believe that creating software should be accessible to everyone. Our platform empowers teams to build, deploy, and scale applications without the traditional barriers.
 

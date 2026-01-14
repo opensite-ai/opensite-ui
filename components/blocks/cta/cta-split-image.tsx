@@ -114,12 +114,12 @@ export interface CtaSplitImageProps {
  * ```
  */
 export function CtaSplitImage({
-  heading = "Call to Action",
-  description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
+  heading,
+  description,
   actions,
   actionsSlot,
   imageSrc = imagePlaceholders[0],
-  imageAlt = "Featured image",
+  imageAlt,
   imageLeft = true,
   className,
   containerClassName,

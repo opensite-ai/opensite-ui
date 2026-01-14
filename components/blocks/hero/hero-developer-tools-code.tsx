@@ -98,11 +98,11 @@ export interface HeroDeveloperToolsCodeProps {
 }
 
 export function HeroDeveloperToolsCode({
-  badgeText = "Developer Tools",
-  badgeIcon = "lucide/terminal",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "Build faster with modern developer tools",
-  description = "Everything you need to build production-ready applications. Type-safe APIs, real-time subscriptions, and powerful CLI tools.",
+  heading,
+  description,
   actions,
   actionsSlot,
   terminalTitle = "terminal",
@@ -118,10 +118,11 @@ export function HeroDeveloperToolsCode({
 }: HeroDeveloperToolsCodeProps): React.JSX.Element {
   const renderBadge = () => {
     if (badgeSlot) return badgeSlot;
+    if (!badgeText && !badgeIcon) return null;
 
     return (
       <Badge variant="outline" className="w-fit">
-        <DynamicIcon name={badgeIcon} size={14} className="mr-1" />
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={14} className="mr-1" />}
         {badgeText}
       </Badge>
     );

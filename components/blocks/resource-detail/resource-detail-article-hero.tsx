@@ -349,7 +349,7 @@ export function ResourceDetailArticleHero({
   shareActions,
   shareActionsSlot,
   shareActionsClassName,
-  shareHeading = "Share this article",
+  shareHeading,
   illustration,
   illustrationSlot,
   illustrationClassName,

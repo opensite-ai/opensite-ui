@@ -64,9 +64,9 @@ export function FooterLinksGrid({
     url: "https://opensite.ai",
   },
   className,
-  tagline = "Components made easy.",
+  tagline,
   menuItems,
-  copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,
+  copyright,
   bottomLinks,
   optixFlowConfig,
 }: FooterLinksGridProps): React.JSX.Element {

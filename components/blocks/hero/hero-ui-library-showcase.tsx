@@ -70,7 +70,7 @@ export interface HeroUiLibraryShowcaseProps {
 export function HeroUiLibraryShowcase({
   logo,
   logoSlot,
-  heading = "The continuously growing UI library for Opensite AI",
+  heading,
   description,
   actions,
   actionsSlot,
@@ -140,15 +140,6 @@ export function HeroUiLibraryShowcase({
     );
   };
 
-  const defaultDescription = (
-    <div className="text-xl text-muted-foreground">
-      <p>
-        Create quicker, more efficiently, and boost your design expertise.
-      </p>
-      <p>Transform into an elite designer instantly</p>
-    </div>
-  );
-
   return (
     <section
       className={cn(
@@ -170,7 +161,7 @@ export function HeroUiLibraryShowcase({
               </h1>
             )
           )}
-          {description ? (
+          {description && (
             typeof description === "string" ? (
               <p className={cn("text-xl text-muted-foreground", descriptionClassName)}>
                 {description}
@@ -178,8 +169,6 @@ export function HeroUiLibraryShowcase({
             ) : (
               <div className={descriptionClassName}>{description}</div>
             )
-          ) : (
-            defaultDescription
           )}
         </div>
         {renderActions()}

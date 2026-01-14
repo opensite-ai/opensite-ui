@@ -125,7 +125,6 @@ export const NavbarFullscreenMenu = ({
   logo = {
     url: "/",
     src: logoPlaceholders.darkHorizontalLogo,
-    alt: "Opensite AI",
   },
   logoSlot,
   logoClassName,

@@ -23,9 +23,10 @@ describe("FeatureChecklistImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureChecklistImage />);
-    expect(screen.getByText("Built with the latest technology stack")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureChecklistImage title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

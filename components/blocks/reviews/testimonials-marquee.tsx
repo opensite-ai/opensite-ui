@@ -169,8 +169,8 @@ const speedMap = {
 export function TestimonialsMarquee({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "What Our Customers Say",
-  description = "Join thousands of satisfied users",
+  heading,
+  description,
   speed = "normal",
   pauseOnHover = true,
   className,

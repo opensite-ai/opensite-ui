@@ -19,10 +19,10 @@ describe("FooterNavSocial", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterNavSocial />);
-    expect(screen.getByText("Stay Updated")).toBeInTheDocument();
-    expect(screen.getByText("Follow Us")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterNavSocial newsletterHeading="Test Newsletter" socialTitle="Test Social" />);
+    expect(screen.getByText("Test Newsletter")).toBeInTheDocument();
+    expect(screen.getByText("Test Social")).toBeInTheDocument();
   });
 
   it("renders custom newsletter heading", () => {

@@ -25,10 +25,10 @@ describe("FeatureCapabilitiesGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureCapabilitiesGrid />);
-    expect(screen.getByText("[ CAPABILITIES ]")).toBeInTheDocument();
-    expect(screen.getByText("Models that adapt to your coverage strategy")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureCapabilitiesGrid eyebrow="Test Eyebrow" heading="Test Heading" />);
+    expect(screen.getByText("Test Eyebrow")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom eyebrow", () => {

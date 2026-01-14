@@ -23,10 +23,10 @@ describe("CtaFullwidthBackground", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaFullwidthBackground />);
-    expect(screen.getByText("Start your free trial today.")).toBeInTheDocument();
-    expect(screen.getByText("Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaFullwidthBackground heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

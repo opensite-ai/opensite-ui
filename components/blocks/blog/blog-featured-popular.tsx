@@ -84,9 +84,9 @@ export interface BlogFeaturedPopularProps {
 }
 
 export function BlogFeaturedPopular({
-  heading = "Insights and Trends Blog",
-  description = "Stay updated with the latest insights, trends, and tips across various topics to keep ahead of the curve.",
-  popularHeading = "Popular Posts",
+  heading,
+  description,
+  popularHeading,
   posts,
   featuredSlot,
   postsSlot,

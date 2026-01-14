@@ -211,8 +211,8 @@ export interface LinkPageGridCardsProps {
  * ```
  */
 export function LinkPageGridCards({
-  name = "Creative Studio",
-  bio = "Design, Development & Strategy",
+  name,
+  bio,
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar4,
   profileSlot,

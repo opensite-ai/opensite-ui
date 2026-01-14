@@ -23,12 +23,19 @@ describe("AboutMissionFeatures", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutMissionFeatures />);
-    expect(screen.getByText("About Us")).toBeInTheDocument();
-    expect(screen.getByText(/Opensite AI makes it easy to build/)).toBeInTheDocument();
-    expect(screen.getByText("OUR MISSION")).toBeInTheDocument();
-    expect(screen.getByText("We make creating software easy.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutMissionFeatures
+        title="Test Title"
+        description="Test Description"
+        missionLabel="Test Mission Label"
+        missionText="Test Mission Text"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
+    expect(screen.getByText("Test Mission Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Mission Text")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

@@ -62,8 +62,8 @@ export interface HeroFeatureCardsGridProps {
 }
 
 export function HeroFeatureCardsGrid({
-  heading = "Everything you need to build modern apps",
-  description = "A complete platform with all the tools and features you need to create, deploy, and scale your applications.",
+  heading,
+  description,
   actions,
   actionsSlot,
   features,

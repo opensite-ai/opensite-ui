@@ -167,8 +167,8 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
 export function TestimonialsMasonryGrid({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "What People Say",
-  description = "Feedback from our community",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

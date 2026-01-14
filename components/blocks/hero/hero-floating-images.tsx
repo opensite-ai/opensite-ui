@@ -106,8 +106,8 @@ const Swirls = () => (
  * swirl backgrounds. Great for playful, lifestyle, or hospitality landing pages.
  */
 export function HeroFloatingImages({
-  heading = "Moments curated with OpenSite AI care",
-  description = "Pair a warm headline with floating imagery to create a playful, immersive hero that feels human and welcoming.",
+  heading,
+  description,
   images,
   imagesSlot,
   showSwirls = true,

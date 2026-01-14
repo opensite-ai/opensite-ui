@@ -25,11 +25,14 @@ describe("FaqStaticList", () => {
   });
 
   it("renders empty items array", () => {
-    render(<FaqStaticList items={[]} />);
+    render(
+      <FaqStaticList
+        heading="Test Heading"
+        items={[]}
+      />
+    );
 
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders multiple items", () => {

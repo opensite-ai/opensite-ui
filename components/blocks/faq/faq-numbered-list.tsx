@@ -96,9 +96,9 @@ export interface FaqNumberedListProps {
 }
 
 export function FaqNumberedList({
-  badge = "FAQ",
-  heading = "Frequently asked questions",
-  description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
+  badge,
+  heading,
+  description,
   items,
   itemsSlot,
   background = "white",

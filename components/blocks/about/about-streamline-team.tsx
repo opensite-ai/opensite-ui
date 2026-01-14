@@ -107,9 +107,9 @@ export interface AboutStreamlineTeamProps {
 export function AboutStreamlineTeam({
   className,
   containerClassName,
-  title = "Streamline Your Workflow",
+  title,
   titleClassName,
-  description = "Our platform helps teams work smarter, not harder. With intuitive tools and powerful automation, you can focus on what matters most.",
+  description,
   descriptionClassName,
   primaryImage,
   primaryImageClassName,

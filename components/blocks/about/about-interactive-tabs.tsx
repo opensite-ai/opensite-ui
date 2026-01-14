@@ -99,8 +99,8 @@ export interface AboutInteractiveTabsProps {
 }
 
 export function AboutInteractiveTabs({
-  title = "Discover Our Story",
-  subtitle = "Learn more about who we are and what we do",
+  title,
+  subtitle,
   tabs,
   tabsSlot,
   className,

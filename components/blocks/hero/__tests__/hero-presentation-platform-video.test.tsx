@@ -29,9 +29,9 @@ describe("HeroPresentationPlatformVideo", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroPresentationPlatformVideo />);
-    expect(screen.getByText("Presentation Platform for Marketing Professionals")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroPresentationPlatformVideo heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroPresentationPlatformVideo", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroPresentationPlatformVideo className="custom-class" />);
+    const { container } = render(<HeroPresentationPlatformVideo heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -125,8 +125,8 @@ export interface TimelineProductLaunchProps {
 }
 
 export function TimelineProductLaunch({
-  heading = "Journey to Product Launch",
-  description = "Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.",
+  heading,
+  description,
   cardHeading = "Guidance from industry leaders",
   ctaAction = {
     label: "Request a demo",

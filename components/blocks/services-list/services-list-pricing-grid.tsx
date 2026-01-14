@@ -144,8 +144,8 @@ export interface ServicesListPricingGridProps {
  * ```
  */
 export function ServicesListPricingGrid({
-  heading = "Services & Pricing",
-  description = "Transparent pricing for all our digital services. Custom quotes available for complex projects.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

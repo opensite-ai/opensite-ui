@@ -33,9 +33,9 @@ describe("HeroBusinessCarouselDots", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroBusinessCarouselDots />);
-    expect(screen.getByText("Your Ultimate Business Solution.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroBusinessCarouselDots heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -55,7 +55,7 @@ describe("HeroBusinessCarouselDots", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroBusinessCarouselDots className="custom-class" />);
+    const { container } = render(<HeroBusinessCarouselDots heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

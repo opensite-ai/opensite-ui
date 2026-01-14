@@ -228,8 +228,8 @@ function AnimatedStatItem({
  * ```
  */
 export function StatsAnimatedCounter({
-  heading = "Our Impact in Numbers",
-  description = "Real results that speak for themselves",
+  heading,
+  description,
   stats,
   statsSlot,
   animationDuration = 2000,

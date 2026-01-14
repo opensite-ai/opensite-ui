@@ -26,7 +26,13 @@ describe("TeamSimpleGrid", () => {
   ];
 
   it("renders all team members correctly", () => {
-    render(<TeamSimpleGrid members={mockMembers} />);
+    render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+        description="Test description"
+      />
+    );
     expect(screen.getByText("Jane Doe")).toBeInTheDocument();
     expect(screen.getByText("CEO")).toBeInTheDocument();
     expect(screen.getByText("John Smith")).toBeInTheDocument();
@@ -48,13 +54,23 @@ describe("TeamSimpleGrid", () => {
   });
 
   it("renders avatars for all members", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     const avatars = container.querySelectorAll("[data-slot='avatar']");
     expect(avatars.length).toBe(mockMembers.length);
   });
 
   it("applies correct grid layout classes", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     const grid = container.querySelector(".grid");
     expect(grid?.className).toContain("md:grid-cols-2");
     expect(grid?.className).toContain("lg:grid-cols-3");
@@ -85,33 +101,58 @@ describe("TeamSimpleGrid", () => {
   });
 
   it("renders with empty members array", () => {
-    const { container } = render(<TeamSimpleGrid members={[]} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={[]}
+        heading="Test Team"
+      />
+    );
     const grid = container.querySelector(".grid");
     expect(grid).toBeInTheDocument();
     expect(grid?.children.length).toBe(0);
   });
 
   it("centers content correctly", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     const headerDiv = container.querySelector(".flex.flex-col.items-center");
     expect(headerDiv?.className).toContain("text-center");
   });
 
   it("applies correct avatar sizing classes", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     const avatars = container.querySelectorAll(".size-20");
     expect(avatars.length).toBeGreaterThan(0);
   });
 
   it("renders avatar fallback with initials", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     // Avatar fallback should contain initials
     const fallbacks = container.querySelectorAll("[data-slot='avatar-fallback']");
     expect(fallbacks.length).toBe(mockMembers.length);
   });
 
   it("applies responsive text sizing", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     const heading = container.querySelector("h2");
     expect(heading?.className).toContain("lg:text-4xl");
   });
@@ -128,14 +169,24 @@ describe("TeamSimpleGrid", () => {
   });
 
   it("applies correct gap spacing in grid", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     const grid = container.querySelector(".grid");
     expect(grid?.className).toContain("gap-x-8");
     expect(grid?.className).toContain("gap-y-16");
   });
 
   it("renders member cards with centered layout", () => {
-    const { container } = render(<TeamSimpleGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamSimpleGrid
+        members={mockMembers}
+        heading="Test Team"
+      />
+    );
     const memberCards = container.querySelectorAll(
       ".flex.flex-col.items-center"
     );

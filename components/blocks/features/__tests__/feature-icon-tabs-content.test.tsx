@@ -23,10 +23,11 @@ describe("FeatureIconTabsContent", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureIconTabsContent />);
-    expect(screen.getByText("Opensite AI")).toBeInTheDocument();
-    expect(screen.getByText("A Collection of Components Built With Opensite AI & Tailwind")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureIconTabsContent badge="Test Badge" heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {

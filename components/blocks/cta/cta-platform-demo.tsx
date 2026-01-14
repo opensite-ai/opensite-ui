@@ -119,13 +119,13 @@ export interface CtaPlatformDemoProps {
  * ```
  */
 export function CtaPlatformDemo({
-  heading = "Explore Our Platform",
-  description = "Discover the full potential of our platform. Try our interactive demo or watch a comprehensive walkthrough today.",
+  heading,
+  description,
   actions,
   actionsSlot,
   decorativeImage = blockBrandedIconsAndPlaceholders.placeholder1,
   productImage = imagePlaceholders[6],
-  productImageAlt = "Platform preview",
+  productImageAlt,
   className,
   containerClassName,
   cardClassName,

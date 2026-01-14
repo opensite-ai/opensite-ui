@@ -205,7 +205,7 @@ const NavButtons: React.FC<{
 );
 
 export function TimelineStepperAnimated({
-  heading = "Stepper",
+  heading,
   steps,
   initialStep = 1,
   className,

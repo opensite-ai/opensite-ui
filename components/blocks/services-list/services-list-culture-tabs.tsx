@@ -192,14 +192,14 @@ export interface ServicesListCultureTabsProps {
  * ```
  */
 export function ServicesListCultureTabs({
-  badge = "Our Culture",
-  heading = "What Makes Us Different",
-  description = "Our culture defines how we work together and the values that guide our decisions.",
+  badge,
+  heading,
+  description,
   aspects,
   aspectsSlot,
   defaultValue,
-  ctaTitle = "Join Our Team",
-  ctaDescription = "We're always looking for talented individuals who share our values.",
+  ctaTitle,
+  ctaDescription,
   primaryAction,
   secondaryAction,
   ctaSlot,

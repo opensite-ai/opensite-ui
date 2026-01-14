@@ -124,8 +124,8 @@ export interface ServicesListNumberedStepsProps {
  * ```
  */
 export function ServicesListNumberedSteps({
-  heading = "Our Process",
-  description = "A proven methodology that delivers results. Each step builds upon the previous to ensure your project's success.",
+  heading,
+  description,
   primaryAction,
   actionsSlot,
   steps,

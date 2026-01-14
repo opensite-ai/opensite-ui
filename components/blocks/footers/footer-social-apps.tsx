@@ -91,9 +91,9 @@ export function FooterSocialApps({
   sections,
   socialLinks,
   appLinks,
-  socialLabel = "Follow Us",
-  appLabel = "Mobile App",
-  copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,
+  socialLabel,
+  appLabel,
+  copyright,
   optixFlowConfig,
 }: FooterSocialAppsProps): React.JSX.Element {
   return (

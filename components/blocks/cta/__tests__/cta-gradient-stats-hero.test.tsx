@@ -19,10 +19,10 @@ describe("CtaGradientStatsHero", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaGradientStatsHero />);
-    expect(screen.getByText("Scale with confidence")).toBeInTheDocument();
-    expect(screen.getByText("Built for enterprise-grade performance and reliability. Join thousands of companies that trust us with their mission-critical applications.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaGradientStatsHero heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

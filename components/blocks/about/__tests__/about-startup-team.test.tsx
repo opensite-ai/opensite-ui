@@ -30,11 +30,17 @@ describe("AboutStartupTeam", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutStartupTeam />);
-    expect(screen.getByText("Building the Future of Software Development")).toBeInTheDocument();
-    expect(screen.getByText(/We're a team of passionate builders/)).toBeInTheDocument();
-    expect(screen.getByText("Meet Our Leadership")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutStartupTeam
+        title="Test Title"
+        description="Test Description"
+        teamTitle="Test Team Title"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
+    expect(screen.getByText("Test Team Title")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

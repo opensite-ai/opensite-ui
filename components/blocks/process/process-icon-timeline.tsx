@@ -128,8 +128,8 @@ export interface ProcessIconTimelineProps {
  * ProcessIconTimeline - A process section with icon-based timeline steps.
  */
 export function ProcessIconTimeline({
-  heading = "Our Process",
-  description = "A proven methodology that delivers exceptional results through careful planning and execution.",
+  heading,
+  description,
   steps,
   stepsSlot,
   className,

@@ -13,9 +13,10 @@ describe("FeatureIconGridMuted", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureIconGridMuted />);
-    expect(screen.getByText("Key Features That Save You Time")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureIconGridMuted title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

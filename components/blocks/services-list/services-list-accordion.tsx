@@ -150,13 +150,13 @@ export interface ServicesListAccordionProps {
  * ```
  */
 export function ServicesListAccordion({
-  heading = "Services",
-  description = "Click to learn more about each service we offer.",
+  heading,
+  description,
   services,
   servicesSlot,
-  defaultValue = "item-0",
-  itemsLabel = "What's Included",
-  deliverablesLabel = "Deliverables",
+  defaultValue,
+  itemsLabel,
+  deliverablesLabel,
   className,
   containerClassName,
   headerClassName,

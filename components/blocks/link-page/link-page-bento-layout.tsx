@@ -254,8 +254,8 @@ export interface LinkPageBentoLayoutProps {
  * ```
  */
 export function LinkPageBentoLayout({
-  name = "Digital Creator",
-  bio = "Content creator, entrepreneur & coffee enthusiast",
+  name,
+  bio,
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar5,
   profileSlot,

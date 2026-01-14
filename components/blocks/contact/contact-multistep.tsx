@@ -75,9 +75,9 @@ export interface ContactMultistepProps {
  * ```
  */
 export function ContactMultistep({
-  heading = "Contact Us",
-  description = "Multi-step contact form.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

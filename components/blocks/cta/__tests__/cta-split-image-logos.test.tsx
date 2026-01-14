@@ -24,10 +24,10 @@ describe("CtaSplitImageLogos", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaSplitImageLogos />);
-    expect(screen.getByText("Build your website faster")).toBeInTheDocument();
-    expect(screen.getByText("Build faster with our collection of pre-built components. Speed up your development and ship features in record time.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaSplitImageLogos heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -52,7 +52,7 @@ describe("CtaSplitImageLogos", () => {
 
   it("renders logos when provided", () => {
     const logos = ["/logo1.png", "/logo2.png"];
-    render(<CtaSplitImageLogos logos={logos} />);
+    render(<CtaSplitImageLogos logos={logos} logosLabel="Trusted by leading companies" />);
     expect(screen.getByText("Trusted by leading companies")).toBeInTheDocument();
     const logoImages = screen.getAllByTestId("mock-img");
     expect(logoImages.length).toBeGreaterThanOrEqual(2);

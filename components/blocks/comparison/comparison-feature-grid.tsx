@@ -85,8 +85,8 @@ export interface ComparisonFeatureGridProps {
  * matrices, technology stack evaluations.
  */
 export function ComparisonFeatureGrid({
-  heading = "Compare Us",
-  description = "A modern framework for building websites that is better than the competition.",
+  heading,
+  description,
   optionALabel = "Our Solution",
   optionBLabel = "Alternative",
   features,
@@ -101,10 +101,10 @@ export function ComparisonFeatureGrid({
 }: ComparisonFeatureGridProps): React.JSX.Element {
   const renderStatusIcon = (status: FeatureStatus) => {
     if (status === true) {
-      return <DynamicIcon name="lucide/check" size={20} className="text-green-600" />;
+      return <DynamicIcon name="lucide/check" size={20} className="text-success" />;
     }
     if (status === "partial") {
-      return <DynamicIcon name="lucide/check" size={20} className="text-yellow-500" />;
+      return <DynamicIcon name="lucide/check" size={20} className="text-accent" />;
     }
     return <DynamicIcon name="lucide/x" size={20} className="text-destructive" />;
   };

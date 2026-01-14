@@ -24,9 +24,9 @@ describe("HeroTherapyTestimonialGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroTherapyTestimonialGrid />);
-    expect(screen.getByText("Compassionate Care for Your Mental Wellness Journey")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroTherapyTestimonialGrid heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -46,7 +46,7 @@ describe("HeroTherapyTestimonialGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroTherapyTestimonialGrid className="custom-class" />);
+    const { container } = render(<HeroTherapyTestimonialGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

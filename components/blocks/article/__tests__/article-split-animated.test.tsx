@@ -36,6 +36,7 @@ describe("ArticleSplitAnimated", () => {
   it("renders CTA button", () => {
     render(
       <ArticleSplitAnimated
+        title="Test Title"
         ctaText="Read More"
         ctaHref="/article"
       />

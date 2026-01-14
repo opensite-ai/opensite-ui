@@ -176,8 +176,8 @@ export function TestimonialsStatsHeader({
   statsSlot,
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "Trusted by Thousands",
-  description = "Join the growing community of satisfied customers",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,
@@ -254,7 +254,7 @@ export function TestimonialsStatsHeader({
                       key={i}
                       name="lucide/star"
                       size={16}
-                      className="fill-yellow-400 text-yellow-400"
+                      className="fill-primary text-primary"
                     />
                   ))}
                 </div>

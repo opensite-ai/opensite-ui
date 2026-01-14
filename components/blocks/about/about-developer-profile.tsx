@@ -106,15 +106,13 @@ export interface AboutDeveloperProfileProps {
 }
 
 export function AboutDeveloperProfile({
-  name = "Alex Johnson",
-  role = "Full-Stack Developer",
-  bio = `I'm a passionate full-stack developer with over 8 years of experience building web applications. I specialize in React, TypeScript, and Node.js, with a strong focus on creating performant and accessible user experiences.
-
-When I'm not coding, you can find me contributing to open-source projects, writing technical blog posts, or exploring new technologies. I believe in continuous learning and sharing knowledge with the developer community.`,
+  name,
+  role,
+  bio,
   avatar,
   skills,
   skillsSlot,
-  skillsTitle = "Skills & Technologies",
+  skillsTitle,
   socialLinks,
   socialLinksSlot,
   actions,

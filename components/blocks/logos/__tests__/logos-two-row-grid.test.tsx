@@ -46,8 +46,13 @@ describe("LogosTwoRowGrid", () => {
     expect(images.length).toBe(4);
   });
 
-  it("handles empty companies array", () => {
-    render(<LogosTwoRowGrid companies={[]} />);
+  it("handles empty companies array with explicit heading", () => {
+    render(
+      <LogosTwoRowGrid
+        heading="Trusted by leading companies worldwide"
+        companies={[]}
+      />
+    );
     expect(screen.getByText("Trusted by leading companies worldwide")).toBeInTheDocument();
   });
 

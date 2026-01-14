@@ -75,9 +75,9 @@ export interface ContactWeddingProps {
  * ```
  */
 export function ContactWedding({
-  heading = "Wedding Inquiry",
-  description = "Plan your special day with us.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

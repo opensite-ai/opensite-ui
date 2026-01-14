@@ -19,9 +19,9 @@ describe("HeroDashedBorderFeatures", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroDashedBorderFeatures />);
-    expect(screen.getByText("Fast websites for startups")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroDashedBorderFeatures heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroDashedBorderFeatures", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroDashedBorderFeatures className="custom-class" />);
+    const { container } = render(<HeroDashedBorderFeatures heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

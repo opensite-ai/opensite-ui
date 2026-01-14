@@ -24,9 +24,9 @@ describe("HeroTestimonialImageGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroTestimonialImageGrid />);
-    expect(screen.getByText("Blocks built with Opensite AI & Tailwind")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroTestimonialImageGrid heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -46,7 +46,7 @@ describe("HeroTestimonialImageGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroTestimonialImageGrid className="custom-class" />);
+    const { container } = render(<HeroTestimonialImageGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

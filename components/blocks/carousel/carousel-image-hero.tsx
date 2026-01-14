@@ -98,9 +98,9 @@ export interface CarouselImageHeroProps {
 }
 
 export function CarouselImageHero({
-  badge = "Launching Soon",
-  heading = "Build exceptional digital experiences",
-  description = "Our platform helps you create stunning websites and applications with ease, designed to engage your audience and drive results.",
+  badge,
+  heading,
+  description,
   actions,
   actionsSlot,
   images,

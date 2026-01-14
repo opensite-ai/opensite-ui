@@ -75,9 +75,9 @@ export interface ContactReferralProps {
  * ```
  */
 export function ContactReferral({
-  heading = "Refer a Friend",
-  description = "Know someone who could benefit from our services?",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

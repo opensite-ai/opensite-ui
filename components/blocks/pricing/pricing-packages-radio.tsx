@@ -249,8 +249,8 @@ export interface PricingPackagesRadioProps {
  * ```
  */
 export function PricingPackagesRadio({
-  title = "Marketing Packages",
-  subtitle = "Select the package that fits your business needs",
+  title,
+  subtitle,
   packages,
   packagesSlot,
   selectedPackageId,

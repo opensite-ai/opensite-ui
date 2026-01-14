@@ -75,9 +75,9 @@ export interface ContactMapProps {
  * ```
  */
 export function ContactMap({
-  heading = "Contact Us",
-  description = "Find us on the map and get in touch.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

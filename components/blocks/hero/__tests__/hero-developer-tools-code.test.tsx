@@ -19,9 +19,9 @@ describe("HeroDeveloperToolsCode", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroDeveloperToolsCode />);
-    expect(screen.getByText("Build faster with modern developer tools")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroDeveloperToolsCode heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroDeveloperToolsCode", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroDeveloperToolsCode className="custom-class" />);
+    const { container } = render(<HeroDeveloperToolsCode heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

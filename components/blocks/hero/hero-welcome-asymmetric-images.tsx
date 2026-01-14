@@ -64,8 +64,8 @@ export interface HeroWelcomeAsymmetricImagesProps {
  * and an asymmetric 2x2 image grid. Ideal for welcoming visitors with visual impact.
  */
 export function HeroWelcomeAsymmetricImages({
-  heading = "Welcome to Our Website",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi necessitatibus dolorum.",
+  heading,
+  description,
   actions,
   actionsSlot,
   images,

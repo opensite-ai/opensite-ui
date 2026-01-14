@@ -75,9 +75,9 @@ export interface ContactVendorProps {
  * ```
  */
 export function ContactVendor({
-  heading = "Become a Vendor",
-  description = "Apply to become one of our vendors.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

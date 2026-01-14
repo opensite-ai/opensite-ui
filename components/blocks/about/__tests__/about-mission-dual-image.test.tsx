@@ -23,12 +23,19 @@ describe("AboutMissionDualImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutMissionDualImage />);
-    expect(screen.getByText("Our Mission")).toBeInTheDocument();
-    expect(screen.getByText(/To democratize software development/)).toBeInTheDocument();
-    expect(screen.getByText("Our Vision")).toBeInTheDocument();
-    expect(screen.getByText(/A world where every idea can become reality/)).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutMissionDualImage
+        missionTitle="Test Mission Title"
+        missionContent="Test Mission Content"
+        visionTitle="Test Vision Title"
+        visionContent="Test Vision Content"
+      />
+    );
+    expect(screen.getByText("Test Mission Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Mission Content")).toBeInTheDocument();
+    expect(screen.getByText("Test Vision Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Vision Content")).toBeInTheDocument();
   });
 
   it("renders custom mission title and content", () => {

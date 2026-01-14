@@ -19,9 +19,9 @@ describe("HeroFeatureCardsGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroFeatureCardsGrid />);
-    expect(screen.getByText("Everything you need to build modern apps")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroFeatureCardsGrid heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroFeatureCardsGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroFeatureCardsGrid className="custom-class" />);
+    const { container } = render(<HeroFeatureCardsGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

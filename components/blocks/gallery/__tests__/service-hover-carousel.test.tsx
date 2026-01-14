@@ -31,9 +31,9 @@ describe("ServiceHoverCarousel", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<ServiceHoverCarousel />);
-    expect(screen.getByText("Our Services")).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<ServiceHoverCarousel heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -124,9 +124,9 @@ export interface FeatureStatsHighlightProps {
  * ```
  */
 export function FeatureStatsHighlight({
-  badge = "Why Choose Us",
-  title = "We deliver results that matter",
-  description = "Our platform is designed to help businesses of all sizes achieve their goals with powerful tools and exceptional support.",
+  badge,
+  title,
+  description,
   actions,
   actionsSlot,
   stats,

@@ -87,8 +87,8 @@ export interface HeroDesignShowcaseLogosProps {
 }
 
 export function HeroDesignShowcaseLogos({
-  heading = "Unveil great design from the real world.",
-  description = "Showcasing more than 500,000 screens and 2,000 iOS, Android, and Web apps — fresh content added every week.",
+  heading,
+  description,
   actions,
   actionsSlot,
   logosLabel = "Trusted by design teams at",

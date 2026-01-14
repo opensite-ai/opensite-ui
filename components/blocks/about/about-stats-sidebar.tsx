@@ -65,8 +65,8 @@ export interface AboutStatsSidebarProps {
 }
 
 export function AboutStatsSidebar({
-  title = "Why Choose Us",
-  description = "We've built a platform that scales with your needs, from startup to enterprise. Here's what sets us apart.",
+  title,
+  description,
   stats,
   statsSlot,
   features,

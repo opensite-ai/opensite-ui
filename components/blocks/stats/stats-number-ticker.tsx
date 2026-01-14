@@ -254,10 +254,10 @@ function TickerStatItem({
  * ```
  */
 export function StatsNumberTicker({
-  badge = "By The Numbers",
+  badge,
   badgeSlot,
-  heading = "Platform Statistics",
-  description = "Key metrics that demonstrate our platform's scale and reliability",
+  heading,
+  description,
   stats,
   statsSlot,
   animationDuration = 2500,

@@ -339,8 +339,8 @@ export interface LinkPageNewsletterSocialProps {
  * ```
  */
 export function LinkPageNewsletterSocial({
-  name = "Content Creator",
-  bio = "Sharing weekly tips on growing your audience and building your brand",
+  name,
+  bio,
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar3,
   profileSlot,

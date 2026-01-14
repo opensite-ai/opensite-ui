@@ -123,8 +123,8 @@ export interface ServicesListIconGridProps {
  * ```
  */
 export function ServicesListIconGrid({
-  heading = "Services",
-  description = "We craft digital experiences that captivate and convert, bringing your vision to life.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

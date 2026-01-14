@@ -73,8 +73,8 @@ export interface BlogGridAuthorCardsProps {
 }
 
 export function BlogGridAuthorCards({
-  heading = "Blog",
-  description = "Insights, tutorials, and thoughts on modern software development",
+  heading,
+  description,
   posts,
   postsSlot,
   viewAllAction,

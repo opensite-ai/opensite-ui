@@ -182,90 +182,6 @@ export interface CaseStudyStatsMetricsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultContent = (
-  <>
-    <h2>How the Tax System Works</h2>
-    <p>
-      The king, seeing how much happier his subjects were,
-      realized the error of his ways and repealed the joke tax.
-      Jokester was declared a hero, and the kingdom lived happily
-      ever after.
-    </p>
-    <Alert>
-      <DynamicIcon name="lucide/lightbulb" size={16} className="h-4 w-4" />
-      <AlertTitle>Royal Decree!</AlertTitle>
-      <AlertDescription>
-        Remember, all jokes must be registered at the Royal Jest
-        Office before telling them
-      </AlertDescription>
-    </Alert>
-
-    <h2>The People&apos;s Rebellion</h2>
-    <p>
-      The people of the kingdom, feeling uplifted by the laughter,
-      started to tell jokes and puns again, and soon the entire
-      kingdom was in on the joke.
-    </p>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>King&apos;s Treasury</th>
-            <th>People&apos;s happiness</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Empty</td>
-            <td>Overflowing</td>
-          </tr>
-          <tr className="m-0 border-t p-0 even:bg-muted">
-            <td>Modest</td>
-            <td>Satisfied</td>
-          </tr>
-          <tr className="m-0 border-t p-0 even:bg-muted">
-            <td>Full</td>
-            <td>Ecstatic</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p>
-      The king, seeing how much happier his subjects were,
-      realized the error of his ways and repealed the joke tax.
-      Jokester was declared a hero, and the kingdom lived happily
-      ever after.
-    </p>
-
-    <h2>The King&apos;s Plan</h2>
-    <p>
-      The king thought long and hard, and finally came up with{" "}
-      <a href="#">a brilliant plan</a>: he would tax the jokes in
-      the kingdom.
-    </p>
-    <blockquote>
-      &ldquo;After all,&rdquo; he said, &ldquo;everyone enjoys a
-      good joke, so it&apos;s only fair that they should pay for
-      the privilege.&rdquo;
-    </blockquote>
-    <p>
-      The king&apos;s subjects were not amused. They grumbled and
-      complained, but the king was firm:
-    </p>
-    <ul>
-      <li>1st level of puns: 5 gold coins</li>
-      <li>2nd level of jokes: 10 gold coins</li>
-      <li>3rd level of one-liners : 20 gold coins</li>
-    </ul>
-    <p>
-      As a result, people stopped telling jokes, and the kingdom
-      fell into a gloom. But there was one person who refused to
-      let the king&apos;s foolishness get him down: a court jester
-      named Jokester.
-    </p>
-  </>
-);
-
 /**
  * CaseStudyStatsMetrics displays a case study with prominent performance metrics,
  * breadcrumb navigation, prose content, and a sticky sidebar with company info and CTA.
@@ -296,27 +212,27 @@ const defaultContent = (
 export function CaseStudyStatsMetrics({
   breadcrumbs,
   breadcrumbsSlot,
-  title = "Boosting System Reliability by 125% with AI Monitoring",
-  subtitle = "In a kingdom far away, where laughter once flowed freely, a peculiar tale unfolded about a king who decided to tax the very essence of joy itself - jokes and jest.",
-  heroImageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
-  heroImageAlt = "Case study hero image",
+  title,
+  subtitle,
+  heroImageSrc,
+  heroImageAlt,
   heroMediaSlot,
   stats,
   statsSlot,
   content,
   contentSlot,
-  companyLogoSrc = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo3,
-  companyLogoAlt = "Company logo",
+  companyLogoSrc,
+  companyLogoAlt,
   companyLogoSlot,
-  overview = "Our client implemented our solution to transform their business operations, resulting in improved efficiency, enhanced customer experience, and significant cost savings across their entire organization.",
-  sector = "Technology",
-  solutionLabel = "Enterprise",
-  solutionIcon = "lucide/git-branch",
-  solutionHref = "#",
+  overview,
+  sector,
+  solutionLabel,
+  solutionIcon,
+  solutionHref,
   solutionSlot,
   ctaAction,
   ctaSlot,
-  ctaLabel = "Want to learn more?",
+  ctaLabel,
   sidebarSlot,
   className,
   containerClassName,
@@ -435,7 +351,7 @@ export function CaseStudyStatsMetrics({
         asButton
         className="inline-flex items-center gap-2"
       >
-        <DynamicIcon name={solutionIcon} size={16} className="opacity-60" />
+        {solutionIcon && <DynamicIcon name={solutionIcon} size={16} className="opacity-60" />}
         {solutionLabel}
       </Pressable>
     );

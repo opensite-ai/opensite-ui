@@ -53,7 +53,7 @@ export interface HeroTaskTimerAnimatedProps {
 }
 
 export function HeroTaskTimerAnimated({
-  heading = "A simple task timer to power your goals",
+  heading,
   actions,
   actionsSlot,
   images,

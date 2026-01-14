@@ -9,13 +9,24 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("OfferModalMembershipImage", () => {
-  it("renders without crashing", () => {
-    const { container } = render(<OfferModalMembershipImage />);
+  it("renders with required props", () => {
+    const { container } = render(
+      <OfferModalMembershipImage
+        title="Test Membership Title"
+        description="Test membership description"
+      />
+    );
     expect(container).toBeInTheDocument();
   });
 
   it("renders with custom className", () => {
-    const { container } = render(<OfferModalMembershipImage className="custom-class" />);
+    const { container } = render(
+      <OfferModalMembershipImage
+        title="Test Membership Title"
+        description="Test membership description"
+        className="custom-class"
+      />
+    );
     expect(container).toBeInTheDocument();
   });
 });

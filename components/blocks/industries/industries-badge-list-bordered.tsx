@@ -142,9 +142,9 @@ export interface IndustriesBadgeListBorderedProps {
  * ```
  */
 export function IndustriesBadgeListBordered({
-  badge = "Industries",
+  badge,
   badgeSlot,
-  heading = "Transforming industries through innovative technology solutions that drive efficiency, growth, and sustainable operations.",
+  heading,
   headingSlot,
   services,
   servicesSlot,

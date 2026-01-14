@@ -63,8 +63,8 @@ export interface HeroGradientClientFocusedProps {
 }
 
 export function HeroGradientClientFocused({
-  heading = "Stay front and center with your clients.",
-  description = "We enhance client relationships by providing personalized solutions, fostering trust, and driving growth.",
+  heading,
+  description,
   actions,
   actionsSlot,
   image,
@@ -123,7 +123,7 @@ export function HeroGradientClientFocused({
   return (
     <section
       className={cn(
-        "bg-[linear-gradient(#fbf7ec,#e2f1ee)] py-20 text-center",
+        "bg-gradient-to-b from-accent/5 to-primary/5 py-20 text-center",
         className,
       )}
     >

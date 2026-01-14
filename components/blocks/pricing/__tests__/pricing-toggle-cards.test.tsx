@@ -35,7 +35,16 @@ describe("PricingToggleCards", () => {
   });
 
   it("renders all plan names and descriptions", () => {
-    render(<PricingToggleCards plans={mockPlans} />);
+    render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     expect(screen.getByText("Basic")).toBeInTheDocument();
     expect(screen.getByText("For individuals")).toBeInTheDocument();
     expect(screen.getByText("Pro")).toBeInTheDocument();
@@ -43,14 +52,32 @@ describe("PricingToggleCards", () => {
   });
 
   it("displays monthly prices by default", () => {
-    render(<PricingToggleCards plans={mockPlans} />);
+    render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     expect(screen.getByText("$10")).toBeInTheDocument();
     expect(screen.getByText("$30")).toBeInTheDocument();
     expect(screen.getAllByText("/month").length).toBeGreaterThan(0);
   });
 
   it("toggles to yearly prices when switch is clicked", () => {
-    render(<PricingToggleCards plans={mockPlans} />);
+    render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const toggle = screen.getByRole("switch");
     fireEvent.click(toggle);
     expect(screen.getByText("$100")).toBeInTheDocument();
@@ -59,21 +86,49 @@ describe("PricingToggleCards", () => {
   });
 
   it("highlights popular plan", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        popularBadge="Most Popular"
+        plans={mockPlans}
+      />
+    );
     expect(screen.getByText("Most Popular")).toBeInTheDocument();
     const popularCard = container.querySelector(".border-primary");
     expect(popularCard).toBeInTheDocument();
   });
 
   it("renders all plan features", () => {
-    render(<PricingToggleCards plans={mockPlans} />);
+    render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     expect(screen.getAllByText("Feature 1").length).toBe(2);
     expect(screen.getAllByText("Feature 2").length).toBe(2);
     expect(screen.getByText("Feature 3")).toBeInTheDocument();
   });
 
   it("renders plan buttons with correct text and href", () => {
-    render(<PricingToggleCards plans={mockPlans} />);
+    render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const basicButton = screen.getByText("Get Started");
     const proButton = screen.getByText("Start Trial");
     expect(basicButton.closest("a")).toHaveAttribute("href", "/basic");
@@ -81,20 +136,47 @@ describe("PricingToggleCards", () => {
   });
 
   it("applies correct grid layout", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const grid = container.querySelector(".grid");
     expect(grid?.className).toContain("md:grid-cols-2");
     expect(grid?.className).toContain("lg:grid-cols-3");
   });
 
   it("renders feature icons", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const featureItems = container.querySelectorAll("li");
     expect(featureItems.length).toBeGreaterThan(0);
   });
 
   it("renders buttons for all plans", () => {
-    render(<PricingToggleCards plans={mockPlans} />);
+    render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const basicButton = screen.getByText("Get Started").closest("a");
     const proButton = screen.getByText("Start Trial").closest("a");
     expect(basicButton).toBeInTheDocument();
@@ -102,13 +184,31 @@ describe("PricingToggleCards", () => {
   });
 
   it("renders card content with proper structure", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const cards = container.querySelectorAll("[data-slot='card']");
     expect(cards.length).toBe(mockPlans.length);
   });
 
   it("renders with empty plans array", () => {
-    const { container } = render(<PricingToggleCards plans={[]} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={[]}
+      />
+    );
     // When plans is empty, the grid element for plans is not rendered
     // But the header grid may still exist
     const section = container.querySelector("section");
@@ -116,26 +216,64 @@ describe("PricingToggleCards", () => {
   });
 
   it("applies shadow to popular plan card", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        popularBadge="Most Popular"
+        plans={mockPlans}
+      />
+    );
     const popularCard = container.querySelector(".shadow-lg");
     expect(popularCard).toBeInTheDocument();
   });
 
   it("renders price with correct font size", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const prices = container.querySelectorAll(".text-4xl");
     expect(prices.length).toBeGreaterThan(0);
   });
 
   it("positions popular badge correctly", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        popularBadge="Most Popular"
+        plans={mockPlans}
+      />
+    );
     const badge = screen.getByText("Most Popular").parentElement;
     expect(badge?.className).toContain("absolute");
     expect(badge?.className).toContain("-top-3");
   });
 
   it("applies flex layout to cards", () => {
-    const { container } = render(<PricingToggleCards plans={mockPlans} />);
+    const { container } = render(
+      <PricingToggleCards
+        heading="Pricing Plans"
+        monthlyLabel="Monthly"
+        yearlyLabel="Yearly"
+        monthlyInterval="/month"
+        yearlyInterval="/year"
+        plans={mockPlans}
+      />
+    );
     const cards = container.querySelectorAll(".flex.flex-col");
     expect(cards.length).toBeGreaterThan(0);
   });

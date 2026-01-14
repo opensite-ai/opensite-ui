@@ -92,9 +92,9 @@ export interface HeroPatternBadgeLogosProps {
 }
 
 export function HeroPatternBadgeLogos({
-  badge = <Badge variant="outline" className="transition-colors hover:bg-secondary/20">New Release</Badge>,
-  heading = "This is a heading for your new project",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur.",
+  badge,
+  heading,
+  description,
   actions,
   actionsSlot,
   logos,

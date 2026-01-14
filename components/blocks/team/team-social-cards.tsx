@@ -153,8 +153,8 @@ export interface TeamSocialCardsProps {
  * ```
  */
 export function TeamSocialCards({
-  heading = "Team",
-  description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",

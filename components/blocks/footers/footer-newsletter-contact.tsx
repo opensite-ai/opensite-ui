@@ -165,10 +165,10 @@ export interface FooterNewsletterContactProps {
  * ```
  */
 export function FooterNewsletterContact({
-  newsletterTitle = "Newsletter",
-  newsletterDescription = "Join our newsletter to receive exclusive deals, tech tips, product launches, and early access to the latest electronics.",
+  newsletterTitle,
+  newsletterDescription,
   newsletterPlaceholder = "Email Address",
-  newsletterButtonText = "Subscribe",
+  newsletterButtonText,
   footerLinks,
   contactDetails,
   socialLinks,
@@ -177,7 +177,7 @@ export function FooterNewsletterContact({
     dark: logoPlaceholders.lightHorizontalLogo,
     url: "/",
   },
-  copyright = `Copyright © ${new Date().getFullYear()}`,
+  copyright,
   className,
   optixFlowConfig,
   formConfig,

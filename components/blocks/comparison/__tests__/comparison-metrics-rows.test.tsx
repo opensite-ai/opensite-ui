@@ -57,7 +57,7 @@ describe("ComparisonMetricsRows", () => {
   });
 
   it("renders empty metrics array", () => {
-    render(<ComparisonMetricsRows metrics={[]} />);
+    render(<ComparisonMetricsRows heading="Compare Cloud vs On-site Infrastructure" metrics={[]} />);
 
     expect(
       screen.getByText("Compare Cloud vs On-site Infrastructure")

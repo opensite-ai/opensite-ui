@@ -23,9 +23,9 @@ describe("HeroDesignSystem3d", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroDesignSystem3d />);
-    expect(screen.getByText("Design system that delivers")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroDesignSystem3d heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroDesignSystem3d", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroDesignSystem3d className="custom-class" />);
+    const { container } = render(<HeroDesignSystem3d heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

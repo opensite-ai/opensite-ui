@@ -64,8 +64,9 @@ describe("CaseStudiesStatsCard", () => {
   });
 
   it("handles empty stats array", () => {
-    render(<CaseStudiesStatsCard stats={[]} />);
-    expect(screen.getByText("How We Optimized Our Onboarding Flow to Triple User Activation")).toBeInTheDocument();
+    render(<CaseStudiesStatsCard stats={[]} title="Test Title" summary="Test summary" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test summary")).toBeInTheDocument();
     // Stats container should be empty when no stats are provided
     const statsContainer = document.querySelector(".grid");
     expect(statsContainer?.children.length ?? 0).toBe(0);

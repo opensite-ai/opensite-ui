@@ -26,11 +26,14 @@ describe("FaqSimpleAccordion", () => {
   });
 
   it("renders empty items array", () => {
-    render(<FaqSimpleAccordion items={[]} />);
+    render(
+      <FaqSimpleAccordion
+        heading="Test Heading"
+        items={[]}
+      />
+    );
 
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders multiple items", () => {

@@ -64,8 +64,8 @@ export interface HeroAgencyAnimatedImagesProps {
 }
 
 export function HeroAgencyAnimatedImages({
-  heading = "Revolutionize your business operations",
-  subheading = "The ultimate platform to unlock your agency's capabilities.",
+  heading,
+  subheading,
   action,
   actionSlot,
   images,

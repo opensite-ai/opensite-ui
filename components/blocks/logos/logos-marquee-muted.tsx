@@ -101,7 +101,7 @@ export interface LogosMarqueeMutedProps {
  */
 export function LogosMarqueeMuted({
   className,
-  heading = "Trusted by leading companies",
+  heading,
   headingClassName,
   logos,
   logosSlot,

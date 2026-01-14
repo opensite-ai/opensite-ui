@@ -115,7 +115,12 @@ describe("ResourceDetailArticleHero", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<ResourceDetailArticleHero className="custom-class" />);
+    const { container } = render(
+      <ResourceDetailArticleHero
+        className="custom-class"
+        blog={{ title: "Test Article" }}
+      />
+    );
     expect(container.firstChild).toHaveClass("custom-class");
   });
 });

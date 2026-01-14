@@ -264,8 +264,8 @@ export interface PricingCollapsiblePlansProps {
  * ```
  */
 export function PricingCollapsiblePlans({
-  title = "Pricing Plans",
-  subtitle = "Choose the perfect plan for your needs",
+  title,
+  subtitle,
   plans,
   plansSlot,
   defaultSelectedIndex,
@@ -273,7 +273,7 @@ export function PricingCollapsiblePlans({
   onSelectionChange,
   featureIcon,
   featureIconName = "lucide/check",
-  popularBadge = "Popular",
+  popularBadge,
   background = "white",
   spacing = "lg",
   pattern,

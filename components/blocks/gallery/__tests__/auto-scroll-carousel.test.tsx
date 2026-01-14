@@ -27,19 +27,19 @@ describe("AutoScrollCarousel", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AutoScrollCarousel />);
-    expect(screen.getByText(/Bringing your data to life/)).toBeInTheDocument();
-    expect(screen.getByText(/We thrive on the power of AI/)).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<AutoScrollCarousel heading="Test Heading" description="Test description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<AutoScrollCarousel heading="Custom Heading" />);
+    render(<AutoScrollCarousel heading="Custom Heading" description="Test description" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
-    render(<AutoScrollCarousel description="Custom description text" />);
+    render(<AutoScrollCarousel heading="Test Heading" description="Custom description text" />);
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 

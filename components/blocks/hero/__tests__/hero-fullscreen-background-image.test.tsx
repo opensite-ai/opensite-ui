@@ -17,9 +17,9 @@ describe("HeroFullscreenBackgroundImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroFullscreenBackgroundImage />);
-    expect(screen.getByText("Explore the wonders of science.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroFullscreenBackgroundImage heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -39,7 +39,7 @@ describe("HeroFullscreenBackgroundImage", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroFullscreenBackgroundImage className="custom-class" />);
+    const { container } = render(<HeroFullscreenBackgroundImage heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

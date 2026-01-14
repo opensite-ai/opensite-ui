@@ -97,8 +97,8 @@ export interface FaqIconBenefitsProps {
 }
 
 export function FaqIconBenefits({
-  heading = "Why choose us?",
-  description = "Discover the benefits of using our platform for your business needs.",
+  heading,
+  description,
   benefits,
   benefitsSlot,
   background = "white",

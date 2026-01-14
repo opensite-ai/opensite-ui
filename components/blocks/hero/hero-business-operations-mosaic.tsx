@@ -55,8 +55,8 @@ export interface HeroBusinessOperationsMosaicProps {
 }
 
 export function HeroBusinessOperationsMosaic({
-  heading = "Revolutionize your business operations",
-  subheading = "The ultimate platform to unlock your agency's capabilities.",
+  heading,
+  subheading,
   images,
   imagesSlot,
   className,
@@ -75,7 +75,7 @@ export function HeroBusinessOperationsMosaic({
       <div className="mx-auto grid h-full w-full grid-cols-[14.7%_47.29%_14.7%_14.7%] grid-rows-[34.7%_26.28%_34.7%] gap-x-[2.85%] gap-y-[2.32%]">
         {images[0] && (
           <div className="col-[1/3] row-[1/3]">
-            <div className="h-full w-full overflow-hidden rounded-[2vw] bg-blue-100 lg:rounded-[1.2vw] xl:rounded-2xl">
+            <div className="h-full w-full overflow-hidden rounded-[2vw] bg-primary/10 lg:rounded-[1.2vw] xl:rounded-2xl">
               <Img
                 src={images[0].src}
                 alt={images[0].alt}
@@ -87,7 +87,7 @@ export function HeroBusinessOperationsMosaic({
         )}
         {images[1] && (
           <div className="col-[3/5] row-[2/3]">
-            <div className="h-full w-full overflow-hidden rounded-[2vw] bg-green-100 lg:rounded-[1.2vw] xl:rounded-2xl">
+            <div className="h-full w-full overflow-hidden rounded-[2vw] bg-success/10 lg:rounded-[1.2vw] xl:rounded-2xl">
               <Img
                 src={images[1].src}
                 alt={images[1].alt}

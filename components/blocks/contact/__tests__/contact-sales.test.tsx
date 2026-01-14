@@ -9,8 +9,14 @@ vi.mock("../../../ui/dynamic-icon", () => ({
 }));
 
 describe("ContactSales", () => {
-  it("renders without crashing", () => {
-    const { container } = render(<ContactSales />);
+  it("renders with provided props", () => {
+    const { container } = render(
+      <ContactSales
+        heading="Test Heading"
+        description="Test Description"
+        buttonText="Test Button"
+      />
+    );
     expect(container).toBeInTheDocument();
   });
 

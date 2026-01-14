@@ -188,10 +188,10 @@ export interface ContactCardProps {
  * ```
  */
 export function ContactCard({
-  heading = "Get in Touch",
-  description = "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
-  formHeading = "Contact us",
-  buttonText = "Send Message",
+  heading,
+  description,
+  formHeading,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

@@ -104,7 +104,7 @@ export interface TimelineChangelogBadgesProps {
 }
 
 export function TimelineChangelogBadges({
-  heading = "Timeline",
+  heading,
   entries,
   className,
   containerClassName,

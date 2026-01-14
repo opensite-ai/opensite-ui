@@ -121,8 +121,8 @@ export interface ServicesListVerticalTagsProps {
  * ```
  */
 export function ServicesListVerticalTags({
-  heading = "Services",
-  description = "Comprehensive solutions to bring your digital vision to life.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

@@ -90,8 +90,8 @@ export interface BlogCategoryOverlayProps {
 
 export function BlogCategoryOverlay({
   badge = <Badge variant="outline">Articles</Badge>,
-  heading = "Discover the latest trends",
-  description = "Explore our blog for insightful articles, personal reflections and ideas that inspire action on the topics you care about.",
+  heading,
+  description,
   posts,
   postsSlot,
   viewAllAction,

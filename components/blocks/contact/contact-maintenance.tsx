@@ -75,9 +75,9 @@ export interface ContactMaintenanceProps {
  * ```
  */
 export function ContactMaintenance({
-  heading = "Maintenance Request",
-  description = "Submit a maintenance request.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

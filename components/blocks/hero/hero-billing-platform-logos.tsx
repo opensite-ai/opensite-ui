@@ -94,14 +94,14 @@ export interface HeroBillingPlatformLogosProps {
 }
 
 export function HeroBillingPlatformLogos({
-  heading = "Anticipate greater value from your billing",
-  description = "Our service is a usage-based billing platform designed to accelerate your product launches. Effortlessly shape your pricing today and refine it with confidence tomorrow.",
+  heading,
+  description,
   actions,
   actionsSlot,
   mainImage,
   overlayImages,
   imagesSlot,
-  logosTagline = "Trusted by the FASTEST-GROWING STARTUPS AND ENTERPRISES",
+  logosTagline,
   logos,
   logosSlot,
   backgroundNoiseUrl = "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",

@@ -27,7 +27,7 @@ describe("ProcessIconTimeline", () => {
     },
   ];
 
-  it("renders custom title and description", () => {
+  it("renders title and description", () => {
     render(
       <ProcessIconTimeline
         title="Development Timeline"

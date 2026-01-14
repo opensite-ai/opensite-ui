@@ -29,9 +29,9 @@ describe("HeroBadgeShadowOverlay", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroBadgeShadowOverlay />);
-    expect(screen.getByText("Manage design work right from the canvas")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroBadgeShadowOverlay heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroBadgeShadowOverlay", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroBadgeShadowOverlay className="custom-class" />);
+    const { container } = render(<HeroBadgeShadowOverlay heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

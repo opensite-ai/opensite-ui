@@ -19,9 +19,9 @@ describe("HeroVideoBackgroundDark", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroVideoBackgroundDark />);
-    expect(screen.getByText("Unveiling MyBusiness Edition 1")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroVideoBackgroundDark heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroVideoBackgroundDark", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroVideoBackgroundDark className="custom-class" />);
+    const { container } = render(<HeroVideoBackgroundDark heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

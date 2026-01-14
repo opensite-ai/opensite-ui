@@ -201,12 +201,12 @@ export interface ListMetricsDashboardProps {
  * ```
  */
 export function ListMetricsDashboard({
-  badge = "System Metrics",
+  badge,
   badgeSlot,
   badgeClassName,
-  heading = "Platform Health & Performance",
+  heading,
   headingClassName,
-  description = "Key metrics across our infrastructure, security, and business operations.",
+  description,
   descriptionClassName,
   metrics,
   metricsSlot,
@@ -302,10 +302,10 @@ export function ListMetricsDashboard({
           <div
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full",
-              metric.status === "positive" && "bg-green-100 text-green-600",
-              metric.status === "negative" && "bg-red-100 text-red-600",
-              metric.status === "warning" && "bg-amber-100 text-amber-600",
-              metric.status === "neutral" && "bg-blue-100 text-blue-600"
+              metric.status === "positive" && "bg-success/10 text-success",
+              metric.status === "negative" && "bg-destructive/10 text-destructive",
+              metric.status === "warning" && "bg-accent text-accent-foreground",
+              metric.status === "neutral" && "bg-primary/10 text-primary"
             )}
           >
             {metric.icon && <DynamicIcon name={metric.icon} size={16} />}
@@ -347,10 +347,10 @@ export function ListMetricsDashboard({
               <div
                 className={cn(
                   "flex items-center text-xs",
-                  metric.status === "positive" && "text-green-600",
-                  metric.status === "negative" && "text-red-600",
-                  metric.status === "warning" && "text-amber-600",
-                  metric.status === "neutral" && "text-blue-600"
+                  metric.status === "positive" && "text-success",
+                  metric.status === "negative" && "text-destructive",
+                  metric.status === "warning" && "text-accent-foreground",
+                  metric.status === "neutral" && "text-primary"
                 )}
               >
                 {metric.changePercentage > 0 ? (

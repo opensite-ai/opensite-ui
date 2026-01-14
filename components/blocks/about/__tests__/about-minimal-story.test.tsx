@@ -17,10 +17,15 @@ describe("AboutMinimalStory", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutMinimalStory />);
-    expect(screen.getByText("Our Story")).toBeInTheDocument();
-    expect(screen.getByText(/Every great company starts with a simple idea/)).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutMinimalStory
+        title="Test Title"
+        content="Test Content"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Content")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

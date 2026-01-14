@@ -174,9 +174,9 @@ export interface PricingEnterpriseContactProps {
  * ```
  */
 export function PricingEnterpriseContact({
-  title = "Enterprise",
-  subtitle = "For large organizations with custom needs",
-  description = "Get a custom solution tailored to your organization's specific requirements. Our enterprise plans include everything you need to scale.",
+  title,
+  subtitle,
+  description,
   features,
   featuresSlot,
   featureIcon,

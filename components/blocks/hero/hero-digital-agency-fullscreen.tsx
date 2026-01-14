@@ -75,8 +75,8 @@ export interface HeroDigitalAgencyFullscreenProps {
 }
 
 export function HeroDigitalAgencyFullscreen({
-  heading = "Transform Your Vision Into Digital Reality",
-  description = "We craft exceptional digital solutions that help brands stand out and make a lasting impact in the digital landscape.",
+  heading,
+  description,
   actions,
   actionsSlot,
   footerLabel = "Global Headquarters",

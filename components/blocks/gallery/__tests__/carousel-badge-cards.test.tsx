@@ -31,9 +31,9 @@ describe("CarouselBadgeCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselBadgeCards />);
-    expect(screen.getByText("Case Studies")).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<CarouselBadgeCards heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -201,12 +201,12 @@ export interface PricingDiscountCardProps {
  * ```
  */
 export function PricingDiscountCard({
-  title = "Pro Plan",
-  description = "Everything you need to grow your business",
-  originalPrice = "$99",
-  discountedPrice = "$79",
-  discountBadge = "20% OFF",
-  priceDescription = "/month, billed annually",
+  title,
+  description,
+  originalPrice,
+  discountedPrice,
+  discountBadge,
+  priceDescription,
   features,
   featuresSlot,
   featureIcon,
@@ -311,7 +311,7 @@ export function PricingDiscountCard({
           {discountBadge && (
             <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
               {typeof discountBadge === "string" ? (
-                <Badge className="bg-green-500 hover:bg-green-600">
+                <Badge className="bg-primary hover:bg-primary/90">
                   {discountBadge}
                 </Badge>
               ) : (

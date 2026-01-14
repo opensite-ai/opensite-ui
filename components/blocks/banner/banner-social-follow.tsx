@@ -91,7 +91,7 @@ export interface BannerSocialFollowProps {
 export function BannerSocialFollow({
   icon,
   iconName = "mynaui/users",
-  message = "Follow us on social media for the latest updates and tips!",
+  message,
   actions,
   actionsSlot,
   onDismiss,

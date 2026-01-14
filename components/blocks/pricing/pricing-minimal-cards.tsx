@@ -215,8 +215,8 @@ export interface PricingMinimalCardsProps {
  * ```
  */
 export function PricingMinimalCards({
-  heading = "Simple Pricing",
-  subtitle = "No hidden fees. No surprises.",
+  heading,
+  subtitle,
   plans,
   plansSlot,
   featureIcon,

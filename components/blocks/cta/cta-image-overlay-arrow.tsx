@@ -89,7 +89,7 @@ export interface CtaImageOverlayArrowProps {
  * ```
  */
 export function CtaImageOverlayArrow({
-  heading = "Start Your Journey Today",
+  heading,
   actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[7],

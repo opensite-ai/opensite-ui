@@ -162,10 +162,10 @@ export interface StatsCircularProgressProps {
  * Helper function to determine color based on value
  */
 function getColorClass(value: number): string {
-  if (value >= 90) return "text-emerald-500";
-  if (value >= 75) return "text-blue-500";
-  if (value >= 50) return "text-amber-500";
-  return "text-rose-500";
+  if (value >= 90) return "text-success";
+  if (value >= 75) return "text-primary";
+  if (value >= 50) return "text-accent-foreground";
+  return "text-destructive";
 }
 
 /**
@@ -239,10 +239,10 @@ function CircularProgressIndicator({
  * ```
  */
 export function StatsCircularProgress({
-  badge = "Performance",
+  badge,
   badgeSlot,
-  heading = "Key Performance Indicators",
-  description = "Visualizing our achievements across all business aspects",
+  heading,
+  description,
   categories,
   categoriesSlot,
   defaultCategory = "business",

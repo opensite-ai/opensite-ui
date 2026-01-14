@@ -92,8 +92,8 @@ export interface HeroMentorshipVideoSplitProps {
 }
 
 export function HeroMentorshipVideoSplit({
-  heading = "Career Growth with Expert Mentorship",
-  description = "Receive tailored mentorship aligned with your goals. Let experienced mentors guide you to success with personalized insights and dedicated support.",
+  heading,
+  description,
   action,
   actionSlot,
   videoLabel = "Watch our introduction to discover our services",

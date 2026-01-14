@@ -70,9 +70,9 @@ export interface HeroSharedInboxLayeredProps {
 }
 
 export function HeroSharedInboxLayered({
-  subtitle = "Shared Inbox",
-  heading = <>Organize<br />Your Inbox</>,
-  description = "Your email account doesn't have to feel like chaos. A shared inbox unites all your email aliases, social messages, and teammates in one space, ensuring everyone gets the answers they need.",
+  subtitle,
+  heading,
+  description,
   layeredImages,
   layeredImagesSlot,
   className,

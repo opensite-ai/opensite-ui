@@ -82,7 +82,7 @@ export interface HeroVideoOverlayStarsProps {
  * prominent CTA button, and star rating trust indicator. Ideal for product launches.
  */
 export function HeroVideoOverlayStars({
-  heading = "Liberate yourself from phone interruptions",
+  heading,
   action,
   actionSlot,
   trust,

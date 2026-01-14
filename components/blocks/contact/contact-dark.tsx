@@ -221,11 +221,11 @@ export interface ContactDarkProps {
  * ```
  */
 export function ContactDark({
-  heading = "Contact Us",
-  description = "Any questions or remarks? Just write us a message!",
+  heading,
+  description,
   contactHeading = "Contact Information",
   contactDescription = "Fill up the form and our team will get back to you within 24 hours.",
-  buttonText = "Send Message",
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

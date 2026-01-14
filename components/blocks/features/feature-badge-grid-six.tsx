@@ -125,9 +125,9 @@ export interface FeatureBadgeGridSixProps {
  * ```
  */
 export function FeatureBadgeGridSix({
-  label = "Features",
+  label,
   badgeSlot,
-  title = "Fully featured components for Opensite AI & Tailwind",
+  title,
   features,
   featuresSlot,
   action,

@@ -148,8 +148,8 @@ export interface ServicesListImageCardsProps {
  * ```
  */
 export function ServicesListImageCards({
-  heading = "Transform Your Digital Presence",
-  description = "We specialize in creating digital experiences that drive results. Our team combines creativity with technical expertise to deliver solutions that exceed expectations.",
+  heading,
+  description,
   primaryAction,
   secondaryAction,
   actionsSlot,

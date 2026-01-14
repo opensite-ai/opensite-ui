@@ -108,8 +108,8 @@ export interface CarouselScrollingFeatureShowcaseProps {
 }
 
 export function CarouselScrollingFeatureShowcase({
-  heading = "Powerful Features",
-  subheading = "Discover what makes our platform unique",
+  heading,
+  subheading,
   features,
   featuresSlot,
   className,

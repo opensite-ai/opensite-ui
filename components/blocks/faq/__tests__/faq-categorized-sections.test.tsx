@@ -44,11 +44,16 @@ describe("FaqCategorizedSections", () => {
   });
 
   it("renders empty categories array", () => {
-    render(<FaqCategorizedSections categories={[]} />);
+    render(
+      <FaqCategorizedSections
+        heading="Test Heading"
+        description="Test Description"
+        categories={[]}
+      />
+    );
 
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders categories with multiple items", () => {

@@ -84,8 +84,8 @@ export interface HeroCenteredImageGridProps {
 }
 
 export function HeroCenteredImageGrid({
-  heading = "Build your next project with Blocks",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
+  heading,
+  description,
   actions,
   actionsSlot,
   gridImages,

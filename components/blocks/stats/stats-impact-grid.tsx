@@ -197,10 +197,10 @@ export interface StatsImpactGridProps {
  * ```
  */
 export function StatsImpactGrid({
-  badge = "Proven Results",
+  badge,
   badgeSlot,
-  heading = "Transforming Businesses With Real Numbers",
-  description = "Our platform delivers measurable impact for businesses of all sizes. See the difference in black and white.",
+  heading,
+  description,
   stats,
   statsSlot,
   comparisonHeading = "How Does This Compare?",

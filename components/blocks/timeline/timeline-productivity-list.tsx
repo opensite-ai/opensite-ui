@@ -110,16 +110,6 @@ export function TimelineProductivityList({
   id,
   style,
 }: TimelineProductivityListProps) {
-  const defaultHeading = (
-    <>
-      Our tools make
-      <br />
-      productivity your
-      <br />
-      <span className="text-muted-foreground">superpower</span>
-    </>
-  );
-
   return (
     <Section
       id={id}
@@ -134,9 +124,11 @@ export function TimelineProductivityList({
       <div className={cn("grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16", containerClassName)}>
         <div className="lg:sticky lg:top-24 lg:self-start">
           <div className="max-w-lg">
-            <h2 className={cn("text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl", headingClassName)}>
-              {heading || defaultHeading}
-            </h2>
+            {heading && (
+              <h2 className={cn("text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl", headingClassName)}>
+                {heading}
+              </h2>
+            )}
           </div>
         </div>
 

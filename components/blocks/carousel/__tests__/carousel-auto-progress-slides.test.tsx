@@ -58,13 +58,13 @@ describe("CarouselAutoProgressSlides", () => {
     vi.useRealTimers();
   });
 
-  it("renders custom heading", () => {
-    render(<CarouselAutoProgressSlides heading="Custom Heading" />);
+  it("renders with custom heading", () => {
+    render(<CarouselAutoProgressSlides heading="Custom Heading" subheading="Test subheading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom subheading", () => {
-    render(<CarouselAutoProgressSlides subheading="Custom Subheading" />);
+  it("renders with custom subheading", () => {
+    render(<CarouselAutoProgressSlides heading="Test heading" subheading="Custom Subheading" />);
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
   });
 
@@ -75,21 +75,20 @@ describe("CarouselAutoProgressSlides", () => {
       { src: "img3.jpg", label: "Item 3" },
     ];
     const { container } = render(
-      <CarouselAutoProgressSlides items={items} />
+      <CarouselAutoProgressSlides heading="Test heading" subheading="Test subheading" items={items} />
     );
     // Should have 3 dot buttons plus 2 navigation buttons
     const buttons = container.querySelectorAll("button");
     expect(buttons.length).toBeGreaterThanOrEqual(3);
   });
 
-  it("renders custom items", () => {
+  it("renders with custom items", () => {
     const customItems = [
       { src: "custom1.jpg", label: "Custom Item 1" },
       { src: "custom2.jpg", label: "Custom Item 2" },
     ];
-    render(<CarouselAutoProgressSlides items={customItems} />);
-    // Component should render without errors
-    expect(screen.getByText("UI for future")).toBeInTheDocument();
+    render(<CarouselAutoProgressSlides heading="Test heading" subheading="Test subheading" items={customItems} />);
+    expect(screen.getByText("Test heading")).toBeInTheDocument();
   });
 });
 

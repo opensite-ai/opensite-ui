@@ -19,9 +19,9 @@ describe("HeroPricingComparison", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroPricingComparison />);
-    expect(screen.getByText("Choose the plan that's right for you")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroPricingComparison heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -43,7 +43,7 @@ describe("HeroPricingComparison", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroPricingComparison className="custom-class" />);
+    const { container } = render(<HeroPricingComparison heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -410,7 +410,7 @@ const BreadcrumbBlog = ({ breadcrumb }: BreadcrumbBlogProps) => {
 };
 
 interface EmailFormProps {
-  emailPlaceholder: string;
+  emailPlaceholder?: string;
   buttonText: React.ReactNode;
   formConfig?: PageSpeedFormConfig;
   onSubmit?: (email: string) => void | Promise<void>;
@@ -603,9 +603,9 @@ const ResourceCard = ({
  */
 export function ResourceListHeroFilter({
   className,
-  title = "Explore Reports",
+  title,
   titleClassName,
-  description = "The best Reports is one that captivates readers with engaging, well-researched content presented in a clear and relatable way.",
+  description,
   descriptionClassName,
   breadcrumb,
   breadcrumbSlot,
@@ -618,12 +618,12 @@ export function ResourceListHeroFilter({
   postsClassName,
   categories,
   categoriesClassName,
-  allPostsTitle = "All Reports",
+  allPostsTitle,
   allPostsTitleClassName,
-  emailPlaceholder = "What's your work email?",
-  buttonText = "See Company in action",
+  emailPlaceholder,
+  buttonText,
   postsPerPage = 6,
-  loadMoreText = "Load More",
+  loadMoreText,
   heroClassName,
   contentClassName,
   heroPatternUrl,

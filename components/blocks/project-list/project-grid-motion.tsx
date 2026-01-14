@@ -90,7 +90,7 @@ export interface ProjectGridMotionProps {
  * card presentation are important.
  */
 export function ProjectGridMotion({
-  heading = "Our Work",
+  heading,
   projects,
   projectsSlot,
   optixFlowConfig,

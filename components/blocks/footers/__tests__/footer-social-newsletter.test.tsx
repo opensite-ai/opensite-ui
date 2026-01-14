@@ -19,10 +19,9 @@ describe("FooterSocialNewsletter", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterSocialNewsletter />);
-    expect(screen.getByText("Subscribe to our newsletter")).toBeInTheDocument();
-    expect(screen.getByText("By submitting, you agree to our")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterSocialNewsletter newsletterLabel="Test Newsletter Label" />);
+    expect(screen.getByText("Test Newsletter Label")).toBeInTheDocument();
   });
 
   it("renders custom newsletter label", () => {

@@ -13,10 +13,10 @@ describe("FeatureStatsHighlight", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureStatsHighlight />);
-    expect(screen.getByText("Why Choose Us")).toBeInTheDocument();
-    expect(screen.getByText("We deliver results that matter")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureStatsHighlight badge="Test Badge" title="Test Title" />);
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {

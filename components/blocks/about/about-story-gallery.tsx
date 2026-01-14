@@ -57,7 +57,7 @@ export interface AboutStoryGalleryProps {
 export function AboutStoryGallery({
   className,
   containerClassName,
-  title = "Our Story",
+  title,
   titleClassName,
   description = `We started with a vision to transform how businesses build software. What began as a small team with big ideas has grown into a platform trusted by thousands of companies worldwide.
 

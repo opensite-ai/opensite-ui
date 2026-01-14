@@ -99,8 +99,8 @@ export interface ProjectHorizontalCardsProps {
  * showcase where project context (client, role, year) is as important as the visual.
  */
 export function ProjectHorizontalCards({
-  heading = "Featured Projects",
-  subheading = "A selection of my most impactful work, demonstrating range and depth across industries.",
+  heading,
+  subheading,
   projects,
   projectsSlot,
   optixFlowConfig,

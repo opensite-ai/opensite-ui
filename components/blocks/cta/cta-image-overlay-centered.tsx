@@ -97,12 +97,12 @@ export interface CtaImageOverlayCenteredProps {
  * dark overlay, and centered text/CTAs. Best for final conversion sections.
  */
 export function CtaImageOverlayCentered({
-  heading = "Ready to unlock OpenSite AI coverage insights?",
-  description = "Connect with an advisor to tailor a plan that protects what matters most today and scales for tomorrow.",
+  heading,
+  description,
   actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[20],
-  backgroundAlt = "OpenSite AI call to action background",
+  backgroundAlt,
   className,
   cardClassName,
   overlayClassName,

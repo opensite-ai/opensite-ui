@@ -30,11 +30,17 @@ describe("AboutDeveloperProfile", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutDeveloperProfile />);
-    expect(screen.getByText("Alex Johnson")).toBeInTheDocument();
-    expect(screen.getByText("Full-Stack Developer")).toBeInTheDocument();
-    expect(screen.getByText(/I'm a passionate full-stack developer/)).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutDeveloperProfile
+        name="Test Name"
+        role="Test Role"
+        bio="Test Bio"
+      />
+    );
+    expect(screen.getByText("Test Name")).toBeInTheDocument();
+    expect(screen.getByText("Test Role")).toBeInTheDocument();
+    expect(screen.getByText("Test Bio")).toBeInTheDocument();
   });
 
   it("renders custom name", () => {

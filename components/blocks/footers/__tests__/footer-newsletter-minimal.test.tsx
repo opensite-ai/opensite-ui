@@ -19,10 +19,9 @@ describe("FooterNewsletterMinimal", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterNewsletterMinimal />);
-    expect(screen.getByText("Unlock 800+ blocks now")).toBeInTheDocument();
-    expect(screen.getByText("Sign up for newsletter :")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterNewsletterMinimal heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

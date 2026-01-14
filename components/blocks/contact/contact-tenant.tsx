@@ -75,9 +75,9 @@ export interface ContactTenantProps {
  * ```
  */
 export function ContactTenant({
-  heading = "Tenant Application",
-  description = "Apply to become a tenant.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

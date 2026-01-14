@@ -148,8 +148,8 @@ export interface StatsIconCardsProps {
  * ```
  */
 export function StatsIconCards({
-  heading = "Our Growth in Numbers",
-  description = "Key metrics that showcase our impact in the market",
+  heading,
+  description,
   stats,
   statsSlot,
   background = "white",

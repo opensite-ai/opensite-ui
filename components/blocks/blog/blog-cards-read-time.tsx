@@ -88,8 +88,8 @@ export function BlogCardsReadTime({
       <DynamicIcon name="lucide/file-text" size={16} className="h-full w-4" /> Our Blogs
     </Badge>
   ),
-  heading = "Discover the latest trends",
-  description = "Explore our blog for insightful articles, personal reflections and ideas that inspire action on the topics you care about.",
+  heading,
+  description,
   posts,
   postsSlot,
   viewAllAction,

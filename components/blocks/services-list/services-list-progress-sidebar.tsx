@@ -135,8 +135,8 @@ export interface ServicesListProgressSidebarProps {
  * ```
  */
 export function ServicesListProgressSidebar({
-  sidebarHeading = "Our Creative Process",
-  sidebarDescription = "We follow a proven methodology to deliver exceptional results. Each phase builds upon the previous to ensure your project's success.",
+  sidebarHeading,
+  sidebarDescription,
   primaryAction,
   actionsSlot,
   services,
@@ -196,7 +196,7 @@ export function ServicesListProgressSidebar({
                 className={cn(
                   "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg",
                   service.progress === 100
-                    ? "bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400"
+                    ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
                     : service.progress && service.progress > 0
                       ? "bg-primary/10 text-primary"
                       : "bg-muted text-muted-foreground",
@@ -219,7 +219,7 @@ export function ServicesListProgressSidebar({
                       className={cn(
                         "text-xs font-medium",
                         service.progress === 100
-                          ? "text-green-600 dark:text-green-400"
+                          ? "text-success dark:text-success"
                           : service.progress && service.progress > 0
                             ? "text-primary"
                             : "text-muted-foreground"
@@ -242,7 +242,7 @@ export function ServicesListProgressSidebar({
                       <div
                         className={cn(
                           "h-full rounded-full transition-all",
-                          service.progress === 100 ? "bg-green-500" : "bg-primary"
+                          service.progress === 100 ? "bg-success" : "bg-primary"
                         )}
                         style={{ width: `${service.progress}%` }}
                       />

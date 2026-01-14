@@ -19,10 +19,10 @@ describe("CtaDocumentationLinks", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaDocumentationLinks />);
-    expect(screen.getByText("Call To Action")).toBeInTheDocument();
-    expect(screen.getByText("Build faster with our collection of pre-built components. Speed up your development and ship features in record time.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaDocumentationLinks heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -175,13 +175,13 @@ export interface TeamCompactGridProps {
  * ```
  */
 export function TeamCompactGrid({
-  heading = "Team",
-  description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
+  heading,
+  description,
   members,
   membersSlot,
-  ctaHeading = "Ready to build the future with us?",
-  ctaDescription = "We're always looking for talented individuals who share our passion for innovation and making a difference. Check out our current openings.",
-  ctaButtonText = "Explore Careers",
+  ctaHeading,
+  ctaDescription,
+  ctaButtonText,
   ctaButtonUrl = "#",
   ctaSlot,
   background = "gray",

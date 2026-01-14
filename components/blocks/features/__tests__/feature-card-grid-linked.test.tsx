@@ -19,9 +19,9 @@ describe("FeatureCardGridLinked", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureCardGridLinked />);
-    expect(screen.getByText("A collection of extra blocks for Opensite AI & Tailwind")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureCardGridLinked title="Test Title" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

@@ -29,9 +29,9 @@ describe("HeroAdaptableProductGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroAdaptableProductGrid />);
-    expect(screen.getByText("The Perfectly Adaptable Product for Your Business")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroAdaptableProductGrid heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroAdaptableProductGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroAdaptableProductGrid className="custom-class" />);
+    const { container } = render(<HeroAdaptableProductGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

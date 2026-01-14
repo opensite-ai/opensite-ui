@@ -29,9 +29,9 @@ describe("HeroProductivityLauncherVideo", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroProductivityLauncherVideo />);
-    expect(screen.getByText("Your fast track to everything.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroProductivityLauncherVideo heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroProductivityLauncherVideo", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroProductivityLauncherVideo className="custom-class" />);
+    const { container } = render(<HeroProductivityLauncherVideo heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

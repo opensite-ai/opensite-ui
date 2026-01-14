@@ -106,8 +106,8 @@ export interface ProjectWorkShowcaseProps {
  * and project outcomes.
  */
 export function ProjectWorkShowcase({
-  heading = "Work Experience & Projects",
-  subheading = "Explore my professional experience and key projects I've contributed to in each role.",
+  heading,
+  subheading,
   experiences,
   experiencesSlot,
   optixFlowConfig,

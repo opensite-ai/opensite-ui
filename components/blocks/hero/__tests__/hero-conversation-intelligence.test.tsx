@@ -29,9 +29,9 @@ describe("HeroConversationIntelligence", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroConversationIntelligence />);
-    expect(screen.getByText("Conversation Intelligence")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroConversationIntelligence headingPrimary="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroConversationIntelligence", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroConversationIntelligence className="custom-class" />);
+    const { container } = render(<HeroConversationIntelligence headingPrimary="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

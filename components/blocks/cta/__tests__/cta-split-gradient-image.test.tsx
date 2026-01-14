@@ -23,11 +23,11 @@ describe("CtaSplitGradientImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaSplitGradientImage />);
-    expect(screen.getByText("Ready to get started?")).toBeInTheDocument();
-    expect(screen.getByText("Start your free trial today.")).toBeInTheDocument();
-    expect(screen.getByText("Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaSplitGradientImage heading="Test Heading" label="Test Label" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

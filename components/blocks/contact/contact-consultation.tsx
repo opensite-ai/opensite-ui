@@ -185,9 +185,9 @@ export interface ContactConsultationProps {
  * ```
  */
 export function ContactConsultation({
-  heading = "Book a Consultation",
-  description = "Let's discuss how we can help your business grow.",
-  buttonText = "Book Consultation",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

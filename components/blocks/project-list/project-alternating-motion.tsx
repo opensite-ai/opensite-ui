@@ -94,7 +94,7 @@ export interface ProjectAlternatingMotionProps {
  * listing that benefits from dramatic reveal animations and clean alternating presentation.
  */
 export function ProjectAlternatingMotion({
-  heading = "Architectural Highlights",
+  heading,
   projects,
   projectsSlot,
   optixFlowConfig,

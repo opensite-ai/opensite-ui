@@ -91,10 +91,10 @@ export interface ProjectNatureMosaicProps {
  * image compositions create an organic, editorial feel.
  */
 export function ProjectNatureMosaic({
-  heading = "Exploring the wonders of nature,\ncapturing moments of serenity and\nbeauty from forests to mountains.",
-  description = "Nature's beauty is ever-changing and endlessly inspiring. From the gentle rustle of leaves to the grandeur of mountain vistas, each day brings a new story to capture and cherish.",
-  linkText = "Discover More →",
-  linkHref = "#",
+  heading,
+  description,
+  linkText,
+  linkHref,
   images,
   imagesSlot,
   optixFlowConfig,

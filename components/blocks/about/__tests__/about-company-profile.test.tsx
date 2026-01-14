@@ -24,11 +24,17 @@ describe("AboutCompanyProfile", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutCompanyProfile />);
-    expect(screen.getByText("About Us")).toBeInTheDocument();
-    expect(screen.getByText(/Opensite AI is a passionate team/)).toBeInTheDocument();
-    expect(screen.getByText("Our Achievements in Numbers")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutCompanyProfile
+        title="Test Title"
+        description="Test Description"
+        achievementsTitle="Test Achievements Title"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
+    expect(screen.getByText("Test Achievements Title")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

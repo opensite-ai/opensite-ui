@@ -150,8 +150,8 @@ export interface TeamHoverOverlayProps {
  * ```
  */
 export function TeamHoverOverlay({
-  heading = "Meet our team",
-  description = "The amazing people behind the scenes",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",

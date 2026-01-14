@@ -136,8 +136,8 @@ export interface ServicesListImageOverlayGridProps {
  * ```
  */
 export function ServicesListImageOverlayGrid({
-  heading = "Our Services",
-  description = "We offer a comprehensive range of digital services to help your business grow and succeed in the modern marketplace.",
+  heading,
+  description,
   primaryAction,
   actionsSlot,
   services,

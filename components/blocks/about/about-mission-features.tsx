@@ -104,14 +104,14 @@ export interface AboutMissionFeaturesProps {
 }
 
 export function AboutMissionFeatures({
-  title = "About Us",
-  description = "Opensite AI makes it easy to build customer portals, CRMs, internal tools, and other business applications for your team. In minutes, not months.",
-  missionLabel = "OUR MISSION",
-  missionText = "We believe that building software should be insanely easy. That everyone should have the freedom to create the tools they need, without any developers, designers or drama.",
+  title,
+  description,
+  missionLabel,
+  missionText,
   mainImage,
   missionBackgroundImage,
-  featuresTitle = "We make creating software easy.",
-  featuresDescription = "We aim to help empower 1,000,000 teams to create their own software. Here is how we plan on doing it.",
+  featuresTitle,
+  featuresDescription,
   features,
   featuresSlot,
   className,

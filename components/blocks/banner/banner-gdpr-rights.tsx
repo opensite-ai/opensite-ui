@@ -105,8 +105,8 @@ export interface BannerGdprRightsProps {
 export function BannerGdprRights({
   icon,
   iconName = "mynaui/globe",
-  title = "Your Privacy Rights",
-  description = "Under GDPR, you have the right to access, update, or delete your personal data.",
+  title,
+  description,
   actions,
   actionsSlot,
   onDismiss,

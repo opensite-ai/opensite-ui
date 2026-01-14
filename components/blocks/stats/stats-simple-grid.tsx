@@ -110,7 +110,7 @@ export interface StatsSimpleGridProps {
  * ```
  */
 export function StatsSimpleGrid({
-  heading = "Platform Performance Insights",
+  heading,
   stats,
   statsSlot,
   actions,

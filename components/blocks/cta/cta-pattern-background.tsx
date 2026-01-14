@@ -99,8 +99,8 @@ export interface CtaPatternBackgroundProps {
  * ```
  */
 export function CtaPatternBackground({
-  heading = "Start building your websites faster",
-  description = "Try our tools and services to build your website faster. Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.",
+  heading,
+  description,
   actions,
   actionsSlot,
   backgroundPattern = patternSvgs.grid1,

@@ -27,10 +27,13 @@ describe("TestimonialsMinimalNumbered", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<TestimonialsMinimalNumbered />);
-    expect(screen.getByText("This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive.")).toBeInTheDocument();
-    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  it("renders with explicit testimonials", () => {
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    render(<TestimonialsMinimalNumbered testimonials={testimonials} />);
+    expect(screen.getByText("Test quote")).toBeInTheDocument();
+    expect(screen.getByText("Test Author")).toBeInTheDocument();
   });
 
   it("renders custom testimonials", () => {
@@ -43,13 +46,19 @@ describe("TestimonialsMinimalNumbered", () => {
   });
 
   it("renders author role and company", () => {
-    render(<TestimonialsMinimalNumbered />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Design Director", company: "Linear" },
+    ];
+    render(<TestimonialsMinimalNumbered testimonials={testimonials} />);
     expect(screen.getByText("Design Director")).toBeInTheDocument();
     expect(screen.getByText("Linear")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<TestimonialsMinimalNumbered className="custom-class" />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    const { container } = render(<TestimonialsMinimalNumbered testimonials={testimonials} className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

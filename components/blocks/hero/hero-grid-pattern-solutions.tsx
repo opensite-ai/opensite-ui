@@ -84,11 +84,11 @@ export interface HeroGridPatternSolutionsProps {
 }
 
 export function HeroGridPatternSolutions({
-  badgeText = "How to create superior products",
+  badgeText,
   badgeHref = "#",
   badgeSlot,
-  heading = "Create effective solutions for diverse needs.",
-  description = "Access all necessary resources for managing tasks and enhancing efficiency. Additionally, scale your capabilities across various projects.",
+  heading,
+  description,
   actions,
   actionsSlot,
   images,

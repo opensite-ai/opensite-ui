@@ -66,8 +66,8 @@ export interface HeroFullscreenLogoCtaProps {
 export function HeroFullscreenLogoCta({
   logo,
   logoSlot,
-  heading = "Create your own fiber optics facility",
-  description = "CableCore Partnership. Worldwide network. Regional manufacturing",
+  heading,
+  description,
   action,
   actionSlot,
   backgroundImage = imagePlaceholders[34],

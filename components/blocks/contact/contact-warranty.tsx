@@ -75,9 +75,9 @@ export interface ContactWarrantyProps {
  * ```
  */
 export function ContactWarranty({
-  heading = "Warranty Claim",
-  description = "Submit a warranty claim.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

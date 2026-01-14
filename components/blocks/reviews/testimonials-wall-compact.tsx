@@ -199,8 +199,8 @@ const DEFAULT_TESTIMONIALS: WallTestimonialItem[] = [
 export function TestimonialsWallCompact({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "Wall of Love",
-  description = "What our community is saying",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

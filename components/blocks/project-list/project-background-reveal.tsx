@@ -113,11 +113,11 @@ export interface ProjectBackgroundRevealProps {
  * immersive imagery and detailed descriptions work together.
  */
 export function ProjectBackgroundReveal({
-  heading = "Projects",
-  subheading = "Transform Ideas Into Reality",
-  description = "Where creativity, craftsmanship, and vision unite to create stunning interior spaces. Discover our comprehensive portfolio of projects, each thoughtfully designed to transform spaces and enhance the lives of our clients worldwide.",
-  buttonText = "View All Projects",
-  buttonHref = "#",
+  heading,
+  subheading,
+  description,
+  buttonText,
+  buttonHref,
   projects,
   projectsSlot,
   background,

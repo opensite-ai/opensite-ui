@@ -24,9 +24,9 @@ describe("HeroBillingPlatformLogos", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroBillingPlatformLogos />);
-    expect(screen.getByText("Anticipate greater value from your billing")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroBillingPlatformLogos heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -46,7 +46,7 @@ describe("HeroBillingPlatformLogos", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroBillingPlatformLogos className="custom-class" />);
+    const { container } = render(<HeroBillingPlatformLogos heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

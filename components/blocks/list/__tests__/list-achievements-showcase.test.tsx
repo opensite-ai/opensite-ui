@@ -22,7 +22,7 @@ describe("ListAchievementsShowcase", () => {
   ];
 
   it("renders custom heading", () => {
-    render(<ListAchievementsShowcase heading="Custom Heading" />);
+    render(<ListAchievementsShowcase heading="Custom Heading" items={[]} />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 

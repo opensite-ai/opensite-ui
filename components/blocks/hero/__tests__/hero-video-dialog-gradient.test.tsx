@@ -29,9 +29,9 @@ describe("HeroVideoDialogGradient", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroVideoDialogGradient />);
-    expect(screen.getByText("Transform your workflow with intelligent automation")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroVideoDialogGradient heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroVideoDialogGradient", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroVideoDialogGradient className="custom-class" />);
+    const { container } = render(<HeroVideoDialogGradient heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -47,9 +47,15 @@ describe("BlogFeaturedPopular", () => {
   });
 
   it("handles empty posts array", () => {
-    render(<BlogFeaturedPopular posts={[]} />);
-    expect(screen.getByText("Insights and Trends Blog")).toBeInTheDocument();
-    expect(screen.getByText("Popular Posts")).toBeInTheDocument();
+    render(
+      <BlogFeaturedPopular
+        heading="Test Heading"
+        description="Test Description"
+        posts={[]}
+      />
+    );
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("handles single post (featured only)", () => {

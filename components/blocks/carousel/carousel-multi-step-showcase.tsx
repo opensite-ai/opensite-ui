@@ -126,8 +126,8 @@ export interface CarouselMultiStepShowcaseProps {
 }
 
 export function CarouselMultiStepShowcase({
-  heading = "How It Works",
-  subheading = "Follow these simple steps to get started",
+  heading,
+  subheading,
   steps,
   stepsSlot,
   actions,

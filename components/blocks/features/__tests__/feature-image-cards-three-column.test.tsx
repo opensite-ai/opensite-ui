@@ -17,10 +17,10 @@ describe("FeatureImageCardsThreeColumn", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureImageCardsThreeColumn />);
-    expect(screen.getByText("Versatile Designs")).toBeInTheDocument();
-    expect(screen.getByText("Personalize the box to fit your requirements")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureImageCardsThreeColumn title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

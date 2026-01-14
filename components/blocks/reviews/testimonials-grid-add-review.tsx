@@ -162,7 +162,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
           size={size}
           className={cn(
             star <= rating
-              ? "fill-yellow-400 text-yellow-400"
+              ? "fill-primary text-primary"
               : "fill-muted text-muted"
           )}
         />
@@ -200,8 +200,8 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
 export function TestimonialsGridAddReview({
   reviews = DEFAULT_REVIEWS,
   reviewsSlot,
-  heading = "Customer Reviews",
-  description = "Real feedback from our community",
+  heading,
+  description,
   addReviewText = "Share Your Experience",
   addReviewSubtext = "Help others by sharing your thoughts",
   onAddReview,

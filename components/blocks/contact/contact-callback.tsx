@@ -215,9 +215,9 @@ const defaultFooter = (
 );
 
 export function ContactCallback({
-  heading = "Request a Callback",
-  description = "Schedule a time that works for you and we'll call you to discuss your needs.",
-  buttonText = "Schedule Callback",
+  heading,
+  description,
+  buttonText,
   buttonIcon = <DynamicIcon name="lucide/phone" size={16} />,
   actions,
   actionsSlot,

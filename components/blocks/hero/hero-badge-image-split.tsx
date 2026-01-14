@@ -81,10 +81,10 @@ export interface HeroBadgeImageSplitProps {
 }
 
 export function HeroBadgeImageSplit({
-  badge = "Your Website Builder",
-  badgeIcon = <DynamicIcon name="lucide/arrow-up-right" size={16} className="ml-2" />,
-  heading = "Blocks Built With React & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
+  badge,
+  badgeIcon,
+  heading,
+  description,
   actions,
   actionsSlot,
   imageSrc = imagePlaceholders[0],

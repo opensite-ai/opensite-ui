@@ -172,8 +172,8 @@ export interface CarouselGradientOverlayProps {
  * ```
  */
 export function CarouselGradientOverlay({
-  title = "Case Studies",
-  description = "Discover how leading companies and developers are leveraging modern web technologies to build exceptional digital experiences.",
+  title,
+  description,
   items,
   itemsSlot,
   readMoreText = "Read more",

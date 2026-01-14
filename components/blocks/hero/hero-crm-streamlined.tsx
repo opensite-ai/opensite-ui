@@ -71,9 +71,9 @@ export interface HeroCrmStreamlinedProps {
 }
 
 export function HeroCrmStreamlined({
-  tagline = "Client Relationship Management Software",
-  heading = "Your contact management, all streamlined in a single platform",
-  description = "Providing a comprehensive view of everything you know about the people, companies, and organizations you work with.",
+  tagline,
+  heading,
+  description,
   action,
   actionSlot,
   image,

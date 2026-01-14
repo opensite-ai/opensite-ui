@@ -19,10 +19,10 @@ describe("FeatureBadgeGridSix", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureBadgeGridSix />);
-    expect(screen.getByText("Features")).toBeInTheDocument();
-    expect(screen.getByText("Fully featured components for Opensite AI & Tailwind")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureBadgeGridSix label="Test Label" title="Test Title" />);
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom label", () => {

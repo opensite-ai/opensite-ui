@@ -179,10 +179,10 @@ export interface StatsBarComparisonProps {
  * ```
  */
 export function StatsBarComparison({
-  badge = "Competitive Edge",
+  badge,
   badgeSlot,
-  heading = "How We Compare",
-  description = "See how our platform outperforms industry standards across key metrics",
+  heading,
+  description,
   comparisons,
   comparisonsSlot,
   animate = true,

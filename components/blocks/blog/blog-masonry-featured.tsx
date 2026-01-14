@@ -59,7 +59,7 @@ export interface BlogMasonryFeaturedProps {
 }
 
 export function BlogMasonryFeatured({
-  heading = "Latest Tech Blog",
+  heading,
   posts,
   featuredSlot,
   postsSlot,

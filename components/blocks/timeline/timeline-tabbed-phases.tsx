@@ -120,7 +120,7 @@ export interface TimelineTabbedPhasesProps {
 }
 
 export function TimelineTabbedPhases({
-  heading = "Just Four Phases",
+  heading,
   phases,
   downloadAction = {
     label: "Download the app",

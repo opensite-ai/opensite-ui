@@ -190,8 +190,8 @@ const itemVariants = {
 export function TestimonialsScrollingColumns({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "What Our Clients Say",
-  description = "Real feedback from real customers",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

@@ -15,29 +15,28 @@ describe("StatsNumberTicker", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsNumberTicker />);
+  it("renders badge, heading, and description", () => {
+    render(
+      <StatsNumberTicker
+        badge="By The Numbers"
+        heading="Platform Statistics"
+        description="Real-time metrics"
+      />
+    );
     expect(screen.getByText("By The Numbers")).toBeInTheDocument();
     expect(screen.getByText("Platform Statistics")).toBeInTheDocument();
-  });
-
-  it("renders custom badge", () => {
-    render(<StatsNumberTicker badge="Custom Badge" />);
-    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsNumberTicker heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsNumberTicker description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
+    expect(screen.getByText("Real-time metrics")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsNumberTicker className="custom-class" />);
+    const { container } = render(
+      <StatsNumberTicker
+        badge="Test Badge"
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

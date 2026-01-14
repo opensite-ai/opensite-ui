@@ -35,10 +35,9 @@ describe("FooterBrandLinksContact", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterBrandLinksContact />);
-    expect(screen.getByText("Modern coverage guidance powered by OpenSite AI.")).toBeInTheDocument();
-    expect(screen.getByText("Contact")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterBrandLinksContact tagline="Test Tagline" />);
+    expect(screen.getByText("Test Tagline")).toBeInTheDocument();
   });
 
   it("renders custom tagline", () => {

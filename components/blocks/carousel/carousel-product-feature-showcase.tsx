@@ -146,8 +146,8 @@ export interface CarouselProductFeatureShowcaseProps {
 }
 
 export function CarouselProductFeatureShowcase({
-  heading = "Discover Our Products",
-  subheading = "Explore the features that make our products stand out",
+  heading,
+  subheading,
   features,
   featuresSlot,
   actions,

@@ -93,7 +93,7 @@ export interface ProjectStudioHoverPreviewProps {
  * their portfolio with an interactive, premium feel.
  */
 export function ProjectStudioHoverPreview({
-  heading = "Studio Gallery",
+  heading,
   projects,
   projectsSlot,
   optixFlowConfig,

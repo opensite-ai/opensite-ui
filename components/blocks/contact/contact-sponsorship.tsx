@@ -75,9 +75,9 @@ export interface ContactSponsorshipProps {
  * ```
  */
 export function ContactSponsorship({
-  heading = "Sponsorship Opportunities",
-  description = "Partner with us through sponsorship.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

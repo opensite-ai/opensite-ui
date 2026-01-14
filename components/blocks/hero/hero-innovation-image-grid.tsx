@@ -65,8 +65,8 @@ export interface HeroInnovationImageGridProps {
 }
 
 export function HeroInnovationImageGrid({
-  heading = "Uncover our vision for a more innovative, better future",
-  description = "Be part of our journey to innovate and develop solutions that enrich lives and fuel progress.",
+  heading,
+  description,
   action,
   actionSlot,
   images,

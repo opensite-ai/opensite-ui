@@ -105,8 +105,8 @@ export interface BannerPrivacyNoticeProps {
 export function BannerPrivacyNotice({
   icon,
   iconName = "mynaui/shield",
-  title = "Privacy Policy Updated",
-  description = "We've updated our privacy policy to better protect your data. Please review the changes.",
+  title,
+  description,
   actions,
   actionsSlot,
   onDismiss,

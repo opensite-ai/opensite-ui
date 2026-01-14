@@ -146,9 +146,9 @@ export interface ListSearchableGridProps {
  * Perfect for resource directories, service catalogs, or partner listings.
  */
 export function ListSearchableGrid({
-  heading = "Search the OpenSite AI resource library",
+  heading,
   headingClassName,
-  description = "Filter guides, services, and playbooks with a quick keyword search.",
+  description,
   descriptionClassName,
   searchPlaceholder = "Search resources...",
   searchInputClassName,

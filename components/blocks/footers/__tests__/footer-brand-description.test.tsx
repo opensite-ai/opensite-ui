@@ -19,9 +19,9 @@ describe("FooterBrandDescription", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterBrandDescription />);
-    expect(screen.getByText("A collection of components for your startup business or side project.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterBrandDescription description="Test Description" />);
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {

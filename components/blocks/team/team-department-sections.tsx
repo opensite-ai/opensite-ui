@@ -131,7 +131,7 @@ export interface TeamDepartmentSectionsProps {
  * ```
  */
 export function TeamDepartmentSections({
-  heading = "Our team",
+  heading,
   departments,
   departmentsSlot,
   background = "white",

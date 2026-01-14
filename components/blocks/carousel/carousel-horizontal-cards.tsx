@@ -110,8 +110,8 @@ export interface CarouselHorizontalCardsProps {
 }
 
 export function CarouselHorizontalCards({
-  heading = "Featured Content",
-  subtitle = "Discover our latest highlights",
+  heading,
+  subtitle,
   headingHref = "#",
   items,
   itemsSlot,

@@ -96,7 +96,7 @@ export interface BannerAnnouncementDismissibleProps {
 export function BannerAnnouncementDismissible({
   icon,
   iconName = "mynaui/boat",
-  message = "Introducing our new AI-powered dashboard - Now available!",
+  message,
   actions,
   actionsSlot,
   onDismiss,

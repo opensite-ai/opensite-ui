@@ -74,11 +74,16 @@ describe("FaqSidebarNavigation", () => {
   });
 
   it("renders empty categories array", () => {
-    render(<FaqSidebarNavigation categories={[]} />);
+    render(
+      <FaqSidebarNavigation
+        heading="Test Heading"
+        description="Test Description"
+        categories={[]}
+      />
+    );
 
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("handles category button click", () => {

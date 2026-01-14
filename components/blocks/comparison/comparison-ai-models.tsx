@@ -150,10 +150,10 @@ export function ComparisonAiModels({
 
   const renderStatusIcon = (status: MetricValue["status"]) => {
     if (status === "best") {
-      return <DynamicIcon name="lucide/circle-check" size={16} className="text-green-600" />;
+      return <DynamicIcon name="lucide/circle-check" size={16} className="text-success" />;
     }
     if (status === "worst") {
-      return <DynamicIcon name="lucide/circle-x" size={16} className="text-red-600" />;
+      return <DynamicIcon name="lucide/circle-x" size={16} className="text-destructive" />;
     }
     return <DynamicIcon name="lucide/minus" size={16} className="text-muted-foreground" />;
   };
@@ -163,9 +163,9 @@ export function ComparisonAiModels({
     let statusClass = "";
     
     if (status === "best") {
-      statusClass = "bg-green-50 text-green-600 dark:bg-green-950/20";
+      statusClass = "bg-green-50 text-success dark:bg-green-950/20";
     } else if (status === "worst") {
-      statusClass = "bg-red-50 text-red-600 dark:bg-red-950/20";
+      statusClass = "bg-red-50 text-destructive dark:bg-red-950/20";
     } else {
       statusClass = "bg-muted/50 text-foreground";
     }

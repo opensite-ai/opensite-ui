@@ -33,13 +33,13 @@ describe("ArticleBreadcrumbSocial", () => {
     Object.defineProperty(window, "scrollY", { value: 0, writable: true });
   });
 
-  it("renders without crashing", () => {
-    const { container } = render(<ArticleBreadcrumbSocial />);
+  it("renders with title", () => {
+    const { container } = render(<ArticleBreadcrumbSocial title="Test Article" />);
     expect(container).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<ArticleBreadcrumbSocial className="custom-class" />);
+    const { container } = render(<ArticleBreadcrumbSocial title="Test Article" className="custom-class" />);
     expect(container.querySelector(".custom-class")).toBeInTheDocument();
   });
 });

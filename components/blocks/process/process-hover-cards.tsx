@@ -191,8 +191,8 @@ const ProcessCard = ({ step, index, optixFlowConfig, itemClassName, hoverImageCl
  * ProcessHoverCards - A process section with hover-reveal images for each step.
  */
 export function ProcessHoverCards({
-  heading = "Our Process",
-  description = "We follow a proven methodology to deliver exceptional results for every project we undertake.",
+  heading,
+  description,
   steps,
   stepsSlot,
   className,

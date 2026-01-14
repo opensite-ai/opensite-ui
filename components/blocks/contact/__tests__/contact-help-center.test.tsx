@@ -24,7 +24,7 @@ describe("ContactHelpCenter", () => {
   });
 
   it("renders with default props", () => {
-    render(<ContactHelpCenter />);
+    render(<ContactHelpCenter eyebrow="Support Center" heading="Need help navigating coverage decisions?" cardTitle="Contact Our Team" />);
     expect(screen.getByText("Support Center")).toBeInTheDocument();
     expect(screen.getByText("Need help navigating coverage decisions?")).toBeInTheDocument();
     expect(screen.getByText("Contact Our Team")).toBeInTheDocument();

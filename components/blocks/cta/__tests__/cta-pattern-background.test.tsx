@@ -19,10 +19,10 @@ describe("CtaPatternBackground", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaPatternBackground />);
-    expect(screen.getByText("Start building your websites faster")).toBeInTheDocument();
-    expect(screen.getByText("Try our tools and services to build your website faster. Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaPatternBackground heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

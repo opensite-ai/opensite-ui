@@ -140,8 +140,8 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
 export function TestimonialsCenteredAvatars({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  badge = "Testimonials",
-  heading = "Trusted by Industry Leaders",
+  badge,
+  heading,
   className,
   contentClassName,
   badgeClassName,

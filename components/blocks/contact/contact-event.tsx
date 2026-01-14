@@ -113,9 +113,9 @@ export interface ContactEventProps {
  * ```
  */
 export function ContactEvent({
-  heading = "Event Registration",
-  description = "Register for our event.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

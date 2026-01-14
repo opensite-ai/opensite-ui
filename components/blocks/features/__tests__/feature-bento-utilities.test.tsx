@@ -23,10 +23,11 @@ describe("FeatureBentoUtilities", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureBentoUtilities />);
-    expect(screen.getByText("Utilities")).toBeInTheDocument();
-    expect(screen.getByText("Utilites for every use case and platform you can think of.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureBentoUtilities label="Test Label" title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom label", () => {

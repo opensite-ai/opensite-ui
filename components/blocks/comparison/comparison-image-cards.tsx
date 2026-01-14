@@ -105,8 +105,8 @@ export interface ComparisonImageCardsProps {
  * two-option comparisons with strong visual differentiation.
  */
 export function ComparisonImageCards({
-  heading = "Old vs New",
-  description = "Compare the difference between the original and the new way of doing things.",
+  heading,
+  description,
   optionA,
   optionB,
   dividerText = "OR",

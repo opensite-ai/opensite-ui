@@ -23,9 +23,9 @@ describe("HeroMobileAppDownload", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroMobileAppDownload />);
-    expect(screen.getByText("Your pocket companion for productivity")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroMobileAppDownload heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -47,7 +47,7 @@ describe("HeroMobileAppDownload", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroMobileAppDownload className="custom-class" />);
+    const { container } = render(<HeroMobileAppDownload heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

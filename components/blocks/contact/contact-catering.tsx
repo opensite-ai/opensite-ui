@@ -227,9 +227,9 @@ export interface ContactCateringProps {
  * ```
  */
 export function ContactCatering({
-  heading = "Catering Inquiry",
-  description = "Let us make your event unforgettable with our catering services.",
-  buttonText = "Request Quote",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

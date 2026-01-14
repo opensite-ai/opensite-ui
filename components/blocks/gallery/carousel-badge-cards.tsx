@@ -165,7 +165,7 @@ export interface CarouselBadgeCardsProps {
  * ```
  */
 export function CarouselBadgeCards({
-  heading = "Case Studies",
+  heading,
   items,
   itemsSlot,
   readMoreText = "Read more",

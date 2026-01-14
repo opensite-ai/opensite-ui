@@ -93,8 +93,8 @@ export interface BlogTechInsightsProps {
 }
 
 export function BlogTechInsights({
-  heading = "Tech Insights",
-  description = "Exploring cutting-edge technologies shaping tomorrow's digital landscape",
+  heading,
+  description,
   readMoreAction,
   readMoreSlot,
   featuredPost,

@@ -190,9 +190,9 @@ export interface TeamFilterableSearchProps {
  * ```
  */
 export function TeamFilterableSearch({
-  heading = "Team",
-  description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  searchPlaceholder = "Search team members...",
+  heading,
+  description,
+  searchPlaceholder,
   members,
   membersSlot,
   filtersSlot,
@@ -216,7 +216,7 @@ export function TeamFilterableSearch({
   memberDescriptionClassName,
   socialLinksClassName,
   emptyStateClassName,
-  emptyStateMessage = "No team members found matching your criteria.",
+  emptyStateMessage,
 }: TeamFilterableSearchProps): React.JSX.Element {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedDepartment, setSelectedDepartment] = React.useState("All");

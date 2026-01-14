@@ -23,9 +23,10 @@ describe("FeatureAccordionImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureAccordionImage />);
-    expect(screen.getByText("How It Works")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureAccordionImage title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

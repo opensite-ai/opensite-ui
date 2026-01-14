@@ -95,10 +95,10 @@ export interface HeroComingSoonCountdownProps {
 }
 
 export function HeroComingSoonCountdown({
-  badgeIcon = "lucide/rocket",
-  badgeText = "Launching Soon",
-  heading = "Something amazing is coming",
-  description = "We're working hard to bring you something special. Be the first to know when we launch.",
+  badgeIcon,
+  badgeText,
+  heading,
+  description,
   countdownItems,
   countdownSlot,
   emailPlaceholder = "Enter your email",
@@ -182,10 +182,12 @@ export function HeroComingSoonCountdown({
       )}
     >
       <div className={cn("container flex flex-col items-center justify-center text-center", containerClassName)}>
-        <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-4 py-2 text-sm text-muted-foreground", badgeClassName)}>
-          <DynamicIcon name={badgeIcon} size={16} className="text-primary" />
-          <span>{badgeText}</span>
-        </div>
+        {(badgeText || badgeIcon) && (
+          <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-4 py-2 text-sm text-muted-foreground", badgeClassName)}>
+            {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className="text-primary" />}
+            <span>{badgeText}</span>
+          </div>
+        )}
         {heading && (
           typeof heading === "string" ? (
             <h1 className={cn("mt-8 max-w-3xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>

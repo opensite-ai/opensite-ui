@@ -39,9 +39,9 @@ describe("HeroAiPoweredCarousel", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroAiPoweredCarousel />);
-    expect(screen.getByText("Revolutionizing Client Collaboration for Modern Services")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroAiPoweredCarousel heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -61,7 +61,7 @@ describe("HeroAiPoweredCarousel", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroAiPoweredCarousel className="custom-class" />);
+    const { container } = render(<HeroAiPoweredCarousel heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

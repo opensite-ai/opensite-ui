@@ -149,8 +149,8 @@ export interface AutoScrollCarouselProps {
  * ```
  */
 export function AutoScrollCarousel({
-  heading = "Bringing your data to life with the power of AI",
-  description = "We thrive on the power of AI. Our team is made up of some of the most talented people in the world, and we're looking for new ways to push the boundaries of what's possible. We're a team of data scientists.",
+  heading,
+  description,
   action,
   actionSlot,
   images,

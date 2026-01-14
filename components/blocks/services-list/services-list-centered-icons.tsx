@@ -123,8 +123,8 @@ export interface ServicesListCenteredIconsProps {
  * ```
  */
 export function ServicesListCenteredIcons({
-  heading = "Services",
-  description = "We deliver end-to-end digital solutions that drive results and exceed expectations.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

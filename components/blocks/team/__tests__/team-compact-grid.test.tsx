@@ -36,7 +36,15 @@ describe("TeamCompactGrid", () => {
   ];
 
   it("renders all team members correctly", () => {
-    render(<TeamCompactGrid members={mockMembers} />);
+    render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        description="Test description"
+        ctaHeading="Test CTA"
+        ctaButtonText="Test Button"
+      />
+    );
     expect(screen.getByText("Jane Doe")).toBeInTheDocument();
     expect(screen.getByText("CEO")).toBeInTheDocument();
     expect(screen.getByText("John Smith")).toBeInTheDocument();
@@ -44,7 +52,13 @@ describe("TeamCompactGrid", () => {
   });
 
   it("renders department badges for all members", () => {
-    render(<TeamCompactGrid members={mockMembers} />);
+    render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     expect(screen.getByText("Leadership")).toBeInTheDocument();
     expect(screen.getByText("Engineering")).toBeInTheDocument();
     expect(screen.getByText("Design")).toBeInTheDocument();
@@ -65,8 +79,15 @@ describe("TeamCompactGrid", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders CTA section with default content", () => {
-    render(<TeamCompactGrid members={mockMembers} />);
+  it("renders CTA section with provided content", () => {
+    render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaHeading="Ready to build the future with us?"
+        ctaButtonText="Explore Careers"
+      />
+    );
     expect(
       screen.getByText("Ready to build the future with us?")
     ).toBeInTheDocument();
@@ -89,7 +110,13 @@ describe("TeamCompactGrid", () => {
   });
 
   it("applies correct 4-column grid layout", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     const grid = container.querySelector(".grid");
     expect(grid?.className).toContain("md:grid-cols-2");
     expect(grid?.className).toContain("lg:grid-cols-4");
@@ -120,7 +147,13 @@ describe("TeamCompactGrid", () => {
   });
 
   it("renders member cards with hover effects", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     const cards = container.querySelectorAll(".group");
     expect(cards.length).toBe(mockMembers.length);
     cards.forEach((card) => {
@@ -129,52 +162,101 @@ describe("TeamCompactGrid", () => {
   });
 
   it("renders avatars for all members", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     const avatars = container.querySelectorAll("[data-slot='avatar']");
     expect(avatars.length).toBe(mockMembers.length);
   });
 
   it("renders with empty members array", () => {
-    const { container } = render(<TeamCompactGrid members={[]} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={[]}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     const grid = container.querySelector(".grid");
     expect(grid).toBeInTheDocument();
     expect(grid?.children.length).toBe(0);
   });
 
   it("applies border and rounded styles to member cards", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     const cards = container.querySelectorAll(".rounded-lg.border");
     expect(cards.length).toBe(mockMembers.length);
   });
 
   it("renders CTA button with correct href", () => {
     render(
-      <TeamCompactGrid members={mockMembers} ctaButtonUrl="/join-us" />
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Explore Careers"
+        ctaButtonUrl="/join-us"
+      />
     );
     const button = screen.getByText("Explore Careers").closest("a");
     expect(button).toHaveAttribute("href", "/join-us");
   });
 
   it("applies backdrop blur to member cards", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     const cards = container.querySelectorAll(".backdrop-blur-sm");
     expect(cards.length).toBe(mockMembers.length);
   });
 
   it("renders CTA section with border separator", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaHeading="Test CTA"
+        ctaButtonText="Test Button"
+      />
+    );
     const ctaSection = container.querySelector(".border-t.pt-16");
     expect(ctaSection).toBeInTheDocument();
   });
 
   it("centers CTA content", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaHeading="Test CTA"
+        ctaButtonText="Test Button"
+      />
+    );
     const ctaSection = container.querySelector(".text-center");
     expect(ctaSection).toBeInTheDocument();
   });
 
   it("applies responsive heading sizes", () => {
-    const { container } = render(<TeamCompactGrid members={mockMembers} />);
+    const { container } = render(
+      <TeamCompactGrid
+        members={mockMembers}
+        heading="Test Team"
+        ctaButtonText="Test Button"
+      />
+    );
     const heading = container.querySelector("h2");
     expect(heading?.className).toContain("lg:text-5xl");
   });

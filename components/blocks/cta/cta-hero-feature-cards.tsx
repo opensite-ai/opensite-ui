@@ -158,12 +158,12 @@ export interface CtaHeroFeatureCardsProps {
  * ```
  */
 export function CtaHeroFeatureCards({
-  heading = "Build Something Amazing",
-  description = "Start building with our powerful tools and comprehensive documentation. Ship faster and scale with confidence.",
+  heading,
+  description,
   actions,
   actionsSlot,
   heroImage = imagePlaceholders[9],
-  heroImageAlt = "Hero image",
+  heroImageAlt,
   featureCards,
   featureCardsSlot,
   className,

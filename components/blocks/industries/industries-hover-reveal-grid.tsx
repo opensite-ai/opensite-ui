@@ -139,7 +139,7 @@ export interface IndustriesHoverRevealGridProps {
  * ```
  */
 export function IndustriesHoverRevealGrid({
-  heading = "Industries",
+  heading,
   headingSlot,
   industryLabel = "Overview",
   industries,

@@ -148,8 +148,8 @@ export interface FooterAccordionSocialProps {
  * ```
  */
 export function FooterAccordionSocial({
-  newsletterTitle = "Stay in the loop",
-  newsletterDescription = "Subscribe to our newsletter for exclusive offers, new arrivals, and style inspiration delivered straight to your inbox.",
+  newsletterTitle,
+  newsletterDescription,
   footerLinks,
   socialLinks,
   logo = {
@@ -157,7 +157,7 @@ export function FooterAccordionSocial({
     dark: logoPlaceholders.lightHorizontalLogo,
     url: "/",
   },
-  copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,
+  copyright,
   className,
   optixFlowConfig,
   formConfig,

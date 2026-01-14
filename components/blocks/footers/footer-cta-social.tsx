@@ -90,15 +90,15 @@ export interface FooterCtaSocialProps {
  * that want a conversion-focused footer with strong visual appeal.
  */
 export function FooterCtaSocial({
-  preHeading = "Let's connect",
-  heading = "You want to scale faster? Try Opensite today.",
-  description = "Join thousands of companies already using our platform to scale their operations",
-  buttonText = "Get Started Now",
+  preHeading,
+  heading,
+  description,
+  buttonText,
   buttonUrl = "#",
-  email = "hello@opensite.ai",
+  email,
   socialLinks,
   copyright,
-  attributionText = "AI Website and Automation Platform by Opensite",
+  attributionText,
   attributionHref = "https://opensite.ai",
   className,
   contentClassName,

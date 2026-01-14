@@ -19,10 +19,10 @@ describe("CtaVideoBackgroundHero", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaVideoBackgroundHero />);
-    expect(screen.getByText("Experience the Future")).toBeInTheDocument();
-    expect(screen.getByText("See how our platform transforms your workflow. Join thousands of teams already building amazing products.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaVideoBackgroundHero heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

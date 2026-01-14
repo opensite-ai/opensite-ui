@@ -75,9 +75,9 @@ export interface ContactVolunteerProps {
  * ```
  */
 export function ContactVolunteer({
-  heading = "Volunteer With Us",
-  description = "Join our team of volunteers.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

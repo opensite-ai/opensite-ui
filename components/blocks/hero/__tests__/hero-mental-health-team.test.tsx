@@ -24,9 +24,9 @@ describe("HeroMentalHealthTeam", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroMentalHealthTeam />);
-    expect(screen.getByText("Experienced Professionals Committed to Your Mental Health")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroMentalHealthTeam heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -50,7 +50,7 @@ describe("HeroMentalHealthTeam", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroMentalHealthTeam className="custom-class" />);
+    const { container } = render(<HeroMentalHealthTeam heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

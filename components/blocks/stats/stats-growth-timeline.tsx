@@ -208,10 +208,10 @@ export interface StatsGrowthTimelineProps {
  * ```
  */
 export function StatsGrowthTimeline({
-  badge = "Our Journey",
+  badge,
   badgeSlot,
-  heading = "Growing From Startup to Industry Leader",
-  description = "Track our exponential growth journey from a small startup to becoming the market leader.",
+  heading,
+  description,
   milestones,
   milestonesSlot,
   currentStats,

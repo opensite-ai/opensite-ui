@@ -75,9 +75,9 @@ export interface ContactInterviewProps {
  * ```
  */
 export function ContactInterview({
-  heading = "Schedule Interview",
-  description = "Book an interview time.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

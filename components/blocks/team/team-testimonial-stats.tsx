@@ -167,8 +167,8 @@ export interface TeamTestimonialStatsProps {
  * ```
  */
 export function TeamTestimonialStats({
-  heading = "Meet our leadership",
-  description = "The talented individuals guiding our vision",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",

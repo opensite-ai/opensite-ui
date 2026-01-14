@@ -105,8 +105,8 @@ export interface ProjectCarouselDetailCardsProps {
  * or any showcase where comprehensive project information is important alongside visuals.
  */
 export function ProjectCarouselDetailCards({
-  heading = "Projects",
-  subheading = "Detailed showcase with complete metadata",
+  heading,
+  subheading,
   projects,
   projectsSlot,
   optixFlowConfig,

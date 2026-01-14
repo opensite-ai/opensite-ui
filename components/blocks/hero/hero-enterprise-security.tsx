@@ -92,11 +92,11 @@ export interface HeroEnterpriseSecurityProps {
 }
 
 export function HeroEnterpriseSecurity({
-  badgeText = "Enterprise-grade security",
-  badgeIcon = "lucide/shield-check",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "Security that scales with your business",
-  description = "Protect your data with industry-leading security features. SOC 2 Type II certified, GDPR compliant, and trusted by Fortune 500 companies.",
+  heading,
+  description,
   actions,
   actionsSlot,
   features,
@@ -115,10 +115,11 @@ export function HeroEnterpriseSecurity({
 }: HeroEnterpriseSecurityProps): React.JSX.Element {
   const renderBadge = () => {
     if (badgeSlot) return badgeSlot;
+    if (!badgeText && !badgeIcon) return null;
 
     return (
       <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 text-sm">
-        <DynamicIcon name={badgeIcon} size={16} className="text-green-500" />
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={16} className="text-success" />}
         <span>{badgeText}</span>
       </div>
     );

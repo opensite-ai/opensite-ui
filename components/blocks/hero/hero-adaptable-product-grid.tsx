@@ -72,8 +72,8 @@ export interface HeroAdaptableProductGridProps {
 }
 
 export function HeroAdaptableProductGrid({
-  heading = "The Perfectly Adaptable Product for Your Business",
-  description = "It delivers unique and customizable products designed for your business. Say farewell to rigid options, lengthy launch times, and branding limitations. Embrace a product that evolves with your needs and fuels your innovation. Highnote is the adaptable solution for your business.",
+  heading,
+  description,
   action,
   actionSlot,
   imageSrc = logoPlaceholders.logoMark,

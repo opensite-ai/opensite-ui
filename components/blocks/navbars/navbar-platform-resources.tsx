@@ -162,8 +162,6 @@ export const NavbarPlatformResources = ({
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
-    alt: "Opensite AI",
-    title: "Opensite AI",
   },
   logoSlot,
   solutions,

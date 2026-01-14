@@ -131,9 +131,9 @@ export interface FeatureCarouselProgressProps {
  * ```
  */
 export function FeatureCarouselProgress({
-  badge = "Badge",
-  title = "This is where your features go",
-  carouselLabel = "Rules",
+  badge,
+  title,
+  carouselLabel,
   slides,
   slidesSlot,
   className,

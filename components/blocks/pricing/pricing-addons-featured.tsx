@@ -277,13 +277,13 @@ export interface PricingAddonsFeaturedProps {
  * ```
  */
 export function PricingAddonsFeatured({
-  heading = "Enhance Your Plan",
-  subtitle = "Add powerful features to supercharge your workflow",
+  heading,
+  subtitle,
   featuredAddons,
   featuredAddonsSlot,
   additionalAddons,
   additionalAddonsSlot,
-  additionalHeading = "Additional Add-ons",
+  additionalHeading,
   featureIcon,
   featureIconName = "lucide/check",
   background = "white",

@@ -29,10 +29,10 @@ describe("CtaWorkflowTabs", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaWorkflowTabs />);
-    expect(screen.getByText("Build your workflow")).toBeInTheDocument();
-    expect(screen.getByText("From design to deployment, we've got you covered. Choose your path and start building today.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaWorkflowTabs heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -31,9 +31,9 @@ describe("CarouselSidebarResources", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselSidebarResources />);
-    expect(screen.getByText(/Start building with our template collection/)).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<CarouselSidebarResources heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
     expect(screen.getByText("View all resources")).toBeInTheDocument();
   });
 

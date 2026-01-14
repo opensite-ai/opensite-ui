@@ -25,19 +25,19 @@ describe("CarouselGradientOverlay", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselGradientOverlay />);
-    expect(screen.getByText("Case Studies")).toBeInTheDocument();
-    expect(screen.getByText(/Discover how leading companies/)).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<CarouselGradientOverlay title="Test Title" description="Test description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {
-    render(<CarouselGradientOverlay title="Custom Title" />);
+    render(<CarouselGradientOverlay title="Custom Title" description="Test description" />);
     expect(screen.getByText("Custom Title")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
-    render(<CarouselGradientOverlay description="Custom description text" />);
+    render(<CarouselGradientOverlay title="Test Title" description="Custom description text" />);
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 

@@ -35,8 +35,13 @@ describe("ServicesListFeatureSpotlight", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<ServicesListFeatureSpotlight />);
+  it("renders with explicit heading and subheading", () => {
+    render(
+      <ServicesListFeatureSpotlight
+        heading="Service advantages built for modern teams"
+        subheading="The OpenSite AI approach"
+      />
+    );
     expect(screen.getByText("Service advantages built for modern teams")).toBeInTheDocument();
     expect(screen.getByText("The OpenSite AI approach")).toBeInTheDocument();
   });
@@ -70,7 +75,12 @@ describe("ServicesListFeatureSpotlight", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ServicesListFeatureSpotlight className="custom-class" />);
+    const { container } = render(
+      <ServicesListFeatureSpotlight
+        className="custom-class"
+        heading="Test Heading"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

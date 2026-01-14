@@ -98,8 +98,8 @@ export interface ProjectExperienceQuoteProps {
  * history needs to be presented alongside endorsements.
  */
 export function ProjectExperienceQuote({
-  heading = "Professional Experience",
-  subheading = "My career journey and the impact I've made along the way, as told through my work and the words of those I've worked with.",
+  heading,
+  subheading,
   experiences,
   experiencesSlot,
   background,

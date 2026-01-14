@@ -132,8 +132,8 @@ export interface ServicesListTimelineProps {
  * ```
  */
 export function ServicesListTimeline({
-  heading = "Our Process",
-  description = "A structured approach to delivering exceptional results on time and on budget.",
+  heading,
+  description,
   primaryAction,
   actionsSlot,
   services,

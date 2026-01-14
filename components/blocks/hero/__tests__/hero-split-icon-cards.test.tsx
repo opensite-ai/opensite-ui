@@ -23,9 +23,9 @@ describe("HeroSplitIconCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroSplitIconCards />);
-    expect(screen.getByText("A hero layout built to clarify your next steps")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroSplitIconCards heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroSplitIconCards", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroSplitIconCards className="custom-class" />);
+    const { container } = render(<HeroSplitIconCards heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

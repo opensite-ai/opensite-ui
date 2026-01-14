@@ -107,7 +107,7 @@ export interface ComparisonMetricsRowsProps {
  * metrics, quantitative feature breakdowns.
  */
 export function ComparisonMetricsRows({
-  heading = "Compare Cloud vs On-site Infrastructure",
+  heading,
   description,
   optionALabel = "Traditional",
   optionBLabel = "Cloud-Native",

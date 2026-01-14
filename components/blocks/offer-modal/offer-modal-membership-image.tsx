@@ -204,8 +204,8 @@ export interface OfferModalMembershipImageProps {
  */
 export function OfferModalMembershipImage({
   overline = "Treat Yourself!",
-  title = "Become a Member & Enjoy 20% Off",
-  description = "Sign up to receive our latest updates — you can unsubscribe whenever you like.",
+  title,
+  description,
   image,
   imageSlot,
   emailPlaceholder = "Email Address",

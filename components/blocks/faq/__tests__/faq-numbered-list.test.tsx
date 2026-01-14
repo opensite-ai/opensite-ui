@@ -45,11 +45,18 @@ describe("FaqNumberedList", () => {
   });
 
   it("renders empty items array", () => {
-    render(<FaqNumberedList items={[]} />);
+    render(
+      <FaqNumberedList
+        badge="Test Badge"
+        heading="Test Heading"
+        description="Test Description"
+        items={[]}
+      />
+    );
 
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 });
 

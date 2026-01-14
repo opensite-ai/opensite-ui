@@ -147,8 +147,8 @@ export interface FeatureImageCardsThreeColumnProps {
  * ```
  */
 export function FeatureImageCardsThreeColumn({
-  title = "Versatile Designs",
-  description = "Personalize the box to fit your requirements",
+  title,
+  description,
   cards,
   cardsSlot,
   className,

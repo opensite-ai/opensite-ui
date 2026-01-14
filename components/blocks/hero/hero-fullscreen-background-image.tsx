@@ -54,8 +54,8 @@ export interface HeroFullscreenBackgroundImageProps {
 }
 
 export function HeroFullscreenBackgroundImage({
-  heading = "Explore the wonders of science.",
-  description = "From stunning skyscrapers to intricate bridges and innovative architectural marvels, each photo invites you to explore the artificial wonders of the world.",
+  heading,
+  description,
   actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[33],

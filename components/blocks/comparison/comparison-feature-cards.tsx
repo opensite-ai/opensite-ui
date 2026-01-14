@@ -112,8 +112,8 @@ export interface ComparisonFeatureCardsProps {
  * competitor feature analysis, service package breakdowns.
  */
 export function ComparisonFeatureCards({
-  heading = "Product A vs. Product B: Making the Right Choice",
-  description = "Product A isn't just an alternative to Product B. It offers enhanced features and capabilities, making it easier to achieve your goals with a modern, intuitive interface designed for today's needs.",
+  heading,
+  description,
   productA,
   productB,
   cardsSlot,

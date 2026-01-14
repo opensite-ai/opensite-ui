@@ -94,10 +94,10 @@ export interface HeroAiPoweredCarouselProps {
 }
 
 export function HeroAiPoweredCarousel({
-  badge = "AI-powered",
-  badgeTagline = "Solutions for new businesses",
-  heading = "Revolutionizing Client Collaboration for Modern Services",
-  description = "Elevate your service-based business with customizable client portals and advanced back-office management",
+  badge,
+  badgeTagline,
+  heading,
+  description,
   actions,
   actionsSlot,
   mobileCarouselImages1,

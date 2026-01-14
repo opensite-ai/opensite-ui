@@ -91,9 +91,9 @@ export interface HeroPatternLogoTechStackProps {
 export function HeroPatternLogoTechStack({
   logo,
   logoSlot,
-  heading = "Build your next project with",
+  heading,
   highlightedWord = "Blocks",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
+  description,
   actions,
   actionsSlot,
   techStackLabel = "Built with open-source technologies",

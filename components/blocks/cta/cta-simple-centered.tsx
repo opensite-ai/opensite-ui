@@ -89,8 +89,8 @@ export interface CtaSimpleCenteredProps {
  * ```
  */
 export function CtaSimpleCentered({
-  heading = "Ready to get started?",
-  description = "Join thousands of satisfied customers and start building amazing products today. No credit card required.",
+  heading,
+  description,
   actions,
   actionsSlot,
   className,

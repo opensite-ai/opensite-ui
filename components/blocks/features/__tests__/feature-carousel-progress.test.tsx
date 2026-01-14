@@ -25,10 +25,10 @@ describe("FeatureCarouselProgress", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureCarouselProgress />);
-    expect(screen.getByText("Badge")).toBeInTheDocument();
-    expect(screen.getByText("This is where your features go")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureCarouselProgress badge="Test Badge" title="Test Title" />);
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {

@@ -51,8 +51,13 @@ describe("LogosNumberedCarousel", () => {
     expect(logos2.length).toBeGreaterThan(0);
   });
 
-  it("handles empty logos array", () => {
-    render(<LogosNumberedCarousel logos={[]} />);
+  it("handles empty logos array with explicit headline", () => {
+    render(
+      <LogosNumberedCarousel
+        headline="Powering the world's best product teams."
+        logos={[]}
+      />
+    );
     expect(screen.getByText("Powering the world's best product teams.")).toBeInTheDocument();
     expect(screen.getByText("00")).toBeInTheDocument();
   });

@@ -75,7 +75,7 @@ export interface FaqStaticListProps {
 }
 
 export function FaqStaticList({
-  heading = "Frequently asked questions",
+  heading,
   items,
   itemsSlot,
   background = "white",

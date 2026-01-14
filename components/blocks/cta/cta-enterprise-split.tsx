@@ -140,8 +140,8 @@ export interface CtaEnterpriseSplitProps {
  * ```
  */
 export function CtaEnterpriseSplit({
-  heading = "Enterprise Ready",
-  description = "Built for scale with enterprise-grade security, compliance, and support. Trusted by Fortune 500 companies worldwide.",
+  heading,
+  description,
   actions,
   actionsSlot,
   links,

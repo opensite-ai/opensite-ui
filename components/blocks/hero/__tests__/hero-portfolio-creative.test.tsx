@@ -23,9 +23,9 @@ describe("HeroPortfolioCreative", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroPortfolioCreative />);
-    expect(screen.getByText("Crafting digital experiences that inspire")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroPortfolioCreative heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroPortfolioCreative", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroPortfolioCreative className="custom-class" />);
+    const { container } = render(<HeroPortfolioCreative heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

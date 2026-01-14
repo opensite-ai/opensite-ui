@@ -143,13 +143,13 @@ export interface AboutExpandableValuesProps {
  * ```
  */
 export function AboutExpandableValues({
-  badgeText = "Our Core Values",
-  heading = "The Principles That Guide Us",
-  description = "Our values define who we are, how we work together, and what we strive for. They are the foundation of our culture and drive every decision we make.",
+  badgeText,
+  heading,
+  description,
   values,
   valuesSlot,
-  ctaHeading = "Living Our Values Every Day",
-  ctaDescription = "These aren't just words on our website—our values are integrated into our hiring processes, performance reviews, decision-making frameworks, and daily interactions. They're how we show up for our team, our customers, and our community.",
+  ctaHeading,
+  ctaDescription,
   actions,
   actionsSlot,
   className,

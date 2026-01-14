@@ -29,9 +29,9 @@ describe("HeroConversionVideoPlay", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroConversionVideoPlay />);
-    expect(screen.getByText("Quickly convert visitors into paying customers")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroConversionVideoPlay heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroConversionVideoPlay", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroConversionVideoPlay className="custom-class" />);
+    const { container } = render(<HeroConversionVideoPlay heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

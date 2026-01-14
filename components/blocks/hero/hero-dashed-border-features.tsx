@@ -85,12 +85,12 @@ export interface HeroDashedBorderFeaturesProps {
 }
 
 export function HeroDashedBorderFeatures({
-  badgeText = "New",
-  announcementText = "v2.2 is out now!",
+  badgeText,
+  announcementText,
   announcementHref = "#",
   announcementSlot,
-  heading = "Fast websites for startups",
-  description = "We craft powerful websites to accelerate your startup's growth.",
+  heading,
+  description,
   actions,
   actionsSlot,
   demoAvatarSrc = imagePlaceholders[15],

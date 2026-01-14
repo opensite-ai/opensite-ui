@@ -229,8 +229,8 @@ export interface PricingTierGridProps {
  * ```
  */
 export function PricingTierGrid({
-  title = "Simple, transparent pricing",
-  subtitle = "Choose the plan that's right for you",
+  title,
+  subtitle,
   tiers,
   tiersSlot,
   featureIcon,

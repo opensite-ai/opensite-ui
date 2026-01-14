@@ -132,8 +132,8 @@ export interface ServicesListTabsFeaturesProps {
  * ```
  */
 export function ServicesListTabsFeatures({
-  heading = "Our Services",
-  description = "Explore our comprehensive range of digital services.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

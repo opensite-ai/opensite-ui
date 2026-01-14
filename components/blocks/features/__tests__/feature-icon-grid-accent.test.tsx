@@ -13,10 +13,10 @@ describe("FeatureIconGridAccent", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureIconGridAccent />);
-    expect(screen.getByText("WHY WE ARE UNIQUE")).toBeInTheDocument();
-    expect(screen.getByText("Bringing the best to you by the best in the industry")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureIconGridAccent label="Test Label" title="Test Title" />);
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom label", () => {

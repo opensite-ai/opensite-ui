@@ -120,11 +120,11 @@ export interface ResourceListNewsUpdatesProps {
  */
 export function ResourceListNewsUpdates({
   className,
-  sectionLabel = "Resources",
+  sectionLabel,
   sectionLabelClassName,
-  title = "Stay in the loop?",
+  title,
   titleClassName,
-  subtitle = "Discover our recent updates.",
+  subtitle,
   subtitleClassName,
   news,
   newsSlot,

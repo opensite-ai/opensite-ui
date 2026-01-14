@@ -109,7 +109,7 @@ export interface TimelineHorizontalIconsProps {
 }
 
 export function TimelineHorizontalIcons({
-  heading = "Timeline",
+  heading,
   currentPhase = 2,
   phases,
   className,

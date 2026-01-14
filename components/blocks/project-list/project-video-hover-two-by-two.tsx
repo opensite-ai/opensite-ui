@@ -186,8 +186,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * presentation.
  */
 export function ProjectVideoHoverTwoByTwo({
-  heading = "Explore Our Projects",
-  subheading = "Our Work",
+  heading,
+  subheading,
   videoSections,
   videoSectionsSlot,
   optixFlowConfig,

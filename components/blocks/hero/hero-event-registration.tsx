@@ -105,11 +105,11 @@ export interface HeroEventRegistrationProps {
 }
 
 export function HeroEventRegistration({
-  badgeText = "March 15-17, 2025",
-  badgeIcon = "lucide/calendar",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "The Future of Tech Conference 2025",
-  description = "Join 5,000+ developers, designers, and entrepreneurs for three days of inspiring talks, hands-on workshops, and networking opportunities.",
+  heading,
+  description,
   actions,
   actionsSlot,
   stats,
@@ -134,7 +134,7 @@ export function HeroEventRegistration({
 
     return (
       <Badge variant="outline" className="w-fit">
-        <DynamicIcon name={badgeIcon} size={14} className="mr-1" />
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={14} className="mr-1" />}
         {badgeText}
       </Badge>
     );

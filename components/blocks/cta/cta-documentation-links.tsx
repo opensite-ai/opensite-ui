@@ -142,8 +142,8 @@ export interface CtaDocumentationLinksProps {
  * ```
  */
 export function CtaDocumentationLinks({
-  heading = "Call To Action",
-  description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
+  heading,
+  description,
   actions,
   actionsSlot,
   links,

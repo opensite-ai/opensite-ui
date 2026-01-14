@@ -64,20 +64,20 @@ describe("ArticleChaptersAuthor", () => {
   });
 
   it("renders author information", () => {
-    render(<ArticleChaptersAuthor author={mockAuthor} />);
+    render(<ArticleChaptersAuthor title="Test Guide" author={mockAuthor} />);
     expect(screen.getByText("Jane Smith")).toBeInTheDocument();
     expect(screen.getByText("Senior Developer")).toBeInTheDocument();
     expect(screen.getByText(mockAuthor.bio)).toBeInTheDocument();
   });
 
   it("renders author social links", () => {
-    render(<ArticleChaptersAuthor author={mockAuthor} />);
+    render(<ArticleChaptersAuthor title="Test Guide" author={mockAuthor} />);
     expect(screen.getByLabelText("Twitter")).toBeInTheDocument();
     expect(screen.getByLabelText("LinkedIn")).toBeInTheDocument();
   });
 
   it("renders author avatar with fallback", () => {
-    render(<ArticleChaptersAuthor author={{ ...mockAuthor, name: "Alice" }} />);
+    render(<ArticleChaptersAuthor title="Test Guide" author={{ ...mockAuthor, name: "Alice" }} />);
     expect(screen.getByText("A")).toBeInTheDocument();
   });
 });

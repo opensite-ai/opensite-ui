@@ -75,9 +75,9 @@ export interface ContactReportProps {
  * ```
  */
 export function ContactReport({
-  heading = "Report an Issue",
-  description = "Help us improve by reporting problems.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

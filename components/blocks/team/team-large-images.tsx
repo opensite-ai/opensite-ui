@@ -149,8 +149,8 @@ export interface TeamLargeImagesProps {
  * ```
  */
 export function TeamLargeImages({
-  heading = "Our leadership",
-  description = "The talented people behind the scenes",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",

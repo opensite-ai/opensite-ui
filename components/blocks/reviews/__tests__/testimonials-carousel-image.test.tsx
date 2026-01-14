@@ -29,10 +29,13 @@ describe("TestimonialsCarouselImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<TestimonialsCarouselImage />);
-    expect(screen.getByText(/Working with this team has been an absolute game-changer/)).toBeInTheDocument();
-    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  it("renders with explicit testimonials", () => {
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    render(<TestimonialsCarouselImage testimonials={testimonials} />);
+    expect(screen.getByText(/Test quote/)).toBeInTheDocument();
+    expect(screen.getByText("Test Author")).toBeInTheDocument();
   });
 
   it("renders custom testimonials", () => {
@@ -45,12 +48,18 @@ describe("TestimonialsCarouselImage", () => {
   });
 
   it("renders author role and company", () => {
-    render(<TestimonialsCarouselImage />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "CEO", company: "TechVentures" },
+    ];
+    render(<TestimonialsCarouselImage testimonials={testimonials} />);
     expect(screen.getByText("CEO, TechVentures")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<TestimonialsCarouselImage className="custom-class" />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    const { container } = render(<TestimonialsCarouselImage testimonials={testimonials} className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

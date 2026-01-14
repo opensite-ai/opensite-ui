@@ -64,7 +64,7 @@ export interface HeroGridPatternEfficiencyProps {
 export function HeroGridPatternEfficiency({
   heading,
   highlightedWord = "efficiency.",
-  description = "A powerful tool to streamline workflows, manage tasks, and deliver results efficiently.",
+  description,
   action,
   actionSlot,
   actionSubtext = "No credit card required.",

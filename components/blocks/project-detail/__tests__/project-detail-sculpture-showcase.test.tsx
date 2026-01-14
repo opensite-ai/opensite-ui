@@ -64,7 +64,7 @@ describe("ProjectDetailSculptureShowcase", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ProjectDetailSculptureShowcase className="custom-class" />);
+    const { container } = render(<ProjectDetailSculptureShowcase className="custom-class" title="Test Project" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 

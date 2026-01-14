@@ -83,7 +83,7 @@ export interface FaqSimpleAccordionProps {
 }
 
 export function FaqSimpleAccordion({
-  heading = "Frequently asked questions",
+  heading,
   items,
   itemsSlot,
   background = "white",

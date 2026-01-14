@@ -25,20 +25,20 @@ describe("CarouselGradientText", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselGradientText />);
-    expect(screen.getByText("Code less.")).toBeInTheDocument();
-    expect(screen.getByText("Build faster.")).toBeInTheDocument();
-    expect(screen.getByText(/Start with our templates/)).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<CarouselGradientText heading="Test Heading" subheading="Test Subheading" tagline="Test description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Subheading")).toBeInTheDocument();
+    expect(screen.getByText("Test description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<CarouselGradientText heading="Custom Heading" />);
+    render(<CarouselGradientText heading="Custom Heading" subheading="Test Subheading" tagline="Test description" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom subheading", () => {
-    render(<CarouselGradientText subheading="Custom Subheading" />);
+    render(<CarouselGradientText heading="Test Heading" subheading="Custom Subheading" tagline="Test description" />);
     expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
   });
 

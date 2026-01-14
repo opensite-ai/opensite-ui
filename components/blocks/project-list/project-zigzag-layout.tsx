@@ -39,8 +39,8 @@ export interface ProjectZigzagLayoutProps {
  */
 export function ProjectZigzagLayout({
   className,
-  heading = "Featured Projects",
-  subheading = "A showcase of my technical projects highlighting various skills across full-stack development, mobile applications, and enterprise solutions.",
+  heading,
+  subheading,
   projects,
   optixFlowConfig,
 }: ProjectZigzagLayoutProps) {

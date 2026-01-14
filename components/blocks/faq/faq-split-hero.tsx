@@ -123,8 +123,8 @@ export interface FaqSplitHeroProps {
 }
 
 export function FaqSplitHero({
-  heading = "Frequently Asked Questions",
-  subheading = "Find answers to common questions about our services and how we can help you achieve your goals.",
+  heading,
+  subheading,
   items,
   itemsSlot,
   imageSlot,

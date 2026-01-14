@@ -61,7 +61,7 @@ export interface BlogHorizontalTimelineProps {
 }
 
 export function BlogHorizontalTimeline({
-  heading = "Discover Our Fresh Content",
+  heading,
   posts,
   postsSlot,
   readText = "Read",

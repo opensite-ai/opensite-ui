@@ -178,8 +178,8 @@ export interface TestimonialCarouselCardsProps {
  * ```
  */
 export function TestimonialCarouselCards({
-  heading = "Building the Future, One Line of Code at a Time",
-  description = "From startups to enterprises, we empower businesses with cutting-edge software solutions. Hear from our satisfied clients.",
+  heading,
+  description,
   items,
   itemsSlot,
   sidebarSlot,

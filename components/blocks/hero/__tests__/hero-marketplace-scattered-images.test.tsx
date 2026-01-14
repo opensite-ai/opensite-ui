@@ -23,9 +23,9 @@ describe("HeroMarketplaceScatteredImages", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroMarketplaceScatteredImages />);
-    expect(screen.getByText("Explore a World of Digital Assets")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroMarketplaceScatteredImages heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroMarketplaceScatteredImages", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroMarketplaceScatteredImages className="custom-class" />);
+    const { container } = render(<HeroMarketplaceScatteredImages heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

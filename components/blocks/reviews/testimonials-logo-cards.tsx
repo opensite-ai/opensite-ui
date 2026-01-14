@@ -177,8 +177,8 @@ const DEFAULT_TESTIMONIALS: LogoTestimonialItem[] = [
 export function TestimonialsLogoCards({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "Trusted by Leading Companies",
-  description = "See what our enterprise clients say",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

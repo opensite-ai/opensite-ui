@@ -24,9 +24,9 @@ describe("HeroStatsSocialProof", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroStatsSocialProof />);
-    expect(screen.getByText("Trusted by thousands of teams worldwide")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroStatsSocialProof heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -46,7 +46,7 @@ describe("HeroStatsSocialProof", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroStatsSocialProof className="custom-class" />);
+    const { container } = render(<HeroStatsSocialProof heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

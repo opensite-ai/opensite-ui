@@ -129,12 +129,12 @@ const StatusBadge = ({ status, className }: { status: MilestoneStatus; className
   const config = {
     completed: {
       label: "Completed",
-      badgeClassName: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+      badgeClassName: "bg-success/10 text-success dark:bg-success/10 dark:text-success",
       icon: "lucide/check-circle-2",
     },
     "in-progress": {
       label: "In Progress",
-      badgeClassName: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+      badgeClassName: "bg-primary/10 text-primary dark:bg-primary/10 dark:text-primary",
       icon: "lucide/loader-2",
     },
     upcoming: {
@@ -164,8 +164,8 @@ const StatusBadge = ({ status, className }: { status: MilestoneStatus; className
  * ProcessRoadmapTimeline - A roadmap timeline showing project milestones with status indicators.
  */
 export function ProcessRoadmapTimeline({
-  heading = "Product Roadmap",
-  description = "Our journey from concept to completion, with clear milestones and deliverables.",
+  heading,
+  description,
   milestones,
   milestonesSlot,
   className,
@@ -276,7 +276,7 @@ export function ProcessRoadmapTimeline({
               className={cn(
                 "absolute left-1/2 flex size-10 -translate-x-1/2 items-center justify-center rounded-full border-2 bg-background",
                 milestone.status === "completed"
-                  ? "border-green-500 bg-green-500 text-white"
+                  ? "border-success bg-success text-white"
                   : milestone.status === "in-progress"
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border text-muted-foreground",

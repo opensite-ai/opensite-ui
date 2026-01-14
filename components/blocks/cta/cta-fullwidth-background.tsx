@@ -102,8 +102,8 @@ export interface CtaFullwidthBackgroundProps {
  * ```
  */
 export function CtaFullwidthBackground({
-  heading = "Start your free trial today.",
-  description = "Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.",
+  heading,
+  description,
   actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[3],

@@ -21,7 +21,7 @@ describe("ProcessExpandableTimeline", () => {
     },
   ];
 
-  it("renders custom title and description", () => {
+  it("renders title and description", () => {
     render(
       <ProcessExpandableTimeline
         title="Our Methodology"

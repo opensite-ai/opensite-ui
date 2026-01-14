@@ -23,9 +23,9 @@ describe("HeroSimpleCenteredImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroSimpleCenteredImage />);
-    expect(screen.getByText("Welcome to Our Website")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroSimpleCenteredImage heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -68,7 +68,7 @@ describe("HeroSimpleCenteredImage", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroSimpleCenteredImage className="custom-class" />);
+    const { container } = render(<HeroSimpleCenteredImage heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

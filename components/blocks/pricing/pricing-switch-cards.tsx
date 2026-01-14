@@ -261,18 +261,18 @@ export interface PricingSwitchCardsProps {
  * ```
  */
 export function PricingSwitchCards({
-  heading = "Simple Pricing",
-  subtitle = "Choose the plan that works best for you",
-  monthlyLabel = "Monthly",
-  yearlyLabel = "Yearly",
-  yearlyBadge = "Save 17%",
-  monthlyInterval = "/month",
-  yearlyInterval = "/year",
+  heading,
+  subtitle,
+  monthlyLabel,
+  yearlyLabel,
+  yearlyBadge,
+  monthlyInterval,
+  yearlyInterval,
   plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",
-  popularBadge = "Most Popular",
+  popularBadge,
   background = "white",
   spacing = "lg",
   pattern,
@@ -482,7 +482,7 @@ export function PricingSwitchCards({
               >
                 {yearlyLabel}
                 {yearlyBadge && (
-                  <span className={cn("ml-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700", yearlyBadgeClassName)}>
+                  <span className={cn("ml-1.5 rounded-full bg-accent px-2 py-0.5 text-xs text-accent-foreground", yearlyBadgeClassName)}>
                     {yearlyBadge}
                   </span>
                 )}

@@ -127,7 +127,21 @@ describe("ResourceListCourseCards", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ResourceListCourseCards className="custom-class" />);
+    const courses = [
+      {
+        title: "Test Course",
+        description: "Test Description",
+        author: { name: "Test Author", title: "Instructor", avatar: "/avatar.jpg" },
+        image: "/image.jpg",
+        lessons: 5,
+        videos: 10,
+        duration: "2 hours",
+        audience: ["All"],
+        gradient: "from-blue-500",
+        cta: { text: "Learn", url: "/learn" },
+      },
+    ];
+    const { container } = render(<ResourceListCourseCards className="custom-class" courses={courses} />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

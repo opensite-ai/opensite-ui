@@ -179,10 +179,10 @@ export interface PricingSimpleCardProps {
  * ```
  */
 export function PricingSimpleCard({
-  title = "Pro Plan",
-  description = "Everything you need to grow your business",
-  price = "$49",
-  priceInterval = "/month",
+  title,
+  description,
+  price,
+  priceInterval,
   features,
   featuresSlot,
   featureIcon,

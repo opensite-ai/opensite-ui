@@ -29,12 +29,12 @@ describe("CtaAppDownloadNewsletter", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaAppDownloadNewsletter />);
-    expect(screen.getByText("Download Our App")).toBeInTheDocument();
-    expect(screen.getByText("Get the best experience on mobile. Download our app and access all features on the go.")).toBeInTheDocument();
-    expect(screen.getByText("Stay Updated")).toBeInTheDocument();
-    expect(screen.getByText("Subscribe to our newsletter and never miss an update. Get the latest news, tips, and exclusive offers.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaAppDownloadNewsletter appHeading="Test App Heading" appDescription="Test App Description" newsletterHeading="Test Newsletter Heading" newsletterDescription="Test Newsletter Description" />);
+    expect(screen.getByText("Test App Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test App Description")).toBeInTheDocument();
+    expect(screen.getByText("Test Newsletter Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Newsletter Description")).toBeInTheDocument();
   });
 
   it("renders custom app heading", () => {

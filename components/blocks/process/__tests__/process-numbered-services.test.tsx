@@ -30,7 +30,7 @@ describe("ProcessNumberedServices", () => {
     },
   ];
 
-  it("renders custom title and description", () => {
+  it("renders title and description", () => {
     render(
       <ProcessNumberedServices
         title="What We Offer"

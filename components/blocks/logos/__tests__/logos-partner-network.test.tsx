@@ -53,8 +53,14 @@ describe("LogosPartnerNetwork", () => {
     expect(screen.getByAltText("Network Partner 2 logo")).toBeInTheDocument();
   });
 
-  it("handles empty logos array", () => {
-    render(<LogosPartnerNetwork logos={[]} />);
+  it("handles empty logos array with explicit content", () => {
+    render(
+      <LogosPartnerNetwork
+        title="Trusted by industry leaders"
+        description="Join our growing network"
+        logos={[]}
+      />
+    );
     expect(screen.getByText("Trusted by industry leaders")).toBeInTheDocument();
   });
 });

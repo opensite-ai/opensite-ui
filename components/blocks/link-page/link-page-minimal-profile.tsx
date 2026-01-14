@@ -196,8 +196,8 @@ export interface LinkPageMinimalProfileProps {
  * ```
  */
 export function LinkPageMinimalProfile({
-  name = "Alex Johnson",
-  bio = "Software Engineer & Open Source Contributor",
+  name,
+  bio,
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar2,
   profileSlot,

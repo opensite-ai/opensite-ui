@@ -19,10 +19,10 @@ describe("FooterNewsletterGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterNewsletterGrid />);
-    expect(screen.getByText("Newsletter")).toBeInTheDocument();
-    expect(screen.getByText("A collection of 100+ responsive HTML templates for your startup business or side project.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterNewsletterGrid description="Test Description" newsletterTitle="Test Newsletter" />);
+    expect(screen.getByText("Test Newsletter")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {

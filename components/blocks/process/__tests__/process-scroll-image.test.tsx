@@ -24,7 +24,7 @@ describe("ProcessScrollImage", () => {
     },
   ];
 
-  it("renders custom title and description", () => {
+  it("renders title and description", () => {
     render(
       <ProcessScrollImage
         title="Development Process"

@@ -183,14 +183,14 @@ export interface CommunityInitiativesProps {
  * ```
  */
 export function CommunityInitiatives({
-  badgeText = "Diversity & Inclusion",
-  heading = "Building a More Equitable Future Together",
-  description = "Our commitment to diversity, equity, and inclusion runs deep in everything we do—from how we build our teams to how we build our products.",
+  badgeText,
+  heading,
+  description,
   categories,
   categoriesSlot,
   ctaBadgeText = "Join us in making a difference",
-  ctaHeading = "Become Part of Our Inclusive Community",
-  ctaDescription = "We're always looking for passionate individuals who share our commitment to diversity, equity, and inclusion to join our team.",
+  ctaHeading,
+  ctaDescription,
   actions,
   actionsSlot,
   className,

@@ -33,8 +33,13 @@ describe("ListSearchableGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<ListSearchableGrid />);
+  it("renders with explicit heading and description", () => {
+    render(
+      <ListSearchableGrid
+        heading="Search the OpenSite AI resource library"
+        description="Filter guides, services, and playbooks with a quick keyword search."
+      />
+    );
     expect(screen.getByText("Search the OpenSite AI resource library")).toBeInTheDocument();
     expect(screen.getByText("Filter guides, services, and playbooks with a quick keyword search.")).toBeInTheDocument();
   });

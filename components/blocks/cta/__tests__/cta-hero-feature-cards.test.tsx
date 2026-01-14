@@ -19,10 +19,10 @@ describe("CtaHeroFeatureCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaHeroFeatureCards />);
-    expect(screen.getByText("Build Something Amazing")).toBeInTheDocument();
-    expect(screen.getByText("Start building with our powerful tools and comprehensive documentation. Ship faster and scale with confidence.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaHeroFeatureCards heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -130,7 +130,7 @@ export interface AboutMissionPrinciplesProps {
  * ```
  */
 export function AboutMissionPrinciples({
-  badgeText = "Our Mission",
+  badgeText,
   badgeClassName,
   missionHeading = "To empower people through technology that's intuitive, accessible, and transformative.",
   missionHeadingClassName,

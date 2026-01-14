@@ -100,7 +100,7 @@ export interface TimelineHistoryProseProps {
 }
 
 export function TimelineHistoryProse({
-  heading = "The History of Artificial Intelligence",
+  heading,
   entries,
   className,
   containerClassName,

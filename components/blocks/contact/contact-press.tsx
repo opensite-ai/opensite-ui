@@ -75,9 +75,9 @@ export interface ContactPressProps {
  * ```
  */
 export function ContactPress({
-  heading = "Press Inquiries",
-  description = "Media and press contact form.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

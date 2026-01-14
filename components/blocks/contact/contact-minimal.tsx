@@ -125,9 +125,9 @@ const defaultFooter = (
 );
 
 export function ContactMinimal({
-  heading = "Let's Talk",
-  description = "Send us a message and we'll get back to you within 24 hours.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon = <DynamicIcon name="lucide/send" size={16} />,
   actions,
   actionsSlot,

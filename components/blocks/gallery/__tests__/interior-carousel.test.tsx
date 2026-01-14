@@ -25,19 +25,19 @@ describe("InteriorCarousel", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<InteriorCarousel />);
-    expect(screen.getByText("Beautiful Interiors.")).toBeInTheDocument();
-    expect(screen.getByText(/Explore our curated collection/)).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<InteriorCarousel heading="Test Heading" description="Test description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<InteriorCarousel heading="Custom Heading" />);
+    render(<InteriorCarousel heading="Custom Heading" description="Test description" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
-    render(<InteriorCarousel description="Custom description text" />);
+    render(<InteriorCarousel heading="Test Heading" description="Custom description text" />);
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 

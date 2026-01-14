@@ -24,11 +24,11 @@ describe("CtaGradientLogosFloating", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaGradientLogosFloating />);
-    expect(screen.getByText("Build faster with")).toBeInTheDocument();
-    expect(screen.getByText("modern tools")).toBeInTheDocument();
-    expect(screen.getByText("Join thousands of developers building amazing products. Get started today and ship faster than ever.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaGradientLogosFloating heading="Test Heading" headingGradient="Test Gradient" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Gradient")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

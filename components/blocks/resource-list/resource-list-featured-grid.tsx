@@ -203,9 +203,9 @@ export interface ResourceListFeaturedGridProps {
  */
 export function ResourceListFeaturedGrid({
   className,
-  title = "Resources & Whitepapers",
+  title,
   titleClassName,
-  description = "Explore our thoughts and perspectives on key topics.",
+  description,
   descriptionClassName,
   featuredArticle,
   featuredArticleSlot,
@@ -218,7 +218,7 @@ export function ResourceListFeaturedGrid({
   articlesClassName,
   categories,
   categoriesClassName,
-  latestUpdatesTitle = "Latest updates",
+  latestUpdatesTitle,
   latestUpdatesTitleClassName,
   gridClassName,
   optixFlowConfig,

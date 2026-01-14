@@ -31,10 +31,11 @@ describe("TestimonialsLargeQuote", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<TestimonialsLargeQuote />);
-    expect(screen.getByText("This platform has fundamentally changed how we approach our work. The intuitive design, powerful features, and exceptional support have made it an indispensable part of our daily operations. I cannot recommend it highly enough to anyone looking to transform their workflow.")).toBeInTheDocument();
-    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  it("renders with explicit testimonial", () => {
+    const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
+    render(<TestimonialsLargeQuote testimonial={testimonial} />);
+    expect(screen.getByText("Test quote")).toBeInTheDocument();
+    expect(screen.getByText("Test Author")).toBeInTheDocument();
   });
 
   it("renders custom testimonial quote", () => {
@@ -44,13 +45,15 @@ describe("TestimonialsLargeQuote", () => {
   });
 
   it("renders author role and company", () => {
-    render(<TestimonialsLargeQuote />);
-    expect(screen.getByText(/Chief Executive Officer/)).toBeInTheDocument();
+    const testimonial = { quote: "Test quote", author: "Test Author", role: "CEO", company: "TechVentures Inc." };
+    render(<TestimonialsLargeQuote testimonial={testimonial} />);
+    expect(screen.getByText(/CEO/)).toBeInTheDocument();
     expect(screen.getByText(/TechVentures Inc./)).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<TestimonialsLargeQuote className="custom-class" />);
+    const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
+    const { container } = render(<TestimonialsLargeQuote testimonial={testimonial} className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

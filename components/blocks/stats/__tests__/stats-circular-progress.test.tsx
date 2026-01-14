@@ -38,29 +38,28 @@ describe("StatsCircularProgress", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsCircularProgress />);
+  it("renders badge, heading, and description", () => {
+    render(
+      <StatsCircularProgress
+        badge="Performance"
+        heading="Key Performance Indicators"
+        description="Track our progress"
+      />
+    );
     expect(screen.getByText("Performance")).toBeInTheDocument();
     expect(screen.getByText("Key Performance Indicators")).toBeInTheDocument();
-  });
-
-  it("renders custom badge", () => {
-    render(<StatsCircularProgress badge="Custom Badge" />);
-    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsCircularProgress heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsCircularProgress description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
+    expect(screen.getByText("Track our progress")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsCircularProgress className="custom-class" />);
+    const { container } = render(
+      <StatsCircularProgress
+        badge="Test Badge"
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

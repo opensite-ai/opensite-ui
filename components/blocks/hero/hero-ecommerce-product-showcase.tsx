@@ -92,11 +92,11 @@ export interface HeroEcommerceProductShowcaseProps {
 }
 
 export function HeroEcommerceProductShowcase({
-  badgeText = "New Collection",
-  badgeIcon = "lucide/sparkles",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "Discover our latest arrivals",
-  description = "Explore our curated collection of premium products designed to elevate your everyday experience. Quality craftsmanship meets modern design.",
+  heading,
+  description,
   actions,
   actionsSlot,
   stats,
@@ -117,8 +117,8 @@ export function HeroEcommerceProductShowcase({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-amber-100 px-4 py-2 text-sm font-medium text-amber-700">
-        <DynamicIcon name={badgeIcon} size={16} />
+      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground">
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         <span>{badgeText}</span>
       </div>
     );

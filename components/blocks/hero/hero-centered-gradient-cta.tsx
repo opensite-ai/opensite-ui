@@ -78,11 +78,11 @@ export interface HeroCenteredGradientCtaProps {
 }
 
 export function HeroCenteredGradientCta({
-  badge = "Introducing our new platform",
-  badgeIcon = <DynamicIcon name="lucide/sparkles" size={16} className="text-primary" />,
+  badge,
+  badgeIcon,
   heading,
-  headingHighlight = "extraordinary",
-  description = "Create stunning applications with our powerful platform. Ship faster, scale effortlessly, and delight your users.",
+  headingHighlight,
+  description,
   actions,
   actionsSlot,
   features,
@@ -133,15 +133,6 @@ export function HeroCenteredGradientCta({
     ));
   };
 
-  const defaultHeading = (
-    <>
-      Build something{" "}
-      <span className="bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-        {headingHighlight}
-      </span>
-    </>
-  );
-
   return (
     <section
       className={cn(
@@ -164,11 +155,14 @@ export function HeroCenteredGradientCta({
             </h1>
           ) : heading ? (
             <div className={headingClassName}>{heading}</div>
-          ) : (
+          ) : headingHighlight ? (
             <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
-              {defaultHeading}
+              Build something{" "}
+              <span className="bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                {headingHighlight}
+              </span>
             </h1>
-          )
+          ) : null
         )}
         {description && (
           typeof description === "string" ? (

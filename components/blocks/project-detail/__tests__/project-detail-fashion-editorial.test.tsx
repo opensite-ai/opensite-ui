@@ -61,7 +61,7 @@ describe("ProjectDetailFashionEditorial", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ProjectDetailFashionEditorial className="custom-class" />);
+    const { container } = render(<ProjectDetailFashionEditorial className="custom-class" title="Test Project" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 

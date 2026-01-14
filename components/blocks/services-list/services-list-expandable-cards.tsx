@@ -131,7 +131,7 @@ export interface ServicesListExpandableCardsProps {
  * ```
  */
 export function ServicesListExpandableCards({
-  title = "Featured Services",
+  title,
   subtitle,
   services,
   optixFlowConfig,

@@ -171,7 +171,7 @@ export function BannerDeliveryCountdown({
   };
 
   return (
-    <div className={cn("w-full bg-amber-500 text-amber-950", className)}>
+    <div className={cn("w-full bg-accent text-accent-foreground", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-3 text-sm", contentClassName)}>
           <div className={cn("flex items-center gap-2", messageClassName)}>

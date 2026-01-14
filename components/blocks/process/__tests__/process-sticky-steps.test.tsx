@@ -21,7 +21,7 @@ describe("ProcessStickySteps", () => {
     },
   ];
 
-  it("renders custom title and description", () => {
+  it("renders title and description", () => {
     render(
       <ProcessStickySteps
         title="Our Methodology"

@@ -23,9 +23,9 @@ describe("HeroDigitalAgencyFullscreen", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroDigitalAgencyFullscreen />);
-    expect(screen.getByText("Transform Your Vision Into Digital Reality")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroDigitalAgencyFullscreen heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroDigitalAgencyFullscreen", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroDigitalAgencyFullscreen className="custom-class" />);
+    const { container } = render(<HeroDigitalAgencyFullscreen heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -113,9 +113,9 @@ export interface ContactFitnessProps {
  * ```
  */
 export function ContactFitness({
-  heading = "Fitness Consultation",
-  description = "Start your fitness journey.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

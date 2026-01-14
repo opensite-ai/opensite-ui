@@ -24,9 +24,10 @@ describe("FeatureIntegrationCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureIntegrationCards />);
-    expect(screen.getByText("Integrations")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureIntegrationCards title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

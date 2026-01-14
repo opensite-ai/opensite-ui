@@ -183,8 +183,8 @@ export interface ServicesListHeroCardsProps {
  * ```
  */
 export function ServicesListHeroCards({
-  heading = "Our Services",
-  description = "Comprehensive digital solutions tailored to your business needs.",
+  heading,
+  description,
   featuredService,
   featuredSlot,
   services,

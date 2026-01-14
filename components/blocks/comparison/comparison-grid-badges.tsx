@@ -83,8 +83,8 @@ export interface ComparisonGridBadgesProps {
  * service tier breakdowns, capability matrices.
  */
 export function ComparisonGridBadges({
-  heading = "Feature Comparison",
-  description = "See how our solution compares to traditional approaches across key metrics.",
+  heading,
+  description,
   optionALabel = "Our Solution",
   optionBLabel = "Traditional",
   features,

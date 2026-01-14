@@ -118,11 +118,11 @@ export interface HeroOverlayCtaGridProps {
  * need a strong hero statement plus quick navigation to top offerings.
  */
 export function HeroOverlayCtaGrid({
-  badgeText = "OpenSite AI Certified Advisors",
-  badgeIcon = "lucide/shield-check",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "Coverage guidance powered by OpenSite AI",
-  description = "Independent advisors backed by OpenSite AI insights help you secure the right coverage with clarity, speed, and confidence.",
+  heading,
+  description,
   primaryCta = { label: "Get a Free Quote", href: "/quote" },
   secondaryCta = { label: "Explore Coverage", href: "/coverage" },
   actionsSlot,

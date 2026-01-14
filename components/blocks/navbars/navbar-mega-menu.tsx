@@ -169,7 +169,6 @@ export const NavbarMegaMenu = ({
     url: "/",
     desktopSrc: logoPlaceholders.darkHorizontalLogo,
     mobileSrc: logoPlaceholders.logoMark,
-    alt: "Opensite AI",
   },
   logoSlot,
   solutions,

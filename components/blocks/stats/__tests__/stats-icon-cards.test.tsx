@@ -15,20 +15,15 @@ describe("StatsIconCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsIconCards />);
+  it("renders heading and description", () => {
+    render(
+      <StatsIconCards
+        heading="Our Growth in Numbers"
+        description="Key metrics that showcase our impact in the market"
+      />
+    );
     expect(screen.getByText("Our Growth in Numbers")).toBeInTheDocument();
     expect(screen.getByText("Key metrics that showcase our impact in the market")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsIconCards heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsIconCards description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
   it("renders stats when provided", () => {
@@ -44,7 +39,13 @@ describe("StatsIconCards", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsIconCards className="custom-class" />);
+    const { container } = render(
+      <StatsIconCards
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

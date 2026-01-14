@@ -73,8 +73,8 @@ export interface HeroConversationIntelligenceProps {
 
 export function HeroConversationIntelligence({
   headingPrimary = "Conversation Intelligence",
-  headingHighlight = "at Your Fingertips",
-  description = "Grain automates note-taking, record-keeping, and insight capture, allowing you to focus on what matters most—coaching your team and closing deals.",
+  headingHighlight,
+  description,
   actions,
   actionsSlot,
   image,

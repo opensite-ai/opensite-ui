@@ -19,9 +19,9 @@ describe("FooterSimpleCentered", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterSimpleCentered />);
-    expect(screen.getByText("Components made easy.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterSimpleCentered tagline="Test Tagline" />);
+    expect(screen.getByText("Test Tagline")).toBeInTheDocument();
   });
 
   it("renders custom tagline", () => {

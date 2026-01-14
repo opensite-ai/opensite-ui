@@ -184,8 +184,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * presentation of video content.
  */
 export function ProjectVideoHoverRounded({
-  heading = "Explore Our Projects",
-  subheading = "Our Work",
+  heading,
+  subheading,
   videoSections,
   videoSectionsSlot,
   optixFlowConfig,

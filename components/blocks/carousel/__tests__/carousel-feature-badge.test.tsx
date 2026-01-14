@@ -57,9 +57,8 @@ describe("CarouselFeatureBadge", () => {
   });
 
   it("renders with empty items array", () => {
-    render(<CarouselFeatureBadge items={[]} />);
-    // Should render without errors
-    expect(screen.getByText("Platform")).toBeInTheDocument();
+    render(<CarouselFeatureBadge badge="Test badge" heading="Test heading" description="Test description" items={[]} />);
+    expect(screen.getByText("Test heading")).toBeInTheDocument();
   });
 });
 

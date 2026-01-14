@@ -137,8 +137,8 @@ export interface InteriorCarouselProps {
  * ```
  */
 export function InteriorCarousel({
-  heading = "Beautiful Interiors.",
-  description = "Explore our curated collection of stunning interior designs.\nEach space tells a unique story through thoughtful design and attention to detail.",
+  heading,
+  description,
   images,
   imagesSlot,
   className,

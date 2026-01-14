@@ -75,9 +75,9 @@ export interface ContactScheduleProps {
  * ```
  */
 export function ContactSchedule({
-  heading = "Schedule a Meeting",
-  description = "Book a time to chat with our team.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

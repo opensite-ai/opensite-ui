@@ -75,9 +75,9 @@ export interface ContactQuoteProps {
  * ```
  */
 export function ContactQuote({
-  heading = "Request a Quote",
-  description = "Get a custom quote for your project.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

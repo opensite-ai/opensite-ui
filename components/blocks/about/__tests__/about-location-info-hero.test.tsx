@@ -39,11 +39,17 @@ describe("AboutLocationInfoHero", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutLocationInfoHero />);
-    expect(screen.getByText(/OpenSite AI service center/)).toBeInTheDocument();
-    expect(screen.getByText("975 Mission St, San Francisco, CA")).toBeInTheDocument();
-    expect(screen.getByText("+1 (415) 555-0192")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutLocationInfoHero
+        headline="Test Headline"
+        address="Test Address"
+        phone="Test Phone"
+      />
+    );
+    expect(screen.getByText("Test Headline")).toBeInTheDocument();
+    expect(screen.getByText("Test Address")).toBeInTheDocument();
+    expect(screen.getByText("Test Phone")).toBeInTheDocument();
   });
 
   it("renders custom headline", () => {

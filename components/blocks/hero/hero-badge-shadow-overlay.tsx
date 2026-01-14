@@ -59,10 +59,10 @@ export interface HeroBadgeShadowOverlayProps {
 }
 
 export function HeroBadgeShadowOverlay({
-  announcementBadge = "7 days ago",
-  announcementText = "Slack integration is here!",
+  announcementBadge,
+  announcementText,
   announcementHref = "#",
-  heading = "Manage design work right from the canvas",
+  heading,
   actions,
   actionsSlot,
   backgroundImageUrl = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/shadow-overlay.png",

@@ -109,7 +109,7 @@ export interface LogosCarouselHeadingProps {
  */
 export function LogosCarouselHeading({
   className,
-  heading = "Trusted by these companies",
+  heading,
   headingClassName,
   headerClassName,
   logos,

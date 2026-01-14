@@ -182,9 +182,9 @@ export interface ContactDemoProps {
  * ```
  */
 export function ContactDemo({
-  heading = "Request a Demo",
-  description = "See how we can help your team work smarter.",
-  buttonText = "Request Demo",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

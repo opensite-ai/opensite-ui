@@ -162,12 +162,12 @@ export interface TeamGridAnimatedProps {
  * ```
  */
 export function TeamGridAnimated({
-  title = "TEAM",
-  description = "Meet the talented individuals guiding our vision and driving innovation.",
+  title,
+  description,
   members,
   membersSlot,
   registerLink,
-  registerButtonText = "REGISTER NOW",
+  registerButtonText,
   logo,
   socialLinksMain,
   socialLinksMainSlot,

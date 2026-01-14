@@ -110,8 +110,8 @@ export interface ComparisonTableTooltipsProps {
  * feature matrices where some items need additional explanation.
  */
 export function ComparisonTableTooltips({
-  heading = "Compare Us",
-  description = "A modern framework for building websites that is better than the competition.",
+  heading,
+  description,
   optionALabel = "Our Solution",
   optionBLabel = "Alternative",
   rows,

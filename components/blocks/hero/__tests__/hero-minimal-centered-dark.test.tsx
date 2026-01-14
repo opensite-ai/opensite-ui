@@ -19,9 +19,9 @@ describe("HeroMinimalCenteredDark", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroMinimalCenteredDark />);
-    expect(screen.getByText("Now available in beta")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroMinimalCenteredDark heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {
@@ -63,7 +63,7 @@ describe("HeroMinimalCenteredDark", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroMinimalCenteredDark className="custom-class" />);
+    const { container } = render(<HeroMinimalCenteredDark heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -115,8 +115,8 @@ export interface CtaGradientStatsHeroProps {
  * ```
  */
 export function CtaGradientStatsHero({
-  heading = "Scale with confidence",
-  description = "Built for enterprise-grade performance and reliability. Join thousands of companies that trust us with their mission-critical applications.",
+  heading,
+  description,
   actions,
   actionsSlot,
   stats,

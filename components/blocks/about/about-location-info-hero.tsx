@@ -146,12 +146,12 @@ export interface AboutLocationInfoHeroProps {
  * service hubs or flagship office pages.
  */
 export function AboutLocationInfoHero({
-  headline = "OpenSite AI service center in the heart of the city",
+  headline,
   headlineClassName,
-  address = "975 Mission St, San Francisco, CA",
+  address,
   addressHref,
   addressClassName,
-  phone = "+1 (415) 555-0192",
+  phone,
   phoneHref,
   phoneClassName,
   actions,

@@ -85,8 +85,8 @@ export interface HeroDesignSystem3dProps {
 export function HeroDesignSystem3d({
   trustBadge = "Trusted by over 7,000 customers",
   trustBadgeSlot,
-  heading = "Design system that delivers",
-  description = "Create, prototype, and personalize any design—clean and effortless, in just minutes.",
+  heading,
+  description,
   actions,
   actionsSlot,
   logoMarkSrc = logoPlaceholders.logoMark,

@@ -60,7 +60,7 @@ describe("ProjectDetailMinimalCentered", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ProjectDetailMinimalCentered className="custom-class" />);
+    const { container } = render(<ProjectDetailMinimalCentered className="custom-class" title="Test Project" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 

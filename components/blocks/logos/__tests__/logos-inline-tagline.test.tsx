@@ -28,8 +28,13 @@ describe("LogosInlineTagline", () => {
     expect(screen.getByAltText("Partner B logo")).toBeInTheDocument();
   });
 
-  it("handles empty partners array", () => {
-    render(<LogosInlineTagline partners={[]} />);
+  it("handles empty partners array with explicit tagline", () => {
+    render(
+      <LogosInlineTagline
+        tagline="Used by the world's leading companies"
+        partners={[]}
+      />
+    );
     expect(screen.getByText("Used by the world's leading companies")).toBeInTheDocument();
   });
 });

@@ -143,8 +143,8 @@ export interface TeamAvatarSocialProps {
  * ```
  */
 export function TeamAvatarSocial({
-  heading = "Meet the crew",
-  description = "Creative people",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",

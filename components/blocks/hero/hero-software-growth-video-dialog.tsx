@@ -87,8 +87,8 @@ export interface HeroSoftwareGrowthVideoDialogProps {
 }
 
 export function HeroSoftwareGrowthVideoDialog({
-  heading = "Unlock impactful solutions for accelerated software growth",
-  description = "Sign up on our website and use your account for as long as you'd like. Our team is always available to assist and dedicated to solving any issues you encounter.",
+  heading,
+  description,
   actions,
   actionsSlot,
   showcaseImages,

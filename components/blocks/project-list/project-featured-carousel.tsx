@@ -104,8 +104,8 @@ export interface ProjectFeaturedCarouselProps {
  * listing where client relationships and comprehensive project details need to be highlighted.
  */
 export function ProjectFeaturedCarousel({
-  heading = "Featured Projects",
-  subheading = "A selection of recent work showcasing design and development expertise.",
+  heading,
+  subheading,
   projects,
   projectsSlot,
   optixFlowConfig,

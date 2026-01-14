@@ -19,9 +19,9 @@ describe("HeroCenteredGradientCta", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroCenteredGradientCta />);
-    expect(screen.getByText("extraordinary")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroCenteredGradientCta heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroCenteredGradientCta", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroCenteredGradientCta className="custom-class" />);
+    const { container } = render(<HeroCenteredGradientCta heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

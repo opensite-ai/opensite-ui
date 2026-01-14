@@ -149,7 +149,7 @@ export interface IndustriesExpandableShowcaseProps {
  * ```
  */
 export function IndustriesExpandableShowcase({
-  heading = "Powering Renewable Industries",
+  heading,
   headingSlot,
   contractors,
   contractorsSlot,

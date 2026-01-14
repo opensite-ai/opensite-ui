@@ -145,8 +145,8 @@ export interface ServicesListFeatureSpotlightProps {
  * ```
  */
 export function ServicesListFeatureSpotlight({
-  heading = "Service advantages built for modern teams",
-  subheading = "The OpenSite AI approach",
+  heading,
+  subheading,
   features,
   featuresSlot,
   className,

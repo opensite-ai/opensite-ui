@@ -38,29 +38,28 @@ describe("StatsTimelineTabs", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsTimelineTabs />);
+  it("renders badge, heading, and description", () => {
+    render(
+      <StatsTimelineTabs
+        badge="Performance Timeline"
+        heading="Growth Progression"
+        description="Track our growth"
+      />
+    );
     expect(screen.getByText("Performance Timeline")).toBeInTheDocument();
     expect(screen.getByText("Growth Progression")).toBeInTheDocument();
-  });
-
-  it("renders custom badge", () => {
-    render(<StatsTimelineTabs badge="Custom Badge" />);
-    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsTimelineTabs heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsTimelineTabs description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
+    expect(screen.getByText("Track our growth")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsTimelineTabs className="custom-class" />);
+    const { container } = render(
+      <StatsTimelineTabs
+        badge="Test Badge"
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

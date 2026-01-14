@@ -103,7 +103,7 @@ export interface TimelineHorizontalPhasesProps {
 }
 
 export function TimelineHorizontalPhases({
-  heading = "Timeline",
+  heading,
   currentPhase = 2,
   phases,
   className,

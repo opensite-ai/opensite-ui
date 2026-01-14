@@ -235,8 +235,8 @@ export interface PricingServicesCardsProps {
  * ```
  */
 export function PricingServicesCards({
-  heading = "Our Services",
-  subtitle = "Choose the service that fits your needs",
+  heading,
+  subtitle,
   plans,
   plansSlot,
   featureIcon,

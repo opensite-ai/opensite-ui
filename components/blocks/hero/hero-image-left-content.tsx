@@ -89,11 +89,11 @@ export interface HeroImageLeftContentProps {
 }
 
 export function HeroImageLeftContent({
-  badge = "New Release",
-  badgeIcon = <DynamicIcon name="lucide/arrow-down-right" size={16} className="ml-2" />,
+  badge,
+  badgeIcon,
   badgeVariant = "secondary",
-  heading = "Blocks built with Shadcn & Tailwind",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
+  heading,
+  description,
   actions,
   actionsSlot,
   imageSrc = imagePlaceholders[1],

@@ -138,17 +138,17 @@ export interface AboutCompanyProfileProps {
 }
 
 export function AboutCompanyProfile({
-  title = "About Us",
-  description = "Opensite AI is a passionate team dedicated to creating innovative solutions that empower businesses to thrive in the digital age.",
+  title,
+  description,
   mainImage,
   secondaryImage,
   breakout,
   breakoutSlot,
-  companiesTitle = "Valued by clients worldwide",
+  companiesTitle,
   companies,
   companiesSlot,
-  achievementsTitle = "Our Achievements in Numbers",
-  achievementsDescription = "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
+  achievementsTitle,
+  achievementsDescription,
   achievements,
   achievementsSlot,
   className,

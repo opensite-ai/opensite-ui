@@ -19,10 +19,10 @@ describe("FooterBackgroundCard", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterBackgroundCard />);
-    expect(screen.getByText("Let's Connect")).toBeInTheDocument();
-    expect(screen.getByText("Contact")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterBackgroundCard tagline="Test Tagline" contactTitle="Test Contact" />);
+    expect(screen.getByText("Test Tagline")).toBeInTheDocument();
+    expect(screen.getByText("Test Contact")).toBeInTheDocument();
   });
 
   it("renders custom tagline", () => {

@@ -61,13 +61,10 @@ describe("CarouselImageHero", () => {
       { src: "img1.jpg", alt: "Image 1" },
       { src: "img2.jpg", alt: "Image 2" },
     ];
-    render(<CarouselImageHero images={images} />);
+    render(<CarouselImageHero heading="Test heading" description="Test description" images={images} />);
     const dot = screen.getByLabelText("Go to image 2");
     fireEvent.click(dot);
-    // Should not throw error
-    expect(
-      screen.getByText("Build exceptional digital experiences")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test heading")).toBeInTheDocument();
   });
 
   it("renders custom images", () => {

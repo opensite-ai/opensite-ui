@@ -149,8 +149,8 @@ const CornerConnector = ({ className }: { className?: string }) => (
  * ProcessExpandableTimeline - A process section with expandable timeline steps.
  */
 export function ProcessExpandableTimeline({
-  heading = "How We Work",
-  description = "Click on each step to learn more about our process and methodology.",
+  heading,
+  description,
   steps,
   stepsSlot,
   className,

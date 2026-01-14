@@ -171,8 +171,8 @@ export interface TeamContactCardsProps {
  * ```
  */
 export function TeamContactCards({
-  heading = "Get in touch",
-  description = "Connect with our team members",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",
@@ -196,11 +196,11 @@ export function TeamContactCards({
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-500";
+        return "bg-success";
       case "busy":
-        return "bg-yellow-500";
+        return "bg-primary";
       default:
-        return "bg-gray-400";
+        return "bg-muted-foreground";
     }
   };
 

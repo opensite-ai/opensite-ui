@@ -23,9 +23,9 @@ describe("HeroInnovationImageGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroInnovationImageGrid />);
-    expect(screen.getByText("Uncover our vision for a more innovative, better future")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroInnovationImageGrid heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroInnovationImageGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroInnovationImageGrid className="custom-class" />);
+    const { container } = render(<HeroInnovationImageGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

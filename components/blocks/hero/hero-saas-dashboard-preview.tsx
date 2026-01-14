@@ -103,11 +103,11 @@ export interface HeroSaasDashboardPreviewProps {
 }
 
 export function HeroSaasDashboardPreview({
-  badgeText = "AI-powered analytics",
-  badgeIcon = "lucide/sparkles",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "Understand your data like never before",
-  description = "Get actionable insights from your data with our AI-powered analytics platform. No data science degree required.",
+  heading,
+  description,
   emailForm,
   emailFormSlot,
   browserPreview,
@@ -185,9 +185,9 @@ export function HeroSaasDashboardPreview({
         <div className="overflow-hidden rounded-xl border border-border bg-muted/30 shadow-2xl">
           <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-3">
             <div className="flex gap-1.5">
-              <div className="h-3 w-3 rounded-full bg-red-500"></div>
-              <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
-              <div className="h-3 w-3 rounded-full bg-green-500"></div>
+              <div className="h-3 w-3 rounded-full bg-destructive"></div>
+              <div className="h-3 w-3 rounded-full bg-accent"></div>
+              <div className="h-3 w-3 rounded-full bg-success"></div>
             </div>
             {browserPreview.url && (
               <div className="flex-1 text-center text-sm text-muted-foreground">

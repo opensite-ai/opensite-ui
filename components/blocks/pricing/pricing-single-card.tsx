@@ -207,10 +207,10 @@ export interface PricingSingleCardProps {
  * ```
  */
 export function PricingSingleCard({
-  heading = "Professional Plan",
-  description = "Everything you need to build and scale your product",
-  price = "$99",
-  priceDescription = "per month, billed annually",
+  heading,
+  description,
+  price,
+  priceDescription,
   featureGroups,
   featureGroupsSlot,
   featureIcon,

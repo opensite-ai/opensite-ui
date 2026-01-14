@@ -63,8 +63,8 @@ export interface PricingFeatureMatrixProps {
  */
 export function PricingFeatureMatrix({
   className,
-  title = "Compare Plans",
-  subtitle = "Find the perfect plan for your needs",
+  title,
+  subtitle,
   plans,
   featureCategories,
 }: PricingFeatureMatrixProps) {

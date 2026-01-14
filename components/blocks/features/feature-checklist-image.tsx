@@ -126,8 +126,8 @@ export interface FeatureChecklistImageProps {
  * ```
  */
 export function FeatureChecklistImage({
-  title = "Built with the latest technology stack",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum alias unde et doloremque dignissimos error temporibus quisquam porro ducimus esse quod, a officiis.",
+  title,
+  description,
   imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   imageAlt = "Feature illustration",
   imageSlot,

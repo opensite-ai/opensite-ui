@@ -145,11 +145,11 @@ export interface TeamCompactCtaProps {
  * ```
  */
 export function TeamCompactCta({
-  heading = "Team",
-  description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
+  heading,
+  description,
   members,
   membersSlot,
-  ctaButtonText = "Join Our Team",
+  ctaButtonText,
   ctaButtonUrl = "#",
   ctaSlot,
   background = "white",

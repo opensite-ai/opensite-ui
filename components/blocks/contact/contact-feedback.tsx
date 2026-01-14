@@ -110,9 +110,9 @@ export interface ContactFeedbackProps {
  * ```
  */
 export function ContactFeedback({
-  heading = "Share Your Feedback",
-  description = "Help us improve by sharing your experience.",
-  buttonText = "Submit Feedback",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

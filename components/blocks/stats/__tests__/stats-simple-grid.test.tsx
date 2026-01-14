@@ -15,14 +15,9 @@ describe("StatsSimpleGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsSimpleGrid />);
+  it("renders heading", () => {
+    render(<StatsSimpleGrid heading="Platform Performance Insights" />);
     expect(screen.getByText("Platform Performance Insights")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsSimpleGrid heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders stats when provided", () => {
@@ -46,7 +41,9 @@ describe("StatsSimpleGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsSimpleGrid className="custom-class" />);
+    const { container } = render(
+      <StatsSimpleGrid heading="Test Heading" className="custom-class" />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

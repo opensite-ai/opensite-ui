@@ -113,9 +113,9 @@ export interface ContactGuestProps {
  * ```
  */
 export function ContactGuest({
-  heading = "Guest Information",
-  description = "Provide your guest information.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

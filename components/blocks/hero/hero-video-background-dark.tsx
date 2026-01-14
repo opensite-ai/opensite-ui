@@ -54,9 +54,9 @@ export interface HeroVideoBackgroundDarkProps {
 }
 
 export function HeroVideoBackgroundDark({
-  badgeText = "BETA RELEASE AVAILABLE",
-  heading = "Unveiling MyBusiness Edition 1",
-  description = "Tailor and oversee any creative process from start to finish with unprecedented speed and efficiency.",
+  badgeText,
+  heading,
+  description,
   actions,
   actionsSlot,
   videoSrc = videoPlaceholders[0],

@@ -107,7 +107,7 @@ export interface ComparisonTableTwoColumnProps {
  * feature-by-feature breakdowns where one option is clearly preferred.
  */
 export function ComparisonTableTwoColumn({
-  heading = "Compare us with others.",
+  heading,
   description,
   rows,
   tableSlot,
@@ -136,7 +136,7 @@ export function ComparisonTableTwoColumn({
         <div className="min-w-2xl overflow-hidden">
           <div className={cn("grid grid-cols-3 [&>:last-child_div]:rounded-b-md [&>div:nth-last-child(-n+3)]:rounded-b-md [&>div:nth-last-child(-n+3)]:border-b-0", tableGridClassName)}>
             <div className="p-4"></div>
-            <div className={cn("flex items-center rounded-t-md bg-green-100 p-3 md:p-4", optionACellClassName)}>
+            <div className={cn("flex items-center rounded-t-md bg-success/10 p-3 md:p-4", optionACellClassName)}>
               {optionALogo ? (
                 <Img
                   src={optionALogo}
@@ -146,7 +146,7 @@ export function ComparisonTableTwoColumn({
                 />
               ) : (
                 typeof optionALabel === "string" ? (
-                  <span className="text-lg font-semibold text-green-800">
+                  <span className="text-lg font-semibold text-success">
                     {optionALabel}
                   </span>
                 ) : (
@@ -154,7 +154,7 @@ export function ComparisonTableTwoColumn({
                 )
               )}
             </div>
-            <div className={cn("flex items-center rounded-t-md bg-red-100 p-3 md:p-4", optionBCellClassName)}>
+            <div className={cn("flex items-center rounded-t-md bg-destructive/10 p-3 md:p-4", optionBCellClassName)}>
               {optionBLogo ? (
                 <Img
                   src={optionBLogo}
@@ -164,7 +164,7 @@ export function ComparisonTableTwoColumn({
                 />
               ) : (
                 typeof optionBLabel === "string" ? (
-                  <span className="text-lg font-semibold text-red-800">
+                  <span className="text-lg font-semibold text-destructive">
                     {optionBLabel}
                   </span>
                 ) : (
@@ -177,13 +177,13 @@ export function ComparisonTableTwoColumn({
                 <div className="flex items-center border-b p-3 text-base font-medium md:p-4 md:text-lg">
                   {row.label}
                 </div>
-                <div className={cn("border-b bg-green-50 p-3 md:p-6", optionACellClassName)}>
+                <div className={cn("border-b bg-success/5 p-3 md:p-6", optionACellClassName)}>
                   <div className="flex items-center gap-2">
                     {row.hasIcon && (
                       <DynamicIcon
                         name="lucide/circle-check-big"
                         size={20}
-                        className="text-green-600"
+                        className="text-success"
                       />
                     )}
                     <span className="text-base md:text-lg">
@@ -191,13 +191,13 @@ export function ComparisonTableTwoColumn({
                     </span>
                   </div>
                 </div>
-                <div className={cn("border-b bg-red-50 p-3 md:p-6", optionBCellClassName)}>
+                <div className={cn("border-b bg-destructive/5 p-3 md:p-6", optionBCellClassName)}>
                   <div className="flex items-center gap-2">
                     {row.hasIcon && (
                       <DynamicIcon
                         name="lucide/octagon-x"
                         size={20}
-                        className="text-red-600"
+                        className="text-destructive"
                       />
                     )}
                     <span className="text-base md:text-lg">

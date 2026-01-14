@@ -23,10 +23,11 @@ describe("FeatureCategoryImageCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureCategoryImageCards />);
-    expect(screen.getByText("Key Features")).toBeInTheDocument();
-    expect(screen.getByText("Exceptional Software")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureCategoryImageCards badge="Test Badge" title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {

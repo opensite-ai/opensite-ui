@@ -107,8 +107,8 @@ export interface HeroConversionVideoPlayProps {
 }
 
 export function HeroConversionVideoPlay({
-  heading = "Quickly convert visitors into paying customers",
-  description = "Transform your smartphone or tablet into a powerful tool. Effortlessly manage sales and inventory, engage customers, and boost your revenue.",
+  heading,
+  description,
   primaryAction,
   videoButtonLabel = "Play Video",
   videoUrl = "https://www.youtube.com/embed/your-video-id",

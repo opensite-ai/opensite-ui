@@ -106,8 +106,8 @@ export interface FeatureIconGridMutedProps {
  * ```
  */
 export function FeatureIconGridMuted({
-  title = "Key Features That Save You Time",
-  description = "Explore tools specifically built to enhance your workflow and boost efficiency.",
+  title,
+  description,
   features,
   featuresSlot,
   className,

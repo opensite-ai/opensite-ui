@@ -135,8 +135,8 @@ export interface FeatureAccordionImageProps {
  * ```
  */
 export function FeatureAccordionImage({
-  title = "How It Works",
-  description = "Learn about our simple process to get started with our platform.",
+  title,
+  description,
   items,
   itemsSlot,
   defaultValue = "item-0",

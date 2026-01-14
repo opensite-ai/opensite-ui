@@ -113,9 +113,9 @@ export interface LogosCertificationsGridProps {
  */
 export function LogosCertificationsGrid({
   className,
-  title = "Our certifications say it all.",
+  title,
   titleClassName,
-  description = "In non libero bibendum odio pellentesque ullamcorper. Aenean condimentum, dolor commodo pulvinar bibendum.",
+  description,
   descriptionClassName,
   contentClassName,
   actions,

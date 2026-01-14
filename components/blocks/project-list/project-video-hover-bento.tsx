@@ -180,8 +180,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * cohesive grid presentation.
  */
 export function ProjectVideoHoverBento({
-  heading = "Explore Our Projects",
-  subheading = "Our Work",
+  heading,
+  subheading,
   videoSections,
   videoSectionsSlot,
   optixFlowConfig,

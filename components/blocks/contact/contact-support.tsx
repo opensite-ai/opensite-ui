@@ -74,9 +74,9 @@ export interface ContactSupportProps {
  * ```
  */
 export function ContactSupport({
-  heading = "How can we help?",
-  description = "Send us a message or use one of our other support channels.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

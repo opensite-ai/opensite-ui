@@ -15,29 +15,28 @@ describe("StatsBarComparison", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsBarComparison />);
+  it("renders badge, heading, and description", () => {
+    render(
+      <StatsBarComparison
+        badge="Competitive Edge"
+        heading="How We Compare"
+        description="See our performance"
+      />
+    );
     expect(screen.getByText("Competitive Edge")).toBeInTheDocument();
     expect(screen.getByText("How We Compare")).toBeInTheDocument();
-  });
-
-  it("renders custom badge", () => {
-    render(<StatsBarComparison badge="Custom Badge" />);
-    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsBarComparison heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsBarComparison description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
+    expect(screen.getByText("See our performance")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsBarComparison className="custom-class" />);
+    const { container } = render(
+      <StatsBarComparison
+        badge="Test Badge"
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

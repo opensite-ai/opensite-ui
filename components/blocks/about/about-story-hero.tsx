@@ -75,8 +75,8 @@ export interface AboutStoryHeroProps {
 }
 
 export function AboutStoryHero({
-  title = "Our Story",
-  subtitle = "Building the future, one line of code at a time",
+  title,
+  subtitle,
   content = `We started with a bold idea: what if anyone could build professional software without years of training? This question drove us to create a platform that bridges the gap between imagination and implementation.
 
 Our team combines decades of experience in software engineering, design, and user experience. We've worked at companies like Google, Meta, and Stripe, and we've brought that expertise to bear on solving one of technology's most persistent challenges.

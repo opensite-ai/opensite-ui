@@ -104,10 +104,10 @@ export interface HeroStatsSocialProofProps {
 }
 
 export function HeroStatsSocialProof({
-  badge = "Growing fast",
-  badgeIcon = <DynamicIcon name="lucide/trending-up" size={16} />,
-  heading = "Trusted by thousands of teams worldwide",
-  description = "Join the companies that are already using our platform to build better products and deliver exceptional experiences.",
+  badge,
+  badgeIcon,
+  heading,
+  description,
   actions,
   actionsSlot,
   stats,
@@ -172,7 +172,7 @@ export function HeroStatsSocialProof({
       <div className="absolute -bottom-6 -left-6 rounded-xl bg-background p-4 shadow-lg">
         <div className="flex items-center gap-3">
           {statusCard.icon && (
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
               {statusCard.icon}
             </div>
           )}

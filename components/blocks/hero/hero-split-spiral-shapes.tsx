@@ -54,9 +54,9 @@ export interface HeroSplitSpiralShapesProps {
 }
 
 export function HeroSplitSpiralShapes({
-  badgeText = "New Release",
-  heading = "Welcome to Our Website",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
+  badgeText,
+  heading,
+  description,
   actions,
   actionsSlot,
   shapesSlot,

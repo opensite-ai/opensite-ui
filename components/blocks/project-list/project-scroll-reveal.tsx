@@ -256,7 +256,7 @@ const ProjectItem = ({
  * storytelling and interactive hover states create an engaging browsing experience.
  */
 export function ProjectScrollReveal({
-  heading = "Our Projects",
+  heading,
   projects,
   projectsSlot,
   optixFlowConfig,

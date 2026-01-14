@@ -292,14 +292,14 @@ export interface FooterInfoCardsAccordionProps {
  * ```
  */
 export function FooterInfoCardsAccordion({
-  newsletterTitle = "Newsletter",
-  newsletterDescription = "Join our newsletter for self-care tips, exclusive offers, and early access to our latest products.",
+  newsletterTitle,
+  newsletterDescription,
   emailPlaceholder = "Email Address",
-  subscribeText = "Subscribe",
-  termsText = "By subscribing you agree to the",
-  termsLinkText = "Terms of Use",
+  subscribeText,
+  termsText,
+  termsLinkText,
   termsLinkUrl = "#",
-  privacyLinkText = "Privacy Policy",
+  privacyLinkText,
   privacyLinkUrl = "#",
   infoItems,
   footerLinks,

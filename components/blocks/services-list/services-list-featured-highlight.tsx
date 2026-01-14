@@ -142,8 +142,8 @@ export interface ServicesListFeaturedHighlightProps {
  * ```
  */
 export function ServicesListFeaturedHighlight({
-  heading = "Our Services",
-  description = "Choose the service that best fits your needs. Our most popular option is highlighted.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

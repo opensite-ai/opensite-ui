@@ -115,11 +115,11 @@ export interface FooterSimpleCenteredProps {
  */
 export function FooterSimpleCentered({
   logo,
-  tagline = "Components made easy.",
+  tagline,
   sitemap,
-  copyright = `© Opensite AI ${new Date().getFullYear()}`,
+  copyright,
   bottomLinks,
-  attributionText = "AI Website and Automation Platform by Opensite",
+  attributionText,
   attributionHref = "https://opensite.ai",
   className,
   footerClassName,

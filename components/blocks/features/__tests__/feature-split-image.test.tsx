@@ -29,9 +29,10 @@ describe("FeatureSplitImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureSplitImage />);
-    expect(screen.getByText("Build faster with Opensite AI components")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureSplitImage title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

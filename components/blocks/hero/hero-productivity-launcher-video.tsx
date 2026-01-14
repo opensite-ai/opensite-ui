@@ -101,8 +101,8 @@ export interface HeroProductivityLauncherVideoProps {
 }
 
 export function HeroProductivityLauncherVideo({
-  heading = "Your fast track to everything.",
-  description = "A suite of robust productivity tools packed into an adaptable launcher—quick, intuitive, and dependable.",
+  heading,
+  description,
   actions,
   actionsSlot,
   versionInfo,

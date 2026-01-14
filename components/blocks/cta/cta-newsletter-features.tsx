@@ -193,11 +193,11 @@ export interface CtaNewsletterFeaturesProps {
  * ```
  */
 export function CtaNewsletterFeatures({
-  badge = "Newsletter",
-  heading = "Stay in the loop",
-  description = "Get the latest updates, tips, and exclusive content delivered straight to your inbox. Join thousands of subscribers.",
-  emailPlaceholder = "Enter your email",
-  buttonText = "Subscribe",
+  badge,
+  heading,
+  description,
+  emailPlaceholder,
+  buttonText,
   features,
   featuresSlot,
   formSlot,

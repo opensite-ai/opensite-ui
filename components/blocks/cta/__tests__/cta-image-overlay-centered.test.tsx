@@ -35,10 +35,10 @@ describe("CtaImageOverlayCentered", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaImageOverlayCentered />);
-    expect(screen.getByText("Ready to unlock OpenSite AI coverage insights?")).toBeInTheDocument();
-    expect(screen.getByText("Connect with an advisor to tailor a plan that protects what matters most today and scales for tomorrow.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaImageOverlayCentered heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -104,9 +104,9 @@ export interface AboutDeveloperStoryProps {
 export function AboutDeveloperStory({
   className,
   containerClassName,
-  title = "Developer-Focused Solutions for Modern Teams",
+  title,
   titleClassName,
-  description = "We build tools that developers love. Our platform provides the flexibility and power you need to create exceptional applications.",
+  description,
   descriptionClassName,
   actions,
   actionsSlot,
@@ -117,13 +117,9 @@ export function AboutDeveloperStory({
   stats,
   statsSlot,
   statsClassName,
-  storyTitle = "Our Story",
+  storyTitle,
   storyTitleClassName,
-  storyContent = `We started with a simple idea: make development easier for everyone. Over the years, we've grown into a team of passionate developers who understand the challenges you face.
-
-Our platform is built by developers, for developers. We know what it takes to build great software, and we've created tools that help you do it faster and better.
-
-Today, we serve thousands of developers worldwide, helping them build everything from simple websites to complex enterprise applications.`,
+  storyContent,
   storyContentClassName,
   storyImage,
   storyImageClassName,

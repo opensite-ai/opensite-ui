@@ -30,7 +30,12 @@ describe("PricingSimpleCard", () => {
   });
 
   it("renders custom features", () => {
-    render(<PricingSimpleCard features={mockFeatures} />);
+    render(
+      <PricingSimpleCard
+        title="Test Plan"
+        features={mockFeatures}
+      />
+    );
     expect(screen.getByText("Feature 1")).toBeInTheDocument();
     expect(screen.getByText("Feature 2")).toBeInTheDocument();
     expect(screen.getByText("Feature 3")).toBeInTheDocument();
@@ -38,26 +43,46 @@ describe("PricingSimpleCard", () => {
   });
 
   it("renders feature list with check icons", () => {
-    const { container } = render(<PricingSimpleCard features={mockFeatures} />);
+    const { container } = render(
+      <PricingSimpleCard
+        title="Test Plan"
+        features={mockFeatures}
+      />
+    );
     const featureItems = container.querySelectorAll("li");
     expect(featureItems.length).toBe(mockFeatures.length);
   });
 
   it("applies correct spacing between features", () => {
-    const { container } = render(<PricingSimpleCard features={mockFeatures} />);
+    const { container } = render(
+      <PricingSimpleCard
+        title="Test Plan"
+        features={mockFeatures}
+      />
+    );
     const featureList = container.querySelector("ul");
     expect(featureList?.className).toContain("space-y-3");
   });
 
   it("renders with empty features array", () => {
-    const { container } = render(<PricingSimpleCard features={[]} />);
+    const { container } = render(
+      <PricingSimpleCard
+        title="Test Plan"
+        features={[]}
+      />
+    );
     // When features is empty, the ul element is not rendered
     const featureList = container.querySelector("ul");
     expect(featureList).toBeNull();
   });
 
   it("renders features with muted text color", () => {
-    const { container } = render(<PricingSimpleCard features={mockFeatures} />);
+    const { container } = render(
+      <PricingSimpleCard
+        title="Test Plan"
+        features={mockFeatures}
+      />
+    );
     const feature = screen.getByText("Feature 1");
     expect(feature.className).toContain("text-muted-foreground");
   });

@@ -146,9 +146,9 @@ export interface ServicesListTwoColumnGridProps {
  * ```
  */
 export function ServicesListTwoColumnGrid({
-  badge = "Services",
-  heading = "Everything You Need to Succeed Online",
-  description = "We provide comprehensive digital solutions to help your business grow. From development to design, we've got you covered.",
+  badge,
+  heading,
+  description,
   primaryAction,
   secondaryAction,
   actionsSlot,

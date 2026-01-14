@@ -259,13 +259,13 @@ export interface PricingRadioToggleProps {
  * ```
  */
 export function PricingRadioToggle({
-  title = "Flexible Pricing",
-  description = "Choose the plan that fits your needs. All plans include a 14-day free trial.",
-  monthlyLabel = "Monthly",
-  yearlyLabel = "Yearly",
-  yearlyBadge = "-17%",
-  monthlyInterval = "/month",
-  yearlyInterval = "/year",
+  title,
+  description,
+  monthlyLabel,
+  yearlyLabel,
+  yearlyBadge,
+  monthlyInterval,
+  yearlyInterval,
   plans,
   plansSlot,
   featureIcon,

@@ -123,10 +123,10 @@ export interface ContactHelpCenterProps {
  * support hubs, and onboarding touchpoints.
  */
 export function ContactHelpCenter({
-  eyebrow = "Support Center",
-  heading = "Need help navigating coverage decisions?",
-  description = "Our OpenSite AI advisors are ready to walk through policies, claims, and next steps so you can move forward with confidence.",
-  cardTitle = "Contact Our Team",
+  eyebrow,
+  heading,
+  description,
+  cardTitle,
   contactItems,
   background = "white",
   spacing = "lg",

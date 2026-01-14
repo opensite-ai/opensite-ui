@@ -134,8 +134,8 @@ export interface FeatureIntegrationCardsProps {
  * ```
  */
 export function FeatureIntegrationCards({
-  title = "Integrations",
-  description = "Connect with your favorite tools and services to streamline your workflow.",
+  title,
+  description,
   integrations,
   integrationsSlot,
   className,

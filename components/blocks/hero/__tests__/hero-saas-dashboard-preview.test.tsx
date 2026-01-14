@@ -23,9 +23,9 @@ describe("HeroSaasDashboardPreview", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroSaasDashboardPreview />);
-    expect(screen.getByText("Understand your data like never before")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroSaasDashboardPreview heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroSaasDashboardPreview", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroSaasDashboardPreview className="custom-class" />);
+    const { container } = render(<HeroSaasDashboardPreview heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

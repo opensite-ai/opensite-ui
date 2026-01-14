@@ -30,9 +30,9 @@ describe("HeroGradientAvatarsRating", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroGradientAvatarsRating />);
-    expect(screen.getByText("Beautiful UI")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroGradientAvatarsRating heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -52,7 +52,7 @@ describe("HeroGradientAvatarsRating", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroGradientAvatarsRating className="custom-class" />);
+    const { container } = render(<HeroGradientAvatarsRating heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -157,14 +157,14 @@ export interface CaseStudiesStatsCardProps {
  * ```
  */
 export function CaseStudiesStatsCard({
-  companyLogo = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo8,
-  companyName = "Opensite AI",
+  companyLogo,
+  companyName,
   stats,
   statsSlot,
   author,
   authorSlot,
-  title = "How We Optimized Our Onboarding Flow to Triple User Activation",
-  summary = "Learn how we revamped our product onboarding experience using our in-house toolkit and reduced time-to-value by over 60%.",
+  title,
+  summary,
   actions,
   actionsSlot,
   className,

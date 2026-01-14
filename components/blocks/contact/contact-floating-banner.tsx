@@ -74,9 +74,9 @@ export interface ContactFloatingBannerProps {
  * ```
  */
 export function ContactFloatingBanner({
-  badgeText = "Limited time offer",
-  message = "Get 50% off for your first month",
-  buttonText = "Get started",
+  badgeText,
+  message,
+  buttonText,
   buttonIcon = "lucide/arrow-right",
   buttonHref = "#",
   actions,

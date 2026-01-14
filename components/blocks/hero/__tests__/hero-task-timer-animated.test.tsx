@@ -19,9 +19,9 @@ describe("HeroTaskTimerAnimated", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroTaskTimerAnimated />);
-    expect(screen.getByText("A simple task timer to power your goals")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroTaskTimerAnimated heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -44,7 +44,7 @@ describe("HeroTaskTimerAnimated", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroTaskTimerAnimated className="custom-class" />);
+    const { container } = render(<HeroTaskTimerAnimated heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -157,8 +157,8 @@ const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
  * description, and CTA, with scrollable steps on the right side.
  */
 export function ProcessStickySteps({
-  heading = "Our Process",
-  description = "We follow a proven methodology to deliver exceptional results for every project we undertake.",
+  heading,
+  description,
   actions,
   actionsSlot,
   steps,

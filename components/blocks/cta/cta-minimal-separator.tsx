@@ -83,7 +83,7 @@ export interface CtaMinimalSeparatorProps {
  * ```
  */
 export function CtaMinimalSeparator({
-  text = "Ready to get started? Sign up for a free trial today.",
+  text,
   actions,
   actionsSlot,
   className,

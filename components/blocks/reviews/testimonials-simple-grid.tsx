@@ -165,8 +165,8 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
 export function TestimonialsSimpleGrid({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "Customer Stories",
-  description = "Hear from our satisfied customers",
+  heading,
+  description,
   columns = 3,
   className,
   headerClassName,

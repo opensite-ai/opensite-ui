@@ -113,9 +113,9 @@ export interface ContactInsuranceProps {
  * ```
  */
 export function ContactInsurance({
-  heading = "Insurance Quote",
-  description = "Get an insurance quote.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

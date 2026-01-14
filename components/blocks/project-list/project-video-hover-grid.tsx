@@ -184,8 +184,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * hover-to-play interaction.
  */
 export function ProjectVideoHoverGrid({
-  heading = "Explore Our Projects",
-  subheading = "Our Work",
+  heading,
+  subheading,
   videoSections,
   videoSectionsSlot,
   optixFlowConfig,

@@ -47,7 +47,7 @@ describe("ArticleCompactToc", () => {
   });
 
   it("toggles table of contents on mobile", () => {
-    render(<ArticleCompactToc sections={mockSections} />);
+    render(<ArticleCompactToc title="Test Article" sections={mockSections} />);
 
     const tocButton = screen.getByText("Table of Contents");
     expect(tocButton).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe("ArticleCompactToc", () => {
   });
 
   it("renders with empty sections array", () => {
-    const { container } = render(<ArticleCompactToc sections={[]} />);
+    const { container } = render(<ArticleCompactToc title="Test Article" sections={[]} />);
     expect(container.firstChild).toBeInTheDocument();
   });
 });

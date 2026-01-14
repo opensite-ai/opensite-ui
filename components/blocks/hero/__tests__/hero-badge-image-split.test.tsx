@@ -29,9 +29,9 @@ describe("HeroBadgeImageSplit", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroBadgeImageSplit />);
-    expect(screen.getByText("Blocks Built With React & Tailwind")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroBadgeImageSplit heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -56,7 +56,7 @@ describe("HeroBadgeImageSplit", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroBadgeImageSplit className="custom-class" />);
+    const { container } = render(<HeroBadgeImageSplit heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -24,9 +24,9 @@ describe("HeroLogoCenteredScreenshot", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroLogoCenteredScreenshot />);
-    expect(screen.getByText("Build your next project with Blocks")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroLogoCenteredScreenshot heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -46,7 +46,7 @@ describe("HeroLogoCenteredScreenshot", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroLogoCenteredScreenshot className="custom-class" />);
+    const { container } = render(<HeroLogoCenteredScreenshot heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

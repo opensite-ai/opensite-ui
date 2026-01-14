@@ -223,8 +223,8 @@ export interface PricingIconHeadersProps {
  * ```
  */
 export function PricingIconHeaders({
-  heading = "Pricing Plans",
-  subtitle = "Choose the perfect plan for your needs",
+  heading,
+  subtitle,
   plans,
   plansSlot,
   featureIcon,

@@ -19,9 +19,9 @@ describe("HeroPlatformFeaturesGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroPlatformFeaturesGrid />);
-    expect(screen.getByText("Develop, launch, and grow your service with our platform")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroPlatformFeaturesGrid heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroPlatformFeaturesGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroPlatformFeaturesGrid className="custom-class" />);
+    const { container } = render(<HeroPlatformFeaturesGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

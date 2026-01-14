@@ -13,10 +13,10 @@ describe("FeatureThreeColumnValues", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureThreeColumnValues />);
-    expect(screen.getByText("OUR VALUES")).toBeInTheDocument();
-    expect(screen.getByText("Why Choose Us?")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureThreeColumnValues label="Test Label" title="Test Title" />);
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom label", () => {

@@ -52,8 +52,15 @@ describe("BlogGridNinePosts", () => {
   });
 
   it("handles empty posts array", () => {
-    render(<BlogGridNinePosts posts={[]} />);
-    expect(screen.getByText("Blog")).toBeInTheDocument();
+    render(
+      <BlogGridNinePosts
+        heading="Test Heading"
+        description="Test Description"
+        posts={[]}
+      />
+    );
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 });
 

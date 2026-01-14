@@ -141,8 +141,8 @@ export interface ServicesListMasonryProps {
  * ```
  */
 export function ServicesListMasonry({
-  heading = "Our Services",
-  description = "Comprehensive digital solutions tailored to your business needs.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

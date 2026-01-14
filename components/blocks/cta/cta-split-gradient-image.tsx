@@ -123,13 +123,13 @@ export interface CtaSplitGradientImageProps {
  * ```
  */
 export function CtaSplitGradientImage({
-  label = "Ready to get started?",
-  heading = "Start your free trial today.",
-  description = "Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.",
+  label,
+  heading,
+  description,
   actions,
   actionsSlot,
   imageSrc = imagePlaceholders[4],
-  imageAlt = "Featured image",
+  imageAlt,
   className,
   containerClassName,
   cardClassName,

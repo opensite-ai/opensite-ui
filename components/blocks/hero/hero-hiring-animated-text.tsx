@@ -74,7 +74,7 @@ export function HeroHiringAnimatedText({
   headingPrefix = "We help you to hire top",
   animatedTexts,
   headingSlot,
-  description = "Discover exceptional talent, fast.",
+  description,
   actions,
   actionsSlot,
   scrollAction,

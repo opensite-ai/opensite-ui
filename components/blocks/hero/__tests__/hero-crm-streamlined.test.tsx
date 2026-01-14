@@ -23,9 +23,9 @@ describe("HeroCrmStreamlined", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroCrmStreamlined />);
-    expect(screen.getByText("Client Relationship Management Software")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroCrmStreamlined heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom tagline", () => {
@@ -57,7 +57,7 @@ describe("HeroCrmStreamlined", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroCrmStreamlined className="custom-class" />);
+    const { container } = render(<HeroCrmStreamlined heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

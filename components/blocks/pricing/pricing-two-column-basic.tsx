@@ -251,12 +251,12 @@ export interface PricingTwoColumnBasicProps {
  * ```
  */
 export function PricingTwoColumnBasic({
-  title = "Simple, Transparent Pricing",
-  subtitle = "No hidden fees. Cancel anytime.",
-  monthlyLabel = "Monthly",
-  yearlyLabel = "Yearly",
-  monthlyInterval = "/month",
-  yearlyInterval = "/year",
+  title,
+  subtitle,
+  monthlyLabel,
+  yearlyLabel,
+  monthlyInterval,
+  yearlyInterval,
   plans,
   plansSlot,
   featureIcon,

@@ -75,9 +75,9 @@ export interface ContactPhotographyProps {
  * ```
  */
 export function ContactPhotography({
-  heading = "Photography Services",
-  description = "Book a photography session.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

@@ -82,7 +82,7 @@ export interface FaqMutedCardsProps {
 }
 
 export function FaqMutedCards({
-  heading = "Frequently asked questions",
+  heading,
   items,
   itemsSlot,
   background = "white",

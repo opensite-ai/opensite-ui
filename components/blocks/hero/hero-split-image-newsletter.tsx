@@ -80,8 +80,8 @@ export interface HeroSplitImageNewsletterProps {
 }
 
 export function HeroSplitImageNewsletter({
-  heading = "Discover the future of design",
-  description = "Join our newsletter and stay updated with the latest trends, tutorials, and resources in the design world.",
+  heading,
+  description,
   newsletterForm,
   newsletterFormSlot,
   image,

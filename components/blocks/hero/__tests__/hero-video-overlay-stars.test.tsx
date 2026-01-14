@@ -29,9 +29,9 @@ describe("HeroVideoOverlayStars", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroVideoOverlayStars />);
-    expect(screen.getByText("Liberate yourself from phone interruptions")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroVideoOverlayStars heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -52,7 +52,7 @@ describe("HeroVideoOverlayStars", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroVideoOverlayStars className="custom-class" />);
+    const { container } = render(<HeroVideoOverlayStars heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

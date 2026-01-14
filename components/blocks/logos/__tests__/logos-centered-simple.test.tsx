@@ -34,8 +34,14 @@ describe("LogosCenteredSimple", () => {
     expect(screen.getByAltText("Custom Company 2 logo")).toBeInTheDocument();
   });
 
-  it("handles empty logos array", () => {
-    render(<LogosCenteredSimple logos={[]} />);
+  it("handles empty logos array with explicit title", () => {
+    render(
+      <LogosCenteredSimple
+        title="Trusted by innovative companies"
+        subtitle="Industry leaders"
+        logos={[]}
+      />
+    );
     expect(screen.getByText("Trusted by innovative companies")).toBeInTheDocument();
   });
 });

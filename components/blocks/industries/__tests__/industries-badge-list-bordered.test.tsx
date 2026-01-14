@@ -174,7 +174,7 @@ describe("IndustriesBadgeListBordered", () => {
 
   it("renders text styling correctly", () => {
     const { container } = render(
-      <IndustriesBadgeListBordered services={mockServices} />
+      <IndustriesBadgeListBordered services={mockServices} heading="Test Heading" />
     );
     const headings = container.querySelectorAll("h2");
     expect(headings.length).toBeGreaterThan(0);

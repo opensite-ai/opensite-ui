@@ -29,9 +29,9 @@ describe("HeroEnterpriseSecurity", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroEnterpriseSecurity />);
-    expect(screen.getByText("Security that scales with your business")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroEnterpriseSecurity heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroEnterpriseSecurity", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroEnterpriseSecurity className="custom-class" />);
+    const { container } = render(<HeroEnterpriseSecurity heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

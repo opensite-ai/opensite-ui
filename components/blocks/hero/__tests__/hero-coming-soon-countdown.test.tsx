@@ -19,9 +19,9 @@ describe("HeroComingSoonCountdown", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroComingSoonCountdown />);
-    expect(screen.getByText("Something amazing is coming")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroComingSoonCountdown heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroComingSoonCountdown", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroComingSoonCountdown className="custom-class" />);
+    const { container } = render(<HeroComingSoonCountdown heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

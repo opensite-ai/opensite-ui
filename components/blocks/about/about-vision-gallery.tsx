@@ -117,9 +117,9 @@ export interface AboutVisionGalleryProps {
 export function AboutVisionGallery({
   className,
   containerClassName,
-  title = "About Us",
+  title,
   titleClassName,
-  subtitle = "Meet our team, discover our values, and learn how we balance work, life, and everything in between.",
+  subtitle,
   subtitleClassName,
   images,
   imagesSlot,

@@ -94,10 +94,10 @@ export interface HeroPricingComparisonProps {
 }
 
 export function HeroPricingComparison({
-  badgeText = "Simple Pricing",
+  badgeText,
   badgeSlot,
-  heading = "Choose the plan that's right for you",
-  description = "Start free and scale as you grow. No hidden fees, no surprises. Cancel anytime.",
+  heading,
+  description,
   plans,
   plansSlot,
   className,
@@ -163,7 +163,7 @@ export function HeroPricingComparison({
               <ul className="mt-8 space-y-4">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-sm">
-                    <DynamicIcon name="lucide/check" size={16} className="text-green-500" />
+                    <DynamicIcon name="lucide/check" size={16} className="text-success" />
                     <span>{feature}</span>
                   </li>
                 ))}

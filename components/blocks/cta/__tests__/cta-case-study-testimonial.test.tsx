@@ -24,11 +24,11 @@ describe("CtaCaseStudyTestimonial", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaCaseStudyTestimonial />);
-    expect(screen.getByText("Case Study")).toBeInTheDocument();
-    expect(screen.getByText("How TechNova transformed their workflow")).toBeInTheDocument();
-    expect(screen.getByText("See how TechNova achieved 200% productivity increase and 30% faster project delivery with our platform.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaCaseStudyTestimonial badge="Test Badge" heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

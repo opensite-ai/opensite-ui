@@ -133,7 +133,6 @@ export const NavbarFloatingPill = ({
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
-    alt: "Opensite AI",
   },
   logoSlot,
   logoClassName,

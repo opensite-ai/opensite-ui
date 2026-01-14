@@ -151,7 +151,7 @@ function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
           size={size}
           className={cn(
             star <= rating
-              ? "fill-yellow-400 text-yellow-400"
+              ? "fill-primary text-primary"
               : "fill-muted text-muted"
           )}
         />
@@ -189,8 +189,8 @@ function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
 export function TestimonialsMiniDividers({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "What People Say",
-  description = "Feedback from our customers",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

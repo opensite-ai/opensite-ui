@@ -105,7 +105,7 @@ export interface TimelineAIWorkflowCardsProps {
 
 export function TimelineAIWorkflowCards({
   heading,
-  subheading = "Seamlessly integrate AI into your workflows. Automate tasks, enhance efficiency, and stay ahead.",
+  subheading,
   items,
   className,
   containerClassName,
@@ -125,22 +125,6 @@ export function TimelineAIWorkflowCards({
   id,
   style,
 }: TimelineAIWorkflowCardsProps) {
-  const defaultHeading = (
-    <>
-      Unlock{" "}
-      <span className="relative inline-block">
-        <span className="text-muted-foreground">AI</span>
-        <DynamicIcon
-          name="lucide/sparkles"
-          size={20}
-          className="absolute -top-2 -right-4 fill-yellow-500 stroke-none"
-        />
-      </span>
-      <br />
-      for your existing workflows
-    </>
-  );
-
   return (
     <Section
       id={id}
@@ -155,12 +139,16 @@ export function TimelineAIWorkflowCards({
       <div className={cn("grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16", containerClassName)}>
         <div className="lg:sticky lg:top-24 lg:self-start">
           <div className="max-w-lg">
-            <h2 className={cn("text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl", headingClassName)}>
-              {heading || defaultHeading}
-            </h2>
-            <p className={cn("mt-12 text-base text-muted-foreground", subheadingClassName)}>
-              {subheading}
-            </p>
+            {heading && (
+              <h2 className={cn("text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl", headingClassName)}>
+                {heading}
+              </h2>
+            )}
+            {subheading && (
+              <p className={cn("mt-12 text-base text-muted-foreground", subheadingClassName)}>
+                {subheading}
+              </p>
+            )}
           </div>
         </div>
 

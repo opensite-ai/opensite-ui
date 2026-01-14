@@ -75,9 +75,9 @@ export interface ContactRetreatProps {
  * ```
  */
 export function ContactRetreat({
-  heading = "Retreat Registration",
-  description = "Register for our upcoming retreat.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

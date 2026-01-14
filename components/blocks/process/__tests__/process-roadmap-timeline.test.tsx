@@ -27,7 +27,7 @@ describe("ProcessRoadmapTimeline", () => {
     },
   ];
 
-  it("renders custom title and description", () => {
+  it("renders title and description", () => {
     render(
       <ProcessRoadmapTimeline
         title="Development Roadmap"
@@ -101,7 +101,7 @@ describe("ProcessRoadmapTimeline", () => {
     const { container } = render(
       <ProcessRoadmapTimeline milestones={mockMilestones} />
     );
-    const completedBadge = container.querySelector(".border-green-500.bg-green-500");
+    const completedBadge = container.querySelector(".border-success.bg-success");
     expect(completedBadge).toBeInTheDocument();
   });
 

@@ -151,8 +151,8 @@ export interface FeatureBentoImageGridProps {
  * ```
  */
 export function FeatureBentoImageGrid({
-  title = "Dynamic Layouts",
-  description = "Adapt the box to suit any purpose",
+  title,
+  description,
   items,
   itemsSlot,
   className,

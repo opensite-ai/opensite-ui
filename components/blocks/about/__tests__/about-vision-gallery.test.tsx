@@ -23,12 +23,19 @@ describe("AboutVisionGallery", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutVisionGallery />);
-    expect(screen.getByText("About Us")).toBeInTheDocument();
-    expect(screen.getByText(/Meet our team, discover our values/)).toBeInTheDocument();
-    expect(screen.getByText("Our Vision")).toBeInTheDocument();
-    expect(screen.getByText("Our Creators")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutVisionGallery
+        title="Test Title"
+        subtitle="Test Subtitle"
+        visionTitle="Test Vision Title"
+        creatorsTitle="Test Creators Title"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Subtitle")).toBeInTheDocument();
+    expect(screen.getByText("Test Vision Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Creators Title")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

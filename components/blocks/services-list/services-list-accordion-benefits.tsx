@@ -160,12 +160,12 @@ export interface ServicesListAccordionBenefitsProps {
  * ```
  */
 export function ServicesListAccordionBenefits({
-  heading = "My Services",
-  description = "Click on any service to learn more about how I can help your business succeed online",
+  heading,
+  description,
   services,
   servicesSlot,
   defaultValue,
-  benefitsLabel = "Key Benefits:",
+  benefitsLabel,
   bottomAction,
   bottomActionSlot,
   className,

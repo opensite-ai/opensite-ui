@@ -159,8 +159,6 @@ export const NavbarDarkIcons = ({
   logo = {
     url: "/",
     src: logoPlaceholders.logoMark,
-    alt: "Opensite AI",
-    title: "Opensite AI",
   },
   logoSlot,
   logoClassName,

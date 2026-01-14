@@ -19,10 +19,10 @@ describe("FooterContactCard", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterContactCard />);
-    expect(screen.getByText("Let's work together")).toBeInTheDocument();
-    expect(screen.getByText("Follow Us")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterContactCard heading="Test Heading" socialTitle="Test Social Label" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Social Label")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

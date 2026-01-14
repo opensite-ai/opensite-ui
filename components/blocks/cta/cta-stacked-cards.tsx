@@ -94,8 +94,8 @@ export interface CtaStackedCardsProps {
  * ```
  */
 export function CtaStackedCards({
-  heading = "Call to Action",
-  description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
+  heading,
+  description,
   actions,
   actionsSlot,
   className,

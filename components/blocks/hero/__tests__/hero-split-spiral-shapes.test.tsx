@@ -19,9 +19,9 @@ describe("HeroSplitSpiralShapes", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroSplitSpiralShapes />);
-    expect(screen.getByText("Welcome to Our Website")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroSplitSpiralShapes heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroSplitSpiralShapes", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroSplitSpiralShapes className="custom-class" />);
+    const { container } = render(<HeroSplitSpiralShapes heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -83,8 +83,8 @@ export interface HeroVideoDialogGradientProps {
 }
 
 export function HeroVideoDialogGradient({
-  heading = "Transform your workflow with intelligent automation",
-  description = "Streamline your processes, reduce manual work, and focus on what matters most. Our platform helps teams work smarter, not harder.",
+  heading,
+  description,
   actions,
   actionsSlot,
   image,

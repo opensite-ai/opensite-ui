@@ -31,7 +31,7 @@ describe("ListCareerTimeline", () => {
   ];
 
   it("renders custom heading", () => {
-    render(<ListCareerTimeline heading="Custom Heading" />);
+    render(<ListCareerTimeline heading="Custom Heading" awards={[]} />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 

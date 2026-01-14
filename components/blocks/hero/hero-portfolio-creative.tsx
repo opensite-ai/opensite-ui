@@ -97,8 +97,8 @@ export interface HeroPortfolioCreativeProps {
 export function HeroPortfolioCreative({
   profile,
   profileSlot,
-  heading = "Crafting digital experiences that inspire",
-  description = "I help brands tell their stories through thoughtful design and strategic thinking. With 10+ years of experience, I've worked with startups and Fortune 500 companies alike.",
+  heading,
+  description,
   actions,
   actionsSlot,
   socialLinks,

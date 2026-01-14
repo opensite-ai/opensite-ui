@@ -27,30 +27,34 @@ describe("TestimonialsCompanyLogo", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<TestimonialsCompanyLogo />);
-    expect(screen.getByText("Implementing this solution was the best decision we made this year. Our team productivity increased by 40% and customer satisfaction scores have never been higher. The support team is exceptional - they're always available and incredibly knowledgeable.")).toBeInTheDocument();
-    expect(screen.getByText("Jennifer Martinez")).toBeInTheDocument();
+  it("renders with explicit testimonial", () => {
+    const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
+    render(<TestimonialsCompanyLogo testimonial={testimonial} companyLogoAlt="Test Company" imageAlt="Test Image" />);
+    expect(screen.getByText("Test quote")).toBeInTheDocument();
+    expect(screen.getByText("Test Author")).toBeInTheDocument();
   });
 
   it("renders custom testimonial quote", () => {
-    render(<TestimonialsCompanyLogo testimonial={{ quote: "Custom quote", author: "John Doe", role: "CEO" }} />);
+    render(<TestimonialsCompanyLogo testimonial={{ quote: "Custom quote", author: "John Doe", role: "CEO" }} companyLogoAlt="Test Company" imageAlt="Test Image" />);
     expect(screen.getByText("Custom quote")).toBeInTheDocument();
     expect(screen.getByText("John Doe")).toBeInTheDocument();
   });
 
   it("renders custom company logo alt text", () => {
-    render(<TestimonialsCompanyLogo companyLogoAlt="Custom Company" />);
+    const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
+    render(<TestimonialsCompanyLogo testimonial={testimonial} companyLogoAlt="Custom Company" imageAlt="Test Image" />);
     expect(screen.getByAltText("Custom Company")).toBeInTheDocument();
   });
 
   it("renders custom image alt text", () => {
-    render(<TestimonialsCompanyLogo imageAlt="Custom Image" />);
+    const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
+    render(<TestimonialsCompanyLogo testimonial={testimonial} companyLogoAlt="Test Company" imageAlt="Custom Image" />);
     expect(screen.getByAltText("Custom Image")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<TestimonialsCompanyLogo className="custom-class" />);
+    const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
+    const { container } = render(<TestimonialsCompanyLogo testimonial={testimonial} companyLogoAlt="Test Company" imageAlt="Test Image" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

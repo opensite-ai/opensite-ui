@@ -57,7 +57,7 @@ describe("ComparisonAiModels", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ComparisonAiModels className="custom-class" />);
+    const { container } = render(<ComparisonAiModels heading="Test Heading" description="Test description" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

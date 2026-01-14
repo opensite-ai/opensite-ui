@@ -109,8 +109,8 @@ export interface BannerSurveyIncentiveProps {
 export function BannerSurveyIncentive({
   icon,
   iconName = "mynaui/shopping-bag",
-  title = "Help us improve!",
-  description = "Take our 2-minute survey and get 20% off your next purchase.",
+  title,
+  description,
   actions,
   actionsSlot,
   onDismiss,

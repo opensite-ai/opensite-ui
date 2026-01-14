@@ -113,7 +113,7 @@ export interface TeamInvestorShowcaseProps {
  * ```
  */
 export function TeamInvestorShowcase({
-  heading = "Our investors",
+  heading,
   investors,
   investorsSlot,
   background = "white",

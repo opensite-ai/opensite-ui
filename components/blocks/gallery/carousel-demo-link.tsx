@@ -169,7 +169,7 @@ export interface CarouselDemoLinkProps {
  * ```
  */
 export function CarouselDemoLink({
-  heading = "Gallery",
+  heading,
   demoAction,
   demoActionSlot,
   items,

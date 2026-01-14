@@ -15,20 +15,15 @@ describe("StatsAnimatedCounter", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsAnimatedCounter />);
+  it("renders heading and description", () => {
+    render(
+      <StatsAnimatedCounter
+        heading="Our Impact in Numbers"
+        description="Real results that speak for themselves"
+      />
+    );
     expect(screen.getByText("Our Impact in Numbers")).toBeInTheDocument();
     expect(screen.getByText("Real results that speak for themselves")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsAnimatedCounter heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsAnimatedCounter description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
   it("renders stats when provided", () => {
@@ -42,7 +37,13 @@ describe("StatsAnimatedCounter", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsAnimatedCounter className="custom-class" />);
+    const { container } = render(
+      <StatsAnimatedCounter
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

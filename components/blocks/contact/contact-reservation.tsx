@@ -75,9 +75,9 @@ export interface ContactReservationProps {
  * ```
  */
 export function ContactReservation({
-  heading = "Make a Reservation",
-  description = "Reserve your spot today.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

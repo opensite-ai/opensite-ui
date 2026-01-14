@@ -97,7 +97,7 @@ export interface ProjectCarouselMinimalProps {
  * geographic context is important.
  */
 export function ProjectCarouselMinimal({
-  heading = "Projects",
+  heading,
   projects,
   projectsSlot,
   optixFlowConfig,

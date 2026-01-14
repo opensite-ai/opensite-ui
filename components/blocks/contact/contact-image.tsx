@@ -113,9 +113,9 @@ export interface ContactImageProps {
  * ```
  */
 export function ContactImage({
-  heading = "Get in Touch",
-  description = "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

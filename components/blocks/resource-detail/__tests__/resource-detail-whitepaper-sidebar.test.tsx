@@ -83,7 +83,12 @@ describe("ResourceDetailWhitepaperSidebar", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ResourceDetailWhitepaperSidebar className="custom-class" />);
+    const { container } = render(
+      <ResourceDetailWhitepaperSidebar
+        className="custom-class"
+        sidebar={{ resourceType: "Whitepaper" }}
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

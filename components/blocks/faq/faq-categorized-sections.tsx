@@ -107,8 +107,8 @@ export interface FaqCategorizedSectionsProps {
 }
 
 export function FaqCategorizedSections({
-  heading = "Frequently asked questions",
-  description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
+  heading,
+  description,
   categories,
   categoriesSlot,
   background = "white",

@@ -19,9 +19,9 @@ describe("HeroSplitGeometricShapes", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroSplitGeometricShapes />);
-    expect(screen.getByText("Welcome to Our Website")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroSplitGeometricShapes heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroSplitGeometricShapes", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroSplitGeometricShapes className="custom-class" />);
+    const { container } = render(<HeroSplitGeometricShapes heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

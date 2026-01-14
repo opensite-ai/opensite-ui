@@ -156,8 +156,8 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
 export function TestimonialsQuoteCarousel({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "Client Testimonials",
-  description = "Swipe through what our clients have to say about working with us",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

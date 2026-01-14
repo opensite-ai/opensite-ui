@@ -258,14 +258,14 @@ export interface PricingColumnsToggleProps {
  * ```
  */
 export function PricingColumnsToggle({
-  title = "Simple, transparent pricing",
-  subtitle = "No hidden fees. Cancel anytime.",
-  monthlyLabel = "Monthly billing",
-  yearlyLabel = "Annual billing",
-  yearlyBadge = "(Save 17%)",
-  toggleAriaLabel = "Toggle annual billing",
-  monthlyInterval = "/month",
-  yearlyInterval = "/year",
+  title,
+  subtitle,
+  monthlyLabel,
+  yearlyLabel,
+  yearlyBadge,
+  toggleAriaLabel,
+  monthlyInterval,
+  yearlyInterval,
   plans,
   plansSlot,
   featureIcon,

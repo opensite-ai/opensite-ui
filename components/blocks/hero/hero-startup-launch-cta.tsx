@@ -111,15 +111,15 @@ export interface HeroStartupLaunchCtaProps {
 }
 
 export function HeroStartupLaunchCta({
-  badge = "Now launching",
-  badgeIcon = <DynamicIcon name="lucide/rocket" size={16} />,
-  heading = "Launch your startup in weeks, not months",
-  description = "Everything you need to go from idea to launch. Our platform provides the tools, templates, and guidance to build your MVP fast.",
+  badge,
+  badgeIcon,
+  heading,
+  description,
   actions,
   actionsSlot,
   avatars,
   avatarsSlot,
-  socialProofText = <><span className="font-semibold text-foreground">500+</span><span className="text-muted-foreground"> startups launched</span></>,
+  socialProofText,
   imageSrc = imagePlaceholders[6],
   imageAlt = "Startup dashboard",
   badgeCard,
@@ -207,7 +207,7 @@ export function HeroStartupLaunchCta({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
             {badge && (
-              <div className={cn("inline-flex w-fit items-center gap-2 rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700", badgeClassName)}>
+              <div className={cn("inline-flex w-fit items-center gap-2 rounded-full bg-success/10 px-4 py-2 text-sm font-medium text-success", badgeClassName)}>
                 {badgeIcon}
                 {typeof badge === "string" ? <span>{badge}</span> : badge}
               </div>

@@ -127,8 +127,8 @@ export interface ServicesListMutedCardsProps {
  * ```
  */
 export function ServicesListMutedCards({
-  heading = "Services",
-  description = "End-to-end digital solutions designed to help your business thrive in the modern marketplace.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

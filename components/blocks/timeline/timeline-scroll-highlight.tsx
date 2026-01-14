@@ -165,14 +165,6 @@ export function TimelineScrollHighlight({
     };
   }, [items?.length]);
 
-  const defaultHeading = (
-    <>
-      <span className="font-medium">From Startup to Global Platform</span>
-      <br />
-      <span className="text-muted-foreground"> Our Journey</span>
-    </>
-  );
-
   if (!items || items.length === 0) {
     return (
       <Section
@@ -186,9 +178,11 @@ export function TimelineScrollHighlight({
         style={style}
       >
         <div className={containerClassName}>
-          <h1 className={cn("max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
-            {heading || defaultHeading}
-          </h1>
+          {heading && (
+            <h1 className={cn("max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+              {heading}
+            </h1>
+          )}
         </div>
       </Section>
     );
@@ -206,9 +200,11 @@ export function TimelineScrollHighlight({
       style={style}
     >
       <div className={containerClassName}>
-        <h1 className={cn("max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
-          {heading || defaultHeading}
-        </h1>
+        {heading && (
+          <h1 className={cn("max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            {heading}
+          </h1>
+        )}
       </div>
       <div className="relative mt-16 lg:mt-28">
         <div className={cn("sticky top-0 z-10 border-y bg-background py-3.5", stickyHeaderClassName)}>

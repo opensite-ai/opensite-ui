@@ -98,8 +98,8 @@ export interface FaqRoundedCardsProps {
 }
 
 export function FaqRoundedCards({
-  heading = "Frequently asked questions",
-  description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
+  heading,
+  description,
   items,
   itemsSlot,
   background = "white",

@@ -19,9 +19,9 @@ describe("HeroNewsletterMinimal", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroNewsletterMinimal />);
-    expect(screen.getByText("Stay ahead of the curve")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroNewsletterMinimal heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroNewsletterMinimal", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroNewsletterMinimal className="custom-class" />);
+    const { container } = render(<HeroNewsletterMinimal heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -70,8 +70,8 @@ export interface HeroPlatformFeaturesGridProps {
 export function HeroPlatformFeaturesGrid({
   logo,
   logoSlot,
-  subtitle = "PLATFORM",
-  heading = "Develop, launch, and grow your service with our platform",
+  subtitle,
+  heading,
   action,
   actionSlot,
   features,

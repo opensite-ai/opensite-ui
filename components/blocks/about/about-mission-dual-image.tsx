@@ -93,10 +93,10 @@ export interface AboutMissionDualImageProps {
 }
 
 export function AboutMissionDualImage({
-  missionTitle = "Our Mission",
-  missionContent = "To democratize software development by providing intuitive tools that empower anyone to build professional applications. We believe that the ability to create software should not be limited to those with technical expertise.",
-  visionTitle = "Our Vision",
-  visionContent = "A world where every idea can become reality. We envision a future where the barrier between imagination and implementation is eliminated, enabling unprecedented innovation and creativity.",
+  missionTitle,
+  missionContent,
+  visionTitle,
+  visionContent,
   primaryImage,
   secondaryImage,
   actions,

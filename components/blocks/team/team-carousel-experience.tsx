@@ -143,9 +143,9 @@ export interface TeamCarouselExperienceProps {
  * ```
  */
 export function TeamCarouselExperience({
-  heading = "Tech Pioneers",
-  headingHighlight = "building the future",
-  description = "We bring together brilliant developers, engineers, and tech innovators to create groundbreaking digital solutions.",
+  heading,
+  headingHighlight,
+  description,
   members,
   membersSlot,
   background = "white",

@@ -19,10 +19,10 @@ describe("FooterAnimatedSocial", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterAnimatedSocial />);
-    expect(screen.getByText("Connect with Me")).toBeInTheDocument();
-    expect(screen.getByText("No commitments. Just a quick chat to see if we click.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterAnimatedSocial heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

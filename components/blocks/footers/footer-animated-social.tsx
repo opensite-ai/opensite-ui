@@ -103,13 +103,13 @@ const itemVariants = {
  * polish and interactivity to their footer.
  */
 export function FooterAnimatedSocial({
-  heading = "Connect with Me",
-  description = "No commitments. Just a quick chat to see if we click.",
-  ctaText = "Get in Touch",
+  heading,
+  description,
+  ctaText,
   ctaUrl = "#",
   socialLinks,
   copyright,
-  attributionText = "AI Website and Automation Platform by Opensite",
+  attributionText,
   attributionHref = "https://opensite.ai",
   className,
   contentClassName,

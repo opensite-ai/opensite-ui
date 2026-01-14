@@ -55,8 +55,14 @@ describe("LogosCertificationsGrid", () => {
     expect(screen.getByAltText("Certification 2")).toBeInTheDocument();
   });
 
-  it("handles empty logos array", () => {
-    render(<LogosCertificationsGrid logos={[]} />);
+  it("handles empty logos array with explicit title", () => {
+    render(
+      <LogosCertificationsGrid
+        title="Our certifications say it all."
+        description="Recognized excellence"
+        logos={[]}
+      />
+    );
     expect(screen.getByText("Our certifications say it all.")).toBeInTheDocument();
   });
 });

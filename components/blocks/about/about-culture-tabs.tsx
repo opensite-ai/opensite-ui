@@ -173,13 +173,13 @@ export interface AboutCultureTabsProps {
  * ```
  */
 export function AboutCultureTabs({
-  badgeText = "Our Culture",
-  heading = "What Makes Us Different",
-  description = "Our culture defines how we work together and the values that guide our decisions. It's what makes our company a special place to work and grow.",
+  badgeText,
+  heading,
+  description,
   aspects,
   aspectsSlot,
-  ctaHeading = "Join Our Team",
-  ctaDescription = "We're always looking for talented individuals who share our values and want to be part of building something meaningful. Explore our open positions and find where you might fit in.",
+  ctaHeading,
+  ctaDescription,
   actions,
   actionsSlot,
   ctaImages,

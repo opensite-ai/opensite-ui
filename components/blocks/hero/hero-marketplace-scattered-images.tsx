@@ -80,11 +80,11 @@ export interface HeroMarketplaceScatteredImagesProps {
 }
 
 export function HeroMarketplaceScatteredImages({
-  heading = "Explore a World of Digital Assets",
-  description = "Discover the future of asset management, tokenization, and liquidity with our comprehensive marketplace.",
+  heading,
+  description,
   action,
   actionSlot,
-  tagline = "Global Partnerships and Innovation",
+  tagline,
   taglineIcon = "lucide/globe",
   taglineSlot,
   images,

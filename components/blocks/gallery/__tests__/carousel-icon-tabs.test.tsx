@@ -31,19 +31,19 @@ describe("CarouselIconTabs", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselIconTabs />);
-    expect(screen.getByText(/Cut the time it takes to close your books/)).toBeInTheDocument();
-    expect(screen.getByText(/Lorem ipsum dolor sit amet/)).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<CarouselIconTabs heading="Test Heading" badge="Test Badge" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<CarouselIconTabs heading="Custom Heading" />);
+    render(<CarouselIconTabs heading="Custom Heading" badge="Test Badge" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {
-    render(<CarouselIconTabs badge="Custom Badge" />);
+    render(<CarouselIconTabs heading="Test Heading" badge="Custom Badge" />);
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
   });
 

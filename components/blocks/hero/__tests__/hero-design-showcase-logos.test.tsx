@@ -24,9 +24,9 @@ describe("HeroDesignShowcaseLogos", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroDesignShowcaseLogos />);
-    expect(screen.getByText("Unveil great design from the real world.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroDesignShowcaseLogos heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -46,7 +46,7 @@ describe("HeroDesignShowcaseLogos", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroDesignShowcaseLogos className="custom-class" />);
+    const { container } = render(<HeroDesignShowcaseLogos heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

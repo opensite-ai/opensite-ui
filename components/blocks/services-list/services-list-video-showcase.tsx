@@ -144,8 +144,8 @@ export interface ServicesListVideoShowcaseProps {
  * ```
  */
 export function ServicesListVideoShowcase({
-  heading = "Our Services",
-  description = "See our services in action. Hover over each card to watch a preview.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

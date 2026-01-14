@@ -33,9 +33,9 @@ describe("HeroTechCarousel", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroTechCarousel />);
-    expect(screen.getByText("Install with one Command")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroTechCarousel heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -57,7 +57,7 @@ describe("HeroTechCarousel", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroTechCarousel className="custom-class" />);
+    const { container } = render(<HeroTechCarousel heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -75,8 +75,8 @@ export interface HeroNewsletterMinimalProps {
 }
 
 export function HeroNewsletterMinimal({
-  heading = "Stay ahead of the curve",
-  description = "Join 50,000+ professionals who get our weekly insights on design, development, and business growth.",
+  heading,
+  description,
   inputPlaceholder = "Enter your email",
   submitAction,
   formSlot,

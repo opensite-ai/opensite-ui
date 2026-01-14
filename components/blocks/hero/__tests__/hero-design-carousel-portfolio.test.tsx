@@ -33,9 +33,9 @@ describe("HeroDesignCarouselPortfolio", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroDesignCarouselPortfolio />);
-    expect(screen.getByText("The All You Can Design buffet to fuel your business growth")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroDesignCarouselPortfolio heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -55,7 +55,7 @@ describe("HeroDesignCarouselPortfolio", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroDesignCarouselPortfolio className="custom-class" />);
+    const { container } = render(<HeroDesignCarouselPortfolio heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

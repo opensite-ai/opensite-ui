@@ -4,7 +4,7 @@ import { FaqMutedCards, type FaqMutedCardsProps } from "../faq-muted-cards";
 
 describe("FaqMutedCards", () => {
 
-  it("renders with custom heading and description", () => {
+  it("renders with provided heading", () => {
     render(
       <FaqMutedCards heading="Custom Heading" />
     );
@@ -33,11 +33,14 @@ describe("FaqMutedCards", () => {
   });
 
   it("renders empty items array", () => {
-    render(<FaqMutedCards items={[]} />);
+    render(
+      <FaqMutedCards
+        heading="Test Heading"
+        items={[]}
+      />
+    );
 
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders multiple items", () => {

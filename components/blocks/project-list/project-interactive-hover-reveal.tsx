@@ -97,8 +97,8 @@ export interface ProjectInteractiveHoverRevealProps {
  * but detailed information should be accessible on demand.
  */
 export function ProjectInteractiveHoverReveal({
-  heading = "Portfolio Highlights",
-  subheading = "Explore a selection of my featured work across various disciplines and industries.",
+  heading,
+  subheading,
   projects,
   projectsSlot,
   optixFlowConfig,

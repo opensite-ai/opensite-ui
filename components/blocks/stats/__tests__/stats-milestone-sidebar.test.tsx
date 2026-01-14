@@ -7,19 +7,15 @@ describe("StatsMilestoneSidebar", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsMilestoneSidebar />);
+  it("renders heading and description", () => {
+    render(
+      <StatsMilestoneSidebar
+        heading="Our Journey"
+        description="A timeline of milestones"
+      />
+    );
     expect(screen.getByText("Our Journey")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsMilestoneSidebar heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsMilestoneSidebar description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
+    expect(screen.getByText("A timeline of milestones")).toBeInTheDocument();
   });
 
   it("renders milestones when provided", () => {
@@ -35,7 +31,13 @@ describe("StatsMilestoneSidebar", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsMilestoneSidebar className="custom-class" />);
+    const { container } = render(
+      <StatsMilestoneSidebar
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

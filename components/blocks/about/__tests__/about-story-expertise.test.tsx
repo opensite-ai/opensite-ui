@@ -43,11 +43,17 @@ describe("AboutStoryExpertise", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutStoryExpertise />);
-    expect(screen.getByText("Our Story")).toBeInTheDocument();
-    expect(screen.getByText("Built on trust, powered by OpenSite AI")).toBeInTheDocument();
-    expect(screen.getByText("Why teams choose OpenSite AI")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutStoryExpertise
+        heading="Test Heading"
+        eyebrow="Test Eyebrow"
+        expertiseHeading="Test Expertise Heading"
+      />
+    );
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Eyebrow")).toBeInTheDocument();
+    expect(screen.getByText("Test Expertise Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

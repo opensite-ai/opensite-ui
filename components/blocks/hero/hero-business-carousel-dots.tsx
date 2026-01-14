@@ -87,10 +87,10 @@ export interface HeroBusinessCarouselDotsProps {
 }
 
 export function HeroBusinessCarouselDots({
-  badge = "Premium",
+  badge,
   badgeVariant = "outline",
-  heading = "Your Ultimate Business Solution.",
-  description = "Transform your business operations with our cutting-edge solutions designed to streamline workflows and boost team efficiency.",
+  heading,
+  description,
   actions,
   actionsSlot,
   carouselImages,

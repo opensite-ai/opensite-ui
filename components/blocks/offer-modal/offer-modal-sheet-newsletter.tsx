@@ -234,8 +234,8 @@ export interface OfferModalSheetNewsletterProps {
 export function OfferModalSheetNewsletter({
   logo,
   logoSlot,
-  title = "Join Now & Enjoy 20% Off",
-  description = "Join our mailing list for updates and offers. You can unsubscribe at any time.",
+  title,
+  description,
   image,
   imageSlot,
   emailPlaceholder = "Email Address",

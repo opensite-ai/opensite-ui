@@ -132,9 +132,9 @@ export interface FeatureCategoryImageCardsProps {
  * ```
  */
 export function FeatureCategoryImageCards({
-  badge = "Exceptional Software",
-  title = "Key Features",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quaerat odit sunt eaque ex, natus vel maxime tenetur odio? Nemo.",
+  badge,
+  title,
+  description,
   features,
   featuresSlot,
   className,

@@ -137,8 +137,8 @@ export interface ServicesListCardsHoverProps {
  * ```
  */
 export function ServicesListCardsHover({
-  heading = "Our Services",
-  description = "Hover over each service to discover what we offer.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

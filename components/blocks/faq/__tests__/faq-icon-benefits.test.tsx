@@ -56,9 +56,16 @@ describe("FaqIconBenefits", () => {
   });
 
   it("renders empty benefits array", () => {
-    render(<FaqIconBenefits benefits={[]} />);
+    render(
+      <FaqIconBenefits
+        heading="Test Heading"
+        description="Test Description"
+        benefits={[]}
+      />
+    );
 
-    expect(screen.getByText("Why choose us?")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders multiple benefits", () => {

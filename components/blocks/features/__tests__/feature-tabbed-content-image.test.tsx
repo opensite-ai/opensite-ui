@@ -23,9 +23,10 @@ describe("FeatureTabbedContentImage", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureTabbedContentImage />);
-    expect(screen.getByText("Building Better Digital Experiences")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureTabbedContentImage title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

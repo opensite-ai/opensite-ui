@@ -27,9 +27,9 @@ describe("HeroAdCampaignExpert", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroAdCampaignExpert />);
-    expect(screen.getByText("my expertise")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroAdCampaignExpert heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -49,7 +49,7 @@ describe("HeroAdCampaignExpert", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroAdCampaignExpert className="custom-class" />);
+    const { container } = render(<HeroAdCampaignExpert heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

@@ -17,10 +17,15 @@ describe("AboutStatsSidebar", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutStatsSidebar />);
-    expect(screen.getByText("Why Choose Us")).toBeInTheDocument();
-    expect(screen.getByText(/We've built a platform that scales with your needs/)).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutStatsSidebar
+        title="Test Title"
+        description="Test Description"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

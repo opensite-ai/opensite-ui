@@ -19,9 +19,9 @@ describe("HeroHiringAnimatedText", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroHiringAnimatedText />);
-    expect(screen.getByText("We help you to hire top")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroHiringAnimatedText headingPrefix="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroHiringAnimatedText", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroHiringAnimatedText className="custom-class" />);
+    const { container } = render(<HeroHiringAnimatedText headingPrefix="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

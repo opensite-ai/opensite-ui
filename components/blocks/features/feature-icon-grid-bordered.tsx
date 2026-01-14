@@ -103,8 +103,8 @@ export interface FeatureIconGridBorderedProps {
  * ```
  */
 export function FeatureIconGridBordered({
-  label = "Why Us?",
-  title = "A better way to build websites",
+  label,
+  title,
   features,
   featuresSlot,
   className,

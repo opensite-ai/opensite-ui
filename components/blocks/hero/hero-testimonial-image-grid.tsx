@@ -117,8 +117,8 @@ export interface HeroTestimonialImageGridProps {
  * and a creative 2x2 image grid. Ideal for showcasing product features or portfolio work.
  */
 export function HeroTestimonialImageGrid({
-  heading = "Blocks built with Opensite AI & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
+  heading,
+  description,
   button = {
     text: "Get Started",
     url: "#",

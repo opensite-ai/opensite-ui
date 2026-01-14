@@ -81,7 +81,7 @@ export interface ProjectShowcaseAlternatingProps {
  * important.
  */
 export function ProjectShowcaseAlternating({
-  heading = "PROJECT SHOWCASE",
+  heading,
   projects,
   projectsSlot,
   optixFlowConfig,

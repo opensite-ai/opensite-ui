@@ -151,8 +151,8 @@ export interface CaseStudiesTestimonialStatsProps {
  * ```
  */
 export function CaseStudiesTestimonialStats({
-  heading = "4500+ Satisfied Customers",
-  subheading = "Real results from real users",
+  heading,
+  subheading,
   testimonials,
   testimonialsSlot,
   className,

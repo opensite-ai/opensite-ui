@@ -38,8 +38,13 @@ describe("LogosCarouselHeading", () => {
     expect(screen.getByAltText("Custom Logo 2")).toBeInTheDocument();
   });
 
-  it("handles empty logos array", () => {
-    render(<LogosCarouselHeading logos={[]} />);
+  it("handles empty logos array with explicit heading", () => {
+    render(
+      <LogosCarouselHeading
+        heading="Trusted by these companies"
+        logos={[]}
+      />
+    );
     expect(screen.getByText("Trusted by these companies")).toBeInTheDocument();
   });
 });

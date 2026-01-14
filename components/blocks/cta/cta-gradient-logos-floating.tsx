@@ -133,9 +133,9 @@ export interface CtaGradientLogosFloatingProps {
  * ```
  */
 export function CtaGradientLogosFloating({
-  heading = "Build faster with",
-  headingGradient = "modern tools",
-  description = "Join thousands of developers building amazing products. Get started today and ship faster than ever.",
+  heading,
+  headingGradient,
+  description,
   actions,
   actionsSlot,
   leftLogos,

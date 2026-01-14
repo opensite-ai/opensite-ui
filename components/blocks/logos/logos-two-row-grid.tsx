@@ -92,7 +92,7 @@ export interface LogosTwoRowGridProps {
  */
 export function LogosTwoRowGrid({
   className,
-  heading = "Trusted by leading companies worldwide",
+  heading,
   headingClassName,
   companies,
   companiesSlot,

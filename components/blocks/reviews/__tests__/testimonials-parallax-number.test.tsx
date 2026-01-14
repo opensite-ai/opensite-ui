@@ -44,10 +44,13 @@ describe("TestimonialsParallaxNumber", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<TestimonialsParallaxNumber />);
-    expect(screen.getByText("Transformed")).toBeInTheDocument();
-    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  it("renders with explicit testimonials", () => {
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    render(<TestimonialsParallaxNumber testimonials={testimonials} />);
+    expect(screen.getByText("Test")).toBeInTheDocument();
+    expect(screen.getByText("Test Author")).toBeInTheDocument();
   });
 
   it("renders custom testimonials", () => {
@@ -60,12 +63,18 @@ describe("TestimonialsParallaxNumber", () => {
   });
 
   it("renders author role", () => {
-    render(<TestimonialsParallaxNumber />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Design Director", company: "Test Company" },
+    ];
+    render(<TestimonialsParallaxNumber testimonials={testimonials} />);
     expect(screen.getByText("Design Director")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<TestimonialsParallaxNumber className="custom-class" />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    const { container } = render(<TestimonialsParallaxNumber testimonials={testimonials} className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

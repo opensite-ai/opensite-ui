@@ -131,9 +131,9 @@ export interface LogosDoubleCarouselPatternProps {
  */
 export function LogosDoubleCarouselPattern({
   className,
-  title = "Trusted by industry leaders worldwide",
+  title,
   titleClassName,
-  description = "Join thousands of companies that rely on our platform to power their business operations and drive sustainable growth.",
+  description,
   descriptionClassName,
   headerClassName,
   actions,

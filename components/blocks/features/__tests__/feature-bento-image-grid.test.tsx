@@ -23,10 +23,10 @@ describe("FeatureBentoImageGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureBentoImageGrid />);
-    expect(screen.getByText("Dynamic Layouts")).toBeInTheDocument();
-    expect(screen.getByText("Adapt the box to suit any purpose")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureBentoImageGrid title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

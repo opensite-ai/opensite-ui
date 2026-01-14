@@ -138,8 +138,8 @@ export interface ServicesListCategoryAccordionProps {
  * ```
  */
 export function ServicesListCategoryAccordion({
-  heading = "Our Services",
-  description = "Explore our comprehensive range of digital services. Click on any service to learn more.",
+  heading,
+  description,
   services,
   servicesSlot,
   defaultValue,

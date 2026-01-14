@@ -169,8 +169,8 @@ export interface CarouselIconTabsProps {
  * ```
  */
 export function CarouselIconTabs({
-  heading = "Cut the time it takes to close your books",
-  badge = "Lorem ipsum dolor sit amet consectetur.",
+  heading,
+  badge,
   sections,
   sectionsSlot,
   headerSlot,

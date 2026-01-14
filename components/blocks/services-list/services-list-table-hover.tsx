@@ -132,8 +132,8 @@ export interface ServicesListTableHoverProps {
  * ```
  */
 export function ServicesListTableHover({
-  heading = "Our Services",
-  description = "Hover over any service to see a preview. Click to learn more.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

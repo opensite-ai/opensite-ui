@@ -44,8 +44,13 @@ describe("BlogMasonryFeatured", () => {
   });
 
   it("handles empty posts array", () => {
-    render(<BlogMasonryFeatured posts={[]} />);
-    expect(screen.getByText("Latest Tech Blog")).toBeInTheDocument();
+    render(
+      <BlogMasonryFeatured
+        heading="Test Heading"
+        posts={[]}
+      />
+    );
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 });
 

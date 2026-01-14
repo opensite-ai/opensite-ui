@@ -112,10 +112,10 @@ export interface FaqBorderedBadgeProps {
 }
 
 export function FaqBorderedBadge({
-  badge = "FAQ",
+  badge,
   badgeIcon = "lucide/circle-help",
-  heading = "Frequently asked questions",
-  description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
+  heading,
+  description,
   items,
   itemsSlot,
   background = "white",

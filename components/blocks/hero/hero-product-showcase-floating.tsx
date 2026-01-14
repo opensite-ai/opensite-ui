@@ -126,11 +126,11 @@ export interface HeroProductShowcaseFloatingProps {
 }
 
 export function HeroProductShowcaseFloating({
-  badgeText = "Launch faster",
-  badgeIcon = "lucide/rocket",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "Ship products your customers will love",
-  description = "From idea to launch in record time. Our platform gives you everything you need to build, test, and deploy amazing products.",
+  heading,
+  description,
   actions,
   actionsSlot,
   productImage,
@@ -195,11 +195,11 @@ export function HeroProductShowcaseFloating({
       <div className="absolute -top-4 -right-4 rounded-xl bg-background p-4 shadow-lg">
         <div className="flex items-center gap-2">
           {floatingStat.icon && (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-success/10">
               <DynamicIcon
                 name={floatingStat.icon}
                 size={20}
-                className="text-green-600"
+                className="text-success"
               />
             </div>
           )}

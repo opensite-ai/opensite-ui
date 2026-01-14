@@ -269,8 +269,8 @@ function BreadcrumbBlog({ breadcrumb }: BreadcrumbBlogProps) {
 }
 
 export function BlogFilteredResults({
-  heading = "Best Blog Articles",
-  description = "The best blog is one that captivates readers with engaging, well-researched content presented in a clear and relatable way.",
+  heading,
+  description,
   allBlogsHeading = "All Blogs",
   breadcrumb,
   breadcrumbSlot,

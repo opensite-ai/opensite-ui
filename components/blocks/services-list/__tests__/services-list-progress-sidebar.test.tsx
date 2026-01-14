@@ -29,8 +29,13 @@ describe("ServicesListProgressSidebar", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<ServicesListProgressSidebar />);
+  it("renders with explicit sidebar content", () => {
+    render(
+      <ServicesListProgressSidebar
+        sidebarHeading="Our Creative Process"
+        sidebarDescription="We follow a proven methodology"
+      />
+    );
     expect(screen.getByText("Our Creative Process")).toBeInTheDocument();
     expect(screen.getByText(/We follow a proven methodology/)).toBeInTheDocument();
   });
@@ -63,7 +68,12 @@ describe("ServicesListProgressSidebar", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ServicesListProgressSidebar className="custom-class" />);
+    const { container } = render(
+      <ServicesListProgressSidebar
+        className="custom-class"
+        sidebarHeading="Test Heading"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

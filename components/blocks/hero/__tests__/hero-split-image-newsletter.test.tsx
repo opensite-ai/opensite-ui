@@ -23,9 +23,9 @@ describe("HeroSplitImageNewsletter", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroSplitImageNewsletter />);
-    expect(screen.getByText("Discover the future of design")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroSplitImageNewsletter heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroSplitImageNewsletter", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroSplitImageNewsletter className="custom-class" />);
+    const { container } = render(<HeroSplitImageNewsletter heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

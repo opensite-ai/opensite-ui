@@ -43,11 +43,17 @@ describe("AboutNetworkSpotlight", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutNetworkSpotlight />);
-    expect(screen.getByText("Partner Network")).toBeInTheDocument();
-    expect(screen.getByText("Join the OpenSite AI Partner Network")).toBeInTheDocument();
-    expect(screen.getByText(/A curated community of independent advisors/)).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutNetworkSpotlight
+        eyebrow="Test Eyebrow"
+        heading="Test Heading"
+        description="Test Description"
+      />
+    );
+    expect(screen.getByText("Test Eyebrow")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

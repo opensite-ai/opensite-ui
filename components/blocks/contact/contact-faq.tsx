@@ -120,10 +120,10 @@ export interface ContactFaqProps {
  * ```
  */
 export function ContactFaq({
-  heading = "Frequently Asked Questions",
-  description = "Find answers to common questions below. If you can't find what you're looking for, we're here to help.",
-  formHeading = "Still need help?",
-  buttonText = "Send Question",
+  heading,
+  description,
+  formHeading,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

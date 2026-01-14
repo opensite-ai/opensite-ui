@@ -127,7 +127,7 @@ export interface FeatureCardGridLinkedProps {
  * ```
  */
 export function FeatureCardGridLinked({
-  title = "A collection of extra blocks for Opensite AI & Tailwind",
+  title,
   features,
   featuresSlot,
   className,

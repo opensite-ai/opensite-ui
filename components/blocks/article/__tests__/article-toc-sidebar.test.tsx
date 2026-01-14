@@ -54,14 +54,14 @@ describe("ArticleTocSidebar", () => {
   });
 
   it("renders table of contents sections", () => {
-    render(<ArticleTocSidebar sections={mockSections} />);
+    render(<ArticleTocSidebar title="Test Tutorial" sections={mockSections} />);
     expect(screen.getByText("Table of Contents")).toBeInTheDocument();
     expect(screen.getByText("Setup")).toBeInTheDocument();
     expect(screen.getByText("Usage")).toBeInTheDocument();
   });
 
   it("renders with empty sections array", () => {
-    const { container } = render(<ArticleTocSidebar sections={[]} />);
+    const { container } = render(<ArticleTocSidebar title="Test Tutorial" sections={[]} />);
     expect(container.firstChild).toBeInTheDocument();
   });
 });

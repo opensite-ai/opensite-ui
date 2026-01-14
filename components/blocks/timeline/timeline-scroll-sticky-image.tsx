@@ -104,7 +104,7 @@ export interface TimelineScrollStickyImageProps {
 }
 
 export function TimelineScrollStickyImage({
-  heading = "Transform your workflow with our solution",
+  heading,
   sections,
   className,
   containerClassName,

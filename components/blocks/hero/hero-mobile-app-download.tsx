@@ -138,11 +138,11 @@ export interface HeroMobileAppDownloadProps {
 }
 
 export function HeroMobileAppDownload({
-  badgeText = "Mobile App",
-  badgeIcon = "lucide/smartphone",
+  badgeText,
+  badgeIcon,
   badgeSlot,
-  heading = "Your pocket companion for productivity",
-  description = "Take your work anywhere with our powerful mobile app. Stay connected, collaborate on the go, and never miss an update.",
+  heading,
+  description,
   storeActions,
   storeActionsSlot,
   ratingValue = "4.9",
@@ -165,8 +165,8 @@ export function HeroMobileAppDownload({
     if (badgeSlot) return badgeSlot;
 
     return (
-      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-violet-100 px-4 py-2 text-sm font-medium text-violet-700">
-        <DynamicIcon name={badgeIcon} size={16} />
+      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground">
+        {badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
         <span>{badgeText}</span>
       </div>
     );
@@ -206,7 +206,7 @@ export function HeroMobileAppDownload({
       <div className="flex items-center gap-4 pt-4">
         <div className="flex items-center gap-1">
           {[...Array(starCount)].map((_, i) => (
-            <DynamicIcon key={i} name="lucide/star" size={16} className="fill-yellow-400 text-yellow-400" />
+            <DynamicIcon key={i} name="lucide/star" size={16} className="fill-primary text-primary" />
           ))}
         </div>
         <span className="text-sm text-muted-foreground">

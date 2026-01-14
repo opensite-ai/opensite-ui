@@ -19,10 +19,10 @@ describe("FooterCtaSocial", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterCtaSocial />);
-    expect(screen.getByText("Let's connect")).toBeInTheDocument();
-    expect(screen.getByText("You want to scale faster? Try Opensite today.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterCtaSocial preHeading="Test Pre-heading" heading="Test Heading" />);
+    expect(screen.getByText("Test Pre-heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom pre-heading", () => {

@@ -40,15 +40,15 @@ export interface PricingSplitLayoutProps {
  */
 export function PricingSplitLayout({
   className,
-  title = "Start Building Today",
-  subtitle = "Simple, transparent pricing",
-  description = "Get access to all the tools you need to build, launch, and scale your product. No hidden fees, no surprises.",
-  price = "$49",
-  priceDescription = "/month",
+  title,
+  subtitle,
+  description,
+  price,
+  priceDescription,
   features,
-  buttonText = "Get Started",
+  buttonText,
   buttonHref = "#",
-  secondaryButtonText = "Learn More",
+  secondaryButtonText,
   secondaryButtonHref = "#",
 }: PricingSplitLayoutProps) {
   return (

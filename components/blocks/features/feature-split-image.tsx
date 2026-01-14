@@ -96,8 +96,8 @@ export interface FeatureSplitImageProps {
  * ```
  */
 export function FeatureSplitImage({
-  title = "Build faster with Opensite AI components",
-  description = "Hundreds of finely crafted components built with React, Tailwind and modern best practices. Developers can copy and paste these blocks directly into their project.",
+  title,
+  description,
   imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   imageAlt = "Feature illustration",
   imageSlot,

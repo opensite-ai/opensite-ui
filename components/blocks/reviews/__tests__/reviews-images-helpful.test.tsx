@@ -57,10 +57,10 @@ describe("ReviewsImagesHelpful", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<ReviewsImagesHelpful />);
-    expect(screen.getByText("Customer Reviews")).toBeInTheDocument();
-    expect(screen.getByText("Absolutely stunning quality")).toBeInTheDocument();
+  it("renders with explicit heading", () => {
+    render(<ReviewsImagesHelpful heading="Test Reviews" />);
+    expect(screen.getByText("Test Reviews")).toBeInTheDocument();
+    expect(screen.getByText("Write a Review")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -69,18 +69,12 @@ describe("ReviewsImagesHelpful", () => {
   });
 
   it("renders write review button", () => {
-    render(<ReviewsImagesHelpful />);
+    render(<ReviewsImagesHelpful heading="Test Reviews" />);
     expect(screen.getByText("Write a Review")).toBeInTheDocument();
   });
 
-  it("renders review content", () => {
-    render(<ReviewsImagesHelpful />);
-    expect(screen.getByText("Sarah M.")).toBeInTheDocument();
-    expect(screen.getByText(/The craftsmanship on this is incredible/)).toBeInTheDocument();
-  });
-
   it("applies custom className", () => {
-    const { container } = render(<ReviewsImagesHelpful className="custom-class" />);
+    const { container } = render(<ReviewsImagesHelpful heading="Test Reviews" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

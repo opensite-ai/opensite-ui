@@ -133,8 +133,8 @@ export interface StatsMilestoneSidebarProps {
  * ```
  */
 export function StatsMilestoneSidebar({
-  heading = "Our Journey",
-  description = "From a small startup to an industry leader, here are the key moments that shaped our company.",
+  heading,
+  description,
   sidebarSlot,
   milestones,
   milestonesSlot,

@@ -115,8 +115,8 @@ export interface FaqSplitHelpProps {
 }
 
 export function FaqSplitHelp({
-  heading = "Frequently asked questions",
-  description = "Find answers to common questions about our products. Can't find what you're looking for? Contact our support team.",
+  heading,
+  description,
   items,
   itemsSlot,
   helpHeading = "Still have questions?",

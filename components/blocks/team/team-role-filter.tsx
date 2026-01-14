@@ -163,8 +163,8 @@ export interface TeamRoleFilterProps {
  * ```
  */
 export function TeamRoleFilter({
-  heading = "Our team",
-  description = "The people behind the scenes",
+  heading,
+  description,
   members,
   membersSlot,
   roles,

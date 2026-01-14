@@ -46,9 +46,9 @@ export interface HeroSpiralPatternCardsProps {
 }
 
 export function HeroSpiralPatternCards({
-  badgeText = "New Release",
-  heading = "Welcome to Our Website",
-  description = "Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur.",
+  badgeText,
+  heading,
+  description,
   actions,
   actionsSlot,
   className,

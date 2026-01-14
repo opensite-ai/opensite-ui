@@ -24,9 +24,9 @@ describe("HeroFullscreenLogoCta", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroFullscreenLogoCta />);
-    expect(screen.getByText("Create your own fiber optics facility")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroFullscreenLogoCta heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -53,7 +53,7 @@ describe("HeroFullscreenLogoCta", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroFullscreenLogoCta className="custom-class" />);
+    const { container } = render(<HeroFullscreenLogoCta heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

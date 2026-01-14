@@ -208,8 +208,8 @@ const ProcessCard = ({ step, index, setActive, itemClassName }: ProcessCardProps
  * ProcessScrollImage - A process section with scroll-triggered image transitions.
  */
 export function ProcessScrollImage({
-  heading = "Our Process",
-  description = "We follow a proven methodology to deliver exceptional results for every project we undertake.",
+  heading,
+  description,
   actions,
   actionsSlot,
   steps,

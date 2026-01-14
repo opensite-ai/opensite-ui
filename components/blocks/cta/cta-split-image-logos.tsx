@@ -133,15 +133,15 @@ export interface CtaSplitImageLogosProps {
  * ```
  */
 export function CtaSplitImageLogos({
-  heading = "Build your website faster",
-  description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
+  heading,
+  description,
   actions,
   actionsSlot,
   imageSrc = imagePlaceholders[2],
-  imageAlt = "Featured image",
+  imageAlt,
   logos,
   logosSlot,
-  logosLabel = "Trusted by leading companies",
+  logosLabel,
   className,
   containerClassName,
   gridClassName,

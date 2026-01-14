@@ -177,10 +177,10 @@ export interface StatsTimelineTabsProps {
  * ```
  */
 export function StatsTimelineTabs({
-  badge = "Performance Timeline",
+  badge,
   badgeSlot,
-  heading = "Growth Progression",
-  description = "Track our key metrics over different time periods to see our consistent growth and improvements",
+  heading,
+  description,
   periods,
   tabsSlot,
   defaultPeriod = "monthly",

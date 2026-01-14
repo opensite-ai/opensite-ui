@@ -25,10 +25,10 @@ describe("CtaBackgroundIconBadge", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaBackgroundIconBadge />);
-    expect(screen.getByText("Build your website faster.")).toBeInTheDocument();
-    expect(screen.getByText("Faster")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaBackgroundIconBadge heading="Test Heading" badgeText="Test Badge" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

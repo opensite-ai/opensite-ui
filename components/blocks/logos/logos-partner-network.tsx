@@ -117,11 +117,11 @@ export interface LogosPartnerNetworkProps {
  */
 export function LogosPartnerNetwork({
   className,
-  badge = "Partner Network",
+  badge,
   badgeClassName,
-  title = "Trusted by industry leaders",
+  title,
   titleClassName,
-  description = "Join thousands of companies that trust our platform to power their business operations and drive growth.",
+  description,
   descriptionClassName,
   headerClassName,
   actions,

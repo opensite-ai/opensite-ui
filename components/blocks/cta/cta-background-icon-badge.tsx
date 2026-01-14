@@ -108,10 +108,10 @@ export interface CtaBackgroundIconBadgeProps {
  * ```
  */
 export function CtaBackgroundIconBadge({
-  badgeIconName = "lucide/zap",
+  badgeIconName,
   badgeIcon,
-  badgeText = "Faster",
-  heading = "Build your website faster.",
+  badgeText,
+  heading,
   actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[5],
@@ -196,13 +196,13 @@ export function CtaBackgroundIconBadge({
                 badgeClassName
               )}
             >
-              {badgeIcon ?? (
+              {badgeIcon ?? (badgeIconName && (
                 <DynamicIcon
                   name={badgeIconName}
                   size={28}
                   className="h-full"
                 />
-              )}
+              ))}
               {badgeText}
             </div>
             <h2 className={cn("text-5xl font-bold", headingClassName)}>

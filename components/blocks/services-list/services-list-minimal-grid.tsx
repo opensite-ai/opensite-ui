@@ -133,8 +133,8 @@ export interface ServicesListMinimalGridProps {
  * ```
  */
 export function ServicesListMinimalGrid({
-  heading = "Our Services",
-  description = "Comprehensive digital solutions to help your business succeed.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

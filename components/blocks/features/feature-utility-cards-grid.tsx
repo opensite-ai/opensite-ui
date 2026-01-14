@@ -144,11 +144,11 @@ export interface FeatureUtilityCardsGridProps {
  * ```
  */
 export function FeatureUtilityCardsGrid({
-  label = "Utilities",
+  label,
   labelIcon,
   labelIconName = "lucide/square-dashed-mouse-pointer",
-  title = "What you can do with our utilities?",
-  description = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae praesent, ad ullam quis cupiditate atque maxime alias eaque repellendus perferendis, nemo repudiandae.",
+  title,
+  description,
   learnMoreAction,
   learnMoreSlot,
   utilities,

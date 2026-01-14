@@ -139,9 +139,9 @@ export interface ContactEmergencyProps {
  * ```
  */
 export function ContactEmergency({
-  heading = "Urgent Support",
-  description = "Need immediate help? Select your priority level below.",
-  buttonText = "Submit Request",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

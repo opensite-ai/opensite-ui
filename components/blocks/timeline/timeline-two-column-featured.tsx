@@ -120,8 +120,8 @@ export interface TimelineTwoColumnFeaturedProps {
 }
 
 export function TimelineTwoColumnFeatured({
-  heading = "Experience the difference with us",
-  description = "We believe in creating lasting partnerships with our clients, focusing on long-term success through collaborative innovation and dedicated support.",
+  heading,
+  description,
   primaryAction,
   secondaryAction,
   actionsSlot,

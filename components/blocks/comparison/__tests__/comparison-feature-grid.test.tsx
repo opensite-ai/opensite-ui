@@ -48,10 +48,10 @@ describe("ComparisonFeatureGrid", () => {
     expect(screen.getByText("Custom description")).toBeInTheDocument();
   });
 
-  it("renders empty features array", () => {
-    render(<ComparisonFeatureGrid features={[]} />);
+  it("renders with empty features array", () => {
+    render(<ComparisonFeatureGrid heading="Test Heading" description="Test description" features={[]} />);
 
-    expect(screen.getByText("Compare Us")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders features with partial values", () => {

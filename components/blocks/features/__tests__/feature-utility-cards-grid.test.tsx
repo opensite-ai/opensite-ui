@@ -13,10 +13,11 @@ describe("FeatureUtilityCardsGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureUtilityCardsGrid />);
-    expect(screen.getByText("Utilities")).toBeInTheDocument();
-    expect(screen.getByText("What you can do with our utilities?")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureUtilityCardsGrid label="Test Label" title="Test Title" description="Test Description" />);
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom label", () => {

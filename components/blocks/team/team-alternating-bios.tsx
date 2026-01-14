@@ -154,8 +154,8 @@ export interface TeamAlternatingBiosProps {
  * ```
  */
 export function TeamAlternatingBios({
-  heading = "Leadership team",
-  description = "Meet the people shaping our future",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",

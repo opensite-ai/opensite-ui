@@ -23,11 +23,17 @@ describe("AboutStoryHero", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutStoryHero />);
-    expect(screen.getByText("Our Story")).toBeInTheDocument();
-    expect(screen.getByText("Building the future, one line of code at a time")).toBeInTheDocument();
-    expect(screen.getByText(/We started with a bold idea/)).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutStoryHero
+        title="Test Title"
+        subtitle="Test Subtitle"
+        content="Test Content"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Subtitle")).toBeInTheDocument();
+    expect(screen.getByText("Test Content")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

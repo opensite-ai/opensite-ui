@@ -280,7 +280,7 @@ export function ResourceDetailDocumentSidebar({
   breadcrumbs,
   breadcrumbsSlot,
   breadcrumbsClassName,
-  title = "Professional Service Agreement",
+  title,
   titleClassName,
   article,
   articleSlot,

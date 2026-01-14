@@ -63,9 +63,9 @@ export interface HeroCustomerSupportLayeredProps {
 }
 
 export function HeroCustomerSupportLayered({
-  tagline = "Customer Support",
-  heading = <>Change<br />their life</>,
-  description = "Customer challenges and team missteps can cause chaos. Simplify delivering exceptional support with a platform designed for customer-focused teams like yours.",
+  tagline,
+  heading,
+  description,
   images,
   imagesSlot,
   className,

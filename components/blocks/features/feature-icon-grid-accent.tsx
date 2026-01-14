@@ -112,9 +112,9 @@ export interface FeatureIconGridAccentProps {
  * ```
  */
 export function FeatureIconGridAccent({
-  label = "WHY WE ARE UNIQUE",
-  title = "Bringing the best to you by the best in the industry",
-  description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi necessitatibus, culpa at vitae molestias tenetur explicabo. Voluptatum amet architecto suscipit pariatur eligendi repellendus mollitia dolore unde sint?",
+  label,
+  title,
+  description,
   features,
   featuresSlot,
   className,

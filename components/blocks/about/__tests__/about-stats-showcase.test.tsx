@@ -17,11 +17,17 @@ describe("AboutStatsShowcase", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutStatsShowcase />);
-    expect(screen.getByText("Our Background")).toBeInTheDocument();
-    expect(screen.getByText(/Discover how our solution simplifies/)).toBeInTheDocument();
-    expect(screen.getByText(/We excel in our field/)).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutStatsShowcase
+        title="Test Title"
+        description="Test Description"
+        statsTitle="Test Stats Title"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
+    expect(screen.getByText("Test Stats Title")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

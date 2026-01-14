@@ -191,8 +191,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * from a cinematic, browsable presentation.
  */
 export function ProjectVideoCarousel({
-  heading = "Explore Our Projects",
-  subheading = "Our Work",
+  heading,
+  subheading,
   videoSections,
   videoSectionsSlot,
   optixFlowConfig,

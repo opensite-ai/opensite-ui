@@ -199,9 +199,9 @@ export interface FeatureIconTabsContentProps {
  * ```
  */
 export function FeatureIconTabsContent({
-  badge = "Opensite AI",
-  heading = "A Collection of Components Built With Opensite AI & Tailwind",
-  description = "Join us to build flawless web solutions.",
+  badge,
+  heading,
+  description,
   tabs,
   tabsSlot,
   defaultTab,

@@ -169,8 +169,8 @@ const DEFAULT_TESTIMONIALS: BentoTestimonialItem[] = [
 export function TestimonialsBentoGrid({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "Loved by Teams Everywhere",
-  description = "See what our customers have to say about their experience",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

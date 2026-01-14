@@ -19,10 +19,10 @@ describe("FooterSocialApps", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterSocialApps />);
-    expect(screen.getByText("Follow Us")).toBeInTheDocument();
-    expect(screen.getByText("Mobile App")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterSocialApps socialLabel="Test Social Label" appLabel="Test App Label" />);
+    expect(screen.getByText("Test Social Label")).toBeInTheDocument();
+    expect(screen.getByText("Test App Label")).toBeInTheDocument();
   });
 
   it("renders custom social label", () => {

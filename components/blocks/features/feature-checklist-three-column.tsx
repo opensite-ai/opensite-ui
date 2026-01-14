@@ -174,7 +174,7 @@ export interface FeatureChecklistThreeColumnProps {
  * ```
  */
 export function FeatureChecklistThreeColumn({
-  title = "Build any kind of Website with our Blocks",
+  title,
   checklistColumn1,
   checklistColumn1Slot,
   checklistColumn2,

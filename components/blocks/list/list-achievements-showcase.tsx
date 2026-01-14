@@ -136,7 +136,7 @@ export interface ListAchievementsShowcaseProps {
  * ```
  */
 export function ListAchievementsShowcase({
-  heading = "Our Achievements & Recognition",
+  heading,
   headingClassName,
   items,
   itemsSlot,

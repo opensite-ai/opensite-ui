@@ -138,8 +138,8 @@ export interface ProcessNumberedServicesProps {
  * ProcessNumberedServices - A numbered services section with capabilities grid.
  */
 export function ProcessNumberedServices({
-  heading = "Our Services",
-  description = "Comprehensive solutions to help you succeed in the digital landscape.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

@@ -78,7 +78,7 @@ export interface BannerPromoCtaProps {
  * ```
  */
 export function BannerPromoCta({
-  message = "Winter Sale",
+  message,
   discount = "Up to 50% off",
   separator,
   actions,

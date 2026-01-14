@@ -162,7 +162,7 @@ export interface CarouselSidebarResourcesProps {
  * ```
  */
 export function CarouselSidebarResources({
-  heading = "Start building with our template collection",
+  heading,
   resources,
   resourcesSlot,
   sidebarSlot,

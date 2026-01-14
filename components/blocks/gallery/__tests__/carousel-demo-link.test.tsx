@@ -31,9 +31,9 @@ describe("CarouselDemoLink", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CarouselDemoLink />);
-    expect(screen.getByText("Gallery")).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<CarouselDemoLink heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

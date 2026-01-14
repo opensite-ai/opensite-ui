@@ -168,7 +168,7 @@ export interface OfferModalNewsletterDiscountProps {
  * ```
  */
 export function OfferModalNewsletterDiscount({
-  title = "Join our newsletter and enjoy 35% off your first order",
+  title,
   emailPlaceholder = "Email",
   buttonText = "Subscribe",
   closeButtonText = "Close",

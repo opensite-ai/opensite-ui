@@ -91,8 +91,8 @@ export interface BannerCountdownSaleProps {
  */
 export function BannerCountdownSale({
   endTime,
-  message = "Flash Sale Ends In",
-  description = "Up to 50% off on selected items",
+  message,
+  description,
   timerSlot,
   renderTimer,
   className,
@@ -149,15 +149,15 @@ export function BannerCountdownSale({
 
     return (
       <div className={cn("flex items-center gap-1 font-mono text-lg font-bold", timerClassName)}>
-        <span className={cn("rounded bg-red-700 px-2 py-0.5", timeUnitClassName)}>
+        <span className={cn("rounded bg-destructive px-2 py-0.5", timeUnitClassName)}>
           {pad(timeLeft.hours)}
         </span>
         <span className={separatorClassName}>:</span>
-        <span className={cn("rounded bg-red-700 px-2 py-0.5", timeUnitClassName)}>
+        <span className={cn("rounded bg-destructive px-2 py-0.5", timeUnitClassName)}>
           {pad(timeLeft.minutes)}
         </span>
         <span className={separatorClassName}>:</span>
-        <span className={cn("rounded bg-red-700 px-2 py-0.5", timeUnitClassName)}>
+        <span className={cn("rounded bg-destructive px-2 py-0.5", timeUnitClassName)}>
           {pad(timeLeft.seconds)}
         </span>
       </div>
@@ -165,7 +165,7 @@ export function BannerCountdownSale({
   };
 
   return (
-    <div className={cn("w-full bg-red-600 text-white", className)}>
+    <div className={cn("w-full bg-destructive text-white", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm", contentClassName)}>
           {message && (
@@ -178,7 +178,7 @@ export function BannerCountdownSale({
           {renderDefaultTimer()}
           {description && (
             typeof description === "string" ? (
-              <span className={cn("text-red-100", descriptionClassName)}>{description}</span>
+              <span className={cn("text-destructive-foreground", descriptionClassName)}>{description}</span>
             ) : (
               <div className={descriptionClassName}>{description}</div>
             )

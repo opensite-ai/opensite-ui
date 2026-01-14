@@ -123,9 +123,9 @@ export interface AboutNetworkSpotlightProps {
  * Ideal for partner programs, network invitations, or alliance highlights.
  */
 export function AboutNetworkSpotlight({
-  eyebrow = "Partner Network",
-  heading = "Join the OpenSite AI Partner Network",
-  description = "A curated community of independent advisors and agencies that share resources, intelligence, and proven coverage playbooks.",
+  eyebrow,
+  heading,
+  description,
   highlights,
   highlightsSlot,
   actions,

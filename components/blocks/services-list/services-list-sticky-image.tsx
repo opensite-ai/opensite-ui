@@ -140,8 +140,8 @@ export interface ServicesListStickyImageProps {
  * ```
  */
 export function ServicesListStickyImage({
-  heading = "Our Services",
-  description = "Comprehensive digital solutions tailored to your business needs.",
+  heading,
+  description,
   services,
   servicesSlot,
   className,

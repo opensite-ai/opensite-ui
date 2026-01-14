@@ -208,8 +208,8 @@ export interface PricingAddonsCardsProps {
  * ```
  */
 export function PricingAddonsCards({
-  heading = "Power-ups",
-  subtitle = "Add extra features to enhance your experience",
+  heading,
+  subtitle,
   addons,
   addonsSlot,
   featureIcon,

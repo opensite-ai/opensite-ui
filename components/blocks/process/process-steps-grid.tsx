@@ -116,8 +116,8 @@ export interface ProcessStepsGridProps {
  * ProcessStepsGrid - A grid-based process section with numbered step cards.
  */
 export function ProcessStepsGrid({
-  heading = "Our Process",
-  description = "A systematic approach to delivering exceptional results through careful planning and execution.",
+  heading,
+  description,
   steps,
   stepsSlot,
   className,

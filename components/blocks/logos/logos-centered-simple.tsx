@@ -95,9 +95,9 @@ export interface LogosCenteredSimpleProps {
  */
 export function LogosCenteredSimple({
   className,
-  title = "Trusted by innovative companies",
+  title,
   titleClassName,
-  subtitle = "Join thousands of businesses that rely on our platform",
+  subtitle,
   subtitleClassName,
   headerClassName,
   logos,

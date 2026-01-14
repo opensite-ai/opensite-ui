@@ -102,9 +102,9 @@ export interface HeroSplitIconCardsProps {
  * an explanatory hero plus quick benefit callouts.
  */
 export function HeroSplitIconCards({
-  eyebrow = "OpenSite AI Services",
-  heading = "A hero layout built to clarify your next steps",
-  description = "Combine a strong narrative with scannable callouts so visitors can understand your value in seconds.",
+  eyebrow,
+  heading,
+  description,
   primaryCta = { label: "Get Started", href: "/get-started" },
   secondaryCta = { label: "Talk to an Advisor", href: "/contact" },
   actionsSlot,

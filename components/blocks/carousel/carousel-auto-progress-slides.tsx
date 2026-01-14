@@ -132,9 +132,9 @@ const variants: Variants = {
 };
 
 export function CarouselAutoProgressSlides({
-  heading = "UI for future",
-  subheading = "Collection of unusual UI components",
-  slideLabel = "Available with our platform",
+  heading,
+  subheading,
+  slideLabel,
   items,
   slidesSlot,
   autoAdvanceInterval = 50,

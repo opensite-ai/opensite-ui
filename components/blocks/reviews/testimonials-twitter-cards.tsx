@@ -187,8 +187,8 @@ const DEFAULT_TESTIMONIALS: TwitterTestimonialItem[] = [
 export function TestimonialsTwitterCards({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  heading = "What People Are Saying",
-  description = "Real feedback from our community",
+  heading,
+  description,
   className,
   headerClassName,
   headingClassName,

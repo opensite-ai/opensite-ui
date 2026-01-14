@@ -38,9 +38,15 @@ describe("BlogFilteredResults", () => {
   });
 
   it("handles empty posts array", () => {
-    render(<BlogFilteredResults posts={[]} />);
-    expect(screen.getByText("Best Blog Articles")).toBeInTheDocument();
-    expect(screen.getByText("All Blogs")).toBeInTheDocument();
+    render(
+      <BlogFilteredResults
+        heading="Test Heading"
+        description="Test Description"
+        posts={[]}
+      />
+    );
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 });
 

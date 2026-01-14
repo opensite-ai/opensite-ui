@@ -272,15 +272,15 @@ export interface PricingTogglePeriodProps {
  * ```
  */
 export function PricingTogglePeriod({
-  title = "Flexible Pricing",
-  subtitle = "Choose your billing period",
+  title,
+  subtitle,
   periods,
   defaultPeriodId,
   plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",
-  popularBadge = "Most Popular",
+  popularBadge,
   background = "white",
   spacing = "lg",
   pattern,
@@ -501,7 +501,7 @@ export function PricingTogglePeriod({
                     >
                       {period.label}
                       {period.badge && (
-                        <span className={cn("ml-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700", period.badgeClassName)}>
+                        <span className={cn("ml-1.5 rounded-full bg-accent px-2 py-0.5 text-xs text-accent-foreground", period.badgeClassName)}>
                           {period.badge}
                         </span>
                       )}

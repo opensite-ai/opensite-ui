@@ -19,10 +19,10 @@ describe("CtaEnterpriseDarkFeatures", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaEnterpriseDarkFeatures />);
-    expect(screen.getByText("Enterprise Solutions")).toBeInTheDocument();
-    expect(screen.getByText("Built for scale with enterprise-grade security, compliance, and support. Trusted by Fortune 500 companies worldwide.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaEnterpriseDarkFeatures heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

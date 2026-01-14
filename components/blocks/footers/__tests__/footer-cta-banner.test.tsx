@@ -19,10 +19,10 @@ describe("FooterCtaBanner", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterCtaBanner />);
-    expect(screen.getByText("Ready to get started?")).toBeInTheDocument();
-    expect(screen.getByText("Subscribe to our newsletter")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterCtaBanner ctaHeading="Test CTA Heading" newsletterLabel="Test Newsletter Title" />);
+    expect(screen.getByText("Test CTA Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Newsletter Title")).toBeInTheDocument();
   });
 
   it("renders custom CTA heading", () => {

@@ -40,8 +40,13 @@ describe("LogosMarqueeMuted", () => {
     expect(logosY.length).toBeGreaterThan(0);
   });
 
-  it("handles empty logos array", () => {
-    render(<LogosMarqueeMuted logos={[]} />);
+  it("handles empty logos array with explicit heading", () => {
+    render(
+      <LogosMarqueeMuted
+        heading="Trusted by leading companies"
+        logos={[]}
+      />
+    );
     expect(screen.getByText("Trusted by leading companies")).toBeInTheDocument();
   });
 });

@@ -53,8 +53,15 @@ describe("BlogGridAuthorCards", () => {
   });
 
   it("handles empty posts array", () => {
-    render(<BlogGridAuthorCards posts={[]} />);
-    expect(screen.getByText("Blog")).toBeInTheDocument();
+    render(
+      <BlogGridAuthorCards
+        heading="Test Heading"
+        description="Test Description"
+        posts={[]}
+      />
+    );
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
     // Posts container should be empty when no posts are provided
     const postsContainer = document.querySelector(".grid");
     expect(postsContainer?.children.length ?? 0).toBe(0);

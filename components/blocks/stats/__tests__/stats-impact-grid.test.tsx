@@ -44,29 +44,28 @@ describe("StatsImpactGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsImpactGrid />);
+  it("renders badge, heading, and description", () => {
+    render(
+      <StatsImpactGrid
+        badge="Proven Results"
+        heading="Transforming Businesses With Real Numbers"
+        description="See our impact"
+      />
+    );
     expect(screen.getByText("Proven Results")).toBeInTheDocument();
     expect(screen.getByText("Transforming Businesses With Real Numbers")).toBeInTheDocument();
-  });
-
-  it("renders custom badge", () => {
-    render(<StatsImpactGrid badge="Custom Badge" />);
-    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
-  });
-
-  it("renders custom heading", () => {
-    render(<StatsImpactGrid heading="Custom Heading" />);
-    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<StatsImpactGrid description="Custom description" />);
-    expect(screen.getByText("Custom description")).toBeInTheDocument();
+    expect(screen.getByText("See our impact")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<StatsImpactGrid className="custom-class" />);
+    const { container } = render(
+      <StatsImpactGrid
+        badge="Test Badge"
+        heading="Test Heading"
+        description="Test description"
+        className="custom-class"
+      />
+    );
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

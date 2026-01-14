@@ -71,20 +71,14 @@ export interface ServiceDetailStatsHeroProps {
 }
 
 export function ServiceDetailStatsHero({
-  title = "UX/UI Design",
+  title,
   titleClassName,
-  heroImage = {
-    src: imagePlaceholders[0],
-    alt: "Service hero background",
-  },
+  heroImage,
   heroImageSlot,
   heroClassName,
   heroMinHeight = "500px",
   heroOverlayClassName,
-  serviceIcon = {
-    src: blockBrandedIconsAndPlaceholders.ux,
-    alt: "UX/UI Design",
-  },
+  serviceIcon,
   serviceIconSlot,
   serviceIconClassName,
   stats,

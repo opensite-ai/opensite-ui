@@ -29,9 +29,9 @@ describe("HeroSoftwareGrowthVideoDialog", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroSoftwareGrowthVideoDialog />);
-    expect(screen.getByText("Unlock impactful solutions for accelerated software growth")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroSoftwareGrowthVideoDialog heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroSoftwareGrowthVideoDialog", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroSoftwareGrowthVideoDialog className="custom-class" />);
+    const { container } = render(<HeroSoftwareGrowthVideoDialog heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

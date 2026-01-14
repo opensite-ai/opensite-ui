@@ -38,10 +38,13 @@ describe("TestimonialsAnimatedSplit", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<TestimonialsAnimatedSplit />);
-    expect(screen.getByText("This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive.")).toBeInTheDocument();
-    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  it("renders with explicit testimonials", () => {
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    render(<TestimonialsAnimatedSplit testimonials={testimonials} />);
+    expect(screen.getByText("Test quote")).toBeInTheDocument();
+    expect(screen.getByText("Test Author")).toBeInTheDocument();
   });
 
   it("renders custom testimonials", () => {
@@ -54,12 +57,18 @@ describe("TestimonialsAnimatedSplit", () => {
   });
 
   it("renders author role and company", () => {
-    render(<TestimonialsAnimatedSplit />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Product Manager", company: "Test Company" },
+    ];
+    render(<TestimonialsAnimatedSplit testimonials={testimonials} />);
     expect(screen.getByText(/Product Manager/)).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<TestimonialsAnimatedSplit className="custom-class" />);
+    const testimonials = [
+      { quote: "Test quote", author: "Test Author", role: "Test Role", company: "Test Company" },
+    ];
+    const { container } = render(<TestimonialsAnimatedSplit testimonials={testimonials} className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

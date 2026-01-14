@@ -19,9 +19,9 @@ describe("FooterLinksGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FooterLinksGrid />);
-    expect(screen.getByText("Components made easy.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FooterLinksGrid tagline="Test Tagline" />);
+    expect(screen.getByText("Test Tagline")).toBeInTheDocument();
   });
 
   it("renders custom tagline", () => {

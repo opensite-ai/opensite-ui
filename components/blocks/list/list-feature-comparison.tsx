@@ -195,12 +195,12 @@ export interface ListFeatureComparisonProps {
  * ```
  */
 export function ListFeatureComparison({
-  badge = "New Enterprise Plan Available",
+  badge,
   badgeSlot,
   badgeClassName,
-  heading = "Choose the perfect plan for your needs",
+  heading,
   headingClassName,
-  description = "From startups to enterprises, we have a plan that scales with your business. Compare features and find your fit.",
+  description,
   descriptionClassName,
   features,
   featuresSlot,
@@ -308,13 +308,13 @@ export function ListFeatureComparison({
                         <DynamicIcon
                           name="lucide/check"
                           size={20}
-                          className="mx-auto text-green-600"
+                          className="mx-auto text-success"
                         />
                       ) : (
                         <DynamicIcon
                           name="lucide/x"
                           size={20}
-                          className="mx-auto text-red-600"
+                          className="mx-auto text-destructive"
                         />
                       )}
                     </td>
@@ -323,13 +323,13 @@ export function ListFeatureComparison({
                         <DynamicIcon
                           name="lucide/check"
                           size={20}
-                          className="mx-auto text-green-600"
+                          className="mx-auto text-success"
                         />
                       ) : (
                         <DynamicIcon
                           name="lucide/x"
                           size={20}
-                          className="mx-auto text-red-600"
+                          className="mx-auto text-destructive"
                         />
                       )}
                     </td>
@@ -337,7 +337,7 @@ export function ListFeatureComparison({
                       <DynamicIcon
                         name="lucide/check"
                         size={20}
-                        className="mx-auto text-green-600"
+                        className="mx-auto text-success"
                       />
                     </td>
                   </tr>

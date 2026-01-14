@@ -23,8 +23,8 @@ describe("LogosPartnerGridSidebar", () => {
     expect(screen.getByAltText("Grid Partner 2 logo")).toBeInTheDocument();
   });
 
-  it("handles empty partners array", () => {
-    render(<LogosPartnerGridSidebar partners={[]} />);
+  it("handles empty partners array with explicit heading", () => {
+    render(<LogosPartnerGridSidebar heading="Our Partners" partners={[]} />);
     expect(screen.getByText("Our Partners")).toBeInTheDocument();
   });
 });

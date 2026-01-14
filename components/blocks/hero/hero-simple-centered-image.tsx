@@ -71,8 +71,8 @@ export interface HeroSimpleCenteredImageProps {
 }
 
 export function HeroSimpleCenteredImage({
-  heading = "Welcome to Our Website",
-  description = "Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur.",
+  heading,
+  description,
   actions,
   actionsSlot,
   imageSrc = imagePlaceholders[6],

@@ -74,11 +74,11 @@ export interface HeroMinimalCenteredDarkProps {
 }
 
 export function HeroMinimalCenteredDark({
-  badge = "Now available in beta",
+  badge,
   showStatusDot = true,
   heading,
-  headingHighlight = "collaboration",
-  description = "Work together seamlessly with your team. Real-time editing, intelligent suggestions, and powerful integrations.",
+  headingHighlight,
+  description,
   actions,
   actionsSlot,
   stats,
@@ -128,16 +128,6 @@ export function HeroMinimalCenteredDark({
     ));
   };
 
-  const defaultHeading = (
-    <>
-      The future of{" "}
-      <span className="bg-linear-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-        {headingHighlight}
-      </span>{" "}
-      is here
-    </>
-  );
-
   return (
     <section
       className={cn(
@@ -150,8 +140,8 @@ export function HeroMinimalCenteredDark({
           <div className={cn("inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-4 py-2 text-sm text-muted-foreground", badgeClassName)}>
             {showStatusDot && (
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-success"></span>
               </span>
             )}
             {typeof badge === "string" ? <span>{badge}</span> : badge}
@@ -164,11 +154,15 @@ export function HeroMinimalCenteredDark({
             </h1>
           ) : heading ? (
             <div className={headingClassName}>{heading}</div>
-          ) : (
+          ) : headingHighlight ? (
             <h1 className={cn("mt-8 max-w-4xl text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", headingClassName)}>
-              {defaultHeading}
+              The future of{" "}
+              <span className="bg-linear-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+                {headingHighlight}
+              </span>{" "}
+              is here
             </h1>
-          )
+          ) : null
         )}
         {description && (
           typeof description === "string" ? (

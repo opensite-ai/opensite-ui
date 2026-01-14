@@ -19,9 +19,9 @@ describe("HeroGridPatternSolutions", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroGridPatternSolutions />);
-    expect(screen.getByText("Create effective solutions for diverse needs.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroGridPatternSolutions heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroGridPatternSolutions", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroGridPatternSolutions className="custom-class" />);
+    const { container } = render(<HeroGridPatternSolutions heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

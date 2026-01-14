@@ -118,10 +118,9 @@ export interface HeroImageSliderProps {
  * a rotating image slider, ideal for immersive visual storytelling.
  */
 export function HeroImageSlider({
-  eyebrow = "Customer stories in motion",
-  heading = "A hero slider that keeps your message front and center",
-  description =
-    "Rotate high-impact visuals while maintaining a clear narrative and call to action for every audience.",
+  eyebrow,
+  heading,
+  description,
   actions,
   actionsSlot,
   contentSlot,

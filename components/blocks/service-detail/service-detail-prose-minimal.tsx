@@ -49,12 +49,12 @@ export interface ServiceDetailProseMinimalProps {
 }
 
 export function ServiceDetailProseMinimal({
-  title = "UX/UI Design",
+  title,
   titleClassName,
   headerClassName,
-  introTitle = "User-Centered Design That Converts",
+  introTitle,
   introTitleClassName,
-  introDescription = "We believe that great design should be intuitive, accessible, and purposeful for every user who interacts with your product. Our UX/UI design approach focuses on understanding your users' needs, behaviors, and pain points to create interfaces that not only look beautiful but function seamlessly.",
+  introDescription,
   introDescriptionClassName,
   introSlot,
   introClassName,

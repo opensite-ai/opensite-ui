@@ -237,7 +237,7 @@ export interface FooterSplitImageAccordionProps {
  * ```
  */
 export function FooterSplitImageAccordion({
-  newsletterTitle = "Get updates on offers and products and save 20% on your first order",
+  newsletterTitle,
   emailPlaceholder = "Email Address",
   footerLinks,
   socialLinks,

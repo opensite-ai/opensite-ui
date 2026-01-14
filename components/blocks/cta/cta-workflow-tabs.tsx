@@ -169,8 +169,8 @@ export interface CtaWorkflowTabsProps {
  * ```
  */
 export function CtaWorkflowTabs({
-  heading = "Build your workflow",
-  description = "From design to deployment, we've got you covered. Choose your path and start building today.",
+  heading,
+  description,
   actions,
   actionsSlot,
   tabs,

@@ -58,11 +58,18 @@ describe("FaqBadgeSupport", () => {
   });
 
   it("renders empty items array", () => {
-    render(<FaqBadgeSupport items={[]} />);
+    render(
+      <FaqBadgeSupport
+        badge="Test Badge"
+        heading="Test Heading"
+        description="Test Description"
+        items={[]}
+      />
+    );
 
-    expect(
-      screen.getByText("Frequently asked questions")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 });
 

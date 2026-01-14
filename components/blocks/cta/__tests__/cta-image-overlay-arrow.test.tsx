@@ -29,9 +29,9 @@ describe("CtaImageOverlayArrow", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaImageOverlayArrow />);
-    expect(screen.getByText("Start Your Journey Today")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaImageOverlayArrow heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

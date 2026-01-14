@@ -82,8 +82,8 @@ export interface HeroTherapyTestimonialGridProps {
 }
 
 export function HeroTherapyTestimonialGrid({
-  heading = "Compassionate Care for Your Mental Wellness Journey",
-  description = "Our team of experienced therapists is dedicated to helping you navigate life's challenges with personalized support.",
+  heading,
+  description,
   actions,
   actionsSlot,
   images,

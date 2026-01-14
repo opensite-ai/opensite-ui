@@ -44,9 +44,9 @@ describe("HeroImageSlider", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroImageSlider />);
-    expect(screen.getByText("A hero slider that keeps your message front and center")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroImageSlider heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -66,7 +66,7 @@ describe("HeroImageSlider", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroImageSlider className="custom-class" />);
+    const { container } = render(<HeroImageSlider heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

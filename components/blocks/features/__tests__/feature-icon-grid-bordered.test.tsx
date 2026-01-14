@@ -13,10 +13,10 @@ describe("FeatureIconGridBordered", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureIconGridBordered />);
-    expect(screen.getByText("Why Us?")).toBeInTheDocument();
-    expect(screen.getByText("A better way to build websites")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureIconGridBordered label="Test Label" title="Test Title" />);
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom label", () => {

@@ -73,8 +73,8 @@ export interface HeroAdCampaignExpertProps {
 
 export function HeroAdCampaignExpert({
   heading,
-  headingHighlight = "my expertise",
-  description = "I'll maximize your ad campaigns' potential or teach you the strategies so you can manage them yourself!",
+  headingHighlight,
+  description,
   action,
   actionSlot,
   imageSrc = imagePlaceholders[60],
@@ -110,14 +110,6 @@ export function HeroAdCampaignExpert({
     );
   };
 
-  const defaultHeading = (
-    <>
-      Your ad campaigns excel with{" "}
-      <span className="border-muted2 border-b-2">{headingHighlight}</span>,
-      delivering optimized performance.
-    </>
-  );
-
   return (
     <section className={cn("pb-24", className)}>
       <div className={cn("bg-muted pt-16 lg:pt-24", containerClassName)}>
@@ -130,11 +122,13 @@ export function HeroAdCampaignExpert({
                 </h2>
               ) : heading ? (
                 <div className={headingClassName}>{heading}</div>
-              ) : (
+              ) : headingHighlight ? (
                 <h2 className={cn("text-3xl leading-tight font-bold tracking-tighter text-foreground lg:text-5xl", headingClassName)}>
-                  {defaultHeading}
+                  Your ad campaigns excel with{" "}
+                  <span className="border-muted2 border-b-2">{headingHighlight}</span>,
+                  delivering optimized performance.
                 </h2>
-              )
+              ) : null
             )}
             {description && (
               typeof description === "string" ? (

@@ -202,15 +202,15 @@ export interface CtaAppDownloadNewsletterProps {
  * ```
  */
 export function CtaAppDownloadNewsletter({
-  appHeading = "Download Our App",
-  appDescription = "Get the best experience on mobile. Download our app and access all features on the go.",
+  appHeading,
+  appDescription,
   appActions,
   appActionsSlot,
   phoneMockupImage = imagePlaceholders[8],
-  newsletterHeading = "Stay Updated",
-  newsletterDescription = "Subscribe to our newsletter and never miss an update. Get the latest news, tips, and exclusive offers.",
-  newsletterButtonText = "Subscribe",
-  emailPlaceholder = "Enter your email",
+  newsletterHeading,
+  newsletterDescription,
+  newsletterButtonText,
+  emailPlaceholder,
   className,
   containerClassName,
   gridClassName,

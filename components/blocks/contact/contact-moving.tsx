@@ -75,9 +75,9 @@ export interface ContactMovingProps {
  * ```
  */
 export function ContactMoving({
-  heading = "Moving Services",
-  description = "Get help with your move.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

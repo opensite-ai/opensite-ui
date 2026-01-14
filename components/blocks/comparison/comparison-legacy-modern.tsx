@@ -97,9 +97,9 @@ export interface ComparisonLegacyModernProps {
  * before/after comparisons, migration benefits, upgrade justifications.
  */
 export function ComparisonLegacyModern({
-  heading = "Why Teams are",
+  heading,
   headingHighlight = "Moving to Modern Tools",
-  description = "Old tools slow your team down and don't help you ship faster. Modern tools help you ship faster.",
+  description,
   legacyTitle = "Legacy Features",
   legacyFeatures,
   modernTitle = "New Features",

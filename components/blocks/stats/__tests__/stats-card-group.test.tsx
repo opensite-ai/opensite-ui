@@ -25,10 +25,9 @@ describe("StatsCardGroup", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<StatsCardGroup />);
-    // Component renders without crashing with default props
-    expect(document.body).toBeInTheDocument();
+  it("renders without crashing", () => {
+    const { container } = render(<StatsCardGroup stats={[]} />);
+    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders stats when provided", () => {

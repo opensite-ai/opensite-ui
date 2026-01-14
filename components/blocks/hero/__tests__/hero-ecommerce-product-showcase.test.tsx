@@ -23,9 +23,9 @@ describe("HeroEcommerceProductShowcase", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroEcommerceProductShowcase />);
-    expect(screen.getByText("Discover our latest arrivals")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroEcommerceProductShowcase heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroEcommerceProductShowcase", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroEcommerceProductShowcase className="custom-class" />);
+    const { container } = render(<HeroEcommerceProductShowcase heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

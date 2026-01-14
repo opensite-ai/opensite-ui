@@ -60,7 +60,7 @@ describe("ProjectDetailCardHeader", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ProjectDetailCardHeader className="custom-class" />);
+    const { container } = render(<ProjectDetailCardHeader className="custom-class" title="Test Project" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 

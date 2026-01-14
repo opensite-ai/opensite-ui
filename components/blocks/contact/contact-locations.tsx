@@ -75,9 +75,9 @@ export interface ContactLocationsProps {
  * ```
  */
 export function ContactLocations({
-  heading = "Find a Location",
-  description = "Contact us at one of our locations.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

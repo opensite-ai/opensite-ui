@@ -58,9 +58,9 @@ export interface HeroPresentationPlatformVideoProps {
 }
 
 export function HeroPresentationPlatformVideo({
-  subtitle = "Virtual Engagement Maximized & AI-Powered Content Transformation",
-  heading = "Presentation Platform for Marketing Professionals",
-  description = "Effortlessly Create, Deliver, and Reimagine All-Hands Corporate Meetings",
+  subtitle,
+  heading,
+  description,
   actions,
   actionsSlot,
   videoSrc = videoPlaceholders[0],

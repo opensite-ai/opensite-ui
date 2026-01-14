@@ -43,9 +43,9 @@ describe("HeroOverlayCtaGrid", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroOverlayCtaGrid />);
-    expect(screen.getByText("Coverage guidance powered by OpenSite AI")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroOverlayCtaGrid heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -65,7 +65,7 @@ describe("HeroOverlayCtaGrid", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroOverlayCtaGrid className="custom-class" />);
+    const { container } = render(<HeroOverlayCtaGrid heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

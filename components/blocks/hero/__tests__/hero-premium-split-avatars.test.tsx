@@ -24,9 +24,9 @@ describe("HeroPremiumSplitAvatars", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroPremiumSplitAvatars />);
-    expect(screen.getByText("Achieve More with Elite Access Pro")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroPremiumSplitAvatars heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -46,7 +46,7 @@ describe("HeroPremiumSplitAvatars", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroPremiumSplitAvatars className="custom-class" />);
+    const { container } = render(<HeroPremiumSplitAvatars heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

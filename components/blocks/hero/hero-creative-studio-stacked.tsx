@@ -96,9 +96,9 @@ export interface HeroCreativeStudioStackedProps {
 }
 
 export function HeroCreativeStudioStacked({
-  tagline = "Harmony Creative Studio",
-  heading = "Boost your business with a brand-new website.",
-  description = "Harmony is a full-service design studio crafting stunning digital experiences and products.",
+  tagline,
+  heading,
+  description,
   primaryAction,
   videoButtonLabel = "How it works?",
   videoUrl = "https://www.youtube.com/embed/your-video-id",

@@ -26,19 +26,19 @@ describe("TestimonialCarouselCards", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<TestimonialCarouselCards />);
-    expect(screen.getByText(/Building the Future, One Line of Code/)).toBeInTheDocument();
-    expect(screen.getByText(/From startups to enterprises/)).toBeInTheDocument();
+  it("renders with required props", () => {
+    render(<TestimonialCarouselCards heading="Test Heading" description="Test description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<TestimonialCarouselCards heading="Custom Heading" />);
+    render(<TestimonialCarouselCards heading="Custom Heading" description="Test description" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
-    render(<TestimonialCarouselCards description="Custom description text" />);
+    render(<TestimonialCarouselCards heading="Test Heading" description="Custom description text" />);
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 

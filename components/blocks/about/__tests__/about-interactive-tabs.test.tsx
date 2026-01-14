@@ -23,10 +23,15 @@ describe("AboutInteractiveTabs", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<AboutInteractiveTabs />);
-    expect(screen.getByText("Discover Our Story")).toBeInTheDocument();
-    expect(screen.getByText("Learn more about who we are and what we do")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(
+      <AboutInteractiveTabs
+        title="Test Title"
+        subtitle="Test Subtitle"
+      />
+    );
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Subtitle")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

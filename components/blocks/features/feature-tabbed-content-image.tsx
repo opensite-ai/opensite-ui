@@ -193,8 +193,8 @@ export interface FeatureTabbedContentImageProps {
  * ```
  */
 export function FeatureTabbedContentImage({
-  title = "Building Better Digital Experiences",
-  description = "Discover how our platform empowers developers and businesses to create exceptional web applications with less code and more creativity.",
+  title,
+  description,
   slides,
   slidesSlot,
   defaultTab = "1",

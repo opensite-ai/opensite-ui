@@ -29,9 +29,9 @@ describe("HeroMentorshipVideoSplit", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroMentorshipVideoSplit />);
-    expect(screen.getByText("Career Growth with Expert Mentorship")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroMentorshipVideoSplit heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -51,7 +51,7 @@ describe("HeroMentorshipVideoSplit", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroMentorshipVideoSplit className="custom-class" />);
+    const { container } = render(<HeroMentorshipVideoSplit heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

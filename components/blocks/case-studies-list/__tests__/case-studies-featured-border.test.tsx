@@ -58,8 +58,8 @@ describe("CaseStudiesFeaturedBorder", () => {
     },
   ];
 
-  it("renders with default props", () => {
-    const { container } = render(<CaseStudiesFeaturedBorder />);
+  it("renders with minimal props", () => {
+    const { container } = render(<CaseStudiesFeaturedBorder featuredCaseStudy={mockFeaturedCaseStudy} />);
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 
@@ -76,7 +76,7 @@ describe("CaseStudiesFeaturedBorder", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<CaseStudiesFeaturedBorder className="custom-class" />);
+    const { container } = render(<CaseStudiesFeaturedBorder className="custom-class" featuredCaseStudy={mockFeaturedCaseStudy} />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 

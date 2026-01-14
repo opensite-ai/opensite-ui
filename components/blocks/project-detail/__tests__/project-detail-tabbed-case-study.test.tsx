@@ -70,7 +70,7 @@ describe("ProjectDetailTabbedCaseStudy", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ProjectDetailTabbedCaseStudy className="custom-class" />);
+    const { container } = render(<ProjectDetailTabbedCaseStudy className="custom-class" title="Test Project" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 

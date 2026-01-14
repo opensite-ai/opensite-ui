@@ -144,8 +144,8 @@ export interface CtaEnterpriseDarkFeaturesProps {
  * ```
  */
 export function CtaEnterpriseDarkFeatures({
-  heading = "Enterprise Solutions",
-  description = "Built for scale with enterprise-grade security, compliance, and support. Trusted by Fortune 500 companies worldwide.",
+  heading,
+  description,
   actions,
   actionsSlot,
   features,

@@ -59,7 +59,7 @@ describe("ProjectDetailLargeHeroFeatured", () => {
   });
 
   it("applies custom className to section", () => {
-    const { container } = render(<ProjectDetailLargeHeroFeatured className="custom-class" />);
+    const { container } = render(<ProjectDetailLargeHeroFeatured className="custom-class" title="Test Project" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 

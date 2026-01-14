@@ -113,9 +113,9 @@ export interface ContactSalesProps {
  * ```
  */
 export function ContactSales({
-  heading = "Talk to Sales",
-  description = "Interested in our products? Let's discuss how we can help your business grow.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

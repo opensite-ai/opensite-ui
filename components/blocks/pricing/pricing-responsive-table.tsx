@@ -62,8 +62,8 @@ export interface PricingResponsiveTableProps {
  */
 export function PricingResponsiveTable({
   className,
-  title = "Compare Plans",
-  subtitle = "Find the perfect plan for your needs",
+  title,
+  subtitle,
   plans,
   features,
 }: PricingResponsiveTableProps) {

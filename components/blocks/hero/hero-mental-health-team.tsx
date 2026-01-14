@@ -66,8 +66,8 @@ export interface HeroMentalHealthTeamProps {
 }
 
 export function HeroMentalHealthTeam({
-  subtitle = "Your Support Team",
-  heading = "Experienced Professionals Committed to Your Mental Health",
+  subtitle,
+  heading,
   teamImages,
   teamImagesSlot,
   testimonial,

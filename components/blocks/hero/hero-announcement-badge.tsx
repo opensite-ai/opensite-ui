@@ -59,10 +59,10 @@ export interface HeroAnnouncementBadgeProps {
 }
 
 export function HeroAnnouncementBadge({
-  badge = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eaque distinctio iusto voluptas voluptatum sed!",
-  badgeIcon = <DynamicIcon name="lucide/bell" size={16} />,
-  heading = "Streamline your workflow experience.",
-  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum dolor assumenda voluptatem nemo magni a maiores aspernatur.",
+  badge,
+  badgeIcon,
+  heading,
+  description,
   actions,
   actionsSlot,
   className,

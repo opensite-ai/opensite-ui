@@ -23,8 +23,8 @@ describe("HeroArchitectureFullscreen", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    const { container } = render(<HeroArchitectureFullscreen />);
+  it("renders with provided props", () => {
+    const { container } = render(<HeroArchitectureFullscreen heading="Test Heading" />);
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 
@@ -45,7 +45,7 @@ describe("HeroArchitectureFullscreen", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroArchitectureFullscreen className="custom-class" />);
+    const { container } = render(<HeroArchitectureFullscreen heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

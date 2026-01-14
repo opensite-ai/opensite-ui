@@ -159,9 +159,9 @@ export interface AboutStoryExpertiseProps {
  * trust-building pages that need narrative plus proof points.
  */
 export function AboutStoryExpertise({
-  eyebrow = "Our Story",
+  eyebrow,
   eyebrowClassName,
-  heading = "Built on trust, powered by OpenSite AI",
+  heading,
   headingClassName,
   storyParagraphs,
   storySlot,

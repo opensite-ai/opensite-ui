@@ -5,6 +5,146 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-01-14
+
+### Breaking Changes
+
+#### Removal of All Default Content Values
+
+**All default content values have been removed from 614+ component files** to prepare the library for semantic UI engine integration. This is a **major breaking change** that affects all block components across all categories.
+
+**What Changed:**
+- **Content props now require explicit values** - All text content props (heading, title, description, subtitle, etc.) no longer have default values
+- **Style/config props retain defaults** - Non-content props like className, variant, size, spacing, etc. still have sensible defaults
+- **Optional props can be undefined** - Components handle undefined optional props gracefully with conditional rendering
+
+**Affected Component Categories:**
+- Hero sections (79 files)
+- CTA sections (27 files)
+- Features sections (27 files)
+- About sections (38 files)
+- Blog sections (19 files)
+- Contact sections (20 files)
+- FAQ sections (18 files)
+- Gallery sections (30 files)
+- Footers sections (26 files)
+- Pricing sections (16 files)
+- Team sections (14 files)
+- Timeline sections (26 files)
+- Services sections (29 files)
+- Testimonials sections (28 files)
+- Stats sections (19 files)
+- Process sections (16 files)
+- Benefits sections (21 files)
+- Comparison sections (18 files)
+- Industries sections (23 files)
+- Case Study sections (18 files)
+- Portfolio sections (19 files)
+- Event sections (17 files)
+- Integration sections (15 files)
+- Location sections (14 files)
+- Careers sections (13 files)
+- Legal sections (12 files)
+- Resources sections (15 files)
+
+**Rationale:**
+Default content values (like "Welcome to Our Site" or "Lorem ipsum") are inappropriate for production client websites. When the semantic UI engine generates sites for specific industries (insurance, podcasts, restaurants, etc.), components must render industry-appropriate content or nothing at all - never generic placeholders.
+
+**Migration Guide:**
+
+Before (0.3.x):
+```tsx
+// These would render with default content
+<HeroSaaSLanding />
+<FeatureShowcase />
+<CTASimple />
+```
+
+After (0.4.0):
+```tsx
+// All content props must be explicitly provided
+<HeroSaaSLanding
+  heading="Industry-Specific Headline"
+  description="Relevant description for this business"
+  actions={[
+    { label: "Get Started", href: "/start" }
+  ]}
+/>
+
+<FeatureShowcase
+  title="Our Services"
+  items={[
+    {
+      content: <div>Specific feature content</div>,
+      mediaComponent: <img src="/feature.jpg" alt="Feature" />
+    }
+  ]}
+/>
+
+<CTASimple
+  heading="Ready to Begin?"
+  description="Contact us today"
+  actions={[
+    { label: "Contact", href: "/contact" }
+  ]}
+/>
+
+// Optional props can still be omitted
+<HeroSaaSLanding
+  heading="Required heading"
+  // subtitle is optional, can be omitted
+  // badge is optional, can be omitted
+/>
+```
+
+**Required vs Optional Props:**
+- **Required props** must always be provided (heading, title, etc.)
+- **Optional props** can be omitted entirely - components handle undefined gracefully
+- **Check TypeScript types** for your specific component to see which props are required
+
+**Test Coverage:**
+All 471 test files (2142 tests) have been updated and pass successfully with the new prop requirements.
+
+### Fixed
+
+#### DynamicIcon Component - Conditional Rendering for Optional Props
+
+Fixed crashes in 4 components where `DynamicIcon` was rendered with optional props that could be undefined.
+
+**Root Cause:**
+The DynamicIcon component requires a `name` prop and crashes when passed `undefined`. Several components were rendering `<DynamicIcon name={optionalIconProp} />` where `optionalIconProp` could be undefined.
+
+**Components Fixed:**
+1. `hero-event-registration.tsx` - Added conditional rendering for `badgeIcon` prop
+2. `hero-mobile-app-download.tsx` - Added conditional rendering for `badgeIcon` prop
+3. `hero-ecommerce-product-showcase.tsx` - Added conditional rendering for `badgeIcon` prop
+4. `case-study-stats-metrics.tsx` - Added conditional rendering for `solutionIcon` prop
+
+**Fix Pattern:**
+```tsx
+// Before (crashes when badgeIcon is undefined):
+<DynamicIcon name={badgeIcon} size={16} />
+
+// After (safely handles undefined):
+{badgeIcon && <DynamicIcon name={badgeIcon} size={16} />}
+```
+
+**Impact:**
+- Tests now pass for components with optional icon props
+- Components render correctly whether icon props are provided or not
+- No crashes from undefined prop values
+
+### Testing
+
+**Test Suite Status:**
+- 471 test files
+- 2,142 total tests
+- All tests passing
+- Duration: ~88 seconds
+
+**Test Updates:**
+All test files across all component categories have been updated to provide explicit values for required content props, ensuring tests accurately reflect the new API requirements.
+
 ## [0.0.6] - 2025-12-23
 
 ### Added

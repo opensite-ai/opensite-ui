@@ -170,8 +170,8 @@ const ProjectCard = ({ project, optixFlowConfig, className }: ProjectCardProps) 
  * where bold visuals and interactive hover states create impact.
  */
 export function ProjectCardOverlay({
-  heading = "CAPTURING MOMENTS",
-  subheading = "PROJECT SHOWCASE",
+  heading,
+  subheading,
   projects,
   projectsSlot,
   optixFlowConfig,

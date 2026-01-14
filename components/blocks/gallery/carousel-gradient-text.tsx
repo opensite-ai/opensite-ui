@@ -171,9 +171,9 @@ export interface CarouselGradientTextProps {
  * ```
  */
 export function CarouselGradientText({
-  heading = "Code less.",
-  subheading = "Build faster.",
-  tagline = "Start with our templates, customize to your needs.",
+  heading,
+  subheading,
+  tagline,
   items,
   itemsSlot,
   className,

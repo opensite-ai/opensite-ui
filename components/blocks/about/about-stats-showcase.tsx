@@ -150,9 +150,9 @@ export interface AboutStatsShowcaseProps {
 export function AboutStatsShowcase({
   className,
   containerClassName,
-  title = "Our Background",
+  title,
   titleClassName,
-  description = "Discover how our solution simplifies complex processes, making it easier to manage key operations and deliver exceptional experiences.",
+  description,
   descriptionClassName,
   images,
   imagesSlot,

@@ -75,9 +75,9 @@ export interface ContactRsvpProps {
  * ```
  */
 export function ContactRsvp({
-  heading = "RSVP to Event",
-  description = "Confirm your attendance.",
-  buttonText = "Send Message",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,

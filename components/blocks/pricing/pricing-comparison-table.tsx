@@ -296,14 +296,14 @@ export interface PricingComparisonTableProps {
  * ```
  */
 export function PricingComparisonTable({
-  title = "Choose Your Plan",
-  subtitle = "Compare features and find the right plan for your team",
+  title,
+  subtitle,
   plans,
   plansSlot,
   comparisonFeatures,
   comparisonSlot,
-  comparisonHeading = "Feature Comparison",
-  featureColumnLabel = "Feature",
+  comparisonHeading,
+  featureColumnLabel,
   featureIcon,
   featureIconName = "lucide/check",
   availableIcon,

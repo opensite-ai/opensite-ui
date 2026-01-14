@@ -179,8 +179,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({
  * or any portfolio showcasing video content with an immersive, cinematic presentation.
  */
 export function ProjectVideoHoverStack({
-  heading = "Explore Our Projects",
-  subheading = "Our Work",
+  heading,
+  subheading,
   videoSections,
   videoSectionsSlot,
   optixFlowConfig,

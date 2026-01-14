@@ -24,7 +24,7 @@ describe("ProcessHoverCards", () => {
     },
   ];
 
-  it("renders custom title and description", () => {
+  it("renders title and description", () => {
     render(
       <ProcessHoverCards
         title="How We Work"

@@ -87,8 +87,8 @@ export interface BlogCardsTaglineCtaProps {
 
 export function BlogCardsTaglineCta({
   badge = "Latest Updates",
-  heading = "Blog Posts",
-  description = "Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.",
+  heading,
+  description,
   ctaAction,
   ctaSlot,
   posts,

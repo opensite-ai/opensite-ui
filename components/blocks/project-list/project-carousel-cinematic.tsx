@@ -104,8 +104,8 @@ export interface ProjectCarouselCinematicProps {
  * any project collection where widescreen presentation enhances the visual impact.
  */
 export function ProjectCarouselCinematic({
-  heading = "Projects",
-  subheading = "Minimal showcase with cinematic aspect ratio",
+  heading,
+  subheading,
   projects,
   projectsSlot,
   optixFlowConfig,

@@ -125,8 +125,8 @@ export interface BlogCarouselAppleProps {
  * ```
  */
 export function BlogCarouselApple({
-  title = "Latest Articles",
-  subtitle = "From the Blog",
+  title,
+  subtitle,
   posts,
   actionType = "link",
   onCardClick,

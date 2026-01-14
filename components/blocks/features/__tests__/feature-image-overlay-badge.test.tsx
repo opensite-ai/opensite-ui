@@ -23,10 +23,10 @@ describe("FeatureImageOverlayBadge", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureImageOverlayBadge />);
-    expect(screen.getByText("Modern Tactics")).toBeInTheDocument();
-    expect(screen.getByText("Make your site a true standout.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureImageOverlayBadge badge="Test Badge" title="Test Title" />);
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {

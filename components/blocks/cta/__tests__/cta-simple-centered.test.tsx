@@ -13,10 +13,10 @@ describe("CtaSimpleCentered", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaSimpleCentered />);
-    expect(screen.getByText("Ready to get started?")).toBeInTheDocument();
-    expect(screen.getByText("Join thousands of satisfied customers and start building amazing products today. No credit card required.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaSimpleCentered heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

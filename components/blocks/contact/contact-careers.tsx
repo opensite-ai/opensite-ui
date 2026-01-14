@@ -177,9 +177,9 @@ export interface ContactCareersProps {
  * ```
  */
 export function ContactCareers({
-  heading = "Join Our Team",
-  description = "We're always looking for talented people to join us.",
-  buttonText = "Submit Application",
+  heading,
+  description,
+  buttonText,
   buttonIcon,
   actions,
   actionsSlot,
@@ -451,7 +451,7 @@ export function ContactCareers({
                             size={20}
                             className={cn(
                               "text-muted-foreground",
-                              uploadState === "completed" && "text-green-600"
+                              uploadState === "completed" && "text-success"
                             )}
                           />
                           <div>

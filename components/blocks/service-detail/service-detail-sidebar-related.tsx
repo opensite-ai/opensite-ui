@@ -83,22 +83,19 @@ export interface ServiceDetailSidebarRelatedProps {
 }
 
 export function ServiceDetailSidebarRelated({
-  title = "UX/UI Design",
+  title,
   titleClassName,
-  serviceIcon = {
-    src: blockBrandedIconsAndPlaceholders.ux,
-    alt: "UX/UI Design",
-  },
+  serviceIcon,
   serviceIconSlot,
   serviceIconClassName,
-  introDescription = "We believe that great design should be intuitive, accessible, and purposeful for every user who interacts with your product. Our UX/UI design approach focuses on understanding your users' needs, behaviors, and pain points to create interfaces that not only look beautiful but function seamlessly.",
+  introDescription,
   introDescriptionClassName,
-  statsTitle = "Our Expertise",
+  statsTitle,
   statsTitleClassName,
   stats,
   statsSlot,
   statsClassName,
-  relatedServicesTitle = "Related Services",
+  relatedServicesTitle,
   relatedServicesTitleClassName,
   relatedServices,
   relatedServicesSlot,

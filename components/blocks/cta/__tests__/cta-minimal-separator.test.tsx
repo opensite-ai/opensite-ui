@@ -13,9 +13,9 @@ describe("CtaMinimalSeparator", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaMinimalSeparator />);
-    expect(screen.getByText("Ready to get started? Sign up for a free trial today.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaMinimalSeparator text="Test Text" />);
+    expect(screen.getByText("Test Text")).toBeInTheDocument();
   });
 
   it("renders custom text", () => {

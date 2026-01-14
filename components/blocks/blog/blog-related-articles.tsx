@@ -61,7 +61,7 @@ export interface BlogRelatedArticlesProps {
 }
 
 export function BlogRelatedArticles({
-  heading = "Related articles",
+  heading,
   seeAllAction,
   seeAllSlot,
   articles,

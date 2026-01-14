@@ -158,8 +158,8 @@ export interface TeamSkillBadgesProps {
  * ```
  */
 export function TeamSkillBadges({
-  heading = "Meet our experts",
-  description = "The skilled professionals behind our success",
+  heading,
+  description,
   members,
   membersSlot,
   background = "white",

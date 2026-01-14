@@ -23,9 +23,9 @@ describe("HeroProductShowcaseFloating", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroProductShowcaseFloating />);
-    expect(screen.getByText("Ship products your customers will love")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroProductShowcaseFloating heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroProductShowcaseFloating", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroProductShowcaseFloating className="custom-class" />);
+    const { container } = render(<HeroProductShowcaseFloating heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

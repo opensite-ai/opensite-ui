@@ -13,9 +13,9 @@ describe("FeatureChecklistThreeColumn", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<FeatureChecklistThreeColumn />);
-    expect(screen.getByText("Build any kind of Website with our Blocks")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<FeatureChecklistThreeColumn title="Test Title" />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
   });
 
   it("renders custom title", () => {

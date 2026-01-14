@@ -19,9 +19,9 @@ describe("HeroGridPatternEfficiency", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroGridPatternEfficiency />);
-    expect(screen.getByText("efficiency.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroGridPatternEfficiency heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -41,7 +41,7 @@ describe("HeroGridPatternEfficiency", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroGridPatternEfficiency className="custom-class" />);
+    const { container } = render(<HeroGridPatternEfficiency heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

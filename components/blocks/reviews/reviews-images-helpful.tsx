@@ -211,7 +211,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
           size={size}
           className={cn(
             star <= rating
-              ? "fill-yellow-400 text-yellow-400"
+              ? "fill-primary text-primary"
               : "fill-muted text-muted"
           )}
         />
@@ -253,7 +253,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
 export function ReviewsImagesHelpful({
   reviews = DEFAULT_REVIEWS,
   reviewsSlot,
-  heading = "Customer Reviews",
+  heading,
   writeReviewLabel = "Write a Review",
   className,
   headerClassName,

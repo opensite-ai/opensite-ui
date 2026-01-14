@@ -146,11 +146,11 @@ export interface FeatureBentoUtilitiesProps {
  * ```
  */
 export function FeatureBentoUtilities({
-  label = "Utilities",
+  label,
   labelIconName = "lucide/square-dashed-mouse-pointer",
   labelIcon,
-  title = "Utilites for every use case and platform you can think of.",
-  description = "All the tools you need to get the job done. From apps to integrations, we have you covered.",
+  title,
+  description,
   leftColumnCards,
   leftColumnSlot,
   rightColumnCards,

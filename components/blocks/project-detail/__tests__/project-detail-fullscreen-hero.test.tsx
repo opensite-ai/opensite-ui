@@ -54,7 +54,7 @@ describe("ProjectDetailFullscreenHero", () => {
   });
 
   it("applies custom className to article", () => {
-    const { container } = render(<ProjectDetailFullscreenHero className="custom-class" />);
+    const { container } = render(<ProjectDetailFullscreenHero className="custom-class" title="Test Project" />);
     expect(container.querySelector("article")).toHaveClass("custom-class");
   });
 

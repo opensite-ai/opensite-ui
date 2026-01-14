@@ -104,8 +104,8 @@ export interface FeatureThreeColumnValuesProps {
  * ```
  */
 export function FeatureThreeColumnValues({
-  label = "OUR VALUES",
-  title = "Why Choose Us?",
+  label,
+  title,
   values,
   valuesSlot,
   className,

@@ -19,11 +19,11 @@ describe("CtaNewsletterFeatures", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<CtaNewsletterFeatures />);
-    expect(screen.getByText("Newsletter")).toBeInTheDocument();
-    expect(screen.getByText("Stay in the loop")).toBeInTheDocument();
-    expect(screen.getByText("Get the latest updates, tips, and exclusive content delivered straight to your inbox. Join thousands of subscribers.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<CtaNewsletterFeatures badge="Test Badge" heading="Test Heading" description="Test Description" />);
+    expect(screen.getByText("Test Badge")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

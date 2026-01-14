@@ -151,17 +151,14 @@ export interface ServicesListSplitChecklistProps {
  * ```
  */
 export function ServicesListSplitChecklist({
-  badge = "Services",
-  heading = "How I Can Help You",
-  description = "I offer specialized services designed to help you establish a strong online presence and achieve your business goals. Each service can be tailored to your specific needs or combined into a comprehensive solution.",
+  badge,
+  heading,
+  description,
   primaryAction,
   secondaryAction,
   actionsSlot,
-  image = {
-    src: imagePlaceholders[0],
-    alt: "Professional collaboration",
-  },
-  checklistHeading = "Specialized services to help your business grow",
+  image,
+  checklistHeading,
   checklistAction,
   services,
   servicesSlot,

@@ -174,7 +174,7 @@ export interface ServiceHoverCarouselProps {
  * ```
  */
 export function ServiceHoverCarousel({
-  heading = "Our Services",
+  heading,
   items,
   itemsSlot,
   headerSlot,

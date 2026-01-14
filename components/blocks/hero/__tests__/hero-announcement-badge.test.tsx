@@ -25,9 +25,9 @@ describe("HeroAnnouncementBadge", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroAnnouncementBadge />);
-    expect(screen.getByText("Streamline your workflow experience.")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroAnnouncementBadge heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom badge", () => {
@@ -61,7 +61,7 @@ describe("HeroAnnouncementBadge", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroAnnouncementBadge className="custom-class" />);
+    const { container } = render(<HeroAnnouncementBadge heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

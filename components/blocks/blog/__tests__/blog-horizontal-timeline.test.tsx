@@ -51,8 +51,13 @@ describe("BlogHorizontalTimeline", () => {
   });
 
   it("handles empty posts array", () => {
-    render(<BlogHorizontalTimeline posts={[]} />);
-    expect(screen.getByText("Discover Our Fresh Content")).toBeInTheDocument();
+    render(
+      <BlogHorizontalTimeline
+        heading="Test Heading"
+        posts={[]}
+      />
+    );
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 });
 

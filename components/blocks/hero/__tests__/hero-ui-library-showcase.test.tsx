@@ -23,9 +23,9 @@ describe("HeroUiLibraryShowcase", () => {
     vi.clearAllMocks();
   });
 
-  it("renders with default props", () => {
-    render(<HeroUiLibraryShowcase />);
-    expect(screen.getByText("The continuously growing UI library for Opensite AI")).toBeInTheDocument();
+  it("renders with provided props", () => {
+    render(<HeroUiLibraryShowcase heading="Test Heading" />);
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -45,7 +45,7 @@ describe("HeroUiLibraryShowcase", () => {
   });
 
   it("applies custom className", () => {
-    const { container } = render(<HeroUiLibraryShowcase className="custom-class" />);
+    const { container } = render(<HeroUiLibraryShowcase heading="Test Heading" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

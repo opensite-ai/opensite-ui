@@ -110,8 +110,8 @@ export interface CtaFeatureCardsGridProps {
  * ```
  */
 export function CtaFeatureCardsGrid({
-  heading = "Everything you need to build",
-  description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
+  heading,
+  description,
   actions,
   actionsSlot,
   features,

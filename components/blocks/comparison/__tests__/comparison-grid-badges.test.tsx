@@ -48,10 +48,10 @@ describe("ComparisonGridBadges", () => {
     expect(screen.getByText("Custom feature description")).toBeInTheDocument();
   });
 
-  it("renders empty features array", () => {
-    render(<ComparisonGridBadges features={[]} />);
+  it("renders with empty features array", () => {
+    render(<ComparisonGridBadges heading="Test Heading" description="Test description" features={[]} />);
 
-    expect(screen.getByText("Feature Comparison")).toBeInTheDocument();
+    expect(screen.getByText("Test Heading")).toBeInTheDocument();
   });
 
   it("renders multiple features", () => {
