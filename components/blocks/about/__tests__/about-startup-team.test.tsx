@@ -29,4 +29,52 @@ describe("AboutStartupTeam", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutStartupTeam />);
+    expect(screen.getByText("Building the Future of Software Development")).toBeInTheDocument();
+    expect(screen.getByText(/We're a team of passionate builders/)).toBeInTheDocument();
+    expect(screen.getByText("Meet Our Leadership")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<AboutStartupTeam title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<AboutStartupTeam description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders custom team title", () => {
+    render(<AboutStartupTeam teamTitle="Custom Team Title" />);
+    expect(screen.getByText("Custom Team Title")).toBeInTheDocument();
+  });
+
+  it("renders team members when provided", () => {
+    const teamMembers = [
+      { name: "John Doe", role: "CEO" },
+      { name: "Jane Smith", role: "CTO" },
+    ];
+    render(<AboutStartupTeam teamMembers={teamMembers} />);
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+    expect(screen.getByText("CEO")).toBeInTheDocument();
+    expect(screen.getByText("Jane Smith")).toBeInTheDocument();
+  });
+
+  it("renders sidebar links when provided", () => {
+    const sidebarLinks = [
+      { label: "About", href: "/about" },
+      { label: "Team", href: "/team" },
+    ];
+    render(<AboutStartupTeam sidebarLinks={sidebarLinks} />);
+    expect(screen.getByText("About")).toBeInTheDocument();
+    expect(screen.getByText("Team")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutStartupTeam className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

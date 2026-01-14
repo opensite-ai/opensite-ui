@@ -26,4 +26,35 @@ describe("AutoScrollCarousel", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AutoScrollCarousel />);
+    expect(screen.getByText(/Bringing your data to life/)).toBeInTheDocument();
+    expect(screen.getByText(/We thrive on the power of AI/)).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<AutoScrollCarousel heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<AutoScrollCarousel description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders images when provided", () => {
+    const images = [
+      { src: "https://example.com/image1.jpg", alt: "Team photo 1" },
+      { src: "https://example.com/image2.jpg", alt: "Team photo 2" },
+    ];
+    render(<AutoScrollCarousel images={images} />);
+    expect(screen.getByAltText("Team photo 1")).toBeInTheDocument();
+    expect(screen.getByAltText("Team photo 2")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AutoScrollCarousel className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
