@@ -153,7 +153,7 @@ export function FeatureAccordionImage({
 }: FeatureAccordionImageProps): React.JSX.Element {
   const [activeItem, setActiveItem] = React.useState(defaultValue);
   const activeIndex = parseInt(activeItem.replace("item-", ""), 10) || 0;
-  const currentImage = items[activeIndex] || items[0];
+  const currentImage = items?.[activeIndex] || items?.[0];
 
   const renderAccordionItems = () => {
     if (itemsSlot) return itemsSlot;

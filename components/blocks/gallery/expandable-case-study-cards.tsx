@@ -165,7 +165,7 @@ export function ExpandableCaseStudyCards({
   patternClassName,
   optixFlowConfig,
 }: ExpandableCaseStudyCardsProps): React.JSX.Element {
-  const [selection, setSelection] = useState(items[0]?.id);
+  const [selection, setSelection] = useState(items?.[0]?.id);
 
   const renderItems = () => {
     if (itemsSlot) return itemsSlot;

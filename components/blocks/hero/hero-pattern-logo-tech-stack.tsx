@@ -111,6 +111,7 @@ export function HeroPatternLogoTechStack({
 }: HeroPatternLogoTechStackProps): React.JSX.Element {
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
+    if (!logo) return null;
 
     const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
@@ -127,6 +128,7 @@ export function HeroPatternLogoTechStack({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("mt-6 flex justify-center gap-3", actionsClassName)}>

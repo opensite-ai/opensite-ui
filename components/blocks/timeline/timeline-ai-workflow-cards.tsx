@@ -164,7 +164,7 @@ export function TimelineAIWorkflowCards({
           </div>
         </div>
 
-        {items.length > 0 && (
+        {items && items.length > 0 && (
           <div className={cn("-mt-8 sm:-mt-12", itemsClassName)}>
             {items.map((item, index) => (
               <div

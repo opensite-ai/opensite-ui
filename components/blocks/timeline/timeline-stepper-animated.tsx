@@ -225,24 +225,24 @@ export function TimelineStepperAnimated({
   style,
   optixFlowConfig,
 }: TimelineStepperAnimatedProps) {
-  const safeInitialStep = steps.length > 0 
-    ? Math.max(0, Math.min(initialStep, steps.length - 1))
+  const safeInitialStep = (steps?.length ?? 0) > 0 
+    ? Math.max(0, Math.min(initialStep, (steps?.length ?? 1) - 1))
     : 0;
   const [currentStep, setCurrentStep] = useState(safeInitialStep);
 
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    setCurrentStep((prev) => Math.min(prev + 1, (steps?.length ?? 1) - 1));
   };
 
   const handlePrev = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const safeCurrentStep = steps.length > 0 
-    ? Math.max(0, Math.min(currentStep, steps.length - 1))
+  const safeCurrentStep = (steps?.length ?? 0) > 0 
+    ? Math.max(0, Math.min(currentStep, (steps?.length ?? 1) - 1))
     : 0;
 
-  if (steps.length === 0) {
+  if (!steps || steps.length === 0) {
     return (
       <Section
         id={id}

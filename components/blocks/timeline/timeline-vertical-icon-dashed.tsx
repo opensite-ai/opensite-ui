@@ -105,7 +105,7 @@ export function TimelineVerticalIconDashed({
   id,
   style,
 }: TimelineVerticalIconDashedProps) {
-  if (steps.length === 0) {
+  if (!steps || steps.length === 0) {
     return (
       <Section
         id={id}

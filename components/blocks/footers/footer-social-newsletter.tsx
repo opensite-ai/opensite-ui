@@ -206,7 +206,7 @@ export function FooterSocialNewsletter({
             <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
           </Pressable>
           <div className={cn("mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-4", gridClassName)}>
-            {sections.map((section, sectionIdx) => (
+            {sections?.map((section, sectionIdx) => (
               <div key={sectionIdx} className={cn(navSectionClassName)}>
                 <h3 className={cn("mb-4 font-bold", navTitleClassName)}>{section.title}</h3>
                 <ul className={cn("space-y-4 text-muted-foreground", navLinksClassName)}>
@@ -223,7 +223,7 @@ export function FooterSocialNewsletter({
             ))}
             <div className={cn("lg:col-span-2 xl:col-span-1", socialColumnClassName)}>
               <ul className={cn("mb-10 flex items-center gap-2 text-muted-foreground", socialLinksClassName)}>
-                {socialLinks.map((social, idx) => (
+                {socialLinks?.map((social, idx) => (
                   <li key={idx} className="font-medium">
                     <Pressable href={social.href} aria-label={social.label}>
                       <span className={cn("flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary", socialLinkClassName)}>

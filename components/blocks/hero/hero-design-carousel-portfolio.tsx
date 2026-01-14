@@ -121,6 +121,7 @@ export function HeroDesignCarouselPortfolio({
 }: HeroDesignCarouselPortfolioProps): React.JSX.Element {
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
+    if (!logo) return null;
 
     const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
@@ -151,6 +152,7 @@ export function HeroDesignCarouselPortfolio({
 
   const renderPrimaryAction = () => {
     if (actionsSlot) return null;
+    if (!primaryAction) return null;
 
     const { label, className: actionClassName, ...pressableProps } = primaryAction;
     return (
@@ -172,6 +174,7 @@ export function HeroDesignCarouselPortfolio({
 
   const renderSecondaryAction = () => {
     if (actionsSlot) return null;
+    if (!secondaryAction) return null;
 
     const { label, iconAfter, className: actionClassName, ...pressableProps } = secondaryAction;
     return (
@@ -188,6 +191,7 @@ export function HeroDesignCarouselPortfolio({
 
   const renderCarousel = () => {
     if (carouselSlot) return carouselSlot;
+    if (!carouselImages || carouselImages.length === 0) return null;
 
     return (
       <Carousel

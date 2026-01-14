@@ -192,8 +192,8 @@ export function CtaWorkflowTabs({
   patternOpacity,
   optixFlowConfig,
 }: CtaWorkflowTabsProps): React.JSX.Element {
-  const [activeTab, setActiveTab] = React.useState(tabs[0]?.id || "");
-  const activeTabData = tabs.find((tab) => tab.id === activeTab) || tabs[0];
+  const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id || "");
+  const activeTabData = tabs?.find((tab) => tab.id === activeTab) || tabs?.[0];
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;

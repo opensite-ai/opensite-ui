@@ -90,6 +90,7 @@ export function HeroLogoCenteredScreenshot({
 }: HeroLogoCenteredScreenshotProps): React.JSX.Element {
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
+    if (!logo) return null;
 
     const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
@@ -104,6 +105,7 @@ export function HeroLogoCenteredScreenshot({
 
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
     return (
@@ -121,6 +123,7 @@ export function HeroLogoCenteredScreenshot({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <Img

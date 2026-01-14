@@ -266,7 +266,7 @@ export function FooterCtaBanner({
                 </div>
               </div>
               <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
-                {socialLinks.map((social, idx) => (
+                {socialLinks?.map((social, idx) => (
                   <li key={idx}>
                     <Pressable
                       href={social.href}
@@ -281,7 +281,7 @@ export function FooterCtaBanner({
             </div>
 
             {/* Navigation Sections */}
-            {sections.map((section, sectionIdx) => (
+            {sections?.map((section, sectionIdx) => (
               <div key={sectionIdx} className={cn(navSectionClassName)}>
                 <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>{section.title}</h3>
                 <ul className={cn("space-y-3 text-sm text-muted-foreground", navLinksClassName)}>
@@ -314,7 +314,7 @@ export function FooterCtaBanner({
               </Pressable>
             </div>
             <ul className={cn("flex gap-4", legalLinksClassName)}>
-              {legalLinks.map((link, idx) => (
+              {legalLinks?.map((link, idx) => (
                 <li key={idx}>
                   <Pressable href={link.href} className={cn("hover:text-foreground", legalLinkClassName)}>
                     {link.name}

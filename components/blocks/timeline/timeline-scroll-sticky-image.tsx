@@ -128,12 +128,12 @@ export function TimelineScrollStickyImage({
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const safeActiveIndex = sections.length > 0 
-    ? Math.max(0, Math.min(activeIndex, sections.length - 1))
+  const safeActiveIndex = (sections?.length ?? 0) > 0 
+    ? Math.max(0, Math.min(activeIndex, (sections?.length ?? 1) - 1))
     : 0;
 
   useEffect(() => {
-    if (sections.length === 0) return;
+    if (!sections || sections.length === 0) return;
 
     const handleScroll = () => {
       const viewportHeight = window.innerHeight;
@@ -162,9 +162,9 @@ export function TimelineScrollStickyImage({
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [sections.length]);
+  }, [sections?.length]);
 
-  if (sections.length === 0) {
+  if (!sections || sections.length === 0) {
     return (
       <Section
         id={id}

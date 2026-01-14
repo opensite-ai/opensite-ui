@@ -282,7 +282,7 @@ export function CarouselGradientText({
         </div>
       </Carousel>
       <div className={cn("mt-8 flex items-center lg:ml-[50%]", indicatorsClassName)}>
-        {Array.from({ length: items.length }).map((_, index) => (
+        {Array.from({ length: items?.length ?? 0 }).map((_, index) => (
           <span
             key={index}
             className={cn(
@@ -299,7 +299,7 @@ export function CarouselGradientText({
                   : "translate-x-6 opacity-0"
               )}
             >
-              {items[index].title}
+              {items?.[index]?.title}
             </span>
           </span>
         ))}

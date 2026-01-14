@@ -301,7 +301,7 @@ export function ArticleBreadcrumbSocialComponent({
   enableBackToTop = true,
   optixFlowConfig,
 }: ArticleBreadcrumbSocialProps) {
-  const author = authorProp ?? (authorName ? { name: authorName, image: authorImage, role: authorRole } : defaultAuthor);
+  const author = authorProp ?? (authorName ? { name: authorName, image: authorImage, role: authorRole } : undefined);
 
   const platformLabels: Record<string, string> = {
     twitter: "Twitter",
@@ -316,7 +316,7 @@ export function ArticleBreadcrumbSocialComponent({
     icon: <DynamicIcon name={`lucide/${platform}`} size={16} />,
     "aria-label": `Share on ${platformLabels[platform] || platform.charAt(0).toUpperCase() + platform.slice(1)}`,
     className: undefined,
-  } as const)) : defaultSocialLinks);
+  } as const)) : []);
 
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || ""

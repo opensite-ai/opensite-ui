@@ -203,7 +203,7 @@ export function HeroCenteredImageGrid({
         </div>
         {gridImagesSlot ? gridImagesSlot : (
           <div className={cn("mx-auto mt-20 grid max-w-7xl gap-px bg-border p-px md:grid-cols-5", imageGridClassName)}>
-            {gridImages[0] && (
+            {gridImages?.[0] && (
               <Img
                 src={gridImages[0].src}
                 alt={gridImages[0].alt}
@@ -211,7 +211,7 @@ export function HeroCenteredImageGrid({
                 optixFlowConfig={optixFlowConfig}
               />
             )}
-            {gridImages[1] && (
+            {gridImages?.[1] && (
               <div className="relative md:col-span-2">
                 <Img
                   src={gridImages[1].src}

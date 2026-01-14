@@ -205,7 +205,7 @@ export function TimelineAlternatingDiagonal({
         </div>
       </div>
 
-      {items.length > 0 && (
+      {items && items.length > 0 && (
         <div className={cn("overflow-hidden border-x pb-40 lg:pt-20 [&>*:last-child]:pb-20 [&>div>div:first-child]:pt-20! mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl", itemsClassName)}>
           {items.map((item, index) => (
             <div key={index} className={cn("relative flex", itemClassName)}>

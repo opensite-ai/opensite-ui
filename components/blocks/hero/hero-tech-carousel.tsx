@@ -119,6 +119,7 @@ export function HeroTechCarousel({
 
   const renderCarousel = () => {
     if (carouselSlot) return carouselSlot;
+    if (!technologies || technologies.length === 0) return null;
 
     return (
       <Carousel
@@ -183,24 +184,26 @@ export function HeroTechCarousel({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          <div className="mx-auto mt-8 mb-12 flex h-[60px] w-fit items-center gap-2 rounded-md bg-muted px-4 py-2 text-center">
-            <div
-              className={cn(
-                "flex items-center gap-2 transition-opacity duration-300",
-                fadeIn ? "opacity-100" : "opacity-0",
-              )}
-            >
-              <Img
-                src={technologies[current]?.logo || logoPlaceholders.logoMark}
-                alt={technologies[current]?.name}
-                className="h-4 md:h-7"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <p className="border-l px-2 font-mono text-sm">
-                {technologies[current]?.command}
-              </p>
+          {technologies && technologies.length > 0 && (
+            <div className="mx-auto mt-8 mb-12 flex h-[60px] w-fit items-center gap-2 rounded-md bg-muted px-4 py-2 text-center">
+              <div
+                className={cn(
+                  "flex items-center gap-2 transition-opacity duration-300",
+                  fadeIn ? "opacity-100" : "opacity-0",
+                )}
+              >
+                <Img
+                  src={technologies[current]?.logo || logoPlaceholders.logoMark}
+                  alt={technologies[current]?.name}
+                  className="h-4 md:h-7"
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <p className="border-l px-2 font-mono text-sm">
+                  {technologies[current]?.command}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         {renderCarousel()}
       </div>

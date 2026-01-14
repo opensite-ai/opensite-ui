@@ -78,6 +78,7 @@ export function HeroWelcomeAsymmetricImages({
 }: HeroWelcomeAsymmetricImagesProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex flex-col gap-4 sm:flex-row">
@@ -100,8 +101,9 @@ export function HeroWelcomeAsymmetricImages({
 
   const renderImages = () => {
     if (imagesSlot) return imagesSlot;
+    if (!images || images.length < 4) return null;
 
-    const imgs = images.length >= 4 ? images : defaultImages;
+    const imgs = images;
 
     return (
       <div className="relative flex w-full items-center justify-end gap-4">

@@ -278,7 +278,7 @@ export function CtaEnterpriseDarkFeatures({
             <div className={cn("relative hidden lg:block", imagesClassName)}>
               <div className="absolute -right-8 -top-8 h-64 w-48 rotate-6 overflow-hidden rounded-xl shadow-2xl">
                 <Img
-                  src={decorativeImages[0]}
+                  src={decorativeImages?.[0]}
                   alt=""
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}
@@ -286,7 +286,7 @@ export function CtaEnterpriseDarkFeatures({
               </div>
               <div className="absolute right-16 top-24 h-48 w-36 -rotate-3 overflow-hidden rounded-xl shadow-2xl">
                 <Img
-                  src={decorativeImages[1]}
+                  src={decorativeImages?.[1]}
                   alt=""
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}
@@ -294,7 +294,7 @@ export function CtaEnterpriseDarkFeatures({
               </div>
               <div className="absolute -bottom-4 right-8 h-56 w-44 rotate-12 overflow-hidden rounded-xl shadow-2xl">
                 <Img
-                  src={decorativeImages[2]}
+                  src={decorativeImages?.[2]}
                   alt=""
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}

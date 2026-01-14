@@ -458,8 +458,9 @@ export function LinkPageNewsletterSocial({
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   const resolvedSubmitAction = submitAction ?? {
-    ...defaultSubmitAction,
     label: buttonText,
+    variant: "default" as const,
+    size: "lg" as const,
   };
 
   const resolvedChevronIcon =
@@ -786,8 +787,8 @@ export function LinkPageNewsletterSocial({
   const renderFooter = () => {
     if (footerSlot) return footerSlot;
 
-    const resolvedFooterAction = footerAction ?? defaultFooterAction;
-    if (!resolvedFooterAction) return null;
+    if (!footerAction) return null;
+    const resolvedFooterAction = footerAction;
 
     const {
       label,

@@ -198,7 +198,7 @@ export function TimelineProductLaunch({
             </h2>
             {renderCta()}
           </div>
-          {steps.length > 0 && (
+          {steps && steps.length > 0 && (
             <div className="mt-3 flex gap-4 sm:flex-col">
               <div className="relative">
                 <div className={cn("grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:items-center", `sm:grid-cols-${steps.length}`)}>

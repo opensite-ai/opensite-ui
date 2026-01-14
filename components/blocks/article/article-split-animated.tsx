@@ -173,7 +173,7 @@ export function ArticleSplitAnimatedComponent({
   enableAnimations = true,
   optixFlowConfig,
 }: ArticleSplitAnimatedProps) {
-  const ctaActions = ctaActionsProp ?? (ctaText ? [{ label: ctaText, href: ctaHref || "#", variant: "default" as const, size: "lg" as const }] : defaultCtaActions);
+  const ctaActions = ctaActionsProp ?? (ctaText ? [{ label: ctaText, href: ctaHref || "#", variant: "default" as const, size: "lg" as const }] : []);
 
   const MotionWrapper = enableAnimations ? motion.div : "div";
 

@@ -191,7 +191,7 @@ export function CarouselIconSidebar({
     });
   }, [api]);
 
-  const activeItem = items[activeIndex];
+  const activeItem = items?.[activeIndex];
 
   const renderSidebar = () => {
     if (sidebarSlot) return sidebarSlot;

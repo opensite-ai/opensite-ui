@@ -246,7 +246,7 @@ export function HeroImageSlider({
       className={cn("overflow-hidden", className)}
     >
       <ImageSlider
-        images={images.length ? images : defaultImages}
+        images={images && images.length ? images : []}
         autoplay={autoplay}
         autoplayIntervalMs={autoplayIntervalMs}
         direction={direction}

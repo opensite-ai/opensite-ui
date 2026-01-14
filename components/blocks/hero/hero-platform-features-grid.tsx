@@ -85,6 +85,7 @@ export function HeroPlatformFeaturesGrid({
 }: HeroPlatformFeaturesGridProps): React.JSX.Element {
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
+    if (!logo) return null;
 
     const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
     return (
@@ -99,6 +100,7 @@ export function HeroPlatformFeaturesGrid({
 
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
     return (

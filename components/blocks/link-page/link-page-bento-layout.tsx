@@ -311,8 +311,8 @@ export function LinkPageBentoLayout({
         }
       : undefined);
 
-  const featuredLinks = links.filter((link) => link.featured);
-  const regularLinks = links.filter((link) => !link.featured);
+  const featuredLinks = (links ?? []).filter((link) => link.featured);
+  const regularLinks = (links ?? []).filter((link) => !link.featured);
 
   const renderSocialLinks = () => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -662,8 +662,8 @@ export function LinkPageBentoLayout({
   const renderFooter = () => {
     if (footerSlot) return footerSlot;
 
-    const resolvedFooterAction = footerAction ?? defaultFooterAction;
-    if (!resolvedFooterAction) return null;
+    if (!footerAction) return null;
+    const resolvedFooterAction = footerAction;
 
     const {
       label,

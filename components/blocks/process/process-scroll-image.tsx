@@ -238,7 +238,7 @@ export function ProcessScrollImage({
 
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
-  const resolvedActions: ActionConfig[] = actions ?? (ctaText && ctaUrl ? [{ label: ctaText, href: ctaUrl, variant: "ghost" as const, icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" /> }] : defaultActions);
+  const resolvedActions: ActionConfig[] = actions ?? (ctaText && ctaUrl ? [{ label: ctaText, href: ctaUrl, variant: "ghost" as const, icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" /> }] : []);
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;

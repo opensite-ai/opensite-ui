@@ -68,6 +68,7 @@ export function HeroSplitGeometricShapes({
 }: HeroSplitGeometricShapesProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">

@@ -127,6 +127,7 @@ export function ComparisonMetricsRows({
 }: ComparisonMetricsRowsProps): React.JSX.Element {
   const renderMetrics = () => {
     if (metricsSlot) return metricsSlot;
+    if (!metrics || metrics.length === 0) return null;
 
     return (
       <div className={cn("col-span-4 rounded-xl bg-background shadow-sm md:col-span-8 lg:col-span-10 lg:col-start-2", metricsClassName)}>
@@ -248,7 +249,7 @@ export function ComparisonMetricsRows({
         <div className="col-span-4 md:col-span-8 lg:col-span-10 lg:col-start-2">
           <div className="flex flex-col space-y-4">
             <div className={cn("space-y-2", footnotesClassName)}>
-              {footnotes.map((note, idx) => (
+              {footnotes?.map((note, idx) => (
                 <p key={idx} className="text-xs text-muted-foreground md:text-sm">
                   {note}
                 </p>

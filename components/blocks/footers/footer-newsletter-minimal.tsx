@@ -303,7 +303,7 @@ export function FooterNewsletterMinimal({
           </div>
           <div className={cn("grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base", navGridClassName)}>
             <ul className={cn("space-y-1", navLinksClassName)}>
-              {navLinks.map((item, idx) => (
+              {navLinks?.map((item, idx) => (
                 <li key={idx}>
                   <Pressable
                     href={item.href}
@@ -315,7 +315,7 @@ export function FooterNewsletterMinimal({
               ))}
             </ul>
             <ul className={cn("space-y-1", socialLinksClassName)}>
-              {socialLinks.map((item) => (
+              {socialLinks?.map((item) => (
                 <li key={item.label}>
                   <Pressable
                     href={item.href}
@@ -370,7 +370,7 @@ export function FooterNewsletterMinimal({
           <div className={cn("grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base", bottomGridClassName)}>
             <div className={cn("w-32", locationClassName)}>{location}</div>
             <ul className={cn("space-y-1", footerLinksClassName)}>
-              {footerLinks.map((item) => (
+              {footerLinks?.map((item) => (
                 <li key={item.label}>
                   <Pressable
                     href={item.href}

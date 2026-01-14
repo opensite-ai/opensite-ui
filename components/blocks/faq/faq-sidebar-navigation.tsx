@@ -150,7 +150,7 @@ export function FaqSidebarNavigation({
   accordionContentClassName,
 }: FaqSidebarNavigationProps) {
   const [activeCategory, setActiveCategory] = React.useState(
-    categories[0]?.id || ""
+    categories?.[0]?.id || ""
   );
 
   const scrollToCategory = (categoryId: string) => {
@@ -270,7 +270,7 @@ export function FaqSidebarNavigation({
         >
           <nav className={cn("lg:w-1/4", navClassName)}>
             <div className="sticky top-24 space-y-2">
-              {categories.map((category) => (
+              {categories?.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => scrollToCategory(category.id)}

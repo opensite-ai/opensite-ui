@@ -113,7 +113,7 @@ export function FooterSocialApps({
               </Pressable>
             </div>
             <div className="grid flex-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
-              {sections.map((section, sectionIdx) => (
+              {sections?.map((section, sectionIdx) => (
                 <div key={sectionIdx}>
                   <h3 className="mb-4 font-bold">{section.title}</h3>
                   <ul className="space-y-4 text-muted-foreground">
@@ -133,7 +133,7 @@ export function FooterSocialApps({
               <div>
                 <p className="mb-3 font-bold">{socialLabel}</p>
                 <ul className="flex items-center gap-2 text-muted-foreground">
-                  {socialLinks.map((social, idx) => (
+                  {socialLinks?.map((social, idx) => (
                     <li key={idx} className="font-medium">
                       <Pressable href={social.href} aria-label={social.label}>
                         <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
@@ -147,7 +147,7 @@ export function FooterSocialApps({
               <div>
                 <p className="mb-3 font-bold">{appLabel}</p>
                 <ul className="flex items-center gap-2 text-muted-foreground">
-                  {appLinks.map((app, idx) => (
+                  {appLinks?.map((app, idx) => (
                     <li key={idx} className="font-medium">
                       <Pressable href={app.href} aria-label={app.label}>
                         <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">

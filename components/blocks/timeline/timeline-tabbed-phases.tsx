@@ -174,7 +174,7 @@ export function TimelineTabbedPhases({
     return null;
   };
 
-  if (phases.length === 0) {
+  if (!phases || phases.length === 0) {
     return (
       <Section
         id={id}
