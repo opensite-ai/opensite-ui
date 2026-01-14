@@ -35,7 +35,7 @@ describe("HeroBusinessCarouselDots", () => {
 
   it("renders with default props", () => {
     render(<HeroBusinessCarouselDots />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
+    expect(screen.getByText("Your Ultimate Business Solution.")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -48,8 +48,9 @@ describe("HeroBusinessCarouselDots", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders carousel component", () => {
-    render(<HeroBusinessCarouselDots />);
+  it("renders carousel when images provided", () => {
+    const carouselImages = [{ src: "https://example.com/image.jpg", alt: "Test image" }];
+    render(<HeroBusinessCarouselDots carouselImages={carouselImages} />);
     expect(screen.getByTestId("carousel")).toBeInTheDocument();
   });
 
