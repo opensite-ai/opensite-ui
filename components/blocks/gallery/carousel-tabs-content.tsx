@@ -179,7 +179,7 @@ export function CarouselTabsContent({
   optixFlowConfig,
 }: CarouselTabsContentProps): React.JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(items[0]?.category || "");
+  const [current, setCurrent] = useState(items?.[0]?.category || "");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({
     width: 0,
@@ -187,7 +187,7 @@ export function CarouselTabsContent({
   });
 
   useEffect(() => {
-    const currentIndex = items.findIndex((item) => item.category === current);
+    const currentIndex = items?.findIndex((item) => item.category === current) ?? -1;
     const activeTab = tabRefs.current[currentIndex];
 
     if (activeTab) {
@@ -204,12 +204,12 @@ export function CarouselTabsContent({
       return;
     }
 
-    const currentIndex = items.findIndex((item) => item.category === current);
+    const currentIndex = items?.findIndex((item) => item.category === current) ?? -1;
     api.scrollTo(currentIndex);
 
     const onSelect = () => {
       const idx = api.selectedScrollSnap();
-      setCurrent(items[idx].category);
+      setCurrent(items?.[idx]?.category ?? "");
     };
     api.on("select", onSelect);
 
@@ -224,7 +224,7 @@ export function CarouselTabsContent({
     return (
       <div className={cn("relative mb-8 flex justify-center", tabsClassName)}>
         <div className="relative flex h-auto gap-6 bg-background">
-          {items.map((item, idx) => (
+          {items?.map((item, idx) => (
             <button
               key={idx}
               ref={(el) => {

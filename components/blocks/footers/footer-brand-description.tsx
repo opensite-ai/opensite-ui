@@ -200,7 +200,7 @@ export function FooterBrandDescription({
               {description}
             </p>
             <ul className={cn("flex items-center space-x-6 text-muted-foreground", socialLinksClassName)}>
-              {socialLinks.map((social, idx) => (
+              {socialLinks?.map((social, idx) => (
                 <li key={idx} className={cn("font-medium hover:text-primary", socialLinkClassName)}>
                   <Pressable href={social.href} aria-label={social.label}>
                     <DynamicIcon name={social.icon} size={20} />
@@ -210,7 +210,7 @@ export function FooterBrandDescription({
             </ul>
           </div>
           <div className={cn("grid w-full gap-6 md:grid-cols-3 lg:gap-20", navGridClassName)}>
-            {sections.map((section, sectionIdx) => (
+            {sections?.map((section, sectionIdx) => (
               <div key={sectionIdx} className={cn(navSectionClassName)}>
                 <h3 className={cn("mb-4 font-bold", navTitleClassName)}>{section.title}</h3>
                 <ul className={cn("space-y-3 text-sm text-muted-foreground", navLinksClassName)}>
@@ -240,7 +240,7 @@ export function FooterBrandDescription({
             </Pressable>
           </div>
           <ul className={cn("order-1 flex flex-col gap-2 md:order-2 md:flex-row", legalLinksClassName)}>
-            {legalLinks.map((link, idx) => (
+            {legalLinks?.map((link, idx) => (
               <li key={idx} className={cn("hover:text-primary", legalLinkClassName)}>
                 <Pressable href={link.href}>{link.name}</Pressable>
               </li>

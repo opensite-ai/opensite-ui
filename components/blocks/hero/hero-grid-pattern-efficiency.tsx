@@ -78,6 +78,7 @@ export function HeroGridPatternEfficiency({
 }: HeroGridPatternEfficiencyProps): React.JSX.Element {
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     const { label, icon, iconAfter, children, className: btnClassName, ...pressableProps } = action;
     return (

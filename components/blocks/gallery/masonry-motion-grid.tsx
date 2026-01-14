@@ -165,10 +165,10 @@ export function MasonryMotionGrid({
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const allImages = useMemo(() => [
-    ...column1Images,
-    ...column2Images,
-    ...column3Images,
-    ...column4Images,
+    ...(column1Images ?? []),
+    ...(column2Images ?? []),
+    ...(column3Images ?? []),
+    ...(column4Images ?? []),
   ], [column1Images, column2Images, column3Images, column4Images]);
 
   const lightboxItems: LightboxItem[] = useMemo(() =>
@@ -184,14 +184,17 @@ export function MasonryMotionGrid({
   );
 
   const getGlobalIndex = useCallback((columnIndex: number, imageIndex: number): number => {
+    const col1Len = column1Images?.length ?? 0;
+    const col2Len = column2Images?.length ?? 0;
+    const col3Len = column3Images?.length ?? 0;
     const columnOffsets = [
       0,
-      column1Images.length,
-      column1Images.length + column2Images.length,
-      column1Images.length + column2Images.length + column3Images.length,
+      col1Len,
+      col1Len + col2Len,
+      col1Len + col2Len + col3Len,
     ];
     return columnOffsets[columnIndex] + imageIndex;
-  }, [column1Images.length, column2Images.length, column3Images.length]);
+  }, [column1Images?.length, column2Images?.length, column3Images?.length]);
 
   const handleImageClick = useCallback((globalIndex: number) => {
     setLightboxIndex(globalIndex);
@@ -306,17 +309,17 @@ export function MasonryMotionGrid({
     return (
       <>
         <div className={cn("grid grid-cols-2 gap-3 md:grid-cols-4", gridClassName)}>
-          {renderColumn(column1Images, "up", 0)}
-          {renderColumn(column2Images, "down", 1)}
-          {renderColumn(column3Images, "up", 2)}
-          {renderColumn4(column4Images)}
+          {renderColumn(column1Images ?? [], "up", 0)}
+          {renderColumn(column2Images ?? [], "down", 1)}
+          {renderColumn(column3Images ?? [], "up", 2)}
+          {renderColumn4(column4Images ?? [])}
         </div>
         {showDuplicateGrid && (
           <div className={cn("mt-4 grid grid-cols-2 gap-3 md:grid-cols-4", gridClassName)}>
-            {renderColumn(column1Images, "up", 0)}
-            {renderColumn(column2Images, "down", 1)}
-            {renderColumn(column3Images, "up", 2)}
-            {renderColumn4(column4Images)}
+            {renderColumn(column1Images ?? [], "up", 0)}
+            {renderColumn(column2Images ?? [], "down", 1)}
+            {renderColumn(column3Images ?? [], "up", 2)}
+            {renderColumn4(column4Images ?? [])}
           </div>
         )}
       </>

@@ -173,7 +173,7 @@ export function FooterAnimatedSocial({
               <div className={cn("mt-5 space-y-8 md:mt-0", rightColumnClassName)}>
                 <motion.div variants={itemVariants}>
                   <div className={cn("space-y-6", socialLinksClassName)}>
-                    {socialLinks.map((link) => (
+                    {socialLinks?.map((link) => (
                       <motion.div
                         key={link.name}
                         variants={itemVariants}

@@ -227,7 +227,8 @@ export function TestimonialCarouselCards({
   }, [carouselApi]);
 
   const progressWidth = 240;
-  const progressIndicatorWidth = progressWidth / items.length;
+  const itemsLength = items?.length ?? 1;
+  const progressIndicatorWidth = progressWidth / itemsLength;
   const progressOffset = currentIndex * progressIndicatorWidth;
 
   const renderSidebar = () => {

@@ -268,22 +268,24 @@ export function FaqProfileSidebar({
         ) : (
           <div className={profileDescriptionClassName}>{profileDescription}</div>
         )}
-        <div className={cn("mt-6 border-t pt-6", contactSectionClassName)}>
-          {typeof contactText === "string" ? (
-            <p className="text-sm font-medium">{contactText}</p>
-          ) : (
-            contactText
-          )}
-          <Pressable
-            href={contactAction.href}
-            onClick={contactAction.onClick}
-            variant={contactAction.variant || "outline"}
-            size={contactAction.size}
-            className={cn("mt-3 w-full", contactAction.className)}
-          >
-            {contactAction.children || contactAction.label}
-          </Pressable>
-        </div>
+        {contactAction && (
+          <div className={cn("mt-6 border-t pt-6", contactSectionClassName)}>
+            {typeof contactText === "string" ? (
+              <p className="text-sm font-medium">{contactText}</p>
+            ) : (
+              contactText
+            )}
+            <Pressable
+              href={contactAction.href}
+              onClick={contactAction.onClick}
+              variant={contactAction.variant || "outline"}
+              size={contactAction.size}
+              className={cn("mt-3 w-full", contactAction.className)}
+            >
+              {contactAction.children || contactAction.label}
+            </Pressable>
+          </div>
+        )}
       </div>
     );
   };

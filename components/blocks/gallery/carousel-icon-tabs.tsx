@@ -313,7 +313,7 @@ export function CarouselIconTabs({
         {renderTabs()}
         <div className={cn("flex items-center gap-8", controlsClassName)}>
           <div>
-            {current} / {sections.length}
+            {current} / {sections?.length ?? 0}
           </div>
           <div className="flex items-center justify-start gap-2">
             <CarouselPrevious

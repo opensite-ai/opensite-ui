@@ -188,7 +188,7 @@ export function CarouselSidebarResources({
 
     return (
       <div className={cn("order-3 flex flex-col gap-6 lg:order-0", sidebarClassName)}>
-        {resources.slice(0, 3).map((resource, idx) => (
+        {resources?.slice(0, 3).map((resource, idx) => (
           <Fragment key={idx}>
             <div className="flex flex-col gap-1">
               <div className="font-mono text-sm text-muted-foreground uppercase">

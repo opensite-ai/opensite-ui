@@ -191,7 +191,7 @@ export function ArticleHeroProseComponent({
   dateFormat = "MMMM d, yyyy",
   optixFlowConfig,
 }: ArticleHeroProseProps) {
-  const { title, authorName, authorHref, image, pubDate, description, authorImage } = post;
+  const { title, authorName, authorHref, image, pubDate, description, authorImage } = post ?? {};
 
   const renderAuthor = () => {
     if (authorSlot) return authorSlot;

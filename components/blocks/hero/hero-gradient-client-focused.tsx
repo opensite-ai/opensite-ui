@@ -79,6 +79,7 @@ export function HeroGradientClientFocused({
 }: HeroGradientClientFocusedProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("flex items-center gap-2.5 text-lg max-lg:flex-col max-lg:text-base", actionsClassName)}>
@@ -107,6 +108,7 @@ export function HeroGradientClientFocused({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <Img

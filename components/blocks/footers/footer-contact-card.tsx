@@ -233,7 +233,7 @@ export function FooterContactCard({
               <div className={cn(socialSectionClassName)}>
                 <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
                 <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
-                  {socialLinks.map((social, idx) => (
+                  {socialLinks?.map((social, idx) => (
                     <li key={idx}>
                       <Pressable
                         href={social.href}
@@ -248,7 +248,7 @@ export function FooterContactCard({
               </div>
               <nav className={cn("mt-8", navClassName)}>
                 <ul className="flex flex-wrap gap-6">
-                  {navLinks.map((link, idx) => (
+                  {navLinks?.map((link, idx) => (
                     <li key={idx}>
                       <Pressable
                         href={link.href}

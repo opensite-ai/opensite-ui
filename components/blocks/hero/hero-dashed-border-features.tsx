@@ -121,6 +121,7 @@ export function HeroDashedBorderFeatures({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <>

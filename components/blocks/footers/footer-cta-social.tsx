@@ -159,7 +159,7 @@ export function FooterCtaSocial({
           </Pressable>
 
           <div className={cn("flex items-center gap-6 pt-8", socialLinksClassName)}>
-            {socialLinks.map((link, idx) => (
+            {socialLinks?.map((link, idx) => (
               <React.Fragment key={idx}>
                 <Pressable
                   href={link.url}
@@ -168,7 +168,7 @@ export function FooterCtaSocial({
                 >
                   <DynamicIcon name={link.icon} size={20} />
                 </Pressable>
-                {idx < socialLinks.length - 1 && (
+                {idx < (socialLinks?.length ?? 0) - 1 && (
                   <div className="h-4 w-px bg-border" />
                 )}
               </React.Fragment>

@@ -230,7 +230,7 @@ export function FooterNavSocial({
                 <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
               </Pressable>
               <div className={cn("grid gap-8 sm:grid-cols-3", navGridClassName)}>
-                {sections.map((section, sectionIdx) => (
+                {sections?.map((section, sectionIdx) => (
                   <div key={sectionIdx} className={cn(navSectionClassName)}>
                     <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>{section.title}</h3>
                     <ul className={cn("space-y-3 text-sm text-muted-foreground", navLinksClassName)}>
@@ -275,7 +275,7 @@ export function FooterNavSocial({
               <div className={cn(socialSectionClassName)}>
                 <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
                 <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
-                  {socialLinks.map((social, idx) => (
+                  {socialLinks?.map((social, idx) => (
                     <li key={idx}>
                       <Pressable
                         href={social.href}
@@ -304,7 +304,7 @@ export function FooterNavSocial({
               </Pressable>
             </div>
             <ul className={cn("flex gap-4", legalLinksClassName)}>
-              {legalLinks.map((link, idx) => (
+              {legalLinks?.map((link, idx) => (
                 <li key={idx} className={cn(legalLinkClassName)}>
                   <Pressable href={link.href} className="hover:text-primary">
                     {link.name}

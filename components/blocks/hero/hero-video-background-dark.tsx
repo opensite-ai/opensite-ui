@@ -68,6 +68,7 @@ export function HeroVideoBackgroundDark({
 }: HeroVideoBackgroundDarkProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex lg:justify-center">

@@ -117,7 +117,7 @@ export function FooterNewsletterGrid({
               </div>
               <p className="text-muted-foreground">{description}</p>
               <ul className="flex items-center space-x-6">
-                {socialLinks.map((social, idx) => (
+                {socialLinks?.map((social, idx) => (
                   <li
                     key={idx}
                     className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
@@ -129,7 +129,7 @@ export function FooterNewsletterGrid({
                 ))}
               </ul>
             </div>
-            {sections.map((section, sectionIdx) => (
+            {sections?.map((section, sectionIdx) => (
               <div key={sectionIdx} className="col-span-2 md:col-span-1">
                 <h3 className="mb-5 font-medium">{section.title}</h3>
                 <ul className="space-y-4 text-sm text-muted-foreground">

@@ -89,7 +89,7 @@ export function FooterLinksGrid({
               </div>
               <p className="mt-4 font-bold">{tagline}</p>
             </div>
-            {menuItems.map((section, sectionIdx) => (
+            {menuItems?.map((section, sectionIdx) => (
               <div key={sectionIdx}>
                 <h3 className="mb-4 font-bold">{section.title}</h3>
                 <ul className="space-y-4 text-muted-foreground">
@@ -116,7 +116,7 @@ export function FooterLinksGrid({
               </Pressable>
             </div>
             <ul className="flex gap-4">
-              {bottomLinks.map((link, linkIdx) => (
+              {bottomLinks?.map((link, linkIdx) => (
                 <li key={linkIdx} className="underline hover:text-primary">
                   <Pressable href={link.url}>{link.text}</Pressable>
                 </li>

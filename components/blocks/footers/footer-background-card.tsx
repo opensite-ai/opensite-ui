@@ -222,7 +222,7 @@ export function FooterBackgroundCard({
             </Pressable>
           </div>
 
-          {menuItems.map((menu, idx) => (
+          {menuItems?.map((menu, idx) => (
             <div key={idx} className={cn(menuSectionClassName)}>
               <h3 className={cn("mb-4 text-sm font-medium tracking-wider text-primary uppercase", menuTitleClassName)}>
                 {menu.title}
@@ -247,10 +247,10 @@ export function FooterBackgroundCard({
               {contactTitle}
             </h3>
             <ul className="space-y-3">
-              <li className={cn("text-muted-foreground", contactItemClassName)}>{contact.phone}</li>
-              <li className={cn("text-muted-foreground", contactItemClassName)}>{contact.email}</li>
+              <li className={cn("text-muted-foreground", contactItemClassName)}>{contact?.phone}</li>
+              <li className={cn("text-muted-foreground", contactItemClassName)}>{contact?.email}</li>
               <li className={cn("text-muted-foreground", contactItemClassName)}>
-                {contact.location} • {contact.timezone}
+                {contact?.location} • {contact?.timezone}
               </li>
             </ul>
           </div>
@@ -269,7 +269,7 @@ export function FooterBackgroundCard({
             </Pressable>
           </div>
           <div className={cn("flex gap-4", bottomLinksClassName)}>
-            {bottomLinks.map((link, idx) => (
+            {bottomLinks?.map((link, idx) => (
               <Pressable
                 key={idx}
                 href={link.url}

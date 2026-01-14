@@ -328,7 +328,7 @@ export function CarouselGradientOverlay({
           </CarouselContent>
         </Carousel>
         <div className={cn("mt-8 flex justify-center gap-2", indicatorsClassName)}>
-          {items.map((_, index) => (
+          {items?.map((_, index) => (
             <button
               key={index}
               className={cn(

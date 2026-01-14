@@ -168,8 +168,8 @@ export function FooterSimpleCentered({
             >
               <div className="flex size-12 items-center justify-center rounded-lg border border-border bg-accent p-2">
                 <Img
-                  src={logo.src}
-                  alt={logo.alt}
+                  src={logo?.src}
+                  alt={logo?.alt}
                   className={cn(
                     "size-12 h-full w-full object-contain object-center",
                     logoClassName
@@ -178,7 +178,7 @@ export function FooterSimpleCentered({
                 />
               </div>
               <h3 className={cn("text-xl font-bold", logoTitleClassName)}>
-                {logo.title}
+                {logo?.title}
               </h3>
             </div>
             <p
@@ -197,7 +197,7 @@ export function FooterSimpleCentered({
             )}
           >
             <div className="inline-grid w-fit grid-cols-1 gap-x-20 gap-y-14 sm:grid-cols-2">
-              {sitemap.map((section) => (
+              {sitemap?.map((section) => (
                 <div
                   key={section.title}
                   className={cn("h-fit w-min", sitemapSectionClassName)}
@@ -263,7 +263,7 @@ export function FooterSimpleCentered({
               bottomLinksClassName
             )}
           >
-            {bottomLinks.map((link, idx) => (
+            {bottomLinks?.map((link, idx) => (
               <Pressable
                 key={idx}
                 href={link.href}
