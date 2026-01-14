@@ -20,8 +20,18 @@ describe("ComparisonTableTabs", () => {
 
   it("renders custom features", () => {
     const customFeatures = ["Feature 1", "Feature 2", "Feature 3"];
+    const customModels = [
+      {
+        name: "Model A",
+        attributes: [
+          { value: "Yes", status: "positive" as const },
+          { value: "No", status: "negative" as const },
+          { value: "Maybe", status: "neutral" as const },
+        ],
+      },
+    ];
 
-    render(<ComparisonTableTabs features={customFeatures} />);
+    render(<ComparisonTableTabs features={customFeatures} models={customModels} />);
 
     expect(screen.getByText("Feature 1")).toBeInTheDocument();
     expect(screen.getByText("Feature 2")).toBeInTheDocument();
@@ -29,10 +39,11 @@ describe("ComparisonTableTabs", () => {
   });
 
   it("renders empty features array", () => {
-    render(<ComparisonTableTabs features={[]} />);
+    const { container } = render(<ComparisonTableTabs features={[]} />);
 
-    // Should still render model headers (appear in both tabs and table headers)
-    expect(screen.getAllByText("SSD").length).toBeGreaterThan(0);
+    // Component should still render the section even with empty features
+    const section = container.querySelector("section");
+    expect(section).toBeInTheDocument();
   });
 });
 

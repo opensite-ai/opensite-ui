@@ -162,7 +162,7 @@ export function CarouselAutoProgressSlides({
       } else {
         clearInterval(interval);
         progress.set(100);
-        if (currentIndex < items.length - 1) {
+        if (currentIndex < (items?.length ?? 0) - 1) {
           setCurrentIndex(currentIndex + 1);
           setDirection(1);
         } else {
@@ -172,19 +172,19 @@ export function CarouselAutoProgressSlides({
     }, autoAdvanceInterval);
 
     return () => clearInterval(interval);
-  }, [progress, currentIndex, items.length, autoAdvanceInterval]);
+  }, [progress, currentIndex, items?.length, autoAdvanceInterval]);
 
   const handlePrev = () => {
     progress.set(100);
     currentIndex > 0
       ? setCurrentIndex(currentIndex - 1)
-      : setCurrentIndex(items.length - 1);
+      : setCurrentIndex((items?.length ?? 1) - 1);
     setDirection(-1);
   };
 
   const handleNext = () => {
     progress.set(100);
-    currentIndex < items.length - 1
+    currentIndex < (items?.length ?? 0) - 1
       ? setCurrentIndex(currentIndex + 1)
       : setCurrentIndex(0);
     setDirection(1);
@@ -236,7 +236,7 @@ export function CarouselAutoProgressSlides({
           <DynamicIcon name="lucide/chevron-left" size={16} />
         </Pressable>
         <div className="flex items-center justify-center gap-1">
-          {items.map((_, index) => (
+          {items?.map((_, index) => (
             <motion.button
               key={index}
               initial={false}
@@ -279,7 +279,7 @@ export function CarouselAutoProgressSlides({
               exit="exit"
               custom={direction}
               transition={{ type: "spring", stiffness: 100, damping: 30 }}
-              className={cn("flex w-full max-w-3xl flex-col items-center justify-center", items[currentIndex].className)}
+              className={cn("flex w-full max-w-3xl flex-col items-center justify-center", items?.[currentIndex]?.className)}
             >
               {slideLabel && (
                 typeof slideLabel === "string" ? (
@@ -295,9 +295,9 @@ export function CarouselAutoProgressSlides({
                   className="h-full w-full"
                 >
                   <Img
-                    src={items[currentIndex].src}
-                    alt={typeof items[currentIndex].label === "string" ? items[currentIndex].label : `Slide ${currentIndex + 1}`}
-                    className={cn("h-full w-full rounded-3xl object-cover", imageClassName, items[currentIndex].imageClassName)}
+                    src={items?.[currentIndex]?.src ?? ""}
+                    alt={typeof items?.[currentIndex]?.label === "string" ? items[currentIndex].label : `Slide ${currentIndex + 1}`}
+                    className={cn("h-full w-full rounded-3xl object-cover", imageClassName, items?.[currentIndex]?.imageClassName)}
                     optixFlowConfig={optixFlowConfig}
                   />
                 </motion.div>
