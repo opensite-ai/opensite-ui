@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { ResourceDetailArticleHero } from "../resource-detail-article-hero";
 
 vi.mock("@page-speed/img", () => ({
@@ -86,5 +86,36 @@ vi.mock("../../../../lib/blockBrandedIconsAndPlaceholders", () => ({
 describe("ResourceDetailArticleHero", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("renders blog title", () => {
+    render(<ResourceDetailArticleHero blog={{ title: "Building Sustainable Web Apps" }} />);
+    expect(screen.getByText("Building Sustainable Web Apps")).toBeInTheDocument();
+  });
+
+  it("renders blog author", () => {
+    render(<ResourceDetailArticleHero blog={{ author: "Sarah Chen" }} />);
+    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  });
+
+  it("renders blog date and read time", () => {
+    render(<ResourceDetailArticleHero blog={{ date: "December 15, 2024", readTime: "8 min read" }} />);
+    expect(screen.getByText(/December 15, 2024/)).toBeInTheDocument();
+    expect(screen.getByText(/8 min read/)).toBeInTheDocument();
+  });
+
+  it("renders navigation back link", () => {
+    render(<ResourceDetailArticleHero navigation={{ backText: "All Articles", backHref: "/blog" }} />);
+    expect(screen.getByText("All Articles")).toBeInTheDocument();
+  });
+
+  it("renders share heading", () => {
+    render(<ResourceDetailArticleHero shareHeading="Share this article" />);
+    expect(screen.getAllByText("Share this article").length).toBeGreaterThan(0);
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<ResourceDetailArticleHero className="custom-class" />);
+    expect(container.firstChild).toHaveClass("custom-class");
   });
 });
