@@ -38,10 +38,12 @@ describe("HeroMobileAppDownload", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroMobileAppDownload actions={actions} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders storeActions when provided", () => {
+    const storeActions = [
+      { storePrefix: "Download on the", storeName: "App Store", href: "/app-store" },
+    ];
+    render(<HeroMobileAppDownload storeActions={storeActions} />);
+    expect(screen.getByText("App Store")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

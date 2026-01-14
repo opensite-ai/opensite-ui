@@ -33,15 +33,19 @@ describe("HeroBusinessOperationsMosaic", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<HeroBusinessOperationsMosaic description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders custom subheading", () => {
+    render(<HeroBusinessOperationsMosaic subheading="Custom subheading text" />);
+    expect(screen.getByText("Custom subheading text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroBusinessOperationsMosaic actions={actions} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders images when provided", () => {
+    const images = [
+      { src: "https://example.com/image1.jpg", alt: "Image 1" },
+      { src: "https://example.com/image2.jpg", alt: "Image 2" },
+    ];
+    render(<HeroBusinessOperationsMosaic images={images} />);
+    const renderedImages = screen.getAllByTestId("mock-img");
+    expect(renderedImages.length).toBeGreaterThan(0);
   });
 
   it("applies custom className", () => {

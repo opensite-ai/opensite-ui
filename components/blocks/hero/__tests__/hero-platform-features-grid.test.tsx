@@ -29,9 +29,9 @@ describe("HeroPlatformFeaturesGrid", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<HeroPlatformFeaturesGrid description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders custom subtitle", () => {
+    render(<HeroPlatformFeaturesGrid subtitle="Custom subtitle text" />);
+    expect(screen.getByText("Custom subtitle text")).toBeInTheDocument();
   });
 
   it("renders action when provided", () => {

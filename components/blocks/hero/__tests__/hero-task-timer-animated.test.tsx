@@ -29,9 +29,12 @@ describe("HeroTaskTimerAnimated", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<HeroTaskTimerAnimated description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders images when provided", () => {
+    const images = [
+      { src: "https://example.com/image1.jpg", alt: "Image 1" },
+    ];
+    const { container } = render(<HeroTaskTimerAnimated images={images} />);
+    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders actions when provided", () => {

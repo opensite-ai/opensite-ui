@@ -48,9 +48,12 @@ describe("HeroTechCarousel", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders carousel component", () => {
-    render(<HeroTechCarousel />);
-    expect(screen.getByTestId("carousel")).toBeInTheDocument();
+  it("renders technologies when provided", () => {
+    const technologies = [
+      { name: "React", icon: "react", description: "A JavaScript library" },
+    ];
+    render(<HeroTechCarousel technologies={technologies} />);
+    expect(screen.getByText("React")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -39,15 +39,16 @@ describe("HeroVideoOverlayStars", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<HeroVideoOverlayStars description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders action when provided", () => {
+    const action = { label: "Get Started", href: "/start" };
+    render(<HeroVideoOverlayStars action={action} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroVideoOverlayStars actions={actions} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders trust section when provided", () => {
+    const trust = { starCount: 5, message: "Trusted by thousands" };
+    render(<HeroVideoOverlayStars trust={trust} />);
+    expect(screen.getByText("Trusted by thousands")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

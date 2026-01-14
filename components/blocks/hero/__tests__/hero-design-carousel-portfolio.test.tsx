@@ -48,9 +48,9 @@ describe("HeroDesignCarouselPortfolio", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroDesignCarouselPortfolio actions={actions} />);
+  it("renders primaryAction when provided", () => {
+    const primaryAction = { label: "Get Started", href: "/start" };
+    render(<HeroDesignCarouselPortfolio primaryAction={primaryAction} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 

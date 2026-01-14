@@ -34,10 +34,10 @@ describe("HeroComingSoonCountdown", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroComingSoonCountdown actions={actions} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders submitAction when provided", () => {
+    const submitAction = { label: "Notify Me", href: "/notify" };
+    render(<HeroComingSoonCountdown submitAction={submitAction} />);
+    expect(screen.getByText("Notify Me")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

@@ -34,10 +34,12 @@ describe("HeroPricingComparison", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders action when provided", () => {
-    const action = { label: "Get Started", href: "/start", variant: "default" as const };
-    render(<HeroPricingComparison action={action} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders plans when provided", () => {
+    const plans = [
+      { name: "Basic", price: "$9", pricePeriod: "/month", features: ["Feature 1"], action: { label: "Get Started", href: "/start" } },
+    ];
+    render(<HeroPricingComparison plans={plans} />);
+    expect(screen.getByText("Basic")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {

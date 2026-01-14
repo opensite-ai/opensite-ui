@@ -39,9 +39,9 @@ describe("HeroBadgeShadowOverlay", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<HeroBadgeShadowOverlay description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders announcement text when provided", () => {
+    render(<HeroBadgeShadowOverlay announcementText="New Feature Available" />);
+    expect(screen.getByText("New Feature Available")).toBeInTheDocument();
   });
 
   it("renders actions when provided", () => {

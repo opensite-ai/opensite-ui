@@ -34,15 +34,19 @@ describe("HeroMentalHealthTeam", () => {
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<HeroMentalHealthTeam description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders custom subtitle", () => {
+    render(<HeroMentalHealthTeam subtitle="Custom subtitle text" />);
+    expect(screen.getByText("Custom subtitle text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroMentalHealthTeam actions={actions} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders team images when provided", () => {
+    const teamImages = [
+      { src: "https://example.com/team1.jpg", alt: "Team Member 1" },
+      { src: "https://example.com/team2.jpg", alt: "Team Member 2" },
+    ];
+    render(<HeroMentalHealthTeam teamImages={teamImages} />);
+    const renderedImages = screen.getAllByTestId("mock-img");
+    expect(renderedImages.length).toBeGreaterThan(0);
   });
 
   it("applies custom className", () => {
