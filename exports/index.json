@@ -43,11 +43,11 @@
     "utils": "./exports/utils.json"
   },
   "stats": {
-    "totalExports": 645,
+    "totalExports": 648,
     "coreExports": 2,
-    "uiComponentExports": 34,
+    "uiComponentExports": 35,
     "hooksExports": 2,
-    "blockExports": 604,
+    "blockExports": 606,
     "utilExports": 3
   }
 }

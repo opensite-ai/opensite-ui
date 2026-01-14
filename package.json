@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -1596,6 +1596,11 @@
       "import": "./dist/hero-image-left-content.js",
       "require": "./dist/hero-image-left-content.cjs"
     },
+    "./blocks/hero/hero-image-slider": {
+      "types": "./dist/hero-image-slider.d.ts",
+      "import": "./dist/hero-image-slider.js",
+      "require": "./dist/hero-image-slider.cjs"
+    },
     "./blocks/hero/hero-innovation-image-grid": {
       "types": "./dist/hero-innovation-image-grid.d.ts",
       "import": "./dist/hero-innovation-image-grid.js",
@@ -3155,6 +3160,11 @@
       "types": "./dist/form-inputs.d.ts",
       "import": "./dist/form-inputs.js",
       "require": "./dist/form-inputs.cjs"
+    },
+    "./components/image-slider": {
+      "types": "./dist/image-slider.d.ts",
+      "import": "./dist/image-slider.js",
+      "require": "./dist/image-slider.cjs"
     },
     "./components/input": {
       "types": "./dist/input.d.ts",

@@ -94,6 +94,11 @@
     "import": "./dist/form-inputs.js",
     "require": "./dist/form-inputs.cjs"
   },
+  "./components/image-slider": {
+    "types": "./dist/image-slider.d.ts",
+    "import": "./dist/image-slider.js",
+    "require": "./dist/image-slider.cjs"
+  },
   "./components/input": {
     "types": "./dist/input.d.ts",
     "import": "./dist/input.js",

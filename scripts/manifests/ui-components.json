@@ -133,6 +133,13 @@
   }
 ,
   {
+    "path": "./components/image-slider",
+    "types": "./dist/image-slider.d.ts",
+    "import": "./dist/image-slider.js",
+    "require": "./dist/image-slider.cjs"
+  }
+,
+  {
     "path": "./components/input",
     "types": "./dist/input.d.ts",
     "import": "./dist/input.js",

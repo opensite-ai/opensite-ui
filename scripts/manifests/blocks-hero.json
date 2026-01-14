@@ -280,6 +280,13 @@
   }
 ,
   {
+    "path": "./blocks/hero/hero-image-slider",
+    "types": "./dist/hero-image-slider.d.ts",
+    "import": "./dist/hero-image-slider.js",
+    "require": "./dist/hero-image-slider.cjs"
+  }
+,
+  {
     "path": "./blocks/hero/hero-innovation-image-grid",
     "types": "./dist/hero-innovation-image-grid.d.ts",
     "import": "./dist/hero-innovation-image-grid.js",

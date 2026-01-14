@@ -42,6 +42,13 @@
   }
 ,
   {
+    "path": "./blocks/services-list/services-list-expandable-cards",
+    "types": "./dist/services-list-expandable-cards.d.ts",
+    "import": "./dist/services-list-expandable-cards.js",
+    "require": "./dist/services-list-expandable-cards.cjs"
+  }
+,
+  {
     "path": "./blocks/services-list/services-list-feature-spotlight",
     "types": "./dist/services-list-feature-spotlight.d.ts",
     "import": "./dist/services-list-feature-spotlight.js",
