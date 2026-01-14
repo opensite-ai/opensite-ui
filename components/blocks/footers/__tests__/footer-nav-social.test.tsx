@@ -18,4 +18,34 @@ describe("FooterNavSocial", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FooterNavSocial />);
+    expect(screen.getByText("Stay Updated")).toBeInTheDocument();
+    expect(screen.getByText("Follow Us")).toBeInTheDocument();
+  });
+
+  it("renders custom newsletter heading", () => {
+    render(<FooterNavSocial newsletterHeading="Custom Newsletter" />);
+    expect(screen.getByText("Custom Newsletter")).toBeInTheDocument();
+  });
+
+  it("renders custom newsletter description", () => {
+    render(<FooterNavSocial newsletterDescription="Custom description" />);
+    expect(screen.getByText("Custom description")).toBeInTheDocument();
+  });
+
+  it("renders sections when provided", () => {
+    const sections = [
+      { title: "Products", links: [{ name: "Feature 1", href: "/feature1" }] },
+    ];
+    render(<FooterNavSocial sections={sections} />);
+    expect(screen.getByText("Products")).toBeInTheDocument();
+    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FooterNavSocial className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

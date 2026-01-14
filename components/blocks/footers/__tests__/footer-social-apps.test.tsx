@@ -18,4 +18,34 @@ describe("FooterSocialApps", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FooterSocialApps />);
+    expect(screen.getByText("Follow Us")).toBeInTheDocument();
+    expect(screen.getByText("Mobile App")).toBeInTheDocument();
+  });
+
+  it("renders custom social label", () => {
+    render(<FooterSocialApps socialLabel="Connect With Us" />);
+    expect(screen.getByText("Connect With Us")).toBeInTheDocument();
+  });
+
+  it("renders custom app label", () => {
+    render(<FooterSocialApps appLabel="Download App" />);
+    expect(screen.getByText("Download App")).toBeInTheDocument();
+  });
+
+  it("renders sections when provided", () => {
+    const sections = [
+      { title: "Products", links: [{ name: "Feature 1", href: "/feature1" }] },
+    ];
+    render(<FooterSocialApps sections={sections} />);
+    expect(screen.getByText("Products")).toBeInTheDocument();
+    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FooterSocialApps className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
