@@ -30,4 +30,39 @@ describe("CarouselSidebarResources", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CarouselSidebarResources />);
+    expect(screen.getByText(/Start building with our template collection/)).toBeInTheDocument();
+    expect(screen.getByText("View all resources")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CarouselSidebarResources heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders resources when provided", () => {
+    const resources = [
+      {
+        title: "Getting Started Guide",
+        category: "guide",
+        link: "/docs/getting-started",
+        image: "https://example.com/guide.jpg",
+      },
+    ];
+    render(<CarouselSidebarResources resources={resources} />);
+    expect(screen.getAllByText("Getting Started Guide").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("guide").length).toBeGreaterThan(0);
+  });
+
+  it("renders custom view all text", () => {
+    render(<CarouselSidebarResources viewAllText="See all" />);
+    expect(screen.getByText("See all")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CarouselSidebarResources className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

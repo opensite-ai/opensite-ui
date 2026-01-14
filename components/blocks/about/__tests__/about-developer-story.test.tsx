@@ -29,4 +29,50 @@ describe("AboutDeveloperStory", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutDeveloperStory />);
+    expect(screen.getByText("Developer-Focused Solutions for Modern Teams")).toBeInTheDocument();
+    expect(screen.getByText(/We build tools that developers love/)).toBeInTheDocument();
+    expect(screen.getByText("Our Story")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<AboutDeveloperStory title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<AboutDeveloperStory description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders custom story title and content", () => {
+    render(<AboutDeveloperStory storyTitle="Custom Story" storyContent="Custom story content" />);
+    expect(screen.getByText("Custom Story")).toBeInTheDocument();
+    expect(screen.getByText("Custom story content")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+    ];
+    render(<AboutDeveloperStory actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders stats when provided", () => {
+    const stats = [
+      { value: "10K+", label: "Developers" },
+      { value: "500+", label: "Companies" },
+    ];
+    render(<AboutDeveloperStory stats={stats} />);
+    expect(screen.getByText("10K+")).toBeInTheDocument();
+    expect(screen.getByText("Developers")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutDeveloperStory className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

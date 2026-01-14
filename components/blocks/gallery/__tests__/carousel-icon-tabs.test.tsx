@@ -30,4 +30,39 @@ describe("CarouselIconTabs", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CarouselIconTabs />);
+    expect(screen.getByText(/Cut the time it takes to close your books/)).toBeInTheDocument();
+    expect(screen.getByText(/Lorem ipsum dolor sit amet/)).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CarouselIconTabs heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<CarouselIconTabs badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
+  });
+
+  it("renders sections when provided", () => {
+    const sections = [
+      {
+        img: "https://example.com/design.jpg",
+        title: "Design",
+        text: "Create beautiful interfaces",
+        icon: "lucide/palette",
+      },
+    ];
+    render(<CarouselIconTabs sections={sections} />);
+    expect(screen.getAllByText("Design").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Create beautiful interfaces").length).toBeGreaterThan(0);
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CarouselIconTabs className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
