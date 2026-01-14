@@ -32,4 +32,30 @@ describe("HeroDesignCarouselPortfolio", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroDesignCarouselPortfolio />);
+    expect(screen.getByText("The All You Can Design buffet to fuel your business growth")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroDesignCarouselPortfolio heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroDesignCarouselPortfolio description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroDesignCarouselPortfolio actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroDesignCarouselPortfolio className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
