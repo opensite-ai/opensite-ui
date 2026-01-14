@@ -139,6 +139,7 @@ export function HeroSplitIconCards({
 
   const renderCards = () => {
     if (cardsSlot) return cardsSlot;
+    if (!cardItems || cardItems.length === 0) return null;
 
     return (
       <div className="grid grid-cols-1 gap-4">

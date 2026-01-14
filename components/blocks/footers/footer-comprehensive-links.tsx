@@ -172,7 +172,7 @@ export function FooterComprehensiveLinks({
               </div>
             </div>
 
-            {linkColumns.map((column) => (
+            {linkColumns?.map((column) => (
               <div key={column.title} className="lg:col-span-2">
                 <div className="flex flex-col gap-4">
                   <h3 className="text-sm font-semibold text-white">
@@ -194,7 +194,7 @@ export function FooterComprehensiveLinks({
               </div>
             ))}
 
-            {(contact || socialLinks.length > 0) ? (
+            {(contact || (socialLinks?.length ?? 0) > 0) ? (
               <div className="flex flex-col gap-6 lg:col-span-3">
                 {contact ? (
                   <div className="flex flex-col gap-4">
@@ -259,13 +259,13 @@ export function FooterComprehensiveLinks({
                   </div>
                 ) : null}
 
-                {socialLinks.length > 0 ? (
+                {(socialLinks?.length ?? 0) > 0 ? (
                   <div className="flex flex-col gap-4">
                     <h3 className="text-sm font-semibold text-white">
                       Follow Us
                     </h3>
                     <div className="flex items-center gap-3">
-                      {socialLinks.map((link) => (
+                      {socialLinks?.map((link) => (
                         <Pressable
                           key={`${link.platform}-${link.href}`}
                           href={link.href}
@@ -287,14 +287,14 @@ export function FooterComprehensiveLinks({
             ) : null}
           </div>
 
-          {articleLinks.length > 0 ? (
+          {(articleLinks?.length ?? 0) > 0 ? (
             <div className="border-t border-white/10 pt-8">
               <div className="flex flex-col gap-4">
                 <h3 className="text-sm font-semibold text-white">
                   {articleSectionTitle}
                 </h3>
                 <div className="grid grid-cols-1 gap-x-8 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {articleLinks.map((link) => (
+                  {articleLinks?.map((link) => (
                     <Pressable
                       key={link.href}
                       href={link.href}
@@ -312,9 +312,9 @@ export function FooterComprehensiveLinks({
         <div className="mt-10 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm text-white/50">{copyrightText}</p>
-            {bottomLinks.length > 0 ? (
+            {(bottomLinks?.length ?? 0) > 0 ? (
               <div className="flex items-center gap-4 sm:gap-6">
-                {bottomLinks.map((link) => (
+                {bottomLinks?.map((link) => (
                   <Pressable
                     key={link.href}
                     href={link.href}

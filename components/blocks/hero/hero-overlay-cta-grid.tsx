@@ -166,6 +166,7 @@ export function HeroOverlayCtaGrid({
 
   const renderCards = () => {
     if (cardsSlot) return cardsSlot;
+    if (!cards || cards.length === 0) return null;
 
     return (
       <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-background/95 shadow-2xl">

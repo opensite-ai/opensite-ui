@@ -146,6 +146,7 @@ export function ContactHelpCenter({
 }: ContactHelpCenterProps): React.JSX.Element {
   const renderContactItems = () => {
     if (contactItemsSlot) return contactItemsSlot;
+    if (!contactItems || contactItems.length === 0) return null;
     return contactItems.map((item, idx) => (
       <Pressable
         key={`${item.title}-${idx}`}
