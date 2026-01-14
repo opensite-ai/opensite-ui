@@ -12,4 +12,30 @@ describe("FeatureIconGridBordered", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureIconGridBordered />);
+    expect(screen.getByText("A better way to build websites")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureIconGridBordered title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureIconGridBordered description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders features when provided", () => {
+    const features = [{ title: "Feature 1", description: "Description 1" }];
+    render(<FeatureIconGridBordered features={features} />);
+    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureIconGridBordered className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

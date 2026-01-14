@@ -22,4 +22,30 @@ describe("FeatureBentoUtilities", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureBentoUtilities />);
+    expect(screen.getByText("Utilites for every use case and platform you can think of.")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureBentoUtilities title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureBentoUtilities description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders features when provided", () => {
+    const features = [{ title: "Feature 1", description: "Description 1" }];
+    render(<FeatureBentoUtilities features={features} />);
+    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureBentoUtilities className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

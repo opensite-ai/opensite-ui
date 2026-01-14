@@ -22,4 +22,30 @@ describe("FeatureTabbedContentImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureTabbedContentImage />);
+    expect(screen.getByText("Building Better Digital Experiences")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureTabbedContentImage title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureTabbedContentImage description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders tabs when provided", () => {
+    const tabs = [{ title: "Tab 1", content: "Content 1" }];
+    render(<FeatureTabbedContentImage tabs={tabs} />);
+    expect(screen.getByText("Tab 1")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureTabbedContentImage className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
