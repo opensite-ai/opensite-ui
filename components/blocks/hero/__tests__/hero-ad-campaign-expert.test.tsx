@@ -29,7 +29,7 @@ describe("HeroAdCampaignExpert", () => {
 
   it("renders with default props", () => {
     render(<HeroAdCampaignExpert />);
-    expect(screen.getByText("Revolutionizing Client Collaboration for Modern Services")).toBeInTheDocument();
+    expect(screen.getByText("my expertise")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

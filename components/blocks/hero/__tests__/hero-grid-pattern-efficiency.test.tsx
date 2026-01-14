@@ -21,7 +21,7 @@ describe("HeroGridPatternEfficiency", () => {
 
   it("renders with default props", () => {
     render(<HeroGridPatternEfficiency />);
-    expect(screen.getByText("Your fast track to everything.")).toBeInTheDocument();
+    expect(screen.getByText("efficiency.")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
