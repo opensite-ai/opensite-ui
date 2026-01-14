@@ -179,7 +179,7 @@ export function AboutLocationInfoHero({
       : pattern
     : undefined;
 
-  const isSingleImage = images.length <= 1;
+  const isSingleImage = (images?.length ?? 0) <= 1;
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;

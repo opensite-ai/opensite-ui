@@ -208,7 +208,7 @@ export function FooterBrandLinksContact({
             </p>
           </div>
 
-          {linkGroups.map((group) => (
+          {linkGroups?.map((group) => (
             <div key={group.title} className={cn(linkGroupClassName)}>
               <h3
                 className={cn(
@@ -246,7 +246,7 @@ export function FooterBrandLinksContact({
               {contactTitle}
             </h3>
             <ul className={cn("mt-4 space-y-3 text-sm text-white/70", linkListClassName)}>
-              {contactItems.map((item) => (
+              {contactItems?.map((item) => (
                 <li key={item.label}>
                   <Pressable
                     href={item.href}
@@ -262,13 +262,13 @@ export function FooterBrandLinksContact({
               ))}
             </ul>
 
-            {socialLinks.length > 0 ? (
+            {(socialLinks?.length ?? 0) > 0 ? (
               <div className={cn("mt-8", socialSectionClassName)}>
                 <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
                   {socialTitle}
                 </h4>
                 <div className="mt-3 flex gap-4">
-                  {socialLinks.map((link) => (
+                  {socialLinks?.map((link) => (
                     <Pressable
                       key={link.href}
                       href={link.href}
@@ -302,7 +302,7 @@ export function FooterBrandLinksContact({
               >
                 {attributionText}
               </Pressable>
-              {legalLinks.map((link) => (
+              {legalLinks?.map((link) => (
                 <Pressable
                   key={link.href}
                   href={link.href}

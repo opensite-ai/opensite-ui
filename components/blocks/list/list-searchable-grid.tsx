@@ -185,12 +185,12 @@ export function ListSearchableGrid({
 
   const filteredItems = React.useMemo(() => {
     if (!searchTerm) {
-      return items;
+      return items ?? [];
     }
 
     const normalized = searchTerm.toLowerCase();
 
-    return items.filter((item) => {
+    return (items ?? []).filter((item) => {
       const titleText = typeof item.title === "string" ? item.title : "";
       const descText = typeof item.description === "string" ? item.description : "";
       const searchable =
@@ -204,6 +204,7 @@ export function ListSearchableGrid({
 
   const renderItems = () => {
     if (itemsSlot) return itemsSlot;
+    if (!filteredItems || filteredItems.length === 0) return null;
 
     return filteredItems.map((item, index) => {
       const cardContent = (
@@ -321,7 +322,7 @@ export function ListSearchableGrid({
         {renderItems()}
       </div>
 
-      {filteredItems.length === 0 && (
+      {(filteredItems?.length ?? 0) === 0 && (
         typeof emptyStateMessage === "string" ? (
           <p className={cn("mt-10 text-center text-sm text-muted-foreground", emptyStateClassName)}>
             {emptyStateMessage}
