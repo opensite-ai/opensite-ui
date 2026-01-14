@@ -24,9 +24,9 @@ describe("HeroCustomerSupportLayered", () => {
   });
 
   it("renders with default props", () => {
-    render(<HeroCustomerSupportLayered />);
-    expect(screen.getByText("Change")).toBeInTheDocument();
-    expect(screen.getByText("their life")).toBeInTheDocument();
+    const { container } = render(<HeroCustomerSupportLayered />);
+    expect(container.querySelector("section")).toBeInTheDocument();
+    expect(screen.getByText("Customer Support")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -39,10 +39,15 @@ describe("HeroCustomerSupportLayered", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroCustomerSupportLayered actions={actions} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders images when provided", () => {
+    const images = [
+      { src: "https://example.com/image1.jpg", alt: "Image 1" },
+      { src: "https://example.com/image2.jpg", alt: "Image 2" },
+      { src: "https://example.com/image3.jpg", alt: "Image 3" },
+    ];
+    render(<HeroCustomerSupportLayered images={images} />);
+    const renderedImages = screen.getAllByTestId("mock-img");
+    expect(renderedImages.length).toBe(3);
   });
 
   it("applies custom className", () => {

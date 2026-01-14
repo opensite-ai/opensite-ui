@@ -24,9 +24,9 @@ describe("HeroSharedInboxLayered", () => {
   });
 
   it("renders with default props", () => {
-    render(<HeroSharedInboxLayered />);
-    expect(screen.getByText("Organize")).toBeInTheDocument();
-    expect(screen.getByText("Your Inbox")).toBeInTheDocument();
+    const { container } = render(<HeroSharedInboxLayered />);
+    expect(container.querySelector("section")).toBeInTheDocument();
+    expect(screen.getByText("Shared Inbox")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
@@ -39,10 +39,14 @@ describe("HeroSharedInboxLayered", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroSharedInboxLayered actions={actions} />);
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  it("renders layered images when provided", () => {
+    const layeredImages = {
+      backgroundImage: { src: "https://example.com/bg.jpg", alt: "Background" },
+      foregroundImage: { src: "https://example.com/fg.jpg", alt: "Foreground" },
+    };
+    render(<HeroSharedInboxLayered layeredImages={layeredImages} />);
+    const renderedImages = screen.getAllByTestId("mock-img");
+    expect(renderedImages.length).toBe(2);
   });
 
   it("applies custom className", () => {

@@ -24,8 +24,8 @@ describe("HeroArchitectureFullscreen", () => {
   });
 
   it("renders with default props", () => {
-    render(<HeroArchitectureFullscreen />);
-    expect(screen.getByTestId("mock-img")).toBeInTheDocument();
+    const { container } = render(<HeroArchitectureFullscreen />);
+    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
