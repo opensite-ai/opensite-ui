@@ -74,11 +74,6 @@ export interface AboutStoryHeroProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultTeamInfo = {
-  title: "50+ Team Members",
-  description: "Working across 12 countries to bring you the best tools",
-};
-
 export function AboutStoryHero({
   title = "Our Story",
   subtitle = "Building the future, one line of code at a time",
@@ -88,7 +83,7 @@ Our team combines decades of experience in software engineering, design, and use
 
 The result is a platform that's powerful enough for professional developers yet accessible enough for anyone with an idea. We're not just building tools—we're democratizing software development.`,
   heroImage,
-  teamInfo = defaultTeamInfo,
+  teamInfo,
   teamInfoSlot,
   className,
   containerClassName,

@@ -167,51 +167,6 @@ export interface FeatureIconTabsContentProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultTabs: FeatureIconTabsContentTab[] = [
-  {
-    value: "tab-1",
-    iconName: "lucide/zap",
-    label: "Boost Revenue",
-    content: {
-      badge: "Modern Tactics",
-      title: "Make your site a true standout.",
-      description:
-        "Discover new web trends that help you craft sleek, highly functional sites that drive traffic and convert leads into customers.",
-      actions: [{ label: "See Plans", href: "#", variant: "default", size: "lg" }],
-      imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-      imageAlt: "Feature illustration",
-    },
-  },
-  {
-    value: "tab-2",
-    iconName: "lucide/pointer",
-    label: "Higher Engagement",
-    content: {
-      badge: "Expert Features",
-      title: "Boost your site with top-tier design.",
-      description:
-        "Use stellar design to easily engage users and strengthen their loyalty. Create a seamless experience that keeps them coming back for more.",
-      actions: [{ label: "See Tools", href: "#", variant: "default", size: "lg" }],
-      imageSrc: blockBrandedIconsAndPlaceholders.placeholderDark1,
-      imageAlt: "Feature illustration",
-    },
-  },
-  {
-    value: "tab-3",
-    iconName: "lucide/layout",
-    label: "Stunning Layouts",
-    content: {
-      badge: "Elite Solutions",
-      title: "Build an advanced web experience.",
-      description:
-        "Lift your brand with modern tech that grabs attention and drives action. Create a digital experience that stands out from the crowd.",
-      actions: [{ label: "See Options", href: "#", variant: "default", size: "lg" }],
-      imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-      imageAlt: "Feature illustration",
-    },
-  },
-];
-
 /**
  * Feature Icon Tabs Content - Tabbed interface with icon triggers and
  * content panels featuring images and CTAs.
@@ -247,7 +202,7 @@ export function FeatureIconTabsContent({
   badge = "Opensite AI",
   heading = "A Collection of Components Built With Opensite AI & Tailwind",
   description = "Join us to build flawless web solutions.",
-  tabs = defaultTabs,
+  tabs,
   tabsSlot,
   defaultTab,
   className,

@@ -173,33 +173,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   );
 };
 
-const defaultVideoSections: ProjectVideoHoverRoundedItem[] = [
-  {
-    thumbnailSrc: imagePlaceholders[48],
-    videoSrc: videoPlaceholders[0],
-    studioName: "MERIDIAN FILMS",
-    projectTitle: "Coastal Reflections",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[49],
-    videoSrc: videoPlaceholders[1],
-    studioName: "ZENITH VISUALS",
-    projectTitle: "Ethereal Moments",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[50],
-    videoSrc: videoPlaceholders[2],
-    studioName: "NEXUS CREATIVE",
-    projectTitle: "Deserted Frontiers",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[51],
-    videoSrc: videoPlaceholders[3],
-    studioName: "PRISM STUDIOS",
-    projectTitle: "Nature's Symphony",
-  },
-];
-
 /**
  * ProjectVideoHoverRounded - Rounded video cards with vertical spacing and hover-to-play.
  *
@@ -213,7 +186,7 @@ const defaultVideoSections: ProjectVideoHoverRoundedItem[] = [
 export function ProjectVideoHoverRounded({
   heading = "Explore Our Projects",
   subheading = "Our Work",
-  videoSections = defaultVideoSections,
+  videoSections,
   videoSectionsSlot,
   optixFlowConfig,
   background,

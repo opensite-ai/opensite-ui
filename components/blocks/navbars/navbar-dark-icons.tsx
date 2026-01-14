@@ -140,86 +140,7 @@ export interface NavbarDarkIconsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavigation: MenuItem[] = [
-  {
-    title: "Products",
-    links: [
-      {
-        label: "Company Blog",
-        description: "Insights & updates",
-        url: "#",
-        icon: "lucide/file-text",
-        iconColor: "#10b981",
-      },
-      {
-        label: "Our Platform",
-        description: "Empower your work",
-        url: "#",
-        icon: "lucide/grid",
-        iconColor: "#6366f1",
-      },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      {
-        label: "About Our Team",
-        url: "#",
-        description: "Our mission & values",
-        icon: "lucide/info",
-        iconColor: "#f59e0b",
-      },
-      {
-        label: "Help & Support Center",
-        url: "#",
-        description: "Get quick help",
-        icon: "lucide/help-circle",
-        iconColor: "#3b82f6",
-      },
-      {
-        label: "Latest News",
-        url: "#",
-        description: "Product updates",
-        icon: "lucide/bell",
-        iconColor: "#f97316",
-      },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      {
-        label: "Documentation",
-        url: "#",
-        description: "Guides & references",
-        icon: "lucide/book",
-        iconColor: "#8b5cf6",
-      },
-      {
-        label: "API Reference",
-        url: "#",
-        description: "Explore our API",
-        icon: "lucide/globe",
-        iconColor: "#ef4444",
-      },
-    ],
-  },
-  {
-    title: "Pricing",
-    url: "#",
-  },
-  {
-    title: "Contact",
-    url: "#",
-  },
-];
-
 const MOBILE_BREAKPOINT = 1024;
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Sign up", href: "#", variant: "default" },
-];
 
 /**
  * NavbarDarkIcons - A dark-themed navigation bar with colorful icon indicators.
@@ -243,9 +164,9 @@ export const NavbarDarkIcons = ({
   },
   logoSlot,
   logoClassName,
-  navigation = defaultNavigation,
+  navigation,
   navigationSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   githubUrl = "https://github.com/opensite-ai/opensite-ui",
   githubSlot,

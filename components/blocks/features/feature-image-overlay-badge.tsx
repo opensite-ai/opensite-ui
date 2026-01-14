@@ -125,16 +125,6 @@ export interface FeatureImageOverlayBadgeProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "View Features",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/menu" size={16} />,
-  },
-];
-
 /**
  * Feature Image Overlay Badge - Two-column layout with content and an image
  * featuring gradient overlay with avatar badge and CTA.
@@ -162,7 +152,7 @@ export function FeatureImageOverlayBadge({
   badge = "Modern Tactics",
   title = "Make your site a true standout.",
   description = "Discover new web trends that help you craft sleek, highly functional sites that drive traffic and convert leads into customers.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   imageAlt = "Feature illustration",

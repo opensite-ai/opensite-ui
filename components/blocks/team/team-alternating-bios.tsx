@@ -128,23 +128,6 @@ export interface TeamAlternatingBiosProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamAlternatingBiosMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    bio: "Sarah has been in the tech industry for over 12 years, founding multiple successful startups. Her vision and leadership have been instrumental in our growth.",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    bio: "With a background in distributed systems and AI, Marcus brings a unique perspective to our product development process, ensuring our solutions are both innovative and scalable.",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamAlternatingBios - Alternating layout with large images and detailed bios
  *
@@ -173,7 +156,7 @@ const defaultMembers: TeamAlternatingBiosMember[] = [
 export function TeamAlternatingBios({
   heading = "Leadership team",
   description = "Meet the people shaping our future",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

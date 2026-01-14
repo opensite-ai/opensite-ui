@@ -265,55 +265,6 @@ export interface PricingTabsToggleProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingTabsTogglePlan[] = [
-  {
-    name: "Free",
-    monthlyPrice: "$0",
-    yearlyPrice: "$0",
-    description: "For individuals getting started",
-    features: [
-      { text: "Up to 3 projects" },
-      { text: "Basic analytics" },
-      { text: "Community support" },
-      { text: "1GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline" },
-    iconName: "lucide/user",
-  },
-  {
-    name: "Starter",
-    monthlyPrice: "$19",
-    yearlyPrice: "$190",
-    description: "For small teams",
-    features: [
-      { text: "Up to 10 projects" },
-      { text: "Advanced analytics" },
-      { text: "Email support" },
-      { text: "10GB storage" },
-      { text: "API access" },
-    ],
-    action: { label: "Start Trial", href: "#", variant: "default" },
-    iconName: "lucide/zap",
-    isPopular: true,
-  },
-  {
-    name: "Enterprise",
-    monthlyPrice: "$99",
-    yearlyPrice: "$990",
-    description: "For large organizations",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Custom analytics" },
-      { text: "24/7 support" },
-      { text: "Unlimited storage" },
-      { text: "Full API access" },
-      { text: "Custom integrations" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-    iconName: "lucide/building-2",
-  },
-];
-
 /**
  * PricingTabsToggle displays a 3-column pricing grid with a tabs-based monthly/yearly toggle.
  * Features plan icons, popular plan highlighting, and clean card design with feature lists.
@@ -339,7 +290,7 @@ export function PricingTabsToggle({
   yearlyBadge = "Save 17%",
   monthlyInterval = "/month",
   yearlyInterval = "/year",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check-circle-2",

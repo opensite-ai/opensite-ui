@@ -62,37 +62,6 @@ export interface ProjectDetailPhotographyBreadcrumbProps {
   galleryClassName?: string;
 }
 
-const defaultBreadcrumbs: BreadcrumbItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Photography", href: "/photography" },
-  { label: "Monochrome Stories" },
-];
-
-const defaultGalleryImages: ImageItem[] = [
-  { src: imagePlaceholders[62], alt: "Photography 1" },
-  { src: imagePlaceholders[63], alt: "Photography 2" },
-  { src: imagePlaceholders[64], alt: "Photography 3" },
-  { src: imagePlaceholders[65], alt: "Photography 4" },
-  { src: imagePlaceholders[66], alt: "Photography 5" },
-  { src: imagePlaceholders[67], alt: "Photography 6" },
-];
-
-const defaultProps: ProjectDetailPhotographyBreadcrumbProps = {
-  title: "Monochrome Stories",
-  subtitle: "A Study in Light and Shadow",
-  year: "2024",
-  category: "Photography",
-  photographer: "James Morrison",
-  breadcrumbs: defaultBreadcrumbs,
-  heroImage: {
-    src: imagePlaceholders[68],
-    alt: "Monochrome Stories hero",
-  },
-  description:
-    "A collection of black and white photographs exploring the interplay of light and shadow in urban environments. Each image tells a story of solitude, reflection, and the quiet beauty found in everyday moments.",
-  galleryImages: defaultGalleryImages,
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

@@ -101,45 +101,6 @@ export interface FeatureCardGridLinkedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureCardGridLinkedItem[] = [
-  {
-    id: "feature-1",
-    heading: "Design System Approved",
-    label: "FOR DESIGNERS",
-    description:
-      "Hundreds of finely crafted components available in Figma. Easily modify the design system to your brand.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-    url: "#",
-  },
-  {
-    id: "feature-2",
-    heading: "Copy-Paste Code Blocks",
-    label: "FOR DEVELOPERS",
-    description:
-      "Finely crafted components built with React, Tailwind. Developers can copy and paste these blocks directly into their project.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark2,
-    url: "#",
-  },
-  {
-    id: "feature-3",
-    heading: "Product-First Approach",
-    label: "FOR PRODUCT TEAMS",
-    description:
-      "Components designed with user experience in mind. Every block is tested for usability and optimized for conversion rates.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark3,
-    url: "#",
-  },
-  {
-    id: "feature-4",
-    heading: "Marketing-Ready Templates",
-    label: "FOR MARKETING",
-    description:
-      "High-converting landing pages, email templates, and marketing components that drive engagement and boost your campaigns.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark4,
-    url: "#",
-  },
-];
-
 /**
  * Feature Card Grid Linked - Two-column grid of feature cards with images,
  * labels, and clickable headings.
@@ -167,7 +128,7 @@ const defaultFeatures: FeatureCardGridLinkedItem[] = [
  */
 export function FeatureCardGridLinked({
   title = "A collection of extra blocks for Opensite AI & Tailwind",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

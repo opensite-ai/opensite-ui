@@ -118,73 +118,6 @@ export interface MasonryMotionGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultColumn1Images: MasonryMotionGridImage[] = [
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    alt: "Gallery Image 1",
-    height: "23rem",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    alt: "Gallery Image 2",
-    height: "28rem",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    alt: "Gallery Image 3",
-    height: "12rem",
-  },
-];
-
-const defaultColumn2Images: MasonryMotionGridImage[] = [
-  {
-    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    alt: "Gallery Image 4",
-    height: "13rem",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    alt: "Gallery Image 5",
-    height: "32rem",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    alt: "Gallery Image 6",
-    height: "18rem",
-  },
-];
-
-const defaultColumn3Images: MasonryMotionGridImage[] = [
-  {
-    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    alt: "Gallery Image 7",
-    height: "32rem",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    alt: "Gallery Image 8",
-    height: "32rem",
-  },
-];
-
-const defaultColumn4Images: MasonryMotionGridImage[] = [
-  {
-    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    alt: "Gallery Image 9",
-    height: "13rem",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    alt: "Gallery Image 10",
-    height: "22.5rem",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    alt: "Gallery Image 11",
-    height: "22rem",
-  },
-];
-
 /**
  * MasonryMotionGrid displays images in an animated masonry grid layout.
  *
@@ -208,10 +141,10 @@ const defaultColumn4Images: MasonryMotionGridImage[] = [
  * ```
  */
 export function MasonryMotionGrid({
-  column1Images = defaultColumn1Images,
-  column2Images = defaultColumn2Images,
-  column3Images = defaultColumn3Images,
-  column4Images = defaultColumn4Images,
+  column1Images,
+  column2Images,
+  column3Images,
+  column4Images,
   gridSlot,
   className,
   gridClassName,

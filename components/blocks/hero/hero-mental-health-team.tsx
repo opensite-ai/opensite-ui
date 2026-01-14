@@ -65,30 +65,14 @@ export interface HeroMentalHealthTeamProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultTeamImages: ImageItem[] = [
-  { src: imagePlaceholders[111], alt: "" },
-  { src: imagePlaceholders[112], alt: "" },
-];
-
-const defaultTestimonial: TestimonialItem & { avatarSrc?: string } = {
-  quote: "Since beginning therapy here, I feel more grounded and at ease.",
-  author: "John Doe",
-  avatarSrc: imagePlaceholders[113],
-};
-
-const defaultFeatureImage: ImageItem = {
-  src: imagePlaceholders[114],
-  alt: "",
-};
-
 export function HeroMentalHealthTeam({
   subtitle = "Your Support Team",
   heading = "Experienced Professionals Committed to Your Mental Health",
-  teamImages = defaultTeamImages,
+  teamImages,
   teamImagesSlot,
-  testimonial = defaultTestimonial,
+  testimonial,
   testimonialSlot,
-  featureImage = defaultFeatureImage,
+  featureImage,
   featureImageSlot,
   className,
   containerClassName,

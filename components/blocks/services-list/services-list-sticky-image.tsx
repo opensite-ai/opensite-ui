@@ -122,55 +122,6 @@ export interface ServicesListStickyImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: ServicesListStickyImageService[] = [
-  {
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies. We specialize in React, Next.js, and Node.js to create fast, scalable solutions that drive results.",
-    items: [
-      "Frontend Development",
-      "Backend Development",
-      "API Integration",
-      "Database Design",
-    ],
-    image: { src: imagePlaceholders[0], alt: "Web Development" },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    title: "Mobile App Development",
-    description:
-      "Native and cross-platform mobile applications for iOS and Android. We build performant apps that users love using React Native and Flutter.",
-    items: [
-      "iOS Development",
-      "Android Development",
-      "Cross-Platform Apps",
-      "App Store Optimization",
-    ],
-    image: { src: imagePlaceholders[1], alt: "Mobile App Development" },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that create engaging experiences. From wireframes to high-fidelity prototypes, we design interfaces that convert.",
-    items: ["User Research", "Wireframing", "Prototyping", "Visual Design"],
-    image: { src: imagePlaceholders[2], alt: "UI/UX Design" },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    title: "Cloud Solutions",
-    description:
-      "Scalable cloud infrastructure and DevOps services. We help you deploy, manage, and scale your applications with AWS, GCP, and Azure.",
-    items: ["Cloud Architecture", "DevOps", "CI/CD Pipelines", "Monitoring"],
-    image: { src: imagePlaceholders[3], alt: "Cloud Solutions" },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListStickyImage - A sticky left sidebar layout with image transitions and a scrollable service list on the right.
  * As users scroll through services, the corresponding image appears in the sticky left panel.
@@ -191,7 +142,7 @@ const defaultServices: ServicesListStickyImageService[] = [
 export function ServicesListStickyImage({
   heading = "Our Services",
   description = "Comprehensive digital solutions tailored to your business needs.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

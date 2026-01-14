@@ -105,44 +105,6 @@ export interface ServicesListNumberedStepsProps {
   patternOpacity?: number;
 }
 
-const defaultSteps: ServicesListNumberedStepsStep[] = [
-  {
-    title: "Discovery & Research",
-    description:
-      "We start by understanding your business, goals, and target audience through comprehensive research and stakeholder interviews.",
-    items: ["Stakeholder Interviews", "Market Research", "Competitive Analysis"],
-  },
-  {
-    title: "Strategy & Planning",
-    description:
-      "Based on our findings, we develop a comprehensive strategy and project roadmap aligned with your business objectives.",
-    items: ["Project Roadmap", "Technical Architecture", "Timeline Planning"],
-  },
-  {
-    title: "Design & Prototyping",
-    description:
-      "Our design team creates intuitive, beautiful interfaces through iterative wireframing and prototyping.",
-    items: ["Wireframing", "UI Design", "Interactive Prototypes"],
-  },
-  {
-    title: "Development & Testing",
-    description:
-      "We build your solution using modern technologies with rigorous testing to ensure quality and performance.",
-    items: ["Frontend Development", "Backend Development", "Quality Assurance"],
-  },
-  {
-    title: "Launch & Support",
-    description:
-      "We deploy your solution and provide ongoing support to ensure continued success and growth.",
-    items: ["Deployment", "Training", "Ongoing Maintenance"],
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Start Your Project",
-  href: "#",
-};
-
 /**
  * ServicesListNumberedSteps - A numbered steps layout displaying services as a sequential process.
  * Each step features a large number, title, description, and optional items list.
@@ -164,9 +126,9 @@ const defaultPrimaryAction: ActionConfig = {
 export function ServicesListNumberedSteps({
   heading = "Our Process",
   description = "A proven methodology that delivers results. Each step builds upon the previous to ensure your project's success.",
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   actionsSlot,
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   containerClassName,

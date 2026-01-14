@@ -67,25 +67,10 @@ export interface HeroCenteredScreenshotProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started now",
-    href: "#",
-    variant: "default",
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "Learn more",
-    href: "#",
-    variant: "ghost",
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />,
-  },
-];
-
 export function HeroCenteredScreenshot({
   heading = "Build faster with Opensite AI",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = imagePlaceholders[4],
   imageAlt = "placeholder",

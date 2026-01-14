@@ -64,57 +64,12 @@ export interface AboutStatsSidebarProps {
   featuresClassName?: string;
 }
 
-const defaultStats: ExtendedStatItem[] = [
-  {
-    icon: <DynamicIcon name="lucide/users" size={24} className="text-primary" />,
-    value: "10M+",
-    label: "Active Users",
-    description: "Developers and teams using our platform daily",
-  },
-  {
-    icon: <DynamicIcon name="lucide/globe" size={24} className="text-primary" />,
-    value: "150+",
-    label: "Countries",
-    description: "Global reach across every continent",
-  },
-  {
-    icon: <DynamicIcon name="lucide/code" size={24} className="text-primary" />,
-    value: "1B+",
-    label: "Lines of Code",
-    description: "Generated through our platform",
-  },
-  {
-    icon: <DynamicIcon name="lucide/star" size={24} className="text-primary" />,
-    value: "4.9/5",
-    label: "Rating",
-    description: "Average customer satisfaction score",
-  },
-];
-
-const defaultFeatures: FeatureItem[] = [
-  {
-    icon: <DynamicIcon name="lucide/rocket" size={24} className="text-primary" />,
-    title: "Fast Deployment",
-    description: "Deploy your applications in seconds, not hours.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/shield-check" size={24} className="text-primary" />,
-    title: "Enterprise Security",
-    description: "SOC 2 compliant with end-to-end encryption.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/headphones" size={24} className="text-primary" />,
-    title: "24/7 Support",
-    description: "Our team is always here to help you succeed.",
-  },
-];
-
 export function AboutStatsSidebar({
   title = "Why Choose Us",
   description = "We've built a platform that scales with your needs, from startup to enterprise. Here's what sets us apart.",
-  stats = defaultStats,
+  stats,
   statsSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

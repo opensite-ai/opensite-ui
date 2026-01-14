@@ -70,25 +70,13 @@ export interface HeroCrmStreamlinedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Try Free",
-  href: "#",
-  variant: "default",
-  className: "block h-fit w-fit rounded-full px-7 py-3 text-base font-semibold transition-transform hover:scale-105",
-};
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[64],
-  alt: "",
-};
-
 export function HeroCrmStreamlined({
   tagline = "Client Relationship Management Software",
   heading = "Your contact management, all streamlined in a single platform",
   description = "Providing a comprehensive view of everything you know about the people, companies, and organizations you work with.",
-  action = defaultAction,
+  action,
   actionSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   containerClassName,

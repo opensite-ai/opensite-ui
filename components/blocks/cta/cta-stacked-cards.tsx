@@ -79,10 +79,6 @@ export interface CtaStackedCardsProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
 /**
  * CtaStackedCards - A CTA section with content on the left and decorative stacked
  * card elements on the right. Features an accent background with border styling.
@@ -100,7 +96,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaStackedCards({
   heading = "Call to Action",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   innerClassName,

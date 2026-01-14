@@ -101,41 +101,6 @@ export interface ProjectBackgroundRevealProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectBackgroundRevealItem[] = [
-  {
-    heading: "Modern Living Space",
-    subheading: "Residential design",
-    description:
-      "This project involves the complete transformation of a contemporary apartment, focusing on creating an open, minimalist aesthetic with warm accents. The goal is to maximize natural light, optimize space flow.",
-    image: imagePlaceholders[115],
-    url: "#",
-  },
-  {
-    heading: "Creative Workspace",
-    subheading: "Office interior",
-    description:
-      "In this project, we designed a dynamic office environment that fosters creativity and collaboration. This includes creating flexible work zones, incorporating biophilic design elements, comfortable breakout areas.",
-    image: imagePlaceholders[116],
-    url: "#",
-  },
-  {
-    heading: "Cozy Bistro Interior",
-    subheading: "Restaurant design",
-    description:
-      "In this project, we crafted an intimate dining atmosphere for a local bistro. This includes designing custom seating arrangements, selecting warm lighting fixtures, creating feature walls.",
-    image: imagePlaceholders[117],
-    url: "#",
-  },
-  {
-    heading: "Boutique Showroom",
-    subheading: "Retail space",
-    description:
-      "The objective here is to create an immersive retail environment that enhances the customer shopping experience. The focus is on strategic product placement, ambient lighting.",
-    image: imagePlaceholders[118],
-    url: "#",
-  },
-];
-
 /**
  * ProjectBackgroundReveal - Full-width cards with background image reveal on hover.
  *
@@ -153,7 +118,7 @@ export function ProjectBackgroundReveal({
   description = "Where creativity, craftsmanship, and vision unite to create stunning interior spaces. Discover our comprehensive portfolio of projects, each thoughtfully designed to transform spaces and enhance the lives of our clients worldwide.",
   buttonText = "View All Projects",
   buttonHref = "#",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   background,
   spacing,

@@ -135,34 +135,6 @@ export interface StatsCardGroupProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultStats: CardGroupStat[] = [
-  {
-    icon: "lucide/users",
-    value: "2,000+",
-    label: "Happy Customers",
-    showAvatars: true,
-  },
-  {
-    icon: "lucide/star",
-    value: "4.9/5",
-    label: "Average Rating",
-    showAvatars: false,
-  },
-  {
-    icon: "lucide/shield-check",
-    value: "99.9%",
-    label: "Uptime Guarantee",
-    showAvatars: false,
-  },
-];
-
-const defaultAvatars = [
-  { src: imagePlaceholders[0], alt: "Customer 1" },
-  { src: imagePlaceholders[1], alt: "Customer 2" },
-  { src: imagePlaceholders[2], alt: "Customer 3" },
-  { src: imagePlaceholders[3], alt: "Customer 4" },
-];
-
 /**
  * StatsCardGroup - A compact stats display featuring three metrics in a bordered
  * card with icons and optional avatar stacks. Each stat shows an icon, large value,
@@ -181,9 +153,9 @@ const defaultAvatars = [
  * ```
  */
 export function StatsCardGroup({
-  stats = defaultStats,
+  stats,
   statsSlot,
-  avatars = defaultAvatars,
+  avatars,
   avatarsSlot,
   background = "white",
   spacing = "lg",

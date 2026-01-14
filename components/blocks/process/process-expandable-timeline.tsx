@@ -117,39 +117,6 @@ export interface ProcessExpandableTimelineProps {
   title?: string;
 }
 
-const defaultSteps: ProcessExpandableTimelineItem[] = [
-  {
-    title: "Discovery Phase",
-    description: "Understanding your needs and goals",
-    expandedContent:
-      "During the discovery phase, we conduct in-depth interviews, analyze your current systems, and identify opportunities for improvement. This foundational work ensures we build solutions that truly address your challenges.",
-  },
-  {
-    title: "Planning & Strategy",
-    description: "Creating a roadmap for success",
-    expandedContent:
-      "We develop a comprehensive project plan that outlines milestones, deliverables, and timelines. Our strategic approach ensures alignment between technical implementation and business objectives.",
-  },
-  {
-    title: "Design & Prototyping",
-    description: "Visualizing the solution",
-    expandedContent:
-      "Our design team creates wireframes, mockups, and interactive prototypes that bring your vision to life. We iterate based on your feedback to ensure the final design meets your expectations.",
-  },
-  {
-    title: "Development & Testing",
-    description: "Building with quality in mind",
-    expandedContent:
-      "Using agile methodologies, we develop your solution in sprints with regular demos and feedback sessions. Comprehensive testing ensures reliability and performance across all scenarios.",
-  },
-  {
-    title: "Launch & Support",
-    description: "Going live with confidence",
-    expandedContent:
-      "We handle deployment with care, providing training and documentation for your team. Our ongoing support ensures your solution continues to perform optimally as your needs evolve.",
-  },
-];
-
 const CornerConnector = ({ className }: { className?: string }) => (
   <svg
     width="22"
@@ -184,7 +151,7 @@ const CornerConnector = ({ className }: { className?: string }) => (
 export function ProcessExpandableTimeline({
   heading = "How We Work",
   description = "Click on each step to learn more about our process and methodology.",
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   contentClassName,

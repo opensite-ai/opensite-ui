@@ -115,119 +115,6 @@ export interface ServicesListExpandableCardsProps {
   cardClassName?: string;
 }
 
-const defaultServices: ServicesListExpandableCardsService[] = [
-  {
-    id: "travel",
-    category: "Travel",
-    title: "5 Inspiring Apps for Your Next Trip",
-    image: {
-      src: imagePlaceholders[0],
-      alt: "Travel services",
-    },
-    imageStyles: {
-      top: -300,
-    },
-    content: (
-      <>
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Love to travel? So do the makers of these five subscription apps. For
-          a small monthly fee, they'll help you find the best deals on flights,
-          hotels, and some other stuff we turn a blind eye to.
-        </p>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-          Plan your perfect itinerary with intelligent recommendations based on
-          your interests, time, and credit history.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "mindfulness",
-    category: "How to",
-    title: "Contemplate the Meaning of Life Twice a Day",
-    image: {
-      src: imagePlaceholders[1],
-      alt: "Mindfulness services",
-    },
-    imageStyles: {
-      bottom: -50,
-      width: "110%",
-      left: -20,
-    },
-    theme: "dark",
-    content: (
-      <>
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          What is life? You can't spell "life" without "i". You also can't
-          spell "life" without "l", "f", and "e". Worth thinking about.
-        </p>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-          The only way to find out more about life is to think about it. And
-          the only way to think about it is twice daily using an app.
-        </p>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-          Apps? We got 'em. Therefore we got the meaning of life.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "exploration",
-    category: "Steps",
-    title: "Urban Exploration Apps for the Vertically-Inclined",
-    image: {
-      src: imagePlaceholders[2],
-      alt: "Urban exploration services",
-    },
-    imageStyles: {
-      width: "200%",
-      left: -100,
-    },
-    theme: "dark",
-    content: (
-      <>
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Get off the beaten path. Find the best views, skywalks, and elevated
-          gardens in your city.
-        </p>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-          Locked door? No problem! This app crowdsources the access code to
-          every door in your city.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "lifestyle",
-    category: "Hats",
-    title: "Take Control of Your Hat Life With This Stunning New App",
-    image: {
-      src: imagePlaceholders[3],
-      alt: "Lifestyle services",
-    },
-    imageStyles: {
-      bottom: -100,
-    },
-    content: (
-      <>
-        <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-          Whether you're serious hat enthusiast, or just a filthy casual, this
-          new app revolutionizes how you organize, care for, and expand your
-          hat collection.
-        </p>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-          Stay up to date with the latest hat trends, get personalized hat care
-          reminders, and use predictive analytics to discover the last place
-          you left your hat.
-        </p>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
-          Why follow the crowd when you can be the crowd?
-        </p>
-      </>
-    ),
-  },
-];
-
 /**
  * ServicesListExpandableCards - An interactive service list featuring expandable
  * cards with media backgrounds. Cards expand into a compact dialog with full details.
@@ -246,7 +133,7 @@ const defaultServices: ServicesListExpandableCardsService[] = [
 export function ServicesListExpandableCards({
   title = "Featured Services",
   subtitle,
-  services = defaultServices,
+  services,
   optixFlowConfig,
   enableLayoutAnimations = true,
   background = "white",

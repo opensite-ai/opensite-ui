@@ -124,45 +124,6 @@ export interface FeatureUtilityCardsGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultUtilities: FeatureUtilityCardsGridItem[] = [
-  {
-    title: "Integrations",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-  },
-  {
-    title: "Apps",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: blockBrandedIconsAndPlaceholders.placeholderDark1,
-  },
-  {
-    title: "APIs",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: blockBrandedIconsAndPlaceholders.placeholder3,
-  },
-  {
-    title: "Plugins",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: blockBrandedIconsAndPlaceholders.placeholder4,
-  },
-  {
-    title: "Extensions",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: blockBrandedIconsAndPlaceholders.placeholder5,
-  },
-  {
-    title: "Widgets",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    image: blockBrandedIconsAndPlaceholders.placeholder6,
-  },
-];
-
-const defaultLearnMoreAction: ActionConfig = {
-  label: "Learn more",
-  href: "#",
-  iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2 inline-block" />,
-};
-
 /**
  * Feature Utility Cards Grid - Six-card grid showcasing utilities with images
  * and descriptions.
@@ -188,9 +149,9 @@ export function FeatureUtilityCardsGrid({
   labelIconName = "lucide/square-dashed-mouse-pointer",
   title = "What you can do with our utilities?",
   description = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae praesent, ad ullam quis cupiditate atque maxime alias eaque repellendus perferendis, nemo repudiandae.",
-  learnMoreAction = defaultLearnMoreAction,
+  learnMoreAction,
   learnMoreSlot,
-  utilities = defaultUtilities,
+  utilities,
   utilitiesSlot,
   className,
   containerClassName,

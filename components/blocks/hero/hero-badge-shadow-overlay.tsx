@@ -58,27 +58,12 @@ export interface HeroBadgeShadowOverlayProps {
   actionsClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started - it's free",
-    href: "#",
-    variant: "default",
-    size: "lg",
-  },
-  {
-    label: "Book a demo",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
 export function HeroBadgeShadowOverlay({
   announcementBadge = "7 days ago",
   announcementText = "Slack integration is here!",
   announcementHref = "#",
   heading = "Manage design work right from the canvas",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   backgroundImageUrl = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/shadow-overlay.png",
   className,

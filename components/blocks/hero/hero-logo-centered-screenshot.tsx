@@ -71,32 +71,14 @@ export interface HeroLogoCenteredScreenshotProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogo: LogoItem = {
-  src: logoPlaceholders.logoMark,
-  alt: "logo",
-  className: "h-10 md:h-16",
-};
-
-const defaultAction: ActionConfig = {
-  label: "Get Started",
-  href: "#",
-  variant: "default",
-  iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-1" />,
-};
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[5],
-  alt: "placeholder",
-};
-
 export function HeroLogoCenteredScreenshot({
-  logo = defaultLogo,
+  logo,
   logoSlot,
   heading = "Build your next project with Blocks",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
-  action = defaultAction,
+  action,
   actionSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   containerClassName,

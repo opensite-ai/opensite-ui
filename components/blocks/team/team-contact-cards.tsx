@@ -140,37 +140,6 @@ export interface TeamContactCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamContactCardsMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    bio: "Available for strategic partnerships and speaking engagements.",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    contact: {
-      email: "sarah@opensite.ai",
-      phone: "+1 (555) 123-4567",
-      location: "San Francisco, CA",
-    },
-    availability: "Available for meetings",
-    status: "active",
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    bio: "Open to technical discussions and consulting.",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    contact: {
-      email: "marcus@opensite.ai",
-      phone: "+1 (555) 234-5678",
-      location: "New York, NY",
-    },
-    availability: "Available next month",
-    status: "busy",
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamContactCards - Contact-focused team cards with availability status
  *
@@ -204,7 +173,7 @@ const defaultMembers: TeamContactCardsMember[] = [
 export function TeamContactCards({
   heading = "Get in touch",
   description = "Connect with our team members",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

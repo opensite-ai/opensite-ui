@@ -133,15 +133,8 @@ export interface CarouselAnimatedSectionsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: AnimatedSection[] = [
-  { id: "section-0", title: "Experience 1", subtitle: "Chapter 1", description: "Discover the unique features and capabilities that make this section special. Each experience is crafted to deliver maximum impact.", image: imagePlaceholders[0], ctaText: "Explore", ctaHref: "#" },
-  { id: "section-1", title: "Experience 2", subtitle: "Chapter 2", description: "Discover the unique features and capabilities that make this section special. Each experience is crafted to deliver maximum impact.", image: imagePlaceholders[1], ctaText: "Explore", ctaHref: "#" },
-  { id: "section-2", title: "Experience 3", subtitle: "Chapter 3", description: "Discover the unique features and capabilities that make this section special. Each experience is crafted to deliver maximum impact.", image: imagePlaceholders[2], ctaText: "Explore", ctaHref: "#" },
-  { id: "section-3", title: "Experience 4", subtitle: "Chapter 4", description: "Discover the unique features and capabilities that make this section special. Each experience is crafted to deliver maximum impact.", image: imagePlaceholders[3], ctaText: "Explore", ctaHref: "#" },
-];
-
 export function CarouselAnimatedSections({
-  sections = defaultSections,
+  sections,
   sectionsSlot,
   actionsSlot,
   actions,

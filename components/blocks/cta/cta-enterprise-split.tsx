@@ -119,32 +119,6 @@ export interface CtaEnterpriseSplitProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Contact Sales", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultLinks: CtaEnterpriseSplitLink[] = [
-  {
-    iconName: "lucide/file-text",
-    title: "Documentation",
-    description: "Comprehensive guides and API references.",
-    href: "#",
-  },
-  {
-    iconName: "lucide/play-circle",
-    title: "Live Demo",
-    description: "See our platform in action.",
-    href: "#",
-  },
-  {
-    iconName: "lucide/message-circle",
-    title: "Contact Sales",
-    description: "Talk to our enterprise team.",
-    href: "#",
-  },
-];
-
 /**
  * CtaEnterpriseSplit - A split-layout CTA with enterprise messaging and buttons
  * on one side, and documentation/demo links with icons on the other. Perfect
@@ -168,9 +142,9 @@ const defaultLinks: CtaEnterpriseSplitLink[] = [
 export function CtaEnterpriseSplit({
   heading = "Enterprise Ready",
   description = "Built for scale with enterprise-grade security, compliance, and support. Trusted by Fortune 500 companies worldwide.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  links = defaultLinks,
+  links,
   linksSlot,
   className,
   containerClassName,

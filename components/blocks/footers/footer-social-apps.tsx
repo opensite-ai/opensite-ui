@@ -73,47 +73,6 @@ export interface FooterSocialAppsProps {
   };
 }
 
-const defaultSections: FooterSocialAppsSection[] = [
-  {
-    title: "Product",
-    links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About", href: "#" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
-      { name: "Advertise", href: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterSocialAppsSocialLink[] = [
-  { icon: "simple-icons/discord", href: "#", label: "Discord" },
-  { icon: "simple-icons/x", href: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/instagram", href: "#", label: "Instagram" },
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-];
-
-const defaultAppLinks: FooterSocialAppsAppLink[] = [
-  { icon: "mdi/android", href: "#", label: "Android" },
-  { icon: "mdi/apple", href: "#", label: "iOS" },
-];
-
 /**
  * FooterSocialApps - A footer with social icons, navigation links, and mobile app download links.
  *
@@ -129,9 +88,9 @@ export function FooterSocialApps({
     title: "Opensite AI",
   },
   className,
-  sections = defaultSections,
-  socialLinks = defaultSocialLinks,
-  appLinks = defaultAppLinks,
+  sections,
+  socialLinks,
+  appLinks,
   socialLabel = "Follow Us",
   appLabel = "Mobile App",
   copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,

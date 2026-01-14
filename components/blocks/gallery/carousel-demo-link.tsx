@@ -143,59 +143,6 @@ export interface CarouselDemoLinkProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CarouselDemoLinkItem[] = [
-  {
-    id: "item-1",
-    title: "Build Modern UIs",
-    summary:
-      "Create stunning user interfaces with our comprehensive design system.",
-    url: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-  },
-  {
-    id: "item-2",
-    title: "Computer Vision Technology",
-    summary:
-      "Powerful image recognition and processing capabilities that allow AI systems to analyze, understand, and interpret visual information from the world.",
-    url: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-  },
-  {
-    id: "item-3",
-    title: "Machine Learning Automation",
-    summary:
-      "Self-improving algorithms that learn from data patterns to automate complex tasks and make intelligent decisions with minimal human intervention.",
-    url: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-  },
-  {
-    id: "item-4",
-    title: "Predictive Analytics",
-    summary:
-      "Advanced forecasting capabilities that analyze historical data to predict future trends and outcomes, helping businesses make data-driven decisions.",
-    url: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-  },
-  {
-    id: "item-5",
-    title: "Neural Network Architecture",
-    summary:
-      "Sophisticated AI models inspired by human brain structure, capable of solving complex problems through deep learning and pattern recognition.",
-    url: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-  },
-];
-
-const defaultDemoAction: ActionConfig = {
-  label: "Book a demo",
-  href: "#",
-};
-
 /**
  * CarouselDemoLink displays feature cards with a prominent demo link in the header.
  *
@@ -223,9 +170,9 @@ const defaultDemoAction: ActionConfig = {
  */
 export function CarouselDemoLink({
   heading = "Gallery",
-  demoAction = defaultDemoAction,
+  demoAction,
   demoActionSlot,
-  items = defaultItems,
+  items,
   itemsSlot,
   readMoreText = "Read more",
   className,

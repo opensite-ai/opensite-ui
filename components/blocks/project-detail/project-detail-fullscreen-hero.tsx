@@ -64,41 +64,6 @@ export interface ProjectDetailFullscreenHeroProps {
   sectionsClassName?: string;
 }
 
-const defaultSections: SectionItem[] = [
-  {
-    id: "vision",
-    title: "The Vision",
-    content:
-      "Creating a bold visual identity that captures the essence of modern luxury while remaining accessible and approachable. The design language needed to work seamlessly across digital and physical touchpoints.",
-  },
-  {
-    id: "execution",
-    title: "The Execution",
-    content:
-      "Through careful consideration of typography, color, and spatial relationships, we developed a comprehensive brand system that elevates every customer interaction and reinforces brand values at every touchpoint.",
-  },
-  {
-    id: "impact",
-    title: "The Impact",
-    content:
-      "The new brand identity has transformed how customers perceive and interact with the brand, resulting in measurable improvements in engagement, loyalty, and overall brand sentiment.",
-  },
-];
-
-const defaultProps: ProjectDetailFullscreenHeroProps = {
-  title: "Luxe Collective",
-  subtitle: "Premium Brand Experience",
-  year: "2024",
-  category: "Brand Identity",
-  client: "Luxe Collective",
-  heroImage: {
-    src: imagePlaceholders[9],
-    alt: "Luxe Collective brand showcase",
-  },
-  sections: defaultSections,
-  backAction: { label: "Back", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 export function ProjectDetailFullscreenHero(
   props: ProjectDetailFullscreenHeroProps
 ): React.JSX.Element {

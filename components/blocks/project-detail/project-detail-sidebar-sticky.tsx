@@ -68,49 +68,6 @@ export interface ProjectDetailSidebarStickyProps {
   relatedProjectsClassName?: string;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[0], alt: "Project image 1" },
-  { src: imagePlaceholders[1], alt: "Project image 2" },
-  { src: imagePlaceholders[2], alt: "Project image 3" },
-  { src: imagePlaceholders[3], alt: "Project image 4" },
-];
-
-const defaultRelatedProjects: ProjectDetailSidebarStickyRelatedProject[] = [
-  {
-    title: "Portrait",
-    category: "STREET",
-    src: imagePlaceholders[4],
-    alt: "Street Portrait",
-    href: "#",
-  },
-  {
-    title: "Architecture",
-    category: "URBAN",
-    src: imagePlaceholders[5],
-    alt: "Urban Architecture",
-    href: "#",
-  },
-  {
-    title: "Documentary",
-    category: "LIFESTYLE",
-    src: imagePlaceholders[6],
-    alt: "Lifestyle Documentary",
-    href: "#",
-  },
-];
-
-const defaultProps: ProjectDetailSidebarStickyProps = {
-  title: "Urban Lens",
-  subtitle: "Street Photography Collection",
-  category: "PHOTOGRAPHY",
-  year: "2024",
-  description:
-    "A captivating series of street photography that captures the essence of urban life through the lens of contemporary photographers working in monochrome.",
-  images: defaultImages,
-  relatedProjects: defaultRelatedProjects,
-  relatedProjectsTitle: "MORE COLLECTIONS",
-};
-
 function ImageBlock({
   src,
   alt,

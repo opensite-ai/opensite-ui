@@ -70,55 +70,6 @@ export interface ProjectDetailParallaxScrollProps {
   sectionsClassName?: string;
 }
 
-const defaultSections: ProjectDetailParallaxScrollSection[] = [
-  {
-    title: "Concept Development",
-    content:
-      "The initial phase focused on exploring the emotional resonance of different color combinations. Through extensive research and experimentation, we identified key color relationships that evoke specific psychological responses.",
-    image: {
-      src: imagePlaceholders[85],
-      alt: "Concept development",
-    },
-  },
-  {
-    title: "Visual Language",
-    content:
-      "Building on our research, we developed a comprehensive visual language that translates emotional concepts into tangible design elements. This system provides a framework for consistent, impactful visual communication.",
-    image: {
-      src: imagePlaceholders[86],
-      alt: "Visual language",
-    },
-  },
-  {
-    title: "Application",
-    content:
-      "The final phase involved applying our findings across various media and contexts. From digital interfaces to physical installations, the color system proved versatile and effective in evoking intended emotional responses.",
-    image: {
-      src: imagePlaceholders[87],
-      alt: "Application",
-    },
-  },
-];
-
-const defaultProps: ProjectDetailParallaxScrollProps = {
-  title: "Chromatic Emotions",
-  subtitle: "The Psychology of Color in Design",
-  year: "2024",
-  category: "Research & Design",
-  heroImage: {
-    src: imagePlaceholders[88],
-    alt: "Chromatic Emotions hero",
-  },
-  description:
-    "An in-depth exploration of how color influences human emotion and behavior. This project combines scientific research with creative experimentation to develop a practical framework for emotionally intelligent design.",
-  sections: defaultSections,
-  backAction: {
-    label: "Back to Projects",
-    href: "/projects",
-    icon: <DynamicIcon name="lucide/arrow-left" size={16} />,
-  },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

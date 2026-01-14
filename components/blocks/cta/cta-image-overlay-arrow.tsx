@@ -72,10 +72,6 @@ export interface CtaImageOverlayArrowProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
-];
-
 /**
  * CtaImageOverlayArrow - A CTA section with a background image, centered heading,
  * and a prominent button with arrow icon. Creates visual impact with minimal content.
@@ -94,7 +90,7 @@ const defaultActions: ActionConfig[] = [
  */
 export function CtaImageOverlayArrow({
   heading = "Start Your Journey Today",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[7],
   className,

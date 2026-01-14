@@ -103,27 +103,6 @@ export interface AboutMissionFeaturesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureItem[] = [
-  {
-    icon: <DynamicIcon name="lucide/files" size={20} />,
-    title: "Being radically open",
-    description:
-      "We believe there's no room for big egos and there's always time to help each other. We strive to give and receive feedback, ideas, perspectives",
-  },
-  {
-    icon: <DynamicIcon name="lucide/circle-arrow-right" size={20} />,
-    title: "Moving the needle",
-    description:
-      "Boldly, bravely and with clear aims. We seek out the big opportunities and double down on the most important things to work on.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/settings" size={20} />,
-    title: "Optimizing for empowerment",
-    description:
-      "We believe that everyone should be empowered to do whatever they think is in the company's best interests.",
-  },
-];
-
 export function AboutMissionFeatures({
   title = "About Us",
   description = "Opensite AI makes it easy to build customer portals, CRMs, internal tools, and other business applications for your team. In minutes, not months.",
@@ -133,7 +112,7 @@ export function AboutMissionFeatures({
   missionBackgroundImage,
   featuresTitle = "We make creating software easy.",
   featuresDescription = "We aim to help empower 1,000,000 teams to create their own software. Here is how we plan on doing it.",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

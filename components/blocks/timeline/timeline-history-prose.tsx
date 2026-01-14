@@ -99,36 +99,9 @@ export interface TimelineHistoryProseProps {
   };
 }
 
-const defaultEntries: TimelineHistoryEntry[] = [
-  {
-    date: "1956",
-    title: "The Birth of AI",
-    contentHtml:
-      "The term 'Artificial Intelligence' was coined at the Dartmouth Conference, marking the official beginning of AI as a field. John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon organized this seminal event, setting the stage for decades of research and development.",
-  },
-  {
-    date: "1966-1973",
-    title: "Early Optimism and First AI Winter",
-    contentHtml:
-      "The early years saw significant optimism with programs like ELIZA (the first chatbot) and SHRDLU (a natural language understanding system). However, by the early 1970s, funding dried up as researchers faced the limitations of early computing power and the complexity of human intelligence.",
-  },
-  {
-    date: "1980-1987",
-    title: "Expert Systems and Revival",
-    contentHtml:
-      "AI experienced a revival with the development of expert systems like MYCIN (for medical diagnosis) and DENDRAL (for chemical analysis). These systems used rule-based approaches to mimic human decision-making in specific domains, leading to renewed interest and funding in AI research.",
-  },
-  {
-    date: "1997",
-    title: "Deep Blue Defeats Chess Champion",
-    contentHtml:
-      "IBM's Deep Blue became the first computer system to defeat a reigning world chess champion, Garry Kasparov, in a six-game match. This milestone demonstrated AI's potential to outperform humans in complex strategic games and captured the public's imagination.",
-  },
-];
-
 export function TimelineHistoryProse({
   heading = "The History of Artificial Intelligence",
-  entries = defaultEntries,
+  entries,
   className,
   containerClassName,
   headingClassName,

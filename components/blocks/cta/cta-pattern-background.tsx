@@ -80,11 +80,6 @@ export interface CtaPatternBackgroundProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
 /**
  * CtaPatternBackground - A CTA section with a subtle pattern background,
  * centered heading, description, and action buttons. Clean and professional
@@ -106,7 +101,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaPatternBackground({
   heading = "Start building your websites faster",
   description = "Try our tools and services to build your website faster. Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   backgroundPattern = patternSvgs.grid1,
   className,

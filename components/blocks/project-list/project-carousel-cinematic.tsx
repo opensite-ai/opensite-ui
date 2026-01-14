@@ -94,69 +94,6 @@ export interface ProjectCarouselCinematicProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectCarouselCinematicItem[] = [
-  {
-    id: 1,
-    title: "Crystal Clear Tropical Waters",
-    location: "Maldives",
-    year: "2023",
-    category: "Seascape",
-    description:
-      "Aerial view of pristine turquoise waters revealing the intricate patterns of coral formations and sandy ocean floor through crystal clear tropical seas.",
-    image: imagePlaceholders[97],
-  },
-  {
-    id: 2,
-    title: "Aerial View of Rice Terraces",
-    location: "Southeast Asia",
-    year: "2023",
-    category: "Agriculture",
-    description:
-      "Stunning aerial perspective of terraced rice fields showcasing intricate geometric patterns and vibrant green landscapes carved into the hillsides.",
-    image: imagePlaceholders[98],
-  },
-  {
-    id: 3,
-    title: "Desert Canyon Formations",
-    location: "Southwestern United States",
-    year: "2022",
-    category: "Landscape",
-    description:
-      "Dramatic aerial view of layered sandstone formations revealing millions of years of geological history through deep canyons and weathered rock strata.",
-    image: imagePlaceholders[99],
-  },
-  {
-    id: 4,
-    title: "Golden Terraced Fields",
-    location: "Yunnan, China",
-    year: "2022",
-    category: "Agriculture",
-    description:
-      "Mesmerizing aerial view of golden terraced agricultural fields displaying intricate contour patterns carved into the mountainous landscape during harvest season.",
-    image: imagePlaceholders[100],
-  },
-  {
-    id: 5,
-    title: "Tidal Sand Patterns",
-    location: "Iceland",
-    year: "2023",
-    category: "Landscape",
-    description:
-      "Mesmerizing aerial view of flowing water patterns carved into dark volcanic sand, creating organic sculptural forms shaped by tidal forces.",
-    image: imagePlaceholders[101],
-  },
-  {
-    id: 6,
-    title: "Red Rock Canyon Labyrinth",
-    location: "Utah, United States",
-    year: "2022",
-    category: "Landscape",
-    description:
-      "Breathtaking aerial view of red sandstone canyon formations displaying deep gorges, weathered rock layers, and intricate geological patterns carved over millennia.",
-    image: imagePlaceholders[102],
-  },
-];
-
 /**
  * ProjectCarouselCinematic - Wide carousel with 16:9 cinematic aspect ratio and category badges.
  *
@@ -169,7 +106,7 @@ const defaultProjects: ProjectCarouselCinematicItem[] = [
 export function ProjectCarouselCinematic({
   heading = "Projects",
   subheading = "Minimal showcase with cinematic aspect ratio",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

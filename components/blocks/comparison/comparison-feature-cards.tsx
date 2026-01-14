@@ -99,34 +99,6 @@ export interface ComparisonFeatureCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProductA: ProductCard = {
-  name: "Product A",
-  highlighted: true,
-  features: [
-    { text: "Basic Plan Available", included: true },
-    { text: "Unlimited Users", included: true },
-    { text: "Advanced Features", included: true },
-    { text: "Partner Program", included: true },
-    { text: "Live Events", included: true },
-    { text: "Community Access", included: true },
-    { text: "Premium Support", included: true },
-  ],
-};
-
-const defaultProductB: ProductCard = {
-  name: "Product B",
-  highlighted: false,
-  features: [
-    { text: "Basic Plan Available", included: true },
-    { text: "Unlimited Users", included: true },
-    { text: "Basic Features", included: true },
-    { text: "Partner Program", included: false },
-    { text: "Live Events", included: false },
-    { text: "Community Access", included: false },
-    { text: "Premium Support", included: false },
-  ],
-};
-
 /**
  * ComparisonFeatureCards - Side-by-side feature comparison cards
  *
@@ -142,8 +114,8 @@ const defaultProductB: ProductCard = {
 export function ComparisonFeatureCards({
   heading = "Product A vs. Product B: Making the Right Choice",
   description = "Product A isn't just an alternative to Product B. It offers enhanced features and capabilities, making it easier to achieve your goals with a modern, intuitive interface designed for today's needs.",
-  productA = defaultProductA,
-  productB = defaultProductB,
+  productA,
+  productB,
   cardsSlot,
   suitabilityTitle = "Who is Product B suitable for?",
   suitabilityDescription = "Product B is a reliable solution designed for basic needs and smaller teams. It provides essential functionality for those getting started or requiring fundamental features. While it offers a straightforward interface, it may lack some of the advanced capabilities needed for scaling operations or handling complex workflows.",

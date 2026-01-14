@@ -60,42 +60,9 @@ export interface BlogHorizontalTimelineProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    id: 1,
-    title: "The Future of Web Development",
-    date: "3rd Dec 2024",
-    description:
-      "Exploring the latest trends in frontend and backend technologies, including AI-powered coding tools and modern frameworks.",
-    image: imagePlaceholders[0],
-    imageAlt: "Developer working on code",
-    href: "#",
-  },
-  {
-    id: 2,
-    title: "Mastering React Performance Optimization",
-    date: "5th Dec 2024",
-    description:
-      "A deep dive into memoization, lazy loading, and efficient state management techniques for faster React applications.",
-    image: imagePlaceholders[1],
-    imageAlt: "Code on screen",
-    href: "#",
-  },
-  {
-    id: 3,
-    title: "UI/UX Design Principles for 2025",
-    date: "10th Dec 2024",
-    description:
-      "Key strategies for creating intuitive, beautiful interfaces that delight users and drive engagement in the coming year.",
-    image: imagePlaceholders[2],
-    imageAlt: "UI/UX design sketches on paper",
-    href: "#",
-  },
-];
-
 export function BlogHorizontalTimeline({
   heading = "Discover Our Fresh Content",
-  posts = defaultPosts,
+  posts,
   postsSlot,
   readText = "Read",
   className,

@@ -153,47 +153,6 @@ export interface AboutStoryExpertiseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultStoryParagraphs = [
-  "OpenSite AI began with a simple mission: make expert guidance accessible to every client, not just the largest enterprises.",
-  "We built a network of independent advisors supported by real-time intelligence, so every recommendation is transparent, timely, and tailored.",
-  "Today, OpenSite AI partners deliver proactive reviews, clear communication, and strategic coverage planning for teams of every size.",
-];
-
-const defaultExpertiseAreas: AboutStoryExpertiseArea[] = [
-  {
-    icon: <DynamicIcon name="lucide/shield-check" size={24} />,
-    title: "Independent Advocacy",
-    description: "Guidance that puts your goals first, not a carrier agenda.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/graduation-cap" size={24} />,
-    title: "Client Education",
-    description: "Clear explanations that help teams make confident decisions.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/refresh-cw" size={24} />,
-    title: "Proactive Reviews",
-    description: "Regular check-ins that keep coverage aligned to growth.",
-  },
-  {
-    icon: <DynamicIcon name="lucide/award" size={24} />,
-    title: "Network Backed",
-    description: "Shared insights and resources from OpenSite AI partners.",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Learn More", href: "/about", variant: "default", size: "lg" },
-  { label: "Connect With Us", href: "/contact", variant: "outline", size: "lg" },
-];
-
-const defaultHighlight = {
-  icon: <DynamicIcon name="lucide/award" size={24} />,
-  label: "Since 2012",
-  title: "Trusted by partner teams",
-  description: "A decade of advisory excellence and partner growth.",
-};
-
 /**
  * AboutStoryExpertise - A two-part about section featuring a founder-style story
  * with image overlay, followed by a grid of expertise highlights. Ideal for
@@ -204,10 +163,10 @@ export function AboutStoryExpertise({
   eyebrowClassName,
   heading = "Built on trust, powered by OpenSite AI",
   headingClassName,
-  storyParagraphs = defaultStoryParagraphs,
+  storyParagraphs,
   storySlot,
   storyClassName,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   actionsClassName,
   image = {
@@ -215,14 +174,14 @@ export function AboutStoryExpertise({
     alt: "OpenSite AI team collaboration",
   },
   imageClassName,
-  highlight = defaultHighlight,
+  highlight,
   highlightSlot,
   highlightClassName,
   expertiseHeading = "Why teams choose OpenSite AI",
   expertiseHeadingClassName,
   expertiseDescription = "Experience, independence, and intelligent tooling combine to deliver better outcomes.",
   expertiseDescriptionClassName,
-  expertiseAreas = defaultExpertiseAreas,
+  expertiseAreas,
   expertiseAreasSlot,
   expertiseAreasClassName,
   expertiseSectionClassName,

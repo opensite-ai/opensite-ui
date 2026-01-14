@@ -75,31 +75,6 @@ export interface ProjectDetailSculptureShowcaseProps {
   galleryClassName?: string;
 }
 
-const defaultGalleryImages: ImageItem[] = [
-  { src: imagePlaceholders[10], alt: "Sculpture detail 1" },
-  { src: imagePlaceholders[11], alt: "Sculpture detail 2" },
-  { src: imagePlaceholders[12], alt: "Sculpture detail 3" },
-];
-
-const defaultProps: ProjectDetailSculptureShowcaseProps = {
-  title: "Organic Resonance",
-  subtitle: "A Study in Form and Movement",
-  year: "2024",
-  category: "Sculpture",
-  artist: "Elena Vasquez",
-  heroImage: {
-    src: imagePlaceholders[13],
-    alt: "Organic Resonance sculpture",
-  },
-  description:
-    "This sculptural work explores the intersection of organic forms and geometric precision. Inspired by natural growth patterns and the mathematical principles underlying biological structures, the piece invites viewers to contemplate the harmony between chaos and order.",
-  materials: "Bronze, Stainless Steel, Marble Base",
-  dimensions: "180cm x 90cm x 75cm",
-  location: "Metropolitan Art Gallery",
-  galleryImages: defaultGalleryImages,
-  backAction: { label: "Back to Gallery", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

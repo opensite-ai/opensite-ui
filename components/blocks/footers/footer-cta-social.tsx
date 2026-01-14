@@ -81,12 +81,6 @@ export interface FooterCtaSocialProps {
   patternOpacity?: number;
 }
 
-const defaultSocialLinks: FooterCtaSocialLink[] = [
-  { icon: "lucide/twitter", url: "#", label: "Twitter" },
-  { icon: "lucide/instagram", url: "#", label: "Instagram" },
-  { icon: "lucide/facebook", url: "#", label: "Facebook" },
-];
-
 /**
  * FooterCtaSocial - A centered CTA footer with decorative lines and social icons.
  *
@@ -102,7 +96,7 @@ export function FooterCtaSocial({
   buttonText = "Get Started Now",
   buttonUrl = "#",
   email = "hello@opensite.ai",
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   copyright,
   attributionText = "AI Website and Automation Platform by Opensite",
   attributionHref = "https://opensite.ai",

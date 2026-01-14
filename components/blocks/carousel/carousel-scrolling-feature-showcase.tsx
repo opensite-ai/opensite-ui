@@ -107,17 +107,10 @@ export interface CarouselScrollingFeatureShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureItem[] = [
-  { id: "feature-0", title: "Feature 1", description: "This is a detailed description of feature 1. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[0] },
-  { id: "feature-1", title: "Feature 2", description: "This is a detailed description of feature 2. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[1] },
-  { id: "feature-2", title: "Feature 3", description: "This is a detailed description of feature 3. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[2] },
-  { id: "feature-3", title: "Feature 4", description: "This is a detailed description of feature 4. It explains the benefits and capabilities that users can expect when using this feature.", image: imagePlaceholders[3] },
-];
-
 export function CarouselScrollingFeatureShowcase({
   heading = "Powerful Features",
   subheading = "Discover what makes our platform unique",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

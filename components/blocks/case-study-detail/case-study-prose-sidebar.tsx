@@ -90,15 +90,6 @@ export interface CaseStudyProseSidebarProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultDetails: DetailItem[] = [
-  { label: "Company", value: "Suspendisse vel euismod sem. Sed sollicitudin augue eu facilisis scelerisque. Nullam pharetra tortor ut massa accumsan egestas." },
-  { label: "Industry", value: "Suspendisse volutpat" },
-  { label: "Location", value: "London, United Kingdom" },
-  { label: "Company size", value: "11-50" },
-  { label: "Website", value: "https://example.com/", href: "https://example.com/" },
-  { label: "Topics", value: "Sed sollicitudin augue eu facilisis scelerisque" },
-];
-
 const defaultContent = (
   <>
     <h1>How Opensite AI uses semantic components to build their design system</h1>
@@ -219,12 +210,12 @@ export function CaseStudyProseSidebar({
   heroImageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   heroImageAlt = "Case study hero image",
   heroMediaSlot,
-  content = defaultContent,
+  content,
   contentSlot,
   companyLogoSrc = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo3,
   companyLogoAlt = "Company logo",
   companyLogoSlot,
-  details = defaultDetails,
+  details,
   sidebarSlot,
   className,
   containerClassName,

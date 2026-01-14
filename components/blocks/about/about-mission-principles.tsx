@@ -108,46 +108,6 @@ export interface AboutMissionPrinciplesProps {
   containerClassName?: string;
 }
 
-const defaultPrinciples: AboutMissionPrincipleItem[] = [
-  {
-    number: "01",
-    title: "Customer-Centric",
-    description:
-      "We place our customers at the center of everything we do, designing products and services that solve real problems and create lasting value.",
-  },
-  {
-    number: "02",
-    title: "Innovation-Driven",
-    description:
-      "We continuously explore new ideas and technologies to push boundaries and create better solutions for evolving challenges.",
-  },
-  {
-    number: "03",
-    title: "Quality-Focused",
-    description:
-      "We are committed to excellence in every aspect of our work, from the products we build to the experiences we create and the support we provide.",
-  },
-  {
-    number: "04",
-    title: "Inclusive by Design",
-    description:
-      "We embrace diversity of thought, background, and perspective, creating solutions that work for everyone and building teams that reflect the communities we serve.",
-  },
-];
-
-const defaultMissionAction: ActionConfig = {
-  label: "See our impact",
-  href: "#",
-  variant: "default",
-};
-
-const defaultVisionAction: ActionConfig = {
-  label: "View our strategy",
-  href: "#",
-  variant: "outline",
-  size: "lg",
-};
-
 /**
  * About Mission Principles - A comprehensive mission statement section with
  * numbered principle cards and a vision callout.
@@ -176,17 +136,17 @@ export function AboutMissionPrinciples({
   missionHeadingClassName,
   missionDescription = "We believe technology should serve humanity, not the other way around. Our mission drives us to create solutions that enhance people's lives, expand their capabilities, and help them achieve their goals.",
   missionDescriptionClassName,
-  missionAction = defaultMissionAction,
+  missionAction,
   missionActionSlot,
   missionActionClassName,
-  principles = defaultPrinciples,
+  principles,
   principlesSlot,
   principlesClassName,
   visionHeading = "Our Vision",
   visionHeadingClassName,
   visionDescription = "We envision a world where technology enhances human potential, enabling everyone to achieve more, connect meaningfully, and contribute to a better future. We strive to be the company that makes this vision a reality through thoughtful innovation and an unwavering commitment to our core principles.",
   visionDescriptionClassName,
-  visionAction = defaultVisionAction,
+  visionAction,
   visionActionSlot,
   visionClassName,
   className,

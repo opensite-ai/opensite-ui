@@ -53,27 +53,11 @@ export interface HeroSplitSpiralShapesProps {
   descriptionClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Primary",
-    href: "#",
-    variant: "default",
-    className: "w-full sm:w-auto",
-    icon: <DynamicIcon name="lucide/arrow-right" size={16} className="mr-2" />,
-  },
-  {
-    label: "Secondary",
-    href: "#",
-    variant: "outline",
-    className: "w-full sm:w-auto",
-  },
-];
-
 export function HeroSplitSpiralShapes({
   badgeText = "New Release",
   heading = "Welcome to Our Website",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   shapesSlot,
   className,

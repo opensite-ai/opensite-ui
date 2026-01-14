@@ -95,39 +95,6 @@ export interface HeroCommunitySurveyCtaProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started for free",
-    href: "#",
-    variant: "default",
-    size: "lg",
-  },
-  {
-    label: "Book a demo",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultMainImage: ImageItem = {
-  src: imagePlaceholders[7],
-  alt: "placeholder",
-  className: "mt-20 max-h-[580px] w-full rounded-lg object-cover shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)]",
-};
-
-const defaultLeftOverlayImage: ImageItem = {
-  src: imagePlaceholders[8],
-  alt: "placeholder",
-  className: "absolute top-1/2 -left-3 hidden max-h-56 -translate-y-1/2 rounded-lg object-cover shadow-md md:block xl:-left-10",
-};
-
-const defaultRightOverlayImage: ImageItem = {
-  src: imagePlaceholders[9],
-  alt: "placeholder",
-  className: "absolute top-1/3 -right-3 hidden h-24 w-24 -translate-y-1/2 rounded-lg bg-muted shadow-md md:block xl:-right-10",
-};
-
 export function HeroCommunitySurveyCta({
   announcementPrimary = "Join our Community Collaboration Survey!",
   announcementSecondary = "We'll donate $20 for each response.",
@@ -136,11 +103,11 @@ export function HeroCommunitySurveyCta({
   announcementSlot,
   heading = "Community & business data, centralized",
   description = "Showcase the value of your community to the business. Talkbase sets the stage for successful cross-collaboration among community teams working with customer, marketing, sales, and product development.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  mainImage = defaultMainImage,
-  leftOverlayImage = defaultLeftOverlayImage,
-  rightOverlayImage = defaultRightOverlayImage,
+  mainImage,
+  leftOverlayImage,
+  rightOverlayImage,
   imagesSlot,
   className,
   containerClassName,

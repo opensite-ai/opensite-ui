@@ -126,39 +126,6 @@ export interface ServicesListVideoShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: ServicesListVideoShowcaseService[] = [
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies for optimal performance and user experience.",
-    videoUrl: videoPlaceholders[0],
-    posterImage: { src: imagePlaceholders[0], alt: "Web Development" },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/smartphone",
-    title: "Mobile Apps",
-    description:
-      "Native and cross-platform mobile applications that deliver exceptional user experiences on iOS and Android.",
-    videoUrl: videoPlaceholders[1],
-    posterImage: { src: imagePlaceholders[1], alt: "Mobile Apps" },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/palette",
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that create engaging, intuitive experiences across all digital touchpoints.",
-    videoUrl: videoPlaceholders[2],
-    posterImage: { src: imagePlaceholders[2], alt: "UI/UX Design" },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListVideoShowcase - A services layout featuring video showcases for each service.
  * Each service card includes an icon, title, description, video player with poster image, and CTA.
@@ -179,7 +146,7 @@ const defaultServices: ServicesListVideoShowcaseService[] = [
 export function ServicesListVideoShowcase({
   heading = "Our Services",
   description = "See our services in action. Hover over each card to watch a preview.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

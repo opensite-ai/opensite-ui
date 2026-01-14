@@ -82,49 +82,6 @@ export interface BlogCardsReadTimeProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    id: "post-1",
-    title: "How to build a successful brand and business online in 2024",
-    summary:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    author: "John Doe",
-    authorAvatar: imagePlaceholders[10],
-    readTime: "10 Min Read",
-    href: "#",
-    image: imagePlaceholders[0],
-  },
-  {
-    id: "post-2",
-    title: "The difference between UI and UX and how to design for both",
-    summary:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    author: "Jane Doe",
-    authorAvatar: imagePlaceholders[11],
-    readTime: "14 Min Read",
-    href: "#",
-    image: imagePlaceholders[1],
-  },
-  {
-    id: "post-3",
-    title: "Optimizing your website for SEO and getting more traffic",
-    summary:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    author: "Jane Smith",
-    authorAvatar: imagePlaceholders[12],
-    readTime: "9 Min Read",
-    href: "#",
-    image: imagePlaceholders[2],
-  },
-];
-
-const defaultViewAllAction: ActionConfig = {
-  label: "View All Blogs",
-  href: "#",
-  variant: "outline",
-  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2 h-full w-4" />,
-};
-
 export function BlogCardsReadTime({
   badge = (
     <Badge variant="outline" className="gap-1 py-1">
@@ -133,9 +90,9 @@ export function BlogCardsReadTime({
   ),
   heading = "Discover the latest trends",
   description = "Explore our blog for insightful articles, personal reflections and ideas that inspire action on the topics you care about.",
-  posts = defaultPosts,
+  posts,
   postsSlot,
-  viewAllAction = defaultViewAllAction,
+  viewAllAction,
   viewAllSlot,
   className,
   containerClassName,

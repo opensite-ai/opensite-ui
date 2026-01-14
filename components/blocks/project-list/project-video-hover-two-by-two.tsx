@@ -175,33 +175,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   );
 };
 
-const defaultVideoSections: ProjectVideoHoverTwoByTwoItem[] = [
-  {
-    thumbnailSrc: imagePlaceholders[52],
-    videoSrc: videoPlaceholders[4],
-    studioName: "MERIDIAN FILMS",
-    projectTitle: "Coastal Reflections",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[53],
-    videoSrc: videoPlaceholders[5],
-    studioName: "ZENITH VISUALS",
-    projectTitle: "Ethereal Moments",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[54],
-    videoSrc: videoPlaceholders[6],
-    studioName: "NEXUS CREATIVE",
-    projectTitle: "Deserted Frontiers",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[55],
-    videoSrc: videoPlaceholders[7],
-    studioName: "PRISM STUDIOS",
-    projectTitle: "Nature's Symphony",
-  },
-];
-
 /**
  * ProjectVideoHoverTwoByTwo - 2x2 video grid with 16:9 aspect ratio cards.
  *
@@ -215,7 +188,7 @@ const defaultVideoSections: ProjectVideoHoverTwoByTwoItem[] = [
 export function ProjectVideoHoverTwoByTwo({
   heading = "Explore Our Projects",
   subheading = "Our Work",
-  videoSections = defaultVideoSections,
+  videoSections,
   videoSectionsSlot,
   optixFlowConfig,
   background,

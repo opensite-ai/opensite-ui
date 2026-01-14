@@ -124,37 +124,6 @@ export interface TeamHoverOverlayProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamHoverOverlayMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    bio: "I am an ambitious workaholic, but apart from that, pretty simple person.",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    bio: "I am an ambitious workaholic, but apart from that, pretty simple person.",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Priya Patel",
-    role: "Head of Design",
-    bio: "I am an ambitious workaholic, but apart from that, pretty simple person.",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "David Kim",
-    role: "VP of Engineering",
-    bio: "I am an ambitious workaholic, but apart from that, pretty simple person.",
-    image: blockBrandedIconsAndPlaceholders.avatar4,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamHoverOverlay - Portrait cards with hover-reveal bio and social links
  *
@@ -183,7 +152,7 @@ const defaultMembers: TeamHoverOverlayMember[] = [
 export function TeamHoverOverlay({
   heading = "Meet our team",
   description = "The amazing people behind the scenes",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

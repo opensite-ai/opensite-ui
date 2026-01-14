@@ -124,13 +124,6 @@ export interface StatsAnimatedCounterProps {
   statIconClassName?: string;
 }
 
-const defaultStats: AnimatedStat[] = [
-  { value: 500, suffix: "+", label: "Projects Completed", icon: "lucide/folder-check" },
-  { value: 98, suffix: "%", label: "Client Satisfaction", icon: "lucide/heart" },
-  { value: 50, suffix: "M+", label: "Revenue Generated", prefix: "$", icon: "lucide/dollar-sign" },
-  { value: 24, suffix: "/7", label: "Support Available", icon: "lucide/headphones" },
-];
-
 /**
  * Hook for animated counter with intersection observer
  */
@@ -237,7 +230,7 @@ function AnimatedStatItem({
 export function StatsAnimatedCounter({
   heading = "Our Impact in Numbers",
   description = "Real results that speak for themselves",
-  stats = defaultStats,
+  stats,
   statsSlot,
   animationDuration = 2000,
   background = "white",

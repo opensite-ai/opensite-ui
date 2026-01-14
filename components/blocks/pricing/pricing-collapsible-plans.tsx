@@ -246,50 +246,6 @@ export interface PricingCollapsiblePlansProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingCollapsiblePlan[] = [
-  {
-    name: "Starter",
-    price: "$9",
-    priceDescription: "/month",
-    description: "For individuals",
-    features: [
-      { text: "5 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-      { text: "1GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "default" },
-  },
-  {
-    name: "Professional",
-    price: "$29",
-    priceDescription: "/month",
-    description: "For growing teams",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "50GB storage" },
-      { text: "API access" },
-    ],
-    action: { label: "Start Trial", href: "#", variant: "default" },
-    isPopular: true,
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    description: "For large organizations",
-    features: [
-      { text: "Everything in Pro" },
-      { text: "Custom integrations" },
-      { text: "Dedicated support" },
-      { text: "Unlimited storage" },
-      { text: "SLA guarantee" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
 /**
  * PricingCollapsiblePlans displays pricing plans with a collapsible mobile menu and desktop comparison.
  * Features a dropdown plan selector on mobile and expanded cards on desktop.
@@ -310,7 +266,7 @@ const defaultPlans: PricingCollapsiblePlan[] = [
 export function PricingCollapsiblePlans({
   title = "Pricing Plans",
   subtitle = "Choose the perfect plan for your needs",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   defaultSelectedIndex,
   selectedIndex,

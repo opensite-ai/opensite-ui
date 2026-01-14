@@ -106,18 +106,6 @@ export interface CtaFeatureChecklistProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
-const defaultItems: (string | ChecklistItem)[] = [
-  "Easy Integration",
-  "24/7 Support",
-  "Customizable Design",
-  "Scalable Performance",
-  "Hundreds of Blocks",
-];
-
 /**
  * CtaFeatureChecklist - A CTA section with heading, description, action button,
  * and a checklist of key features displayed in a muted background card layout.
@@ -136,9 +124,9 @@ const defaultItems: (string | ChecklistItem)[] = [
 export function CtaFeatureChecklist({
   heading = "Call to Action",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   containerClassName,

@@ -118,33 +118,6 @@ export interface TeamAvatarSocialProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamAvatarSocialMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Priya Patel",
-    role: "Head of Design",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "David Kim",
-    role: "VP of Engineering",
-    image: blockBrandedIconsAndPlaceholders.avatar4,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
 /**
  * TeamAvatarSocial - Clean avatar grid with centered social links
  *
@@ -172,7 +145,7 @@ const defaultMembers: TeamAvatarSocialMember[] = [
 export function TeamAvatarSocial({
   heading = "Meet the crew",
   description = "Creative people",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

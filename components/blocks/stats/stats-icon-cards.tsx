@@ -128,37 +128,6 @@ export interface StatsIconCardsProps {
   statIconClassName?: string;
 }
 
-const defaultStats: StatIconItem[] = [
-  {
-    label: "Active Users",
-    value: "120K+",
-    growth: "18% growth",
-    isPositive: true,
-    icon: "lucide/users",
-  },
-  {
-    label: "Avg. Session",
-    value: "4:30",
-    growth: "+2 min",
-    isPositive: true,
-    icon: "lucide/clock",
-  },
-  {
-    label: "Revenue",
-    value: "$3.2M",
-    growth: "32% increase",
-    isPositive: true,
-    icon: "lucide/dollar-sign",
-  },
-  {
-    label: "Conversion",
-    value: "9.5%",
-    growth: "2.1% higher",
-    isPositive: true,
-    icon: "lucide/target",
-  },
-];
-
 /**
  * StatsIconCards - A modern stats grid featuring bordered cards with icons,
  * large numerical values, and growth indicators. Each card displays a metric
@@ -181,7 +150,7 @@ const defaultStats: StatIconItem[] = [
 export function StatsIconCards({
   heading = "Our Growth in Numbers",
   description = "Key metrics that showcase our impact in the market",
-  stats = defaultStats,
+  stats,
   statsSlot,
   background = "white",
   spacing = "lg",

@@ -131,54 +131,6 @@ export interface ServicesListSplitChecklistProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: ServicesListSplitChecklistService[] = [
-  {
-    id: 1,
-    title: "Web Development",
-    description:
-      "Custom websites and web applications with clean code and intuitive interfaces that engage your visitors.",
-  },
-  {
-    id: 2,
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that enhance usability and create enjoyable digital experiences.",
-  },
-  {
-    id: 3,
-    title: "Digital Marketing",
-    description:
-      "Strategic campaigns that boost your online presence and connect you with your target audience.",
-  },
-  {
-    id: 4,
-    title: "SEO Optimization",
-    description:
-      "Technical and content optimization to improve visibility and drive organic traffic to your website.",
-  },
-  {
-    id: 5,
-    title: "Content Strategy",
-    description:
-      "Engaging, relevant content that resonates with your audience and supports your business goals.",
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Get in touch",
-  href: "#",
-};
-
-const defaultSecondaryAction: ActionConfig = {
-  label: "View portfolio",
-  href: "#",
-};
-
-const defaultChecklistAction: ActionConfig = {
-  label: "Request custom service",
-  href: "#",
-};
-
 /**
  * ServicesListSplitChecklist - A split layout with introductory content and image on the left, service checklist on the right.
  * The left column features a badge, title, description, dual CTAs, and an optional image.
@@ -202,16 +154,16 @@ export function ServicesListSplitChecklist({
   badge = "Services",
   heading = "How I Can Help You",
   description = "I offer specialized services designed to help you establish a strong online presence and achieve your business goals. Each service can be tailored to your specific needs or combined into a comprehensive solution.",
-  primaryAction = defaultPrimaryAction,
-  secondaryAction = defaultSecondaryAction,
+  primaryAction,
+  secondaryAction,
   actionsSlot,
   image = {
     src: imagePlaceholders[0],
     alt: "Professional collaboration",
   },
   checklistHeading = "Specialized services to help your business grow",
-  checklistAction = defaultChecklistAction,
-  services = defaultServices,
+  checklistAction,
+  services,
   servicesSlot,
   className,
   containerClassName,

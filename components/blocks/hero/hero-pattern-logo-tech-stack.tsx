@@ -88,45 +88,16 @@ export interface HeroPatternLogoTechStackProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogo: LogoItem = {
-  src: logoPlaceholders.logoMark,
-  alt: "logo",
-  imgClassName: "h-16",
-};
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-    className: "shadow-sm transition-shadow hover:shadow",
-  },
-  {
-    label: "Learn more",
-    href: "#",
-    variant: "outline",
-    className: "group",
-    iconAfter: <DynamicIcon name="lucide/external-link" size={16} className="ml-2 transition-transform group-hover:translate-x-0.5" />,
-  },
-];
-
-const defaultTechLogos: LogoItem[] = [
-  { src: logoPlaceholders.logoMark, alt: "technology logo", href: "#" },
-  { src: logoPlaceholders.logoMark, alt: "technology logo", href: "#" },
-  { src: logoPlaceholders.logoMark, alt: "technology logo", href: "#" },
-  { src: logoPlaceholders.logoMark, alt: "technology logo", href: "#" },
-];
-
 export function HeroPatternLogoTechStack({
-  logo = defaultLogo,
+  logo,
   logoSlot,
   heading = "Build your next project with",
   highlightedWord = "Blocks",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   techStackLabel = "Built with open-source technologies",
-  techLogos = defaultTechLogos,
+  techLogos,
   techLogosSlot,
   backgroundImage = "https://cdn.ing/assets/files/record/286187/4gpn0yq2ptra8iwlvmwwv860ggwv",
   className,

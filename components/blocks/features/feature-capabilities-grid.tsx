@@ -92,46 +92,6 @@ export interface FeatureCapabilitiesGridProps {
   cardClassName?: string;
 }
 
-const defaultItems: FeatureCapabilitiesGridItem[] = [
-  {
-    title: "Reasoned Guidance",
-    iconName: "lucide/brain",
-    description:
-      "Clarify complex decisions with OpenSite AI reasoning and proactive analysis.",
-  },
-  {
-    title: "Visual Intelligence",
-    iconName: "lucide/camera",
-    description:
-      "Interpret imagery, inspections, and documentation with precision and confidence.",
-  },
-  {
-    title: "Workflow Automations",
-    iconName: "lucide/plug",
-    description:
-      "Integrate operational tools and orchestrate tasks across teams and partners.",
-  },
-  {
-    title: "Structured Outputs",
-    iconName: "lucide/braces",
-    description:
-      "Transform complex updates into actionable summaries and structured reports.",
-  },
-  {
-    title: "Image Generation",
-    iconName: "lucide/image",
-    description:
-      "Create branded visuals and personalized assets for coverage communications.",
-  },
-  {
-    title: "Live Research",
-    iconName: "lucide/search",
-    badge: "New",
-    description:
-      "Access real-time market and carrier insights with trusted data sources.",
-  },
-];
-
 /**
  * FeatureCapabilitiesGrid - Dark capability grid with animated highlight cards.
  * Ideal for showcasing platform features, AI capabilities, or service pillars.
@@ -139,7 +99,7 @@ const defaultItems: FeatureCapabilitiesGridItem[] = [
 export function FeatureCapabilitiesGrid({
   eyebrow = "[ CAPABILITIES ]",
   heading = "Models that adapt to your coverage strategy",
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   containerClassName,

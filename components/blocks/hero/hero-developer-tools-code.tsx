@@ -97,43 +97,16 @@ export interface HeroDeveloperToolsCodeProps {
   terminalClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "View on GitHub",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-    icon: <DynamicIcon name="lucide/github" size={16} className="mr-2" />,
-  },
-];
-
-const defaultTerminalLines: TerminalLine[] = [
-  { text: "$ npx create-app@latest", colorClass: "text-zinc-500" },
-  { text: "Creating a new app in ./my-app", colorClass: "text-green-400" },
-  { text: "Installing dependencies...", colorClass: "text-zinc-400" },
-  { text: "Using npm", colorClass: "text-zinc-400", prefix: "info", prefixColorClass: "text-blue-400" },
-  { text: "Installed 127 packages", colorClass: "text-zinc-400", prefix: "success", prefixColorClass: "text-green-400" },
-  { text: "$ npm run dev", colorClass: "text-zinc-500" },
-  { text: "Ready on http://localhost:3000", colorClass: "text-green-400" },
-];
-
 export function HeroDeveloperToolsCode({
   badgeText = "Developer Tools",
   badgeIcon = "lucide/terminal",
   badgeSlot,
   heading = "Build faster with modern developer tools",
   description = "Everything you need to build production-ready applications. Type-safe APIs, real-time subscriptions, and powerful CLI tools.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   terminalTitle = "terminal",
-  terminalLines = defaultTerminalLines,
+  terminalLines,
   terminalSlot,
   className,
   containerClassName,

@@ -81,45 +81,6 @@ export interface ProjectStudioHoverPreviewProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectStudioHoverPreviewItem[] = [
-  {
-    title: "Modern Concrete Pavilion",
-    img: imagePlaceholders[26],
-    year: "2025",
-    type: "Architecture",
-  },
-  {
-    title: "Colorful Urban Living",
-    img: imagePlaceholders[27],
-    year: "2025",
-    type: "Urban Design",
-  },
-  {
-    title: "Minimalist Home Retreat",
-    img: imagePlaceholders[28],
-    year: "2025",
-    type: "Interior",
-  },
-  {
-    title: "Rustic Cabin Glow",
-    img: imagePlaceholders[29],
-    year: "2025",
-    type: "Product Design",
-  },
-  {
-    title: "Luxury Concrete Box",
-    img: imagePlaceholders[30],
-    year: "2025",
-    type: "Residential",
-  },
-  {
-    title: "Glasshouse in Nature",
-    img: imagePlaceholders[31],
-    year: "2025",
-    type: "Sustainable Design",
-  },
-];
-
 /**
  * ProjectStudioHoverPreview - Studio gallery grid with floating cursor-following tooltip.
  *
@@ -133,7 +94,7 @@ const defaultProjects: ProjectStudioHoverPreviewItem[] = [
  */
 export function ProjectStudioHoverPreview({
   heading = "Studio Gallery",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

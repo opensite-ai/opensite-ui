@@ -88,46 +88,13 @@ export interface BlogCategoryOverlayProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    id: "post-1",
-    title: "How to build a successful brand and business",
-    category: "Business",
-    date: "September, 23, 2024",
-    href: "#",
-    image: imagePlaceholders[0],
-  },
-  {
-    id: "post-2",
-    title: "The difference between UI and UX",
-    category: "Design",
-    date: "April, 07, 2024",
-    href: "#",
-    image: imagePlaceholders[1],
-  },
-  {
-    id: "post-3",
-    title: "Optimizing your website for SEO and getting more traffic",
-    category: "Marketing",
-    date: "August, 31, 2024",
-    href: "#",
-    image: imagePlaceholders[2],
-  },
-];
-
-const defaultViewAllAction: ActionConfig = {
-  label: "View All Blogs",
-  href: "#",
-  iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="h-full w-4" />,
-};
-
 export function BlogCategoryOverlay({
   badge = <Badge variant="outline">Articles</Badge>,
   heading = "Discover the latest trends",
   description = "Explore our blog for insightful articles, personal reflections and ideas that inspire action on the topics you care about.",
-  posts = defaultPosts,
+  posts,
   postsSlot,
-  viewAllAction = defaultViewAllAction,
+  viewAllAction,
   viewAllSlot,
   readMoreText = "Read more",
   className,

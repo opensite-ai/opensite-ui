@@ -109,20 +109,11 @@ export interface CarouselHorizontalCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CardItem[] = [
-  { id: 1, imageSrc: imagePlaceholders[0], title: "Featured Item 1", count: 42, countLabel: "Projects" },
-  { id: 2, imageSrc: imagePlaceholders[1], title: "Featured Item 2", count: 38, countLabel: "Projects" },
-  { id: 3, imageSrc: imagePlaceholders[2], title: "Featured Item 3", count: 56, countLabel: "Projects" },
-  { id: 4, imageSrc: imagePlaceholders[3], title: "Featured Item 4", count: 24, countLabel: "Projects" },
-  { id: 5, imageSrc: imagePlaceholders[4], title: "Featured Item 5", count: 67, countLabel: "Projects" },
-  { id: 6, imageSrc: imagePlaceholders[5], title: "Featured Item 6", count: 31, countLabel: "Projects" },
-];
-
 export function CarouselHorizontalCards({
   heading = "Featured Content",
   subtitle = "Discover our latest highlights",
   headingHref = "#",
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   containerClassName,

@@ -82,71 +82,6 @@ export interface ProjectFilterableGalleryProps {
   emptyStateClassName?: string;
 }
 
-const defaultProjects: ProjectFilterableGalleryItem[] = [
-  {
-    id: 1,
-    title: "Minimalist Geometry",
-    category: "MINIMAL",
-    description:
-      "A clean composition focusing on simple shapes and negative space, evoking calm and clarity.",
-    image: imagePlaceholders[75],
-    tags: ["minimal", "geometry"],
-  },
-  {
-    id: 2,
-    title: "Abstract Color Flow",
-    category: "ABSTRACT",
-    description:
-      "Vivid colors blend and swirl in an abstract pattern, creating a sense of movement and energy.",
-    image: imagePlaceholders[76],
-    tags: ["abstract", "color"],
-  },
-  {
-    id: 3,
-    title: "Editorial Portrait",
-    category: "EDITORIAL",
-    description:
-      "A striking editorial portrait with dramatic lighting and a focus on expression and mood.",
-    image: imagePlaceholders[77],
-    tags: ["editorial", "portrait"],
-  },
-  {
-    id: 4,
-    title: "Studio Still Life",
-    category: "STUDIO SHOT",
-    description:
-      "A carefully arranged studio shot featuring everyday objects, highlighting texture and form.",
-    image: imagePlaceholders[78],
-    tags: ["studio", "still-life"],
-  },
-  {
-    id: 5,
-    title: "Minimal Shadows",
-    category: "MINIMAL",
-    description:
-      "Soft shadows and subtle gradients create a tranquil, minimalist scene with a modern touch.",
-    image: imagePlaceholders[79],
-    tags: ["minimal", "shadows"],
-  },
-  {
-    id: 6,
-    title: "Abstract Studio",
-    category: "ABSTRACT",
-    description:
-      "Studio lighting meets abstract forms in this experimental composition, blending art and photography.",
-    image: imagePlaceholders[80],
-    tags: ["abstract", "studio"],
-  },
-];
-
-const defaultCategories = [
-  "ALL",
-  "MINIMAL",
-  "ABSTRACT",
-  "EDITORIAL",
-  "STUDIO SHOT",
-];
-
 /**
  * ProjectFilterableGallery - Two-column filterable gallery with category tabs and hover overlays.
  *
@@ -158,9 +93,9 @@ const defaultCategories = [
  * category-based filtering.
  */
 export function ProjectFilterableGallery({
-  projects = defaultProjects,
+  projects,
   projectsSlot,
-  categories = defaultCategories,
+  categories,
   optixFlowConfig,
   background,
   spacing,

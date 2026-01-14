@@ -149,70 +149,6 @@ export interface NavbarMegaMenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSolutions: SolutionItem[] = [
-  {
-    title: "Cloud Infrastructure",
-    description: "Scalable cloud solutions built for modern businesses.",
-    href: "#",
-    icon: "lucide/cloud",
-  },
-  {
-    title: "Security & Compliance",
-    description: "Enterprise-grade security with automated compliance.",
-    href: "#",
-    icon: "lucide/lock",
-  },
-  {
-    title: "Identity Management",
-    description: "Advanced authentication and access control systems.",
-    href: "#",
-    icon: "lucide/fingerprint",
-  },
-];
-
-const defaultUseCases: UseCaseItem[] = [
-  { title: "Banking", href: "#", icon: "lucide/building-2" },
-  { title: "Healthcare", href: "#", icon: "lucide/heart-pulse" },
-  { title: "Technology", href: "#", icon: "lucide/cpu" },
-  { title: "Education", href: "#", icon: "lucide/graduation-cap" },
-  { title: "Agriculture", href: "#", icon: "lucide/leaf" },
-  { title: "BaaS", href: "#", icon: "lucide/building" },
-  { title: "Entertainment", href: "#", icon: "lucide/film" },
-  { title: "SaaS", href: "#", icon: "lucide/bar-chart" },
-  { title: "Crypto", href: "#", icon: "lucide/bitcoin" },
-];
-
-const defaultDocumentationLinks: DocumentationLink[] = [
-  { title: "API Reference", href: "#" },
-  { title: "SDK Documentation", href: "#" },
-  { title: "Integration Guides", href: "#" },
-  { title: "Code Examples", href: "#" },
-];
-
-const defaultResources: ResourceItem[] = [
-  {
-    title: "Blog",
-    description: "Latest insights, tutorials, and industry best practices.",
-    href: "#",
-  },
-  {
-    title: "News",
-    description: "Product updates, announcements, and company news.",
-    href: "#",
-  },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Login", href: "#", variant: "ghost", asButton: true },
-  {
-    label: "Start now",
-    href: "#",
-    variant: "outline",
-    asButton: true,
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-1" />,
-  },
-];
-
 /**
  * NavbarMegaMenu - A comprehensive navigation bar with rich mega-menu dropdowns.
  *
@@ -236,11 +172,11 @@ export const NavbarMegaMenu = ({
     alt: "Opensite AI",
   },
   logoSlot,
-  solutions = defaultSolutions,
-  useCases = defaultUseCases,
-  documentationLinks = defaultDocumentationLinks,
-  resources = defaultResources,
-  authActions = defaultAuthActions,
+  solutions,
+  useCases,
+  documentationLinks,
+  resources,
+  authActions,
   authActionsSlot,
   background = "white",
   spacing = "none",

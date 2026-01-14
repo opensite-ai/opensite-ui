@@ -77,26 +77,15 @@ export interface HeroVideoOverlayStarsProps {
   videoSlot?: React.ReactNode;
 }
 
-const defaultAction: ActionButtonConfig = {
-  label: "Buy Here",
-  href: "#",
-  icon: "lucide/chevron-right",
-};
-
-const defaultTrust: TrustConfig = {
-  starCount: 5,
-  message: "Trusted by 2,000+ high performing individuals",
-};
-
 /**
  * HeroVideoOverlayStars - A full-screen hero with video background, gradient text heading,
  * prominent CTA button, and star rating trust indicator. Ideal for product launches.
  */
 export function HeroVideoOverlayStars({
   heading = "Liberate yourself from phone interruptions",
-  action = defaultAction,
+  action,
   actionSlot,
-  trust = defaultTrust,
+  trust,
   trustSlot,
   className,
   headingClassName,

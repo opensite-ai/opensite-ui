@@ -81,35 +81,14 @@ export interface HeroTherapyTestimonialGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[107], alt: "" },
-  { src: imagePlaceholders[108], alt: "" },
-  { src: imagePlaceholders[110], alt: "" },
-];
-
-const defaultTestimonial: TestimonialConfig = {
-  quote: "Since beginning therapy here, I feel more grounded and at ease.",
-  author: "John Doe",
-  avatar: { src: imagePlaceholders[109], alt: "" },
-};
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Book a consultation",
-    href: "#",
-    variant: "default",
-    className: "h-fit rounded-full px-8 py-4 font-semibold",
-  },
-];
-
 export function HeroTherapyTestimonialGrid({
   heading = "Compassionate Care for Your Mental Wellness Journey",
   description = "Our team of experienced therapists is dedicated to helping you navigate life's challenges with personalized support.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
-  testimonial = defaultTestimonial,
+  testimonial,
   testimonialSlot,
   className,
   containerClassName,

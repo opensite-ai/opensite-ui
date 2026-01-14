@@ -66,27 +66,6 @@ export interface ProjectDetailCardHeaderProps {
   galleryClassName?: string;
 }
 
-const defaultGalleryImages: ImageItem[] = [
-  { src: imagePlaceholders[35], alt: "Gallery image 1" },
-  { src: imagePlaceholders[36], alt: "Gallery image 2" },
-];
-
-const defaultProps: ProjectDetailCardHeaderProps = {
-  title: "Organic Resonance",
-  subtitle: "Sculptural Installation",
-  year: "2024",
-  category: "Sculpture",
-  artist: "Elena Vasquez",
-  heroImage: {
-    src: imagePlaceholders[37],
-    alt: "Organic Resonance sculpture",
-  },
-  description:
-    "A sculptural exploration of organic forms that bridges the gap between natural growth patterns and human artistic expression. The work invites contemplation of our relationship with the natural world.",
-  galleryImages: defaultGalleryImages,
-  backAction: { label: "Back", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

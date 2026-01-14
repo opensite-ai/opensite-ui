@@ -143,27 +143,6 @@ export interface CarouselIconTabsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: CarouselIconTabItem[] = [
-  {
-    img: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    title: "Design",
-    text: "Create beautiful, responsive designs with our intuitive tools and templates.",
-    icon: "lucide/code",
-  },
-  {
-    img: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    title: "Develop",
-    text: "Build robust applications with modern frameworks and best practices.",
-    icon: "lucide/git-branch",
-  },
-  {
-    img: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    title: "Ship",
-    text: "Deploy your projects with confidence using our streamlined workflow.",
-    icon: "lucide/sparkles",
-  },
-];
-
 /**
  * CarouselIconTabs displays a carousel with icon-based tab navigation.
  *
@@ -192,7 +171,7 @@ const defaultSections: CarouselIconTabItem[] = [
 export function CarouselIconTabs({
   heading = "Cut the time it takes to close your books",
   badge = "Lorem ipsum dolor sit amet consectetur.",
-  sections = defaultSections,
+  sections,
   sectionsSlot,
   headerSlot,
   className,

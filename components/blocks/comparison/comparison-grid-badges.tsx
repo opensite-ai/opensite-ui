@@ -71,41 +71,6 @@ export interface ComparisonGridBadgesProps {
   badgeClassName?: string;
 }
 
-const defaultFeatures: GridFeatureItem[] = [
-  {
-    icon: "lucide/code-2",
-    title: "Development Speed",
-    description: "Time from concept to production deployment",
-    optionAValue: "2-4 weeks",
-    optionBValue: "3-6 months",
-    optionAHighlight: true,
-  },
-  {
-    icon: "lucide/headset",
-    title: "Support Level",
-    description: "Access to technical assistance and guidance",
-    optionAValue: "24/7 Priority",
-    optionBValue: "Business Hours",
-    optionAHighlight: true,
-  },
-  {
-    icon: "lucide/chart-line",
-    title: "Scalability",
-    description: "Ability to handle growth and increased demand",
-    optionAValue: "Auto-scaling",
-    optionBValue: "Manual",
-    optionAHighlight: true,
-  },
-  {
-    icon: "lucide/users",
-    title: "Team Size",
-    description: "Number of team members included",
-    optionAValue: "Unlimited",
-    optionBValue: "Up to 10",
-    optionAHighlight: true,
-  },
-];
-
 /**
  * ComparisonGridBadges - Grid-based comparison with icons and badges
  *
@@ -122,7 +87,7 @@ export function ComparisonGridBadges({
   description = "See how our solution compares to traditional approaches across key metrics.",
   optionALabel = "Our Solution",
   optionBLabel = "Traditional",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

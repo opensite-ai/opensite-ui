@@ -133,96 +133,6 @@ export interface CarouselTabsContentProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CarouselTabsContentItem[] = [
-  {
-    title: (
-      <>
-        <span className="bg-linear-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
-          Explore Our
-        </span>
-        <br />
-        Core Features
-      </>
-    ),
-    description: (
-      <>
-        Dive deep into the robust functionalities designed to streamline your
-        workflow. Benefit from intuitive design, seamless integration, and
-        powerful customization options.
-        <br />
-        <br />
-        Explore how our platform adapts to your evolving needs, ensuring
-        long-term value and efficiency.
-      </>
-    ),
-    note: "Comprehensive documentation and dedicated support channels are available to assist you.",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    category: "Features",
-  },
-  {
-    title: (
-      <>
-        <span className="bg-linear-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
-          Solutions for
-        </span>
-        <br />
-        Every Scenario
-      </>
-    ),
-    description: (
-      <>
-        <p>
-          Discover how our platform addresses diverse challenges across various
-          domains:
-        </p>
-        <ul className="my-4 ml-6 list-disc">
-          <li>Enhancing team collaboration efficiency.</li>
-          <li>Optimizing critical resource allocation.</li>
-          <li>Streamlining complex data analysis.</li>
-        </ul>
-        <p>We provide adaptable tools for your unique context.</p>
-      </>
-    ),
-    note: "Leverage our expertise in integration and custom development for specific needs.",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    category: "Solutions",
-  },
-  {
-    title: (
-      <>
-        <span className="bg-linear-to-b from-foreground/20 to-muted-foreground bg-clip-text text-transparent">
-          Building the
-        </span>
-        <br />
-        Future Together
-      </>
-    ),
-    description: (
-      <>
-        <p>
-          Get a glimpse into our ongoing commitment to innovation and
-          improvement:
-        </p>
-        <ul className="my-4 ml-6 list-disc">
-          <li>Next-generation user interface design.</li>
-          <li>Advanced analytics capabilities rollout.</li>
-          <li>Expanded third-party integration ecosystem.</li>
-        </ul>
-        <p>
-          We&apos;re constantly evolving based on user feedback and industry
-          trends.
-        </p>
-      </>
-    ),
-    note: "Our dedicated R&D team is focused on delivering cutting-edge solutions.",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    category: "Roadmap",
-  },
-];
-
 /**
  * CarouselTabsContent displays content cards with animated tab navigation.
  *
@@ -248,7 +158,7 @@ const defaultItems: CarouselTabsContentItem[] = [
  * ```
  */
 export function CarouselTabsContent({
-  items = defaultItems,
+  items,
   itemsSlot,
   tabsSlot,
   className,

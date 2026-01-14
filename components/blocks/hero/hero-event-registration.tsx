@@ -104,44 +104,17 @@ export interface HeroEventRegistrationProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Register now",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "View schedule",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultStats: StatItem[] = [
-  { value: "50+", label: "Speakers" },
-  { value: "30+", label: "Workshops" },
-  { value: "3", label: "Days" },
-];
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[27],
-  alt: "Conference venue",
-};
-
 export function HeroEventRegistration({
   badgeText = "March 15-17, 2025",
   badgeIcon = "lucide/calendar",
   badgeSlot,
   heading = "The Future of Tech Conference 2025",
   description = "Join 5,000+ developers, designers, and entrepreneurs for three days of inspiring talks, hands-on workshops, and networking opportunities.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  stats = defaultStats,
+  stats,
   statsSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   locationLabel = "San Francisco, CA",
   locationSublabel = "Moscone Center",

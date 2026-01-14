@@ -125,57 +125,19 @@ export interface HeroProductShowcaseFloatingProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProductImage: ImageItem = {
-  src: imagePlaceholders[102],
-  alt: "Product interface",
-};
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Start building",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "See examples",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultFloatingStat: FloatingStatItem = {
-  value: "+127%",
-  label: "Growth",
-  icon: "lucide/trending-up",
-  position: "top-right",
-};
-
-const defaultUserCount: UserCountItem = {
-  count: "2.5K+",
-  label: "Active users",
-  avatars: [
-    { src: imagePlaceholders[103], alt: "" },
-    { src: imagePlaceholders[104], alt: "" },
-    { src: imagePlaceholders[105], alt: "" },
-  ],
-};
-
 export function HeroProductShowcaseFloating({
   badgeText = "Launch faster",
   badgeIcon = "lucide/rocket",
   badgeSlot,
   heading = "Ship products your customers will love",
   description = "From idea to launch in record time. Our platform gives you everything you need to build, test, and deploy amazing products.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  productImage = defaultProductImage,
+  productImage,
   productImageSlot,
-  floatingStat = defaultFloatingStat,
+  floatingStat,
   floatingStatSlot,
-  userCount = defaultUserCount,
+  userCount,
   userCountSlot,
   className,
   containerClassName,

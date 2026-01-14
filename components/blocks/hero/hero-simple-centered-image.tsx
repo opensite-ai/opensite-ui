@@ -70,15 +70,10 @@ export interface HeroSimpleCenteredImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Primary", href: "#", variant: "default" },
-  { label: "Secondary", href: "#", variant: "outline" },
-];
-
 export function HeroSimpleCenteredImage({
   heading = "Welcome to Our Website",
   description = "Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = imagePlaceholders[6],
   imageAlt = "placeholder hero",

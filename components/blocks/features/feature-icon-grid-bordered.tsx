@@ -82,33 +82,6 @@ export interface FeatureIconGridBorderedProps {
   cardClassName?: string;
 }
 
-const defaultFeatures: FeatureIconGridBorderedItem[] = [
-  {
-    iconName: "lucide/timer",
-    title: "Performance",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipis elit. Sunt beatae tenetur.",
-  },
-  {
-    iconName: "lucide/zap",
-    title: "Innovation",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipis elit. Sunt beatae tenetur.",
-  },
-  {
-    iconName: "lucide/zoom-in",
-    title: "Quality",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipis elit. Sunt beatae tenetur.",
-  },
-  {
-    iconName: "lucide/person-standing",
-    title: "Accessibility",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipis elit. Sunt beatae tenetur.",
-  },
-];
-
 /**
  * Feature Icon Grid Bordered - Four-column grid of features with icons and
  * dashed left borders creating a visual timeline effect.
@@ -132,7 +105,7 @@ const defaultFeatures: FeatureIconGridBorderedItem[] = [
 export function FeatureIconGridBordered({
   label = "Why Us?",
   title = "A better way to build websites",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

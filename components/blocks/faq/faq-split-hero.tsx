@@ -122,43 +122,10 @@ export interface FaqSplitHeroProps {
   };
 }
 
-const defaultItems: FaqItem[] = [
-  {
-    id: "faq-1",
-    question: "What services do you offer?",
-    answer:
-      "We offer a comprehensive suite of services including web development, mobile app development, UI/UX design, and digital marketing solutions tailored to your business needs.",
-  },
-  {
-    id: "faq-2",
-    question: "How long does a typical project take?",
-    answer:
-      "Project timelines vary based on scope and complexity. A simple website might take 2-4 weeks, while a complex application could take 3-6 months. We'll provide a detailed timeline during our initial consultation.",
-  },
-  {
-    id: "faq-3",
-    question: "What is your pricing model?",
-    answer:
-      "We offer flexible pricing models including fixed-price projects, hourly rates, and retainer agreements. The best option depends on your project requirements and budget.",
-  },
-  {
-    id: "faq-4",
-    question: "Do you provide ongoing support?",
-    answer:
-      "Yes, we offer various support and maintenance packages to ensure your product continues to perform optimally after launch. This includes bug fixes, updates, and feature enhancements.",
-  },
-  {
-    id: "faq-5",
-    question: "How do I get started?",
-    answer:
-      "Getting started is easy! Simply reach out through our contact form or schedule a free consultation. We'll discuss your project requirements and provide a customized proposal.",
-  },
-];
-
 export function FaqSplitHero({
   heading = "Frequently Asked Questions",
   subheading = "Find answers to common questions about our services and how we can help you achieve your goals.",
-  items = defaultItems,
+  items,
   itemsSlot,
   imageSlot,
   imageSrc = blockBrandedIconsAndPlaceholders.placeholderDark1,

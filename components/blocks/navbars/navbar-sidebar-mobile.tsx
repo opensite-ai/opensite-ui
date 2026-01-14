@@ -138,47 +138,6 @@ export interface NavbarSidebarMobileProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMenu: MenuItem[] = [
-  {
-    title: "Products",
-    items: [
-      { title: "Dashboard", url: "#", description: "Monitor your metrics", icon: "lucide/layout-dashboard" },
-      { title: "Analytics", url: "#", description: "Deep insights", icon: "lucide/bar-chart-3" },
-      { title: "Reports", url: "#", description: "Generate reports", icon: "lucide/file-text" },
-      { title: "Settings", url: "#", description: "Configure options", icon: "lucide/settings" },
-    ],
-  },
-  {
-    title: "Solutions",
-    items: [
-      { title: "Enterprise", url: "#", description: "For large teams", icon: "lucide/building-2" },
-      { title: "Startups", url: "#", description: "For growing companies", icon: "lucide/rocket" },
-      { title: "Agencies", url: "#", description: "For creative teams", icon: "lucide/palette" },
-    ],
-  },
-  {
-    title: "Resources",
-    items: [
-      { title: "Documentation", url: "#", description: "Guides and references", icon: "lucide/book" },
-      { title: "Blog", url: "#", description: "Latest updates", icon: "lucide/newspaper" },
-      { title: "Community", url: "#", description: "Join discussions", icon: "lucide/users" },
-    ],
-  },
-  { title: "Pricing", url: "#" },
-  { title: "Contact", url: "#" },
-];
-
-const defaultMobileExtraLinks = [
-  { title: "Help Center", url: "#" },
-  { title: "API Status", url: "#" },
-  { title: "Terms of Service", url: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Log in", href: "#", variant: "ghost", size: "default" },
-  { label: "Sign up", href: "#", variant: "default", size: "default" },
-];
-
 /**
  * NavbarSidebarMobile - A navigation bar with a slide-out sidebar for mobile devices.
  *
@@ -197,11 +156,11 @@ export const NavbarSidebarMobile = ({
   },
   logoSlot,
   logoClassName,
-  menu = defaultMenu,
+  menu,
   menuSlot,
-  mobileExtraLinks = defaultMobileExtraLinks,
+  mobileExtraLinks,
   mobileExtraLinksSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   className,
   containerClassName,

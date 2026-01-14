@@ -122,39 +122,6 @@ export interface FeatureBentoImageGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: FeatureBentoImageGridItem[] = [
-  {
-    iconName: "lucide/atom",
-    iconBadge: "Sustainability Focus",
-    title: "Build stunning websites with ease",
-    linkText: "Get started today",
-    link: "#",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    imageAlt: "Feature illustration",
-    size: "large" as const,
-  },
-  {
-    iconName: "lucide/settings",
-    iconBadge: "Options",
-    title: "Explore now",
-    linkText: "Explore all features",
-    link: "#",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholderDark1,
-    imageAlt: "Feature illustration",
-    size: "small" as const,
-  },
-  {
-    iconName: "lucide/zap",
-    iconBadge: "Latest Collection",
-    title: "Redefine your industry leadership.",
-    linkText: "Shop now",
-    link: "#",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-    imageAlt: "Feature illustration",
-    size: "small" as const,
-  },
-];
-
 /**
  * Feature Bento Image Grid - Asymmetric bento-style grid with large and small
  * image cards featuring gradient overlays and CTAs.
@@ -186,7 +153,7 @@ const defaultItems: FeatureBentoImageGridItem[] = [
 export function FeatureBentoImageGrid({
   title = "Dynamic Layouts",
   description = "Adapt the box to suit any purpose",
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   containerClassName,

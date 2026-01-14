@@ -126,61 +126,6 @@ export interface ServicesListFeatureSpotlightProps {
   };
 }
 
-const defaultFeatures: ServicesListFeatureSpotlightItem[] = [
-  {
-    id: "independent-strategy",
-    title: "Independent Strategy",
-    description:
-      "Unbiased recommendations supported by OpenSite AI coverage intelligence.",
-    eyebrow: "Independent Choice",
-    badges: ["Transparent advice", "Carrier flexibility"],
-    iconName: "lucide/shield-check",
-    image: {
-      src: imagePlaceholders[10],
-      alt: "Independent strategy",
-    },
-  },
-  {
-    id: "personal-guidance",
-    title: "Personal Guidance",
-    description:
-      "Dedicated advisors that translate complex policies into clear actions.",
-    eyebrow: "Personal Guidance",
-    badges: ["Real experts", "Tailored support"],
-    iconName: "lucide/users",
-    image: {
-      src: imagePlaceholders[11],
-      alt: "Personal guidance",
-    },
-  },
-  {
-    id: "coverage-intelligence",
-    title: "Coverage Intelligence",
-    description:
-      "AI-assisted insights that surface gaps, opportunities, and next steps.",
-    eyebrow: "AI Advantage",
-    badges: ["Smart reviews", "Growth-ready"],
-    iconName: "lucide/brain",
-    image: {
-      src: imagePlaceholders[12],
-      alt: "Coverage intelligence",
-    },
-  },
-  {
-    id: "network-resources",
-    title: "Network Resources",
-    description:
-      "Partner resources and playbooks shared across the OpenSite AI ecosystem.",
-    eyebrow: "Network Strength",
-    badges: ["Shared expertise", "Trusted partners"],
-    iconName: "lucide/network",
-    image: {
-      src: imagePlaceholders[13],
-      alt: "Network resources",
-    },
-  },
-];
-
 /**
  * ServicesListFeatureSpotlight - Alternating image and card layout that
  * highlights key service differentiators with badges and icons. Works well
@@ -202,7 +147,7 @@ const defaultFeatures: ServicesListFeatureSpotlightItem[] = [
 export function ServicesListFeatureSpotlight({
   heading = "Service advantages built for modern teams",
   subheading = "The OpenSite AI approach",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

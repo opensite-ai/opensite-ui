@@ -97,29 +97,13 @@ export interface CarouselImageHeroProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[0], alt: "Hero image 1" },
-  { src: imagePlaceholders[1], alt: "Hero image 2" },
-  { src: imagePlaceholders[2], alt: "Hero image 3" },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "secondary",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-];
-
 export function CarouselImageHero({
   badge = "Launching Soon",
   heading = "Build exceptional digital experiences",
   description = "Our platform helps you create stunning websites and applications with ease, designed to engage your audience and drive results.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  images = defaultImages,
+  images,
   autoPlayInterval = 5000,
   className,
   containerClassName,

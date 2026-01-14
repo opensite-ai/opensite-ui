@@ -77,40 +77,15 @@ export interface HeroCenteredGradientCtaProps {
   featuresClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started free",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    className: "rounded-full px-8",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "Watch demo",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-    className: "rounded-full px-8",
-    icon: <DynamicIcon name="lucide/play" size={16} className="mr-2" />,
-  },
-];
-
-const defaultFeatures: FeatureItem[] = [
-  { title: "Free 14-day trial", icon: <DynamicIcon name="lucide/check-circle" size={16} className="text-green-500" /> },
-  { title: "No credit card required", icon: <DynamicIcon name="lucide/check-circle" size={16} className="text-green-500" /> },
-  { title: "Cancel anytime", icon: <DynamicIcon name="lucide/check-circle" size={16} className="text-green-500" /> },
-];
-
 export function HeroCenteredGradientCta({
   badge = "Introducing our new platform",
   badgeIcon = <DynamicIcon name="lucide/sparkles" size={16} className="text-primary" />,
   heading,
   headingHighlight = "extraordinary",
   description = "Create stunning applications with our powerful platform. Ship faster, scale effortlessly, and delight your users.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

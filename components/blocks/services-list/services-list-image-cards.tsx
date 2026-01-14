@@ -130,41 +130,6 @@ export interface ServicesListImageCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: ServicesListImageCardsService[] = [
-  {
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies for optimal performance.",
-    image: {
-      src: imagePlaceholders[0],
-      alt: "Web Development",
-    },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    title: "Mobile Apps",
-    description:
-      "Native and cross-platform mobile applications that deliver exceptional user experiences.",
-    image: {
-      src: imagePlaceholders[1],
-      alt: "Mobile Apps",
-    },
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Get Started",
-  href: "#",
-};
-
-const defaultSecondaryAction: ActionConfig = {
-  label: "View Portfolio",
-  href: "#",
-};
-
 /**
  * ServicesListImageCards - An asymmetric layout with introductory text on the left and 2 featured service cards on the right.
  * Each service card features a large image overlay with gradient, title, description, and CTA link.
@@ -185,10 +150,10 @@ const defaultSecondaryAction: ActionConfig = {
 export function ServicesListImageCards({
   heading = "Transform Your Digital Presence",
   description = "We specialize in creating digital experiences that drive results. Our team combines creativity with technical expertise to deliver solutions that exceed expectations.",
-  primaryAction = defaultPrimaryAction,
-  secondaryAction = defaultSecondaryAction,
+  primaryAction,
+  secondaryAction,
   actionsSlot,
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

@@ -137,55 +137,21 @@ export interface HeroMobileAppDownloadProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultStoreActions: AppStoreAction[] = [
-  {
-    href: "#",
-    variant: "default",
-    size: "lg",
-    className: "flex items-center gap-2",
-    storePrefix: "Download on the",
-    storeName: "App Store",
-    storeIcon: "lucide/apple",
-  },
-  {
-    href: "#",
-    variant: "outline",
-    size: "lg",
-    className: "flex items-center gap-2",
-    storePrefix: "Get it on",
-    storeName: "Google Play",
-    storeIcon: "lucide/play",
-  },
-];
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[26],
-  alt: "Mobile app screenshot",
-};
-
-const defaultNotification: NotificationItem = {
-  icon: "lucide/check",
-  iconBgClass: "bg-green-100",
-  iconColorClass: "text-green-600",
-  title: "Task completed",
-  subtitle: "Just now",
-};
-
 export function HeroMobileAppDownload({
   badgeText = "Mobile App",
   badgeIcon = "lucide/smartphone",
   badgeSlot,
   heading = "Your pocket companion for productivity",
   description = "Take your work anywhere with our powerful mobile app. Stay connected, collaborate on the go, and never miss an update.",
-  storeActions = defaultStoreActions,
+  storeActions,
   storeActionsSlot,
   ratingValue = "4.9",
   ratingLabel = "rating from 50K+ reviews",
   starCount = 5,
   ratingSlot,
-  image = defaultImage,
+  image,
   imageSlot,
-  notification = defaultNotification,
+  notification,
   notificationSlot,
   className,
   containerClassName,

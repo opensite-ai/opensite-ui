@@ -139,94 +139,6 @@ export interface ServicesListAccordionBenefitsProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListAccordionBenefitsService[] = [
-  {
-    id: "service-1",
-    title: "Web Development",
-    shortDescription: "Custom websites and web applications",
-    fullDescription:
-      "We build high-performance websites and applications that look great and work flawlessly across all devices. Using modern technologies like React, Next.js, and Tailwind CSS, we create digital experiences that help your business grow.",
-    benefits: [
-      "Responsive design that works on all devices",
-      "Fast loading speeds and optimized performance",
-      "SEO-friendly code structure",
-      "Custom features tailored to your business needs",
-      "Ongoing maintenance and support available",
-    ],
-    ctaText: "Learn more",
-    ctaUrl: "#",
-  },
-  {
-    id: "service-2",
-    title: "UI/UX Design",
-    shortDescription: "User-centered design solutions",
-    fullDescription:
-      "Good design is about more than just aesthetics—it's about creating intuitive, enjoyable experiences for your users. We combine visual design with usability principles to create interfaces that delight your users and achieve your business goals.",
-    benefits: [
-      "User research and persona development",
-      "Wireframing and prototyping",
-      "Visual design with attention to brand consistency",
-      "Usability testing and iteration",
-      "Design systems that scale with your business",
-    ],
-    ctaText: "Learn more",
-    ctaUrl: "#",
-  },
-  {
-    id: "service-3",
-    title: "E-commerce Solutions",
-    shortDescription: "Online stores that drive sales",
-    fullDescription:
-      "Turn your products into profit with a custom e-commerce solution that makes selling online simple. We create online stores that are easy to manage, secure for your customers, and optimized for conversions.",
-    benefits: [
-      "Seamless checkout experiences",
-      "Product catalog management",
-      "Secure payment processing",
-      "Inventory management integrations",
-      "Mobile-optimized shopping experience",
-    ],
-    ctaText: "Learn more",
-    ctaUrl: "#",
-  },
-  {
-    id: "service-4",
-    title: "Digital Marketing & SEO",
-    shortDescription: "Strategies to increase visibility",
-    fullDescription:
-      "The best website in the world won't help your business if no one can find it. We develop comprehensive digital marketing and SEO strategies that drive qualified traffic to your site and convert visitors into customers.",
-    benefits: [
-      "Technical SEO optimization",
-      "Keyword research and content strategy",
-      "Local SEO for brick-and-mortar businesses",
-      "Analytics setup and performance tracking",
-      "Conversion rate optimization",
-    ],
-    ctaText: "Learn more",
-    ctaUrl: "#",
-  },
-  {
-    id: "service-5",
-    title: "Website Maintenance",
-    shortDescription: "Keeping your site secure and updated",
-    fullDescription:
-      "A website is never truly 'finished.' We offer ongoing maintenance services to ensure your site remains secure, up-to-date, and performing at its best. From security updates to content changes, we'll keep your digital presence running smoothly.",
-    benefits: [
-      "Regular security updates and monitoring",
-      "Performance optimization",
-      "Content updates and additions",
-      "Backup and recovery solutions",
-      "24/7 support for critical issues",
-    ],
-    ctaText: "Learn more",
-    ctaUrl: "#",
-  },
-];
-
-const defaultBottomAction: ActionConfig = {
-  label: "Get a custom quote",
-  href: "#",
-};
-
 /**
  * ServicesListAccordionBenefits - An accordion layout with expandable service items featuring detailed benefits lists.
  * Each accordion item shows title and short description when collapsed, expanding to reveal full description,
@@ -250,11 +162,11 @@ const defaultBottomAction: ActionConfig = {
 export function ServicesListAccordionBenefits({
   heading = "My Services",
   description = "Click on any service to learn more about how I can help your business succeed online",
-  services = defaultServices,
+  services,
   servicesSlot,
   defaultValue,
   benefitsLabel = "Key Benefits:",
-  bottomAction = defaultBottomAction,
+  bottomAction,
   bottomActionSlot,
   className,
   containerClassName,

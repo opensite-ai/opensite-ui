@@ -71,58 +71,6 @@ export interface ProjectDetailNumberedSectionsProps {
   sectionsClassName?: string;
 }
 
-const defaultSections: ProjectDetailNumberedSectionsSection[] = [
-  {
-    number: "01",
-    title: "The Urban Canvas",
-    content:
-      "Cities are living, breathing entities that constantly evolve. Through the lens, we capture moments that reveal the hidden poetry of urban landscapes - the interplay of light and shadow, the geometry of architecture, and the human stories unfolding in public spaces.",
-    image: {
-      src: imagePlaceholders[77],
-      alt: "Urban photography 1",
-    },
-  },
-  {
-    number: "02",
-    title: "Moments in Time",
-    content:
-      "Street photography is about patience and presence. It's about being in the right place at the right moment, ready to capture the fleeting instances that tell a larger story about our shared human experience.",
-    image: {
-      src: imagePlaceholders[78],
-      alt: "Urban photography 2",
-    },
-  },
-  {
-    number: "03",
-    title: "Light & Shadow",
-    content:
-      "The quality of light transforms ordinary scenes into extraordinary compositions. Early morning and late afternoon offer the most dramatic opportunities, casting long shadows and creating depth that brings images to life.",
-    image: {
-      src: imagePlaceholders[79],
-      alt: "Urban photography 3",
-    },
-  },
-];
-
-const defaultProps: ProjectDetailNumberedSectionsProps = {
-  title: "Urban Perspectives",
-  subtitle: "A Street Photography Series",
-  year: "2024",
-  category: "Photography",
-  heroImage: {
-    src: imagePlaceholders[80],
-    alt: "Urban Perspectives hero",
-  },
-  description:
-    "This series explores the visual poetry of urban environments through a collection of street photographs captured across major cities. Each image tells a story of human connection, architectural beauty, and the rhythm of city life.",
-  sections: defaultSections,
-  backAction: {
-    label: "Back to Projects",
-    href: "/projects",
-    icon: <DynamicIcon name="lucide/arrow-left" size={16} />,
-  },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

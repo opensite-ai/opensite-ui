@@ -136,39 +136,6 @@ export interface TeamRoleFilterProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamRoleFilterMember[] = [
-  {
-    name: "Sarah Chen",
-    role: "Leadership",
-    position: "CEO & Founder",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "Leadership",
-    position: "CTO",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "Priya Patel",
-    role: "Design",
-    position: "Head of Design",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-  {
-    name: "David Kim",
-    role: "Support",
-    position: "Support Lead",
-    image: blockBrandedIconsAndPlaceholders.avatar4,
-    social: { twitter: "#", github: "#", linkedin: "#" },
-  },
-];
-
-const defaultRoles = ["All", "Leadership", "Design", "Support"];
-
 /**
  * TeamRoleFilter - Team grid with role-based filter buttons
  *
@@ -198,9 +165,9 @@ const defaultRoles = ["All", "Leadership", "Design", "Support"];
 export function TeamRoleFilter({
   heading = "Our team",
   description = "The people behind the scenes",
-  members = defaultMembers,
+  members,
   membersSlot,
-  roles = defaultRoles,
+  roles,
   rolesSlot,
   background = "white",
   spacing = "lg",

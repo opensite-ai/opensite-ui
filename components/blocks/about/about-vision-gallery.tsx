@@ -114,13 +114,6 @@ export interface AboutVisionGalleryProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultCtaAction: ActionConfig = {
-  label: "Get to know the team",
-  href: "#",
-  variant: "default",
-  size: "lg",
-};
-
 export function AboutVisionGallery({
   className,
   containerClassName,
@@ -153,7 +146,7 @@ Our team is made up of talented individuals who are passionate about creating to
   creatorsLinkUrl = "#",
   ctaTitle = "Part of Our Global Team",
   ctaTitleClassName,
-  ctaAction = defaultCtaAction,
+  ctaAction,
   ctaSlot,
   ctaClassName,
   optixFlowConfig,

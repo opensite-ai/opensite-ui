@@ -154,37 +154,6 @@ export interface StatsBarComparisonProps {
   barTrackClassName?: string;
 }
 
-const defaultComparisons: ComparisonGroup[] = [
-  {
-    title: "Revenue Growth",
-    bars: [
-      { label: "Our Platform", value: 89, displayValue: "$2.4M", color: "bg-primary" },
-      { label: "Industry Average", value: 34, displayValue: "$920K", color: "bg-muted-foreground/40" },
-    ],
-  },
-  {
-    title: "Customer Retention",
-    bars: [
-      { label: "Our Platform", value: 94, displayValue: "94%", color: "bg-emerald-500" },
-      { label: "Industry Average", value: 67, displayValue: "67%", color: "bg-muted-foreground/40" },
-    ],
-  },
-  {
-    title: "Time to Value",
-    bars: [
-      { label: "Our Platform", value: 85, displayValue: "2 weeks", color: "bg-blue-500" },
-      { label: "Industry Average", value: 35, displayValue: "8 weeks", color: "bg-muted-foreground/40" },
-    ],
-  },
-  {
-    title: "Support Response",
-    bars: [
-      { label: "Our Platform", value: 95, displayValue: "< 1 hour", color: "bg-amber-500" },
-      { label: "Industry Average", value: 45, displayValue: "24 hours", color: "bg-muted-foreground/40" },
-    ],
-  },
-];
-
 /**
  * StatsBarComparison - A visual comparison section featuring animated horizontal
  * bar charts that compare platform metrics against industry averages. Each group
@@ -214,7 +183,7 @@ export function StatsBarComparison({
   badgeSlot,
   heading = "How We Compare",
   description = "See how our platform outperforms industry standards across key metrics",
-  comparisons = defaultComparisons,
+  comparisons,
   comparisonsSlot,
   animate = true,
   background = "white",

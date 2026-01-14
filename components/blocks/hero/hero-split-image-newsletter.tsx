@@ -79,29 +79,12 @@ export interface HeroSplitImageNewsletterProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNewsletterForm: NewsletterFormConfig = {
-  placeholder: "Enter your email",
-  action: {
-    label: "Subscribe",
-    href: "#",
-    variant: "default",
-    className: "h-12 rounded-full px-8 font-semibold",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  helperText: "No spam, unsubscribe at any time.",
-};
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[85],
-  alt: "Design showcase",
-};
-
 export function HeroSplitImageNewsletter({
   heading = "Discover the future of design",
   description = "Join our newsletter and stay updated with the latest trends, tutorials, and resources in the design world.",
-  newsletterForm = defaultNewsletterForm,
+  newsletterForm,
   newsletterFormSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   containerClassName,

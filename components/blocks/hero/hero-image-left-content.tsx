@@ -88,29 +88,13 @@ export interface HeroImageLeftContentProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Primary Button",
-    href: "#",
-    variant: "default",
-    className: "w-full sm:w-auto",
-  },
-  {
-    label: "Secondary Button",
-    href: "#",
-    variant: "outline",
-    className: "w-full sm:w-auto",
-    iconAfter: <DynamicIcon name="lucide/arrow-down-right" size={16} className="ml-2" />,
-  },
-];
-
 export function HeroImageLeftContent({
   badge = "New Release",
   badgeIcon = <DynamicIcon name="lucide/arrow-down-right" size={16} className="ml-2" />,
   badgeVariant = "secondary",
   heading = "Blocks built with Shadcn & Tailwind",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = imagePlaceholders[1],
   imageAlt = "placeholder hero",

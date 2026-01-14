@@ -71,37 +71,6 @@ export interface FooterNewsletterGridProps {
   };
 }
 
-const defaultSections: FooterNewsletterGridSection[] = [
-  {
-    title: "Product",
-    links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
-      { name: "Integrations", href: "#" },
-      { name: "Marketing", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About", href: "#" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
-      { name: "Contact", href: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterNewsletterGridSocialLink[] = [
-  { icon: "simple-icons/instagram", href: "#", label: "Instagram" },
-  { icon: "simple-icons/facebook", href: "#", label: "Facebook" },
-  { icon: "simple-icons/x", href: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-];
-
 /**
  * FooterNewsletterGrid - A comprehensive footer with logo, social icons, navigation, and newsletter.
  *
@@ -118,8 +87,8 @@ export function FooterNewsletterGrid({
   },
   className,
   description = "A collection of 100+ responsive HTML templates for your startup business or side project.",
-  sections = defaultSections,
-  socialLinks = defaultSocialLinks,
+  sections,
+  socialLinks,
   newsletterTitle = "Newsletter",
   newsletterPlaceholder = "Email",
   newsletterButtonText = "Subscribe",

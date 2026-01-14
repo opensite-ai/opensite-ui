@@ -240,52 +240,6 @@ export interface PricingRadioToggleProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingRadioTogglePlan[] = [
-  {
-    name: "Starter",
-    monthlyPrice: "$19",
-    yearlyPrice: "$190",
-    description: "For individuals and small projects",
-    features: [
-      { text: "Up to 5 team members" },
-      { text: "Basic reporting" },
-      { text: "Email support" },
-      { text: "5GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline", size: "lg" },
-  },
-  {
-    name: "Professional",
-    monthlyPrice: "$49",
-    yearlyPrice: "$490",
-    description: "For growing teams and businesses",
-    features: [
-      { text: "Up to 20 team members" },
-      { text: "Advanced reporting" },
-      { text: "Priority support" },
-      { text: "50GB storage" },
-      { text: "Custom integrations" },
-    ],
-    action: { label: "Start Free Trial", href: "#", variant: "default", size: "lg" },
-    badge: "Popular",
-  },
-  {
-    name: "Enterprise",
-    monthlyPrice: "$99",
-    yearlyPrice: "$990",
-    description: "For large organizations",
-    features: [
-      { text: "Unlimited team members" },
-      { text: "Custom reporting" },
-      { text: "24/7 dedicated support" },
-      { text: "Unlimited storage" },
-      { text: "SSO & advanced security" },
-      { text: "Custom contracts" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline", size: "lg" },
-  },
-];
-
 /**
  * PricingRadioToggle displays pricing plans with a radio button style monthly/yearly toggle.
  * Features a clean design with badges for popular plans, feature lists, and responsive layout.
@@ -312,7 +266,7 @@ export function PricingRadioToggle({
   yearlyBadge = "-17%",
   monthlyInterval = "/month",
   yearlyInterval = "/year",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

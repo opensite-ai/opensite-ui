@@ -61,15 +61,6 @@ export interface BannerPromoCtaProps {
   actionsClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Shop Now",
-    href: "#",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={12} />,
-    className: "inline-flex items-center gap-1 font-medium underline underline-offset-4 hover:no-underline",
-  },
-];
-
 /**
  * BannerPromoCta - A promotional banner with message, discount text, and arrow link CTA.
  *
@@ -90,7 +81,7 @@ export function BannerPromoCta({
   message = "Winter Sale",
   discount = "Up to 50% off",
   separator,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

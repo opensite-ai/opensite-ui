@@ -119,56 +119,9 @@ export interface TimelineTabbedPhasesProps {
   };
 }
 
-const defaultPhases: TimelineTabbedPhase[] = [
-  {
-    id: "phase1",
-    phase: "1",
-    title: "Initialize",
-    date: "02/03/2025",
-    heading: "How to Initialize",
-    description:
-      "This phase covers the basics of getting started. Learn how to set up, configure, and prepare for the next steps. This phase covers the basics of getting started. Learn how to set up, configure, and prepare for the next steps.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    imageAlt: "Phase 1 illustration",
-  },
-  {
-    id: "phase2",
-    phase: "2",
-    title: "Build",
-    date: "21/03/2025",
-    heading: "How to Build",
-    description:
-      "In this phase, focus on structuring and building the core components. Understand best practices for development. In this phase, focus on structuring and building the core components. Understand best practices for development.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder2,
-    imageAlt: "Phase 2 illustration",
-  },
-  {
-    id: "phase3",
-    phase: "3",
-    title: "Test",
-    date: "06/04/2025",
-    heading: "How to Test",
-    description:
-      "Testing ensures quality and reliability. Learn about debugging, fixing issues, and refining the project. Testing ensures quality and reliability. Learn about debugging, fixing issues, and refining the project.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-    imageAlt: "Phase 3 illustration",
-  },
-  {
-    id: "phase4",
-    phase: "4",
-    title: "Launch",
-    date: "14/04/2025",
-    heading: "How to Launch",
-    description:
-      "The final phase focuses on optimization, deployment, and ensuring everything runs smoothly for release. The final phase focuses on optimization, deployment, and ensuring everything runs smoothly for release.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder4,
-    imageAlt: "Phase 4 illustration",
-  },
-];
-
 export function TimelineTabbedPhases({
   heading = "Just Four Phases",
-  phases = defaultPhases,
+  phases,
   downloadAction = {
     label: "Download the app",
     href: "#",

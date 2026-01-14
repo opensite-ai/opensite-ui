@@ -145,23 +145,12 @@ export interface CarouselProductFeatureShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: ProductFeature[] = [
-  { id: "feature-0", title: "Product Feature 1", description: "Experience the innovative design and functionality of feature 1. Built with precision and attention to detail.", image: imagePlaceholders[0], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
-  { id: "feature-1", title: "Product Feature 2", description: "Experience the innovative design and functionality of feature 2. Built with precision and attention to detail.", image: imagePlaceholders[1], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
-  { id: "feature-2", title: "Product Feature 3", description: "Experience the innovative design and functionality of feature 3. Built with precision and attention to detail.", image: imagePlaceholders[2], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
-  { id: "feature-3", title: "Product Feature 4", description: "Experience the innovative design and functionality of feature 4. Built with precision and attention to detail.", image: imagePlaceholders[3], colors: [{ name: "Default", value: "#3b82f6" }, { name: "Dark", value: "#1f2937" }, { name: "Light", value: "#f3f4f6" }] },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Learn More", href: "#", size: "lg", iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" /> },
-];
-
 export function CarouselProductFeatureShowcase({
   heading = "Discover Our Products",
   subheading = "Explore the features that make our products stand out",
-  features = defaultFeatures,
+  features,
   featuresSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

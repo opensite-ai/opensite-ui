@@ -74,11 +74,6 @@ export interface FooterAnimatedSocialProps {
   patternOpacity?: number;
 }
 
-const defaultSocialLinks: FooterAnimatedSocialLink[] = [
-  { name: "Instagram", href: "#" },
-  { name: "X (Twitter)", href: "#" },
-];
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -112,7 +107,7 @@ export function FooterAnimatedSocial({
   description = "No commitments. Just a quick chat to see if we click.",
   ctaText = "Get in Touch",
   ctaUrl = "#",
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   copyright,
   attributionText = "AI Website and Automation Platform by Opensite",
   attributionHref = "https://opensite.ai",

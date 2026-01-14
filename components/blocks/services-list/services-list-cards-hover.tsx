@@ -117,45 +117,6 @@ export interface ServicesListCardsHoverProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListCardsHoverService[] = [
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies for optimal performance.",
-    features: ["React & Next.js", "Node.js", "Database Design"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/smartphone",
-    title: "Mobile Apps",
-    description:
-      "Native and cross-platform mobile applications that deliver exceptional user experiences.",
-    features: ["React Native", "Flutter", "iOS & Android"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/palette",
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that create engaging, intuitive experiences.",
-    features: ["User Research", "Prototyping", "Design Systems"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/trending-up",
-    title: "Digital Marketing",
-    description:
-      "Data-driven marketing strategies to grow your online presence and reach.",
-    features: ["SEO", "Content Strategy", "Analytics"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListCardsHover - A grid layout with interactive hover cards that reveal additional features.
  * Each card displays an icon, title, and description, with features appearing on hover.
@@ -178,7 +139,7 @@ const defaultServices: ServicesListCardsHoverService[] = [
 export function ServicesListCardsHover({
   heading = "Our Services",
   description = "Hover over each service to discover what we offer.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

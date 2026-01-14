@@ -184,32 +184,6 @@ export interface ArticleBreadcrumbSocialProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: ArticleBreadcrumbSection[] = [
-  { id: "overview", title: "Overview" },
-  { id: "key-features", title: "Key Features" },
-  { id: "implementation", title: "Implementation" },
-  { id: "performance", title: "Performance" },
-  { id: "summary", title: "Summary" },
-];
-
-const defaultBreadcrumbs: BreadcrumbItemConfig[] = [
-  { label: "Home", href: "#" },
-  { label: "Blog", href: "#" },
-];
-
-const defaultSocialLinks: SocialLinkItem[] = [
-  { platform: "twitter", href: "#", icon: <DynamicIcon name="lucide/twitter" size={16} />, "aria-label": "Share on Twitter" },
-  { platform: "facebook", href: "#", icon: <DynamicIcon name="lucide/facebook" size={16} />, "aria-label": "Share on Facebook" },
-  { platform: "linkedin", href: "#", icon: <DynamicIcon name="lucide/linkedin" size={16} />, "aria-label": "Share on LinkedIn" },
-  { platform: "instagram", href: "#", icon: <DynamicIcon name="lucide/instagram" size={16} />, "aria-label": "Share on Instagram" },
-];
-
-const defaultAuthor: ArticleAuthorConfig = {
-  name: "Emily Rodriguez",
-  image: imagePlaceholders[10],
-  role: "Senior Engineer",
-};
-
 const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
   <>
     <Img
@@ -302,7 +276,7 @@ export function ArticleBreadcrumbSocialComponent({
   heroImageClassName,
   tocClassName,
   shareClassName,
-  breadcrumbs = defaultBreadcrumbs,
+  breadcrumbs,
   breadcrumbsSlot,
   currentPage = "Article",
   title = "Mastering Performance Optimization in Modern Web Apps",
@@ -313,7 +287,7 @@ export function ArticleBreadcrumbSocialComponent({
   authorSlot,
   publishDate = "January 10, 2025",
   readTime = "15 min read",
-  sections = defaultSections,
+  sections,
   tocSlot,
   renderSectionLink,
   socialLinks: socialLinksProp,

@@ -98,38 +98,6 @@ export interface ComparisonTableTooltipsProps {
   tableCellClassName?: string;
 }
 
-const defaultRows: TableRowData[] = [
-  { feature: "Design System", optionA: "Modern, Utility-first", optionB: "Classic, Component-based" },
-  { feature: "Customization", optionA: "Highly customizable", optionB: "Limited by default" },
-  { feature: "Dark Mode", optionA: "Built-in", optionB: "Requires extra setup" },
-  { feature: "TypeScript Support", optionA: "First-class", optionB: "Partial" },
-  { feature: "Accessibility", optionA: "Focus on a11y", optionB: "Basic" },
-  { feature: "Component Count", optionA: "30+", optionB: "25+" },
-  { feature: "License", optionA: "MIT", optionB: "MIT" },
-  {
-    feature: "Premium Components",
-    optionA: "Available",
-    optionB: {
-      value: "Not included",
-      tooltip: {
-        title: "Premium Only",
-        content: "Some advanced components are only available in paid versions or require third-party libraries.",
-      },
-    },
-  },
-  {
-    feature: "Figma Kit",
-    optionA: "Yes",
-    optionB: {
-      value: "No",
-      tooltip: {
-        title: "Figma Kit Unavailable",
-        content: "Does not provide an official Figma kit, but community kits may exist.",
-      },
-    },
-  },
-];
-
 /**
  * ComparisonTableTooltips - Table comparison with tooltips for additional info
  *
@@ -146,7 +114,7 @@ export function ComparisonTableTooltips({
   description = "A modern framework for building websites that is better than the competition.",
   optionALabel = "Our Solution",
   optionBLabel = "Alternative",
-  rows = defaultRows,
+  rows,
   tableSlot,
   className,
   containerClassName,

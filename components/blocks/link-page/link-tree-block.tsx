@@ -284,84 +284,6 @@ export interface LinkTreeBlockProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLinks: LinkTreeLink[] = [
-  {
-    id: "1",
-    label: "My Latest YouTube Video",
-    href: "https://youtube.com",
-    iconName: "simple-icons/youtube",
-    featured: true,
-    badge: "New",
-  },
-  {
-    id: "2",
-    label: "Shop My Presets",
-    href: "https://example.com/shop",
-    iconName: "lucide/shopping-bag",
-    description: "Lightroom presets for stunning photos",
-  },
-  {
-    id: "3",
-    label: "Book a Consultation",
-    href: "https://calendly.com",
-    iconName: "lucide/calendar",
-    description: "1-on-1 photography coaching",
-  },
-  {
-    id: "4",
-    label: "Join My Newsletter",
-    href: "https://example.com/newsletter",
-    iconName: "lucide/mail",
-  },
-  {
-    id: "5",
-    label: "Listen on Spotify",
-    href: "https://spotify.com",
-    iconName: "simple-icons/spotify",
-  },
-];
-
-const defaultSocialLinks: SocialLink[] = [
-  {
-    id: "s1",
-    platform: "Instagram",
-    href: "https://instagram.com",
-    iconName: "simple-icons/instagram",
-  },
-  {
-    id: "s2",
-    platform: "TikTok",
-    href: "https://tiktok.com",
-    iconName: "simple-icons/tiktok",
-  },
-  {
-    id: "s3",
-    platform: "Twitter",
-    href: "https://twitter.com",
-    iconName: "simple-icons/x",
-  },
-  {
-    id: "s4",
-    platform: "LinkedIn",
-    href: "https://linkedin.com",
-    iconName: "simple-icons/linkedin",
-  },
-];
-
-const defaultMediaGallery: MediaGalleryItem[] = [
-  { id: "m1", type: "image", src: imagePlaceholders[0], alt: "Photo 1" },
-  { id: "m2", type: "image", src: imagePlaceholders[1], alt: "Photo 2" },
-  { id: "m3", type: "video", src: videoPlaceholders[0], alt: "Video 1" },
-  { id: "m4", type: "image", src: imagePlaceholders[2], alt: "Photo 3" },
-  { id: "m5", type: "image", src: imagePlaceholders[3], alt: "Photo 4" },
-  { id: "m6", type: "image", src: imagePlaceholders[4], alt: "Photo 5" },
-];
-
-const defaultFooterAction: ActionConfig = {
-  label: "Powered by OpenSite",
-  href: "/",
-};
-
 /**
  * LinkTreeBlock - A customizable link-in-bio style page component with three theme variations.
  *
@@ -406,11 +328,11 @@ export function LinkTreeBlock({
   brandVerified = true,
   verifiedIcon,
   brandSlot,
-  links = defaultLinks,
+  links,
   linksSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
-  mediaGallery = defaultMediaGallery,
+  mediaGallery,
   mediaGallerySlot,
   mediaGalleryTitle = "Latest Content",
   mediaGalleryLimit = 6,

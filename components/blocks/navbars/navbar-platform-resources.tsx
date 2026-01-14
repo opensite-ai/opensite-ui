@@ -143,124 +143,6 @@ export interface NavbarPlatformResourcesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSolutions: SolutionItem[] = [
-  {
-    title: "First solution",
-    description: "Vestibulum scelerisque quis nisl ut convallis.",
-    href: "#",
-    icon: "lucide/cloud",
-  },
-  {
-    title: "Another solution",
-    description: "Curabitur vehicula malesuada enim a cursus.",
-    href: "#",
-    icon: "lucide/lock",
-  },
-  {
-    title: "And a third solution",
-    description: "Proin aliquam feugiat lobortis.",
-    href: "#",
-    icon: "lucide/fingerprint",
-  },
-  {
-    title: "And a fourth solution",
-    description: "Donec nec sapien nec dolor.",
-    href: "#",
-    icon: "lucide/cloud",
-  },
-];
-
-const defaultPlatformCases: PlatformItem[] = [
-  { title: "Banking", href: "#", icon: "lucide/credit-card" },
-  { title: "Fintech", href: "#", icon: "lucide/banknote" },
-  { title: "E-commerce", href: "#", icon: "lucide/shopping-cart" },
-  { title: "Travel & Hospitality", href: "#", icon: "lucide/plane" },
-  { title: "Real Estate", href: "#", icon: "lucide/home" },
-  { title: "Gaming", href: "#", icon: "lucide/gamepad-2" },
-  { title: "Manufacturing", href: "#", icon: "lucide/factory" },
-  { title: "Logistics", href: "#", icon: "lucide/truck" },
-];
-
-const defaultResources: ResourceItem[] = [
-  {
-    title: "AI Powered",
-    description: "Explore AI-powered resources",
-    href: "#",
-    icon: "lucide/sparkle",
-  },
-  {
-    title: "AI Development",
-    description: "Tools and frameworks for AI development",
-    href: "#",
-    icon: "lucide/code",
-  },
-  {
-    title: "Machine Learning",
-    description: "Resources for machine learning enthusiasts",
-    href: "#",
-    icon: "lucide/brain",
-  },
-  {
-    title: "Data Management",
-    description: "Best practices for data management",
-    href: "#",
-    icon: "lucide/database",
-  },
-  {
-    title: "Cloud AI",
-    description: "Cloud-based AI solutions",
-    href: "#",
-    icon: "lucide/cloud",
-  },
-  {
-    title: "AI Security",
-    description: "Secure your AI applications",
-    href: "#",
-    icon: "lucide/shield",
-  },
-  {
-    title: "AI Configuration",
-    description: "Configure AI systems effectively",
-    href: "#",
-    icon: "lucide/settings",
-  },
-  {
-    title: "AI Analytics",
-    description: "Analyze AI performance metrics",
-    href: "#",
-    icon: "lucide/bar-chart",
-  },
-  {
-    title: "Global AI Trends",
-    description: "Stay updated with global AI trends",
-    href: "#",
-    icon: "lucide/globe",
-  },
-  {
-    title: "AI Community",
-    description: "Join the AI community",
-    href: "#",
-    icon: "lucide/users",
-  },
-  {
-    title: "AI Learning",
-    description: "Learn AI from the best resources",
-    href: "#",
-    icon: "lucide/book-open",
-  },
-  {
-    title: "AI Support",
-    description: "Get support for AI-related queries",
-    href: "#",
-    icon: "lucide/message-square",
-  },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Sign in", href: "#", variant: "ghost", asButton: true },
-  { label: "Get Started", href: "#", asButton: true },
-];
-
 /**
  * NavbarPlatformResources - A comprehensive navigation bar with platform solutions and resources dropdowns.
  *
@@ -284,10 +166,10 @@ export const NavbarPlatformResources = ({
     title: "Opensite AI",
   },
   logoSlot,
-  solutions = defaultSolutions,
-  platformCases = defaultPlatformCases,
-  resources = defaultResources,
-  authActions = defaultAuthActions,
+  solutions,
+  platformCases,
+  resources,
+  authActions,
   authActionsSlot,
   background = "white",
   spacing = "none",

@@ -79,13 +79,6 @@ export interface AboutSplitHeroProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultCtaAction: ActionConfig = {
-  label: "Upgrade to premium",
-  href: "#",
-  variant: "default",
-  size: "lg",
-};
-
 /**
  * About Split Hero - A split-screen hero section with dark theme styling,
  * featuring text content on the left and a large image on the right.
@@ -114,7 +107,7 @@ export function AboutSplitHero({
   headingClassName,
   description = "Enhance your career hunt with increased visibility, first-look opportunities and monetary incentives!",
   descriptionClassName,
-  ctaAction = defaultCtaAction,
+  ctaAction,
   ctaSlot,
   ctaClassName,
   imageSrc = blockBrandedIconsAndPlaceholders.placeholderDark1,

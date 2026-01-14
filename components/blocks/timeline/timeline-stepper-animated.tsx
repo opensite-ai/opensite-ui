@@ -101,33 +101,6 @@ export interface TimelineStepperAnimatedProps {
   };
 }
 
-const defaultSteps: TimelineStep[] = [
-  {
-    title: "Introduction",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    description:
-      "Welcome to our step-by-step guide. This introduction will help you get started with the process and understand what to expect.",
-  },
-  {
-    title: "Personal Information",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder2,
-    description:
-      "In this section, we'll collect some basic information about you to personalize your experience and provide better recommendations.",
-  },
-  {
-    title: "Address Details",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-    description:
-      "Please provide your address details so we can deliver your products to the right location and calculate shipping costs.",
-  },
-  {
-    title: "Review & Submit",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder4,
-    description:
-      "Take a moment to review all the information you've provided before finalizing your submission. You can go back to any step.",
-  },
-];
-
 const ProcessBar: React.FC<{
   currentStep: number;
   steps: TimelineStep[];
@@ -233,7 +206,7 @@ const NavButtons: React.FC<{
 
 export function TimelineStepperAnimated({
   heading = "Stepper",
-  steps = defaultSteps,
+  steps,
   initialStep = 1,
   className,
   containerClassName,

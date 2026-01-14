@@ -159,22 +159,6 @@ export interface PricingSimpleCardProps {
   actionClassName?: string;
 }
 
-const defaultFeatures: PricingSimpleCardFeature[] = [
-  { text: "Unlimited projects" },
-  { text: "Advanced analytics" },
-  { text: "Priority support" },
-  { text: "API access" },
-  { text: "Custom integrations" },
-  { text: "Team collaboration" },
-];
-
-const defaultAction: ActionConfig = {
-  label: "Get Started",
-  href: "#",
-  variant: "default",
-  size: "lg",
-};
-
 /**
  * PricingSimpleCard displays a single, minimal pricing card with a feature list.
  * Clean and focused design with a prominent price display and CTA button.
@@ -199,11 +183,11 @@ export function PricingSimpleCard({
   description = "Everything you need to grow your business",
   price = "$49",
   priceInterval = "/month",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   featureIcon,
   featureIconName = "lucide/check",
-  action = defaultAction,
+  action,
   actionSlot,
   background = "white",
   spacing = "lg",

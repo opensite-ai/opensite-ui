@@ -96,27 +96,6 @@ export interface HeroSplitIconCardsProps {
   descriptionClassName?: string;
 }
 
-const defaultCardItems: HeroSplitIconCardsItem[] = [
-  {
-    title: "Proactive Reviews",
-    subtitle: "Keep coverage aligned with every life change.",
-    href: "/reviews",
-    icon: "lucide/refresh-cw",
-  },
-  {
-    title: "Smart Coverage Guidance",
-    subtitle: "OpenSite AI insights tailored to your goals.",
-    href: "/insights",
-    icon: "lucide/brain",
-  },
-  {
-    title: "Multi-Carrier Access",
-    subtitle: "Shop a broad network without the pressure.",
-    href: "/partners",
-    icon: "lucide/network",
-  },
-];
-
 /**
  * HeroSplitIconCards - Two-column hero layout with text content on the left and
  * a stacked list of icon cards on the right. Ideal for service pages that need
@@ -130,7 +109,7 @@ export function HeroSplitIconCards({
   secondaryCta = { label: "Talk to an Advisor", href: "/contact" },
   actionsSlot,
   children,
-  cardItems = defaultCardItems,
+  cardItems,
   cardsSlot,
   background = "white",
   verticalSpacing = "lg",

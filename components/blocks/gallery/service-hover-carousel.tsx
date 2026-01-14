@@ -147,89 +147,6 @@ export interface ServiceHoverCarouselProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: ServiceHoverCarouselItem[] = [
-  {
-    id: "1",
-    title: "Custom Web Development",
-    price: "$1,500",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    tag: "Tailored Solutions",
-  },
-  {
-    id: "2",
-    title: "Mobile App Development",
-    price: "$2,000",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    tag: "iOS & Android",
-  },
-  {
-    id: "3",
-    title: "Cloud Solutions",
-    price: "$3,000",
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    tag: "Scalable Infrastructure",
-  },
-  {
-    id: "4",
-    title: "UI/UX Design",
-    price: "$1,200",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    tag: "User-Centric Design",
-  },
-  {
-    id: "5",
-    title: "E-Commerce Platforms",
-    price: "$2,500",
-    image:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    tag: "Seamless Shopping",
-  },
-  {
-    id: "6",
-    title: "AI & Machine Learning",
-    price: "$5,000",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    tag: "Smart Automation",
-  },
-  {
-    id: "7",
-    title: "DevOps Services",
-    price: "$2,800",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    tag: "Efficient Workflows",
-  },
-  {
-    id: "8",
-    title: "Cybersecurity Solutions",
-    price: "$4,000",
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    hoverImage:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    tag: "Secure Systems",
-  },
-];
-
 /**
  * ServiceHoverCarousel displays service cards with hover image swap effect.
  *
@@ -258,7 +175,7 @@ const defaultItems: ServiceHoverCarouselItem[] = [
  */
 export function ServiceHoverCarousel({
   heading = "Our Services",
-  items = defaultItems,
+  items,
   itemsSlot,
   headerSlot,
   pricePrefix = "Starting at",

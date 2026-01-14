@@ -95,81 +95,6 @@ export interface ProjectWorkShowcaseProps {
   cardClassName?: string;
 }
 
-const defaultExperiences: ProjectWorkShowcaseItem[] = [
-  {
-    role: "Lead Frontend Developer",
-    company: "Webflow Solutions",
-    duration: "2021 - Present",
-    description:
-      "Managed a team of developers building responsive and accessible web applications for enterprise clients.",
-    technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
-    projects: [
-      {
-        title: "Healthcare Portal Redesign",
-        image: imagePlaceholders[119],
-        description:
-          "Led the complete overhaul of a healthcare provider's patient portal, improving accessibility and mobile experience.",
-        link: "#",
-      },
-      {
-        title: "E-commerce Platform",
-        image: imagePlaceholders[120],
-        description:
-          "Built a custom shopping experience with personalized recommendations and seamless checkout flow.",
-        link: "#",
-      },
-    ],
-  },
-  {
-    role: "Frontend Developer",
-    company: "Digital Craftsmen",
-    duration: "2018 - 2021",
-    description:
-      "Developed user interfaces for web applications with a focus on performance and responsive design.",
-    technologies: ["JavaScript", "Vue.js", "SCSS", "Webpack"],
-    projects: [
-      {
-        title: "Banking Dashboard",
-        image: imagePlaceholders[121],
-        description:
-          "Created an intuitive dashboard for tracking personal finances and investment portfolios.",
-        link: "#",
-      },
-      {
-        title: "Real Estate Listings",
-        image: imagePlaceholders[122],
-        description:
-          "Built a property search platform with advanced filtering and interactive map features.",
-        link: "#",
-      },
-    ],
-  },
-  {
-    role: "Web Developer",
-    company: "Creative Tech Labs",
-    duration: "2016 - 2018",
-    description:
-      "Worked on building responsive websites and interactive features for marketing campaigns.",
-    technologies: ["HTML", "CSS", "JavaScript", "jQuery", "PHP"],
-    projects: [
-      {
-        title: "Corporate Website Redesign",
-        image: imagePlaceholders[123],
-        description:
-          "Redesigned and implemented a modern website for a financial services company.",
-        link: "#",
-      },
-      {
-        title: "Interactive Product Showcase",
-        image: imagePlaceholders[124],
-        description:
-          "Created an interactive 3D product visualization tool for a hardware manufacturer.",
-        link: "#",
-      },
-    ],
-  },
-];
-
 /**
  * ProjectWorkShowcase - Work experience cards with embedded project galleries.
  *
@@ -183,7 +108,7 @@ const defaultExperiences: ProjectWorkShowcaseItem[] = [
 export function ProjectWorkShowcase({
   heading = "Work Experience & Projects",
   subheading = "Explore my professional experience and key projects I've contributed to in each role.",
-  experiences = defaultExperiences,
+  experiences,
   experiencesSlot,
   optixFlowConfig,
   background,

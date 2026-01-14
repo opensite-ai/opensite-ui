@@ -102,15 +102,8 @@ export interface CarouselFullscreenScrollFxProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSlides: FullscreenSlide[] = [
-  { id: "slide-0", title: "Section 1", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[0], overlayColor: "rgba(0, 0, 0, 0.4)" },
-  { id: "slide-1", title: "Section 2", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[1], overlayColor: "rgba(0, 0, 0, 0.5)" },
-  { id: "slide-2", title: "Section 3", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[2], overlayColor: "rgba(0, 0, 0, 0.6)" },
-  { id: "slide-3", title: "Section 4", subtitle: "Discover More", description: "Immerse yourself in this captivating visual experience. Each section tells a unique story through stunning imagery and thoughtful design.", image: imagePlaceholders[3], overlayColor: "rgba(0, 0, 0, 0.7)" },
-];
-
 export function CarouselFullscreenScrollFx({
-  slides = defaultSlides,
+  slides,
   slidesSlot,
   className,
   navigationClassName,

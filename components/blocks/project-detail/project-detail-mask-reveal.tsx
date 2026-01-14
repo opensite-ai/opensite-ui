@@ -67,43 +67,6 @@ export interface ProjectDetailMaskRevealProps {
   revealImagesClassName?: string;
 }
 
-const defaultRevealImages: ProjectDetailMaskRevealImage[] = [
-  {
-    src: imagePlaceholders[81],
-    alt: "Reveal image 1",
-    caption: "Initial concept exploration",
-  },
-  {
-    src: imagePlaceholders[82],
-    alt: "Reveal image 2",
-    caption: "Material studies and textures",
-  },
-  {
-    src: imagePlaceholders[83],
-    alt: "Reveal image 3",
-    caption: "Final composition",
-  },
-];
-
-const defaultProps: ProjectDetailMaskRevealProps = {
-  title: "Color Psychology",
-  subtitle: "An Exploration of Emotion Through Color",
-  year: "2024",
-  category: "Art Direction",
-  heroImage: {
-    src: imagePlaceholders[84],
-    alt: "Color Psychology hero",
-  },
-  description:
-    "This project explores the psychological impact of color in visual communication. Through a series of studies and experiments, we examined how different color combinations evoke specific emotional responses and influence perception.",
-  revealImages: defaultRevealImages,
-  backAction: {
-    label: "Back to Projects",
-    href: "/projects",
-    icon: <DynamicIcon name="lucide/arrow-left" size={16} />,
-  },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

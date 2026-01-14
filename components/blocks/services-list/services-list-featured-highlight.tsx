@@ -122,50 +122,6 @@ export interface ServicesListFeaturedHighlightProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListFeaturedHighlightService[] = [
-  {
-    iconName: "lucide/cog",
-    title: "Product Strategy",
-    description:
-      "Strategic planning and market positioning to ensure your product meets user needs and business goals.",
-    featured: false,
-    deliverables: ["Market Research", "User Personas", "Competitive Analysis"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design",
-    description:
-      "Beautiful, user-centered designs that create engaging experiences across all platforms.",
-    featured: true,
-    featuredBadge: "Popular",
-    deliverables: ["UI/UX Design", "Prototyping", "Design Systems", "User Testing"],
-    ctaText: "Get Started",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Modern, scalable web applications built with the latest technologies and best practices.",
-    featured: false,
-    deliverables: ["Frontend Dev", "Backend Dev", "API Integration"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/shrub",
-    title: "Marketing",
-    description:
-      "Data-driven strategies to launch successfully and scale your product efficiently.",
-    featured: false,
-    deliverables: ["SEO Strategy", "Analytics", "A/B Testing"],
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListFeaturedHighlight - A 2x2 grid layout with featured service highlighting.
  * Featured services display with a "Popular" badge, primary-colored styling, and enhanced visual treatment.
@@ -188,7 +144,7 @@ const defaultServices: ServicesListFeaturedHighlightService[] = [
 export function ServicesListFeaturedHighlight({
   heading = "Our Services",
   description = "Choose the service that best fits your needs. Our most popular option is highlighted.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

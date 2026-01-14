@@ -149,46 +149,6 @@ export interface ProcessScrollImageProps {
   ctaUrl?: string;
 }
 
-const defaultSteps: ProcessScrollImageItem[] = [
-  {
-    step: "01",
-    title: "Discover & Research",
-    image: imagePlaceholders[0],
-    description:
-      "We begin by understanding your business goals, target audience, and current challenges. This phase involves research, analysis, and strategic planning to identify opportunities.",
-  },
-  {
-    step: "02",
-    title: "Strategy & Planning",
-    image: imagePlaceholders[1],
-    description:
-      "Based on our findings, we develop a comprehensive strategy that aligns with your objectives. This includes defining the approach, timeline, and key milestones for success.",
-  },
-  {
-    step: "03",
-    title: "Execute & Develop",
-    image: imagePlaceholders[2],
-    description:
-      "We bring the strategy to life through careful implementation and development. Our team works collaboratively to ensure every detail meets your requirements and standards.",
-  },
-  {
-    step: "04",
-    title: "Optimize & Improve",
-    image: imagePlaceholders[3],
-    description:
-      "We continuously monitor performance and gather feedback to refine and improve the solution. This iterative process ensures long-term success and growth.",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get in touch",
-    href: "#contact",
-    variant: "ghost",
-    icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" />,
-  },
-];
-
 interface ProcessCardProps {
   step: ProcessScrollImageItem;
   index: number;
@@ -252,7 +212,7 @@ export function ProcessScrollImage({
   description = "We follow a proven methodology to deliver exceptional results for every project we undertake.",
   actions,
   actionsSlot,
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   contentClassName,

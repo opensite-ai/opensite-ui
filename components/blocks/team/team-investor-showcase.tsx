@@ -90,34 +90,6 @@ export interface TeamInvestorShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultInvestors: TeamInvestorShowcaseMember[] = [
-  {
-    name: "Dennis Bouvard",
-    company: "Blackbird Ventures",
-    image: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    name: "Renatus Gerard",
-    company: "Center Studies",
-    image: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    name: "Leslie Alexander",
-    company: "TechNexus",
-    image: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    name: "Matthew Stephens",
-    company: "Etymol Cap",
-    image: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    name: "Josephine Newman",
-    company: "Vandenberg",
-    image: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-];
-
 /**
  * TeamInvestorShowcase - Investor/advisor grid with company affiliations
  *
@@ -142,7 +114,7 @@ const defaultInvestors: TeamInvestorShowcaseMember[] = [
  */
 export function TeamInvestorShowcase({
   heading = "Our investors",
-  investors = defaultInvestors,
+  investors,
   investorsSlot,
   background = "white",
   spacing = "lg",

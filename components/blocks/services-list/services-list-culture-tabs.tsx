@@ -170,82 +170,6 @@ export interface ServicesListCultureTabsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAspects: ServicesListCultureTabsAspect[] = [
-  {
-    id: "innovation",
-    title: "Innovation Culture",
-    description:
-      "We foster a culture of innovation where creative thinking is encouraged and new ideas are celebrated. Our team is empowered to experiment and push boundaries.",
-    images: [
-      { src: imagePlaceholders[0], alt: "Innovation" },
-      { src: imagePlaceholders[1], alt: "Creativity" },
-      { src: imagePlaceholders[2], alt: "Ideas" },
-    ],
-    testimonial: {
-      quote:
-        "The freedom to innovate here has led to our most successful products. We're encouraged to explore new ideas without fear.",
-      author: "Sarah Chen",
-      role: "Product Designer",
-      avatar: {
-        src: blockBrandedIconsAndPlaceholders.avatar1,
-        alt: "Sarah Chen",
-      },
-    },
-  },
-  {
-    id: "collaboration",
-    title: "Collaborative Spirit",
-    description:
-      "Our collaborative culture fosters open communication and cross-functional teamwork. We believe diverse perspectives drive better outcomes.",
-    images: [
-      { src: imagePlaceholders[3], alt: "Collaboration" },
-      { src: imagePlaceholders[4], alt: "Teamwork" },
-      { src: imagePlaceholders[5], alt: "Communication" },
-    ],
-    testimonial: {
-      quote:
-        "The walls between teams don't exist here. Developers, designers, marketers—we all work together with mutual respect.",
-      author: "Marcus Johnson",
-      role: "Engineering Lead",
-      avatar: {
-        src: blockBrandedIconsAndPlaceholders.avatar2,
-        alt: "Marcus Johnson",
-      },
-    },
-  },
-  {
-    id: "growth",
-    title: "Continuous Growth",
-    description:
-      "Learning is embedded in our culture. We invest in professional development through mentorship, learning budgets, and career pathing.",
-    images: [
-      { src: imagePlaceholders[6], alt: "Growth" },
-      { src: imagePlaceholders[7], alt: "Learning" },
-      { src: imagePlaceholders[8], alt: "Development" },
-    ],
-    testimonial: {
-      quote:
-        "In three years, I've grown from a junior role to leading a team, supported every step of the way.",
-      author: "James Wilson",
-      role: "Marketing Director",
-      avatar: {
-        src: blockBrandedIconsAndPlaceholders.avatar3,
-        alt: "James Wilson",
-      },
-    },
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "View Open Positions",
-  href: "#",
-};
-
-const defaultSecondaryAction: ActionConfig = {
-  label: "Our Values",
-  href: "#",
-};
-
 /**
  * ServicesListCultureTabs - A tabbed layout showcasing company culture aspects with testimonials.
  * Each tab displays a culture aspect with description, image gallery, and employee testimonial.
@@ -271,13 +195,13 @@ export function ServicesListCultureTabs({
   badge = "Our Culture",
   heading = "What Makes Us Different",
   description = "Our culture defines how we work together and the values that guide our decisions.",
-  aspects = defaultAspects,
+  aspects,
   aspectsSlot,
   defaultValue,
   ctaTitle = "Join Our Team",
   ctaDescription = "We're always looking for talented individuals who share our values.",
-  primaryAction = defaultPrimaryAction,
-  secondaryAction = defaultSecondaryAction,
+  primaryAction,
+  secondaryAction,
   ctaSlot,
   className,
   containerClassName,

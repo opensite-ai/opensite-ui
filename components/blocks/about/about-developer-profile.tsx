@@ -105,31 +105,6 @@ export interface AboutDeveloperProfileProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSkills = [
-  "React",
-  "TypeScript",
-  "Node.js",
-  "Python",
-  "AWS",
-  "Docker",
-];
-
-const defaultSocialLinks: SocialLinkItem[] = [
-  { icon: <DynamicIcon name="lucide/github" size={24} />, href: "#", "aria-label": "GitHub" },
-  { icon: <DynamicIcon name="lucide/linkedin" size={24} />, href: "#", "aria-label": "LinkedIn" },
-  { icon: <DynamicIcon name="lucide/twitter" size={24} />, href: "#", "aria-label": "Twitter" },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get in Touch",
-    href: "#",
-    size: "lg",
-    variant: "default",
-    iconAfter: <DynamicIcon name="lucide/mail" size={16} className="ml-2" />,
-  },
-];
-
 export function AboutDeveloperProfile({
   name = "Alex Johnson",
   role = "Full-Stack Developer",
@@ -137,12 +112,12 @@ export function AboutDeveloperProfile({
 
 When I'm not coding, you can find me contributing to open-source projects, writing technical blog posts, or exploring new technologies. I believe in continuous learning and sharing knowledge with the developer community.`,
   avatar,
-  skills = defaultSkills,
+  skills,
   skillsSlot,
   skillsTitle = "Skills & Technologies",
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

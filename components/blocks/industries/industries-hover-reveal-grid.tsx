@@ -111,41 +111,6 @@ export interface IndustriesHoverRevealGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultIndustries: IndustryItem[] = [
-  {
-    name: "Healthcare",
-    description:
-      "Revolutionary medical solutions and digital health platforms that improve patient outcomes and streamline healthcare delivery.",
-    image: imagePlaceholders[0],
-    imageAlt: "Healthcare technology illustration",
-    url: "#",
-  },
-  {
-    name: "Fintech",
-    description:
-      "Cutting-edge financial technology solutions that transform banking, payments, and investment management for the digital age.",
-    image: imagePlaceholders[1],
-    imageAlt: "Financial technology illustration",
-    url: "#",
-  },
-  {
-    name: "E-commerce",
-    description:
-      "Comprehensive online retail platforms and marketplace solutions that drive sales and enhance customer experiences.",
-    image: imagePlaceholders[2],
-    imageAlt: "E-commerce platform illustration",
-    url: "#",
-  },
-  {
-    name: "Education",
-    description:
-      "Innovative learning management systems and educational technology that empower students and educators worldwide.",
-    image: imagePlaceholders[3],
-    imageAlt: "Educational technology illustration",
-    url: "#",
-  },
-];
-
 /**
  * IndustriesHoverRevealGrid displays a responsive grid of industry cards with animated hover effects.
  *
@@ -177,7 +142,7 @@ export function IndustriesHoverRevealGrid({
   heading = "Industries",
   headingSlot,
   industryLabel = "Overview",
-  industries = defaultIndustries,
+  industries,
   industriesSlot,
   className,
   containerClassName,

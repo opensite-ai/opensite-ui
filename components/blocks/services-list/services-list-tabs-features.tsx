@@ -114,61 +114,6 @@ export interface ServicesListTabsFeaturesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: ServicesListTabsFeaturesService[] = [
-  {
-    id: "development",
-    title: "Development",
-    description:
-      "Custom web and mobile applications built with modern technologies. We create scalable, performant solutions that drive business results.",
-    features: [
-      "React & Next.js Applications",
-      "Node.js Backend Services",
-      "Mobile App Development",
-      "API Design & Integration",
-    ],
-    image: { src: imagePlaceholders[0], alt: "Development" },
-  },
-  {
-    id: "design",
-    title: "Design",
-    description:
-      "User-centered design solutions that create engaging experiences. From research to high-fidelity prototypes, we design interfaces that convert.",
-    features: [
-      "User Research & Testing",
-      "Wireframing & Prototyping",
-      "Visual Design",
-      "Design Systems",
-    ],
-    image: { src: imagePlaceholders[1], alt: "Design" },
-  },
-  {
-    id: "marketing",
-    title: "Marketing",
-    description:
-      "Data-driven marketing strategies to grow your online presence. SEO, content marketing, and paid advertising that delivers ROI.",
-    features: [
-      "SEO Optimization",
-      "Content Strategy",
-      "Paid Advertising",
-      "Analytics & Reporting",
-    ],
-    image: { src: imagePlaceholders[2], alt: "Marketing" },
-  },
-  {
-    id: "consulting",
-    title: "Consulting",
-    description:
-      "Strategic guidance to help you make informed technology decisions. We help you plan, architect, and execute your digital initiatives.",
-    features: [
-      "Technology Assessment",
-      "Architecture Planning",
-      "Team Augmentation",
-      "Process Optimization",
-    ],
-    image: { src: imagePlaceholders[3], alt: "Consulting" },
-  },
-];
-
 /**
  * ServicesListTabsFeatures - A tabbed services layout with feature lists and images.
  * Users can switch between service categories using tabs, with each tab displaying
@@ -189,7 +134,7 @@ const defaultServices: ServicesListTabsFeaturesService[] = [
 export function ServicesListTabsFeatures({
   heading = "Our Services",
   description = "Explore our comprehensive range of digital services.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

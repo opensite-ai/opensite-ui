@@ -114,44 +114,6 @@ export interface ServicesListTableHoverProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultServices: ServicesListTableHoverService[] = [
-  {
-    title: "Web Development",
-    category: "Development",
-    description: "Custom websites and web applications",
-    image: { src: imagePlaceholders[0], alt: "Web Development" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Mobile Apps",
-    category: "Development",
-    description: "iOS and Android applications",
-    image: { src: imagePlaceholders[1], alt: "Mobile Apps" },
-    ctaUrl: "#",
-  },
-  {
-    title: "UI/UX Design",
-    category: "Design",
-    description: "User-centered design solutions",
-    image: { src: imagePlaceholders[2], alt: "UI/UX Design" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Brand Identity",
-    category: "Design",
-    description: "Logo and visual identity design",
-    image: { src: imagePlaceholders[3], alt: "Brand Identity" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Digital Marketing",
-    category: "Marketing",
-    description: "SEO and content marketing",
-    image: { src: imagePlaceholders[4], alt: "Digital Marketing" },
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListTableHover - A table-based services layout with cursor-following image preview on hover.
  * Services display as rows with category, title, description, and an arrow indicator.
@@ -172,7 +134,7 @@ const defaultServices: ServicesListTableHoverService[] = [
 export function ServicesListTableHover({
   heading = "Our Services",
   description = "Hover over any service to see a preview. Click to learn more.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

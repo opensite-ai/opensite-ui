@@ -171,53 +171,6 @@ export interface LinkPageMinimalProfileProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLinks: MinimalProfileLink[] = [
-  {
-    id: "1",
-    label: "Portfolio",
-    href: "https://example.com",
-    iconName: "lucide/briefcase",
-  },
-  {
-    id: "2",
-    label: "Blog",
-    href: "https://example.com/blog",
-    iconName: "lucide/pen-line",
-  },
-  {
-    id: "3",
-    label: "Contact",
-    href: "mailto:hello@example.com",
-    iconName: "lucide/mail",
-  },
-];
-
-const defaultSocialLinks: MinimalProfileSocialLink[] = [
-  {
-    id: "s1",
-    platform: "Twitter",
-    href: "https://twitter.com",
-    iconName: "simple-icons/x",
-  },
-  {
-    id: "s2",
-    platform: "GitHub",
-    href: "https://github.com",
-    iconName: "simple-icons/github",
-  },
-  {
-    id: "s3",
-    platform: "LinkedIn",
-    href: "https://linkedin.com",
-    iconName: "simple-icons/linkedin",
-  },
-];
-
-const defaultFooterAction: ActionConfig = {
-  label: "Powered by OpenSite",
-  href: "/",
-};
-
 /**
  * LinkPageMinimalProfile - A clean, minimal link page focused on simplicity.
  *
@@ -248,9 +201,9 @@ export function LinkPageMinimalProfile({
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar2,
   profileSlot,
-  links = defaultLinks,
+  links,
   linksSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   footerAction,
   footerSlot,

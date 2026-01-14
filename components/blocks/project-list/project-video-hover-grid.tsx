@@ -173,33 +173,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   );
 };
 
-const defaultVideoSections: ProjectVideoHoverGridItem[] = [
-  {
-    thumbnailSrc: imagePlaceholders[40],
-    videoSrc: videoPlaceholders[4],
-    studioName: "MERIDIAN FILMS",
-    projectTitle: "Coastal Reflections",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[41],
-    videoSrc: videoPlaceholders[5],
-    studioName: "ZENITH VISUALS",
-    projectTitle: "Ethereal Moments",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[42],
-    videoSrc: videoPlaceholders[6],
-    studioName: "NEXUS CREATIVE",
-    projectTitle: "Deserted Frontiers",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[43],
-    videoSrc: videoPlaceholders[7],
-    studioName: "PRISM STUDIOS",
-    projectTitle: "Nature's Symphony",
-  },
-];
-
 /**
  * ProjectVideoHoverGrid - Two-column video grid with hover-to-play functionality.
  *
@@ -213,7 +186,7 @@ const defaultVideoSections: ProjectVideoHoverGridItem[] = [
 export function ProjectVideoHoverGrid({
   heading = "Explore Our Projects",
   subheading = "Our Work",
-  videoSections = defaultVideoSections,
+  videoSections,
   videoSectionsSlot,
   optixFlowConfig,
   background,

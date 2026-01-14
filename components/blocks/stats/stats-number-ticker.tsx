@@ -136,32 +136,6 @@ export interface StatsNumberTickerProps {
   statDescriptionClassName?: string;
 }
 
-const defaultStats: TickerStat[] = [
-  {
-    value: 10000,
-    suffix: "+",
-    label: "Active Users",
-    description: "Growing community of professionals",
-  },
-  {
-    value: 99.9,
-    suffix: "%",
-    label: "Uptime",
-    description: "Enterprise-grade reliability",
-  },
-  {
-    value: 150,
-    suffix: "+",
-    label: "Integrations",
-    description: "Connect with your favorite tools",
-  },
-  {
-    value: 4.9,
-    label: "Rating",
-    description: "Based on 2,000+ reviews",
-  },
-];
-
 /**
  * Hook for number ticker animation with smooth digit transitions
  */
@@ -284,7 +258,7 @@ export function StatsNumberTicker({
   badgeSlot,
   heading = "Platform Statistics",
   description = "Key metrics that demonstrate our platform's scale and reliability",
-  stats = defaultStats,
+  stats,
   statsSlot,
   animationDuration = 2500,
   background = "white",

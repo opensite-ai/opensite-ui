@@ -124,72 +124,13 @@ export interface ProcessIconTimelineProps {
   title?: string;
 }
 
-const defaultSteps: ProcessIconTimelineItem[] = [
-  {
-    icon: "lucide/lightbulb",
-    title: "Discovery & Research",
-    description:
-      "We start by understanding your business, goals, and target audience through comprehensive research and analysis.",
-    highlights: ["Market Analysis", "User Research", "Competitive Review"],
-    badgeColor: "bg-blue-500",
-  },
-  {
-    icon: "lucide/pencil-ruler",
-    title: "Strategy & Planning",
-    description:
-      "Based on our findings, we develop a strategic roadmap that outlines the approach, timeline, and key deliverables.",
-    highlights: ["Project Roadmap", "Resource Planning", "Risk Assessment"],
-    badgeColor: "bg-purple-500",
-  },
-  {
-    icon: "lucide/code",
-    title: "Design & Development",
-    description:
-      "Our team brings the strategy to life through iterative design and development cycles with regular feedback loops.",
-    highlights: ["UI/UX Design", "Frontend Development", "Backend Integration"],
-    badgeColor: "bg-green-500",
-  },
-  {
-    icon: "lucide/test-tube",
-    title: "Testing & QA",
-    description:
-      "Rigorous testing ensures quality and reliability across all platforms and use cases before launch.",
-    highlights: ["Unit Testing", "Integration Testing", "User Acceptance"],
-    badgeColor: "bg-orange-500",
-  },
-  {
-    icon: "lucide/rocket",
-    title: "Launch & Deploy",
-    description:
-      "We handle the deployment process with care, ensuring a smooth transition to production environments.",
-    highlights: ["Deployment Strategy", "Performance Monitoring", "Go-Live Support"],
-    badgeColor: "bg-red-500",
-  },
-  {
-    icon: "lucide/bar-chart-3",
-    title: "Monitor & Optimize",
-    description:
-      "Post-launch, we continuously monitor performance and implement optimizations based on real-world data.",
-    highlights: ["Analytics Review", "Performance Tuning", "A/B Testing"],
-    badgeColor: "bg-teal-500",
-  },
-  {
-    icon: "lucide/refresh-cw",
-    title: "Iterate & Improve",
-    description:
-      "We believe in continuous improvement, regularly updating and enhancing based on user feedback and market changes.",
-    highlights: ["Feature Updates", "User Feedback", "Continuous Delivery"],
-    badgeColor: "bg-indigo-500",
-  },
-];
-
 /**
  * ProcessIconTimeline - A process section with icon-based timeline steps.
  */
 export function ProcessIconTimeline({
   heading = "Our Process",
   description = "A proven methodology that delivers exceptional results through careful planning and execution.",
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   contentClassName,

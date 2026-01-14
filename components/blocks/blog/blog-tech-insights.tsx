@@ -92,55 +92,14 @@ export interface BlogTechInsightsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSecondaryPosts: BlogPostItem[] = [
-  {
-    title: "Cloud Computing",
-    description:
-      "Exploring cost-effective cloud migration patterns and multi-cloud management",
-    image: imagePlaceholders[5],
-  },
-  {
-    title: "Cybersecurity",
-    description:
-      "Implementing adaptive security frameworks for distributed workforces",
-    image: imagePlaceholders[6],
-  },
-  {
-    title: "IoT",
-    description: "Reducing latency in smart city deployments through fog computing",
-    image: imagePlaceholders[7],
-  },
-  {
-    title: "Blockchain",
-    description:
-      "Enterprise applications of distributed ledger technology in supply chains",
-    image: imagePlaceholders[8],
-  },
-];
-
-const defaultFeaturedPost: BlogPostItem = {
-  title: "Next-Gen AI: Transforming Business Operations",
-  image: imagePlaceholders[4],
-  author: "Sarah Johnson",
-  authorRole: "AI Researcher",
-  authorAvatar: imagePlaceholders[10],
-};
-
-const defaultReadMoreAction: ActionConfig = {
-  label: "Read More",
-  href: "#",
-  variant: "outline",
-  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="h-4 w-4 md:h-6 md:w-6" />,
-};
-
 export function BlogTechInsights({
   heading = "Tech Insights",
   description = "Exploring cutting-edge technologies shaping tomorrow's digital landscape",
-  readMoreAction = defaultReadMoreAction,
+  readMoreAction,
   readMoreSlot,
-  featuredPost = defaultFeaturedPost,
+  featuredPost,
   featuredSlot,
-  secondaryPosts = defaultSecondaryPosts,
+  secondaryPosts,
   secondaryPostsSlot,
   className,
   containerClassName,

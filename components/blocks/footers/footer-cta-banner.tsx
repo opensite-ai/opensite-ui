@@ -147,47 +147,6 @@ export interface FooterCtaBannerProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: FooterCtaBannerSection[] = [
-  {
-    title: "Product",
-    links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About", href: "#" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
-      { name: "Advertise", href: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterCtaBannerSocialLink[] = [
-  { icon: "simple-icons/instagram", href: "#", label: "Instagram" },
-  { icon: "simple-icons/facebook", href: "#", label: "Facebook" },
-  { icon: "simple-icons/x", href: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-];
-
-const defaultLegalLinks = [
-  { name: "Terms and Conditions", href: "#" },
-  { name: "Privacy Policy", href: "#" },
-];
-
 /**
  * FooterCtaBanner - A dark-themed footer with prominent CTA banner, navigation, and newsletter.
  *
@@ -206,15 +165,15 @@ export function FooterCtaBanner({
   ctaDescription = "Join thousands of satisfied customers using our platform to build amazing websites.",
   ctaButtonText = "Get Started",
   ctaButtonUrl = "#",
-  sections = defaultSections,
-  socialLinks = defaultSocialLinks,
+  sections,
+  socialLinks,
   newsletterLabel = "Subscribe to our newsletter",
   newsletterPlaceholder = "Enter your email",
   newsletterButtonText = "Subscribe",
   copyright,
   attributionText = "AI Website and Automation Platform by Opensite",
   attributionHref = "https://opensite.ai",
-  legalLinks = defaultLegalLinks,
+  legalLinks,
   className,
   contentClassName,
   ctaBannerClassName,

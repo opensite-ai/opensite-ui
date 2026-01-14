@@ -130,61 +130,6 @@ export interface TeamBioBadgesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamBioBadgesMember[] = [
-  {
-    id: "member-1",
-    name: "Sarah Chen",
-    role: "CEO & Co-founder",
-    department: "Leadership",
-    bio: "Former Google PM with 10+ years building products that millions use daily. Passionate about creating meaningful impact through technology.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    social: {
-      github: "#",
-      twitter: "#",
-      linkedin: "#",
-    },
-  },
-  {
-    id: "member-2",
-    name: "Marcus Rodriguez",
-    role: "CTO & Co-founder",
-    department: "Engineering",
-    bio: "Ex-Meta engineer who led teams building infrastructure that served billions of users. Loves solving complex technical challenges.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    social: {
-      github: "#",
-      twitter: "#",
-      linkedin: "#",
-    },
-  },
-  {
-    id: "member-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    department: "Design",
-    bio: "Design leader with experience at Airbnb and Figma. Believes great design should be invisible and solve real user problems.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    social: {
-      github: "#",
-      twitter: "#",
-      linkedin: "#",
-    },
-  },
-  {
-    id: "member-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    department: "Engineering",
-    bio: "Built and scaled engineering teams at Stripe and Uber. Focuses on creating high-performing teams and robust systems.",
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    social: {
-      github: "#",
-      twitter: "#",
-      linkedin: "#",
-    },
-  },
-];
-
 /**
  * TeamBioBadges - Team grid with bios, department badges, and social links
  *
@@ -215,7 +160,7 @@ const defaultMembers: TeamBioBadgesMember[] = [
 export function TeamBioBadges({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

@@ -151,115 +151,6 @@ export interface NavbarImagePreviewProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavigation: MenuItem[] = [
-  {
-    title: "Products",
-    links: [
-      {
-        label: "Company Blog",
-        description: "Explore the latest insights and updates",
-        url: "#",
-        image: imagePlaceholders[0],
-      },
-      {
-        label: "Our Platform",
-        description: "Innovative tools to empower your workflow",
-        url: "#",
-        image: imagePlaceholders[1],
-      },
-      {
-        label: "Careers at Our Company",
-        description: "Discover open roles and our workplace culture",
-        url: "#",
-        image: imagePlaceholders[2],
-      },
-      {
-        label: "Customer Support",
-        description: "Reach out or browse community help articles",
-        url: "#",
-        image: imagePlaceholders[3],
-      },
-      {
-        label: "Product Documentation",
-        description: "In-depth guides, references, and API docs",
-        url: "#",
-        image: imagePlaceholders[4],
-      },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      {
-        label: "About Our Team",
-        url: "#",
-        description: "Learn more about our mission and values",
-        image: imagePlaceholders[5],
-      },
-      {
-        label: "Help & Support Center",
-        url: "#",
-        description: "Search our help center for quick answers",
-        image: imagePlaceholders[6],
-      },
-      {
-        label: "Latest News",
-        url: "#",
-        description: "Stay up to date with product announcements",
-        image: imagePlaceholders[7],
-      },
-    ],
-  },
-  {
-    title: "Contact",
-    url: "#",
-  },
-];
-
-const defaultMobileNavigation: MenuItem[] = [
-  {
-    title: "Products",
-    className: "col-span-2",
-    links: [
-      { label: "Company Blog", url: "#" },
-      { label: "Our Platform", url: "#" },
-      { label: "Careers at Our Company", url: "#" },
-      { label: "Customer Support", url: "#" },
-      { label: "Product Documentation", url: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    className: "",
-    links: [
-      { label: "About Our Team", url: "#" },
-      { label: "Help & Support Center", url: "#" },
-      { label: "Latest News", url: "#" },
-    ],
-  },
-  {
-    title: "Community",
-    className: "",
-    links: [
-      { label: "Forum", url: "#" },
-      { label: "Slack Group", url: "#" },
-      { label: "Contributors", url: "#" },
-      { label: "Meetups", url: "#" },
-    ],
-  },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Log in", href: "#", variant: "ghost" },
-  { label: "Sign up", href: "#", variant: "default" },
-];
-
-const defaultSocialLinks: SocialLink[] = [
-  { label: "Linkedin", url: "#", iconName: "lucide/linkedin" },
-  { label: "Twitter", url: "#", iconName: "lucide/twitter" },
-  { label: "Facebook", url: "#", iconName: "lucide/facebook" },
-];
-
 const MOBILE_BREAKPOINT = 1024;
 
 /**
@@ -284,13 +175,13 @@ export const NavbarImagePreview = ({
   },
   logoSlot,
   logoClassName,
-  navigation = defaultNavigation,
+  navigation,
   navigationSlot,
-  mobileNavigation = defaultMobileNavigation,
+  mobileNavigation,
   mobileNavigationSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   background = "white",
   spacing = "none",

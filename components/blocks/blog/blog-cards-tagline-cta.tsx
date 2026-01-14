@@ -85,56 +85,13 @@ export interface BlogCardsTaglineCtaProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    id: "post-1",
-    title: "Getting Started with Opensite AI Components",
-    summary:
-      "Learn how to quickly integrate and customize Opensite AI components in your Next.js projects. We'll cover installation, theming, and best practices for building modern interfaces.",
-    label: "Tutorial",
-    author: "Sarah Chen",
-    published: "1 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[0],
-  },
-  {
-    id: "post-2",
-    title: "Building Accessible Web Applications",
-    summary:
-      "Explore how to create inclusive web experiences using accessible components. Discover practical tips for implementing ARIA labels, keyboard navigation, and semantic HTML.",
-    label: "Accessibility",
-    author: "Marcus Rodriguez",
-    published: "1 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[1],
-  },
-  {
-    id: "post-3",
-    title: "Modern Design Systems with Tailwind CSS",
-    summary:
-      "Dive into creating scalable design systems using Tailwind CSS. Learn how to maintain consistency while building flexible and maintainable component libraries.",
-    label: "Design Systems",
-    author: "Emma Thompson",
-    published: "1 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[2],
-  },
-];
-
-const defaultCtaAction: ActionConfig = {
-  label: "View all articles",
-  href: "#",
-  variant: "link",
-  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-};
-
 export function BlogCardsTaglineCta({
   badge = "Latest Updates",
   heading = "Blog Posts",
   description = "Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.",
-  ctaAction = defaultCtaAction,
+  ctaAction,
   ctaSlot,
-  posts = defaultPosts,
+  posts,
   postsSlot,
   readMoreText = "Read more",
   className,

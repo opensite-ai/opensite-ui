@@ -71,33 +71,13 @@ export interface HeroConversationIntelligenceProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Try For Free",
-    href: "#",
-    variant: "default",
-    className: "block h-fit w-fit rounded-full px-6 py-3 text-base leading-normal font-medium",
-  },
-  {
-    label: "Book a Demo",
-    href: "#",
-    variant: "secondary",
-    className: "block h-fit w-fit rounded-full px-6 py-3 text-base leading-normal font-medium",
-  },
-];
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[16],
-  alt: "",
-};
-
 export function HeroConversationIntelligence({
   headingPrimary = "Conversation Intelligence",
   headingHighlight = "at Your Fingertips",
   description = "Grain automates note-taking, record-keeping, and insight capture, allowing you to focus on what matters most—coaching your team and closing deals.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   containerClassName,

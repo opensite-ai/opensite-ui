@@ -93,40 +93,12 @@ export interface HeroPricingComparisonProps {
   plansClassName?: string;
 }
 
-const defaultPlans: PricingPlan[] = [
-  {
-    name: "Starter",
-    description: "Perfect for individuals and small projects",
-    price: "$0",
-    pricePeriod: "/month",
-    action: { label: "Get started free", href: "#", variant: "outline", className: "mt-6 w-full" },
-    features: ["Up to 3 projects", "Basic analytics", "Community support"],
-  },
-  {
-    name: "Pro",
-    description: "For growing teams and businesses",
-    price: "$29",
-    pricePeriod: "/month",
-    action: { label: "Start free trial", href: "#", variant: "default", className: "mt-6 w-full" },
-    features: ["Unlimited projects", "Advanced analytics", "Priority support", "Custom integrations", "Team collaboration"],
-    isPopular: true,
-    popularBadge: "Most Popular",
-  },
-  {
-    name: "Enterprise",
-    description: "For large organizations with custom needs",
-    price: "Custom",
-    action: { label: "Contact sales", href: "#", variant: "outline", className: "mt-6 w-full" },
-    features: ["Everything in Pro", "Dedicated support", "SLA guarantee", "Custom contracts", "On-premise option"],
-  },
-];
-
 export function HeroPricingComparison({
   badgeText = "Simple Pricing",
   badgeSlot,
   heading = "Choose the plan that's right for you",
   description = "Start free and scale as you grow. No hidden fees, no surprises. Cancel anytime.",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   className,
   containerClassName,

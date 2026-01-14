@@ -62,21 +62,6 @@ export interface ProjectDetailHeroMetadataProps {
   heroImageClassName?: string;
 }
 
-const defaultProps: ProjectDetailHeroMetadataProps = {
-  title: "Project Title",
-  subtitle: "Creative Direction",
-  description:
-    "A comprehensive exploration of design principles and creative execution that pushes the boundaries of visual storytelling.",
-  year: "2024",
-  category: "Brand Identity",
-  client: "Client Name",
-  heroImage: {
-    src: imagePlaceholders[0],
-    alt: "Project hero image",
-  },
-  action: { label: "View Project", href: "#" },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },

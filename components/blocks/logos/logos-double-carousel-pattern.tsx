@@ -125,73 +125,6 @@ export interface LogosDoubleCarouselPatternProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultTopRowLogos: LogosDoubleCarouselPatternLogoItem[] = [
-  {
-    name: "Company 1",
-    logo: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
-  },
-  {
-    name: "Company 2",
-    logo: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
-  },
-  {
-    name: "Company 3",
-    logo: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
-  },
-  {
-    name: "Company 4",
-    logo: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
-  },
-  {
-    name: "Company 5",
-    logo: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
-  },
-  {
-    name: "Company 6",
-    logo: "https://cdn.ing/assets/files/record/286249/ff7m4wdw0zefj7d96v4ajmljuifc",
-  },
-];
-
-const defaultBottomRowLogos: LogosDoubleCarouselPatternLogoItem[] = [
-  {
-    name: "Company 7",
-    logo: "https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb",
-  },
-  {
-    name: "Company 8",
-    logo: "https://cdn.ing/assets/files/record/286251/c64yb2c255uig6vpe4gdlnten7rv",
-  },
-  {
-    name: "Company 9",
-    logo: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
-  },
-  {
-    name: "Company 10",
-    logo: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
-  },
-  {
-    name: "Company 11",
-    logo: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
-  },
-  {
-    name: "Company 12",
-    logo: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started",
-    href: "#",
-    variant: "default",
-  },
-  {
-    label: "Learn more",
-    href: "#",
-    variant: "outline",
-  },
-];
-
 /**
  * LogosDoubleCarouselPattern - A double-row logo carousel with pattern background.
  * Features two auto-scrolling rows moving in opposite directions with CTA buttons.
@@ -203,12 +136,12 @@ export function LogosDoubleCarouselPattern({
   description = "Join thousands of companies that rely on our platform to power their business operations and drive sustainable growth.",
   descriptionClassName,
   headerClassName,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   actionsClassName,
-  topRowLogos = defaultTopRowLogos,
+  topRowLogos,
   topRowLogosSlot,
-  bottomRowLogos = defaultBottomRowLogos,
+  bottomRowLogos,
   bottomRowLogosSlot,
   logosClassName,
   carouselItemClassName,

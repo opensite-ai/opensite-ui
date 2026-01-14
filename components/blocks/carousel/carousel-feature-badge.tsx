@@ -86,19 +86,11 @@ export interface CarouselFeatureBadgeProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: ImageItem[] = [
-  { src: imagePlaceholders[0], alt: "Platform Screenshot 1" },
-  { src: imagePlaceholders[1], alt: "Platform Screenshot 2" },
-  { src: imagePlaceholders[2], alt: "Platform Screenshot 3" },
-  { src: imagePlaceholders[3], alt: "Platform Screenshot 4" },
-  { src: imagePlaceholders[4], alt: "Platform Screenshot 5" },
-];
-
 export function CarouselFeatureBadge({
   badge = "Platform",
   heading = "This is the start of something new",
   description = "Managing a small business today is already tough. Avoid further complications by ditching outdated, tedious trade methods. Our goal is to streamline SMB trade, making it easier and faster than ever.",
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   containerClassName,

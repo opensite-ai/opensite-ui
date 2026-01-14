@@ -122,33 +122,6 @@ export interface TeamCompactCtaProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamCompactCtaMember[] = [
-  {
-    id: "member-1",
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    id: "member-2",
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    id: "member-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    id: "member-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-];
-
 /**
  * TeamCompactCta - Minimal team grid with prominent careers CTA
  *
@@ -174,7 +147,7 @@ const defaultMembers: TeamCompactCtaMember[] = [
 export function TeamCompactCta({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  members = defaultMembers,
+  members,
   membersSlot,
   ctaButtonText = "Join Our Team",
   ctaButtonUrl = "#",

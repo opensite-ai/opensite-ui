@@ -104,37 +104,6 @@ export interface ServicesListIconGridProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListIconGridService[] = [
-  {
-    iconName: "lucide/cog",
-    title: "Product Strategy",
-    description:
-      "Strategic planning and market positioning to ensure your product meets user needs and business goals.",
-    items: ["Market Research", "User Personas", "Competitive Analysis"],
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design",
-    description:
-      "Beautiful, user-centered designs that create engaging experiences across all platforms.",
-    items: ["UI/UX Design", "Prototyping", "Interaction Design"],
-  },
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Modern, scalable web applications built with the latest technologies and best practices.",
-    items: ["Frontend Dev", "Backend Dev", "API Integration"],
-  },
-  {
-    iconName: "lucide/shrub",
-    title: "Marketing",
-    description:
-      "Data-driven strategies to launch successfully and scale your product efficiently.",
-    items: ["SEO Strategy", "Analytics & Data", "A/B Testing"],
-  },
-];
-
 /**
  * ServicesListIconGrid - A 2x2 grid layout displaying services with icons, titles, descriptions, and bullet point items.
  * Each service card features a circular icon, bold title, descriptive text, and a list of included items.
@@ -156,7 +125,7 @@ const defaultServices: ServicesListIconGridService[] = [
 export function ServicesListIconGrid({
   heading = "Services",
   description = "We craft digital experiences that captivate and convert, bringing your vision to life.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

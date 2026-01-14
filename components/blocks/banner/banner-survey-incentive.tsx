@@ -88,14 +88,6 @@ export interface BannerSurveyIncentiveProps {
   dismissButtonClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Take Survey",
-    href: "#",
-    size: "sm",
-  },
-];
-
 /**
  * BannerSurveyIncentive - A survey invitation banner with shopping bag icon and incentive offer.
  *
@@ -119,7 +111,7 @@ export function BannerSurveyIncentive({
   iconName = "mynaui/shopping-bag",
   title = "Help us improve!",
   description = "Take our 2-minute survey and get 20% off your next purchase.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   onDismiss,
   dismissIcon,

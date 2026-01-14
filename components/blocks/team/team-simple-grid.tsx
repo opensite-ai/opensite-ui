@@ -103,45 +103,6 @@ export interface TeamSimpleGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamSimpleGridMember[] = [
-  {
-    id: "member-1",
-    name: "Sarah Chen",
-    role: "CEO & Founder",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    id: "member-2",
-    name: "Marcus Rodriguez",
-    role: "CTO",
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    id: "member-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    id: "member-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    id: "member-5",
-    name: "Emma Thompson",
-    role: "Head of Marketing",
-    avatar: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-  {
-    id: "member-6",
-    name: "Alex Johnson",
-    role: "Head of Sales",
-    avatar: blockBrandedIconsAndPlaceholders.avatar6,
-  },
-];
-
 /**
  * TeamSimpleGrid - Clean, minimal team grid with avatars
  *
@@ -164,7 +125,7 @@ const defaultMembers: TeamSimpleGridMember[] = [
 export function TeamSimpleGrid({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  members = defaultMembers,
+  members,
   membersSlot,
   background = "white",
   spacing = "lg",

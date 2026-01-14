@@ -135,42 +135,6 @@ export interface TeamGridAnimatedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamGridAnimatedMember[] = [
-  {
-    name: "Sarah Chen",
-    designation: "CEO & Founder",
-    imageSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    socialLinks: [
-      { icon: "lucide/twitter", href: "#" },
-      { icon: "lucide/linkedin", href: "#" },
-    ],
-  },
-  {
-    name: "Marcus Rodriguez",
-    designation: "CTO",
-    imageSrc: blockBrandedIconsAndPlaceholders.avatar2,
-    socialLinks: [
-      { icon: "lucide/github", href: "#" },
-      { icon: "lucide/linkedin", href: "#" },
-    ],
-  },
-  {
-    name: "Priya Patel",
-    designation: "Head of Design",
-    imageSrc: blockBrandedIconsAndPlaceholders.avatar3,
-    socialLinks: [
-      { icon: "lucide/twitter", href: "#" },
-      { icon: "lucide/linkedin", href: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinksMain: TeamGridAnimatedSocialLink[] = [
-  { icon: "lucide/twitter", href: "#" },
-  { icon: "lucide/linkedin", href: "#" },
-  { icon: "lucide/github", href: "#" },
-];
-
 /**
  * TeamGridAnimated - Team grid with animated hover effects and background pattern
  *
@@ -200,12 +164,12 @@ const defaultSocialLinksMain: TeamGridAnimatedSocialLink[] = [
 export function TeamGridAnimated({
   title = "TEAM",
   description = "Meet the talented individuals guiding our vision and driving innovation.",
-  members = defaultMembers,
+  members,
   membersSlot,
   registerLink,
   registerButtonText = "REGISTER NOW",
   logo,
-  socialLinksMain = defaultSocialLinksMain,
+  socialLinksMain,
   socialLinksMainSlot,
   background = "white",
   spacing = "lg",

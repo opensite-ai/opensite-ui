@@ -43,64 +43,6 @@ export interface PricingFeatureMatrixProps {
   featureCategories?: FeatureCategory[];
 }
 
-const defaultPlans: PricingPlan[] = [
-  {
-    name: "Starter",
-    monthlyPrice: 19,
-    yearlyPrice: 190,
-    description: "For individuals",
-    buttonText: "Get Started",
-    buttonHref: "#",
-  },
-  {
-    name: "Professional",
-    monthlyPrice: 49,
-    yearlyPrice: 490,
-    description: "For teams",
-    buttonText: "Start Trial",
-    buttonHref: "#",
-    isPopular: true,
-  },
-  {
-    name: "Enterprise",
-    monthlyPrice: 99,
-    yearlyPrice: 990,
-    description: "For organizations",
-    buttonText: "Contact Sales",
-    buttonHref: "#",
-  },
-];
-
-const defaultFeatureCategories: FeatureCategory[] = [
-  {
-    name: "Core Features",
-    features: [
-      { name: "Projects", starter: "5", professional: "Unlimited", enterprise: "Unlimited" },
-      { name: "Team members", starter: "1", professional: "10", enterprise: "Unlimited" },
-      { name: "Storage", starter: "5GB", professional: "100GB", enterprise: "Unlimited" },
-      { name: "API requests", tooltip: "Monthly API request limit", starter: "1,000", professional: "100,000", enterprise: "Unlimited" },
-    ],
-  },
-  {
-    name: "Collaboration",
-    features: [
-      { name: "Real-time editing", starter: true, professional: true, enterprise: true },
-      { name: "Comments", starter: true, professional: true, enterprise: true },
-      { name: "Version history", starter: false, professional: true, enterprise: true },
-      { name: "Guest access", starter: false, professional: true, enterprise: true },
-    ],
-  },
-  {
-    name: "Security",
-    features: [
-      { name: "Two-factor auth", starter: true, professional: true, enterprise: true },
-      { name: "SSO", tooltip: "Single Sign-On", starter: false, professional: false, enterprise: true },
-      { name: "Audit logs", starter: false, professional: false, enterprise: true },
-      { name: "Custom security policies", starter: false, professional: false, enterprise: true },
-    ],
-  },
-];
-
 /**
  * PricingFeatureMatrix displays a comprehensive pricing comparison with collapsible feature categories.
  * Features a tabs-based monthly/yearly toggle, tooltips for feature explanations, and organized feature groups.
@@ -123,8 +65,8 @@ export function PricingFeatureMatrix({
   className,
   title = "Compare Plans",
   subtitle = "Find the perfect plan for your needs",
-  plans = defaultPlans,
-  featureCategories = defaultFeatureCategories,
+  plans,
+  featureCategories,
 }: PricingFeatureMatrixProps) {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(

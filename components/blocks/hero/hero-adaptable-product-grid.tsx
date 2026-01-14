@@ -71,19 +71,10 @@ export interface HeroAdaptableProductGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Consult with an Expert",
-  href: "#",
-  variant: "default",
-  size: "lg",
-  className: "mt-12",
-  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-};
-
 export function HeroAdaptableProductGrid({
   heading = "The Perfectly Adaptable Product for Your Business",
   description = "It delivers unique and customizable products designed for your business. Say farewell to rigid options, lengthy launch times, and branding limitations. Embrace a product that evolves with your needs and fuels your innovation. Highnote is the adaptable solution for your business.",
-  action = defaultAction,
+  action,
   actionSlot,
   imageSrc = logoPlaceholders.logoMark,
   imageAlt = "placeholder",

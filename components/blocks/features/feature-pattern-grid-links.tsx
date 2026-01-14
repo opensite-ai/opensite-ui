@@ -88,57 +88,6 @@ export interface FeaturePatternGridLinksProps {
   cardClassName?: string;
 }
 
-const defaultFeatures: FeaturePatternGridLinksItem[] = [
-  {
-    iconName: "lucide/zoom-in",
-    title: "Quality",
-    description:
-      "Our UI blocks are designed with quality in mind. We make sure that every block is pixel perfect and visually appealing.",
-    link: "#",
-    linkLabel: "Learn more",
-  },
-  {
-    iconName: "lucide/blocks",
-    title: "Customizable",
-    description:
-      "You can easily customize our UI blocks to fit your needs. Change colors, fonts, and more with our easy-to-use interface.",
-    link: "#",
-    linkLabel: "Learn more",
-  },
-  {
-    iconName: "lucide/laptop",
-    title: "Responsive",
-    description:
-      "Our UI blocks are fully responsive and look great on any device. No matter the screen size, your website will look amazing.",
-    link: "#",
-    linkLabel: "Learn more",
-  },
-  {
-    iconName: "lucide/list-end",
-    title: "Easy to Use",
-    description:
-      "Our UI blocks are easy to use and require no coding knowledge. Simply drag and drop the blocks you want and you are good to go.",
-    link: "#",
-    linkLabel: "Learn more",
-  },
-  {
-    iconName: "lucide/zap",
-    title: "Fast",
-    description:
-      "Our UI blocks are optimized for speed and performance. Your website will load fast and provide a great user experience.",
-    link: "#",
-    linkLabel: "Learn more",
-  },
-  {
-    iconName: "lucide/infinity",
-    title: "Modern",
-    description:
-      "Our UI blocks are designed with modern trends in mind. Your website will look fresh and up-to-date with our blocks.",
-    link: "#",
-    linkLabel: "Learn more",
-  },
-];
-
 /**
  * Feature Pattern Grid Links - Six-feature grid with pattern background and
  * "Learn more" links on each card.
@@ -157,7 +106,7 @@ const defaultFeatures: FeaturePatternGridLinksItem[] = [
  * ```
  */
 export function FeaturePatternGridLinks({
-  features = defaultFeatures,
+  features,
   featuresSlot,
   patternUrl = patternSvgs.dotPattern,
   className,

@@ -116,20 +116,10 @@ export interface CarouselPortfolioHeroProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSlides: PortfolioSlide[] = [
-  { id: 1, image: imagePlaceholders[0], title: "Web Design Portfolio", description: "Clean, modern interfaces that prioritize user experience and functionality", tag: "UI/UX Design" },
-  { id: 2, image: imagePlaceholders[1], title: "Branding & Identity", description: "Crafting memorable brand identities that tell your unique story", tag: "Brand Design" },
-  { id: 3, image: imagePlaceholders[2], title: "Photography Projects", description: "Capturing moments and emotions through a creative lens", tag: "Photography" },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "View Projects", href: "#", size: "lg", className: "min-w-[150px]" },
-];
-
 export function CarouselPortfolioHero({
-  slides = defaultSlides,
+  slides,
   slidesSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   autoPlayInterval = 5000,
   className,

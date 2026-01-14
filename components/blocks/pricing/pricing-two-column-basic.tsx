@@ -231,40 +231,6 @@ export interface PricingTwoColumnBasicProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingTwoColumnBasicPlan[] = [
-  {
-    name: "Basic",
-    monthlyPrice: "$19",
-    yearlyPrice: "$190",
-    description: "Essential features for individuals",
-    features: [
-      { text: "5 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-      { text: "2GB storage" },
-      { text: "API access" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline", size: "lg" },
-  },
-  {
-    name: "Pro",
-    monthlyPrice: "$49",
-    yearlyPrice: "$490",
-    description: "Advanced features for teams",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "50GB storage" },
-      { text: "API access" },
-      { text: "Custom integrations" },
-      { text: "Team collaboration" },
-    ],
-    action: { label: "Start Free Trial", href: "#", variant: "default", size: "lg" },
-    badge: "Most Popular",
-  },
-];
-
 /**
  * PricingTwoColumnBasic displays two pricing plans in a clean two-column layout with radio toggle.
  * Features a monthly/yearly toggle with badge highlighting for the recommended plan.
@@ -291,7 +257,7 @@ export function PricingTwoColumnBasic({
   yearlyLabel = "Yearly",
   monthlyInterval = "/month",
   yearlyInterval = "/year",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

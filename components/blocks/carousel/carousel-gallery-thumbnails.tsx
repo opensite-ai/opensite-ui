@@ -104,16 +104,8 @@ export interface CarouselGalleryThumbnailsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: GalleryImage[] = [
-  { src: imagePlaceholders[0], alt: "Gallery image 1", width: 1470, height: 980 },
-  { src: imagePlaceholders[1], alt: "Gallery image 2", width: 1470, height: 980 },
-  { src: imagePlaceholders[2], alt: "Gallery image 3", width: 1470, height: 980 },
-  { src: imagePlaceholders[3], alt: "Gallery image 4", width: 1470, height: 980 },
-  { src: imagePlaceholders[4], alt: "Gallery image 5", width: 1470, height: 980 },
-];
-
 export function CarouselGalleryThumbnails({
-  images = defaultImages,
+  images,
   imagesSlot,
   autoPlay = true,
   autoPlayInterval = 5000,

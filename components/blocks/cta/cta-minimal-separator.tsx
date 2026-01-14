@@ -67,10 +67,6 @@ export interface CtaMinimalSeparatorProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
 /**
  * CtaMinimalSeparator - A minimal CTA section with centered text and a single
  * button flanked by horizontal separators. Ultra-clean design for subtle
@@ -88,7 +84,7 @@ const defaultActions: ActionConfig[] = [
  */
 export function CtaMinimalSeparator({
   text = "Ready to get started? Sign up for a free trial today.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

@@ -65,16 +65,6 @@ export interface BannerEventPromoProps {
   actionsClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Register now",
-    href: "#",
-    variant: "ghost",
-    size: "sm",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-  },
-];
-
 /**
  * BannerEventPromo - An event promotion banner with primary background and registration CTA.
  *
@@ -96,7 +86,7 @@ export function BannerEventPromo({
   eventName = "GeneriCon 2024",
   eventDetails = "Join us in Denver from June 7 - 9 to see what's coming next.",
   separator,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

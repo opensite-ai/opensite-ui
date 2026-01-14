@@ -68,43 +68,6 @@ export interface ProjectDetailCaseStudyProseProps {
   sectionsClassName?: string;
 }
 
-const defaultSections: SectionItem[] = [
-  {
-    id: "challenge",
-    title: "The Challenge",
-    content:
-      "The client needed a complete brand overhaul that would resonate with modern consumers while maintaining their heritage. We approached this challenge by conducting extensive market research and stakeholder interviews to understand the core values that needed to be preserved.",
-  },
-  {
-    id: "process",
-    title: "The Process",
-    content:
-      "Our design process involved multiple iterations of concept development, from initial sketches to refined digital mockups. We collaborated closely with the client team to ensure every element aligned with their vision and business objectives.",
-  },
-  {
-    id: "outcome",
-    title: "The Outcome",
-    content:
-      "The final brand identity successfully bridges tradition and innovation, resulting in a 40% increase in brand recognition and positive customer feedback. The new visual system has been implemented across all touchpoints.",
-  },
-];
-
-const defaultProps: ProjectDetailCaseStudyProseProps = {
-  title: "Pure Pressed",
-  subtitle: "Brand Identity & Packaging Design",
-  year: "2024",
-  category: "Branding",
-  client: "Pure Pressed Juicery",
-  heroImage: {
-    src: imagePlaceholders[7],
-    alt: "Pure Pressed brand identity showcase",
-  },
-  overview:
-    "A comprehensive brand identity project for an organic cold-pressed juice company, focusing on sustainability and wellness.",
-  sections: defaultSections,
-  backAction: { label: "Back to Projects", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

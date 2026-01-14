@@ -193,37 +193,6 @@ export interface CtaCaseStudyTestimonialProps {
   badgeText?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Read Full Case Study", href: "#", variant: "default", size: "lg" },
-  { label: "Schedule a Demo", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultSections: CtaCaseStudySection[] = [
-  {
-    iconName: "lucide/maximize",
-    title: "The Challenge",
-    description:
-      "Managing multiple projects across distributed teams with outdated tools led to miscommunication and missed deadlines.",
-  },
-  {
-    iconName: "lucide/check-circle",
-    title: "The Solution",
-    description:
-      "Implementing our comprehensive platform unified communication, streamlined workflows, and provided real-time tracking capabilities.",
-  },
-  {
-    iconName: "lucide/activity",
-    title: "The Results",
-    description:
-      "200% increase in productivity, 50% reduction in meeting time, and 30% faster project completion.",
-  },
-];
-
-const defaultStats: CtaCaseStudyStat[] = [
-  { value: "200%", label: "Productivity Increase" },
-  { value: "30%", label: "Faster Project Delivery" },
-];
-
 /**
  * CtaCaseStudyTestimonial - A comprehensive case study CTA with testimonial quote,
  * challenge/solution/results breakdown, stats cards, and video thumbnail. Perfect
@@ -248,14 +217,14 @@ export function CtaCaseStudyTestimonial({
   badgeText = "Case Study",
   heading = "How TechNova transformed their workflow",
   description = "See how TechNova achieved 200% productivity increase and 30% faster project delivery with our platform.",
-  sections = defaultSections,
+  sections,
   sectionsSlot,
   testimonialQuote = "The platform transformed how our teams collaborate. We've eliminated silos and can now deliver projects with unprecedented speed and quality.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   featuredImage = imagePlaceholders[16],
   featuredImageAlt = "Team collaborating on the platform",
-  stats = defaultStats,
+  stats,
   statsSlot,
   companyLogo = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo7,
   companyName = "TechNova",

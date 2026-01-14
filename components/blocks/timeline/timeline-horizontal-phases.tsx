@@ -102,41 +102,10 @@ export interface TimelineHorizontalPhasesProps {
   };
 }
 
-const defaultPhases: TimelinePhase[] = [
-  {
-    id: 0,
-    date: "January 15, 2024",
-    title: "Phase I",
-    description:
-      "Initial data collection and model architecture design for the AI system.",
-  },
-  {
-    id: 1,
-    date: "March 30, 2024",
-    title: "Phase II",
-    description:
-      "Model training and validation with core dataset implementation.",
-  },
-  {
-    id: 2,
-    date: "June 15, 2024",
-    title: "Phase III",
-    description:
-      "Integration of advanced features and performance optimization.",
-  },
-  {
-    id: 3,
-    date: "September 1, 2024",
-    title: "Phase IV",
-    description:
-      "Final testing, deployment, and continuous improvement system launch.",
-  },
-];
-
 export function TimelineHorizontalPhases({
   heading = "Timeline",
   currentPhase = 2,
-  phases = defaultPhases,
+  phases,
   className,
   containerClassName,
   headingClassName,

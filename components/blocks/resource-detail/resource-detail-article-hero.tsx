@@ -306,66 +306,6 @@ const defaultBlogContent = (
   </>
 );
 
-const defaultShareActions: ActionConfig[] = [
-  {
-    icon: <DynamicIcon name="lucide/link" size={16} />,
-    href: "#",
-    "aria-label": "Copy link",
-    variant: "outline",
-    size: "icon",
-  },
-  {
-    icon: <DynamicIcon name="lucide/linkedin" size={16} />,
-    href: "#",
-    "aria-label": "Share on LinkedIn",
-    variant: "outline",
-    size: "icon",
-  },
-  {
-    icon: <DynamicIcon name="lucide/twitter" size={16} />,
-    href: "#",
-    "aria-label": "Share on X",
-    variant: "outline",
-    size: "icon",
-  },
-  {
-    icon: <DynamicIcon name="lucide/facebook" size={16} />,
-    href: "#",
-    "aria-label": "Share on Facebook",
-    variant: "outline",
-    size: "icon",
-  },
-];
-
-const defaultNavigation: ResourceDetailArticleHeroNavigation = {
-  backText: "All Articles",
-  backHref: "/resources",
-  backIcon: <DynamicIcon name="lucide/arrow-left" size={16} />,
-};
-
-const defaultBlog: ResourceDetailArticleHeroBlog = {
-  title:
-    "Building Sustainable Web Applications: A Developer's Guide to Green Coding",
-  author: "Sarah Chen",
-  date: "December 15, 2024",
-  readTime: "8 min read",
-  role: "Senior Developer",
-  imageSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  content: defaultBlogContent,
-};
-
-const defaultIllustration: ResourceDetailArticleHeroIllustration = {
-  imageSrc: blockBrandedIconsAndPlaceholders.placeholder2,
-  imageAlt:
-    "Sustainable web development illustration showing green coding practices and environmental impact",
-};
-
-const defaultAuthor: AuthorInfo = {
-  name: "Sarah Chen",
-  role: "Senior Developer",
-  avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-};
-
 /**
  * ResourceDetailArticleHero - A full-width article hero with dark background,
  * navigation back link, title, author info, social sharing, and featured image.
@@ -399,21 +339,21 @@ const defaultAuthor: AuthorInfo = {
  */
 export function ResourceDetailArticleHero({
   className,
-  navigation = defaultNavigation,
+  navigation,
   navigationSlot,
   navigationClassName,
-  blog = defaultBlog,
+  blog,
   blogMetaSlot,
   blogMetaClassName,
   titleClassName,
-  shareActions = defaultShareActions,
+  shareActions,
   shareActionsSlot,
   shareActionsClassName,
   shareHeading = "Share this article",
-  illustration = defaultIllustration,
+  illustration,
   illustrationSlot,
   illustrationClassName,
-  author = defaultAuthor,
+  author,
   authorSlot,
   authorClassName,
   contentClassName,

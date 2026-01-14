@@ -91,65 +91,17 @@ export interface HeroEnterpriseSecurityProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Request a demo",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "View security docs",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
-  {
-    iconName: "lucide/lock",
-    title: "End-to-end encryption",
-    description: "All data is encrypted at rest and in transit using AES-256",
-    iconBgClass: "bg-green-100",
-    iconColorClass: "text-green-600",
-  },
-  {
-    iconName: "lucide/key",
-    title: "SSO & SAML",
-    description: "Integrate with your existing identity provider",
-    iconBgClass: "bg-blue-100",
-    iconColorClass: "text-blue-600",
-  },
-  {
-    iconName: "lucide/eye",
-    title: "Audit logs",
-    description: "Complete visibility into all account activity",
-    iconBgClass: "bg-purple-100",
-    iconColorClass: "text-purple-600",
-  },
-];
-
-const defaultLogos: LogoItem[] = [
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "h-8 opacity-50 grayscale" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "h-8 opacity-50 grayscale" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "h-8 opacity-50 grayscale" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "h-8 opacity-50 grayscale" },
-  { src: logoPlaceholders.darkHorizontalLogo, alt: "", className: "h-8 opacity-50 grayscale" },
-];
-
 export function HeroEnterpriseSecurity({
   badgeText = "Enterprise-grade security",
   badgeIcon = "lucide/shield-check",
   badgeSlot,
   heading = "Security that scales with your business",
   description = "Protect your data with industry-leading security features. SOC 2 Type II certified, GDPR compliant, and trusted by Fortune 500 companies.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
-  logos = defaultLogos,
+  logos,
   logosSlot,
   className,
   containerClassName,

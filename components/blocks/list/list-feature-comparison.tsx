@@ -167,51 +167,6 @@ export interface ListFeatureComparisonProps {
   patternOpacity?: number;
 }
 
-const defaultFeatures: ListFeatureComparisonFeature[] = [
-  { name: "Unlimited Projects", basic: false, pro: true, enterprise: true },
-  { name: "Team Collaboration", basic: false, pro: true, enterprise: true },
-  { name: "Advanced Analytics", basic: false, pro: false, enterprise: true },
-  { name: "Priority Support", basic: false, pro: true, enterprise: true },
-  { name: "Custom Integrations", basic: false, pro: false, enterprise: true },
-  { name: "API Access", basic: true, pro: true, enterprise: true },
-  { name: "Data Export", basic: true, pro: true, enterprise: true },
-  { name: "Mobile App", basic: false, pro: true, enterprise: true },
-];
-
-const defaultTrustIndicators: ListFeatureComparisonTrustIndicator[] = [
-  {
-    icon: "lucide/users",
-    title: "50,000+ Users",
-    description: "Join our growing community",
-  },
-  {
-    icon: "lucide/check",
-    title: "99.9% Uptime",
-    description: "Reliable service guaranteed",
-  },
-  {
-    icon: "lucide/shield-check",
-    title: "Secure & Compliant",
-    description: "GDPR and SOC 2 certified",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Compare All Features",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-];
-
 /**
  * ListFeatureComparison - A hero-style feature comparison table with pricing tiers,
  * trust indicators, and call-to-action buttons. Displays features across Basic, Pro,
@@ -247,7 +202,7 @@ export function ListFeatureComparison({
   headingClassName,
   description = "From startups to enterprises, we have a plan that scales with your business. Compare features and find your fit.",
   descriptionClassName,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   planHeaders = {
     feature: "Feature",
@@ -255,10 +210,10 @@ export function ListFeatureComparison({
     pro: "Pro",
     enterprise: "Enterprise",
   },
-  actions = defaultActions,
+  actions,
   actionsSlot,
   actionsClassName,
-  trustIndicators = defaultTrustIndicators,
+  trustIndicators,
   trustIndicatorsSlot,
   trustIndicatorsClassName,
   trustIndicatorClassName,

@@ -92,62 +92,6 @@ export interface ProjectDetailArchitectureCarouselProps {
   enableLightbox?: boolean;
 }
 
-const defaultCarouselImages: ImageItem[] = [
-  { src: imagePlaceholders[49], alt: "Architecture view 1" },
-  { src: imagePlaceholders[50], alt: "Architecture view 2" },
-  { src: imagePlaceholders[51], alt: "Architecture view 3" },
-  { src: imagePlaceholders[52], alt: "Architecture view 4" },
-];
-
-const defaultSections: ProjectDetailArchitectureCarouselSection[] = [
-  {
-    title: "Design Philosophy",
-    content:
-      "The design embraces a philosophy of contextual modernism, where contemporary architectural language responds to and enhances the surrounding urban fabric. Every element serves both functional and aesthetic purposes.",
-  },
-  {
-    title: "Sustainability",
-    content:
-      "Environmental responsibility is woven into every aspect of the design, from passive solar strategies to rainwater harvesting systems. The building achieves LEED Platinum certification.",
-  },
-];
-
-const defaultGridImages: ImageItem[] = [
-  { src: imagePlaceholders[53], alt: "Detail 1" },
-  { src: imagePlaceholders[54], alt: "Detail 2" },
-  { src: imagePlaceholders[55], alt: "Detail 3" },
-];
-
-const defaultProps: ProjectDetailArchitectureCarouselProps = {
-  title: "The Meridian Tower",
-  subtitle: "Mixed-Use Development",
-  year: "2024",
-  category: "Architecture",
-  location: "New York, NY",
-  heroImage: {
-    src: imagePlaceholders[56],
-    alt: "The Meridian Tower exterior",
-  },
-  description:
-    "A landmark mixed-use development that redefines urban living through innovative design and sustainable practices. The tower rises 45 stories, featuring residential units, commercial spaces, and public amenities.",
-  carouselImages: defaultCarouselImages,
-  sections: defaultSections,
-  gridImages: defaultGridImages,
-  backAction: {
-    label: "Back to Projects",
-    href: "/projects",
-    icon: <DynamicIcon name="lucide/arrow-left" size={16} />,
-  },
-  videoUrl:
-    "https://cdn.ing/assets/files/record/286359/architecture-presentation.mp4",
-  videoPoster: imagePlaceholders[49],
-  pdfUrl:
-    "https://cdn.ing/assets/files/record/286359/5fv7u23rr648t363fy2ibs61sflg",
-  showVideoTab: true,
-  showPdfTab: true,
-  enableLightbox: true,
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -156,8 +100,8 @@ const fadeInUp = {
 };
 
 export function ProjectDetailArchitectureCarousel(
-  props: ProjectDetailArchitectureCarouselProps,
-): React.JSX.Element {
+  props: ProjectDetailArchitectureCarouselProps)
+: React.JSX.Element {
   const {
     title = defaultProps.title,
     subtitle = defaultProps.subtitle,

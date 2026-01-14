@@ -93,24 +93,6 @@ export interface ComparisonImageCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultOptionA: OptionCard = {
-  image: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-  imageAlt: "Option 1",
-  title: "Option 1",
-  description: "Let our expert team handle everything for you. We'll manage the entire development process from start to finish, delivering a polished solution tailored to your exact specifications.",
-  ctaText: "Get Started",
-  ctaHref: "#",
-};
-
-const defaultOptionB: OptionCard = {
-  image: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-  imageAlt: "Option 2",
-  title: "Option 2",
-  description: "Take control of your project with our comprehensive self-service platform. Access powerful tools and resources to build your solution at your own pace with expert guidance when needed.",
-  ctaText: "Get Started",
-  ctaHref: "#",
-};
-
 /**
  * ComparisonImageCards - Two image cards with "OR" divider
  *
@@ -125,8 +107,8 @@ const defaultOptionB: OptionCard = {
 export function ComparisonImageCards({
   heading = "Old vs New",
   description = "Compare the difference between the original and the new way of doing things.",
-  optionA = defaultOptionA,
-  optionB = defaultOptionB,
+  optionA,
+  optionB,
   dividerText = "OR",
   cardsSlot,
   className,

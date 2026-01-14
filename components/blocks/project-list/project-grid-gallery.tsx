@@ -74,63 +74,6 @@ export interface ProjectGridGalleryProps {
   descriptionClassName?: string;
 }
 
-const defaultImages: ProjectGridGalleryItem[] = [
-  {
-    src: imagePlaceholders[5],
-    alt: "Woman reading in a sunlit meadow",
-    title: "Morning Reflections",
-    description: "A peaceful start as sunlight filters through the grass.",
-  },
-  {
-    src: imagePlaceholders[6],
-    alt: "Majestic sandstone cliffs at dusk",
-    title: "Twilight Cliffs",
-    description: "Golden hour paints the rocks in warm hues.",
-  },
-  {
-    src: imagePlaceholders[7],
-    alt: "Rolling hills under a cloudy sky",
-    title: "Misty Highlands",
-    description: "Clouds drift lazily over emerald slopes.",
-  },
-  {
-    src: imagePlaceholders[8],
-    alt: "Smiling woman with a bouquet",
-    title: "Joyful Gathering",
-    description: "Laughter and flowers fill the afternoon air.",
-  },
-  {
-    src: imagePlaceholders[9],
-    alt: "Portrait with a cold stare",
-    title: "Cold Stare",
-    description: "Water carves its story through ancient stone.",
-  },
-  {
-    src: imagePlaceholders[10],
-    alt: "Portrait turned to the side",
-    title: "Turned to the Side",
-    description: "First light awakens the silent mountains.",
-  },
-  {
-    src: imagePlaceholders[11],
-    alt: "Vibrant torii gates in a forest path",
-    title: "Path of Vermilion",
-    description: "A journey marked by tradition and color.",
-  },
-  {
-    src: imagePlaceholders[12],
-    alt: "Serene Japanese rock garden",
-    title: "Zen Harmony",
-    description: "Stones and sand arranged for mindful balance.",
-  },
-  {
-    src: imagePlaceholders[13],
-    alt: "Crackling campfire under stars",
-    title: "Starlit Stories",
-    description: "Tales and warmth shared by the firelight.",
-  },
-];
-
 /**
  * ProjectGridGallery - Three-column responsive grid gallery with hover effects.
  *
@@ -141,7 +84,7 @@ const defaultImages: ProjectGridGalleryItem[] = [
  * Responsive design collapses to single column on mobile.
  */
 export function ProjectGridGallery({
-  images = defaultImages,
+  images,
   imagesSlot,
   optixFlowConfig,
   background,

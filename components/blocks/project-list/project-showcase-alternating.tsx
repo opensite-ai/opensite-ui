@@ -70,30 +70,6 @@ export interface ProjectShowcaseAlternatingProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectShowcaseAlternatingItem[] = [
-  {
-    title: "MOSAIC",
-    description:
-      "A vibrant fusion of city lights and digital artistry, this installation transforms urban landscapes into interactive canvases, inviting viewers to become part of the evolving masterpiece.",
-    imagePath: imagePlaceholders[60],
-    imageAlt: "Modern digital art installation",
-  },
-  {
-    title: "IDENTITY REIMAGINED",
-    description:
-      "A bold rebranding journey, where classic design principles meet contemporary flair. This project breathes new life into established brands, crafting visual stories that resonate across every platform.",
-    imagePath: imagePlaceholders[61],
-    imageAlt: "Brand design mockups and materials",
-  },
-  {
-    title: "SERENITY SPACES",
-    description:
-      "An exploration of harmony between architecture and human experience. This concept blends natural materials and open layouts to create environments that inspire calm and creativity.",
-    imagePath: imagePlaceholders[62],
-    imageAlt: "Architectural interior design concept",
-  },
-];
-
 /**
  * ProjectShowcaseAlternating - Elegant alternating layout with large images and descriptive text.
  *
@@ -106,7 +82,7 @@ const defaultProjects: ProjectShowcaseAlternatingItem[] = [
  */
 export function ProjectShowcaseAlternating({
   heading = "PROJECT SHOWCASE",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

@@ -129,69 +129,6 @@ export interface BlurVignetteGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: BlurVignetteGridImage[] = [
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    alt: "Gallery image 1",
-    colSpan: 2,
-    height: "h-82",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    alt: "Gallery image 2",
-    colSpan: 3,
-    height: "h-82",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    alt: "Gallery image 3",
-    colSpan: 5,
-    height: "h-100",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    alt: "Gallery image 4",
-    colSpan: 2,
-    height: "h-82",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    alt: "Gallery image 5",
-    colSpan: 3,
-    height: "h-82",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    alt: "Gallery image 6",
-    colSpan: 3,
-    height: "h-82",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    alt: "Gallery image 7",
-    colSpan: 2,
-    height: "h-82",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    alt: "Gallery image 8",
-    colSpan: 5,
-    height: "h-100",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    alt: "Gallery image 9",
-    colSpan: 2,
-    height: "h-82",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    alt: "Gallery image 10",
-    colSpan: 3,
-    height: "h-82",
-  },
-];
-
 interface BlurVignetteProps {
   children: React.ReactNode;
   className?: string;
@@ -307,7 +244,7 @@ function BlurVignette({
  * ```
  */
 export function BlurVignetteGrid({
-  images = defaultImages,
+  images,
   imagesSlot,
   vignetteConfig,
   gridColumns = 5,

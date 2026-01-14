@@ -118,24 +118,6 @@ export interface AboutNetworkSpotlightProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultHighlights = [
-  "Maintain full independence while accessing shared expertise.",
-  "Unlock partner-only resources and specialized carrier access.",
-  "Deliver stronger advocacy with OpenSite AI intelligence.",
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Learn More", href: "/network", size: "lg", variant: "default" },
-  { label: "Visit OpenSite AI", href: "https://opensite.ai", size: "lg", variant: "secondary" },
-];
-
-const defaultSpotlightCard = {
-  icon: <DynamicIcon name="lucide/network" size={22} />,
-  label: "OpenSite AI Network",
-  title: "Built for independent advisors",
-  description: "A trusted network where agencies collaborate to deliver better outcomes.",
-};
-
 /**
  * AboutNetworkSpotlight - Dark spotlight section with image overlay and CTA.
  * Ideal for partner programs, network invitations, or alliance highlights.
@@ -144,15 +126,15 @@ export function AboutNetworkSpotlight({
   eyebrow = "Partner Network",
   heading = "Join the OpenSite AI Partner Network",
   description = "A curated community of independent advisors and agencies that share resources, intelligence, and proven coverage playbooks.",
-  highlights = defaultHighlights,
+  highlights,
   highlightsSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   image = {
     src: imagePlaceholders[24],
     alt: "OpenSite AI partner network spotlight",
   },
-  spotlightCard = defaultSpotlightCard,
+  spotlightCard,
   spotlightCardSlot,
   className,
   contentClassName,

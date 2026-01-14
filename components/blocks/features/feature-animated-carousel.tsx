@@ -308,33 +308,6 @@ const FeaturesMobile = ({
   );
 };
 
-const defaultFeatures: FeatureAnimatedCarouselItem[] = [
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-    title: "Intuitive Interface",
-    description:
-      "Our user-friendly design makes it easy for anyone to get started quickly without a steep learning curve.",
-  },
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder2,
-    title: "Powerful Analytics",
-    description:
-      "Gain deep insights into your data with our comprehensive analytics dashboard and reporting tools.",
-  },
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder3,
-    title: "Seamless Integration",
-    description:
-      "Connect with your favorite tools and services through our extensive library of integrations.",
-  },
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder4,
-    title: "Enterprise Security",
-    description:
-      "Rest easy knowing your data is protected with bank-level encryption and compliance certifications.",
-  },
-];
-
 /**
  * Feature Animated Carousel - Interactive feature showcase with animated transitions
  * between feature cards and corresponding images.
@@ -357,7 +330,7 @@ const defaultFeatures: FeatureAnimatedCarouselItem[] = [
  * ```
  */
 export function FeatureAnimatedCarousel({
-  features = defaultFeatures,
+  features,
   className,
   optixFlowConfig,
 }: FeatureAnimatedCarouselProps) {

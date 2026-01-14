@@ -63,26 +63,12 @@ export interface HeroAgencyAnimatedImagesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Book a Demo",
-  href: "#",
-  variant: "default",
-  className: "block h-fit w-fit rounded-lg px-7 py-3.5 text-lg font-medium transition-all duration-300 hover:-translate-y-1",
-};
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[120], alt: "" },
-  { src: imagePlaceholders[121], alt: "" },
-  { src: imagePlaceholders[122], alt: "" },
-  { src: imagePlaceholders[123], alt: "" },
-];
-
 export function HeroAgencyAnimatedImages({
   heading = "Revolutionize your business operations",
   subheading = "The ultimate platform to unlock your agency's capabilities.",
-  action = defaultAction,
+  action,
   actionSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

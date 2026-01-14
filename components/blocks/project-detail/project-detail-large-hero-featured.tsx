@@ -70,54 +70,6 @@ export interface ProjectDetailLargeHeroFeaturedProps {
   galleryClassName?: string;
 }
 
-const defaultDetails: DetailItem[] = [
-  { label: "Client", value: "Acme Corporation" },
-  { label: "Industry", value: "Technology" },
-  { label: "Services", value: "Brand Strategy, Visual Identity" },
-  { label: "Year", value: "2024" },
-];
-
-const defaultSections: ProjectDetailLargeHeroFeaturedSection[] = [
-  {
-    title: "The Challenge",
-    content:
-      "Acme Corporation needed to reposition their brand for the modern market while maintaining the trust and recognition they had built over decades. The challenge was to create a visual identity that felt both innovative and established.",
-  },
-  {
-    title: "Our Approach",
-    content:
-      "We conducted extensive research into the competitive landscape and stakeholder expectations. Through collaborative workshops, we identified the core values that would drive the new brand direction.",
-  },
-  {
-    title: "The Solution",
-    content:
-      "The resulting brand system balances heritage with innovation, using a refined color palette and contemporary typography to signal evolution while maintaining brand equity.",
-  },
-];
-
-const defaultGalleryImages: ImageItem[] = [
-  { src: imagePlaceholders[69], alt: "Case study image 1" },
-  { src: imagePlaceholders[70], alt: "Case study image 2" },
-];
-
-const defaultProps: ProjectDetailLargeHeroFeaturedProps = {
-  title: "Transforming Acme's Digital Presence",
-  subtitle:
-    "A comprehensive brand refresh that positioned Acme Corporation as a leader in innovation while honoring their established legacy.",
-  heroImage: {
-    src: imagePlaceholders[71],
-    alt: "Acme Corporation brand showcase",
-  },
-  details: defaultDetails,
-  sections: defaultSections,
-  galleryImages: defaultGalleryImages,
-  backAction: {
-    label: "Back to Projects",
-    href: "/projects",
-    icon: <DynamicIcon name="lucide/arrow-left" size={16} />,
-  },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

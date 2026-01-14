@@ -173,13 +173,6 @@ export interface CtaNewsletterFeaturesProps {
   onError?: (error: Error) => void;
 }
 
-const defaultFeatures: CtaNewsletterFeature[] = [
-  { iconName: "lucide/check", text: "Weekly insights and tips" },
-  { iconName: "lucide/check", text: "Exclusive content and offers" },
-  { iconName: "lucide/check", text: "Early access to new features" },
-  { iconName: "lucide/check", text: "Unsubscribe anytime" },
-];
-
 /**
  * CtaNewsletterFeatures - A newsletter subscription CTA with badge, heading,
  * email form, and a list of subscription benefits. Encourages sign-ups by
@@ -205,7 +198,7 @@ export function CtaNewsletterFeatures({
   description = "Get the latest updates, tips, and exclusive content delivered straight to your inbox. Join thousands of subscribers.",
   emailPlaceholder = "Enter your email",
   buttonText = "Subscribe",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   formSlot,
   className,

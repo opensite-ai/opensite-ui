@@ -124,44 +124,6 @@ export interface NavbarFeatureGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureItem[] = [
-  {
-    title: "Dashboard",
-    description: "Overview of your activity",
-    href: "#",
-  },
-  {
-    title: "Analytics",
-    description: "Track your performance",
-    href: "#",
-  },
-  {
-    title: "Settings",
-    description: "Configure your preferences",
-    href: "#",
-  },
-  {
-    title: "Integrations",
-    description: "Connect with other tools",
-    href: "#",
-  },
-  {
-    title: "Storage",
-    description: "Manage your files",
-    href: "#",
-  },
-  {
-    title: "Support",
-    description: "Get help when needed",
-    href: "#",
-  },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Sign in", href: "#", variant: "outline", asButton: true },
-  { label: "Start for free", href: "#", asButton: true },
-];
-
 /**
  * NavbarFeatureGrid - A responsive navigation bar with a two-column feature grid dropdown.
  *
@@ -184,8 +146,8 @@ export const NavbarFeatureGrid = ({
     title: "Opensite AI",
   },
   logoSlot,
-  features = defaultFeatures,
-  authActions = defaultAuthActions,
+  features,
+  authActions,
   authActionsSlot,
   background = "white",
   spacing = "sm",
