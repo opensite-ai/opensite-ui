@@ -23,4 +23,30 @@ describe("HeroTherapyTestimonialGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroTherapyTestimonialGrid />);
+    expect(screen.getByText("Compassionate Care for Your Mental Wellness Journey")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroTherapyTestimonialGrid heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroTherapyTestimonialGrid description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroTherapyTestimonialGrid actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroTherapyTestimonialGrid className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

@@ -28,4 +28,30 @@ describe("HeroSoftwareGrowthVideoDialog", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroSoftwareGrowthVideoDialog />);
+    expect(screen.getByText("Fast websites for startups")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroSoftwareGrowthVideoDialog heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroSoftwareGrowthVideoDialog description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroSoftwareGrowthVideoDialog actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroSoftwareGrowthVideoDialog className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
