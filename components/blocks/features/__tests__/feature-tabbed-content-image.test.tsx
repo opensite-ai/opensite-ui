@@ -22,4 +22,34 @@ describe("FeatureTabbedContentImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureTabbedContentImage />);
+    expect(screen.getByText("Building Better Digital Experiences")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureTabbedContentImage title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureTabbedContentImage description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders slides when provided", () => {
+    const slides = [
+      { id: 1, tabName: "Tab One", title: "Slide One Title" },
+      { id: 2, tabName: "Tab Two", title: "Slide Two Title" },
+    ];
+    render(<FeatureTabbedContentImage slides={slides} />);
+    expect(screen.getByText("Tab One")).toBeInTheDocument();
+    expect(screen.getByText("Tab Two")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureTabbedContentImage className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
