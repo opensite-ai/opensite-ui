@@ -24,4 +24,35 @@ describe("FeatureCapabilitiesGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureCapabilitiesGrid />);
+    expect(screen.getByText("[ CAPABILITIES ]")).toBeInTheDocument();
+    expect(screen.getByText("Models that adapt to your coverage strategy")).toBeInTheDocument();
+  });
+
+  it("renders custom eyebrow", () => {
+    render(<FeatureCapabilitiesGrid eyebrow="Custom Eyebrow" />);
+    expect(screen.getByText("Custom Eyebrow")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<FeatureCapabilitiesGrid heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders items when provided", () => {
+    const items = [
+      { title: "Item One", description: "Description one" },
+      { title: "Item Two", description: "Description two" },
+    ];
+    render(<FeatureCapabilitiesGrid items={items} />);
+    expect(screen.getByText("Item One")).toBeInTheDocument();
+    expect(screen.getByText("Item Two")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureCapabilitiesGrid className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

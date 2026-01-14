@@ -22,4 +22,35 @@ describe("FeatureBentoImageGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureBentoImageGrid />);
+    expect(screen.getByText("Dynamic Layouts")).toBeInTheDocument();
+    expect(screen.getByText("Adapt the box to suit any purpose")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureBentoImageGrid title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureBentoImageGrid description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders items when provided", () => {
+    const items = [
+      { title: "Item One", iconBadge: "Badge One", size: "large" as const },
+      { title: "Item Two", iconBadge: "Badge Two" },
+    ];
+    render(<FeatureBentoImageGrid items={items} />);
+    expect(screen.getByText("Item One")).toBeInTheDocument();
+    expect(screen.getByText("Item Two")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureBentoImageGrid className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

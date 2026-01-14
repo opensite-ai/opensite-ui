@@ -22,4 +22,35 @@ describe("FeatureImageOverlayBadge", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureImageOverlayBadge />);
+    expect(screen.getByText("Modern Tactics")).toBeInTheDocument();
+    expect(screen.getByText("Make your site a true standout.")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<FeatureImageOverlayBadge badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureImageOverlayBadge title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders overlay title", () => {
+    render(<FeatureImageOverlayBadge overlayTitle="Custom Overlay Title" />);
+    expect(screen.getByText("Custom Overlay Title")).toBeInTheDocument();
+  });
+
+  it("renders avatar badge text", () => {
+    render(<FeatureImageOverlayBadge avatarBadgeText="Custom Avatar Badge" />);
+    expect(screen.getByText("Custom Avatar Badge")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureImageOverlayBadge className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
