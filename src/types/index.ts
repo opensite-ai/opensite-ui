@@ -48,6 +48,7 @@ export type SectionBackground =
   | "gradient"
   | "primary"
   | "secondary"
+  | "transparent"
   | "muted";
 
 /**

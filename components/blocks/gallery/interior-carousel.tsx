@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import {
   Carousel,
   CarouselContent,
@@ -166,6 +167,29 @@ export function InteriorCarousel({
   patternClassName,
   optixFlowConfig,
 }: InteriorCarouselProps): React.JSX.Element {
+  const [lightboxOpen, setLightboxOpen] = React.useState(false);
+  const [lightboxIndex, setLightboxIndex] = React.useState(0);
+
+  // Convert images to lightbox items
+  const lightboxItems: LightboxItem[] = React.useMemo(() => {
+    if (!images || images.length === 0) return [];
+    return images.map((image, index) => {
+      const src = typeof image === "string" ? image : image.src;
+      const alt = typeof image === "string" ? "Interior design" : (image.alt || "Interior design");
+      return {
+        id: `interior-carousel-${index}-${src.slice(-8)}`,
+        src,
+        alt,
+        type: "image" as const
+      };
+    });
+  }, [images]);
+
+  const handleImageClick = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
   const renderDescription = () => {
     if (typeof description === "string") {
       const descriptionLines = description.split("\n");
@@ -193,9 +217,10 @@ export function InteriorCarousel({
           <Img
             src={src}
             alt={alt}
-            className={cn("aspect-[3.8/5] w-full rounded-xl object-cover", imageClassName, itemClass)}
+            className={cn("aspect-[3.8/5] w-full rounded-xl object-cover cursor-pointer transition-opacity hover:opacity-90", imageClassName, itemClass)}
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
+            onClick={() => handleImageClick(index)}
           />
         </CarouselItem>
       );
@@ -237,6 +262,20 @@ export function InteriorCarousel({
           <CarouselNext className={cn("right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50", controlsClassName)} />
         </Carousel>
       </div>
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxOpen(false)}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            counter: true,
+            closeButton: true,
+            captions: true,
+          }}
+        />
+      )}
     </Section>
   );
 }
