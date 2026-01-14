@@ -18,4 +18,30 @@ describe("HeroNewsletterMinimal", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroNewsletterMinimal />);
+    expect(screen.getByText("Stay ahead of the curve")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroNewsletterMinimal heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroNewsletterMinimal description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroNewsletterMinimal actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroNewsletterMinimal className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

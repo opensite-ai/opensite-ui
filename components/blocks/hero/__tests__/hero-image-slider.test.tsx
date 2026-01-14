@@ -43,4 +43,30 @@ describe("HeroImageSlider", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroImageSlider />);
+    expect(screen.getByText("A hero slider that keeps your message front and center")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroImageSlider heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroImageSlider description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroImageSlider actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroImageSlider className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
