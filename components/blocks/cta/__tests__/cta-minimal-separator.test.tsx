@@ -12,4 +12,27 @@ describe("CtaMinimalSeparator", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaMinimalSeparator />);
+    expect(screen.getByText("Ready to get started? Sign up for a free trial today.")).toBeInTheDocument();
+  });
+
+  it("renders custom text", () => {
+    render(<CtaMinimalSeparator text="Custom text content" />);
+    expect(screen.getByText("Custom text content")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Sign Up", href: "/signup", variant: "default" as const },
+    ];
+    render(<CtaMinimalSeparator actions={actions} />);
+    expect(screen.getByText("Sign Up")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaMinimalSeparator className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

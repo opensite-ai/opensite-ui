@@ -22,4 +22,42 @@ describe("ContactHelpCenter", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<ContactHelpCenter />);
+    expect(screen.getByText("Support Center")).toBeInTheDocument();
+    expect(screen.getByText("Need help navigating coverage decisions?")).toBeInTheDocument();
+    expect(screen.getByText("Contact Our Team")).toBeInTheDocument();
+  });
+
+  it("renders custom eyebrow", () => {
+    render(<ContactHelpCenter eyebrow="Help Desk" />);
+    expect(screen.getByText("Help Desk")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<ContactHelpCenter heading="How can we help you today?" />);
+    expect(screen.getByText("How can we help you today?")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<ContactHelpCenter description="Our team is ready to assist you" />);
+    expect(screen.getByText("Our team is ready to assist you")).toBeInTheDocument();
+  });
+
+  it("renders contact items", () => {
+    const contactItems = [
+      { title: "Email Support", subtitle: "support@example.com", icon: "lucide/mail" },
+      { title: "Phone Support", subtitle: "1-800-123-4567", icon: "lucide/phone" },
+    ];
+    render(<ContactHelpCenter contactItems={contactItems} />);
+    expect(screen.getByText("Email Support")).toBeInTheDocument();
+    expect(screen.getByText("support@example.com")).toBeInTheDocument();
+    expect(screen.getByText("Phone Support")).toBeInTheDocument();
+  });
+
+  it("applies custom className to section", () => {
+    const { container } = render(<ContactHelpCenter className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

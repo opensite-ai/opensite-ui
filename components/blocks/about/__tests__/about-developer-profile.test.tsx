@@ -29,4 +29,47 @@ describe("AboutDeveloperProfile", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutDeveloperProfile />);
+    expect(screen.getByText("Alex Johnson")).toBeInTheDocument();
+    expect(screen.getByText("Full-Stack Developer")).toBeInTheDocument();
+    expect(screen.getByText(/I'm a passionate full-stack developer/)).toBeInTheDocument();
+  });
+
+  it("renders custom name", () => {
+    render(<AboutDeveloperProfile name="Custom Name" />);
+    expect(screen.getByText("Custom Name")).toBeInTheDocument();
+  });
+
+  it("renders custom role", () => {
+    render(<AboutDeveloperProfile role="Custom Role" />);
+    expect(screen.getByText("Custom Role")).toBeInTheDocument();
+  });
+
+  it("renders custom bio", () => {
+    render(<AboutDeveloperProfile bio="Custom bio text" />);
+    expect(screen.getByText("Custom bio text")).toBeInTheDocument();
+  });
+
+  it("renders skills when provided", () => {
+    const skills = ["React", "TypeScript", "Node.js"];
+    render(<AboutDeveloperProfile skills={skills} />);
+    expect(screen.getByText("React")).toBeInTheDocument();
+    expect(screen.getByText("TypeScript")).toBeInTheDocument();
+    expect(screen.getByText("Node.js")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Contact Me", href: "/contact", variant: "default" as const },
+    ];
+    render(<AboutDeveloperProfile actions={actions} />);
+    expect(screen.getByText("Contact Me")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutDeveloperProfile className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

@@ -30,4 +30,30 @@ describe("StatsGrowthTimeline", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<StatsGrowthTimeline />);
+    expect(screen.getByText("Our Journey")).toBeInTheDocument();
+    expect(screen.getByText("Growing From Startup to Industry Leader")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<StatsGrowthTimeline badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<StatsGrowthTimeline heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<StatsGrowthTimeline description="Custom description" />);
+    expect(screen.getByText("Custom description")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<StatsGrowthTimeline className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

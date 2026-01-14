@@ -32,4 +32,32 @@ describe("HeroTechCarousel", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroTechCarousel />);
+    expect(screen.getByText("Install with one Command")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroTechCarousel heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroTechCarousel description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders technologies when provided", () => {
+    const technologies = [
+      { name: "React", icon: "react", description: "A JavaScript library" },
+    ];
+    render(<HeroTechCarousel technologies={technologies} />);
+    expect(screen.getByText("React")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroTechCarousel className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

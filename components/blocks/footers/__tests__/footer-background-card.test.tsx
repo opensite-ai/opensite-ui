@@ -18,4 +18,30 @@ describe("FooterBackgroundCard", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FooterBackgroundCard />);
+    expect(screen.getByText("Let's Connect")).toBeInTheDocument();
+    expect(screen.getByText("Contact")).toBeInTheDocument();
+  });
+
+  it("renders custom tagline", () => {
+    render(<FooterBackgroundCard tagline="Custom Tagline" />);
+    expect(screen.getByText("Custom Tagline")).toBeInTheDocument();
+  });
+
+  it("renders custom personal message", () => {
+    render(<FooterBackgroundCard personalMessage="Custom message" />);
+    expect(screen.getByText("Custom message")).toBeInTheDocument();
+  });
+
+  it("renders custom CTA text", () => {
+    render(<FooterBackgroundCard ctaText="Book a meeting" />);
+    expect(screen.getByText("Book a meeting")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FooterBackgroundCard className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

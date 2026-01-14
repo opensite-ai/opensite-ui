@@ -30,4 +30,42 @@ describe("CarouselIconSidebar", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    const { container } = render(<CarouselIconSidebar />);
+    expect(container.querySelector("section")).toBeInTheDocument();
+  });
+
+  it("renders items when provided", () => {
+    const items = [
+      {
+        src: "https://example.com/image.jpg",
+        title: "Elegant Design",
+        description: "Beautiful interfaces that users love",
+        icon: "lucide/palette",
+      },
+    ];
+    render(<CarouselIconSidebar items={items} />);
+    expect(screen.getByText("Elegant Design")).toBeInTheDocument();
+    expect(screen.getByText("Beautiful interfaces that users love")).toBeInTheDocument();
+  });
+
+  it("renders carousel navigation", () => {
+    const items = [
+      {
+        src: "https://example.com/image.jpg",
+        title: "Test",
+        description: "Test description",
+        icon: "lucide/star",
+      },
+    ];
+    render(<CarouselIconSidebar items={items} />);
+    expect(screen.getByTestId("carousel-next")).toBeInTheDocument();
+    expect(screen.getByTestId("carousel-prev")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CarouselIconSidebar className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

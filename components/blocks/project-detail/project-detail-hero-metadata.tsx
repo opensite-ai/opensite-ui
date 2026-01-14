@@ -80,14 +80,14 @@ export function ProjectDetailHeroMetadata(
   props: ProjectDetailHeroMetadataProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    description = defaultProps.description,
-    year = defaultProps.year,
-    category = defaultProps.category,
-    client = defaultProps.client,
-    heroImage = defaultProps.heroImage,
-    action = defaultProps.action,
+    title,
+    subtitle,
+    description,
+    year,
+    category,
+    client,
+    heroImage,
+    action,
     actionSlot,
     optixFlowConfig,
     background = "white",

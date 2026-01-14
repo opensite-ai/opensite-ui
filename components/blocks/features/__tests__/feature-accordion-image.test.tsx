@@ -22,4 +22,34 @@ describe("FeatureAccordionImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureAccordionImage />);
+    expect(screen.getByText("How It Works")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureAccordionImage title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureAccordionImage description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders accordion items when provided", () => {
+    const items = [
+      { title: "Step One", content: "Content one" },
+      { title: "Step Two", content: "Content two" },
+    ];
+    render(<FeatureAccordionImage items={items} />);
+    expect(screen.getByText("Step One")).toBeInTheDocument();
+    expect(screen.getByText("Step Two")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureAccordionImage className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

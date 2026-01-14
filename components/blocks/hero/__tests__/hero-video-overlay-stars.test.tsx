@@ -28,4 +28,31 @@ describe("HeroVideoOverlayStars", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroVideoOverlayStars />);
+    expect(screen.getByText("Liberate yourself from phone interruptions")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroVideoOverlayStars heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders action when provided", () => {
+    const action = { label: "Get Started", href: "/start" };
+    render(<HeroVideoOverlayStars action={action} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("renders trust section when provided", () => {
+    const trust = { starCount: 5, message: "Trusted by thousands" };
+    render(<HeroVideoOverlayStars trust={trust} />);
+    expect(screen.getByText("Trusted by thousands")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroVideoOverlayStars className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

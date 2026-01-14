@@ -28,4 +28,40 @@ describe("FeatureSplitImageReverse", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureSplitImageReverse />);
+    expect(screen.getByText("Build faster with Opensite AI components")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureSplitImageReverse title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureSplitImageReverse description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders image with correct alt text", () => {
+    render(<FeatureSplitImageReverse imageAlt="Custom alt text" />);
+    const img = screen.getByTestId("mock-img");
+    expect(img).toHaveAttribute("alt", "Custom alt text");
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "default" as const },
+      { label: "Learn More", href: "/learn", variant: "outline" as const },
+    ];
+    render(<FeatureSplitImageReverse actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureSplitImageReverse className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

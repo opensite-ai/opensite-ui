@@ -18,4 +18,30 @@ describe("FooterContactCard", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FooterContactCard />);
+    expect(screen.getByText("Let's work together")).toBeInTheDocument();
+    expect(screen.getByText("Follow Us")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<FooterContactCard heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom email", () => {
+    render(<FooterContactCard email="test@example.com" />);
+    expect(screen.getByText("test@example.com")).toBeInTheDocument();
+  });
+
+  it("renders custom phone", () => {
+    render(<FooterContactCard phone="+1 (555) 987-6543" />);
+    expect(screen.getByText("+1 (555) 987-6543")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FooterContactCard className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

@@ -26,4 +26,30 @@ describe("HeroAgencyAnimatedImages", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroAgencyAnimatedImages />);
+    expect(screen.getByText("Revolutionize your business operations")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroAgencyAnimatedImages heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom subheading", () => {
+    render(<HeroAgencyAnimatedImages subheading="Custom Subheading" />);
+    expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
+  });
+
+  it("renders action when provided", () => {
+    const action = { label: "Get Started", href: "/start", variant: "default" as const };
+    render(<HeroAgencyAnimatedImages action={action} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroAgencyAnimatedImages className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

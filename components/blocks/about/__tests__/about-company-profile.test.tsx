@@ -23,4 +23,38 @@ describe("AboutCompanyProfile", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutCompanyProfile />);
+    expect(screen.getByText("About Us")).toBeInTheDocument();
+    expect(screen.getByText(/Opensite AI is a passionate team/)).toBeInTheDocument();
+    expect(screen.getByText("Our Achievements in Numbers")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<AboutCompanyProfile title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<AboutCompanyProfile description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders custom achievements title and description", () => {
+    render(<AboutCompanyProfile achievementsTitle="Custom Achievements" achievementsDescription="Custom achievements description" />);
+    expect(screen.getByText("Custom Achievements")).toBeInTheDocument();
+    expect(screen.getByText("Custom achievements description")).toBeInTheDocument();
+  });
+
+  it("renders companies section when companies provided", () => {
+    const companies = [{ src: "https://example.com/logo.png", alt: "Company Logo" }];
+    render(<AboutCompanyProfile companies={companies} companiesTitle="Custom Companies" />);
+    expect(screen.getByText("Custom Companies")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutCompanyProfile className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

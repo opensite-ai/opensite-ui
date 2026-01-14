@@ -153,14 +153,14 @@ export function ProjectDetailParallaxScroll(
   props: ProjectDetailParallaxScrollProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    year = defaultProps.year,
-    category = defaultProps.category,
-    heroImage = defaultProps.heroImage,
-    description = defaultProps.description,
-    sections = defaultProps.sections,
-    backAction = defaultProps.backAction,
+    title,
+    subtitle,
+    year,
+    category,
+    heroImage,
+    description,
+    sections,
+    backAction,
     backActionSlot,
     optixFlowConfig,
     background = "white",

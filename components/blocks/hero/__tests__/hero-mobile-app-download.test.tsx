@@ -22,4 +22,32 @@ describe("HeroMobileAppDownload", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroMobileAppDownload />);
+    expect(screen.getByText("Your pocket companion for productivity")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroMobileAppDownload heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroMobileAppDownload description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders storeActions when provided", () => {
+    const storeActions = [
+      { storePrefix: "Download on the", storeName: "App Store", href: "/app-store" },
+    ];
+    render(<HeroMobileAppDownload storeActions={storeActions} />);
+    expect(screen.getByText("App Store")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroMobileAppDownload className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

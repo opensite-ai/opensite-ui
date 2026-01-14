@@ -18,4 +18,43 @@ describe("FeatureCardGridLinked", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureCardGridLinked />);
+    expect(screen.getByText("A collection of extra blocks for Opensite AI & Tailwind")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureCardGridLinked title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders features when provided", () => {
+    const features = [
+      { heading: "Feature One", description: "Description one" },
+      { heading: "Feature Two", description: "Description two" },
+    ];
+    render(<FeatureCardGridLinked features={features} />);
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
+  });
+
+  it("renders feature labels when provided", () => {
+    const features = [
+      { heading: "Feature One", label: "FOR DESIGNERS" },
+    ];
+    render(<FeatureCardGridLinked features={features} />);
+    expect(screen.getByText("FOR DESIGNERS")).toBeInTheDocument();
+  });
+
+  it("renders feature description", () => {
+    const features = [{ heading: "Feature 1", description: "Custom description text" }];
+    render(<FeatureCardGridLinked features={features} />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureCardGridLinked className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

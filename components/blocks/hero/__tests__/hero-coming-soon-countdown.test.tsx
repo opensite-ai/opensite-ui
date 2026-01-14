@@ -18,4 +18,30 @@ describe("HeroComingSoonCountdown", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroComingSoonCountdown />);
+    expect(screen.getByText("Something amazing is coming")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroComingSoonCountdown heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroComingSoonCountdown description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders submitAction when provided", () => {
+    const submitAction = { label: "Notify Me", href: "/notify" };
+    render(<HeroComingSoonCountdown submitAction={submitAction} />);
+    expect(screen.getByText("Notify Me")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroComingSoonCountdown className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

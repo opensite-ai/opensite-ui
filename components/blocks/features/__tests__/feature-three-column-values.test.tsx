@@ -12,4 +12,35 @@ describe("FeatureThreeColumnValues", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureThreeColumnValues />);
+    expect(screen.getByText("OUR VALUES")).toBeInTheDocument();
+    expect(screen.getByText("Why Choose Us?")).toBeInTheDocument();
+  });
+
+  it("renders custom label", () => {
+    render(<FeatureThreeColumnValues label="Custom Label" />);
+    expect(screen.getByText("Custom Label")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureThreeColumnValues title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders values when provided", () => {
+    const values = [
+      { title: "Value One", description: "Description one" },
+      { title: "Value Two", description: "Description two" },
+    ];
+    render(<FeatureThreeColumnValues values={values} />);
+    expect(screen.getByText("Value One")).toBeInTheDocument();
+    expect(screen.getByText("Value Two")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureThreeColumnValues className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

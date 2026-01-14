@@ -68,14 +68,14 @@ export function ProjectDetailFullscreenHero(
   props: ProjectDetailFullscreenHeroProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    year = defaultProps.year,
-    category = defaultProps.category,
-    client = defaultProps.client,
-    heroImage = defaultProps.heroImage,
-    sections = defaultProps.sections,
-    backAction = defaultProps.backAction,
+    title,
+    subtitle,
+    year,
+    category,
+    client,
+    heroImage,
+    sections,
+    backAction,
     backActionSlot,
     optixFlowConfig,
     background = "white",

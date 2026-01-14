@@ -18,4 +18,32 @@ describe("HeroPricingComparison", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroPricingComparison />);
+    expect(screen.getByText("Choose the plan that's right for you")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroPricingComparison heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroPricingComparison description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders plans when provided", () => {
+    const plans = [
+      { name: "Basic", price: "$9", pricePeriod: "/month", features: ["Feature 1"], action: { label: "Get Started", href: "/start" } },
+    ];
+    render(<HeroPricingComparison plans={plans} />);
+    expect(screen.getByText("Basic")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroPricingComparison className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

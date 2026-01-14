@@ -23,4 +23,30 @@ describe("HeroTestimonialImageGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroTestimonialImageGrid />);
+    expect(screen.getByText("Blocks built with Opensite AI & Tailwind")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroTestimonialImageGrid heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroTestimonialImageGrid description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroTestimonialImageGrid actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroTestimonialImageGrid className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

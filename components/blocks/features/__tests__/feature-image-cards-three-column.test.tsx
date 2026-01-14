@@ -16,4 +16,35 @@ describe("FeatureImageCardsThreeColumn", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureImageCardsThreeColumn />);
+    expect(screen.getByText("Versatile Designs")).toBeInTheDocument();
+    expect(screen.getByText("Personalize the box to fit your requirements")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureImageCardsThreeColumn title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureImageCardsThreeColumn description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders cards when provided", () => {
+    const cards = [
+      { title: "Card One", badgeText: "Badge One" },
+      { title: "Card Two", badgeText: "Badge Two" },
+    ];
+    render(<FeatureImageCardsThreeColumn cards={cards} />);
+    expect(screen.getByText("Card One")).toBeInTheDocument();
+    expect(screen.getByText("Card Two")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureImageCardsThreeColumn className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

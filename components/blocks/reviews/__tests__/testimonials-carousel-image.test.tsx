@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { TestimonialsCarouselImage } from "../testimonials-carousel-image";
 
 vi.mock("@page-speed/img", () => ({
@@ -27,5 +27,30 @@ vi.mock("../../../../lib/mediaPlaceholders", () => ({
 describe("TestimonialsCarouselImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("renders with default props", () => {
+    render(<TestimonialsCarouselImage />);
+    expect(screen.getByText(/Working with this team has been an absolute game-changer/)).toBeInTheDocument();
+    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  });
+
+  it("renders custom testimonials", () => {
+    const testimonials = [
+      { quote: "Custom quote", author: "John Doe", role: "CEO", company: "TestCo" },
+    ];
+    render(<TestimonialsCarouselImage testimonials={testimonials} />);
+    expect(screen.getByText(/Custom quote/)).toBeInTheDocument();
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+  });
+
+  it("renders author role and company", () => {
+    render(<TestimonialsCarouselImage />);
+    expect(screen.getByText("CEO, TechVentures")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<TestimonialsCarouselImage className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

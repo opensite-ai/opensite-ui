@@ -28,4 +28,27 @@ describe("CtaImageOverlayArrow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaImageOverlayArrow />);
+    expect(screen.getByText("Start Your Journey Today")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaImageOverlayArrow heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [
+      { label: "Get Started", href: "/start", variant: "secondary" as const },
+    ];
+    render(<CtaImageOverlayArrow actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaImageOverlayArrow className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

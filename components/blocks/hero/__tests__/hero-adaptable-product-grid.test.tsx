@@ -28,4 +28,30 @@ describe("HeroAdaptableProductGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroAdaptableProductGrid />);
+    expect(screen.getByText("The Perfectly Adaptable Product for Your Business")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroAdaptableProductGrid heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroAdaptableProductGrid description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders action when provided", () => {
+    const action = { label: "Get Started", href: "/start", variant: "default" as const };
+    render(<HeroAdaptableProductGrid action={action} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroAdaptableProductGrid className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

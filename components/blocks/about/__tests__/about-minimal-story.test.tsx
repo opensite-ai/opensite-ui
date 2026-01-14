@@ -16,4 +16,32 @@ describe("AboutMinimalStory", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutMinimalStory />);
+    expect(screen.getByText("Our Story")).toBeInTheDocument();
+    expect(screen.getByText(/Every great company starts with a simple idea/)).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<AboutMinimalStory title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom content", () => {
+    render(<AboutMinimalStory content="Custom content text" />);
+    expect(screen.getByText("Custom content text")).toBeInTheDocument();
+  });
+
+  it("renders author when provided", () => {
+    const author = { name: "John Doe", role: "CEO" };
+    render(<AboutMinimalStory author={author} />);
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+    expect(screen.getByText("CEO")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutMinimalStory className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

@@ -18,4 +18,44 @@ describe("FeaturePatternGridLinks", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders without crashing with default props", () => {
+    const { container } = render(<FeaturePatternGridLinks />);
+    expect(container.querySelector("section")).toBeInTheDocument();
+  });
+
+  it("renders features when provided", () => {
+    const features = [
+      { title: "Feature One", description: "Description one" },
+      { title: "Feature Two", description: "Description two" },
+    ];
+    render(<FeaturePatternGridLinks features={features} />);
+    expect(screen.getByText("Feature One")).toBeInTheDocument();
+    expect(screen.getByText("Feature Two")).toBeInTheDocument();
+  });
+
+  it("renders feature links when provided", () => {
+    const features = [
+      { title: "Feature One", link: "/feature-one", linkLabel: "Learn More" },
+    ];
+    render(<FeaturePatternGridLinks features={features} />);
+    expect(screen.getByText("Learn More")).toBeInTheDocument();
+  });
+
+  it("renders feature description", () => {
+    const features = [{ title: "Feature 1", description: "Custom description text" }];
+    render(<FeaturePatternGridLinks features={features} />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders learn more links", () => {
+    const features = [{ title: "Feature 1", link: "/feature1" }];
+    render(<FeaturePatternGridLinks features={features} />);
+    expect(screen.getByText("Learn more")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeaturePatternGridLinks className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

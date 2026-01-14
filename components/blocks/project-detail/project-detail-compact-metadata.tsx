@@ -76,13 +76,13 @@ export function ProjectDetailCompactMetadata(
   props: ProjectDetailCompactMetadataProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    heroImage = defaultProps.heroImage,
-    description = defaultProps.description,
-    metadata = defaultProps.metadata,
-    galleryImages = defaultProps.galleryImages,
-    backAction = defaultProps.backAction,
+    title,
+    subtitle,
+    heroImage,
+    description,
+    metadata,
+    galleryImages,
+    backAction,
     backActionSlot,
     optixFlowConfig,
     background = "white",

@@ -18,4 +18,38 @@ describe("FooterBrandDescription", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FooterBrandDescription />);
+    expect(screen.getByText("A collection of components for your startup business or side project.")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FooterBrandDescription description="Custom description" />);
+    expect(screen.getByText("Custom description")).toBeInTheDocument();
+  });
+
+  it("renders sections when provided", () => {
+    const sections = [
+      { title: "Products", links: [{ name: "Feature 1", href: "/feature1" }] },
+    ];
+    render(<FooterBrandDescription sections={sections} />);
+    expect(screen.getByText("Products")).toBeInTheDocument();
+    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("renders legal links when provided", () => {
+    const legalLinks = [
+      { name: "Privacy", href: "/privacy" },
+      { name: "Terms", href: "/terms" },
+    ];
+    render(<FooterBrandDescription legalLinks={legalLinks} />);
+    expect(screen.getByText("Privacy")).toBeInTheDocument();
+    expect(screen.getByText("Terms")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FooterBrandDescription className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

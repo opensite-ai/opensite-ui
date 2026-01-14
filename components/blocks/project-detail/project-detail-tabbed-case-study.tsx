@@ -106,14 +106,14 @@ export function ProjectDetailTabbedCaseStudy(
   props: ProjectDetailTabbedCaseStudyProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    heroImage = defaultProps.heroImage,
-    tabs = defaultProps.tabs,
-    contentSections = defaultProps.contentSections,
-    testimonial = defaultProps.testimonial,
-    tools = defaultProps.tools,
-    backAction = defaultProps.backAction,
+    title,
+    subtitle,
+    heroImage,
+    tabs,
+    contentSections,
+    testimonial,
+    tools,
+    backAction,
     backActionSlot,
     optixFlowConfig,
     background = "white",

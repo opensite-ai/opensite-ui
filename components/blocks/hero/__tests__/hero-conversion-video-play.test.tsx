@@ -28,4 +28,30 @@ describe("HeroConversionVideoPlay", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroConversionVideoPlay />);
+    expect(screen.getByText("Quickly convert visitors into paying customers")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroConversionVideoPlay heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroConversionVideoPlay description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders primary action when provided", () => {
+    const primaryAction = { label: "Get Started", href: "/start", variant: "default" as const };
+    render(<HeroConversionVideoPlay primaryAction={primaryAction} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroConversionVideoPlay className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

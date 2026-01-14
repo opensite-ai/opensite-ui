@@ -28,4 +28,30 @@ describe("HeroBadgeShadowOverlay", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroBadgeShadowOverlay />);
+    expect(screen.getByText("Manage design work right from the canvas")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroBadgeShadowOverlay heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders announcement text when provided", () => {
+    render(<HeroBadgeShadowOverlay announcementText="New Feature Available" />);
+    expect(screen.getByText("New Feature Available")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroBadgeShadowOverlay actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroBadgeShadowOverlay className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
