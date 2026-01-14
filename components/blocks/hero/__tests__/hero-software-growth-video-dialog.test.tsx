@@ -31,7 +31,7 @@ describe("HeroSoftwareGrowthVideoDialog", () => {
 
   it("renders with default props", () => {
     render(<HeroSoftwareGrowthVideoDialog />);
-    expect(screen.getByText("Fast websites for startups")).toBeInTheDocument();
+    expect(screen.getByText("Unlock impactful solutions for accelerated software growth")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

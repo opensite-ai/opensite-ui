@@ -25,7 +25,7 @@ describe("HeroDesignSystem3d", () => {
 
   it("renders with default props", () => {
     render(<HeroDesignSystem3d />);
-    expect(screen.getByText("Unlock impactful solutions for accelerated software growth")).toBeInTheDocument();
+    expect(screen.getByText("Design system that delivers")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -25,7 +25,7 @@ describe("HeroCreativeStudioStacked", () => {
 
   it("renders with default props", () => {
     render(<HeroCreativeStudioStacked />);
-    expect(screen.getByText("Design system that delivers")).toBeInTheDocument();
+    expect(screen.getByText("Boost your business with a brand-new website.")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

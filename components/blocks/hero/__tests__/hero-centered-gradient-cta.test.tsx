@@ -21,7 +21,7 @@ describe("HeroCenteredGradientCta", () => {
 
   it("renders with default props", () => {
     render(<HeroCenteredGradientCta />);
-    expect(screen.getByText("Your Ultimate Business Solution.")).toBeInTheDocument();
+    expect(screen.getByText("extraordinary")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

@@ -21,7 +21,7 @@ describe("HeroDashedBorderFeatures", () => {
 
   it("renders with default props", () => {
     render(<HeroDashedBorderFeatures />);
-    expect(screen.getByText("Ship products your customers will love")).toBeInTheDocument();
+    expect(screen.getByText("Fast websites for startups")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {

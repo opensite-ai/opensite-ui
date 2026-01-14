@@ -21,11 +21,11 @@ describe("HeroHiringAnimatedText", () => {
 
   it("renders with default props", () => {
     render(<HeroHiringAnimatedText />);
-    expect(screen.getByText("Boost your business with a brand-new website.")).toBeInTheDocument();
+    expect(screen.getByText("We help you to hire top")).toBeInTheDocument();
   });
 
   it("renders custom heading", () => {
-    render(<HeroHiringAnimatedText heading="Custom Heading" />);
+    render(<HeroHiringAnimatedText headingPrefix="Custom Heading" />);
     expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
