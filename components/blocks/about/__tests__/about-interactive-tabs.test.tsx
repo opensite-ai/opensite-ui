@@ -22,4 +22,36 @@ describe("AboutInteractiveTabs", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<AboutInteractiveTabs />);
+    expect(screen.getByText("Discover Our Story")).toBeInTheDocument();
+    expect(screen.getByText("Learn more about who we are and what we do")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<AboutInteractiveTabs title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom subtitle", () => {
+    render(<AboutInteractiveTabs subtitle="Custom subtitle text" />);
+    expect(screen.getByText("Custom subtitle text")).toBeInTheDocument();
+  });
+
+  it("renders tabs when provided", () => {
+    const tabs = [
+      { id: "tab1", label: "Tab 1", content: { title: "Tab 1 Title", description: "Tab 1 Description" } },
+      { id: "tab2", label: "Tab 2", content: { title: "Tab 2 Title", description: "Tab 2 Description" } },
+    ];
+    render(<AboutInteractiveTabs tabs={tabs} />);
+    expect(screen.getByText("Tab 1")).toBeInTheDocument();
+    expect(screen.getByText("Tab 2")).toBeInTheDocument();
+    expect(screen.getByText("Tab 1 Title")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<AboutInteractiveTabs className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
