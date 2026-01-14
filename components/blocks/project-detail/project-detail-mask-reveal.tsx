@@ -142,14 +142,14 @@ export function ProjectDetailMaskReveal(
   props: ProjectDetailMaskRevealProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    year = defaultProps.year,
-    category = defaultProps.category,
-    heroImage = defaultProps.heroImage,
-    description = defaultProps.description,
-    revealImages = defaultProps.revealImages,
-    backAction = defaultProps.backAction,
+    title,
+    subtitle,
+    year,
+    category,
+    heroImage,
+    description,
+    revealImages,
+    backAction,
     backActionSlot,
     optixFlowConfig,
     background = "white",

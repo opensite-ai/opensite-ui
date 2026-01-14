@@ -70,14 +70,14 @@ export function ProjectDetailMinimalCentered(
   props: ProjectDetailMinimalCenteredProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    year = defaultProps.year,
-    category = defaultProps.category,
-    artist = defaultProps.artist,
-    description = defaultProps.description,
-    images = defaultProps.images,
-    backAction = defaultProps.backAction,
+    title,
+    subtitle,
+    year,
+    category,
+    artist,
+    description,
+    images,
+    backAction,
     backActionSlot,
     optixFlowConfig,
     background = "white",

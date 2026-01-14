@@ -81,13 +81,13 @@ export function ProjectDetailLargeHeroFeatured(
   props: ProjectDetailLargeHeroFeaturedProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    heroImage = defaultProps.heroImage,
-    details = defaultProps.details,
-    sections = defaultProps.sections,
-    galleryImages = defaultProps.galleryImages,
-    backAction = defaultProps.backAction,
+    title,
+    subtitle,
+    heroImage,
+    details,
+    sections,
+    galleryImages,
+    backAction,
     backActionSlot,
     optixFlowConfig,
     background = "white",

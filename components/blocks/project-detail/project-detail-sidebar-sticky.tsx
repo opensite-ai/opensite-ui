@@ -169,14 +169,14 @@ export function ProjectDetailSidebarSticky(
   props: ProjectDetailSidebarStickyProps
 ): React.JSX.Element {
   const {
-    title = defaultProps.title,
-    subtitle = defaultProps.subtitle,
-    category = defaultProps.category,
-    year = defaultProps.year,
-    description = defaultProps.description,
-    images = defaultProps.images,
-    relatedProjects = defaultProps.relatedProjects,
-    relatedProjectsTitle = defaultProps.relatedProjectsTitle,
+    title,
+    subtitle,
+    category,
+    year,
+    description,
+    images,
+    relatedProjects,
+    relatedProjectsTitle,
     optixFlowConfig,
     background = "white",
     spacing = "lg",
