@@ -18,4 +18,41 @@ describe("CtaNewsletterFeatures", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<CtaNewsletterFeatures />);
+    expect(screen.getByText("Newsletter")).toBeInTheDocument();
+    expect(screen.getByText("Stay in the loop")).toBeInTheDocument();
+    expect(screen.getByText("Get the latest updates, tips, and exclusive content delivered straight to your inbox. Join thousands of subscribers.")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<CtaNewsletterFeatures heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<CtaNewsletterFeatures description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders custom badge", () => {
+    render(<CtaNewsletterFeatures badge="Custom Badge" />);
+    expect(screen.getByText("Custom Badge")).toBeInTheDocument();
+  });
+
+  it("renders features when provided", () => {
+    const features = [
+      { iconName: "lucide/check", text: "Weekly insights" },
+      { iconName: "lucide/check", text: "Exclusive content" },
+    ];
+    render(<CtaNewsletterFeatures features={features} />);
+    expect(screen.getByText("Weekly insights")).toBeInTheDocument();
+    expect(screen.getByText("Exclusive content")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<CtaNewsletterFeatures className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
