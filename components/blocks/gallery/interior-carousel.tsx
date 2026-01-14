@@ -213,11 +213,21 @@ export function InteriorCarousel({
       const itemClass = typeof image === "string" ? undefined : image.className;
 
       return (
-        <CarouselItem key={index} className={cn("basis-1/2", itemClassName)}>
+        <CarouselItem
+          key={index}
+          className={cn(
+            "basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4",
+            itemClassName
+          )}
+        >
           <Img
             src={src}
             alt={alt}
-            className={cn("aspect-[3.8/5] w-full rounded-xl object-cover cursor-pointer transition-opacity hover:opacity-90", imageClassName, itemClass)}
+            className={cn(
+              "aspect-[4/5] w-full rounded-xl object-cover cursor-pointer transition-opacity hover:opacity-90",
+              imageClassName,
+              itemClass
+            )}
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
             onClick={() => handleImageClick(index)}

@@ -274,7 +274,7 @@ export function MasonryMotionGrid({
     direction: "up" | "down",
     columnIndex: number
   ) => (
-    <div className={cn("grid gap-4", columnClassName)}>
+    <div className={cn("grid gap-3", columnClassName)}>
       {images.map((image, index) => (
         <motion.div
           initial={{
@@ -321,7 +321,7 @@ export function MasonryMotionGrid({
   );
 
   const renderColumn4 = (images: MasonryMotionGridImage[]) => (
-    <div className={cn("grid gap-4", columnClassName)}>
+    <div className={cn("grid gap-3", columnClassName)}>
       {images.map((image, index) => (
         <motion.div
           initial={{
@@ -364,7 +364,6 @@ export function MasonryMotionGrid({
           />
         </motion.div>
       ))}
-      <div className="h-17 w-full rounded-2xl bg-muted" />
     </div>
   );
 
@@ -373,14 +372,14 @@ export function MasonryMotionGrid({
 
     return (
       <>
-        <div className={cn("grid grid-cols-2 gap-4 md:grid-cols-4", gridClassName)}>
+        <div className={cn("grid grid-cols-2 gap-3 md:grid-cols-4", gridClassName)}>
           {renderColumn(column1Images, "up", 0)}
           {renderColumn(column2Images, "down", 1)}
           {renderColumn(column3Images, "up", 2)}
           {renderColumn4(column4Images)}
         </div>
         {showDuplicateGrid && (
-          <div className={cn("mt-4 grid grid-cols-2 gap-4 md:grid-cols-4", gridClassName)}>
+          <div className={cn("mt-4 grid grid-cols-2 gap-3 md:grid-cols-4", gridClassName)}>
             {renderColumn(column1Images, "up", 0)}
             {renderColumn(column2Images, "down", 1)}
             {renderColumn(column3Images, "up", 2)}
