@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { TestimonialsSliderMinimal } from "../testimonials-slider-minimal";
 
 vi.mock("../../../ui/avatar", () => ({
@@ -25,5 +25,30 @@ vi.mock("../../../../lib/blockBrandedIconsAndPlaceholders", () => ({
 describe("TestimonialsSliderMinimal", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("renders with default props", () => {
+    render(<TestimonialsSliderMinimal />);
+    expect(screen.getByText(/This platform has completely transformed how our team collaborates/)).toBeInTheDocument();
+    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  });
+
+  it("renders custom testimonials", () => {
+    const testimonials = [
+      { quote: "Custom quote", author: "John Doe", role: "CEO at TestCo" },
+    ];
+    render(<TestimonialsSliderMinimal testimonials={testimonials} />);
+    expect(screen.getByText(/Custom quote/)).toBeInTheDocument();
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+  });
+
+  it("renders author role", () => {
+    render(<TestimonialsSliderMinimal />);
+    expect(screen.getByText("Product Manager at TechCorp")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<TestimonialsSliderMinimal className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

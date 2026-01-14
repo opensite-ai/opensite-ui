@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { ReviewsImagesHelpful } from "../reviews-images-helpful";
 
 vi.mock("@page-speed/img", () => ({
@@ -55,5 +55,32 @@ vi.mock("../../../../lib/mediaPlaceholders", () => ({
 describe("ReviewsImagesHelpful", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("renders with default props", () => {
+    render(<ReviewsImagesHelpful />);
+    expect(screen.getByText("Customer Reviews")).toBeInTheDocument();
+    expect(screen.getByText("Absolutely stunning quality")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<ReviewsImagesHelpful heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders write review button", () => {
+    render(<ReviewsImagesHelpful />);
+    expect(screen.getByText("Write a Review")).toBeInTheDocument();
+  });
+
+  it("renders review content", () => {
+    render(<ReviewsImagesHelpful />);
+    expect(screen.getByText("Sarah M.")).toBeInTheDocument();
+    expect(screen.getByText(/The craftsmanship on this is incredible/)).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<ReviewsImagesHelpful className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

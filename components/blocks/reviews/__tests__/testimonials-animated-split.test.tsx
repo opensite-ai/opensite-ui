@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { TestimonialsAnimatedSplit } from "../testimonials-animated-split";
 
 vi.mock("@page-speed/img", () => ({
@@ -36,5 +36,30 @@ vi.mock("../../../../lib/mediaPlaceholders", () => ({
 describe("TestimonialsAnimatedSplit", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("renders with default props", () => {
+    render(<TestimonialsAnimatedSplit />);
+    expect(screen.getByText("This platform has completely transformed how we approach our daily operations. The intuitive design and powerful features have made our team significantly more productive.")).toBeInTheDocument();
+    expect(screen.getByText("Sarah Chen")).toBeInTheDocument();
+  });
+
+  it("renders custom testimonials", () => {
+    const testimonials = [
+      { quote: "Custom quote", author: "John Doe", role: "CEO", company: "TestCo" },
+    ];
+    render(<TestimonialsAnimatedSplit testimonials={testimonials} />);
+    expect(screen.getByText("Custom quote")).toBeInTheDocument();
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+  });
+
+  it("renders author role and company", () => {
+    render(<TestimonialsAnimatedSplit />);
+    expect(screen.getByText(/Product Manager/)).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<TestimonialsAnimatedSplit className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });
