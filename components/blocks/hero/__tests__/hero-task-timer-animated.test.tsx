@@ -18,4 +18,30 @@ describe("HeroTaskTimerAnimated", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroTaskTimerAnimated />);
+    expect(screen.getByText("A simple task timer to power your goals")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroTaskTimerAnimated heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroTaskTimerAnimated description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroTaskTimerAnimated actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroTaskTimerAnimated className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

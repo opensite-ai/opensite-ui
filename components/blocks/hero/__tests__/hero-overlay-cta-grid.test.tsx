@@ -42,4 +42,30 @@ describe("HeroOverlayCtaGrid", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<HeroOverlayCtaGrid />);
+    expect(screen.getByText("Coverage guidance powered by OpenSite AI")).toBeInTheDocument();
+  });
+
+  it("renders custom heading", () => {
+    render(<HeroOverlayCtaGrid heading="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<HeroOverlayCtaGrid description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<HeroOverlayCtaGrid actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<HeroOverlayCtaGrid className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });
