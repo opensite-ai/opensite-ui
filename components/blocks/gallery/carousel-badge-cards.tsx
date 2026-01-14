@@ -139,59 +139,6 @@ export interface CarouselBadgeCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CarouselBadgeCardItem[] = [
-  {
-    id: "feature-1",
-    title: "Smart AI Assistant",
-    description:
-      "Powered by advanced language models to handle complex queries, automate tasks, and provide intelligent responses with high accuracy.",
-    label: "Core AI",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-  },
-  {
-    id: "feature-2",
-    title: "Data Analytics",
-    description:
-      "Transform raw data into actionable insights using machine learning algorithms and predictive analytics for informed decision-making.",
-    label: "Analytics",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-  },
-  {
-    id: "feature-3",
-    title: "Process Automation",
-    description:
-      "Streamline workflows and automate repetitive tasks with intelligent process automation, increasing efficiency and reducing errors.",
-    label: "Automation",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-  },
-  {
-    id: "feature-4",
-    title: "Knowledge Base",
-    description:
-      "Access and manage comprehensive information with our AI-powered knowledge base that learns and improves from each interaction.",
-    label: "Learning",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-  },
-  {
-    id: "feature-5",
-    title: "API Integration",
-    description:
-      "Seamlessly integrate with existing systems through our robust API framework, enabling smooth data exchange and functionality extension.",
-    label: "Integration",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-  },
-];
-
 /**
  * CarouselBadgeCards displays feature cards in a horizontal carousel with badge labels.
  *
@@ -219,7 +166,7 @@ const defaultItems: CarouselBadgeCardItem[] = [
  */
 export function CarouselBadgeCards({
   heading = "Case Studies",
-  items = defaultItems,
+  items,
   itemsSlot,
   readMoreText = "Read more",
   className,

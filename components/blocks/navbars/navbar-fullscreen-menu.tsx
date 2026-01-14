@@ -113,19 +113,6 @@ export interface NavbarFullscreenMenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMenuItems: MenuItem[] = [
-  { label: "Home", href: "#" },
-  { label: "About", href: "#" },
-  { label: "Services", href: "#" },
-  { label: "Contact", href: "#" },
-];
-
-const defaultSocialLinks: SocialLink[] = [
-  { label: "Twitter", href: "#" },
-  { label: "LinkedIn", href: "#" },
-  { label: "Instagram", href: "#" },
-];
-
 /**
  * NavbarFullscreenMenu - A dramatic fullscreen overlay navigation with animated text.
  *
@@ -142,9 +129,9 @@ export const NavbarFullscreenMenu = ({
   },
   logoSlot,
   logoClassName,
-  menuItems = defaultMenuItems,
+  menuItems,
   menuSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   className,
   containerClassName,

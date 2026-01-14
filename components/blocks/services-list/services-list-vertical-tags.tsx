@@ -104,37 +104,6 @@ export interface ServicesListVerticalTagsProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListVerticalTagsService[] = [
-  {
-    iconName: "lucide/cog",
-    title: "Product Strategy",
-    description:
-      "From market research to user personas, we help you build products that matter.",
-    items: ["Market Research", "User Personas"],
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design",
-    description:
-      "Beautiful, functional designs that create memorable user experiences.",
-    items: ["UI/UX Design", "Prototyping", "Interaction Design"],
-  },
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Robust, scalable applications built with modern technologies and frameworks.",
-    items: ["Frontend Dev", "Backend Dev"],
-  },
-  {
-    iconName: "lucide/shrub",
-    title: "Marketing",
-    description:
-      "Strategic growth initiatives to scale your product and maximize impact.",
-    items: ["SEO Strategy", "Analytics & Data", "A/B Testing"],
-  },
-];
-
 /**
  * ServicesListVerticalTags - A vertical list layout with services displayed as bordered cards.
  * Each card features an icon, title, description, and pill-shaped tags for included items.
@@ -154,7 +123,7 @@ const defaultServices: ServicesListVerticalTagsService[] = [
 export function ServicesListVerticalTags({
   heading = "Services",
   description = "Comprehensive solutions to bring your digital vision to life.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

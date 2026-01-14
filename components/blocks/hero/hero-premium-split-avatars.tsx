@@ -95,39 +95,18 @@ export interface HeroPremiumSplitAvatarsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Upgrade to premium",
-  href: "#",
-  variant: "default",
-  className: "mt-10 flex h-fit items-center gap-2.5 rounded-xl px-5 py-4 font-bold",
-  iconAfter: <DynamicIcon name="lucide/chevron-right" size={20} />,
-};
-
-const defaultAvatars: AvatarItem[] = [
-  { src: imagePlaceholders[26], fallback: "A" },
-  { src: imagePlaceholders[27], fallback: "B" },
-  { src: imagePlaceholders[28], fallback: "C" },
-  { src: imagePlaceholders[29], fallback: "D" },
-  { src: imagePlaceholders[30], fallback: "E" },
-];
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[31],
-  alt: "",
-};
-
 export function HeroPremiumSplitAvatars({
   brandName = "Business",
   brandSuffix = "PRO",
   brandSlot,
   heading = "Achieve More with Elite Access Pro",
   description = "Enhance your career hunt with increased visibility, first-look opportunities and monetary incentives!",
-  action = defaultAction,
+  action,
   actionSlot,
-  avatars = defaultAvatars,
+  avatars,
   avatarsSlot,
   socialProofText = "More than 1 million professionals rely on our platform",
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   contentClassName,

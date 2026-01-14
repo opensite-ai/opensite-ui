@@ -83,11 +83,6 @@ export interface CtaFullwidthBackgroundProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "secondary", size: "lg" },
-];
-
 /**
  * CtaFullwidthBackground - A full-width CTA section with a background image,
  * gradient overlay, centered heading, description, and action buttons.
@@ -109,7 +104,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaFullwidthBackground({
   heading = "Start your free trial today.",
   description = "Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[3],
   overlayOpacity = 0.4,

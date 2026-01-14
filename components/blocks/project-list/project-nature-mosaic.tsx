@@ -80,13 +80,6 @@ export interface ProjectNatureMosaicProps {
   linkClassName?: string;
 }
 
-const defaultImages = [
-  imagePlaceholders[87],
-  imagePlaceholders[88],
-  imagePlaceholders[89],
-  imagePlaceholders[90],
-];
-
 /**
  * ProjectNatureMosaic - Asymmetric 2-column mosaic with alternating image sizes.
  *
@@ -102,7 +95,7 @@ export function ProjectNatureMosaic({
   description = "Nature's beauty is ever-changing and endlessly inspiring. From the gentle rustle of leaves to the grandeur of mountain vistas, each day brings a new story to capture and cherish.",
   linkText = "Discover More →",
   linkHref = "#",
-  images = defaultImages,
+  images,
   imagesSlot,
   optixFlowConfig,
   background,

@@ -116,12 +116,6 @@ export interface StatsPrimarySecondaryProps {
   secondaryLabelClassName?: string;
 }
 
-const defaultSecondaryStats: SecondaryStat[] = [
-  { value: "99.95%", label: "in fulfilling orders" },
-  { value: "2,000+", label: "partner with Opensite AI" },
-  { value: "85%", label: "this year alone" },
-];
-
 /**
  * StatsPrimarySecondary - A two-column stats layout featuring one prominent primary
  * metric with a badge indicator, alongside a row of secondary supporting stats.
@@ -148,7 +142,7 @@ export function StatsPrimarySecondary({
   primaryBadgeSlot,
   primaryDescription = "of U.S. adults have bought from businesses using our platform",
   primarySlot,
-  secondaryStats = defaultSecondaryStats,
+  secondaryStats,
   secondaryStatsSlot,
   background = "white",
   spacing = "lg",

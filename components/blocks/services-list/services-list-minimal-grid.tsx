@@ -113,57 +113,6 @@ export interface ServicesListMinimalGridProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListMinimalGridService[] = [
-  {
-    iconName: "lucide/code",
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies.",
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/smartphone",
-    title: "Mobile Apps",
-    description:
-      "Native and cross-platform mobile applications for iOS and Android.",
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/palette",
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that create engaging experiences.",
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/bar-chart-3",
-    title: "Analytics",
-    description:
-      "Data-driven insights to optimize your digital presence.",
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/cloud",
-    title: "Cloud Solutions",
-    description:
-      "Scalable cloud infrastructure and DevOps services.",
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-  {
-    iconName: "lucide/shield",
-    title: "Security",
-    description:
-      "Comprehensive security audits and implementations.",
-    ctaText: "Learn More",
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListMinimalGrid - A clean, minimal 3-column grid layout for displaying services.
  * Each service card features an icon, title, description, and optional CTA link.
@@ -186,7 +135,7 @@ const defaultServices: ServicesListMinimalGridService[] = [
 export function ServicesListMinimalGrid({
   heading = "Our Services",
   description = "Comprehensive digital solutions to help your business succeed.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

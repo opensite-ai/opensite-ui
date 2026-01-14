@@ -136,25 +136,6 @@ export interface NavbarSearchFocusedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavItems: NavItem[] = [
-  { title: "Explore", url: "#" },
-  { title: "Categories", url: "#" },
-  { title: "Trending", url: "#" },
-  { title: "Collections", url: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/heart" size={20} />, "aria-label": "Favorites" },
-  { href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/shopping-cart" size={20} />, "aria-label": "Cart" },
-  { href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/user" size={20} />, "aria-label": "Account" },
-];
-
-const defaultMobileMenuActions: ActionConfig[] = [
-  { label: "Favorites", href: "#", icon: <DynamicIcon name="lucide/heart" size={18} /> },
-  { label: "Cart", href: "#", icon: <DynamicIcon name="lucide/shopping-cart" size={18} /> },
-  { label: "Account", href: "#", icon: <DynamicIcon name="lucide/user" size={18} /> },
-];
-
 /**
  * NavbarSearchFocused - A navigation bar with a prominent search input.
  *
@@ -178,14 +159,14 @@ export const NavbarSearchFocused = ({
   },
   logoSlot,
   logoClassName,
-  navItems = defaultNavItems,
+  navItems,
   navigationSlot,
   searchPlaceholder = "Search for anything...",
   onSearch,
   searchSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
-  mobileMenuActions = defaultMobileMenuActions,
+  mobileMenuActions,
   mobileMenuActionsSlot,
   background = "white",
   spacing = "none",

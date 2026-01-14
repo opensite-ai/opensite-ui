@@ -110,37 +110,6 @@ export interface FeatureAccordionImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: FeatureAccordionImageItem[] = [
-  {
-    title: "Create Your Account",
-    content:
-      "Sign up in minutes with just your email. No credit card required to get started. You'll have immediate access to all basic features.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    imageAlt: "Account creation",
-  },
-  {
-    title: "Configure Your Settings",
-    content:
-      "Customize your workspace to match your workflow. Set up integrations, invite team members, and configure notifications.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholderDark1,
-    imageAlt: "Settings configuration",
-  },
-  {
-    title: "Start Building",
-    content:
-      "Use our intuitive drag-and-drop builder to create stunning pages. Access hundreds of pre-built components and templates.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-    imageAlt: "Building process",
-  },
-  {
-    title: "Launch & Scale",
-    content:
-      "Deploy your project with one click. Monitor performance, gather analytics, and scale as your business grows.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder4,
-    imageAlt: "Launch and scale",
-  },
-];
-
 /**
  * Feature Accordion Image - Accordion-based feature display with images that
  * change based on the selected accordion item.
@@ -168,7 +137,7 @@ const defaultItems: FeatureAccordionImageItem[] = [
 export function FeatureAccordionImage({
   title = "How It Works",
   description = "Learn about our simple process to get started with our platform.",
-  items = defaultItems,
+  items,
   itemsSlot,
   defaultValue = "item-0",
   className,

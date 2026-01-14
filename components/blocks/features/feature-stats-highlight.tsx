@@ -101,23 +101,6 @@ export interface FeatureStatsHighlightProps {
   statCardClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-  },
-];
-
-const defaultStats: FeatureStatsHighlightStat[] = [
-  { value: "99%", label: "Uptime Guarantee" },
-  { value: "24/7", label: "Customer Support" },
-  { value: "50K+", label: "Active Users" },
-  { value: "100+", label: "Integrations" },
-];
-
 /**
  * Feature Stats Highlight - Feature section with stats grid and CTA button,
  * showcasing key metrics and achievements.
@@ -144,9 +127,9 @@ export function FeatureStatsHighlight({
   badge = "Why Choose Us",
   title = "We deliver results that matter",
   description = "Our platform is designed to help businesses of all sizes achieve their goals with powerful tools and exceptional support.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  stats = defaultStats,
+  stats,
   statsSlot,
   className,
   containerClassName,

@@ -150,59 +150,6 @@ export interface TestimonialCarouselCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: TestimonialCarouselItem[] = [
-  {
-    id: "item-1",
-    username: "@techinnovator",
-    quote:
-      "Their team transformed our vision into a seamless, user-friendly app. The attention to detail and commitment to quality is unmatched!",
-    author: "Sarah",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    bgColor: "bg-green-300",
-  },
-  {
-    id: "item-2",
-    username: "@startupfounder",
-    quote:
-      "From ideation to deployment, they delivered a robust solution that scaled with our business. Truly a partner in our growth journey.",
-    author: "James",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    bgColor: "bg-orange-300",
-  },
-  {
-    id: "item-3",
-    username: "@enterpriseleader",
-    quote:
-      "Their expertise in cloud solutions helped us optimize our operations and reduce costs significantly. Highly recommend their services!",
-    author: "Emily",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    bgColor: "bg-purple-300",
-  },
-  {
-    id: "item-4",
-    username: "@productmanager",
-    quote:
-      "The team's ability to understand complex requirements and deliver on time is exceptional. They made the development process stress-free.",
-    author: "Michael",
-    image:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    bgColor: "bg-green-300",
-  },
-  {
-    id: "item-5",
-    username: "@cto",
-    quote:
-      "Their innovative approach to software development has been a game-changer for our organization. We couldn't be happier with the results!",
-    author: "Laura",
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    bgColor: "bg-orange-300",
-  },
-];
-
 /**
  * TestimonialCarouselCards displays testimonials in a two-panel carousel format.
  *
@@ -233,7 +180,7 @@ const defaultItems: TestimonialCarouselItem[] = [
 export function TestimonialCarouselCards({
   heading = "Building the Future, One Line of Code at a Time",
   description = "From startups to enterprises, we empower businesses with cutting-edge software solutions. Hear from our satisfied clients.",
-  items = defaultItems,
+  items,
   itemsSlot,
   sidebarSlot,
   className,

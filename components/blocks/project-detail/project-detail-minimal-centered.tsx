@@ -59,24 +59,6 @@ export interface ProjectDetailMinimalCenteredProps {
   imagesClassName?: string;
 }
 
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[26], alt: "Project image 1" },
-  { src: imagePlaceholders[27], alt: "Project image 2" },
-  { src: imagePlaceholders[28], alt: "Project image 3" },
-];
-
-const defaultProps: ProjectDetailMinimalCenteredProps = {
-  title: "Organic Resonance",
-  subtitle: "Sculptural Installation",
-  year: "2024",
-  category: "Sculpture",
-  artist: "Elena Vasquez",
-  description:
-    "A contemplative exploration of form and space, this sculptural work invites viewers to experience the subtle interplay between light, shadow, and material. The piece draws inspiration from natural phenomena and the mathematical patterns found in organic growth.",
-  images: defaultImages,
-  backAction: { label: "Back", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

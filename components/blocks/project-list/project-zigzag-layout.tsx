@@ -27,65 +27,6 @@ export interface ProjectZigzagLayoutProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProjects: ProjectZigzagLayoutItem[] = [
-  {
-    id: 1,
-    title: "Advanced E-Commerce Platform",
-    category: "Full Stack Development",
-    description:
-      "A comprehensive e-commerce solution with real-time inventory management, advanced search functionality, and seamless payment processing. Built with performance and scalability in mind to handle high-traffic periods.",
-    image: imagePlaceholders[0],
-    technologies: ["Next.js", "TypeScript", "Prisma", "Stripe", "TailwindCSS"],
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "Enterprise Dashboard System",
-    category: "Data Visualization",
-    description:
-      "Interactive analytics dashboard for enterprise clients that processes and visualizes complex datasets with customizable views, real-time updates, and automated reporting features.",
-    image: imagePlaceholders[1],
-    technologies: ["React", "D3.js", "GraphQL", "Node.js", "AWS"],
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "Multi-platform Mobile Application",
-    category: "Mobile Development",
-    description:
-      "Cross-platform mobile application for productivity enhancement, featuring offline capabilities, push notifications, and seamless cloud synchronization across devices.",
-    image: imagePlaceholders[2],
-    technologies: ["React Native", "Firebase", "Redux", "Jest", "TypeScript"],
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "AI-Driven Content Management System",
-    category: "AI/ML Integration",
-    description:
-      "Content management platform powered by machine learning algorithms that automatically categorizes, tags, and optimizes content while providing smart recommendations based on user behavior.",
-    image: imagePlaceholders[3],
-    technologies: ["Python", "TensorFlow", "Django", "PostgreSQL", "Docker"],
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "DevOps Workflow Automation",
-    category: "DevOps Engineering",
-    description:
-      "End-to-end CI/CD pipeline automation solution for cloud-native applications, featuring infrastructure as code, automated testing, and observability tooling integration.",
-    image: imagePlaceholders[4],
-    technologies: [
-      "Kubernetes",
-      "Terraform",
-      "GitHub Actions",
-      "Prometheus",
-      "Go",
-    ],
-    link: "#",
-  },
-];
-
 /**
  * ProjectZigzagLayout - Alternating image-content layout with technology badges.
  *
@@ -100,7 +41,7 @@ export function ProjectZigzagLayout({
   className,
   heading = "Featured Projects",
   subheading = "A showcase of my technical projects highlighting various skills across full-stack development, mobile applications, and enterprise solutions.",
-  projects = defaultProjects,
+  projects,
   optixFlowConfig,
 }: ProjectZigzagLayoutProps) {
   return (

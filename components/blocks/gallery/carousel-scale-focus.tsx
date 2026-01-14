@@ -110,49 +110,6 @@ export interface CarouselScaleFocusProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: CarouselScaleFocusImage[] = [
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    alt: "Gallery image 1",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    alt: "Gallery image 2",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    alt: "Gallery image 3",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    alt: "Gallery image 4",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    alt: "Gallery image 5",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    alt: "Gallery image 6",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    alt: "Gallery image 7",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    alt: "Gallery image 8",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-    alt: "Gallery image 9",
-  },
-  {
-    src: "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-    alt: "Gallery image 10",
-  },
-];
-
 /**
  * CarouselScaleFocus displays images with a scale and opacity focus effect.
  *
@@ -174,7 +131,7 @@ const defaultImages: CarouselScaleFocusImage[] = [
  * ```
  */
 export function CarouselScaleFocus({
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   carouselClassName,

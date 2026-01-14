@@ -73,39 +73,15 @@ export interface HeroMinimalCenteredDarkProps {
   statsClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get early access",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    className: "rounded-full px-8",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "Learn more",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-    className: "rounded-full border-border/50 px-8",
-  },
-];
-
-const defaultStats: StatItem[] = [
-  { value: "10K+ teams", icon: <DynamicIcon name="lucide/users" size={16} /> },
-  { value: "4.9/5 rating", icon: <DynamicIcon name="lucide/star" size={16} /> },
-  { value: "SOC 2 certified", icon: <DynamicIcon name="lucide/shield-check" size={16} /> },
-];
-
 export function HeroMinimalCenteredDark({
   badge = "Now available in beta",
   showStatusDot = true,
   heading,
   headingHighlight = "collaboration",
   description = "Work together seamlessly with your team. Real-time editing, intelligent suggestions, and powerful integrations.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  stats = defaultStats,
+  stats,
   statsSlot,
   className,
   containerClassName,

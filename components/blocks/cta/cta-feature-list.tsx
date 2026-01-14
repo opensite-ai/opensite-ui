@@ -119,18 +119,6 @@ export interface CtaFeatureListProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-  { label: "Learn More", href: "#", variant: "outline" },
-];
-
-const defaultFeatures: CtaFeatureItem[] = [
-  { iconName: "lucide/check", text: "Easy Integration" },
-  { iconName: "lucide/check", text: "24/7 Support" },
-  { iconName: "lucide/check", text: "Customizable Design" },
-  { iconName: "lucide/check", text: "Scalable Performance" },
-];
-
 /**
  * CtaFeatureList - A CTA section featuring a heading, description, action buttons,
  * and a vertical list of features with icons. Includes a decorative background image.
@@ -155,9 +143,9 @@ const defaultFeatures: CtaFeatureItem[] = [
 export function CtaFeatureList({
   heading = "Call to Action",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   backgroundImage = imagePlaceholders[1],
   className,

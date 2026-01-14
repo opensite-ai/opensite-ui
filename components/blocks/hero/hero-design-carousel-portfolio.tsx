@@ -97,56 +97,18 @@ export interface HeroDesignCarouselPortfolioProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogo: LogoItem = {
-  src: logoPlaceholders.darkHorizontalLogo,
-  alt: "",
-  className: "h-12 lg:h-16",
-};
-
-const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
-  { iconName: "lucide/check-circle", title: "Design Subscription Monthly" },
-  { iconName: "lucide/check-circle", title: "Rapid Delivery" },
-  { iconName: "lucide/check-circle", title: "Flexible Subscription" },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Schedule a chat with me",
-  href: "#",
-  variant: "outline",
-  className: "flex h-fit items-center gap-2.5 self-start rounded-full border-2 border-black px-2 py-1.5 text-sm font-semibold lg:px-4 lg:py-3.5 lg:text-base",
-};
-
-const defaultSecondaryAction: ActionConfig = {
-  label: "Explore my portfolio",
-  href: "#",
-  variant: "outline",
-  className: "relative z-10 mx-auto mt-10 flex h-fit items-center gap-2.5 rounded-full border-2 border-black px-4 py-3.5 text-sm font-semibold transition hover:bg-black hover:text-white lg:text-base",
-  iconAfter: <DynamicIcon name="lucide/arrow-up-right" size={24} />,
-};
-
-const defaultCarouselImages: ImageItem[] = [
-  { src: imagePlaceholders[17], alt: "" },
-  { src: imagePlaceholders[18], alt: "" },
-  { src: imagePlaceholders[19], alt: "" },
-  { src: imagePlaceholders[20], alt: "" },
-  { src: imagePlaceholders[21], alt: "" },
-  { src: imagePlaceholders[22], alt: "" },
-  { src: imagePlaceholders[23], alt: "" },
-  { src: imagePlaceholders[24], alt: "" },
-];
-
 export function HeroDesignCarouselPortfolio({
-  logo = defaultLogo,
+  logo,
   logoSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
   heading = "The All You Can Design buffet to fuel your business growth",
   description = <>Enjoy professional design expertise — <span className="font-semibold">without the hefty price tag</span></>,
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   primaryActionAvatar = imagePlaceholders[16],
-  secondaryAction = defaultSecondaryAction,
+  secondaryAction,
   actionsSlot,
-  carouselImages = defaultCarouselImages,
+  carouselImages,
   carouselSlot,
   className,
   containerClassName,

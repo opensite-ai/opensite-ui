@@ -113,46 +113,6 @@ export interface ServicesListTimelineProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListTimelineService[] = [
-  {
-    iconName: "lucide/search",
-    title: "Discovery Phase",
-    description:
-      "We begin by understanding your business, goals, and target audience through comprehensive research.",
-    duration: "Week 1-2",
-    deliverables: ["Research Report", "User Personas", "Project Brief"],
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design Phase",
-    description:
-      "Our design team creates wireframes and high-fidelity mockups based on the research findings.",
-    duration: "Week 3-4",
-    deliverables: ["Wireframes", "UI Mockups", "Design System"],
-  },
-  {
-    iconName: "lucide/code",
-    title: "Development Phase",
-    description:
-      "We build your solution using modern technologies with regular progress updates and demos.",
-    duration: "Week 5-8",
-    deliverables: ["Working Application", "Documentation", "Test Reports"],
-  },
-  {
-    iconName: "lucide/rocket",
-    title: "Launch Phase",
-    description:
-      "We deploy your solution and provide training to ensure a smooth transition.",
-    duration: "Week 9-10",
-    deliverables: ["Live Deployment", "Training Sessions", "Support Plan"],
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Start Your Project",
-  href: "#",
-};
-
 /**
  * ServicesListTimeline - A timeline-style layout displaying services as project phases.
  * Each phase features an icon, title, description, duration badge, and deliverables list.
@@ -174,9 +134,9 @@ const defaultPrimaryAction: ActionConfig = {
 export function ServicesListTimeline({
   heading = "Our Process",
   description = "A structured approach to delivering exceptional results on time and on budget.",
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   actionsSlot,
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

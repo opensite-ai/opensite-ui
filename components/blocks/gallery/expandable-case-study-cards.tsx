@@ -123,39 +123,6 @@ export interface ExpandableCaseStudyCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: ExpandableCaseStudyItem[] = [
-  {
-    id: "item-1",
-    title: "Case study 1",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-    logo: "https://cdn.ing/assets/i/r/285986/5ivxh3ivywsmm6uslf3te38r6tg1/logo-dark.png",
-    company: "Company Name",
-    badges: ["Commercial", "Multiloan"],
-  },
-  {
-    id: "item-2",
-    title: "Case study 2",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-    logo: "https://cdn.ing/assets/i/r/285986/5ivxh3ivywsmm6uslf3te38r6tg1/logo-dark.png",
-    company: "Company Name",
-    badges: ["Enterprise"],
-  },
-  {
-    id: "item-3",
-    title: "Case study 3",
-    href: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-    logo: "https://cdn.ing/assets/i/r/285986/5ivxh3ivywsmm6uslf3te38r6tg1/logo-dark.png",
-    company: "Company Name",
-    badges: ["Startup"],
-  },
-];
-
 /**
  * ExpandableCaseStudyCards displays case study cards that expand on hover.
  *
@@ -182,7 +149,7 @@ const defaultItems: ExpandableCaseStudyItem[] = [
  * ```
  */
 export function ExpandableCaseStudyCards({
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   containerClassName,

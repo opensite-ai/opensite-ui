@@ -112,25 +112,6 @@ export interface HeroTestimonialImageGridProps {
   };
 }
 
-const defaultGridImages: GridImageConfig[] = [
-  { src: imagePlaceholders[90], alt: "Grid image 1" },
-  { src: imagePlaceholders[91], alt: "Grid image 2" },
-  { src: imagePlaceholders[92], alt: "Grid image 3" },
-  { src: imagePlaceholders[93], alt: "Grid image 4" },
-];
-
-const defaultTestimonial: TestimonialConfig = {
-  quote: "Focused strategy, swift delivery",
-  author: "John Doe",
-  role: "CEO",
-  company: "Company",
-  avatars: [
-    { image: imagePlaceholders[87], fallback: "AB" },
-    { image: imagePlaceholders[88], fallback: "CD" },
-    { image: imagePlaceholders[89], fallback: "EF" },
-  ],
-};
-
 /**
  * HeroTestimonialImageGrid - A hero layout with heading, description, testimonial,
  * and a creative 2x2 image grid. Ideal for showcasing product features or portfolio work.
@@ -143,9 +124,9 @@ export function HeroTestimonialImageGrid({
     url: "#",
   },
   buttonSlot,
-  testimonial = defaultTestimonial,
+  testimonial,
   testimonialSlot,
-  gridImages = defaultGridImages,
+  gridImages,
   imagesSlot,
   className,
   containerClassName,

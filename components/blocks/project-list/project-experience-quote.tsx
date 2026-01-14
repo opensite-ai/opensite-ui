@@ -87,66 +87,6 @@ export interface ProjectExperienceQuoteProps {
   cardClassName?: string;
 }
 
-const defaultExperiences: ProjectExperienceQuoteItem[] = [
-  {
-    role: "Marketing Director",
-    company: "Global Brands Inc.",
-    location: "San Francisco, CA",
-    duration: "Feb 2020 - Present",
-    description:
-      "Oversee strategic marketing initiatives for enterprise clients across multiple industries, leading a team of 15 marketing specialists.",
-    achievements: [
-      "Increased client acquisition by 45% through targeted digital campaigns",
-      "Launched 3 successful product lines with over $2M in first-year revenue",
-      "Restructured marketing department for improved efficiency and innovation",
-    ],
-    quote: {
-      text: "Sarah transformed our marketing strategy completely. Her innovative approaches and deep understanding of our audience led to our most successful campaign in company history.",
-      author: "James Wilson",
-      position: "CEO, Global Brands Inc.",
-    },
-    link: "#",
-  },
-  {
-    role: "Senior Marketing Manager",
-    company: "Innovation Media",
-    location: "Seattle, WA",
-    duration: "Aug 2017 - Jan 2020",
-    description:
-      "Managed comprehensive marketing campaigns for technology clients with budgets ranging from $500K to $2M annually.",
-    achievements: [
-      "Directed award-winning rebrand for major software client",
-      "Developed content strategy that increased engagement by 78%",
-      "Built and trained high-performing marketing team of 8 specialists",
-    ],
-    quote: {
-      text: "Working with Sarah was transformative for our team. She brings both strategic vision and a remarkable attention to execution details that helped us exceed our marketing goals.",
-      author: "Lisa Chen",
-      position: "Marketing VP, Tech Solutions",
-    },
-    link: "#",
-  },
-  {
-    role: "Marketing Specialist",
-    company: "Creative Solutions",
-    location: "Portland, OR",
-    duration: "May 2015 - Jul 2017",
-    description:
-      "Executed marketing campaigns across digital and traditional channels for diverse client portfolio including startups and established brands.",
-    achievements: [
-      "Managed social media growth resulting in 250% audience increase",
-      "Implemented new analytics tracking improving campaign ROI by 35%",
-      "Collaborated with design team to refresh brand identity for 5 clients",
-    ],
-    quote: {
-      text: "Sarah has that rare combination of creativity and analytical thinking. She consistently delivered results that exceeded our expectations and always found innovative solutions to our marketing challenges.",
-      author: "Michael Rodriguez",
-      position: "Founder, Startup Success",
-    },
-    link: "#",
-  },
-];
-
 /**
  * ProjectExperienceQuote - Professional experience cards with testimonial quotes.
  *
@@ -160,7 +100,7 @@ const defaultExperiences: ProjectExperienceQuoteItem[] = [
 export function ProjectExperienceQuote({
   heading = "Professional Experience",
   subheading = "My career journey and the impact I've made along the way, as told through my work and the words of those I've worked with.",
-  experiences = defaultExperiences,
+  experiences,
   experiencesSlot,
   background,
   spacing,

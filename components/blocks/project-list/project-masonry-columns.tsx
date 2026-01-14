@@ -65,21 +65,6 @@ export interface ProjectMasonryColumnsProps {
   imageWrapperClassName?: string;
 }
 
-const defaultImages: ProjectMasonryColumnsItem[] = [
-  { src: imagePlaceholders[14], alt: "Image 1" },
-  { src: imagePlaceholders[15], alt: "Image 2" },
-  { src: imagePlaceholders[16], alt: "Image 3" },
-  { src: imagePlaceholders[17], alt: "Image 4" },
-  { src: imagePlaceholders[18], alt: "Image 5" },
-  { src: imagePlaceholders[19], alt: "Image 6" },
-  { src: imagePlaceholders[20], alt: "Image 7" },
-  { src: imagePlaceholders[21], alt: "Image 8" },
-  { src: imagePlaceholders[22], alt: "Image 9" },
-  { src: imagePlaceholders[23], alt: "Image 10" },
-  { src: imagePlaceholders[24], alt: "Image 11" },
-  { src: imagePlaceholders[25], alt: "Image 12" },
-];
-
 /**
  * ProjectMasonryColumns - CSS columns-based masonry layout with staggered motion animations.
  *
@@ -91,7 +76,7 @@ const defaultImages: ProjectMasonryColumnsItem[] = [
  * create visual interest.
  */
 export function ProjectMasonryColumns({
-  images = defaultImages,
+  images,
   imagesSlot,
   optixFlowConfig,
   background,

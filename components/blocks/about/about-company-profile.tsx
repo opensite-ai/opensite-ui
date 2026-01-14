@@ -137,32 +137,19 @@ export interface AboutCompanyProfileProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAchievements: StatItem[] = [
-  { label: "Companies", value: "300+" },
-  { label: "Projects Finalized", value: "800+" },
-  { label: "Happy Customers", value: "99%" },
-  { label: "Recognized Awards", value: "10+" },
-];
-
-const defaultBreakout: BreakoutConfig = {
-  title: "Hundreds of blocks at Opensite AI",
-  description: "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
-  action: { label: "Discover more", href: "https://opensite.ai", variant: "outline" },
-};
-
 export function AboutCompanyProfile({
   title = "About Us",
   description = "Opensite AI is a passionate team dedicated to creating innovative solutions that empower businesses to thrive in the digital age.",
   mainImage,
   secondaryImage,
-  breakout = defaultBreakout,
+  breakout,
   breakoutSlot,
   companiesTitle = "Valued by clients worldwide",
   companies,
   companiesSlot,
   achievementsTitle = "Our Achievements in Numbers",
   achievementsDescription = "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
-  achievements = defaultAchievements,
+  achievements,
   achievementsSlot,
   className,
   containerClassName,

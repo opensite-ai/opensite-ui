@@ -84,44 +84,6 @@ export interface ProjectAlternatingMotionProps {
   imageContainerClassName?: string;
 }
 
-const defaultProjects: ProjectAlternatingMotionItem[] = [
-  {
-    title: "Skyline Room",
-    description:
-      "Designing cutting-edge architectural visualizations for modern cityscapes and towers.",
-    image: imagePlaceholders[0],
-    tag: "Architecture",
-  },
-  {
-    title: "Interior Bloom",
-    description:
-      "Crafting serene and elegant interior layouts that balance functionality with aesthetic harmony.",
-    image: imagePlaceholders[1],
-    tag: "Interior Design",
-  },
-  {
-    title: "Modular Nest",
-    description:
-      "Exploring compact and modular housing concepts for sustainable living.",
-    image: imagePlaceholders[2],
-    tag: "Design Concept",
-  },
-  {
-    title: "Urban Visions",
-    description:
-      "Shaping urban identity through 3D exterior models and concept layouts for public spaces.",
-    image: imagePlaceholders[3],
-    tag: "Urban Planning",
-  },
-  {
-    title: "Form + Flow",
-    description:
-      "Redefining open floor plans for residential interiors with seamless transitions and space utility.",
-    image: imagePlaceholders[4],
-    tag: "Interior Architecture",
-  },
-];
-
 /**
  * ProjectAlternatingMotion - Alternating layout project showcase with scroll-triggered motion animations.
  *
@@ -133,7 +95,7 @@ const defaultProjects: ProjectAlternatingMotionItem[] = [
  */
 export function ProjectAlternatingMotion({
   heading = "Architectural Highlights",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

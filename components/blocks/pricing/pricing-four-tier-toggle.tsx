@@ -257,66 +257,6 @@ export interface PricingFourTierToggleProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingFourTierPlan[] = [
-  {
-    name: "Free",
-    monthlyPrice: "$0",
-    yearlyPrice: "$0",
-    description: "For individuals getting started",
-    features: [
-      { name: "Up to 3 projects", included: true },
-      { name: "Basic analytics", included: true },
-      { name: "Community support", included: true },
-      { name: "API access", included: false },
-      { name: "Custom integrations", included: false },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline" },
-  },
-  {
-    name: "Basic",
-    monthlyPrice: "$15",
-    yearlyPrice: "$150",
-    description: "For small teams",
-    features: [
-      { name: "Up to 10 projects", included: true },
-      { name: "Advanced analytics", included: true },
-      { name: "Email support", included: true },
-      { name: "API access", included: true },
-      { name: "Custom integrations", included: false },
-    ],
-    action: { label: "Start Trial", href: "#", variant: "outline" },
-  },
-  {
-    name: "Team",
-    monthlyPrice: "$39",
-    yearlyPrice: "$390",
-    description: "For growing teams",
-    features: [
-      { name: "Unlimited projects", included: true },
-      { name: "Advanced analytics", included: true },
-      { name: "Priority support", included: true },
-      { name: "API access", included: true },
-      { name: "Custom integrations", included: true },
-    ],
-    action: { label: "Start Trial", href: "#", variant: "default" },
-    isPopular: true,
-  },
-  {
-    name: "Enterprise",
-    monthlyPrice: "$99",
-    yearlyPrice: "$990",
-    description: "For large organizations",
-    features: [
-      { name: "Unlimited everything", included: true },
-      { name: "Custom analytics", included: true },
-      { name: "24/7 dedicated support", included: true },
-      { name: "Full API access", included: true },
-      { name: "Custom integrations", included: true },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
 /**
  * PricingFourTierToggle displays a 4-column pricing grid with annual billing toggle.
  * Features check/X icons for feature availability, popular plan highlighting, and responsive layout.
@@ -342,7 +282,7 @@ export function PricingFourTierToggle({
   yearlyBadge = "Save 17%",
   monthlyInterval = "/month",
   yearlyInterval = "/year",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   includedIcon,
   excludedIcon,

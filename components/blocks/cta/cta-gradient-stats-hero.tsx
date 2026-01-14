@@ -93,18 +93,6 @@ export interface CtaGradientStatsHeroProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
-  { label: "View Pricing", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultStats: StatItem[] = [
-  { value: "99.9%", label: "Uptime" },
-  { value: "10K+", label: "Customers" },
-  { value: "50M+", label: "Requests/day" },
-  { value: "24/7", label: "Support" },
-];
-
 /**
  * CtaGradientStatsHero - A hero-style CTA with gradient background, heading,
  * description, action buttons, and floating stats cards showing metrics.
@@ -129,9 +117,9 @@ const defaultStats: StatItem[] = [
 export function CtaGradientStatsHero({
   heading = "Scale with confidence",
   description = "Built for enterprise-grade performance and reliability. Join thousands of companies that trust us with their mission-critical applications.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  stats = defaultStats,
+  stats,
   statsSlot,
   className,
   containerClassName,

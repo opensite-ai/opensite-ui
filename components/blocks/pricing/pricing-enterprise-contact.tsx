@@ -154,38 +154,6 @@ export interface PricingEnterpriseContactProps {
   featuresClassName?: string;
 }
 
-const defaultFeatures: PricingEnterpriseContactFeature[] = [
-  {
-    name: "Unlimited everything",
-    description: "No limits on projects, users, or storage",
-  },
-  {
-    name: "Custom integrations",
-    description: "Connect with your existing tools and workflows",
-  },
-  {
-    name: "Dedicated support",
-    description: "24/7 priority support with dedicated account manager",
-  },
-  {
-    name: "SLA guarantee",
-    description: "99.99% uptime guarantee with financial backing",
-  },
-  {
-    name: "Custom contracts",
-    description: "Flexible terms tailored to your organization",
-  },
-  {
-    name: "On-premise deployment",
-    description: "Deploy on your own infrastructure if needed",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Contact Sales", href: "#", variant: "default", size: "lg" },
-  { label: "Schedule Demo", href: "#", variant: "outline", size: "lg" },
-];
-
 /**
  * PricingEnterpriseContact displays an enterprise-focused pricing section with contact CTA.
  * Features a list of enterprise benefits with descriptions and prominent contact buttons.
@@ -209,11 +177,11 @@ export function PricingEnterpriseContact({
   title = "Enterprise",
   subtitle = "For large organizations with custom needs",
   description = "Get a custom solution tailored to your organization's specific requirements. Our enterprise plans include everything you need to scale.",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   featureIcon,
   featureIconName = "lucide/check",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   background = "white",
   spacing = "lg",

@@ -116,49 +116,6 @@ const socialIconMap: Record<
   youtube: "simple-icons/youtube",
 };
 
-const defaultLinkColumns: FooterComprehensiveLinksColumn[] = [
-  {
-    title: "Solutions",
-    links: [
-      { label: "Coverage Plans", href: "/solutions" },
-      { label: "Partner Network", href: "/partners" },
-      { label: "Industry Guides", href: "/resources" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About OpenSite AI", href: "/about" },
-      { label: "Leadership", href: "/team" },
-      { label: "Service Center", href: "/service-center" },
-    ],
-  },
-];
-
-const defaultArticleLinks: FooterComprehensiveLinksLink[] = [
-  { label: "Coverage Strategy Updates", href: "/resources/coverage-strategy" },
-  { label: "Policy Review Checklist", href: "/resources/policy-review" },
-  { label: "Risk Planning for Growth", href: "/resources/risk-planning" },
-  { label: "Claims Readiness Guide", href: "/resources/claims-readiness" },
-];
-
-const defaultContact: FooterComprehensiveLinksContact = {
-  email: "hello@opensite.ai",
-  phone: "+1 (415) 555-0192",
-  address: "975 Mission St, San Francisco, CA",
-};
-
-const defaultSocialLinks: FooterComprehensiveLinksSocial[] = [
-  { platform: "linkedin", href: "https://linkedin.com", label: "LinkedIn" },
-  { platform: "x", href: "https://x.com", label: "X" },
-  { platform: "youtube", href: "https://youtube.com", label: "YouTube" },
-];
-
-const defaultBottomLinks: FooterComprehensiveLinksLink[] = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Service", href: "/terms" },
-];
-
 /**
  * FooterComprehensiveLinks - A comprehensive footer with brand summary,
  * navigation columns, optional article links, contact details, social icons,
@@ -170,14 +127,14 @@ export function FooterComprehensiveLinks({
   logoHref = "/",
   tagline = "Modern coverage guidance powered by OpenSite AI.",
   summary = "Independent advisors backed by OpenSite AI insights and a partner network built for clarity.",
-  linkColumns = defaultLinkColumns,
-  articleLinks = defaultArticleLinks,
+  linkColumns,
+  articleLinks,
   articleSectionTitle = "Recent Articles",
-  contact = defaultContact,
-  socialLinks = defaultSocialLinks,
+  contact,
+  socialLinks,
   copyright,
   companyName = "OpenSite AI",
-  bottomLinks = defaultBottomLinks,
+  bottomLinks,
   pattern,
   patternOpacity = 0.05,
   className,

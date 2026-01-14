@@ -123,24 +123,6 @@ export interface CtaEnterpriseDarkFeaturesProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Contact Sales", href: "#", variant: "secondary", size: "lg" },
-  { label: "View Pricing", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultFeatures: CtaEnterpriseDarkFeature[] = [
-  { iconName: "lucide/shield-check", text: "Enterprise-grade security" },
-  { iconName: "lucide/users", text: "Unlimited team members" },
-  { iconName: "lucide/headphones", text: "24/7 dedicated support" },
-  { iconName: "lucide/server", text: "99.99% uptime SLA" },
-];
-
-const defaultDecorativeImages = [
-  imagePlaceholders[10],
-  imagePlaceholders[11],
-  imagePlaceholders[12],
-];
-
 /**
  * CtaEnterpriseDarkFeatures - A dark-themed enterprise CTA with serif heading,
  * feature list with icons, and layered decorative images. Sophisticated design
@@ -164,11 +146,11 @@ const defaultDecorativeImages = [
 export function CtaEnterpriseDarkFeatures({
   heading = "Enterprise Solutions",
   description = "Built for scale with enterprise-grade security, compliance, and support. Trusted by Fortune 500 companies worldwide.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  features = defaultFeatures,
+  features,
   featuresSlot,
-  decorativeImages = defaultDecorativeImages,
+  decorativeImages,
   className,
   containerClassName,
   cardClassName,

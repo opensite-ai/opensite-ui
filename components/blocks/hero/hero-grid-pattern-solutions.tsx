@@ -83,36 +83,15 @@ export interface HeroGridPatternSolutionsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "Discover Our Platform",
-    href: "#",
-    variant: "secondary",
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />,
-  },
-];
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[61], alt: "placeholder", className: "md:col-span-3" },
-  { src: imagePlaceholders[62], alt: "placeholder", className: "md:col-span-2" },
-  { src: imagePlaceholders[63], alt: "placeholder", className: "md:col-span-5" },
-];
-
 export function HeroGridPatternSolutions({
   badgeText = "How to create superior products",
   badgeHref = "#",
   badgeSlot,
   heading = "Create effective solutions for diverse needs.",
   description = "Access all necessary resources for managing tasks and enhancing efficiency. Additionally, scale your capabilities across various projects.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   showGridPattern = true,
   className,

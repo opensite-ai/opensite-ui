@@ -112,23 +112,6 @@ export interface CtaGradientLogosFloatingProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultLeftLogos = [
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo1,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo2,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo3,
-];
-
-const defaultRightLogos = [
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo4,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo5,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo6,
-];
-
 /**
  * CtaGradientLogosFloating - A CTA section with gradient text heading, centered
  * content, and floating logo circles on both sides. Creates a dynamic, modern
@@ -153,10 +136,10 @@ export function CtaGradientLogosFloating({
   heading = "Build faster with",
   headingGradient = "modern tools",
   description = "Join thousands of developers building amazing products. Get started today and ship faster than ever.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  leftLogos = defaultLeftLogos,
-  rightLogos = defaultRightLogos,
+  leftLogos,
+  rightLogos,
   leftLogosSlot,
   rightLogosSlot,
   className,

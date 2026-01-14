@@ -53,19 +53,10 @@ export interface HeroFullscreenBackgroundImageProps {
   actionsClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "See all photos",
-    href: "#",
-    variant: "default",
-    className: "h-fit w-fit rounded-full px-7 py-4 text-sm leading-tight font-medium",
-  },
-];
-
 export function HeroFullscreenBackgroundImage({
   heading = "Explore the wonders of science.",
   description = "From stunning skyscrapers to intricate bridges and innovative architectural marvels, each photo invites you to explore the artificial wonders of the world.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[33],
   noiseOverlayUrl = "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",

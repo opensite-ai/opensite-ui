@@ -146,65 +146,6 @@ export interface TeamCompactGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamCompactGridMember[] = [
-  {
-    id: "person-1",
-    name: "Sarah Chen",
-    role: "CEO & Co-founder",
-    department: "Leadership",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    id: "person-2",
-    name: "Marcus Rodriguez",
-    role: "CTO & Co-founder",
-    department: "Engineering",
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    id: "person-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    department: "Design",
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    id: "person-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    department: "Engineering",
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    id: "person-5",
-    name: "Emma Thompson",
-    role: "Head of Marketing",
-    department: "Marketing",
-    avatar: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-  {
-    id: "person-6",
-    name: "Alex Johnson",
-    role: "Head of Sales",
-    department: "Sales",
-    avatar: blockBrandedIconsAndPlaceholders.avatar6,
-  },
-  {
-    id: "person-7",
-    name: "Lisa Wang",
-    role: "Product Manager",
-    department: "Product",
-    avatar: blockBrandedIconsAndPlaceholders.avatar7,
-  },
-  {
-    id: "person-8",
-    name: "Michael Brown",
-    role: "Senior Engineer",
-    department: "Engineering",
-    avatar: blockBrandedIconsAndPlaceholders.avatar8,
-  },
-];
-
 /**
  * TeamCompactGrid - Compact 4-column team grid with department badges
  *
@@ -236,7 +177,7 @@ const defaultMembers: TeamCompactGridMember[] = [
 export function TeamCompactGrid({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  members = defaultMembers,
+  members,
   membersSlot,
   ctaHeading = "Ready to build the future with us?",
   ctaDescription = "We're always looking for talented individuals who share our passion for innovation and making a difference. Check out our current openings.",

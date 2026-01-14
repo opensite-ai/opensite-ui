@@ -117,16 +117,6 @@ export interface InteriorCarouselProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages = [
-  "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-  "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-  "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-  "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-  "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-  "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-  "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-];
-
 /**
  * InteriorCarousel displays images in a looping two-up carousel layout.
  *
@@ -149,7 +139,7 @@ const defaultImages = [
 export function InteriorCarousel({
   heading = "Beautiful Interiors.",
   description = "Explore our curated collection of stunning interior designs.\nEach space tells a unique story through thoughtful design and attention to detail.",
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   headingClassName,

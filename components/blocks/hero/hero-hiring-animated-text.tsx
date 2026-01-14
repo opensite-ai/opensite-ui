@@ -70,47 +70,14 @@ export interface HeroHiringAnimatedTextProps {
   actionsClassName?: string;
 }
 
-const defaultAnimatedTexts = [
-  "Cybersecurity sales reps",
-  "Pen testers",
-  "Sales engineers",
-  "IAM architects",
-  "Chief Information Security Officers",
-  "Cloud security engineers",
-  "Application Security Engineers",
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Join our network",
-    href: "#",
-    variant: "default",
-    className: "h-fit w-fit rounded-full px-7 py-3.5 text-xs font-semibold text-nowrap uppercase lg:px-9 lg:py-5 lg:text-base",
-  },
-  {
-    label: "Hire top talent",
-    href: "#",
-    variant: "outline",
-    className: "h-fit w-fit rounded-full border-white bg-transparent px-7 py-3.5 text-xs font-semibold text-nowrap text-white uppercase hover:bg-background/15 lg:px-9 lg:py-5 lg:text-base",
-  },
-];
-
-const defaultScrollAction: ActionConfig = {
-  label: "Scroll to explore",
-  href: "#",
-  variant: "link",
-  className: "flex h-fit w-fit items-center gap-2 text-xs font-semibold text-nowrap uppercase hover:no-underline lg:text-base",
-  iconAfter: <DynamicIcon name="lucide/arrow-down" size={16} className="stroke-white" />,
-};
-
 export function HeroHiringAnimatedText({
   headingPrefix = "We help you to hire top",
-  animatedTexts = defaultAnimatedTexts,
+  animatedTexts,
   headingSlot,
   description = "Discover exceptional talent, fast.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  scrollAction = defaultScrollAction,
+  scrollAction,
   scrollActionSlot,
   backgroundImage = imagePlaceholders[84],
   className,

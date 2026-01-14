@@ -85,92 +85,6 @@ export interface ServiceDetailCompactCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultExpertise: CompactExpertiseItem[] = [
-  {
-    icon: blockBrandedIconsAndPlaceholders.integration1,
-    title: "Adobe Creative Suite",
-    description: "Design proficiency",
-  },
-  {
-    icon: blockBrandedIconsAndPlaceholders.integration2,
-    title: "Figma",
-    description: "Years experience",
-  },
-  {
-    icon: blockBrandedIconsAndPlaceholders.integration3,
-    title: "Sketch",
-    description: "Projects completed",
-  },
-];
-
-const defaultServices: CompactServiceItem[] = [
-  { iconName: "lucide/users", title: "User research and persona development" },
-  {
-    iconName: "lucide/map",
-    title: "Information architecture and user journey mapping",
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Wireframing and interactive prototyping",
-  },
-  { iconName: "lucide/palette", title: "Visual design and brand integration" },
-  {
-    iconName: "lucide/test-tube",
-    title: "Usability testing and design validation",
-  },
-  {
-    iconName: "lucide/book-open",
-    title: "Design system creation and documentation",
-  },
-];
-
-const defaultRelatedServices: CompactRelatedServiceItem[] = [
-  {
-    image: imagePlaceholders[1],
-    title: "Brand Identity",
-    description: "Logo design and brand guidelines",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[2],
-    title: "Web Development",
-    description: "Custom website development",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[3],
-    title: "Mobile App Design",
-    description: "iOS and Android app interfaces",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[4],
-    title: "Design Systems",
-    description: "Scalable component libraries",
-    href: "#",
-  },
-];
-
-const defaultContentSections: CompactContentSection[] = [
-  {
-    title: "Creating Meaningful Digital Experiences",
-    paragraphs: [
-      "We combine user research, information architecture, and visual design to deliver experiences that drive engagement and conversions.",
-      "Through comprehensive user research and testing, we validate design decisions with real data. Our iterative design process ensures that every element serves a purpose and contributes to your business goals while providing an exceptional user experience.",
-      "We specialize in creating design systems that scale with your business, ensuring consistency across all touchpoints while maintaining flexibility for future growth and evolution.",
-      "Our collaborative approach involves stakeholders throughout the design process, from initial wireframes to final prototypes. This ensures alignment between business objectives and user needs, resulting in products that succeed in the market.",
-      "Every design decision is backed by research and testing, creating solutions that are not just visually appealing but strategically sound and user-validated.",
-    ],
-  },
-  {
-    title: "Strategic Design for Business Success",
-    paragraphs: [
-      "Our design philosophy centers on creating interfaces that bridge the gap between user needs and business objectives. We understand that great UX/UI design is not just about aesthetics—it's about creating meaningful interactions that drive results.",
-      "From initial concept to final implementation, we ensure that every design element contributes to a cohesive user experience that reflects your brand values and supports your business goals. Our designs are optimized for performance, accessibility, and scalability across all devices and platforms.",
-    ],
-  },
-];
-
 export function ServiceDetailCompactCards({
   title = "UX/UI Design",
   titleClassName,
@@ -184,20 +98,20 @@ export function ServiceDetailCompactCards({
   introDescriptionClassName,
   expertiseTitle = "Our Expertise",
   expertiseTitleClassName,
-  expertise = defaultExpertise,
+  expertise,
   expertiseSlot,
   expertiseClassName,
   servicesTitle = "Our UX/UI Design Services",
   servicesTitleClassName,
-  services = defaultServices,
+  services,
   servicesSlot,
   servicesClassName,
   relatedServicesTitle = "Related Services",
   relatedServicesTitleClassName,
-  relatedServices = defaultRelatedServices,
+  relatedServices,
   relatedServicesSlot,
   relatedServicesClassName,
-  contentSections = defaultContentSections,
+  contentSections,
   contentSectionsSlot,
   contentSectionsClassName,
   className,

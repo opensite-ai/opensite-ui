@@ -19,15 +19,6 @@ export interface PricingSplitLayoutProps {
   secondaryButtonHref?: string;
 }
 
-const defaultFeatures = [
-  "Unlimited projects and workspaces",
-  "Advanced analytics and reporting",
-  "Priority customer support",
-  "API access and integrations",
-  "Team collaboration tools",
-  "Custom branding options",
-];
-
 /**
  * PricingSplitLayout displays a split layout with marketing content on the left and pricing card on the right.
  * Features a compelling headline, description, and feature list alongside a prominent pricing display.
@@ -54,7 +45,7 @@ export function PricingSplitLayout({
   description = "Get access to all the tools you need to build, launch, and scale your product. No hidden fees, no surprises.",
   price = "$49",
   priceDescription = "/month",
-  features = defaultFeatures,
+  features,
   buttonText = "Get Started",
   buttonHref = "#",
   secondaryButtonText = "Learn More",

@@ -122,38 +122,6 @@ export interface CaseStudiesFeaturedBorderProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeaturedCaseStudy: CaseStudyFeaturedItem = {
-  logo: blockBrandedIconsAndPlaceholders.block1,
-  company: "Acme",
-  tags: "ARTIFICIAL INTELLIGENCE / ENTERPRISE SOLUTIONS",
-  title: "Workflow Automation for the Digital Age.",
-  subtitle: "How to automate your workflow with AI.",
-  image: blockBrandedIconsAndPlaceholders.placeholder1,
-  href: "#",
-  ctaLabel: "Read case study",
-};
-
-const defaultCaseStudies: CaseStudyFeaturedItem[] = [
-  {
-    logo: blockBrandedIconsAndPlaceholders.block2,
-    company: "Super",
-    tags: "DATA MIGRATION / SOFTWARE SOLUTIONS",
-    title: "Enhance data migration with AI.",
-    subtitle: "A data migration platform toward a data-driven future.",
-    href: "#",
-    ctaLabel: "Read case study",
-  },
-  {
-    logo: blockBrandedIconsAndPlaceholders.block3,
-    company: "Advent",
-    tags: "ARTIFICIAL INTELLIGENCE / DATA SOLUTIONS",
-    title: "Strategic AI for a future-proof business.",
-    subtitle: "Mastering AI for more efficient operations.",
-    href: "#",
-    ctaLabel: "Read case study",
-  },
-];
-
 /**
  * CaseStudiesFeaturedBorder displays case studies in a bordered card layout with
  * a prominent featured case study and secondary items below.
@@ -193,9 +161,9 @@ const defaultCaseStudies: CaseStudyFeaturedItem[] = [
  * ```
  */
 export function CaseStudiesFeaturedBorder({
-  featuredCaseStudy = defaultFeaturedCaseStudy,
+  featuredCaseStudy,
   featuredSlot,
-  caseStudies = defaultCaseStudies,
+  caseStudies,
   caseStudiesSlot,
   className,
   containerClassName,

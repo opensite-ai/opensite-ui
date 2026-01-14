@@ -190,64 +190,6 @@ export interface StatsGrowthTimelineProps {
   futureClassName?: string;
 }
 
-const defaultMilestones: Milestone[] = [
-  {
-    id: "launch",
-    year: "2018",
-    title: "Company Founded",
-    description: "Started with a small team of 5 passionate individuals",
-    metric: { value: "5", label: "Team Members" },
-    icon: "lucide/calendar-days",
-  },
-  {
-    id: "first-customers",
-    year: "2019",
-    title: "First 100 Customers",
-    description: "Achieved product-market fit and began scaling operations",
-    metric: { value: "100+", label: "Early Adopters" },
-    icon: "lucide/users",
-  },
-  {
-    id: "series-a",
-    year: "2020",
-    title: "Series A Funding",
-    description: "Secured $8M in funding to accelerate growth and development",
-    metric: { value: "$8M", label: "Raised" },
-    icon: "lucide/bar-chart",
-  },
-  {
-    id: "expansion",
-    year: "2021",
-    title: "International Expansion",
-    description: "Expanded to 12 countries across Europe, Asia, and Australia",
-    metric: { value: "12", label: "Countries" },
-    icon: "lucide/activity",
-  },
-  {
-    id: "acquisition",
-    year: "2022",
-    title: "Strategic Acquisition",
-    description: "Acquired leading analytics provider to enhance our platform",
-    metric: { value: "2x", label: "Product Growth" },
-    icon: "lucide/award",
-  },
-  {
-    id: "unicorn",
-    year: "2023",
-    title: "Unicorn Status",
-    description: "Reached $1B valuation with 10,000+ enterprise customers worldwide",
-    metric: { value: "10K+", label: "Enterprise Clients" },
-    icon: "lucide/award",
-  },
-];
-
-const defaultCurrentStats: CurrentStat[] = [
-  { value: "$1B+", label: "Company Valuation" },
-  { value: "180+", label: "Team Members" },
-  { value: "24", label: "Countries" },
-  { value: "12K+", label: "Global Customers" },
-];
-
 /**
  * StatsGrowthTimeline - A vertical timeline showcasing company milestones and growth
  * journey. Features alternating left/right content placement, year badges, milestone
@@ -265,24 +207,20 @@ const defaultCurrentStats: CurrentStat[] = [
  * />
  * ```
  */
-const defaultActions: ActionConfig[] = [
-  { label: "View our roadmap", href: "#", variant: "link" },
-];
-
 export function StatsGrowthTimeline({
   badge = "Our Journey",
   badgeSlot,
   heading = "Growing From Startup to Industry Leader",
   description = "Track our exponential growth journey from a small startup to becoming the market leader.",
-  milestones = defaultMilestones,
+  milestones,
   milestonesSlot,
-  currentStats = defaultCurrentStats,
+  currentStats,
   currentStatsSlot,
   currentStatsHeading = "Where We Are Today",
   futureHeading = "The Future Is Even Brighter",
   futureDescription = "We're just getting started. Our roadmap includes expansion to new markets, enhanced product offerings, and continued innovation to serve our growing customer base.",
   futureSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   background = "white",
   spacing = "lg",

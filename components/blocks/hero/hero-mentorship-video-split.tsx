@@ -91,34 +91,17 @@ export interface HeroMentorshipVideoSplitProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Sign up now",
-  href: "#",
-  variant: "default",
-  className: "h-fit w-fit rounded-full px-8 py-4 font-semibold",
-};
-
-const defaultVideoThumbnail: ImageItem = {
-  src: imagePlaceholders[115],
-  alt: "",
-};
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[116],
-  alt: "",
-};
-
 export function HeroMentorshipVideoSplit({
   heading = "Career Growth with Expert Mentorship",
   description = "Receive tailored mentorship aligned with your goals. Let experienced mentors guide you to success with personalized insights and dedicated support.",
-  action = defaultAction,
+  action,
   actionSlot,
   videoLabel = "Watch our introduction to discover our services",
-  videoThumbnail = defaultVideoThumbnail,
+  videoThumbnail,
   videoUrl = "https://www.youtube.com/embed/your-video-id",
   videoTitle = "Presentation Video",
   videoSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   containerClassName,

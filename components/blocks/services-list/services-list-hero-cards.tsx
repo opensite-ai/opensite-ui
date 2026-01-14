@@ -164,46 +164,6 @@ export interface ServicesListHeroCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeaturedService: ServicesListHeroCardsFeatured = {
-  title: "Full-Stack Development",
-  description:
-    "End-to-end development services from concept to deployment. We build scalable, performant applications using modern technologies and best practices.",
-  badge: "Featured",
-  image: {
-    src: imagePlaceholders[0],
-    alt: "Full-Stack Development",
-  },
-  ctaText: "Learn More",
-  ctaUrl: "#",
-};
-
-const defaultServices: ServicesListHeroCardsService[] = [
-  {
-    title: "Frontend Development",
-    description: "React, Vue, and Angular applications",
-    image: { src: imagePlaceholders[1], alt: "Frontend Development" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Backend Development",
-    description: "Node.js, Python, and Go services",
-    image: { src: imagePlaceholders[2], alt: "Backend Development" },
-    ctaUrl: "#",
-  },
-  {
-    title: "Mobile Development",
-    description: "iOS and Android applications",
-    image: { src: imagePlaceholders[3], alt: "Mobile Development" },
-    ctaUrl: "#",
-  },
-  {
-    title: "DevOps & Cloud",
-    description: "AWS, GCP, and Azure infrastructure",
-    image: { src: imagePlaceholders[4], alt: "DevOps & Cloud" },
-    ctaUrl: "#",
-  },
-];
-
 /**
  * ServicesListHeroCards - A featured services layout with a large hero card and smaller supporting cards in a grid.
  * The hero card displays prominently with a badge, full description, and CTA button.
@@ -225,9 +185,9 @@ const defaultServices: ServicesListHeroCardsService[] = [
 export function ServicesListHeroCards({
   heading = "Our Services",
   description = "Comprehensive digital solutions tailored to your business needs.",
-  featuredService = defaultFeaturedService,
+  featuredService,
   featuredSlot,
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

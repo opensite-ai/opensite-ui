@@ -133,45 +133,6 @@ export interface FooterSocialNewsletterProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: FooterSocialNewsletterSection[] = [
-  {
-    title: "Product",
-    links: [
-      { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Marketplace", href: "#" },
-      { name: "Features", href: "#" },
-      { name: "Integrations", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About", href: "#" },
-      { name: "Team", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
-      { name: "Contact", href: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
-      { name: "Advertise", href: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterSocialNewsletterSocialLink[] = [
-  { icon: "simple-icons/discord", href: "#", label: "Discord" },
-  { icon: "simple-icons/reddit", href: "#", label: "Reddit" },
-  { icon: "simple-icons/x", href: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/telegram", href: "#", label: "Telegram" },
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-];
-
 /**
  * FooterSocialNewsletter - A footer with social icons, navigation links, and newsletter signup.
  *
@@ -186,8 +147,8 @@ export function FooterSocialNewsletter({
     alt: "Opensite AI",
     title: "Opensite AI",
   },
-  sections = defaultSections,
-  socialLinks = defaultSocialLinks,
+  sections,
+  socialLinks,
   newsletterLabel = "Subscribe to our newsletter",
   newsletterPlaceholder = "Email",
   newsletterButtonText = "Subscribe",

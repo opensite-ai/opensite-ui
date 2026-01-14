@@ -86,26 +86,14 @@ export interface HeroSoftwareGrowthVideoDialogProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultShowcaseImages: ImageItem[] = [
-  { src: imagePlaceholders[74], alt: "" },
-  { src: imagePlaceholders[75], alt: "" },
-  { src: imagePlaceholders[76], alt: "" },
-  { src: imagePlaceholders[77], alt: "" },
-];
-
-const defaultVideoDialog: VideoDialogConfig = {
-  title: "Presentation Video",
-  videoUrl: "https://www.youtube.com/embed/your-video-id",
-};
-
 export function HeroSoftwareGrowthVideoDialog({
   heading = "Unlock impactful solutions for accelerated software growth",
   description = "Sign up on our website and use your account for as long as you'd like. Our team is always available to assist and dedicated to solving any issues you encounter.",
   actions,
   actionsSlot,
-  showcaseImages = defaultShowcaseImages,
+  showcaseImages,
   showcaseImagesSlot,
-  videoDialog = defaultVideoDialog,
+  videoDialog,
   onVideoClick,
   className,
   containerClassName,

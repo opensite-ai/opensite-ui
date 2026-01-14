@@ -111,58 +111,6 @@ export interface ListAchievementsShowcaseProps {
   patternOpacity?: number;
 }
 
-const defaultItems: ListAchievementItem[] = [
-  {
-    icon: "lucide/trophy",
-    title: "Industry Recognition",
-    category: "Achievement",
-    description: "Outstanding Performance Award.",
-    action: { href: "#", label: "View project", variant: "outline" },
-  },
-  {
-    icon: "lucide/award",
-    title: "Excellence Award",
-    category: "Recognition",
-    description: "Best in Category Winner.",
-    action: { href: "#", label: "View project", variant: "outline" },
-  },
-  {
-    icon: "lucide/lightbulb",
-    title: "Innovation Prize",
-    category: "Technology",
-    description: "Breakthrough Solution of the Year.",
-    action: { href: "#", label: "View project", variant: "outline" },
-  },
-  {
-    icon: "lucide/heart-handshake",
-    title: "Customer Success",
-    category: "Service",
-    description: "Top-Rated Solution Provider.",
-    action: { href: "#", label: "View project", variant: "outline" },
-  },
-  {
-    icon: "lucide/building-2",
-    title: "Global Leadership",
-    category: "Management",
-    description: "Executive Team of the Year.",
-    action: { href: "#", label: "View project", variant: "outline" },
-  },
-  {
-    icon: "lucide/leaf",
-    title: "Sustainability Impact",
-    category: "Environmental",
-    description: "Green Initiative Excellence.",
-    action: { href: "#", label: "View project", variant: "outline" },
-  },
-];
-
-const defaultItemAction: ActionConfig = {
-  label: "View project",
-  href: "#",
-  variant: "outline",
-  iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="text-current" />,
-};
-
 /**
  * ListAchievementsShowcase - A vertical list displaying achievements and recognition
  * with icons, titles, categories, descriptions, and action links. Each item is separated
@@ -190,7 +138,7 @@ const defaultItemAction: ActionConfig = {
 export function ListAchievementsShowcase({
   heading = "Our Achievements & Recognition",
   headingClassName,
-  items = defaultItems,
+  items,
   itemsSlot,
   itemsClassName,
   itemClassName,
@@ -198,7 +146,7 @@ export function ListAchievementsShowcase({
   itemTitleClassName,
   itemCategoryClassName,
   itemDescriptionClassName,
-  defaultItemAction: defaultAction = defaultItemAction,
+  defaultItemAction: defaultAction,
   itemActionClassName,
   containerClassName,
   className,

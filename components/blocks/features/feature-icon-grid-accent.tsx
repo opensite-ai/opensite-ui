@@ -91,33 +91,6 @@ export interface FeatureIconGridAccentProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureIconGridAccentItem[] = [
-  {
-    iconName: "lucide/zoom-in",
-    title: "Quality",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi necessitatibus, culpa at vitae molestias tenetur explicabo.",
-  },
-  {
-    iconName: "lucide/zap",
-    title: "Innovation",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi necessitatibus, culpa at vitae molestias tenetur explicabo.",
-  },
-  {
-    iconName: "lucide/messages-square",
-    title: "Customer Support",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi necessitatibus, culpa at vitae molestias tenetur explicabo.",
-  },
-  {
-    iconName: "lucide/infinity",
-    title: "Reliability",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi necessitatibus, culpa at vitae molestias tenetur explicabo.",
-  },
-];
-
 /**
  * Feature Icon Grid Accent - Two-column grid of features with accent background
  * cards and icon badges.
@@ -142,7 +115,7 @@ export function FeatureIconGridAccent({
   label = "WHY WE ARE UNIQUE",
   title = "Bringing the best to you by the best in the industry",
   description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi necessitatibus, culpa at vitae molestias tenetur explicabo. Voluptatum amet architecto suscipit pariatur eligendi repellendus mollitia dolore unde sint?",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

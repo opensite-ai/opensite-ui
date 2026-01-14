@@ -189,48 +189,6 @@ export interface PricingAddonsCardsProps {
   actionClassName?: string;
 }
 
-const defaultAddons: PricingAddonsCard[] = [
-  {
-    name: "Analytics Pro",
-    description: "Advanced analytics and reporting tools",
-    price: "$19",
-    priceDescription: "/month",
-    features: [
-      { text: "Custom dashboards" },
-      { text: "Real-time analytics" },
-      { text: "Export to CSV/PDF" },
-      { text: "API access" },
-    ],
-    action: { label: "Add to Plan", href: "#", variant: "outline" },
-  },
-  {
-    name: "Team Collaboration",
-    description: "Enhanced team features and workflows",
-    price: "$29",
-    priceDescription: "/month",
-    features: [
-      { text: "Shared workspaces" },
-      { text: "Team chat" },
-      { text: "Task assignments" },
-      { text: "Activity feed" },
-    ],
-    action: { label: "Add to Plan", href: "#", variant: "outline" },
-  },
-  {
-    name: "Security Suite",
-    description: "Enterprise-grade security features",
-    price: "$39",
-    priceDescription: "/month",
-    features: [
-      { text: "SSO integration" },
-      { text: "Audit logs" },
-      { text: "2FA enforcement" },
-      { text: "IP allowlisting" },
-    ],
-    action: { label: "Add to Plan", href: "#", variant: "outline" },
-  },
-];
-
 /**
  * PricingAddonsCards displays a row of 3 add-on cards with feature lists.
  * Each card includes a name, description, price, feature checklist, and CTA button.
@@ -252,7 +210,7 @@ const defaultAddons: PricingAddonsCard[] = [
 export function PricingAddonsCards({
   heading = "Power-ups",
   subtitle = "Add extra features to enhance your experience",
-  addons = defaultAddons,
+  addons,
   addonsSlot,
   featureIcon,
   featureIconName = "lucide/check",

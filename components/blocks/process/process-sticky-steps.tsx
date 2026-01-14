@@ -122,42 +122,6 @@ export interface ProcessStickyStepsProps {
   ctaUrl?: string;
 }
 
-const defaultSteps: ProcessStickyStepItem[] = [
-  {
-    step: "01",
-    title: "Discover & Research",
-    description:
-      "We begin by understanding your business goals, target audience, and current challenges. This phase involves research, analysis, and strategic planning to identify opportunities.",
-  },
-  {
-    step: "02",
-    title: "Strategy & Planning",
-    description:
-      "Based on our findings, we develop a comprehensive strategy that aligns with your objectives. This includes defining the approach, timeline, and key milestones for success.",
-  },
-  {
-    step: "03",
-    title: "Execute & Develop",
-    description:
-      "We bring the strategy to life through careful implementation and development. Our team works collaboratively to ensure every detail meets your requirements and standards.",
-  },
-  {
-    step: "04",
-    title: "Optimize & Improve",
-    description:
-      "We continuously monitor performance and gather feedback to refine and improve the solution. This iterative process ensures long-term success and growth.",
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get in touch",
-    href: "#contact",
-    variant: "ghost",
-    icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" />,
-  },
-];
-
 const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
@@ -197,7 +161,7 @@ export function ProcessStickySteps({
   description = "We follow a proven methodology to deliver exceptional results for every project we undertake.",
   actions,
   actionsSlot,
-  steps = defaultSteps,
+  steps,
   stepsSlot,
   className,
   contentClassName,

@@ -119,36 +119,6 @@ export interface FeatureImageCardsThreeColumnProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultCards: FeatureImageCardsThreeColumnItem[] = [
-  {
-    iconName: "lucide/zap",
-    badgeText: "Advanced tools",
-    title: "Transform your website into a market leader.",
-    linkText: "Explore all features",
-    link: "#",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    imageAlt: "Feature illustration",
-  },
-  {
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-    badgeText: "Tailored for experts",
-    title: "Elevate your platform to the next level.",
-    linkText: "Explore all features",
-    link: "#",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholderDark1,
-    imageAlt: "Feature illustration",
-  },
-  {
-    iconName: "lucide/zap",
-    badgeText: "Latest Collection",
-    title: "Redefine your industry leadership.",
-    linkText: "Explore all features",
-    link: "#",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder3,
-    imageAlt: "Feature illustration",
-  },
-];
-
 /**
  * Feature Image Cards Three Column - Three-column grid of image cards with
  * gradient overlays, badges, and CTAs.
@@ -179,7 +149,7 @@ const defaultCards: FeatureImageCardsThreeColumnItem[] = [
 export function FeatureImageCardsThreeColumn({
   title = "Versatile Designs",
   description = "Personalize the box to fit your requirements",
-  cards = defaultCards,
+  cards,
   cardsSlot,
   className,
   containerClassName,

@@ -180,33 +180,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   );
 };
 
-const defaultVideoSections: ProjectVideoCarouselItem[] = [
-  {
-    thumbnailSrc: imagePlaceholders[56],
-    videoSrc: videoPlaceholders[8],
-    studioName: "MERIDIAN FILMS",
-    projectTitle: "Coastal Reflections",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[57],
-    videoSrc: videoPlaceholders[9],
-    studioName: "ZENITH VISUALS",
-    projectTitle: "Ethereal Moments",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[58],
-    videoSrc: videoPlaceholders[10],
-    studioName: "NEXUS CREATIVE",
-    projectTitle: "Deserted Frontiers",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[59],
-    videoSrc: videoPlaceholders[11],
-    studioName: "PRISM STUDIOS",
-    projectTitle: "Nature's Symphony",
-  },
-];
-
 /**
  * ProjectVideoCarousel - Full-width video carousel with hover-to-play and navigation controls.
  *
@@ -220,7 +193,7 @@ const defaultVideoSections: ProjectVideoCarouselItem[] = [
 export function ProjectVideoCarousel({
   heading = "Explore Our Projects",
   subheading = "Our Work",
-  videoSections = defaultVideoSections,
+  videoSections,
   videoSectionsSlot,
   optixFlowConfig,
   background,

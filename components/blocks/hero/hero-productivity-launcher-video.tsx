@@ -100,43 +100,14 @@ export interface HeroProductivityLauncherVideoProps {
   descriptionClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Download for Mac",
-    href: "#",
-    variant: "default",
-    className: "inline-flex h-fit w-full items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm leading-snug font-medium tracking-tight text-nowrap sm:w-fit",
-    icon: <DynamicIcon name="lucide/apple" size={20} />,
-  },
-  {
-    label: "Join Windows waitlist",
-    href: "#",
-    variant: "outline",
-    className: "inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-linear-to-b from-white/5 to-white/15 px-3 py-2 text-sm leading-snug font-medium tracking-tight text-nowrap text-white transition-colors hover:border-white/40 sm:w-fit",
-    icon: <DynamicIcon name="lucide/monitor" size={20} />,
-  },
-];
-
-const defaultVersionInfo: VersionInfo = {
-  version: "v1.87.5",
-  osRequirement: "macOS 12+",
-  installMethod: "Install via homebrew",
-};
-
-const defaultSecondaryCta: SecondaryCtaConfig = {
-  primaryText: "Download on iOS",
-  secondaryText: "Join waitlist",
-  href: "#",
-};
-
 export function HeroProductivityLauncherVideo({
   heading = "Your fast track to everything.",
   description = "A suite of robust productivity tools packed into an adaptable launcher—quick, intuitive, and dependable.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  versionInfo = defaultVersionInfo,
+  versionInfo,
   versionInfoSlot,
-  secondaryCta = defaultSecondaryCta,
+  secondaryCta,
   secondaryCtaSlot,
   videoSrc = videoPlaceholders[1] || videoPlaceholders[0],
   videoSlot,

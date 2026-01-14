@@ -148,53 +148,6 @@ export interface CtaWorkflowTabsProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultTabs: CtaWorkflowTabItem[] = [
-  {
-    id: "design",
-    label: "Design",
-    iconName: "lucide/palette",
-    heading: "Design with ease",
-    description:
-      "Create beautiful interfaces with our intuitive design tools. No coding required.",
-    stats: [
-      { value: "50+", label: "Templates" },
-      { value: "100+", label: "Components" },
-    ],
-    image: imagePlaceholders[13],
-  },
-  {
-    id: "develop",
-    label: "Develop",
-    iconName: "lucide/code",
-    heading: "Develop faster",
-    description:
-      "Write clean, maintainable code with our powerful development tools.",
-    stats: [
-      { value: "10x", label: "Faster" },
-      { value: "99%", label: "Less bugs" },
-    ],
-    image: imagePlaceholders[14],
-  },
-  {
-    id: "deploy",
-    label: "Deploy",
-    iconName: "lucide/rocket",
-    heading: "Deploy instantly",
-    description:
-      "Ship to production with one click. Automatic scaling and monitoring included.",
-    stats: [
-      { value: "1-click", label: "Deploy" },
-      { value: "99.9%", label: "Uptime" },
-    ],
-    image: imagePlaceholders[15],
-  },
-];
-
 /**
  * CtaWorkflowTabs - A hero CTA with tabbed content sections for design, develop,
  * and deploy workflows. Each tab shows stats and an image. Great for showcasing
@@ -218,9 +171,9 @@ const defaultTabs: CtaWorkflowTabItem[] = [
 export function CtaWorkflowTabs({
   heading = "Build your workflow",
   description = "From design to deployment, we've got you covered. Choose your path and start building today.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  tabs = defaultTabs,
+  tabs,
   tabsSlot,
   className,
   containerClassName,

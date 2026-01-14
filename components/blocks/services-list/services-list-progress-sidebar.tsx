@@ -117,54 +117,6 @@ export interface ServicesListProgressSidebarProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListProgressSidebarService[] = [
-  {
-    iconName: "lucide/lightbulb",
-    title: "Discovery & Strategy",
-    description:
-      "We start by understanding your business goals, target audience, and competitive landscape.",
-    progress: 100,
-    status: "Completed",
-  },
-  {
-    iconName: "lucide/pen-tool",
-    title: "Design & Prototyping",
-    description:
-      "Creating wireframes and high-fidelity designs that bring your vision to life.",
-    progress: 100,
-    status: "Completed",
-  },
-  {
-    iconName: "lucide/code",
-    title: "Development",
-    description:
-      "Building your solution with clean, maintainable code and modern technologies.",
-    progress: 75,
-    status: "In Progress",
-  },
-  {
-    iconName: "lucide/test-tube",
-    title: "Testing & QA",
-    description:
-      "Rigorous testing to ensure quality, performance, and security.",
-    progress: 25,
-    status: "Upcoming",
-  },
-  {
-    iconName: "lucide/rocket",
-    title: "Launch & Support",
-    description:
-      "Deploying your solution and providing ongoing maintenance and support.",
-    progress: 0,
-    status: "Pending",
-  },
-];
-
-const defaultPrimaryAction: ActionConfig = {
-  label: "Start Your Project",
-  href: "#",
-};
-
 /**
  * ServicesListProgressSidebar - A creative solutions layout with a sticky left sidebar and service list with progress indicators.
  * The sidebar contains title, description, and CTA. Each service displays with an icon, title, description, and visual progress bar.
@@ -185,9 +137,9 @@ const defaultPrimaryAction: ActionConfig = {
 export function ServicesListProgressSidebar({
   sidebarHeading = "Our Creative Process",
   sidebarDescription = "We follow a proven methodology to deliver exceptional results. Each phase builds upon the previous to ensure your project's success.",
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   actionsSlot,
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   containerClassName,

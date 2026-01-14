@@ -124,36 +124,6 @@ export interface TimelineProductLaunchProps {
   };
 }
 
-const defaultSteps: TimelineProductLaunchStep[] = [
-  {
-    number: "01",
-    title: "Ideation",
-    heading: "Brainstorm and validate your concept",
-    description:
-      "Gather insights from market research, customer interviews, and competitor analysis to refine your product idea.",
-    progress: 15,
-    duration: "~2 weeks",
-  },
-  {
-    number: "02",
-    title: "Development",
-    heading: "Build your MVP",
-    description:
-      "Design, prototype, and develop the minimum viable product. Iterate quickly based on early feedback and testing.",
-    progress: 85,
-    duration: "~6 weeks",
-  },
-  {
-    number: "03",
-    title: "Launch",
-    heading: "Go to market",
-    description:
-      "Execute your launch plan with marketing campaigns, outreach, and customer support to maximize impact and adoption.",
-    progress: 100,
-    duration: "Launch complete",
-  },
-];
-
 export function TimelineProductLaunch({
   heading = "Journey to Product Launch",
   description = "Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.",
@@ -163,7 +133,7 @@ export function TimelineProductLaunch({
     href: "#",
   },
   ctaSlot,
-  steps = defaultSteps,
+  steps,
   className,
   containerClassName,
   headingClassName,

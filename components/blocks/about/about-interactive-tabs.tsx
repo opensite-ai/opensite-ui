@@ -98,40 +98,10 @@ export interface AboutInteractiveTabsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultTabs: TabItem[] = [
-  {
-    id: "work",
-    label: "Our Work",
-    content: {
-      title: "Crafting Digital Experiences",
-      description:
-        "We create beautiful, functional digital products that help businesses grow. From web applications to mobile apps, our portfolio showcases our commitment to excellence and innovation.",
-    },
-  },
-  {
-    id: "process",
-    label: "Our Process",
-    content: {
-      title: "How We Build",
-      description:
-        "Our iterative approach combines design thinking with agile development. We start with discovery, move through design and development, and deliver products that exceed expectations.",
-    },
-  },
-  {
-    id: "values",
-    label: "Our Values",
-    content: {
-      title: "What Drives Us",
-      description:
-        "Quality, transparency, and collaboration are at the heart of everything we do. We believe in building lasting relationships with our clients through honest communication and exceptional work.",
-    },
-  },
-];
-
 export function AboutInteractiveTabs({
   title = "Discover Our Story",
   subtitle = "Learn more about who we are and what we do",
-  tabs = defaultTabs,
+  tabs,
   tabsSlot,
   className,
   containerClassName,

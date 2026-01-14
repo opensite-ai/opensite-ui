@@ -119,74 +119,6 @@ export interface ServicesListCategoryAccordionProps {
   patternOpacity?: number;
 }
 
-const defaultServices: ServicesListCategoryAccordionService[] = [
-  {
-    title: "Web Development",
-    description:
-      "Custom websites and web applications built with modern technologies. We specialize in React, Next.js, and Node.js to create fast, scalable solutions.",
-    category: "Development",
-    items: [
-      "Frontend Development",
-      "Backend Development",
-      "API Integration",
-      "Database Design",
-    ],
-    badges: ["React", "Next.js", "Node.js"],
-  },
-  {
-    title: "Mobile App Development",
-    description:
-      "Native and cross-platform mobile applications for iOS and Android. We build performant apps that users love.",
-    category: "Development",
-    items: [
-      "iOS Development",
-      "Android Development",
-      "Cross-Platform Apps",
-      "App Store Optimization",
-    ],
-    badges: ["React Native", "Flutter", "Swift"],
-  },
-  {
-    title: "UI/UX Design",
-    description:
-      "User-centered design solutions that create engaging experiences. From wireframes to high-fidelity prototypes.",
-    category: "Design",
-    items: [
-      "User Research",
-      "Wireframing",
-      "Prototyping",
-      "Visual Design",
-    ],
-    badges: ["Figma", "User Testing", "Design Systems"],
-  },
-  {
-    title: "Brand Identity",
-    description:
-      "Comprehensive branding services to establish your visual identity. Logo design, color palettes, and brand guidelines.",
-    category: "Design",
-    items: [
-      "Logo Design",
-      "Brand Guidelines",
-      "Visual Identity",
-      "Marketing Materials",
-    ],
-    badges: ["Branding", "Identity", "Guidelines"],
-  },
-  {
-    title: "Digital Marketing",
-    description:
-      "Data-driven marketing strategies to grow your online presence. SEO, content marketing, and paid advertising.",
-    category: "Marketing",
-    items: [
-      "SEO Optimization",
-      "Content Strategy",
-      "Paid Advertising",
-      "Social Media",
-    ],
-    badges: ["SEO", "PPC", "Analytics"],
-  },
-];
-
 /**
  * ServicesListCategoryAccordion - An accordion layout with large titles and expandable service items featuring categories and badges.
  * Each accordion item displays a category label, title, and expands to show full description, included items, and technology badges.
@@ -208,7 +140,7 @@ const defaultServices: ServicesListCategoryAccordionService[] = [
 export function ServicesListCategoryAccordion({
   heading = "Our Services",
   description = "Explore our comprehensive range of digital services. Click on any service to learn more.",
-  services = defaultServices,
+  services,
   servicesSlot,
   defaultValue,
   className,

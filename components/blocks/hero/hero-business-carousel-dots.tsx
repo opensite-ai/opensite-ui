@@ -86,37 +86,14 @@ export interface HeroBusinessCarouselDotsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started",
-    href: "#",
-    variant: "default",
-    size: "lg",
-  },
-  {
-    label: "Learn more",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultCarouselImages: ImageItem[] = [
-  { src: imagePlaceholders[17], alt: "Slide 1" },
-  { src: imagePlaceholders[18], alt: "Slide 2" },
-  { src: imagePlaceholders[19], alt: "Slide 3" },
-  { src: imagePlaceholders[20], alt: "Slide 4" },
-  { src: imagePlaceholders[21], alt: "Slide 5" },
-];
-
 export function HeroBusinessCarouselDots({
   badge = "Premium",
   badgeVariant = "outline",
   heading = "Your Ultimate Business Solution.",
   description = "Transform your business operations with our cutting-edge solutions designed to streamline workflows and boost team efficiency.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  carouselImages = defaultCarouselImages,
+  carouselImages,
   carouselSlot,
   className,
   containerClassName,

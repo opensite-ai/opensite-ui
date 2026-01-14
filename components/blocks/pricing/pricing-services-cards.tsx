@@ -217,39 +217,6 @@ export interface PricingServicesCardsProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingServicesCardPlan[] = [
-  {
-    name: "Consultation",
-    price: "$199",
-    priceDescription: "/session",
-    description: "One-on-one expert consultation",
-    features: [
-      { text: "60-minute session" },
-      { text: "Personalized advice" },
-      { text: "Action plan" },
-      { text: "Follow-up email" },
-    ],
-    action: { label: "Book Now", href: "#", variant: "default", size: "lg" },
-    iconName: "lucide/users",
-    isHighlighted: true,
-  },
-  {
-    name: "Implementation",
-    price: "$999",
-    priceDescription: "/project",
-    description: "Full implementation service",
-    features: [
-      { text: "Project scoping" },
-      { text: "Custom development" },
-      { text: "Testing & QA" },
-      { text: "Deployment" },
-      { text: "30-day support" },
-    ],
-    action: { label: "Get Quote", href: "#", variant: "outline", size: "lg" },
-    iconName: "lucide/code",
-  },
-];
-
 /**
  * PricingServicesCards displays a two-card layout for service-based pricing.
  * Features icon headers, feature lists, and distinct styling for the primary service.
@@ -270,7 +237,7 @@ const defaultPlans: PricingServicesCardPlan[] = [
 export function PricingServicesCards({
   heading = "Our Services",
   subtitle = "Choose the service that fits your needs",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

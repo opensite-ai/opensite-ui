@@ -95,45 +95,6 @@ export interface ComparisonMetricsRowsProps {
   actionsClassName?: string;
 }
 
-const defaultMetrics: MetricRow[] = [
-  {
-    title: "Initial Setup",
-    optionA: { value: "6", unit: "mo", desc: "Enterprise implementation timeline" },
-    optionB: { value: "2", unit: "wk", desc: "Rapid deployment process" },
-  },
-  {
-    title: "Monthly Cost",
-    optionA: { value: "$50k", unit: "+", desc: "Enterprise licensing fees" },
-    optionB: { value: "$5k", unit: "", desc: "Predictable monthly pricing" },
-  },
-  {
-    title: "Team Training",
-    optionA: { value: "3", unit: "mo", desc: "Extensive onboarding required" },
-    optionB: { value: "1", unit: "wk", desc: "Intuitive interface design" },
-  },
-  {
-    title: "ROI Timeline",
-    optionA: { value: "4", unit: "y", desc: "Standard enterprise timeline" },
-    optionB: { value: "8", unit: "m", desc: "Accelerated market entry" },
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-];
-
-const defaultFootnotes = [
-  "* Varies based on specific requirements and complexity",
-  "^ Deployment time may vary depending on integration requirements",
-  "# Additional costs may apply for premium features",
-];
-
 /**
  * ComparisonMetricsRows - Data-heavy comparison with metrics in rows
  *
@@ -150,10 +111,10 @@ export function ComparisonMetricsRows({
   description,
   optionALabel = "Traditional",
   optionBLabel = "Cloud-Native",
-  metrics = defaultMetrics,
+  metrics,
   metricsSlot,
-  footnotes = defaultFootnotes,
-  actions = defaultActions,
+  footnotes,
+  actions,
   actionsSlot,
   className,
   containerClassName,

@@ -54,25 +54,11 @@ export interface HeroArchitectureFullscreenProps {
   descriptionClassName?: string;
 }
 
-const defaultAction: ActionConfig = {
-  label: "Our projects",
-  href: "#",
-  variant: "outline",
-  className: "group flex h-fit w-fit items-center gap-3 rounded-full border border-muted-foreground/40 bg-transparent px-6 py-4 text-sm text-foreground uppercase hover:bg-transparent",
-  iconAfter: (
-    <DynamicIcon
-      name="lucide/move-up-right"
-      size={16}
-      className="fill-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-    />
-  ),
-};
-
 export function HeroArchitectureFullscreen({
-  tagline = "#WORLDS NUMBER ONE",
-  heading = "Designing Distinctive Spaces with Cutting-Edge Architectural Innovations",
-  description = "Harnessing the power of architecture to reshape lives and uplift communities.",
-  action = defaultAction,
+  tagline,
+  heading,
+  description,
+  action,
   actionSlot,
   backgroundImage = imagePlaceholders[97],
   className,

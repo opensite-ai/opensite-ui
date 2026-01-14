@@ -81,45 +81,6 @@ export interface CaseStudiesImageGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: CaseStudyImageGridItem[] = [
-  {
-    image: imagePlaceholders[0],
-    logo: blockBrandedIconsAndPlaceholders.vercelWordmarkWhite,
-    title: "Discover how our solutions drive business growth",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[1],
-    logo: blockBrandedIconsAndPlaceholders.reactWordmarkWhite,
-    title: "Learn how our platform enhances business performance",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[2],
-    logo: blockBrandedIconsAndPlaceholders.shadcnUiWordmarkWhite,
-    title: "Discover how our tools empower your business for the future",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[3],
-    logo: blockBrandedIconsAndPlaceholders.tailwindWordmarkWhite,
-    title: "Explore how our services can benefit your business",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[4],
-    logo: blockBrandedIconsAndPlaceholders.nextjsWordmarkWhite,
-    title: "See how our offerings boost your success in business",
-    href: "#",
-  },
-  {
-    image: imagePlaceholders[5],
-    logo: blockBrandedIconsAndPlaceholders.supabaseWordmarkWhite,
-    title: "Learn how our services can elevate your success in business growth",
-    href: "#",
-  },
-];
-
 /**
  * CaseStudiesImageGrid displays case studies in a responsive grid layout with
  * full-bleed background images, company logos, and hover zoom effects.
@@ -144,7 +105,7 @@ const defaultItems: CaseStudyImageGridItem[] = [
  * ```
  */
 export function CaseStudiesImageGrid({
-  items = defaultItems,
+  items,
   itemsSlot,
   className,
   containerClassName,

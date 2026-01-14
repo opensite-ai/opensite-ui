@@ -135,51 +135,6 @@ export interface CarouselSidebarResourcesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultResources: CarouselSidebarResource[] = [
-  {
-    title: "Getting Started with Templates",
-    category: "guide",
-    link: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/xlp46pzk3a4d73jgjx4s7xdafwpn",
-  },
-  {
-    title: "Template Pricing & Plans",
-    category: "pricing",
-    link: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/g1iuifb3yzoofo9c7a00koyn6q1t",
-  },
-  {
-    title: "Introducing Our New Template Builder",
-    category: "news",
-    link: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/z9u4sdrj2oq3eds0qyui0nxsus3j",
-  },
-  {
-    title: "Modern Design Patterns: Creating Responsive Templates for 2025",
-    category: "tutorial",
-    link: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/63aotyt2pb4gqpccej2kkw8reson",
-  },
-  {
-    title: "The Ultimate Guide to Template Customization",
-    category: "ebook",
-    link: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/pjgb223h1bjywdk15i3zi7pjhutg",
-  },
-  {
-    title: "Template Success Stories: Year in Review",
-    category: "blog",
-    link: "#",
-    image:
-      "https://toastability-production.s3.amazonaws.com/3qlr5qlwmqxlqvlmxqfhqvqvqvqv",
-  },
-];
-
 /**
  * CarouselSidebarResources displays a carousel with a sidebar resource list.
  *
@@ -208,7 +163,7 @@ const defaultResources: CarouselSidebarResource[] = [
  */
 export function CarouselSidebarResources({
   heading = "Start building with our template collection",
-  resources = defaultResources,
+  resources,
   resourcesSlot,
   sidebarSlot,
   viewAllText = "View all resources",

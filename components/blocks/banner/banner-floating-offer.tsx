@@ -93,16 +93,6 @@ export interface BannerFloatingOfferProps {
   dismissButtonClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get started",
-    href: "#",
-    variant: "secondary",
-    size: "sm",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-  },
-];
-
 /**
  * BannerFloatingOffer - A floating bottom banner with rounded corners and offer CTA.
  *
@@ -126,7 +116,7 @@ export function BannerFloatingOffer({
   offerTitle = "Limited time offer",
   offerDescription = "Get 50% off for your first month",
   separator,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   open,
   defaultOpen = true,

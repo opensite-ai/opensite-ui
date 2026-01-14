@@ -110,51 +110,6 @@ export interface FeatureCarouselProgressProps {
   cardClassName?: string;
 }
 
-const defaultSlides: FeatureCarouselProgressItem[] = [
-  {
-    iconName: "lucide/code",
-    title: "Integrations",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-  },
-  {
-    iconName: "lucide/arrow-up-down",
-    title: "Automation",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-  },
-  {
-    iconName: "lucide/redo",
-    title: "Customization",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-  },
-  {
-    iconName: "lucide/arrow-down-to-line",
-    title: "Collaboration",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-  },
-  {
-    iconName: "lucide/repeat",
-    title: "Security",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-  },
-  {
-    iconName: "lucide/scan",
-    title: "Performance",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-  },
-  {
-    iconName: "lucide/scaling",
-    title: "Scalability",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, quae!",
-  },
-];
-
 /**
  * Feature Carousel Progress - Carousel-based feature display with progress indicator
  * and navigation controls.
@@ -179,7 +134,7 @@ export function FeatureCarouselProgress({
   badge = "Badge",
   title = "This is where your features go",
   carouselLabel = "Rules",
-  slides = defaultSlides,
+  slides,
   slidesSlot,
   className,
   containerClassName,

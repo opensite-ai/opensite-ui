@@ -121,34 +121,6 @@ export interface NavbarFloatingPillProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultItems: NavItem[] = [
-  {
-    label: "Features",
-    href: "#",
-    dropdownItems: [
-      {
-        title: "Modern product teams",
-        href: "#",
-        description:
-          "Built on the habits that make the best product teams successful",
-      },
-      {
-        title: "Resource Allocation",
-        href: "#",
-        description: "Streamline your resource allocation and execution",
-      },
-    ],
-  },
-  { label: "About Us", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "FAQ", href: "#" },
-  { label: "Contact", href: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Login", href: "#", variant: "outline", size: "sm" },
-];
-
 /**
  * NavbarFloatingPill - A floating pill-shaped navigation bar with glassmorphism effect.
  *
@@ -165,9 +137,9 @@ export const NavbarFloatingPill = ({
   },
   logoSlot,
   logoClassName,
-  items = defaultItems,
+  items,
   menuSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   className,
   containerClassName,

@@ -147,15 +147,6 @@ export interface AboutStatsShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultStats: ShowcaseStatItem[] = [
-  { value: "21M", label: "Global Reach of Users" },
-  { value: "12+", label: "Years of Expertise" },
-  { value: "654", label: "Projects Completed" },
-  { value: "113k+", label: "Monthly Active Users" },
-  { value: "461k", label: "Registered Accounts" },
-  { value: "98+", label: "Daily Users" },
-];
-
 export function AboutStatsShowcase({
   className,
   containerClassName,
@@ -168,7 +159,7 @@ export function AboutStatsShowcase({
   imagesClassName,
   statsTitle = "We excel in our field, but skill isn't everything we offer.",
   statsTitleClassName,
-  stats = defaultStats,
+  stats,
   statsSlot,
   statsClassName,
   logosTitle = "Trusted by leading product teams worldwide.",

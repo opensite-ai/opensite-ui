@@ -91,46 +91,17 @@ export interface HeroEcommerceProductShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Shop now",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "View catalog",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultStats: StatItem[] = [
-  { value: "50K+", label: "Happy customers" },
-  { value: "4.9", label: "Average rating" },
-  { value: "Free", label: "Shipping" },
-];
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[22], alt: "Product 1" },
-  { src: imagePlaceholders[23], alt: "Product 2" },
-  { src: imagePlaceholders[24], alt: "Product 3" },
-  { src: imagePlaceholders[25], alt: "Product 4" },
-];
-
 export function HeroEcommerceProductShowcase({
   badgeText = "New Collection",
   badgeIcon = "lucide/sparkles",
   badgeSlot,
   heading = "Discover our latest arrivals",
   description = "Explore our curated collection of premium products designed to elevate your everyday experience. Quality craftsmanship meets modern design.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  stats = defaultStats,
+  stats,
   statsSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

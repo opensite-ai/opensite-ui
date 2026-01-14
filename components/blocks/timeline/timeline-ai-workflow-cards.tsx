@@ -103,31 +103,10 @@ export interface TimelineAIWorkflowCardsProps {
   };
 }
 
-const defaultItems: TimelineAIWorkflowItem[] = [
-  {
-    icon: "lucide/cloud",
-    title: "AI-Driven Insights",
-    description:
-      "Leverage advanced AI algorithms to gain actionable insights and make data-driven decisions for your business.",
-  },
-  {
-    icon: "lucide/x-circle",
-    title: "Error-Free Automation",
-    description:
-      "Eliminate manual errors with intelligent automation tools that ensure accuracy and consistency across all processes.",
-  },
-  {
-    icon: "lucide/users",
-    title: "Seamless Team Collaboration",
-    description:
-      "Enhance teamwork with AI-powered collaboration tools that enable real-time communication and shared workflows.",
-  },
-];
-
 export function TimelineAIWorkflowCards({
   heading,
   subheading = "Seamlessly integrate AI into your workflows. Automate tasks, enhance efficiency, and stay ahead.",
-  items = defaultItems,
+  items,
   className,
   containerClassName,
   headingClassName,

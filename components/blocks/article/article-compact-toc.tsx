@@ -147,25 +147,6 @@ export interface ArticleCompactTocProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSections: ArticleCompactTocSection[] = [
-  { id: "introduction", title: "Introduction" },
-  { id: "methodology", title: "Methodology" },
-  { id: "results", title: "Results" },
-  { id: "discussion", title: "Discussion" },
-  { id: "conclusion", title: "Conclusion" },
-];
-
-const defaultBreadcrumbs: BreadcrumbItemConfig[] = [
-  { label: "Home", href: "#" },
-  { label: "Research", href: "#" },
-];
-
-const defaultSocialLinks: SocialLinkItem[] = [
-  { platform: "twitter", href: "#", "aria-label": "Share on Twitter" },
-  { platform: "facebook", href: "#", "aria-label": "Share on Facebook" },
-  { platform: "linkedin", href: "#", "aria-label": "Share on LinkedIn" },
-];
-
 const defaultArticleContent = () => (
   <>
     <section id="introduction">
@@ -244,7 +225,7 @@ export function ArticleCompactTocComponent({
   tocClassName,
   articleClassName,
   heroImageClassName,
-  breadcrumbs = defaultBreadcrumbs,
+  breadcrumbs,
   breadcrumbsSlot,
   currentPage = "Study",
   title = "Understanding User Behavior in Modern Web Applications",
@@ -252,10 +233,10 @@ export function ArticleCompactTocComponent({
   authorHref,
   publishDate = "January 12, 2025",
   readTime = "18 min read",
-  sections = defaultSections,
+  sections,
   tocSlot,
   renderSectionLink,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   shareSlot,
   heroImageSrc = imagePlaceholders[8],
   heroImageAlt = "Article hero",

@@ -131,7 +131,7 @@ export function ContactMinimal({
   buttonIcon = <DynamicIcon name="lucide/send" size={16} />,
   actions,
   actionsSlot,
-  footer = defaultFooter,
+  footer,
   footerSlot,
   className,
   containerClassName,

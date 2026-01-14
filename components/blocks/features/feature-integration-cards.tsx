@@ -114,37 +114,6 @@ export interface FeatureIntegrationCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultIntegrations: FeatureIntegrationCardsItem[] = [
-  {
-    icon: blockBrandedIconsAndPlaceholders.integration1,
-    title: "Task Tracker",
-    description: "Keep tabs on all your tasks effortlessly.",
-    link: "#",
-    linkLabel: "Visit Website",
-  },
-  {
-    icon: blockBrandedIconsAndPlaceholders.integration2,
-    title: "Team Chat",
-    description: "Message teams with the click of a button.",
-    link: "#",
-    linkLabel: "Visit Website",
-  },
-  {
-    icon: blockBrandedIconsAndPlaceholders.integration3,
-    title: "Project Planner",
-    description: "Plan projects from milestones to completion.",
-    link: "#",
-    linkLabel: "Visit Website",
-  },
-  {
-    icon: blockBrandedIconsAndPlaceholders.integration4,
-    title: "Board View",
-    description: "View tasks in a board for easy tracking.",
-    link: "#",
-    linkLabel: "Visit Website",
-  },
-];
-
 /**
  * Feature Integration Cards - Grid of integration cards with icons, descriptions,
  * and visit website links.
@@ -167,7 +136,7 @@ const defaultIntegrations: FeatureIntegrationCardsItem[] = [
 export function FeatureIntegrationCards({
   title = "Integrations",
   description = "Connect with your favorite tools and services to streamline your workflow.",
-  integrations = defaultIntegrations,
+  integrations,
   integrationsSlot,
   className,
   containerClassName,

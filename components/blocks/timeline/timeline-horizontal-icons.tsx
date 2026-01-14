@@ -108,41 +108,10 @@ export interface TimelineHorizontalIconsProps {
   };
 }
 
-const defaultPhases: TimelinePhaseWithIcon[] = [
-  {
-    id: 0,
-    date: "January 15, 2024",
-    title: "Phase I",
-    description: "Project initialization and strategic planning begins.",
-    icon: "lucide/rocket",
-  },
-  {
-    id: 1,
-    date: "March 10, 2024",
-    title: "Phase II",
-    description: "Detailed research and preliminary development stage.",
-    icon: "lucide/cpu",
-  },
-  {
-    id: 2,
-    date: "June 5, 2024",
-    title: "Phase III",
-    description: "Core implementation and major milestones achieved.",
-    icon: "lucide/locate-fixed",
-  },
-  {
-    id: 3,
-    date: "September 20, 2024",
-    title: "Phase IV",
-    description: "Final refinements and project completion.",
-    icon: "lucide/flag",
-  },
-];
-
 export function TimelineHorizontalIcons({
   heading = "Timeline",
   currentPhase = 2,
-  phases = defaultPhases,
+  phases,
   className,
   containerClassName,
   headingClassName,

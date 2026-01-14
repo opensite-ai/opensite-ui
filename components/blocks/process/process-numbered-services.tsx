@@ -134,68 +134,13 @@ export interface ProcessNumberedServicesProps {
   title?: string;
 }
 
-const defaultServices: ProcessNumberedServiceItem[] = [
-  {
-    number: "01",
-    title: "Strategy & Consulting",
-    description:
-      "We help you define your digital strategy and roadmap, ensuring alignment between technology investments and business objectives.",
-    capabilities: [
-      "Digital Transformation",
-      "Technology Assessment",
-      "Roadmap Planning",
-      "Change Management",
-    ],
-    action: { label: "Learn more", href: "#strategy", variant: "ghost" },
-  },
-  {
-    number: "02",
-    title: "Design & Experience",
-    description:
-      "Our design team creates intuitive, engaging experiences that delight users and drive business results.",
-    capabilities: [
-      "UX Research",
-      "UI Design",
-      "Design Systems",
-      "Prototyping",
-    ],
-    action: { label: "Learn more", href: "#design", variant: "ghost" },
-  },
-  {
-    number: "03",
-    title: "Development & Engineering",
-    description:
-      "We build robust, scalable solutions using modern technologies and engineering best practices.",
-    capabilities: [
-      "Web Development",
-      "Mobile Apps",
-      "Cloud Architecture",
-      "API Development",
-    ],
-    action: { label: "Learn more", href: "#development", variant: "ghost" },
-  },
-  {
-    number: "04",
-    title: "Growth & Optimization",
-    description:
-      "We help you grow and optimize your digital presence through data-driven strategies and continuous improvement.",
-    capabilities: [
-      "Analytics & Insights",
-      "Performance Optimization",
-      "A/B Testing",
-      "SEO & Marketing",
-    ],
-    action: { label: "Learn more", href: "#growth", variant: "ghost" },
-  },
-];
-
 /**
  * ProcessNumberedServices - A numbered services section with capabilities grid.
  */
 export function ProcessNumberedServices({
   heading = "Our Services",
   description = "Comprehensive solutions to help you succeed in the digital landscape.",
-  services = defaultServices,
+  services,
   servicesSlot,
   className,
   contentClassName,

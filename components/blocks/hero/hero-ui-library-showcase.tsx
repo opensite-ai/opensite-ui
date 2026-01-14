@@ -67,33 +67,14 @@ export interface HeroUiLibraryShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLogo: ImageItem = {
-  src: logoPlaceholders.logoMark,
-  alt: "",
-};
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[32],
-  alt: "",
-};
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Download Now",
-    href: "#",
-    variant: "default",
-    className: "h-fit self-center rounded-full px-6 py-3",
-  },
-];
-
 export function HeroUiLibraryShowcase({
-  logo = defaultLogo,
+  logo,
   logoSlot,
   heading = "The continuously growing UI library for Opensite AI",
   description,
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   headerClassName,

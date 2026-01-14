@@ -220,89 +220,6 @@ export interface LinkPageBentoLayoutProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLinks: BentoLink[] = [
-  {
-    id: "1",
-    label: "Latest Video",
-    href: "https://youtube.com",
-    iconName: "simple-icons/youtube",
-    description: "Watch my newest content",
-    featured: true,
-    image: {
-      src: imagePlaceholders[0],
-      alt: "Latest video thumbnail",
-    },
-  },
-  {
-    id: "2",
-    label: "Shop",
-    href: "https://example.com/shop",
-    iconName: "lucide/shopping-bag",
-    description: "Browse products",
-    featured: true,
-    image: {
-      src: imagePlaceholders[1],
-      alt: "Shop preview",
-    },
-  },
-  {
-    id: "3",
-    label: "Portfolio",
-    href: "https://example.com",
-    iconName: "lucide/briefcase",
-  },
-  {
-    id: "4",
-    label: "Blog",
-    href: "https://example.com/blog",
-    iconName: "lucide/pen-line",
-  },
-  {
-    id: "5",
-    label: "Podcast",
-    href: "https://example.com/podcast",
-    iconName: "lucide/mic",
-  },
-  {
-    id: "6",
-    label: "Contact",
-    href: "mailto:hello@example.com",
-    iconName: "lucide/mail",
-  },
-];
-
-const defaultSocialLinks: BentoSocialLink[] = [
-  {
-    id: "s1",
-    platform: "Twitter",
-    href: "https://twitter.com",
-    iconName: "simple-icons/x",
-  },
-  {
-    id: "s2",
-    platform: "Instagram",
-    href: "https://instagram.com",
-    iconName: "simple-icons/instagram",
-  },
-  {
-    id: "s3",
-    platform: "TikTok",
-    href: "https://tiktok.com",
-    iconName: "simple-icons/tiktok",
-  },
-  {
-    id: "s4",
-    platform: "LinkedIn",
-    href: "https://linkedin.com",
-    iconName: "simple-icons/linkedin",
-  },
-];
-
-const defaultFooterAction: ActionConfig = {
-  label: "Powered by OpenSite",
-  href: "/",
-};
-
 /**
  * LinkPageBentoLayout - A modern bento grid style link page.
  *
@@ -342,11 +259,11 @@ export function LinkPageBentoLayout({
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar5,
   profileSlot,
-  links = defaultLinks,
+  links,
   linksSlot,
   featuredLinksSlot,
   regularLinksSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   footerAction,
   footerSlot,

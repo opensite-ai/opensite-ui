@@ -84,23 +84,6 @@ export interface HeroDashedBorderFeaturesProps {
   featuresClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Start your free trial",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    className: "w-full gap-2 sm:w-auto lg:mt-10",
-    icon: <div className="size-2 rounded-full bg-green-400"></div>,
-  },
-];
-
-const defaultFeatures: Array<FeatureItem & { iconName?: string }> = [
-  { iconName: "lucide/zap", title: "2-4 week delivery" },
-  { iconName: "lucide/dollar-sign", title: "Upfront, no hidden fees" },
-  { iconName: "lucide/medal", title: "Full refund if not satisfied" },
-];
-
 export function HeroDashedBorderFeatures({
   badgeText = "New",
   announcementText = "v2.2 is out now!",
@@ -108,10 +91,10 @@ export function HeroDashedBorderFeatures({
   announcementSlot,
   heading = "Fast websites for startups",
   description = "We craft powerful websites to accelerate your startup's growth.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   demoAvatarSrc = imagePlaceholders[15],
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

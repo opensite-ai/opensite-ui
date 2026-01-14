@@ -169,33 +169,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({
   );
 };
 
-const defaultVideoSections: ProjectVideoHoverStackItem[] = [
-  {
-    thumbnailSrc: imagePlaceholders[36],
-    videoSrc: videoPlaceholders[0],
-    studioName: "MERIDIAN FILMS",
-    projectTitle: "Coastal Reflections",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[37],
-    videoSrc: videoPlaceholders[1],
-    studioName: "ZENITH VISUALS",
-    projectTitle: "Ethereal Moments",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[38],
-    videoSrc: videoPlaceholders[2],
-    studioName: "NEXUS CREATIVE",
-    projectTitle: "Deserted Frontiers",
-  },
-  {
-    thumbnailSrc: imagePlaceholders[39],
-    videoSrc: videoPlaceholders[3],
-    studioName: "PRISM STUDIOS",
-    projectTitle: "Nature's Symphony",
-  },
-];
-
 /**
  * ProjectVideoHoverStack - Full-width stacked video sections with hover-to-play functionality.
  *
@@ -208,7 +181,7 @@ const defaultVideoSections: ProjectVideoHoverStackItem[] = [
 export function ProjectVideoHoverStack({
   heading = "Explore Our Projects",
   subheading = "Our Work",
-  videoSections = defaultVideoSections,
+  videoSections,
   videoSectionsSlot,
   optixFlowConfig,
   background,

@@ -65,35 +65,6 @@ export interface ProjectDetailCompactMetadataProps {
   galleryClassName?: string;
 }
 
-const defaultMetadata: DetailItem[] = [
-  { label: "Year", value: "2024" },
-  { label: "Category", value: "Sculpture" },
-  { label: "Artist", value: "Elena Vasquez" },
-  { label: "Materials", value: "Bronze, Steel" },
-  { label: "Dimensions", value: "180 x 90 x 75 cm" },
-  { label: "Location", value: "Metropolitan Gallery" },
-];
-
-const defaultGalleryImages: ImageItem[] = [
-  { src: imagePlaceholders[22], alt: "Gallery image 1" },
-  { src: imagePlaceholders[23], alt: "Gallery image 2" },
-  { src: imagePlaceholders[24], alt: "Gallery image 3" },
-];
-
-const defaultProps: ProjectDetailCompactMetadataProps = {
-  title: "Organic Resonance",
-  subtitle: "A Study in Form and Movement",
-  heroImage: {
-    src: imagePlaceholders[25],
-    alt: "Organic Resonance sculpture",
-  },
-  description:
-    "This sculptural work explores the intersection of organic forms and geometric precision. Inspired by natural growth patterns and the mathematical principles underlying biological structures.",
-  metadata: defaultMetadata,
-  galleryImages: defaultGalleryImages,
-  backAction: { label: "Back", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

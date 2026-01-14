@@ -105,51 +105,6 @@ export interface FeatureBadgeGridSixProps {
   actionContainerClassName?: string;
 }
 
-const defaultFeatures: FeatureBadgeGridSixItem[] = [
-  {
-    iconName: "lucide/git-pull-request",
-    heading: "Quality",
-    description:
-      "Built with attention to detail and best practices. Every component is thoroughly tested and follows modern React patterns for reliability and performance.",
-  },
-  {
-    iconName: "lucide/square-kanban",
-    heading: "Experience",
-    description:
-      "Crafted with user experience in mind. Each component is designed to be intuitive, accessible, and provide smooth interactions across all devices.",
-  },
-  {
-    iconName: "lucide/radio-tower",
-    heading: "Support",
-    description:
-      "Comprehensive documentation and community support. Get help when you need it with detailed guides, examples, and active community assistance.",
-  },
-  {
-    iconName: "lucide/wand-sparkles",
-    heading: "Innovation",
-    description:
-      "Cutting-edge design patterns and modern web technologies. Stay ahead with the latest trends in UI/UX design and development practices.",
-  },
-  {
-    iconName: "lucide/layers",
-    heading: "Results",
-    description:
-      "Proven track record of successful implementations. These components have been battle-tested in real-world applications and deliver consistent results.",
-  },
-  {
-    iconName: "lucide/battery-charging",
-    heading: "Efficiency",
-    description:
-      "Optimized for performance and developer productivity. Lightweight, fast-loading components that help you build faster without compromising on quality.",
-  },
-];
-
-const defaultAction: ActionConfig = {
-  label: "More Features",
-  href: "#",
-  variant: "default",
-};
-
 /**
  * Feature Badge Grid Six - Six-feature grid with badge header and centered CTA button.
  *
@@ -173,9 +128,9 @@ export function FeatureBadgeGridSix({
   label = "Features",
   badgeSlot,
   title = "Fully featured components for Opensite AI & Tailwind",
-  features = defaultFeatures,
+  features,
   featuresSlot,
-  action = defaultAction,
+  action,
   actionSlot,
   className,
   containerClassName,

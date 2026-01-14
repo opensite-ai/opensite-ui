@@ -102,26 +102,15 @@ export interface HeroSaasDashboardPreviewProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultEmailForm: EmailFormConfig = {
-  placeholder: "Enter your work email",
-  action: { label: "Get started", href: "#", variant: "default", className: "h-12 px-6" },
-  helperText: "Free 14-day trial. No credit card required.",
-};
-
-const defaultBrowserPreview: BrowserPreviewConfig = {
-  url: "dashboard.example.com",
-  image: { src: imagePlaceholders[106], alt: "Dashboard preview" },
-};
-
 export function HeroSaasDashboardPreview({
   badgeText = "AI-powered analytics",
   badgeIcon = "lucide/sparkles",
   badgeSlot,
   heading = "Understand your data like never before",
   description = "Get actionable insights from your data with our AI-powered analytics platform. No data science degree required.",
-  emailForm = defaultEmailForm,
+  emailForm,
   emailFormSlot,
-  browserPreview = defaultBrowserPreview,
+  browserPreview,
   browserPreviewSlot,
   className,
   containerClassName,

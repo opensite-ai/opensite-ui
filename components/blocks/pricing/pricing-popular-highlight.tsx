@@ -243,52 +243,6 @@ export interface PricingPopularHighlightProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingPopularHighlightPlan[] = [
-  {
-    name: "Basic",
-    monthlyPrice: "$15",
-    yearlyPrice: "$150",
-    description: "For individuals",
-    features: [
-      { text: "5 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-      { text: "2GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline" },
-  },
-  {
-    name: "Professional",
-    monthlyPrice: "$39",
-    yearlyPrice: "$390",
-    description: "For growing teams",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "50GB storage" },
-      { text: "API access" },
-      { text: "Team collaboration" },
-    ],
-    action: { label: "Start Free Trial", href: "#", variant: "default", size: "lg" },
-    isPopular: true,
-  },
-  {
-    name: "Enterprise",
-    monthlyPrice: "$99",
-    yearlyPrice: "$990",
-    description: "For large organizations",
-    features: [
-      { text: "Everything in Pro" },
-      { text: "Custom integrations" },
-      { text: "Dedicated support" },
-      { text: "Unlimited storage" },
-      { text: "SLA guarantee" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-  },
-];
-
 /**
  * PricingPopularHighlight displays a 3-column pricing grid with the popular plan visually elevated.
  * The popular plan is scaled up and has enhanced styling to draw attention.
@@ -315,7 +269,7 @@ export function PricingPopularHighlight({
   yearlyBadge = "Save 17%",
   monthlyInterval = "/month",
   yearlyInterval = "/year",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

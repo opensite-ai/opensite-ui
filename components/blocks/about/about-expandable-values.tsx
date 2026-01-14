@@ -116,95 +116,6 @@ export interface AboutExpandableValuesProps {
   actionsClassName?: string;
 }
 
-const defaultValues: AboutExpandableValueItem[] = [
-  {
-    id: "integrity",
-    icon: <DynamicIcon name="lucide/shield" size={24} className="text-primary" />,
-    title: "Integrity",
-    shortDescription: "Doing what's right, even when no one is watching.",
-    longDescription:
-      "We believe that honesty and strong moral principles are the foundation of any successful business. We are transparent in our practices, accountable for our actions, and committed to doing what's right in all situations.",
-    examples: [
-      "Transparent pricing with no hidden fees",
-      "Honest communication with clients, even when delivering difficult news",
-      "Ethical sourcing and business practices",
-    ],
-  },
-  {
-    id: "innovation",
-    icon: <DynamicIcon name="lucide/zap" size={24} className="text-primary" />,
-    title: "Innovation",
-    shortDescription: "Constantly exploring new ideas to create better solutions.",
-    longDescription:
-      "We embrace change and continuously seek new ways to solve problems. We encourage creative thinking, experimentation, and calculated risk-taking to drive our industry forward and deliver exceptional value to our clients.",
-    examples: [
-      "Dedicated time for all team members to explore new ideas",
-      "Regular hackathons and innovation challenges",
-      "Investment in research and emerging technologies",
-    ],
-  },
-  {
-    id: "collaboration",
-    icon: <DynamicIcon name="lucide/users" size={24} className="text-primary" />,
-    title: "Collaboration",
-    shortDescription: "Achieving more by working together effectively.",
-    longDescription:
-      "We believe the best results come from diverse teams working together toward common goals. We foster an inclusive environment where all voices are heard, different perspectives are valued, and collective success is celebrated.",
-    examples: [
-      "Cross-functional teams with diverse backgrounds and expertise",
-      "Open workspaces and collaboration tools",
-      "Recognition programs that celebrate team achievements",
-    ],
-  },
-  {
-    id: "empathy",
-    icon: <DynamicIcon name="lucide/heart" size={24} className="text-primary" />,
-    title: "Empathy",
-    shortDescription: "Understanding and sharing the feelings of others.",
-    longDescription:
-      "We prioritize understanding our customers' and colleagues' perspectives and experiences. By putting ourselves in others' shoes, we build stronger relationships, create better products, and foster a supportive work environment.",
-    examples: [
-      "User research and feedback sessions that inform our decisions",
-      "Comprehensive support for employees during difficult times",
-      "Products designed with accessibility and inclusion in mind",
-    ],
-  },
-  {
-    id: "excellence",
-    icon: <DynamicIcon name="lucide/brain" size={24} className="text-primary" />,
-    title: "Excellence",
-    shortDescription: "Striving for the highest quality in everything we do.",
-    longDescription:
-      "We are committed to delivering exceptional quality and exceeding expectations. We continuously raise our standards, refine our processes, and develop our skills to achieve outstanding results in all areas of our business.",
-    examples: [
-      "Rigorous quality assurance processes",
-      "Continuous professional development opportunities",
-      "Recognition and celebration of exceptional work",
-    ],
-  },
-  {
-    id: "sustainability",
-    icon: <DynamicIcon name="lucide/globe" size={24} className="text-primary" />,
-    title: "Sustainability",
-    shortDescription: "Creating long-term value while minimizing environmental impact.",
-    longDescription:
-      "We recognize our responsibility to future generations and the planet. We make business decisions that balance economic growth with environmental protection and social well-being, aiming to create positive impact beyond profitability.",
-    examples: [
-      "Carbon neutrality commitment and tracking",
-      "Eco-friendly office practices and remote work options",
-      "Community involvement and social responsibility initiatives",
-    ],
-  },
-];
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Learn about our culture",
-    href: "#",
-    variant: "default",
-  },
-];
-
 /**
  * About Expandable Values - An interactive values section with expandable cards
  * that reveal detailed descriptions and examples when clicked.
@@ -235,11 +146,11 @@ export function AboutExpandableValues({
   badgeText = "Our Core Values",
   heading = "The Principles That Guide Us",
   description = "Our values define who we are, how we work together, and what we strive for. They are the foundation of our culture and drive every decision we make.",
-  values = defaultValues,
+  values,
   valuesSlot,
   ctaHeading = "Living Our Values Every Day",
   ctaDescription = "These aren't just words on our website—our values are integrated into our hiring processes, performance reviews, decision-making frameworks, and daily interactions. They're how we show up for our team, our customers, and our community.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

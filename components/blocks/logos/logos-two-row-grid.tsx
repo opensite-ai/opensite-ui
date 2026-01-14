@@ -86,59 +86,6 @@ export interface LogosTwoRowGridProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultCompanies: LogosTwoRowGridCompanyItem[] = [
-  {
-    name: "Company 1",
-    logo: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
-    url: "#",
-  },
-  {
-    name: "Company 2",
-    logo: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
-    url: "#",
-  },
-  {
-    name: "Company 3",
-    logo: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
-    url: "#",
-  },
-  {
-    name: "Company 4",
-    logo: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
-    url: "#",
-  },
-  {
-    name: "Company 5",
-    logo: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
-    url: "#",
-  },
-  {
-    name: "Company 6",
-    logo: "https://cdn.ing/assets/files/record/286249/ff7m4wdw0zefj7d96v4ajmljuifc",
-    url: "#",
-  },
-  {
-    name: "Company 7",
-    logo: "https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb",
-    url: "#",
-  },
-  {
-    name: "Company 8",
-    logo: "https://cdn.ing/assets/files/record/286251/c64yb2c255uig6vpe4gdlnten7rv",
-    url: "#",
-  },
-  {
-    name: "Company 9",
-    logo: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
-    url: "#",
-  },
-  {
-    name: "Company 10",
-    logo: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
-    url: "#",
-  },
-];
-
 /**
  * LogosTwoRowGrid - A two-row logo grid with heading.
  * Features grayscale logos with hover effects arranged in two centered rows.
@@ -147,7 +94,7 @@ export function LogosTwoRowGrid({
   className,
   heading = "Trusted by leading companies worldwide",
   headingClassName,
-  companies = defaultCompanies,
+  companies,
   companiesSlot,
   logosClassName,
   rowClassName,

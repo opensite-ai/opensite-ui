@@ -124,72 +124,6 @@ export interface LogosPartnerGridSidebarProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultYearSections: LogosPartnerGridSidebarYearSection[] = [
-  {
-    year: "2020",
-    description: "Started with 10 founding partners who believed in our vision.",
-  },
-  {
-    year: "2022",
-    description: "Expanded to 50+ partners across multiple industries.",
-  },
-  {
-    year: "2024",
-    description: "Now serving 200+ partners globally with enterprise solutions.",
-  },
-];
-
-const defaultPartners: LogosPartnerGridSidebarPartnerItem[] = [
-  {
-    name: "Partner 1",
-    logo: "https://cdn.ing/assets/files/record/286222/4w39lhwei0pa97up2wjnay3j96gh",
-  },
-  {
-    name: "Partner 2",
-    logo: "https://cdn.ing/assets/files/record/286252/xd7hyzbpkjwsauxm5j9yn9v44min",
-  },
-  {
-    name: "Partner 3",
-    logo: "https://cdn.ing/assets/files/record/286216/bw4zypgflisdtapxy0n4nbmsmtum",
-  },
-  {
-    name: "Partner 4",
-    logo: "https://cdn.ing/assets/files/record/286284/cz20wf2l2tjokrxu563pcml7pkmu",
-  },
-  {
-    name: "Partner 5",
-    logo: "https://cdn.ing/assets/files/record/286215/6wwi6yh2ax2nuo2vqa5gn9vozrgq",
-  },
-  {
-    name: "Partner 6",
-    logo: "https://cdn.ing/assets/files/record/286249/ff7m4wdw0zefj7d96v4ajmljuifc",
-  },
-  {
-    name: "Partner 7",
-    logo: "https://cdn.ing/assets/files/record/286220/t34kymqu5g9xr85o89cji3kfuypb",
-  },
-  {
-    name: "Partner 8",
-    logo: "https://cdn.ing/assets/files/record/286251/c64yb2c255uig6vpe4gdlnten7rv",
-  },
-  {
-    name: "Partner 9",
-    logo: "https://cdn.ing/assets/files/record/286209/4nowqz6c7v6vhzldvh9qdnhmkrwb",
-  },
-  {
-    name: "Partner 10",
-    logo: "https://cdn.ing/assets/files/record/286208/nay46vdmppxuznd7eg5jnnf4qjv5",
-  },
-  {
-    name: "Partner 11",
-    logo: "https://cdn.ing/assets/files/record/286214/pn9v9zz0de8jgz2mf8o1c11k8gxh",
-  },
-  {
-    name: "Partner 12",
-    logo: "https://cdn.ing/assets/files/record/286235/x4po9fpjkd6cdxnfxaqya6emwvea",
-  },
-];
-
 /**
  * LogosPartnerGridSidebar - A partner grid with sticky sidebar timeline.
  * Features a sticky sidebar with year milestones and a responsive partner logo grid.
@@ -201,11 +135,11 @@ export function LogosPartnerGridSidebar({
   sidebarDescription = "We've partnered with industry leaders to deliver exceptional value to our customers.",
   sidebarDescriptionClassName,
   sidebarClassName,
-  yearSections = defaultYearSections,
+  yearSections,
   yearSectionsSlot,
   yearSectionsClassName,
   yearSectionItemClassName,
-  partners = defaultPartners,
+  partners,
   partnersSlot,
   partnersClassName,
   partnerCardClassName,

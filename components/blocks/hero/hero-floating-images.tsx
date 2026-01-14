@@ -64,29 +64,6 @@ export interface HeroFloatingImagesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultImages: HeroFloatingImagesItem[] = [
-  {
-    src: imagePlaceholders[2],
-    alt: "OpenSite AI coverage review",
-    className: "left-4 top-6 w-24 md:left-16 md:top-10 md:w-32",
-  },
-  {
-    src: imagePlaceholders[3],
-    alt: "OpenSite AI advisor workflow",
-    className: "right-6 top-16 w-28 md:right-20 md:top-10 md:w-36",
-  },
-  {
-    src: imagePlaceholders[4],
-    alt: "OpenSite AI team collaboration",
-    className: "left-10 bottom-10 w-28 md:left-24 md:bottom-20 md:w-40",
-  },
-  {
-    src: imagePlaceholders[5],
-    alt: "OpenSite AI service center",
-    className: "right-10 bottom-8 w-24 md:right-28 md:bottom-16 md:w-32",
-  },
-];
-
 const Swirls = () => (
   <>
     <svg
@@ -131,7 +108,7 @@ const Swirls = () => (
 export function HeroFloatingImages({
   heading = "Moments curated with OpenSite AI care",
   description = "Pair a warm headline with floating imagery to create a playful, immersive hero that feels human and welcoming.",
-  images = defaultImages,
+  images,
   imagesSlot,
   showSwirls = true,
   backgroundSlot,

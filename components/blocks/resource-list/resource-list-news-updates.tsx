@@ -102,44 +102,6 @@ export interface ResourceListNewsUpdatesProps {
   patternOpacity?: number;
 }
 
-const defaultNews: ResourceListNewsUpdatesItem[] = [
-  {
-    title: "TechFlow AI Platform now available on Azure Marketplace",
-    category: "Partnership",
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-    date: "June 15, 2024",
-    link: "#",
-  },
-  {
-    title: "CodeSphere: the journey behind our latest developer tool",
-    category: "Press release",
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-    date: "June 10, 2024",
-    link: "#",
-  },
-  {
-    title: "DataViz & CloudNative announce collaboration on next-gen analytics tools",
-    category: "Partnership",
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-    date: "May 28, 2024",
-    link: "#",
-  },
-  {
-    title: "QuantumByte launches EdgeCompute: a revolutionary edge computing platform",
-    category: "News",
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-    date: "May 12, 2024",
-    link: "#",
-  },
-  {
-    title: "Join us at DevCon Global Summit 2024 in Berlin",
-    category: "Press release",
-    avatar: blockBrandedIconsAndPlaceholders.avatar5,
-    date: "May 5, 2024",
-    link: "#",
-  },
-];
-
 /**
  * ResourceListNewsUpdates - A news and updates listing with animated hover effects,
  * category badges, author avatars, and dates in a clean two-column layout.
@@ -164,7 +126,7 @@ export function ResourceListNewsUpdates({
   titleClassName,
   subtitle = "Discover our recent updates.",
   subtitleClassName,
-  news = defaultNews,
+  news,
   newsSlot,
   newsClassName,
   contentClassName,

@@ -74,19 +74,6 @@ export interface FeatureSplitImageReverseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-  },
-  {
-    label: "Learn More",
-    href: "#",
-    variant: "outline",
-  },
-];
-
 /**
  * Feature Split Image Reverse - Two-column feature section with image on the left
  * and text content on the right.
@@ -114,7 +101,7 @@ export function FeatureSplitImageReverse({
   imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   imageAlt = "Feature illustration",
   imageSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

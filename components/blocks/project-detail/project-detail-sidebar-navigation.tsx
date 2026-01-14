@@ -68,53 +68,6 @@ export interface ProjectDetailSidebarNavigationProps {
   metadataClassName?: string;
 }
 
-const defaultSections: SectionItem[] = [
-  {
-    id: "overview",
-    title: "Overview",
-    content:
-      "A comprehensive brand identity project that reimagines the visual language of a heritage company for the modern era. This project involved extensive research, strategic planning, and creative execution across multiple touchpoints.",
-  },
-  {
-    id: "challenge",
-    title: "The Challenge",
-    content:
-      "The client faced the challenge of maintaining brand recognition while appealing to a younger demographic. Our task was to create a visual system that honored their legacy while feeling fresh and contemporary.",
-  },
-  {
-    id: "approach",
-    title: "Our Approach",
-    content:
-      "We began with an extensive discovery phase, conducting stakeholder interviews and competitive analysis. This informed our creative direction and ensured alignment with business objectives throughout the project.",
-  },
-  {
-    id: "solution",
-    title: "The Solution",
-    content:
-      "The final identity system includes a refined logo, comprehensive color palette, typography guidelines, and a flexible design system that works across digital and print applications.",
-  },
-  {
-    id: "results",
-    title: "Results",
-    content:
-      "The rebrand has been met with overwhelmingly positive reception, with a 45% increase in brand awareness and significant improvement in customer engagement metrics across all channels.",
-  },
-];
-
-const defaultProps: ProjectDetailSidebarNavigationProps = {
-  title: "Brand Evolution",
-  subtitle: "Strategic Rebranding",
-  year: "2024",
-  category: "Brand Identity",
-  client: "Heritage Co.",
-  heroImage: {
-    src: imagePlaceholders[8],
-    alt: "Brand evolution project showcase",
-  },
-  sections: defaultSections,
-  backAction: { label: "All Projects", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 export function ProjectDetailSidebarNavigation(
   props: ProjectDetailSidebarNavigationProps
 ): React.JSX.Element {

@@ -70,11 +70,6 @@ export interface AboutMinimalStoryProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAuthor = {
-  name: "Jordan Mitchell",
-  role: "Founder & CEO",
-};
-
 export function AboutMinimalStory({
   title = "Our Story",
   content = `Every great company starts with a simple idea. Ours was born from frustration with the complexity of modern software development. We believed there had to be a better way.
@@ -82,7 +77,7 @@ export function AboutMinimalStory({
 In 2019, our founders came together with a shared vision: make building software as intuitive as using it. What started as a side project quickly grew into something bigger as more developers discovered our tools.
 
 Today, we're proud to serve thousands of teams worldwide, from solo entrepreneurs to Fortune 500 companies. But our mission remains the same: empower everyone to build the software they need.`,
-  author = defaultAuthor,
+  author,
   authorSlot,
   featuredImage,
   className,

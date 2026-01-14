@@ -244,68 +244,6 @@ const defaultArticleContent = (
   </>
 );
 
-const defaultBreadcrumbs: BreadcrumbItemType[] = [
-  { label: "Home", href: "/" },
-  { label: "Components", href: "/" },
-  { label: "Products", isCurrentPage: true },
-];
-
-const defaultArticle: ResourceDetailDocumentSidebarArticle = {
-  featuredImage: {
-    src: imagePlaceholders[0],
-    alt: "Professional Service Agreement document preview",
-  },
-  content: defaultArticleContent,
-};
-
-const defaultShareActions: ActionConfig[] = [
-  {
-    icon: <DynamicIcon name="lucide/facebook" size={16} />,
-    href: "#",
-    "aria-label": "Share on Facebook",
-  },
-  {
-    icon: <DynamicIcon name="lucide/twitter" size={16} />,
-    href: "#",
-    "aria-label": "Share on Twitter",
-  },
-  {
-    icon: <DynamicIcon name="lucide/linkedin" size={16} />,
-    href: "#",
-    "aria-label": "Share on LinkedIn",
-  },
-  {
-    icon: <DynamicIcon name="lucide/instagram" size={16} />,
-    href: "#",
-    "aria-label": "Share on Instagram",
-  },
-];
-
-const defaultSidebar: ResourceDetailDocumentSidebarSidebar = {
-  excerptTitle: "Excerpt from the document",
-  excerptDescription:
-    "A comprehensive service agreement template designed for professional service providers and their clients. This document outlines the scope of work, deliverables, timelines, and terms of service to ensure clear expectations and protect both parties' interests.",
-  downloadAction: {
-    children: "Download the document",
-    href: "#",
-    variant: "default",
-    size: "lg",
-  },
-  reviewer: {
-    name: "Reviewed by John Doe",
-    role: "Legal Consultant",
-    avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  featuresTitle: "Key Features",
-  features: [
-    { text: "Customizable Terms" },
-    { text: "Digital Signatures" },
-    { text: "Document Tracking" },
-  ],
-  shareTitle: "Share this template",
-  shareActions: defaultShareActions,
-};
-
 /**
  * ResourceDetailDocumentSidebar - A document detail page with breadcrumb navigation,
  * title, two-column layout with article content and sticky sidebar containing excerpt,
@@ -339,15 +277,15 @@ const defaultSidebar: ResourceDetailDocumentSidebarSidebar = {
  */
 export function ResourceDetailDocumentSidebar({
   className,
-  breadcrumbs = defaultBreadcrumbs,
+  breadcrumbs,
   breadcrumbsSlot,
   breadcrumbsClassName,
   title = "Professional Service Agreement",
   titleClassName,
-  article = defaultArticle,
+  article,
   articleSlot,
   articleClassName,
-  sidebar = defaultSidebar,
+  sidebar,
   sidebarSlot,
   sidebarClassName,
   background = "white",

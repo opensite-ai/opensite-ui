@@ -97,10 +97,6 @@ export interface CtaSplitImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
 /**
  * CtaSplitImage - A split-layout CTA section with content and button on one side
  * and a featured image on the other. The image appears on the left on larger screens.
@@ -120,7 +116,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaSplitImage({
   heading = "Call to Action",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = imagePlaceholders[0],
   imageAlt = "Featured image",

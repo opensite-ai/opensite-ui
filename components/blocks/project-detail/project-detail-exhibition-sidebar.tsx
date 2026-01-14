@@ -75,50 +75,6 @@ export interface ProjectDetailExhibitionSidebarProps {
   galleryClassName?: string;
 }
 
-const defaultExhibitions: ProjectDetailExhibitionSidebarExhibition[] = [
-  {
-    title: "Contemporary Forms",
-    venue: "Metropolitan Art Gallery",
-    date: "Jan - Mar 2024",
-    href: "#",
-  },
-  {
-    title: "Organic Futures",
-    venue: "Modern Art Museum",
-    date: "Apr - Jun 2024",
-    href: "#",
-  },
-  {
-    title: "Sculptural Dialogues",
-    venue: "International Art Center",
-    date: "Jul - Sep 2024",
-    href: "#",
-  },
-];
-
-const defaultGalleryImages: ImageItem[] = [
-  { src: imagePlaceholders[38], alt: "Gallery image 1" },
-  { src: imagePlaceholders[39], alt: "Gallery image 2" },
-  { src: imagePlaceholders[40], alt: "Gallery image 3" },
-];
-
-const defaultProps: ProjectDetailExhibitionSidebarProps = {
-  title: "Organic Resonance",
-  subtitle: "Sculptural Installation",
-  year: "2024",
-  category: "Sculpture",
-  artist: "Elena Vasquez",
-  heroImage: {
-    src: imagePlaceholders[41],
-    alt: "Organic Resonance sculpture",
-  },
-  description:
-    "This sculptural work has been featured in multiple international exhibitions, exploring themes of organic growth, material transformation, and the dialogue between natural and constructed forms.",
-  exhibitions: defaultExhibitions,
-  galleryImages: defaultGalleryImages,
-  backAction: { label: "Back to Gallery", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

@@ -301,65 +301,6 @@ export interface LinkPageNewsletterSocialProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLinks: NewsletterSocialLink[] = [
-  {
-    id: "1",
-    label: "My Website",
-    href: "https://example.com",
-    iconName: "lucide/globe",
-  },
-  {
-    id: "2",
-    label: "Latest Blog Post",
-    href: "https://example.com/blog",
-    iconName: "lucide/file-text",
-  },
-  {
-    id: "3",
-    label: "Free Resources",
-    href: "https://example.com/resources",
-    iconName: "lucide/download",
-  },
-];
-
-const defaultSocialLinks: NewsletterSocialSocialLink[] = [
-  {
-    id: "s1",
-    platform: "Twitter",
-    href: "https://twitter.com",
-    iconName: "simple-icons/x",
-  },
-  {
-    id: "s2",
-    platform: "Instagram",
-    href: "https://instagram.com",
-    iconName: "simple-icons/instagram",
-  },
-  {
-    id: "s3",
-    platform: "YouTube",
-    href: "https://youtube.com",
-    iconName: "simple-icons/youtube",
-  },
-  {
-    id: "s4",
-    platform: "TikTok",
-    href: "https://tiktok.com",
-    iconName: "simple-icons/tiktok",
-  },
-];
-
-const defaultSubmitAction: ActionConfig = {
-  label: "Subscribe",
-  variant: "default",
-  size: "lg",
-};
-
-const defaultFooterAction: ActionConfig = {
-  label: "Powered by OpenSite",
-  href: "/",
-};
-
 /**
  * LinkPageNewsletterSocial - A link page with integrated newsletter signup form.
  *
@@ -415,10 +356,10 @@ export function LinkPageNewsletterSocial({
   submittingIcon = (
     <DynamicIcon name="lucide/loader-2" size={16} className="animate-spin" />
   ),
-  links = defaultLinks,
+  links,
   linksSlot,
   linkChevronIcon,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   footerAction,
   footerSlot,

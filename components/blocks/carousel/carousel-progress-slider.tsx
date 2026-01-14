@@ -193,15 +193,8 @@ export interface CarouselProgressSliderProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSlides: ProgressSlide[] = [
-  { id: "slide-0", title: "Feature 1", description: "Discover the amazing capabilities of feature 1", image: imagePlaceholders[0] },
-  { id: "slide-1", title: "Feature 2", description: "Discover the amazing capabilities of feature 2", image: imagePlaceholders[1] },
-  { id: "slide-2", title: "Feature 3", description: "Discover the amazing capabilities of feature 3", image: imagePlaceholders[2] },
-  { id: "slide-3", title: "Feature 4", description: "Discover the amazing capabilities of feature 4", image: imagePlaceholders[3] },
-];
-
 export function CarouselProgressSlider({
-  slides = defaultSlides,
+  slides,
   slidesSlot,
   duration = 5000,
   fastDuration = 400,

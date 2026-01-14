@@ -205,19 +205,6 @@ export interface ContactDarkProps {
   onError?: (error: Error) => void;
 }
 
-const defaultContactOptions: ContactDarkOption[] = [
-  { icon: "lucide/phone", info: "+1 (424) 535-3523", href: "tel:+14245353523" },
-  { icon: "lucide/mail", info: "hello@company.com", href: "mailto:hello@company.com" },
-  { icon: "lucide/ticket", info: "Open Support Ticket", href: "#" },
-];
-
-const defaultSocialLinks: ContactDarkSocialLink[] = [
-  { icon: "lucide/twitter", href: "#", label: "Twitter" },
-  { icon: "lucide/linkedin", href: "#", label: "LinkedIn" },
-  { icon: "lucide/dribbble", href: "#", label: "Dribbble" },
-  { icon: "lucide/facebook", href: "#", label: "Facebook" },
-];
-
 /**
  * ContactDark - A dark-themed contact form with split layout featuring a form
  * on one side and contact information with social links on a dark background.
@@ -242,9 +229,9 @@ export function ContactDark({
   buttonIcon,
   actions,
   actionsSlot,
-  contactOptions = defaultContactOptions,
+  contactOptions,
   contactOptionsSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   className,
   containerClassName,

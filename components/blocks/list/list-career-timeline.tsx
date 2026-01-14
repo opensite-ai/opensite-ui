@@ -128,87 +128,6 @@ export interface ListCareerTimelineProps {
   patternOpacity?: number;
 }
 
-const defaultExperiences: ListExperienceItem[] = [
-  {
-    year: "2019 - PRESENT",
-    role: "SENIOR SOFTWARE ENGINEER",
-    company: "TECHNOLOGY INNOVATIONS CORP",
-  },
-  {
-    year: "2018 - 2020",
-    role: "FULL-STACK DEVELOPER",
-    company: "DIGITAL SOLUTIONS & STARTUP COLLABORATIONS",
-  },
-  {
-    year: "2017 - 2018",
-    role: "FRONTEND DEVELOPER",
-    company: "WEB CRAFT STUDIO",
-  },
-  {
-    year: "2015 - 2016",
-    role: "JUNIOR DEVELOPER",
-    company: "CODE FORGE LABS",
-  },
-  {
-    year: "2014 - 2015",
-    role: "INTERN DEVELOPER",
-    company: "INNOVATION TECH",
-  },
-];
-
-const defaultAwards: ListAwardItem[] = [
-  {
-    year: "2015",
-    title: "BEST NEWCOMER DEVELOPER",
-    organization: "TECH EXCELLENCE AWARDS",
-  },
-  {
-    year: "2015",
-    title: "INNOVATION IN WEB DEVELOPMENT",
-    organization: "DIGITAL CREATORS UK",
-  },
-  {
-    year: "2016",
-    title: "OUTSTANDING CODE QUALITY",
-    organization: "BRITISH SOFTWARE ASSOCIATION",
-  },
-  {
-    year: "2017",
-    title: "RISING STAR IN TECH",
-    organization: "GLOBAL DEVELOPER AWARDS",
-  },
-  {
-    year: "2018",
-    title: "DEVELOPER OF THE YEAR",
-    organization: "CODE EXCELLENCE AWARDS",
-  },
-  {
-    year: "2019",
-    title: "BEST TECH TEAM LEADER",
-    organization: "UK SOFTWARE GUILD",
-  },
-  {
-    year: "2020",
-    title: "INNOVATION IN SOFTWARE ARCHITECTURE",
-    organization: "DIGITAL INNOVATION AWARDS",
-  },
-  {
-    year: "2021",
-    title: "EMERGING TECH LEADER",
-    organization: "LONDON TECH COUNCIL",
-  },
-  {
-    year: "2022",
-    title: "EXCELLENCE IN FULL-STACK DEVELOPMENT",
-    organization: "DEVELOPER WEEKLY",
-  },
-  {
-    year: "2023",
-    title: "BEST SOFTWARE ENGINEER",
-    organization: "EUROPEAN TECH & MEDIA",
-  },
-];
-
 /**
  * ListCareerTimeline - A two-section timeline displaying professional experience
  * and achievements/awards. Features a bold heading, experience history with roles
@@ -245,13 +164,13 @@ export function ListCareerTimeline({
   headingClassName,
   experienceLabel = "/ EXPERIENCE",
   experienceLabelClassName,
-  experiences = defaultExperiences,
+  experiences,
   experiencesSlot,
   experiencesClassName,
   experienceRowClassName,
   achievementsLabel = "/ ACHIEVEMENTS",
   achievementsLabelClassName,
-  awards = defaultAwards,
+  awards,
   awardsSlot,
   awardsClassName,
   awardRowClassName,

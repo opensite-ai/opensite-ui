@@ -100,11 +100,6 @@ export interface CtaVideoBackgroundHeroProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "secondary", size: "lg" },
-  { label: "Watch Demo", href: "#", variant: "outline", size: "lg" },
-];
-
 /**
  * CtaVideoBackgroundHero - A hero CTA with looping video background, gradient
  * overlay, heading, description, and buttons including a video modal trigger.
@@ -126,7 +121,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaVideoBackgroundHero({
   heading = "Experience the Future",
   description = "See how our platform transforms your workflow. Join thousands of teams already building amazing products.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   modalVideoUrl = videoPlaceholders[0],
   backgroundVideoUrl = videoPlaceholders[1],

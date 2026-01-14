@@ -72,119 +72,12 @@ export interface BlogGridNinePostsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    id: "post-1",
-    title: "The Future of Web Development: What's Next in 2024",
-    summary:
-      "Explore the latest trends in web development, from AI-powered tools to new frameworks that are reshaping how we build the web.",
-    label: "Web Development",
-    author: "Sarah Chen",
-    published: "15 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[0],
-  },
-  {
-    id: "post-2",
-    title: "Building Scalable APIs with Modern Architecture Patterns",
-    summary:
-      "Learn about microservices, GraphQL, and event-driven architectures that are powering today's most successful applications.",
-    label: "Backend",
-    author: "Marcus Rodriguez",
-    published: "12 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[1],
-  },
-  {
-    id: "post-3",
-    title: "Design Systems: Creating Consistency at Scale",
-    summary:
-      "How leading companies are implementing design systems to maintain visual consistency across products.",
-    label: "Design",
-    author: "Emma Thompson",
-    published: "10 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[2],
-  },
-  {
-    id: "post-4",
-    title: "Machine Learning in Production: Best Practices for Deployment",
-    summary:
-      "From model versioning to monitoring and scaling, learn the essential practices for deploying ML models.",
-    label: "Machine Learning",
-    author: "Alex Kim",
-    published: "8 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[3],
-  },
-  {
-    id: "post-5",
-    title: "The Rise of Edge Computing: Transforming Application Architecture",
-    summary:
-      "Discover how edge computing is revolutionizing application performance and user experience.",
-    label: "Cloud Computing",
-    author: "David Park",
-    published: "5 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[4],
-  },
-  {
-    id: "post-6",
-    title: "Cybersecurity Essentials for Modern Applications",
-    summary:
-      "Essential security practices every developer should implement, from authentication to encryption.",
-    label: "Security",
-    author: "Lisa Wang",
-    published: "3 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[5],
-  },
-  {
-    id: "post-7",
-    title: "Performance Optimization: Techniques for Faster Web Applications",
-    summary:
-      "Advanced techniques for optimizing web application performance, including code splitting and caching.",
-    label: "Performance",
-    author: "James Wilson",
-    published: "1 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[6],
-  },
-  {
-    id: "post-8",
-    title: "DevOps Culture: Building Better Software Delivery Pipelines",
-    summary:
-      "How to foster a DevOps culture and implement CI/CD pipelines that accelerate development.",
-    label: "DevOps",
-    author: "Maria Garcia",
-    published: "29 Dec 2023",
-    href: "#",
-    image: imagePlaceholders[7],
-  },
-  {
-    id: "post-9",
-    title: "Mobile App Development: Native vs Cross-Platform Solutions",
-    summary:
-      "Compare native and cross-platform development approaches, exploring trade-offs and best practices.",
-    label: "Mobile Development",
-    author: "Ryan Johnson",
-    published: "27 Dec 2023",
-    href: "#",
-    image: imagePlaceholders[8],
-  },
-];
-
-const defaultCtaAction: ActionConfig = {
-  label: "View all posts",
-  href: "#",
-};
-
 export function BlogGridNinePosts({
   heading = "Blog",
   description = "Insights, tutorials, and thoughts on modern software development",
-  posts = defaultPosts,
+  posts,
   postsSlot,
-  ctaAction = defaultCtaAction,
+  ctaAction,
   ctaSlot,
   className,
   containerClassName,

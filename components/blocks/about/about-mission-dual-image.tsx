@@ -92,16 +92,6 @@ export interface AboutMissionDualImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Join Our Journey",
-    href: "#",
-    size: "lg",
-    variant: "default",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-];
-
 export function AboutMissionDualImage({
   missionTitle = "Our Mission",
   missionContent = "To democratize software development by providing intuitive tools that empower anyone to build professional applications. We believe that the ability to create software should not be limited to those with technical expertise.",
@@ -109,7 +99,7 @@ export function AboutMissionDualImage({
   visionContent = "A world where every idea can become reality. We envision a future where the barrier between imagination and implementation is eliminated, enabling unprecedented innovation and creativity.",
   primaryImage,
   secondaryImage,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

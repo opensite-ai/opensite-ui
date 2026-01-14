@@ -252,85 +252,6 @@ export interface ResourceListHeroFilterProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultBreadcrumb: ResourceListHeroFilterBreadcrumbItem[] = [
-  { label: "Resources", link: "#" },
-  { label: "Reports", link: "#" },
-];
-
-const defaultCategories: ResourceListHeroFilterCategory[] = [
-  { label: "All", value: "all" },
-  { label: "Productivity", value: "productivity" },
-  { label: "Accessibility", value: "accessibility" },
-  { label: "Performance", value: "performance" },
-];
-
-const defaultPrimaryPost: ResourceListHeroFilterPost = {
-  category: "Innovation Spotlight",
-  title: "How AI is Transforming Frontend Development",
-  summary:
-    "Explore how tools like GitHub Copilot, AI design generators, and code assistants are changing the way developers build UIs and ship features faster.",
-  link: "#",
-  cta: "Discover the Future",
-  thumbnail: blockBrandedIconsAndPlaceholders.placeholder1,
-};
-
-const defaultPosts: ResourceListHeroFilterPost[] = [
-  {
-    category: "Productivity",
-    title: "5 VS Code Extensions That Will Save You Hours",
-    summary:
-      "Discover must-have extensions to boost your coding efficiency and streamline your workflow.",
-    link: "#",
-    cta: "Boost Your Editor",
-    thumbnail: blockBrandedIconsAndPlaceholders.placeholder2,
-  },
-  {
-    category: "Productivity",
-    title: "Time Management for Developers: What Really Works",
-    summary:
-      "Learn proven strategies to avoid burnout and stay on top of your tasks without stress.",
-    link: "#",
-    cta: "Manage Your Time",
-    thumbnail: blockBrandedIconsAndPlaceholders.placeholder3,
-  },
-  {
-    category: "Accessibility",
-    title: "Why Accessibility Should Be Part of Your MVP",
-    summary:
-      "Making your product inclusive from day one improves usability and reach.",
-    link: "#",
-    cta: "Learn Why",
-    thumbnail: blockBrandedIconsAndPlaceholders.placeholder4,
-  },
-  {
-    category: "Accessibility",
-    title: "Using ARIA Roles Correctly in Your Web App",
-    summary:
-      "Understand how to enhance screen reader support using ARIA roles and landmarks.",
-    link: "#",
-    cta: "Improve Semantics",
-    thumbnail: blockBrandedIconsAndPlaceholders.placeholder5,
-  },
-  {
-    category: "Performance",
-    title: "Lazy Loading Images with Modern HTML",
-    summary:
-      "Improve load times by using native lazy-loading and fallback strategies for images.",
-    link: "#",
-    cta: "Optimize Images",
-    thumbnail: blockBrandedIconsAndPlaceholders.placeholder6,
-  },
-  {
-    category: "Performance",
-    title: "Web Vitals Explained: CLS, LCP, FID",
-    summary:
-      "Learn how to measure and improve Core Web Vitals for a better user experience.",
-    link: "#",
-    cta: "Improve Vitals",
-    thumbnail: blockBrandedIconsAndPlaceholders.placeholder1,
-  },
-];
-
 interface FilterFormProps {
   categories: ResourceListHeroFilterCategory[];
   onCategoryChange: (selectedCategories: string[]) => void;
@@ -686,16 +607,16 @@ export function ResourceListHeroFilter({
   titleClassName,
   description = "The best Reports is one that captivates readers with engaging, well-researched content presented in a clear and relatable way.",
   descriptionClassName,
-  breadcrumb = defaultBreadcrumb,
+  breadcrumb,
   breadcrumbSlot,
   breadcrumbClassName,
-  primaryPost = defaultPrimaryPost,
+  primaryPost,
   primaryPostSlot,
   primaryPostClassName,
-  posts = defaultPosts,
+  posts,
   postsSlot,
   postsClassName,
-  categories = defaultCategories,
+  categories,
   categoriesClassName,
   allPostsTitle = "All Reports",
   allPostsTitleClassName,

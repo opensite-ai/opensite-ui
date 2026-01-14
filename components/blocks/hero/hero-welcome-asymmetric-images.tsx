@@ -59,29 +59,6 @@ export interface HeroWelcomeAsymmetricImagesProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Get Started",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    icon: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "Learn More",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[124], alt: "Hero image 1" },
-  { src: imagePlaceholders[125], alt: "Hero image 2" },
-  { src: imagePlaceholders[0], alt: "Hero image 3" },
-  { src: imagePlaceholders[1], alt: "Hero image 4" },
-];
-
 /**
  * HeroWelcomeAsymmetricImages - A hero layout with heading, description, CTAs,
  * and an asymmetric 2x2 image grid. Ideal for welcoming visitors with visual impact.
@@ -89,9 +66,9 @@ const defaultImages: ImageItem[] = [
 export function HeroWelcomeAsymmetricImages({
   heading = "Welcome to Our Website",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi necessitatibus dolorum.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

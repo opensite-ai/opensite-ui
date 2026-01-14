@@ -115,19 +115,6 @@ export interface NavbarIconLinksProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultNavItems: NavItem[] = [
-  { title: "Dashboard", url: "#", icon: "lucide/layout-dashboard" },
-  { title: "Analytics", url: "#", icon: "lucide/bar-chart-3" },
-  { title: "Projects", url: "#", icon: "lucide/folder" },
-  { title: "Messages", url: "#", icon: "lucide/message-square" },
-  { title: "Settings", url: "#", icon: "lucide/settings" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Notifications", href: "#", variant: "ghost", size: "icon", icon: <DynamicIcon name="lucide/bell" size={20} /> },
-  { label: "Profile", href: "#", variant: "ghost", size: "icon", children: <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground"><span className="text-sm font-medium">JD</span></div> },
-];
-
 /**
  * NavbarIconLinks - A compact navigation bar with icon-only links and tooltips.
  *
@@ -147,9 +134,9 @@ export const NavbarIconLinks = ({
   },
   logoSlot,
   logoClassName,
-  navItems = defaultNavItems,
+  navItems,
   navItemsSlot,
-  authActions = defaultAuthActions,
+  authActions,
   authActionsSlot,
   className,
   containerClassName,

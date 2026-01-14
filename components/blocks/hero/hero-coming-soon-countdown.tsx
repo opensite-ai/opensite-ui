@@ -94,37 +94,17 @@ export interface HeroComingSoonCountdownProps {
   socialLinksClassName?: string;
 }
 
-const defaultCountdownItems: CountdownItem[] = [
-  { value: "14", label: "Days" },
-  { value: "08", label: "Hours" },
-  { value: "32", label: "Minutes" },
-  { value: "45", label: "Seconds" },
-];
-
-const defaultSubmitAction: ActionConfig = {
-  label: "Notify me",
-  href: "#",
-  variant: "default",
-  className: "h-12 px-8",
-};
-
-const defaultSocialLinks: Array<SocialLinkItem & { iconName?: string }> = [
-  { platform: "twitter", href: "#", iconName: "lucide/twitter" },
-  { platform: "instagram", href: "#", iconName: "lucide/instagram" },
-  { platform: "linkedin", href: "#", iconName: "lucide/linkedin" },
-];
-
 export function HeroComingSoonCountdown({
   badgeIcon = "lucide/rocket",
   badgeText = "Launching Soon",
   heading = "Something amazing is coming",
   description = "We're working hard to bring you something special. Be the first to know when we launch.",
-  countdownItems = defaultCountdownItems,
+  countdownItems,
   countdownSlot,
   emailPlaceholder = "Enter your email",
-  submitAction = defaultSubmitAction,
+  submitAction,
   formSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
   className,
   containerClassName,

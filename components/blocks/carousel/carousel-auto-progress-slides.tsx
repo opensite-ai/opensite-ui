@@ -131,19 +131,11 @@ const variants: Variants = {
   },
 };
 
-const defaultItems: SlideItem[] = [
-  { src: imagePlaceholders[0], label: "Feature showcase 1" },
-  { src: imagePlaceholders[1], label: "Feature showcase 2" },
-  { src: imagePlaceholders[2], label: "Feature showcase 3" },
-  { src: imagePlaceholders[3], label: "Feature showcase 4" },
-  { src: imagePlaceholders[4], label: "Feature showcase 5" },
-];
-
 export function CarouselAutoProgressSlides({
   heading = "UI for future",
   subheading = "Collection of unusual UI components",
   slideLabel = "Available with our platform",
-  items = defaultItems,
+  items,
   slidesSlot,
   autoAdvanceInterval = 50,
   className,

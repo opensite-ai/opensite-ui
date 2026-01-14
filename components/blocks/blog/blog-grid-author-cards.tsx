@@ -72,56 +72,12 @@ export interface BlogGridAuthorCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPosts: BlogPostItem[] = [
-  {
-    id: "post-1",
-    title: "The Future of Web Development: What's Next in 2024",
-    summary:
-      "Explore the latest trends in web development, from AI-powered tools to new frameworks that are reshaping how we build the web. Discover what developers need to know to stay ahead.",
-    label: "Web Development",
-    author: "Sarah Chen",
-    authorInitials: "SC",
-    published: "15 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[0],
-  },
-  {
-    id: "post-2",
-    title: "Building Scalable APIs with Modern Architecture Patterns",
-    summary:
-      "Learn about microservices, GraphQL, and event-driven architectures that are powering today's most successful applications. Practical insights for building robust APIs.",
-    label: "Backend",
-    author: "Marcus Rodriguez",
-    authorInitials: "MR",
-    published: "12 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[1],
-  },
-  {
-    id: "post-3",
-    title: "Design Systems: Creating Consistency at Scale",
-    summary:
-      "How leading companies are implementing design systems to maintain visual consistency across products while enabling rapid development and innovation.",
-    label: "Design",
-    author: "Emma Thompson",
-    authorInitials: "ET",
-    published: "10 Jan 2024",
-    href: "#",
-    image: imagePlaceholders[2],
-  },
-];
-
-const defaultViewAllAction: ActionConfig = {
-  label: "View all posts",
-  href: "#",
-};
-
 export function BlogGridAuthorCards({
   heading = "Blog",
   description = "Insights, tutorials, and thoughts on modern software development",
-  posts = defaultPosts,
+  posts,
   postsSlot,
-  viewAllAction = defaultViewAllAction,
+  viewAllAction,
   viewAllSlot,
   className,
   containerClassName,

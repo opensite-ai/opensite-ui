@@ -71,11 +71,6 @@ export interface CtaSimpleCenteredProps {
   patternOpacity?: number;
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
 /**
  * CtaSimpleCentered - A minimal centered CTA section with heading, description,
  * and primary/secondary action buttons. Perfect for straightforward conversion-focused
@@ -96,7 +91,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaSimpleCentered({
   heading = "Ready to get started?",
   description = "Join thousands of satisfied customers and start building amazing products today. No credit card required.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

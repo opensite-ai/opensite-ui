@@ -127,45 +127,6 @@ export interface ProcessMissionPrinciplesProps {
   missionTitle?: string;
 }
 
-const defaultPrinciples: ProcessMissionPrincipleItem[] = [
-  {
-    number: "01",
-    title: "Customer First",
-    description:
-      "Every decision we make starts with understanding how it impacts our customers. Their success is our success.",
-  },
-  {
-    number: "02",
-    title: "Continuous Improvement",
-    description:
-      "We believe in constant iteration and learning. There's always a better way, and we're committed to finding it.",
-  },
-  {
-    number: "03",
-    title: "Transparency",
-    description:
-      "Open communication builds trust. We share our progress, challenges, and learnings with all stakeholders.",
-  },
-  {
-    number: "04",
-    title: "Quality Over Speed",
-    description:
-      "While we move fast, we never compromise on quality. Excellence is a habit, not an exception.",
-  },
-  {
-    number: "05",
-    title: "Collaboration",
-    description:
-      "Great things are built together. We foster an environment where diverse perspectives drive innovation.",
-  },
-  {
-    number: "06",
-    title: "Accountability",
-    description:
-      "We own our commitments and deliver on our promises. When we fall short, we learn and improve.",
-  },
-];
-
 /**
  * ProcessMissionPrinciples - A mission statement and principles section.
  */
@@ -174,7 +135,7 @@ export function ProcessMissionPrinciples({
   missionHeading = "Building the Future Together",
   missionDescription = "We're on a mission to transform how businesses operate by providing innovative solutions that drive growth, efficiency, and success. Our commitment to excellence guides everything we do.",
   principlesLabel = "OUR PRINCIPLES",
-  principles = defaultPrinciples,
+  principles,
   principlesSlot,
   className,
   contentClassName,

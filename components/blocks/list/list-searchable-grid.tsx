@@ -141,30 +141,6 @@ export interface ListSearchableGridProps {
   onSearchTermChange?: (term: string) => void;
 }
 
-const defaultItems: ListSearchableGridItem[] = [
-  {
-    title: "Coverage Audit",
-    description: "Identify gaps and upgrade plans with OpenSite AI insights.",
-    icon: "lucide/search-check",
-    href: "/coverage-audit",
-    tags: ["Audit", "Insights"],
-  },
-  {
-    title: "Claims Guidance",
-    description: "Navigate claims quickly with dedicated advisor support.",
-    icon: "lucide/file-check",
-    href: "/claims",
-    tags: ["Support", "Claims"],
-  },
-  {
-    title: "Risk Strategy",
-    description: "Align protection with growth goals and market changes.",
-    icon: "lucide/target",
-    href: "/risk-strategy",
-    tags: ["Strategy", "Planning"],
-  },
-];
-
 /**
  * ListSearchableGrid - Searchable grid of cards with optional icons and tags.
  * Perfect for resource directories, service catalogs, or partner listings.
@@ -179,7 +155,7 @@ export function ListSearchableGrid({
   searchContainerClassName,
   emptyStateMessage = "No matching results. Try a different keyword.",
   emptyStateClassName,
-  items = defaultItems,
+  items,
   itemsSlot,
   itemsClassName,
   cardClassName,

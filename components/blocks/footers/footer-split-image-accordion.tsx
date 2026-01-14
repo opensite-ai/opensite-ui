@@ -213,53 +213,6 @@ export interface FooterSplitImageAccordionProps {
   onError?: (error: Error) => void;
 }
 
-const defaultFooterLinks: FooterSplitImageAccordionSection[] = [
-  {
-    title: "Collections",
-    id: "collections",
-    items: [
-      { text: "New Arrivals", link: "#" },
-      { text: "Best Sellers", link: "#" },
-      { text: "Seasonal Edits", link: "#" },
-      { text: "Wardrobe Essentials", link: "#" },
-    ],
-  },
-  {
-    title: "Help",
-    id: "help",
-    items: [
-      { text: "Contact Us", link: "#" },
-      { text: "FAQs", link: "#" },
-      { text: "Shipping & Tracking", link: "#" },
-      { text: "Returns & Exchanges", link: "#" },
-    ],
-  },
-  {
-    title: "Information",
-    id: "information",
-    items: [
-      { text: "Terms and Conditions", link: "#" },
-      { text: "Privacy Policy", link: "#" },
-      { text: "Warranty Policy", link: "#" },
-      { text: "Terms of Service", link: "#" },
-    ],
-  },
-];
-
-const defaultSocialLinks: FooterSplitImageAccordionSocialLink[] = [
-  { icon: "simple-icons/facebook", link: "#", label: "Facebook" },
-  { icon: "simple-icons/x", link: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/instagram", link: "#", label: "Instagram" },
-];
-
-const defaultSubmenuLinks: FooterSplitImageAccordionLink[] = [
-  { text: "Shipping Policy", link: "#" },
-  { text: "Returns Policy", link: "#" },
-  { text: "Terms Of Service", link: "#" },
-  { text: "Privacy Policy", link: "#" },
-  { text: "Sustainability", link: "#" },
-];
-
 /**
  * Footer Split Image Accordion - A split-layout footer with large image,
  * newsletter signup, accordion navigation, and payment methods.
@@ -286,10 +239,10 @@ const defaultSubmenuLinks: FooterSplitImageAccordionLink[] = [
 export function FooterSplitImageAccordion({
   newsletterTitle = "Get updates on offers and products and save 20% on your first order",
   emailPlaceholder = "Email Address",
-  footerLinks = defaultFooterLinks,
-  socialLinks = defaultSocialLinks,
+  footerLinks,
+  socialLinks,
   paymentMethods = [],
-  submenuLinks = defaultSubmenuLinks,
+  submenuLinks,
   footerData = {
     image: {
       src: imagePlaceholders[0],

@@ -157,69 +157,6 @@ export interface TeamExpertiseCardsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultMembers: TeamExpertiseCardsMember[] = [
-  {
-    id: "person-1",
-    name: "Sarah Chen",
-    role: "CEO & Co-founder",
-    department: "Leadership",
-    description:
-      "Former Google PM with 10+ years building products that millions use daily. Passionate about creating meaningful impact through technology.",
-    expertise: ["Product Strategy", "Team Leadership", "Growth"],
-    avatar: blockBrandedIconsAndPlaceholders.avatar1,
-  },
-  {
-    id: "person-2",
-    name: "Marcus Rodriguez",
-    role: "CTO & Co-founder",
-    department: "Engineering",
-    description:
-      "Ex-Meta engineer who led teams building infrastructure that served billions of users. Loves solving complex technical challenges.",
-    expertise: ["System Architecture", "AI/ML", "Scalability"],
-    avatar: blockBrandedIconsAndPlaceholders.avatar2,
-  },
-  {
-    id: "person-3",
-    name: "Priya Patel",
-    role: "Head of Design",
-    department: "Design",
-    description:
-      "Design leader with experience at Airbnb and Figma. Believes great design should be invisible and solve real user problems.",
-    expertise: ["UX Design", "Design Systems", "User Research"],
-    avatar: blockBrandedIconsAndPlaceholders.avatar3,
-  },
-  {
-    id: "person-4",
-    name: "David Kim",
-    role: "VP of Engineering",
-    department: "Engineering",
-    description:
-      "Built and scaled engineering teams at Stripe and Uber. Focuses on creating high-performing teams and robust systems.",
-    expertise: ["Team Building", "Backend Systems", "DevOps"],
-    avatar: blockBrandedIconsAndPlaceholders.avatar4,
-  },
-  {
-    id: "person-5",
-    name: "Emma Thompson",
-    role: "Head of Marketing",
-    department: "Marketing",
-    description:
-      "Marketing strategist who grew multiple startups from 0 to millions in revenue. Expert in growth marketing and brand building.",
-    expertise: ["Growth Marketing", "Brand Strategy", "Content"],
-    avatar: blockBrandedIconsAndPlaceholders.avatar5,
-  },
-  {
-    id: "person-6",
-    name: "Alex Johnson",
-    role: "Head of Sales",
-    department: "Sales",
-    description:
-      "Sales leader with a track record of building high-performing teams and exceeding revenue targets in competitive markets.",
-    expertise: ["Enterprise Sales", "Team Management", "Customer Success"],
-    avatar: blockBrandedIconsAndPlaceholders.avatar6,
-  },
-];
-
 /**
  * TeamExpertiseCards - Team cards with expertise tags and careers CTA
  *
@@ -254,7 +191,7 @@ const defaultMembers: TeamExpertiseCardsMember[] = [
 export function TeamExpertiseCards({
   heading = "Team",
   description = "Our diverse team of experts brings together decades of experience in design, engineering, and product development.",
-  members = defaultMembers,
+  members,
   membersSlot,
   ctaHeading = "Ready to build the future with us?",
   ctaDescription = "We're always looking for talented individuals who share our passion for innovation and making a difference. Check out our current openings.",

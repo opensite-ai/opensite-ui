@@ -115,36 +115,6 @@ export interface HeroGradientAvatarsRatingProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Browse Components",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    className: "w-full sm:w-auto",
-  },
-  {
-    label: "View Demo",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-    className: "w-full sm:w-auto",
-  },
-];
-
-const defaultAvatars: AvatarItem[] = [
-  { src: imagePlaceholders[35], alt: "Avatar 1" },
-  { src: imagePlaceholders[36], alt: "Avatar 2" },
-  { src: imagePlaceholders[37], alt: "Avatar 3" },
-  { src: imagePlaceholders[38], alt: "Avatar 4" },
-  { src: imagePlaceholders[39], alt: "Avatar 5" },
-];
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[40], alt: "UI Components Preview" },
-  { src: imagePlaceholders[41], alt: "Component Examples" },
-];
-
 export function HeroGradientAvatarsRating({
   topLinkText = "opensiteai.com",
   topLinkHref = "#",
@@ -152,14 +122,14 @@ export function HeroGradientAvatarsRating({
   heading = "Beautiful UI",
   headingSubtitle = "Made Simple",
   description = "Build stunning web applications faster with our premium collection of ready-to-use UI components. Perfect for developers and designers.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  avatars = defaultAvatars,
+  avatars,
   avatarsSlot,
   ratingValue = "5.0",
   ratingLabel = "1000+ happy developers",
   starCount = 5,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

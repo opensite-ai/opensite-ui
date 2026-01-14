@@ -92,11 +92,6 @@ export interface CtaImageOverlayCenteredProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get a Free Quote", href: "/quote", variant: "default", size: "lg" },
-  { label: "Talk to an Advisor", href: "/contact", variant: "ghost", size: "lg" },
-];
-
 /**
  * CtaImageOverlayCentered - Full-width CTA banner with background image,
  * dark overlay, and centered text/CTAs. Best for final conversion sections.
@@ -104,7 +99,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaImageOverlayCentered({
   heading = "Ready to unlock OpenSite AI coverage insights?",
   description = "Connect with an advisor to tailor a plan that protects what matters most today and scales for tomorrow.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   backgroundImage = imagePlaceholders[20],
   backgroundAlt = "OpenSite AI call to action background",

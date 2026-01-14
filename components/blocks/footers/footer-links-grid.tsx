@@ -49,50 +49,6 @@ export interface FooterLinksGridProps {
   };
 }
 
-const defaultMenuItems: FooterLinksGridMenuItem[] = [
-  {
-    title: "Product",
-    links: [
-      { text: "Overview", url: "#" },
-      { text: "Pricing", url: "#" },
-      { text: "Marketplace", url: "#" },
-      { text: "Features", url: "#" },
-      { text: "Integrations", url: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { text: "About", url: "#" },
-      { text: "Team", url: "#" },
-      { text: "Blog", url: "#" },
-      { text: "Careers", url: "#" },
-      { text: "Contact", url: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { text: "Help", url: "#" },
-      { text: "Sales", url: "#" },
-      { text: "Advertise", url: "#" },
-    ],
-  },
-  {
-    title: "Social",
-    links: [
-      { text: "Twitter", url: "#" },
-      { text: "Instagram", url: "#" },
-      { text: "LinkedIn", url: "#" },
-    ],
-  },
-];
-
-const defaultBottomLinks = [
-  { text: "Terms and Conditions", url: "#" },
-  { text: "Privacy Policy", url: "#" },
-];
-
 /**
  * FooterLinksGrid - A multi-column footer with logo, navigation links, and legal information.
  *
@@ -109,9 +65,9 @@ export function FooterLinksGrid({
   },
   className,
   tagline = "Components made easy.",
-  menuItems = defaultMenuItems,
+  menuItems,
   copyright = `© ${new Date().getFullYear()} Opensite AI. All rights reserved.`,
-  bottomLinks = defaultBottomLinks,
+  bottomLinks,
   optixFlowConfig,
 }: FooterLinksGridProps): React.JSX.Element {
   return (

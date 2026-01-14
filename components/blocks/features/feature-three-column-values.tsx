@@ -82,27 +82,6 @@ export interface FeatureThreeColumnValuesProps {
   cardClassName?: string;
 }
 
-const defaultValues: FeatureThreeColumnValuesItem[] = [
-  {
-    iconName: "lucide/timer",
-    title: "Performance",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
-  },
-  {
-    iconName: "lucide/zoom-in",
-    title: "Quality",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
-  },
-  {
-    iconName: "lucide/zap",
-    title: "Innovation",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt beatae tenetur totam aut blanditis ipsa quaerat neque eaque, atque doloremque! Eligendi.",
-  },
-];
-
 /**
  * Feature Three Column Values - Three-column grid of value cards with icons
  * and accent backgrounds.
@@ -127,7 +106,7 @@ const defaultValues: FeatureThreeColumnValuesItem[] = [
 export function FeatureThreeColumnValues({
   label = "OUR VALUES",
   title = "Why Choose Us?",
-  values = defaultValues,
+  values,
   valuesSlot,
   className,
   containerClassName,

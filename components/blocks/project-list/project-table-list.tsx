@@ -79,41 +79,6 @@ export interface ProjectTableListProps {
   galleryColumnClassName?: string;
 }
 
-const defaultProjects: ProjectTableListItem[] = [
-  {
-    id: 1,
-    title: "E-commerce Platform",
-    description:
-      "Designed and developed a fully scalable e-commerce platform from scratch, focusing on simplicity and performance, which transformed workflows for over 10,000 users across multiple industries.",
-    launchDate: "04.17.2025",
-    image: imagePlaceholders[32],
-  },
-  {
-    id: 2,
-    title: "Mobile Banking App",
-    description:
-      "Built a secure and intuitive mobile banking application with real-time transaction processing, biometric authentication, and seamless user experience for financial institutions.",
-    launchDate: "03.15.2025",
-    image: imagePlaceholders[33],
-  },
-  {
-    id: 3,
-    title: "AI Content Generator",
-    description:
-      "Developed an AI-powered content generation platform that helps marketers create engaging content, with advanced NLP capabilities and customizable templates.",
-    launchDate: "02.28.2025",
-    image: imagePlaceholders[34],
-  },
-  {
-    id: 4,
-    title: "Project Management Tool",
-    description:
-      "Created a comprehensive project management solution with real-time collaboration, task tracking, and analytics dashboard for remote teams and enterprises.",
-    launchDate: "01.20.2025",
-    image: imagePlaceholders[35],
-  },
-];
-
 /**
  * ProjectTableList - Table-style project list with numbered rows and gallery thumbnails.
  *
@@ -125,7 +90,7 @@ const defaultProjects: ProjectTableListItem[] = [
  * and chronological ordering are important. Responsive layout stacks columns on mobile.
  */
 export function ProjectTableList({
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

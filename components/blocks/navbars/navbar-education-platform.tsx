@@ -145,78 +145,6 @@ export interface NavbarEducationPlatformProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultFeatures: FeatureItem[] = [
-  {
-    title: "Course Management & Content",
-    description: "Create, organize and deliver courses",
-    icon: "lucide/graduation-cap",
-    link: "#",
-  },
-  {
-    title: "Student Analytics",
-    description: "Track progress and performance data",
-    icon: "lucide/bar-chart-3",
-    link: "#",
-  },
-  {
-    title: "Interactive Learning",
-    description: "Engage students with multimedia content",
-    icon: "lucide/video",
-    link: "#",
-  },
-  {
-    title: "AI-Powered Tutoring",
-    description: "Personalized learning with AI assistance",
-    icon: "lucide/brain",
-    link: "#",
-  },
-  {
-    title: "Collaboration & Discussion",
-    description: "Connect students and instructors seamlessly",
-    icon: "lucide/message-square",
-    link: "#",
-  },
-  {
-    title: "Assessments & Certification",
-    description: "Evaluate learning with comprehensive testing",
-    icon: "lucide/award",
-    link: "#",
-  },
-];
-
-const defaultDocs: DocItem[] = [
-  {
-    title: "Learning Center",
-    description: "Discover how to use the platform effectively",
-    icon: "lucide/book",
-    link: "#",
-  },
-  {
-    title: "Course Catalog",
-    description: "Browse our comprehensive course library",
-    icon: "lucide/book-open",
-    link: "#",
-  },
-  {
-    title: "API Documentation",
-    description: "Integrate the platform into your system",
-    icon: "lucide/file-code",
-    link: "#",
-  },
-];
-
-const defaultCompany: CompanyItem[] = [
-  { title: "Platform Updates", icon: "lucide/file-text", link: "#" },
-  { title: "News & Events", icon: "lucide/bell", link: "#" },
-  { title: "Education Blog", icon: "lucide/book", link: "#" },
-  { title: "Join Our Team", icon: "lucide/users", link: "#" },
-];
-
-const defaultAuthActions: ActionConfig[] = [
-  { label: "Login", href: "#", variant: "outline", asButton: true },
-  { label: "Demo", href: "#", asButton: true },
-];
-
 /**
  * NavbarEducationPlatform - A comprehensive navigation bar designed for education and LMS platforms.
  *
@@ -241,10 +169,10 @@ export const NavbarEducationPlatform = ({
     title: "Opensite AI",
   },
   logoSlot,
-  features = defaultFeatures,
-  docs = defaultDocs,
-  company = defaultCompany,
-  authActions = defaultAuthActions,
+  features,
+  docs,
+  company,
+  authActions,
   authActionsSlot,
   background = "white",
   spacing = "none",

@@ -180,23 +180,6 @@ export interface PricingDiscountCardProps {
   actionClassName?: string;
 }
 
-const defaultFeatures: PricingDiscountCardFeature[] = [
-  { text: "Unlimited projects" },
-  { text: "Advanced analytics" },
-  { text: "Priority support" },
-  { text: "API access" },
-  { text: "Custom integrations" },
-  { text: "Team collaboration" },
-  { text: "99.9% uptime SLA" },
-];
-
-const defaultAction: ActionConfig = {
-  label: "Get Started Now",
-  href: "#",
-  variant: "default",
-  size: "lg",
-};
-
 /**
  * PricingDiscountCard displays a single pricing card with a discount badge and strikethrough original price.
  * Features a prominent discount indicator, feature list, and CTA button.
@@ -224,11 +207,11 @@ export function PricingDiscountCard({
   discountedPrice = "$79",
   discountBadge = "20% OFF",
   priceDescription = "/month, billed annually",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   featureIcon,
   featureIconName = "lucide/check",
-  action = defaultAction,
+  action,
   actionSlot,
   background = "white",
   spacing = "lg",

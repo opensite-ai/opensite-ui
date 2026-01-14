@@ -80,23 +80,6 @@ export interface ProjectScrollRevealProps {
   cardClassName?: string;
 }
 
-const defaultProjects: ProjectScrollRevealItem[] = [
-  {
-    id: 1,
-    title: "Design Workflow Optimization",
-    category: "UI/UX",
-    date: "06/20/25",
-    image: imagePlaceholders[63],
-  },
-  {
-    id: 2,
-    title: "Seamless Global Access",
-    category: "Cloud Tech",
-    date: "06/18/25",
-    image: imagePlaceholders[64],
-  },
-];
-
 interface ProjectItemProps {
   project: ProjectScrollRevealItem;
   index: number;
@@ -274,7 +257,7 @@ const ProjectItem = ({
  */
 export function ProjectScrollReveal({
   heading = "Our Projects",
-  projects = defaultProjects,
+  projects,
   projectsSlot,
   optixFlowConfig,
   background,

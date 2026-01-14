@@ -101,11 +101,6 @@ export interface CtaPlatformDemoProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Try Demo", href: "#", variant: "default" },
-  { label: "Watch Video", href: "#", variant: "outline" },
-];
-
 /**
  * CtaPlatformDemo - A CTA section promoting platform exploration with content
  * on one side and decorative product images on the other. Includes demo and
@@ -126,7 +121,7 @@ const defaultActions: ActionConfig[] = [
 export function CtaPlatformDemo({
   heading = "Explore Our Platform",
   description = "Discover the full potential of our platform. Try our interactive demo or watch a comprehensive walkthrough today.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   decorativeImage = blockBrandedIconsAndPlaceholders.placeholder1,
   productImage = imagePlaceholders[6],

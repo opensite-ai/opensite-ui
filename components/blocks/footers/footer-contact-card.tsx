@@ -125,20 +125,6 @@ export interface FooterContactCardProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSocialLinks: FooterContactCardSocialLink[] = [
-  { icon: "simple-icons/instagram", href: "#", label: "Instagram" },
-  { icon: "simple-icons/facebook", href: "#", label: "Facebook" },
-  { icon: "simple-icons/x", href: "#", label: "X (Twitter)" },
-  { icon: "simple-icons/linkedin", href: "#", label: "LinkedIn" },
-];
-
-const defaultNavLinks: FooterContactCardNavLink[] = [
-  { name: "Home", href: "#" },
-  { name: "About", href: "#" },
-  { name: "Services", href: "#" },
-  { name: "Contact", href: "#" },
-];
-
 /**
  * FooterContactCard - A footer with large heading, contact information, and social links.
  *
@@ -157,8 +143,8 @@ export function FooterContactCard({
   email = "hello@opensite.ai",
   phone = "+1 (555) 123-4567",
   address = "123 Main Street, San Francisco, CA 94102",
-  socialLinks = defaultSocialLinks,
-  navLinks = defaultNavLinks,
+  socialLinks,
+  navLinks,
   socialTitle = "Follow Us",
   location = "San Francisco",
   locationLabel = "Designed in",

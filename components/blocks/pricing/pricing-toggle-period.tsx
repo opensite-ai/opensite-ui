@@ -253,41 +253,6 @@ export interface PricingTogglePeriodProps {
   actionClassName?: string;
 }
 
-const defaultPeriods: PricingTogglePeriodOption[] = [
-  { id: "monthly", label: "Monthly", priceSuffix: "/month" },
-  { id: "quarterly", label: "Quarterly", priceSuffix: "/quarter" },
-  { id: "yearly", label: "Yearly", priceSuffix: "/year", badge: "Save 35%" },
-];
-
-const defaultPlans: PricingTogglePeriodPlan[] = [
-  {
-    name: "Starter",
-    description: "For individuals",
-    prices: { monthly: "$19", quarterly: "$49", yearly: "$149" },
-    features: [
-      { text: "5 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-      { text: "2GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline", size: "lg" },
-  },
-  {
-    name: "Professional",
-    description: "For teams",
-    prices: { monthly: "$49", quarterly: "$129", yearly: "$399" },
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "50GB storage" },
-      { text: "API access" },
-    ],
-    action: { label: "Start Trial", href: "#", variant: "default", size: "lg" },
-    isPopular: true,
-  },
-];
-
 /**
  * PricingTogglePeriod displays pricing plans with a toggle group for multiple billing periods.
  * Supports monthly, quarterly, and yearly billing options with visual toggle buttons.
@@ -309,9 +274,9 @@ const defaultPlans: PricingTogglePeriodPlan[] = [
 export function PricingTogglePeriod({
   title = "Flexible Pricing",
   subtitle = "Choose your billing period",
-  periods = defaultPeriods,
+  periods,
   defaultPeriodId,
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

@@ -205,55 +205,6 @@ export interface PricingIconHeadersProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingIconHeadersPlan[] = [
-  {
-    name: "Starter",
-    price: "$9",
-    priceDescription: "/month",
-    description: "Perfect for individuals",
-    features: [
-      { text: "5 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-      { text: "1GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline" },
-    iconName: "lucide/rocket",
-    iconBgClassName: "bg-blue-100 text-blue-600",
-  },
-  {
-    name: "Professional",
-    price: "$29",
-    priceDescription: "/month",
-    description: "Best for growing teams",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "50GB storage" },
-      { text: "API access" },
-    ],
-    action: { label: "Start Free Trial", href: "#", variant: "outline" },
-    iconName: "lucide/briefcase",
-    iconBgClassName: "bg-purple-100 text-purple-600",
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    description: "For large organizations",
-    features: [
-      { text: "Everything in Pro" },
-      { text: "Custom integrations" },
-      { text: "Dedicated support" },
-      { text: "Unlimited storage" },
-      { text: "SLA guarantee" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline" },
-    iconName: "lucide/building",
-    iconBgClassName: "bg-green-100 text-green-600",
-  },
-];
-
 /**
  * PricingIconHeaders displays a 3-column pricing grid with icon-based plan headers.
  * Each plan features a colored icon badge, feature list, and CTA button.
@@ -274,7 +225,7 @@ const defaultPlans: PricingIconHeadersPlan[] = [
 export function PricingIconHeaders({
   heading = "Pricing Plans",
   subtitle = "Choose the perfect plan for your needs",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

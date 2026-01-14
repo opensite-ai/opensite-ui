@@ -186,21 +186,6 @@ export interface PricingSpotlightCardProps {
   finePrintClassName?: string;
 }
 
-const defaultFeatures: PricingSpotlightCardFeature[] = [
-  { text: "Unlimited projects and workspaces" },
-  { text: "Advanced analytics and reporting" },
-  { text: "Priority customer support" },
-  { text: "API access and integrations" },
-  { text: "Team collaboration tools" },
-  { text: "Custom branding options" },
-  { text: "99.9% uptime SLA" },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
 /**
  * PricingSpotlightCard displays a single premium pricing card with a spotlight/glow effect.
  * Features a gradient border, prominent pricing display, and dual CTA buttons.
@@ -225,11 +210,11 @@ export function PricingSpotlightCard({
   price = "$99",
   priceDescription = "/month",
   description = "Get access to all premium features and priority support",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   featureIcon,
   featureIconName = "lucide/check",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   finePrint = "14-day free trial. No credit card required.",
   background = "white",

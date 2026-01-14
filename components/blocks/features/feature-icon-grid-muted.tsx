@@ -86,39 +86,6 @@ export interface FeatureIconGridMutedProps {
   cardClassName?: string;
 }
 
-const defaultFeatures: FeatureIconGridMutedItem[] = [
-  {
-    iconName: "lucide/check-circle-2",
-    title: "Instant Approvals",
-    description:
-      "Quickly approve requests and tasks with a single click, reducing delays.",
-  },
-  {
-    iconName: "lucide/git-graph",
-    title: "Workflow Automation",
-    description:
-      "Automate repetitive tasks and streamline your processes for maximum efficiency.",
-  },
-  {
-    iconName: "lucide/message-square",
-    title: "Real-Time Collaboration",
-    description:
-      "Work together with your team in real-time, no matter where you are.",
-  },
-  {
-    iconName: "lucide/star",
-    title: "Priority Management",
-    description:
-      "Easily prioritize tasks and focus on what matters most to your business.",
-  },
-  {
-    iconName: "lucide/zap",
-    title: "Lightning Fast",
-    description:
-      "Experience blazing fast performance with optimized code and infrastructure.",
-  },
-];
-
 /**
  * Feature Icon Grid Muted - Five-feature grid with muted background and
  * icon badges showcasing key capabilities.
@@ -141,7 +108,7 @@ const defaultFeatures: FeatureIconGridMutedItem[] = [
 export function FeatureIconGridMuted({
   title = "Key Features That Save You Time",
   description = "Explore tools specifically built to enhance your workflow and boost efficiency.",
-  features = defaultFeatures,
+  features,
   featuresSlot,
   className,
   containerClassName,

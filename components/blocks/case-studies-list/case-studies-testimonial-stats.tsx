@@ -120,49 +120,6 @@ export interface CaseStudiesTestimonialStatsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultTestimonials: CaseStudyTestimonialItem[] = [
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder1,
-    quote:
-      "This productivity tool transformed how we collaborate. Our team's workflow improved dramatically, and we've cut meeting time by half while increasing output.",
-    authorName: "Michael Rivera",
-    authorRole: "Product Director",
-    companyLogo: blockBrandedIconsAndPlaceholders.fictionalCompanyLogo2,
-    stats: [
-      {
-        value: "98%",
-        label: "Customer Satisfaction",
-        description: "From verified reviews",
-      },
-      {
-        value: "3.8x",
-        label: "ROI Improvement",
-        description: "Within first quarter",
-      },
-    ],
-  },
-  {
-    image: blockBrandedIconsAndPlaceholders.placeholder2,
-    quote:
-      "The interface is intuitive and customizable to our needs. We implemented it across departments with minimal training and saw immediate results.",
-    authorName: "Sarah Chen",
-    authorRole: "Operations Lead",
-    companyLogo: blockBrandedIconsAndPlaceholders.fictionalCompanyLogo3,
-    stats: [
-      {
-        value: "4.2x",
-        label: "Team Efficiency",
-        description: "Proven productivity gains",
-      },
-      {
-        value: "72%",
-        label: "Reduced Task Time",
-        description: "Across all projects",
-      },
-    ],
-  },
-];
-
 /**
  * CaseStudiesTestimonialStats displays customer testimonials alongside key metrics
  * in a split-layout format with visual separators.
@@ -196,7 +153,7 @@ const defaultTestimonials: CaseStudyTestimonialItem[] = [
 export function CaseStudiesTestimonialStats({
   heading = "4500+ Satisfied Customers",
   subheading = "Real results from real users",
-  testimonials = defaultTestimonials,
+  testimonials,
   testimonialsSlot,
   className,
   containerClassName,

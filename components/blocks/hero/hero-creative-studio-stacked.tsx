@@ -95,29 +95,16 @@ export interface HeroCreativeStudioStackedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultPrimaryAction: ActionConfig = {
-  label: "Discover now",
-  href: "#",
-  variant: "default",
-  className: "block h-fit w-fit rounded-sm px-5 py-3.5 text-sm font-medium tracking-wider text-nowrap uppercase",
-};
-
-const defaultImages: ImageItem[] = [
-  { src: imagePlaceholders[7], alt: "" },
-  { src: imagePlaceholders[8], alt: "" },
-  { src: imagePlaceholders[9], alt: "" },
-];
-
 export function HeroCreativeStudioStacked({
   tagline = "Harmony Creative Studio",
   heading = "Boost your business with a brand-new website.",
   description = "Harmony is a full-service design studio crafting stunning digital experiences and products.",
-  primaryAction = defaultPrimaryAction,
+  primaryAction,
   videoButtonLabel = "How it works?",
   videoUrl = "https://www.youtube.com/embed/your-video-id",
   videoDialogTitle = "Presentation Video",
   actionsSlot,
-  images = defaultImages,
+  images,
   imagesSlot,
   className,
   containerClassName,

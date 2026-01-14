@@ -106,22 +106,6 @@ export interface FeatureChecklistImageProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Learn more",
-    href: "#",
-    variant: "outline",
-    iconAfter: <DynamicIcon name="lucide/chevron-right" size={16} className="ml-2" />,
-  },
-];
-
-const defaultChecklistItems: (string | FeatureChecklistItem)[] = [
-  "Quality",
-  "Multi-purpose",
-  "Easy to use",
-  "Fast",
-];
-
 /**
  * Feature Checklist Image - Two-column layout with large image and text content
  * featuring a checklist of benefits.
@@ -147,9 +131,9 @@ export function FeatureChecklistImage({
   imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
   imageAlt = "Feature illustration",
   imageSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  checklistItems = defaultChecklistItems,
+  checklistItems,
   checklistSlot,
   className,
   containerClassName,

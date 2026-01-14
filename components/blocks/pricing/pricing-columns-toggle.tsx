@@ -239,52 +239,6 @@ export interface PricingColumnsToggleProps {
   actionClassName?: string;
 }
 
-const defaultPlans: PricingColumnsTogglePlan[] = [
-  {
-    name: "Basic",
-    monthlyPrice: "$15",
-    yearlyPrice: "$150",
-    description: "Essential features for getting started",
-    features: [
-      { text: "5 projects" },
-      { text: "Basic analytics" },
-      { text: "Email support" },
-      { text: "2GB storage" },
-    ],
-    action: { label: "Get Started", href: "#", variant: "outline", size: "lg" },
-  },
-  {
-    name: "Standard",
-    monthlyPrice: "$35",
-    yearlyPrice: "$350",
-    description: "Everything you need to grow",
-    features: [
-      { text: "25 projects" },
-      { text: "Advanced analytics" },
-      { text: "Priority support" },
-      { text: "10GB storage" },
-      { text: "Team collaboration" },
-    ],
-    action: { label: "Start Free Trial", href: "#", variant: "default", size: "lg" },
-    isHighlighted: true,
-  },
-  {
-    name: "Premium",
-    monthlyPrice: "$75",
-    yearlyPrice: "$750",
-    description: "Advanced features for power users",
-    features: [
-      { text: "Unlimited projects" },
-      { text: "Custom analytics" },
-      { text: "24/7 support" },
-      { text: "Unlimited storage" },
-      { text: "API access" },
-      { text: "Custom integrations" },
-    ],
-    action: { label: "Contact Sales", href: "#", variant: "outline", size: "lg" },
-  },
-];
-
 /**
  * PricingColumnsToggle displays a 3-column pricing layout with an annual billing toggle.
  * Features clean column design with separator lines, feature lists, and highlighted plan option.
@@ -312,7 +266,7 @@ export function PricingColumnsToggle({
   toggleAriaLabel = "Toggle annual billing",
   monthlyInterval = "/month",
   yearlyInterval = "/year",
-  plans = defaultPlans,
+  plans,
   plansSlot,
   featureIcon,
   featureIconName = "lucide/check",

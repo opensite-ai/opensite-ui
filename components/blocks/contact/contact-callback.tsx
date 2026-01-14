@@ -221,7 +221,7 @@ export function ContactCallback({
   buttonIcon = <DynamicIcon name="lucide/phone" size={16} />,
   actions,
   actionsSlot,
-  footer = defaultFooter,
+  footer,
   footerSlot,
   className,
   containerClassName,

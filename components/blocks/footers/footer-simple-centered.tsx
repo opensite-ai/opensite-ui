@@ -106,39 +106,6 @@ export interface FooterSimpleCenteredProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSitemap: FooterSimpleCenteredSection[] = [
-  {
-    title: "Company",
-    links: [
-      { label: "About Us", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Contact", href: "#" },
-      { label: "Press", href: "#" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Help Center", href: "#" },
-      { label: "Community", href: "#" },
-      { label: "Status", href: "#" },
-      { label: "API Docs", href: "#" },
-    ],
-  },
-];
-
-const defaultBottomLinks: FooterSimpleCenteredBottomLink[] = [
-  { text: "Terms & Conditions", href: "#" },
-  { text: "Privacy Policy", href: "#" },
-];
-
-const defaultLogo: FooterSimpleCenteredLogo = {
-  url: "https://opensite.ai",
-  src: "https://cdn.ing/assets/i/r/285975/eud79qeya11q5w6ueyhklueardyx/os-suircle-black-white.png",
-  alt: "Opensite AI",
-  title: "Opensite AI",
-};
-
 /**
  * FooterSimpleCentered - A clean, minimal footer with logo, sitemap, and legal links.
  *
@@ -147,11 +114,11 @@ const defaultLogo: FooterSimpleCenteredLogo = {
  * uncluttered footer design without social media or newsletter elements.
  */
 export function FooterSimpleCentered({
-  logo = defaultLogo,
+  logo,
   tagline = "Components made easy.",
-  sitemap = defaultSitemap,
+  sitemap,
   copyright = `© Opensite AI ${new Date().getFullYear()}`,
-  bottomLinks = defaultBottomLinks,
+  bottomLinks,
   attributionText = "AI Website and Automation Platform by Opensite",
   attributionHref = "https://opensite.ai",
   className,

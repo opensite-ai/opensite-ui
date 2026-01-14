@@ -63,57 +63,6 @@ export interface ProjectDetailHoverGalleryProps {
   galleryClassName?: string;
 }
 
-const defaultImages: ProjectDetailHoverGalleryImage[] = [
-  {
-    src: imagePlaceholders[29],
-    alt: "Gallery image 1",
-    title: "Form Study I",
-    description: "Initial exploration of organic curves",
-  },
-  {
-    src: imagePlaceholders[30],
-    alt: "Gallery image 2",
-    title: "Form Study II",
-    description: "Material interaction with light",
-  },
-  {
-    src: imagePlaceholders[31],
-    alt: "Gallery image 3",
-    title: "Form Study III",
-    description: "Spatial relationships and balance",
-  },
-  {
-    src: imagePlaceholders[32],
-    alt: "Gallery image 4",
-    title: "Form Study IV",
-    description: "Final composition refinement",
-  },
-  {
-    src: imagePlaceholders[33],
-    alt: "Gallery image 5",
-    title: "Form Study V",
-    description: "Installation perspective",
-  },
-  {
-    src: imagePlaceholders[34],
-    alt: "Gallery image 6",
-    title: "Form Study VI",
-    description: "Detail and texture exploration",
-  },
-];
-
-const defaultProps: ProjectDetailHoverGalleryProps = {
-  title: "Organic Resonance",
-  subtitle: "A Visual Journey",
-  year: "2024",
-  category: "Sculpture",
-  artist: "Elena Vasquez",
-  description:
-    "Explore the creative process behind this sculptural work through a series of studies and explorations that led to the final form.",
-  images: defaultImages,
-  backAction: { label: "Back to Gallery", href: "/projects", icon: <DynamicIcon name="lucide/arrow-left" size={16} /> },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },

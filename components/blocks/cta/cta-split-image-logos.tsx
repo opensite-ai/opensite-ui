@@ -113,19 +113,6 @@ export interface CtaSplitImageLogosProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default", size: "lg" },
-  { label: "Learn More", href: "#", variant: "outline", size: "lg" },
-];
-
-const defaultLogos = [
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo1,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo2,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo3,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo4,
-  blockBrandedIconsAndPlaceholders.fictionalCompanyLogo5,
-];
-
 /**
  * CtaSplitImageLogos - A split-layout CTA with content and buttons on one side,
  * a featured image on the other, and trusted company logos below. Great for
@@ -148,11 +135,11 @@ const defaultLogos = [
 export function CtaSplitImageLogos({
   heading = "Build your website faster",
   description = "Build faster with our collection of pre-built components. Speed up your development and ship features in record time.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = imagePlaceholders[2],
   imageAlt = "Featured image",
-  logos = defaultLogos,
+  logos,
   logosSlot,
   logosLabel = "Trusted by leading companies",
   className,

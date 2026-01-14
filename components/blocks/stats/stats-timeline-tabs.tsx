@@ -159,49 +159,6 @@ export interface StatsTimelineTabsProps {
   statCardClassName?: string;
 }
 
-const defaultPeriods: TimePeriod[] = [
-  {
-    id: "weekly",
-    label: "Weekly",
-    stats: [
-      { label: "New Sign-ups", value: "1,284", change: 12.3, trend: "up", previousLabel: "Previous week" },
-      { label: "Active Sessions", value: "32,891", change: 8.7, trend: "up", previousLabel: "Previous week" },
-      { label: "Conversion Rate", value: "5.2%", change: 0.8, trend: "up", previousLabel: "Previous week" },
-      { label: "Support Tickets", value: "187", change: -5.3, trend: "down", previousLabel: "Previous week", inversePositive: true },
-    ],
-  },
-  {
-    id: "monthly",
-    label: "Monthly",
-    stats: [
-      { label: "New Sign-ups", value: "5,726", change: 15.8, trend: "up", previousLabel: "Previous month" },
-      { label: "Active Sessions", value: "142,308", change: 11.2, trend: "up", previousLabel: "Previous month" },
-      { label: "Conversion Rate", value: "6.7%", change: 1.4, trend: "up", previousLabel: "Previous month" },
-      { label: "Support Tickets", value: "834", change: -3.1, trend: "down", previousLabel: "Previous month", inversePositive: true },
-    ],
-  },
-  {
-    id: "quarterly",
-    label: "Quarterly",
-    stats: [
-      { label: "New Sign-ups", value: "18,492", change: 32.1, trend: "up", previousLabel: "Previous quarter" },
-      { label: "Active Sessions", value: "487,125", change: 24.3, trend: "up", previousLabel: "Previous quarter" },
-      { label: "Conversion Rate", value: "8.3%", change: 2.1, trend: "up", previousLabel: "Previous quarter" },
-      { label: "Support Tickets", value: "2,874", change: -8.5, trend: "down", previousLabel: "Previous quarter", inversePositive: true },
-    ],
-  },
-  {
-    id: "yearly",
-    label: "Yearly",
-    stats: [
-      { label: "New Sign-ups", value: "76,542", change: 65.4, trend: "up", previousLabel: "Previous year" },
-      { label: "Active Sessions", value: "2.1M", change: 48.7, trend: "up", previousLabel: "Previous year" },
-      { label: "Conversion Rate", value: "9.2%", change: 3.5, trend: "up", previousLabel: "Previous year" },
-      { label: "Support Tickets", value: "12,458", change: -12.3, trend: "down", previousLabel: "Previous year", inversePositive: true },
-    ],
-  },
-];
-
 /**
  * StatsTimelineTabs - A tabbed stats display showing metrics across different time periods
  * (weekly, monthly, quarterly, yearly). Features a badge header, centered tab navigation,
@@ -224,7 +181,7 @@ export function StatsTimelineTabs({
   badgeSlot,
   heading = "Growth Progression",
   description = "Track our key metrics over different time periods to see our consistent growth and improvements",
-  periods = defaultPeriods,
+  periods,
   tabsSlot,
   defaultPeriod = "monthly",
   background = "white",

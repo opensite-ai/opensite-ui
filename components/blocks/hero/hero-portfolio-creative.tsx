@@ -94,52 +94,16 @@ export interface HeroPortfolioCreativeProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultProfile: ProfileInfo = {
-  avatar: { src: imagePlaceholders[28], alt: "Profile" },
-  name: "Alex Johnson",
-  title: "Creative Director & Designer",
-};
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "View my work",
-    href: "#",
-    variant: "default",
-    size: "lg",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />,
-  },
-  {
-    label: "Get in touch",
-    href: "#",
-    variant: "outline",
-    size: "lg",
-  },
-];
-
-const defaultSocialLinks: Array<SocialLinkItem & { iconName?: string }> = [
-  { href: "#", iconName: "lucide/dribbble", label: "Dribbble" },
-  { href: "#", iconName: "lucide/twitter", label: "Twitter" },
-  { href: "#", iconName: "lucide/linkedin", label: "LinkedIn" },
-  { href: "#", iconName: "lucide/instagram", label: "Instagram" },
-];
-
-const defaultPortfolioImages: ImageItem[] = [
-  { src: imagePlaceholders[29], alt: "Project 1", className: "aspect-3/4 w-full object-cover transition-transform hover:scale-105" },
-  { src: imagePlaceholders[30], alt: "Project 2", className: "aspect-square w-full object-cover transition-transform hover:scale-105" },
-  { src: imagePlaceholders[31], alt: "Project 3", className: "aspect-square w-full object-cover transition-transform hover:scale-105" },
-  { src: imagePlaceholders[32], alt: "Project 4", className: "aspect-3/4 w-full object-cover transition-transform hover:scale-105" },
-];
-
 export function HeroPortfolioCreative({
-  profile = defaultProfile,
+  profile,
   profileSlot,
   heading = "Crafting digital experiences that inspire",
   description = "I help brands tell their stories through thoughtful design and strategic thinking. With 10+ years of experience, I've worked with startups and Fortune 500 companies alike.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  socialLinks = defaultSocialLinks,
+  socialLinks,
   socialLinksSlot,
-  portfolioImages = defaultPortfolioImages,
+  portfolioImages,
   portfolioImagesSlot,
   className,
   containerClassName,

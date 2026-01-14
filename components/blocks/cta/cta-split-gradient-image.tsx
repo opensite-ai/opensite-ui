@@ -103,11 +103,6 @@ export interface CtaSplitGradientImageProps {
   };
 }
 
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-  { label: "Learn More", href: "#", variant: "outline" },
-];
-
 /**
  * CtaSplitGradientImage - A split-layout CTA with content and buttons on one side,
  * a featured image on the other, and a subtle radial gradient background.
@@ -131,7 +126,7 @@ export function CtaSplitGradientImage({
   label = "Ready to get started?",
   heading = "Start your free trial today.",
   description = "Start with a 14-day free trial. No credit card required. No setup fees. Cancel anytime.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   imageSrc = imagePlaceholders[4],
   imageAlt = "Featured image",

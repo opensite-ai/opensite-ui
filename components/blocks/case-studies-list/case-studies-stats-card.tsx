@@ -126,37 +126,6 @@ export interface CaseStudiesStatsCardProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultStats: CaseStudyStatsCardStat[] = [
-  {
-    number: "45%",
-    text: "improvement in onboarding completion",
-  },
-  {
-    number: "61%",
-    text: "reduction in time-to-value",
-  },
-  {
-    number: "3x",
-    text: "increase in user activation",
-  },
-];
-
-const defaultAuthor: CaseStudyStatsCardAuthor = {
-  name: "Sarah Williams",
-  image: blockBrandedIconsAndPlaceholders.avatar1,
-  role: "CTO, Opensite AI",
-};
-
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Read Story",
-    href: "#",
-    variant: "outline",
-    size: "sm",
-    iconAfter: <DynamicIcon name="lucide/arrow-right" size={16} />,
-  },
-];
-
 /**
  * CaseStudiesStatsCard displays a single case study in a card format with
  * company branding, key metrics, author attribution, and call-to-action.
@@ -190,13 +159,13 @@ const defaultActions: ActionConfig[] = [
 export function CaseStudiesStatsCard({
   companyLogo = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo8,
   companyName = "Opensite AI",
-  stats = defaultStats,
+  stats,
   statsSlot,
-  author = defaultAuthor,
+  author,
   authorSlot,
   title = "How We Optimized Our Onboarding Flow to Triple User Activation",
   summary = "Learn how we revamped our product onboarding experience using our in-house toolkit and reduced time-to-value by over 60%.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

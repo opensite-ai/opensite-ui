@@ -125,23 +125,12 @@ export interface CarouselMultiStepShowcaseProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultSteps: StepItem[] = [
-  { id: "step-0", step: 1, title: "Step 1: Setup", description: "Complete step 1 to continue your journey. This step involves important configuration that will help you get the most out of our platform.", image: imagePlaceholders[0] },
-  { id: "step-1", step: 2, title: "Step 2: Configure", description: "Complete step 2 to continue your journey. This step involves important configuration that will help you get the most out of our platform.", image: imagePlaceholders[1] },
-  { id: "step-2", step: 3, title: "Step 3: Customize", description: "Complete step 3 to continue your journey. This step involves important configuration that will help you get the most out of our platform.", image: imagePlaceholders[2] },
-  { id: "step-3", step: 4, title: "Step 4: Launch", description: "Complete step 4 to continue your journey. This step involves important configuration that will help you get the most out of our platform.", image: imagePlaceholders[3] },
-];
-
-const defaultActions: ActionConfig[] = [
-  { label: "Get Started", href: "#", variant: "default" },
-];
-
 export function CarouselMultiStepShowcase({
   heading = "How It Works",
   subheading = "Follow these simple steps to get started",
-  steps = defaultSteps,
+  steps,
   stepsSlot,
-  actions = defaultActions,
+  actions,
   actionsSlot,
   className,
   containerClassName,

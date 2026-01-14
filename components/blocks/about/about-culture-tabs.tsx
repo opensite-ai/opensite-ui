@@ -147,71 +147,6 @@ export interface AboutCultureTabsProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAspects: CultureAspect[] = [
-  {
-    id: "innovation",
-    title: "Innovation First",
-    description:
-      "We believe in challenging the status quo and constantly pushing boundaries to create new solutions. Our innovation-driven approach encourages experimentation, learning from failures, and celebrating breakthrough successes.",
-    images: [imagePlaceholders[0], imagePlaceholders[1], imagePlaceholders[2]],
-    testimonial: {
-      quote:
-        "I've never worked anywhere that so actively encourages creative thinking. We're given the time and resources to explore new ideas, even if they might not work out. That freedom to innovate without fear has led to our most successful products.",
-      author: "Sarah Chen",
-      role: "Product Designer",
-      avatar: imagePlaceholders[15],
-    },
-  },
-  {
-    id: "collaboration",
-    title: "Collaborative Spirit",
-    description:
-      "Our collaborative culture fosters open communication and cross-functional teamwork. We believe that diverse perspectives drive better outcomes, and we create intentional spaces for sharing ideas and working together across departments.",
-    images: [imagePlaceholders[3], imagePlaceholders[4], imagePlaceholders[5]],
-    testimonial: {
-      quote:
-        "The walls between teams simply don't exist here. Developers, designers, marketers—we all work together with mutual respect. I've seen ideas transform when people from different backgrounds contribute their unique perspectives.",
-      author: "Marcus Johnson",
-      role: "Engineering Lead",
-      avatar: imagePlaceholders[16],
-    },
-  },
-  {
-    id: "wellbeing",
-    title: "Wellbeing & Balance",
-    description:
-      "We prioritize the holistic wellbeing of our team, recognizing that the best work happens when people feel supported in all aspects of their lives. Our flexible policies and wellness initiatives reflect our commitment to sustainable work practices.",
-    images: [imagePlaceholders[6], imagePlaceholders[7], imagePlaceholders[8]],
-    testimonial: {
-      quote:
-        "I joined from a company where burnout was considered a badge of honor. Here, I'm encouraged to take time off, pursue hobbies, and bring my whole self to work. The result? I'm happier, healthier, and doing the best work of my career.",
-      author: "Elena Rodriguez",
-      role: "Customer Success Manager",
-      avatar: imagePlaceholders[17],
-    },
-  },
-  {
-    id: "growth",
-    title: "Continuous Growth",
-    description:
-      "Learning is embedded in our culture. We invest in our team's professional development through mentorship programs, learning budgets, and career pathing that nurtures both technical expertise and leadership skills.",
-    images: [imagePlaceholders[9], imagePlaceholders[10], imagePlaceholders[11]],
-    testimonial: {
-      quote:
-        "In three years, I've grown from a junior role to leading a team, supported every step of the way with training, challenges that stretched my abilities, and leaders who saw potential in me before I saw it in myself.",
-      author: "James Wilson",
-      role: "Marketing Director",
-      avatar: imagePlaceholders[18],
-    },
-  },
-];
-
-const defaultCtaImages = [
-  imagePlaceholders[12],
-  imagePlaceholders[13],
-  imagePlaceholders[14],
-];
-
 /**
  * About Culture Tabs - A tabbed company culture section with testimonials,
  * image galleries, and a careers CTA.
@@ -237,22 +172,17 @@ const defaultCtaImages = [
  * />
  * ```
  */
-const defaultActions: ActionConfig[] = [
-  { label: "View Open Positions", href: "/careers", variant: "default" },
-  { label: "Our Values", href: "/about/values", variant: "outline" },
-];
-
 export function AboutCultureTabs({
   badgeText = "Our Culture",
   heading = "What Makes Us Different",
   description = "Our culture defines how we work together and the values that guide our decisions. It's what makes our company a special place to work and grow.",
-  aspects = defaultAspects,
+  aspects,
   aspectsSlot,
   ctaHeading = "Join Our Team",
   ctaDescription = "We're always looking for talented individuals who share our values and want to be part of building something meaningful. Explore our open positions and find where you might fit in.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  ctaImages = defaultCtaImages,
+  ctaImages,
   ctaImagesSlot,
   className,
   containerClassName,

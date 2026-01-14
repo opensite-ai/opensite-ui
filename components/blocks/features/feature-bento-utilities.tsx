@@ -124,53 +124,6 @@ export interface FeatureBentoUtilitiesProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultLeftColumnCards: FeatureBentoUtilitiesCardItem[] = [
-  {
-    title: "Apps",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-  },
-  {
-    title: "Integrations",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    imageAlt: "Integrations",
-  },
-  {
-    title: "Utilities",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-  },
-  {
-    title: "Features",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-    showSparkle: true,
-  },
-];
-
-const defaultRightColumnCards: FeatureBentoUtilitiesCardItem[] = [
-  {
-    title: "Integrations",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-    imageSrc: blockBrandedIconsAndPlaceholders.placeholder1,
-    imageAlt: "Integrations",
-    showSparkle: true,
-  },
-  {
-    title: "Features",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-  },
-  {
-    title: "Features",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-    showSparkle: true,
-  },
-  {
-    title: "Search",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi laboriosam voluptatibus temporibus doloremque laudantium.",
-    badge: "Coming soon",
-    isDashed: true,
-  },
-];
-
 /**
  * Feature Bento Utilities - Bento-style grid layout with mixed card sizes
  * showcasing various utilities.
@@ -198,9 +151,9 @@ export function FeatureBentoUtilities({
   labelIcon,
   title = "Utilites for every use case and platform you can think of.",
   description = "All the tools you need to get the job done. From apps to integrations, we have you covered.",
-  leftColumnCards = defaultLeftColumnCards,
+  leftColumnCards,
   leftColumnSlot,
-  rightColumnCards = defaultRightColumnCards,
+  rightColumnCards,
   rightColumnSlot,
   className,
   containerClassName,

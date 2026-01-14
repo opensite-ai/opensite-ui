@@ -184,34 +184,6 @@ export interface ArticleChaptersAuthorProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultChapters: ArticleChapter[] = [
-  { id: "chapter-1", number: 1, title: "The Foundation" },
-  { id: "chapter-2", number: 2, title: "Building Blocks" },
-  { id: "chapter-3", number: 3, title: "Advanced Patterns" },
-  { id: "chapter-4", number: 4, title: "Real-World Applications" },
-  { id: "chapter-5", number: 5, title: "Future Directions" },
-];
-
-const defaultBreadcrumbs: BreadcrumbItemConfig[] = [
-  { label: "Home", href: "#" },
-  { label: "Guides", href: "#" },
-];
-
-const defaultAuthor: ArticleAuthorConfig = {
-  name: "Jessica Williams",
-  role: "Principal Engineer",
-  image: imagePlaceholders[10],
-  bio: "Jessica is a principal engineer with over 15 years of experience in software architecture and design patterns. She has led teams at major tech companies and is a frequent speaker at industry conferences.",
-  socialLinks: [
-    { platform: "twitter", href: "#", icon: <DynamicIcon name="lucide/twitter" size={14} />, "aria-label": "Twitter" },
-    { platform: "linkedin", href: "#", icon: <DynamicIcon name="lucide/linkedin" size={14} />, "aria-label": "LinkedIn" },
-  ],
-};
-
-const defaultConclusionActions: ActionConfig[] = [
-  { label: "Get the Code", href: "#", variant: "default" },
-];
-
 const defaultArticleContent = (optixFlowConfig?: OptixFlowConfig) => (
   <>
     <Img
@@ -312,15 +284,15 @@ export function ArticleChaptersAuthorComponent({
   authorClassName,
   conclusionClassName,
   heroImageClassName,
-  breadcrumbs = defaultBreadcrumbs,
+  breadcrumbs,
   breadcrumbsSlot,
   currentPage = "Design Patterns",
   title = "A Comprehensive Guide to Software Design Patterns",
   subtitle = "Master the essential patterns that every software engineer should know",
-  chapters = defaultChapters,
+  chapters,
   chaptersSlot,
   renderChapterLink,
-  author = defaultAuthor,
+  author,
   authorSlot,
   heroImageSrc,
   heroImageAlt = "Article hero",

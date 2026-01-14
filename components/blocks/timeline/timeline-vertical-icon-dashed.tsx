@@ -87,29 +87,8 @@ export interface TimelineVerticalIconDashedProps {
   };
 }
 
-const defaultSteps: TimelineStep[] = [
-  {
-    icon: "lucide/files",
-    title: "Data Integration",
-    description:
-      "Connect your existing tools and platforms seamlessly. Our system automatically syncs and manages your data across all integrated services.",
-  },
-  {
-    icon: "lucide/layout",
-    title: "Custom Configuration",
-    description:
-      "Tailor the platform to your needs with our intuitive interface. Create powerful workflows without any technical knowledge required.",
-  },
-  {
-    icon: "lucide/circle-arrow-out-up-right",
-    title: "Scale Your Business",
-    description:
-      "Access comprehensive analytics and tools designed to help you grow. Monitor performance and make data-driven decisions effortlessly.",
-  },
-];
-
 export function TimelineVerticalIconDashed({
-  steps = defaultSteps,
+  steps,
   className,
   containerClassName,
   stepsClassName,

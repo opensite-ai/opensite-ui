@@ -90,51 +90,6 @@ export interface ComparisonTableTabsProps {
   tableCellClassName?: string;
 }
 
-const defaultFeatures = [
-  "Initial cost",
-  "Scalability",
-  "Performance",
-  "Maintenance",
-  "Data recovery",
-  "Lifespan",
-];
-
-const defaultModels: ComparisonModel[] = [
-  {
-    name: "SSD",
-    attributes: [
-      { value: "Medium to high", status: "negative" },
-      { value: "Limited by size", status: "neutral" },
-      { value: "Very fast", status: "positive" },
-      { value: "Low maintenance", status: "positive" },
-      { value: "Challenging", status: "negative" },
-      { value: "5-7 years", status: "neutral" },
-    ],
-  },
-  {
-    name: "Cloud Storage",
-    attributes: [
-      { value: "Pay-as-you-go", status: "positive" },
-      { value: "Unlimited scaling", status: "positive" },
-      { value: "Depends on connection", status: "neutral" },
-      { value: "Managed service", status: "positive" },
-      { value: "Provider dependent", status: "neutral" },
-      { value: "Indefinite", status: "positive" },
-    ],
-  },
-  {
-    name: "NAS",
-    attributes: [
-      { value: "High upfront", status: "negative" },
-      { value: "Expandable", status: "positive" },
-      { value: "Network limited", status: "neutral" },
-      { value: "Regular upkeep", status: "negative" },
-      { value: "Built-in redundancy", status: "positive" },
-      { value: "7-10 years", status: "positive" },
-    ],
-  },
-];
-
 /**
  * ComparisonTableTabs - Table comparison with mobile tabs and status indicators
  *
@@ -149,8 +104,8 @@ const defaultModels: ComparisonModel[] = [
 export function ComparisonTableTabs({
   heading,
   description,
-  features = defaultFeatures,
-  models = defaultModels,
+  features,
+  models,
   tableSlot,
   className,
   containerClassName,

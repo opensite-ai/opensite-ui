@@ -71,18 +71,11 @@ export interface HeroAdCampaignExpertProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultAction: ActionConfig = {
-  label: "I want to outsource your ads",
-  href: "#",
-  variant: "default",
-  className: "h-fit px-6 py-3.5 text-base font-medium lg:text-lg",
-};
-
 export function HeroAdCampaignExpert({
   heading,
   headingHighlight = "my expertise",
   description = "I'll maximize your ad campaigns' potential or teach you the strategies so you can manage them yourself!",
-  action = defaultAction,
+  action,
   actionSlot,
   imageSrc = imagePlaceholders[60],
   imageAlt = "",

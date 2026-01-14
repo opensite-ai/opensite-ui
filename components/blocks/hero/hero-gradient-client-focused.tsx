@@ -62,32 +62,12 @@ export interface HeroGradientClientFocusedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Meet Us",
-    href: "#",
-    variant: "default",
-    className: "w-fit rounded-md border px-8 py-1",
-  },
-  {
-    label: "Schedule a Demo",
-    href: "#",
-    variant: "secondary",
-    className: "w-fit rounded-md border px-8 py-1",
-  },
-];
-
-const defaultImage: ImageItem = {
-  src: imagePlaceholders[25],
-  alt: "",
-};
-
 export function HeroGradientClientFocused({
   heading = "Stay front and center with your clients.",
   description = "We enhance client relationships by providing personalized solutions, fostering trust, and driving growth.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
-  image = defaultImage,
+  image,
   imageSlot,
   className,
   containerClassName,

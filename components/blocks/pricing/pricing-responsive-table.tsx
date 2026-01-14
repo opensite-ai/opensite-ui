@@ -40,45 +40,6 @@ export interface PricingResponsiveTableProps {
   features?: PlanFeature[];
 }
 
-const defaultPlans: PricingPlan[] = [
-  {
-    name: "Free",
-    monthlyPrice: 0,
-    yearlyPrice: 0,
-    description: "For individuals",
-    buttonText: "Get Started",
-    buttonHref: "#",
-  },
-  {
-    name: "Pro",
-    monthlyPrice: 29,
-    yearlyPrice: 290,
-    description: "For teams",
-    buttonText: "Start Trial",
-    buttonHref: "#",
-    isPopular: true,
-  },
-  {
-    name: "Enterprise",
-    monthlyPrice: 99,
-    yearlyPrice: 990,
-    description: "For organizations",
-    buttonText: "Contact Sales",
-    buttonHref: "#",
-  },
-];
-
-const defaultFeatures: PlanFeature[] = [
-  { name: "Projects", free: "3", pro: "Unlimited", enterprise: "Unlimited" },
-  { name: "Team members", free: "1", pro: "10", enterprise: "Unlimited" },
-  { name: "Storage", free: "1GB", pro: "50GB", enterprise: "Unlimited" },
-  { name: "API access", tooltip: "Access to REST and GraphQL APIs", free: false, pro: true, enterprise: true },
-  { name: "Priority support", free: false, pro: true, enterprise: true },
-  { name: "Custom integrations", free: false, pro: false, enterprise: true },
-  { name: "SSO", tooltip: "Single Sign-On authentication", free: false, pro: false, enterprise: true },
-  { name: "SLA guarantee", free: false, pro: false, enterprise: true },
-];
-
 /**
  * PricingResponsiveTable displays a comprehensive pricing comparison with mobile and desktop views.
  * Features a monthly/yearly toggle, tooltips for feature explanations, and responsive card/table layouts.
@@ -103,8 +64,8 @@ export function PricingResponsiveTable({
   className,
   title = "Compare Plans",
   subtitle = "Find the perfect plan for your needs",
-  plans = defaultPlans,
-  features = defaultFeatures,
+  plans,
+  features,
 }: PricingResponsiveTableProps) {
   const [isYearly, setIsYearly] = useState(false);
 

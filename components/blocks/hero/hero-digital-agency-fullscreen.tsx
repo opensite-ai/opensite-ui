@@ -74,30 +74,14 @@ export interface HeroDigitalAgencyFullscreenProps {
   footerClassName?: string;
 }
 
-const defaultActions: ActionConfig[] = [
-  {
-    label: "Explore Projects",
-    href: "#",
-    variant: "default",
-    className: "block h-fit w-fit rounded-sm px-6 py-3.5 text-sm font-semibold tracking-wider text-nowrap uppercase",
-  },
-];
-
-const defaultFooterAction: ActionConfig = {
-  href: "#",
-  variant: "outline",
-  size: "icon",
-  className: "flex size-10 rounded-full border-2 border-primary transition-colors hover:bg-primary/20",
-};
-
 export function HeroDigitalAgencyFullscreen({
   heading = "Transform Your Vision Into Digital Reality",
   description = "We craft exceptional digital solutions that help brands stand out and make a lasting impact in the digital landscape.",
-  actions = defaultActions,
+  actions,
   actionsSlot,
   footerLabel = "Global Headquarters",
   footerSublabel = "San Francisco, California",
-  footerAction = defaultFooterAction,
+  footerAction,
   footerSlot,
   backgroundImage = imagePlaceholders[10],
   className,
