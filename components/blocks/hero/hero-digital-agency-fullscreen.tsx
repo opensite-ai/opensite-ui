@@ -94,6 +94,7 @@ export function HeroDigitalAgencyFullscreen({
 }: HeroDigitalAgencyFullscreenProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("mt-8 flex flex-wrap items-center justify-center gap-4", actionsClassName)}>
@@ -122,6 +123,7 @@ export function HeroDigitalAgencyFullscreen({
 
   const renderFooter = () => {
     if (footerSlot) return footerSlot;
+    if (!footerAction) return null;
 
     const { className: footerActionClassName, ...footerActionProps } = footerAction;
     return (

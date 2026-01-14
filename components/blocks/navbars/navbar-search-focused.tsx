@@ -290,11 +290,11 @@ export const NavbarSearchFocused = ({
           {renderLogo()}
 
           <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
-            {renderNavigation(navItems.slice(0, 2))}
+            {renderNavigation(navItems?.slice(0, 2) ?? [])}
           </NavigationMenu>
 
           <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
-            {renderNavigation(navItems.slice(2))}
+            {renderNavigation(navItems?.slice(2) ?? [])}
           </NavigationMenu>
 
           <div className={cn("hidden shrink-0 items-center gap-2 lg:flex", actionsClassName)}>
@@ -317,7 +317,7 @@ export const NavbarSearchFocused = ({
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-6 pt-8">
                 <div className="flex flex-col gap-2">
-                  {navItems.map((item, index) => (
+                  {navItems?.map((item, index) => (
                     <Pressable
                       key={index}
                       href={item.url}

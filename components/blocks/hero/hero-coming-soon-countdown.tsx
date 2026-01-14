@@ -131,6 +131,7 @@ export function HeroComingSoonCountdown({
 
   const renderForm = () => {
     if (formSlot) return formSlot;
+    if (!submitAction) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = submitAction;
     

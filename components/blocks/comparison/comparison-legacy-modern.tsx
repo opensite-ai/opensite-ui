@@ -116,6 +116,7 @@ export function ComparisonLegacyModern({
 }: ComparisonLegacyModernProps): React.JSX.Element {
   const renderColumns = () => {
     if (columnsSlot) return columnsSlot;
+    if (!legacyFeatures || legacyFeatures.length === 0 || !modernFeatures || modernFeatures.length === 0) return null;
 
     return (
       <>

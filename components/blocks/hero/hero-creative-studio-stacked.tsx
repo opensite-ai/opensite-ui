@@ -120,6 +120,7 @@ export function HeroCreativeStudioStacked({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!primaryAction) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = primaryAction;
     
@@ -158,6 +159,7 @@ export function HeroCreativeStudioStacked({
 
   const renderImages = () => {
     if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
 
     return (
       <div className={cn("relative mx-auto aspect-[0.789340102/1] max-w-100", imagesClassName)}>

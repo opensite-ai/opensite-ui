@@ -115,6 +115,7 @@ export function HeroPortfolioCreative({
 }: HeroPortfolioCreativeProps): React.JSX.Element {
   const renderProfile = () => {
     if (profileSlot) return profileSlot;
+    if (!profile) return null;
 
     return (
       <div className="flex items-center gap-4">
@@ -146,6 +147,7 @@ export function HeroPortfolioCreative({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex flex-col gap-4 sm:flex-row">

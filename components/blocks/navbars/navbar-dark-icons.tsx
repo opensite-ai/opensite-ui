@@ -329,7 +329,7 @@ export const NavbarDarkIcons = ({
       </div>
       <MobileNavigationMenu
         open={open}
-        navigation={navigation}
+        navigation={navigation ?? []}
         authActions={authActions}
         authActionsSlot={authActionsSlot}
       />

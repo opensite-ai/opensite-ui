@@ -57,7 +57,7 @@ export function ProjectZigzagLayout({
         </div>
 
         <div className="space-y-24 md:space-y-32">
-          {projects.map((project, index) => (
+          {projects?.map((project, index) => (
             <div
               key={project.id}
               className={cn(

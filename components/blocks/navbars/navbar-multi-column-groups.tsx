@@ -330,7 +330,7 @@ export const NavbarMultiColumnGroups = ({
       </div>
       <MobileNavigationMenu
         open={open}
-        navigation={navigation}
+        navigation={navigation ?? []}
         authActions={mobileAuthActions}
         authActionsSlot={mobileAuthActionsSlot}
       />

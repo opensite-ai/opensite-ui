@@ -129,6 +129,7 @@ export function ComparisonTableTwoColumn({
 }: ComparisonTableTwoColumnProps): React.JSX.Element {
   const renderTable = () => {
     if (tableSlot) return tableSlot;
+    if (!rows || rows.length === 0) return null;
 
     return (
       <div className={cn("-mr-4 overflow-x-auto", tableWrapperClassName)}>

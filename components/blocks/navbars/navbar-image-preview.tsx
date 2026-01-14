@@ -349,9 +349,9 @@ export const NavbarImagePreview = ({
       <MobileNavigationMenu
         open={open}
         setOpen={setOpen}
-        mobileNavigation={mobileNavigation}
+        mobileNavigation={mobileNavigation ?? []}
         mobileNavigationSlot={mobileNavigationSlot}
-        socialLinks={socialLinks}
+        socialLinks={socialLinks ?? []}
         socialLinksSlot={socialLinksSlot}
         authActions={authActions}
         authActionsSlot={authActionsSlot}

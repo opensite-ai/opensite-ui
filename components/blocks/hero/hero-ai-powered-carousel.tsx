@@ -177,106 +177,114 @@ export function HeroAiPoweredCarousel({
           {carouselSlot ? carouselSlot : (
             <>
               <div className="flex flex-col gap-8 lg:hidden">
-                <Carousel
-                  opts={{
-                    loop: true,
-                  }}
-                  plugins={[
-                    AutoScroll({
-                      speed: 0.8,
-                    }),
-                  ]}
-                  className="-mx-7"
-                >
-                  <CarouselContent className="max-h-[350px]">
-                    {mobileCarouselImages1.map((image, index) => (
-                      <CarouselItem key={index} className="max-w-96">
-                        <Img
-                          src={image.src}
-                          alt={image.alt}
-                          className={image.className}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-                <Carousel
-                  opts={{
-                    loop: true,
-                  }}
-                  plugins={[
-                    AutoScroll({
-                      speed: 0.8,
-                      direction: "backward",
-                    }),
-                  ]}
-                  className="-mx-7"
-                >
-                  <CarouselContent className="max-h-[350px]">
-                    {mobileCarouselImages2.map((image, index) => (
-                      <CarouselItem key={index} className="max-w-96">
-                        <Img
-                          src={image.src}
-                          alt={image.alt}
-                          className={image.className}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
+                {mobileCarouselImages1 && mobileCarouselImages1.length > 0 && (
+                  <Carousel
+                    opts={{
+                      loop: true,
+                    }}
+                    plugins={[
+                      AutoScroll({
+                        speed: 0.8,
+                      }),
+                    ]}
+                    className="-mx-7"
+                  >
+                    <CarouselContent className="max-h-[350px]">
+                      {mobileCarouselImages1.map((image, index) => (
+                        <CarouselItem key={index} className="max-w-96">
+                          <Img
+                            src={image.src}
+                            alt={image.alt}
+                            className={image.className}
+                            optixFlowConfig={optixFlowConfig}
+                          />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                )}
+                {mobileCarouselImages2 && mobileCarouselImages2.length > 0 && (
+                  <Carousel
+                    opts={{
+                      loop: true,
+                    }}
+                    plugins={[
+                      AutoScroll({
+                        speed: 0.8,
+                        direction: "backward",
+                      }),
+                    ]}
+                    className="-mx-7"
+                  >
+                    <CarouselContent className="max-h-[350px]">
+                      {mobileCarouselImages2.map((image, index) => (
+                        <CarouselItem key={index} className="max-w-96">
+                          <Img
+                            src={image.src}
+                            alt={image.alt}
+                            className={image.className}
+                            optixFlowConfig={optixFlowConfig}
+                          />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                )}
               </div>
               <div className="hidden grid-cols-2 gap-8 lg:grid">
-                <Carousel
-                  opts={{
-                    loop: true,
-                  }}
-                  plugins={[
-                    AutoScroll({
-                      speed: 0.8,
-                    }),
-                  ]}
-                  orientation="vertical"
-                >
-                  <CarouselContent className="max-h-[600px]">
-                    {desktopCarouselImages1.map((image, index) => (
-                      <CarouselItem key={index}>
-                        <Img
-                          src={image.src}
-                          alt={image.alt}
-                          className={image.className}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-                <Carousel
-                  opts={{
-                    loop: true,
-                  }}
-                  plugins={[
-                    AutoScroll({
-                      speed: 0.8,
-                      direction: "backward",
-                    }),
-                  ]}
-                  orientation="vertical"
-                >
-                  <CarouselContent className="max-h-[600px]">
-                    {desktopCarouselImages2.map((image, index) => (
-                      <CarouselItem key={index}>
-                        <Img
-                          src={image.src}
-                          alt={image.alt}
-                          className={image.className}
-                          optixFlowConfig={optixFlowConfig}
-                        />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
+                {desktopCarouselImages1 && desktopCarouselImages1.length > 0 && (
+                  <Carousel
+                    opts={{
+                      loop: true,
+                    }}
+                    plugins={[
+                      AutoScroll({
+                        speed: 0.8,
+                      }),
+                    ]}
+                    orientation="vertical"
+                  >
+                    <CarouselContent className="max-h-[600px]">
+                      {desktopCarouselImages1.map((image, index) => (
+                        <CarouselItem key={index}>
+                          <Img
+                            src={image.src}
+                            alt={image.alt}
+                            className={image.className}
+                            optixFlowConfig={optixFlowConfig}
+                          />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                )}
+                {desktopCarouselImages2 && desktopCarouselImages2.length > 0 && (
+                  <Carousel
+                    opts={{
+                      loop: true,
+                    }}
+                    plugins={[
+                      AutoScroll({
+                        speed: 0.8,
+                        direction: "backward",
+                      }),
+                    ]}
+                    orientation="vertical"
+                  >
+                    <CarouselContent className="max-h-[600px]">
+                      {desktopCarouselImages2.map((image, index) => (
+                        <CarouselItem key={index}>
+                          <Img
+                            src={image.src}
+                            alt={image.alt}
+                            className={image.className}
+                            optixFlowConfig={optixFlowConfig}
+                          />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                )}
               </div>
             </>
           )}

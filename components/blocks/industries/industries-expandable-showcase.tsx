@@ -168,7 +168,7 @@ export function IndustriesExpandableShowcase({
   optixFlowConfig,
 }: IndustriesExpandableShowcaseProps): React.JSX.Element {
   const [activeContractor, setActiveContractor] = React.useState(
-    contractors[0]?.id || ""
+    contractors?.[0]?.id || ""
   );
 
   const handleContractorHover = (contractorId: string) => {

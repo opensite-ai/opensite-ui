@@ -186,7 +186,7 @@ export function HeroBusinessCarouselDots({
           <div className="absolute bottom-0 -right-20 -left-20 z-10 h-px bg-[linear-gradient(to_right,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
           <div className="absolute -top-20 left-0 z-10 h-[calc(100%+160px)] w-px bg-[linear-gradient(to_bottom,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
           <div className="absolute -top-20 right-0 z-10 h-[calc(100%+160px)] w-px bg-[linear-gradient(to_bottom,transparent,hsl(var(--border))_4%,hsl(var(--border))_96%,transparent)]"></div>
-          {carouselSlot ? carouselSlot : (
+          {carouselSlot ? carouselSlot : (carouselImages && carouselImages.length > 0) ? (
             <>
               <Carousel setApi={setApi} className="w-full">
                 <CarouselContent>
@@ -215,7 +215,7 @@ export function HeroBusinessCarouselDots({
                 ))}
               </div>
             </>
-          )}
+          ) : null}
         </div>
       </div>
     </section>

@@ -362,18 +362,18 @@ export const NavbarEnterpriseMega = ({
             {renderLogo()}
             <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)} viewport={false}>
               <NavigationMenuList>
-                {navigation.map((item, index) => (
+                {navigation?.map((item, index) => (
                   <DesktopMenuItem
                     key={`desktop-link-${index}`}
                     item={item}
                     index={index}
-                    solutions={solutions}
-                    solutionTechnologies={solutionTechnologies}
-                    productCategories={productCategories}
-                    globalCategories={globalCategories}
-                    regions={regions}
-                    resources={resources}
-                    topicGroups={topicGroups}
+                    solutions={solutions ?? []}
+                    solutionTechnologies={solutionTechnologies ?? []}
+                    productCategories={productCategories ?? []}
+                    globalCategories={globalCategories ?? []}
+                    regions={regions ?? []}
+                    resources={resources ?? []}
+                    topicGroups={topicGroups ?? []}
                     optixFlowConfig={optixFlowConfig}
                   />
                 ))}
@@ -412,10 +412,10 @@ export const NavbarEnterpriseMega = ({
       </Section>
       <MobileNavigationMenu
         open={open}
-        navigation={navigation}
-        solutions={solutions}
-        productCategories={productCategories}
-        resources={resources}
+        navigation={navigation ?? []}
+        solutions={solutions ?? []}
+        productCategories={productCategories ?? []}
+        resources={resources ?? []}
         actionsClassName={actionsClassName}
         authActions={authActions}
         authActionsSlot={authActionsSlot}

@@ -79,6 +79,7 @@ export function HeroCustomerSupportLayered({
 }: HeroCustomerSupportLayeredProps): React.JSX.Element {
   const renderImages = () => {
     if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
 
     return (
       <div className={cn("relative ml-8 aspect-square w-full max-w-225 overflow-hidden lg:absolute lg:right-0 lg:bottom-0 lg:w-1/2", imagesClassName)}>

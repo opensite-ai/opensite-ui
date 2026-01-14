@@ -78,6 +78,7 @@ export function HeroFeatureCardsGrid({
 }: HeroFeatureCardsGridProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("mt-10 flex flex-col justify-center gap-4 sm:flex-row", actionsClassName)}>

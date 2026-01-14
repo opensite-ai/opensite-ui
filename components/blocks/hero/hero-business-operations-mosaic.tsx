@@ -69,6 +69,7 @@ export function HeroBusinessOperationsMosaic({
 }: HeroBusinessOperationsMosaicProps): React.JSX.Element {
   const renderMosaic = () => {
     if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
     
     return (
       <div className="mx-auto grid h-full w-full grid-cols-[14.7%_47.29%_14.7%_14.7%] grid-rows-[34.7%_26.28%_34.7%] gap-x-[2.85%] gap-y-[2.32%]">

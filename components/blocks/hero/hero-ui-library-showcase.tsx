@@ -85,6 +85,7 @@ export function HeroUiLibraryShowcase({
 }: HeroUiLibraryShowcaseProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
       const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
@@ -109,6 +110,7 @@ export function HeroUiLibraryShowcase({
 
   const renderLogo = () => {
     if (logoSlot) return logoSlot;
+    if (!logo) return null;
 
     return (
       <Img
@@ -122,6 +124,7 @@ export function HeroUiLibraryShowcase({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <div className="w-full overflow-hidden rounded-lg">

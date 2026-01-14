@@ -149,7 +149,7 @@ export const NavbarIconLinks = ({
   patternOpacity,
   optixFlowConfig,
 }: NavbarIconLinksProps) => {
-  const [activeItem, setActiveItem] = useState(navItems[0]?.title || "");
+  const [activeItem, setActiveItem] = useState(navItems?.[0]?.title || "");
   const [isOpen, setIsOpen] = useState(false);
 
   const renderLogo = () => {

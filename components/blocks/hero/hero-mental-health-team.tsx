@@ -117,6 +117,7 @@ export function HeroMentalHealthTeam({
 
   const renderTestimonial = () => {
     if (testimonialSlot) return testimonialSlot;
+    if (!testimonial) return null;
 
     const avatarSrc = testimonial.avatarSrc ?? (testimonial.avatar?.src);
     return (
@@ -145,6 +146,7 @@ export function HeroMentalHealthTeam({
 
   const renderFeatureImage = () => {
     if (featureImageSlot) return featureImageSlot;
+    if (!featureImage) return null;
 
     return (
       <div className="col-[1/3] row-[2/3] h-100 w-full md:col-[3/5] md:row-[1/3] md:h-auto">

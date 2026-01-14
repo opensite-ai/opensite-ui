@@ -122,6 +122,7 @@ export function HeroDesignSystem3d({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("flex w-full flex-wrap items-center gap-4 md:w-fit", actionsClassName)}>
@@ -177,6 +178,7 @@ export function HeroDesignSystem3d({
 
   const renderImages = () => {
     if (imagesSlot) return imagesSlot;
+    if (!images || images.length === 0) return null;
 
     return (
       <div className={cn("relative mt-16 aspect-[1.2/1] overflow-hidden sm:-right-[10%] sm:mt-28 sm:aspect-[2.788990826/1]", imagesClassName)}>

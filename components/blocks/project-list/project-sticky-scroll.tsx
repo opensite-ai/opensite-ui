@@ -123,11 +123,11 @@ export function ProjectStickyScroll({
   });
 
   const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients[0]
+    linearGradients?.[0] ?? ""
   );
 
   useEffect(() => {
-    setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
+    setBackgroundGradient(linearGradients?.[activeCard % (linearGradients?.length ?? 1)] ?? "");
   }, [activeCard, linearGradients]);
 
   const renderContent = () => {
@@ -171,7 +171,7 @@ export function ProjectStickyScroll({
     >
       <motion.div
         animate={{
-          backgroundColor: backgroundColors[activeCard % backgroundColors.length],
+          backgroundColor: backgroundColors?.[activeCard % (backgroundColors?.length ?? 1)] ?? "",
         }}
         className={cn(
           "h-120 overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10",

@@ -223,7 +223,7 @@ export const NavbarFeatureGrid = ({
                 <NavigationMenuTrigger>Features</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid w-[600px] grid-cols-2 p-3">
-                    {features.map((feature, index) => (
+                    {features?.map((feature, index) => (
                       <NavigationMenuLink
                         href={feature.href}
                         key={index}
@@ -291,7 +291,7 @@ export const NavbarFeatureGrid = ({
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="grid md:grid-cols-2">
-                        {features.map((feature, index) => (
+                        {features?.map((feature, index) => (
                           <Pressable
                             href={feature.href}
                             key={index}

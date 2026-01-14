@@ -81,6 +81,7 @@ export function HeroInnovationImageGrid({
 }: HeroInnovationImageGridProps): React.JSX.Element {
   const renderAction = () => {
     if (actionSlot) return actionSlot;
+    if (!action) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
     return (

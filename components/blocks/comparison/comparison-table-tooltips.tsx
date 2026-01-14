@@ -159,6 +159,7 @@ export function ComparisonTableTooltips({
 
   const renderTable = () => {
     if (tableSlot) return tableSlot;
+    if (!rows || rows.length === 0) return null;
 
     return (
       <Table className={cn("rounded border text-left shadow-lg", tableClassName)}>

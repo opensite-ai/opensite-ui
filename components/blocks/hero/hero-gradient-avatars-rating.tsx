@@ -155,6 +155,7 @@ export function HeroGradientAvatarsRating({
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("flex w-full flex-col justify-center gap-3 sm:flex-row lg:justify-start", actionsClassName)}>

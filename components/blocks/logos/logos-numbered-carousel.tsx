@@ -192,7 +192,7 @@ export function LogosNumberedCarousel({
           )}
           <div className={cn("flex items-center gap-2 text-sm text-muted-foreground", counterClassName)}>
             <span className="font-semibold text-foreground">
-              {logos.length.toString().padStart(2, "0")}
+              {(logos?.length ?? 0).toString().padStart(2, "0")}
             </span>
             {typeof counterSuffix === "string" ? (
               <span>{counterSuffix}</span>

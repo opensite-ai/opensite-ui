@@ -118,6 +118,7 @@ export function HeroProductivityLauncherVideo({
 }: HeroProductivityLauncherVideoProps): React.JSX.Element {
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex flex-wrap items-center justify-center gap-4">

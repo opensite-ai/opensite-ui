@@ -93,31 +93,34 @@ export function HeroHiringAnimatedText({
     return (
       <h1 className={cn("text-4xl leading-9 font-bold text-foreground lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22!", headingClassName)}>
         <div className="mb-2">{headingPrefix}</div>
-        <div className="relative h-[calc(2.25rem*3)] md:h-9 lg:h-12 xl:h-22">
-          {animatedTexts.map((text, index) => (
-            <div
-              key={index}
-              className={cn(
-                "absolute top-0 left-0 will-change-[opacity]",
-                index === 0
-                  ? `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_0s]`
-                  : `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_${index * 2}s] opacity-0`
-              )}
-              style={{
-                animation: `show-text ${animatedTexts.length * 2}s ease-in-out infinite ${index * 2}s`,
-                opacity: index === 0 ? 1 : 0,
-              }}
-            >
-              {text}
-            </div>
-          ))}
-        </div>
+        {animatedTexts && animatedTexts.length > 0 && (
+          <div className="relative h-[calc(2.25rem*3)] md:h-9 lg:h-12 xl:h-22">
+            {animatedTexts.map((text, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "absolute top-0 left-0 will-change-[opacity]",
+                  index === 0
+                    ? `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_0s]`
+                    : `animate-[show-text_${animatedTexts.length * 2}s_ease-in-out_infinite_${index * 2}s] opacity-0`
+                )}
+                style={{
+                  animation: `show-text ${animatedTexts.length * 2}s ease-in-out infinite ${index * 2}s`,
+                  opacity: index === 0 ? 1 : 0,
+                }}
+              >
+                {text}
+              </div>
+            ))}
+          </div>
+        )}
       </h1>
     );
   };
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
     return (
       <div className={cn("flex flex-wrap items-center gap-5", actionsClassName)}>
@@ -146,6 +149,7 @@ export function HeroHiringAnimatedText({
 
   const renderScrollAction = () => {
     if (scrollActionSlot) return scrollActionSlot;
+    if (!scrollAction) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = scrollAction;
     return (

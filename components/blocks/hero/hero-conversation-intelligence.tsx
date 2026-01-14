@@ -115,6 +115,7 @@ export function HeroConversationIntelligence({
 
   const renderImage = () => {
     if (imageSlot) return imageSlot;
+    if (!image) return null;
 
     return (
       <div className={cn("mx-auto w-full max-w-325", imageClassName)}>
