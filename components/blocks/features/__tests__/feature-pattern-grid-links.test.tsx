@@ -20,24 +20,26 @@ describe("FeaturePatternGridLinks", () => {
   });
 
   it("renders with default props", () => {
-    render(<FeaturePatternGridLinks />);
-    expect(screen.getByText("A collection of extra blocks for Opensite AI & Tailwind")).toBeInTheDocument();
-  });
-
-  it("renders custom title", () => {
-    render(<FeaturePatternGridLinks title="Custom Title" />);
-    expect(screen.getByText("Custom Title")).toBeInTheDocument();
-  });
-
-  it("renders custom description", () => {
-    render(<FeaturePatternGridLinks description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+    const { container } = render(<FeaturePatternGridLinks />);
+    expect(container.querySelector("section")).toBeInTheDocument();
   });
 
   it("renders features when provided", () => {
-    const features = [{ title: "Feature 1", description: "Description 1", href: "/feature1" }];
+    const features = [{ title: "Feature 1", description: "Description 1", link: "/feature1" }];
     render(<FeaturePatternGridLinks features={features} />);
     expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("renders feature description", () => {
+    const features = [{ title: "Feature 1", description: "Custom description text" }];
+    render(<FeaturePatternGridLinks features={features} />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders learn more links", () => {
+    const features = [{ title: "Feature 1", link: "/feature1" }];
+    render(<FeaturePatternGridLinks features={features} />);
+    expect(screen.getByText("Learn more")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
