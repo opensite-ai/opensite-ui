@@ -28,4 +28,30 @@ describe("FeatureSplitImageReverse", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureSplitImageReverse />);
+    expect(screen.getByText("Build faster with Opensite AI components")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureSplitImageReverse title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureSplitImageReverse description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders actions when provided", () => {
+    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
+    render(<FeatureSplitImageReverse actions={actions} />);
+    expect(screen.getByText("Get Started")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureSplitImageReverse className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

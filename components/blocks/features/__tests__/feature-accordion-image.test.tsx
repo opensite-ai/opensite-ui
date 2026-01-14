@@ -22,4 +22,30 @@ describe("FeatureAccordionImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureAccordionImage />);
+    expect(screen.getByText("Key Features That Save You Time")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureAccordionImage title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureAccordionImage description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders features when provided", () => {
+    const features = [{ title: "Feature 1", description: "Description 1" }];
+    render(<FeatureAccordionImage features={features} />);
+    expect(screen.getByText("Feature 1")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureAccordionImage className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

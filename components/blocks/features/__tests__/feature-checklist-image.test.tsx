@@ -22,4 +22,31 @@ describe("FeatureChecklistImage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureChecklistImage />);
+    expect(screen.getByText("Built with the latest technology stack")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureChecklistImage title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureChecklistImage description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders checklist items when provided", () => {
+    const checklistItems = ["Quality", "Multi-purpose", "Easy to use"];
+    render(<FeatureChecklistImage checklistItems={checklistItems} />);
+    expect(screen.getByText("Quality")).toBeInTheDocument();
+    expect(screen.getByText("Multi-purpose")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureChecklistImage className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

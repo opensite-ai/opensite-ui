@@ -22,4 +22,29 @@ describe("FeatureCategoryImageCards", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+
+  it("renders with default props", () => {
+    render(<FeatureCategoryImageCards />);
+    expect(screen.getByText("Key Features")).toBeInTheDocument();
+  });
+
+  it("renders custom title", () => {
+    render(<FeatureCategoryImageCards title="Custom Title" />);
+    expect(screen.getByText("Custom Title")).toBeInTheDocument();
+  });
+
+  it("renders custom description", () => {
+    render(<FeatureCategoryImageCards description="Custom description text" />);
+    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  });
+
+  it("renders badge when provided", () => {
+    render(<FeatureCategoryImageCards badge="New Feature" />);
+    expect(screen.getByText("New Feature")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(<FeatureCategoryImageCards className="custom-class" />);
+    expect(container.querySelector("section")).toHaveClass("custom-class");
+  });
 });

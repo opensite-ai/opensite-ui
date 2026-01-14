@@ -31,12 +31,12 @@ describe("HeroConversationIntelligence", () => {
 
   it("renders with default props", () => {
     render(<HeroConversationIntelligence />);
-    expect(screen.getByText("The ultimate platform to unlock your agency's capabilities.")).toBeInTheDocument();
+    expect(screen.getByText("Conversation Intelligence")).toBeInTheDocument();
   });
 
-  it("renders custom subheading", () => {
-    render(<HeroConversationIntelligence subheading="Custom Subheading" />);
-    expect(screen.getByText("Custom Subheading")).toBeInTheDocument();
+  it("renders custom heading", () => {
+    render(<HeroConversationIntelligence headingPrimary="Custom Heading" />);
+    expect(screen.getByText("Custom Heading")).toBeInTheDocument();
   });
 
   it("renders custom description", () => {
