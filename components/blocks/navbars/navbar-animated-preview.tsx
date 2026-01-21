@@ -38,7 +38,10 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-export interface MenuLink {
+/**
+ * Base link item for dropdown menus
+ */
+export interface ILinkItem {
   label: React.ReactNode;
   description?: React.ReactNode;
   url: string;
@@ -52,19 +55,73 @@ export interface MenuLink {
   };
 }
 
-export interface MenuGroup {
+/**
+ * Group of links with a title
+ */
+export interface ILinkGroup {
   title: React.ReactNode;
-  links: MenuLink[];
+  links: ILinkItem[];
 }
 
-export interface MenuItem {
-  id?: number;
+/**
+ * Featured image link with badge
+ */
+export interface IFeaturedImageLink {
+  url: string;
+  image?: string;
+  label: React.ReactNode;
+}
+
+/**
+ * Layout types for animated preview dropdown menus
+ *
+ * LAYOUT OPTIONS FOR AI PAGE BUILDER:
+ *
+ * 1. "animated-image-preview"
+ *    - Visual: Grid layout with large image preview on left (360px wide), links list on right
+ *    - Behavior: Image changes on hover based on which link is being hovered
+ *    - Best for: Product showcases, feature highlights, visual content navigation
+ *    - Required data: links[] with label, description, url, image
+ *    - Example use case: Product categories where each has a hero image
+ *
+ * 2. "featured-cards-grid"
+ *    - Visual: 2-column grid of featured cards with background images and icons
+ *    - Behavior: Static grid, cards have hover effects
+ *    - Best for: Highlighting key features or products with visual emphasis
+ *    - Required data: featuredLinks[] with label, description, url, iconName, background
+ *                     links[] for additional non-featured links
+ *    - Example use case: Premium features or flagship products
+ *
+ * 3. "grouped-links-image"
+ *    - Visual: Left side has grouped link sections, right side has single featured image card
+ *    - Behavior: Static layout with organized link groups
+ *    - Best for: Organized navigation with many links grouped by category
+ *    - Required data: groupLinks[] with title and links[]
+ *                     imageLink with label, description, url, image, badge (optional)
+ *    - Example use case: Developer resources grouped by topic with featured documentation
+ */
+export type AnimatedPreviewLayout =
+  | "animated-image-preview" // Grid of links with animated image preview on hover
+  | "featured-cards-grid" // Featured cards at top + separator + grid of links
+  | "grouped-links-image"; // Grouped links + featured image card
+
+/**
+ * Menu link interface with flexible dropdown configuration
+ */
+export interface IMenuLink {
   title: React.ReactNode;
   url?: string;
-  links?: MenuLink[];
-  featuredLinks?: MenuLink[];
-  groupLinks?: MenuGroup[];
-  imageLink?: MenuLink;
+  layout?: AnimatedPreviewLayout;
+
+  // Animated image preview layout
+  links?: ILinkItem[];
+
+  // Featured cards grid layout
+  featuredLinks?: ILinkItem[];
+
+  // Grouped links image layout
+  groupLinks?: ILinkGroup[];
+  imageLink?: IFeaturedImageLink;
 }
 
 /**
@@ -115,21 +172,21 @@ export interface NavbarAnimatedPreviewProps {
    */
   logoClassName?: string;
   /**
-   * Navigation menu items
+   * Navigation menu links with optional dropdown groups
    */
-  navigation?: MenuItem[];
+  menuLinks?: IMenuLink[];
   /**
-   * Custom slot for navigation (overrides navigation array)
+   * Custom slot for navigation (overrides menuLinks array)
    */
   navigationSlot?: React.ReactNode;
   /**
-   * Authentication action configurations
+   * Action configurations (e.g., Sign In, Get Started buttons)
    */
-  authActions?: ActionConfig[];
+  actions?: ActionConfig[];
   /**
-   * Custom slot for auth actions (overrides authActions array)
+   * Custom slot for actions (overrides actions array)
    */
-  authActionsSlot?: React.ReactNode;
+  actionsSlot?: React.ReactNode;
   /**
    * Background style for the section
    */
@@ -175,10 +232,10 @@ export const NavbarAnimatedPreview = ({
   },
   logoSlot,
   logoClassName,
-  navigation,
+  menuLinks,
   navigationSlot,
-  authActions,
-  authActionsSlot,
+  actions,
+  actionsSlot,
   background = "white",
   spacing = "none",
   pattern,
@@ -244,11 +301,11 @@ export const NavbarAnimatedPreview = ({
     );
   };
 
-  const renderAuthActions = () => {
-    if (authActionsSlot) return authActionsSlot;
-    if (!authActions || authActions.length === 0) return null;
+  const renderActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
-    return authActions.map((action, index) => {
+    return actions.map((action, index) => {
       const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
       return (
         <Pressable
@@ -271,11 +328,11 @@ export const NavbarAnimatedPreview = ({
 
   const renderNavigation = () => {
     if (navigationSlot) return navigationSlot;
-    if (!navigation || navigation.length === 0) return null;
+    if (!menuLinks || menuLinks.length === 0) return null;
 
     return (
       <NavigationMenuList>
-        {navigation.map((item, index) => (
+        {menuLinks.map((item, index) => (
           <DesktopMenuItem
             key={`desktop-link-${index}`}
             item={item}
@@ -312,7 +369,7 @@ export const NavbarAnimatedPreview = ({
           </div>
           <div className={cn("justify-self-end", actionsClassName)}>
             <div className="hidden xl:block">
-              {renderAuthActions()}
+              {renderActions()}
             </div>
             <div className="xl:hidden">
               <Pressable
@@ -342,16 +399,16 @@ export const NavbarAnimatedPreview = ({
       </NavigationMenu>
       <MobileNavigationMenu
         open={open}
-        navigation={navigation ?? []}
-        authActions={authActions}
-        authActionsSlot={authActionsSlot}
+        menuLinks={menuLinks ?? []}
+        actions={actions}
+        actionsSlot={actionsSlot}
       />
     </Section>
   );
 };
 
 interface DesktopMenuItemProps {
-  item: MenuItem;
+  item: IMenuLink;
   index: number;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -361,35 +418,22 @@ const DesktopMenuItem = ({
   index,
   optixFlowConfig,
 }: DesktopMenuItemProps) => {
-  if (item.links || item.featuredLinks || item.groupLinks) {
+  const hasDropdown = Boolean(
+    item.links?.length ||
+    item.featuredLinks?.length ||
+    item.groupLinks?.length
+  );
+
+  if (hasDropdown) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="h-fit bg-transparent font-normal text-foreground/60">
+        <NavigationMenuTrigger className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent h-fit font-normal text-foreground/60">
           {item.title}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="hidden rounded-xl! border-0! p-0! xl:block">
           <div className="w-dvw animate-[fade-in-slide-down_0.35s_cubic-bezier(0.33,1,0.68,1)_forwards] px-8 pt-6 pb-12">
             <div className="container">
-              {item.id === 1 && (
-                <DropdownMenu1
-                  links={item.links}
-                  optixFlowConfig={optixFlowConfig}
-                />
-              )}
-              {item.id === 2 && (
-                <DropdownMenu2
-                  featuredLinks={item.featuredLinks}
-                  links={item.links}
-                  optixFlowConfig={optixFlowConfig}
-                />
-              )}
-              {item.id === 3 && (
-                <DropdownMenu3
-                  groupLinks={item.groupLinks}
-                  imageLink={item.imageLink}
-                  optixFlowConfig={optixFlowConfig}
-                />
-              )}
+              {renderDropdownContent(item, optixFlowConfig)}
             </div>
           </div>
         </NavigationMenuContent>
@@ -401,7 +445,7 @@ const DesktopMenuItem = ({
     <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
       <NavigationMenuLink
         href={item.url}
-        className={`${navigationMenuTriggerStyle()} h-fit bg-transparent font-normal text-foreground/60`}
+        className={`${navigationMenuTriggerStyle()} bg-transparent px-0 hover:bg-transparent focus:bg-transparent h-fit font-normal text-foreground/60`}
       >
         {item.title}
       </NavigationMenuLink>
@@ -409,12 +453,44 @@ const DesktopMenuItem = ({
   );
 };
 
-interface DropdownMenu1Props {
-  links?: MenuLink[];
+const renderDropdownContent = (item: IMenuLink, optixFlowConfig?: OptixFlowConfig) => {
+  const layout = item.layout || "animated-image-preview";
+
+  switch (layout) {
+    case "animated-image-preview":
+      return (
+        <AnimatedImagePreviewDropdown
+          links={item.links}
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    case "featured-cards-grid":
+      return (
+        <FeaturedCardsGridDropdown
+          featuredLinks={item.featuredLinks}
+          links={item.links}
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    case "grouped-links-image":
+      return (
+        <GroupedLinksImageDropdown
+          groupLinks={item.groupLinks}
+          imageLink={item.imageLink}
+          optixFlowConfig={optixFlowConfig}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
+interface AnimatedImagePreviewDropdownProps {
+  links?: ILinkItem[];
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DropdownMenu1 = ({ links, optixFlowConfig }: DropdownMenu1Props) => {
+const AnimatedImagePreviewDropdown = ({ links, optixFlowConfig }: AnimatedImagePreviewDropdownProps) => {
   const linksRef = useRef<HTMLAnchorElement[]>([]);
   const imageRefs = useRef<HTMLDivElement[]>([]);
 
@@ -491,17 +567,17 @@ const DropdownMenu1 = ({ links, optixFlowConfig }: DropdownMenu1Props) => {
   );
 };
 
-interface DropdownMenu2Props {
-  links?: MenuLink[];
-  featuredLinks?: MenuLink[];
+interface FeaturedCardsGridDropdownProps {
+  links?: ILinkItem[];
+  featuredLinks?: ILinkItem[];
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DropdownMenu2 = ({
+const FeaturedCardsGridDropdown = ({
   links,
   featuredLinks,
   optixFlowConfig,
-}: DropdownMenu2Props) => {
+}: FeaturedCardsGridDropdownProps) => {
   return (
     <div>
       <div className="flex gap-8 pb-8">
@@ -523,17 +599,17 @@ const DropdownMenu2 = ({
   );
 };
 
-interface DropdownMenu3Props {
-  groupLinks?: MenuGroup[];
-  imageLink?: MenuLink;
+interface GroupedLinksImageDropdownProps {
+  groupLinks?: ILinkGroup[];
+  imageLink?: IFeaturedImageLink;
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DropdownMenu3 = ({
+const GroupedLinksImageDropdown = ({
   groupLinks,
   imageLink,
   optixFlowConfig,
-}: DropdownMenu3Props) => {
+}: GroupedLinksImageDropdownProps) => {
   return (
     <div className="grid grid-cols-2 gap-8">
       <GroupLinks groupLinks={groupLinks} />
@@ -543,7 +619,7 @@ const DropdownMenu3 = ({
 };
 
 interface GroupLinksProps {
-  groupLinks?: MenuGroup[];
+  groupLinks?: ILinkGroup[];
 }
 
 const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
@@ -597,7 +673,7 @@ const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
 };
 
 interface FeaturedImageLinkProps {
-  link?: MenuLink;
+  link?: IFeaturedImageLink;
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -640,7 +716,7 @@ const FeaturedImageLink = ({
 };
 
 interface FeaturedLinkProps {
-  link: MenuLink;
+  link: ILinkItem;
   optixFlowConfig?: OptixFlowConfig;
 }
 
@@ -678,7 +754,7 @@ const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
 };
 
 interface NavLinkProps {
-  link: MenuLink;
+  link: ILinkItem;
   onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave?: () => void;
 }
@@ -727,22 +803,22 @@ NavLink.displayName = "NavLink";
 
 interface MobileNavigationMenuProps {
   open: boolean;
-  navigation: MenuItem[];
-  authActions?: ActionConfig[];
-  authActionsSlot?: React.ReactNode;
+  menuLinks: IMenuLink[];
+  actions?: ActionConfig[];
+  actionsSlot?: React.ReactNode;
 }
 
 const MobileNavigationMenu = ({
   open,
-  navigation,
-  authActions,
-  authActionsSlot,
+  menuLinks,
+  actions,
+  actionsSlot,
 }: MobileNavigationMenuProps) => {
-  const renderMobileAuthActions = () => {
-    if (authActionsSlot) return authActionsSlot;
-    if (!authActions || authActions.length === 0) return null;
+  const renderMobileActions = () => {
+    if (actionsSlot) return actionsSlot;
+    if (!actions || actions.length === 0) return null;
 
-    return authActions.map((action, index) => {
+    return actions.map((action, index) => {
       const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
       return (
         <Pressable
@@ -779,12 +855,12 @@ const MobileNavigationMenu = ({
             </div>
             <div className="flex min-h-full flex-col gap-6">
               <Accordion type="multiple" className="w-full">
-                {navigation.map((item, index) =>
+                {menuLinks.map((item, index) =>
                   renderMobileMenuItem(item, index)
                 )}
               </Accordion>
               <div className="flex flex-col gap-2">
-                {renderMobileAuthActions()}
+                {renderMobileActions()}
               </div>
             </div>
           </div>
@@ -794,7 +870,7 @@ const MobileNavigationMenu = ({
   );
 };
 
-const renderMobileMenuItem = (item: MenuItem, index: number) => {
+const renderMobileMenuItem = (item: IMenuLink, index: number) => {
   if (item.links || item.featuredLinks || item.groupLinks) {
     return (
       <AccordionItem
