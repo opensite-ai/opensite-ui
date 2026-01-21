@@ -30,24 +30,18 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-interface SolutionItem {
+export interface IDropdownItem {
   title: string;
-  description: string;
+  description?: string;
   href: string;
-  icon: string;
+  icon?: string;
+  imgUrl?: string;
 }
 
-interface PlatformItem {
+export interface IMenuLink {
   title: string;
-  href: string;
-  icon: string;
-}
-
-interface ResourceItem {
-  title: string;
-  description: string;
-  href: string;
-  icon: string;
+  href?: string;
+  dropdownItems?: IDropdownItem[];
 }
 
 /**
@@ -102,25 +96,13 @@ export interface NavbarPlatformResourcesProps {
    */
   logoSlot?: React.ReactNode;
   /**
-   * Solutions for Platform menu
+   * Navigation menu links with optional dropdown groups
    */
-  solutions?: SolutionItem[];
+  menuLinks?: IMenuLink[];
   /**
-   * Platform cases for Platform menu
+   * Actions rendered on the right side (desktop) and bottom (mobile)
    */
-  platformCases?: PlatformItem[];
-  /**
-   * Resources for Resources menu
-   */
-  resources?: ResourceItem[];
-  /**
-   * Authentication action configurations
-   */
-  authActions?: ActionConfig[];
-  /**
-   * Custom slot for auth actions (overrides authActions array)
-   */
-  authActionsSlot?: React.ReactNode;
+  actions?: ActionConfig[];
   /**
    * Background style for the section
    */
@@ -144,12 +126,11 @@ export interface NavbarPlatformResourcesProps {
 }
 
 /**
- * NavbarPlatformResources - A comprehensive navigation bar with platform solutions and resources dropdowns.
+ * NavbarPlatformResources - A navigation bar with flexible dropdown menus and action buttons.
  *
- * Features two main mega-menu dropdowns: Platform (with solutions and use cases) and Resources
- * (with a 3-column grid of AI-related topics). Each item displays an icon, title, and description.
- * Mobile view uses a full-screen overlay with accordion navigation. Ideal for tech platforms
- * and AI/ML product offerings.
+ * Supports grouped dropdowns or simple links via menuLinks, with dropdown items that can
+ * display icons or images. Mobile view uses a full-screen overlay with accordion navigation.
+ * Ideal for platforms that need configurable navigation and supporting resources.
  */
 export const NavbarPlatformResources = ({
   className,
@@ -164,11 +145,8 @@ export const NavbarPlatformResources = ({
     src: logoPlaceholders.logoMark,
   },
   logoSlot,
-  solutions,
-  platformCases,
-  resources,
-  authActions,
-  authActionsSlot,
+  menuLinks,
+  actions,
   background = "white",
   spacing = "none",
   pattern,
@@ -182,7 +160,10 @@ export const NavbarPlatformResources = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
@@ -191,31 +172,35 @@ export const NavbarPlatformResources = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold tracking-tighter">
               {logo.title}
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
 
-  const renderAuthActions = () => {
-    if (authActionsSlot) return authActionsSlot;
-    if (!authActions || authActions.length === 0) return null;
+  const hasDropdownItems = (link: IMenuLink) =>
+    Boolean(link.dropdownItems?.length);
 
-    return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+  const renderActions = () => {
+    if (!actions || actions.length === 0) return null;
+
+    return actions.map((action, index) => {
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
-        <Pressable
-          key={index}
-          className={actionClassName}
-          {...pressableProps}
-        >
+        <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
               {icon}
@@ -236,111 +221,89 @@ export const NavbarPlatformResources = ({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container px-4 sm:px-6 md:px-8 lg:px-40 xl:px-52", containerClassName)}>
+      <div
+        className={cn(
+          "container px-4 sm:px-6 md:px-8 lg:px-40 xl:px-52",
+          containerClassName,
+        )}
+      >
         <NavigationMenu className={cn("min-w-full", navigationMenuClassName)}>
           <div className="flex w-full items-center justify-between gap-12 py-4">
             {renderLogo()}
-            <NavigationMenuList className={cn("hidden lg:flex", navigationMenuListClassName)}>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
-                <NavigationMenuContent className="min-w-[760px] p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="max-w-[760px] flex-1">
-                      <div className="text-xs tracking-widest text-muted-foreground">
-                        Solutions
-                      </div>
-                      <div className="grid grid-rows-1 gap-6">
-                        {solutions?.map((solution, index) => (
-                          <NavigationMenuLink
-                            key={index}
-                            href={solution.href}
-                            className="group flex flex-row items-center first:mt-4 hover:bg-transparent"
-                          >
-                            <div className="mr-4 rounded-lg bg-muted p-4 shadow-sm">
-                              <DynamicIcon
-                                name={solution.icon}
-                                size={24}
-                                className="text-muted-foreground transition-all group-hover:text-foreground"
-                              />
-                            </div>
-                            <div className="flex flex-col gap-1 text-sm">
-                              <div className="font-medium text-foreground">
-                                {solution.title}
+            <NavigationMenuList
+              className={cn("hidden lg:flex", navigationMenuListClassName)}
+            >
+              {menuLinks?.map((link, index) => {
+                if (hasDropdownItems(link)) {
+                  return (
+                    <NavigationMenuItem key={`${link.title}-${index}`}>
+                      <NavigationMenuTrigger>
+                        {link.title}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent className="min-w-[640px] p-4">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                          {link.dropdownItems?.map((item, itemIndex) => (
+                            <NavigationMenuLink
+                              key={`${item.title}-${itemIndex}`}
+                              href={item.href}
+                              className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
+                            >
+                              {item.imgUrl && (
+                                <div className="h-12 w-12 overflow-hidden rounded-md border border-border">
+                                  <Img
+                                    src={item.imgUrl}
+                                    alt={item.title}
+                                    className="h-full w-full object-cover object-center"
+                                    optixFlowConfig={optixFlowConfig}
+                                  />
+                                </div>
+                              )}
+                              {!item.imgUrl && item.icon && (
+                                <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                                  <DynamicIcon name={item.icon} size={18} />
+                                </div>
+                              )}
+                              <div>
+                                <div className="text-sm font-medium text-foreground">
+                                  {item.title}
+                                </div>
+                                {item.description && (
+                                  <div className="text-sm font-normal text-muted-foreground">
+                                    {item.description}
+                                  </div>
+                                )}
                               </div>
-                              <div className="text-sm font-normal text-muted-foreground">
-                                {solution.description}
-                              </div>
-                            </div>
-                          </NavigationMenuLink>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="max-w-[760px] flex-1">
-                      <div className="text-xs tracking-widest text-muted-foreground">
-                        By Use Case
-                      </div>
-                      <div className="mt-4 gap-6">
-                        {platformCases?.map((item, index) => (
-                          <NavigationMenuLink
-                            key={index}
-                            href={item.href}
-                            className="group flex flex-row items-center hover:bg-transparent"
-                          >
-                            <div className="mr-4 rounded-lg bg-muted p-2 shadow-sm">
-                              <DynamicIcon
-                                name={item.icon}
-                                size={16}
-                                className="text-muted-foreground transition-all group-hover:text-foreground"
-                              />
-                            </div>
-                            <div className="flex flex-col gap-1">
-                              <div className="text-sm font-medium">
-                                {item.title}
-                              </div>
-                            </div>
-                          </NavigationMenuLink>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                <NavigationMenuContent className="w-full min-w-[820px] p-4">
-                  <div className="grid grid-cols-3 gap-6">
-                    {resources?.map((resource, index) => (
-                      <NavigationMenuLink
-                        key={index}
-                        href={resource.href}
-                        className="group flex flex-row items-center hover:bg-transparent"
-                      >
-                        <div className="mr-4 rounded-lg bg-muted p-4 shadow-sm">
-                          <DynamicIcon
-                            name={resource.icon}
-                            size={24}
-                            className="text-muted-foreground transition-all group-hover:text-foreground"
-                          />
+                            </NavigationMenuLink>
+                          ))}
                         </div>
-                        <div className="flex flex-col gap-1 text-sm font-normal text-muted-foreground">
-                          <div className="font-medium text-foreground">
-                            {resource.title}
-                          </div>
-                          <div className="font-normal text-muted-foreground">
-                            {resource.description}
-                          </div>
-                        </div>
-                      </NavigationMenuLink>
-                    ))}
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <Pressable href="#" variant="ghost" asButton>
-                Developer
-              </Pressable>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  );
+                }
+
+                if (!link.href) {
+                  return null;
+                }
+
+                return (
+                  <NavigationMenuItem key={`${link.title}-${index}`}>
+                    <NavigationMenuLink
+                      href={link.href}
+                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+                    >
+                      {link.title}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                );
+              })}
             </NavigationMenuList>
-            <div className={cn("hidden items-center gap-4 lg:flex", actionsClassName)}>
-              {renderAuthActions()}
+            <div
+              className={cn(
+                "hidden items-center gap-4 lg:flex",
+                actionsClassName,
+              )}
+            >
+              {renderActions()}
             </div>
             <div className="flex items-center gap-4 lg:hidden">
               <Pressable
@@ -358,115 +321,92 @@ export const NavbarPlatformResources = ({
 
           {/* Mobile Menu */}
           {open && (
-            <div className={cn("absolute inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden", mobileMenuClassName)}>
+            <div
+              className={cn(
+                "absolute inset-0 top-[72px] flex h-[calc(100vh-72px)] w-full flex-col overflow-scroll border-t border-border bg-background lg:hidden",
+                mobileMenuClassName,
+              )}
+            >
               <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="platform" className="border-b-2 border-dashed">
-                  <AccordionTrigger className="px-2 py-4 text-left hover:no-underline">
-                    Platform
-                  </AccordionTrigger>
-                  <AccordionContent className="px-2 pb-4">
-                    <div className="space-y-6">
-                      <div>
-                        <div className="mb-4 text-xs tracking-widest text-muted-foreground uppercase">
-                          Solutions
-                        </div>
-                        <div className="space-y-4">
-                          {solutions?.map((solution, index) => (
-                            <Pressable
-                              key={index}
-                              href={solution.href}
-                              className="group flex items-center gap-4 rounded-lg p-2 hover:bg-muted"
-                            >
-                              <div className="rounded-lg bg-muted p-2 shadow-sm">
-                                <DynamicIcon
-                                  name={solution.icon}
-                                  size={16}
-                                  className="text-muted-foreground transition-all group-hover:text-foreground"
-                                />
-                              </div>
-                              <div className="flex-1">
-                                <div className="text-sm font-medium text-foreground">
-                                  {solution.title}
+                {menuLinks?.map((link, index) => {
+                  if (hasDropdownItems(link)) {
+                    return (
+                      <AccordionItem
+                        key={`${link.title}-${index}`}
+                        value={`menu-${index}`}
+                        className="border-b-2 border-dashed"
+                      >
+                        <AccordionTrigger className="px-2 py-4 text-left hover:no-underline">
+                          {link.title}
+                        </AccordionTrigger>
+                        <AccordionContent className="px-2 pb-4">
+                          <div className="space-y-3">
+                            {link.dropdownItems?.map((item, itemIndex) => (
+                              <Pressable
+                                key={`${item.title}-${itemIndex}`}
+                                href={item.href}
+                                className="group flex items-start gap-4 rounded-lg p-2 hover:bg-muted"
+                              >
+                                {item.imgUrl && (
+                                  <div className="h-10 w-10 overflow-hidden rounded-md border border-border">
+                                    <Img
+                                      src={item.imgUrl}
+                                      alt={item.title}
+                                      className="h-full w-full object-cover object-center"
+                                      optixFlowConfig={optixFlowConfig}
+                                    />
+                                  </div>
+                                )}
+                                {!item.imgUrl && item.icon && (
+                                  <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                                    <DynamicIcon name={item.icon} size={16} />
+                                  </div>
+                                )}
+                                <div className="flex-1">
+                                  <div className="text-sm font-medium text-foreground">
+                                    {item.title}
+                                  </div>
+                                  {item.description && (
+                                    <div className="text-xs text-muted-foreground">
+                                      {item.description}
+                                    </div>
+                                  )}
                                 </div>
-                                <div className="text-xs text-muted-foreground">
-                                  {solution.description}
-                                </div>
-                              </div>
-                            </Pressable>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <div className="mb-4 text-xs tracking-widest text-muted-foreground uppercase">
-                          By Use Case
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          {platformCases?.map((useCase, index) => (
-                            <Pressable
-                              key={index}
-                              href={useCase.href}
-                              className="group flex items-center gap-2 rounded-lg p-2 hover:bg-muted"
-                            >
-                              <div className="rounded-lg bg-muted p-1.5 shadow-sm">
-                                <DynamicIcon
-                                  name={useCase.icon}
-                                  size={12}
-                                  className="text-muted-foreground transition-all group-hover:text-foreground"
-                                />
-                              </div>
-                              <div className="truncate text-sm font-medium">
-                                {useCase.title}
-                              </div>
-                            </Pressable>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                              </Pressable>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    );
+                  }
 
-                <AccordionItem value="resources" className="border-b-2 border-dashed">
-                  <AccordionTrigger className="px-2 py-4 text-left hover:no-underline">
-                    Resources
-                  </AccordionTrigger>
-                  <AccordionContent className="px-2 pb-4">
-                    <div className="space-y-3">
-                      {resources?.map((resource, index) => (
-                        <Pressable
-                          key={index}
-                          href={resource.href}
-                          className="group flex items-center gap-4 rounded-lg p-2 hover:bg-muted"
-                        >
-                          <div className="rounded-lg bg-muted p-2 shadow-sm">
-                            <DynamicIcon
-                              name={resource.icon}
-                              size={16}
-                              className="text-muted-foreground transition-all group-hover:text-foreground"
-                            />
-                          </div>
-                          <div className="flex-1">
-                            <div className="text-sm font-medium text-foreground">
-                              {resource.title}
-                            </div>
-                            <div className="text-xs text-muted-foreground">
-                              {resource.description}
-                            </div>
-                          </div>
-                        </Pressable>
-                      ))}
+                  if (!link.href) {
+                    return null;
+                  }
+
+                  return (
+                    <div
+                      key={`${link.title}-${index}`}
+                      className="border-b-2 border-dashed"
+                    >
+                      <Pressable
+                        href={link.href}
+                        className="flex w-full items-center px-2 py-4 text-left text-sm font-medium"
+                      >
+                        {link.title}
+                      </Pressable>
                     </div>
-                  </AccordionContent>
-                </AccordionItem>
+                  );
+                })}
               </Accordion>
-              <Pressable
-                href="#"
-                className="w-full border-y-2 border-dashed px-2 py-4 text-left text-sm font-medium"
-              >
-                Developer
-              </Pressable>
 
-              <div className={cn("mx-8 mt-auto flex flex-col gap-4 py-12", actionsClassName)}>
-                {renderAuthActions()}
+              <div
+                className={cn(
+                  "mx-8 mt-auto flex flex-col gap-4 py-12",
+                  actionsClassName,
+                )}
+              >
+                {renderActions()}
               </div>
             </div>
           )}

@@ -10543,10 +10543,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "NavbarMegaMenuProps",
     exampleUsage: `<NavbarMegaMenu
   logo={{ src: "/logo.svg", alt: "Company" }}
-  platformItems={[{ label: "Analytics", href: "/analytics", icon: "lucide/bar-chart", description: "Track your metrics" }]}
-  useCaseItems={[{ label: "Marketing", href: "/marketing", icon: "lucide/megaphone" }]}
-  developerItems={[{ label: "Documentation", href: "/docs", icon: "lucide/book" }]}
-  resourceItems={[{ label: "Blog", href: "/blog", icon: "lucide/newspaper" }]}
+  menuLinks={[
+    {
+      title: "Platform",
+      dropdownItems: [
+        { title: "Analytics", href: "/analytics", icon: "lucide/bar-chart", description: "Track your metrics" },
+        { title: "Automation", href: "/automation", icon: "lucide/workflow", description: "Automate workflows" }
+      ]
+    },
+    {
+      title: "Resources",
+      dropdownItems: [
+        { title: "Blog", href: "/blog", icon: "lucide/newspaper", description: "Latest updates" },
+        { title: "Guides", href: "/guides", icon: "lucide/book-open", description: "How-tos and playbooks" }
+      ]
+    },
+    { title: "Pricing", href: "/pricing" }
+  ]}
+  actions={[
+    { label: "Sign in", href: "/login", variant: "ghost" },
+    { label: "Get started", href: "/signup", variant: "default" }
+  ]}
 />`.trim(),
   },
 
@@ -10658,9 +10675,27 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "NavbarPlatformResourcesProps",
     exampleUsage: `<NavbarPlatformResources
   logo={{ src: "/logo.svg", alt: "Platform" }}
-  solutions={[{ label: "Analytics", href: "/analytics", icon: "lucide/bar-chart", description: "Track metrics" }]}
-  useCases={[{ label: "Marketing Teams", href: "/marketing" }]}
-  resources={[{ label: "Documentation", href: "/docs", icon: "lucide/book" }]}
+  menuLinks={[
+    {
+      title: "Platform",
+      dropdownItems: [
+        { title: "Analytics", href: "/analytics", icon: "lucide/bar-chart", description: "Track metrics" },
+        { title: "Automation", href: "/automation", icon: "lucide/workflow", description: "Automate workflows" }
+      ]
+    },
+    {
+      title: "Resources",
+      dropdownItems: [
+        { title: "Documentation", href: "/docs", icon: "lucide/book" },
+        { title: "Guides", href: "/guides", icon: "lucide/book-open", description: "Best practices" }
+      ]
+    },
+    { title: "Pricing", href: "/pricing" }
+  ]}
+  actions={[
+    { label: "Sign in", href: "/login", variant: "ghost" },
+    { label: "Get started", href: "/signup", variant: "default" }
+  ]}
 />`.trim(),
   },
 
