@@ -584,7 +584,7 @@ const DesktopMenuItem = ({
   if (hasDropdown) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
           {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-xl! border-0! p-0!">
@@ -605,7 +605,7 @@ const DesktopMenuItem = ({
     <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
       <NavigationMenuLink
         href={item.href}
-        className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground"
+        className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground"
       >
         {item.label}
       </NavigationMenuLink>

@@ -15,7 +15,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../../ui/navigation-menu";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -219,7 +218,7 @@ const DesktopMenuItem = ({
   if (layout === "animated-image-preview" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="!rounded-2xl !p-0">
@@ -283,7 +282,7 @@ const DesktopMenuItem = ({
   if (layout === "simple-grid" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[520px] p-6">
@@ -292,10 +291,10 @@ const DesktopMenuItem = ({
               <NavigationMenuLink
                 key={`grid-item-${itemIndex}`}
                 href={item.url}
-                className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
+                className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-muted hover:text-foreground"
               >
                 {item.image && (
-                  <div className="h-12 w-12 overflow-hidden rounded-md border border-border">
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-md border border-border">
                     <Img
                       src={item.image}
                       alt={
@@ -309,16 +308,16 @@ const DesktopMenuItem = ({
                   </div>
                 )}
                 {!item.image && (item.icon || item.iconName) && (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
                     {item.icon ? (
                       item.icon
                     ) : item.iconName ? (
-                      <DynamicIcon name={item.iconName} size={18} />
+                      <DynamicIcon name={item.iconName} size={20} />
                     ) : null}
                   </div>
                 )}
                 <div>
-                  <div className="text-base">{item.label}</div>
+                  <div className="text-sm font-medium">{item.label}</div>
                   {item.description && (
                     <div className="text-sm font-normal text-muted-foreground">
                       {item.description}
@@ -337,7 +336,7 @@ const DesktopMenuItem = ({
   if (layout === "list-with-icons" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+        <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[400px] p-4">
@@ -479,8 +478,6 @@ export const NavbarMegaMenu = ({
   mobileMenuClassName,
   logo = {
     url: "/",
-    desktopSrc: logoPlaceholders.darkHorizontalLogo,
-    mobileSrc: logoPlaceholders.logoMark,
   },
   logoSlot,
   menuLinks,
@@ -506,13 +503,13 @@ export const NavbarMegaMenu = ({
         className={cn("flex items-center gap-2", logoClassName)}
       >
         <Img
-          src={logo.desktopSrc || logoPlaceholders.darkHorizontalLogo}
+          src={logo.desktopSrc}
           className={cn("hidden h-7 dark:invert md:block", logo.className)}
           alt={logo.alt || "Logo"}
           optixFlowConfig={optixFlowConfig}
         />
         <Img
-          src={logo.mobileSrc || logoPlaceholders.logoMark}
+          src={logo.mobileSrc}
           className={cn("h-7 dark:invert md:hidden", logo.className)}
           alt={logo.alt || "Logo"}
           optixFlowConfig={optixFlowConfig}

@@ -407,7 +407,7 @@ const DesktopMenuItem = ({
   if (item.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="bg-transparent">
+        <NavigationMenuTrigger className="bg-transparent px-3 py-2 text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
           {item.title}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-2xl! p-0!">
@@ -465,7 +465,7 @@ const DesktopMenuItem = ({
     <NavigationMenuItem
       key={`desktop-menu-item-${index}`}
       value={`${index}`}
-      className={`${navigationMenuTriggerStyle()} bg-transparent`}
+      className={`${navigationMenuTriggerStyle()} bg-transparent text-foreground/80 hover:bg-muted hover:text-foreground`}
     >
       <NavigationMenuLink href={item.url}>{item.title}</NavigationMenuLink>
     </NavigationMenuItem>
