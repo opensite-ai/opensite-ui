@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroSimpleCenteredImageProps {
   /**
@@ -32,6 +33,23 @@ export interface HeroSimpleCenteredImageProps {
    * Hero image alt text
    */
   imageAlt?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -75,8 +93,12 @@ export function HeroSimpleCenteredImage({
   description,
   actions,
   actionsSlot,
-  imageSrc = imagePlaceholders[6],
+  imageSrc,
   imageAlt = "placeholder hero",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -113,7 +135,13 @@ export function HeroSimpleCenteredImage({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container flex flex-col items-center text-center", containerClassName, contentClassName)}>
         {heading && (
           typeof heading === "string" ? (
@@ -151,6 +179,6 @@ export function HeroSimpleCenteredImage({
           </div>
         </div>
       )}
-    </section>
+    </Section>
   );
 }

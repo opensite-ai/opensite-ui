@@ -5,9 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import { buttonVariants } from "../../../lib/button-variants";
-import type { ActionConfig, LogoItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroPatternLogoTechStackProps {
   /**
@@ -53,7 +54,23 @@ export interface HeroPatternLogoTechStackProps {
   /**
    * Background pattern image URL
    */
-  backgroundImage?: string;
+  backgroundImage?: string;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -100,6 +117,10 @@ export function HeroPatternLogoTechStack({
   techLogos,
   techLogosSlot,
   backgroundImage = "https://cdn.ing/assets/files/record/286187/4gpn0yq2ptra8iwlvmwwv860ggwv",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -198,7 +219,13 @@ export function HeroPatternLogoTechStack({
   };
 
   return (
-    <section className={cn("relative overflow-hidden py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className="absolute inset-x-0 top-0 flex h-full w-full items-center justify-center opacity-100">
         <Img
           alt="background"
@@ -239,6 +266,6 @@ export function HeroPatternLogoTechStack({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

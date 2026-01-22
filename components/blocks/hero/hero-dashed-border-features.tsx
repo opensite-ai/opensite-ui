@@ -6,8 +6,9 @@ import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarImage } from "../../ui/avatar";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, FeatureItem } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, FeatureItem, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroDashedBorderFeaturesProps {
   /**
@@ -55,6 +56,22 @@ export interface HeroDashedBorderFeaturesProps {
    */
   featuresSlot?: React.ReactNode;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -93,9 +110,13 @@ export function HeroDashedBorderFeatures({
   description,
   actions,
   actionsSlot,
-  demoAvatarSrc = imagePlaceholders[15],
+  demoAvatarSrc,
   features,
   featuresSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -184,7 +205,13 @@ export function HeroDashedBorderFeatures({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("border-x border-t border-dashed px-4 py-20 md:px-16", contentClassName)}>
           <div className="mx-auto max-w-3xl">
@@ -218,6 +245,6 @@ export function HeroDashedBorderFeatures({
           {renderFeatures()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -5,11 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import {
-  imagePlaceholders,
-  logoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroDesignSystem3dProps {
   /**
@@ -48,6 +46,22 @@ export interface HeroDesignSystem3dProps {
    * Custom slot for images (overrides images array)
    */
   imagesSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -89,9 +103,13 @@ export function HeroDesignSystem3d({
   description,
   actions,
   actionsSlot,
-  logoMarkSrc = logoPlaceholders.logoMark,
+  logoMarkSrc,
   images,
   imagesSlot,
+  background = "muted",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -223,7 +241,13 @@ export function HeroDesignSystem3d({
   };
 
   return (
-    <section className={cn("bg-muted pt-12 font-sans md:pt-20", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("font-sans", className)}
+    >
       <div className={cn("mx-auto max-w-396 px-0 sm:px-8", containerClassName)}>
         <div className="container px-4">
           <div className={cn("mx-auto flex max-w-100 flex-col items-center gap-6 sm:max-w-125 lg:max-w-160", contentClassName)}>
@@ -255,6 +279,6 @@ export function HeroDesignSystem3d({
         </div>
         {renderImages()}
       </div>
-    </section>
+    </Section>
   );
 }

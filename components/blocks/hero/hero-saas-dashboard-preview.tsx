@@ -5,9 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Input } from "../../ui/input";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface EmailFormConfig {
   /**
@@ -71,7 +72,23 @@ export interface HeroSaasDashboardPreviewProps {
   /**
    * Custom slot for browser preview (overrides browserPreview prop)
    */
-  browserPreviewSlot?: React.ReactNode;
+  browserPreviewSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -112,6 +129,10 @@ export function HeroSaasDashboardPreview({
   emailFormSlot,
   browserPreview,
   browserPreviewSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headerClassName,
@@ -209,7 +230,13 @@ export function HeroSaasDashboardPreview({
   };
 
   return (
-    <section className={cn("bg-background py-20 md:py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-4xl text-center", headerClassName)}>
           {renderBadge()}
@@ -237,6 +264,6 @@ export function HeroSaasDashboardPreview({
         </div>
         {renderBrowserPreview()}
       </div>
-    </section>
+    </Section>
   );
 }

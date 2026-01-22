@@ -5,9 +5,11 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 
 import type { ActionConfig, ImageItem } from "../../../src/types/blocks";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroWelcomeAsymmetricImagesProps {
   /**
@@ -34,6 +36,22 @@ export interface HeroWelcomeAsymmetricImagesProps {
    * Custom slot for images (overrides images array)
    */
   imagesSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
@@ -70,6 +88,10 @@ export function HeroWelcomeAsymmetricImages({
   actionsSlot,
   images,
   imagesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
@@ -140,7 +162,13 @@ export function HeroWelcomeAsymmetricImages({
   };
 
   return (
-    <section className={cn("overflow-hidden py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row xl:gap-20">
           <div className="flex w-full flex-col items-start text-left">
@@ -171,6 +199,6 @@ export function HeroWelcomeAsymmetricImages({
           {renderImages()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

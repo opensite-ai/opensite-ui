@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, SocialLinkItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, SocialLinkItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface ProfileInfo {
   /**
@@ -63,7 +64,23 @@ export interface HeroPortfolioCreativeProps {
   /**
    * Custom slot for portfolio images (overrides portfolioImages array)
    */
-  portfolioImagesSlot?: React.ReactNode;
+  portfolioImagesSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -105,6 +122,10 @@ export function HeroPortfolioCreative({
   socialLinksSlot,
   portfolioImages,
   portfolioImagesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -250,7 +271,13 @@ export function HeroPortfolioCreative({
   };
 
   return (
-    <section className={cn("bg-background py-20 md:py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
@@ -281,6 +308,6 @@ export function HeroPortfolioCreative({
           {renderPortfolioImages()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

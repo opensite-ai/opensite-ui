@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, FeatureItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, FeatureItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroPlatformFeaturesGridProps {
   /**
@@ -40,7 +41,23 @@ export interface HeroPlatformFeaturesGridProps {
   /**
    * Custom slot for features (overrides features array)
    */
-  featuresSlot?: React.ReactNode;
+  featuresSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -76,6 +93,10 @@ export function HeroPlatformFeaturesGrid({
   actionSlot,
   features,
   featuresSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headerClassName,
@@ -144,7 +165,13 @@ export function HeroPlatformFeaturesGrid({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("text-center", headerClassName)}>
           {renderLogo()}
@@ -172,6 +199,6 @@ export function HeroPlatformFeaturesGrid({
         </div>
         {renderFeatures()}
       </div>
-    </section>
+    </Section>
   );
 }

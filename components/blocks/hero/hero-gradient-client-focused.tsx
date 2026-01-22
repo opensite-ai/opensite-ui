@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroGradientClientFocusedProps {
   /**
@@ -31,7 +32,23 @@ export interface HeroGradientClientFocusedProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;
+  imageSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -69,6 +86,10 @@ export function HeroGradientClientFocused({
   actionsSlot,
   image,
   imageSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
@@ -121,7 +142,7 @@ export function HeroGradientClientFocused({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "bg-gradient-to-b from-accent/5 to-primary/5 py-20 text-center",
         className,
@@ -151,6 +172,6 @@ export function HeroGradientClientFocused({
         {renderActions()}
         {renderImage()}
       </div>
-    </section>
+    </Section>
   );
 }

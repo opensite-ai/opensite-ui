@@ -5,9 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroInnovationImageGridProps {
   /**
@@ -33,7 +34,23 @@ export interface HeroInnovationImageGridProps {
   /**
    * Custom slot for images (overrides images array)
    */
-  imagesSlot?: React.ReactNode;
+  imagesSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -71,6 +88,10 @@ export function HeroInnovationImageGrid({
   actionSlot,
   images,
   imagesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -148,7 +169,13 @@ export function HeroInnovationImageGrid({
   };
 
   return (
-    <section className={cn("bg-primary/5 py-12 font-sans md:py-20", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container max-w-350", containerClassName)}>
         <div className="grid grid-cols-1 gap-22.5 lg:grid-cols-2">
           <div>
@@ -181,6 +208,6 @@ export function HeroInnovationImageGrid({
           {renderImages()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

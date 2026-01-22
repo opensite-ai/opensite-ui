@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroSplitGeometricShapesProps {
   /**
@@ -30,7 +32,23 @@ export interface HeroSplitGeometricShapesProps {
   /**
    * Custom slot for geometric shapes (overrides default shapes)
    */
-  shapesSlot?: React.ReactNode;
+  shapesSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -60,6 +78,10 @@ export function HeroSplitGeometricShapes({
   actions,
   actionsSlot,
   shapesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -111,7 +133,13 @@ export function HeroSplitGeometricShapes({
   };
 
   return (
-    <section className={cn("", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container flex flex-col items-center", containerClassName)}>
         <div className="2xl:w-[calc(min(100vw-2*theme(container.padding),100%+8rem))] w-full overflow-clip rounded-lg bg-accent/50">
           <div className="grid items-center gap-8 lg:grid-cols-2">
@@ -149,6 +177,6 @@ export function HeroSplitGeometricShapes({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -5,14 +5,15 @@ import { useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { CarouselApi } from "../../ui/carousel";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "../../ui/carousel";
-import type { OptixFlowConfig } from "../../../src/types";
+import type {OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface TechnologyItem {
   /**
@@ -49,7 +50,23 @@ export interface HeroTechCarouselProps {
   /**
    * Autoplay delay in milliseconds
    */
-  autoplayDelay?: number;
+  autoplayDelay?: number;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -78,6 +95,10 @@ export function HeroTechCarousel({
   technologies,
   carouselSlot,
   autoplayDelay = 4000,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
@@ -147,7 +168,7 @@ export function HeroTechCarousel({
               >
                 <Img
                   className="h-4 shrink-0 md:h-7"
-                  src={technology.logo || logoPlaceholders.logoMark}
+                  src={technology.logo}
                   alt={technology.name}
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -161,7 +182,13 @@ export function HeroTechCarousel({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col justify-center">
           {heading && (
@@ -193,7 +220,7 @@ export function HeroTechCarousel({
                 )}
               >
                 <Img
-                  src={technologies[current]?.logo || logoPlaceholders.logoMark}
+                  src={technologies[current]?.logo}
                   alt={technologies[current]?.name}
                   className="h-4 md:h-7"
                   optixFlowConfig={optixFlowConfig}
@@ -207,6 +234,6 @@ export function HeroTechCarousel({
         </div>
         {renderCarousel()}
       </div>
-    </section>
+    </Section>
   );
 }

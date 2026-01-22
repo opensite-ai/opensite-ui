@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, LogoItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroFullscreenLogoCtaProps {
   /**
@@ -36,7 +37,23 @@ export interface HeroFullscreenLogoCtaProps {
   /**
    * Background image URL
    */
-  backgroundImage?: string;
+  backgroundImage?: string;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -70,7 +87,11 @@ export function HeroFullscreenLogoCta({
   description,
   action,
   actionSlot,
-  backgroundImage = imagePlaceholders[34],
+  backgroundImage,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -116,7 +137,7 @@ export function HeroFullscreenLogoCta({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "dark h-screen w-screen bg-background bg-cover bg-center bg-no-repeat pt-12 pb-24",
         className,
@@ -151,6 +172,6 @@ export function HeroFullscreenLogoCta({
           {renderAction()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

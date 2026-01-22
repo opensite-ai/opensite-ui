@@ -38,11 +38,10 @@ describe("HeroSimpleCenteredImage", () => {
     expect(screen.getByText("Custom description text")).toBeInTheDocument();
   });
 
-  it("renders image with default placeholder", () => {
+  it("does not render image when imageSrc is not provided", () => {
     render(<HeroSimpleCenteredImage />);
-    const img = screen.getByTestId("mock-img");
-    expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute("alt", "placeholder hero");
+    const img = screen.queryByTestId("mock-img");
+    expect(img).not.toBeInTheDocument();
   });
 
   it("renders image with custom src and alt", () => {

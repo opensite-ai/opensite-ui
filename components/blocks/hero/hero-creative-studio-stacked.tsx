@@ -6,7 +6,6 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
   Dialog,
@@ -14,7 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroCreativeStudioStackedProps {
   /**
@@ -57,6 +58,22 @@ export interface HeroCreativeStudioStackedProps {
    * Custom slot for images (overrides images array)
    */
   imagesSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -106,6 +123,10 @@ export function HeroCreativeStudioStacked({
   actionsSlot,
   images,
   imagesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -216,7 +237,13 @@ export function HeroCreativeStudioStacked({
 
   return (
     <Fragment>
-      <section className={cn("bg-background py-12 md:py-20", className)}>
+      <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
         <div className={cn("container", containerClassName)}>
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
             <div className={cn("flex flex-col gap-6", contentClassName)}>
@@ -258,7 +285,7 @@ export function HeroCreativeStudioStacked({
             </div>
           </div>
         </div>
-      </section>
+      </Section>
       <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
         <DialogContent className="sm:max-w-[800px]">
           <DialogHeader>

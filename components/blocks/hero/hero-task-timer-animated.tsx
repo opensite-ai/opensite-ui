@@ -5,9 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroTaskTimerAnimatedProps {
   /**
@@ -29,7 +30,23 @@ export interface HeroTaskTimerAnimatedProps {
   /**
    * Custom slot for images (overrides images array)
    */
-  imagesSlot?: React.ReactNode;
+  imagesSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -58,6 +75,10 @@ export function HeroTaskTimerAnimated({
   actionsSlot,
   images,
   imagesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   headerClassName,
   headingClassName,
@@ -167,7 +188,7 @@ export function HeroTaskTimerAnimated({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "container flex flex-col gap-10 bg-background py-20 sm:gap-20",
         className,
@@ -188,6 +209,6 @@ export function HeroTaskTimerAnimated({
         {renderActions()}
       </div>
       {renderImages()}
-    </section>
+    </Section>
   );
 }

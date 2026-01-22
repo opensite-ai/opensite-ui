@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, FeatureItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, FeatureItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroEnterpriseSecurityProps {
   /**
@@ -52,7 +53,23 @@ export interface HeroEnterpriseSecurityProps {
   /**
    * Custom slot for logos (overrides logos array)
    */
-  logosSlot?: React.ReactNode;
+  logosSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -103,6 +120,10 @@ export function HeroEnterpriseSecurity({
   featuresSlot,
   logos,
   logosSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -202,7 +223,13 @@ export function HeroEnterpriseSecurity({
   };
 
   return (
-    <section className={cn("bg-background py-20 md:py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-4xl text-center", contentClassName)}>
           {renderBadge()}
@@ -231,6 +258,6 @@ export function HeroEnterpriseSecurity({
         {renderFeatures()}
         {renderLogos()}
       </div>
-    </section>
+    </Section>
   );
 }

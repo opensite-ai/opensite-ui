@@ -6,14 +6,15 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { CarouselApi } from "../../ui/carousel";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "../../ui/carousel";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroBusinessCarouselDotsProps {
   /**
@@ -48,6 +49,22 @@ export interface HeroBusinessCarouselDotsProps {
    * Custom slot for carousel content (overrides carouselImages)
    */
   carouselSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -95,6 +112,10 @@ export function HeroBusinessCarouselDots({
   actionsSlot,
   carouselImages,
   carouselSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -149,7 +170,13 @@ export function HeroBusinessCarouselDots({
   };
 
   return (
-    <section className={cn("overflow-hidden py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("overflow-hidden", className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-5xl text-center", contentClassName)}>
           {badge && (
@@ -218,6 +245,6 @@ export function HeroBusinessCarouselDots({
           ) : null}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

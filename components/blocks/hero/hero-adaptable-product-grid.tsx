@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroAdaptableProductGridProps {
   /**
@@ -33,6 +34,22 @@ export interface HeroAdaptableProductGridProps {
    * Logo/image alt text
    */
   imageAlt?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -76,8 +93,12 @@ export function HeroAdaptableProductGrid({
   description,
   action,
   actionSlot,
-  imageSrc = logoPlaceholders.logoMark,
+  imageSrc,
   imageAlt = "placeholder",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
@@ -111,7 +132,13 @@ export function HeroAdaptableProductGrid({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         {heading && (
           typeof heading === "string" ? (
@@ -148,6 +175,6 @@ export function HeroAdaptableProductGrid({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

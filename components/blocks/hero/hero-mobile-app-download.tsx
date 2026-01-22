@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface AppStoreAction extends ActionConfig {
   /**
@@ -106,7 +107,23 @@ export interface HeroMobileAppDownloadProps {
   /**
    * Custom slot for notification (overrides notification prop)
    */
-  notificationSlot?: React.ReactNode;
+  notificationSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -153,6 +170,10 @@ export function HeroMobileAppDownload({
   imageSlot,
   notification,
   notificationSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -257,7 +278,13 @@ export function HeroMobileAppDownload({
   };
 
   return (
-    <section className={cn("bg-background py-20 md:py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
@@ -288,6 +315,6 @@ export function HeroMobileAppDownload({
           {renderImage()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

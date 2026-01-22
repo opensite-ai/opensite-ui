@@ -5,7 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
-import type { ActionConfig, SocialLinkItem } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SocialLinkItem, SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Countdown item configuration
@@ -61,6 +63,22 @@ export interface HeroComingSoonCountdownProps {
    */
   socialLinksSlot?: React.ReactNode;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -106,6 +124,10 @@ export function HeroComingSoonCountdown({
   formSlot,
   socialLinks,
   socialLinksSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   badgeClassName,
@@ -175,7 +197,7 @@ export function HeroComingSoonCountdown({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "dark relative min-h-screen bg-background py-32",
         className,
@@ -220,6 +242,6 @@ export function HeroComingSoonCountdown({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

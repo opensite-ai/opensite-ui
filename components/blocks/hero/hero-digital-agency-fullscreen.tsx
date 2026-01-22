@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroDigitalAgencyFullscreenProps {
   /**
@@ -45,6 +46,22 @@ export interface HeroDigitalAgencyFullscreenProps {
    */
   backgroundImage?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -83,7 +100,11 @@ export function HeroDigitalAgencyFullscreen({
   footerSublabel = "San Francisco, California",
   footerAction,
   footerSlot,
-  backgroundImage = imagePlaceholders[10],
+  backgroundImage,
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -159,12 +180,16 @@ export function HeroDigitalAgencyFullscreen({
   };
 
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
         "font-dm_sans dark relative h-svh max-h-[1400px] min-h-[600px] w-full bg-cover bg-center bg-no-repeat after:absolute after:inset-0 after:block after:size-full after:bg-zinc-950/50 after:content-['']",
         className
       )}
-      style={{ backgroundImage: `url('${backgroundImage}')` }}
+      style={{ backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined }}
     >
       <div className={cn("relative z-10 mx-auto flex size-full max-w-500 px-4 py-9", containerClassName)}>
         <div className="flex w-full flex-col justify-between gap-10">
@@ -194,6 +219,6 @@ export function HeroDigitalAgencyFullscreen({
           {renderFooter()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

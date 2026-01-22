@@ -3,8 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { videoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig } from "../../../src/types";
+import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroPresentationPlatformVideoProps {
   /**
@@ -34,7 +35,23 @@ export interface HeroPresentationPlatformVideoProps {
   /**
    * Custom slot for video (overrides videoSrc prop)
    */
-  videoSlot?: React.ReactNode;
+  videoSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -63,8 +80,12 @@ export function HeroPresentationPlatformVideo({
   description,
   actions,
   actionsSlot,
-  videoSrc = videoPlaceholders[0],
+  videoSrc,
   videoSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   contentClassName,
   headingClassName,
@@ -121,7 +142,7 @@ export function HeroPresentationPlatformVideo({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "flex min-h-screen items-center justify-between bg-background py-14",
         className,
@@ -160,6 +181,6 @@ export function HeroPresentationPlatformVideo({
         {renderActions()}
       </div>
       {renderVideo()}
-    </section>
+    </Section>
   );
 }

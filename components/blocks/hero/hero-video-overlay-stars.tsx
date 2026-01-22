@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { videoPlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Configuration for the primary action button
@@ -60,6 +62,22 @@ export interface HeroVideoOverlayStarsProps {
    */
   trustSlot?: React.ReactNode;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
@@ -87,9 +105,13 @@ export function HeroVideoOverlayStars({
   actionSlot,
   trust,
   trustSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   headingClassName,
-  videoSrc = videoPlaceholders[0],
+  videoSrc,
   videoSlot,
 }: HeroVideoOverlayStarsProps): React.JSX.Element {
   const renderAction = () => {
@@ -154,7 +176,7 @@ export function HeroVideoOverlayStars({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "dark relative h-svh max-h-[1400px] min-h-[600px] w-full overflow-hidden bg-background px-5 font-sans",
         className
@@ -178,6 +200,6 @@ export function HeroVideoOverlayStars({
         </div>
       </div>
       {renderVideo()}
-    </section>
+    </Section>
   );
 }

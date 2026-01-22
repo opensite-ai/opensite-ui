@@ -4,9 +4,10 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroAgencyAnimatedImagesProps {
   /**
@@ -33,6 +34,22 @@ export interface HeroAgencyAnimatedImagesProps {
    * Custom slot for rendering images (overrides images array)
    */
   imagesSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -70,6 +87,10 @@ export function HeroAgencyAnimatedImages({
   actionSlot,
   images,
   imagesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -138,7 +159,13 @@ export function HeroAgencyAnimatedImages({
   };
 
   return (
-    <section className={cn("bg-background py-12 md:py-20", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container max-w-444", containerClassName)}>
         <div className="grid w-full grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
           <div className={cn("flex w-full max-w-125 flex-col gap-8 md:gap-14 lg:max-w-full", contentClassName)}>
@@ -169,6 +196,6 @@ export function HeroAgencyAnimatedImages({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

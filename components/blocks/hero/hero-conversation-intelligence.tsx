@@ -4,9 +4,10 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroConversationIntelligenceProps {
   /**
@@ -37,6 +38,22 @@ export interface HeroConversationIntelligenceProps {
    * Custom slot for image area (overrides image)
    */
   imageSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -79,6 +96,10 @@ export function HeroConversationIntelligence({
   actionsSlot,
   image,
   imageSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -152,7 +173,7 @@ export function HeroConversationIntelligence({
   };
 
   return (
-    <section
+    <Section
       className={cn("bg-background py-12 font-sans md:py-20", className)}
     >
       <div className={cn("container", containerClassName)}>
@@ -186,6 +207,6 @@ export function HeroConversationIntelligence({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

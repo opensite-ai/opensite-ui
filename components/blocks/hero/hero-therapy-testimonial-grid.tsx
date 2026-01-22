@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface TestimonialConfig {
   /**
@@ -54,7 +55,23 @@ export interface HeroTherapyTestimonialGridProps {
   /**
    * Custom slot for testimonial (overrides testimonial prop)
    */
-  testimonialSlot?: React.ReactNode;
+  testimonialSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -90,6 +107,10 @@ export function HeroTherapyTestimonialGrid({
   imagesSlot,
   testimonial,
   testimonialSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headerClassName,
@@ -192,7 +213,7 @@ export function HeroTherapyTestimonialGrid({
   };
 
   return (
-    <section
+    <Section
       className={cn("bg-background py-12 font-sans md:py-20", className)}
     >
       <div className={cn("container", containerClassName)}>
@@ -223,6 +244,6 @@ export function HeroTherapyTestimonialGrid({
           {renderImagesGrid()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

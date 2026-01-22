@@ -3,8 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ImageItem, OptixFlowConfig, TestimonialItem } from "../../../src/types";
+import type {ImageItem, OptixFlowConfig, TestimonialItem, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroMentalHealthTeamProps {
   /**
@@ -38,7 +39,23 @@ export interface HeroMentalHealthTeamProps {
   /**
    * Custom slot for feature image (overrides featureImage prop)
    */
-  featureImageSlot?: React.ReactNode;
+  featureImageSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -74,6 +91,10 @@ export function HeroMentalHealthTeam({
   testimonialSlot,
   featureImage,
   featureImageSlot,
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headerClassName,
@@ -163,7 +184,7 @@ export function HeroMentalHealthTeam({
   };
 
   return (
-    <section
+    <Section
       className={cn("dark bg-background py-12 font-sans md:py-20", className)}
     >
       <div className={cn("container", containerClassName)}>
@@ -193,6 +214,6 @@ export function HeroMentalHealthTeam({
           {renderFeatureImage()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

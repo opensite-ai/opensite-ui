@@ -6,8 +6,9 @@ import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroImageLeftContentProps {
   /**
@@ -46,6 +47,23 @@ export interface HeroImageLeftContentProps {
    * Hero image alt text
    */
   imageAlt?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -96,8 +114,12 @@ export function HeroImageLeftContent({
   description,
   actions,
   actionsSlot,
-  imageSrc = imagePlaceholders[1],
+  imageSrc,
   imageAlt = "placeholder hero",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -135,7 +157,13 @@ export function HeroImageLeftContent({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex justify-end bg-muted", imageContainerClassName)}>
@@ -181,6 +209,6 @@ export function HeroImageLeftContent({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

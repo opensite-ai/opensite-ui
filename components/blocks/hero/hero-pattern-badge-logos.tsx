@@ -5,12 +5,11 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type {
-  ActionConfig,
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {ActionConfig,
   LogoItem,
-  OptixFlowConfig,
-} from "../../../src/types";
+  OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
 
 export interface HeroPatternBadgeLogosProps {
   /**
@@ -48,7 +47,23 @@ export interface HeroPatternBadgeLogosProps {
   /**
    * Background pattern image URL
    */
-  backgroundImageUrl?: string;
+  backgroundImageUrl?: string;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -101,6 +116,10 @@ export function HeroPatternBadgeLogos({
   logosSlot,
   logosTagline = "Powering the next generation of digital products",
   backgroundImageUrl = "https://cdn.ing/assets/files/record/286186/nbdflpgp4ostrno079hygibsflp3",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -188,7 +207,13 @@ export function HeroPatternBadgeLogos({
   };
 
   return (
-    <section className={cn("relative p-0", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative p-0", className)}
+    >
       <div
         className={cn(
           "absolute h-full w-full bg-contain bg-repeat opacity-100 lg:block",
@@ -257,6 +282,6 @@ export function HeroPatternBadgeLogos({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

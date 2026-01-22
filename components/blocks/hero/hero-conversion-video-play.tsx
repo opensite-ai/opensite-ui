@@ -6,10 +6,6 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import {
-  imagePlaceholders,
-  logoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
   Dialog,
@@ -17,7 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
-import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroConversionVideoPlayProps {
   /**
@@ -69,6 +67,22 @@ export interface HeroConversionVideoPlayProps {
    */
   logosSlot?: React.ReactNode;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -119,6 +133,10 @@ export function HeroConversionVideoPlay({
   logosTagline = "Trusted by these brands and many others",
   logos,
   logosSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -198,7 +216,13 @@ export function HeroConversionVideoPlay({
 
   return (
     <Fragment>
-      <section className={cn("bg-background py-12 md:py-20", className)}>
+      <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
         <div className="overflow-hidden border-b border-muted">
           <div className={cn("container", containerClassName)}>
             <div className="flex flex-col items-center gap-16 md:gap-24">
@@ -265,7 +289,7 @@ export function HeroConversionVideoPlay({
             )}
           </div>
         </div>
-      </section>
+      </Section>
       <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
         <DialogContent className="sm:max-w-[800px]">
           <DialogHeader>

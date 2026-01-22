@@ -3,9 +3,10 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type { ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface LayeredImageConfig {
   /**
@@ -38,7 +39,23 @@ export interface HeroSharedInboxLayeredProps {
   /**
    * Custom slot for layered images (overrides layeredImages prop)
    */
-  layeredImagesSlot?: React.ReactNode;
+  layeredImagesSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -75,6 +92,10 @@ export function HeroSharedInboxLayered({
   description,
   layeredImages,
   layeredImagesSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -118,7 +139,7 @@ export function HeroSharedInboxLayered({
   };
 
   return (
-    <section
+    <Section
       className={cn("relative border-b border-muted bg-background", className)}
     >
       <div className={cn("container pt-10", containerClassName)}>
@@ -159,6 +180,6 @@ export function HeroSharedInboxLayered({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

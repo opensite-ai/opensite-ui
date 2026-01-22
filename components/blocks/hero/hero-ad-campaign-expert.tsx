@@ -4,9 +4,10 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroAdCampaignExpertProps {
   /**
@@ -37,6 +38,22 @@ export interface HeroAdCampaignExpertProps {
    * Hero image alt text
    */
   imageAlt?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -77,8 +94,12 @@ export function HeroAdCampaignExpert({
   description,
   action,
   actionSlot,
-  imageSrc = imagePlaceholders[60],
+  imageSrc,
   imageAlt = "",
+  background = "muted",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -111,9 +132,15 @@ export function HeroAdCampaignExpert({
   };
 
   return (
-    <section className={cn("pb-24", className)}>
-      <div className={cn("bg-muted pt-16 lg:pt-24", containerClassName)}>
-        <div className="container flex flex-col items-center lg:flex-row lg:items-start">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("pb-24", className)}
+    >
+      <div className={cn("pt-16 lg:pt-24", containerClassName)}>
+        <div className="flex flex-col items-center lg:flex-row lg:items-start">
           <div className={cn("relative flex flex-col items-start gap-8 pb-20 lg:w-1/2", contentClassName)}>
             {(heading || headingHighlight) && (
               typeof heading === "string" ? (
@@ -165,6 +192,6 @@ export function HeroAdCampaignExpert({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

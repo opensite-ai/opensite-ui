@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig, FeatureItem } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, FeatureItem, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroCenteredGradientCtaProps {
   /**
@@ -43,6 +45,22 @@ export interface HeroCenteredGradientCtaProps {
    * Custom slot for rendering features (overrides features array)
    */
   featuresSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -87,6 +105,10 @@ export function HeroCenteredGradientCta({
   actionsSlot,
   features,
   featuresSlot,
+  background = "muted",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   gradientClassName,
@@ -134,7 +156,7 @@ export function HeroCenteredGradientCta({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "relative min-h-screen overflow-hidden bg-background py-32",
         className
@@ -184,6 +206,6 @@ export function HeroCenteredGradientCta({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

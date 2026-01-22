@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroCrmStreamlinedProps {
   /**
@@ -36,6 +37,22 @@ export interface HeroCrmStreamlinedProps {
    * Custom slot for image (overrides image)
    */
   imageSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -78,6 +95,10 @@ export function HeroCrmStreamlined({
   actionSlot,
   image,
   imageSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -110,7 +131,13 @@ export function HeroCrmStreamlined({
   };
 
   return (
-    <section className={cn("overflow-hidden font-sans", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("overflow-hidden font-sans", className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-center justify-between gap-10 md:flex-row">
           <div className={cn("basis-2/4", contentClassName)}>
@@ -160,6 +187,6 @@ export function HeroCrmStreamlined({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

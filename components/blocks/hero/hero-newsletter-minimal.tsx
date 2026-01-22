@@ -5,7 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Input } from "../../ui/input";
-import type { ActionConfig, StatItem } from "../../../src/types";
+import type {ActionConfig, StatItem, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroNewsletterMinimalProps {
   /**
@@ -39,7 +41,23 @@ export interface HeroNewsletterMinimalProps {
   /**
    * Custom slot for rendering stats (overrides stats array)
    */
-  statsSlot?: React.ReactNode;
+  statsSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -83,6 +101,10 @@ export function HeroNewsletterMinimal({
   disclaimer = "Free forever. No spam. Unsubscribe anytime.",
   stats,
   statsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
@@ -135,7 +157,7 @@ export function HeroNewsletterMinimal({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "relative min-h-[80vh] bg-background py-32",
         className,
@@ -178,6 +200,6 @@ export function HeroNewsletterMinimal({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -7,7 +7,7 @@ import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Container } from "../../ui/container";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
 
 export interface HeroOverlayCtaGridCard {
   /**
@@ -128,7 +128,7 @@ export function HeroOverlayCtaGrid({
   actionsSlot,
   cards,
   cardsSlot,
-  backgroundImage = imagePlaceholders[0],
+  backgroundImage,
   backgroundAlt = "OpenSite AI coverage advisory hero background",
   backgroundSlot,
   className,
@@ -216,7 +216,7 @@ export function HeroOverlayCtaGrid({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "relative flex min-h-dvh items-center justify-center overflow-hidden bg-background pb-20 pt-32 md:pt-36",
         className
@@ -279,6 +279,6 @@ export function HeroOverlayCtaGrid({
 
         {renderCards()}
       </Container>
-    </section>
+    </Section>
   );
 }

@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroSpiralPatternCardsProps {
   /**
@@ -26,7 +28,23 @@ export interface HeroSpiralPatternCardsProps {
   /**
    * Custom slot for rendering actions (overrides actions array)
    */
-  actionsSlot?: React.ReactNode;
+  actionsSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -51,6 +69,10 @@ export function HeroSpiralPatternCards({
   description,
   actions,
   actionsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
@@ -86,7 +108,13 @@ export function HeroSpiralPatternCards({
   };
 
   return (
-    <section className={cn("overflow-hidden py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container flex flex-col items-center text-center", containerClassName)}>
         {badgeText && (
           typeof badgeText === "string" ? (
@@ -149,6 +177,6 @@ export function HeroSpiralPatternCards({
           <div className="absolute inset-0 z-20 m-auto flex aspect-29/36 w-4/5 max-w-[16rem] justify-center rounded-lg border border-border bg-accent md:w-85 md:max-w-85"></div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

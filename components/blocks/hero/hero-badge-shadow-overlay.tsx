@@ -5,7 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroBadgeShadowOverlayProps {
   /**
@@ -37,6 +39,22 @@ export interface HeroBadgeShadowOverlayProps {
    */
   backgroundImageUrl?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -66,6 +84,10 @@ export function HeroBadgeShadowOverlay({
   actions,
   actionsSlot,
   backgroundImageUrl = "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/shadow-overlay.png",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   announcementClassName,
@@ -98,7 +120,13 @@ export function HeroBadgeShadowOverlay({
   };
 
   return (
-    <section className={cn("relative py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative", className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-center gap-10 text-center">
           {(announcementBadge || announcementText) && (
@@ -127,10 +155,10 @@ export function HeroBadgeShadowOverlay({
           )}
         </div>
       </div>
-      <div 
+      <div
         className="absolute inset-0 -z-10 bg-[50%_0] bg-no-repeat"
         style={{ backgroundImage: `url('${backgroundImageUrl}')` }}
       />
-    </section>
+    </Section>
   );
 }

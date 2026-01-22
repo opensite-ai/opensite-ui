@@ -6,8 +6,9 @@ import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroBadgeImageSplitProps {
   /**
@@ -42,6 +43,22 @@ export interface HeroBadgeImageSplitProps {
    * Hero image alt text
    */
   imageAlt?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -87,8 +104,12 @@ export function HeroBadgeImageSplit({
   description,
   actions,
   actionsSlot,
-  imageSrc = imagePlaceholders[0],
+  imageSrc,
   imageAlt = "Hero section demo image showing interface components",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -125,7 +146,13 @@ export function HeroBadgeImageSplit({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
@@ -169,6 +196,6 @@ export function HeroBadgeImageSplit({
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

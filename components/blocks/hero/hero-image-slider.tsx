@@ -6,7 +6,6 @@ import { Section } from "../../ui/section";
 import { ImageSlider, type ImageSliderImage } from "../../ui/image-slider";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   OptixFlowConfig,

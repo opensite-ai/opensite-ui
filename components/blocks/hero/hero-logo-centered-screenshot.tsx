@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroLogoCenteredScreenshotProps {
   /**
@@ -40,7 +41,23 @@ export interface HeroLogoCenteredScreenshotProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;
+  imageSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -80,6 +97,10 @@ export function HeroLogoCenteredScreenshot({
   actionSlot,
   image,
   imageSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -136,7 +157,13 @@ export function HeroLogoCenteredScreenshot({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className="border-b">
         <div className={cn("container max-w-7xl", containerClassName)}>
           <div className="mx-auto flex max-w-5xl flex-col items-center">
@@ -170,6 +197,6 @@ export function HeroLogoCenteredScreenshot({
           {renderImage()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

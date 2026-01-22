@@ -7,12 +7,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import {
-  imagePlaceholders,
-  logoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
-import type { ActionConfig, ImageItem, FeatureItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, FeatureItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroDesignCarouselPortfolioProps {
   /**
@@ -64,6 +62,22 @@ export interface HeroDesignCarouselPortfolioProps {
    */
   carouselSlot?: React.ReactNode;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -105,11 +119,15 @@ export function HeroDesignCarouselPortfolio({
   heading,
   description,
   primaryAction,
-  primaryActionAvatar = imagePlaceholders[16],
+  primaryActionAvatar,
   secondaryAction,
   actionsSlot,
   carouselImages,
   carouselSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -229,7 +247,13 @@ export function HeroDesignCarouselPortfolio({
   };
 
   return (
-    <section className={cn("relative bg-background py-14", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("relative", className)}
+    >
       <div className={cn("relative z-10 container mx-auto", containerClassName)}>
         <div className="py-8">
           {renderLogo()}
@@ -269,6 +293,6 @@ export function HeroDesignCarouselPortfolio({
         {renderCarousel()}
       </div>
       {actionsSlot || renderSecondaryAction()}
-    </section>
+    </Section>
   );
 }

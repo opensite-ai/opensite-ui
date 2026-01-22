@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroArchitectureFullscreenProps {
   /**
@@ -32,6 +33,22 @@ export interface HeroArchitectureFullscreenProps {
    * Background image URL
    */
   backgroundImage?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -60,7 +77,11 @@ export function HeroArchitectureFullscreen({
   description,
   action,
   actionSlot,
-  backgroundImage = imagePlaceholders[97],
+  backgroundImage,
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   taglineClassName,
@@ -90,12 +111,16 @@ export function HeroArchitectureFullscreen({
   };
 
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
-        "dark relative h-svh max-h-[1400px] w-full overflow-hidden bg-cover bg-center bg-no-repeat py-12 font-poppins after:absolute after:top-0 after:left-0 after:block after:h-full after:w-full after:bg-black/65 after:content-[''] md:py-20",
+        "dark relative h-svh max-h-[1400px] w-full overflow-hidden bg-cover bg-center bg-no-repeat font-poppins after:absolute after:top-0 after:left-0 after:block after:h-full after:w-full after:bg-black/65 after:content-['']",
         className
       )}
-      style={{ backgroundImage: `url('${backgroundImage}')` }}
+      style={{ backgroundImage: backgroundImage ? `url('${backgroundImage}')` : undefined }}
     >
       <div className={cn("relative z-20 container h-full w-full max-w-340", containerClassName)}>
         <div className="flex h-full w-full flex-col justify-end gap-12">
@@ -135,6 +160,6 @@ export function HeroArchitectureFullscreen({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

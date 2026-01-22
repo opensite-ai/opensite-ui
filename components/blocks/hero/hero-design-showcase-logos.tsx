@@ -5,11 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import {
-  imagePlaceholders,
-  logoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, LogoItem, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, LogoItem, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroDesignShowcaseLogosProps {
   /**
@@ -48,6 +46,22 @@ export interface HeroDesignShowcaseLogosProps {
    * Custom slot for showcase image (overrides showcaseImage prop)
    */
   showcaseSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -96,6 +110,10 @@ export function HeroDesignShowcaseLogos({
   logosSlot,
   showcaseImage,
   showcaseSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -189,7 +207,13 @@ export function HeroDesignShowcaseLogos({
   };
 
   return (
-    <section className={cn("bg-background py-12 md:py-20", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("flex flex-col items-center gap-8", contentClassName)}>
           <div className="flex max-w-[920px] flex-col items-center gap-6">
@@ -223,6 +247,6 @@ export function HeroDesignShowcaseLogos({
         </div>
       </div>
       {renderShowcase()}
-    </section>
+    </Section>
   );
 }

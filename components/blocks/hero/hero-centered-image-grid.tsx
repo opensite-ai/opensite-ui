@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, ImageItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroCenteredImageGridProps {
   /**
@@ -45,6 +46,22 @@ export interface HeroCenteredImageGridProps {
    * Custom slot for logos (overrides logos array)
    */
   logosSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -93,6 +110,10 @@ export function HeroCenteredImageGrid({
   imageOverlayAction,
   logos,
   logosSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -170,7 +191,13 @@ export function HeroCenteredImageGrid({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="mx-auto flex max-w-5xl flex-col items-center">
           <div className={cn("z-10 flex flex-col items-center gap-8 text-center", contentClassName)}>
@@ -230,6 +257,6 @@ export function HeroCenteredImageGrid({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

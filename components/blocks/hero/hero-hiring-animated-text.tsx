@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig } from "../../../src/types";
+import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroHiringAnimatedTextProps {
   /**
@@ -43,7 +44,23 @@ export interface HeroHiringAnimatedTextProps {
   /**
    * Background image URL
    */
-  backgroundImage?: string;
+  backgroundImage?: string;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -79,7 +96,11 @@ export function HeroHiringAnimatedText({
   actionsSlot,
   scrollAction,
   scrollActionSlot,
-  backgroundImage = imagePlaceholders[84],
+  backgroundImage,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -166,7 +187,7 @@ export function HeroHiringAnimatedText({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "dark relative h-svh max-h-[1400px] w-full bg-cover bg-position-[100%] bg-no-repeat before:absolute before:top-0 before:left-0 before:size-full before:bg-[radial-gradient(circle_at_100%_-100%,transparent_40%,rgba(0,0,0,.75)_85%)] before:content-['']",
         className
@@ -193,6 +214,6 @@ export function HeroHiringAnimatedText({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

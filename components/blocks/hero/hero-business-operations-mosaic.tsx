@@ -3,9 +3,10 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import type { ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroBusinessOperationsMosaicProps {
   /**
@@ -24,6 +25,22 @@ export interface HeroBusinessOperationsMosaicProps {
    * Custom slot for mosaic images (overrides images array)
    */
   imagesSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -59,6 +76,10 @@ export function HeroBusinessOperationsMosaic({
   subheading,
   images,
   imagesSlot,
+  background = "muted",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -114,7 +135,13 @@ export function HeroBusinessOperationsMosaic({
   };
 
   return (
-    <section className={cn("bg-background py-12 md:py-20", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={className}
+    >
       <div className={cn("container max-w-392.5", containerClassName)}>
         <div className="grid grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
           <div className={cn("w-full max-w-166.5", mosaicClassName)}>
@@ -144,6 +171,6 @@ export function HeroBusinessOperationsMosaic({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

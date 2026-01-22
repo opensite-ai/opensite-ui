@@ -5,8 +5,8 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
+import { Section } from "../../ui/section";
 
 /**
  * Configuration for the testimonial section
@@ -238,7 +238,7 @@ export function HeroTestimonialImageGrid({
   };
 
   return (
-    <section className={cn("py-12 md:py-20", className)}>
+    <Section className={cn("py-12 md:py-20", className)}>
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-center gap-8 md:flex-row">
           <div className="flex-1">
@@ -274,6 +274,6 @@ export function HeroTestimonialImageGrid({
           {renderImagesGrid()}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -3,14 +3,17 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroFloatingImagesItem extends ImageItem {
   /**
-   * Tailwind classes for positioning and sizing (required for floating images)
+   * Optional Tailwind classes for positioning and sizing.
+   * Default styling: "w-32 h-32 md:w-48 md:h-48 rounded-lg shadow-lg" - provides responsive sizing with rounded corners and shadow.
+   * Override this to customize individual image appearance and positioning.
    */
-  className: string;
+  className?: string;
 }
 
 export interface HeroFloatingImagesProps {
@@ -38,6 +41,22 @@ export interface HeroFloatingImagesProps {
    * Custom slot for background decorations (overrides showSwirls)
    */
   backgroundSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
@@ -112,6 +131,10 @@ export function HeroFloatingImages({
   imagesSlot,
   showSwirls = true,
   backgroundSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   contentClassName,
   headingClassName,
@@ -141,7 +164,7 @@ export function HeroFloatingImages({
             key={`${image.alt}-${index}`}
             src={image.src}
             alt={image.alt}
-            className={cn("absolute object-contain", image.className)}
+            className={cn("absolute w-32 h-32 md:w-48 md:h-48 rounded-lg shadow-lg object-contain", image.className)}
             style={{ animationDelay: `${index * 300}ms` }}
             optixFlowConfig={optixFlowConfig}
           />
@@ -151,37 +174,59 @@ export function HeroFloatingImages({
   };
 
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
-        "relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-background py-20 md:min-h-[80vh] md:py-32",
+        "relative flex min-h-[60vh] items-center justify-center overflow-hidden py-20 md:min-h-[80vh] md:py-32",
         className,
       )}
     >
       {renderBackground()}
       {renderImages()}
 
-      <div className={cn("relative z-20 mx-auto max-w-2xl px-4 text-center", contentClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl", headingClassName)}>
+      <div
+        className={cn(
+          "relative z-20 mx-auto max-w-2xl px-4 text-center",
+          contentClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl", headingClassName)}>
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-6 text-lg leading-8 text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-6 text-lg leading-8 text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
-    </section>
+    </Section>
   );
 }

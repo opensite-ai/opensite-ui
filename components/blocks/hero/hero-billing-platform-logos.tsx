@@ -7,12 +7,10 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import {
-  imagePlaceholders,
-  logoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
-import type { ActionConfig, LogoItem, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, LogoItem, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface HeroBillingPlatformLogosProps {
   /**
@@ -60,6 +58,22 @@ export interface HeroBillingPlatformLogosProps {
    */
   backgroundNoiseUrl?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -105,6 +119,10 @@ export function HeroBillingPlatformLogos({
   logos,
   logosSlot,
   backgroundNoiseUrl = "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -164,9 +182,13 @@ export function HeroBillingPlatformLogos({
   };
 
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
-        "dark bg-background py-12 font-sans md:py-20",
+        "dark font-sans",
         className
       )}
       style={{ backgroundImage: backgroundNoiseUrl ? `url('${backgroundNoiseUrl}')` : undefined }}
@@ -290,6 +312,6 @@ export function HeroBillingPlatformLogos({
           </Carousel>
         ) : null}
       </div>
-    </section>
+    </Section>
   );
 }

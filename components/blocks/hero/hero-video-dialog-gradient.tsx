@@ -6,7 +6,6 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import {
   Dialog,
@@ -14,7 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface VideoDialogConfig {
   /**
@@ -55,7 +56,23 @@ export interface HeroVideoDialogGradientProps {
   /**
    * Video dialog configuration
    */
-  videoDialog?: VideoDialogConfig;
+  videoDialog?: VideoDialogConfig;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -90,6 +107,10 @@ export function HeroVideoDialogGradient({
   image,
   imageSlot,
   videoDialog,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
@@ -170,7 +191,7 @@ export function HeroVideoDialogGradient({
 
   return (
     <Fragment>
-      <section
+      <Section
         className={cn(
           "relative overflow-hidden bg-background py-12 font-sans md:py-20",
           className
@@ -210,7 +231,7 @@ export function HeroVideoDialogGradient({
             className="bg-[radial-gradient(closest-side,var(--color-accent),transparent)]"
           />
         </div>
-      </section>
+      </Section>
       {videoDialog && (
         <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
           <DialogContent className="sm:max-w-[800px]">

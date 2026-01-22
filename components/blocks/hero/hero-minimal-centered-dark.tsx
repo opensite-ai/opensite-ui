@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig, StatItem } from "../../../src/types";
+import type {ActionConfig, StatItem, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroMinimalCenteredDarkProps {
   /**
@@ -42,7 +44,23 @@ export interface HeroMinimalCenteredDarkProps {
   /**
    * Custom slot for rendering stats (overrides stats array)
    */
-  statsSlot?: React.ReactNode;
+  statsSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -83,6 +101,10 @@ export function HeroMinimalCenteredDark({
   actionsSlot,
   stats,
   statsSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   badgeClassName,
@@ -129,7 +151,7 @@ export function HeroMinimalCenteredDark({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "dark relative min-h-screen bg-background py-32",
         className
@@ -184,6 +206,6 @@ export function HeroMinimalCenteredDark({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -3,8 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig } from "../../../src/types";
+import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroFullscreenBackgroundImageProps {
   /**
@@ -30,7 +31,23 @@ export interface HeroFullscreenBackgroundImageProps {
   /**
    * Noise overlay image URL (set to empty string to disable)
    */
-  noiseOverlayUrl?: string;
+  noiseOverlayUrl?: string;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -58,8 +75,12 @@ export function HeroFullscreenBackgroundImage({
   description,
   actions,
   actionsSlot,
-  backgroundImage = imagePlaceholders[33],
+  backgroundImage,
   noiseOverlayUrl = "https://cdn.ing/assets/i/r/286188/zrqcp9hynh3j7p2laihwzfbujgrl/noise.png",
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   contentClassName,
   headingClassName,
@@ -92,7 +113,7 @@ export function HeroFullscreenBackgroundImage({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "dark relative flex h-svh max-h-[1400px] w-svw overflow-hidden bg-cover bg-center bg-no-repeat font-sans after:absolute after:top-0 after:left-0 after:z-10 after:h-full after:w-full after:bg-black/20 after:content-[''] md:h-svh",
         className
@@ -130,6 +151,6 @@ export function HeroFullscreenBackgroundImage({
           style={{ backgroundImage: `url('${noiseOverlayUrl}')` }}
         />
       )}
-    </section>
+    </Section>
   );
 }

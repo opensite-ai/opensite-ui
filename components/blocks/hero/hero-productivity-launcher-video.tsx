@@ -4,8 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { videoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig } from "../../../src/types";
+import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface VersionInfo {
   /**
@@ -81,7 +82,23 @@ export interface HeroProductivityLauncherVideoProps {
   /**
    * Custom slot for video (overrides videoSrc prop)
    */
-  videoSlot?: React.ReactNode;
+  videoSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -109,8 +126,12 @@ export function HeroProductivityLauncherVideo({
   versionInfoSlot,
   secondaryCta,
   secondaryCtaSlot,
-  videoSrc = videoPlaceholders[1] || videoPlaceholders[0],
+  videoSrc,
   videoSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   contentClassName,
   headingClassName,
@@ -208,7 +229,7 @@ export function HeroProductivityLauncherVideo({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "dark relative overflow-hidden bg-background py-12 font-sans md:py-20",
         className
@@ -250,6 +271,6 @@ export function HeroProductivityLauncherVideo({
         </div>
       </div>
       {renderVideo()}
-    </section>
+    </Section>
   );
 }

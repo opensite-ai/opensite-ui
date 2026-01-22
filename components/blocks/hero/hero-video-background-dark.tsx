@@ -3,8 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { videoPlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig } from "../../../src/types";
+import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroVideoBackgroundDarkProps {
   /**
@@ -34,7 +35,23 @@ export interface HeroVideoBackgroundDarkProps {
   /**
    * Custom slot for video (overrides videoSrc prop)
    */
-  videoSlot?: React.ReactNode;
+  videoSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -59,8 +76,12 @@ export function HeroVideoBackgroundDark({
   description,
   actions,
   actionsSlot,
-  videoSrc = videoPlaceholders[0],
+  videoSrc,
   videoSlot,
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   contentClassName,
   headingClassName,
@@ -113,7 +134,13 @@ export function HeroVideoBackgroundDark({
   };
 
   return (
-    <section className={cn("dark relative h-screen bg-background", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("relative z-10 container mx-auto flex size-full max-w-3xl flex-col justify-center gap-4 lg:items-center lg:text-center", contentClassName)}>
         {badgeText && (
           typeof badgeText === "string" ? (
@@ -147,6 +174,6 @@ export function HeroVideoBackgroundDark({
         {renderActions()}
       </div>
       {renderVideo()}
-    </section>
+    </Section>
   );
 }

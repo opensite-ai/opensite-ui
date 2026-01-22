@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig, FeatureItem } from "../../../src/types";
+import type {ActionConfig, FeatureItem, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroFeatureCardsGridProps {
   /**
@@ -30,7 +32,23 @@ export interface HeroFeatureCardsGridProps {
   /**
    * Custom slot for features (overrides features array)
    */
-  featuresSlot?: React.ReactNode;
+  featuresSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -68,6 +86,10 @@ export function HeroFeatureCardsGrid({
   actionsSlot,
   features,
   featuresSlot,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -134,7 +156,13 @@ export function HeroFeatureCardsGrid({
   };
 
   return (
-    <section className={cn("bg-background py-20 md:py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
           {heading && (
@@ -161,6 +189,6 @@ export function HeroFeatureCardsGrid({
         </div>
         {renderFeatures()}
       </div>
-    </section>
+    </Section>
   );
 }

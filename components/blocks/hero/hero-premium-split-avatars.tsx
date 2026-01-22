@@ -6,8 +6,9 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface AvatarItem {
   /**
@@ -68,7 +69,23 @@ export interface HeroPremiumSplitAvatarsProps {
   /**
    * Custom slot for image (overrides image prop)
    */
-  imageSlot?: React.ReactNode;
+  imageSlot?: React.ReactNode;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -108,6 +125,10 @@ export function HeroPremiumSplitAvatars({
   socialProofText = "More than 1 million professionals rely on our platform",
   image,
   imageSlot,
+  background = "dark",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   contentClassName,
   headingClassName,
@@ -190,7 +211,13 @@ export function HeroPremiumSplitAvatars({
   };
 
   return (
-    <section className={cn("dark flex", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("dark flex", className)}
+    >
       <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
         <div className={cn("container my-10 flex w-[500px] flex-col gap-24", contentClassName)}>
           {renderBrand()}
@@ -221,6 +248,6 @@ export function HeroPremiumSplitAvatars({
         </div>
       </div>
       {renderImage()}
-    </section>
+    </Section>
   );
 }

@@ -5,8 +5,9 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import type {ActionConfig, ImageItem, OptixFlowConfig, SectionBackground, SectionSpacing} from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroMarketplaceScatteredImagesProps {
   /**
@@ -48,7 +49,23 @@ export interface HeroMarketplaceScatteredImagesProps {
   /**
    * Whether to show the grid pattern background
    */
-  showGridPattern?: boolean;
+  showGridPattern?: boolean;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Additional CSS classes for the section
    */
@@ -90,6 +107,10 @@ export function HeroMarketplaceScatteredImages({
   images,
   imagesSlot,
   showGridPattern = true,
+  background = "white",
+  spacing = "lg",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentClassName,
@@ -149,7 +170,13 @@ export function HeroMarketplaceScatteredImages({
   };
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
       <div className={containerClassName}>
         <div className={cn("relative container mx-auto max-w-xl py-10 text-center", contentClassName)}>
           {showGridPattern && (
@@ -180,6 +207,6 @@ export function HeroMarketplaceScatteredImages({
         </div>
         {renderImages()}
       </div>
-    </section>
+    </Section>
   );
 }
