@@ -28,7 +28,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export for backward compatibility
 export type { LogoConfig };
@@ -125,6 +126,10 @@ export interface NavbarTabbedSectionsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
 }
 
 /**
@@ -151,6 +156,7 @@ export const NavbarTabbedSections = ({
   containerClassName,
   navClassName,
   actionsClassName,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -364,18 +370,28 @@ export const NavbarTabbedSections = ({
     );
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn("border-b bg-background", className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <nav
-          className={cn("flex items-center justify-between py-4", navClassName)}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={cn(innerContainerClasses, navWrapperClasses)}>
+          <nav
+            className={cn("flex items-center justify-between py-4", navClassName)}
+          >
           <div className="flex items-center gap-8">
             {renderLogo()}
 
@@ -421,6 +437,7 @@ export const NavbarTabbedSections = ({
             </SheetContent>
           </Sheet>
         </nav>
+        </div>
       </div>
     </Section>
   );

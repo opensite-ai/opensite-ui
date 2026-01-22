@@ -31,7 +31,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export LogoConfig for backward compatibility
 export type { LogoConfig } from "./types";
@@ -128,6 +129,10 @@ export interface NavbarDarkIconsProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -161,6 +166,7 @@ export const NavbarDarkIcons = ({
   authActionsSlot,
   githubUrl = "https://github.com/opensite-ai/opensite-ui",
   githubSlot,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -282,54 +288,66 @@ export const NavbarDarkIcons = ({
     return <GithubStars repoUrl={githubUrl} />;
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn("dark pointer-events-auto relative z-999", className)}
+      spacing={spacingOverride ?? spacing}
+      className={cn("dark pointer-events-auto relative z-999", sectionClasses)}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container h-16", containerClassName)}>
-        <div
-          className={cn(
-            "flex h-full items-center justify-between",
-            navClassName,
-          )}
-        >
-          {renderLogo()}
-          <NavigationMenu
-            className={cn("hidden lg:flex", navigationMenuClassName)}
-            viewport={false}
+      <div className={containerWrapperClasses}>
+        <div className={innerContainerClasses}>
+          <nav
+            className={cn(
+              "flex h-16 items-center justify-between",
+              navWrapperClasses,
+              navClassName,
+            )}
           >
-            {renderNavigation()}
-          </NavigationMenu>
-          <div className={cn("flex items-center gap-4", actionsClassName)}>
-            {renderGithubStars()}
-            {renderAuthActions()}
-            <div className="lg:hidden">
-              <Pressable
-                variant="ghost"
-                size="icon"
-                asButton
-                onClick={handleMobileMenu}
-              >
-                {open ? (
-                  <DynamicIcon
-                    name="lucide/x"
-                    size={22}
-                    className="stroke-foreground"
-                  />
-                ) : (
-                  <DynamicIcon
-                    name="lucide/menu"
-                    size={22}
-                    className="stroke-foreground"
-                  />
-                )}
-              </Pressable>
+            {renderLogo()}
+            <NavigationMenu
+              className={cn("hidden lg:flex", navigationMenuClassName)}
+              viewport={false}
+            >
+              {renderNavigation()}
+            </NavigationMenu>
+            <div className={cn("flex items-center gap-4", actionsClassName)}>
+              {renderGithubStars()}
+              {renderAuthActions()}
+              <div className="lg:hidden">
+                <Pressable
+                  variant="ghost"
+                  size="icon"
+                  asButton
+                  onClick={handleMobileMenu}
+                >
+                  {open ? (
+                    <DynamicIcon
+                      name="lucide/x"
+                      size={22}
+                      className="stroke-foreground"
+                    />
+                  ) : (
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={22}
+                      className="stroke-foreground"
+                    />
+                  )}
+                </Pressable>
+              </div>
             </div>
-          </div>
+          </nav>
         </div>
       </div>
       <MobileNavigationMenu

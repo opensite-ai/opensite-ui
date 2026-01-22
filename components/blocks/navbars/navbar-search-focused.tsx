@@ -23,7 +23,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export LogoConfig for backward compatibility
 export type { LogoConfig };
@@ -127,6 +128,10 @@ export interface NavbarSearchFocusedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
 }
 
 /**
@@ -159,6 +164,7 @@ export const NavbarSearchFocused = ({
   authActionsSlot,
   mobileMenuActions,
   mobileMenuActionsSlot,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -280,18 +286,28 @@ export const NavbarSearchFocused = ({
     );
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn("border-b", className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <nav
-          className={cn("flex items-center gap-4 py-3 lg:gap-8", navClassName)}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={cn(innerContainerClasses, navWrapperClasses)}>
+          <nav
+            className={cn("flex items-center gap-4 py-3 lg:gap-8", navClassName)}
+          >
           {renderLogo()}
 
           <NavigationMenu
@@ -356,6 +372,7 @@ export const NavbarSearchFocused = ({
             </SheetContent>
           </Sheet>
         </nav>
+        </div>
       </div>
     </Section>
   );

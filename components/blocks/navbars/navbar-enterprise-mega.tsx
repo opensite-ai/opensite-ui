@@ -40,8 +40,10 @@ import {
   type LogoConfig,
   type ILinkItem,
   type IMenuLinkGroup,
+  type NavbarLayoutVariant,
   getLinkUrl,
 } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export shared types for backward compatibility
 export type { LogoConfig, ILinkItem, IMenuLinkGroup };
@@ -345,6 +347,10 @@ export interface NavbarEnterpriseMegaProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -377,6 +383,7 @@ export const NavbarEnterpriseMega = ({
   menuLinks,
   actions,
   actionsSlot,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -462,25 +469,36 @@ export const NavbarEnterpriseMega = ({
     });
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Fragment>
       <Section
         background={background}
-        spacing={spacing}
+        spacing={spacingOverride ?? spacing}
         className={cn(
-          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center border-b border-border/50 shadow-sm",
-          className,
+          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center",
+          sectionClasses,
         )}
         pattern={pattern}
         patternOpacity={patternOpacity}
       >
-        <div className={cn("container", containerClassName)}>
-          <div
-            className={cn(
-              "flex h-16 items-center justify-between gap-8",
-              navClassName,
-            )}
-          >
+        <div className={containerWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex h-16 items-center justify-between gap-8",
+                navWrapperClasses,
+                navClassName,
+              )}
+            >
             {renderLogo()}
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
@@ -525,6 +543,7 @@ export const NavbarEnterpriseMega = ({
                 </Pressable>
               </div>
             </div>
+          </nav>
           </div>
         </div>
       </Section>

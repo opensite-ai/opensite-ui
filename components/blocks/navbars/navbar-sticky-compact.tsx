@@ -25,7 +25,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export LogoConfig for backward compatibility
 export type { LogoConfig } from "./types";
@@ -110,6 +111,10 @@ export interface NavbarStickyCompactProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
 }
 
 /**
@@ -136,6 +141,7 @@ export const NavbarStickyCompact = ({
   containerClassName,
   navClassName,
   actionsClassName,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -316,26 +322,36 @@ export const NavbarStickyCompact = ({
     );
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
+      spacing={spacingOverride ?? spacing}
       className={cn(
-        "fixed top-0 left-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm transition-all duration-300",
+        sectionClasses,
+        "fixed top-0 left-0 z-50 w-full bg-background/95 backdrop-blur-sm transition-all duration-300",
         isScrolled ? "shadow-sm" : "",
-        className,
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <nav
-          className={cn(
-            "flex items-center justify-between transition-all duration-300",
-            isScrolled ? "h-14" : "h-16",
-            navClassName,
-          )}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={cn(innerContainerClasses, navWrapperClasses)}>
+          <nav
+            className={cn(
+              "flex items-center justify-between transition-all duration-300",
+              isScrolled ? "h-14" : "h-16",
+              navClassName,
+            )}
+          >
           {renderLogo()}
 
           <NavigationMenu className="hidden lg:flex">
@@ -380,6 +396,7 @@ export const NavbarStickyCompact = ({
             </SheetContent>
           </Sheet>
         </nav>
+        </div>
       </div>
     </Section>
   );

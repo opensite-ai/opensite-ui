@@ -30,11 +30,19 @@ import type {
   IMenuLinkGroup,
   MegaMenuLayout,
   IMenuLink,
+  NavbarLayoutVariant,
 } from "./types";
 import { getLinkUrl } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export shared types for backward compatibility
-export type { LogoConfig, ILinkItem, IMenuLinkGroup, MegaMenuLayout, IMenuLink };
+export type {
+  LogoConfig,
+  ILinkItem,
+  IMenuLinkGroup,
+  MegaMenuLayout,
+  IMenuLink,
+};
 
 /**
  * Props for the NavbarMegaMenu component
@@ -84,6 +92,10 @@ export interface NavbarMegaMenuProps {
    * Actions rendered on the right side (desktop) and bottom (mobile)
    */
   actions?: ActionConfig[];
+  /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
   /**
    * Background style for the section
    */
@@ -151,9 +163,9 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
           {link.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="!rounded-2xl !p-0">
-          <div className="grid min-h-[18.75rem] w-[45.25rem] grid-cols-[22.5rem_1fr] gap-4 p-3">
-            <div className="relative aspect-square w-full overflow-hidden rounded-xl">
+        <NavigationMenuContent className="rounded-2xl! p-0!">
+          <div className="grid min-h-75 w-181 grid-cols-[22.5rem_1fr] gap-4 p-3">
+            <div className="relative aspect-square w-full overflow-hidden rounded-xl shadow-xl">
               {link.links.map((item, idx) => (
                 <Img
                   key={idx}
@@ -188,9 +200,8 @@ const DesktopMenuItem = ({
                       onMouseLeave={handleMouseLeave}
                     >
                       <div>
-                        <h3 className="text-sm leading-normal font-medium">
-                          {item.label}
-                        </h3>
+                        <div className="text-sm font-medium">{item.label}</div>
+
                         {item.description && (
                           <p className="text-xs leading-normal text-muted-foreground">
                             {item.description}
@@ -412,6 +423,7 @@ export const NavbarMegaMenu = ({
   logoSlot,
   menuLinks,
   actions,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -477,40 +489,56 @@ export const NavbarMegaMenu = ({
     });
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses: baseNavWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
+  const navWrapperClasses = cn(
+    "flex w-full items-center justify-between gap-12 py-4",
+    baseNavWrapperClasses,
+    layoutVariant === "floatingBar" && "pr-4 pl-8"
+  );
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn("inset-x-0 top-0 z-20", className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <NavigationMenu
-          className={cn(
-            "min-w-full [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2",
-            navClassName,
-          )}
-        >
-          <div className="flex w-full items-center justify-between gap-12 border-b border-border/50 py-4 shadow-sm">
-            {/* Logo */}
-            <div>
-              {(!open || submenuIndex === null) && renderLogo()}
-              {open && submenuIndex !== null && (
-                <Pressable
-                  variant="outline"
-                  asButton
-                  onClick={() => setSubmenuIndex(null)}
-                >
-                  Back
-                  <DynamicIcon
-                    name="lucide/chevron-left"
-                    size={16}
-                    className="ml-2"
-                  />
-                </Pressable>
-              )}
-            </div>
+      <div className={containerWrapperClasses}>
+        <div className={innerContainerClasses}>
+          <NavigationMenu
+            className={cn(
+              "min-w-full [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2",
+              navClassName,
+            )}
+          >
+            <div className={navWrapperClasses}>
+              {/* Logo */}
+              <div>
+                {(!open || submenuIndex === null) && renderLogo()}
+                {open && submenuIndex !== null && (
+                  <Pressable
+                    variant="outline"
+                    asButton
+                    onClick={() => setSubmenuIndex(null)}
+                  >
+                    Back
+                    <DynamicIcon
+                      name="lucide/chevron-left"
+                      size={16}
+                      className="ml-2"
+                    />
+                  </Pressable>
+                )}
+              </div>
 
             <NavigationMenuList
               className={cn("hidden lg:flex", navigationMenuListClassName)}
@@ -635,6 +663,7 @@ export const NavbarMegaMenu = ({
             />
           )}
         </NavigationMenu>
+        </div>
       </div>
     </Section>
   );

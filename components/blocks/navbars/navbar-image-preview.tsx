@@ -31,8 +31,10 @@ import type {
 import {
   type LogoConfig,
   type ILinkItem,
+  type NavbarLayoutVariant,
   getLinkUrl,
 } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export shared types for backward compatibility
 export type { LogoConfig, ILinkItem };
@@ -143,6 +145,10 @@ export interface NavbarImagePreviewProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -178,6 +184,7 @@ export const NavbarImagePreview = ({
   authActionsSlot,
   socialLinks,
   socialLinksSlot,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -307,22 +314,31 @@ export const NavbarImagePreview = ({
     });
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn("", className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
       <div
         className={cn(
           "fixed top-0 z-500 w-full bg-transparent transition-colors duration-500",
-          containerClassName,
+          containerWrapperClasses,
         )}
         ref={navRef}
       >
-        <div className="container border-b border-border/50 shadow-sm">
+        <div className={cn(innerContainerClasses, navWrapperClasses)}>
           <div
             className={cn(
               "flex items-center justify-between gap-3.5 py-5",

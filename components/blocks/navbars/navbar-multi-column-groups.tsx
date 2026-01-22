@@ -31,7 +31,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export LogoConfig for backward compatibility
 export type { LogoConfig };
@@ -135,6 +136,10 @@ export interface NavbarMultiColumnGroupsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
 }
 
 const MOBILE_BREAKPOINT = 1024;
@@ -166,6 +171,7 @@ export const NavbarMultiColumnGroups = ({
   authActionsSlot,
   mobileAuthActions,
   mobileAuthActionsSlot,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -279,24 +285,31 @@ export const NavbarMultiColumnGroups = ({
     });
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn(
-        "pointer-events-auto fixed top-0 z-999 flex h-16 w-full items-center justify-center",
-        className,
-      )}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <div
-          className={cn(
-            "flex items-center justify-between gap-8",
-            navClassName,
-          )}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={cn(innerContainerClasses, navWrapperClasses)}>
+          <div
+            className={cn(
+              "flex items-center justify-between gap-8",
+              navClassName,
+            )}
+          >
           <div className="flex items-center gap-8">
             {renderLogo()}
             <NavigationMenu
@@ -336,6 +349,7 @@ export const NavbarMultiColumnGroups = ({
               )}
             </Pressable>
           </div>
+        </div>
         </div>
       </div>
       <MobileNavigationMenu

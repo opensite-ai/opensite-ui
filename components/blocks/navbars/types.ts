@@ -118,6 +118,31 @@ export interface IMenuLink {
 }
 
 /**
+ * Layout variant types for navbar components
+ *
+ * LAYOUT VARIANT OPTIONS:
+ *
+ * 1. "fullScreenContainerizedLinks" (default)
+ *    - Visual: Full-screen navbar with links inside a standard container (responsive max-width)
+ *    - Behavior: Navbar background spans full width, but logo/links/actions are containerized
+ *    - Best for: Standard websites with consistent content width
+ *
+ * 2. "fullScreenFullWidthLinks"
+ *    - Visual: Full-screen navbar without container constraints on links
+ *    - Behavior: Navbar and all content span full width with custom padding
+ *    - Best for: Wide layouts, edge-to-edge designs
+ *
+ * 3. "floatingBar"
+ *    - Visual: Floating navbar style with rounded borders and shadow
+ *    - Behavior: Navbar appears as a floating bar with border-radius and contained width
+ *    - Best for: Modern, elevated navigation designs
+ */
+export type NavbarLayoutVariant =
+  | "fullScreenContainerizedLinks"
+  | "fullScreenFullWidthLinks"
+  | "floatingBar";
+
+/**
  * Base props shared by all navbar components
  */
 export interface BaseNavbarProps {
@@ -131,6 +156,8 @@ export interface BaseNavbarProps {
   logoSlot?: React.ReactNode;
   /** Additional CSS classes for the logo */
   logoClassName?: string;
+  /** Layout variant for the navbar */
+  layoutVariant?: NavbarLayoutVariant;
   /** Background style for the section */
   background?: SectionBackground;
   /** Vertical spacing for the section */

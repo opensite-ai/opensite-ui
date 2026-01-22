@@ -34,7 +34,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export LogoConfig for backward compatibility
 export type { LogoConfig };
@@ -136,6 +137,10 @@ export interface NavbarEducationPlatformProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -168,6 +173,7 @@ export const NavbarEducationPlatform = ({
   company,
   authActions,
   authActionsSlot,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -230,22 +236,31 @@ export const NavbarEducationPlatform = ({
     });
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
+      spacing={spacingOverride ?? spacing}
       className={cn(
-        "border-b border-border lg:border-b",
         isOpen && "border-b-0",
-        className,
+        sectionClasses,
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <nav
-          className={cn("flex items-center justify-between py-4", navClassName)}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={innerContainerClasses}>
+          <nav
+            className={cn("flex items-center justify-between py-4", navWrapperClasses, navClassName)}
+          >
           <div className="flex flex-1 items-center gap-9">
             {renderLogo()}
             <div
@@ -450,6 +465,7 @@ export const NavbarEducationPlatform = ({
             <span className="sr-only">Toggle menu</span>
           </Pressable>
         </nav>
+        </div>
       </div>
 
       {isOpen && (

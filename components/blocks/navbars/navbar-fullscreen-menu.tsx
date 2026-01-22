@@ -13,7 +13,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export for backward compatibility
 export type { LogoConfig };
@@ -101,6 +102,10 @@ export interface NavbarFullscreenMenuProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -131,6 +136,7 @@ export const NavbarFullscreenMenu = ({
   overlayClassName,
   menuItemsClassName,
   socialLinksClassName,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -211,21 +217,32 @@ export const NavbarFullscreenMenu = ({
     ));
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn(className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn(containerClassName)}>
-        <div
-          className={cn(
-            "flex items-center justify-between px-6 py-6",
-            headerClassName,
-          )}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={innerContainerClasses}>
+          <nav
+            className={cn(
+              "flex items-center justify-between px-6 py-6",
+              navWrapperClasses,
+              headerClassName,
+            )}
+          >
           <div className="z-50">{renderLogo()}</div>
 
           <div className="z-50">
@@ -255,7 +272,7 @@ export const NavbarFullscreenMenu = ({
               </span>
             </button>
           </div>
-        </div>
+        </nav>
 
         {isOpen && (
           <div
@@ -281,6 +298,7 @@ export const NavbarFullscreenMenu = ({
             </div>
           </div>
         )}
+        </div>
       </div>
     </Section>
   );

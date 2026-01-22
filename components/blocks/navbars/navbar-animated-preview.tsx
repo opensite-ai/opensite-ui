@@ -43,8 +43,10 @@ import type {
   LogoConfig,
   ILinkItem,
   IMenuLinkGroup,
+  NavbarLayoutVariant,
 } from "./types";
 import { getLinkUrl } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export shared types for backward compatibility
 export type { LogoConfig, ILinkItem, IMenuLinkGroup };
@@ -149,6 +151,10 @@ export interface NavbarAnimatedPreviewProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -181,6 +187,7 @@ export const NavbarAnimatedPreview = ({
   navigationSlot,
   actions,
   actionsSlot,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -297,29 +304,40 @@ export const NavbarAnimatedPreview = ({
     );
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses: baseNavWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
+  const navWrapperClasses = cn(
+    "h-20 max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
+    baseNavWrapperClasses,
+    navigationMenuClassName
+  );
+
   return (
     <Section
       background={background}
-      spacing={spacing}
+      spacing={spacingOverride ?? spacing}
       className={cn(
         "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center",
-        className,
+        sectionClasses,
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <NavigationMenu
-        className={cn(
-          "h-20 max-w-full border-b border-border/50 shadow-sm after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
-          navigationMenuClassName,
-        )}
-      >
-        <div
-          className={cn(
-            "relative z-999 container grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
-            containerClassName,
-          )}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={innerContainerClasses}>
+          <NavigationMenu className={navWrapperClasses}>
+            <div
+              className={cn(
+                "relative z-999 grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
+              )}
+            >
           {renderLogo()}
           <div className={cn("hidden xl:flex", navClassName)}>
             {renderNavigation()}
@@ -351,13 +369,15 @@ export const NavbarAnimatedPreview = ({
             </div>
           </div>
         </div>
-      </NavigationMenu>
-      <MobileNavigationMenu
-        open={open}
-        menuLinks={menuLinks ?? []}
-        actions={actions}
-        actionsSlot={actionsSlot}
-      />
+          </NavigationMenu>
+          <MobileNavigationMenu
+            open={open}
+            menuLinks={menuLinks ?? []}
+            actions={actions}
+            actionsSlot={actionsSlot}
+          />
+        </div>
+      </div>
     </Section>
   );
 };

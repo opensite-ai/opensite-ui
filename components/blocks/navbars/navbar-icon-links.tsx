@@ -28,7 +28,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export for backward compatibility
 export type { LogoConfig };
@@ -111,6 +112,10 @@ export interface NavbarIconLinksProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -142,6 +147,7 @@ export const NavbarIconLinks = ({
   navClassName,
   navigationMenuClassName,
   actionsClassName,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -227,18 +233,28 @@ export const NavbarIconLinks = ({
     return navItems;
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn("border-b", className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
-        <nav
-          className={cn("flex items-center justify-between py-3", navClassName)}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={innerContainerClasses}>
+          <nav
+            className={cn("flex items-center justify-between py-3", navWrapperClasses, navClassName)}
+          >
           <div className="flex items-center gap-6">
             {renderLogo()}
 
@@ -342,6 +358,7 @@ export const NavbarIconLinks = ({
             </SheetContent>
           </Sheet>
         </nav>
+        </div>
       </div>
     </Section>
   );

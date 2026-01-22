@@ -33,8 +33,10 @@ import {
   type LogoConfig,
   type ILinkItem,
   type IMenuLinkGroup,
+  type NavbarLayoutVariant,
   getLinkUrl,
 } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export imported types for backward compatibility
 export type { LogoConfig, ILinkItem, IMenuLinkGroup };
@@ -171,6 +173,10 @@ export interface NavbarPlatformResourcesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
 }
 
 /**
@@ -195,6 +201,7 @@ export const NavbarPlatformResources = ({
   logoSlot,
   menuLinks,
   actions,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -683,21 +690,26 @@ export const NavbarPlatformResources = ({
     });
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn("inset-x-0 top-0 z-20", className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div
-        className={cn(
-          "container px-4 sm:px-6 md:px-8 lg:px-40 xl:px-52",
-          containerClassName,
-        )}
-      >
-        <NavigationMenu className={cn("min-w-full", navigationMenuClassName)}>
+      <div className={containerWrapperClasses}>
+        <div className={cn(innerContainerClasses, navWrapperClasses)}>
+          <NavigationMenu className={cn("min-w-full", navigationMenuClassName)}>
           <div className="flex w-full items-center justify-between gap-12 py-4">
             {renderLogo()}
             <NavigationMenuList
@@ -861,6 +873,7 @@ export const NavbarPlatformResources = ({
             </div>
           )}
         </NavigationMenu>
+        </div>
       </div>
     </Section>
   );

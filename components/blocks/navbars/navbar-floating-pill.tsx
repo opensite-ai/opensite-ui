@@ -23,7 +23,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export for backward compatibility
 export type { LogoConfig };
@@ -109,6 +110,10 @@ export interface NavbarFloatingPillProps {
    */
   patternOpacity?: number;
   /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -138,6 +143,7 @@ export const NavbarFloatingPill = ({
   pillWrapperClassName,
   navigationMenuClassName,
   actionsClassName,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "none",
   pattern,
@@ -215,26 +221,37 @@ export const NavbarFloatingPill = ({
     return items;
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn(className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div
-        className={cn(
-          "absolute top-5 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full border bg-background/70 backdrop-blur-md lg:top-12",
-          containerClassName,
-        )}
-      >
-        <div
-          className={cn(
-            "flex items-center justify-between px-6 py-3",
-            pillWrapperClassName,
-          )}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={innerContainerClasses}>
+          <nav
+            className={cn(
+              "absolute top-5 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-background/70 backdrop-blur-md lg:top-12",
+              navWrapperClasses,
+            )}
+          >
+            <div
+              className={cn(
+                "flex items-center justify-between px-6 py-3",
+                pillWrapperClassName,
+              )}
+            >
           {renderLogo()}
 
           {/* Desktop Navigation */}
@@ -396,6 +413,8 @@ export const NavbarFloatingPill = ({
                     </Pressable>
                   ),
                 )}
+          </nav>
+        </div>
           </nav>
         </div>
       </div>

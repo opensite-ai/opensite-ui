@@ -35,7 +35,8 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
-import type { LogoConfig } from "./types";
+import type { LogoConfig, NavbarLayoutVariant } from "./types";
+import { getNavbarLayoutClasses } from "./layout-variant-utils";
 
 // Re-export shared types for backward compatibility
 export type { LogoConfig } from "./types";
@@ -124,6 +125,10 @@ export interface NavbarDropdownMenuProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Layout variant for the navbar
+   */
+  layoutVariant?: NavbarLayoutVariant;
   /**
    * OptixFlow image optimization configuration
    */
@@ -245,6 +250,7 @@ export const NavbarDropdownMenu = ({
   mobileNavClassName,
   navigationMenuClassName,
   actionsClassName,
+  layoutVariant = "fullScreenContainerizedLinks",
   background = "white",
   spacing = "sm",
   pattern,
@@ -326,27 +332,32 @@ export const NavbarDropdownMenu = ({
     return menu.map((item) => renderMobileMenuItem(item, optixFlowConfig));
   };
 
+  // Get layout classes based on variant
+  const {
+    sectionClasses,
+    containerWrapperClasses,
+    innerContainerClasses,
+    navWrapperClasses,
+    spacingOverride,
+  } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
+
   return (
     <Section
       background={background}
-      spacing={spacing}
-      className={cn(className)}
+      spacing={spacingOverride ?? spacing}
+      className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div
-        className={cn(
-          "container border-b border-border/50 shadow-sm",
-          containerClassName,
-        )}
-      >
-        {/* Desktop Menu */}
-        <nav
-          className={cn(
-            "hidden items-center justify-between lg:flex",
-            desktopNavClassName,
-          )}
-        >
+      <div className={containerWrapperClasses}>
+        <div className={cn(innerContainerClasses, navWrapperClasses)}>
+          {/* Desktop Menu */}
+          <nav
+            className={cn(
+              "hidden items-center justify-between lg:flex",
+              desktopNavClassName,
+            )}
+          >
           <div className="flex items-center gap-6">
             {/* Logo */}
             {renderLogo()}
@@ -397,6 +408,7 @@ export const NavbarDropdownMenu = ({
               </SheetContent>
             </Sheet>
           </div>
+        </div>
         </div>
       </div>
     </Section>
