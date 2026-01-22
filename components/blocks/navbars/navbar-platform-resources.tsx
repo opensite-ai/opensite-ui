@@ -29,34 +29,15 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import {
+  type LogoConfig,
+  type ILinkItem,
+  type IMenuLinkGroup,
+  getLinkUrl,
+} from "./types";
 
-/**
- * SHARED TYPE INTERFACES FOR ALL NAVBAR COMPONENTS
- * These types provide a consistent interface across all navbar blocks
- */
-
-/**
- * Base link item - used across all navbar components
- */
-export interface ILinkItem {
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
-  image?: string;
-  background?: string;
-}
-
-/**
- * Group of links with optional metadata
- */
-export interface IMenuLinkGroup {
-  label: React.ReactNode;
-  description?: string;
-  image?: string;
-  links: ILinkItem[];
-}
+// Re-export imported types for backward compatibility
+export type { LogoConfig, ILinkItem, IMenuLinkGroup };
 
 /**
  * Layout types for dropdown menus
@@ -120,17 +101,6 @@ export interface IMenuLink {
   links?: ILinkItem[];
   // Optional grouped links for more complex layouts
   dropdownGroups?: IMenuLinkGroup[];
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**
@@ -276,7 +246,7 @@ export const NavbarPlatformResources = ({
             {link.links?.map((item, itemIndex) => (
               <NavigationMenuLink
                 key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                href={item.url}
+                href={getLinkUrl(item)}
                 className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
               >
                 {item.image && (
@@ -328,7 +298,7 @@ export const NavbarPlatformResources = ({
         <NavigationMenuContent className="min-w-[900px] p-6">
           <div className="flex justify-between gap-8">
             <NavigationMenuLink
-              href={featuredItem.url}
+              href={getLinkUrl(featuredItem)}
               className="group w-1/3 p-0 hover:bg-transparent"
             >
               <div className="overflow-clip rounded-lg border border-input bg-background">
@@ -364,7 +334,7 @@ export const NavbarPlatformResources = ({
                 {gridItems.map((item, itemIndex) => (
                   <NavigationMenuLink
                     key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                    href={item.url}
+                    href={getLinkUrl(item)}
                     className="group block p-4"
                   >
                     {(item.icon || item.iconName) && (
@@ -415,7 +385,7 @@ export const NavbarPlatformResources = ({
                     {link.dropdownGroups[0].links.map((item, itemIndex) => (
                       <NavigationMenuLink
                         key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                        href={item.url}
+                        href={getLinkUrl(item)}
                         className="group flex flex-row items-center gap-5"
                       >
                         {(item.icon || item.iconName) && (
@@ -436,7 +406,7 @@ export const NavbarPlatformResources = ({
             </div>
             {ctaItem && (
               <NavigationMenuLink
-                href={ctaItem.url}
+                href={getLinkUrl(ctaItem)}
                 className="group flex-1 p-0 hover:bg-transparent"
               >
                 <div className="flex h-full rounded-lg border border-input bg-background p-0 hover:bg-transparent">
@@ -503,7 +473,7 @@ export const NavbarPlatformResources = ({
                   {listItems.map((item, itemIndex) => (
                     <NavigationMenuLink
                       key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                      href={item.url}
+                      href={getLinkUrl(item)}
                       className="group flex flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
                     >
                       {(item.icon || item.iconName) &&
@@ -522,7 +492,7 @@ export const NavbarPlatformResources = ({
               {showcaseItems.map((showcase, showcaseIndex) => (
                 <NavigationMenuLink
                   key={`showcase-${showcaseIndex}`}
-                  href={showcase.url}
+                  href={getLinkUrl(showcase)}
                   className="flex flex-row items-center overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
                   <div className="flex-1 p-5 xl:p-8">
@@ -575,7 +545,7 @@ export const NavbarPlatformResources = ({
                   {group.links.map((item, itemIndex) => (
                     <NavigationMenuLink
                       key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                      href={item.url}
+                      href={getLinkUrl(item)}
                       className="flex h-full flex-col overflow-clip rounded-lg border border-input bg-background p-5 hover:bg-accent hover:text-accent-foreground xl:p-8"
                     >
                       <div className="mt-auto">
@@ -594,7 +564,7 @@ export const NavbarPlatformResources = ({
             {ctaItem && (
               <div className="col-span-1">
                 <NavigationMenuLink
-                  href={ctaItem.url}
+                  href={getLinkUrl(ctaItem)}
                   className="mb-6 flex flex-row overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
                   <div className="flex-1 p-5 xl:p-8">
@@ -646,7 +616,7 @@ export const NavbarPlatformResources = ({
           {link.links?.map((item, itemIndex) => (
             <NavigationMenuLink
               key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-              href={item.url}
+              href={getLinkUrl(item)}
               className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
             >
               {item.image && (
@@ -812,7 +782,7 @@ export const NavbarPlatformResources = ({
                             {link.links?.map((item, itemIndex) => (
                               <Pressable
                                 key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
-                                href={item.url}
+                                href={getLinkUrl(item)}
                                 className="group flex items-start gap-4 rounded-lg p-2 hover:bg-muted"
                               >
                                 {item.image && (

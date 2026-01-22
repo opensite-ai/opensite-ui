@@ -38,36 +38,19 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-/**
- * SHARED TYPE INTERFACES FOR ALL NAVBAR COMPONENTS
- * These types provide a consistent interface across all navbar blocks
- */
+// Import shared types
+import type {
+  LogoConfig,
+  ILinkItem,
+  IMenuLinkGroup,
+} from "./types";
+import { getLinkUrl } from "./types";
+
+// Re-export shared types for backward compatibility
+export type { LogoConfig, ILinkItem, IMenuLinkGroup };
 
 /**
- * Base link item - used across all navbar components
- */
-export interface ILinkItem {
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
-  image?: string;
-  background?: string;
-}
-
-/**
- * Group of links with optional metadata
- */
-export interface IMenuLinkGroup {
-  label: React.ReactNode;
-  description?: string;
-  image?: string;
-  links: ILinkItem[];
-}
-
-/**
- * Featured image link with badge
+ * Featured image link with badge (specific to animated-preview)
  */
 export interface IFeaturedImageLink {
   url: string;
@@ -77,64 +60,24 @@ export interface IFeaturedImageLink {
 
 /**
  * Layout types for animated preview dropdown menus
- *
- * LAYOUT OPTIONS FOR AI PAGE BUILDER:
- *
- * 1. "animated-image-preview"
- *    - Visual: Grid layout with large image preview on left (360px wide), links list on right
- *    - Behavior: Image changes on hover based on which link is being hovered
- *    - Best for: Product showcases, feature highlights, visual content navigation
- *    - Required data: links[] with label, description, url, image
- *    - Example use case: Product categories where each has a hero image
- *
- * 2. "featured-cards-grid"
- *    - Visual: 2-column grid of featured cards with background images and icons
- *    - Behavior: Static grid, cards have hover effects
- *    - Best for: Highlighting key features or products with visual emphasis
- *    - Required data: featuredLinks[] with label, description, url, iconName, background
- *                     links[] for additional non-featured links
- *    - Example use case: Premium features or flagship products
- *
- * 3. "grouped-links-image"
- *    - Visual: Left side has grouped link sections, right side has single featured image card
- *    - Behavior: Static layout with organized link groups
- *    - Best for: Organized navigation with many links grouped by category
- *    - Required data: groupLinks[] with title and links[]
- *                     imageLink with label, description, url, image, badge (optional)
- *    - Example use case: Developer resources grouped by topic with featured documentation
  */
 export type AnimatedPreviewLayout =
-  | "animated-image-preview" // Grid of links with animated image preview on hover
-  | "featured-cards-grid" // Featured cards at top + separator + grid of links
-  | "grouped-links-image"; // Grouped links + featured image card
+  | "animated-image-preview"
+  | "featured-cards-grid"
+  | "grouped-links-image";
 
 /**
- * Menu link configuration with layout-based dropdown options
+ * Menu link configuration with layout-based dropdown options (specific to animated-preview)
  */
 export interface IMenuLink {
   label: React.ReactNode;
   href?: string;
   layout?: AnimatedPreviewLayout;
-  // Unified links array - used by all layouts
   links?: ILinkItem[];
-  // Optional grouped links for more complex layouts
   dropdownGroups?: IMenuLinkGroup[];
-  // Featured cards grid layout
   featuredLinks?: ILinkItem[];
-  // Grouped links image layout (legacy support)
   groupLinks?: IMenuLinkGroup[];
   imageLink?: IFeaturedImageLink;
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**
@@ -367,7 +310,7 @@ export const NavbarAnimatedPreview = ({
     >
       <NavigationMenu
         className={cn(
-          "h-20 max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
+          "h-20 max-w-full border-b border-border/50 shadow-sm after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
           navigationMenuClassName,
         )}
       >
@@ -702,7 +645,7 @@ const FeaturedImageLink = ({
 
   return (
     <div className="hidden xl:block">
-      <Pressable href={link.url} className="w-full max-w-147.5">
+      <Pressable href={link.url || "#"} className="w-full max-w-147.5">
         <AspectRatio
           ratio={1.77245509}
           className="overflow-hidden rounded-lg bg-muted"
@@ -740,7 +683,7 @@ interface FeaturedLinkProps {
 const FeaturedLink = ({ link, optixFlowConfig }: FeaturedLinkProps) => {
   return (
     <Pressable
-      href={link.url}
+      href={getLinkUrl(link)}
       className="group relative flex w-full overflow-hidden rounded-xl bg-muted px-8 py-7"
     >
       <div className="relative z-10 flex w-full items-center gap-6">
@@ -781,7 +724,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
     return (
       <Pressable
         ref={ref}
-        href={link.url}
+        href={getLinkUrl(link)}
         className="flex w-full gap-2 transition-opacity duration-300"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -801,9 +744,9 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         )}
         <div className="flex flex-col items-start gap-2">
           {link.label && (
-            <div className="text-base leading-normal">{link.label}</div>
+            <div className="text-sm leading-normal">{link.label}</div>
           )}
-          <div className="text-sm leading-normal text-muted-foreground">
+          <div className="text-xs leading-normal text-muted-foreground">
             {link.description}
           </div>
         </div>

@@ -31,6 +31,10 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "./types";
+
+// Re-export LogoConfig for backward compatibility
+export type { LogoConfig };
 
 interface SubMenuItem {
   title: string;
@@ -43,17 +47,6 @@ interface MenuItem {
   title: string;
   url?: string;
   items?: SubMenuItem[];
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**

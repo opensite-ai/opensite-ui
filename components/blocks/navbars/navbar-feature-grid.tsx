@@ -36,22 +36,15 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "./types";
+
+// Re-export for backward compatibility
+export type { LogoConfig };
 
 interface FeatureItem {
   title: string;
   description: string;
   href: string;
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**

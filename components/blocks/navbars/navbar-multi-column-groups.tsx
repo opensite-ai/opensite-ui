@@ -31,6 +31,10 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "./types";
+
+// Re-export LogoConfig for backward compatibility
+export type { LogoConfig };
 
 export interface MenuLink {
   label: React.ReactNode;
@@ -49,17 +53,6 @@ export interface MenuItem {
   title: React.ReactNode;
   url?: string;
   groups?: MenuGroup[];
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**

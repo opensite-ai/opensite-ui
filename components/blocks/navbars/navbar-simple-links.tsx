@@ -22,6 +22,10 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "./types";
+
+// Re-export LogoConfig for backward compatibility
+export type { LogoConfig };
 
 /**
  * Navigation item interface
@@ -29,17 +33,6 @@ import type {
 export interface NavItem {
   name: string;
   link: string;
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**
@@ -388,7 +381,12 @@ export const NavbarSimpleLinks = ({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
+      <div
+        className={cn(
+          "container border-b border-border/50 shadow-sm",
+          containerClassName,
+        )}
+      >
         <nav className={cn("flex items-center justify-between", navClassName)}>
           {renderLogo()}
 

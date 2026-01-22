@@ -28,6 +28,10 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "./types";
+
+// Re-export for backward compatibility
+export type { LogoConfig };
 
 interface TabItem {
   id: string;
@@ -51,17 +55,6 @@ interface MenuItem {
   title: string;
   url?: string;
   tabs?: TabItem[];
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**

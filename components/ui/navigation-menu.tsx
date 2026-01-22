@@ -76,7 +76,7 @@ function NavigationMenuTrigger({
       {children}{" "}
       <DynamicIcon
         name="lucide/chevron-down"
-        className="relative top-[1px] ml-1 size-2.5 transition duration-300 group-data-[state=open]:rotate-180"
+        className="relative top-[1px] ml-1 size-2 transition duration-300 group-data-[state=open]:rotate-180"
         aria-hidden="true"
       />
     </NavigationMenuPrimitive.Trigger>

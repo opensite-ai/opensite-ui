@@ -28,13 +28,21 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import {
+  type LogoConfig,
+  type ILinkItem,
+  getLinkUrl,
+} from "./types";
 
-export interface MenuLink {
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  url: string;
-  image?: string;
-}
+// Re-export shared types for backward compatibility
+export type { LogoConfig, ILinkItem };
+export { getLinkUrl };
+
+/**
+ * MenuLink type alias for backward compatibility
+ * Uses shared ILinkItem which supports both href and url
+ */
+export type MenuLink = ILinkItem;
 
 export interface MenuItem {
   title: React.ReactNode;
@@ -48,17 +56,6 @@ export interface SocialLink {
   url: string;
   icon?: React.ReactNode;
   iconName?: string;
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**
@@ -325,7 +322,7 @@ export const NavbarImagePreview = ({
         )}
         ref={navRef}
       >
-        <div className="container border-b">
+        <div className="container border-b border-border/50 shadow-sm">
           <div
             className={cn(
               "flex items-center justify-between gap-3.5 py-5",
@@ -436,17 +433,17 @@ const DesktopMenuItem = ({
                 {item.links.map((link, linkIndex) => (
                   <li key={`desktop-nav-sublink-${linkIndex}`}>
                     <Pressable
-                      href={link.url}
+                      href={getLinkUrl(link)}
                       className="flex items-center gap-4 rounded-lg px-4 py-3 hover:bg-muted"
                       data-index={linkIndex}
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
                     >
                       <div>
-                        <h3 className="leading-normal font-medium">
+                        <h3 className="text-sm leading-normal font-medium">
                           {link.label}
                         </h3>
-                        <p className="leading-normal text-muted-foreground">
+                        <p className="text-xs leading-normal text-muted-foreground">
                           {link.description}
                         </p>
                       </div>
@@ -514,7 +511,7 @@ const MobileNavigationMenu = ({
               {item.links?.map((link, i) => (
                 <li key={`mobile-nav-link-${i}`}>
                   <Pressable
-                    href={link.url}
+                    href={getLinkUrl(link)}
                     className={cn(
                       "text-primary-foreground leading-normal font-medium",
                       index === 0 ? "text-2xl" : "text-base",

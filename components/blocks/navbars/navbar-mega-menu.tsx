@@ -23,88 +23,18 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-/**
- * SHARED TYPE INTERFACES FOR ALL NAVBAR COMPONENTS
- * These types provide a consistent interface across all navbar blocks
- */
+// Import shared types
+import type {
+  LogoConfig,
+  ILinkItem,
+  IMenuLinkGroup,
+  MegaMenuLayout,
+  IMenuLink,
+} from "./types";
+import { getLinkUrl } from "./types";
 
-/**
- * Base link item - used across all navbar components
- */
-export interface ILinkItem {
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
-  image?: string;
-  background?: string;
-}
-
-/**
- * Group of links with optional metadata
- */
-export interface IMenuLinkGroup {
-  label: React.ReactNode;
-  description?: string;
-  image?: string;
-  links: ILinkItem[];
-}
-
-/**
- * Layout types for mega menu dropdowns
- *
- * LAYOUT OPTIONS FOR AI PAGE BUILDER:
- *
- * 1. "animated-image-preview"
- *    - Visual: Grid layout with large image preview on left (360px wide), links list on right
- *    - Behavior: Image changes on hover based on which link is being hovered over
- *    - Best for: Product showcases, visual content navigation, feature highlights
- *    - Required data: links[] with label, description, url, image
- *    - Example use case: Product categories where each product has a hero image that displays on hover
- *
- * 2. "simple-grid"
- *    - Visual: 2-column responsive grid of cards with icons or images
- *    - Behavior: Static grid with hover effects on cards
- *    - Best for: Feature lists, service offerings, general navigation with icons
- *    - Required data: links[] with label, description, url, icon/iconName OR image
- *    - Example use case: Features menu showing analytics, reports, dashboards with icons
- *
- * 3. "list-with-icons"
- *    - Visual: Single column list of items with small icons on the left
- *    - Behavior: Compact list with hover effects
- *    - Best for: Simple navigation, documentation links, resource lists
- *    - Required data: links[] with label, description (optional), url, icon/iconName
- *    - Example use case: Resources menu with documentation, API reference, guides
- */
-export type MegaMenuLayout =
-  | "animated-image-preview"
-  | "simple-grid"
-  | "list-with-icons";
-
-/**
- * Menu link configuration with layout-based dropdown options
- */
-export interface IMenuLink {
-  label: React.ReactNode;
-  href?: string;
-  layout?: MegaMenuLayout;
-  // Unified links array - used by all layouts
-  links?: ILinkItem[];
-  // Optional grouped links for more complex layouts
-  dropdownGroups?: IMenuLinkGroup[];
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  desktopSrc?: string;
-  mobileSrc?: string;
-  alt?: string;
-  className?: string;
-}
+// Re-export shared types for backward compatibility
+export type { LogoConfig, ILinkItem, IMenuLinkGroup, MegaMenuLayout, IMenuLink };
 
 /**
  * Props for the NavbarMegaMenu component
@@ -251,18 +181,18 @@ const DesktopMenuItem = ({
                 {link.links.map((item, idx) => (
                   <li key={`desktop-nav-sublink-${idx}`}>
                     <NavigationMenuLink
-                      href={item.url}
+                      href={getLinkUrl(item)}
                       className="flex items-center gap-4 rounded-lg px-4 py-3 hover:bg-muted"
                       data-index={idx}
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
                     >
                       <div>
-                        <h3 className="leading-normal font-medium">
+                        <h3 className="text-sm leading-normal font-medium">
                           {item.label}
                         </h3>
                         {item.description && (
-                          <p className="leading-normal text-muted-foreground">
+                          <p className="text-xs leading-normal text-muted-foreground">
                             {item.description}
                           </p>
                         )}
@@ -285,16 +215,16 @@ const DesktopMenuItem = ({
         <NavigationMenuTrigger className="h-auto bg-transparent px-3 py-2 font-normal text-foreground/80 hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground data-[state=open]:bg-muted/50 data-[state=open]:text-foreground">
           {link.label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="min-w-[520px] p-6">
+        <NavigationMenuContent className="min-w-[700px] p-6">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {link.links.map((item, itemIndex) => (
               <NavigationMenuLink
                 key={`grid-item-${itemIndex}`}
-                href={item.url}
+                href={getLinkUrl(item)}
                 className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-muted hover:text-foreground"
               >
                 {item.image && (
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-md border border-border">
+                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-md border border-border">
                     <Img
                       src={item.image}
                       alt={
@@ -308,7 +238,7 @@ const DesktopMenuItem = ({
                   </div>
                 )}
                 {!item.image && (item.icon || item.iconName) && (
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
                     {item.icon ? (
                       item.icon
                     ) : item.iconName ? (
@@ -344,7 +274,7 @@ const DesktopMenuItem = ({
             {link.links.map((item, itemIndex) => (
               <li key={`list-item-${itemIndex}`}>
                 <NavigationMenuLink
-                  href={item.url}
+                  href={getLinkUrl(item)}
                   className="flex items-start gap-3 rounded-lg p-3 hover:bg-muted"
                 >
                   {(item.icon || item.iconName) && (
@@ -421,7 +351,7 @@ const MobileSubmenu = ({
         return (
           <Pressable
             key={`mobile-item-${index}`}
-            href={item.url}
+            href={getLinkUrl(item)}
             className="flex items-start gap-4 border-b border-border px-8 py-5"
           >
             {item.image && (
@@ -562,7 +492,7 @@ export const NavbarMegaMenu = ({
             navClassName,
           )}
         >
-          <div className="flex w-full items-center justify-between gap-12 py-4">
+          <div className="flex w-full items-center justify-between gap-12 border-b border-border/50 py-4 shadow-sm">
             {/* Logo */}
             <div>
               {(!open || submenuIndex === null) && renderLogo()}

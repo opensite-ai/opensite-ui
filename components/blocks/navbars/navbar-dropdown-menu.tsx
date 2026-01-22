@@ -35,9 +35,14 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "./types";
+
+// Re-export shared types for backward compatibility
+export type { LogoConfig } from "./types";
 
 /**
- * Menu item interface for navigation
+ * Menu item interface for navigation (component-specific)
+ * Note: This uses title/url pattern specific to this dropdown menu component
  */
 export interface MenuItem {
   title: string;
@@ -45,17 +50,6 @@ export interface MenuItem {
   description?: string;
   icon?: string;
   items?: MenuItem[];
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**
@@ -340,7 +334,12 @@ export const NavbarDropdownMenu = ({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("container", containerClassName)}>
+      <div
+        className={cn(
+          "container border-b border-border/50 shadow-sm",
+          containerClassName,
+        )}
+      >
         {/* Desktop Menu */}
         <nav
           className={cn(

@@ -23,23 +23,16 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { LogoConfig } from "./types";
+
+// Re-export LogoConfig for backward compatibility
+export type { LogoConfig };
 
 export interface NavItem {
   title: React.ReactNode;
   url: string;
   icon?: React.ReactNode;
   iconName?: string;
-}
-
-/**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
 }
 
 /**

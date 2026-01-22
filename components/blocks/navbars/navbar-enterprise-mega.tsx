@@ -35,33 +35,17 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 
-/**
- * SHARED BASE TYPE INTERFACES
- * These types provide a consistent interface across navbar components
- */
+// Import shared types from the centralized types file
+import {
+  type LogoConfig,
+  type ILinkItem,
+  type IMenuLinkGroup,
+  getLinkUrl,
+} from "./types";
 
-/**
- * Base link item - used across all navbar components
- */
-export interface ILinkItem {
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  url: string;
-  icon?: React.ReactNode;
-  iconName?: string;
-  image?: string;
-  background?: string;
-}
-
-/**
- * Group of links with optional metadata
- */
-export interface IMenuLinkGroup {
-  label: React.ReactNode;
-  description?: string;
-  image?: string;
-  links: ILinkItem[];
-}
+// Re-export shared types for backward compatibility
+export type { LogoConfig, ILinkItem, IMenuLinkGroup };
+export { getLinkUrl };
 
 /**
  * SPECIALIZED TYPE INTERFACES FOR ENTERPRISE MEGA MENU
@@ -297,17 +281,6 @@ export interface IMenuLink {
 }
 
 /**
- * Logo configuration interface
- */
-export interface LogoConfig {
-  url?: string;
-  src?: string;
-  alt?: string;
-  title?: React.ReactNode;
-  className?: string;
-}
-
-/**
  * Props for the NavbarEnterpriseMega component
  */
 export interface NavbarEnterpriseMegaProps {
@@ -495,7 +468,7 @@ export const NavbarEnterpriseMega = ({
         background={background}
         spacing={spacing}
         className={cn(
-          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center border-b",
+          "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center border-b border-border/50 shadow-sm",
           className,
         )}
         pattern={pattern}
