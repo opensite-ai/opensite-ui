@@ -4,9 +4,12 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
@@ -176,12 +179,13 @@ export function StatsCardGroup({
     if (stat.iconSlot) return stat.iconSlot;
     if (!stat.icon) return null;
     return (
-      <div className={cn("mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10", statIconClassName)}>
-        <DynamicIcon
-          name={stat.icon}
-          size={24}
-          className="text-primary"
-        />
+      <div
+        className={cn(
+          "mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10",
+          statIconClassName,
+        )}
+      >
+        <DynamicIcon name={stat.icon} size={24} className="text-primary" />
       </div>
     );
   };
@@ -198,7 +202,10 @@ export function StatsCardGroup({
             key={avatarIndex}
             src={avatar.src}
             alt={avatar.alt}
-            className={cn("h-8 w-8 rounded-full border-2 border-background object-cover", avatar.className)}
+            className={cn(
+              "h-8 w-8 rounded-full border-2 border-background object-cover",
+              avatar.className,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
         ))}
@@ -221,16 +228,23 @@ export function StatsCardGroup({
         className={cn(
           "flex flex-col items-center text-center",
           index !== stats.length - 1 && "md:border-r md:pr-8",
-          stat.className
+          stat.className,
         )}
       >
         {renderIcon(stat)}
 
-        <div className={cn("mb-2 text-3xl font-bold md:text-4xl", statValueClassName)}>
+        <div
+          className={cn(
+            "mb-2 text-3xl font-bold md:text-4xl",
+            statValueClassName,
+          )}
+        >
           {stat.value}
         </div>
 
-        <div className={cn("mb-4 text-muted-foreground", statLabelClassName)}>{stat.label}</div>
+        <div className={cn("mb-4 text-muted-foreground", statLabelClassName)}>
+          {stat.label}
+        </div>
 
         {renderAvatars(stat)}
       </div>

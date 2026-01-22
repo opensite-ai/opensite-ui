@@ -19,10 +19,10 @@ describe("Section", () => {
     expect(screen.getByText("Test Subtitle")).toBeInTheDocument();
   });
 
-  it("applies default background of white", () => {
+  it("applies default background of transparent", () => {
     const { container } = render(<Section>Test</Section>);
     const element = container.querySelector("section");
-    expect(element?.className).toContain("bg-background");
+    expect(element?.className).toContain("bg-transparent");
   });
 
   it("applies custom background", () => {

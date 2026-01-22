@@ -20,23 +20,24 @@ export function getNavbarLayoutClasses(
 ) {
   const isFloatingBar = layoutVariant === "floatingBar";
   const isFullWidthLinks = layoutVariant === "fullScreenFullWidthLinks";
+  const isContainerizedLinks = layoutVariant === "fullScreenContainerizedLinks";
 
   return {
-    // Section wrapper classes
+    // Section wrapper classes - always full width for non-floating variants
     sectionClasses: cn(
       "inset-x-0 z-20",
       isFloatingBar ? "sticky top-4" : "top-0",
       customClasses?.className
     ),
 
-    // Outer container wrapper (only for floating bar)
+    // Outer container wrapper (only for floating bar - this containerizes the entire navbar)
     containerWrapperClasses: cn(
       isFloatingBar && "mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl relative z-10"
     ),
 
-    // Inner container classes
+    // Inner container classes (only for fullScreenContainerizedLinks - this containerizes the content inside the navbar)
     innerContainerClasses: cn(
-      !isFloatingBar && !isFullWidthLinks && "container",
+      isContainerizedLinks && "container",
       isFullWidthLinks && "mx-auto w-full px-2 sm:px-4 lg:px-8",
       customClasses?.containerClassName
     ),

@@ -1,17 +1,23 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * An impact stat with icon, value, label, and description
+ * An impact stat with icon, value, label, and description.
+ * Used to display key metrics, KPIs, or performance indicators.
  */
 export interface ImpactStat {
   /**
@@ -23,11 +29,11 @@ export interface ImpactStat {
    */
   value: React.ReactNode;
   /**
-   * Prefix for the value (e.g., "$")
+   * Prefix for the value (e.g., "$", "€", "£")
    */
   prefix?: React.ReactNode;
   /**
-   * Suffix for the value (e.g., "%", "B+", "x")
+   * Suffix for the value (e.g., "%", "B+", "x", "K")
    */
   suffix?: React.ReactNode;
   /**
@@ -35,9 +41,9 @@ export interface ImpactStat {
    */
   label: React.ReactNode;
   /**
-   * Description of the stat
+   * Description or context for the stat
    */
-  description: React.ReactNode;
+  description?: React.ReactNode;
   /**
    * Icon name in format: prefix/name (e.g., "lucide/line-chart")
    */
@@ -57,7 +63,8 @@ export interface ImpactStat {
 }
 
 /**
- * Props for the StatsImpactGrid component
+ * Props for the StatsImpactGrid component.
+ * A versatile stats section for displaying metrics with optional comparison visualization.
  */
 export interface StatsImpactGridProps {
   /**
@@ -77,7 +84,7 @@ export interface StatsImpactGridProps {
    */
   description?: React.ReactNode;
   /**
-   * Array of impact stats to display
+   * Array of impact stats to display in the grid
    */
   stats?: ImpactStat[];
   /**
@@ -85,31 +92,47 @@ export interface StatsImpactGridProps {
    */
   statsSlot?: React.ReactNode;
   /**
-   * Industry comparison section heading
+   * Comparison section heading
    */
   comparisonHeading?: React.ReactNode;
   /**
-   * Industry comparison description
+   * Comparison section description
    */
   comparisonDescription?: React.ReactNode;
   /**
-   * Industry average value
+   * Baseline comparison value (displayed as the first/lower comparison point)
    */
-  industryAverage?: React.ReactNode;
+  baselineValue?: React.ReactNode;
   /**
-   * Platform value
+   * Target comparison value (displayed as the second/higher comparison point)
    */
-  platformValue?: React.ReactNode;
+  targetValue?: React.ReactNode;
+  /**
+   * Label for the baseline comparison bar
+   */
+  baselineLabel?: React.ReactNode;
+  /**
+   * Label for the target comparison bar
+   */
+  targetLabel?: React.ReactNode;
+  /**
+   * Percentage width for the baseline progress bar (0-100)
+   */
+  baselinePercent?: number;
+  /**
+   * Percentage width for the target progress bar (0-100)
+   */
+  targetPercent?: number;
   /**
    * Custom slot for comparison section (overrides comparison props)
    */
   comparisonSlot?: React.ReactNode;
   /**
-   * CTA heading
+   * CTA section heading
    */
   ctaHeading?: React.ReactNode;
   /**
-   * Array of action buttons
+   * Array of action buttons for the CTA section
    */
   actions?: ActionConfig[];
   /**
@@ -180,19 +203,28 @@ export interface StatsImpactGridProps {
 
 /**
  * StatsImpactGrid - A comprehensive stats section featuring a grid of impact metrics
- * with icons, an industry comparison bar chart, and a call-to-action. Each stat card
- * displays an icon, large value with prefix/suffix, label, and description. Includes
- * a visual comparison between industry average and platform performance. Ideal for
- * showcasing ROI, business impact, or platform benefits with social proof.
+ * with icons, an optional comparison bar visualization, and a call-to-action.
+ * Each stat card displays an icon, large value with prefix/suffix, label, and description.
+ * The comparison section visualizes the difference between two values with progress bars.
+ * Ideal for showcasing ROI, performance metrics, growth comparisons, or any key indicators.
  *
  * @example
  * ```tsx
  * <StatsImpactGrid
- *   badge="Proven Results"
- *   heading="Transforming Businesses With Real Numbers"
+ *   badge="Results"
+ *   heading="Our Impact"
  *   stats={[
- *     { id: "roi", value: "437", suffix: "%", label: "Average ROI", ... },
+ *     { id: "growth", value: "437", suffix: "%", label: "Growth Rate", description: "Year over year" },
  *   ]}
+ *   comparisonHeading="Performance Comparison"
+ *   baselineLabel="Before"
+ *   baselineValue="24%"
+ *   baselinePercent={24}
+ *   targetLabel="After"
+ *   targetValue="89%"
+ *   targetPercent={89}
+ *   ctaHeading="Ready to get started?"
+ *   actions={[{ label: "Get Started", href: "/signup" }]}
  * />
  * ```
  */
@@ -203,12 +235,16 @@ export function StatsImpactGrid({
   description,
   stats,
   statsSlot,
-  comparisonHeading = "How Does This Compare?",
-  comparisonDescription = "Our platform delivers results that are 4x better than industry averages across all key performance indicators.",
-  industryAverage = "24%",
-  platformValue = "89%",
+  comparisonHeading,
+  comparisonDescription,
+  baselineValue,
+  targetValue,
+  baselineLabel,
+  targetLabel,
+  baselinePercent,
+  targetPercent,
   comparisonSlot,
-  ctaHeading = "Ready to See These Results in Your Business?",
+  ctaHeading,
   actions,
   ctaSlot,
   background = "white",
@@ -227,13 +263,15 @@ export function StatsImpactGrid({
   comparisonClassName,
   ctaClassName,
 }: StatsImpactGridProps) {
-  const renderBadge = () => {
+  // Memoized badge rendering - no arguments, pure derivation from props
+  const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
     return <Badge className={cn("mb-4", badgeClassName)}>{badge}</Badge>;
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderStatIcon = (stat: ImpactStat) => {
+  // Callback for rendering stat icons - takes argument (stat)
+  const renderStatIcon = useCallback((stat: ImpactStat) => {
     if (stat.iconSlot) return stat.iconSlot;
     if (!stat.icon) return null;
     return (
@@ -245,16 +283,29 @@ export function StatsImpactGrid({
         />
       </div>
     );
-  };
+  }, []);
 
-  const renderStats = () => {
+  // Memoized stats grid rendering
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3", statsGridClassName)}>
+      <div
+        className={cn(
+          "mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+          statsGridClassName,
+        )}
+      >
         {stats.map((stat) => (
-          <Card key={stat.id} className={cn("overflow-hidden border p-0", stat.className, statCardClassName)}>
+          <Card
+            key={stat.id}
+            className={cn(
+              "overflow-hidden border p-0",
+              stat.className,
+              statCardClassName,
+            )}
+          >
             <CardContent className="p-6 md:p-8">
               {renderStatIcon(stat)}
 
@@ -274,130 +325,210 @@ export function StatsImpactGrid({
                 )}
               </div>
 
-              <div className="mb-4 text-xl font-semibold">{stat.label}</div>
-              {stat.description && (
-                typeof stat.description === "string" ? (
+              {stat.label && (
+                <div className="mb-4 text-xl font-semibold">{stat.label}</div>
+              )}
+              {stat.description &&
+                (typeof stat.description === "string" ? (
                   <p className="text-muted-foreground">{stat.description}</p>
                 ) : (
-                  <div className="text-muted-foreground">{stat.description}</div>
-                )
-              )}
+                  <div className="text-muted-foreground">
+                    {stat.description}
+                  </div>
+                ))}
             </CardContent>
           </Card>
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsGridClassName, statCardClassName, renderStatIcon]);
 
-  const renderComparison = () => {
+  // Check if comparison section has any content to render
+  const hasComparisonContent = useMemo(() => {
+    return !!(
+      comparisonHeading ||
+      comparisonDescription ||
+      baselineValue ||
+      targetValue ||
+      baselineLabel ||
+      targetLabel
+    );
+  }, [
+    comparisonHeading,
+    comparisonDescription,
+    baselineValue,
+    targetValue,
+    baselineLabel,
+    targetLabel,
+  ]);
+
+  // Memoized comparison section rendering
+  const comparisonContent = useMemo(() => {
     if (comparisonSlot) return comparisonSlot;
-    if (!comparisonHeading && !comparisonDescription && !industryAverage && !platformValue) return null;
+    if (!hasComparisonContent) return null;
+
+    // Only render progress bars if we have the necessary data
+    const hasProgressBars =
+      baselineLabel && targetLabel && baselinePercent !== undefined && targetPercent !== undefined;
 
     return (
       <div className={cn("mb-16 rounded-xl bg-muted p-8", comparisonClassName)}>
         <div className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
           <div>
-            {comparisonHeading && (
-              typeof comparisonHeading === "string" ? (
+            {comparisonHeading &&
+              (typeof comparisonHeading === "string" ? (
                 <h3 className="mb-4 text-2xl font-bold">{comparisonHeading}</h3>
               ) : (
                 <div className="mb-4">{comparisonHeading}</div>
-              )
-            )}
-            {comparisonDescription && (
-              typeof comparisonDescription === "string" ? (
-                <p className="mb-6 text-muted-foreground">{comparisonDescription}</p>
+              ))}
+            {comparisonDescription &&
+              (typeof comparisonDescription === "string" ? (
+                <p className="mb-6 text-muted-foreground">
+                  {comparisonDescription}
+                </p>
               ) : (
                 <div className="mb-6">{comparisonDescription}</div>
-              )
+              ))}
+            {hasProgressBars && (
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-muted-foreground/20">
+                    <div
+                      className="h-full bg-muted-foreground"
+                      style={{ width: `${baselinePercent}%` }}
+                    />
+                  </div>
+                  <span className="min-w-[60px] text-sm font-medium">
+                    {baselineLabel}
+                  </span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-primary/20">
+                    <div
+                      className="h-full bg-primary"
+                      style={{ width: `${targetPercent}%` }}
+                    />
+                  </div>
+                  <span className="min-w-[60px] text-sm font-medium">
+                    {targetLabel}
+                  </span>
+                </div>
+              </div>
             )}
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="h-2 w-full overflow-hidden rounded-full bg-muted-foreground/20">
-                  <div className="h-full w-[24%] bg-muted-foreground" />
-                </div>
-                <span className="min-w-[60px] text-sm font-medium">
-                  Industry
-                </span>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="h-2 w-full overflow-hidden rounded-full bg-primary/20">
-                  <div className="h-full w-[89%] bg-primary" />
-                </div>
-                <span className="min-w-[60px] text-sm font-medium">
-                  Our Platform
-                </span>
-              </div>
-            </div>
           </div>
-          <div className="flex flex-col gap-4 text-center md:border-l md:pl-16 md:text-left">
-            <div>
-              <div className="text-sm text-muted-foreground">
-                INDUSTRY AVERAGE
-              </div>
-              <div className="text-3xl font-bold">{industryAverage}</div>
+          {(baselineValue || targetValue) && (
+            <div className="flex flex-col gap-4 text-center md:border-l md:pl-16 md:text-left">
+              {baselineValue && (
+                <div>
+                  {baselineLabel && (
+                    <div className="text-sm uppercase text-muted-foreground">
+                      {baselineLabel}
+                    </div>
+                  )}
+                  <div className="text-3xl font-bold">{baselineValue}</div>
+                </div>
+              )}
+              {baselineValue && targetValue && (
+                <div className="flex h-12 items-center justify-center md:justify-start">
+                  <DynamicIcon
+                    name="lucide/arrow-up-right"
+                    size={32}
+                    className="text-primary"
+                  />
+                </div>
+              )}
+              {targetValue && (
+                <div>
+                  {targetLabel && (
+                    <div className="text-sm font-medium uppercase text-primary">
+                      {targetLabel}
+                    </div>
+                  )}
+                  <div className="text-4xl font-bold text-primary">
+                    {targetValue}
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="flex h-12 items-center justify-center md:justify-start">
-              <DynamicIcon
-                name="lucide/arrow-up-right"
-                size={32}
-                className="text-primary"
-              />
-            </div>
-            <div>
-              <div className="text-sm font-medium text-primary">
-                OUR PLATFORM
-              </div>
-              <div className="text-4xl font-bold text-primary">
-                {platformValue}
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     );
-  };
+  }, [
+    comparisonSlot,
+    hasComparisonContent,
+    comparisonHeading,
+    comparisonDescription,
+    baselineValue,
+    targetValue,
+    baselineLabel,
+    targetLabel,
+    baselinePercent,
+    targetPercent,
+    comparisonClassName,
+  ]);
 
-  const renderActions = () => {
+  // Memoized actions rendering
+  const actionsContent = useMemo(() => {
     if (!actions || actions.length === 0) return null;
 
     return (
       <div className="flex flex-wrap justify-center gap-4">
-        {actions.map((action, index) => (
-          <Pressable
-            key={index}
-            href={action.href}
-            onClick={action.onClick}
-            variant={action.variant || "default"}
-            size="lg"
-            asButton
-            className={index === 0 ? "inline-flex items-center justify-center gap-2" : undefined}
-          >
-            {action.label}
-            {index === 0 && <DynamicIcon name="lucide/arrow-right" size={16} />}
-          </Pressable>
-        ))}
+        {actions.map((action, index) => {
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
+
+          return (
+            <Pressable
+              key={action.href || index}
+              size="lg"
+              asButton
+              className={cn(
+                "inline-flex items-center justify-center gap-2",
+                actionClassName,
+              )}
+              {...pressableProps}
+            >
+              {children ?? (
+                <>
+                  {icon}
+                  {label}
+                  {iconAfter}
+                </>
+              )}
+            </Pressable>
+          );
+        })}
       </div>
     );
-  };
+  }, [actions]);
 
-  const renderCta = () => {
+  // Memoized CTA section rendering
+  const ctaContent = useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaHeading && (!actions || actions.length === 0)) return null;
 
     return (
       <div className={cn("text-center", ctaClassName)}>
-        {ctaHeading && (
-          typeof ctaHeading === "string" ? (
+        {ctaHeading &&
+          (typeof ctaHeading === "string" ? (
             <h3 className="mb-6 text-2xl font-bold">{ctaHeading}</h3>
           ) : (
             <div className="mb-6">{ctaHeading}</div>
-          )
-        )}
-        {renderActions()}
+          ))}
+        {actionsContent}
       </div>
     );
-  };
+  }, [ctaSlot, ctaHeading, actions, ctaClassName, actionsContent]);
+
+  // Check if header has any content
+  const hasHeaderContent = !!(badge || badgeSlot || heading || description);
 
   return (
     <Section
@@ -409,34 +540,46 @@ export function StatsImpactGrid({
       className={cn("relative overflow-hidden", className)}
     >
       {/* Background gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 to-background" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/5 to-background" />
 
       <div className={cn("relative mx-auto max-w-5xl", containerClassName)}>
-        <div className={cn("mb-12 text-center", headerClassName)}>
-          {renderBadge()}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold md:text-5xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={cn("mb-4", headingClassName)}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-3xl text-lg text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
+        {hasHeaderContent && (
+          <div className={cn("mb-12 text-center", headerClassName)}>
+            {badgeContent}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-3xl font-bold md:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto max-w-3xl text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
+          </div>
+        )}
 
-        {renderStats()}
-        {renderComparison()}
-        {renderCta()}
+        {statsContent}
+        {comparisonContent}
+        {ctaContent}
       </div>
     </Section>
   );

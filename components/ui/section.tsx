@@ -55,7 +55,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       children,
       className,
       style,
-      background = "white",
+      background = "transparent",
       spacing = "lg",
       pattern,
       patternOpacity,

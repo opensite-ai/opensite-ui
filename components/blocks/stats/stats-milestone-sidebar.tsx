@@ -138,8 +138,8 @@ export function StatsMilestoneSidebar({
   sidebarSlot,
   milestones,
   milestonesSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -159,24 +159,32 @@ export function StatsMilestoneSidebar({
 
     return (
       <div className="lg:sticky lg:top-24">
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "mb-4 text-3xl font-bold md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={cn("mb-4", headingClassName)}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
     );
   };
@@ -193,32 +201,53 @@ export function StatsMilestoneSidebar({
             className={cn(
               "relative border-l-2 border-border pl-8 pb-8 last:pb-0",
               milestone.className,
-              milestoneItemClassName
+              milestoneItemClassName,
             )}
           >
             {/* Timeline dot */}
             <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-primary bg-background" />
 
             {/* Year badge */}
-            <div className={cn("mb-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary", milestoneYearClassName)}>
+            <div
+              className={cn(
+                "mb-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary",
+                milestoneYearClassName,
+              )}
+            >
               {milestone.year}
             </div>
 
             {/* Content */}
-            {milestone.title && (
-              typeof milestone.title === "string" ? (
-                <h3 className={cn("mb-2 text-xl font-bold", milestoneTitleClassName)}>{milestone.title}</h3>
+            {milestone.title &&
+              (typeof milestone.title === "string" ? (
+                <h3
+                  className={cn(
+                    "mb-2 text-xl font-bold",
+                    milestoneTitleClassName,
+                  )}
+                >
+                  {milestone.title}
+                </h3>
               ) : (
-                <div className={cn("mb-2", milestoneTitleClassName)}>{milestone.title}</div>
-              )
-            )}
-            {milestone.description && (
-              typeof milestone.description === "string" ? (
-                <p className={cn("text-muted-foreground", milestoneDescriptionClassName)}>{milestone.description}</p>
+                <div className={cn("mb-2", milestoneTitleClassName)}>
+                  {milestone.title}
+                </div>
+              ))}
+            {milestone.description &&
+              (typeof milestone.description === "string" ? (
+                <p
+                  className={cn(
+                    "text-muted-foreground",
+                    milestoneDescriptionClassName,
+                  )}
+                >
+                  {milestone.description}
+                </p>
               ) : (
-                <div className={milestoneDescriptionClassName}>{milestone.description}</div>
-              )
-            )}
+                <div className={milestoneDescriptionClassName}>
+                  {milestone.description}
+                </div>
+              ))}
           </div>
         ))}
       </div>
@@ -242,9 +271,7 @@ export function StatsMilestoneSidebar({
           </div>
 
           {/* Milestones List */}
-          <div className="lg:col-span-8">
-            {renderMilestones()}
-          </div>
+          <div className="lg:col-span-8">{renderMilestones()}</div>
         </div>
       </div>
     </Section>

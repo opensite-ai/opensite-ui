@@ -227,12 +227,12 @@ const DesktopMenuItem = ({
           {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[700px] p-6">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2">
             {link.links.map((item, itemIndex) => (
               <NavigationMenuLink
                 key={`grid-item-${itemIndex}`}
                 href={getLinkUrl(item)}
-                className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-muted hover:text-foreground"
+                className="flex w-full flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-muted hover:text-foreground"
               >
                 {item.image && (
                   <div className="h-20 w-20 shrink-0 overflow-hidden rounded-md border border-border">
@@ -257,7 +257,7 @@ const DesktopMenuItem = ({
                     ) : null}
                   </div>
                 )}
-                <div>
+                <div className="flex-1">
                   <div className="text-sm font-medium">{item.label}</div>
                   {item.description && (
                     <div className="text-sm font-normal text-muted-foreground">
@@ -283,13 +283,27 @@ const DesktopMenuItem = ({
         <NavigationMenuContent className="min-w-[400px] p-4">
           <ul className="flex flex-col gap-1">
             {link.links.map((item, itemIndex) => (
-              <li key={`list-item-${itemIndex}`}>
+              <li key={`list-item-${itemIndex}`} className="w-full">
                 <NavigationMenuLink
                   href={getLinkUrl(item)}
-                  className="flex items-start gap-3 rounded-lg p-3 hover:bg-muted"
+                  className="flex w-full items-start gap-3 rounded-lg p-3 hover:bg-muted"
                 >
-                  {(item.icon || item.iconName) && (
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
+                  {item.image && (
+                    <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md border border-border">
+                      <Img
+                        src={item.image}
+                        alt={
+                          typeof item.label === "string"
+                            ? item.label
+                            : "Menu item"
+                        }
+                        className="h-full w-full object-cover object-center"
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </div>
+                  )}
+                  {!item.image && (item.icon || item.iconName) && (
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
                       {item.icon ? (
                         item.icon
                       ) : item.iconName ? (
@@ -318,10 +332,7 @@ const DesktopMenuItem = ({
   if (link.href) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuLink
-          href={link.href}
-          className="inline-flex h-auto items-center justify-center px-0 py-0 text-sm font-normal text-foreground/60 transition-colors hover:text-foreground focus:text-foreground"
-        >
+        <NavigationMenuLink href={link.href}>
           {link.label}
         </NavigationMenuLink>
       </NavigationMenuItem>
@@ -561,10 +572,7 @@ export const NavbarMegaMenu = ({
 
                 return (
                   <NavigationMenuItem key={`menu-link-${index}`}>
-                    <NavigationMenuLink
-                      href={link.href}
-                      className="inline-flex h-auto items-center justify-center px-0 py-0 text-sm font-normal text-foreground/60 transition-colors hover:text-foreground focus:text-foreground"
-                    >
+                    <NavigationMenuLink href={link.href}>
                       {link.label}
                     </NavigationMenuLink>
                   </NavigationMenuItem>
