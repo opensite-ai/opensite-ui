@@ -17,7 +17,10 @@ import {
 } from "../../ui/navigation-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../../ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  logoPlaceholders,
+  imagePlaceholders,
+} from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -120,7 +123,7 @@ export interface NavbarTabbedSectionsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -168,7 +171,10 @@ export const NavbarTabbedSections = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
@@ -177,13 +183,12 @@ export const NavbarTabbedSections = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold">{logo.title}</span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -193,7 +198,14 @@ export const NavbarTabbedSections = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -255,7 +267,9 @@ export const NavbarTabbedSections = ({
                               </div>
                             )}
                             <div>
-                              <div className="text-sm font-medium">{link.title}</div>
+                              <div className="text-sm font-medium">
+                                {link.title}
+                              </div>
                               {link.description && (
                                 <p className="text-xs text-muted-foreground">
                                   {link.description}
@@ -282,7 +296,9 @@ export const NavbarTabbedSections = ({
                               />
                             </div>
                             <div className="p-3">
-                              <div className="text-sm font-medium">{tab.featured.title}</div>
+                              <div className="text-sm font-medium">
+                                {tab.featured.title}
+                              </div>
                               <p className="mt-1 text-xs text-muted-foreground">
                                 {tab.featured.description}
                               </p>
@@ -364,24 +380,34 @@ export const NavbarTabbedSections = ({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <nav className={cn("flex items-center justify-between py-4", navClassName)}>
+        <nav
+          className={cn("flex items-center justify-between py-4", navClassName)}
+        >
           <div className="flex items-center gap-8">
             {renderLogo()}
 
             <NavigationMenu className="hidden lg:flex">
-              <NavigationMenuList>
-                {renderMenu()}
-              </NavigationMenuList>
+              <NavigationMenuList>{renderMenu()}</NavigationMenuList>
             </NavigationMenu>
           </div>
 
-          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+          <div
+            className={cn(
+              "hidden items-center gap-2 lg:flex",
+              actionsClassName,
+            )}
+          >
             {renderAuthActions()}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Pressable variant="ghost" size="icon" asButton onClick={() => {}}>
+              <Pressable
+                variant="ghost"
+                size="icon"
+                asButton
+                onClick={() => {}}
+              >
                 <DynamicIcon name="lucide/menu" size={20} />
                 <span className="sr-only">Toggle menu</span>
               </Pressable>
@@ -390,7 +416,12 @@ export const NavbarTabbedSections = ({
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-4 pt-8">
                 {renderMobileMenu()}
-                <div className={cn("mt-4 flex flex-col gap-2 border-t pt-4", actionsClassName)}>
+                <div
+                  className={cn(
+                    "mt-4 flex flex-col gap-2 border-t pt-4",
+                    actionsClassName,
+                  )}
+                >
                   {renderAuthActions()}
                 </div>
               </div>

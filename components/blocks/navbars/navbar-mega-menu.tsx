@@ -25,34 +25,31 @@ import type {
 } from "../../../src/types";
 
 /**
- * Base link item for animated image preview layout
+ * SHARED TYPE INTERFACES FOR ALL NAVBAR COMPONENTS
+ * These types provide a consistent interface across all navbar blocks
+ */
+
+/**
+ * Base link item - used across all navbar components
  */
 export interface ILinkItem {
-  label: string;
-  description?: string;
+  label: React.ReactNode;
+  description?: React.ReactNode;
   url: string;
+  icon?: React.ReactNode;
+  iconName?: string;
   image?: string;
+  background?: string;
 }
 
 /**
- * Grid item with icon or image
+ * Group of links with optional metadata
  */
-export interface IGridItem {
-  title: string;
+export interface IMenuLinkGroup {
+  label: React.ReactNode;
   description?: string;
-  href: string;
-  icon?: string;
-  imgUrl?: string;
-}
-
-/**
- * Simple list item with icon
- */
-export interface IListItem {
-  title: string;
-  description?: string;
-  href: string;
-  icon?: string;
+  image?: string;
+  links: ILinkItem[];
 }
 
 /**
@@ -71,14 +68,14 @@ export interface IListItem {
  *    - Visual: 2-column responsive grid of cards with icons or images
  *    - Behavior: Static grid with hover effects on cards
  *    - Best for: Feature lists, service offerings, general navigation with icons
- *    - Required data: gridItems[] with title, description, href, icon OR imgUrl
+ *    - Required data: links[] with label, description, url, icon/iconName OR image
  *    - Example use case: Features menu showing analytics, reports, dashboards with icons
  *
  * 3. "list-with-icons"
  *    - Visual: Single column list of items with small icons on the left
  *    - Behavior: Compact list with hover effects
  *    - Best for: Simple navigation, documentation links, resource lists
- *    - Required data: listItems[] with title, description (optional), href, icon
+ *    - Required data: links[] with label, description (optional), url, icon/iconName
  *    - Example use case: Resources menu with documentation, API reference, guides
  */
 export type MegaMenuLayout =
@@ -90,15 +87,13 @@ export type MegaMenuLayout =
  * Menu link configuration with layout-based dropdown options
  */
 export interface IMenuLink {
-  title: string;
-  url?: string;
+  label: React.ReactNode;
+  href?: string;
   layout?: MegaMenuLayout;
-  // For animated-image-preview layout
+  // Unified links array - used by all layouts
   links?: ILinkItem[];
-  // For simple-grid layout
-  gridItems?: IGridItem[];
-  // For list-with-icons layout
-  listItems?: IListItem[];
+  // Optional grouped links for more complex layouts
+  dropdownGroups?: IMenuLinkGroup[];
 }
 
 /**
@@ -171,7 +166,7 @@ export interface NavbarMegaMenuProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -191,8 +186,13 @@ interface DesktopMenuItemProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const DesktopMenuItem = ({ link, index, optixFlowConfig }: DesktopMenuItemProps) => {
+const DesktopMenuItem = ({
+  link,
+  index,
+  optixFlowConfig,
+}: DesktopMenuItemProps) => {
   const imagesRef = React.useRef<HTMLImageElement[]>([]);
+  // Default to "simple-grid" if no layout specified
   const layout = link.layout || "simple-grid";
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
@@ -219,8 +219,8 @@ const DesktopMenuItem = ({ link, index, optixFlowConfig }: DesktopMenuItemProps)
   if (layout === "animated-image-preview" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent h-fit font-normal text-foreground/60">
-          {link.title}
+        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+          {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="!rounded-2xl !p-0">
           <div className="grid min-h-[18.75rem] w-[45.25rem] grid-cols-[22.5rem_1fr] gap-4 p-3">
@@ -230,21 +230,24 @@ const DesktopMenuItem = ({ link, index, optixFlowConfig }: DesktopMenuItemProps)
                   key={idx}
                   ref={(el) => {
                     if (el) {
-                      imagesRef.current[idx] = el as unknown as HTMLImageElement;
+                      imagesRef.current[idx] =
+                        el as unknown as HTMLImageElement;
                     }
                   }}
                   src={item.image || ""}
-                  alt={item.label}
+                  alt={
+                    typeof item.label === "string" ? item.label : "Menu item"
+                  }
                   className={cn(
                     "absolute top-0 left-0 h-full w-full object-cover transition-opacity duration-300",
-                    idx === 0 ? "opacity-100" : "opacity-0"
+                    idx === 0 ? "opacity-100" : "opacity-0",
                   )}
                   optixFlowConfig={optixFlowConfig}
                 />
               ))}
             </div>
             <div>
-              <div className="p-4 leading-normal font-bold">{link.title}</div>
+              <div className="p-4 leading-normal font-bold">{link.label}</div>
               <ul>
                 {link.links.map((item, idx) => (
                   <li key={`desktop-nav-sublink-${idx}`}>
@@ -277,37 +280,45 @@ const DesktopMenuItem = ({ link, index, optixFlowConfig }: DesktopMenuItemProps)
   }
 
   // Simple Grid Layout
-  if (layout === "simple-grid" && link.gridItems) {
+  if (layout === "simple-grid" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent h-fit font-normal text-foreground/60">
-          {link.title}
+        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+          {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[520px] p-6">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {link.gridItems.map((item, itemIndex) => (
+            {link.links.map((item, itemIndex) => (
               <NavigationMenuLink
-                key={`${item.title}-${itemIndex}`}
-                href={item.href}
+                key={`grid-item-${itemIndex}`}
+                href={item.url}
                 className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
               >
-                {item.imgUrl && (
+                {item.image && (
                   <div className="h-12 w-12 overflow-hidden rounded-md border border-border">
                     <Img
-                      src={item.imgUrl}
-                      alt={item.title}
+                      src={item.image}
+                      alt={
+                        typeof item.label === "string"
+                          ? item.label
+                          : "Menu item"
+                      }
                       className="h-full w-full object-cover object-center"
                       optixFlowConfig={optixFlowConfig}
                     />
                   </div>
                 )}
-                {!item.imgUrl && item.icon && (
+                {!item.image && (item.icon || item.iconName) && (
                   <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                    <DynamicIcon name={item.icon} size={18} />
+                    {item.icon ? (
+                      item.icon
+                    ) : item.iconName ? (
+                      <DynamicIcon name={item.iconName} size={18} />
+                    ) : null}
                   </div>
                 )}
                 <div>
-                  <div className="text-base">{item.title}</div>
+                  <div className="text-base">{item.label}</div>
                   {item.description && (
                     <div className="text-sm font-normal text-muted-foreground">
                       {item.description}
@@ -323,27 +334,31 @@ const DesktopMenuItem = ({ link, index, optixFlowConfig }: DesktopMenuItemProps)
   }
 
   // List with Icons Layout
-  if (layout === "list-with-icons" && link.listItems) {
+  if (layout === "list-with-icons" && link.links) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`}>
-        <NavigationMenuTrigger className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent h-fit font-normal text-foreground/60">
-          {link.title}
+        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+          {link.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="min-w-[400px] p-4">
           <ul className="flex flex-col gap-1">
-            {link.listItems.map((item, itemIndex) => (
-              <li key={`${item.title}-${itemIndex}`}>
+            {link.links.map((item, itemIndex) => (
+              <li key={`list-item-${itemIndex}`}>
                 <NavigationMenuLink
-                  href={item.href}
+                  href={item.url}
                   className="flex items-start gap-3 rounded-lg p-3 hover:bg-muted"
                 >
-                  {item.icon && (
+                  {(item.icon || item.iconName) && (
                     <div className="flex h-8 w-8 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
-                      <DynamicIcon name={item.icon} size={16} />
+                      {item.icon ? (
+                        item.icon
+                      ) : item.iconName ? (
+                        <DynamicIcon name={item.iconName} size={16} />
+                      ) : null}
                     </div>
                   )}
                   <div className="flex-1">
-                    <div className="text-sm font-medium">{item.title}</div>
+                    <div className="text-sm font-medium">{item.label}</div>
                     {item.description && (
                       <div className="text-xs text-muted-foreground">
                         {item.description}
@@ -355,6 +370,20 @@ const DesktopMenuItem = ({ link, index, optixFlowConfig }: DesktopMenuItemProps)
             ))}
           </ul>
         </NavigationMenuContent>
+      </NavigationMenuItem>
+    );
+  }
+
+  // Simple link without dropdown
+  if (link.href) {
+    return (
+      <NavigationMenuItem key={`desktop-menu-item-${index}`}>
+        <NavigationMenuLink
+          href={link.href}
+          className="inline-flex h-auto items-center justify-center px-0 py-0 text-sm font-normal text-foreground/60 transition-colors hover:text-foreground focus:text-foreground"
+        >
+          {link.label}
+        </NavigationMenuLink>
       </NavigationMenuItem>
     );
   }
@@ -371,11 +400,13 @@ interface MobileSubmenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const MobileSubmenu = ({ submenu, mobileMenuClassName, optixFlowConfig }: MobileSubmenuProps) => {
-  const layout = submenu.layout || "simple-grid";
-
-  // Get items based on layout
-  const items = submenu.links || submenu.gridItems || submenu.listItems || [];
+const MobileSubmenu = ({
+  submenu,
+  mobileMenuClassName,
+  optixFlowConfig,
+}: MobileSubmenuProps) => {
+  // Use unified links array
+  const items = submenu.links || [];
 
   return (
     <div
@@ -385,41 +416,41 @@ const MobileSubmenu = ({ submenu, mobileMenuClassName, optixFlowConfig }: Mobile
       )}
     >
       <div className="px-8 py-3.5 text-xs tracking-widest text-muted-foreground uppercase">
-        {submenu.title}
+        {submenu.label}
       </div>
-      {items.map((item: any, index: number) => {
-        const title = item.title || item.label;
-        const href = item.href || item.url;
-        const description = item.description;
-        const icon = item.icon || item.iconName;
-        const imgUrl = item.imgUrl || item.image;
-
+      {items.map((item, index) => {
         return (
           <Pressable
-            key={`${title}-${index}`}
-            href={href}
+            key={`mobile-item-${index}`}
+            href={item.url}
             className="flex items-start gap-4 border-b border-border px-8 py-5"
           >
-            {imgUrl && (
+            {item.image && (
               <div className="h-10 w-10 overflow-hidden rounded-md border border-border">
                 <Img
-                  src={imgUrl}
-                  alt={title}
+                  src={item.image}
+                  alt={
+                    typeof item.label === "string" ? item.label : "Menu item"
+                  }
                   className="h-full w-full object-cover object-center"
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
             )}
-            {!imgUrl && icon && (
+            {!item.image && (item.icon || item.iconName) && (
               <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                <DynamicIcon name={icon} size={16} />
+                {item.icon ? (
+                  item.icon
+                ) : item.iconName ? (
+                  <DynamicIcon name={item.iconName} size={16} />
+                ) : null}
               </div>
             )}
             <div>
-              <div className="text-base">{title}</div>
-              {description && (
+              <div className="text-base">{item.label}</div>
+              {item.description && (
                 <div className="text-sm text-muted-foreground">
-                  {description}
+                  {item.description}
                 </div>
               )}
             </div>
@@ -491,7 +522,7 @@ export const NavbarMegaMenu = ({
   };
 
   const hasDropdownItems = (link: IMenuLink) =>
-    Boolean(link.links?.length || link.gridItems?.length || link.listItems?.length);
+    Boolean(link.links?.length || link.dropdownGroups?.length);
 
   const renderActions = () => {
     if (!actions || actions.length === 0) return null;
@@ -561,7 +592,7 @@ export const NavbarMegaMenu = ({
                 if (hasDropdownItems(link)) {
                   return (
                     <DesktopMenuItem
-                      key={`${link.title}-${index}`}
+                      key={`menu-link-${index}`}
                       link={link}
                       index={index}
                       optixFlowConfig={optixFlowConfig}
@@ -569,17 +600,17 @@ export const NavbarMegaMenu = ({
                   );
                 }
 
-                if (!link.url) {
+                if (!link.href) {
                   return null;
                 }
 
                 return (
-                  <NavigationMenuItem key={`${link.title}-${index}`}>
+                  <NavigationMenuItem key={`menu-link-${index}`}>
                     <NavigationMenuLink
-                      href={link.url}
-                      className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+                      href={link.href}
+                      className="inline-flex h-auto items-center justify-center px-0 py-0 text-sm font-normal text-foreground/60 transition-colors hover:text-foreground focus:text-foreground"
                     >
-                      {link.title}
+                      {link.label}
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 );
@@ -629,12 +660,12 @@ export const NavbarMegaMenu = ({
                   if (hasDropdownItems(link)) {
                     return (
                       <button
-                        key={`${link.title}-${index}`}
+                        key={`mobile-menu-link-${index}`}
                         type="button"
                         className="flex w-full items-center border-b border-border px-8 py-7 text-left"
                         onClick={() => setSubmenuIndex(index)}
                       >
-                        <span className="flex-1">{link.title}</span>
+                        <span className="flex-1">{link.label}</span>
                         <span className="shrink-0">
                           <DynamicIcon name="lucide/chevron-right" size={16} />
                         </span>
@@ -642,17 +673,17 @@ export const NavbarMegaMenu = ({
                     );
                   }
 
-                  if (!link.url) {
+                  if (!link.href) {
                     return null;
                   }
 
                   return (
                     <Pressable
-                      key={`${link.title}-${index}`}
-                      href={link.url}
+                      key={`mobile-menu-link-${index}`}
+                      href={link.href}
                       className="flex w-full items-center border-b border-border px-8 py-7 text-left"
                     >
-                      <span className="flex-1">{link.title}</span>
+                      <span className="flex-1">{link.label}</span>
                     </Pressable>
                   );
                 })}

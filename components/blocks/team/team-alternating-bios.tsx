@@ -69,7 +69,7 @@ export interface TeamAlternatingBiosProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -185,21 +185,21 @@ export function TeamAlternatingBios({
         key={member.name}
         className={cn(
           "grid items-center gap-8 md:grid-cols-2 lg:gap-12",
-          memberRowClassName
+          memberRowClassName,
         )}
       >
         <div
           className={cn(
             "relative",
             index % 2 === 1 ? "md:order-last" : "",
-            memberImageContainerClassName
+            memberImageContainerClassName,
           )}
         >
           <div className="relative aspect-4/3">
             <Img
               className={cn(
                 "rounded-xl object-cover w-full h-full",
-                memberImageClassName
+                memberImageClassName,
               )}
               src={member.image}
               alt={member.name}
@@ -209,7 +209,7 @@ export function TeamAlternatingBios({
           <div
             className={cn(
               "absolute -z-10 size-48 opacity-30",
-              index % 2 === 1 ? "-bottom-6 -left-6" : "-right-6 -bottom-6"
+              index % 2 === 1 ? "-bottom-6 -left-6" : "-right-6 -bottom-6",
             )}
             style={{
               backgroundImage: `url(${patternSvgs.dotPattern})`,
@@ -223,7 +223,12 @@ export function TeamAlternatingBios({
             <h3 className={cn("text-2xl font-bold", memberNameClassName)}>
               {member.name}
             </h3>
-            <p className={cn("text-muted-foreground mt-1 text-lg", memberRoleClassName)}>
+            <p
+              className={cn(
+                "text-muted-foreground mt-1 text-lg",
+                memberRoleClassName,
+              )}
+            >
               {member.role}
             </p>
           </div>
@@ -282,35 +287,38 @@ export function TeamAlternatingBios({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-10 max-w-2xl text-center lg:mb-14", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "mx-auto mb-10 max-w-2xl text-center lg:mb-14",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "text-3xl font-bold md:text-4xl md:leading-tight",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "text-muted-foreground mt-1 text-lg",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
       <div className={cn("space-y-24", membersContainerClassName)}>

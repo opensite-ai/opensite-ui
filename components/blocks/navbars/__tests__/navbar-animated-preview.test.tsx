@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { NavbarAnimatedPreview } from "../navbar-animated-preview";
-import type { IMenuLink, ILinkItem, ILinkGroup, IFeaturedImageLink } from "../navbar-animated-preview";
+import type { IMenuLink, ILinkItem, IMenuLinkGroup, IFeaturedImageLink } from "../navbar-animated-preview";
 
 vi.mock("@page-speed/img", () => ({
   Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
@@ -63,21 +63,18 @@ describe("NavbarAnimatedPreview", () => {
     },
   ];
 
-  const mockCompanyLinks: ILinkItem[] = [
+  const mockStandardLinks: ILinkItem[] = [
     {
       label: "ARC",
       description: "Tailored eCommerce solutions",
       url: "/ecommerce",
-      company: {
-        name: "ARC",
-        logo: "https://example.com/arc-logo.svg",
-      },
+      iconName: "lucide/shopping-cart",
     },
   ];
 
-  const mockGroupLinks: ILinkGroup[] = [
+  const mockGroupLinks: IMenuLinkGroup[] = [
     {
-      title: "Core Services",
+      label: "Core Services",
       links: [
         {
           label: "Hosting",
@@ -94,7 +91,7 @@ describe("NavbarAnimatedPreview", () => {
       ],
     },
     {
-      title: "Design System",
+      label: "Design System",
       links: [
         {
           label: "Components",
@@ -115,13 +112,13 @@ describe("NavbarAnimatedPreview", () => {
   it("renders basic navbar with logo and menuLinks", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Products",
+        label: "Products",
         layout: "animated-image-preview",
         links: mockAnimatedImagePreviewLinks,
       },
       {
-        title: "About",
-        url: "/about",
+        label: "About",
+        href: "/about",
       },
     ];
 
@@ -140,7 +137,7 @@ describe("NavbarAnimatedPreview", () => {
   it("renders animated-image-preview layout", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Products",
+        label: "Products",
         layout: "animated-image-preview",
         links: mockAnimatedImagePreviewLinks,
       },
@@ -157,10 +154,10 @@ describe("NavbarAnimatedPreview", () => {
   it("renders featured-cards-grid layout", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Solutions",
+        label: "Solutions",
         layout: "featured-cards-grid",
         featuredLinks: mockFeaturedLinks,
-        links: mockCompanyLinks,
+        links: mockStandardLinks,
       },
     ];
 
@@ -174,7 +171,7 @@ describe("NavbarAnimatedPreview", () => {
   it("renders grouped-links-image layout", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Platform",
+        label: "Platform",
         layout: "grouped-links-image",
         groupLinks: mockGroupLinks,
         imageLink: mockImageLink,
@@ -206,25 +203,25 @@ describe("NavbarAnimatedPreview", () => {
   it("renders all 3 layout types in one navbar", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Products",
+        label: "Products",
         layout: "animated-image-preview",
         links: mockAnimatedImagePreviewLinks,
       },
       {
-        title: "Solutions",
+        label: "Solutions",
         layout: "featured-cards-grid",
         featuredLinks: mockFeaturedLinks,
-        links: mockCompanyLinks,
+        links: mockStandardLinks,
       },
       {
-        title: "Platform",
+        label: "Platform",
         layout: "grouped-links-image",
         groupLinks: mockGroupLinks,
         imageLink: mockImageLink,
       },
       {
-        title: "Resources",
-        url: "/resources",
+        label: "Resources",
+        href: "/resources",
       },
     ];
 
@@ -239,7 +236,7 @@ describe("NavbarAnimatedPreview", () => {
   it("defaults to animated-image-preview layout when no layout specified", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Products",
+        label: "Products",
         links: mockAnimatedImagePreviewLinks,
       },
     ];
@@ -284,7 +281,7 @@ describe("NavbarAnimatedPreview", () => {
     render(
       <NavbarAnimatedPreview
         navigationSlot={<div data-testid="custom-nav">Custom Navigation</div>}
-        menuLinks={[{ title: "Products", url: "/products" }]}
+        menuLinks={[{ label: "Products", href: "/products" }]}
       />
     );
 

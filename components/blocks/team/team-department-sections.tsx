@@ -60,7 +60,7 @@ export interface TeamDepartmentSectionsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -164,7 +164,7 @@ export function TeamDepartmentSections({
         <div
           className={cn(
             "grid grid-cols-2 gap-4 border-t py-6 md:grid-cols-4",
-            membersGridClassName
+            membersGridClassName,
           )}
         >
           {department.members.map((member, memberIndex) => (
@@ -172,7 +172,7 @@ export function TeamDepartmentSections({
               <div
                 className={cn(
                   "bg-background size-20 rounded-full border p-0.5 shadow shadow-zinc-950/5",
-                  memberAvatarClassName
+                  memberAvatarClassName,
                 )}
               >
                 <Img
@@ -190,7 +190,7 @@ export function TeamDepartmentSections({
               <span
                 className={cn(
                   "text-muted-foreground block text-xs",
-                  memberRoleClassName
+                  memberRoleClassName,
                 )}
               >
                 {member.role}
@@ -211,20 +211,19 @@ export function TeamDepartmentSections({
       className={className}
     >
       <Container maxWidth="lg">
-        {heading && (
-          typeof heading === "string" ? (
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "mb-8 text-4xl font-bold md:mb-16 lg:text-5xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
 
         {renderDepartments()}
       </Container>

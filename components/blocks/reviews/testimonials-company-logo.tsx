@@ -79,7 +79,7 @@ export interface TestimonialsCompanyLogoProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -160,36 +160,38 @@ export function TestimonialsCompanyLogo({
             size={40}
             className="absolute -left-2 -top-4 text-primary/10"
           />
-          {testimonial.quote && (
-            typeof testimonial.quote === "string" ? (
-              <blockquote className={cn("relative text-xl font-medium leading-relaxed md:text-2xl", quoteClassName)}>
+          {testimonial.quote &&
+            (typeof testimonial.quote === "string" ? (
+              <blockquote
+                className={cn(
+                  "relative text-xl font-medium leading-relaxed md:text-2xl",
+                  quoteClassName,
+                )}
+              >
                 {testimonial.quote}
               </blockquote>
             ) : (
               <div className={quoteClassName}>{testimonial.quote}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("flex items-center gap-4", authorClassName)}>
           <div className="h-px flex-1 bg-border" />
           <div className="text-right">
-            {testimonial.author && (
-              typeof testimonial.author === "string" ? (
+            {testimonial.author &&
+              (typeof testimonial.author === "string" ? (
                 <p className="font-semibold">{testimonial.author}</p>
               ) : (
                 testimonial.author
-              )
-            )}
-            {testimonial.role && (
-              typeof testimonial.role === "string" ? (
+              ))}
+            {testimonial.role &&
+              (typeof testimonial.role === "string" ? (
                 <p className="text-sm text-muted-foreground">
                   {testimonial.role}
                 </p>
               ) : (
                 testimonial.role
-              )
-            )}
+              ))}
           </div>
         </div>
       </div>
@@ -204,11 +206,18 @@ export function TestimonialsCompanyLogo({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}
+      >
         {renderTestimonial()}
 
         {imageSrc && (
-          <div className={cn("relative aspect-4/3 overflow-hidden rounded-2xl", imageClassName)}>
+          <div
+            className={cn(
+              "relative aspect-4/3 overflow-hidden rounded-2xl",
+              imageClassName,
+            )}
+          >
             <Img
               src={imageSrc}
               alt={imageAlt}

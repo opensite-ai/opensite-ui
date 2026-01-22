@@ -86,7 +86,7 @@ export interface CtaSplitImageProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName;
   /**
    * Pattern overlay opacity (0-1)
    */

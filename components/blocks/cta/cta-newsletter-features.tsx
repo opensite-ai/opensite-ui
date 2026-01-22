@@ -112,7 +112,7 @@ export interface CtaNewsletterFeaturesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -254,10 +254,7 @@ export function CtaNewsletterFeatures({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -279,7 +276,7 @@ export function CtaNewsletterFeatures({
         method={formMethod}
         className={cn(
           "mx-auto mb-8 flex max-w-md flex-col gap-3 sm:flex-row",
-          formClassName
+          formClassName,
         )}
       >
         <Field name="email" className="flex-1">
@@ -317,7 +314,7 @@ export function CtaNewsletterFeatures({
       <ul
         className={cn(
           "flex flex-wrap justify-center gap-4 text-sm text-muted-foreground",
-          featuresClassName
+          featuresClassName,
         )}
       >
         {features.map((feature, index) => (
@@ -356,7 +353,7 @@ export function CtaNewsletterFeatures({
           <h2
             className={cn(
               "mb-4 text-3xl font-bold md:text-4xl",
-              headingClassName
+              headingClassName,
             )}
           >
             {heading}
@@ -364,7 +361,7 @@ export function CtaNewsletterFeatures({
           <p
             className={cn(
               "mb-8 text-lg text-muted-foreground",
-              descriptionClassName
+              descriptionClassName,
             )}
           >
             {description}

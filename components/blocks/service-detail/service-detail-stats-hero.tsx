@@ -65,7 +65,7 @@ export interface ServiceDetailStatsHeroProps {
   statsBackground?: SectionBackground;
   bodyBackground?: SectionBackground;
   bodySpacing?: SectionSpacing;
-  bodyPattern?: PatternName | string;
+  bodyPattern?: PatternName | undefined;
   bodyPatternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -137,7 +137,7 @@ export function ServiceDetailStatsHero({
               key={index}
               className={cn(
                 "rounded-lg border bg-background p-6 text-center",
-                stat.className
+                stat.className,
               )}
             >
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center">
@@ -202,7 +202,7 @@ export function ServiceDetailStatsHero({
                     <p key={paragraphIndex}>{paragraph}</p>
                   ) : (
                     <div key={paragraphIndex}>{paragraph}</div>
-                  )
+                  ),
                 )}
               </>
             )}
@@ -234,7 +234,7 @@ export function ServiceDetailStatsHero({
                 <li key={index}>{item}</li>
               ) : (
                 <li key={index}>{item}</li>
-              )
+              ),
             )}
           </ul>
         )}
@@ -247,12 +247,14 @@ export function ServiceDetailStatsHero({
       <div
         className={cn(
           "relative flex items-center justify-center py-32",
-          heroClassName
+          heroClassName,
         )}
         style={{ minHeight: heroMinHeight }}
       >
         <div className="absolute inset-0">{renderHeroImage()}</div>
-        <div className={cn("absolute inset-0 bg-black/50", heroOverlayClassName)} />
+        <div
+          className={cn("absolute inset-0 bg-black/50", heroOverlayClassName)}
+        />
 
         <div className="relative z-10 container text-center">
           <div className="mx-auto flex flex-col items-center space-y-6">
@@ -261,7 +263,7 @@ export function ServiceDetailStatsHero({
               <h1
                 className={cn(
                   "text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl",
-                  titleClassName
+                  titleClassName,
                 )}
               >
                 {typeof title === "string" ? title : title}
@@ -284,7 +286,7 @@ export function ServiceDetailStatsHero({
         <div
           className={cn(
             "mx-auto prose prose-sm max-w-3xl dark:prose-invert",
-            contentSectionsClassName
+            contentSectionsClassName,
           )}
         >
           {renderContentSections()}

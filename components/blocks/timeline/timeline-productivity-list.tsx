@@ -65,7 +65,7 @@ export interface TimelineProductivityListProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -121,11 +121,21 @@ export function TimelineProductivityList({
       patternClassName={patternClassName}
       style={style}
     >
-      <div className={cn("grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16", containerClassName)}>
+      <div
+        className={cn(
+          "grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16",
+          containerClassName,
+        )}
+      >
         <div className="lg:sticky lg:top-24 lg:self-start">
           <div className="max-w-lg">
             {heading && (
-              <h2 className={cn("text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl", headingClassName)}>
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             )}
@@ -137,17 +147,30 @@ export function TimelineProductivityList({
             {items.map((item, index) => (
               <div
                 key={index}
-                className={cn("relative flex flex-col justify-center overflow-hidden border-b py-8 shadow-none sm:py-12", itemClassName)}
+                className={cn(
+                  "relative flex flex-col justify-center overflow-hidden border-b py-8 shadow-none sm:py-12",
+                  itemClassName,
+                )}
               >
                 <div className="flex gap-4 sm:gap-6">
                   <div className={cn("shrink-0", iconClassName)}>
                     <DynamicIcon name={item.icon} size={48} />
                   </div>
                   <div>
-                    <h4 className={cn("mb-2 text-2xl font-semibold text-primary sm:text-3xl", titleClassName)}>
+                    <h4
+                      className={cn(
+                        "mb-2 text-2xl font-semibold text-primary sm:text-3xl",
+                        titleClassName,
+                      )}
+                    >
                       {item.title}
                     </h4>
-                    <p className={cn("mt-6 text-sm text-muted-foreground sm:text-base", descriptionClassName)}>
+                    <p
+                      className={cn(
+                        "mt-6 text-sm text-muted-foreground sm:text-base",
+                        descriptionClassName,
+                      )}
+                    >
                       {item.description}
                     </p>
                   </div>

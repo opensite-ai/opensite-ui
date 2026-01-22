@@ -111,7 +111,7 @@ export interface PricingSingleCardProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -246,33 +246,53 @@ export function PricingSingleCard({
     return (
       <ul className={cn("space-y-3", groupFeaturesClassName)}>
         {group.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={16}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
             <li
               key={featureIndex}
-              className={cn("flex items-start gap-3", featureItemClassName, feature.className)}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
             >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -284,12 +304,23 @@ export function PricingSingleCard({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = action;
 
     return (
       <Pressable
         asButton
-        className={cn("mt-8 w-full justify-center sm:w-auto sm:px-12", actionClassName, actionItemClassName)}
+        className={cn(
+          "mt-8 w-full justify-center sm:w-auto sm:px-12",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -311,13 +342,14 @@ export function PricingSingleCard({
       <div className={cn("grid gap-8 md:grid-cols-3", groupsClassName)}>
         {featureGroups.map((group, groupIndex) => (
           <div key={groupIndex} className={group.className}>
-            {group.title && (
-              typeof group.title === "string" ? (
-                <h3 className={cn("mb-4 font-semibold", groupTitleClassName)}>{group.title}</h3>
+            {group.title &&
+              (typeof group.title === "string" ? (
+                <h3 className={cn("mb-4 font-semibold", groupTitleClassName)}>
+                  {group.title}
+                </h3>
               ) : (
                 <div className={groupTitleClassName}>{group.title}</div>
-              )
-            )}
+              ))}
             {renderGroupFeatures(group)}
           </div>
         ))}
@@ -335,38 +367,61 @@ export function PricingSingleCard({
       className={className}
     >
       <div className={cn("mx-auto max-w-2xl", containerClassName)}>
-        <div className={cn("rounded-2xl border bg-card p-8 shadow-lg md:p-12", cardClassName)}>
+        <div
+          className={cn(
+            "rounded-2xl border bg-card p-8 shadow-lg md:p-12",
+            cardClassName,
+          )}
+        >
           <div className={cn("text-center", headerClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-2xl font-bold tracking-tight sm:text-3xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-2xl font-bold tracking-tight sm:text-3xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-2 text-muted-foreground", descriptionClassName)}>{description}</p>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-2 text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
 
             <div className="mt-8">
               {price && (
-                <span className={cn("text-5xl font-bold", priceClassName)}>{price}</span>
+                <span className={cn("text-5xl font-bold", priceClassName)}>
+                  {price}
+                </span>
               )}
-              {priceDescription && (
-                typeof priceDescription === "string" ? (
-                  <p className={cn("mt-2 text-sm text-muted-foreground", priceDescriptionClassName)}>
+              {priceDescription &&
+                (typeof priceDescription === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-2 text-sm text-muted-foreground",
+                      priceDescriptionClassName,
+                    )}
+                  >
                     {priceDescription}
                   </p>
                 ) : (
-                  <div className={priceDescriptionClassName}>{priceDescription}</div>
-                )
-              )}
+                  <div className={priceDescriptionClassName}>
+                    {priceDescription}
+                  </div>
+                ))}
             </div>
 
             {renderAction()}

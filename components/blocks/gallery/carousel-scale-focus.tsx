@@ -95,7 +95,7 @@ export interface CarouselScaleFocusProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -182,11 +182,14 @@ export function CarouselScaleFocus({
             current === index + 1
               ? "scale-100 opacity-100"
               : "scale-70 opacity-40",
-            img.className
+            img.className,
           )}
         >
           <Img
-            className={cn("block size-full object-cover object-center", imageClassName)}
+            className={cn(
+              "block size-full object-cover object-center",
+              imageClassName,
+            )}
             src={img.src}
             alt={img.alt}
             loading="lazy"
@@ -208,7 +211,10 @@ export function CarouselScaleFocus({
     >
       <div className="md:px-45">
         <Carousel
-          className={cn("mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible", carouselClassName)}
+          className={cn(
+            "mx-auto w-full max-w-200 [&>div:nth-child(1)]:md:overflow-visible",
+            carouselClassName,
+          )}
           setApi={setApi}
           opts={{
             startIndex,
@@ -228,7 +234,12 @@ export function CarouselScaleFocus({
             />
           </div>
         </Carousel>
-        <div className={cn("mx-auto mt-10 flex w-full max-w-135.75 items-center justify-center", indicatorsClassName)}>
+        <div
+          className={cn(
+            "mx-auto mt-10 flex w-full max-w-135.75 items-center justify-center",
+            indicatorsClassName,
+          )}
+        >
           {Array.from({ length: count }).map((_, index) => (
             <button
               aria-label={`Go to slide ${index + 1}`}
@@ -242,7 +253,7 @@ export function CarouselScaleFocus({
                 className={cn(
                   "size-3 rounded-full",
                   current === index + 1 ? "bg-primary" : "bg-primary/10",
-                  indicatorClassName
+                  indicatorClassName,
                 )}
               />
             </button>

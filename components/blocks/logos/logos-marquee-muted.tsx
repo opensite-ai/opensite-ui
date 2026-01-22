@@ -5,13 +5,13 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosMarqueeMutedLogoItem {
   /**
@@ -84,7 +84,7 @@ export interface LogosMarqueeMutedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -133,16 +133,24 @@ export function LogosMarqueeMuted({
               key={index}
               className={cn(
                 "flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6",
-                carouselItemClassName
+                carouselItemClassName,
               )}
             >
-              <div className={cn("mx-8 flex shrink-0 items-center justify-center", logoWrapperClassName)}>
+              <div
+                className={cn(
+                  "mx-8 flex shrink-0 items-center justify-center",
+                  logoWrapperClassName,
+                )}
+              >
                 <Img
                   src={logo.logo}
                   alt={`${logo.name} logo`}
                   width={120}
                   height={40}
-                  className={cn("h-8 w-auto object-contain opacity-60 grayscale", logo.imgClassName)}
+                  className={cn(
+                    "h-8 w-auto object-contain opacity-60 grayscale",
+                    logo.imgClassName,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -164,7 +172,12 @@ export function LogosMarqueeMuted({
       {heading && (
         <div className="container mb-12">
           {typeof heading === "string" ? (
-            <p className={cn("text-center text-lg font-medium text-muted-foreground", headingClassName)}>
+            <p
+              className={cn(
+                "text-center text-lg font-medium text-muted-foreground",
+                headingClassName,
+              )}
+            >
               {heading}
             </p>
           ) : (
@@ -174,8 +187,18 @@ export function LogosMarqueeMuted({
       )}
       <div className={cn("relative", logosClassName)}>
         {renderLogos()}
-        <div className={cn("pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-muted to-transparent", leftFadeClassName)} />
-        <div className={cn("pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-muted to-transparent", rightFadeClassName)} />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-muted to-transparent",
+            leftFadeClassName,
+          )}
+        />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-muted to-transparent",
+            rightFadeClassName,
+          )}
+        />
       </div>
     </Section>
   );

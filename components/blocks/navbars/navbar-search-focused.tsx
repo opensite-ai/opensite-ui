@@ -125,7 +125,7 @@ export interface NavbarSearchFocusedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -191,13 +191,14 @@ export const NavbarSearchFocused = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
-            <span className="hidden text-lg font-semibold sm:inline-block">{logo.title}</span>
+        {logo.title &&
+          (typeof logo.title === "string" ? (
+            <span className="hidden text-lg font-semibold sm:inline-block">
+              {logo.title}
+            </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -215,7 +216,10 @@ export const NavbarSearchFocused = ({
               className={navigationMenuTriggerStyle()}
             >
               <Pressable href={item.url}>
-                {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={16} />)}
+                {item.icon ??
+                  (item.iconName && (
+                    <DynamicIcon name={item.iconName} size={16} />
+                  ))}
                 {item.title}
               </Pressable>
             </NavigationMenuLink>
@@ -230,7 +234,15 @@ export const NavbarSearchFocused = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, "aria-label": ariaLabel, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        "aria-label": ariaLabel,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -284,18 +296,29 @@ export const NavbarSearchFocused = ({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <nav className={cn("flex items-center gap-4 py-3 lg:gap-8", navClassName)}>
+        <nav
+          className={cn("flex items-center gap-4 py-3 lg:gap-8", navClassName)}
+        >
           {renderLogo()}
 
-          <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
+          <NavigationMenu
+            className={cn("hidden lg:flex", navigationMenuClassName)}
+          >
             {renderNavigation(navItems?.slice(0, 2) ?? [])}
           </NavigationMenu>
 
-          <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
+          <NavigationMenu
+            className={cn("hidden lg:flex", navigationMenuClassName)}
+          >
             {renderNavigation(navItems?.slice(2) ?? [])}
           </NavigationMenu>
 
-          <div className={cn("hidden shrink-0 items-center gap-2 lg:flex", actionsClassName)}>
+          <div
+            className={cn(
+              "hidden shrink-0 items-center gap-2 lg:flex",
+              actionsClassName,
+            )}
+          >
             {renderAuthActions()}
           </div>
 
@@ -322,14 +345,15 @@ export const NavbarSearchFocused = ({
                       className="flex items-center gap-2 rounded-md py-2 text-base font-medium"
                       onClick={() => setIsOpen(false)}
                     >
-                      {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={16} />)}
+                      {item.icon ??
+                        (item.iconName && (
+                          <DynamicIcon name={item.iconName} size={16} />
+                        ))}
                       {item.title}
                     </Pressable>
                   ))}
                 </div>
-                <div className="border-t pt-4">
-                  {renderMobileMenuActions()}
-                </div>
+                <div className="border-t pt-4">{renderMobileMenuActions()}</div>
                 <div className="border-t pt-4">
                   <Pressable asButton href="#" className="w-full">
                     Sign in

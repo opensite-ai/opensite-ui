@@ -7,7 +7,12 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosPartnerNetworkLogoItem {
   /**
@@ -100,7 +105,7 @@ export interface LogosPartnerNetworkProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -167,7 +172,7 @@ export function LogosPartnerNetwork({
         className={cn(
           "flex items-center justify-center p-4 grayscale transition-all hover:grayscale-0",
           logoWrapperClassName,
-          partner.className
+          partner.className,
         )}
       >
         <Img
@@ -190,39 +195,54 @@ export function LogosPartnerNetwork({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-        {badge && (
-          typeof badge === "string" ? (
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
+      >
+        {badge &&
+          (typeof badge === "string" ? (
             <Badge variant="outline" className={cn("mb-4", badgeClassName)}>
               {badge}
             </Badge>
           ) : (
             <div className={badgeClassName}>{badge}</div>
-          )
-        )}
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("mb-4 max-w-2xl text-3xl font-bold md:text-4xl", titleClassName)}>
+          ))}
+        {title &&
+          (typeof title === "string" ? (
+            <h2
+              className={cn(
+                "mb-4 max-w-2xl text-3xl font-bold md:text-4xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h2>
           ) : (
             <div className={titleClassName}>{title}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mb-8 max-w-xl text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mb-8 max-w-xl text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        <div className={actionsClassName}>
-          {renderActions()}
-        </div>
+          ))}
+        <div className={actionsClassName}>{renderActions()}</div>
       </div>
-      <div className={cn("mt-16 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4", logosClassName)}>
+      <div
+        className={cn(
+          "mt-16 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4",
+          logosClassName,
+        )}
+      >
         {renderLogos()}
       </div>
     </Section>

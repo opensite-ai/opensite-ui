@@ -56,7 +56,7 @@ export interface FaqBorderedBadgeProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -154,7 +154,7 @@ export function FaqBorderedBadge({
             <AccordionTrigger
               className={cn(
                 "font-semibold hover:no-underline",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               {item.question}
@@ -183,7 +183,7 @@ export function FaqBorderedBadge({
         <div
           className={cn(
             "flex flex-col items-center gap-4 text-center",
-            headerClassName
+            headerClassName,
           )}
         >
           {badge && (
@@ -191,40 +191,36 @@ export function FaqBorderedBadge({
               variant="outline"
               className={cn("flex items-center gap-2", badgeClassName)}
             >
-              {badgeIcon && (
-                <DynamicIcon name={badgeIcon} className="size-4" />
-              )}
+              {badgeIcon && <DynamicIcon name={badgeIcon} className="size-4" />}
               {badge}
             </Badge>
           )}
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h1
                 className={cn(
                   "max-w-2xl text-3xl font-semibold md:text-4xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
+            ))}
+          {description &&
+            (typeof description === "string" ? (
               <p
                 className={cn(
                   "text-muted-foreground max-w-2xl",
-                  descriptionClassName
+                  descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         <div
           className={cn("mx-auto mt-10 max-w-3xl", accordionWrapperClassName)}

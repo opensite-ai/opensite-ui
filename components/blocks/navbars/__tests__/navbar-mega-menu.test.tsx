@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { NavbarMegaMenu } from "../navbar-mega-menu";
-import type { IMenuLink, ILinkItem, IGridItem, IListItem } from "../navbar-mega-menu";
+import type { IMenuLink, ILinkItem } from "../navbar-mega-menu";
 
 vi.mock("@page-speed/img", () => ({
   Img: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
@@ -63,8 +63,8 @@ describe("NavbarMegaMenu", () => {
 
   it("renders simple menu links without dropdown", () => {
     const menuLinks: IMenuLink[] = [
-      { title: "About", url: "/about" },
-      { title: "Contact", url: "/contact" },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
     ];
 
     render(<NavbarMegaMenu logo={mockLogo} menuLinks={menuLinks} />);
@@ -90,7 +90,7 @@ describe("NavbarMegaMenu", () => {
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Products",
+        label: "Products",
         layout: "animated-image-preview",
         links,
       },
@@ -101,26 +101,26 @@ describe("NavbarMegaMenu", () => {
   });
 
   it("renders simple-grid layout", () => {
-    const gridItems: IGridItem[] = [
+    const links: ILinkItem[] = [
       {
-        title: "Analytics",
+        label: "Analytics",
         description: "Data insights",
-        href: "/analytics",
-        icon: "lucide/bar-chart",
+        url: "/analytics",
+        iconName: "lucide/bar-chart",
       },
       {
-        title: "Reports",
+        label: "Reports",
         description: "Generate reports",
-        href: "/reports",
-        imgUrl: "https://example.com/reports.jpg",
+        url: "/reports",
+        image: "https://example.com/reports.jpg",
       },
     ];
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Features",
+        label: "Features",
         layout: "simple-grid",
-        gridItems,
+        links,
       },
     ];
 
@@ -129,26 +129,26 @@ describe("NavbarMegaMenu", () => {
   });
 
   it("renders list-with-icons layout", () => {
-    const listItems: IListItem[] = [
+    const links: ILinkItem[] = [
       {
-        title: "Documentation",
+        label: "Documentation",
         description: "Complete guides",
-        href: "/docs",
-        icon: "lucide/book",
+        url: "/docs",
+        iconName: "lucide/book",
       },
       {
-        title: "API Reference",
+        label: "API Reference",
         description: "API documentation",
-        href: "/api",
-        icon: "lucide/code",
+        url: "/api",
+        iconName: "lucide/code",
       },
     ];
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Resources",
+        label: "Resources",
         layout: "list-with-icons",
-        listItems,
+        links,
       },
     ];
 
@@ -158,9 +158,9 @@ describe("NavbarMegaMenu", () => {
 
   it("renders mixed menu links with different layouts", () => {
     const menuLinks: IMenuLink[] = [
-      { title: "About", url: "/about" },
+      { label: "About", href: "/about" },
       {
-        title: "Products",
+        label: "Products",
         layout: "animated-image-preview",
         links: [
           {
@@ -172,18 +172,18 @@ describe("NavbarMegaMenu", () => {
         ],
       },
       {
-        title: "Features",
+        label: "Features",
         layout: "simple-grid",
-        gridItems: [
+        links: [
           {
-            title: "Feature 1",
+            label: "Feature 1",
             description: "First feature",
-            href: "/feature-1",
-            icon: "lucide/star",
+            url: "/feature-1",
+            iconName: "lucide/star",
           },
         ],
       },
-      { title: "Contact", url: "/contact" },
+      { label: "Contact", href: "/contact" },
     ];
 
     render(<NavbarMegaMenu logo={mockLogo} menuLinks={menuLinks} />);
@@ -196,7 +196,7 @@ describe("NavbarMegaMenu", () => {
   it("renders all 3 layout types in one navbar", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Products",
+        label: "Products",
         layout: "animated-image-preview",
         links: [
           {
@@ -208,26 +208,26 @@ describe("NavbarMegaMenu", () => {
         ],
       },
       {
-        title: "Features",
+        label: "Features",
         layout: "simple-grid",
-        gridItems: [
+        links: [
           {
-            title: "Feature 1",
+            label: "Feature 1",
             description: "First feature",
-            href: "/feature-1",
-            icon: "lucide/star",
+            url: "/feature-1",
+            iconName: "lucide/star",
           },
         ],
       },
       {
-        title: "Resources",
+        label: "Resources",
         layout: "list-with-icons",
-        listItems: [
+        links: [
           {
-            title: "Documentation",
+            label: "Documentation",
             description: "Complete guides",
-            href: "/docs",
-            icon: "lucide/book",
+            url: "/docs",
+            iconName: "lucide/book",
           },
         ],
       },
@@ -242,13 +242,13 @@ describe("NavbarMegaMenu", () => {
   it("defaults to simple-grid layout when no layout specified", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Default",
-        gridItems: [
+        label: "Default",
+        links: [
           {
-            title: "Item 1",
+            label: "Item 1",
             description: "First item",
-            href: "/item-1",
-            icon: "lucide/box",
+            url: "/item-1",
+            iconName: "lucide/box",
           },
         ],
       },

@@ -96,7 +96,7 @@ export interface IndustriesHoverRevealGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -164,7 +164,7 @@ export function IndustriesHoverRevealGrid({
       <h2
         className={cn(
           "mb-8 text-3xl font-medium text-foreground",
-          headingClassName
+          headingClassName,
         )}
       >
         {heading}
@@ -182,7 +182,7 @@ export function IndustriesHoverRevealGrid({
       <div
         className={cn(
           "grid grid-cols-1 gap-1 lg:grid-cols-2 xl:grid-cols-4",
-          gridClassName
+          gridClassName,
         )}
       >
         {industries.map((industry, index) => (

@@ -134,7 +134,7 @@ export interface CtaWorkflowTabsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -203,7 +203,7 @@ export function CtaWorkflowTabs({
       <div
         className={cn(
           "mb-8 flex flex-col justify-center gap-3 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -246,7 +246,7 @@ export function CtaWorkflowTabs({
           <div
             className={cn(
               "inline-flex rounded-lg border bg-muted p-1",
-              tabButtonsClassName
+              tabButtonsClassName,
             )}
           >
             {tabs.map((tab) => (
@@ -259,11 +259,13 @@ export function CtaWorkflowTabs({
                     ? "bg-background text-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground",
                   tabButtonClassName,
-                  tab.className
+                  tab.className,
                 )}
               >
                 {tab.icon ??
-                  (tab.iconName && <DynamicIcon name={tab.iconName} size={16} />)}
+                  (tab.iconName && (
+                    <DynamicIcon name={tab.iconName} size={16} />
+                  ))}
                 {tab.label}
               </button>
             ))}
@@ -274,7 +276,7 @@ export function CtaWorkflowTabs({
           <div
             className={cn(
               "grid gap-8 lg:grid-cols-2 lg:items-center",
-              tabContentClassName
+              tabContentClassName,
             )}
           >
             <div>
@@ -303,7 +305,7 @@ export function CtaWorkflowTabs({
             <div
               className={cn(
                 "overflow-hidden rounded-xl border shadow-lg",
-                tabImageClassName
+                tabImageClassName,
               )}
             >
               <Img
@@ -336,7 +338,7 @@ export function CtaWorkflowTabs({
           <h2
             className={cn(
               "mb-4 text-3xl font-bold md:text-5xl",
-              headingClassName
+              headingClassName,
             )}
           >
             {heading}
@@ -344,7 +346,7 @@ export function CtaWorkflowTabs({
           <p
             className={cn(
               "mb-8 text-lg text-muted-foreground",
-              descriptionClassName
+              descriptionClassName,
             )}
           >
             {description}

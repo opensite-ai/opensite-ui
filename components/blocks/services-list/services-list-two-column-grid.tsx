@@ -7,7 +7,11 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for two-column grid display
@@ -119,7 +123,7 @@ export interface ServicesListTwoColumnGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -169,7 +173,8 @@ export function ServicesListTwoColumnGrid({
 }: ServicesListTwoColumnGridProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListTwoColumnGridService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;
   };
 
@@ -219,29 +224,33 @@ export function ServicesListTwoColumnGrid({
             className={cn(
               "group flex flex-col rounded-xl border border-border p-6 transition-all hover:border-primary hover:shadow-md",
               cardClassName,
-              service.className
+              service.className,
             )}
           >
-            <div className={cn(
-              "mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
-              iconClassName
-            )}>
+            <div
+              className={cn(
+                "mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+                iconClassName,
+              )}
+            >
               {renderServiceIcon(service)}
             </div>
-            {service.title && (
-              typeof service.title === "string" ? (
+            {service.title &&
+              (typeof service.title === "string" ? (
                 <h3 className="text-lg font-semibold">{service.title}</h3>
               ) : (
                 <div className="text-lg font-semibold">{service.title}</div>
-              )
-            )}
-            {service.description && (
-              typeof service.description === "string" ? (
-                <p className="mt-2 text-sm text-muted-foreground">{service.description}</p>
+              ))}
+            {service.description &&
+              (typeof service.description === "string" ? (
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {service.description}
+                </p>
               ) : (
-                <div className="mt-2 text-sm text-muted-foreground">{service.description}</div>
-              )
-            )}
+                <div className="mt-2 text-sm text-muted-foreground">
+                  {service.description}
+                </div>
+              ))}
             <div className="mt-auto pt-4">
               <span className="inline-flex items-center text-sm font-medium text-primary">
                 Learn more
@@ -265,33 +274,47 @@ export function ServicesListTwoColumnGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", containerClassName)}>
+      <div
+        className={cn(
+          "grid gap-12 lg:grid-cols-2 lg:gap-16",
+          containerClassName,
+        )}
+      >
         <div className={cn("flex flex-col justify-center", contentClassName)}>
-          {badge && (
-            typeof badge === "string" ? (
-              <Badge variant="outline" className="mb-4 w-fit">{badge}</Badge>
+          {badge &&
+            (typeof badge === "string" ? (
+              <Badge variant="outline" className="mb-4 w-fit">
+                {badge}
+              </Badge>
             ) : (
               <div className="mb-4 w-fit">{badge}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg leading-relaxed text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderActions()}
         </div>
         {renderServices()}

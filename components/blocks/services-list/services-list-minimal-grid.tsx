@@ -106,7 +106,7 @@ export interface ServicesListMinimalGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -152,7 +152,8 @@ export function ServicesListMinimalGrid({
 }: ServicesListMinimalGridProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListMinimalGridService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;
   };
 
@@ -161,38 +162,49 @@ export function ServicesListMinimalGrid({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {services.map((service, index) => (
           <div
             key={index}
             className={cn(
               "group rounded-lg border border-border p-6 transition-all hover:border-primary/50 hover:shadow-md",
               cardClassName,
-              service.className
+              service.className,
             )}
           >
             {(service.icon || service.iconName) && (
-              <div className={cn(
-                "mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
-                iconClassName
-              )}>
+              <div
+                className={cn(
+                  "mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+                  iconClassName,
+                )}
+              >
                 {renderServiceIcon(service)}
               </div>
             )}
-            {service.title && (
-              typeof service.title === "string" ? (
+            {service.title &&
+              (typeof service.title === "string" ? (
                 <h3 className="mb-2 text-lg font-semibold">{service.title}</h3>
               ) : (
-                <div className="mb-2 text-lg font-semibold">{service.title}</div>
-              )
-            )}
-            {service.description && (
-              typeof service.description === "string" ? (
-                <p className="mb-4 text-sm text-muted-foreground">{service.description}</p>
+                <div className="mb-2 text-lg font-semibold">
+                  {service.title}
+                </div>
+              ))}
+            {service.description &&
+              (typeof service.description === "string" ? (
+                <p className="mb-4 text-sm text-muted-foreground">
+                  {service.description}
+                </p>
               ) : (
-                <div className="mb-4 text-sm text-muted-foreground">{service.description}</div>
-              )
-            )}
+                <div className="mb-4 text-sm text-muted-foreground">
+                  {service.description}
+                </div>
+              ))}
             {service.ctaText && (
               <Pressable
                 href={service.ctaUrl}
@@ -200,7 +212,10 @@ export function ServicesListMinimalGrid({
                 className="inline-flex items-center text-sm font-medium text-primary hover:underline"
               >
                 {service.ctaText}
-                <DynamicIcon name="lucide/arrow-right" className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
+                />
               </Pressable>
             )}
           </div>
@@ -219,24 +234,32 @@ export function ServicesListMinimalGrid({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

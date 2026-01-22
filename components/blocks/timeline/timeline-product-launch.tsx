@@ -98,7 +98,7 @@ export interface TimelineProductLaunchProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -188,12 +188,36 @@ export function TimelineProductLaunch({
     >
       <div className={containerClassName}>
         <div className="flex flex-col">
-          <h1 className={cn("mb-2 text-3xl font-semibold md:text-5xl", headingClassName)}>{heading}</h1>
-          <p className={cn("max-w-2xl text-muted-foreground", descriptionClassName)}>{description}</p>
+          <h1
+            className={cn(
+              "mb-2 text-3xl font-semibold md:text-5xl",
+              headingClassName,
+            )}
+          >
+            {heading}
+          </h1>
+          <p
+            className={cn(
+              "max-w-2xl text-muted-foreground",
+              descriptionClassName,
+            )}
+          >
+            {description}
+          </p>
         </div>
-        <div className={cn("mt-8 flex flex-col gap-6 rounded-xl border border-border bg-card p-4 sm:p-8 lg:p-11", cardClassName)}>
+        <div
+          className={cn(
+            "mt-8 flex flex-col gap-6 rounded-xl border border-border bg-card p-4 sm:p-8 lg:p-11",
+            cardClassName,
+          )}
+        >
           <div className="contents items-center justify-between sm:flex">
-            <h2 className={cn("text-2xl font-semibold tracking-tight", cardHeadingClassName)}>
+            <h2
+              className={cn(
+                "text-2xl font-semibold tracking-tight",
+                cardHeadingClassName,
+              )}
+            >
               {cardHeading}
             </h2>
             {renderCta()}
@@ -201,7 +225,12 @@ export function TimelineProductLaunch({
           {steps && steps.length > 0 && (
             <div className="mt-3 flex gap-4 sm:flex-col">
               <div className="relative">
-                <div className={cn("grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:items-center", `sm:grid-cols-${steps.length}`)}>
+                <div
+                  className={cn(
+                    "grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:items-center",
+                    `sm:grid-cols-${steps.length}`,
+                  )}
+                >
                   <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-ring sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:translate-x-0" />
                   {steps.map((_, index) => (
                     <span
@@ -210,7 +239,12 @@ export function TimelineProductLaunch({
                     />
                   ))}
                 </div>
-                <div className={cn("animate-timeline-reveal absolute inset-0 grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:items-center", `sm:grid-cols-${steps.length}`)}>
+                <div
+                  className={cn(
+                    "animate-timeline-reveal absolute inset-0 grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:items-center",
+                    `sm:grid-cols-${steps.length}`,
+                  )}
+                >
                   <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-primary sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:translate-x-0" />
                   {steps.map((_, index) => (
                     <span
@@ -220,14 +254,28 @@ export function TimelineProductLaunch({
                   ))}
                 </div>
               </div>
-              <div className={cn("grid gap-10", `sm:grid-cols-${steps.length}`, stepsClassName)}>
+              <div
+                className={cn(
+                  "grid gap-10",
+                  `sm:grid-cols-${steps.length}`,
+                  stepsClassName,
+                )}
+              >
                 {steps.map((step, index) => (
                   <div
                     key={index}
-                    className={cn("flex h-full flex-col justify-between gap-4", stepClassName)}
+                    className={cn(
+                      "flex h-full flex-col justify-between gap-4",
+                      stepClassName,
+                    )}
                   >
                     <div className="flex flex-col">
-                      <div className={cn("flex h-8 w-fit items-center gap-px overflow-hidden rounded-md border border-border bg-border text-sm font-medium", stepTitleClassName)}>
+                      <div
+                        className={cn(
+                          "flex h-8 w-fit items-center gap-px overflow-hidden rounded-md border border-border bg-border text-sm font-medium",
+                          stepTitleClassName,
+                        )}
+                      >
                         <span className="grid h-full place-items-center bg-background px-2">
                           {step.number}
                         </span>
@@ -235,14 +283,26 @@ export function TimelineProductLaunch({
                           {step.title}
                         </span>
                       </div>
-                      <h3 className={cn("mt-5 font-medium", stepHeadingClassName)}>{step.heading}</h3>
-                      <p className={cn("mt-2 text-sm text-muted-foreground", stepDescriptionClassName)}>
+                      <h3
+                        className={cn("mt-5 font-medium", stepHeadingClassName)}
+                      >
+                        {step.heading}
+                      </h3>
+                      <p
+                        className={cn(
+                          "mt-2 text-sm text-muted-foreground",
+                          stepDescriptionClassName,
+                        )}
+                      >
                         {step.description}
                       </p>
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <Progress value={step.progress} className="h-1 flex-1" />
+                        <Progress
+                          value={step.progress}
+                          className="h-1 flex-1"
+                        />
                         <span className="w-8 text-right text-xs text-muted-foreground">
                           {step.progress}%
                         </span>

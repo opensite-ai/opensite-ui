@@ -6,7 +6,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Step item configuration for numbered steps display
@@ -98,7 +102,7 @@ export interface ServicesListNumberedStepsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -172,28 +176,39 @@ export function ServicesListNumberedSteps({
         <div className="absolute left-8 top-0 hidden h-full w-px bg-border md:block" />
         <div className={cn("space-y-12", stepsClassName)}>
           {steps.map((step, index) => (
-            <div key={index} className={cn("relative flex gap-8", stepClassName, step.className)}>
-              <div className={cn(
-                "relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-background text-2xl font-bold text-primary",
-                numberClassName
-              )}>
+            <div
+              key={index}
+              className={cn(
+                "relative flex gap-8",
+                stepClassName,
+                step.className,
+              )}
+            >
+              <div
+                className={cn(
+                  "relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-background text-2xl font-bold text-primary",
+                  numberClassName,
+                )}
+              >
                 {String(index + 1).padStart(2, "0")}
               </div>
               <div className="flex-1 pt-3">
-                {step.title && (
-                  typeof step.title === "string" ? (
+                {step.title &&
+                  (typeof step.title === "string" ? (
                     <h3 className="text-xl font-bold">{step.title}</h3>
                   ) : (
                     <div className="text-xl font-bold">{step.title}</div>
-                  )
-                )}
-                {step.description && (
-                  typeof step.description === "string" ? (
-                    <p className="mt-2 text-muted-foreground leading-relaxed">{step.description}</p>
+                  ))}
+                {step.description &&
+                  (typeof step.description === "string" ? (
+                    <p className="mt-2 text-muted-foreground leading-relaxed">
+                      {step.description}
+                    </p>
                   ) : (
-                    <div className="mt-2 text-muted-foreground leading-relaxed">{step.description}</div>
-                  )
-                )}
+                    <div className="mt-2 text-muted-foreground leading-relaxed">
+                      {step.description}
+                    </div>
+                  ))}
                 {step.items && step.items.length > 0 && (
                   <div className="mt-4 flex flex-wrap gap-2">
                     {step.items.map((item, itemIndex) => (
@@ -201,7 +216,10 @@ export function ServicesListNumberedSteps({
                         key={itemIndex}
                         className="inline-flex items-center rounded-full border border-border bg-muted/50 px-3 py-1 text-sm"
                       >
-                        <DynamicIcon name="lucide/check" className="mr-1.5 h-3.5 w-3.5 text-primary" />
+                        <DynamicIcon
+                          name="lucide/check"
+                          className="mr-1.5 h-3.5 w-3.5 text-primary"
+                        />
                         {typeof item === "string" ? item : <span>{item}</span>}
                       </span>
                     ))}
@@ -225,24 +243,32 @@ export function ServicesListNumberedSteps({
     >
       <div className={cn("mx-auto max-w-4xl space-y-16", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderSteps()}
         {renderActions()}

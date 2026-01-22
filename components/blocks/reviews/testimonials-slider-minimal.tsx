@@ -61,7 +61,7 @@ export interface TestimonialsSliderMinimalProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -143,7 +143,7 @@ export function TestimonialsSliderMinimal({
         setIsTransitioning(false);
       }, 300);
     },
-    [currentIndex]
+    [currentIndex],
   );
 
   useEffect(() => {
@@ -185,46 +185,46 @@ export function TestimonialsSliderMinimal({
       <div
         className={cn(
           "transition-opacity duration-300",
-          isTransitioning ? "opacity-0" : "opacity-100"
+          isTransitioning ? "opacity-0" : "opacity-100",
         )}
       >
-        {current.quote && (
-          typeof current.quote === "string" ? (
-            <blockquote className={cn("text-xl font-medium leading-relaxed md:text-2xl lg:text-3xl", quoteClassName)}>
+        {current.quote &&
+          (typeof current.quote === "string" ? (
+            <blockquote
+              className={cn(
+                "text-xl font-medium leading-relaxed md:text-2xl lg:text-3xl",
+                quoteClassName,
+              )}
+            >
               &ldquo;{current.quote}&rdquo;
             </blockquote>
           ) : (
             <div className={quoteClassName}>{current.quote}</div>
-          )
-        )}
+          ))}
 
-        <div className={cn("mt-8 flex flex-col items-center gap-4", authorClassName)}>
+        <div
+          className={cn(
+            "mt-8 flex flex-col items-center gap-4",
+            authorClassName,
+          )}
+        >
           <Avatar className={cn("size-14", avatarClassName)}>
-            <AvatarImage
-              src={avatarSrc}
-              alt={authorName}
-            />
-            <AvatarFallback>
-              {getInitials(authorName)}
-            </AvatarFallback>
+            <AvatarImage src={avatarSrc} alt={authorName} />
+            <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
           </Avatar>
           <div>
-            {current.author && (
-              typeof current.author === "string" ? (
+            {current.author &&
+              (typeof current.author === "string" ? (
                 <p className="font-semibold">{current.author}</p>
               ) : (
                 current.author
-              )
-            )}
-            {current.role && (
-              typeof current.role === "string" ? (
-                <p className="text-sm text-muted-foreground">
-                  {current.role}
-                </p>
+              ))}
+            {current.role &&
+              (typeof current.role === "string" ? (
+                <p className="text-sm text-muted-foreground">{current.role}</p>
               ) : (
                 current.role
-              )
-            )}
+              ))}
           </div>
         </div>
       </div>
@@ -251,7 +251,7 @@ export function TestimonialsSliderMinimal({
                 "size-2 rounded-full transition-all",
                 index === currentIndex
                   ? "w-6 bg-primary"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50",
               )}
               aria-label={`Go to testimonial ${index + 1}`}
             />

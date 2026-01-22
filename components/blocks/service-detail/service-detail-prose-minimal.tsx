@@ -43,7 +43,7 @@ export interface ServiceDetailProseMinimalProps {
   headerBackground?: SectionBackground;
   bodyBackground?: SectionBackground;
   bodySpacing?: SectionSpacing;
-  bodyPattern?: PatternName | string;
+  bodyPattern?: PatternName | undefined;
   bodyPatternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -74,12 +74,14 @@ export function ServiceDetailProseMinimal({
     if (introSlot) return introSlot;
 
     return (
-      <div className={cn("mx-auto max-w-3xl space-y-8 text-left", introClassName)}>
+      <div
+        className={cn("mx-auto max-w-3xl space-y-8 text-left", introClassName)}
+      >
         {introTitle && (
           <h2
             className={cn(
               "text-3xl font-semibold tracking-tight md:text-4xl",
-              introTitleClassName
+              introTitleClassName,
             )}
           >
             {typeof introTitle === "string" ? introTitle : introTitle}
@@ -89,7 +91,7 @@ export function ServiceDetailProseMinimal({
           <p
             className={cn(
               "text-xl leading-relaxed text-muted-foreground",
-              introDescriptionClassName
+              introDescriptionClassName,
             )}
           >
             {typeof introDescription === "string"
@@ -125,7 +127,7 @@ export function ServiceDetailProseMinimal({
                     <p key={paragraphIndex}>{paragraph}</p>
                   ) : (
                     <div key={paragraphIndex}>{paragraph}</div>
-                  )
+                  ),
                 )}
               </>
             )}
@@ -157,7 +159,7 @@ export function ServiceDetailProseMinimal({
                 <li key={index}>{item}</li>
               ) : (
                 <li key={index}>{item}</li>
-              )
+              ),
             )}
           </ul>
         )}
@@ -173,7 +175,7 @@ export function ServiceDetailProseMinimal({
             <h1
               className={cn(
                 "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
-                titleClassName
+                titleClassName,
               )}
             >
               {typeof title === "string" ? title : title}
@@ -200,7 +202,7 @@ export function ServiceDetailProseMinimal({
         <div
           className={cn(
             "mx-auto prose prose-sm max-w-3xl dark:prose-invert",
-            contentSectionsClassName
+            contentSectionsClassName,
           )}
         >
           {renderContentSections()}

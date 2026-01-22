@@ -113,7 +113,7 @@ export interface NavbarSimpleLinksProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -155,7 +155,13 @@ const AnimatedHamburger = ({ isOpen }: { isOpen: boolean }) => {
   );
 };
 
-const MobileNav = ({ navItems, activeItem, setActiveItem, actions, actionsSlot }: MobileNavProps) => {
+const MobileNav = ({
+  navItems,
+  activeItem,
+  setActiveItem,
+  actions,
+  actionsSlot,
+}: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const renderActions = () => {
@@ -163,7 +169,14 @@ const MobileNav = ({ navItems, activeItem, setActiveItem, actions, actionsSlot }
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -257,14 +270,16 @@ export const NavbarSimpleLinks = ({
   patternOpacity,
   optixFlowConfig,
 }: NavbarSimpleLinksProps) => {
-  const [activeItem, setActiveItem] = useState(defaultActiveItem || navItems?.[0]?.name || "");
+  const [activeItem, setActiveItem] = useState(
+    defaultActiveItem || navItems?.[0]?.name || "",
+  );
   const indicatorRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     const updateIndicator = () => {
       const activeEl = document.querySelector(
-        `[data-nav-item="${activeItem}"]`
+        `[data-nav-item="${activeItem}"]`,
       ) as HTMLElement;
 
       if (activeEl && indicatorRef.current && menuRef.current) {
@@ -286,7 +301,10 @@ export const NavbarSimpleLinks = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
@@ -295,15 +313,14 @@ export const NavbarSimpleLinks = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold tracking-tighter">
               {logo.title}
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -336,7 +353,14 @@ export const NavbarSimpleLinks = ({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -368,10 +392,15 @@ export const NavbarSimpleLinks = ({
         <nav className={cn("flex items-center justify-between", navClassName)}>
           {renderLogo()}
 
-          <NavigationMenu className={cn("hidden lg:block", navigationMenuClassName)}>
+          <NavigationMenu
+            className={cn("hidden lg:block", navigationMenuClassName)}
+          >
             <NavigationMenuList
               ref={menuRef}
-              className={cn("flex items-center gap-6 rounded-4xl px-8 py-3", menuListClassName)}
+              className={cn(
+                "flex items-center gap-6 rounded-4xl px-8 py-3",
+                menuListClassName,
+              )}
             >
               {renderNavItems()}
               <div
@@ -391,7 +420,12 @@ export const NavbarSimpleLinks = ({
             actionsSlot={actionsSlot}
           />
 
-          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+          <div
+            className={cn(
+              "hidden items-center gap-2 lg:flex",
+              actionsClassName,
+            )}
+          >
             {renderActions()}
           </div>
         </nav>

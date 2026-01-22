@@ -77,7 +77,7 @@ export interface TimelineScrollStickyImageProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -128,9 +128,10 @@ export function TimelineScrollStickyImage({
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const safeActiveIndex = (sections?.length ?? 0) > 0 
-    ? Math.max(0, Math.min(activeIndex, (sections?.length ?? 1) - 1))
-    : 0;
+  const safeActiveIndex =
+    (sections?.length ?? 0) > 0
+      ? Math.max(0, Math.min(activeIndex, (sections?.length ?? 1) - 1))
+      : 0;
 
   useEffect(() => {
     if (!sections || sections.length === 0) return;
@@ -177,7 +178,12 @@ export function TimelineScrollStickyImage({
         style={style}
       >
         <div className={cn("max-w-7xl", containerClassName)}>
-          <h1 className={cn("mb-14 max-w-2xl text-4xl font-semibold text-balance md:text-5xl", headingClassName)}>
+          <h1
+            className={cn(
+              "mb-14 max-w-2xl text-4xl font-semibold text-balance md:text-5xl",
+              headingClassName,
+            )}
+          >
             {heading}
           </h1>
         </div>
@@ -197,7 +203,12 @@ export function TimelineScrollStickyImage({
       style={style}
     >
       <div className={cn("max-w-7xl", containerClassName)}>
-        <h1 className={cn("mb-14 max-w-2xl text-4xl font-semibold text-balance md:text-5xl", headingClassName)}>
+        <h1
+          className={cn(
+            "mb-14 max-w-2xl text-4xl font-semibold text-balance md:text-5xl",
+            headingClassName,
+          )}
+        >
           {heading}
         </h1>
         <div className={cn("flex justify-between gap-20", sectionsClassName)}>
@@ -208,30 +219,65 @@ export function TimelineScrollStickyImage({
                 ref={(el) => {
                   sectionRefs.current[index] = el;
                 }}
-                className={cn("flex flex-col gap-4 md:h-[50vh]", sectionClassName)}
+                className={cn(
+                  "flex flex-col gap-4 md:h-[50vh]",
+                  sectionClassName,
+                )}
               >
                 <div className="block rounded-2xl border bg-muted p-4 md:hidden">
                   <Img
                     src={section.image}
-                    alt={section.imageAlt || (typeof section.title === 'string' ? section.title : `Section ${index + 1}`)}
-                    className={cn("h-full max-h-full w-full max-w-full rounded-2xl object-cover", imageClassName)}
+                    alt={
+                      section.imageAlt ||
+                      (typeof section.title === "string"
+                        ? section.title
+                        : `Section ${index + 1}`)
+                    }
+                    className={cn(
+                      "h-full max-h-full w-full max-w-full rounded-2xl object-cover",
+                      imageClassName,
+                    )}
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
-                <p className={cn("text-sm font-semibold text-muted-foreground md:text-base", subTitleClassName)}>
+                <p
+                  className={cn(
+                    "text-sm font-semibold text-muted-foreground md:text-base",
+                    subTitleClassName,
+                  )}
+                >
                   {section.subTitle}
                 </p>
-                <h2 className={cn("text-2xl font-semibold md:text-4xl", titleClassName)}>
+                <h2
+                  className={cn(
+                    "text-2xl font-semibold md:text-4xl",
+                    titleClassName,
+                  )}
+                >
                   {section.title}
                 </h2>
-                <p className={cn("text-muted-foreground", descriptionClassName)}>{section.description}</p>
+                <p
+                  className={cn("text-muted-foreground", descriptionClassName)}
+                >
+                  {section.description}
+                </p>
               </div>
             ))}
           </div>
-          <div className={cn("sticky top-56 right-0 hidden h-fit w-full items-center justify-center md:flex", stickyImageClassName)}>
+          <div
+            className={cn(
+              "sticky top-56 right-0 hidden h-fit w-full items-center justify-center md:flex",
+              stickyImageClassName,
+            )}
+          >
             <Img
               src={sections[sections.length - 1].image}
-              alt={sections[sections.length - 1].imageAlt || (typeof sections[sections.length - 1].title === 'string' ? sections[sections.length - 1].title as string : `Section ${sections.length}`)}
+              alt={
+                sections[sections.length - 1].imageAlt ||
+                (typeof sections[sections.length - 1].title === "string"
+                  ? (sections[sections.length - 1].title as string)
+                  : `Section ${sections.length}`)
+              }
               className="invisible h-full max-h-[550px] w-full max-w-full object-cover"
               optixFlowConfig={optixFlowConfig}
             />
@@ -241,13 +287,21 @@ export function TimelineScrollStickyImage({
                 key={index}
                 className={cn(
                   "absolute inset-0 flex h-full items-center justify-center rounded-2xl border bg-muted p-4 transition-opacity duration-200",
-                  index === safeActiveIndex ? "opacity-100" : "opacity-0"
+                  index === safeActiveIndex ? "opacity-100" : "opacity-0",
                 )}
               >
                 <Img
                   src={item.image}
-                  alt={item.imageAlt || (typeof item.title === 'string' ? item.title : `Item ${index + 1}`)}
-                  className={cn("h-full max-h-full w-full max-w-full rounded-2xl border object-cover", imageClassName)}
+                  alt={
+                    item.imageAlt ||
+                    (typeof item.title === "string"
+                      ? item.title
+                      : `Item ${index + 1}`)
+                  }
+                  className={cn(
+                    "h-full max-h-full w-full max-w-full rounded-2xl border object-cover",
+                    imageClassName,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>

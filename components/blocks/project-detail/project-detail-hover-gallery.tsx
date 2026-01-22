@@ -6,14 +6,13 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailHoverGalleryImage {
   src?: string;
@@ -48,7 +47,7 @@ export interface ProjectDetailHoverGalleryProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -71,7 +70,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailHoverGallery(
-  props: ProjectDetailHoverGalleryProps
+  props: ProjectDetailHoverGalleryProps,
 ): React.JSX.Element {
   const {
     title,
@@ -99,10 +98,20 @@ export function ProjectDetailHoverGallery(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -131,7 +140,10 @@ export function ProjectDetailHoverGallery(
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className={cn("mb-16 max-w-3xl", headerClassName)}>
+        <motion.header
+          {...fadeInUp}
+          className={cn("mb-16 max-w-3xl", headerClassName)}
+        >
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
               {category}
@@ -142,36 +154,42 @@ export function ProjectDetailHoverGallery(
           </div>
 
           {typeof title === "string" ? (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}
 
-          {subtitle && (
-            typeof subtitle === "string" ? (
+          {subtitle &&
+            (typeof subtitle === "string" ? (
               <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
             ) : (
               <div className="mt-4">{subtitle}</div>
-            )
-          )}
+            ))}
 
-          {description && (
-            typeof description === "string" ? (
+          {description &&
+            (typeof description === "string" ? (
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
                 {description}
               </p>
             ) : (
               <div className="mt-6">{description}</div>
-            )
-          )}
+            ))}
         </motion.header>
 
         <motion.div
           {...fadeInUp}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", galleryClassName)}
+          className={cn(
+            "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+            galleryClassName,
+          )}
         >
           {images?.map((image, index) => (
             <motion.div
@@ -183,31 +201,29 @@ export function ProjectDetailHoverGallery(
               className="group relative aspect-square overflow-hidden rounded-xl bg-muted"
             >
               <Img
-                src={image.src || imagePlaceholders[29 + index]}
+                src={image.src}
                 alt={image.alt || "Gallery image"}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 optixFlowConfig={optixFlowConfig}
               />
               <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                {image.title && (
-                  typeof image.title === "string" ? (
+                {image.title &&
+                  (typeof image.title === "string" ? (
                     <h3 className="text-lg font-semibold text-foreground">
                       {image.title}
                     </h3>
                   ) : (
                     image.title
-                  )
-                )}
-                {image.description && (
-                  typeof image.description === "string" ? (
+                  ))}
+                {image.description &&
+                  (typeof image.description === "string" ? (
                     <p className="mt-1 text-sm text-muted-foreground">
                       {image.description}
                     </p>
                   ) : (
                     <div className="mt-1">{image.description}</div>
-                  )
-                )}
+                  ))}
               </div>
             </motion.div>
           ))}

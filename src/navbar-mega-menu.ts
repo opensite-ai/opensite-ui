@@ -2,8 +2,8 @@ export { NavbarMegaMenu } from "../components/blocks/navbars/navbar-mega-menu";
 export type {
   NavbarMegaMenuProps,
   IMenuLink,
+  IMenuLinkGroup,
   ILinkItem,
-  IGridItem,
-  IListItem,
   MegaMenuLayout,
+  LogoConfig,
 } from "../components/blocks/navbars/navbar-mega-menu";

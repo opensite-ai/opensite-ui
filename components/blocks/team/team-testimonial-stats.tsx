@@ -80,7 +80,7 @@ export interface TeamTestimonialStatsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -204,7 +204,7 @@ export function TeamTestimonialStats({
               <Img
                 className={cn(
                   "absolute inset-0 h-full w-full object-cover",
-                  memberImageClassName
+                  memberImageClassName,
                 )}
                 src={member.image}
                 alt={member.name}
@@ -216,15 +216,24 @@ export function TeamTestimonialStats({
             <div className="p-6">
               <div className="flex h-full flex-col">
                 <div>
-                  <h3 className={cn("text-lg font-medium", memberNameClassName)}>
+                  <h3
+                    className={cn("text-lg font-medium", memberNameClassName)}
+                  >
                     {member.name}
                   </h3>
-                  <p className={cn("text-muted-foreground mt-1 text-sm", memberRoleClassName)}>
+                  <p
+                    className={cn(
+                      "text-muted-foreground mt-1 text-sm",
+                      memberRoleClassName,
+                    )}
+                  >
                     {member.role}
                   </p>
                 </div>
 
-                <div className={cn("grid grid-cols-3 gap-4 py-6", statsClassName)}>
+                <div
+                  className={cn("grid grid-cols-3 gap-4 py-6", statsClassName)}
+                >
                   {Object.entries(member.stats).map(([key, value]) => (
                     <div key={key}>
                       <p className="text-2xl font-semibold">{value}</p>
@@ -238,7 +247,7 @@ export function TeamTestimonialStats({
                 <blockquote
                   className={cn(
                     "text-muted-foreground mt-4 border-l-2 pl-4 italic",
-                    testimonialClassName
+                    testimonialClassName,
                   )}
                 >
                   <DynamicIcon
@@ -302,33 +311,43 @@ export function TeamTestimonialStats({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-10 max-w-2xl text-center lg:mb-14", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "mx-auto mb-10 max-w-2xl text-center lg:mb-14",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "text-3xl font-bold md:text-4xl md:leading-tight",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-muted-foreground mt-1 text-lg", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-muted-foreground mt-1 text-lg",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
-      <div className={cn("grid grid-cols-1 gap-8 lg:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid grid-cols-1 gap-8 lg:grid-cols-2", gridClassName)}
+      >
         {renderMembers()}
       </div>
     </Section>

@@ -23,7 +23,10 @@ import {
   navigationMenuTriggerStyle,
 } from "../../ui/navigation-menu";
 import { Separator } from "../../ui/separator";
-import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  logoPlaceholders,
+  imagePlaceholders,
+} from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
@@ -134,7 +137,7 @@ export interface NavbarEducationPlatformProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -185,7 +188,10 @@ export const NavbarEducationPlatform = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
@@ -194,13 +200,12 @@ export const NavbarEducationPlatform = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold">{logo.title}</span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -210,13 +215,16 @@ export const NavbarEducationPlatform = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
-        <Pressable
-          key={index}
-          className={actionClassName}
-          {...pressableProps}
-        >
+        <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
               {icon}
@@ -242,10 +250,17 @@ export const NavbarEducationPlatform = ({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <nav className={cn("flex items-center justify-between py-4", navClassName)}>
+        <nav
+          className={cn("flex items-center justify-between py-4", navClassName)}
+        >
           <div className="flex flex-1 items-center gap-9">
             {renderLogo()}
-            <div className={cn("hidden items-center gap-1.5 lg:flex", navigationMenuClassName)}>
+            <div
+              className={cn(
+                "hidden items-center gap-1.5 lg:flex",
+                navigationMenuClassName,
+              )}
+            >
               <NavigationMenu delayDuration={0}>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -296,7 +311,10 @@ export const NavbarEducationPlatform = ({
                                 href="#"
                                 className="flex flex-row items-center gap-3"
                               >
-                                <DynamicIcon name="lucide/book-open" size={16} />
+                                <DynamicIcon
+                                  name="lucide/book-open"
+                                  size={16}
+                                />
                                 <span className="text-sm font-medium whitespace-nowrap">
                                   Platform 101
                                 </span>
@@ -415,7 +433,12 @@ export const NavbarEducationPlatform = ({
             </div>
           </div>
 
-          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+          <div
+            className={cn(
+              "hidden items-center gap-2 lg:flex",
+              actionsClassName,
+            )}
+          >
             {renderAuthActions()}
           </div>
 
@@ -437,7 +460,12 @@ export const NavbarEducationPlatform = ({
       </div>
 
       {isOpen && (
-        <div className={cn("border-t bg-background lg:hidden", mobileMenuClassName)}>
+        <div
+          className={cn(
+            "border-t bg-background lg:hidden",
+            mobileMenuClassName,
+          )}
+        >
           <div className={cn("container", containerClassName)}>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="learning-hub">
@@ -485,7 +513,9 @@ export const NavbarEducationPlatform = ({
                           onClick={() => setIsOpen(false)}
                         >
                           <DynamicIcon name="lucide/book-open" size={16} />
-                          <span className="text-sm font-medium">Platform 101</span>
+                          <span className="text-sm font-medium">
+                            Platform 101
+                          </span>
                         </Pressable>
                         <Pressable
                           href="#"
@@ -493,7 +523,9 @@ export const NavbarEducationPlatform = ({
                           onClick={() => setIsOpen(false)}
                         >
                           <DynamicIcon name="lucide/users" size={16} />
-                          <span className="text-sm font-medium">Find a tutor</span>
+                          <span className="text-sm font-medium">
+                            Find a tutor
+                          </span>
                         </Pressable>
                       </div>
                     </div>
@@ -548,7 +580,9 @@ export const NavbarEducationPlatform = ({
                             onClick={() => setIsOpen(false)}
                           >
                             <DynamicIcon name={item.icon} size={16} />
-                            <span className="text-sm font-medium">{item.title}</span>
+                            <span className="text-sm font-medium">
+                              {item.title}
+                            </span>
                           </Pressable>
                         ))}
                       </div>

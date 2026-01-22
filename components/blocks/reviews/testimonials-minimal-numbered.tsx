@@ -62,7 +62,7 @@ export interface TestimonialsMinimalNumberedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -148,7 +148,7 @@ export function TestimonialsMinimalNumbered({
         setIsTransitioning(false);
       }, 300);
     },
-    [active, isTransitioning]
+    [active, isTransitioning],
   );
 
   const handlePrev = useCallback(() => {
@@ -195,74 +195,72 @@ export function TestimonialsMinimalNumbered({
     return (
       <div className={cn("flex items-start gap-8", contentClassName)}>
         <span
-          className={cn("text-8xl font-light leading-none text-foreground/10 select-none transition-all duration-500 md:text-9xl", numberClassName)}
+          className={cn(
+            "text-8xl font-light leading-none text-foreground/10 select-none transition-all duration-500 md:text-9xl",
+            numberClassName,
+          )}
           style={{ fontFeatureSettings: '"tnum"' }}
         >
           {String(active + 1).padStart(2, "0")}
         </span>
 
         <div className="flex-1 pt-6">
-          {current.quote && (
-            typeof current.quote === "string" ? (
+          {current.quote &&
+            (typeof current.quote === "string" ? (
               <blockquote
                 className={cn(
                   "text-xl font-light leading-relaxed tracking-tight transition-all duration-300 md:text-2xl lg:text-3xl",
                   isTransitioning
                     ? "opacity-0 translate-x-4"
                     : "opacity-100 translate-x-0",
-                  quoteClassName
+                  quoteClassName,
                 )}
               >
                 {current.quote}
               </blockquote>
             ) : (
-              <div className={cn(
-                "transition-all duration-300",
-                isTransitioning ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0",
-                quoteClassName
-              )}>
+              <div
+                className={cn(
+                  "transition-all duration-300",
+                  isTransitioning
+                    ? "opacity-0 translate-x-4"
+                    : "opacity-100 translate-x-0",
+                  quoteClassName,
+                )}
+              >
                 {current.quote}
               </div>
-            )
-          )}
+            ))}
 
           <div
             className={cn(
               "mt-10 transition-all duration-300 delay-100",
               isTransitioning ? "opacity-0" : "opacity-100",
-              authorClassName
+              authorClassName,
             )}
           >
             <div className="flex items-center gap-4">
               <Avatar className="size-12 ring-2 ring-foreground/10">
-                <AvatarImage
-                  src={avatarSrc}
-                  alt={authorName}
-                />
-                <AvatarFallback>
-                  {getInitials(authorName)}
-                </AvatarFallback>
+                <AvatarImage src={avatarSrc} alt={authorName} />
+                <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
               </Avatar>
               <div>
-                {current.author && (
-                  typeof current.author === "string" ? (
+                {current.author &&
+                  (typeof current.author === "string" ? (
                     <p className="font-medium">{current.author}</p>
                   ) : (
                     current.author
-                  )
-                )}
+                  ))}
                 <p className="text-sm text-muted-foreground">
-                  {current.role && (
-                    typeof current.role === "string" ? current.role : null
-                  )}
-                  {current.company && (
-                    typeof current.company === "string" ? (
+                  {current.role &&
+                    (typeof current.role === "string" ? current.role : null)}
+                  {current.company &&
+                    (typeof current.company === "string" ? (
                       <>
                         <span className="mx-2 text-foreground/20">/</span>
                         <span>{current.company}</span>
                       </>
-                    ) : null
-                  )}
+                    ) : null)}
                 </p>
               </div>
             </div>
@@ -283,7 +281,12 @@ export function TestimonialsMinimalNumbered({
       <div className="max-w-4xl mx-auto">
         {renderTestimonial()}
 
-        <div className={cn("mt-16 flex items-center justify-between", navigationClassName)}>
+        <div
+          className={cn(
+            "mt-16 flex items-center justify-between",
+            navigationClassName,
+          )}
+        >
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
               {testimonials.map((_, index) => (
@@ -297,7 +300,7 @@ export function TestimonialsMinimalNumbered({
                       "block h-px transition-all duration-500 ease-out",
                       index === active
                         ? "w-12 bg-foreground"
-                        : "w-6 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground/40"
+                        : "w-6 bg-foreground/20 group-hover:w-8 group-hover:bg-foreground/40",
                     )}
                   />
                 </button>

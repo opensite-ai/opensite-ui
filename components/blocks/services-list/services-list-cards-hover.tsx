@@ -110,7 +110,7 @@ export interface ServicesListCardsHoverProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -156,7 +156,8 @@ export function ServicesListCardsHover({
 }: ServicesListCardsHoverProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListCardsHoverService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-7 w-7" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-7 w-7" />;
     return null;
   };
 
@@ -165,34 +166,44 @@ export function ServicesListCardsHover({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
         {services.map((service, index) => (
           <div
             key={index}
             className={cn(
               "group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary hover:shadow-lg",
               cardClassName,
-              service.className
+              service.className,
             )}
           >
             <div className="relative z-10">
               {(service.icon || service.iconName) && (
-                <div className={cn(
-                  "mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground",
-                  iconClassName
-                )}>
+                <div
+                  className={cn(
+                    "mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground",
+                    iconClassName,
+                  )}
+                >
                   {renderServiceIcon(service)}
                 </div>
               )}
-              {service.title && (
-                typeof service.title === "string" ? (
-                  <h3 className="mb-2 text-lg font-semibold">{service.title}</h3>
+              {service.title &&
+                (typeof service.title === "string" ? (
+                  <h3 className="mb-2 text-lg font-semibold">
+                    {service.title}
+                  </h3>
                 ) : (
-                  <div className="mb-2 text-lg font-semibold">{service.title}</div>
-                )
-              )}
-              {service.description && (
-                typeof service.description === "string" ? (
+                  <div className="mb-2 text-lg font-semibold">
+                    {service.title}
+                  </div>
+                ))}
+              {service.description &&
+                (typeof service.description === "string" ? (
                   <p className="text-sm text-muted-foreground transition-all duration-300 group-hover:mb-4">
                     {service.description}
                   </p>
@@ -200,15 +211,20 @@ export function ServicesListCardsHover({
                   <div className="text-sm text-muted-foreground transition-all duration-300 group-hover:mb-4">
                     {service.description}
                   </div>
-                )
-              )}
+                ))}
 
               <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-40 group-hover:opacity-100">
                 {service.features && service.features.length > 0 && (
                   <div className="mb-4 space-y-2">
                     {service.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center gap-2 text-sm">
-                        <DynamicIcon name="lucide/check" className="h-4 w-4 text-primary" />
+                      <div
+                        key={featureIndex}
+                        className="flex items-center gap-2 text-sm"
+                      >
+                        <DynamicIcon
+                          name="lucide/check"
+                          className="h-4 w-4 text-primary"
+                        />
                         {typeof feature === "string" ? (
                           <span>{feature}</span>
                         ) : (
@@ -225,7 +241,10 @@ export function ServicesListCardsHover({
                     className="inline-flex items-center text-sm font-medium text-primary hover:underline"
                   >
                     {service.ctaText}
-                    <DynamicIcon name="lucide/arrow-right" className="ml-1 h-4 w-4" />
+                    <DynamicIcon
+                      name="lucide/arrow-right"
+                      className="ml-1 h-4 w-4"
+                    />
                   </Pressable>
                 )}
               </div>
@@ -248,24 +267,32 @@ export function ServicesListCardsHover({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

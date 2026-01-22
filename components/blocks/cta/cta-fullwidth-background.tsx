@@ -76,7 +76,7 @@ export interface CtaFullwidthBackgroundProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -128,7 +128,7 @@ export function CtaFullwidthBackground({
       <div
         className={cn(
           "flex flex-col justify-center gap-2 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => (
@@ -163,19 +163,22 @@ export function CtaFullwidthBackground({
         <div
           className={cn(
             "flex h-[620px] items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center",
-            backgroundClassName
+            backgroundClassName,
           )}
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,${overlayOpacity}),rgba(0,0,0,0)), url('${backgroundImage}')`,
           }}
         >
           <div
-            className={cn("flex flex-col gap-8 p-4 text-center", contentClassName)}
+            className={cn(
+              "flex flex-col gap-8 p-4 text-center",
+              contentClassName,
+            )}
           >
             <h2
               className={cn(
                 "text-5xl font-bold text-primary-foreground",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -183,7 +186,7 @@ export function CtaFullwidthBackground({
             <p
               className={cn(
                 "text-lg text-primary-foreground",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}

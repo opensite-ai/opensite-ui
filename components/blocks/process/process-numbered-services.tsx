@@ -119,7 +119,7 @@ export interface ProcessNumberedServicesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -163,18 +163,36 @@ export function ProcessNumberedServices({
 
   const renderServiceAction = (service: ProcessNumberedServiceItem) => {
     if (service.actionSlot) return service.actionSlot;
-    
+
     // Handle backwards compatibility
-    const action = service.action ?? (service.ctaText && service.ctaUrl ? { label: service.ctaText, href: service.ctaUrl, variant: "ghost" as const } : null);
-    
+    const action =
+      service.action ??
+      (service.ctaText && service.ctaUrl
+        ? {
+            label: service.ctaText,
+            href: service.ctaUrl,
+            variant: "ghost" as const,
+          }
+        : null);
+
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-    
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
+
     return (
       <Pressable
         asButton
-        className={cn("mt-4 inline-flex items-center gap-2 p-0 text-primary hover:text-primary/80", actionClassName)}
+        className={cn(
+          "mt-4 inline-flex items-center gap-2 p-0 text-primary hover:text-primary/80",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -200,21 +218,23 @@ export function ProcessNumberedServices({
             className={cn(
               "group grid gap-8 border-t py-12 lg:grid-cols-12 lg:gap-12",
               serviceItemClassName,
-              service.className
+              service.className,
             )}
           >
             <div className="lg:col-span-1">
-              <div className={cn(
-                "flex size-16 items-center justify-center rounded-full border-2 border-primary bg-primary/5 text-xl font-bold text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
-                serviceBadgeClassName
-              )}>
+              <div
+                className={cn(
+                  "flex size-16 items-center justify-center rounded-full border-2 border-primary bg-primary/5 text-xl font-bold text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+                  serviceBadgeClassName,
+                )}
+              >
                 {service.number ?? `0${index + 1}`}
               </div>
             </div>
 
             <div className="lg:col-span-4">
-              {service.title && (
-                typeof service.title === "string" ? (
+              {service.title &&
+                (typeof service.title === "string" ? (
                   <h3 className="mb-3 text-2xl font-semibold tracking-tight">
                     {service.title}
                   </h3>
@@ -222,10 +242,9 @@ export function ProcessNumberedServices({
                   <div className="mb-3 text-2xl font-semibold tracking-tight">
                     {service.title}
                   </div>
-                )
-              )}
-              {service.description && (
-                typeof service.description === "string" ? (
+                ))}
+              {service.description &&
+                (typeof service.description === "string" ? (
                   <p className="text-foreground/50 leading-relaxed">
                     {service.description}
                   </p>
@@ -233,14 +252,18 @@ export function ProcessNumberedServices({
                   <div className="text-foreground/50 leading-relaxed">
                     {service.description}
                   </div>
-                )
-              )}
+                ))}
               {renderServiceAction(service)}
             </div>
 
             <div className="lg:col-span-7">
               {service.capabilities && service.capabilities.length > 0 && (
-                <div className={cn("grid gap-3 sm:grid-cols-2", capabilitiesClassName)}>
+                <div
+                  className={cn(
+                    "grid gap-3 sm:grid-cols-2",
+                    capabilitiesClassName,
+                  )}
+                >
                   {service.capabilities.map((capability, cIndex) => (
                     <div
                       key={cIndex}
@@ -273,24 +296,32 @@ export function ProcessNumberedServices({
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
-          {resolvedHeading && (
-            typeof resolvedHeading === "string" ? (
-              <h1 className={cn("mb-4 text-4xl font-semibold tracking-tight lg:text-5xl", headingClassName)}>
+          {resolvedHeading &&
+            (typeof resolvedHeading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {resolvedHeading}
               </h1>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg text-foreground/50", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

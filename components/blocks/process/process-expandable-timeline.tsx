@@ -102,7 +102,7 @@ export interface ProcessExpandableTimelineProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -191,7 +191,7 @@ export function ProcessExpandableTimeline({
               onClick={() => toggleExpand(index)}
               className={cn(
                 "group relative flex w-full items-start gap-6 border-b py-6 pl-16 text-left transition-colors hover:bg-muted/30",
-                stepItemClassName
+                stepItemClassName,
               )}
             >
               <div
@@ -200,7 +200,7 @@ export function ProcessExpandableTimeline({
                   expandedIndex === index
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border text-muted-foreground group-hover:border-primary",
-                  stepBadgeClassName
+                  stepBadgeClassName,
                 )}
               >
                 <span className="text-sm font-semibold">
@@ -212,8 +212,8 @@ export function ProcessExpandableTimeline({
 
               <div className="flex-1 pr-12">
                 <div className="flex items-center gap-2">
-                  {step.title && (
-                    typeof step.title === "string" ? (
+                  {step.title &&
+                    (typeof step.title === "string" ? (
                       <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
                         {step.title}
                       </h3>
@@ -221,8 +221,7 @@ export function ProcessExpandableTimeline({
                       <div className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
                         {step.title}
                       </div>
-                    )
-                  )}
+                    ))}
                   <DynamicIcon
                     name={
                       expandedIndex === index
@@ -233,13 +232,16 @@ export function ProcessExpandableTimeline({
                     className="text-muted-foreground"
                   />
                 </div>
-                {step.description && (
-                  typeof step.description === "string" ? (
-                    <p className="mt-1 text-foreground/50">{step.description}</p>
+                {step.description &&
+                  (typeof step.description === "string" ? (
+                    <p className="mt-1 text-foreground/50">
+                      {step.description}
+                    </p>
                   ) : (
-                    <div className="mt-1 text-foreground/50">{step.description}</div>
-                  )
-                )}
+                    <div className="mt-1 text-foreground/50">
+                      {step.description}
+                    </div>
+                  ))}
               </div>
             </button>
 
@@ -252,11 +254,20 @@ export function ProcessExpandableTimeline({
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                 >
-                  <div className={cn("border-b bg-muted/20 py-6 pl-16 pr-6", expandedContentClassName)}>
+                  <div
+                    className={cn(
+                      "border-b bg-muted/20 py-6 pl-16 pr-6",
+                      expandedContentClassName,
+                    )}
+                  >
                     {typeof step.expandedContent === "string" ? (
-                      <p className="text-foreground/70">{step.expandedContent}</p>
+                      <p className="text-foreground/70">
+                        {step.expandedContent}
+                      </p>
                     ) : (
-                      <div className="text-foreground/70">{step.expandedContent}</div>
+                      <div className="text-foreground/70">
+                        {step.expandedContent}
+                      </div>
                     )}
                   </div>
                 </motion.div>
@@ -278,28 +289,41 @@ export function ProcessExpandableTimeline({
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
-          {resolvedHeading && (
-            typeof resolvedHeading === "string" ? (
-              <h1 className={cn("mb-4 text-4xl font-semibold tracking-tight lg:text-5xl", headingClassName)}>
+          {resolvedHeading &&
+            (typeof resolvedHeading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {resolvedHeading}
               </h1>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg text-foreground/50", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("relative", timelineClassName)}>
-          <div className={cn("absolute left-6 top-0 bottom-0 w-px bg-border", timelineLineClassName)} />
+          <div
+            className={cn(
+              "absolute left-6 top-0 bottom-0 w-px bg-border",
+              timelineLineClassName,
+            )}
+          />
           {renderSteps()}
         </div>
       </div>

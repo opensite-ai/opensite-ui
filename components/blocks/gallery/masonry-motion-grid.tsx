@@ -103,7 +103,7 @@ export interface MasonryMotionGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -164,37 +164,44 @@ export function MasonryMotionGrid({
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const allImages = useMemo(() => [
-    ...(column1Images ?? []),
-    ...(column2Images ?? []),
-    ...(column3Images ?? []),
-    ...(column4Images ?? []),
-  ], [column1Images, column2Images, column3Images, column4Images]);
-
-  const lightboxItems: LightboxItem[] = useMemo(() =>
-    allImages.map((img, index) => ({
-      id: `masonry-image-${index}`,
-      type: "image" as const,
-      src: img.src,
-      alt: img.alt,
-      download: true,
-      share: true,
-    })),
-    [allImages]
+  const allImages = useMemo(
+    () => [
+      ...(column1Images ?? []),
+      ...(column2Images ?? []),
+      ...(column3Images ?? []),
+      ...(column4Images ?? []),
+    ],
+    [column1Images, column2Images, column3Images, column4Images],
   );
 
-  const getGlobalIndex = useCallback((columnIndex: number, imageIndex: number): number => {
-    const col1Len = column1Images?.length ?? 0;
-    const col2Len = column2Images?.length ?? 0;
-    const col3Len = column3Images?.length ?? 0;
-    const columnOffsets = [
-      0,
-      col1Len,
-      col1Len + col2Len,
-      col1Len + col2Len + col3Len,
-    ];
-    return columnOffsets[columnIndex] + imageIndex;
-  }, [column1Images?.length, column2Images?.length, column3Images?.length]);
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      allImages.map((img, index) => ({
+        id: `masonry-image-${index}`,
+        type: "image" as const,
+        src: img.src,
+        alt: img.alt,
+        download: true,
+        share: true,
+      })),
+    [allImages],
+  );
+
+  const getGlobalIndex = useCallback(
+    (columnIndex: number, imageIndex: number): number => {
+      const col1Len = column1Images?.length ?? 0;
+      const col2Len = column2Images?.length ?? 0;
+      const col3Len = column3Images?.length ?? 0;
+      const columnOffsets = [
+        0,
+        col1Len,
+        col1Len + col2Len,
+        col1Len + col2Len + col3Len,
+      ];
+      return columnOffsets[columnIndex] + imageIndex;
+    },
+    [column1Images?.length, column2Images?.length, column3Images?.length],
+  );
 
   const handleImageClick = useCallback((globalIndex: number) => {
     setLightboxIndex(globalIndex);
@@ -208,7 +215,7 @@ export function MasonryMotionGrid({
   const renderColumn = (
     images: MasonryMotionGridImage[],
     direction: "up" | "down",
-    columnIndex: number
+    columnIndex: number,
   ) => (
     <div className={cn("grid gap-3", columnClassName)}>
       {images.map((image, index) => (
@@ -230,7 +237,7 @@ export function MasonryMotionGrid({
           key={index}
           className={cn(
             "w-full overflow-hidden rounded-2xl bg-muted cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
-            imageWrapperClassName
+            imageWrapperClassName,
           )}
           style={{ height: image.height }}
           onClick={() => handleImageClick(getGlobalIndex(columnIndex, index))}
@@ -245,7 +252,11 @@ export function MasonryMotionGrid({
           aria-label={`View ${image.alt} in lightbox`}
         >
           <Img
-            className={cn("h-full w-full rounded-2xl object-cover", imageClassName, image.className)}
+            className={cn(
+              "h-full w-full rounded-2xl object-cover",
+              imageClassName,
+              image.className,
+            )}
             src={image.src}
             alt={image.alt}
             loading="lazy"
@@ -277,7 +288,7 @@ export function MasonryMotionGrid({
           key={index}
           className={cn(
             "w-full overflow-hidden rounded-2xl bg-muted cursor-pointer transition-transform hover:scale-[1.02] hover:shadow-lg",
-            imageWrapperClassName
+            imageWrapperClassName,
           )}
           style={{ height: image.height }}
           onClick={() => handleImageClick(getGlobalIndex(3, index))}
@@ -292,7 +303,11 @@ export function MasonryMotionGrid({
           aria-label={`View ${image.alt} in lightbox`}
         >
           <Img
-            className={cn("h-full w-full rounded-2xl object-cover", imageClassName, image.className)}
+            className={cn(
+              "h-full w-full rounded-2xl object-cover",
+              imageClassName,
+              image.className,
+            )}
             src={image.src}
             alt={image.alt}
             loading="lazy"
@@ -308,14 +323,21 @@ export function MasonryMotionGrid({
 
     return (
       <>
-        <div className={cn("grid grid-cols-2 gap-3 md:grid-cols-4", gridClassName)}>
+        <div
+          className={cn("grid grid-cols-2 gap-3 md:grid-cols-4", gridClassName)}
+        >
           {renderColumn(column1Images ?? [], "up", 0)}
           {renderColumn(column2Images ?? [], "down", 1)}
           {renderColumn(column3Images ?? [], "up", 2)}
           {renderColumn4(column4Images ?? [])}
         </div>
         {showDuplicateGrid && (
-          <div className={cn("mt-4 grid grid-cols-2 gap-3 md:grid-cols-4", gridClassName)}>
+          <div
+            className={cn(
+              "mt-4 grid grid-cols-2 gap-3 md:grid-cols-4",
+              gridClassName,
+            )}
+          >
             {renderColumn(column1Images ?? [], "up", 0)}
             {renderColumn(column2Images ?? [], "down", 1)}
             {renderColumn(column3Images ?? [], "up", 2)}

@@ -8,8 +8,8 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { patternSvgs } from "../../../lib/patternSvgs";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
-
-export type PatternName = keyof typeof patternSvgs;
+import { PatternName } from "@/components/ui/pattern-background";
+import { Section } from "@/src";
 
 export interface AboutLocationInfoHeroHours {
   /**
@@ -121,7 +121,7 @@ export interface AboutLocationInfoHeroProps {
   /**
    * Pattern background key or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -173,12 +173,6 @@ export function AboutLocationInfoHero({
   containerClassName,
   optixFlowConfig,
 }: AboutLocationInfoHeroProps): React.JSX.Element {
-  const patternUrl = pattern
-    ? pattern in patternSvgs
-      ? patternSvgs[pattern as PatternName]
-      : pattern
-    : undefined;
-
   const isSingleImage = (images?.length ?? 0) <= 1;
 
   const renderActions = () => {
@@ -209,8 +203,8 @@ export function AboutLocationInfoHero({
       <div className={cn("space-y-4", hoursSectionsClassName)}>
         {hoursSections.map((section, sectionIndex) => (
           <div key={sectionIndex}>
-            {section.label && (
-              typeof section.label === "string" ? (
+            {section.label &&
+              (typeof section.label === "string" ? (
                 <h3
                   className="mb-2 text-sm font-medium"
                   style={{ color: accentColor }}
@@ -219,26 +213,23 @@ export function AboutLocationInfoHero({
                 </h3>
               ) : (
                 section.label
-              )
-            )}
+              ))}
             {section.hours && section.hours.length > 0 && (
               <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-white">
                 {section.hours.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex flex-col">
-                    {item.day && (
-                      typeof item.day === "string" ? (
+                    {item.day &&
+                      (typeof item.day === "string" ? (
                         <span className="text-white/80">{item.day}</span>
                       ) : (
                         item.day
-                      )
-                    )}
-                    {item.time && (
-                      typeof item.time === "string" ? (
+                      ))}
+                    {item.time &&
+                      (typeof item.time === "string" ? (
                         <span>{item.time}</span>
                       ) : (
                         item.time
-                      )
-                    )}
+                      ))}
                   </div>
                 ))}
               </div>
@@ -256,7 +247,12 @@ export function AboutLocationInfoHero({
     if (isSingleImage) {
       return (
         <div className="flex justify-center">
-          <div className={cn("relative aspect-[4/3] w-full max-w-lg overflow-hidden rounded-lg shadow-2xl", imagesClassName)}>
+          <div
+            className={cn(
+              "relative aspect-[4/3] w-full max-w-lg overflow-hidden rounded-lg shadow-2xl",
+              imagesClassName,
+            )}
+          >
             <Img
               src={images[0]?.src || imagePlaceholders[5]}
               alt={images[0]?.alt || "OpenSite AI location"}
@@ -269,7 +265,12 @@ export function AboutLocationInfoHero({
     }
 
     return (
-      <div className={cn("relative min-h-[350px] md:min-h-[400px] lg:min-h-[450px]", imagesClassName)}>
+      <div
+        className={cn(
+          "relative min-h-[350px] md:min-h-[400px] lg:min-h-[450px]",
+          imagesClassName,
+        )}
+      >
         <div className="absolute left-0 top-0 z-10 aspect-[4/3] w-[70%] overflow-hidden rounded-lg shadow-2xl md:w-[65%]">
           <Img
             src={images[0]?.src || imagePlaceholders[5]}
@@ -291,25 +292,14 @@ export function AboutLocationInfoHero({
   };
 
   return (
-    <section
+    <Section
       className={cn(
         "relative w-full overflow-hidden py-12 md:py-16 lg:py-20",
         className,
       )}
       style={{ backgroundColor }}
+      pattern={pattern}
     >
-      {patternUrl ? (
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: `url(${patternUrl})`,
-            backgroundRepeat: "repeat",
-            opacity: patternOpacity,
-          }}
-          aria-hidden="true"
-        />
-      ) : null}
-
       <div className={cn("container relative", containerClassName)}>
         <div
           className={cn(
@@ -319,22 +309,31 @@ export function AboutLocationInfoHero({
           )}
         >
           <div className="flex-1 space-y-6 lg:space-y-8">
-            {headline && (
-              typeof headline === "string" ? (
-                <h2 className={cn("text-balance text-3xl font-bold uppercase leading-tight tracking-tight text-white md:text-4xl lg:text-5xl", headlineClassName)}>
+            {headline &&
+              (typeof headline === "string" ? (
+                <h2
+                  className={cn(
+                    "text-balance text-3xl font-bold uppercase leading-tight tracking-tight text-white md:text-4xl lg:text-5xl",
+                    headlineClassName,
+                  )}
+                >
                   {headline}
                 </h2>
               ) : (
                 <div className={headlineClassName}>{headline}</div>
-              )
-            )}
+              ))}
 
             {renderActions()}
 
-            {(address || phone) ? (
+            {address || phone ? (
               <div className="space-y-2">
                 {address ? (
-                  <div className={cn("flex items-center gap-3 text-sm text-white", addressClassName)}>
+                  <div
+                    className={cn(
+                      "flex items-center gap-3 text-sm text-white",
+                      addressClassName,
+                    )}
+                  >
                     <DynamicIcon name="lucide/map-pin" size={16} />
                     {addressHref ? (
                       <Pressable
@@ -343,17 +342,20 @@ export function AboutLocationInfoHero({
                       >
                         {address}
                       </Pressable>
+                    ) : typeof address === "string" ? (
+                      <span>{address}</span>
                     ) : (
-                      typeof address === "string" ? (
-                        <span>{address}</span>
-                      ) : (
-                        address
-                      )
+                      address
                     )}
                   </div>
                 ) : null}
                 {phone ? (
-                  <div className={cn("flex items-center gap-3 text-sm text-white", phoneClassName)}>
+                  <div
+                    className={cn(
+                      "flex items-center gap-3 text-sm text-white",
+                      phoneClassName,
+                    )}
+                  >
                     <DynamicIcon name="lucide/phone" size={16} />
                     {phoneHref ? (
                       <Pressable
@@ -362,17 +364,15 @@ export function AboutLocationInfoHero({
                       >
                         {phone}
                       </Pressable>
+                    ) : typeof phone === "string" ? (
+                      <Pressable
+                        href={phone}
+                        className="transition hover:underline"
+                      >
+                        {phone}
+                      </Pressable>
                     ) : (
-                      typeof phone === "string" ? (
-                        <Pressable
-                          href={phone}
-                          className="transition hover:underline"
-                        >
-                          {phone}
-                        </Pressable>
-                      ) : (
-                        phone
-                      )
+                      phone
                     )}
                   </div>
                 ) : null}
@@ -382,11 +382,9 @@ export function AboutLocationInfoHero({
             {renderHoursSections()}
           </div>
 
-          <div className="relative flex-1">
-            {renderImages()}
-          </div>
+          <div className="relative flex-1">{renderImages()}</div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -7,6 +7,7 @@ import { useMotionValueEvent, useScroll, motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectStickyScrollItem {
   title: string;
@@ -42,7 +43,7 @@ export interface ProjectStickyScrollProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -117,17 +118,19 @@ export function ProjectStickyScroll({
         }
         return acc;
       },
-      0
+      0,
     );
     setActiveCard(closestBreakpointIndex);
   });
 
   const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients?.[0] ?? ""
+    linearGradients?.[0] ?? "",
   );
 
   useEffect(() => {
-    setBackgroundGradient(linearGradients?.[activeCard % (linearGradients?.length ?? 1)] ?? "");
+    setBackgroundGradient(
+      linearGradients?.[activeCard % (linearGradients?.length ?? 1)] ?? "",
+    );
   }, [activeCard, linearGradients]);
 
   const renderContent = () => {
@@ -153,7 +156,10 @@ export function ProjectStickyScroll({
           animate={{
             opacity: activeCard === index ? 1 : 0.3,
           }}
-          className={cn("text-kg text-slate-300 max-w-sm mt-10", descriptionClassName)}
+          className={cn(
+            "text-kg text-slate-300 max-w-sm mt-10",
+            descriptionClassName,
+          )}
         >
           {item.description}
         </motion.p>
@@ -171,11 +177,13 @@ export function ProjectStickyScroll({
     >
       <motion.div
         animate={{
-          backgroundColor: backgroundColors?.[activeCard % (backgroundColors?.length ?? 1)] ?? "",
+          backgroundColor:
+            backgroundColors?.[activeCard % (backgroundColors?.length ?? 1)] ??
+            "",
         }}
         className={cn(
           "h-120 overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10",
-          scrollContainerClassName
+          scrollContainerClassName,
         )}
         ref={ref}
       >
@@ -189,7 +197,7 @@ export function ProjectStickyScroll({
           style={{ background: backgroundGradient }}
           className={cn(
             "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
-            contentClassName
+            contentClassName,
           )}
         >
           {content[activeCard]?.content ?? null}

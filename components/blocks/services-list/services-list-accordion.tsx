@@ -123,7 +123,7 @@ export interface ServicesListAccordionProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -172,7 +172,8 @@ export function ServicesListAccordion({
 }: ServicesListAccordionProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListAccordionService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-5 w-5" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-5 w-5" />;
     return null;
   };
 
@@ -191,40 +192,56 @@ export function ServicesListAccordion({
           <AccordionItem
             key={index}
             value={`item-${index}`}
-            className={cn("border-b border-border", accordionItemClassName, service.className)}
+            className={cn(
+              "border-b border-border",
+              accordionItemClassName,
+              service.className,
+            )}
           >
             <AccordionTrigger className="hover:no-underline py-6">
               <div className="flex items-center gap-4 text-left">
-                <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted", iconClassName)}>
+                <div
+                  className={cn(
+                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted",
+                    iconClassName,
+                  )}
+                >
                   {renderServiceIcon(service)}
                 </div>
                 <div>
-                  {service.title && (
-                    typeof service.title === "string" ? (
+                  {service.title &&
+                    (typeof service.title === "string" ? (
                       <h3 className="text-lg font-semibold">{service.title}</h3>
                     ) : (
-                      <div className="text-lg font-semibold">{service.title}</div>
-                    )
-                  )}
-                  {service.shortDescription && (
-                    typeof service.shortDescription === "string" ? (
-                      <p className="text-sm text-muted-foreground">{service.shortDescription}</p>
+                      <div className="text-lg font-semibold">
+                        {service.title}
+                      </div>
+                    ))}
+                  {service.shortDescription &&
+                    (typeof service.shortDescription === "string" ? (
+                      <p className="text-sm text-muted-foreground">
+                        {service.shortDescription}
+                      </p>
                     ) : (
-                      <div className="text-sm text-muted-foreground">{service.shortDescription}</div>
-                    )
-                  )}
+                      <div className="text-sm text-muted-foreground">
+                        {service.shortDescription}
+                      </div>
+                    ))}
                 </div>
               </div>
             </AccordionTrigger>
             <AccordionContent className="pb-6">
               <div className="space-y-6 pl-14">
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="leading-relaxed text-muted-foreground">{service.description}</p>
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="leading-relaxed text-muted-foreground">{service.description}</div>
-                  )
-                )}
+                    <div className="leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </div>
+                  ))}
 
                 {service.items && service.items.length > 0 && (
                   <div className="space-y-3">
@@ -237,7 +254,10 @@ export function ServicesListAccordion({
                     )}
                     <div className="grid grid-cols-2 gap-2">
                       {service.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className="flex items-center gap-2">
+                        <div
+                          key={itemIndex}
+                          className="flex items-center gap-2"
+                        >
                           <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                           {typeof item === "string" ? (
                             <span className="text-sm">{item}</span>
@@ -260,7 +280,7 @@ export function ServicesListAccordion({
                       deliverablesLabel
                     )}
                     <div className="flex flex-wrap gap-2">
-                      {service.deliverables.map((deliverable, delIndex) => (
+                      {service.deliverables.map((deliverable, delIndex) =>
                         typeof deliverable === "string" ? (
                           <span
                             key={delIndex}
@@ -270,8 +290,8 @@ export function ServicesListAccordion({
                           </span>
                         ) : (
                           <div key={delIndex}>{deliverable}</div>
-                        )
-                      ))}
+                        ),
+                      )}
                     </div>
                   </div>
                 )}
@@ -293,24 +313,32 @@ export function ServicesListAccordion({
     >
       <div className={cn("mx-auto max-w-3xl space-y-16", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

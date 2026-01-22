@@ -68,7 +68,7 @@ export interface TeamGradientCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -173,7 +173,7 @@ export function TeamGradientCards({
         key={member.id}
         className={cn(
           "group relative overflow-hidden rounded-xl bg-linear-to-br from-primary/5 via-transparent to-secondary/5 p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg",
-          memberCardClassName
+          memberCardClassName,
         )}
       >
         <div className="flex flex-col items-center text-center">
@@ -182,7 +182,7 @@ export function TeamGradientCards({
             <Avatar
               className={cn(
                 "relative size-24 border-2 border-background",
-                avatarClassName
+                avatarClassName,
               )}
             >
               <AvatarImage src={member.avatar} alt={member.name} />
@@ -197,14 +197,16 @@ export function TeamGradientCards({
           <h3 className={cn("text-lg font-semibold", memberNameClassName)}>
             {member.name}
           </h3>
-          <p className={cn("text-sm text-muted-foreground", memberRoleClassName)}>
+          <p
+            className={cn("text-sm text-muted-foreground", memberRoleClassName)}
+          >
             {member.role}
           </p>
           {member.social && (
             <div
               className={cn(
                 "mt-4 flex gap-3 text-muted-foreground",
-                socialLinksClassName
+                socialLinksClassName,
               )}
             >
               {member.social.github && (
@@ -249,40 +251,43 @@ export function TeamGradientCards({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
       <div
         className={cn(
           "mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3",
-          gridClassName
+          gridClassName,
         )}
       >
         {renderMembers()}

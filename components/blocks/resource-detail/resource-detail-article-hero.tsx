@@ -166,7 +166,7 @@ export interface ResourceDetailArticleHeroProps {
   /**
    * Hero section pattern
    */
-  heroPattern?: PatternName | string;
+  heropattern?: PatternName | undefined;
   /**
    * Hero section pattern opacity
    */
@@ -186,7 +186,7 @@ export interface ResourceDetailArticleHeroProps {
   /**
    * Content section pattern
    */
-  contentPattern?: PatternName | string;
+  contentpattern?: PatternName | undefined;
   /**
    * Content section pattern opacity
    */
@@ -374,7 +374,12 @@ export function ResourceDetailArticleHero({
     if (navigationSlot) return navigationSlot;
 
     return (
-      <div className={cn("flex items-center gap-2 text-muted-foreground", navigationClassName)}>
+      <div
+        className={cn(
+          "flex items-center gap-2 text-muted-foreground",
+          navigationClassName,
+        )}
+      >
         <Pressable
           href={navigation?.backHref}
           className="group/nav flex items-center gap-2 transition-all duration-200 hover:gap-4"
@@ -382,15 +387,14 @@ export function ResourceDetailArticleHero({
           <span className="group-hover/nav:text-primary-foreground">
             {navigation?.backIcon}
           </span>
-          {navigation?.backText && (
-            typeof navigation.backText === "string" ? (
+          {navigation?.backText &&
+            (typeof navigation.backText === "string" ? (
               <span className="transition-colors group-hover/nav:text-primary-foreground group-hover/nav:underline">
                 {navigation.backText}
               </span>
             ) : (
               navigation.backText
-            )
-          )}
+            ))}
         </Pressable>
       </div>
     );
@@ -401,17 +405,18 @@ export function ResourceDetailArticleHero({
 
     return (
       <div className={cn("space-y-2", blogMetaClassName)}>
-        {blog?.author && (
-          typeof blog.author === "string" ? (
+        {blog?.author &&
+          (typeof blog.author === "string" ? (
             <p className="text-lg text-muted-foreground">{blog.author}</p>
           ) : (
             blog.author
-          )
-        )}
+          ))}
         <p className="text-muted-foreground">
-          {blog?.date && (typeof blog.date === "string" ? blog.date : blog.date)}
+          {blog?.date &&
+            (typeof blog.date === "string" ? blog.date : blog.date)}
           {blog?.date && blog?.readTime && " • "}
-          {blog?.readTime && (typeof blog.readTime === "string" ? blog.readTime : blog.readTime)}
+          {blog?.readTime &&
+            (typeof blog.readTime === "string" ? blog.readTime : blog.readTime)}
         </p>
       </div>
     );
@@ -429,7 +434,14 @@ export function ResourceDetailArticleHero({
     return (
       <div className={cn("flex gap-3", shareActionsClassName)}>
         {shareActions.map((action, index) => {
-          const { icon, iconAfter, children, className: actionClassName, label, ...pressableProps } = action;
+          const {
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            label,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -454,7 +466,9 @@ export function ResourceDetailArticleHero({
     if (illustrationSlot) return illustrationSlot;
 
     return (
-      <div className={cn("aspect-video min-h-96 w-full", illustrationClassName)}>
+      <div
+        className={cn("aspect-video min-h-96 w-full", illustrationClassName)}
+      >
         {illustration?.imageSrc && (
           <Img
             src={illustration.imageSrc}
@@ -479,20 +493,18 @@ export function ResourceDetailArticleHero({
           </AvatarFallback>
         </Avatar>
         <div>
-          {author?.name && (
-            typeof author.name === "string" ? (
+          {author?.name &&
+            (typeof author.name === "string" ? (
               <p className="font-medium">{author.name}</p>
             ) : (
               author.name
-            )
-          )}
-          {author?.role && (
-            typeof author.role === "string" ? (
+            ))}
+          {author?.role &&
+            (typeof author.role === "string" ? (
               <p className="text-sm text-muted-foreground">{author.role}</p>
             ) : (
               author.role
-            )
-          )}
+            ))}
         </div>
       </div>
     );
@@ -516,34 +528,35 @@ export function ResourceDetailArticleHero({
           <div className="flex h-full max-w-md flex-col justify-between gap-8">
             <div className="space-y-6">
               {renderNavigation()}
-              {blog?.title && (
-                typeof blog.title === "string" ? (
-                  <h1 className={cn("text-3xl leading-tight font-medium", titleClassName)}>
+              {blog?.title &&
+                (typeof blog.title === "string" ? (
+                  <h1
+                    className={cn(
+                      "text-3xl leading-tight font-medium",
+                      titleClassName,
+                    )}
+                  >
                     {blog.title}
                   </h1>
                 ) : (
                   <div className={titleClassName}>{blog.title}</div>
-                )
-              )}
+                ))}
             </div>
             <div className="flex flex-col gap-8">
               {renderBlogMeta()}
               <div className="space-y-4">
-                {shareHeading && (
-                  typeof shareHeading === "string" ? (
+                {shareHeading &&
+                  (typeof shareHeading === "string" ? (
                     <h3>{shareHeading}</h3>
                   ) : (
                     shareHeading
-                  )
-                )}
+                  ))}
                 {renderShareActions("hero")}
               </div>
             </div>
           </div>
 
-          <div className="col-span-2 h-full w-full">
-            {renderIllustration()}
-          </div>
+          <div className="col-span-2 h-full w-full">{renderIllustration()}</div>
         </div>
       </Section>
 
@@ -555,22 +568,23 @@ export function ResourceDetailArticleHero({
         className={contentSectionClassName}
       >
         <div className="mx-auto md:max-w-2xl xl:max-w-5xl">
-          <div className={cn(
-            "prose max-w-none pb-16 prose-headings:text-foreground prose-p:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-strong:text-foreground prose-em:text-foreground prose-ol:text-muted-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground",
-            contentClassName
-          )}>
+          <div
+            className={cn(
+              "prose max-w-none pb-16 prose-headings:text-foreground prose-p:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-strong:text-foreground prose-em:text-foreground prose-ol:text-muted-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground",
+              contentClassName,
+            )}
+          >
             {renderContent()}
           </div>
           <div className="flex flex-col justify-between gap-8 border-t border-border py-8 md:flex-row">
             {renderAuthor()}
             <div className="space-y-4">
-              {shareHeading && (
-                typeof shareHeading === "string" ? (
+              {shareHeading &&
+                (typeof shareHeading === "string" ? (
                   <h3>{shareHeading}</h3>
                 ) : (
                   shareHeading
-                )
-              )}
+                ))}
               {renderShareActions("content")}
             </div>
           </div>

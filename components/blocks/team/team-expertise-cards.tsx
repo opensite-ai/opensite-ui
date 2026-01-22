@@ -82,7 +82,7 @@ export interface TeamExpertiseCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -228,7 +228,7 @@ export function TeamExpertiseCards({
         key={member.id}
         className={cn(
           "group border-0 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg",
-          memberCardClassName
+          memberCardClassName,
         )}
       >
         <CardContent className="p-6">
@@ -248,15 +248,23 @@ export function TeamExpertiseCards({
             <h3
               className={cn(
                 "mb-1 text-lg font-semibold transition-colors group-hover:text-primary",
-                memberNameClassName
+                memberNameClassName,
               )}
             >
               {member.name}
             </h3>
-            <p className={cn("mb-2 text-sm font-medium text-primary", memberRoleClassName)}>
+            <p
+              className={cn(
+                "mb-2 text-sm font-medium text-primary",
+                memberRoleClassName,
+              )}
+            >
               {member.role}
             </p>
-            <Badge variant="outline" className={cn("text-xs", departmentBadgeClassName)}>
+            <Badge
+              variant="outline"
+              className={cn("text-xs", departmentBadgeClassName)}
+            >
               {member.department}
             </Badge>
           </div>
@@ -264,7 +272,7 @@ export function TeamExpertiseCards({
           <p
             className={cn(
               "mb-4 text-sm leading-relaxed text-muted-foreground",
-              memberDescriptionClassName
+              memberDescriptionClassName,
             )}
           >
             {member.description}
@@ -290,25 +298,32 @@ export function TeamExpertiseCards({
     if (ctaSlot) return ctaSlot;
 
     return (
-      <div className={cn("mt-16 border-t pt-16 text-center", ctaSectionClassName)}>
-        {ctaHeading && (
-          typeof ctaHeading === "string" ? (
-            <h3 className={cn("mb-4 text-2xl font-semibold", ctaHeadingClassName)}>
+      <div
+        className={cn("mt-16 border-t pt-16 text-center", ctaSectionClassName)}
+      >
+        {ctaHeading &&
+          (typeof ctaHeading === "string" ? (
+            <h3
+              className={cn("mb-4 text-2xl font-semibold", ctaHeadingClassName)}
+            >
               {ctaHeading}
             </h3>
           ) : (
             <div className={ctaHeadingClassName}>{ctaHeading}</div>
-          )
-        )}
-        {ctaDescription && (
-          typeof ctaDescription === "string" ? (
-            <p className={cn("mx-auto mb-6 max-w-2xl text-muted-foreground", ctaDescriptionClassName)}>
+          ))}
+        {ctaDescription &&
+          (typeof ctaDescription === "string" ? (
+            <p
+              className={cn(
+                "mx-auto mb-6 max-w-2xl text-muted-foreground",
+                ctaDescriptionClassName,
+              )}
+            >
               {ctaDescription}
             </p>
           ) : (
             <div className={ctaDescriptionClassName}>{ctaDescription}</div>
-          )
-        )}
+          ))}
         <Pressable
           href={ctaButtonUrl}
           variant="default"
@@ -331,37 +346,40 @@ export function TeamExpertiseCards({
       className={className}
     >
       <div className={cn("mb-16 text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "mb-6 text-4xl font-bold tracking-tight lg:text-5xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mx-auto max-w-3xl text-xl leading-relaxed text-muted-foreground",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
-      <div className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {renderMembers()}
       </div>
 

@@ -8,10 +8,7 @@ import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Review item interface for verified reviews
@@ -95,7 +92,7 @@ export interface ReviewsListVerifiedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -165,7 +162,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
           className={cn(
             star <= rating
               ? "fill-primary text-primary"
-              : "fill-muted text-muted"
+              : "fill-muted text-muted",
           )}
         />
       ))}
@@ -242,43 +239,37 @@ export function ReviewsListVerified({
               <div className={cn("space-y-3", contentClassName)}>
                 <div>
                   <StarRating rating={review.rating} size={16} />
-                  {review.title && (
-                    typeof review.title === "string" ? (
+                  {review.title &&
+                    (typeof review.title === "string" ? (
                       <h3 className="mt-2 font-medium">{review.title}</h3>
                     ) : (
                       <div className="mt-2">{review.title}</div>
-                    )
-                  )}
+                    ))}
                 </div>
 
-                {review.content && (
-                  typeof review.content === "string" ? (
+                {review.content &&
+                  (typeof review.content === "string" ? (
                     <p className="text-sm leading-relaxed text-muted-foreground">
                       {review.content}
                     </p>
                   ) : (
                     review.content
-                  )
-                )}
+                  ))}
 
                 <div className={cn("flex items-center gap-3", authorClassName)}>
                   <Avatar className="size-8">
-                    <AvatarImage
-                      src={review.avatarSrc}
-                      alt={authorName}
-                    />
+                    <AvatarImage src={review.avatarSrc} alt={authorName} />
                     <AvatarFallback className="text-xs">
                       {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex items-center gap-2 text-sm">
-                    {review.author && (
-                      typeof review.author === "string" ? (
+                    {review.author &&
+                      (typeof review.author === "string" ? (
                         <span className="font-medium">{review.author}</span>
                       ) : (
                         review.author
-                      )
-                    )}
+                      ))}
                     {review.verified && (
                       <span className="flex items-center gap-1 text-emerald-600">
                         <DynamicIcon name="lucide/badge-check" size={16} />
@@ -288,7 +279,9 @@ export function ReviewsListVerified({
                     {review.date && (
                       <>
                         <span className="text-muted-foreground">·</span>
-                        <span className="text-muted-foreground">{review.date}</span>
+                        <span className="text-muted-foreground">
+                          {review.date}
+                        </span>
                       </>
                     )}
                   </div>
@@ -311,15 +304,19 @@ export function ReviewsListVerified({
     >
       <div className="mx-auto max-w-3xl">
         <div className={cn("mb-8", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-2xl font-semibold tracking-tight md:text-3xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-2xl font-semibold tracking-tight md:text-3xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
           <div className="mt-2 flex items-center gap-3">
             <StarRating rating={Math.round(averageRating)} size={20} />
             <span className="text-sm text-muted-foreground">

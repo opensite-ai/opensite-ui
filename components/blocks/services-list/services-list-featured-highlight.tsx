@@ -115,7 +115,7 @@ export interface ServicesListFeaturedHighlightProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -160,7 +160,8 @@ export function ServicesListFeaturedHighlight({
 }: ServicesListFeaturedHighlightProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListFeaturedHighlightService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;
   };
 
@@ -169,7 +170,9 @@ export function ServicesListFeaturedHighlight({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}
+      >
         {services.map((service, index) => (
           <div
             key={index}
@@ -179,43 +182,50 @@ export function ServicesListFeaturedHighlight({
                 ? "border-primary bg-primary/5 shadow-lg"
                 : "border-border",
               cardClassName,
-              service.className
+              service.className,
             )}
           >
-            {service.featured && (
-              typeof service.featuredBadge === "string" ? (
-                <Badge className="absolute -top-3 right-6">{service.featuredBadge || "Popular"}</Badge>
+            {service.featured &&
+              (typeof service.featuredBadge === "string" ? (
+                <Badge className="absolute -top-3 right-6">
+                  {service.featuredBadge || "Popular"}
+                </Badge>
               ) : service.featuredBadge ? (
-                <div className="absolute -top-3 right-6">{service.featuredBadge}</div>
+                <div className="absolute -top-3 right-6">
+                  {service.featuredBadge}
+                </div>
               ) : (
                 <Badge className="absolute -top-3 right-6">Popular</Badge>
-              )
-            )}
+              ))}
 
             <div className="flex items-start gap-4">
               <div
                 className={cn(
                   "rounded-lg p-3",
-                  service.featured ? "bg-primary text-primary-foreground" : "bg-muted"
+                  service.featured
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted",
                 )}
               >
                 {renderServiceIcon(service)}
               </div>
               <div className="flex-1">
-                {service.title && (
-                  typeof service.title === "string" ? (
+                {service.title &&
+                  (typeof service.title === "string" ? (
                     <h3 className="text-xl font-semibold">{service.title}</h3>
                   ) : (
                     <div className="text-xl font-semibold">{service.title}</div>
-                  )
-                )}
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{service.description}</p>
+                  ))}
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{service.description}</div>
-                  )
-                )}
+                    <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </div>
+                  ))}
               </div>
             </div>
 
@@ -227,7 +237,9 @@ export function ServicesListFeaturedHighlight({
                       name="lucide/check-circle"
                       className={cn(
                         "h-5 w-5",
-                        service.featured ? "text-primary" : "text-muted-foreground"
+                        service.featured
+                          ? "text-primary"
+                          : "text-muted-foreground",
                       )}
                     />
                     {typeof deliverable === "string" ? (
@@ -250,7 +262,10 @@ export function ServicesListFeaturedHighlight({
                   asButton
                 >
                   {service.ctaText}
-                  <DynamicIcon name="lucide/arrow-right" className="ml-2 h-4 w-4" />
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    className="ml-2 h-4 w-4"
+                  />
                 </Pressable>
               </div>
             )}
@@ -270,24 +285,32 @@ export function ServicesListFeaturedHighlight({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

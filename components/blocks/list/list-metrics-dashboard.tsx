@@ -156,7 +156,7 @@ export interface ListMetricsDashboardProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -260,7 +260,14 @@ export function ListMetricsDashboard({
     if (dashboardActionSlot) return dashboardActionSlot;
     if (!dashboardAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = dashboardAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = dashboardAction;
 
     return (
       <Pressable
@@ -295,7 +302,7 @@ export function ListMetricsDashboard({
         key={metric.id}
         className={cn(
           "hover:bg-muted/50 flex items-center justify-between px-4 py-4 transition-colors md:px-6",
-          metricsClassName
+          metricsClassName,
         )}
       >
         <div className="flex items-center space-x-3 md:space-x-4">
@@ -303,9 +310,10 @@ export function ListMetricsDashboard({
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full",
               metric.status === "positive" && "bg-success/10 text-success",
-              metric.status === "negative" && "bg-destructive/10 text-destructive",
+              metric.status === "negative" &&
+                "bg-destructive/10 text-destructive",
               metric.status === "warning" && "bg-accent text-accent-foreground",
-              metric.status === "neutral" && "bg-primary/10 text-primary"
+              metric.status === "neutral" && "bg-primary/10 text-primary",
             )}
           >
             {metric.icon && <DynamicIcon name={metric.icon} size={16} />}
@@ -350,13 +358,21 @@ export function ListMetricsDashboard({
                   metric.status === "positive" && "text-success",
                   metric.status === "negative" && "text-destructive",
                   metric.status === "warning" && "text-accent-foreground",
-                  metric.status === "neutral" && "text-primary"
+                  metric.status === "neutral" && "text-primary",
                 )}
               >
                 {metric.changePercentage > 0 ? (
-                  <DynamicIcon name="lucide/chevron-up" size={12} className="mr-0.5" />
+                  <DynamicIcon
+                    name="lucide/chevron-up"
+                    size={12}
+                    className="mr-0.5"
+                  />
                 ) : metric.changePercentage < 0 ? (
-                  <DynamicIcon name="lucide/chevron-down" size={12} className="mr-0.5" />
+                  <DynamicIcon
+                    name="lucide/chevron-down"
+                    size={12}
+                    className="mr-0.5"
+                  />
                 ) : null}
                 {Math.abs(metric.changePercentage)}%
               </div>
@@ -375,26 +391,39 @@ export function ListMetricsDashboard({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("mb-8 flex flex-col items-center justify-center space-y-4 text-center", headerClassName)}>
+      <div
+        className={cn(
+          "mb-8 flex flex-col items-center justify-center space-y-4 text-center",
+          headerClassName,
+        )}
+      >
         {renderBadge()}
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-bold tracking-tighter sm:text-4xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-bold tracking-tighter sm:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-muted-foreground max-w-[700px] md:text-lg", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-muted-foreground max-w-[700px] md:text-lg",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
       <Card className={cn("border p-0 shadow-sm", cardClassName)}>
@@ -412,10 +441,16 @@ export function ListMetricsDashboard({
                     <span>
                       {activeTab === "all"
                         ? "All Metrics"
-                        : categories.find((c) => c.value === activeTab)?.label ||
-                          activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+                        : categories.find((c) => c.value === activeTab)
+                            ?.label ||
+                          activeTab.charAt(0).toUpperCase() +
+                            activeTab.slice(1)}
                     </span>
-                    <DynamicIcon name="lucide/menu" size={16} className="ml-2" />
+                    <DynamicIcon
+                      name="lucide/menu"
+                      size={16}
+                      className="ml-2"
+                    />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-[200px]">
@@ -452,9 +487,19 @@ export function ListMetricsDashboard({
         </CardContent>
       </Card>
 
-      <div className={cn("mt-8 flex flex-col items-center justify-between gap-4 sm:flex-row", footerClassName)}>
+      <div
+        className={cn(
+          "mt-8 flex flex-col items-center justify-between gap-4 sm:flex-row",
+          footerClassName,
+        )}
+      >
         {lastUpdated && (
-          <div className={cn("text-muted-foreground order-2 text-sm sm:order-1", lastUpdatedClassName)}>
+          <div
+            className={cn(
+              "text-muted-foreground order-2 text-sm sm:order-1",
+              lastUpdatedClassName,
+            )}
+          >
             <span className="font-medium">Last updated:</span>{" "}
             {typeof lastUpdated === "string" ? lastUpdated : lastUpdated}
           </div>

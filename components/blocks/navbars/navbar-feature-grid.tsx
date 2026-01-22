@@ -113,7 +113,7 @@ export interface NavbarFeatureGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -158,7 +158,10 @@ export const NavbarFeatureGrid = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
@@ -167,15 +170,14 @@ export const NavbarFeatureGrid = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold tracking-tighter">
               {logo.title}
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -185,13 +187,16 @@ export const NavbarFeatureGrid = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
-        <Pressable
-          key={index}
-          className={actionClassName}
-          {...pressableProps}
-        >
+        <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
               {icon}
@@ -215,7 +220,9 @@ export const NavbarFeatureGrid = ({
       <div className={cn("container", containerClassName)}>
         <nav className={cn("flex items-center justify-between", navClassName)}>
           {renderLogo()}
-          <NavigationMenu className={cn("hidden lg:block", navigationMenuClassName)}>
+          <NavigationMenu
+            className={cn("hidden lg:block", navigationMenuClassName)}
+          >
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Features</NavigationMenuTrigger>
@@ -266,20 +273,28 @@ export const NavbarFeatureGrid = ({
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <div className={cn("hidden items-center gap-4 lg:flex", actionsClassName)}>
+          <div
+            className={cn(
+              "hidden items-center gap-4 lg:flex",
+              actionsClassName,
+            )}
+          >
             {renderAuthActions()}
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Pressable variant="outline" size="icon" asButton onClick={() => {}}>
+              <Pressable
+                variant="outline"
+                size="icon"
+                asButton
+                onClick={() => {}}
+              >
                 <DynamicIcon name="lucide/menu" size={16} />
               </Pressable>
             </SheetTrigger>
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
-                <SheetTitle>
-                  {renderLogo()}
-                </SheetTitle>
+                <SheetTitle>{renderLogo()}</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col p-4">
                 <Accordion type="single" collapsible className="mt-4 mb-2">
@@ -320,7 +335,9 @@ export const NavbarFeatureGrid = ({
                     Pricing
                   </Pressable>
                 </div>
-                <div className={cn("mt-6 flex flex-col gap-4", actionsClassName)}>
+                <div
+                  className={cn("mt-6 flex flex-col gap-4", actionsClassName)}
+                >
                   {renderAuthActions()}
                 </div>
               </div>

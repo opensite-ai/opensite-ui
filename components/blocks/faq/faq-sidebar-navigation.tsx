@@ -52,7 +52,7 @@ export interface FaqSidebarNavigationProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -150,7 +150,7 @@ export function FaqSidebarNavigation({
   accordionContentClassName,
 }: FaqSidebarNavigationProps) {
   const [activeCategory, setActiveCategory] = React.useState(
-    categories?.[0]?.id || ""
+    categories?.[0]?.id || "",
   );
 
   const scrollToCategory = (categoryId: string) => {
@@ -177,7 +177,7 @@ export function FaqSidebarNavigation({
               <h3
                 className={cn(
                   "mb-4 text-xl font-semibold",
-                  categoryTitleClassName
+                  categoryTitleClassName,
                 )}
               >
                 {category.title}
@@ -185,11 +185,7 @@ export function FaqSidebarNavigation({
             ) : (
               <div className={categoryTitleClassName}>{category.title}</div>
             )}
-            <Accordion
-              type="single"
-              collapsible
-              className={accordionClassName}
-            >
+            <Accordion type="single" collapsible className={accordionClassName}>
               {category.items.map((item) => (
                 <AccordionItem
                   key={item.id}
@@ -199,7 +195,7 @@ export function FaqSidebarNavigation({
                   <AccordionTrigger
                     className={cn(
                       "transition-opacity duration-200 hover:no-underline hover:opacity-60",
-                      accordionTriggerClassName
+                      accordionTriggerClassName,
                     )}
                   >
                     <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
@@ -235,37 +231,40 @@ export function FaqSidebarNavigation({
         <div
           className={cn(
             "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-            headerClassName
+            headerClassName,
           )}
         >
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         <div
           className={cn(
             "mx-auto mt-10 flex max-w-7xl flex-col gap-10 lg:flex-row lg:gap-16",
-            contentWrapperClassName
+            contentWrapperClassName,
           )}
         >
           <nav className={cn("lg:w-1/4", navClassName)}>
@@ -277,8 +276,11 @@ export function FaqSidebarNavigation({
                   className={cn(
                     "w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors",
                     activeCategory === category.id
-                      ? cn("bg-primary text-primary-foreground", navButtonActiveClassName)
-                      : cn("hover:bg-muted", navButtonClassName)
+                      ? cn(
+                          "bg-primary text-primary-foreground",
+                          navButtonActiveClassName,
+                        )
+                      : cn("hover:bg-muted", navButtonClassName),
                   )}
                 >
                   {category.title}

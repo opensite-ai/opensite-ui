@@ -128,7 +128,7 @@ export interface CarouselIconTabsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -219,14 +219,18 @@ export function CarouselIconTabs({
     if (headerSlot) return headerSlot;
 
     return (
-      <div className={cn("mb-20 flex flex-col items-center justify-center gap-8", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "mb-20 flex flex-col items-center justify-center gap-8",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h1 className={cn("text-4xl", headingClassName)}>{heading}</h1>
           ) : (
             <div className={cn("text-4xl", headingClassName)}>{heading}</div>
-          )
-        )}
+          ))}
         {badge && (
           <Badge
             variant="secondary"
@@ -244,11 +248,21 @@ export function CarouselIconTabs({
     if (!sections || sections.length === 0) return null;
 
     return sections.map((item, index) => (
-      <CarouselItem className={cn("h-full w-full", item.className, itemClassName)} key={index}>
+      <CarouselItem
+        className={cn("h-full w-full", item.className, itemClassName)}
+        key={index}
+      >
         <Img
           src={item.img}
-          alt={typeof item.title === "string" ? item.title : (item.alt || "Tab image")}
-          className={cn("aspect-square h-full w-full object-cover md:aspect-2/1", imageClassName)}
+          alt={
+            typeof item.title === "string"
+              ? item.title
+              : item.alt || "Tab image"
+          }
+          className={cn(
+            "aspect-square h-full w-full object-cover md:aspect-2/1",
+            imageClassName,
+          )}
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
         />
@@ -257,9 +271,7 @@ export function CarouselIconTabs({
             <DynamicIcon name={item.icon} size={20} />
           </div>
           <div className="text-lg font-medium">{item.title}</div>
-          <div className="text-lg text-muted-foreground">
-            {item.text}
-          </div>
+          <div className="text-lg text-muted-foreground">{item.text}</div>
         </div>
       </CarouselItem>
     ));
@@ -269,7 +281,12 @@ export function CarouselIconTabs({
     if (!sections || sections.length === 0) return null;
 
     return (
-      <div className={cn("mb-8 hidden justify-between gap-8 md:flex", tabsClassName)}>
+      <div
+        className={cn(
+          "mb-8 hidden justify-between gap-8 md:flex",
+          tabsClassName,
+        )}
+      >
         {sections.map((section, index) => (
           <div
             key={index}
@@ -285,7 +302,7 @@ export function CarouselIconTabs({
                 "text-lg hover:text-muted-foreground",
                 index + 1 === current
                   ? "text-muted-foreground"
-                  : "text-muted-foreground/50"
+                  : "text-muted-foreground/50",
               )}
             >
               {section.text}
@@ -306,7 +323,10 @@ export function CarouselIconTabs({
       className={className}
     >
       {renderHeader()}
-      <Carousel setApi={setApi} className={cn("flex flex-col gap-10", carouselClassName)}>
+      <Carousel
+        setApi={setApi}
+        className={cn("flex flex-col gap-10", carouselClassName)}
+      >
         <CarouselContent className={carouselContentClassName}>
           {renderSections()}
         </CarouselContent>

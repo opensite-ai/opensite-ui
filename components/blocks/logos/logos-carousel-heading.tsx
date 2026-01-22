@@ -5,13 +5,13 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosCarouselHeadingLogoItem {
   /**
@@ -92,7 +92,7 @@ export interface LogosCarouselHeadingProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -142,10 +142,15 @@ export function LogosCarouselHeading({
               key={logo.id}
               className={cn(
                 "flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6",
-                carouselItemClassName
+                carouselItemClassName,
               )}
             >
-              <div className={cn("mx-10 flex shrink-0 items-center justify-center", logoWrapperClassName)}>
+              <div
+                className={cn(
+                  "mx-10 flex shrink-0 items-center justify-center",
+                  logoWrapperClassName,
+                )}
+              >
                 <div>
                   <Img
                     src={logo.image}
@@ -171,9 +176,19 @@ export function LogosCarouselHeading({
       className={className}
     >
       {heading && (
-        <div className={cn("container flex flex-col items-center text-center", headerClassName)}>
+        <div
+          className={cn(
+            "container flex flex-col items-center text-center",
+            headerClassName,
+          )}
+        >
           {typeof heading === "string" ? (
-            <h1 className={cn("my-6 text-2xl font-bold text-pretty lg:text-4xl", headingClassName)}>
+            <h1
+              className={cn(
+                "my-6 text-2xl font-bold text-pretty lg:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
@@ -182,10 +197,25 @@ export function LogosCarouselHeading({
         </div>
       )}
       <div className="pt-10 md:pt-16 lg:pt-20">
-        <div className={cn("relative mx-auto flex items-center justify-center lg:max-w-5xl", logosClassName)}>
+        <div
+          className={cn(
+            "relative mx-auto flex items-center justify-center lg:max-w-5xl",
+            logosClassName,
+          )}
+        >
           {renderLogos()}
-          <div className={cn("absolute inset-y-0 left-0 w-12 bg-linear-to-r from-background to-transparent", leftFadeClassName)} />
-          <div className={cn("absolute inset-y-0 right-0 w-12 bg-linear-to-l from-background to-transparent", rightFadeClassName)} />
+          <div
+            className={cn(
+              "absolute inset-y-0 left-0 w-12 bg-linear-to-r from-background to-transparent",
+              leftFadeClassName,
+            )}
+          />
+          <div
+            className={cn(
+              "absolute inset-y-0 right-0 w-12 bg-linear-to-l from-background to-transparent",
+              rightFadeClassName,
+            )}
+          />
         </div>
       </div>
     </Section>

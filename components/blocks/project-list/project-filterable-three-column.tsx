@@ -7,8 +7,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectFilterableThreeColumnItem {
   id: number;
@@ -47,7 +47,7 @@ export interface ProjectFilterableThreeColumnProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -116,7 +116,7 @@ export function ProjectFilterableThreeColumn({
       const filtered = projects?.filter(
         (item) =>
           item.category === category ||
-          item.tags.includes(category.toLowerCase().replace(" ", "-"))
+          item.tags.includes(category.toLowerCase().replace(" ", "-")),
       );
       setFilteredItems(filtered);
     }
@@ -137,7 +137,10 @@ export function ProjectFilterableThreeColumn({
           duration: 0.2,
           ease: "easeInOut",
         }}
-        className={cn("group relative cursor-pointer overflow-hidden rounded-lg", cardClassName)}
+        className={cn(
+          "group relative cursor-pointer overflow-hidden rounded-lg",
+          cardClassName,
+        )}
       >
         <div className="relative aspect-4/3 h-96 w-full">
           <Img
@@ -175,7 +178,12 @@ export function ProjectFilterableThreeColumn({
     >
       <div className={cn("container", containerClassName)}>
         <div className="mx-auto max-w-7xl">
-          <div className={cn("mb-16 flex flex-wrap justify-center gap-8", filterClassName)}>
+          <div
+            className={cn(
+              "mb-16 flex flex-wrap justify-center gap-8",
+              filterClassName,
+            )}
+          >
             {categories?.map((category) => (
               <button
                 key={category}
@@ -185,7 +193,7 @@ export function ProjectFilterableThreeColumn({
                   activeFilter === category
                     ? "border-b-2 border-border pb-1 text-foreground"
                     : "text-gray-500",
-                  filterButtonClassName
+                  filterButtonClassName,
                 )}
               >
                 {category}
@@ -193,10 +201,14 @@ export function ProjectFilterableThreeColumn({
             ))}
           </div>
 
-          <motion.div layout className={cn("grid grid-cols-1 gap-8 md:grid-cols-3", gridClassName)}>
-            <AnimatePresence mode="wait">
-              {renderProjects()}
-            </AnimatePresence>
+          <motion.div
+            layout
+            className={cn(
+              "grid grid-cols-1 gap-8 md:grid-cols-3",
+              gridClassName,
+            )}
+          >
+            <AnimatePresence mode="wait">{renderProjects()}</AnimatePresence>
           </motion.div>
 
           {(filteredItems?.length ?? 0) === 0 && (

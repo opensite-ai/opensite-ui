@@ -7,8 +7,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectAlternatingMotionItem {
   title: string;
@@ -45,7 +45,7 @@ export interface ProjectAlternatingMotionProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -124,7 +124,7 @@ export function ProjectAlternatingMotion({
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={cn(
           "flex flex-col-reverse gap-6 md:grid md:grid-cols-2 md:pt-10",
-          cardClassName
+          cardClassName,
         )}
       >
         <div className={cn("flex flex-col justify-between", contentClassName)}>
@@ -142,7 +142,10 @@ export function ProjectAlternatingMotion({
         </div>
 
         <motion.div
-          className={cn("aspect-3/2 w-full overflow-hidden rounded-sm", imageContainerClassName)}
+          className={cn(
+            "aspect-3/2 w-full overflow-hidden rounded-sm",
+            imageContainerClassName,
+          )}
           initial={{ y: -80, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -168,14 +171,25 @@ export function ProjectAlternatingMotion({
       className={cn(className)}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mb-10 flex items-center justify-between border-b border-border pb-4", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-2xl font-semibold sm:text-lg", headingClassName)}>{heading}</h2>
+        <div
+          className={cn(
+            "mb-10 flex items-center justify-between border-b border-border pb-4",
+            headerClassName,
+          )}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-2xl font-semibold sm:text-lg",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
         </div>
         <div className={cn("space-y-12", listClassName)}>
           {renderProjects()}

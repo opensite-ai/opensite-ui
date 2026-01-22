@@ -8,7 +8,12 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for image overlay grid display
@@ -107,7 +112,7 @@ export interface ServicesListImageOverlayGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -180,7 +185,12 @@ export function ServicesListImageOverlayGrid({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-2 gap-4 lg:col-span-2 md:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-2 gap-4 lg:col-span-2 md:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {services.map((service, index) => (
           <Pressable
             key={index}
@@ -191,7 +201,7 @@ export function ServicesListImageOverlayGrid({
               index === 0 && "md:col-span-2 md:row-span-2",
               index > 0 && "aspect-square",
               cardClassName,
-              service.className
+              service.className,
             )}
           >
             {service.image && (
@@ -200,27 +210,35 @@ export function ServicesListImageOverlayGrid({
                 alt={service.image.alt}
                 className={cn(
                   "h-full w-full object-cover transition-transform duration-500 group-hover:scale-110",
-                  index === 0 ? "aspect-square md:aspect-auto" : "aspect-square"
+                  index === 0
+                    ? "aspect-square md:aspect-auto"
+                    : "aspect-square",
                 )}
                 optixFlowConfig={optixFlowConfig}
               />
             )}
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
             <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
-              {service.title && (
-                typeof service.title === "string" ? (
-                  <h3 className="text-lg font-bold text-white md:text-xl">{service.title}</h3>
+              {service.title &&
+                (typeof service.title === "string" ? (
+                  <h3 className="text-lg font-bold text-white md:text-xl">
+                    {service.title}
+                  </h3>
                 ) : (
-                  <div className="text-lg font-bold text-white md:text-xl">{service.title}</div>
-                )
-              )}
-              {service.description && (
-                typeof service.description === "string" ? (
-                  <p className="mt-1 text-sm text-white/80 opacity-0 transition-opacity group-hover:opacity-100">{service.description}</p>
+                  <div className="text-lg font-bold text-white md:text-xl">
+                    {service.title}
+                  </div>
+                ))}
+              {service.description &&
+                (typeof service.description === "string" ? (
+                  <p className="mt-1 text-sm text-white/80 opacity-0 transition-opacity group-hover:opacity-100">
+                    {service.description}
+                  </p>
                 ) : (
-                  <div className="mt-1 text-sm text-white/80 opacity-0 transition-opacity group-hover:opacity-100">{service.description}</div>
-                )
-              )}
+                  <div className="mt-1 text-sm text-white/80 opacity-0 transition-opacity group-hover:opacity-100">
+                    {service.description}
+                  </div>
+                ))}
             </div>
           </Pressable>
         ))}
@@ -236,26 +254,44 @@ export function ServicesListImageOverlayGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("grid gap-12 lg:grid-cols-3 lg:gap-8", containerClassName)}>
-        <div className={cn("flex flex-col justify-center lg:col-span-1", contentClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn(
+          "grid gap-12 lg:grid-cols-3 lg:gap-8",
+          containerClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "flex flex-col justify-center lg:col-span-1",
+            contentClassName,
+          )}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg leading-relaxed text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderActions()}
         </div>
         {renderServices()}

@@ -112,7 +112,7 @@ export interface CtaEnterpriseSplitProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -208,7 +208,7 @@ export function CtaEnterpriseSplit({
               className={cn(
                 "flex items-start gap-4 p-6 transition-colors hover:bg-accent",
                 linkCardClassName,
-                link.className
+                link.className,
               )}
             >
               {(link.icon || link.iconName) && (
@@ -256,7 +256,7 @@ export function CtaEnterpriseSplit({
             <h2
               className={cn(
                 "mb-4 text-3xl font-bold md:text-5xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -264,7 +264,7 @@ export function CtaEnterpriseSplit({
             <p
               className={cn(
                 "mb-8 text-lg text-muted-foreground",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}

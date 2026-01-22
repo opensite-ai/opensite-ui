@@ -135,7 +135,7 @@ export interface TestimonialCarouselCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -235,13 +235,37 @@ export function TestimonialCarouselCards({
     if (sidebarSlot) return sidebarSlot;
 
     return (
-      <div className={cn("flex flex-col justify-between lg:h-[460px] lg:w-[445px] lg:pr-10", sidebarClassName)}>
+      <div
+        className={cn(
+          "flex flex-col justify-between lg:h-[460px] lg:w-[445px] lg:pr-10",
+          sidebarClassName,
+        )}
+      >
         <div className="flex flex-col gap-4">
-          <h2 className={cn("text-3xl font-semibold lg:text-4xl", headingClassName)}>{heading}</h2>
-          <p className={cn("text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+          <h2
+            className={cn(
+              "text-3xl font-semibold lg:text-4xl",
+              headingClassName,
+            )}
+          >
+            {heading}
+          </h2>
+          <p
+            className={cn(
+              "text-lg text-muted-foreground",
+              descriptionClassName,
+            )}
+          >
+            {description}
+          </p>
         </div>
 
-        <div className={cn("hidden justify-start gap-4 lg:flex", controlsClassName)}>
+        <div
+          className={cn(
+            "hidden justify-start gap-4 lg:flex",
+            controlsClassName,
+          )}
+        >
           <Pressable
             size="icon"
             className="rounded-full"
@@ -274,14 +298,25 @@ export function TestimonialCarouselCards({
     return items.map((testimonial) => (
       <CarouselItem
         key={testimonial.id}
-        className={cn("min-w-[800px] flex-1", itemClassName, testimonial.className)}
+        className={cn(
+          "min-w-[800px] flex-1",
+          itemClassName,
+          testimonial.className,
+        )}
       >
         <div className="flex gap-2">
           <div className="h-[460px] w-[400px]">
             <Img
               src={testimonial.image}
-              alt={typeof testimonial.username === "string" ? testimonial.username : (testimonial.imageAlt || "Testimonial image")}
-              className={cn("aspect-square h-full w-full rounded-2xl object-cover", imageClassName)}
+              alt={
+                typeof testimonial.username === "string"
+                  ? testimonial.username
+                  : testimonial.imageAlt || "Testimonial image"
+              }
+              className={cn(
+                "aspect-square h-full w-full rounded-2xl object-cover",
+                imageClassName,
+              )}
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
             />
@@ -291,21 +326,20 @@ export function TestimonialCarouselCards({
             className={cn(
               "relative flex h-[460px] w-[400px] flex-col items-start justify-end rounded-2xl p-8",
               testimonial.bgColor,
-              quotePanelClassName
+              quotePanelClassName,
             )}
           >
-            <Badge className={cn("mb-auto bg-background px-4 py-2 text-black", badgeClassName)}>
+            <Badge
+              className={cn(
+                "mb-auto bg-background px-4 py-2 text-black",
+                badgeClassName,
+              )}
+            >
               {testimonial.username}
             </Badge>
-            <span className="-rotate-[4deg] text-7xl leading-none">
-              &quot;
-            </span>
-            <p className="text-xl font-semibold">
-              {testimonial.quote}
-            </p>
-            <p className="mt-4 text-lg font-medium">
-              {testimonial.author}
-            </p>
+            <span className="-rotate-[4deg] text-7xl leading-none">&quot;</span>
+            <p className="text-xl font-semibold">{testimonial.quote}</p>
+            <p className="mt-4 text-lg font-medium">{testimonial.author}</p>
           </div>
         </div>
       </CarouselItem>
@@ -338,7 +372,12 @@ export function TestimonialCarouselCards({
             </CarouselContent>
           </Carousel>
 
-          <div className={cn("absolute bottom-4 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200", progressClassName)}>
+          <div
+            className={cn(
+              "absolute bottom-4 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200",
+              progressClassName,
+            )}
+          >
             <div
               className="h-0.5 rounded bg-primary transition-transform duration-300 ease-out"
               style={{

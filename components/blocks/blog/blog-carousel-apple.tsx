@@ -9,7 +9,6 @@ import {
   AppleCarouselCardAction,
 } from "../../ui/apple-cards-carousel";
 import { Section } from "../../ui/section";
-import { imagePlaceholders, logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -84,7 +83,7 @@ export interface BlogCarouselAppleProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -143,12 +142,17 @@ export function BlogCarouselApple({
 }: BlogCarouselAppleProps): React.JSX.Element {
   // Convert blog posts to carousel card data
   const carouselCards = React.useMemo(() => {
-    return posts.map((post): AppleCarouselCardData => ({
-      src: post.image,
-      title: post.title,
-      category: post.category,
-      content: post.excerpt,
-    }));
+    if (!posts) return [];
+
+    return posts?.map(
+      (post, idx): AppleCarouselCardData => ({
+        idx: idx,
+        src: post.image,
+        title: post.title,
+        category: post.category,
+        content: post.excerpt,
+      }),
+    );
   }, [posts]);
 
   // Generate card elements
@@ -156,10 +160,11 @@ export function BlogCarouselApple({
     return carouselCards.map((card, index) => {
       const action: AppleCarouselCardAction = {
         type: actionType,
-        href: actionType === "link" ? posts[index].url : undefined,
-        onClick: onCardClick
-          ? () => onCardClick(posts[index], index)
-          : undefined,
+        href: actionType === "link" ? posts && posts[index].url : undefined,
+        onClick:
+          onCardClick && posts
+            ? () => onCardClick(posts[index], index)
+            : undefined,
       };
 
       return (

@@ -95,7 +95,7 @@ export interface ResourceListNewsUpdatesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -148,7 +148,7 @@ export function ResourceListNewsUpdates({
               href={item.link}
               className={cn(
                 "group flex flex-col justify-between gap-10 py-6 transition-all duration-400 lg:flex-row lg:items-center lg:hover:bg-muted",
-                item.className
+                item.className,
               )}
             >
               <div className="flex items-center gap-2 text-lg transition-all duration-400 lg:group-hover:translate-x-8">
@@ -198,9 +198,19 @@ export function ResourceListNewsUpdates({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("flex flex-col items-start justify-between gap-5 lg:flex-row lg:gap-2", contentClassName)}>
+      <div
+        className={cn(
+          "flex flex-col items-start justify-between gap-5 lg:flex-row lg:gap-2",
+          contentClassName,
+        )}
+      >
         {sectionLabel && (
-          <div className={cn("flex w-full max-w-56 items-center gap-3 text-sm", sectionLabelClassName)}>
+          <div
+            className={cn(
+              "flex w-full max-w-56 items-center gap-3 text-sm",
+              sectionLabelClassName,
+            )}
+          >
             <span className="size-2 rounded-full bg-primary"></span>
             {typeof sectionLabel === "string" ? sectionLabel : sectionLabel}
           </div>
@@ -213,7 +223,9 @@ export function ResourceListNewsUpdates({
                 <>
                   <br />
                   {typeof subtitle === "string" ? (
-                    <span className={cn("text-primary/50", subtitleClassName)}>{subtitle}</span>
+                    <span className={cn("text-primary/50", subtitleClassName)}>
+                      {subtitle}
+                    </span>
                   ) : (
                     <span className={subtitleClassName}>{subtitle}</span>
                   )}

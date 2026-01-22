@@ -158,7 +158,7 @@ export interface PricingTabsToggleProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -325,7 +325,9 @@ export function PricingTabsToggle({
   featureTextClassName,
   actionClassName,
 }: PricingTabsToggleProps): React.JSX.Element {
-  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">(
+    "monthly",
+  );
 
   const renderFeatures = (plan: PricingTabsTogglePlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
@@ -334,30 +336,53 @@ export function PricingTabsToggle({
     return (
       <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -369,12 +394,23 @@ export function PricingTabsToggle({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -395,10 +431,16 @@ export function PricingTabsToggle({
     return (
       <div className={cn("grid gap-6 md:grid-cols-3", gridClassName)}>
         {plans.map((plan, index) => {
-          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
-          const resolvedIcon = plan.icon
-            ?? (plan.iconName ? (
-              <DynamicIcon name={plan.iconName} size={20} className="text-primary" />
+          const badgeContent =
+            plan.badge ?? (plan.isPopular ? popularBadge : null);
+          const resolvedIcon =
+            plan.icon ??
+            (plan.iconName ? (
+              <DynamicIcon
+                name={plan.iconName}
+                size={20}
+                className="text-primary"
+              />
             ) : null);
 
           return (
@@ -409,11 +451,16 @@ export function PricingTabsToggle({
                 plan.isPopular ? "border-primary shadow-lg" : "border-border",
                 cardClassName,
                 plan.isPopular ? popularCardClassName : null,
-                plan.className
+                plan.className,
               )}
             >
               {badgeContent && (
-                <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
+                <div
+                  className={cn(
+                    "absolute -top-3 left-1/2 -translate-x-1/2",
+                    badgeClassName,
+                  )}
+                >
                   {typeof badgeContent === "string" ? (
                     <Badge>{badgeContent}</Badge>
                   ) : (
@@ -424,36 +471,57 @@ export function PricingTabsToggle({
 
               <div className="mb-4 flex items-center gap-3">
                 {resolvedIcon && (
-                  <div className={cn("flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10", iconWrapperClassName)}>
+                  <div
+                    className={cn(
+                      "flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10",
+                      iconWrapperClassName,
+                    )}
+                  >
                     {resolvedIcon}
                   </div>
                 )}
                 <div>
-                  {plan.name && (
-                    typeof plan.name === "string" ? (
-                      <h3 className={cn("font-semibold", planTitleClassName)}>{plan.name}</h3>
+                  {plan.name &&
+                    (typeof plan.name === "string" ? (
+                      <h3 className={cn("font-semibold", planTitleClassName)}>
+                        {plan.name}
+                      </h3>
                     ) : (
                       <div className={planTitleClassName}>{plan.name}</div>
-                    )
-                  )}
-                  {plan.description && (
-                    typeof plan.description === "string" ? (
-                      <p className={cn("text-sm text-muted-foreground", planDescriptionClassName)}>
+                    ))}
+                  {plan.description &&
+                    (typeof plan.description === "string" ? (
+                      <p
+                        className={cn(
+                          "text-sm text-muted-foreground",
+                          planDescriptionClassName,
+                        )}
+                      >
                         {plan.description}
                       </p>
                     ) : (
-                      <div className={planDescriptionClassName}>{plan.description}</div>
-                    )
-                  )}
+                      <div className={planDescriptionClassName}>
+                        {plan.description}
+                      </div>
+                    ))}
                 </div>
               </div>
 
               <div className="mb-6">
                 <span className={cn("text-4xl font-bold", priceClassName)}>
-                  {billingPeriod === "yearly" ? plan.yearlyPrice : plan.monthlyPrice}
+                  {billingPeriod === "yearly"
+                    ? plan.yearlyPrice
+                    : plan.monthlyPrice}
                 </span>
-                <span className={cn("text-muted-foreground", priceIntervalClassName)}>
-                  {billingPeriod === "yearly" ? yearlyInterval : monthlyInterval}
+                <span
+                  className={cn(
+                    "text-muted-foreground",
+                    priceIntervalClassName,
+                  )}
+                >
+                  {billingPeriod === "yearly"
+                    ? yearlyInterval
+                    : monthlyInterval}
                 </span>
               </div>
 
@@ -477,23 +545,35 @@ export function PricingTabsToggle({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
 
           <Tabs
             value={billingPeriod}
@@ -506,15 +586,17 @@ export function PricingTabsToggle({
               </TabsTrigger>
               <TabsTrigger value="yearly" className={tabsTriggerClassName}>
                 {yearlyLabel}
-                {yearlyBadge && (
-                  typeof yearlyBadge === "string" ? (
-                    <Badge variant="secondary" className={cn("ml-2", yearlyBadgeClassName)}>
+                {yearlyBadge &&
+                  (typeof yearlyBadge === "string" ? (
+                    <Badge
+                      variant="secondary"
+                      className={cn("ml-2", yearlyBadgeClassName)}
+                    >
                       {yearlyBadge}
                     </Badge>
                   ) : (
                     <span className={yearlyBadgeClassName}>{yearlyBadge}</span>
-                  )
-                )}
+                  ))}
               </TabsTrigger>
             </TabsList>
           </Tabs>

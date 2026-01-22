@@ -114,7 +114,7 @@ export interface PricingAddonsCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -243,30 +243,53 @@ export function PricingAddonsCards({
     return (
       <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
         {addon.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={16}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -278,12 +301,23 @@ export function PricingAddonsCards({
     if (addon.actionSlot) return addon.actionSlot;
     if (!addon.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = addon.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = addon.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -304,32 +338,55 @@ export function PricingAddonsCards({
     return (
       <div className={cn("grid gap-6 md:grid-cols-3", gridClassName)}>
         {addons.map((addon, index) => (
-          <div key={index} className={cn("flex flex-col rounded-2xl border p-6", cardClassName, addon.className)}>
+          <div
+            key={index}
+            className={cn(
+              "flex flex-col rounded-2xl border p-6",
+              cardClassName,
+              addon.className,
+            )}
+          >
             <div className="mb-4">
-              {addon.name && (
-                typeof addon.name === "string" ? (
-                  <h3 className={cn("text-lg font-semibold", addonTitleClassName)}>{addon.name}</h3>
+              {addon.name &&
+                (typeof addon.name === "string" ? (
+                  <h3
+                    className={cn("text-lg font-semibold", addonTitleClassName)}
+                  >
+                    {addon.name}
+                  </h3>
                 ) : (
                   <div className={addonTitleClassName}>{addon.name}</div>
-                )
-              )}
-              {addon.description && (
-                typeof addon.description === "string" ? (
-                  <p className={cn("mt-2 text-sm text-muted-foreground", addonDescriptionClassName)}>
+                ))}
+              {addon.description &&
+                (typeof addon.description === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-2 text-sm text-muted-foreground",
+                      addonDescriptionClassName,
+                    )}
+                  >
                     {addon.description}
                   </p>
                 ) : (
-                  <div className={addonDescriptionClassName}>{addon.description}</div>
-                )
-              )}
+                  <div className={addonDescriptionClassName}>
+                    {addon.description}
+                  </div>
+                ))}
             </div>
 
             <div className="mb-6">
               {addon.price && (
-                <span className={cn("text-3xl font-bold", priceClassName)}>{addon.price}</span>
+                <span className={cn("text-3xl font-bold", priceClassName)}>
+                  {addon.price}
+                </span>
               )}
               {addon.priceDescription && (
-                <span className={cn("text-muted-foreground", priceDescriptionClassName)}>
+                <span
+                  className={cn(
+                    "text-muted-foreground",
+                    priceDescriptionClassName,
+                  )}
+                >
                   {addon.priceDescription}
                 </span>
               )}
@@ -353,23 +410,35 @@ export function PricingAddonsCards({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         {renderAddons()}

@@ -97,7 +97,7 @@ export interface ServicesListIconGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -142,7 +142,8 @@ export function ServicesListIconGrid({
 }: ServicesListIconGridProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListIconGridService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;
   };
 
@@ -151,31 +152,39 @@ export function ServicesListIconGrid({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}
+      >
         {services.map((service, index) => (
           <div
             key={index}
-            className={cn("space-y-6 rounded-lg border border-border p-8 transition-shadow hover:shadow-sm", cardClassName, service.className)}
+            className={cn(
+              "space-y-6 rounded-lg border border-border p-8 transition-shadow hover:shadow-sm",
+              cardClassName,
+              service.className,
+            )}
           >
             <div className="flex items-center gap-4">
               <div className={cn("rounded-full bg-muted p-3", iconClassName)}>
                 {renderServiceIcon(service)}
               </div>
-              {service.title && (
-                typeof service.title === "string" ? (
+              {service.title &&
+                (typeof service.title === "string" ? (
                   <h3 className="text-xl font-semibold">{service.title}</h3>
                 ) : (
                   <div className="text-xl font-semibold">{service.title}</div>
-                )
-              )}
+                ))}
             </div>
-            {service.description && (
-              typeof service.description === "string" ? (
-                <p className="leading-relaxed text-muted-foreground">{service.description}</p>
+            {service.description &&
+              (typeof service.description === "string" ? (
+                <p className="leading-relaxed text-muted-foreground">
+                  {service.description}
+                </p>
               ) : (
-                <div className="leading-relaxed text-muted-foreground">{service.description}</div>
-              )
-            )}
+                <div className="leading-relaxed text-muted-foreground">
+                  {service.description}
+                </div>
+              ))}
             {service.items && service.items.length > 0 && (
               <div className="space-y-2">
                 {service.items.map((item, itemIndex) => (
@@ -206,24 +215,32 @@ export function ServicesListIconGrid({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

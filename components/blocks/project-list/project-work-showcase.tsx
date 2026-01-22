@@ -9,8 +9,8 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectWorkShowcaseProject {
   title: string;
@@ -60,7 +60,7 @@ export interface ProjectWorkShowcaseProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -135,9 +135,7 @@ export function ProjectWorkShowcase({
               <div>
                 <h3 className="text-2xl font-bold">{experience.role}</h3>
                 <div className="text-muted-foreground my-1 flex items-center gap-2">
-                  <span className="font-medium">
-                    {experience.company}
-                  </span>
+                  <span className="font-medium">{experience.company}</span>
                   <span>•</span>
                   <span>{experience.duration}</span>
                 </div>
@@ -209,26 +207,39 @@ export function ProjectWorkShowcase({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+      <div
+        className={cn(
+          "container mx-auto px-4 md:px-6 2xl:max-w-[1400px]",
+          containerClassName,
+        )}
+      >
         <div className={cn("mb-12 text-center md:mb-16", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("text-muted-foreground mx-auto max-w-3xl text-lg", subheadingClassName)}>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground mx-auto max-w-3xl text-lg",
+                  subheadingClassName,
+                )}
+              >
                 {subheading}
               </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("space-y-10", listClassName)}>

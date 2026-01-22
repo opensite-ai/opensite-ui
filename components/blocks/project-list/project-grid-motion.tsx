@@ -6,8 +6,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectGridMotionItem {
   title: string;
@@ -44,7 +44,7 @@ export interface ProjectGridMotionProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -119,7 +119,7 @@ export function ProjectGridMotion({
         viewport={{ once: true }}
         className={cn(
           "group overflow-hidden rounded-lg border border-border bg-background",
-          cardClassName
+          cardClassName,
         )}
       >
         <div className={cn("overflow-hidden", imageContainerClassName)}>
@@ -130,7 +130,12 @@ export function ProjectGridMotion({
             optixFlowConfig={optixFlowConfig}
           />
         </div>
-        <div className={cn("flex items-center justify-between px-5 py-4", cardFooterClassName)}>
+        <div
+          className={cn(
+            "flex items-center justify-between px-5 py-4",
+            cardFooterClassName,
+          )}
+        >
           <div>
             <h2 className="text-lg font-semibold">{project.title}</h2>
             <p className="text-muted-foreground">{project.type}</p>
@@ -152,17 +157,26 @@ export function ProjectGridMotion({
       className={cn(className)}
     >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("text-7xl leading-tight font-bold uppercase", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "text-7xl leading-tight font-bold uppercase",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
 
-        <div className={cn("mt-10 grid grid-cols-1 gap-6 md:grid-cols-2", gridClassName)}>
+        <div
+          className={cn(
+            "mt-10 grid grid-cols-1 gap-6 md:grid-cols-2",
+            gridClassName,
+          )}
+        >
           {renderProjects()}
         </div>
       </div>

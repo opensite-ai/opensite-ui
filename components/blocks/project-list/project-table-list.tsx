@@ -5,8 +5,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectTableListItem {
   id: number;
@@ -40,7 +40,7 @@ export interface ProjectTableListProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -115,20 +115,35 @@ export function ProjectTableList({
         key={project.id}
         className={cn(
           "flex w-full flex-col justify-between gap-10 border-b py-10 lg:flex-row lg:py-15",
-          rowClassName
+          rowClassName,
         )}
       >
-        <div className={cn("flex gap-4 text-xl font-medium tracking-tighter uppercase lg:w-1/4", infoColumnClassName)}>
+        <div
+          className={cn(
+            "flex gap-4 text-xl font-medium tracking-tighter uppercase lg:w-1/4",
+            infoColumnClassName,
+          )}
+        >
           <p className="">0{index + 1}</p>
           <div className="flex flex-col gap-1">
             <p>{project.title}</p>
             <p>({project.launchDate})</p>
           </div>
         </div>
-        <div className={cn("text-2xl lg:w-2/4 lg:text-3xl", descriptionColumnClassName)}>
+        <div
+          className={cn(
+            "text-2xl lg:w-2/4 lg:text-3xl",
+            descriptionColumnClassName,
+          )}
+        >
           {project.description}
         </div>
-        <div className={cn("w-full text-right text-sm text-foreground/50 uppercase lg:h-30 lg:w-1/4 lg:pl-20 lg:text-base", galleryColumnClassName)}>
+        <div
+          className={cn(
+            "w-full text-right text-sm text-foreground/50 uppercase lg:h-30 lg:w-1/4 lg:pl-20 lg:text-base",
+            galleryColumnClassName,
+          )}
+        >
           <Img
             src={project.image}
             alt={project.title}
@@ -150,7 +165,12 @@ export function ProjectTableList({
     >
       <div className={cn("container", containerClassName)}>
         <ul className={cn("relative w-full", listClassName)}>
-          <li className={cn("hidden justify-between gap-10 border-b pt-15 pb-2 text-sm tracking-tight text-foreground/40 uppercase lg:flex lg:text-base", headerClassName)}>
+          <li
+            className={cn(
+              "hidden justify-between gap-10 border-b pt-15 pb-2 text-sm tracking-tight text-foreground/40 uppercase lg:flex lg:text-base",
+              headerClassName,
+            )}
+          >
             <p className="w-1/4">PROJECTS</p>
             <p className="w-2/4">DESCRIPTION</p>
             <p className="w-1/4 text-right">GALLERY</p>

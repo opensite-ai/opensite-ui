@@ -9,10 +9,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Twitter/X testimonial item interface
@@ -100,7 +97,7 @@ export interface TestimonialsTwitterCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -218,33 +215,40 @@ export function TestimonialsTwitterCards({
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
-      <div className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-4 sm:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           return (
             <Card key={index} className={cn("group", cardClassName)}>
               <CardContent className={cn("p-6", cardContentClassName)}>
-                <div className={cn("mb-4 flex items-start justify-between", authorClassName)}>
+                <div
+                  className={cn(
+                    "mb-4 flex items-start justify-between",
+                    authorClassName,
+                  )}
+                >
                   <div className="flex items-center gap-3">
                     <Avatar className="size-10">
                       <AvatarImage
                         src={testimonial.avatarSrc}
                         alt={authorName}
                       />
-                      <AvatarFallback>
-                        {getInitials(authorName)}
-                      </AvatarFallback>
+                      <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                     </Avatar>
                     <div>
-                      {testimonial.author && (
-                        typeof testimonial.author === "string" ? (
+                      {testimonial.author &&
+                        (typeof testimonial.author === "string" ? (
                           <p className="font-medium leading-none">
                             {testimonial.author}
                           </p>
                         ) : (
                           testimonial.author
-                        )
-                      )}
+                        ))}
                       {testimonial.handle && (
                         <p className="text-sm text-muted-foreground">
                           {testimonial.handle}
@@ -262,13 +266,14 @@ export function TestimonialsTwitterCards({
                     </Pressable>
                   )}
                 </div>
-                {testimonial.content && (
-                  typeof testimonial.content === "string" ? (
-                    <p className="text-sm leading-relaxed">{testimonial.content}</p>
+                {testimonial.content &&
+                  (typeof testimonial.content === "string" ? (
+                    <p className="text-sm leading-relaxed">
+                      {testimonial.content}
+                    </p>
                   ) : (
                     testimonial.content
-                  )
-                )}
+                  ))}
               </CardContent>
             </Card>
           );
@@ -285,25 +290,37 @@ export function TestimonialsTwitterCards({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

@@ -36,6 +36,39 @@ import type {
 } from "../../../src/types";
 
 /**
+ * SHARED BASE TYPE INTERFACES
+ * These types provide a consistent interface across navbar components
+ */
+
+/**
+ * Base link item - used across all navbar components
+ */
+export interface ILinkItem {
+  label: React.ReactNode;
+  description?: React.ReactNode;
+  url: string;
+  icon?: React.ReactNode;
+  iconName?: string;
+  image?: string;
+  background?: string;
+}
+
+/**
+ * Group of links with optional metadata
+ */
+export interface IMenuLinkGroup {
+  label: React.ReactNode;
+  description?: string;
+  image?: string;
+  links: ILinkItem[];
+}
+
+/**
+ * SPECIALIZED TYPE INTERFACES FOR ENTERPRISE MEGA MENU
+ * These extend the base types for specific layout requirements
+ */
+
+/**
  * Subpage item for solution cards
  */
 export interface ISubpageItem {
@@ -232,9 +265,14 @@ export type MegaMenuLayout =
  * Menu link interface for enterprise mega menu
  */
 export interface IMenuLink {
-  title: string;
-  url?: string;
+  label: React.ReactNode;
+  href?: string;
   layout?: MegaMenuLayout;
+
+  // Unified links array - used by simpler layouts
+  links?: ILinkItem[];
+  // Optional grouped links for more complex layouts
+  dropdownGroups?: IMenuLinkGroup[];
 
   // Featured hero card (used in most layouts)
   featuredHeroCard?: IFeaturedHeroCard;
@@ -328,7 +366,7 @@ export interface NavbarEnterpriseMegaProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -401,7 +439,10 @@ export const NavbarEnterpriseMega = ({
     return (
       <Pressable
         href={logo.url || "/"}
-        className={cn("flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter", logoClassName)}
+        className={cn(
+          "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
+          logoClassName,
+        )}
       >
         {logo.src && (
           <Img
@@ -411,13 +452,12 @@ export const NavbarEnterpriseMega = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="hidden md:inline-block">{logo.title}</span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -427,13 +467,16 @@ export const NavbarEnterpriseMega = ({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
-        <Pressable
-          key={index}
-          className={actionClassName}
-          {...pressableProps}
-        >
+        <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
               {icon}
@@ -453,15 +496,23 @@ export const NavbarEnterpriseMega = ({
         spacing={spacing}
         className={cn(
           "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center border-b",
-          className
+          className,
         )}
         pattern={pattern}
         patternOpacity={patternOpacity}
       >
         <div className={cn("container", containerClassName)}>
-          <div className={cn("flex h-16 items-center justify-between gap-8", navClassName)}>
+          <div
+            className={cn(
+              "flex h-16 items-center justify-between gap-8",
+              navClassName,
+            )}
+          >
             {renderLogo()}
-            <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)} viewport={false}>
+            <NavigationMenu
+              className={cn("hidden lg:flex", navigationMenuClassName)}
+              viewport={false}
+            >
               <NavigationMenuList>
                 {menuLinks?.map((item, index) => (
                   <DesktopMenuItem
@@ -528,17 +579,21 @@ const DesktopMenuItem = ({
   optixFlowConfig,
 }: DesktopMenuItemProps) => {
   const hasDropdown = Boolean(item.layout);
+  const effectiveLayout = item.layout || "solutions-with-platform";
 
   if (hasDropdown) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent h-fit font-normal text-foreground/60">
-          {item.title}
+        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+          {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-xl! border-0! p-0!">
           <div className="w-dvw px-8 pt-6 pb-12">
             <div className="container">
-              {renderDropdownContent(item, optixFlowConfig)}
+              {renderDropdownContent(
+                { ...item, layout: effectiveLayout },
+                optixFlowConfig,
+              )}
             </div>
           </div>
         </NavigationMenuContent>
@@ -549,16 +604,19 @@ const DesktopMenuItem = ({
   return (
     <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
       <NavigationMenuLink
-        href={item.url}
-        className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent h-fit font-normal text-foreground/60"
+        href={item.href}
+        className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground"
       >
-        {item.title}
+        {item.label}
       </NavigationMenuLink>
     </NavigationMenuItem>
   );
 };
 
-const renderDropdownContent = (item: IMenuLink, optixFlowConfig?: OptixFlowConfig) => {
+const renderDropdownContent = (
+  item: IMenuLink,
+  optixFlowConfig?: OptixFlowConfig,
+) => {
   switch (item.layout) {
     case "solutions-with-platform":
       return (
@@ -626,7 +684,9 @@ const SolutionsMenu = ({
         href={featuredHeroCard.href}
         className={cn(
           "group relative flex h-full flex-row overflow-hidden rounded-lg px-0 pt-8 text-primary-foreground lg:rounded-xl lg:px-6",
-          featuredHeroCard.variant === "accent" ? "bg-accent text-accent-foreground" : "bg-primary"
+          featuredHeroCard.variant === "accent"
+            ? "bg-accent text-accent-foreground"
+            : "bg-primary",
         )}
       >
         <div className="relative flex w-full flex-col space-y-12 text-left md:space-y-8 lg:w-full lg:flex-row lg:justify-between lg:space-y-0 lg:space-x-6 xl:space-x-8">
@@ -675,7 +735,9 @@ const SolutionsMenu = ({
               className="group flex flex-row items-center gap-4"
             >
               <DynamicIcon name={technology.icon} size={16} />
-              <div className="flex-1 text-sm font-medium">{technology.title}</div>
+              <div className="flex-1 text-sm font-medium">
+                {technology.title}
+              </div>
               <DynamicIcon
                 name="lucide/arrow-right"
                 size={16}
@@ -690,7 +752,10 @@ const SolutionsMenu = ({
     {solutionCards.length > 0 && (
       <div className="col-span-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         {solutionCards.map((solution) => (
-          <div key={solution.id} className="rounded-md border border-border p-5">
+          <div
+            key={solution.id}
+            className="rounded-md border border-border p-5"
+          >
             <div className="border-b border-border pb-4">
               <Pressable
                 href={solution.href}
@@ -755,7 +820,9 @@ const ProductsMenu = ({
           href={featuredHeroCard.href}
           className={cn(
             "group relative flex h-full flex-row overflow-hidden rounded-lg px-0 text-primary-foreground lg:rounded-xl",
-            featuredHeroCard.variant === "accent" ? "bg-accent text-accent-foreground" : "bg-primary"
+            featuredHeroCard.variant === "accent"
+              ? "bg-accent text-accent-foreground"
+              : "bg-primary",
           )}
         >
           <div className="relative z-10 flex w-full flex-col text-left">
@@ -853,7 +920,9 @@ const GlobalMenu = ({
             href={featuredHeroCard.href}
             className={cn(
               "group relative flex h-full flex-row overflow-hidden rounded-lg p-0 text-primary-foreground lg:rounded-xl",
-              featuredHeroCard.variant === "accent" ? "bg-accent text-accent-foreground" : "bg-primary"
+              featuredHeroCard.variant === "accent"
+                ? "bg-accent text-accent-foreground"
+                : "bg-primary",
             )}
           >
             <div className="relative z-10 flex w-full flex-col-reverse text-left lg:flex-col">
@@ -975,7 +1044,11 @@ interface PartnersMenuProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const PartnersMenu = ({ partnerCards, featuredHeroCard, optixFlowConfig }: PartnersMenuProps) => (
+const PartnersMenu = ({
+  partnerCards,
+  featuredHeroCard,
+  optixFlowConfig,
+}: PartnersMenuProps) => (
   <div className="grid gap-y-6 md:grid-cols-2 md:gap-x-6 lg:grid-cols-4">
     {featuredHeroCard && (
       <div className="md:col-span-2">
@@ -983,7 +1056,9 @@ const PartnersMenu = ({ partnerCards, featuredHeroCard, optixFlowConfig }: Partn
           href={featuredHeroCard.href}
           className={cn(
             "group relative flex h-full flex-row overflow-hidden rounded-lg p-0 text-primary-foreground lg:rounded-xl",
-            featuredHeroCard.variant === "accent" ? "bg-accent text-accent-foreground" : "bg-primary"
+            featuredHeroCard.variant === "accent"
+              ? "bg-accent text-accent-foreground"
+              : "bg-primary",
           )}
         >
           <div className="relative z-10 flex w-full flex-col-reverse text-left">
@@ -996,14 +1071,15 @@ const PartnersMenu = ({ partnerCards, featuredHeroCard, optixFlowConfig }: Partn
                   className="ml-1 transition-transform group-hover:translate-x-1"
                 />
               </div>
-              <p className="mt-2 text-xs">
-                {featuredHeroCard.description}
-              </p>
+              <p className="mt-2 text-xs">{featuredHeroCard.description}</p>
             </div>
-            <div className={cn(
-              "absolute inset-0 top-[32%] md:top-0",
-              featuredHeroCard.imagePosition === "background" && "bg-accent invert"
-            )}>
+            <div
+              className={cn(
+                "absolute inset-0 top-[32%] md:top-0",
+                featuredHeroCard.imagePosition === "background" &&
+                  "bg-accent invert",
+              )}
+            >
               <Img
                 src={featuredHeroCard.image}
                 alt={featuredHeroCard.title}
@@ -1048,7 +1124,11 @@ interface ResourcesMenuProps {
   featuredHeroCard?: IFeaturedHeroCard;
 }
 
-const ResourcesMenu = ({ resourceItems, topicGroups, featuredHeroCard }: ResourcesMenuProps) => (
+const ResourcesMenu = ({
+  resourceItems,
+  topicGroups,
+  featuredHeroCard,
+}: ResourcesMenuProps) => (
   <div className="grid gap-8 lg:grid-cols-3">
     {featuredHeroCard && (
       <div className="lg:col-span-1">
@@ -1056,7 +1136,9 @@ const ResourcesMenu = ({ resourceItems, topicGroups, featuredHeroCard }: Resourc
           href={featuredHeroCard.href}
           className={cn(
             "group relative flex h-full flex-row overflow-hidden rounded-lg p-0 text-primary-foreground lg:rounded-xl",
-            featuredHeroCard.variant === "accent" ? "bg-accent text-accent-foreground" : "bg-primary"
+            featuredHeroCard.variant === "accent"
+              ? "bg-accent text-accent-foreground"
+              : "bg-primary",
           )}
         >
           <div className="relative z-10 flex w-full flex-col-reverse text-left">
@@ -1069,9 +1151,7 @@ const ResourcesMenu = ({ resourceItems, topicGroups, featuredHeroCard }: Resourc
                   className="ml-1 transition-transform group-hover:translate-x-1"
                 />
               </div>
-              <p className="mt-2 text-xs">
-                {featuredHeroCard.description}
-              </p>
+              <p className="mt-2 text-xs">{featuredHeroCard.description}</p>
             </div>
             <div className="absolute inset-0">
               <Img
@@ -1152,10 +1232,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
         <div className="space-y-4">
           {item.solutionCards?.map((solution) => (
             <div key={solution.id} className="space-y-2">
-              <Pressable
-                href={solution.href}
-                className="text-sm font-medium"
-              >
+              <Pressable href={solution.href} className="text-sm font-medium">
                 {solution.title}
               </Pressable>
               {solution.subpages.map((subpage) => (
@@ -1184,7 +1261,7 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
               >
                 {product.title}
               </Pressable>
-            ))
+            )),
           )}
         </div>
       );
@@ -1208,7 +1285,10 @@ const renderMobileDropdownContent = (item: IMenuLink) => {
       return (
         <div className="text-sm text-muted-foreground">
           <Pressable href="#">
-            View all {item.title.toLowerCase()}
+            View all{" "}
+            {typeof item.label === "string"
+              ? item.label.toLowerCase()
+              : "items"}
           </Pressable>
         </div>
       );
@@ -1239,7 +1319,14 @@ const MobileNavigationMenu = ({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -1282,12 +1369,16 @@ const MobileNavigationMenu = ({
                 if (hasDropdown) {
                   return (
                     <AccordionItem
-                      key={item.title}
+                      key={
+                        typeof item.label === "string"
+                          ? item.label
+                          : `nav-${index}`
+                      }
                       value={`nav-${index}`}
                       className="border-b-0"
                     >
                       <AccordionTrigger className="h-15 items-center text-base font-normal text-foreground hover:no-underline">
-                        {item.title}
+                        {item.label}
                       </AccordionTrigger>
                       <AccordionContent className="max-h-[60dvh] overflow-y-auto">
                         {renderMobileDropdownContent(item)}
@@ -1298,11 +1389,15 @@ const MobileNavigationMenu = ({
 
                 return (
                   <Pressable
-                    key={item.title}
-                    href={item.url}
+                    key={
+                      typeof item.label === "string"
+                        ? item.label
+                        : `nav-${index}`
+                    }
+                    href={item.href}
                     className="flex h-15 items-center text-base font-normal text-foreground"
                   >
-                    {item.title}
+                    {item.label}
                   </Pressable>
                 );
               })}

@@ -99,7 +99,7 @@ export interface CtaSplitImageLogosProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -165,7 +165,7 @@ export function CtaSplitImageLogos({
       <div
         className={cn(
           "flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -230,18 +230,21 @@ export function CtaSplitImageLogos({
     >
       <div className={cn("container", containerClassName)}>
         <div
-          className={cn("grid items-center gap-8 lg:grid-cols-2", gridClassName)}
+          className={cn(
+            "grid items-center gap-8 lg:grid-cols-2",
+            gridClassName,
+          )}
         >
           <div
             className={cn(
               "flex flex-col items-center text-center lg:items-start lg:text-left",
-              contentClassName
+              contentClassName,
             )}
           >
             <h1
               className={cn(
                 "my-6 text-pretty text-4xl font-bold lg:text-6xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -249,7 +252,7 @@ export function CtaSplitImageLogos({
             <p
               className={cn(
                 "mb-8 max-w-xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}

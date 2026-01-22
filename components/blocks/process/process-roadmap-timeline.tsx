@@ -110,7 +110,7 @@ export interface ProcessRoadmapTimelineProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -125,21 +125,30 @@ export interface ProcessRoadmapTimelineProps {
   title?: string;
 }
 
-const StatusBadge = ({ status, className }: { status: MilestoneStatus; className?: string }) => {
+const StatusBadge = ({
+  status,
+  className,
+}: {
+  status: MilestoneStatus;
+  className?: string;
+}) => {
   const config = {
     completed: {
       label: "Completed",
-      badgeClassName: "bg-success/10 text-success dark:bg-success/10 dark:text-success",
+      badgeClassName:
+        "bg-success/10 text-success dark:bg-success/10 dark:text-success",
       icon: "lucide/check-circle-2",
     },
     "in-progress": {
       label: "In Progress",
-      badgeClassName: "bg-primary/10 text-primary dark:bg-primary/10 dark:text-primary",
+      badgeClassName:
+        "bg-primary/10 text-primary dark:bg-primary/10 dark:text-primary",
       icon: "lucide/loader-2",
     },
     upcoming: {
       label: "Upcoming",
-      badgeClassName: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400",
+      badgeClassName:
+        "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400",
       icon: "lucide/clock",
     },
   };
@@ -151,7 +160,7 @@ const StatusBadge = ({ status, className }: { status: MilestoneStatus; className
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium",
         badgeClassName,
-        className
+        className,
       )}
     >
       <DynamicIcon name={icon} size={14} />
@@ -199,30 +208,30 @@ export function ProcessRoadmapTimeline({
             className={cn(
               "relative flex items-start gap-8",
               index % 2 === 0 ? "flex-row" : "flex-row-reverse",
-              milestone.className
+              milestone.className,
             )}
           >
             <div
               className={cn(
                 "flex-1",
-                index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"
+                index % 2 === 0 ? "text-right pr-8" : "text-left pl-8",
               )}
             >
               <div
                 className={cn(
                   "rounded-lg border bg-card p-6 shadow-sm transition-shadow hover:shadow-md",
                   milestone.status === "in-progress" && "border-primary/50",
-                  milestoneCardClassName
+                  milestoneCardClassName,
                 )}
               >
                 <div
                   className={cn(
                     "mb-3 flex items-center gap-3",
-                    index % 2 === 0 ? "justify-end" : "justify-start"
+                    index % 2 === 0 ? "justify-end" : "justify-start",
                   )}
                 >
-                  {milestone.date && (
-                    typeof milestone.date === "string" ? (
+                  {milestone.date &&
+                    (typeof milestone.date === "string" ? (
                       <span className="text-sm font-medium text-muted-foreground">
                         {milestone.date}
                       </span>
@@ -230,12 +239,11 @@ export function ProcessRoadmapTimeline({
                       <div className="text-sm font-medium text-muted-foreground">
                         {milestone.date}
                       </div>
-                    )
-                  )}
+                    ))}
                   <StatusBadge status={milestone.status} />
                 </div>
-                {milestone.title && (
-                  typeof milestone.title === "string" ? (
+                {milestone.title &&
+                  (typeof milestone.title === "string" ? (
                     <h3 className="mb-2 text-xl font-semibold tracking-tight">
                       {milestone.title}
                     </h3>
@@ -243,20 +251,22 @@ export function ProcessRoadmapTimeline({
                     <div className="mb-2 text-xl font-semibold tracking-tight">
                       {milestone.title}
                     </div>
-                  )
-                )}
-                {milestone.description && (
-                  typeof milestone.description === "string" ? (
-                    <p className="mb-4 text-foreground/50">{milestone.description}</p>
+                  ))}
+                {milestone.description &&
+                  (typeof milestone.description === "string" ? (
+                    <p className="mb-4 text-foreground/50">
+                      {milestone.description}
+                    </p>
                   ) : (
-                    <div className="mb-4 text-foreground/50">{milestone.description}</div>
-                  )
-                )}
+                    <div className="mb-4 text-foreground/50">
+                      {milestone.description}
+                    </div>
+                  ))}
                 {milestone.features && milestone.features.length > 0 && (
                   <div
                     className={cn(
                       "flex flex-wrap gap-2",
-                      index % 2 === 0 ? "justify-end" : "justify-start"
+                      index % 2 === 0 ? "justify-end" : "justify-start",
                     )}
                   >
                     {milestone.features.map((feature, fIndex) => (
@@ -280,7 +290,7 @@ export function ProcessRoadmapTimeline({
                   : milestone.status === "in-progress"
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border text-muted-foreground",
-                milestoneNodeClassName
+                milestoneNodeClassName,
               )}
             >
               {milestone.status === "completed" ? (
@@ -307,28 +317,41 @@ export function ProcessRoadmapTimeline({
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 text-center", headerClassName)}>
-          {resolvedHeading && (
-            typeof resolvedHeading === "string" ? (
-              <h1 className={cn("mb-4 text-4xl font-semibold tracking-tight lg:text-5xl", headingClassName)}>
+          {resolvedHeading &&
+            (typeof resolvedHeading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {resolvedHeading}
               </h1>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg text-foreground/50", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("relative mx-auto max-w-4xl", timelineClassName)}>
-          <div className={cn("absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-border", timelineLineClassName)} />
+          <div
+            className={cn(
+              "absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-border",
+              timelineLineClassName,
+            )}
+          />
           {renderMilestones()}
         </div>
       </div>

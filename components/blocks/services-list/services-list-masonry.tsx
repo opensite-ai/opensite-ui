@@ -114,7 +114,7 @@ export interface ServicesListMasonryProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -160,7 +160,8 @@ export function ServicesListMasonry({
 }: ServicesListMasonryProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListMasonryService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;
   };
 
@@ -169,7 +170,12 @@ export function ServicesListMasonry({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("columns-1 gap-6 md:columns-2 lg:columns-3", gridClassName)}>
+      <div
+        className={cn(
+          "columns-1 gap-6 md:columns-2 lg:columns-3",
+          gridClassName,
+        )}
+      >
         {services.map((service, index) => (
           <div
             key={index}
@@ -177,37 +183,41 @@ export function ServicesListMasonry({
               "mb-6 break-inside-avoid rounded-xl border border-border p-6 transition-shadow hover:shadow-md",
               service.featured && "bg-primary/5 border-primary/20",
               cardClassName,
-              service.className
+              service.className,
             )}
           >
             <div className="flex items-start gap-4">
               <div
                 className={cn(
                   "flex h-12 w-12 shrink-0 items-center justify-center rounded-lg",
-                  service.featured ? "bg-primary text-primary-foreground" : "bg-muted",
-                  iconClassName
+                  service.featured
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted",
+                  iconClassName,
                 )}
               >
                 {renderServiceIcon(service)}
               </div>
               <div>
-                {service.title && (
-                  typeof service.title === "string" ? (
+                {service.title &&
+                  (typeof service.title === "string" ? (
                     <h3 className="text-lg font-semibold">{service.title}</h3>
                   ) : (
                     <div className="text-lg font-semibold">{service.title}</div>
-                  )
-                )}
+                  ))}
               </div>
             </div>
 
-            {service.description && (
-              typeof service.description === "string" ? (
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{service.description}</p>
+            {service.description &&
+              (typeof service.description === "string" ? (
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  {service.description}
+                </p>
               ) : (
-                <div className="mt-4 text-sm leading-relaxed text-muted-foreground">{service.description}</div>
-              )
-            )}
+                <div className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  {service.description}
+                </div>
+              ))}
 
             {service.items && service.items.length > 0 && (
               <div className="mt-4 space-y-2">
@@ -215,7 +225,12 @@ export function ServicesListMasonry({
                   <div key={itemIndex} className="flex items-center gap-2">
                     <DynamicIcon
                       name="lucide/check"
-                      className={cn("h-4 w-4", service.featured ? "text-primary" : "text-muted-foreground")}
+                      className={cn(
+                        "h-4 w-4",
+                        service.featured
+                          ? "text-primary"
+                          : "text-muted-foreground",
+                      )}
                     />
                     {typeof item === "string" ? (
                       <span className="text-sm">{item}</span>
@@ -234,7 +249,10 @@ export function ServicesListMasonry({
                 className="mt-4 inline-flex items-center text-sm font-medium text-primary hover:underline"
               >
                 {service.ctaText}
-                <DynamicIcon name="lucide/arrow-right" className="ml-1 h-4 w-4" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  className="ml-1 h-4 w-4"
+                />
               </Pressable>
             )}
           </div>
@@ -253,24 +271,32 @@ export function ServicesListMasonry({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

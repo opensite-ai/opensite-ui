@@ -69,7 +69,7 @@ export interface ServiceDetailSidebarStatsProps {
   headerBackground?: SectionBackground;
   bodyBackground?: SectionBackground;
   bodySpacing?: SectionSpacing;
-  bodyPattern?: PatternName | string;
+  bodyPattern?: PatternName | undefined;
   bodyPatternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -147,7 +147,7 @@ export function ServiceDetailSidebarStats({
                     <p key={paragraphIndex}>{paragraph}</p>
                   ) : (
                     <div key={paragraphIndex}>{paragraph}</div>
-                  )
+                  ),
                 )}
               </>
             )}
@@ -170,7 +170,10 @@ export function ServiceDetailSidebarStats({
         )}
         <div className="space-y-3">
           {services.map((service, index) => (
-            <div key={index} className={cn("flex items-center gap-3", service.className)}>
+            <div
+              key={index}
+              className={cn("flex items-center gap-3", service.className)}
+            >
               {service.icon ? (
                 service.icon
               ) : service.iconName ? (
@@ -182,7 +185,9 @@ export function ServiceDetailSidebarStats({
               ) : null}
               {service.title && (
                 <span>
-                  {typeof service.title === "string" ? service.title : service.title}
+                  {typeof service.title === "string"
+                    ? service.title
+                    : service.title}
                 </span>
               )}
             </div>
@@ -197,7 +202,12 @@ export function ServiceDetailSidebarStats({
     if (!stats || stats.length === 0) return null;
 
     return (
-      <div className={cn("rounded-lg bg-muted/50 p-6 lg:sticky lg:top-8", statsClassName)}>
+      <div
+        className={cn(
+          "rounded-lg bg-muted/50 p-6 lg:sticky lg:top-8",
+          statsClassName,
+        )}
+      >
         {statsTitle && (
           <h3 className={cn("mb-6 text-lg font-semibold", statsTitleClassName)}>
             {typeof statsTitle === "string" ? statsTitle : statsTitle}
@@ -205,7 +215,10 @@ export function ServiceDetailSidebarStats({
         )}
         <div className="space-y-6">
           {stats.map((stat, index) => (
-            <div key={index} className={cn("flex items-center gap-4", stat.className)}>
+            <div
+              key={index}
+              className={cn("flex items-center gap-4", stat.className)}
+            >
               <div className="flex h-8 w-8 shrink-0 items-center justify-center">
                 {stat.iconSlot ? (
                   stat.iconSlot
@@ -242,13 +255,18 @@ export function ServiceDetailSidebarStats({
   return (
     <div className={className}>
       <Section background={headerBackground} spacing="lg">
-        <div className={cn("flex items-center justify-center gap-4", headerClassName)}>
+        <div
+          className={cn(
+            "flex items-center justify-center gap-4",
+            headerClassName,
+          )}
+        >
           {renderServiceIcon()}
           {title && (
             <h1
               className={cn(
                 "text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
-                titleClassName
+                titleClassName,
               )}
             >
               {typeof title === "string" ? title : title}
@@ -269,7 +287,7 @@ export function ServiceDetailSidebarStats({
               <div
                 className={cn(
                   "prose prose-sm max-w-none dark:prose-invert",
-                  contentSectionsClassName
+                  contentSectionsClassName,
                 )}
               >
                 {introTitle && (

@@ -71,7 +71,7 @@ export interface TeamCompactCtaProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -174,9 +174,14 @@ export function TeamCompactCta({
     return members.map((member) => (
       <div
         key={member.id}
-        className={cn("flex flex-col items-center text-center", memberCardClassName)}
+        className={cn(
+          "flex flex-col items-center text-center",
+          memberCardClassName,
+        )}
       >
-        <Avatar className={cn("mb-4 size-20 border lg:size-24", avatarClassName)}>
+        <Avatar
+          className={cn("mb-4 size-20 border lg:size-24", avatarClassName)}
+        >
           <AvatarImage src={member.avatar} alt={member.name} />
           <AvatarFallback className="text-xl font-bold">
             {member.name
@@ -185,7 +190,9 @@ export function TeamCompactCta({
               .join("")}
           </AvatarFallback>
         </Avatar>
-        <h3 className={cn("font-semibold", memberNameClassName)}>{member.name}</h3>
+        <h3 className={cn("font-semibold", memberNameClassName)}>
+          {member.name}
+        </h3>
         <p className={cn("text-sm text-muted-foreground", memberRoleClassName)}>
           {member.role}
         </p>
@@ -217,47 +224,48 @@ export function TeamCompactCta({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
       <div
         className={cn(
           "mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4",
-          gridClassName
+          gridClassName,
         )}
       >
         {renderMembers()}
       </div>
-      <div className={cn("mt-12 text-center", ctaClassName)}>
-        {renderCta()}
-      </div>
+      <div className={cn("mt-12 text-center", ctaClassName)}>{renderCta()}</div>
     </Section>
   );
 }

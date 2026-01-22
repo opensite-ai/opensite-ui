@@ -75,7 +75,7 @@ export interface TimelineStepperAnimatedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -115,7 +115,7 @@ const ProcessBar: React.FC<{
                 "z-10 flex h-8 w-8 items-center justify-center rounded-full",
                 index <= currentStep
                   ? "bg-neutral-800 text-white"
-                  : "bg-gray-200 text-white dark:bg-gray-800 dark:text-gray-600"
+                  : "bg-gray-200 text-white dark:bg-gray-800 dark:text-gray-600",
               )}
               animate={{ scale: 1.02 }}
             >
@@ -165,12 +165,20 @@ const StepperContent: React.FC<{
       >
         <Img
           src={step.imageSrc}
-          alt={step.imageAlt || (typeof step.title === 'string' ? step.title : 'Step image')}
+          alt={
+            step.imageAlt ||
+            (typeof step.title === "string" ? step.title : "Step image")
+          }
           className={cn("w-[500px]", imageClassName)}
           optixFlowConfig={optixFlowConfig}
         />
       </motion.div>
-      <p className={cn("mt-6 px-10 text-base leading-snug font-normal tracking-tight text-muted-foreground", descriptionClassName)}>
+      <p
+        className={cn(
+          "mt-6 px-10 text-base leading-snug font-normal tracking-tight text-muted-foreground",
+          descriptionClassName,
+        )}
+      >
         {step.description}
       </p>
     </div>
@@ -225,9 +233,10 @@ export function TimelineStepperAnimated({
   style,
   optixFlowConfig,
 }: TimelineStepperAnimatedProps) {
-  const safeInitialStep = (steps?.length ?? 0) > 0 
-    ? Math.max(0, Math.min(initialStep, (steps?.length ?? 1) - 1))
-    : 0;
+  const safeInitialStep =
+    (steps?.length ?? 0) > 0
+      ? Math.max(0, Math.min(initialStep, (steps?.length ?? 1) - 1))
+      : 0;
   const [currentStep, setCurrentStep] = useState(safeInitialStep);
 
   const handleNext = () => {
@@ -238,9 +247,10 @@ export function TimelineStepperAnimated({
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const safeCurrentStep = (steps?.length ?? 0) > 0 
-    ? Math.max(0, Math.min(currentStep, (steps?.length ?? 1) - 1))
-    : 0;
+  const safeCurrentStep =
+    (steps?.length ?? 0) > 0
+      ? Math.max(0, Math.min(currentStep, (steps?.length ?? 1) - 1))
+      : 0;
 
   if (!steps || steps.length === 0) {
     return (
@@ -254,8 +264,18 @@ export function TimelineStepperAnimated({
         patternClassName={patternClassName}
         style={style}
       >
-        <div className={cn("flex max-w-2xl flex-col items-center gap-10 md:gap-0", containerClassName)}>
-          <h1 className={cn("mb-10 text-center text-6xl font-bold tracking-tighter text-foreground", headingClassName)}>
+        <div
+          className={cn(
+            "flex max-w-2xl flex-col items-center gap-10 md:gap-0",
+            containerClassName,
+          )}
+        >
+          <h1
+            className={cn(
+              "mb-10 text-center text-6xl font-bold tracking-tighter text-foreground",
+              headingClassName,
+            )}
+          >
             {heading}
           </h1>
         </div>
@@ -274,16 +294,26 @@ export function TimelineStepperAnimated({
       patternClassName={patternClassName}
       style={style}
     >
-      <div className={cn("flex max-w-2xl flex-col items-center gap-10 md:gap-0 mx-auto", containerClassName)}>
-        <h1 className={cn("mb-10 text-center text-6xl font-bold tracking-tighter text-foreground", headingClassName)}>
+      <div
+        className={cn(
+          "flex max-w-2xl flex-col items-center gap-10 md:gap-0 mx-auto",
+          containerClassName,
+        )}
+      >
+        <h1
+          className={cn(
+            "mb-10 text-center text-6xl font-bold tracking-tighter text-foreground",
+            headingClassName,
+          )}
+        >
           {heading}
         </h1>
         <div className={processBarClassName}>
           <ProcessBar currentStep={safeCurrentStep} steps={steps} />
         </div>
         <div className={stepContentClassName}>
-          <StepperContent 
-            step={steps[safeCurrentStep]} 
+          <StepperContent
+            step={steps[safeCurrentStep]}
             optixFlowConfig={optixFlowConfig}
             imageClassName={imageClassName}
             descriptionClassName={descriptionClassName}

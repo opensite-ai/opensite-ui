@@ -93,7 +93,7 @@ export interface TimelineTwoColumnFeaturedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -194,30 +194,70 @@ export function TimelineTwoColumnFeatured({
       <div className={cn("max-w-6xl mx-auto", containerClassName)}>
         <div className="relative grid gap-16 md:grid-cols-2">
           <div className="top-40 h-fit md:sticky">
-            <h2 className={cn("mt-4 mb-6 text-4xl font-semibold md:text-5xl", headingClassName)}>
+            <h2
+              className={cn(
+                "mt-4 mb-6 text-4xl font-semibold md:text-5xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
-            <p className={cn("font-medium text-muted-foreground md:text-xl", descriptionClassName)}>
+            <p
+              className={cn(
+                "font-medium text-muted-foreground md:text-xl",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
-            <div className={cn("mt-8 flex flex-col gap-4 lg:flex-row", actionsClassName)}>
+            <div
+              className={cn(
+                "mt-8 flex flex-col gap-4 lg:flex-row",
+                actionsClassName,
+              )}
+            >
               {renderActions()}
             </div>
           </div>
-          <div className={cn("flex flex-col gap-12 md:gap-20", featuresClassName)}>
+          <div
+            className={cn("flex flex-col gap-12 md:gap-20", featuresClassName)}
+          >
             {features?.map((feature, index) => (
-              <div key={index} className={cn("rounded-xl border p-2", featureClassName)}>
+              <div
+                key={index}
+                className={cn("rounded-xl border p-2", featureClassName)}
+              >
                 <Img
                   src={feature.image}
-                  alt={feature.imageAlt || (typeof feature.title === 'string' ? feature.title : `Feature ${index + 1}`)}
-                  className={cn("aspect-video w-full rounded-xl border border-dashed object-cover", imageClassName)}
+                  alt={
+                    feature.imageAlt ||
+                    (typeof feature.title === "string"
+                      ? feature.title
+                      : `Feature ${index + 1}`)
+                  }
+                  className={cn(
+                    "aspect-video w-full rounded-xl border border-dashed object-cover",
+                    imageClassName,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
                 <div className="p-6">
-                  <h3 className={cn("mb-1 text-2xl font-semibold", titleClassName)}>
+                  <h3
+                    className={cn(
+                      "mb-1 text-2xl font-semibold",
+                      titleClassName,
+                    )}
+                  >
                     {feature.title}
                   </h3>
-                  <p className={cn("text-muted-foreground", featureDescriptionClassName)}>{feature.description}</p>
+                  <p
+                    className={cn(
+                      "text-muted-foreground",
+                      featureDescriptionClassName,
+                    )}
+                  >
+                    {feature.description}
+                  </p>
                 </div>
               </div>
             ))}

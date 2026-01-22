@@ -5,13 +5,13 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosNumberedCarouselLogoItem {
   /**
@@ -96,7 +96,7 @@ export interface LogosNumberedCarouselProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -148,19 +148,27 @@ export function LogosNumberedCarousel({
               key={index}
               className={cn(
                 "flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6",
-                carouselItemClassName
+                carouselItemClassName,
               )}
             >
-              <div className={cn("group relative mx-6 flex shrink-0 items-center justify-center", logoWrapperClassName)}>
+              <div
+                className={cn(
+                  "group relative mx-6 flex shrink-0 items-center justify-center",
+                  logoWrapperClassName,
+                )}
+              >
                 <span className="absolute -top-4 left-0 text-xs font-medium text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                  {(index % logos.length + 1).toString().padStart(2, "0")}
+                  {((index % logos.length) + 1).toString().padStart(2, "0")}
                 </span>
                 <Img
                   src={logo.logo}
                   alt={`${logo.name} logo`}
                   width={120}
                   height={40}
-                  className={cn("h-10 w-auto object-contain opacity-60 grayscale transition-all group-hover:opacity-100 group-hover:grayscale-0", logo.imgClassName)}
+                  className={cn(
+                    "h-10 w-auto object-contain opacity-60 grayscale transition-all group-hover:opacity-100 group-hover:grayscale-0",
+                    logo.imgClassName,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -180,17 +188,31 @@ export function LogosNumberedCarousel({
       className={cn("overflow-hidden", className)}
     >
       <div className="container mb-12">
-        <div className={cn("flex flex-col items-center justify-between gap-6 md:flex-row", headerClassName)}>
-          {headline && (
-            typeof headline === "string" ? (
-              <h2 className={cn("text-2xl font-bold md:text-3xl lg:text-4xl", headlineClassName)}>
+        <div
+          className={cn(
+            "flex flex-col items-center justify-between gap-6 md:flex-row",
+            headerClassName,
+          )}
+        >
+          {headline &&
+            (typeof headline === "string" ? (
+              <h2
+                className={cn(
+                  "text-2xl font-bold md:text-3xl lg:text-4xl",
+                  headlineClassName,
+                )}
+              >
                 {headline}
               </h2>
             ) : (
               <div className={headlineClassName}>{headline}</div>
-            )
-          )}
-          <div className={cn("flex items-center gap-2 text-sm text-muted-foreground", counterClassName)}>
+            ))}
+          <div
+            className={cn(
+              "flex items-center gap-2 text-sm text-muted-foreground",
+              counterClassName,
+            )}
+          >
             <span className="font-semibold text-foreground">
               {(logos?.length ?? 0).toString().padStart(2, "0")}
             </span>
@@ -204,8 +226,18 @@ export function LogosNumberedCarousel({
       </div>
       <div className={cn("relative", logosClassName)}>
         {renderLogos()}
-        <div className={cn("pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent", leftFadeClassName)} />
-        <div className={cn("pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-background to-transparent", rightFadeClassName)} />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent",
+            leftFadeClassName,
+          )}
+        />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-background to-transparent",
+            rightFadeClassName,
+          )}
+        />
       </div>
     </Section>
   );

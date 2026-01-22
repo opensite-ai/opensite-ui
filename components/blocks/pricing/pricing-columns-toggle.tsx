@@ -144,7 +144,7 @@ export interface PricingColumnsToggleProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -306,30 +306,53 @@ export function PricingColumnsToggle({
     return (
       <ul className={cn("mb-8 flex-1 space-y-4", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -341,12 +364,23 @@ export function PricingColumnsToggle({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -371,36 +405,49 @@ export function PricingColumnsToggle({
             key={index}
             className={cn(
               "flex flex-col rounded-2xl border p-8",
-              plan.isHighlighted ? "border-primary bg-primary/5 shadow-lg" : "border-border",
+              plan.isHighlighted
+                ? "border-primary bg-primary/5 shadow-lg"
+                : "border-border",
               cardClassName,
               plan.isHighlighted ? highlightedCardClassName : null,
-              plan.className
+              plan.className,
             )}
           >
             <div className="mb-6">
-              {plan.name && (
-                typeof plan.name === "string" ? (
-                  <h3 className={cn("text-xl font-semibold", planTitleClassName)}>{plan.name}</h3>
+              {plan.name &&
+                (typeof plan.name === "string" ? (
+                  <h3
+                    className={cn("text-xl font-semibold", planTitleClassName)}
+                  >
+                    {plan.name}
+                  </h3>
                 ) : (
                   <div className={planTitleClassName}>{plan.name}</div>
-                )
-              )}
-              {plan.description && (
-                typeof plan.description === "string" ? (
-                  <p className={cn("mt-2 text-sm text-muted-foreground", planDescriptionClassName)}>
+                ))}
+              {plan.description &&
+                (typeof plan.description === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-2 text-sm text-muted-foreground",
+                      planDescriptionClassName,
+                    )}
+                  >
                     {plan.description}
                   </p>
                 ) : (
-                  <div className={planDescriptionClassName}>{plan.description}</div>
-                )
-              )}
+                  <div className={planDescriptionClassName}>
+                    {plan.description}
+                  </div>
+                ))}
             </div>
 
             <div className="mb-6">
               <span className={cn("text-5xl font-bold", priceClassName)}>
                 {isAnnual ? plan.yearlyPrice : plan.monthlyPrice}
               </span>
-              <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+              <span
+                className={cn("text-muted-foreground", priceIntervalClassName)}
+              >
                 {isAnnual ? yearlyInterval : monthlyInterval}
               </span>
             </div>
@@ -424,31 +471,48 @@ export function PricingColumnsToggle({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
 
-          <div className={cn("mt-8 flex items-center justify-center gap-4", toggleClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex items-center justify-center gap-4",
+              toggleClassName,
+            )}
+          >
             {monthlyLabel && (
               <span
                 className={cn(
                   "text-sm font-medium transition-colors",
                   !isAnnual ? "text-foreground" : "text-muted-foreground",
-                  toggleLabelClassName
+                  toggleLabelClassName,
                 )}
               >
                 {monthlyLabel}
@@ -459,14 +523,14 @@ export function PricingColumnsToggle({
               className={cn(
                 "relative h-6 w-11 rounded-full transition-colors",
                 isAnnual ? "bg-primary" : "bg-muted",
-                toggleButtonClassName
+                toggleButtonClassName,
               )}
               aria-label={toggleAriaLabel}
             >
               <span
                 className={cn(
                   "absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-background shadow-sm transition-transform",
-                  isAnnual && "translate-x-5"
+                  isAnnual && "translate-x-5",
                 )}
               />
             </button>
@@ -475,12 +539,14 @@ export function PricingColumnsToggle({
                 className={cn(
                   "text-sm font-medium transition-colors",
                   isAnnual ? "text-foreground" : "text-muted-foreground",
-                  toggleLabelClassName
+                  toggleLabelClassName,
                 )}
               >
                 {yearlyLabel}
                 {yearlyBadge && (
-                  <span className="ml-1.5 text-xs text-primary">{yearlyBadge}</span>
+                  <span className="ml-1.5 text-xs text-primary">
+                    {yearlyBadge}
+                  </span>
                 )}
               </span>
             )}

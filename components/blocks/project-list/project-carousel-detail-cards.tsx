@@ -10,13 +10,9 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectCarouselDetailCardsItem {
   id: number;
@@ -60,7 +56,7 @@ export interface ProjectCarouselDetailCardsProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -145,7 +141,12 @@ export function ProjectCarouselDetailCards({
 
     return projects.map((project) => (
       <CarouselItem key={project.id} className="basis-auto pl-8">
-        <div className={cn("w-[600px] space-y-5 rounded-2xl border border-border bg-card p-6 shadow-sm", cardClassName)}>
+        <div
+          className={cn(
+            "w-[600px] space-y-5 rounded-2xl border border-border bg-card p-6 shadow-sm",
+            cardClassName,
+          )}
+        >
           <div className="aspect-4/3 overflow-hidden rounded-lg">
             <Img
               src={project.image}
@@ -197,22 +198,32 @@ export function ProjectCarouselDetailCards({
     >
       <div className={cn("w-full", containerClassName)}>
         <div className={cn("mb-16 px-8", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-3xl font-medium tracking-tight lg:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-3xl font-medium tracking-tight lg:text-6xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subheadingClassName)}>{subheading}</p>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subheadingClassName,
+                )}
+              >
+                {subheading}
+              </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
         <div className="relative w-full">
           <Carousel
@@ -228,9 +239,7 @@ export function ProjectCarouselDetailCards({
             }}
             className={cn("w-full", carouselClassName)}
           >
-            <CarouselContent>
-              {renderProjects()}
-            </CarouselContent>
+            <CarouselContent>{renderProjects()}</CarouselContent>
           </Carousel>
           <div className="pointer-events-none absolute inset-y-0 top-64 right-4 left-4 z-10 flex justify-between">
             <Pressable

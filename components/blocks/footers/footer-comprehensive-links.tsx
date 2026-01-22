@@ -5,7 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { PatternBackground, type PatternName } from "../../ui/pattern-background";
+import {
+  PatternBackground,
+  type PatternName,
+} from "../../ui/pattern-background";
 import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import { Container } from "../../ui/container";
 
@@ -87,7 +90,7 @@ export interface FooterComprehensiveLinksProps {
   /**
    * Pattern background key or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -144,7 +147,12 @@ export function FooterComprehensiveLinks({
   const copyrightText =
     copyright || `© ${year} ${companyName}. All rights reserved.`;
   return (
-    <footer className={cn("relative overflow-hidden bg-zinc-950 text-white", className)}>
+    <footer
+      className={cn(
+        "relative overflow-hidden bg-zinc-950 text-white",
+        className,
+      )}
+    >
       <PatternBackground pattern={pattern} opacity={patternOpacity} />
 
       <Container className="relative z-10 py-12 lg:py-16">
@@ -194,7 +202,7 @@ export function FooterComprehensiveLinks({
               </div>
             ))}
 
-            {(contact || (socialLinks?.length ?? 0) > 0) ? (
+            {contact || (socialLinks?.length ?? 0) > 0 ? (
               <div className="flex flex-col gap-6 lg:col-span-3">
                 {contact ? (
                   <div className="flex flex-col gap-4">

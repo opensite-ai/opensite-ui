@@ -5,13 +5,13 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosMinimalCarouselLogoItem {
   /**
@@ -72,7 +72,7 @@ export interface LogosMinimalCarouselProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -118,16 +118,24 @@ export function LogosMinimalCarousel({
               key={index}
               className={cn(
                 "flex basis-1/3 justify-center border-r border-border pl-0 last:border-r-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6",
-                carouselItemClassName
+                carouselItemClassName,
               )}
             >
-              <div className={cn("flex shrink-0 items-center justify-center px-8", logoWrapperClassName)}>
+              <div
+                className={cn(
+                  "flex shrink-0 items-center justify-center px-8",
+                  logoWrapperClassName,
+                )}
+              >
                 <Img
                   src={logo.logo}
                   alt={`${logo.name} logo`}
                   width={100}
                   height={32}
-                  className={cn("h-8 w-auto object-contain opacity-50 grayscale transition-all hover:opacity-100 hover:grayscale-0", logo.imgClassName)}
+                  className={cn(
+                    "h-8 w-auto object-contain opacity-50 grayscale transition-all hover:opacity-100 hover:grayscale-0",
+                    logo.imgClassName,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
               </div>
@@ -146,7 +154,13 @@ export function LogosMinimalCarousel({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("relative border-y border-border", borderContainerClassName, logosClassName)}>
+      <div
+        className={cn(
+          "relative border-y border-border",
+          borderContainerClassName,
+          logosClassName,
+        )}
+      >
         {renderLogos()}
       </div>
     </Section>

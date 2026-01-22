@@ -139,7 +139,7 @@ export interface PricingCollapsiblePlansProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -312,7 +312,8 @@ export function PricingCollapsiblePlans({
 
   const [internalSelected, setInternalSelected] = useState(defaultIndex);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const activeIndex = typeof selectedIndex === "number" ? selectedIndex : internalSelected;
+  const activeIndex =
+    typeof selectedIndex === "number" ? selectedIndex : internalSelected;
   const activePlan = plans[activeIndex] ?? plans[0];
 
   const updateSelection = (index: number) => {
@@ -329,30 +330,53 @@ export function PricingCollapsiblePlans({
     return (
       <ul className={cn("mb-6 space-y-3", featuresClassName)}>
         {plan.features.map((feature, index) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={index} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={index}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -360,17 +384,31 @@ export function PricingCollapsiblePlans({
     );
   };
 
-  const renderAction = (plan: PricingCollapsiblePlan, variant: "default" | "outline" = "default") => {
+  const renderAction = (
+    plan: PricingCollapsiblePlan,
+    variant: "default" | "outline" = "default",
+  ) => {
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
         variant={plan.action.variant || variant}
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -389,9 +427,15 @@ export function PricingCollapsiblePlans({
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("hidden gap-6 md:grid md:grid-cols-3", desktopGridClassName)}>
+      <div
+        className={cn(
+          "hidden gap-6 md:grid md:grid-cols-3",
+          desktopGridClassName,
+        )}
+      >
         {plans.map((plan, index) => {
-          const badgeContent = plan.badge ?? (plan.isPopular ? "Most Popular" : null);
+          const badgeContent =
+            plan.badge ?? (plan.isPopular ? "Most Popular" : null);
 
           return (
             <div
@@ -401,14 +445,14 @@ export function PricingCollapsiblePlans({
                 plan.isPopular ? "border-primary shadow-lg" : "border-border",
                 cardClassName,
                 plan.isPopular ? popularCardClassName : null,
-                plan.className
+                plan.className,
               )}
             >
               {badgeContent && (
                 <span
                   className={cn(
                     "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground",
-                    badgeClassName
+                    badgeClassName,
                   )}
                 >
                   {badgeContent}
@@ -416,30 +460,49 @@ export function PricingCollapsiblePlans({
               )}
 
               <div className="mb-4">
-                {plan.name && (
-                  typeof plan.name === "string" ? (
-                    <h3 className={cn("text-lg font-semibold", planTitleClassName)}>{plan.name}</h3>
+                {plan.name &&
+                  (typeof plan.name === "string" ? (
+                    <h3
+                      className={cn(
+                        "text-lg font-semibold",
+                        planTitleClassName,
+                      )}
+                    >
+                      {plan.name}
+                    </h3>
                   ) : (
                     <div className={planTitleClassName}>{plan.name}</div>
-                  )
-                )}
-                {plan.description && (
-                  typeof plan.description === "string" ? (
-                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                  ))}
+                {plan.description &&
+                  (typeof plan.description === "string" ? (
+                    <p
+                      className={cn(
+                        "mt-1 text-sm text-muted-foreground",
+                        planDescriptionClassName,
+                      )}
+                    >
                       {plan.description}
                     </p>
                   ) : (
-                    <div className={planDescriptionClassName}>{plan.description}</div>
-                  )
-                )}
+                    <div className={planDescriptionClassName}>
+                      {plan.description}
+                    </div>
+                  ))}
               </div>
 
               <div className="mb-6">
                 {plan.price && (
-                  <span className={cn("text-4xl font-bold", priceClassName)}>{plan.price}</span>
+                  <span className={cn("text-4xl font-bold", priceClassName)}>
+                    {plan.price}
+                  </span>
                 )}
                 {plan.priceDescription && (
-                  <span className={cn("text-muted-foreground", priceDescriptionClassName)}>
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      priceDescriptionClassName,
+                    )}
+                  >
                     {plan.priceDescription}
                   </span>
                 )}
@@ -464,29 +527,44 @@ export function PricingCollapsiblePlans({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("mb-8 md:hidden", mobileSelectorClassName)}>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={cn("flex w-full items-center justify-between rounded-lg border p-4", selectorButtonClassName)}
+            className={cn(
+              "flex w-full items-center justify-between rounded-lg border p-4",
+              selectorButtonClassName,
+            )}
           >
             <div>
               {activePlan?.name && (
@@ -507,7 +585,12 @@ export function PricingCollapsiblePlans({
           </button>
 
           {isMenuOpen && (
-            <div className={cn("mt-2 rounded-lg border bg-card shadow-lg", dropdownClassName)}>
+            <div
+              className={cn(
+                "mt-2 rounded-lg border bg-card shadow-lg",
+                dropdownClassName,
+              )}
+            >
               {plans.map((plan, index) => (
                 <button
                   key={index}
@@ -520,11 +603,15 @@ export function PricingCollapsiblePlans({
                     index !== plans.length - 1 && "border-b",
                     activeIndex === index && "bg-muted/50",
                     dropdownItemClassName,
-                    activeIndex === index ? dropdownItemSelectedClassName : null
+                    activeIndex === index
+                      ? dropdownItemSelectedClassName
+                      : null,
                   )}
                 >
                   <div>
-                    {plan.name && <span className="font-semibold">{plan.name}</span>}
+                    {plan.name && (
+                      <span className="font-semibold">{plan.name}</span>
+                    )}
                     {(plan.badge ?? (plan.isPopular ? popularBadge : null)) && (
                       <span className="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
                         {plan.badge ?? popularBadge}
@@ -546,7 +633,9 @@ export function PricingCollapsiblePlans({
           )}
 
           {activePlan && (
-            <div className={cn("mt-6 rounded-lg border p-6", mobileCardClassName)}>
+            <div
+              className={cn("mt-6 rounded-lg border p-6", mobileCardClassName)}
+            >
               <div className="mb-4">
                 {activePlan.price && (
                   <span className={cn("text-3xl font-bold", priceClassName)}>
@@ -554,7 +643,12 @@ export function PricingCollapsiblePlans({
                   </span>
                 )}
                 {activePlan.priceDescription && (
-                  <span className={cn("text-muted-foreground", priceDescriptionClassName)}>
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      priceDescriptionClassName,
+                    )}
+                  >
                     {activePlan.priceDescription}
                   </span>
                 )}

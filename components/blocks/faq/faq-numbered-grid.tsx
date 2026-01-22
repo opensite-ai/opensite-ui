@@ -39,7 +39,7 @@ export interface FaqNumberedGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -119,7 +119,7 @@ export function FaqNumberedGrid({
       <div
         className={cn(
           "mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2",
-          gridClassName
+          gridClassName,
         )}
       >
         {items.map((item, index) => (
@@ -127,13 +127,13 @@ export function FaqNumberedGrid({
             key={index}
             className={cn(
               "flex gap-4 rounded-lg border p-4 md:p-5",
-              itemClassName
+              itemClassName,
             )}
           >
             <span
               className={cn(
                 "bg-secondary flex size-6 shrink-0 items-center justify-center rounded-sm text-xs font-medium",
-                numberClassName
+                numberClassName,
               )}
             >
               {index + 1}
@@ -152,7 +152,7 @@ export function FaqNumberedGrid({
                 <p
                   className={cn(
                     "text-muted-foreground text-sm",
-                    answerClassName
+                    answerClassName,
                   )}
                 >
                   {item.answer}
@@ -180,32 +180,35 @@ export function FaqNumberedGrid({
         <div
           className={cn(
             "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-            headerClassName
+            headerClassName,
           )}
         >
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderItems()}
       </div>

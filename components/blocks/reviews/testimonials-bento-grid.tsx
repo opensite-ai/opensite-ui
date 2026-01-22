@@ -88,7 +88,7 @@ export interface TestimonialsBentoGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -193,7 +193,9 @@ export function TestimonialsBentoGrid({
     return "";
   };
 
-  const getAvatarSrc = (testimonial: BentoTestimonialItem): string | undefined => {
+  const getAvatarSrc = (
+    testimonial: BentoTestimonialItem,
+  ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
   };
 
@@ -211,8 +213,15 @@ export function TestimonialsBentoGrid({
     const featuredAvatarSrc = getAvatarSrc(featured);
 
     return (
-      <div className={cn("grid gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-        <Card className={cn("md:col-span-2 lg:row-span-2", featuredCardClassName)}>
+      <div
+        className={cn(
+          "grid gap-4 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
+        <Card
+          className={cn("md:col-span-2 lg:row-span-2", featuredCardClassName)}
+        >
           <CardContent className="flex h-full flex-col justify-between p-6 md:p-8">
             <div>
               <DynamicIcon
@@ -220,44 +229,46 @@ export function TestimonialsBentoGrid({
                 size={40}
                 className="mb-4 text-primary/20"
               />
-              {featured.quote && (
-                typeof featured.quote === "string" ? (
-                  <blockquote className={cn("text-xl font-medium leading-relaxed md:text-2xl", quoteClassName)}>
+              {featured.quote &&
+                (typeof featured.quote === "string" ? (
+                  <blockquote
+                    className={cn(
+                      "text-xl font-medium leading-relaxed md:text-2xl",
+                      quoteClassName,
+                    )}
+                  >
                     &ldquo;{featured.quote}&rdquo;
                   </blockquote>
                 ) : (
                   <div className={quoteClassName}>{featured.quote}</div>
-                )
-              )}
+                ))}
             </div>
-            <div className={cn("mt-6 flex items-center gap-4", authorClassName)}>
+            <div
+              className={cn("mt-6 flex items-center gap-4", authorClassName)}
+            >
               <Avatar className="size-12">
-                <AvatarImage
-                  src={featuredAvatarSrc}
-                  alt={featuredAuthorName}
-                />
+                <AvatarImage src={featuredAvatarSrc} alt={featuredAuthorName} />
                 <AvatarFallback>
                   {getInitials(featuredAuthorName)}
                 </AvatarFallback>
               </Avatar>
               <div>
-                {featured.author && (
-                  typeof featured.author === "string" ? (
+                {featured.author &&
+                  (typeof featured.author === "string" ? (
                     <p className="font-semibold">{featured.author}</p>
                   ) : (
                     featured.author
-                  )
-                )}
+                  ))}
                 {(featured.role || featured.company) && (
                   <p className="text-sm text-muted-foreground">
-                    {featured.role && (
-                      typeof featured.role === "string" ? featured.role : featured.role
-                    )}
-                    {featured.company && (
-                      typeof featured.company === "string"
+                    {featured.role &&
+                      (typeof featured.role === "string"
+                        ? featured.role
+                        : featured.role)}
+                    {featured.company &&
+                      (typeof featured.company === "string"
                         ? ` at ${featured.company}`
-                        : featured.company
-                    )}
+                        : featured.company)}
                   </p>
                 )}
               </div>
@@ -271,44 +282,38 @@ export function TestimonialsBentoGrid({
           return (
             <Card key={index} className={cardClassName}>
               <CardContent className="flex h-full flex-col justify-between p-6">
-                {testimonial.quote && (
-                  typeof testimonial.quote === "string" ? (
+                {testimonial.quote &&
+                  (typeof testimonial.quote === "string" ? (
                     <blockquote className="text-sm leading-relaxed">
                       &ldquo;{testimonial.quote}&rdquo;
                     </blockquote>
                   ) : (
                     testimonial.quote
-                  )
-                )}
+                  ))}
                 <div className="mt-4 flex items-center gap-3">
                   <Avatar className="size-9">
-                    <AvatarImage
-                      src={avatarSrc}
-                      alt={authorName}
-                    />
+                    <AvatarImage src={avatarSrc} alt={authorName} />
                     <AvatarFallback className="text-xs">
                       {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    {testimonial.author && (
-                      typeof testimonial.author === "string" ? (
+                    {testimonial.author &&
+                      (typeof testimonial.author === "string" ? (
                         <p className="text-sm font-medium">
                           {testimonial.author}
                         </p>
                       ) : (
                         testimonial.author
-                      )
-                    )}
-                    {testimonial.role && (
-                      typeof testimonial.role === "string" ? (
+                      ))}
+                    {testimonial.role &&
+                      (typeof testimonial.role === "string" ? (
                         <p className="text-xs text-muted-foreground">
                           {testimonial.role}
                         </p>
                       ) : (
                         testimonial.role
-                      )
-                    )}
+                      ))}
                   </div>
                 </div>
               </CardContent>
@@ -327,25 +332,37 @@ export function TestimonialsBentoGrid({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

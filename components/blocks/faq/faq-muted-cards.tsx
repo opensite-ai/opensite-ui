@@ -42,7 +42,7 @@ export interface FaqMutedCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -114,13 +114,13 @@ export function FaqMutedCards({
             value={item.id}
             className={cn(
               "bg-muted rounded-lg border-none px-4",
-              accordionItemClassName
+              accordionItemClassName,
             )}
           >
             <AccordionTrigger
               className={cn(
                 "font-semibold hover:no-underline",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               {item.question}
@@ -146,20 +146,19 @@ export function FaqMutedCards({
       className={className}
     >
       <div className={cn("container max-w-3xl", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+        {heading &&
+          (typeof heading === "string" ? (
             <h1
               className={cn(
                 "mb-4 text-3xl font-bold md:mb-11 md:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
         {renderItems()}
       </div>
     </Section>

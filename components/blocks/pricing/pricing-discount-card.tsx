@@ -101,7 +101,7 @@ export interface PricingDiscountCardProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -243,30 +243,53 @@ export function PricingDiscountCard({
     return (
       <ul className={cn("space-y-3", featuresClassName)}>
         {features.map((feature, index) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={index} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={index}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -278,12 +301,23 @@ export function PricingDiscountCard({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = action;
 
     return (
       <Pressable
         asButton
-        className={cn("mt-8 w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "mt-8 w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -307,9 +341,19 @@ export function PricingDiscountCard({
       className={className}
     >
       <div className={cn("mx-auto max-w-md", containerClassName)}>
-        <div className={cn("relative rounded-2xl border bg-card p-8 shadow-lg", cardClassName)}>
+        <div
+          className={cn(
+            "relative rounded-2xl border bg-card p-8 shadow-lg",
+            cardClassName,
+          )}
+        >
           {discountBadge && (
-            <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
+            <div
+              className={cn(
+                "absolute -top-3 left-1/2 -translate-x-1/2",
+                badgeClassName,
+              )}
+            >
               {typeof discountBadge === "string" ? (
                 <Badge className="bg-primary hover:bg-primary/90">
                   {discountBadge}
@@ -321,39 +365,61 @@ export function PricingDiscountCard({
           )}
 
           <div className={cn("text-center", headerClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-2xl font-bold", titleClassName)}>{title}</h2>
+            {title &&
+              (typeof title === "string" ? (
+                <h2 className={cn("text-2xl font-bold", titleClassName)}>
+                  {title}
+                </h2>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-2 text-muted-foreground", descriptionClassName)}>{description}</p>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-2 text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
 
             <div className={cn("mt-6", priceWrapperClassName)}>
               {originalPrice && (
-                <span className={cn("mr-2 text-2xl text-muted-foreground line-through", originalPriceClassName)}>
+                <span
+                  className={cn(
+                    "mr-2 text-2xl text-muted-foreground line-through",
+                    originalPriceClassName,
+                  )}
+                >
                   {originalPrice}
                 </span>
               )}
               {discountedPrice && (
-                <span className={cn("text-5xl font-bold", discountedPriceClassName)}>{discountedPrice}</span>
+                <span
+                  className={cn("text-5xl font-bold", discountedPriceClassName)}
+                >
+                  {discountedPrice}
+                </span>
               )}
-              {priceDescription && (
-                typeof priceDescription === "string" ? (
-                  <p className={cn("mt-2 text-sm text-muted-foreground", priceDescriptionClassName)}>
+              {priceDescription &&
+                (typeof priceDescription === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-2 text-sm text-muted-foreground",
+                      priceDescriptionClassName,
+                    )}
+                  >
                     {priceDescription}
                   </p>
                 ) : (
-                  <div className={priceDescriptionClassName}>{priceDescription}</div>
-                )
-              )}
+                  <div className={priceDescriptionClassName}>
+                    {priceDescription}
+                  </div>
+                ))}
             </div>
           </div>
 

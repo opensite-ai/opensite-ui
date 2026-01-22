@@ -118,7 +118,7 @@ export interface CarouselTabsContentProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -187,7 +187,8 @@ export function CarouselTabsContent({
   });
 
   useEffect(() => {
-    const currentIndex = items?.findIndex((item) => item.category === current) ?? -1;
+    const currentIndex =
+      items?.findIndex((item) => item.category === current) ?? -1;
     const activeTab = tabRefs.current[currentIndex];
 
     if (activeTab) {
@@ -204,7 +205,8 @@ export function CarouselTabsContent({
       return;
     }
 
-    const currentIndex = items?.findIndex((item) => item.category === current) ?? -1;
+    const currentIndex =
+      items?.findIndex((item) => item.category === current) ?? -1;
     api.scrollTo(currentIndex);
 
     const onSelect = () => {
@@ -236,14 +238,17 @@ export function CarouselTabsContent({
                 current === item.category
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
-                tabClassName
+                tabClassName,
               )}
             >
               {item.category}
             </button>
           ))}
           <div
-            className={cn("absolute bottom-0 h-0.5 bg-primary transition-all duration-700 ease-out", indicatorClassName)}
+            className={cn(
+              "absolute bottom-0 h-0.5 bg-primary transition-all duration-700 ease-out",
+              indicatorClassName,
+            )}
             style={{
               width: `${indicatorStyle.width}px`,
               left: `${indicatorStyle.left}px`,
@@ -259,13 +264,19 @@ export function CarouselTabsContent({
     if (!items || items.length === 0) return null;
 
     return items.map((item, idx) => (
-      <CarouselItem key={idx} className={cn("w-fit max-w-4xl", item.className, itemClassName)}>
-        <div className={cn("grid h-full max-w-4xl gap-10 rounded-xl border border-border p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 lg:gap-20", cardClassName)}>
+      <CarouselItem
+        key={idx}
+        className={cn("w-fit max-w-4xl", item.className, itemClassName)}
+      >
+        <div
+          className={cn(
+            "grid h-full max-w-4xl gap-10 rounded-xl border border-border p-6 shadow-sm select-none sm:p-10 md:max-h-[450px] md:grid-cols-2 lg:gap-20",
+            cardClassName,
+          )}
+        >
           <div className="flex flex-col justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-medium sm:text-4xl">
-                {item.title}
-              </h2>
+              <h2 className="text-2xl font-medium sm:text-4xl">{item.title}</h2>
               <div className="mt-4 text-sm text-muted-foreground sm:mt-6">
                 {item.description}
               </div>
@@ -284,7 +295,10 @@ export function CarouselTabsContent({
             <Img
               src={item.image}
               alt={item.imageAlt || "Content image"}
-              className={cn("h-full w-full rounded-xl object-cover", imageClassName)}
+              className={cn(
+                "h-full w-full rounded-xl object-cover",
+                imageClassName,
+              )}
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
             />
@@ -305,11 +319,19 @@ export function CarouselTabsContent({
     >
       <Carousel
         setApi={setApi}
-        className={cn("[&>div[data-slot=carousel-content]]:overflow-visible", carouselClassName)}
+        className={cn(
+          "[&>div[data-slot=carousel-content]]:overflow-visible",
+          carouselClassName,
+        )}
       >
         <div className="flex items-center justify-between">
           {renderTabs()}
-          <div className={cn("hidden items-center gap-4 sm:flex", controlsClassName)}>
+          <div
+            className={cn(
+              "hidden items-center gap-4 sm:flex",
+              controlsClassName,
+            )}
+          >
             <CarouselPrevious className="static size-10 translate-x-0 translate-y-0" />
             <CarouselNext className="static size-10 translate-x-0 translate-y-0" />
           </div>

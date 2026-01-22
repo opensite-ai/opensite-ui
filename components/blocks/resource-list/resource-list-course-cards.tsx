@@ -10,7 +10,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ResourceListCourseCardsAuthor {
   /**
@@ -133,7 +137,7 @@ export interface ResourceListCourseCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -182,14 +186,19 @@ export function ResourceListCourseCards({
             className={cn(
               "relative flex flex-col gap-8 border-t border-border py-16 md:p-8",
               courseCardClassName,
-              course.className
+              course.className,
             )}
           >
             <div className="container grid grid-cols-1 gap-10 md:grid-cols-2">
-              <div className={cn("flex flex-col gap-4", courseContentClassName)}>
+              <div
+                className={cn("flex flex-col gap-4", courseContentClassName)}
+              >
                 {course.badge && (
                   <div>
-                    <Badge variant="secondary" className="rounded-none uppercase">
+                    <Badge
+                      variant="secondary"
+                      className="rounded-none uppercase"
+                    >
                       {course.badge}
                     </Badge>
                   </div>
@@ -215,20 +224,27 @@ export function ResourceListCourseCards({
                   </div>
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/book-open" size={16} />
-                    <span>{course.lessons} {course.lessonsLabel ?? "Lessons"}</span>
+                    <span>
+                      {course.lessons} {course.lessonsLabel ?? "Lessons"}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <DynamicIcon name="lucide/play" size={16} />
                     <span>
-                      {course.videos} {course.videosLabel ?? "Videos"}, {course.duration}
+                      {course.videos} {course.videosLabel ?? "Videos"},{" "}
+                      {course.duration}
                     </span>
                   </div>
                 </div>
 
                 {typeof course.description === "string" ? (
-                  <p className="text-lg leading-relaxed">{course.description}</p>
+                  <p className="text-lg leading-relaxed">
+                    {course.description}
+                  </p>
                 ) : (
-                  <div className="text-lg leading-relaxed">{course.description}</div>
+                  <div className="text-lg leading-relaxed">
+                    {course.description}
+                  </div>
                 )}
 
                 <div>
@@ -236,7 +252,9 @@ export function ResourceListCourseCards({
                     <Avatar className="size-10 border xl:size-12">
                       <AvatarImage src={course.author.avatar} />
                       <AvatarFallback>
-                        {typeof course.author.name === "string" ? course.author.name : ""}
+                        {typeof course.author.name === "string"
+                          ? course.author.name
+                          : ""}
                       </AvatarFallback>
                     </Avatar>
                     <div>
@@ -275,7 +293,7 @@ export function ResourceListCourseCards({
                 <div
                   className={cn(
                     "group grid aspect-video w-full place-items-center rounded-lg bg-gradient-to-br pt-6 pr-8 transition duration-200 ease-out hover:scale-[1.03] hover:-rotate-2 dark:from-muted dark:to-muted/50",
-                    course.gradient
+                    course.gradient,
                   )}
                 >
                   <div className="col-start-1 row-start-1 flex aspect-square w-24 origin-top-left -rotate-6 rounded-md border border-border bg-muted/50 shadow-lg transition duration-500 ease-out group-hover:scale-[1.1] group-hover:-rotate-2 lg:w-32"></div>
@@ -285,7 +303,11 @@ export function ResourceListCourseCards({
                     <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-md">
                       <Img
                         src={course.image}
-                        alt={typeof course.title === "string" ? course.title : "Course"}
+                        alt={
+                          typeof course.title === "string"
+                            ? course.title
+                            : "Course"
+                        }
                         className="h-full w-full object-cover"
                         optixFlowConfig={optixFlowConfig}
                       />

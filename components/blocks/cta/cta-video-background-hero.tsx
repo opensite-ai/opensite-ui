@@ -93,7 +93,7 @@ export interface CtaVideoBackgroundHeroProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -161,7 +161,7 @@ export function CtaVideoBackgroundHero({
       <div
         className={cn(
           "flex flex-col justify-center gap-3 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -185,7 +185,7 @@ export function CtaVideoBackgroundHero({
               className={cn(
                 !isFirstAction &&
                   "border-white/30 text-white hover:bg-white/10",
-                action.className
+                action.className,
               )}
               aria-label={action["aria-label"]}
               asButton
@@ -249,7 +249,7 @@ export function CtaVideoBackgroundHero({
         <div
           className={cn(
             "relative h-[600px] overflow-hidden rounded-2xl",
-            videoWrapperClassName
+            videoWrapperClassName,
           )}
         >
           <video
@@ -264,20 +264,20 @@ export function CtaVideoBackgroundHero({
           <div
             className={cn(
               "absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/30",
-              overlayClassName
+              overlayClassName,
             )}
           />
           <div className="relative z-10 flex h-full items-center justify-center">
             <div
               className={cn(
                 "max-w-2xl p-8 text-center text-white",
-                contentClassName
+                contentClassName,
               )}
             >
               <h2
                 className={cn(
                   "mb-6 text-4xl font-bold md:text-5xl lg:text-6xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
@@ -285,7 +285,7 @@ export function CtaVideoBackgroundHero({
               <p
                 className={cn(
                   "mb-8 text-lg opacity-90 md:text-xl",
-                  descriptionClassName
+                  descriptionClassName,
                 )}
               >
                 {description}

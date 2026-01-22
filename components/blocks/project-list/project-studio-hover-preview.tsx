@@ -12,8 +12,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectStudioHoverPreviewItem {
   title: string;
@@ -50,7 +50,7 @@ export interface ProjectStudioHoverPreviewProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -137,7 +137,7 @@ export function ProjectStudioHoverPreview({
       mouseX.set(x - 50);
       mouseY.set(y + 30);
     },
-    [mouseX, mouseY]
+    [mouseX, mouseY],
   );
 
   const handleProjectMouseEnter = useCallback((index: number) => {
@@ -176,9 +176,7 @@ export function ProjectStudioHoverPreview({
           </h3>
           <div className="flex flex-col items-end">
             <p className="text-sm text-neutral-600">{project.year}</p>
-            <p className="text-sm text-muted-foreground">
-              {project.type}
-            </p>
+            <p className="text-sm text-muted-foreground">{project.type}</p>
           </div>
         </div>
       </div>
@@ -194,19 +192,28 @@ export function ProjectStudioHoverPreview({
       className={cn(className)}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mb-10 flex items-end justify-between", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-2xl font-semibold", headingClassName)}>{heading}</h2>
+        <div
+          className={cn(
+            "mb-10 flex items-end justify-between",
+            headerClassName,
+          )}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2 className={cn("text-2xl font-semibold", headingClassName)}>
+                {heading}
+              </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div
           ref={containerRef}
-          className={cn("relative grid grid-cols-1 gap-x-6 gap-y-7 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}
+          className={cn(
+            "relative grid grid-cols-1 gap-x-6 gap-y-7 sm:grid-cols-2 lg:grid-cols-3",
+            gridClassName,
+          )}
           onMouseMove={handleContainerMouseMove}
           onMouseLeave={handleContainerMouseLeave}
         >

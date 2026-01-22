@@ -104,7 +104,7 @@ export interface TestimonialsStatsHeaderProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -213,11 +213,19 @@ export function TestimonialsStatsHeader({
     if (statsSlot) return statsSlot;
 
     return (
-      <div className={cn("mb-12 grid grid-cols-2 gap-4 md:grid-cols-4", statsGridClassName)}>
+      <div
+        className={cn(
+          "mb-12 grid grid-cols-2 gap-4 md:grid-cols-4",
+          statsGridClassName,
+        )}
+      >
         {stats.map((stat, index) => (
           <div
             key={index}
-            className={cn("rounded-lg bg-muted/50 p-6 text-center", statItemClassName)}
+            className={cn(
+              "rounded-lg bg-muted/50 p-6 text-center",
+              statItemClassName,
+            )}
           >
             {typeof stat.value === "string" ? (
               <p className="text-3xl font-bold text-primary md:text-4xl">
@@ -241,7 +249,9 @@ export function TestimonialsStatsHeader({
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-3", testimonialsGridClassName)}>
+      <div
+        className={cn("grid gap-6 md:grid-cols-3", testimonialsGridClassName)}
+      >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
@@ -258,44 +268,43 @@ export function TestimonialsStatsHeader({
                     />
                   ))}
                 </div>
-                {testimonial.quote && (
-                  typeof testimonial.quote === "string" ? (
-                    <p className={cn("mb-6 text-sm leading-relaxed", quoteClassName)}>
+                {testimonial.quote &&
+                  (typeof testimonial.quote === "string" ? (
+                    <p
+                      className={cn(
+                        "mb-6 text-sm leading-relaxed",
+                        quoteClassName,
+                      )}
+                    >
                       &ldquo;{testimonial.quote}&rdquo;
                     </p>
                   ) : (
-                    <div className={cn("mb-6", quoteClassName)}>{testimonial.quote}</div>
-                  )
-                )}
+                    <div className={cn("mb-6", quoteClassName)}>
+                      {testimonial.quote}
+                    </div>
+                  ))}
                 <div className={cn("flex items-center gap-3", authorClassName)}>
                   <Avatar className="size-10">
-                    <AvatarImage
-                      src={avatarSrc}
-                      alt={authorName}
-                    />
-                    <AvatarFallback>
-                      {getInitials(authorName)}
-                    </AvatarFallback>
+                    <AvatarImage src={avatarSrc} alt={authorName} />
+                    <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                   </Avatar>
                   <div>
-                    {testimonial.author && (
-                      typeof testimonial.author === "string" ? (
+                    {testimonial.author &&
+                      (typeof testimonial.author === "string" ? (
                         <p className="text-sm font-medium">
                           {testimonial.author}
                         </p>
                       ) : (
                         testimonial.author
-                      )
-                    )}
-                    {testimonial.role && (
-                      typeof testimonial.role === "string" ? (
+                      ))}
+                    {testimonial.role &&
+                      (typeof testimonial.role === "string" ? (
                         <p className="text-xs text-muted-foreground">
                           {testimonial.role}
                         </p>
                       ) : (
                         testimonial.role
-                      )
-                    )}
+                      ))}
                   </div>
                 </div>
               </CardContent>
@@ -314,25 +323,37 @@ export function TestimonialsStatsHeader({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderStats()}

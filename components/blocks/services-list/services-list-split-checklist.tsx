@@ -9,7 +9,12 @@ import { Badge } from "../../ui/badge";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for split checklist display
@@ -120,7 +125,7 @@ export interface ServicesListSplitChecklistProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -216,27 +221,36 @@ export function ServicesListSplitChecklist({
         {services.map((service, index) => (
           <div
             key={service.id ?? index}
-            className={cn("border-b border-border pb-6 last:border-0 last:pb-0", serviceClassName, service.className)}
+            className={cn(
+              "border-b border-border pb-6 last:border-0 last:pb-0",
+              serviceClassName,
+              service.className,
+            )}
           >
             <div className="flex items-start gap-3">
               <div className="rounded-full bg-primary/10 p-1">
-                <DynamicIcon name="lucide/check" className="h-5 w-5 text-primary" />
+                <DynamicIcon
+                  name="lucide/check"
+                  className="h-5 w-5 text-primary"
+                />
               </div>
               <div>
-                {service.title && (
-                  typeof service.title === "string" ? (
+                {service.title &&
+                  (typeof service.title === "string" ? (
                     <h4 className="font-medium">{service.title}</h4>
                   ) : (
                     <div className="font-medium">{service.title}</div>
-                  )
-                )}
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="mt-1 text-sm text-muted-foreground">{service.description}</p>
+                  ))}
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="mt-1 text-sm text-muted-foreground">{service.description}</div>
-                  )
-                )}
+                    <div className="mt-1 text-sm text-muted-foreground">
+                      {service.description}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -253,33 +267,47 @@ export function ServicesListSplitChecklist({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16", containerClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16",
+          containerClassName,
+        )}
+      >
         <div className={cn("flex flex-col justify-center", contentClassName)}>
-          {badge && (
-            typeof badge === "string" ? (
-              <Badge className="mb-6 w-fit" variant="outline">{badge}</Badge>
+          {badge &&
+            (typeof badge === "string" ? (
+              <Badge className="mb-6 w-fit" variant="outline">
+                {badge}
+              </Badge>
             ) : (
               <div className="mb-6 w-fit">{badge}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mb-8 text-lg leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-8 text-lg leading-relaxed text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderActions()}
           {image && (
             <div className="relative mt-12 hidden lg:block">
@@ -293,14 +321,22 @@ export function ServicesListSplitChecklist({
           )}
         </div>
 
-        <div className={cn("flex flex-col justify-center rounded-xl border bg-card p-8 shadow-sm", checklistClassName)}>
-          {checklistHeading && (
-            typeof checklistHeading === "string" ? (
-              <h3 className="mb-8 text-lg font-medium text-muted-foreground">{checklistHeading}</h3>
-            ) : (
-              <div className="mb-8 text-lg font-medium text-muted-foreground">{checklistHeading}</div>
-            )
+        <div
+          className={cn(
+            "flex flex-col justify-center rounded-xl border bg-card p-8 shadow-sm",
+            checklistClassName,
           )}
+        >
+          {checklistHeading &&
+            (typeof checklistHeading === "string" ? (
+              <h3 className="mb-8 text-lg font-medium text-muted-foreground">
+                {checklistHeading}
+              </h3>
+            ) : (
+              <div className="mb-8 text-lg font-medium text-muted-foreground">
+                {checklistHeading}
+              </div>
+            ))}
           {renderServices()}
           {checklistAction && (
             <div className="mt-8 text-center">
@@ -312,7 +348,10 @@ export function ServicesListSplitChecklist({
                 asButton
               >
                 {checklistAction.label}
-                <DynamicIcon name="lucide/arrow-right" className="ml-2 h-4 w-4" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  className="ml-2 h-4 w-4"
+                />
               </Pressable>
             </div>
           )}

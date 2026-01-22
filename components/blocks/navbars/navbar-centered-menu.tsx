@@ -125,7 +125,7 @@ export interface NavbarCenteredMenuProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -223,7 +223,11 @@ const renderMobileMenuItem = (item: MenuItem) => {
   }
 
   return (
-    <Pressable key={item.title} href={item.url} className="text-md font-semibold">
+    <Pressable
+      key={item.title}
+      href={item.url}
+      className="text-md font-semibold"
+    >
       {item.title}
     </Pressable>
   );
@@ -265,7 +269,10 @@ export const NavbarCenteredMenu = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
@@ -274,15 +281,14 @@ export const NavbarCenteredMenu = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold tracking-tighter">
               {logo.title}
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -292,7 +298,14 @@ export const NavbarCenteredMenu = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -336,12 +349,16 @@ export const NavbarCenteredMenu = ({
     >
       <div className={cn("container", containerClassName)}>
         {/* Desktop Menu */}
-        <nav className={cn("hidden justify-between lg:flex", desktopNavClassName)}>
+        <nav
+          className={cn("hidden justify-between lg:flex", desktopNavClassName)}
+        >
           {/* Logo */}
           {renderLogo()}
           <div className="flex items-center gap-6">
             <div className="flex items-center">
-              <NavigationMenuWithoutViewport className={navigationMenuClassName}>
+              <NavigationMenuWithoutViewport
+                className={navigationMenuClassName}
+              >
                 <NavigationMenuList className="relative">
                   {renderMenu()}
                 </NavigationMenuList>
@@ -359,15 +376,18 @@ export const NavbarCenteredMenu = ({
             {renderLogo()}
             <Sheet>
               <SheetTrigger asChild>
-                <Pressable variant="outline" size="icon" asButton onClick={() => {}}>
+                <Pressable
+                  variant="outline"
+                  size="icon"
+                  asButton
+                  onClick={() => {}}
+                >
                   <DynamicIcon name="lucide/menu" size={16} />
                 </Pressable>
               </SheetTrigger>
               <SheetContent className="overflow-y-auto">
                 <SheetHeader>
-                  <SheetTitle>
-                    {renderLogo()}
-                  </SheetTitle>
+                  <SheetTitle>{renderLogo()}</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 p-4">
                   <Accordion

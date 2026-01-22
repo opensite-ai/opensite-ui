@@ -6,14 +6,13 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailParallaxScrollSection {
   title: React.ReactNode;
@@ -53,7 +52,7 @@ export interface ProjectDetailParallaxScrollProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -107,7 +106,7 @@ function ParallaxSection({
       ref={ref}
       className={cn(
         "grid gap-12 lg:grid-cols-2 lg:gap-16 items-center",
-        index % 2 === 1 && "lg:flex-row-reverse"
+        index % 2 === 1 && "lg:flex-row-reverse",
       )}
     >
       <motion.div
@@ -134,11 +133,11 @@ function ParallaxSection({
           style={{ y }}
           className={cn(
             "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted",
-            index % 2 === 1 && "lg:order-1"
+            index % 2 === 1 && "lg:order-1",
           )}
         >
           <Img
-            src={image.src || imagePlaceholders[85 + index]}
+            src={image.src}
             alt={image.alt}
             className="h-full w-full object-cover"
             optixFlowConfig={optixFlowConfig}
@@ -150,7 +149,7 @@ function ParallaxSection({
 }
 
 export function ProjectDetailParallaxScroll(
-  props: ProjectDetailParallaxScrollProps
+  props: ProjectDetailParallaxScrollProps,
 ): React.JSX.Element {
   const {
     title,
@@ -188,10 +187,20 @@ export function ProjectDetailParallaxScroll(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -214,10 +223,16 @@ export function ProjectDetailParallaxScroll(
       className={className}
     >
       <article className={containerClassName}>
-        <section ref={heroRef} className={cn("relative min-h-screen overflow-hidden", heroImageClassName)}>
+        <section
+          ref={heroRef}
+          className={cn(
+            "relative min-h-screen overflow-hidden",
+            heroImageClassName,
+          )}
+        >
           <motion.div style={{ y: heroY }} className="absolute inset-0">
             <Img
-              src={heroImage?.src || imagePlaceholders[88]}
+              src={heroImage?.src}
               alt={heroImage?.alt || "Project hero image"}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
@@ -237,7 +252,10 @@ export function ProjectDetailParallaxScroll(
               </motion.div>
             )}
 
-            <motion.div style={{ opacity: heroOpacity }} className={cn("max-w-4xl", headerClassName)}>
+            <motion.div
+              style={{ opacity: heroOpacity }}
+              className={cn("max-w-4xl", headerClassName)}
+            >
               <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-foreground/70">
                 <span className="rounded-full border border-foreground/20 px-3 py-1">
                   {category}
@@ -246,20 +264,24 @@ export function ProjectDetailParallaxScroll(
               </div>
 
               {typeof title === "string" ? (
-                <h1 className={cn("text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", titleClassName)}>
+                <h1
+                  className={cn(
+                    "text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
               )}
 
-              {subtitle && (
-                typeof subtitle === "string" ? (
+              {subtitle &&
+                (typeof subtitle === "string" ? (
                   <p className="mt-6 text-xl text-foreground/80">{subtitle}</p>
                 ) : (
                   <div className="mt-6">{subtitle}</div>
-                )
-              )}
+                ))}
             </motion.div>
           </div>
         </section>

@@ -232,7 +232,7 @@ export interface LinkPageNewsletterSocialProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -345,8 +345,7 @@ export function LinkPageNewsletterSocial({
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar3,
   profileSlot,
   newsletterHeading = "Join my newsletter",
-  newsletterDescription =
-    "Get exclusive content, tips, and updates delivered to your inbox.",
+  newsletterDescription = "Get exclusive content, tips, and updates delivered to your inbox.",
   emailPlaceholder = "Enter your email",
   buttonText = "Subscribe",
   submitAction,
@@ -463,10 +462,9 @@ export function LinkPageNewsletterSocial({
     size: "lg" as const,
   };
 
-  const resolvedChevronIcon =
-    linkChevronIcon ?? (
-      <DynamicIcon name="lucide/chevron-right" size={16} />
-    );
+  const resolvedChevronIcon = linkChevronIcon ?? (
+    <DynamicIcon name="lucide/chevron-right" size={16} />
+  );
 
   const renderProfile = () => {
     if (profileSlot) return profileSlot;
@@ -475,14 +473,14 @@ export function LinkPageNewsletterSocial({
       <div
         className={cn(
           "flex flex-col items-center space-y-4 text-center",
-          headerClassName
+          headerClassName,
         )}
       >
         {resolvedAvatar && (
           <div
             className={cn(
               "h-24 w-24 overflow-hidden rounded-full bg-muted ring-4 ring-background shadow-lg",
-              avatarClassName
+              avatarClassName,
             )}
           >
             <Img
@@ -501,7 +499,7 @@ export function LinkPageNewsletterSocial({
                 className={cn(
                   "text-2xl font-bold",
                   isDark ? "text-white" : "text-foreground",
-                  nameClassName
+                  nameClassName,
                 )}
               >
                 {name}
@@ -515,7 +513,7 @@ export function LinkPageNewsletterSocial({
                 className={cn(
                   "max-w-xs text-sm",
                   isDark ? "text-neutral-400" : "text-muted-foreground",
-                  bioClassName
+                  bioClassName,
                 )}
               >
                 {bio}
@@ -536,7 +534,7 @@ export function LinkPageNewsletterSocial({
       <div
         className={cn(
           "flex items-center justify-center gap-3",
-          socialLinksClassName
+          socialLinksClassName,
         )}
       >
         {socialLinks.map((social, index) => {
@@ -566,7 +564,7 @@ export function LinkPageNewsletterSocial({
                   ? "bg-white/10 text-white hover:bg-white/20"
                   : "bg-neutral-100 text-foreground hover:bg-neutral-200",
                 socialLinkClassName,
-                social.className
+                social.className,
               )}
             >
               {icon}
@@ -602,7 +600,7 @@ export function LinkPageNewsletterSocial({
                 "w-full",
                 isDark &&
                   "border-white/20 bg-white/10 text-white placeholder:text-white/50",
-                inputClassName
+                inputClassName,
               )}
               aria-label={emailPlaceholder || "Email address"}
             />
@@ -624,13 +622,13 @@ export function LinkPageNewsletterSocial({
               <span>{submittingLabel}</span>
             </>
           ) : (
-            children ?? (
+            (children ?? (
               <>
                 {icon}
                 {label}
                 {iconAfter}
               </>
-            )
+            ))
           )}
         </Pressable>
       </>
@@ -647,7 +645,7 @@ export function LinkPageNewsletterSocial({
           isDark
             ? "border border-white/10 bg-white/5"
             : "border border-neutral-200 bg-white shadow-sm",
-          newsletterCardClassName
+          newsletterCardClassName,
         )}
       >
         <div className="space-y-1 text-center">
@@ -657,7 +655,7 @@ export function LinkPageNewsletterSocial({
                 className={cn(
                   "text-lg font-semibold",
                   isDark ? "text-white" : "text-foreground",
-                  newsletterHeadingClassName
+                  newsletterHeadingClassName,
                 )}
               >
                 {newsletterHeading}
@@ -673,7 +671,7 @@ export function LinkPageNewsletterSocial({
                 className={cn(
                   "text-sm",
                   isDark ? "text-neutral-400" : "text-muted-foreground",
-                  newsletterDescriptionClassName
+                  newsletterDescriptionClassName,
                 )}
               >
                 {newsletterDescription}
@@ -732,7 +730,7 @@ export function LinkPageNewsletterSocial({
                     ? "border border-white/10 bg-white/5 text-white hover:bg-white/10"
                     : "border border-neutral-200 bg-white text-foreground hover:bg-neutral-50",
                   linkClassName,
-                  linkItemClassName
+                  linkItemClassName,
                 )}
                 {...pressableProps}
               >
@@ -751,7 +749,7 @@ export function LinkPageNewsletterSocial({
                   ? "border border-white/10 bg-white/5 text-white hover:bg-white/10"
                   : "border border-neutral-200 bg-white text-foreground hover:bg-neutral-50",
                 linkClassName,
-                linkItemClassName
+                linkItemClassName,
               )}
               {...pressableProps}
             >
@@ -761,18 +759,20 @@ export function LinkPageNewsletterSocial({
                   <span
                     className={cn(
                       "flex-1 text-sm font-medium",
-                      linkLabelClassName
+                      linkLabelClassName,
                     )}
                   >
                     {label}
                   </span>
                 ) : (
-                  <div className={cn("flex-1", linkLabelClassName)}>{label}</div>
+                  <div className={cn("flex-1", linkLabelClassName)}>
+                    {label}
+                  </div>
                 ))}
               <span
                 className={cn(
                   isDark ? "text-neutral-600" : "text-muted-foreground",
-                  linkChevronClassName
+                  linkChevronClassName,
                 )}
               >
                 {resolvedChevronIcon}
@@ -810,7 +810,7 @@ export function LinkPageNewsletterSocial({
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
           isDark ? "text-neutral-600" : "text-muted-foreground/50",
           footerClassName,
-          actionClassName
+          actionClassName,
         )}
         {...pressableProps}
       >
@@ -830,10 +830,8 @@ export function LinkPageNewsletterSocial({
       background={resolvedBackground}
       spacing={spacing}
       className={cn(
-        isDark
-          ? "bg-neutral-950"
-          : "bg-linear-to-b from-white to-neutral-50",
-        className
+        isDark ? "bg-neutral-950" : "bg-linear-to-b from-white to-neutral-50",
+        className,
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
@@ -842,7 +840,7 @@ export function LinkPageNewsletterSocial({
       <div
         className={cn(
           "flex min-h-screen w-full items-start justify-center py-12",
-          containerClassName
+          containerClassName,
         )}
       >
         <div className={cn("w-full max-w-md space-y-8", contentClassName)}>

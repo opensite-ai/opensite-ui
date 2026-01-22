@@ -175,7 +175,7 @@ export interface CtaCaseStudyTestimonialProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -360,7 +360,7 @@ export function CtaCaseStudyTestimonial({
             <h2
               className={cn(
                 "mb-4 text-3xl font-bold md:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -368,7 +368,7 @@ export function CtaCaseStudyTestimonial({
             <p
               className={cn(
                 "mb-8 text-lg text-muted-foreground",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
@@ -379,7 +379,7 @@ export function CtaCaseStudyTestimonial({
             <div
               className={cn(
                 "relative mt-8 border-l-4 border-primary/20 pl-6 italic text-muted-foreground",
-                testimonialClassName
+                testimonialClassName,
               )}
             >
               <DynamicIcon

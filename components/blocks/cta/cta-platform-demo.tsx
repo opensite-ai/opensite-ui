@@ -87,7 +87,7 @@ export interface CtaPlatformDemoProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -188,7 +188,7 @@ export function CtaPlatformDemo({
         <div
           className={cn(
             "relative mx-auto flex max-w-7xl flex-col justify-between gap-6 overflow-hidden rounded-xl border bg-muted/50 md:flex-row",
-            cardClassName
+            cardClassName,
           )}
         >
           <div
@@ -197,7 +197,7 @@ export function CtaPlatformDemo({
             <h2
               className={cn(
                 "text-3xl font-semibold md:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -205,7 +205,7 @@ export function CtaPlatformDemo({
             <p
               className={cn(
                 "mt-4 text-muted-foreground md:text-lg",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
@@ -215,7 +215,7 @@ export function CtaPlatformDemo({
           <div
             className={cn(
               "relative ml-6 max-h-96 md:mt-8 md:ml-0",
-              imageWrapperClassName
+              imageWrapperClassName,
             )}
           >
             <Img

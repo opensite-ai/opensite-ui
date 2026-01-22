@@ -100,7 +100,7 @@ export interface IndustriesBadgeListBorderedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -171,7 +171,7 @@ export function IndustriesBadgeListBordered({
         variant="outline"
         className={cn(
           "mb-4 rounded-none border-0 bg-muted p-2 text-primary uppercase",
-          badgeClassName
+          badgeClassName,
         )}
       >
         {badge}
@@ -189,7 +189,7 @@ export function IndustriesBadgeListBordered({
       <h2
         className={cn(
           "max-w-2xl text-3xl leading-tight font-bold text-balance lg:text-4xl",
-          headingClassName
+          headingClassName,
         )}
       >
         {heading}
@@ -211,7 +211,7 @@ export function IndustriesBadgeListBordered({
             className={cn(
               "border-b border-border pb-8 first:border-t first:pt-8 last:border-b-0",
               itemClassName,
-              service.className
+              service.className,
             )}
           >
             <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-12 md:items-center md:gap-8">

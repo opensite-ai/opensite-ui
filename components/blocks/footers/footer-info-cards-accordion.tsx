@@ -13,7 +13,10 @@ import {
 } from "../../ui/accordion";
 import { Card, CardContent, CardTitle } from "../../ui/card";
 import { AspectRatio } from "../../ui/aspect-ratio";
-import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  logoPlaceholders,
+  imagePlaceholders,
+} from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
@@ -258,7 +261,7 @@ export interface FooterInfoCardsAccordionProps {
   /**
    * Optional background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -351,7 +354,8 @@ export function FooterInfoCardsAccordion({
   const [isDesktop, setIsDesktop] = React.useState(false);
 
   const currentYear = new Date().getFullYear();
-  const copyrightText = copyright ?? `© ${currentYear} Made with love by Opensite AI`;
+  const copyrightText =
+    copyright ?? `© ${currentYear} Made with love by Opensite AI`;
 
   React.useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
@@ -377,7 +381,12 @@ export function FooterInfoCardsAccordion({
       className={cn(className)}
     >
       <div className={cn("space-y-10", contentClassName)}>
-        <div className={cn("grid items-center gap-x-20 gap-y-5 lg:grid-cols-2", newsletterGridClassName)}>
+        <div
+          className={cn(
+            "grid items-center gap-x-20 gap-y-5 lg:grid-cols-2",
+            newsletterGridClassName,
+          )}
+        >
           <div className={cn(newsletterImageClassName)}>
             <AspectRatio ratio={2} className="overflow-hidden rounded-2xl">
               <Img
@@ -390,12 +399,24 @@ export function FooterInfoCardsAccordion({
           </div>
           <div className={cn("space-y-5", newsletterContentClassName)}>
             <div className="space-y-3">
-              <h3 className={cn("text-4xl font-semibold leading-snug", newsletterTitleClassName)}>
+              <h3
+                className={cn(
+                  "text-4xl font-semibold leading-snug",
+                  newsletterTitleClassName,
+                )}
+              >
                 {newsletterTitle}
               </h3>
-              <p className={cn("leading-normal", newsletterDescriptionClassName)}>{newsletterDescription}</p>
+              <p
+                className={cn("leading-normal", newsletterDescriptionClassName)}
+              >
+                {newsletterDescription}
+              </p>
             </div>
-            <form className={cn("flex items-start gap-4", newsletterFormClassName)} onSubmit={handleSubmit}>
+            <form
+              className={cn("flex items-start gap-4", newsletterFormClassName)}
+              onSubmit={handleSubmit}
+            >
               <input
                 type="email"
                 value={email}
@@ -409,11 +430,17 @@ export function FooterInfoCardsAccordion({
             </form>
             <p className="text-sm text-muted-foreground">
               {termsText}{" "}
-              <Pressable href={termsLinkUrl} className="underline underline-offset-2">
+              <Pressable
+                href={termsLinkUrl}
+                className="underline underline-offset-2"
+              >
                 {termsLinkText}
               </Pressable>{" "}
               &{" "}
-              <Pressable href={privacyLinkUrl} className="underline underline-offset-2">
+              <Pressable
+                href={privacyLinkUrl}
+                className="underline underline-offset-2"
+              >
                 {privacyLinkText}
               </Pressable>
               .
@@ -421,9 +448,17 @@ export function FooterInfoCardsAccordion({
           </div>
         </div>
 
-        <div className={cn("grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4", infoCardsGridClassName)}>
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4",
+            infoCardsGridClassName,
+          )}
+        >
           {infoItems.map((item, idx) => (
-            <Card key={idx} className={cn("rounded-lg px-5 py-6", infoCardClassName)}>
+            <Card
+              key={idx}
+              className={cn("rounded-lg px-5 py-6", infoCardClassName)}
+            >
               <CardContent className="flex items-start gap-3 p-0">
                 <div className="shrink-0 basis-7">
                   <DynamicIcon name={item.icon} size={24} />
@@ -450,9 +485,22 @@ export function FooterInfoCardsAccordion({
           ))}
         </div>
 
-        <div className={cn("grid grid-cols-1 gap-8 lg:grid-cols-5 xl:grid-cols-2", brandGridClassName)}>
-          <div className={cn("space-y-5 lg:col-span-2 xl:col-span-1", brandColumnClassName)}>
-            <Pressable href={footerDetails.logoUrl} className={cn("inline-block w-full max-w-80", logoClassName)}>
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-8 lg:grid-cols-5 xl:grid-cols-2",
+            brandGridClassName,
+          )}
+        >
+          <div
+            className={cn(
+              "space-y-5 lg:col-span-2 xl:col-span-1",
+              brandColumnClassName,
+            )}
+          >
+            <Pressable
+              href={footerDetails.logoUrl}
+              className={cn("inline-block w-full max-w-80", logoClassName)}
+            >
               <Img
                 src={footerDetails.logo.light}
                 alt="Logo"
@@ -466,11 +514,21 @@ export function FooterInfoCardsAccordion({
                 optixFlowConfig={optixFlowConfig}
               />
             </Pressable>
-            <p className={cn("max-w-md text-sm leading-relaxed text-muted-foreground", brandDescriptionClassName)}>
+            <p
+              className={cn(
+                "max-w-md text-sm leading-relaxed text-muted-foreground",
+                brandDescriptionClassName,
+              )}
+            >
               {footerDetails.description}
             </p>
           </div>
-          <div className={cn("lg:col-span-3 xl:col-span-1", accordionColumnClassName)}>
+          <div
+            className={cn(
+              "lg:col-span-3 xl:col-span-1",
+              accordionColumnClassName,
+            )}
+          >
             {isDesktop ? (
               <Accordion
                 value={allAccordionIds}
@@ -489,7 +547,10 @@ export function FooterInfoCardsAccordion({
                     <AccordionContent className="pb-1">
                       <ul className="space-y-3">
                         {section.items.map((item, idx) => (
-                          <li key={idx} className="text-sm font-light leading-tight">
+                          <li
+                            key={idx}
+                            className="text-sm font-light leading-tight"
+                          >
                             <Pressable
                               href={item.link}
                               className="hover:underline hover:underline-offset-2"
@@ -509,12 +570,19 @@ export function FooterInfoCardsAccordion({
                   <AccordionItem key={section.id} value={section.id}>
                     <AccordionTrigger className="py-4 text-base font-bold leading-normal hover:no-underline [&>svg]:hidden">
                       {section.title}
-                      <DynamicIcon name="lucide/plus" size={20} className="lg:hidden" />
+                      <DynamicIcon
+                        name="lucide/plus"
+                        size={20}
+                        className="lg:hidden"
+                      />
                     </AccordionTrigger>
                     <AccordionContent className="pb-4">
                       <ul className="space-y-3">
                         {section.items.map((item, idx) => (
-                          <li key={idx} className="text-sm font-light leading-tight">
+                          <li
+                            key={idx}
+                            className="text-sm font-light leading-tight"
+                          >
                             <Pressable
                               href={item.link}
                               className="hover:underline hover:underline-offset-2"
@@ -532,10 +600,20 @@ export function FooterInfoCardsAccordion({
           </div>
         </div>
 
-        <div className={cn("flex flex-wrap justify-between gap-6", paymentSocialRowClassName)}>
+        <div
+          className={cn(
+            "flex flex-wrap justify-between gap-6",
+            paymentSocialRowClassName,
+          )}
+        >
           <div className="space-y-5">
             {paymentMethods.length > 0 && (
-              <ul className={cn("flex flex-wrap items-center gap-3", paymentMethodsClassName)}>
+              <ul
+                className={cn(
+                  "flex flex-wrap items-center gap-3",
+                  paymentMethodsClassName,
+                )}
+              >
                 {paymentMethods.map((method, idx) => (
                   <li key={idx}>
                     <Img
@@ -567,9 +645,19 @@ export function FooterInfoCardsAccordion({
           </ul>
         </div>
 
-        <div className={cn("flex flex-wrap justify-between gap-6 border-t pt-8", bottomClassName)}>
+        <div
+          className={cn(
+            "flex flex-wrap justify-between gap-6 border-t pt-8",
+            bottomClassName,
+          )}
+        >
           <p className={cn("text-sm", copyrightClassName)}>{copyrightText}</p>
-          <ul className={cn("flex flex-wrap gap-x-6 gap-y-4", submenuLinksClassName)}>
+          <ul
+            className={cn(
+              "flex flex-wrap gap-x-6 gap-y-4",
+              submenuLinksClassName,
+            )}
+          >
             {submenuLinks.map((link, idx) => (
               <li key={idx}>
                 <Pressable href={link.link} className="text-sm font-light">

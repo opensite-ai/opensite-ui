@@ -6,7 +6,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for progress sidebar display
@@ -110,7 +114,7 @@ export interface ServicesListProgressSidebarProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -156,7 +160,8 @@ export function ServicesListProgressSidebar({
 }: ServicesListProgressSidebarProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListProgressSidebarService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;
   };
 
@@ -189,7 +194,11 @@ export function ServicesListProgressSidebar({
         {services.map((service, index) => (
           <div
             key={index}
-            className={cn("rounded-xl border border-border p-6 transition-shadow hover:shadow-md", cardClassName, service.className)}
+            className={cn(
+              "rounded-xl border border-border p-6 transition-shadow hover:shadow-md",
+              cardClassName,
+              service.className,
+            )}
           >
             <div className="flex items-start gap-4">
               <div
@@ -200,20 +209,21 @@ export function ServicesListProgressSidebar({
                     : service.progress && service.progress > 0
                       ? "bg-primary/10 text-primary"
                       : "bg-muted text-muted-foreground",
-                  iconClassName
+                  iconClassName,
                 )}
               >
                 {renderServiceIcon(service)}
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  {service.title && (
-                    typeof service.title === "string" ? (
+                  {service.title &&
+                    (typeof service.title === "string" ? (
                       <h3 className="text-lg font-semibold">{service.title}</h3>
                     ) : (
-                      <div className="text-lg font-semibold">{service.title}</div>
-                    )
-                  )}
+                      <div className="text-lg font-semibold">
+                        {service.title}
+                      </div>
+                    ))}
                   {service.status && (
                     <span
                       className={cn(
@@ -222,27 +232,34 @@ export function ServicesListProgressSidebar({
                           ? "text-success dark:text-success"
                           : service.progress && service.progress > 0
                             ? "text-primary"
-                            : "text-muted-foreground"
+                            : "text-muted-foreground",
                       )}
                     >
-                      {typeof service.status === "string" ? service.status : service.status}
+                      {typeof service.status === "string"
+                        ? service.status
+                        : service.status}
                     </span>
                   )}
                 </div>
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="mt-2 text-sm text-muted-foreground">{service.description}</p>
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="mt-2 text-sm text-muted-foreground">{service.description}</div>
-                  )
-                )}
+                    <div className="mt-2 text-sm text-muted-foreground">
+                      {service.description}
+                    </div>
+                  ))}
                 {typeof service.progress === "number" && (
                   <div className="mt-4">
                     <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                       <div
                         className={cn(
                           "h-full rounded-full transition-all",
-                          service.progress === 100 ? "bg-success" : "bg-primary"
+                          service.progress === 100
+                            ? "bg-success"
+                            : "bg-primary",
                         )}
                         style={{ width: `${service.progress}%` }}
                       />
@@ -265,26 +282,43 @@ export function ServicesListProgressSidebar({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("grid gap-12 lg:grid-cols-3 lg:gap-16", containerClassName)}>
-        <div className={cn("lg:sticky lg:top-32 lg:self-start", sidebarClassName)}>
-          {sidebarHeading && (
-            typeof sidebarHeading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl", sidebarHeadingClassName)}>
+      <div
+        className={cn(
+          "grid gap-12 lg:grid-cols-3 lg:gap-16",
+          containerClassName,
+        )}
+      >
+        <div
+          className={cn("lg:sticky lg:top-32 lg:self-start", sidebarClassName)}
+        >
+          {sidebarHeading &&
+            (typeof sidebarHeading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl",
+                  sidebarHeadingClassName,
+                )}
+              >
                 {sidebarHeading}
               </h2>
             ) : (
               <div className={sidebarHeadingClassName}>{sidebarHeading}</div>
-            )
-          )}
-          {sidebarDescription && (
-            typeof sidebarDescription === "string" ? (
-              <p className={cn("mt-6 text-lg leading-relaxed text-muted-foreground", sidebarDescriptionClassName)}>
+            ))}
+          {sidebarDescription &&
+            (typeof sidebarDescription === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg leading-relaxed text-muted-foreground",
+                  sidebarDescriptionClassName,
+                )}
+              >
                 {sidebarDescription}
               </p>
             ) : (
-              <div className={sidebarDescriptionClassName}>{sidebarDescription}</div>
-            )
-          )}
+              <div className={sidebarDescriptionClassName}>
+                {sidebarDescription}
+              </div>
+            ))}
           {renderActions()}
         </div>
         {renderServices()}

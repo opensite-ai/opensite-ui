@@ -5,10 +5,10 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig, NavLinkItem } from "../../../src/types/blocks";
+import { PatternName } from "@/components/ui/pattern-background";
 
 /**
  * Link group configuration for footer columns
@@ -125,7 +125,7 @@ export interface FooterBrandLinksContactProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
   /** Optional Optix Flow configuration for image optimization */
@@ -137,8 +137,8 @@ export interface FooterBrandLinksContactProps {
  * link groups, contact details, and social icons plus a legal bar.
  */
 export function FooterBrandLinksContact({
-  logoSrc = logoPlaceholders.lightHorizontalLogo,
-  logoAlt = "OpenSite AI logo",
+  logoSrc,
+  logoAlt = "Logo",
   tagline,
   description,
   linkGroups,
@@ -146,7 +146,7 @@ export function FooterBrandLinksContact({
   socialLinks,
   legalLinks,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   copyright,
   contactTitle,
   socialTitle,
@@ -175,7 +175,8 @@ export function FooterBrandLinksContact({
   optixFlowConfig,
 }: FooterBrandLinksContactProps): React.JSX.Element {
   const currentYear = new Date().getFullYear();
-  const copyrightText = copyright ?? `© ${currentYear} OpenSite AI. All rights reserved.`;
+  const copyrightText =
+    copyright ?? `© ${currentYear} OpenSite AI. All rights reserved.`;
 
   return (
     <Section
@@ -189,7 +190,7 @@ export function FooterBrandLinksContact({
         <div
           className={cn(
             "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4",
-            gridClassName
+            gridClassName,
           )}
         >
           <div className={cn(brandClassName)}>
@@ -213,7 +214,7 @@ export function FooterBrandLinksContact({
               <h3
                 className={cn(
                   "text-lg font-semibold text-white",
-                  linkGroupTitleClassName
+                  linkGroupTitleClassName,
                 )}
               >
                 {group.title}
@@ -221,7 +222,7 @@ export function FooterBrandLinksContact({
               <ul
                 className={cn(
                   "mt-4 space-y-2 text-sm text-white/70",
-                  linkListClassName
+                  linkListClassName,
                 )}
               >
                 {group.links.map((link) => (
@@ -230,7 +231,7 @@ export function FooterBrandLinksContact({
                       href={link.href}
                       className={cn(
                         "transition-colors hover:text-primary",
-                        linkItemClassName
+                        linkItemClassName,
                       )}
                     >
                       {link.label}
@@ -242,20 +243,34 @@ export function FooterBrandLinksContact({
           ))}
 
           <div className={cn(contactColumnClassName)}>
-            <h3 className={cn("text-lg font-semibold text-white", linkGroupTitleClassName)}>
+            <h3
+              className={cn(
+                "text-lg font-semibold text-white",
+                linkGroupTitleClassName,
+              )}
+            >
               {contactTitle}
             </h3>
-            <ul className={cn("mt-4 space-y-3 text-sm text-white/70", linkListClassName)}>
+            <ul
+              className={cn(
+                "mt-4 space-y-3 text-sm text-white/70",
+                linkListClassName,
+              )}
+            >
               {contactItems?.map((item) => (
                 <li key={item.label}>
                   <Pressable
                     href={item.href}
                     className={cn(
                       "flex items-start gap-3 transition-colors hover:text-primary",
-                      contactItemClassName
+                      contactItemClassName,
                     )}
                   >
-                    <DynamicIcon name={item.icon} size={18} className="mt-0.5" />
+                    <DynamicIcon
+                      name={item.icon}
+                      size={18}
+                      className="mt-0.5"
+                    />
                     <span>{item.label}</span>
                   </Pressable>
                 </li>
@@ -275,7 +290,7 @@ export function FooterBrandLinksContact({
                       aria-label={link.label}
                       className={cn(
                         "text-white/70 transition-colors hover:text-primary",
-                        socialLinkClassName
+                        socialLinkClassName,
                       )}
                     >
                       <DynamicIcon name={link.icon} size={20} />
@@ -290,12 +305,17 @@ export function FooterBrandLinksContact({
         <div
           className={cn(
             "mt-12 border-t border-white/10 pt-8 text-sm text-white/60",
-            bottomBarClassName
+            bottomBarClassName,
           )}
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className={cn(copyrightClassName)}>{copyrightText}</p>
-            <div className={cn("flex flex-wrap items-center gap-4", legalLinksClassName)}>
+            <div
+              className={cn(
+                "flex flex-wrap items-center gap-4",
+                legalLinksClassName,
+              )}
+            >
               <Pressable
                 href={attributionHref}
                 className="underline transition-colors hover:text-primary"

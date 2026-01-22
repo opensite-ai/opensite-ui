@@ -92,7 +92,7 @@ export interface TimelineAlternatingDiagonalProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -194,34 +194,61 @@ export function TimelineAlternatingDiagonal({
       style={style}
     >
       <div className="border-y">
-        <div className={cn("flex flex-col gap-6 border-x py-4 max-lg:border-x lg:py-8 mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl", containerClassName)}>
+        <div
+          className={cn(
+            "flex flex-col gap-6 border-x py-4 max-lg:border-x lg:py-8 mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl",
+            containerClassName,
+          )}
+        >
           {renderBadge()}
-          <h2 className={cn("text-3xl leading-tight tracking-tight md:text-4xl lg:text-6xl", headingClassName)}>
+          <h2
+            className={cn(
+              "text-3xl leading-tight tracking-tight md:text-4xl lg:text-6xl",
+              headingClassName,
+            )}
+          >
             {heading}
           </h2>
-          <p className={cn("max-w-[600px] tracking-[-0.32px] text-muted-foreground", descriptionClassName)}>
+          <p
+            className={cn(
+              "max-w-[600px] tracking-[-0.32px] text-muted-foreground",
+              descriptionClassName,
+            )}
+          >
             {description}
           </p>
         </div>
       </div>
 
       {items && items.length > 0 && (
-        <div className={cn("overflow-hidden border-x pb-40 lg:pt-20 [&>*:last-child]:pb-20 [&>div>div:first-child]:pt-20! mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl", itemsClassName)}>
+        <div
+          className={cn(
+            "overflow-hidden border-x pb-40 lg:pt-20 [&>*:last-child]:pb-20 [&>div>div:first-child]:pt-20! mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl",
+            itemsClassName,
+          )}
+        >
           {items.map((item, index) => (
             <div key={index} className={cn("relative flex", itemClassName)}>
               <div
                 className={cn(
                   "flex w-full justify-center px-1 py-10 text-end md:gap-6 lg:gap-10",
-                  item.reverse ? "lg:flex-row-reverse lg:text-start" : ""
+                  item.reverse ? "lg:flex-row-reverse lg:text-start" : "",
                 )}
               >
                 <div className="flex-1 max-lg:hidden">
-                  <h3 className={cn("text-2xl tracking-[-0.96px]", titleClassName)}>{item.title}</h3>
+                  <h3
+                    className={cn(
+                      "text-2xl tracking-[-0.96px]",
+                      titleClassName,
+                    )}
+                  >
+                    {item.title}
+                  </h3>
                   <p
                     className={cn(
                       "mt-2.5 max-w-[300px] tracking-[-0.32px] text-balance text-muted-foreground",
                       item.reverse ? "" : "ml-auto",
-                      itemDescriptionClassName
+                      itemDescriptionClassName,
                     )}
                   >
                     {item.description}
@@ -236,8 +263,20 @@ export function TimelineAlternatingDiagonal({
                 </div>
                 <div className="flex-1 max-lg:-translate-x-4">
                   <div className="text-start lg:pointer-events-none lg:hidden">
-                    <h3 className={cn("text-2xl tracking-[-0.96px]", titleClassName)}>{item.title}</h3>
-                    <p className={cn("mt-2.5 mb-10 max-w-[300px] tracking-[-0.32px] text-balance text-muted-foreground", itemDescriptionClassName)}>
+                    <h3
+                      className={cn(
+                        "text-2xl tracking-[-0.96px]",
+                        titleClassName,
+                      )}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={cn(
+                        "mt-2.5 mb-10 max-w-[300px] tracking-[-0.32px] text-balance text-muted-foreground",
+                        itemDescriptionClassName,
+                      )}
+                    >
                       {item.description}
                     </p>
                   </div>
@@ -251,7 +290,10 @@ export function TimelineAlternatingDiagonal({
                         <Img
                           src={item.image.src}
                           alt={item.image.alt}
-                          className={cn("object-contain dark:invert", imageClassName)}
+                          className={cn(
+                            "object-contain dark:invert",
+                            imageClassName,
+                          )}
                           width={400}
                           height={500}
                           optixFlowConfig={optixFlowConfig}
@@ -270,7 +312,7 @@ export function TimelineAlternatingDiagonal({
                   "absolute z-[-2] h-full w-[3px] translate-x-5 rounded-full lg:left-1/2 lg:-translate-x-1/2",
                   index === items.length - 1
                     ? "bg-linear-to-b from-foreground/10 via-foreground/10 to-transparent"
-                    : "bg-foreground/10"
+                    : "bg-foreground/10",
                 )}
               >
                 {index === 0 && (

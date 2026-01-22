@@ -112,7 +112,7 @@ export interface NavbarTransparentOverlayProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -125,7 +125,7 @@ export interface NavbarTransparentOverlayProps {
 
 /**
  * NavbarTransparentOverlay - A transparent navigation bar that transitions to solid on scroll.
- * 
+ *
  * Features a transparent background that becomes solid white/dark when the user scrolls down.
  * The logo and navigation links are visible against hero images or video backgrounds. Mobile
  * view uses a full-screen overlay menu with large, centered navigation links that animate in
@@ -197,13 +197,13 @@ export const NavbarTransparentOverlay = ({
             className={cn(
               "h-8 transition-all duration-300",
               !isScrolled && !isOpen && "brightness-0 invert",
-              logo.className
+              logo.className,
             )}
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span
               className={cn(
                 "text-lg font-semibold transition-colors duration-300",
@@ -214,8 +214,7 @@ export const NavbarTransparentOverlay = ({
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -239,7 +238,10 @@ export const NavbarTransparentOverlay = ({
               )}
             >
               <Pressable href={item.url}>
-                {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={16} />)}
+                {item.icon ??
+                  (item.iconName && (
+                    <DynamicIcon name={item.iconName} size={16} />
+                  ))}
                 {item.title}
               </Pressable>
             </NavigationMenuLink>
@@ -254,7 +256,15 @@ export const NavbarTransparentOverlay = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, variant, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        variant,
+        ...pressableProps
+      } = action;
       const isGhost = variant === "ghost";
       return (
         <Pressable
@@ -268,7 +278,7 @@ export const NavbarTransparentOverlay = ({
               : !isScrolled && !isGhost
                 ? "bg-white text-black hover:bg-white/90"
                 : "",
-            actionClassName
+            actionClassName,
           )}
           {...pressableProps}
         >
@@ -289,7 +299,14 @@ export const NavbarTransparentOverlay = ({
     if (!mobileAuthActions || mobileAuthActions.length === 0) return null;
 
     return mobileAuthActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -324,18 +341,25 @@ export const NavbarTransparentOverlay = ({
           isScrolled
             ? "bg-background/95 shadow-sm backdrop-blur-sm"
             : "bg-transparent",
-          navClassName
+          navClassName,
         )}
       >
         <div className={cn("container", containerClassName)}>
           <div className="flex h-16 items-center justify-between">
             {renderLogo()}
 
-            <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)}>
+            <NavigationMenu
+              className={cn("hidden lg:flex", navigationMenuClassName)}
+            >
               {renderNavigation()}
             </NavigationMenu>
 
-            <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+            <div
+              className={cn(
+                "hidden items-center gap-2 lg:flex",
+                actionsClassName,
+              )}
+            >
               {renderAuthActions()}
             </div>
 
@@ -406,7 +430,10 @@ export const NavbarTransparentOverlay = ({
                 }}
                 onClick={() => setIsOpen(false)}
               >
-                {item.icon ?? (item.iconName && <DynamicIcon name={item.iconName} size={24} />)}
+                {item.icon ??
+                  (item.iconName && (
+                    <DynamicIcon name={item.iconName} size={24} />
+                  ))}
                 {item.title}
               </Pressable>
             ))}
@@ -414,12 +441,12 @@ export const NavbarTransparentOverlay = ({
           <div
             className={cn(
               "mt-12 flex flex-col items-center gap-4 transition-all duration-300",
-              isOpen
-                ? "translate-y-0 opacity-100"
-                : "translate-y-4 opacity-0",
+              isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
             )}
             style={{
-              transitionDelay: isOpen ? `${(navItems?.length ?? 0) * 100}ms` : "0ms",
+              transitionDelay: isOpen
+                ? `${(navItems?.length ?? 0) * 100}ms`
+                : "0ms",
             }}
           >
             {renderMobileAuthActions()}

@@ -110,7 +110,7 @@ export interface ListServiceCategoryTableProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -166,7 +166,10 @@ export function ListServiceCategoryTable({
     if (!items || items.length === 0) return null;
 
     return items.map((item, idx) => (
-      <TableRow key={`${typeof item.category === "string" ? item.category : idx}-${idx}`} className={rowClassName}>
+      <TableRow
+        key={`${typeof item.category === "string" ? item.category : idx}-${idx}`}
+        className={rowClassName}
+      >
         <TableCell className={cellClassName}>
           <div className="flex items-center gap-2 align-top">
             {item.icon && (
@@ -185,9 +188,7 @@ export function ListServiceCategoryTable({
           <div className="flex flex-col gap-2">
             <div className="flex items-baseline justify-between gap-1 md:hidden">
               <div className="flex items-center gap-1">
-                <span className="text-sm font-medium">
-                  {item.category}
-                </span>
+                <span className="text-sm font-medium">{item.category}</span>
                 <span className="text-sm text-muted-foreground">
                   - {item.segment}
                 </span>
@@ -196,16 +197,14 @@ export function ListServiceCategoryTable({
                     "ml-1 block h-1.5 w-4 rounded-full md:hidden",
                     item.offer === "Free" && "bg-yellow-400",
                     item.offer === "Professional" && "bg-green-400",
-                    item.offer === "Enterprise" && "bg-blue-400"
+                    item.offer === "Enterprise" && "bg-blue-400",
                   )}
                 ></span>
               </div>
-              <span className="text-xs text-muted-foreground">
-                {item.year}
-              </span>
+              <span className="text-xs text-muted-foreground">{item.year}</span>
             </div>
-            {item.description && (
-              typeof item.description === "string" ? (
+            {item.description &&
+              (typeof item.description === "string" ? (
                 <p className="text-sm text-muted-foreground md:text-primary">
                   {item.description}
                 </p>
@@ -213,11 +212,12 @@ export function ListServiceCategoryTable({
                 <div className="text-sm text-muted-foreground md:text-primary">
                   {item.description}
                 </div>
-              )
-            )}
+              ))}
           </div>
         </TableCell>
-        <TableCell className={cn("hidden text-right md:table-cell", cellClassName)}>
+        <TableCell
+          className={cn("hidden text-right md:table-cell", cellClassName)}
+        >
           {item.year}
         </TableCell>
         <TableCell className={cn("hidden md:table-cell", cellClassName)}>
@@ -227,7 +227,7 @@ export function ListServiceCategoryTable({
                 "block h-6 w-1.5 rounded-full",
                 item.offer === "Free" && "bg-yellow-400",
                 item.offer === "Professional" && "bg-green-400",
-                item.offer === "Enterprise" && "bg-blue-400"
+                item.offer === "Enterprise" && "bg-blue-400",
               )}
             ></span>
             {item.offer}
@@ -250,24 +250,34 @@ export function ListServiceCategoryTable({
     >
       {(heading || description) && (
         <div className="mb-8 text-center">
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold text-foreground md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-3 text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-3 text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-3", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div className={cn("mt-3", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
         </div>
       )}
       <div className={cn("px-0", containerClassName)}>
@@ -276,7 +286,12 @@ export function ListServiceCategoryTable({
             <TableHeader className={headerClassName}>
               <TableRow>
                 <TableHead className={headerCellClassName}></TableHead>
-                <TableHead className={cn("hidden font-bold text-primary md:table-cell", headerCellClassName)}>
+                <TableHead
+                  className={cn(
+                    "hidden font-bold text-primary md:table-cell",
+                    headerCellClassName,
+                  )}
+                >
                   Category
                 </TableHead>
                 <TableHead className={headerCellClassName}>
@@ -287,20 +302,33 @@ export function ListServiceCategoryTable({
                     Project
                   </span>
                 </TableHead>
-                <TableHead className={cn("hidden text-right font-bold text-primary md:table-cell", headerCellClassName)}>
+                <TableHead
+                  className={cn(
+                    "hidden text-right font-bold text-primary md:table-cell",
+                    headerCellClassName,
+                  )}
+                >
                   Year
                 </TableHead>
-                <TableHead className={cn("hidden font-bold text-primary md:table-cell", headerCellClassName)}>
+                <TableHead
+                  className={cn(
+                    "hidden font-bold text-primary md:table-cell",
+                    headerCellClassName,
+                  )}
+                >
                   Offer
                 </TableHead>
-                <TableHead className={cn("hidden font-bold text-primary md:table-cell", headerCellClassName)}>
+                <TableHead
+                  className={cn(
+                    "hidden font-bold text-primary md:table-cell",
+                    headerCellClassName,
+                  )}
+                >
                   Segment
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {renderItems()}
-            </TableBody>
+            <TableBody>{renderItems()}</TableBody>
           </Table>
         </div>
       </div>

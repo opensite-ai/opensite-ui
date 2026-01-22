@@ -8,10 +8,7 @@ import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
-import type {
-  SectionBackground,
-  SectionSpacing,
-} from "../../../src/types";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Review item interface for grid with add review
@@ -107,7 +104,7 @@ export interface TestimonialsGridAddReviewProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -163,7 +160,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
           className={cn(
             star <= rating
               ? "fill-primary text-primary"
-              : "fill-muted text-muted"
+              : "fill-muted text-muted",
           )}
         />
       ))}
@@ -234,9 +231,17 @@ export function TestimonialsGridAddReview({
     if (reviewsSlot) return reviewsSlot;
 
     return (
-      <div className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-4 sm:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         <Card
-          className={cn("flex cursor-pointer items-center justify-center border-2 border-dashed transition-colors hover:border-primary hover:bg-muted/50", addReviewCardClassName)}
+          className={cn(
+            "flex cursor-pointer items-center justify-center border-2 border-dashed transition-colors hover:border-primary hover:bg-muted/50",
+            addReviewCardClassName,
+          )}
           onClick={onAddReview}
         >
           <CardContent className="flex flex-col items-center gap-3 py-12 text-center">
@@ -247,22 +252,20 @@ export function TestimonialsGridAddReview({
                 className="text-primary"
               />
             </div>
-            {addReviewText && (
-              typeof addReviewText === "string" ? (
+            {addReviewText &&
+              (typeof addReviewText === "string" ? (
                 <p className="font-medium">{addReviewText}</p>
               ) : (
                 addReviewText
-              )
-            )}
-            {addReviewSubtext && (
-              typeof addReviewSubtext === "string" ? (
+              ))}
+            {addReviewSubtext &&
+              (typeof addReviewSubtext === "string" ? (
                 <p className="text-sm text-muted-foreground">
                   {addReviewSubtext}
                 </p>
               ) : (
                 addReviewSubtext
-              )
-            )}
+              ))}
           </CardContent>
         </Card>
 
@@ -272,32 +275,27 @@ export function TestimonialsGridAddReview({
             <Card key={index} className={cardClassName}>
               <CardContent className="space-y-4 p-6">
                 <StarRating rating={review.rating} />
-                {review.content && (
-                  typeof review.content === "string" ? (
+                {review.content &&
+                  (typeof review.content === "string" ? (
                     <p className="text-sm leading-relaxed">{review.content}</p>
                   ) : (
                     review.content
-                  )
-                )}
+                  ))}
                 <div className={cn("flex items-center gap-3", authorClassName)}>
                   <Avatar className="size-8">
-                    <AvatarImage
-                      src={review.avatarSrc}
-                      alt={authorName}
-                    />
+                    <AvatarImage src={review.avatarSrc} alt={authorName} />
                     <AvatarFallback className="text-xs">
                       {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
-                  {review.author && (
-                    typeof review.author === "string" ? (
+                  {review.author &&
+                    (typeof review.author === "string" ? (
                       <span className="text-sm font-medium">
                         {review.author}
                       </span>
                     ) : (
                       review.author
-                    )
-                  )}
+                    ))}
                 </div>
               </CardContent>
             </Card>
@@ -315,25 +313,37 @@ export function TestimonialsGridAddReview({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderReviews()}

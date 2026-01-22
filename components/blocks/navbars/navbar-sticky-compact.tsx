@@ -108,7 +108,7 @@ export interface NavbarStickyCompactProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -167,21 +167,24 @@ export const NavbarStickyCompact = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
             className={cn(
               "transition-all duration-300",
               isScrolled ? "h-6" : "h-8",
-              logo.className
+              logo.className,
             )}
             alt={logo.alt || "Logo"}
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span
               className={cn(
                 "font-semibold transition-all duration-300",
@@ -192,8 +195,7 @@ export const NavbarStickyCompact = ({
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -203,12 +205,20 @@ export const NavbarStickyCompact = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, size: actionSize, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        size: actionSize,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
           asButton
-          size={isScrolled ? "sm" : (actionSize || "default")}
+          size={isScrolled ? "sm" : actionSize || "default"}
           className={cn("transition-all duration-300", actionClassName)}
           {...pressableProps}
         >
@@ -294,9 +304,7 @@ export const NavbarStickyCompact = ({
                 className="flex items-center gap-2 rounded-md py-2 text-sm hover:text-foreground"
                 onClick={() => setIsOpen(false)}
               >
-                {subItem.icon && (
-                  <DynamicIcon name={subItem.icon} size={14} />
-                )}
+                {subItem.icon && <DynamicIcon name={subItem.icon} size={14} />}
                 {subItem.title}
               </Pressable>
             ))}
@@ -338,12 +346,15 @@ export const NavbarStickyCompact = ({
           {renderLogo()}
 
           <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>
-              {renderMenu()}
-            </NavigationMenuList>
+            <NavigationMenuList>{renderMenu()}</NavigationMenuList>
           </NavigationMenu>
 
-          <div className={cn("hidden items-center gap-2 lg:flex", actionsClassName)}>
+          <div
+            className={cn(
+              "hidden items-center gap-2 lg:flex",
+              actionsClassName,
+            )}
+          >
             {renderAuthActions()}
           </div>
 
@@ -364,7 +375,12 @@ export const NavbarStickyCompact = ({
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col gap-4 pt-8">
                 {renderMobileMenu()}
-                <div className={cn("mt-4 flex flex-col gap-2 border-t pt-4", actionsClassName)}>
+                <div
+                  className={cn(
+                    "mt-4 flex flex-col gap-2 border-t pt-4",
+                    actionsClassName,
+                  )}
+                >
                   {renderAuthActions()}
                 </div>
               </div>

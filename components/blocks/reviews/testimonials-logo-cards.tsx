@@ -97,7 +97,7 @@ export interface TestimonialsLogoCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -200,7 +200,9 @@ export function TestimonialsLogoCards({
     return "";
   };
 
-  const getAvatarSrc = (testimonial: LogoTestimonialItem): string | undefined => {
+  const getAvatarSrc = (
+    testimonial: LogoTestimonialItem,
+  ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
   };
 
@@ -215,7 +217,12 @@ export function TestimonialsLogoCards({
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
-      <div className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2",
+          gridClassName,
+        )}
+      >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
@@ -225,7 +232,7 @@ export function TestimonialsLogoCards({
               className={cn(
                 "flex flex-col",
                 index === 0 && "sm:col-span-2 lg:row-span-2",
-                cardClassName
+                cardClassName,
               )}
             >
               {testimonial.companyLogo && (
@@ -238,51 +245,48 @@ export function TestimonialsLogoCards({
                   />
                 </CardHeader>
               )}
-              <CardContent className={cn("flex flex-1 flex-col justify-between gap-6 pt-6", cardContentClassName)}>
-                {testimonial.quote && (
-                  typeof testimonial.quote === "string" ? (
+              <CardContent
+                className={cn(
+                  "flex flex-1 flex-col justify-between gap-6 pt-6",
+                  cardContentClassName,
+                )}
+              >
+                {testimonial.quote &&
+                  (typeof testimonial.quote === "string" ? (
                     <blockquote
                       className={cn(
                         "leading-relaxed",
                         index === 0 ? "text-xl font-medium" : "text-sm",
-                        quoteClassName
+                        quoteClassName,
                       )}
                     >
                       {testimonial.quote}
                     </blockquote>
                   ) : (
                     <div className={quoteClassName}>{testimonial.quote}</div>
-                  )
-                )}
+                  ))}
                 <div className={cn("flex items-center gap-3", authorClassName)}>
                   <Avatar className={cn(index === 0 ? "size-12" : "size-10")}>
-                    <AvatarImage
-                      src={avatarSrc}
-                      alt={authorName}
-                    />
-                    <AvatarFallback>
-                      {getInitials(authorName)}
-                    </AvatarFallback>
+                    <AvatarImage src={avatarSrc} alt={authorName} />
+                    <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                   </Avatar>
                   <div>
-                    {testimonial.author && (
-                      typeof testimonial.author === "string" ? (
+                    {testimonial.author &&
+                      (typeof testimonial.author === "string" ? (
                         <cite className="text-sm font-medium not-italic">
                           {testimonial.author}
                         </cite>
                       ) : (
                         testimonial.author
-                      )
-                    )}
-                    {testimonial.role && (
-                      typeof testimonial.role === "string" ? (
+                      ))}
+                    {testimonial.role &&
+                      (typeof testimonial.role === "string" ? (
                         <p className="text-xs text-muted-foreground">
                           {testimonial.role}
                         </p>
                       ) : (
                         testimonial.role
-                      )
-                    )}
+                      ))}
                   </div>
                 </div>
               </CardContent>
@@ -301,25 +305,37 @@ export function TestimonialsLogoCards({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

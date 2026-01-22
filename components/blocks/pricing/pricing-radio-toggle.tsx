@@ -141,7 +141,7 @@ export interface PricingRadioToggleProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -298,7 +298,9 @@ export function PricingRadioToggle({
   featureTextClassName,
   actionClassName,
 }: PricingRadioToggleProps): React.JSX.Element {
-  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">(
+    "monthly",
+  );
 
   const renderFeatures = (plan: PricingRadioTogglePlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
@@ -307,30 +309,53 @@ export function PricingRadioToggle({
     return (
       <ul className={cn("mb-8 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -342,12 +367,23 @@ export function PricingRadioToggle({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -366,7 +402,12 @@ export function PricingRadioToggle({
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {plans.map((plan, index) => (
           <div
             key={index}
@@ -374,11 +415,16 @@ export function PricingRadioToggle({
               "relative flex flex-col rounded-2xl border p-8",
               plan.badge ? "border-primary shadow-lg" : "border-border",
               cardClassName,
-              plan.className
+              plan.className,
             )}
           >
             {plan.badge && (
-              <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
+              <div
+                className={cn(
+                  "absolute -top-3 left-1/2 -translate-x-1/2",
+                  badgeClassName,
+                )}
+              >
                 {typeof plan.badge === "string" ? (
                   <Badge>{plan.badge}</Badge>
                 ) : (
@@ -388,29 +434,42 @@ export function PricingRadioToggle({
             )}
 
             <div className="mb-6">
-              {plan.name && (
-                typeof plan.name === "string" ? (
-                  <h3 className={cn("text-xl font-semibold", planTitleClassName)}>{plan.name}</h3>
+              {plan.name &&
+                (typeof plan.name === "string" ? (
+                  <h3
+                    className={cn("text-xl font-semibold", planTitleClassName)}
+                  >
+                    {plan.name}
+                  </h3>
                 ) : (
                   <div className={planTitleClassName}>{plan.name}</div>
-                )
-              )}
-              {plan.description && (
-                typeof plan.description === "string" ? (
-                  <p className={cn("mt-2 text-sm text-muted-foreground", planDescriptionClassName)}>
+                ))}
+              {plan.description &&
+                (typeof plan.description === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-2 text-sm text-muted-foreground",
+                      planDescriptionClassName,
+                    )}
+                  >
                     {plan.description}
                   </p>
                 ) : (
-                  <div className={planDescriptionClassName}>{plan.description}</div>
-                )
-              )}
+                  <div className={planDescriptionClassName}>
+                    {plan.description}
+                  </div>
+                ))}
             </div>
 
             <div className="mb-6">
               <span className={cn("text-4xl font-bold", priceClassName)}>
-                {billingPeriod === "yearly" ? plan.yearlyPrice : plan.monthlyPrice}
+                {billingPeriod === "yearly"
+                  ? plan.yearlyPrice
+                  : plan.monthlyPrice}
               </span>
-              <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+              <span
+                className={cn("text-muted-foreground", priceIntervalClassName)}
+              >
                 {billingPeriod === "yearly" ? yearlyInterval : monthlyInterval}
               </span>
             </div>
@@ -434,25 +493,42 @@ export function PricingRadioToggle({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
 
-          <div className={cn("mt-8 flex items-center justify-center gap-4", toggleClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex items-center justify-center gap-4",
+              toggleClassName,
+            )}
+          >
             <div className="inline-flex rounded-lg border p-1">
               <button
                 onClick={() => setBillingPeriod("monthly")}
@@ -462,7 +538,9 @@ export function PricingRadioToggle({
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground",
                   toggleButtonClassName,
-                  billingPeriod === "monthly" ? toggleButtonActiveClassName : null
+                  billingPeriod === "monthly"
+                    ? toggleButtonActiveClassName
+                    : null,
                 )}
               >
                 {monthlyLabel}
@@ -475,19 +553,23 @@ export function PricingRadioToggle({
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground",
                   toggleButtonClassName,
-                  billingPeriod === "yearly" ? toggleButtonActiveClassName : null
+                  billingPeriod === "yearly"
+                    ? toggleButtonActiveClassName
+                    : null,
                 )}
               >
                 {yearlyLabel}
-                {yearlyBadge && (
-                  typeof yearlyBadge === "string" ? (
-                    <Badge variant="secondary" className={cn("ml-2", yearlyBadgeClassName)}>
+                {yearlyBadge &&
+                  (typeof yearlyBadge === "string" ? (
+                    <Badge
+                      variant="secondary"
+                      className={cn("ml-2", yearlyBadgeClassName)}
+                    >
                       {yearlyBadge}
                     </Badge>
                   ) : (
                     <span className={yearlyBadgeClassName}>{yearlyBadge}</span>
-                  )
-                )}
+                  ))}
               </button>
             </div>
           </div>

@@ -68,7 +68,7 @@ export interface TeamHoverHighlightProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -174,7 +174,7 @@ export function TeamHoverHighlight({
         key={member.id}
         className={cn(
           "relative flex flex-col items-center rounded-xl p-6 transition-all duration-300 group-hover:opacity-50 hover:opacity-100! hover:bg-muted/50",
-          memberCardClassName
+          memberCardClassName,
         )}
       >
         <div className="relative mb-4 overflow-hidden rounded-full">
@@ -185,7 +185,7 @@ export function TeamHoverHighlight({
             height={120}
             className={cn(
               "size-28 rounded-full object-cover transition-transform duration-300 hover:scale-110",
-              memberImageClassName
+              memberImageClassName,
             )}
             optixFlowConfig={optixFlowConfig}
           />
@@ -200,7 +200,7 @@ export function TeamHoverHighlight({
           <div
             className={cn(
               "mt-4 flex gap-3 text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100",
-              socialLinksClassName
+              socialLinksClassName,
             )}
           >
             {member.social.github && (
@@ -244,40 +244,43 @@ export function TeamHoverHighlight({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
       <div
         className={cn(
           "group mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3",
-          gridClassName
+          gridClassName,
         )}
       >
         {renderMembers()}

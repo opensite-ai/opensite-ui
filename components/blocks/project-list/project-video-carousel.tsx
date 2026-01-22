@@ -14,8 +14,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
-import { imagePlaceholders, videoPlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectVideoCarouselItem {
   thumbnailSrc: string;
@@ -56,7 +56,7 @@ export interface ProjectVideoCarouselProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -215,7 +215,10 @@ export function ProjectVideoCarousel({
     return videoSections.map((section, index) => (
       <CarouselItem
         key={index}
-        className={cn("pl-2 md:basis-4/5 md:pl-4 lg:basis-3/4 xl:basis-2/3", cardClassName)}
+        className={cn(
+          "pl-2 md:basis-4/5 md:pl-4 lg:basis-3/4 xl:basis-2/3",
+          cardClassName,
+        )}
       >
         <VideoSection
           videoSrc={section.videoSrc}
@@ -238,26 +241,34 @@ export function ProjectVideoCarousel({
     >
       <div className={cn("container py-16", containerClassName)}>
         <div className={cn("text-left text-foreground", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:mb-8 lg:text-8xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:mb-8 lg:text-8xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
 
           <div className="flex items-center">
-            {subheading && (
-              typeof subheading === "string" ? (
-                <p className={cn("mr-4 text-sm font-medium tracking-wider uppercase opacity-80", subheadingClassName)}>
+            {subheading &&
+              (typeof subheading === "string" ? (
+                <p
+                  className={cn(
+                    "mr-4 text-sm font-medium tracking-wider uppercase opacity-80",
+                    subheadingClassName,
+                  )}
+                >
                   {subheading}
                 </p>
               ) : (
                 <div className={subheadingClassName}>{subheading}</div>
-              )
-            )}
+              ))}
             <div className="opacity-60">
               <DynamicIcon name="lucide/audio-lines" size={24} />
             </div>

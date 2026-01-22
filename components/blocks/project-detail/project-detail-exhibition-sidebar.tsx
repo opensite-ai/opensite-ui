@@ -6,8 +6,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   ImageItem,
@@ -15,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailExhibitionSidebarExhibition {
   title: React.ReactNode;
@@ -56,7 +55,7 @@ export interface ProjectDetailExhibitionSidebarProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -83,7 +82,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailExhibitionSidebar(
-  props: ProjectDetailExhibitionSidebarProps
+  props: ProjectDetailExhibitionSidebarProps,
 ): React.JSX.Element {
   const {
     title,
@@ -115,10 +114,20 @@ export function ProjectDetailExhibitionSidebar(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -148,7 +157,10 @@ export function ProjectDetailExhibitionSidebar(
         )}
 
         <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
-          <motion.div {...fadeInUp} className={cn("lg:col-span-2", headerClassName)}>
+          <motion.div
+            {...fadeInUp}
+            className={cn("lg:col-span-2", headerClassName)}
+          >
             <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
               <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
                 {category}
@@ -159,39 +171,47 @@ export function ProjectDetailExhibitionSidebar(
             </div>
 
             {typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl", titleClassName)}>
+              <h1
+                className={cn(
+                  "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h1>
             ) : (
               <div className={titleClassName}>{title}</div>
             )}
 
-            {subtitle && (
-              typeof subtitle === "string" ? (
+            {subtitle &&
+              (typeof subtitle === "string" ? (
                 <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
               ) : (
                 <div className="mt-4">{subtitle}</div>
-              )
-            )}
+              ))}
 
-            <div className={cn("mt-8 relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
+            <div
+              className={cn(
+                "mt-8 relative aspect-video overflow-hidden rounded-2xl bg-muted",
+                heroImageClassName,
+              )}
+            >
               <Img
-                src={heroImage?.src || imagePlaceholders[41]}
+                src={heroImage?.src}
                 alt={heroImage?.alt || "Project hero image"}
                 className="h-full w-full object-cover"
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
 
-            {description && (
-              typeof description === "string" ? (
+            {description &&
+              (typeof description === "string" ? (
                 <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
                   {description}
                 </p>
               ) : (
                 <div className="mt-8">{description}</div>
-              )
-            )}
+              ))}
           </motion.div>
 
           <motion.aside
@@ -199,7 +219,12 @@ export function ProjectDetailExhibitionSidebar(
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:sticky lg:top-24 lg:self-start"
           >
-            <div className={cn("rounded-xl border border-border bg-muted/30 p-6", sidebarClassName)}>
+            <div
+              className={cn(
+                "rounded-xl border border-border bg-muted/30 p-6",
+                sidebarClassName,
+              )}
+            >
               <h2 className="mb-6 text-sm font-medium tracking-wider text-muted-foreground uppercase">
                 Exhibitions
               </h2>
@@ -210,10 +235,7 @@ export function ProjectDetailExhibitionSidebar(
                     className="border-b border-border pb-4 last:border-b-0 last:pb-0"
                   >
                     {exhibition.href ? (
-                      <Pressable
-                        href={exhibition.href}
-                        className="block group"
-                      >
+                      <Pressable href={exhibition.href} className="block group">
                         <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
                           {exhibition.title}
                         </h3>
@@ -260,7 +282,7 @@ export function ProjectDetailExhibitionSidebar(
                 className="relative aspect-square overflow-hidden rounded-xl bg-muted"
               >
                 <Img
-                  src={image.src || imagePlaceholders[38 + index]}
+                  src={image.src}
                   alt={image.alt || "Gallery image"}
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}

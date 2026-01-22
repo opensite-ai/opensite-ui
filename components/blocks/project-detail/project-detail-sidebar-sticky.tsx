@@ -6,13 +6,13 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ImageItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailSidebarStickyRelatedProject {
   title: React.ReactNode;
@@ -47,7 +47,7 @@ export interface ProjectDetailSidebarStickyProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -166,7 +166,7 @@ function ProjectCard({
 }
 
 export function ProjectDetailSidebarSticky(
-  props: ProjectDetailSidebarStickyProps
+  props: ProjectDetailSidebarStickyProps,
 ): React.JSX.Element {
   const {
     title,
@@ -201,8 +201,15 @@ export function ProjectDetailSidebarSticky(
       className={className}
     >
       <div className={containerClassName}>
-        <div className={cn("grid gap-12 lg:grid-cols-2 lg:gap-20", gridClassName)}>
-          <div className={cn("top-20 flex flex-col self-start lg:sticky lg:min-h-screen lg:justify-between", sidebarClassName)}>
+        <div
+          className={cn("grid gap-12 lg:grid-cols-2 lg:gap-20", gridClassName)}
+        >
+          <div
+            className={cn(
+              "top-20 flex flex-col self-start lg:sticky lg:min-h-screen lg:justify-between",
+              sidebarClassName,
+            )}
+          >
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -210,7 +217,12 @@ export function ProjectDetailSidebarSticky(
             >
               <div className="space-y-3">
                 {typeof title === "string" ? (
-                  <h1 className={cn("text-5xl font-bold tracking-tight text-foreground md:text-6xl", titleClassName)}>
+                  <h1
+                    className={cn(
+                      "text-5xl font-bold tracking-tight text-foreground md:text-6xl",
+                      titleClassName,
+                    )}
+                  >
                     {title}
                   </h1>
                 ) : (
@@ -240,7 +252,12 @@ export function ProjectDetailSidebarSticky(
                 ABOUT
               </h3>
               {typeof description === "string" ? (
-                <p className={cn("max-w-sm text-sm leading-relaxed tracking-wide text-muted-foreground uppercase", descriptionClassName)}>
+                <p
+                  className={cn(
+                    "max-w-sm text-sm leading-relaxed tracking-wide text-muted-foreground uppercase",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
@@ -263,15 +280,14 @@ export function ProjectDetailSidebarSticky(
 
         {relatedProjects && relatedProjects.length > 0 && (
           <div className={cn("mt-32", relatedProjectsClassName)}>
-            {relatedProjectsTitle && (
-              typeof relatedProjectsTitle === "string" ? (
+            {relatedProjectsTitle &&
+              (typeof relatedProjectsTitle === "string" ? (
                 <h3 className="mb-6 text-sm font-medium tracking-wider text-foreground uppercase">
                   {relatedProjectsTitle}
                 </h3>
               ) : (
                 relatedProjectsTitle
-              )
-            )}
+              ))}
             <div className="grid gap-6 pb-16 md:grid-cols-3">
               {relatedProjects.map((project, index) => (
                 <ProjectCard

@@ -7,8 +7,8 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectBackgroundRevealItem {
   heading: string;
@@ -62,7 +62,7 @@ export interface ProjectBackgroundRevealProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -143,7 +143,7 @@ export function ProjectBackgroundReveal({
         href={project.url}
         className={cn(
           "group relative isolate min-h-72 bg-cover bg-center px-5 py-14 lg:px-12 lg:py-24",
-          cardClassName
+          cardClassName,
         )}
         style={{
           backgroundImage: `url(${project.image})`,
@@ -195,29 +195,45 @@ export function ProjectBackgroundReveal({
     >
       <div className={cn("container", containerClassName)}>
         <div className={headerClassName}>
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("mb-1 text-muted-foreground uppercase md:text-lg", subheadingClassName)}>
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "mb-1 text-muted-foreground uppercase md:text-lg",
+                  subheadingClassName,
+                )}
+              >
                 {subheading}
               </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-3xl font-bold uppercase md:text-7xl", headingClassName)}>{heading}</h1>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-3xl font-bold uppercase md:text-7xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-7 max-w-2xl text-muted-foreground", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-7 max-w-2xl text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           <Pressable
             href={buttonHref}
             variant="outline"
@@ -228,7 +244,9 @@ export function ProjectBackgroundReveal({
             <DynamicIcon name="lucide/arrow-down-right" size={16} />
           </Pressable>
         </div>
-        <div className={cn("mt-24 flex flex-col gap-5 md:mt-36", listClassName)}>
+        <div
+          className={cn("mt-24 flex flex-col gap-5 md:mt-36", listClassName)}
+        >
           {renderProjects()}
         </div>
       </div>

@@ -86,7 +86,7 @@ export interface CtaGradientStatsHeroProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -143,7 +143,7 @@ export function CtaGradientStatsHero({
       <div
         className={cn(
           "mb-12 flex flex-col justify-center gap-3 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -158,7 +158,7 @@ export function CtaGradientStatsHero({
               className={cn(
                 !isFirstAction &&
                   "border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10",
-                action.className
+                action.className,
               )}
               aria-label={action["aria-label"]}
               asButton
@@ -193,7 +193,7 @@ export function CtaGradientStatsHero({
             key={index}
             className={cn(
               "border-primary-foreground/20 bg-primary-foreground/10 p-4 text-center backdrop-blur-sm",
-              statCardClassName
+              statCardClassName,
             )}
           >
             {stat.icon && <div className="mb-2">{stat.icon}</div>}
@@ -221,19 +221,19 @@ export function CtaGradientStatsHero({
         <div
           className={cn(
             "relative overflow-hidden rounded-3xl bg-linear-to-br from-primary via-primary/90 to-primary/80 p-8 text-primary-foreground md:p-12 lg:p-16",
-            cardClassName
+            cardClassName,
           )}
         >
           <div
             className={cn(
               "relative z-10 mx-auto max-w-3xl text-center",
-              contentClassName
+              contentClassName,
             )}
           >
             <h2
               className={cn(
                 "mb-6 text-4xl font-bold md:text-5xl lg:text-6xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -241,7 +241,7 @@ export function CtaGradientStatsHero({
             <p
               className={cn(
                 "mb-8 text-lg opacity-90 md:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}

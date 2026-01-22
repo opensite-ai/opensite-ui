@@ -7,13 +7,13 @@ import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailTabbedCaseStudyTab {
   id: string;
@@ -72,7 +72,7 @@ export interface ProjectDetailTabbedCaseStudyProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -103,7 +103,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailTabbedCaseStudy(
-  props: ProjectDetailTabbedCaseStudyProps
+  props: ProjectDetailTabbedCaseStudyProps,
 ): React.JSX.Element {
   const {
     title,
@@ -137,10 +137,20 @@ export function ProjectDetailTabbedCaseStudy(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -169,27 +179,39 @@ export function ProjectDetailTabbedCaseStudy(
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className={cn("mb-16 max-w-3xl", headerClassName)}>
+        <motion.header
+          {...fadeInUp}
+          className={cn("mb-16 max-w-3xl", headerClassName)}
+        >
           {typeof title === "string" ? (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
+          {subtitle &&
+            (typeof subtitle === "string" ? (
               <p className="mt-6 text-xl text-muted-foreground">{subtitle}</p>
             ) : (
               <div className="mt-6">{subtitle}</div>
-            )
-          )}
+            ))}
         </motion.header>
 
         <motion.div {...fadeInUp} className="mb-16">
-          <div className={cn("relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
+          <div
+            className={cn(
+              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              heroImageClassName,
+            )}
+          >
             <Img
-              src={heroImage?.src || imagePlaceholders[76]}
+              src={heroImage?.src}
               alt={heroImage?.alt || "Case study hero"}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
@@ -213,7 +235,7 @@ export function ProjectDetailTabbedCaseStudy(
                       "whitespace-nowrap border-b-2 pb-4 text-sm font-medium transition-colors",
                       activeTab === tab.id
                         ? "border-foreground text-foreground"
-                        : "border-transparent text-muted-foreground hover:text-foreground"
+                        : "border-transparent text-muted-foreground hover:text-foreground",
                     )}
                   >
                     {tab.label}
@@ -227,7 +249,7 @@ export function ProjectDetailTabbedCaseStudy(
                   key={tab.id}
                   className={cn(
                     "transition-opacity duration-300",
-                    activeTab === tab.id ? "block" : "hidden"
+                    activeTab === tab.id ? "block" : "hidden",
                   )}
                 >
                   {typeof tab.content === "string" ? (
@@ -252,12 +274,12 @@ export function ProjectDetailTabbedCaseStudy(
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={cn(
                   "grid gap-12 lg:grid-cols-2 lg:gap-16 items-center",
-                  section.imagePosition === "left" && "lg:flex-row-reverse"
+                  section.imagePosition === "left" && "lg:flex-row-reverse",
                 )}
               >
                 <div
                   className={cn(
-                    section.imagePosition === "left" && "lg:order-2"
+                    section.imagePosition === "left" && "lg:order-2",
                   )}
                 >
                   {typeof section.title === "string" ? (
@@ -279,11 +301,11 @@ export function ProjectDetailTabbedCaseStudy(
                   <div
                     className={cn(
                       "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted",
-                      section.imagePosition === "left" && "lg:order-1"
+                      section.imagePosition === "left" && "lg:order-1",
                     )}
                   >
                     <Img
-                      src={section.image.src || imagePlaceholders[72 + index]}
+                      src={section.image.src}
                       alt={section.image.alt}
                       className="h-full w-full object-cover"
                       optixFlowConfig={optixFlowConfig}
@@ -299,7 +321,10 @@ export function ProjectDetailTabbedCaseStudy(
           <motion.div
             {...fadeInUp}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className={cn("mt-24 rounded-2xl bg-muted/30 p-8 md:p-12", testimonialClassName)}
+            className={cn(
+              "mt-24 rounded-2xl bg-muted/30 p-8 md:p-12",
+              testimonialClassName,
+            )}
           >
             <blockquote className="text-xl leading-relaxed text-foreground md:text-2xl">
               "{testimonial.quote}"
@@ -309,7 +334,11 @@ export function ProjectDetailTabbedCaseStudy(
                 <div className="h-12 w-12 overflow-hidden rounded-full bg-muted">
                   <Img
                     src={testimonial.avatar}
-                    alt={typeof testimonial.author === "string" ? testimonial.author : "Author"}
+                    alt={
+                      typeof testimonial.author === "string"
+                        ? testimonial.author
+                        : "Author"
+                    }
                     className="h-full w-full object-cover"
                     optixFlowConfig={optixFlowConfig}
                   />

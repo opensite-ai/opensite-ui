@@ -82,7 +82,7 @@ export interface CtaFeatureCardsGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -137,7 +137,7 @@ export function CtaFeatureCardsGrid({
       <div
         className={cn(
           "mb-12 flex flex-col justify-center gap-2 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => (
@@ -168,7 +168,7 @@ export function CtaFeatureCardsGrid({
       <div
         className={cn(
           "grid gap-6 md:grid-cols-2 lg:grid-cols-4",
-          featuresClassName
+          featuresClassName,
         )}
       >
         {features.map((feature, index) => (
@@ -210,7 +210,7 @@ export function CtaFeatureCardsGrid({
           <h2
             className={cn(
               "mb-4 text-3xl font-bold md:text-5xl",
-              headingClassName
+              headingClassName,
             )}
           >
             {heading}
@@ -218,7 +218,7 @@ export function CtaFeatureCardsGrid({
           <p
             className={cn(
               "mx-auto mb-8 max-w-2xl text-lg text-muted-foreground",
-              descriptionClassName
+              descriptionClassName,
             )}
           >
             {description}

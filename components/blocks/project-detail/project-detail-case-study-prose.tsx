@@ -6,8 +6,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   SectionItem,
@@ -15,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailCaseStudyProseProps {
   /** Main title */
@@ -47,7 +46,7 @@ export interface ProjectDetailCaseStudyProseProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -76,7 +75,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailCaseStudyProse(
-  props: ProjectDetailCaseStudyProseProps
+  props: ProjectDetailCaseStudyProseProps,
 ): React.JSX.Element {
   const {
     title,
@@ -108,10 +107,20 @@ export function ProjectDetailCaseStudyProse(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -140,7 +149,10 @@ export function ProjectDetailCaseStudyProse(
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className={cn("mb-16 space-y-6", headerClassName)}>
+        <motion.header
+          {...fadeInUp}
+          className={cn("mb-16 space-y-6", headerClassName)}
+        >
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 font-medium">
               {category}
@@ -151,26 +163,42 @@ export function ProjectDetailCaseStudyProse(
           </div>
 
           {typeof title === "string" ? (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}
 
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("text-xl text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "text-xl text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </motion.header>
 
         <motion.div {...fadeInUp} className="mb-16">
-          <div className={cn("relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
+          <div
+            className={cn(
+              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              heroImageClassName,
+            )}
+          >
             <Img
-              src={heroImage?.src || imagePlaceholders[7]}
+              src={heroImage?.src}
               alt={heroImage?.alt || "Project hero image"}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
@@ -184,7 +212,9 @@ export function ProjectDetailCaseStudyProse(
               Overview
             </h2>
             {typeof overview === "string" ? (
-              <p className="text-lg leading-relaxed text-foreground">{overview}</p>
+              <p className="text-lg leading-relaxed text-foreground">
+                {overview}
+              </p>
             ) : (
               overview
             )}

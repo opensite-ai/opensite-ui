@@ -242,7 +242,7 @@ export interface ServiceDetailCenteredExpertiseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -316,7 +316,7 @@ export function ServiceDetailCenteredExpertise({
           <h2
             className={cn(
               "mb-8 text-center text-2xl font-semibold",
-              expertiseTitleClassName
+              expertiseTitleClassName,
             )}
           >
             {expertiseTitle}
@@ -328,7 +328,7 @@ export function ServiceDetailCenteredExpertise({
               key={index}
               className={cn(
                 "rounded-lg border bg-background p-6 text-center",
-                item.className
+                item.className,
               )}
             >
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center">
@@ -370,7 +370,7 @@ export function ServiceDetailCenteredExpertise({
       <div
         className={cn(
           "prose prose-sm mx-auto max-w-3xl dark:prose-invert",
-          contentSectionsClassName
+          contentSectionsClassName,
         )}
       >
         {contentSections.map((section, sectionIndex) => (
@@ -391,7 +391,7 @@ export function ServiceDetailCenteredExpertise({
                     <p key={paragraphIndex}>{paragraph}</p>
                   ) : (
                     <div key={paragraphIndex}>{paragraph}</div>
-                  )
+                  ),
                 )}
               </>
             )}
@@ -411,7 +411,7 @@ export function ServiceDetailCenteredExpertise({
           <h2
             className={cn(
               "mb-8 text-center text-2xl font-semibold",
-              servicesTitleClassName
+              servicesTitleClassName,
             )}
           >
             {servicesTitle}
@@ -423,7 +423,7 @@ export function ServiceDetailCenteredExpertise({
               key={index}
               className={cn(
                 "flex items-center gap-3 rounded-lg border bg-background p-4",
-                service.className
+                service.className,
               )}
             >
               {service.icon ? (
@@ -459,7 +459,7 @@ export function ServiceDetailCenteredExpertise({
           <h2
             className={cn(
               "mb-8 text-center text-2xl font-semibold",
-              relatedServicesTitleClassName
+              relatedServicesTitleClassName,
             )}
           >
             {relatedServicesTitle}
@@ -472,7 +472,7 @@ export function ServiceDetailCenteredExpertise({
               href={service.href}
               className={cn(
                 "group block overflow-hidden rounded-lg border bg-background transition-shadow hover:shadow-lg",
-                service.className
+                service.className,
               )}
             >
               {service.image && (
@@ -527,7 +527,7 @@ export function ServiceDetailCenteredExpertise({
             <h1
               className={cn(
                 "text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
-                titleClassName
+                titleClassName,
               )}
             >
               {typeof title === "string" ? title : title}
@@ -538,7 +538,7 @@ export function ServiceDetailCenteredExpertise({
             <p
               className={cn(
                 "mx-auto max-w-2xl text-xl leading-relaxed text-muted-foreground",
-                introDescriptionClassName
+                introDescriptionClassName,
               )}
             >
               {typeof introDescription === "string"

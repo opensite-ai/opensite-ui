@@ -64,7 +64,7 @@ export interface CtaSimpleCenteredProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -112,7 +112,7 @@ export function CtaSimpleCentered({
       <div
         className={cn(
           "flex flex-col justify-center gap-3 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => (
@@ -155,7 +155,7 @@ export function CtaSimpleCentered({
           <h2
             className={cn(
               "mb-4 text-3xl font-bold md:text-4xl lg:text-5xl",
-              headingClassName
+              headingClassName,
             )}
           >
             {heading}
@@ -163,7 +163,7 @@ export function CtaSimpleCentered({
           <p
             className={cn(
               "mb-8 text-lg text-muted-foreground",
-              descriptionClassName
+              descriptionClassName,
             )}
           >
             {description}

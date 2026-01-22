@@ -156,7 +156,7 @@ export interface PricingToggleCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -333,33 +333,53 @@ export function PricingToggleCards({
     return (
       <ul className={cn("space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
             <li
               key={featureIndex}
-              className={cn("flex items-start gap-3", featureItemClassName, feature.className)}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
             >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -371,12 +391,23 @@ export function PricingToggleCards({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -395,9 +426,15 @@ export function PricingToggleCards({
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {plans.map((plan, index) => {
-          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+          const badgeContent =
+            plan.badge ?? (plan.isPopular ? popularBadge : null);
 
           return (
             <Card
@@ -407,11 +444,16 @@ export function PricingToggleCards({
                 plan.isPopular ? "border-primary shadow-lg" : null,
                 cardClassName,
                 plan.isPopular ? popularCardClassName : null,
-                plan.className
+                plan.className,
               )}
             >
               {badgeContent && (
-                <div className={cn("absolute -top-3 left-1/2 -translate-x-1/2", badgeClassName)}>
+                <div
+                  className={cn(
+                    "absolute -top-3 left-1/2 -translate-x-1/2",
+                    badgeClassName,
+                  )}
+                >
                   {typeof badgeContent === "string" ? (
                     <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
                       {badgeContent}
@@ -423,22 +465,29 @@ export function PricingToggleCards({
               )}
 
               <CardHeader className={cn("pb-4", cardHeaderClassName)}>
-                {plan.name && (
-                  typeof plan.name === "string" ? (
-                    <CardTitle className={cn("text-xl", cardTitleClassName)}>{plan.name}</CardTitle>
+                {plan.name &&
+                  (typeof plan.name === "string" ? (
+                    <CardTitle className={cn("text-xl", cardTitleClassName)}>
+                      {plan.name}
+                    </CardTitle>
                   ) : (
                     <div className={cardTitleClassName}>{plan.name}</div>
-                  )
-                )}
-                {plan.description && (
-                  typeof plan.description === "string" ? (
-                    <p className={cn("text-sm text-muted-foreground", cardDescriptionClassName)}>
+                  ))}
+                {plan.description &&
+                  (typeof plan.description === "string" ? (
+                    <p
+                      className={cn(
+                        "text-sm text-muted-foreground",
+                        cardDescriptionClassName,
+                      )}
+                    >
                       {plan.description}
                     </p>
                   ) : (
-                    <div className={cardDescriptionClassName}>{plan.description}</div>
-                  )
-                )}
+                    <div className={cardDescriptionClassName}>
+                      {plan.description}
+                    </div>
+                  ))}
               </CardHeader>
 
               <CardContent className="flex-1">
@@ -447,7 +496,12 @@ export function PricingToggleCards({
                     <span className={cn("text-4xl font-bold", priceClassName)}>
                       {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                     </span>
-                    <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+                    <span
+                      className={cn(
+                        "text-muted-foreground",
+                        priceIntervalClassName,
+                      )}
+                    >
                       {isYearly ? yearlyInterval : monthlyInterval}
                     </span>
                   </div>
@@ -477,31 +531,48 @@ export function PricingToggleCards({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
 
-          <div className={cn("mt-8 flex items-center justify-center gap-3", toggleClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex items-center justify-center gap-3",
+              toggleClassName,
+            )}
+          >
             {monthlyLabel && (
               <span
                 className={cn(
                   "text-sm font-medium",
                   !isYearly ? "text-foreground" : "text-muted-foreground",
-                  toggleLabelClassName
+                  toggleLabelClassName,
                 )}
               >
                 {monthlyLabel}
@@ -513,12 +584,17 @@ export function PricingToggleCards({
                 className={cn(
                   "text-sm font-medium",
                   isYearly ? "text-foreground" : "text-muted-foreground",
-                  toggleLabelClassName
+                  toggleLabelClassName,
                 )}
               >
                 {yearlyLabel}
                 {yearlyBadge && (
-                  <span className={cn("ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary", yearlyBadgeClassName)}>
+                  <span
+                    className={cn(
+                      "ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary",
+                      yearlyBadgeClassName,
+                    )}
+                  >
                     {yearlyBadge}
                   </span>
                 )}

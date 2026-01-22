@@ -60,7 +60,7 @@ export interface CtaMinimalSeparatorProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -133,7 +133,7 @@ export function CtaMinimalSeparator({
           <div
             className={cn(
               "flex flex-col items-center gap-6 text-center md:flex-row md:gap-8",
-              contentClassName
+              contentClassName,
             )}
           >
             <p className={cn("text-lg text-muted-foreground", textClassName)}>

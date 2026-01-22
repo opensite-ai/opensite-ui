@@ -39,7 +39,12 @@ import type {
 } from "../../../src/types";
 
 /**
- * Base link item for dropdown menus
+ * SHARED TYPE INTERFACES FOR ALL NAVBAR COMPONENTS
+ * These types provide a consistent interface across all navbar blocks
+ */
+
+/**
+ * Base link item - used across all navbar components
  */
 export interface ILinkItem {
   label: React.ReactNode;
@@ -49,17 +54,15 @@ export interface ILinkItem {
   iconName?: string;
   image?: string;
   background?: string;
-  company?: {
-    name: React.ReactNode;
-    logo: string;
-  };
 }
 
 /**
- * Group of links with a title
+ * Group of links with optional metadata
  */
-export interface ILinkGroup {
-  title: React.ReactNode;
+export interface IMenuLinkGroup {
+  label: React.ReactNode;
+  description?: string;
+  image?: string;
   links: ILinkItem[];
 }
 
@@ -106,21 +109,20 @@ export type AnimatedPreviewLayout =
   | "grouped-links-image"; // Grouped links + featured image card
 
 /**
- * Menu link interface with flexible dropdown configuration
+ * Menu link configuration with layout-based dropdown options
  */
 export interface IMenuLink {
-  title: React.ReactNode;
-  url?: string;
+  label: React.ReactNode;
+  href?: string;
   layout?: AnimatedPreviewLayout;
-
-  // Animated image preview layout
+  // Unified links array - used by all layouts
   links?: ILinkItem[];
-
+  // Optional grouped links for more complex layouts
+  dropdownGroups?: IMenuLinkGroup[];
   // Featured cards grid layout
   featuredLinks?: ILinkItem[];
-
-  // Grouped links image layout
-  groupLinks?: ILinkGroup[];
+  // Grouped links image layout (legacy support)
+  groupLinks?: IMenuLinkGroup[];
   imageLink?: IFeaturedImageLink;
 }
 
@@ -198,7 +200,7 @@ export interface NavbarAnimatedPreviewProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -279,7 +281,7 @@ export const NavbarAnimatedPreview = ({
         href={logo.url || "/"}
         className={cn(
           "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
-          logoClassName
+          logoClassName,
         )}
       >
         {logo.src && (
@@ -290,13 +292,12 @@ export const NavbarAnimatedPreview = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="hidden md:inline-block">{logo.title}</span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -306,7 +307,14 @@ export const NavbarAnimatedPreview = ({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -318,7 +326,9 @@ export const NavbarAnimatedPreview = ({
             <>
               {icon}
               {label}
-              {iconAfter ?? <DynamicIcon name="lucide/chevron-right" size={16} />}
+              {iconAfter ?? (
+                <DynamicIcon name="lucide/chevron-right" size={16} />
+              )}
             </>
           )}
         </Pressable>
@@ -350,27 +360,29 @@ export const NavbarAnimatedPreview = ({
       spacing={spacing}
       className={cn(
         "pointer-events-auto fixed top-0 z-999 flex w-full items-center justify-center",
-        className
+        className,
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <NavigationMenu className={cn(
-        "h-20 max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
-        navigationMenuClassName
-      )}>
-        <div className={cn(
-          "relative z-999 container grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
-          containerClassName
-        )}>
+      <NavigationMenu
+        className={cn(
+          "h-20 max-w-full after:absolute after:inset-0 after:z-998 after:block after:size-full after:bg-background after:content-[''] [&>div:last-child>div]:mt-0 [&>div:last-child>div]:animate-none [&>div:last-child>div]:rounded-none [&>div:last-child>div]:border-0 [&>div:last-child>div]:shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.05),0px_0px_0px_1px_rgba(17,26,37,0.05),0px_2px_5px_0px_rgba(16,25,36,0.1),0px_5px_20px_0px_rgba(16,25,36,0.1)]!",
+          navigationMenuClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "relative z-999 container grid w-full grid-cols-2 items-center justify-between gap-8 xl:grid-cols-3",
+            containerClassName,
+          )}
+        >
           {renderLogo()}
           <div className={cn("hidden xl:flex", navClassName)}>
             {renderNavigation()}
           </div>
           <div className={cn("justify-self-end", actionsClassName)}>
-            <div className="hidden xl:block">
-              {renderActions()}
-            </div>
+            <div className="hidden xl:block">{renderActions()}</div>
             <div className="xl:hidden">
               <Pressable
                 className="size-11"
@@ -419,16 +431,14 @@ const DesktopMenuItem = ({
   optixFlowConfig,
 }: DesktopMenuItemProps) => {
   const hasDropdown = Boolean(
-    item.links?.length ||
-    item.featuredLinks?.length ||
-    item.groupLinks?.length
+    item.links?.length || item.featuredLinks?.length || item.groupLinks?.length,
   );
 
   if (hasDropdown) {
     return (
       <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
-        <NavigationMenuTrigger className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent h-fit font-normal text-foreground/60">
-          {item.title}
+        <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+          {item.label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="hidden rounded-xl! border-0! p-0! xl:block">
           <div className="w-dvw animate-[fade-in-slide-down_0.35s_cubic-bezier(0.33,1,0.68,1)_forwards] px-8 pt-6 pb-12">
@@ -444,16 +454,20 @@ const DesktopMenuItem = ({
   return (
     <NavigationMenuItem key={`desktop-menu-item-${index}`} value={`${index}`}>
       <NavigationMenuLink
-        href={item.url}
+        href={item.href}
         className={`${navigationMenuTriggerStyle()} bg-transparent px-0 hover:bg-transparent focus:bg-transparent h-fit font-normal text-foreground/60`}
       >
-        {item.title}
+        {item.label}
       </NavigationMenuLink>
     </NavigationMenuItem>
   );
 };
 
-const renderDropdownContent = (item: IMenuLink, optixFlowConfig?: OptixFlowConfig) => {
+const renderDropdownContent = (
+  item: IMenuLink,
+  optixFlowConfig?: OptixFlowConfig,
+) => {
+  // Default to "animated-image-preview" if no layout specified
   const layout = item.layout || "animated-image-preview";
 
   switch (layout) {
@@ -490,7 +504,10 @@ interface AnimatedImagePreviewDropdownProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const AnimatedImagePreviewDropdown = ({ links, optixFlowConfig }: AnimatedImagePreviewDropdownProps) => {
+const AnimatedImagePreviewDropdown = ({
+  links,
+  optixFlowConfig,
+}: AnimatedImagePreviewDropdownProps) => {
   const linksRef = useRef<HTMLAnchorElement[]>([]);
   const imageRefs = useRef<HTMLDivElement[]>([]);
 
@@ -600,7 +617,7 @@ const FeaturedCardsGridDropdown = ({
 };
 
 interface GroupedLinksImageDropdownProps {
-  groupLinks?: ILinkGroup[];
+  groupLinks?: IMenuLinkGroup[];
   imageLink?: IFeaturedImageLink;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -619,7 +636,7 @@ const GroupedLinksImageDropdown = ({
 };
 
 interface GroupLinksProps {
-  groupLinks?: ILinkGroup[];
+  groupLinks?: IMenuLinkGroup[];
 }
 
 const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
@@ -647,7 +664,7 @@ const GroupLinks = ({ groupLinks }: GroupLinksProps) => {
       {groupLinks.map((group, index1) => (
         <div key={`group-link-${index1}`}>
           <div className="mb-4 text-xs text-muted-foreground">
-            {group.title}
+            {group.label}
           </div>
           <ul className="flex flex-col gap-8">
             {group.links.map((link, index2) => {
@@ -771,22 +788,18 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
       >
         {(link.icon || link.iconName) && (
           <div className="flex size-6 shrink-0 rounded-md border shadow">
-            {link.icon ? link.icon : link.iconName && <DynamicIcon name={link.iconName} size={14} className="m-auto" />}
+            {link.icon
+              ? link.icon
+              : link.iconName && (
+                  <DynamicIcon
+                    name={link.iconName}
+                    size={14}
+                    className="m-auto"
+                  />
+                )}
           </div>
         )}
         <div className="flex flex-col items-start gap-2">
-          {link.company && (
-            <div className="block text-base leading-normal xl:hidden">
-              {link.company.name}
-            </div>
-          )}
-          {link.company && (
-            <Img
-              className="hidden h-6 xl:block"
-              src={link.company.logo}
-              alt={typeof link.company.name === "string" ? link.company.name : ""}
-            />
-          )}
           {link.label && (
             <div className="text-base leading-normal">{link.label}</div>
           )}
@@ -796,7 +809,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         </div>
       </Pressable>
     );
-  }
+  },
 );
 
 NavLink.displayName = "NavLink";
@@ -819,7 +832,14 @@ const MobileNavigationMenu = ({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -856,12 +876,10 @@ const MobileNavigationMenu = ({
             <div className="flex min-h-full flex-col gap-6">
               <Accordion type="multiple" className="w-full">
                 {menuLinks.map((item, index) =>
-                  renderMobileMenuItem(item, index)
+                  renderMobileMenuItem(item, index),
                 )}
               </Accordion>
-              <div className="flex flex-col gap-2">
-                {renderMobileActions()}
-              </div>
+              <div className="flex flex-col gap-2">{renderMobileActions()}</div>
             </div>
           </div>
         </div>
@@ -879,7 +897,7 @@ const renderMobileMenuItem = (item: IMenuLink, index: number) => {
         className="border-b-0"
       >
         <AccordionTrigger className="h-10 items-center text-base font-normal text-foreground hover:no-underline">
-          {item.title}
+          {item.label}
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-6 p-2">
           {item.featuredLinks && (
@@ -901,7 +919,7 @@ const renderMobileMenuItem = (item: IMenuLink, index: number) => {
               {item.groupLinks.map((group, groupIdx) => (
                 <div className="mb-8 last:mb-0" key={`group-link-${groupIdx}`}>
                   <div className="mb-4 text-xs text-muted-foreground">
-                    {group.title}
+                    {group.label}
                   </div>
                   <ul className="flex flex-col gap-2">
                     {group.links.map((link, linkIdx) => (
@@ -922,10 +940,10 @@ const renderMobileMenuItem = (item: IMenuLink, index: number) => {
   return (
     <Pressable
       key={`nav-link-${index}`}
-      href={item.url}
+      href={item.href}
       className="flex h-10 items-center rounded-md text-left text-base leading-[3.75] font-normal text-foreground ring-ring/10 outline-ring/50 transition-all focus-visible:ring-4 focus-visible:outline-1 nth-last-1:border-0"
     >
-      {item.title}
+      {item.label}
     </Pressable>
   );
 };

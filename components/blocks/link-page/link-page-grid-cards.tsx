@@ -169,7 +169,7 @@ export interface LinkPageGridCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -267,7 +267,7 @@ export function LinkPageGridCards({
       <div
         className={cn(
           "flex flex-col items-center space-y-4 text-center",
-          headerClassName
+          headerClassName,
         )}
       >
         {resolvedAvatar && (
@@ -275,7 +275,7 @@ export function LinkPageGridCards({
             className={cn(
               "h-20 w-20 overflow-hidden rounded-2xl shadow-lg",
               isDark ? "ring-2 ring-white/10" : "ring-2 ring-neutral-200",
-              avatarClassName
+              avatarClassName,
             )}
           >
             <Img
@@ -294,7 +294,7 @@ export function LinkPageGridCards({
                 className={cn(
                   "text-2xl font-bold",
                   isDark ? "text-white" : "text-foreground",
-                  nameClassName
+                  nameClassName,
                 )}
               >
                 {name}
@@ -308,7 +308,7 @@ export function LinkPageGridCards({
                 className={cn(
                   "text-sm",
                   isDark ? "text-neutral-400" : "text-muted-foreground",
-                  bioClassName
+                  bioClassName,
                 )}
               >
                 {bio}
@@ -329,7 +329,7 @@ export function LinkPageGridCards({
       <div
         className={cn(
           "flex items-center justify-center gap-2",
-          socialLinksClassName
+          socialLinksClassName,
         )}
       >
         {socialLinks.map((social, index) => {
@@ -359,7 +359,7 @@ export function LinkPageGridCards({
                   ? "bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white"
                   : "bg-white text-muted-foreground hover:bg-neutral-100 hover:text-foreground",
                 socialLinkClassName,
-                social.className
+                social.className,
               )}
             >
               {icon}
@@ -379,7 +379,7 @@ export function LinkPageGridCards({
         className={cn(
           "grid gap-3",
           columns === 3 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2",
-          gridClassName
+          gridClassName,
         )}
       >
         {links.map((link, index) => {
@@ -412,7 +412,7 @@ export function LinkPageGridCards({
                     ? "border border-white/10 bg-white/5 hover:bg-white/10"
                     : "border border-neutral-200 bg-white shadow-sm hover:bg-white hover:shadow-md",
                   cardClassName,
-                  linkClassName
+                  linkClassName,
                 )}
                 {...pressableProps}
               >
@@ -431,7 +431,7 @@ export function LinkPageGridCards({
                   ? "border border-white/10 bg-white/5 hover:bg-white/10"
                   : "border border-neutral-200 bg-white shadow-sm hover:bg-white hover:shadow-md",
                 cardClassName,
-                linkClassName
+                linkClassName,
               )}
               {...pressableProps}
             >
@@ -441,7 +441,7 @@ export function LinkPageGridCards({
                   isDark
                     ? "bg-white/10 group-hover:bg-white/20"
                     : "bg-neutral-100 group-hover:bg-neutral-200",
-                  cardIconWrapperClassName
+                  cardIconWrapperClassName,
                 )}
               >
                 {iconElement}
@@ -453,7 +453,7 @@ export function LinkPageGridCards({
                       className={cn(
                         "block text-sm font-medium",
                         isDark ? "text-white" : "text-foreground",
-                        cardLabelClassName
+                        cardLabelClassName,
                       )}
                     >
                       {label}
@@ -467,7 +467,7 @@ export function LinkPageGridCards({
                       className={cn(
                         "block text-xs",
                         isDark ? "text-neutral-500" : "text-muted-foreground",
-                        cardDescriptionClassName
+                        cardDescriptionClassName,
                       )}
                     >
                       {description}
@@ -511,7 +511,7 @@ export function LinkPageGridCards({
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
           isDark ? "text-neutral-600" : "text-muted-foreground/50",
           footerClassName,
-          actionClassName
+          actionClassName,
         )}
         {...pressableProps}
       >
@@ -530,10 +530,7 @@ export function LinkPageGridCards({
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(
-        isDark ? "bg-neutral-950" : "bg-neutral-50",
-        className
-      )}
+      className={cn(isDark ? "bg-neutral-950" : "bg-neutral-50", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
@@ -541,7 +538,7 @@ export function LinkPageGridCards({
       <div
         className={cn(
           "flex min-h-screen w-full items-start justify-center py-12",
-          containerClassName
+          containerClassName,
         )}
       >
         <div className={cn("w-full max-w-lg space-y-8", contentClassName)}>

@@ -133,7 +133,7 @@ export interface NavbarMultiColumnGroupsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -216,7 +216,7 @@ export const NavbarMultiColumnGroups = ({
         href={logo.url || "/"}
         className={cn(
           "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
-          logoClassName
+          logoClassName,
         )}
       >
         {logo.src && (
@@ -227,13 +227,12 @@ export const NavbarMultiColumnGroups = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="hidden md:inline-block">{logo.title}</span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -260,7 +259,14 @@ export const NavbarMultiColumnGroups = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -286,20 +292,33 @@ export const NavbarMultiColumnGroups = ({
       spacing={spacing}
       className={cn(
         "pointer-events-auto fixed top-0 z-999 flex h-16 w-full items-center justify-center",
-        className
+        className,
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("flex items-center justify-between gap-8", navClassName)}>
+        <div
+          className={cn(
+            "flex items-center justify-between gap-8",
+            navClassName,
+          )}
+        >
           <div className="flex items-center gap-8">
             {renderLogo()}
-            <NavigationMenu className={cn("hidden xl:flex", navigationMenuClassName)} viewport={false}>
+            <NavigationMenu
+              className={cn("hidden xl:flex", navigationMenuClassName)}
+              viewport={false}
+            >
               {renderNavigation()}
             </NavigationMenu>
           </div>
-          <div className={cn("hidden items-center gap-3 xl:flex", actionsClassName)}>
+          <div
+            className={cn(
+              "hidden items-center gap-3 xl:flex",
+              actionsClassName,
+            )}
+          >
             {renderAuthActions()}
           </div>
           <div className="xl:hidden">
@@ -362,18 +381,18 @@ const DesktopMenuItem = ({ item, index }: DesktopMenuItemProps) => {
                         asChild
                         className="group/link flex-row gap-2 px-3 py-2 transition-colors duration-200"
                       >
-                          <Pressable href={link.url}>
-                            <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
-                              {link.icon ? (
-                                link.icon
-                              ) : link.iconName ? (
-                                <DynamicIcon
-                                  name={link.iconName}
-                                  size={16}
-                                  className="m-auto group-hover/link:stroke-black"
-                                />
-                              ) : null}
-                            </div>
+                        <Pressable href={link.url}>
+                          <div className="flex size-8 shrink-0 rounded-lg border duration-400 fade-in group-hover/link:bg-background">
+                            {link.icon ? (
+                              link.icon
+                            ) : link.iconName ? (
+                              <DynamicIcon
+                                name={link.iconName}
+                                size={16}
+                                className="m-auto group-hover/link:stroke-black"
+                              />
+                            ) : null}
+                          </div>
                           <div className="flex flex-col gap-0.5">
                             <div className="text-sm font-medium">
                               {link.label}
@@ -427,7 +446,14 @@ const MobileNavigationMenu = ({
     return (
       <div className="flex flex-col gap-4">
         {authActions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
@@ -467,7 +493,7 @@ const MobileNavigationMenu = ({
               {renderMobileAuthActions()}
               <Accordion type="multiple" className="w-full">
                 {navigation.map((item, index) =>
-                  renderMobileMenuItem(item, index)
+                  renderMobileMenuItem(item, index),
                 )}
               </Accordion>
             </div>
@@ -508,7 +534,7 @@ const renderMobileMenuItem = (item: MenuItem, index: number) => {
                 ) : null}
                 {link.label}
               </Pressable>
-            ))
+            )),
           )}
         </AccordionContent>
       </AccordionItem>

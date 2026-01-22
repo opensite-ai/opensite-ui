@@ -2,7 +2,13 @@
 
 import * as React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -60,7 +66,7 @@ export interface TestimonialsParallaxNumberProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -157,7 +163,7 @@ export function TestimonialsParallaxNumber({
 
   const goPrev = useCallback(() => {
     setActiveIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
     );
   }, [testimonials.length]);
 
@@ -199,7 +205,10 @@ export function TestimonialsParallaxNumber({
         onMouseMove={handleMouseMove}
       >
         <motion.div
-          className={cn("pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter text-foreground/[0.03]", numberClassName)}
+          className={cn(
+            "pointer-events-none absolute -left-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none tracking-tighter text-foreground/[0.03]",
+            numberClassName,
+          )}
           style={{ x: numberX, y: numberY }}
         >
           <AnimatePresence mode="wait">
@@ -260,7 +269,10 @@ export function TestimonialsParallaxNumber({
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex}
-                  className={cn("text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl", quoteClassName)}
+                  className={cn(
+                    "text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl",
+                    quoteClassName,
+                  )}
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -313,27 +325,29 @@ export function TestimonialsParallaxNumber({
                     style={{ originX: 0 }}
                   />
                   <div>
-                    {current.author && (
-                      typeof current.author === "string" ? (
-                        <p className="text-base font-medium">{current.author}</p>
+                    {current.author &&
+                      (typeof current.author === "string" ? (
+                        <p className="text-base font-medium">
+                          {current.author}
+                        </p>
                       ) : (
                         current.author
-                      )
-                    )}
-                    {current.role && (
-                      typeof current.role === "string" ? (
+                      ))}
+                    {current.role &&
+                      (typeof current.role === "string" ? (
                         <p className="text-sm text-muted-foreground">
                           {current.role}
                         </p>
                       ) : (
                         current.role
-                      )
-                    )}
+                      ))}
                   </div>
                 </motion.div>
               </AnimatePresence>
 
-              <div className={cn("flex items-center gap-4", navigationClassName)}>
+              <div
+                className={cn("flex items-center gap-4", navigationClassName)}
+              >
                 <motion.button
                   onClick={goPrev}
                   className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-border"

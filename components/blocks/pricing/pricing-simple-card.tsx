@@ -92,7 +92,7 @@ export interface PricingSimpleCardProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -216,33 +216,53 @@ export function PricingSimpleCard({
     return (
       <ul className={cn("mt-8 space-y-3", featuresClassName)}>
         {features.map((feature, index) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
             <li
               key={index}
-              className={cn("flex items-start gap-3", featureItemClassName, feature.className)}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
             >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -254,12 +274,23 @@ export function PricingSimpleCard({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = action;
 
     return (
       <Pressable
         asButton
-        className={cn("mt-8 w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "mt-8 w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -285,28 +316,44 @@ export function PricingSimpleCard({
       <div className={cn("mx-auto max-w-md", containerClassName)}>
         <Card className={cn("p-8", cardClassName)}>
           <div className={cn("text-center", headerClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-2xl font-bold", titleClassName)}>{title}</h2>
+            {title &&
+              (typeof title === "string" ? (
+                <h2 className={cn("text-2xl font-bold", titleClassName)}>
+                  {title}
+                </h2>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-2 text-muted-foreground", descriptionClassName)}>{description}</p>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-2 text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
 
             {(price || priceInterval) && (
               <div className={cn("mt-6", priceWrapperClassName)}>
                 {price && (
-                  <span className={cn("text-5xl font-bold", priceClassName)}>{price}</span>
+                  <span className={cn("text-5xl font-bold", priceClassName)}>
+                    {price}
+                  </span>
                 )}
                 {priceInterval && (
-                  <span className={cn("text-muted-foreground", priceIntervalClassName)}>{priceInterval}</span>
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      priceIntervalClassName,
+                    )}
+                  >
+                    {priceInterval}
+                  </span>
                 )}
               </div>
             )}

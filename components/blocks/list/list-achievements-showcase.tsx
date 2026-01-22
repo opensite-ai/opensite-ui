@@ -104,7 +104,7 @@ export interface ListAchievementsShowcaseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -159,19 +159,36 @@ export function ListAchievementsShowcase({
     const action = item.action ?? defaultAction;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
 
     return (
       <Pressable
         asButton
-        className={cn("order-3 ml-auto w-fit gap-2 md:order-0", actionClassName, itemActionClassName)}
+        className={cn(
+          "order-3 ml-auto w-fit gap-2 md:order-0",
+          actionClassName,
+          itemActionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
           <>
             {icon}
             {label && <span>{label}</span>}
-            {iconAfter ?? <DynamicIcon name="lucide/arrow-right" size={16} className="text-current" />}
+            {iconAfter ?? (
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={16}
+                className="text-current"
+              />
+            )}
           </>
         )}
       </Pressable>
@@ -187,9 +204,19 @@ export function ListAchievementsShowcase({
         <Separator />
         {items.map((item, index) => (
           <React.Fragment key={index}>
-            <div className={cn("grid items-center gap-4 px-4 py-5 md:grid-cols-4", itemClassName)}>
+            <div
+              className={cn(
+                "grid items-center gap-4 px-4 py-5 md:grid-cols-4",
+                itemClassName,
+              )}
+            >
               <div className="order-2 flex items-center gap-2 md:order-0">
-                <span className={cn("flex h-14 w-16 shrink-0 items-center justify-center rounded-md bg-muted", itemIconClassName)}>
+                <span
+                  className={cn(
+                    "flex h-14 w-16 shrink-0 items-center justify-center rounded-md bg-muted",
+                    itemIconClassName,
+                  )}
+                >
                   {item.icon && (
                     <DynamicIcon
                       name={item.icon}
@@ -199,35 +226,51 @@ export function ListAchievementsShowcase({
                   )}
                 </span>
                 <div className="flex flex-col gap-1">
-                  {item.title && (
-                    typeof item.title === "string" ? (
-                      <h3 className={cn("font-semibold", itemTitleClassName)}>{item.title}</h3>
+                  {item.title &&
+                    (typeof item.title === "string" ? (
+                      <h3 className={cn("font-semibold", itemTitleClassName)}>
+                        {item.title}
+                      </h3>
                     ) : (
                       <div className={itemTitleClassName}>{item.title}</div>
-                    )
-                  )}
-                  {item.category && (
-                    typeof item.category === "string" ? (
-                      <p className={cn("text-sm text-muted-foreground", itemCategoryClassName)}>
+                    ))}
+                  {item.category &&
+                    (typeof item.category === "string" ? (
+                      <p
+                        className={cn(
+                          "text-sm text-muted-foreground",
+                          itemCategoryClassName,
+                        )}
+                      >
                         {item.category}
                       </p>
                     ) : (
-                      <div className={itemCategoryClassName}>{item.category}</div>
-                    )
-                  )}
+                      <div className={itemCategoryClassName}>
+                        {item.category}
+                      </div>
+                    ))}
                 </div>
               </div>
-              {item.description && (
-                typeof item.description === "string" ? (
-                  <p className={cn("order-1 text-2xl font-semibold md:order-0 md:col-span-2", itemDescriptionClassName)}>
+              {item.description &&
+                (typeof item.description === "string" ? (
+                  <p
+                    className={cn(
+                      "order-1 text-2xl font-semibold md:order-0 md:col-span-2",
+                      itemDescriptionClassName,
+                    )}
+                  >
                     {item.description}
                   </p>
                 ) : (
-                  <div className={cn("order-1 md:order-0 md:col-span-2", itemDescriptionClassName)}>
+                  <div
+                    className={cn(
+                      "order-1 md:order-0 md:col-span-2",
+                      itemDescriptionClassName,
+                    )}
+                  >
                     {item.description}
                   </div>
-                )
-              )}
+                ))}
               {renderItemAction(item)}
             </div>
             <Separator />
@@ -246,15 +289,21 @@ export function ListAchievementsShowcase({
       patternOpacity={patternOpacity}
     >
       <div className={cn("px-0 md:px-8", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mb-10 px-4 text-3xl font-semibold md:mb-14 md:text-4xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mb-10 px-4 text-3xl font-semibold md:mb-14 md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
-            <div className={cn("mb-10 px-4 md:mb-14", headingClassName)}>{heading}</div>
-          )
-        )}
+            <div className={cn("mb-10 px-4 md:mb-14", headingClassName)}>
+              {heading}
+            </div>
+          ))}
         {renderItems()}
       </div>
     </Section>

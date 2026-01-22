@@ -87,7 +87,7 @@ export interface TestimonialsWallCompactProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -219,7 +219,9 @@ export function TestimonialsWallCompact({
     return "";
   };
 
-  const getAvatarSrc = (testimonial: WallTestimonialItem): string | undefined => {
+  const getAvatarSrc = (
+    testimonial: WallTestimonialItem,
+  ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
   };
 
@@ -234,36 +236,45 @@ export function TestimonialsWallCompact({
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
-      <div className={cn("grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
           return (
             <div
               key={index}
-              className={cn("rounded-lg border bg-card p-4 transition-shadow hover:shadow-md", cardClassName)}
+              className={cn(
+                "rounded-lg border bg-card p-4 transition-shadow hover:shadow-md",
+                cardClassName,
+              )}
             >
-              <div className={cn("mb-3 flex items-start justify-between gap-2", authorClassName)}>
+              <div
+                className={cn(
+                  "mb-3 flex items-start justify-between gap-2",
+                  authorClassName,
+                )}
+              >
                 <div className="flex items-center gap-2">
                   <Avatar className="size-8">
-                    <AvatarImage
-                      src={avatarSrc}
-                      alt={authorName}
-                    />
+                    <AvatarImage src={avatarSrc} alt={authorName} />
                     <AvatarFallback className="text-xs">
                       {getInitials(authorName)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
-                    {testimonial.author && (
-                      typeof testimonial.author === "string" ? (
+                    {testimonial.author &&
+                      (typeof testimonial.author === "string" ? (
                         <p className="truncate text-sm font-medium">
                           {testimonial.author}
                         </p>
                       ) : (
                         testimonial.author
-                      )
-                    )}
+                      ))}
                     {testimonial.handle && (
                       <p className="truncate text-xs text-muted-foreground">
                         {testimonial.handle}
@@ -271,23 +282,23 @@ export function TestimonialsWallCompact({
                     )}
                   </div>
                 </div>
-                {testimonial.badge && (
-                  typeof testimonial.badge === "string" ? (
+                {testimonial.badge &&
+                  (typeof testimonial.badge === "string" ? (
                     <Badge variant="secondary" className="shrink-0 text-xs">
                       {testimonial.badge}
                     </Badge>
                   ) : (
                     testimonial.badge
-                  )
-                )}
+                  ))}
               </div>
-              {testimonial.quote && (
-                typeof testimonial.quote === "string" ? (
-                  <p className={cn("text-sm leading-relaxed", quoteClassName)}>{testimonial.quote}</p>
+              {testimonial.quote &&
+                (typeof testimonial.quote === "string" ? (
+                  <p className={cn("text-sm leading-relaxed", quoteClassName)}>
+                    {testimonial.quote}
+                  </p>
                 ) : (
                   <div className={quoteClassName}>{testimonial.quote}</div>
-                )
-              )}
+                ))}
             </div>
           );
         })}
@@ -303,25 +314,37 @@ export function TestimonialsWallCompact({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

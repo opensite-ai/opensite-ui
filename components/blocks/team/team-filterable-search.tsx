@@ -81,7 +81,7 @@ export interface TeamFilterableSearchProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -249,7 +249,7 @@ export function TeamFilterableSearch({
       <div
         className={cn(
           "mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
-          filtersClassName
+          filtersClassName,
         )}
       >
         <div className="relative max-w-md flex-1">
@@ -292,7 +292,7 @@ export function TeamFilterableSearch({
         key={member.id}
         className={cn(
           "group rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-lg",
-          memberCardClassName
+          memberCardClassName,
         )}
       >
         <div className="flex items-start gap-4">
@@ -317,19 +317,29 @@ export function TeamFilterableSearch({
                 {member.department}
               </Badge>
             </div>
-            <p className={cn("text-sm font-medium text-primary", memberRoleClassName)}>
+            <p
+              className={cn(
+                "text-sm font-medium text-primary",
+                memberRoleClassName,
+              )}
+            >
               {member.role}
             </p>
             <p
               className={cn(
                 "mt-2 text-sm text-muted-foreground line-clamp-2",
-                memberDescriptionClassName
+                memberDescriptionClassName,
               )}
             >
               {member.description}
             </p>
             {member.social && (
-              <div className={cn("mt-3 flex gap-2 text-muted-foreground", socialLinksClassName)}>
+              <div
+                className={cn(
+                  "mt-3 flex gap-2 text-muted-foreground",
+                  socialLinksClassName,
+                )}
+              >
                 {member.social.github && (
                   <Pressable
                     href={member.social.github}
@@ -374,44 +384,52 @@ export function TeamFilterableSearch({
       className={className}
     >
       <div className={cn("mb-12 text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "mb-6 text-4xl font-bold tracking-tight lg:text-5xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mx-auto max-w-3xl text-xl leading-relaxed text-muted-foreground",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
       {renderFilters()}
 
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {renderMembers()}
       </div>
 
       {filteredMembers.length === 0 && !membersSlot && (
-        <div className={cn("py-12 text-center text-muted-foreground", emptyStateClassName)}>
+        <div
+          className={cn(
+            "py-12 text-center text-muted-foreground",
+            emptyStateClassName,
+          )}
+        >
           {emptyStateMessage}
         </div>
       )}

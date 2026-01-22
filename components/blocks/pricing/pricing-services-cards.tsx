@@ -134,7 +134,7 @@ export interface PricingServicesCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -272,30 +272,53 @@ export function PricingServicesCards({
     return (
       <ul className={cn("mb-8 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -307,12 +330,23 @@ export function PricingServicesCards({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -331,20 +365,34 @@ export function PricingServicesCards({
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("mx-auto grid max-w-4xl gap-8 md:grid-cols-2", gridClassName)}>
+      <div
+        className={cn(
+          "mx-auto grid max-w-4xl gap-8 md:grid-cols-2",
+          gridClassName,
+        )}
+      >
         {plans.map((plan, index) => {
-          const resolvedIcon = plan.icon
-            ?? (plan.iconName ? <DynamicIcon name={plan.iconName} size={24} className={plan.iconClassName} /> : null);
+          const resolvedIcon =
+            plan.icon ??
+            (plan.iconName ? (
+              <DynamicIcon
+                name={plan.iconName}
+                size={24}
+                className={plan.iconClassName}
+              />
+            ) : null);
 
           return (
             <div
               key={index}
               className={cn(
                 "flex flex-col rounded-2xl border p-8",
-                plan.isHighlighted ? "border-primary bg-primary/5 shadow-lg" : "border-border",
+                plan.isHighlighted
+                  ? "border-primary bg-primary/5 shadow-lg"
+                  : "border-border",
                 cardClassName,
                 plan.isHighlighted ? highlightedCardClassName : null,
-                plan.className
+                plan.className,
               )}
             >
               <div className="mb-6 flex items-start gap-4">
@@ -356,38 +404,57 @@ export function PricingServicesCards({
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted text-muted-foreground",
                       planIconWrapperClassName,
-                      plan.iconWrapperClassName
+                      plan.iconWrapperClassName,
                     )}
                   >
                     {resolvedIcon}
                   </div>
                 )}
                 <div>
-                  {plan.name && (
-                    typeof plan.name === "string" ? (
-                      <h3 className={cn("text-xl font-semibold", planTitleClassName)}>{plan.name}</h3>
+                  {plan.name &&
+                    (typeof plan.name === "string" ? (
+                      <h3
+                        className={cn(
+                          "text-xl font-semibold",
+                          planTitleClassName,
+                        )}
+                      >
+                        {plan.name}
+                      </h3>
                     ) : (
                       <div className={planTitleClassName}>{plan.name}</div>
-                    )
-                  )}
-                  {plan.description && (
-                    typeof plan.description === "string" ? (
-                      <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                    ))}
+                  {plan.description &&
+                    (typeof plan.description === "string" ? (
+                      <p
+                        className={cn(
+                          "mt-1 text-sm text-muted-foreground",
+                          planDescriptionClassName,
+                        )}
+                      >
                         {plan.description}
                       </p>
                     ) : (
-                      <div className={planDescriptionClassName}>{plan.description}</div>
-                    )
-                  )}
+                      <div className={planDescriptionClassName}>
+                        {plan.description}
+                      </div>
+                    ))}
                 </div>
               </div>
 
               <div className="mb-6">
                 {plan.price && (
-                  <span className={cn("text-4xl font-bold", priceClassName)}>{plan.price}</span>
+                  <span className={cn("text-4xl font-bold", priceClassName)}>
+                    {plan.price}
+                  </span>
                 )}
                 {plan.priceDescription && (
-                  <span className={cn("text-muted-foreground", priceDescriptionClassName)}>
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      priceDescriptionClassName,
+                    )}
+                  >
                     {plan.priceDescription}
                   </span>
                 )}
@@ -412,23 +479,35 @@ export function PricingServicesCards({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         {renderPlans()}

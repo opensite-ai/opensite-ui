@@ -109,7 +109,7 @@ export interface ProcessIconTimelineProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -163,34 +163,35 @@ export function ProcessIconTimeline({
             className={cn(
               "relative flex flex-col gap-6 pl-16 lg:flex-row lg:gap-12 lg:pl-0",
               index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse",
-              step.className
+              step.className,
             )}
           >
             <div
               className={cn(
                 "absolute left-0 flex size-12 items-center justify-center rounded-full text-white lg:left-1/2 lg:-translate-x-1/2",
                 step.badgeColor || "bg-primary",
-                stepBadgeClassName
+                stepBadgeClassName,
               )}
             >
-              {step.iconSlot ?? (step.icon && <DynamicIcon name={step.icon} size={24} />)}
+              {step.iconSlot ??
+                (step.icon && <DynamicIcon name={step.icon} size={24} />)}
             </div>
 
             <div
               className={cn(
                 "flex-1 lg:text-right",
-                index % 2 !== 0 && "lg:text-left"
+                index % 2 !== 0 && "lg:text-left",
               )}
             >
               <div
                 className={cn(
                   "rounded-lg border bg-card p-6 shadow-sm",
                   index % 2 === 0 ? "lg:mr-12" : "lg:ml-12",
-                  stepCardClassName
+                  stepCardClassName,
                 )}
               >
-                {step.title && (
-                  typeof step.title === "string" ? (
+                {step.title &&
+                  (typeof step.title === "string" ? (
                     <h3 className="mb-2 text-xl font-semibold tracking-tight">
                       {step.title}
                     </h3>
@@ -198,20 +199,22 @@ export function ProcessIconTimeline({
                     <div className="mb-2 text-xl font-semibold tracking-tight">
                       {step.title}
                     </div>
-                  )
-                )}
-                {step.description && (
-                  typeof step.description === "string" ? (
-                    <p className="mb-4 text-foreground/50">{step.description}</p>
+                  ))}
+                {step.description &&
+                  (typeof step.description === "string" ? (
+                    <p className="mb-4 text-foreground/50">
+                      {step.description}
+                    </p>
                   ) : (
-                    <div className="mb-4 text-foreground/50">{step.description}</div>
-                  )
-                )}
+                    <div className="mb-4 text-foreground/50">
+                      {step.description}
+                    </div>
+                  ))}
                 {step.highlights && step.highlights.length > 0 && (
                   <div
                     className={cn(
                       "flex flex-wrap gap-2",
-                      index % 2 === 0 ? "lg:justify-end" : "lg:justify-start"
+                      index % 2 === 0 ? "lg:justify-end" : "lg:justify-start",
                     )}
                   >
                     {step.highlights.map((highlight, hIndex) => (
@@ -244,28 +247,41 @@ export function ProcessIconTimeline({
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
-          {resolvedHeading && (
-            typeof resolvedHeading === "string" ? (
-              <h1 className={cn("mb-4 text-4xl font-semibold tracking-tight lg:text-5xl", headingClassName)}>
+          {resolvedHeading &&
+            (typeof resolvedHeading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {resolvedHeading}
               </h1>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg text-foreground/50", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("relative", timelineClassName)}>
-          <div className={cn("absolute left-6 top-0 bottom-0 w-px bg-border lg:left-1/2 lg:-translate-x-1/2", timelineLineClassName)} />
+          <div
+            className={cn(
+              "absolute left-6 top-0 bottom-0 w-px bg-border lg:left-1/2 lg:-translate-x-1/2",
+              timelineLineClassName,
+            )}
+          />
           {renderSteps()}
         </div>
       </div>

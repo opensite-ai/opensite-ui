@@ -81,7 +81,7 @@ export interface TestimonialsMarqueeProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -215,7 +215,7 @@ export function TestimonialsMarquee({
         <div
           className={cn(
             "flex gap-4",
-            pauseOnHover && "[&:hover_.marquee-content]:pause"
+            pauseOnHover && "[&:hover_.marquee-content]:pause",
           )}
         >
           <div
@@ -233,44 +233,47 @@ export function TestimonialsMarquee({
                   className={cn("w-80 shrink-0", cardClassName)}
                 >
                   <CardContent className="p-6">
-                    {testimonial.quote && (
-                      typeof testimonial.quote === "string" ? (
-                        <p className={cn("mb-4 text-sm leading-relaxed", quoteClassName)}>
+                    {testimonial.quote &&
+                      (typeof testimonial.quote === "string" ? (
+                        <p
+                          className={cn(
+                            "mb-4 text-sm leading-relaxed",
+                            quoteClassName,
+                          )}
+                        >
                           &ldquo;{testimonial.quote}&rdquo;
                         </p>
                       ) : (
-                        <div className={cn("mb-4", quoteClassName)}>{testimonial.quote}</div>
-                      )
-                    )}
-                    <div className={cn("flex items-center gap-3", authorClassName)}>
+                        <div className={cn("mb-4", quoteClassName)}>
+                          {testimonial.quote}
+                        </div>
+                      ))}
+                    <div
+                      className={cn("flex items-center gap-3", authorClassName)}
+                    >
                       <Avatar className="size-9">
-                        <AvatarImage
-                          src={avatarSrc}
-                          alt={authorName}
-                        />
+                        <AvatarImage src={avatarSrc} alt={authorName} />
                         <AvatarFallback className="text-xs">
                           {getInitials(authorName)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        {testimonial.author && (
-                          typeof testimonial.author === "string" ? (
+                        {testimonial.author &&
+                          (typeof testimonial.author === "string" ? (
                             <p className="text-sm font-medium">
                               {testimonial.author}
                             </p>
                           ) : (
                             testimonial.author
-                          )
-                        )}
-                        {testimonial.role && (
-                          typeof testimonial.role === "string" ? (
+                          ))}
+                        {testimonial.role &&
+                          (typeof testimonial.role === "string" ? (
                             <p className="text-xs text-muted-foreground">
                               {testimonial.role}
                             </p>
                           ) : (
                             testimonial.role
-                          )
-                        )}
+                          ))}
                       </div>
                     </div>
                   </CardContent>
@@ -293,24 +296,34 @@ export function TestimonialsMarquee({
     >
       <div className={cn("mb-12", headerClassName)}>
         <div className="mx-auto max-w-2xl text-center">
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
-              <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div className={cn("mt-4", descriptionClassName)}>
+                {description}
+              </div>
+            ))}
         </div>
       </div>
 

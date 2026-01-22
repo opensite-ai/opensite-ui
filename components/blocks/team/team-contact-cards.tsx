@@ -81,7 +81,7 @@ export interface TeamContactCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -214,7 +214,10 @@ export function TeamContactCards({
           <div className="flex gap-6">
             <div className="relative shrink-0">
               <Img
-                className={cn("size-24 rounded-xl object-cover", memberImageClassName)}
+                className={cn(
+                  "size-24 rounded-xl object-cover",
+                  memberImageClassName,
+                )}
                 src={member.image}
                 alt={member.name}
                 width={96}
@@ -230,20 +233,33 @@ export function TeamContactCards({
             </div>
             <div className="min-w-0 flex-1">
               <div className="mb-4">
-                <h3 className={cn("truncate text-lg font-medium", memberNameClassName)}>
+                <h3
+                  className={cn(
+                    "truncate text-lg font-medium",
+                    memberNameClassName,
+                  )}
+                >
                   {member.name}
                 </h3>
-                <p className={cn("text-muted-foreground text-sm", memberRoleClassName)}>
+                <p
+                  className={cn(
+                    "text-muted-foreground text-sm",
+                    memberRoleClassName,
+                  )}
+                >
                   {member.role}
                 </p>
               </div>
               <div className="space-y-2">
-                <p className={cn("text-muted-foreground text-sm", memberBioClassName)}>
+                <p
+                  className={cn(
+                    "text-muted-foreground text-sm",
+                    memberBioClassName,
+                  )}
+                >
                   {member.bio}
                 </p>
-                <p className="text-sm font-medium">
-                  {member.availability}
-                </p>
+                <p className="text-sm font-medium">{member.availability}</p>
               </div>
             </div>
           </div>
@@ -313,38 +329,43 @@ export function TeamContactCards({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-10 max-w-2xl text-center lg:mb-14", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "mx-auto mb-10 max-w-2xl text-center lg:mb-14",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "text-3xl font-bold md:text-4xl md:leading-tight",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "text-muted-foreground mt-1 text-lg",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
-      <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}
+      >
         {renderMembers()}
       </div>
     </Section>

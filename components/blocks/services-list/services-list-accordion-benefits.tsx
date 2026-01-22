@@ -12,7 +12,11 @@ import {
 } from "../../ui/accordion";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for accordion benefits display
@@ -132,7 +136,7 @@ export interface ServicesListAccordionBenefitsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -186,42 +190,56 @@ export function ServicesListAccordionBenefits({
     if (!services || services.length === 0) return null;
 
     return (
-      <Accordion type="single" collapsible className={cn("w-full", accordionClassName)} defaultValue={defaultValue}>
+      <Accordion
+        type="single"
+        collapsible
+        className={cn("w-full", accordionClassName)}
+        defaultValue={defaultValue}
+      >
         {services.map((service, index) => (
           <AccordionItem
             key={service.id || `service-${index}`}
             value={service.id || `service-${index}`}
-            className={cn("border-b border-primary/10 px-0", accordionItemClassName, service.className)}
+            className={cn(
+              "border-b border-primary/10 px-0",
+              accordionItemClassName,
+              service.className,
+            )}
           >
             <AccordionTrigger className="py-6 hover:no-underline">
               <div className="flex flex-1 items-center text-left">
                 <div>
-                  {service.title && (
-                    typeof service.title === "string" ? (
+                  {service.title &&
+                    (typeof service.title === "string" ? (
                       <h3 className="text-xl font-medium">{service.title}</h3>
                     ) : (
                       <div className="text-xl font-medium">{service.title}</div>
-                    )
-                  )}
-                  {service.shortDescription && (
-                    typeof service.shortDescription === "string" ? (
-                      <p className="text-sm text-muted-foreground">{service.shortDescription}</p>
+                    ))}
+                  {service.shortDescription &&
+                    (typeof service.shortDescription === "string" ? (
+                      <p className="text-sm text-muted-foreground">
+                        {service.shortDescription}
+                      </p>
                     ) : (
-                      <div className="text-sm text-muted-foreground">{service.shortDescription}</div>
-                    )
-                  )}
+                      <div className="text-sm text-muted-foreground">
+                        {service.shortDescription}
+                      </div>
+                    ))}
                 </div>
               </div>
             </AccordionTrigger>
             <AccordionContent className="pb-6">
               <div className="space-y-4">
-                {service.fullDescription && (
-                  typeof service.fullDescription === "string" ? (
-                    <p className="text-muted-foreground">{service.fullDescription}</p>
+                {service.fullDescription &&
+                  (typeof service.fullDescription === "string" ? (
+                    <p className="text-muted-foreground">
+                      {service.fullDescription}
+                    </p>
                   ) : (
-                    <div className="text-muted-foreground">{service.fullDescription}</div>
-                  )
-                )}
+                    <div className="text-muted-foreground">
+                      {service.fullDescription}
+                    </div>
+                  ))}
                 {service.benefits && service.benefits.length > 0 && (
                   <div>
                     {typeof benefitsLabel === "string" ? (
@@ -233,8 +251,13 @@ export function ServicesListAccordionBenefits({
                     )}
                     <ul className="grid gap-2 sm:grid-cols-2">
                       {service.benefits.map((benefit, benefitIndex) => (
-                        <li key={benefitIndex} className="flex items-start gap-2 text-sm">
-                          <span className="text-xl leading-tight text-primary">&bull;</span>
+                        <li
+                          key={benefitIndex}
+                          className="flex items-start gap-2 text-sm"
+                        >
+                          <span className="text-xl leading-tight text-primary">
+                            &bull;
+                          </span>
                           {typeof benefit === "string" ? (
                             <span>{benefit}</span>
                           ) : (
@@ -255,7 +278,10 @@ export function ServicesListAccordionBenefits({
                       asButton
                     >
                       {service.ctaText}
-                      <DynamicIcon name="lucide/arrow-right" className="ml-2 h-3.5 w-3.5" />
+                      <DynamicIcon
+                        name="lucide/arrow-right"
+                        className="ml-2 h-3.5 w-3.5"
+                      />
                     </Pressable>
                   </div>
                 )}
@@ -273,7 +299,12 @@ export function ServicesListAccordionBenefits({
 
     return (
       <div className={cn("mt-12 text-center", bottomActionClassName)}>
-        <Pressable href={bottomAction.href} onClick={bottomAction.onClick} variant="default" asButton>
+        <Pressable
+          href={bottomAction.href}
+          onClick={bottomAction.onClick}
+          variant="default"
+          asButton
+        >
           {bottomAction.label}
           <DynamicIcon name="lucide/arrow-right" className="ml-2 h-4 w-4" />
         </Pressable>
@@ -291,24 +322,32 @@ export function ServicesListAccordionBenefits({
     >
       <div className={cn("mx-auto max-w-3xl", containerClassName)}>
         <div className={cn("mb-12 text-center md:mb-16", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto mt-4 max-w-2xl text-lg text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto mt-4 max-w-2xl text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
         {renderBottomAction()}

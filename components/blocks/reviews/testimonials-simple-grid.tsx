@@ -77,7 +77,7 @@ export interface TestimonialsSimpleGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -214,42 +214,44 @@ export function TestimonialsSimpleGrid({
           return (
             <Card key={index} className={cardClassName}>
               <CardContent className="p-6">
-                {testimonial.quote && (
-                  typeof testimonial.quote === "string" ? (
-                    <p className={cn("mb-6 text-sm leading-relaxed text-muted-foreground", quoteClassName)}>
+                {testimonial.quote &&
+                  (typeof testimonial.quote === "string" ? (
+                    <p
+                      className={cn(
+                        "mb-6 text-sm leading-relaxed text-muted-foreground",
+                        quoteClassName,
+                      )}
+                    >
                       &ldquo;{testimonial.quote}&rdquo;
                     </p>
                   ) : (
-                    <div className={cn("mb-6", quoteClassName)}>{testimonial.quote}</div>
-                  )
-                )}
+                    <div className={cn("mb-6", quoteClassName)}>
+                      {testimonial.quote}
+                    </div>
+                  ))}
                 <div className={cn("flex items-center gap-3", authorClassName)}>
                   <Avatar className="size-10">
-                    <AvatarImage
-                      src={avatarSrc}
-                      alt={authorName}
-                    />
-                    <AvatarFallback>
-                      {getInitials(authorName)}
-                    </AvatarFallback>
+                    <AvatarImage src={avatarSrc} alt={authorName} />
+                    <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                   </Avatar>
                   <div>
-                    {testimonial.author && (
-                      typeof testimonial.author === "string" ? (
+                    {testimonial.author &&
+                      (typeof testimonial.author === "string" ? (
                         <p className="text-sm font-medium">
                           {testimonial.author}
                         </p>
                       ) : (
                         testimonial.author
-                      )
-                    )}
+                      ))}
                     <p className="text-xs text-muted-foreground">
-                      {testimonial.role && (
-                        typeof testimonial.role === "string" ? testimonial.role : null
-                      )}
-                      {testimonial.company && (
-                        typeof testimonial.company === "string" ? `, ${testimonial.company}` : null
-                      )}
+                      {testimonial.role &&
+                        (typeof testimonial.role === "string"
+                          ? testimonial.role
+                          : null)}
+                      {testimonial.company &&
+                        (typeof testimonial.company === "string"
+                          ? `, ${testimonial.company}`
+                          : null)}
                     </p>
                   </div>
                 </div>
@@ -269,25 +271,37 @@ export function TestimonialsSimpleGrid({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

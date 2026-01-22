@@ -5,7 +5,6 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -109,7 +108,7 @@ export interface CtaEnterpriseDarkFeaturesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -171,9 +170,7 @@ export function CtaEnterpriseDarkFeatures({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div
-        className={cn("flex flex-col gap-3 sm:flex-row", actionsClassName)}
-      >
+      <div className={cn("flex flex-col gap-3 sm:flex-row", actionsClassName)}>
         {actions.map((action, index) => {
           const isFirstAction = index === 0;
           const isOutlineOnDark =
@@ -186,8 +183,9 @@ export function CtaEnterpriseDarkFeatures({
               variant={action.variant}
               size={action.size}
               className={cn(
-                isOutlineOnDark && "border-white/30 text-white hover:bg-white/10",
-                action.className
+                isOutlineOnDark &&
+                  "border-white/30 text-white hover:bg-white/10",
+                action.className,
               )}
               aria-label={action["aria-label"]}
               asButton
@@ -251,7 +249,7 @@ export function CtaEnterpriseDarkFeatures({
         <div
           className={cn(
             "relative overflow-hidden rounded-2xl bg-slate-900 p-8 text-white md:p-12 lg:p-16",
-            cardClassName
+            cardClassName,
           )}
         >
           <div className="relative z-10 grid gap-8 lg:grid-cols-2 lg:gap-16">
@@ -259,7 +257,7 @@ export function CtaEnterpriseDarkFeatures({
               <h2
                 className={cn(
                   "mb-6 font-serif text-4xl font-bold md:text-5xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
@@ -267,7 +265,7 @@ export function CtaEnterpriseDarkFeatures({
               <p
                 className={cn(
                   "mb-8 text-lg text-slate-300",
-                  descriptionClassName
+                  descriptionClassName,
                 )}
               >
                 {description}

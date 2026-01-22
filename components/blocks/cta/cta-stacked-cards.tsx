@@ -72,7 +72,7 @@ export interface CtaStackedCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -148,25 +148,25 @@ export function CtaStackedCards({
       <div
         className={cn(
           "max-w-full overflow-hidden border-y border-border bg-accent pt-10 md:pt-16 lg:pt-20",
-          innerClassName
+          innerClassName,
         )}
       >
         <div
           className={cn(
             "relative container flex flex-col md:flex-row md:space-x-12",
-            containerClassName
+            containerClassName,
           )}
         >
           <div
             className={cn(
               "mb-72 md:mb-28 md:w-2/3 lg:shrink-0 xl:mb-20 xl:w-1/2",
-              contentClassName
+              contentClassName,
             )}
           >
             <h3
               className={cn(
                 "mb-3 text-4xl font-semibold md:mb-4 md:text-5xl lg:mb-6",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -174,7 +174,7 @@ export function CtaStackedCards({
             <p
               className={cn(
                 "mb-8 text-muted-foreground lg:text-lg",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
@@ -184,7 +184,7 @@ export function CtaStackedCards({
           <div
             className={cn(
               "absolute right-1/2 bottom-0 mr-6 h-min w-[110%] max-w-md translate-x-1/2 md:-right-36 md:mr-0 md:w-3/4 md:max-w-xl md:translate-x-0 lg:mt-auto xl:relative xl:right-0 xl:h-full xl:w-full xl:max-w-full",
-              cardsClassName
+              cardsClassName,
             )}
           >
             <div className="relative aspect-8/5 h-full min-h-64 w-full">

@@ -98,7 +98,7 @@ export interface CtaGradientLogosFloatingProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -165,7 +165,7 @@ export function CtaGradientLogosFloating({
       <div
         className={cn(
           "flex flex-col justify-center gap-3 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -206,7 +206,7 @@ export function CtaGradientLogosFloating({
       <div
         className={cn(
           "absolute left-0 top-1/2 hidden -translate-y-1/2 flex-col gap-4 lg:flex",
-          leftLogosClassName
+          leftLogosClassName,
         )}
       >
         {leftLogos.map((logo, index) => (
@@ -237,7 +237,7 @@ export function CtaGradientLogosFloating({
       <div
         className={cn(
           "absolute right-0 top-1/2 hidden -translate-y-1/2 flex-col gap-4 lg:flex",
-          rightLogosClassName
+          rightLogosClassName,
         )}
       >
         {rightLogos.map((logo, index) => (
@@ -273,18 +273,20 @@ export function CtaGradientLogosFloating({
           {renderLeftLogos()}
           {renderRightLogos()}
 
-          <div className={cn("mx-auto max-w-2xl text-center", contentClassName)}>
+          <div
+            className={cn("mx-auto max-w-2xl text-center", contentClassName)}
+          >
             <h2
               className={cn(
                 "mb-6 text-4xl font-bold md:text-5xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}{" "}
               <span
                 className={cn(
                   "bg-linear-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent",
-                  gradientClassName
+                  gradientClassName,
                 )}
               >
                 {headingGradient}
@@ -293,7 +295,7 @@ export function CtaGradientLogosFloating({
             <p
               className={cn(
                 "mb-8 text-lg text-muted-foreground",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}

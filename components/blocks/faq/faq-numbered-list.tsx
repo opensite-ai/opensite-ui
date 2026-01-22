@@ -44,7 +44,7 @@ export interface FaqNumberedListProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -125,7 +125,7 @@ export function FaqNumberedList({
       <div
         className={cn(
           "mt-10 w-full max-w-3xl space-y-4 text-left",
-          itemsWrapperClassName
+          itemsWrapperClassName,
         )}
       >
         {items.map((item, index) => (
@@ -133,13 +133,13 @@ export function FaqNumberedList({
             key={index}
             className={cn(
               "flex gap-4 rounded-lg border p-4 md:p-5",
-              itemClassName
+              itemClassName,
             )}
           >
             <span
               className={cn(
                 "bg-secondary flex size-6 shrink-0 items-center justify-center rounded-sm text-xs font-medium",
-                numberClassName
+                numberClassName,
               )}
             >
               {index + 1}
@@ -158,7 +158,7 @@ export function FaqNumberedList({
                 <p
                   className={cn(
                     "text-muted-foreground text-sm",
-                    answerClassName
+                    answerClassName,
                   )}
                 >
                   {item.answer}
@@ -185,46 +185,43 @@ export function FaqNumberedList({
       <div
         className={cn(
           "container flex flex-col items-center text-center",
-          containerClassName
+          containerClassName,
         )}
       >
-        {badge && (
-          typeof badge === "string" ? (
+        {badge &&
+          (typeof badge === "string" ? (
             <Badge variant="outline" className={badgeClassName}>
               {badge}
             </Badge>
           ) : (
             <div className={badgeClassName}>{badge}</div>
-          )
-        )}
-        {heading && (
-          typeof heading === "string" ? (
+          ))}
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "mt-4 text-3xl font-semibold md:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "text-muted-foreground mt-6 max-w-xl text-base md:text-lg",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
         {renderItems()}
       </div>
     </Section>

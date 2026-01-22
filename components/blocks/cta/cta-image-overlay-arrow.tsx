@@ -65,7 +65,7 @@ export interface CtaImageOverlayArrowProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -144,7 +144,7 @@ export function CtaImageOverlayArrow({
         <div
           className={cn(
             "flex h-[500px] items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center",
-            cardClassName
+            cardClassName,
           )}
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('${backgroundImage}')`,
@@ -153,13 +153,13 @@ export function CtaImageOverlayArrow({
           <div
             className={cn(
               "flex flex-col items-center gap-8 p-4 text-center",
-              contentClassName
+              contentClassName,
             )}
           >
             <h2
               className={cn(
                 "max-w-3xl text-4xl font-bold text-primary-foreground md:text-6xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}

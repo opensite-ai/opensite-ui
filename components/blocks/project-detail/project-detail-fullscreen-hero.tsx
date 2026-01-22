@@ -6,8 +6,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   SectionItem,
@@ -15,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailFullscreenHeroProps {
   /** Main title */
@@ -45,7 +44,7 @@ export interface ProjectDetailFullscreenHeroProps {
   /** Content section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern for content section */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the article */
@@ -65,7 +64,7 @@ export interface ProjectDetailFullscreenHeroProps {
 }
 
 export function ProjectDetailFullscreenHero(
-  props: ProjectDetailFullscreenHeroProps
+  props: ProjectDetailFullscreenHeroProps,
 ): React.JSX.Element {
   const {
     title,
@@ -95,10 +94,20 @@ export function ProjectDetailFullscreenHero(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -117,7 +126,7 @@ export function ProjectDetailFullscreenHero(
       <section className={cn("relative min-h-screen", heroClassName)}>
         <div className="absolute inset-0">
           <Img
-            src={heroImage?.src || imagePlaceholders[9]}
+            src={heroImage?.src}
             alt={heroImage?.alt || "Project hero image"}
             className={cn("h-full w-full object-cover", heroImageClassName)}
             optixFlowConfig={optixFlowConfig}
@@ -152,21 +161,30 @@ export function ProjectDetailFullscreenHero(
             </div>
 
             {typeof title === "string" ? (
-              <h1 className={cn("text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl", titleClassName)}>
+              <h1
+                className={cn(
+                  "text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h1>
             ) : (
               <div className={titleClassName}>{title}</div>
             )}
-            {subtitle && (
-              typeof subtitle === "string" ? (
-                <p className={cn("mt-4 max-w-xl text-xl text-foreground/80", subtitleClassName)}>
+            {subtitle &&
+              (typeof subtitle === "string" ? (
+                <p
+                  className={cn(
+                    "mt-4 max-w-xl text-xl text-foreground/80",
+                    subtitleClassName,
+                  )}
+                >
                   {subtitle}
                 </p>
               ) : (
                 <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
-              )
-            )}
+              ))}
           </motion.div>
         </div>
       </section>

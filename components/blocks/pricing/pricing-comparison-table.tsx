@@ -4,7 +4,13 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../ui/card";
 import { Separator } from "../../ui/separator";
 import {
   Table,
@@ -175,7 +181,7 @@ export interface PricingComparisonTableProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -338,7 +344,9 @@ export function PricingComparisonTable({
   tableRowClassName,
   tableCellClassName,
 }: PricingComparisonTableProps): React.JSX.Element {
-  const resolvedPlanIds = plans.map((plan, index) => plan.id ?? `plan-${index}`);
+  const resolvedPlanIds = plans.map(
+    (plan, index) => plan.id ?? `plan-${index}`,
+  );
 
   const renderPlanFeatures = (plan: PricingComparisonTablePlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
@@ -347,30 +355,53 @@ export function PricingComparisonTable({
     return (
       <ul className={cn("space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -382,12 +413,23 @@ export function PricingComparisonTable({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -415,29 +457,38 @@ export function PricingComparisonTable({
               plan.isHighlighted ? "border-primary shadow-lg" : null,
               cardClassName,
               plan.isHighlighted ? highlightedCardClassName : null,
-              plan.className
+              plan.className,
             )}
           >
             <CardHeader>
-              {plan.name && (
-                typeof plan.name === "string" ? (
-                  <CardTitle className={cn("text-xl", cardTitleClassName)}>{plan.name}</CardTitle>
+              {plan.name &&
+                (typeof plan.name === "string" ? (
+                  <CardTitle className={cn("text-xl", cardTitleClassName)}>
+                    {plan.name}
+                  </CardTitle>
                 ) : (
                   <div className={cardTitleClassName}>{plan.name}</div>
-                )
-              )}
-              {plan.description && (
-                typeof plan.description === "string" ? (
-                  <p className={cn("text-sm text-muted-foreground", cardDescriptionClassName)}>
+                ))}
+              {plan.description &&
+                (typeof plan.description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      cardDescriptionClassName,
+                    )}
+                  >
                     {plan.description}
                   </p>
                 ) : (
-                  <div className={cardDescriptionClassName}>{plan.description}</div>
-                )
-              )}
+                  <div className={cardDescriptionClassName}>
+                    {plan.description}
+                  </div>
+                ))}
               {plan.price && (
                 <div className="mt-4">
-                  <span className={cn("text-4xl font-bold", priceClassName)}>{plan.price}</span>
+                  <span className={cn("text-4xl font-bold", priceClassName)}>
+                    {plan.price}
+                  </span>
                 </div>
               )}
             </CardHeader>
@@ -446,16 +497,16 @@ export function PricingComparisonTable({
               {renderPlanFeatures(plan)}
             </CardContent>
 
-            <CardFooter>
-              {renderAction(plan)}
-            </CardFooter>
+            <CardFooter>{renderAction(plan)}</CardFooter>
           </Card>
         ))}
       </div>
     );
   };
 
-  const renderComparisonValue = (value: boolean | React.ReactNode | undefined) => {
+  const renderComparisonValue = (
+    value: boolean | React.ReactNode | undefined,
+  ) => {
     if (typeof value === "boolean") {
       if (value) {
         return (
@@ -488,21 +539,32 @@ export function PricingComparisonTable({
 
     return (
       <div>
-        {comparisonHeading && (
-          typeof comparisonHeading === "string" ? (
-            <h3 className={cn("mb-6 text-xl font-semibold", comparisonHeadingClassName)}>
+        {comparisonHeading &&
+          (typeof comparisonHeading === "string" ? (
+            <h3
+              className={cn(
+                "mb-6 text-xl font-semibold",
+                comparisonHeadingClassName,
+              )}
+            >
               {comparisonHeading}
             </h3>
           ) : (
-            <div className={comparisonHeadingClassName}>{comparisonHeading}</div>
-          )
-        )}
+            <div className={comparisonHeadingClassName}>
+              {comparisonHeading}
+            </div>
+          ))}
         <Table className={tableClassName}>
           <TableHeader>
             <TableRow className={tableRowClassName}>
-              <TableHead className={cn("w-1/2", tableHeadClassName)}>{featureColumnLabel}</TableHead>
+              <TableHead className={cn("w-1/2", tableHeadClassName)}>
+                {featureColumnLabel}
+              </TableHead>
               {plans.map((plan, index) => (
-                <TableHead key={resolvedPlanIds[index]} className={cn("text-center", tableHeadClassName)}>
+                <TableHead
+                  key={resolvedPlanIds[index]}
+                  className={cn("text-center", tableHeadClassName)}
+                >
                   {plan.name}
                 </TableHead>
               ))}
@@ -510,10 +572,18 @@ export function PricingComparisonTable({
           </TableHeader>
           <TableBody>
             {comparisonFeatures.map((feature, index) => (
-              <TableRow key={index} className={cn("border-b", tableRowClassName, feature.className)}>
-                <TableCell className={cn("font-medium", tableCellClassName)}>{feature.name}</TableCell>
+              <TableRow
+                key={index}
+                className={cn("border-b", tableRowClassName, feature.className)}
+              >
+                <TableCell className={cn("font-medium", tableCellClassName)}>
+                  {feature.name}
+                </TableCell>
                 {resolvedPlanIds.map((planId) => (
-                  <TableCell key={planId} className={cn("text-center", tableCellClassName)}>
+                  <TableCell
+                    key={planId}
+                    className={cn("text-center", tableCellClassName)}
+                  >
                     {renderComparisonValue(feature.values?.[planId])}
                   </TableCell>
                 ))}
@@ -535,23 +605,35 @@ export function PricingComparisonTable({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         <div className={cn("mx-auto max-w-4xl", containerClassName)}>

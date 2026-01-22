@@ -76,7 +76,7 @@ export interface TestimonialsAnimatedSplitProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -167,7 +167,7 @@ export function TestimonialsAnimatedSplit({
 
   const goToPrev = useCallback(() => {
     setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
     );
   }, [testimonials.length]);
 
@@ -185,7 +185,9 @@ export function TestimonialsAnimatedSplit({
     return "";
   };
 
-  const getAvatarSrc = (testimonial: AnimatedSplitTestimonialItem): string | undefined => {
+  const getAvatarSrc = (
+    testimonial: AnimatedSplitTestimonialItem,
+  ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
   };
 
@@ -204,7 +206,12 @@ export function TestimonialsAnimatedSplit({
 
     return (
       <div className="grid items-center gap-12 lg:grid-cols-2">
-        <div className={cn("relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-square", imageClassName)}>
+        <div
+          className={cn(
+            "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-square",
+            imageClassName,
+          )}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -242,41 +249,39 @@ export function TestimonialsAnimatedSplit({
                 className="text-primary/20"
               />
 
-              {current.quote && (
-                typeof current.quote === "string" ? (
-                  <blockquote className={cn("text-xl font-medium leading-relaxed md:text-2xl", quoteClassName)}>
+              {current.quote &&
+                (typeof current.quote === "string" ? (
+                  <blockquote
+                    className={cn(
+                      "text-xl font-medium leading-relaxed md:text-2xl",
+                      quoteClassName,
+                    )}
+                  >
                     {current.quote}
                   </blockquote>
                 ) : (
                   <div className={quoteClassName}>{current.quote}</div>
-                )
-              )}
+                ))}
 
               <div className={cn("flex items-center gap-4", authorClassName)}>
                 <Avatar className="size-12">
-                  <AvatarImage
-                    src={avatarSrc}
-                    alt={authorName}
-                  />
-                  <AvatarFallback>
-                    {getInitials(authorName)}
-                  </AvatarFallback>
+                  <AvatarImage src={avatarSrc} alt={authorName} />
+                  <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
                 </Avatar>
                 <div>
-                  {current.author && (
-                    typeof current.author === "string" ? (
+                  {current.author &&
+                    (typeof current.author === "string" ? (
                       <p className="font-semibold">{current.author}</p>
                     ) : (
                       current.author
-                    )
-                  )}
+                    ))}
                   <p className="text-sm text-muted-foreground">
-                    {current.role && (
-                      typeof current.role === "string" ? current.role : null
-                    )}
-                    {current.company && (
-                      typeof current.company === "string" ? ` at ${current.company}` : null
-                    )}
+                    {current.role &&
+                      (typeof current.role === "string" ? current.role : null)}
+                    {current.company &&
+                      (typeof current.company === "string"
+                        ? ` at ${current.company}`
+                        : null)}
                   </p>
                 </div>
               </div>
@@ -301,7 +306,7 @@ export function TestimonialsAnimatedSplit({
                     "size-2 rounded-full transition-all",
                     index === currentIndex
                       ? "w-6 bg-primary"
-                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50",
                   )}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />

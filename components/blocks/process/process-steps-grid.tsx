@@ -97,7 +97,7 @@ export interface ProcessStepsGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -143,14 +143,19 @@ export function ProcessStepsGrid({
     if (!steps || steps.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", stepsGridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+          stepsGridClassName,
+        )}
+      >
         {steps.map((step, index) => (
           <div
             key={index}
             className={cn(
               "group relative overflow-hidden rounded-lg border bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg",
               stepCardClassName,
-              step.className
+              step.className,
             )}
           >
             <span className="absolute -right-4 -top-4 text-[120px] font-bold leading-none text-muted/20 transition-colors group-hover:text-primary/10">
@@ -159,15 +164,18 @@ export function ProcessStepsGrid({
 
             <div className="relative z-10">
               {(step.iconSlot || step.icon) && (
-                <div className={cn(
-                  "mb-6 flex size-14 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
-                  stepIconClassName
-                )}>
-                  {step.iconSlot ?? (step.icon && <DynamicIcon name={step.icon} size={28} />)}
+                <div
+                  className={cn(
+                    "mb-6 flex size-14 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground",
+                    stepIconClassName,
+                  )}
+                >
+                  {step.iconSlot ??
+                    (step.icon && <DynamicIcon name={step.icon} size={28} />)}
                 </div>
               )}
-              {step.title && (
-                typeof step.title === "string" ? (
+              {step.title &&
+                (typeof step.title === "string" ? (
                   <h3 className="mb-3 text-xl font-semibold tracking-tight">
                     {step.title}
                   </h3>
@@ -175,10 +183,9 @@ export function ProcessStepsGrid({
                   <div className="mb-3 text-xl font-semibold tracking-tight">
                     {step.title}
                   </div>
-                )
-              )}
-              {step.description && (
-                typeof step.description === "string" ? (
+                ))}
+              {step.description &&
+                (typeof step.description === "string" ? (
                   <p className="text-foreground/50 leading-relaxed">
                     {step.description}
                   </p>
@@ -186,8 +193,7 @@ export function ProcessStepsGrid({
                   <div className="text-foreground/50 leading-relaxed">
                     {step.description}
                   </div>
-                )
-              )}
+                ))}
             </div>
           </div>
         ))}
@@ -205,24 +211,32 @@ export function ProcessStepsGrid({
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 text-center", headerClassName)}>
-          {resolvedHeading && (
-            typeof resolvedHeading === "string" ? (
-              <h1 className={cn("mb-4 text-4xl font-semibold tracking-tight lg:text-5xl", headingClassName)}>
+          {resolvedHeading &&
+            (typeof resolvedHeading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {resolvedHeading}
               </h1>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg text-foreground/50", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderSteps()}
       </div>

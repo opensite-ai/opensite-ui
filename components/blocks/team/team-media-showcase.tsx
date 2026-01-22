@@ -76,7 +76,7 @@ export interface TeamMediaShowcaseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -115,8 +115,7 @@ export interface TeamMediaShowcaseProps {
 /**
  * Props for TeamMemberBackgroundImageCard component
  */
-interface TeamMemberBackgroundImageCardProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface TeamMemberBackgroundImageCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Image URL for the background
    */
@@ -147,7 +146,7 @@ const TeamMemberBackgroundImageCard = React.forwardRef<
 >(
   (
     { className, imageUrl, imageAlt, children, optixFlowConfig, ...props },
-    ref
+    ref,
   ) => {
     return (
       <div
@@ -155,7 +154,7 @@ const TeamMemberBackgroundImageCard = React.forwardRef<
         className={cn(
           "group h-[400px] relative w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-lg",
           "transition-all duration-300 ease-in-out",
-          className
+          className,
         )}
         {...props}
       >
@@ -171,7 +170,7 @@ const TeamMemberBackgroundImageCard = React.forwardRef<
         {children}
       </div>
     );
-  }
+  },
 );
 TeamMemberBackgroundImageCard.displayName = "TeamMemberBackgroundImageCard";
 
@@ -245,14 +244,24 @@ export function TeamMediaShowcase({
                 {member.name &&
                   typeof member.name === "string" &&
                   member.name.trim() !== "" && (
-                    <h4 className={cn("text-3xl font-bold text-white", memberNameClassName)}>
+                    <h4
+                      className={cn(
+                        "text-3xl font-bold text-white",
+                        memberNameClassName,
+                      )}
+                    >
                       {member.name}
                     </h4>
                   )}
                 {member.role &&
                   typeof member.role === "string" &&
                   member.role.trim() !== "" && (
-                    <p className={cn("text-sm text-white/80", memberRoleClassName)}>
+                    <p
+                      className={cn(
+                        "text-sm text-white/80",
+                        memberRoleClassName,
+                      )}
+                    >
                       {member.role}
                     </p>
                   )}
@@ -263,7 +272,7 @@ export function TeamMediaShowcase({
               <div
                 className={cn(
                   "mt-4 w-full md:absolute md:-bottom-20 md:left-0 md:mt-0 md:p-6 md:pt-2 md:opacity-0 md:transition-all md:duration-500 md:ease-in-out md:group-hover:bottom-0 md:group-hover:opacity-100",
-                  actionClassName
+                  actionClassName,
                 )}
               >
                 {member.action}
@@ -287,23 +296,20 @@ export function TeamMediaShowcase({
 
       <div className="space-y-12">
         <div className="space-y-6">
-          {listEyebrow && (
-            typeof listEyebrow === "string" && listEyebrow.trim() !== "" ? (
+          {listEyebrow &&
+            (typeof listEyebrow === "string" && listEyebrow.trim() !== "" ? (
               <div
                 className={cn(
                   "text-md pt-8 uppercase text-dark-charcoal/70 tracking-[0.2em] font-semibold",
-                  eyebrowClassName
+                  eyebrowClassName,
                 )}
               >
                 {listEyebrow}
               </div>
             ) : (
               <div className={eyebrowClassName}>{listEyebrow}</div>
-            )
-          )}
-          <div className={gridClassName}>
-            {renderItems()}
-          </div>
+            ))}
+          <div className={gridClassName}>{renderItems()}</div>
         </div>
       </div>
     </Section>

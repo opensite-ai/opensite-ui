@@ -14,8 +14,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectScrollRevealItem {
   id: number;
@@ -53,7 +53,7 @@ export interface ProjectScrollRevealProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -109,13 +109,13 @@ const ProjectItem = ({
   const scrollScale = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    [0.95, 1, 1.05]
+    [0.95, 1, 1.05],
   );
   const scrollY = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const scrollOpacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
-    [0.7, 1, 1, 0.7]
+    [0.7, 1, 1, 0.7],
   );
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -303,19 +303,26 @@ export function ProjectScrollReveal({
       className={cn(className)}
     >
       <div className={cn("container space-y-16", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("text-center text-4xl font-semibold md:text-6xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "text-center text-4xl font-semibold md:text-6xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
 
         <motion.div
           ref={containerRef}
-          className={cn("mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:gap-12", gridClassName)}
+          className={cn(
+            "mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:gap-12",
+            gridClassName,
+          )}
           variants={{
             hidden: { opacity: 0 },
             visible: {

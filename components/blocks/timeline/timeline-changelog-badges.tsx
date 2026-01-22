@@ -77,7 +77,7 @@ export interface TimelineChangelogBadgesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -135,7 +135,12 @@ export function TimelineChangelogBadges({
         style={style}
       >
         <div className={containerClassName}>
-          <h1 className={cn("mb-10 text-center text-3xl font-bold tracking-tighter text-foreground lg:text-6xl", headingClassName)}>
+          <h1
+            className={cn(
+              "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground lg:text-6xl",
+              headingClassName,
+            )}
+          >
             {heading}
           </h1>
         </div>
@@ -155,7 +160,12 @@ export function TimelineChangelogBadges({
       style={style}
     >
       <div className={containerClassName}>
-        <h1 className={cn("mb-10 text-center text-3xl font-bold tracking-tighter text-foreground lg:text-6xl", headingClassName)}>
+        <h1
+          className={cn(
+            "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground lg:text-6xl",
+            headingClassName,
+          )}
+        >
           {heading}
         </h1>
         <div className={cn("relative mx-auto max-w-4xl", entriesClassName)}>
@@ -164,13 +174,19 @@ export function TimelineChangelogBadges({
             className="absolute top-4 left-2 bg-muted"
           />
           {entries.map((entry, index) => (
-            <div key={index} className={cn("relative mb-10 pl-8", entryClassName)}>
+            <div
+              key={index}
+              className={cn("relative mb-10 pl-8", entryClassName)}
+            >
               <div className="absolute top-2 left-0 flex size-5 items-center justify-center rounded-full bg-foreground">
                 <div className="size-3 rounded-full bg-background" />
               </div>
               <Badge
                 variant="secondary"
-                className={cn("mb-4 rounded-xl px-3 py-2 text-sm", badgeClassName)}
+                className={cn(
+                  "mb-4 rounded-xl px-3 py-2 text-sm",
+                  badgeClassName,
+                )}
               >
                 {entry.date}
               </Badge>
@@ -182,13 +198,23 @@ export function TimelineChangelogBadges({
                       <li key={itemIndex} className="flex gap-3">
                         <span className="mt-2 h-2 w-2 flex-none rounded-full bg-foreground" />
                         {item.content ? (
-                          <span className={cn("text-md leading-relaxed text-foreground", itemClassName)}>
+                          <span
+                            className={cn(
+                              "text-md leading-relaxed text-foreground",
+                              itemClassName,
+                            )}
+                          >
                             {item.content}
                           </span>
                         ) : item.contentHtml ? (
                           <span
-                            className={cn("text-md leading-relaxed text-foreground", itemClassName)}
-                            dangerouslySetInnerHTML={{ __html: item.contentHtml }}
+                            className={cn(
+                              "text-md leading-relaxed text-foreground",
+                              itemClassName,
+                            )}
+                            dangerouslySetInnerHTML={{
+                              __html: item.contentHtml,
+                            }}
                           />
                         ) : null}
                       </li>

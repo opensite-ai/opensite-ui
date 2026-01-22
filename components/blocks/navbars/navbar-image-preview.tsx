@@ -140,7 +140,7 @@ export interface NavbarImagePreviewProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -203,7 +203,7 @@ export const NavbarImagePreview = ({
       navRef.current?.classList.toggle("bg-background", window.scrollY > 300);
       navRef.current?.classList.toggle(
         "bg-transparent",
-        !(window.scrollY > 300)
+        !(window.scrollY > 300),
       );
     };
 
@@ -239,7 +239,7 @@ export const NavbarImagePreview = ({
         href={logo.url || "/"}
         className={cn(
           "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
-          logoClassName
+          logoClassName,
         )}
       >
         {logo.src && (
@@ -250,13 +250,12 @@ export const NavbarImagePreview = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="hidden md:inline-block">{logo.title}</span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -284,7 +283,14 @@ export const NavbarImagePreview = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -315,17 +321,24 @@ export const NavbarImagePreview = ({
       <div
         className={cn(
           "fixed top-0 z-500 w-full bg-transparent transition-colors duration-500",
-          containerClassName
+          containerClassName,
         )}
         ref={navRef}
       >
         <div className="container border-b">
-          <div className={cn("flex items-center justify-between gap-3.5 py-5", navClassName)}>
+          <div
+            className={cn(
+              "flex items-center justify-between gap-3.5 py-5",
+              navClassName,
+            )}
+          >
             {renderLogo()}
-            <NavigationMenu className={cn(
-              "hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
-              navigationMenuClassName
-            )}>
+            <NavigationMenu
+              className={cn(
+                "hidden lg:flex [&>div:nth-child(2)]:left-1/2 [&>div:nth-child(2)]:-translate-x-1/2",
+                navigationMenuClassName,
+              )}
+            >
               {renderNavigation()}
             </NavigationMenu>
             <div className={cn("flex items-center gap-3.5", actionsClassName)}>
@@ -490,7 +503,7 @@ const MobileNavigationMenu = ({
           <div
             className={cn(
               "flex flex-col gap-4 text-primary-foreground",
-              item.className
+              item.className,
             )}
             key={`mobile-menu-item-${index}`}
           >
@@ -504,7 +517,7 @@ const MobileNavigationMenu = ({
                     href={link.url}
                     className={cn(
                       "text-primary-foreground leading-normal font-medium",
-                      index === 0 ? "text-2xl" : "text-base"
+                      index === 0 ? "text-2xl" : "text-base",
                     )}
                   >
                     {link.label}
@@ -532,7 +545,10 @@ const MobileNavigationMenu = ({
               href={link.url}
               className="text-primary-foreground"
             >
-              {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
+              {link.icon ??
+                (link.iconName && (
+                  <DynamicIcon name={link.iconName} size={20} />
+                ))}
               {!link.icon && !link.iconName && link.label}
             </Pressable>
           ))}
@@ -548,7 +564,14 @@ const MobileNavigationMenu = ({
     return (
       <div className="flex flex-col gap-2">
         {authActions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}

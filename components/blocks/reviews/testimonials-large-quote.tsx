@@ -57,7 +57,7 @@ export interface TestimonialsLargeQuoteProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -139,44 +139,49 @@ export function TestimonialsLargeQuote({
           className={cn("mx-auto mb-8 text-primary/20", quoteIconClassName)}
         />
 
-        {testimonial.quote && (
-          typeof testimonial.quote === "string" ? (
-            <blockquote className={cn("text-2xl font-medium leading-relaxed md:text-3xl lg:text-4xl", quoteClassName)}>
+        {testimonial.quote &&
+          (typeof testimonial.quote === "string" ? (
+            <blockquote
+              className={cn(
+                "text-2xl font-medium leading-relaxed md:text-3xl lg:text-4xl",
+                quoteClassName,
+              )}
+            >
               {testimonial.quote}
             </blockquote>
           ) : (
             <div className={quoteClassName}>{testimonial.quote}</div>
-          )
-        )}
+          ))}
 
-        <div className={cn("mt-10 flex flex-col items-center gap-4", authorClassName)}>
+        <div
+          className={cn(
+            "mt-10 flex flex-col items-center gap-4",
+            authorClassName,
+          )}
+        >
           <Avatar className={cn("size-16", avatarClassName)}>
-            <AvatarImage
-              src={avatarSrc}
-              alt={authorName}
-            />
+            <AvatarImage src={avatarSrc} alt={authorName} />
             <AvatarFallback className="text-lg">
               {getInitials(authorName)}
             </AvatarFallback>
           </Avatar>
           <div>
-            {testimonial.author && (
-              typeof testimonial.author === "string" ? (
+            {testimonial.author &&
+              (typeof testimonial.author === "string" ? (
                 <p className="text-lg font-semibold">{testimonial.author}</p>
               ) : (
                 testimonial.author
-              )
-            )}
+              ))}
             {(testimonial.role || testimonial.company) && (
               <p className="text-muted-foreground">
-                {testimonial.role && (
-                  typeof testimonial.role === "string" ? testimonial.role : testimonial.role
-                )}
-                {testimonial.company && (
-                  typeof testimonial.company === "string"
+                {testimonial.role &&
+                  (typeof testimonial.role === "string"
+                    ? testimonial.role
+                    : testimonial.role)}
+                {testimonial.company &&
+                  (typeof testimonial.company === "string"
                     ? ` at ${testimonial.company}`
-                    : testimonial.company
-                )}
+                    : testimonial.company)}
               </p>
             )}
           </div>

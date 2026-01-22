@@ -9,7 +9,11 @@ import { Badge } from "../../ui/badge";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 /**
  * Featured service configuration for hero cards display
@@ -153,7 +157,7 @@ export interface ServicesListHeroCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -208,7 +212,13 @@ export function ServicesListHeroCards({
     if (!featuredService) return null;
 
     return (
-      <div className={cn("group relative overflow-hidden rounded-2xl lg:row-span-2", featuredClassName, featuredService.className)}>
+      <div
+        className={cn(
+          "group relative overflow-hidden rounded-2xl lg:row-span-2",
+          featuredClassName,
+          featuredService.className,
+        )}
+      >
         {featuredService.image && (
           <Img
             src={featuredService.image.src}
@@ -219,27 +229,32 @@ export function ServicesListHeroCards({
         )}
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-8">
-          {featuredService.badge && (
-            typeof featuredService.badge === "string" ? (
+          {featuredService.badge &&
+            (typeof featuredService.badge === "string" ? (
               <Badge className="mb-4">{featuredService.badge}</Badge>
             ) : (
               <div className="mb-4">{featuredService.badge}</div>
-            )
-          )}
-          {featuredService.title && (
-            typeof featuredService.title === "string" ? (
-              <h3 className="text-2xl font-bold text-white md:text-3xl">{featuredService.title}</h3>
+            ))}
+          {featuredService.title &&
+            (typeof featuredService.title === "string" ? (
+              <h3 className="text-2xl font-bold text-white md:text-3xl">
+                {featuredService.title}
+              </h3>
             ) : (
-              <div className="text-2xl font-bold text-white md:text-3xl">{featuredService.title}</div>
-            )
-          )}
-          {featuredService.description && (
-            typeof featuredService.description === "string" ? (
-              <p className="mt-3 text-white/80">{featuredService.description}</p>
+              <div className="text-2xl font-bold text-white md:text-3xl">
+                {featuredService.title}
+              </div>
+            ))}
+          {featuredService.description &&
+            (typeof featuredService.description === "string" ? (
+              <p className="mt-3 text-white/80">
+                {featuredService.description}
+              </p>
             ) : (
-              <div className="mt-3 text-white/80">{featuredService.description}</div>
-            )
-          )}
+              <div className="mt-3 text-white/80">
+                {featuredService.description}
+              </div>
+            ))}
           {featuredService.ctaText && (
             <Pressable
               href={featuredService.ctaUrl}
@@ -268,7 +283,11 @@ export function ServicesListHeroCards({
             key={index}
             href={service.ctaUrl}
             onClick={service.ctaOnClick}
-            className={cn("group relative overflow-hidden rounded-xl", cardClassName, service.className)}
+            className={cn(
+              "group relative overflow-hidden rounded-xl",
+              cardClassName,
+              service.className,
+            )}
           >
             {service.image && (
               <Img
@@ -280,20 +299,24 @@ export function ServicesListHeroCards({
             )}
             <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-4">
-              {service.title && (
-                typeof service.title === "string" ? (
+              {service.title &&
+                (typeof service.title === "string" ? (
                   <h4 className="font-semibold text-white">{service.title}</h4>
                 ) : (
-                  <div className="font-semibold text-white">{service.title}</div>
-                )
-              )}
-              {service.description && (
-                typeof service.description === "string" ? (
-                  <p className="mt-1 text-xs text-white/70">{service.description}</p>
+                  <div className="font-semibold text-white">
+                    {service.title}
+                  </div>
+                ))}
+              {service.description &&
+                (typeof service.description === "string" ? (
+                  <p className="mt-1 text-xs text-white/70">
+                    {service.description}
+                  </p>
                 ) : (
-                  <div className="mt-1 text-xs text-white/70">{service.description}</div>
-                )
-              )}
+                  <div className="mt-1 text-xs text-white/70">
+                    {service.description}
+                  </div>
+                ))}
             </div>
           </Pressable>
         ))}
@@ -311,24 +334,32 @@ export function ServicesListHeroCards({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         <div className={cn("grid gap-8 lg:grid-cols-2", gridClassName)}>
           {renderFeatured()}

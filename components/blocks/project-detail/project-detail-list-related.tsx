@@ -7,7 +7,6 @@ import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   ImageItem,
@@ -15,6 +14,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailListRelatedProject {
   title: React.ReactNode;
@@ -51,7 +51,7 @@ export interface ProjectDetailListRelatedProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -76,7 +76,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailListRelated(
-  props: ProjectDetailListRelatedProps
+  props: ProjectDetailListRelatedProps,
 ): React.JSX.Element {
   const {
     title,
@@ -105,10 +105,20 @@ export function ProjectDetailListRelated(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -137,7 +147,10 @@ export function ProjectDetailListRelated(
           </motion.div>
         )}
 
-        <motion.header {...fadeInUp} className={cn("mb-16 max-w-3xl", headerClassName)}>
+        <motion.header
+          {...fadeInUp}
+          className={cn("mb-16 max-w-3xl", headerClassName)}
+        >
           <div className="flex flex-wrap items-center gap-3 mb-6 text-sm text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 font-medium text-foreground">
               {category}
@@ -146,30 +159,33 @@ export function ProjectDetailListRelated(
           </div>
 
           {typeof title === "string" ? (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}
 
-          {subtitle && (
-            typeof subtitle === "string" ? (
+          {subtitle &&
+            (typeof subtitle === "string" ? (
               <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
             ) : (
               <div className="mt-4">{subtitle}</div>
-            )
-          )}
+            ))}
 
-          {description && (
-            typeof description === "string" ? (
+          {description &&
+            (typeof description === "string" ? (
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
                 {description}
               </p>
             ) : (
               <div className="mt-6">{description}</div>
-            )
-          )}
+            ))}
         </motion.header>
 
         <motion.div
@@ -187,7 +203,7 @@ export function ProjectDetailListRelated(
               className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted"
             >
               <Img
-                src={image.src || imagePlaceholders[42 + index]}
+                src={image.src}
                 alt={image.alt || "Project image"}
                 className="h-full w-full object-cover"
                 optixFlowConfig={optixFlowConfig}
@@ -221,7 +237,7 @@ export function ProjectDetailListRelated(
                     >
                       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-muted">
                         <Img
-                          src={project.src || imagePlaceholders[46 + index]}
+                          src={project.src}
                           alt={project.alt || "Related project"}
                           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                           optixFlowConfig={optixFlowConfig}
@@ -245,7 +261,7 @@ export function ProjectDetailListRelated(
                     <div className="flex items-center gap-6 rounded-xl border border-border p-4">
                       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-muted">
                         <Img
-                          src={project.src || imagePlaceholders[46 + index]}
+                          src={project.src}
                           alt={project.alt || "Related project"}
                           className="h-full w-full object-cover"
                           optixFlowConfig={optixFlowConfig}

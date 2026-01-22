@@ -56,7 +56,7 @@ export interface TeamSimpleGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -153,7 +153,7 @@ export function TeamSimpleGrid({
         <Avatar
           className={cn(
             "mb-4 size-20 border md:mb-5 lg:size-24",
-            avatarClassName
+            avatarClassName,
           )}
         >
           <AvatarImage src={member.avatar} alt={member.name} />
@@ -170,7 +170,7 @@ export function TeamSimpleGrid({
         <p
           className={cn(
             "text-center text-muted-foreground",
-            memberRoleClassName
+            memberRoleClassName,
           )}
         >
           {member.role}
@@ -187,40 +187,43 @@ export function TeamSimpleGrid({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
       <div
         className={cn(
           "mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3",
-          gridClassName
+          gridClassName,
         )}
       >
         {renderMembers()}

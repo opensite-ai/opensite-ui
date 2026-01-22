@@ -78,7 +78,7 @@ export interface FaqProfileSidebarProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -212,7 +212,7 @@ export function FaqProfileSidebar({
             <AccordionTrigger
               className={cn(
                 "transition-opacity duration-200 hover:no-underline hover:opacity-60",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
@@ -241,7 +241,10 @@ export function FaqProfileSidebar({
           <Img
             src={profileImage}
             alt={typeof profileName === "string" ? profileName : "Profile"}
-            className={cn("size-16 rounded-full object-cover", profileImageClassName)}
+            className={cn(
+              "size-16 rounded-full object-cover",
+              profileImageClassName,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
           <div>
@@ -253,7 +256,12 @@ export function FaqProfileSidebar({
               <div className={profileNameClassName}>{profileName}</div>
             )}
             {typeof profileRole === "string" ? (
-              <p className={cn("text-muted-foreground text-sm", profileRoleClassName)}>
+              <p
+                className={cn(
+                  "text-muted-foreground text-sm",
+                  profileRoleClassName,
+                )}
+              >
                 {profileRole}
               </p>
             ) : (
@@ -262,11 +270,18 @@ export function FaqProfileSidebar({
           </div>
         </div>
         {typeof profileDescription === "string" ? (
-          <p className={cn("text-muted-foreground mt-4 text-sm", profileDescriptionClassName)}>
+          <p
+            className={cn(
+              "text-muted-foreground mt-4 text-sm",
+              profileDescriptionClassName,
+            )}
+          >
             {profileDescription}
           </p>
         ) : (
-          <div className={profileDescriptionClassName}>{profileDescription}</div>
+          <div className={profileDescriptionClassName}>
+            {profileDescription}
+          </div>
         )}
         {contactAction && (
           <div className={cn("mt-6 border-t pt-6", contactSectionClassName)}>
@@ -303,35 +318,38 @@ export function FaqProfileSidebar({
         <div
           className={cn(
             "flex flex-col gap-10 lg:flex-row lg:gap-16",
-            contentWrapperClassName
+            contentWrapperClassName,
           )}
         >
           <div className={cn("lg:w-1/3", sidebarClassName)}>
             <div className="sticky top-24 space-y-6">
               <div>
-                {heading && (
-                  typeof heading === "string" ? (
+                {heading &&
+                  (typeof heading === "string" ? (
                     <h2
                       className={cn(
                         "mb-3 text-3xl font-semibold md:mb-4 lg:text-4xl",
-                        headingClassName
+                        headingClassName,
                       )}
                     >
                       {heading}
                     </h2>
                   ) : (
                     <div className={headingClassName}>{heading}</div>
-                  )
-                )}
-                {description && (
-                  typeof description === "string" ? (
-                    <p className={cn("text-muted-foreground", descriptionClassName)}>
+                  ))}
+                {description &&
+                  (typeof description === "string" ? (
+                    <p
+                      className={cn(
+                        "text-muted-foreground",
+                        descriptionClassName,
+                      )}
+                    >
                       {description}
                     </p>
                   ) : (
                     <div className={descriptionClassName}>{description}</div>
-                  )
-                )}
+                  ))}
               </div>
               {renderProfileSection()}
             </div>

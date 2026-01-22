@@ -105,7 +105,7 @@ export interface IndustriesTimelineTableProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -176,7 +176,7 @@ export function IndustriesTimelineTable({
       <h2
         className={cn(
           "mb-8 text-3xl font-bold text-foreground lg:text-4xl",
-          headingClassName
+          headingClassName,
         )}
       >
         {heading}
@@ -194,7 +194,7 @@ export function IndustriesTimelineTable({
       <div
         className={cn(
           "grid grid-cols-2 gap-8 font-medium text-muted-foreground md:grid-cols-3",
-          headerClassName
+          headerClassName,
         )}
       >
         <div className="order-2 pl-10 text-sm md:order-1 lg:pl-10">

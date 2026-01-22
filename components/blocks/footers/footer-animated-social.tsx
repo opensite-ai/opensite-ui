@@ -7,6 +7,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * Social link configuration
@@ -69,7 +70,7 @@ export interface FooterAnimatedSocialProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
-  pattern?: string;
+  pattern?: PatternName;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
 }

@@ -9,13 +9,9 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { CarouselApi } from "../../ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectCarouselMinimalItem {
   id: number;
@@ -55,7 +51,7 @@ export interface ProjectCarouselMinimalProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -146,9 +142,7 @@ export function ProjectCarouselMinimal({
           </div>
           <div className="space-y-4">
             <div className="space-y-2">
-              <h2 className="text-2xl tracking-tight">
-                {project.title}
-              </h2>
+              <h2 className="text-2xl tracking-tight">{project.title}</h2>
               <p className="text-sm text-muted-foreground">
                 {project.location}
               </p>
@@ -171,15 +165,19 @@ export function ProjectCarouselMinimal({
     >
       <div className={cn("w-full", containerClassName)}>
         <div className={cn("mb-16 px-8", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-3xl font-medium tracking-tight lg:text-6xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-3xl font-medium tracking-tight lg:text-6xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
         </div>
         <div className="relative w-full">
           <Carousel
@@ -195,9 +193,7 @@ export function ProjectCarouselMinimal({
             }}
             className={cn("w-full", carouselClassName)}
           >
-            <CarouselContent>
-              {renderProjects()}
-            </CarouselContent>
+            <CarouselContent>{renderProjects()}</CarouselContent>
           </Carousel>
           <div className="pointer-events-none absolute inset-y-0 top-40 right-4 left-4 z-10 flex justify-between">
             <Pressable

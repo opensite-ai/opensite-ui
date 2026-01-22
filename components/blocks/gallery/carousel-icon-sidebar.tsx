@@ -115,7 +115,7 @@ export interface CarouselIconSidebarProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -198,22 +198,46 @@ export function CarouselIconSidebar({
     if (!activeItem) return null;
 
     return (
-      <div className={cn("flex h-full flex-col gap-8 rounded-lg bg-muted px-8 py-16", sidebarClassName)}>
-        <div className={cn("flex h-12 w-12 items-center justify-center rounded-lg bg-background shadow-lg ring-1 ring-gray-200", iconClassName)}>
+      <div
+        className={cn(
+          "flex h-full flex-col gap-8 rounded-lg bg-muted px-8 py-16",
+          sidebarClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "flex h-12 w-12 items-center justify-center rounded-lg bg-background shadow-lg ring-1 ring-gray-200",
+            iconClassName,
+          )}
+        >
           <DynamicIcon name={activeItem.icon} size={24} />
         </div>
         <div className="flex flex-col gap-4">
           {typeof activeItem.title === "string" ? (
-            <h2 className={cn("text-3xl font-medium", titleClassName)}>{activeItem.title}</h2>
+            <h2 className={cn("text-3xl font-medium", titleClassName)}>
+              {activeItem.title}
+            </h2>
           ) : (
-            <div className={cn("text-3xl font-medium", titleClassName)}>{activeItem.title}</div>
+            <div className={cn("text-3xl font-medium", titleClassName)}>
+              {activeItem.title}
+            </div>
           )}
           {typeof activeItem.description === "string" ? (
-            <p className={cn("mb-4 text-base text-muted-foreground", descriptionClassName)}>
+            <p
+              className={cn(
+                "mb-4 text-base text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {activeItem.description}
             </p>
           ) : (
-            <div className={cn("mb-4 text-base text-muted-foreground", descriptionClassName)}>
+            <div
+              className={cn(
+                "mb-4 text-base text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {activeItem.description}
             </div>
           )}
@@ -235,8 +259,15 @@ export function CarouselIconSidebar({
         <div className={cn("aspect-2/1 h-full w-full", image.className)}>
           <Img
             src={image.src}
-            alt={typeof image.title === "string" ? image.title : (image.alt || "Carousel image")}
-            className={cn("h-full w-full rounded-lg object-cover", imageClassName)}
+            alt={
+              typeof image.title === "string"
+                ? image.title
+                : image.alt || "Carousel image"
+            }
+            className={cn(
+              "h-full w-full rounded-lg object-cover",
+              imageClassName,
+            )}
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
           />
@@ -256,9 +287,7 @@ export function CarouselIconSidebar({
     >
       <Carousel setApi={setApi} className={cn("w-full", carouselClassName)}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-          <div className="md:col-span-2">
-            {renderSidebar()}
-          </div>
+          <div className="md:col-span-2">{renderSidebar()}</div>
 
           <div className="h-full md:col-span-3">
             <CarouselContent className={carouselContentClassName}>

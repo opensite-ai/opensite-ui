@@ -5,7 +5,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosCenteredSimpleLogoItem {
   /**
@@ -78,7 +82,7 @@ export interface LogosCenteredSimpleProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -120,7 +124,7 @@ export function LogosCenteredSimple({
         className={cn(
           "flex items-center justify-center opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0",
           logoWrapperClassName,
-          logo.className
+          logo.className,
         )}
       >
         <Img
@@ -145,27 +149,35 @@ export function LogosCenteredSimple({
     >
       {(title || subtitle) && (
         <div className={cn("mb-12 text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("mb-3 text-2xl font-semibold md:text-3xl", titleClassName)}>
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-2xl font-semibold md:text-3xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
               <p className={cn("text-muted-foreground", subtitleClassName)}>
                 {subtitle}
               </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
       )}
-      <div className={cn("flex flex-wrap items-center justify-center gap-x-12 gap-y-8", logosClassName)}>
+      <div
+        className={cn(
+          "flex flex-wrap items-center justify-center gap-x-12 gap-y-8",
+          logosClassName,
+        )}
+      >
         {renderLogos()}
       </div>
     </Section>

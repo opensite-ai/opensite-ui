@@ -112,7 +112,7 @@ export interface ProcessMissionPrinciplesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -163,25 +163,32 @@ export function ProcessMissionPrinciples({
     if (!principles || principles.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", principlesGridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+          principlesGridClassName,
+        )}
+      >
         {principles.map((principle, index) => (
           <div
             key={index}
             className={cn(
               "group relative rounded-lg border bg-card p-6 transition-shadow hover:shadow-md",
               principleCardClassName,
-              principle.className
+              principle.className,
             )}
           >
-            <span className={cn(
-              "absolute -top-3 -left-3 flex size-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground",
-              principleBadgeClassName
-            )}>
+            <span
+              className={cn(
+                "absolute -top-3 -left-3 flex size-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground",
+                principleBadgeClassName,
+              )}
+            >
               {principle.number ?? `0${index + 1}`}
             </span>
             <div className="pt-4">
-              {principle.title && (
-                typeof principle.title === "string" ? (
+              {principle.title &&
+                (typeof principle.title === "string" ? (
                   <h3 className="mb-3 text-xl font-semibold tracking-tight">
                     {principle.title}
                   </h3>
@@ -189,10 +196,9 @@ export function ProcessMissionPrinciples({
                   <div className="mb-3 text-xl font-semibold tracking-tight">
                     {principle.title}
                   </div>
-                )
-              )}
-              {principle.description && (
-                typeof principle.description === "string" ? (
+                ))}
+              {principle.description &&
+                (typeof principle.description === "string" ? (
                   <p className="text-foreground/50 leading-relaxed">
                     {principle.description}
                   </p>
@@ -200,8 +206,7 @@ export function ProcessMissionPrinciples({
                   <div className="text-foreground/50 leading-relaxed">
                     {principle.description}
                   </div>
-                )
-              )}
+                ))}
             </div>
           </div>
         ))}
@@ -219,45 +224,65 @@ export function ProcessMissionPrinciples({
     >
       <div className={contentClassName}>
         <div className={cn("mb-20 max-w-3xl", missionClassName)}>
-          {missionLabel && (
-            typeof missionLabel === "string" ? (
-              <span className={cn("mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary", missionLabelClassName)}>
+          {missionLabel &&
+            (typeof missionLabel === "string" ? (
+              <span
+                className={cn(
+                  "mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary",
+                  missionLabelClassName,
+                )}
+              >
                 {missionLabel}
               </span>
             ) : (
               <div className={missionLabelClassName}>{missionLabel}</div>
-            )
-          )}
-          {resolvedMissionHeading && (
-            typeof resolvedMissionHeading === "string" ? (
-              <h1 className={cn("mb-6 text-4xl font-semibold tracking-tight lg:text-5xl", missionHeadingClassName)}>
+            ))}
+          {resolvedMissionHeading &&
+            (typeof resolvedMissionHeading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-6 text-4xl font-semibold tracking-tight lg:text-5xl",
+                  missionHeadingClassName,
+                )}
+              >
                 {resolvedMissionHeading}
               </h1>
             ) : (
-              <div className={missionHeadingClassName}>{resolvedMissionHeading}</div>
-            )
-          )}
-          {missionDescription && (
-            typeof missionDescription === "string" ? (
-              <p className={cn("text-lg text-foreground/50 leading-relaxed", missionDescriptionClassName)}>
+              <div className={missionHeadingClassName}>
+                {resolvedMissionHeading}
+              </div>
+            ))}
+          {missionDescription &&
+            (typeof missionDescription === "string" ? (
+              <p
+                className={cn(
+                  "text-lg text-foreground/50 leading-relaxed",
+                  missionDescriptionClassName,
+                )}
+              >
                 {missionDescription}
               </p>
             ) : (
-              <div className={missionDescriptionClassName}>{missionDescription}</div>
-            )
-          )}
+              <div className={missionDescriptionClassName}>
+                {missionDescription}
+              </div>
+            ))}
         </div>
 
         <div className={principlesSectionClassName}>
-          {principlesLabel && (
-            typeof principlesLabel === "string" ? (
-              <span className={cn("mb-8 inline-block text-sm font-semibold uppercase tracking-wider text-primary", principlesLabelClassName)}>
+          {principlesLabel &&
+            (typeof principlesLabel === "string" ? (
+              <span
+                className={cn(
+                  "mb-8 inline-block text-sm font-semibold uppercase tracking-wider text-primary",
+                  principlesLabelClassName,
+                )}
+              >
                 {principlesLabel}
               </span>
             ) : (
               <div className={principlesLabelClassName}>{principlesLabel}</div>
-            )
-          )}
+            ))}
           {renderPrinciples()}
         </div>
       </div>

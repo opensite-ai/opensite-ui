@@ -83,7 +83,7 @@ export interface TestimonialsMiniDividersProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -116,8 +116,7 @@ const DEFAULT_TESTIMONIALS: MiniTestimonialItem[] = [
     rating: 5,
   },
   {
-    quote:
-      "The best investment we've made this year. ROI was immediate.",
+    quote: "The best investment we've made this year. ROI was immediate.",
     author: "David Kim",
     role: "CTO",
     avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
@@ -152,7 +151,7 @@ function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
           className={cn(
             star <= rating
               ? "fill-primary text-primary"
-              : "fill-muted text-muted"
+              : "fill-muted text-muted",
           )}
         />
       ))}
@@ -209,7 +208,9 @@ export function TestimonialsMiniDividers({
     return "";
   };
 
-  const getAvatarSrc = (testimonial: MiniTestimonialItem): string | undefined => {
+  const getAvatarSrc = (
+    testimonial: MiniTestimonialItem,
+  ): string | undefined => {
     return testimonial.avatarSrc || testimonial.avatar?.src;
   };
 
@@ -224,7 +225,12 @@ export function TestimonialsMiniDividers({
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
-      <div className={cn("grid divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3 lg:divide-x", gridClassName)}>
+      <div
+        className={cn(
+          "grid divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3 lg:divide-x",
+          gridClassName,
+        )}
+      >
         {testimonials.map((testimonial, index) => {
           const authorName = getAuthorName(testimonial);
           const avatarSrc = getAvatarSrc(testimonial);
@@ -235,50 +241,51 @@ export function TestimonialsMiniDividers({
                 "p-6",
                 index >= 2 && "lg:border-t-0",
                 index >= 3 && "sm:border-t lg:border-t-0",
-                itemClassName
+                itemClassName,
               )}
             >
-              {testimonial.rating && (
-                <StarRating rating={testimonial.rating} />
-              )}
-              {testimonial.quote && (
-                typeof testimonial.quote === "string" ? (
-                  <p className={cn("mt-3 text-sm leading-relaxed", quoteClassName)}>
+              {testimonial.rating && <StarRating rating={testimonial.rating} />}
+              {testimonial.quote &&
+                (typeof testimonial.quote === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-3 text-sm leading-relaxed",
+                      quoteClassName,
+                    )}
+                  >
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 ) : (
-                  <div className={cn("mt-3", quoteClassName)}>{testimonial.quote}</div>
-                )
-              )}
-              <div className={cn("mt-4 flex items-center gap-3", authorClassName)}>
+                  <div className={cn("mt-3", quoteClassName)}>
+                    {testimonial.quote}
+                  </div>
+                ))}
+              <div
+                className={cn("mt-4 flex items-center gap-3", authorClassName)}
+              >
                 <Avatar className="size-8">
-                  <AvatarImage
-                    src={avatarSrc}
-                    alt={authorName}
-                  />
+                  <AvatarImage src={avatarSrc} alt={authorName} />
                   <AvatarFallback className="text-xs">
                     {getInitials(authorName)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  {testimonial.author && (
-                    typeof testimonial.author === "string" ? (
+                  {testimonial.author &&
+                    (typeof testimonial.author === "string" ? (
                       <p className="text-sm font-medium">
                         {testimonial.author}
                       </p>
                     ) : (
                       testimonial.author
-                    )
-                  )}
-                  {testimonial.role && (
-                    typeof testimonial.role === "string" ? (
+                    ))}
+                  {testimonial.role &&
+                    (typeof testimonial.role === "string" ? (
                       <p className="text-xs text-muted-foreground">
                         {testimonial.role}
                       </p>
                     ) : (
                       testimonial.role
-                    )
-                  )}
+                    ))}
                 </div>
               </div>
             </div>
@@ -296,25 +303,37 @@ export function TestimonialsMiniDividers({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

@@ -5,8 +5,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectHoverRevealGridItem {
   src: string;
@@ -39,7 +39,7 @@ export interface ProjectHoverRevealGridProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -91,7 +91,10 @@ export function ProjectHoverRevealGrid({
     return images.map((image, index) => (
       <div
         key={index}
-        className={cn("group relative aspect-square overflow-hidden", cardClassName)}
+        className={cn(
+          "group relative aspect-square overflow-hidden",
+          cardClassName,
+        )}
       >
         <Img
           src={image.src}

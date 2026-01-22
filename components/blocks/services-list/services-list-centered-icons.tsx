@@ -97,7 +97,7 @@ export interface ServicesListCenteredIconsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -142,7 +142,8 @@ export function ServicesListCenteredIcons({
 }: ServicesListCenteredIconsProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListCenteredIconsService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-8 w-8" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-8 w-8" />;
     return null;
   };
 
@@ -151,42 +152,61 @@ export function ServicesListCenteredIcons({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
         {services.map((service, index) => (
-          <div key={index} className={cn("group space-y-6 text-center", cardClassName, service.className)}>
-            <div className={cn(
-              "mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-muted transition-colors group-hover:bg-foreground group-hover:text-background",
-              iconClassName
-            )}>
+          <div
+            key={index}
+            className={cn(
+              "group space-y-6 text-center",
+              cardClassName,
+              service.className,
+            )}
+          >
+            <div
+              className={cn(
+                "mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-muted transition-colors group-hover:bg-foreground group-hover:text-background",
+                iconClassName,
+              )}
+            >
               {renderServiceIcon(service)}
             </div>
             <div className="space-y-3">
-              {service.title && (
-                typeof service.title === "string" ? (
+              {service.title &&
+                (typeof service.title === "string" ? (
                   <h3 className="text-lg font-semibold">{service.title}</h3>
                 ) : (
                   <div className="text-lg font-semibold">{service.title}</div>
-                )
-              )}
-              {service.description && (
-                typeof service.description === "string" ? (
-                  <p className="text-sm leading-relaxed text-muted-foreground">{service.description}</p>
+                ))}
+              {service.description &&
+                (typeof service.description === "string" ? (
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {service.description}
+                  </p>
                 ) : (
-                  <div className="text-sm leading-relaxed text-muted-foreground">{service.description}</div>
-                )
-              )}
+                  <div className="text-sm leading-relaxed text-muted-foreground">
+                    {service.description}
+                  </div>
+                ))}
             </div>
             {service.items && service.items.length > 0 && (
               <div className="space-y-2">
-                {service.items.map((item, itemIndex) => (
+                {service.items.map((item, itemIndex) =>
                   typeof item === "string" ? (
-                    <div key={itemIndex} className="text-xs font-medium text-muted-foreground">
+                    <div
+                      key={itemIndex}
+                      className="text-xs font-medium text-muted-foreground"
+                    >
                       {item}
                     </div>
                   ) : (
                     <div key={itemIndex}>{item}</div>
-                  )
-                ))}
+                  ),
+                )}
               </div>
             )}
           </div>
@@ -205,24 +225,32 @@ export function ServicesListCenteredIcons({
     >
       <div className={cn("mx-auto max-w-6xl space-y-16", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

@@ -7,14 +7,14 @@ import type {
   ISubpageItem,
   ITechnologyItem,
   IProductCategory,
-  IProduct,
+  IProductItem,
   IFeatureCategory,
-  IFeature,
+  IFeatureItem,
   IRegionItem,
   IPartnerCard,
   IResourceItem,
   ITopicGroup,
-  ITopic,
+  ITopicItem,
   IFeaturedHeroCard,
 } from "../navbar-enterprise-mega";
 
@@ -51,8 +51,8 @@ describe("NavbarEnterpriseMega", () => {
 
   it("renders simple menu links without dropdown", () => {
     const menuLinks: IMenuLink[] = [
-      { title: "About", url: "/about" },
-      { title: "Contact", url: "/contact" },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
     ];
 
     render(<NavbarEnterpriseMega logo={mockLogo} menuLinks={menuLinks} />);
@@ -77,12 +77,12 @@ describe("NavbarEnterpriseMega", () => {
     ];
 
     const platformItems: ITechnologyItem[] = [
-      { id: "tech1", name: "React", icon: "lucide/code", description: "UI Framework" },
+      { id: "tech1", title: "React", icon: "lucide/code", href: "/react" },
     ];
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Solutions",
+        label: "Solutions",
         layout: "solutions-with-platform",
         solutionCards,
         platformItems,
@@ -94,12 +94,12 @@ describe("NavbarEnterpriseMega", () => {
   });
 
   it("renders products-categorized layout", () => {
-    const products: IProduct[] = [
-      { id: "p1", title: "Product A", href: "/product-a", description: "First product" },
+    const products: IProductItem[] = [
+      { id: "p1", title: "Product A", href: "/product-a", description: "First product", image: "/product.jpg" },
     ];
 
     const productCategories: IProductCategory[] = [
-      { id: "cat1", title: "Category 1", products },
+      { title: "Category 1", products },
     ];
 
     const featuredHeroCard: IFeaturedHeroCard = {
@@ -111,7 +111,7 @@ describe("NavbarEnterpriseMega", () => {
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Products",
+        label: "Products",
         layout: "products-categorized",
         productCategories,
         featuredHeroCard,
@@ -123,21 +123,21 @@ describe("NavbarEnterpriseMega", () => {
   });
 
   it("renders features-with-locations layout", () => {
-    const features: IFeature[] = [
-      { id: "f1", title: "Feature 1", href: "/feature-1", icon: "lucide/zap" },
+    const features: IFeatureItem[] = [
+      { id: "f1", title: "Feature 1", href: "/feature-1", icon: "lucide/zap", description: "Feature description" },
     ];
 
     const featureCategories: IFeatureCategory[] = [
-      { id: "fc1", title: "Core Features", features },
+      { title: "Core Features", features },
     ];
 
     const regions: IRegionItem[] = [
-      { id: "r1", name: "North America", href: "/na", icon: "lucide/map-pin" },
+      { title: "North America", locations: [{ title: "USA", href: "/usa", icon: "🇺🇸" }] },
     ];
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Company",
+        label: "Company",
         layout: "features-with-locations",
         featureCategories,
         regions,
@@ -174,7 +174,7 @@ describe("NavbarEnterpriseMega", () => {
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Partners",
+        label: "Partners",
         layout: "partners-promotional",
         partnerCards,
         featuredHeroCard,
@@ -203,7 +203,7 @@ describe("NavbarEnterpriseMega", () => {
       },
     ];
 
-    const topics: ITopic[] = [
+    const topics: ITopicItem[] = [
       { id: "t1", title: "Getting Started", href: "/getting-started", icon: "lucide/play" },
       { id: "t2", title: "Best Practices", href: "/best-practices", icon: "lucide/star" },
     ];
@@ -214,7 +214,7 @@ describe("NavbarEnterpriseMega", () => {
 
     const menuLinks: IMenuLink[] = [
       {
-        title: "Resources",
+        label: "Resources",
         layout: "resources-with-topics",
         resourceItems,
         topicGroups,
@@ -227,21 +227,20 @@ describe("NavbarEnterpriseMega", () => {
 
   it("renders mixed menu links with and without dropdowns", () => {
     const menuLinks: IMenuLink[] = [
-      { title: "About", url: "/about" },
+      { label: "About", href: "/about" },
       {
-        title: "Products",
+        label: "Products",
         layout: "products-categorized",
         productCategories: [
           {
-            id: "cat1",
             title: "Category 1",
             products: [
-              { id: "p1", title: "Product A", href: "/product-a", description: "First product" },
+              { id: "p1", title: "Product A", href: "/product-a", description: "First product", image: "/product.jpg" },
             ],
           },
         ],
       },
-      { title: "Contact", url: "/contact" },
+      { label: "Contact", href: "/contact" },
     ];
 
     render(<NavbarEnterpriseMega logo={mockLogo} menuLinks={menuLinks} />);
@@ -272,7 +271,7 @@ describe("NavbarEnterpriseMega", () => {
   it("renders all 5 layout types in one navbar", () => {
     const menuLinks: IMenuLink[] = [
       {
-        title: "Solutions",
+        label: "Solutions",
         layout: "solutions-with-platform",
         solutionCards: [
           {
@@ -286,40 +285,38 @@ describe("NavbarEnterpriseMega", () => {
           },
         ],
         platformItems: [
-          { id: "t1", name: "React", icon: "lucide/code", description: "UI Framework" },
+          { id: "t1", title: "React", icon: "lucide/code", href: "/react" },
         ],
       },
       {
-        title: "Products",
+        label: "Products",
         layout: "products-categorized",
         productCategories: [
           {
-            id: "cat1",
             title: "Category 1",
             products: [
-              { id: "p1", title: "Product A", href: "/product-a", description: "First product" },
+              { id: "p1", title: "Product A", href: "/product-a", description: "First product", image: "/product.jpg" },
             ],
           },
         ],
       },
       {
-        title: "Company",
+        label: "Company",
         layout: "features-with-locations",
         featureCategories: [
           {
-            id: "fc1",
             title: "Features",
             features: [
-              { id: "f1", title: "Feature 1", href: "/feature-1", icon: "lucide/zap" },
+              { id: "f1", title: "Feature 1", href: "/feature-1", icon: "lucide/zap", description: "Feature description" },
             ],
           },
         ],
         regions: [
-          { id: "r1", name: "North America", href: "/na", icon: "lucide/map-pin" },
+          { title: "North America", locations: [{ title: "USA", href: "/usa", icon: "🇺🇸" }] },
         ],
       },
       {
-        title: "Partners",
+        label: "Partners",
         layout: "partners-promotional",
         partnerCards: [
           {
@@ -331,7 +328,7 @@ describe("NavbarEnterpriseMega", () => {
         ],
       },
       {
-        title: "Resources",
+        label: "Resources",
         layout: "resources-with-topics",
         resourceItems: [
           {

@@ -7,7 +7,12 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosCertificationsGridLogoItem {
   /**
@@ -96,7 +101,7 @@ export interface LogosCertificationsGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -161,13 +166,16 @@ export function LogosCertificationsGrid({
         key={logo.id}
         className={cn(
           "-mb-px flex items-center justify-center border-r border-b border-border p-5 nth-[3n]:border-r-0 sm:p-6",
-          logoWrapperClassName
+          logoWrapperClassName,
         )}
       >
         <Img
           src={logo.image}
           alt={logo.description}
-          className={cn("size-12 object-cover object-center sm:size-16 lg:size-24", logo.imgClassName)}
+          className={cn(
+            "size-12 object-cover object-center sm:size-16 lg:size-24",
+            logo.imgClassName,
+          )}
           optixFlowConfig={optixFlowConfig}
         />
       </div>
@@ -182,33 +190,49 @@ export function LogosCertificationsGrid({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("grid overflow-hidden rounded-xl border border-border md:grid-cols-2", gridClassName)}>
-        <div className={cn("my-auto px-6 py-10 sm:px-10 sm:py-12 lg:p-16", contentClassName)}>
+      <div
+        className={cn(
+          "grid overflow-hidden rounded-xl border border-border md:grid-cols-2",
+          gridClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "my-auto px-6 py-10 sm:px-10 sm:py-12 lg:p-16",
+            contentClassName,
+          )}
+        >
           <div className="w-full md:max-w-md">
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("mb-4 text-2xl font-semibold lg:text-3xl", titleClassName)}>
+            {title &&
+              (typeof title === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-2xl font-semibold lg:text-3xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h2>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
+              ))}
+            {description &&
+              (typeof description === "string" ? (
                 <p className={cn("mb-6 text-lg", descriptionClassName)}>
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-            <div className={actionsClassName}>
-              {renderActions()}
-            </div>
+              ))}
+            <div className={actionsClassName}>{renderActions()}</div>
           </div>
         </div>
-        <div className={cn("grid grid-cols-3 border-t border-border md:border-t-0 md:border-l", logosClassName)}>
+        <div
+          className={cn(
+            "grid grid-cols-3 border-t border-border md:border-t-0 md:border-l",
+            logosClassName,
+          )}
+        >
           {renderLogos()}
         </div>
       </div>

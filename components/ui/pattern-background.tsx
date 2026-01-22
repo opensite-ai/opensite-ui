@@ -235,13 +235,23 @@ const inlinePatternStyles = {
   },
 };
 
+/**
+ * Specific type for pattern overlay names
+ * Use this type for components that want to restrict patterns to the predefined overlay options
+ */
+export type PatternOverlayName = keyof typeof patternOverlays;
+
+/**
+ * General pattern name type that includes all pattern types
+ * Includes pattern overlays, SVG patterns, and inline pattern styles
+ */
 export type PatternName =
   | keyof typeof patternSvgs
   | keyof typeof patternOverlays
   | keyof typeof inlinePatternStyles;
 
 interface PatternBackgroundProps {
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   opacity?: number;
   className?: string;
   style?: React.CSSProperties;

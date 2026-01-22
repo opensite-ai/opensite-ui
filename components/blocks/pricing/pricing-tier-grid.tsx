@@ -126,7 +126,7 @@ export interface PricingTierGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -266,9 +266,10 @@ export function PricingTierGrid({
     return (
       <ul className={cn("mt-6 space-y-3", featuresClassName)}>
         {tier.features.map((feature, index) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={16}
@@ -276,22 +277,31 @@ export function PricingTierGrid({
                   "mt-0.5 shrink-0",
                   isFeatured ? "text-primary-foreground" : "text-primary",
                   featureIconClassName,
-                  feature.iconClassName
+                  feature.iconClassName,
                 )}
               />
             ) : null);
 
           return (
-            <li key={index} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={index}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
+              {feature.text &&
+                (typeof feature.text === "string" ? (
                   <span
                     className={cn(
                       "text-sm",
-                      isFeatured ? "text-primary-foreground/90" : "text-muted-foreground",
+                      isFeatured
+                        ? "text-primary-foreground/90"
+                        : "text-muted-foreground",
                       featureTextClassName,
-                      feature.textClassName
+                      feature.textClassName,
                     )}
                   >
                     {feature.text}
@@ -300,15 +310,16 @@ export function PricingTierGrid({
                   <div
                     className={cn(
                       "text-sm",
-                      isFeatured ? "text-primary-foreground/90" : "text-muted-foreground",
+                      isFeatured
+                        ? "text-primary-foreground/90"
+                        : "text-muted-foreground",
                       featureTextClassName,
-                      feature.textClassName
+                      feature.textClassName,
                     )}
                   >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -320,7 +331,14 @@ export function PricingTierGrid({
     if (tier.actionSlot) return tier.actionSlot;
     if (!tier.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = tier.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = tier.action;
 
     return (
       <Pressable
@@ -331,7 +349,7 @@ export function PricingTierGrid({
             ? "border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
             : null,
           actionClassName,
-          actionItemClassName
+          actionItemClassName,
         )}
         {...pressableProps}
       >
@@ -351,7 +369,12 @@ export function PricingTierGrid({
     if (!tiers || tiers.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
         {tiers.map((tier, index) => {
           const isFeatured = Boolean(tier.isFeatured);
 
@@ -363,55 +386,60 @@ export function PricingTierGrid({
                 tier.backgroundClassName,
                 cardClassName,
                 isFeatured ? featuredCardClassName : null,
-                tier.className
+                tier.className,
               )}
             >
               <div className="mb-4">
-                {tier.comparison && (
-                  typeof tier.comparison === "string" ? (
+                {tier.comparison &&
+                  (typeof tier.comparison === "string" ? (
                     <span
                       className={cn(
                         "text-xs font-medium uppercase tracking-wide",
-                        isFeatured ? "text-primary-foreground/70" : "text-muted-foreground",
-                        comparisonClassName
+                        isFeatured
+                          ? "text-primary-foreground/70"
+                          : "text-muted-foreground",
+                        comparisonClassName,
                       )}
                     >
                       {tier.comparison}
                     </span>
                   ) : (
                     <div className={comparisonClassName}>{tier.comparison}</div>
-                  )
-                )}
-                {tier.name && (
-                  typeof tier.name === "string" ? (
+                  ))}
+                {tier.name &&
+                  (typeof tier.name === "string" ? (
                     <h3
                       className={cn(
                         "mt-2 text-xl font-semibold",
-                        isFeatured ? "text-primary-foreground" : "text-foreground",
-                        tierNameClassName
+                        isFeatured
+                          ? "text-primary-foreground"
+                          : "text-foreground",
+                        tierNameClassName,
                       )}
                     >
                       {tier.name}
                     </h3>
                   ) : (
                     <div className={tierNameClassName}>{tier.name}</div>
-                  )
-                )}
-                {tier.description && (
-                  typeof tier.description === "string" ? (
+                  ))}
+                {tier.description &&
+                  (typeof tier.description === "string" ? (
                     <p
                       className={cn(
                         "mt-1 text-sm",
-                        isFeatured ? "text-primary-foreground/80" : "text-muted-foreground",
-                        tierDescriptionClassName
+                        isFeatured
+                          ? "text-primary-foreground/80"
+                          : "text-muted-foreground",
+                        tierDescriptionClassName,
                       )}
                     >
                       {tier.description}
                     </p>
                   ) : (
-                    <div className={tierDescriptionClassName}>{tier.description}</div>
-                  )
-                )}
+                    <div className={tierDescriptionClassName}>
+                      {tier.description}
+                    </div>
+                  ))}
               </div>
 
               <div className="mb-6">
@@ -419,8 +447,10 @@ export function PricingTierGrid({
                   <span
                     className={cn(
                       "text-4xl font-bold",
-                      isFeatured ? "text-primary-foreground" : "text-foreground",
-                      priceClassName
+                      isFeatured
+                        ? "text-primary-foreground"
+                        : "text-foreground",
+                      priceClassName,
                     )}
                   >
                     {tier.price}
@@ -430,8 +460,10 @@ export function PricingTierGrid({
                   <span
                     className={cn(
                       "text-sm",
-                      isFeatured ? "text-primary-foreground/70" : "text-muted-foreground",
-                      intervalClassName
+                      isFeatured
+                        ? "text-primary-foreground/70"
+                        : "text-muted-foreground",
+                      intervalClassName,
                     )}
                   >
                     {tier.interval}
@@ -458,23 +490,35 @@ export function PricingTierGrid({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         {renderTiers()}

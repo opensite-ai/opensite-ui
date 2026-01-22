@@ -158,7 +158,7 @@ export interface PricingTogglePeriodProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -313,9 +313,12 @@ export function PricingTogglePeriod({
     return periods[0]?.id;
   }, [defaultPeriodId, periods]);
 
-  const [billingPeriod, setBillingPeriod] = useState<string | undefined>(fallbackPeriodId);
+  const [billingPeriod, setBillingPeriod] = useState<string | undefined>(
+    fallbackPeriodId,
+  );
 
-  const activePeriod = periods.find((period) => period.id === billingPeriod) ?? periods[0];
+  const activePeriod =
+    periods.find((period) => period.id === billingPeriod) ?? periods[0];
 
   const renderFeatures = (plan: PricingTogglePeriodPlan) => {
     if (plan.featuresSlot) return plan.featuresSlot;
@@ -324,30 +327,53 @@ export function PricingTogglePeriod({
     return (
       <ul className={cn("mb-8 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -359,12 +385,23 @@ export function PricingTogglePeriod({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -383,9 +420,15 @@ export function PricingTogglePeriod({
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("mx-auto grid max-w-4xl gap-8 md:grid-cols-2", gridClassName)}>
+      <div
+        className={cn(
+          "mx-auto grid max-w-4xl gap-8 md:grid-cols-2",
+          gridClassName,
+        )}
+      >
         {plans.map((plan, index) => {
-          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+          const badgeContent =
+            plan.badge ?? (plan.isPopular ? popularBadge : null);
           const resolvedPrice = billingPeriod
             ? plan.prices?.[billingPeriod]
             : undefined;
@@ -399,14 +442,14 @@ export function PricingTogglePeriod({
                 plan.isPopular ? "border-primary shadow-lg" : "border-border",
                 cardClassName,
                 plan.isPopular ? popularCardClassName : null,
-                plan.className
+                plan.className,
               )}
             >
               {badgeContent && (
                 <span
                   className={cn(
                     "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground",
-                    badgeClassName
+                    badgeClassName,
                   )}
                 >
                   {badgeContent}
@@ -414,22 +457,34 @@ export function PricingTogglePeriod({
               )}
 
               <div className="mb-4">
-                {plan.name && (
-                  typeof plan.name === "string" ? (
-                    <h3 className={cn("text-xl font-semibold", planTitleClassName)}>{plan.name}</h3>
+                {plan.name &&
+                  (typeof plan.name === "string" ? (
+                    <h3
+                      className={cn(
+                        "text-xl font-semibold",
+                        planTitleClassName,
+                      )}
+                    >
+                      {plan.name}
+                    </h3>
                   ) : (
                     <div className={planTitleClassName}>{plan.name}</div>
-                  )
-                )}
-                {plan.description && (
-                  typeof plan.description === "string" ? (
-                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                  ))}
+                {plan.description &&
+                  (typeof plan.description === "string" ? (
+                    <p
+                      className={cn(
+                        "mt-1 text-sm text-muted-foreground",
+                        planDescriptionClassName,
+                      )}
+                    >
                       {plan.description}
                     </p>
                   ) : (
-                    <div className={planDescriptionClassName}>{plan.description}</div>
-                  )
-                )}
+                    <div className={planDescriptionClassName}>
+                      {plan.description}
+                    </div>
+                  ))}
               </div>
 
               <div className="mb-6">
@@ -437,7 +492,12 @@ export function PricingTogglePeriod({
                   {resolvedPrice ?? fallbackPrice}
                 </span>
                 {activePeriod?.priceSuffix && (
-                  <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      priceIntervalClassName,
+                    )}
+                  >
                     {activePeriod.priceSuffix}
                   </span>
                 )}
@@ -462,26 +522,43 @@ export function PricingTogglePeriod({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
 
           {periods.length > 0 && (
-            <div className={cn("mt-8 flex items-center justify-center", toggleClassName)}>
+            <div
+              className={cn(
+                "mt-8 flex items-center justify-center",
+                toggleClassName,
+              )}
+            >
               <div className="inline-flex rounded-lg border p-1">
                 {periods.map((period) => {
                   const isActive = period.id === billingPeriod;
@@ -496,12 +573,17 @@ export function PricingTogglePeriod({
                           : "text-muted-foreground hover:text-foreground",
                         toggleButtonClassName,
                         isActive ? toggleButtonActiveClassName : null,
-                        period.className
+                        period.className,
                       )}
                     >
                       {period.label}
                       {period.badge && (
-                        <span className={cn("ml-1.5 rounded-full bg-accent px-2 py-0.5 text-xs text-accent-foreground", period.badgeClassName)}>
+                        <span
+                          className={cn(
+                            "ml-1.5 rounded-full bg-accent px-2 py-0.5 text-xs text-accent-foreground",
+                            period.badgeClassName,
+                          )}
+                        >
                           {period.badge}
                         </span>
                       )}

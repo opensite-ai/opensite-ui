@@ -9,7 +9,12 @@ import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutNetworkSpotlightProps {
   /**
@@ -107,7 +112,7 @@ export interface AboutNetworkSpotlightProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -174,13 +179,16 @@ export function AboutNetworkSpotlight({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
-        <Pressable
-          key={index}
-          className={actionClassName}
-          {...pressableProps}
-        >
+        <Pressable key={index} className={actionClassName} {...pressableProps}>
           {children ?? (
             <>
               {icon}
@@ -198,7 +206,12 @@ export function AboutNetworkSpotlight({
     if (!spotlightCard) return null;
 
     return (
-      <div className={cn("rounded-2xl border border-primary/40 bg-black/80 p-5 backdrop-blur-sm", spotlightCardClassName)}>
+      <div
+        className={cn(
+          "rounded-2xl border border-primary/40 bg-black/80 p-5 backdrop-blur-sm",
+          spotlightCardClassName,
+        )}
+      >
         <div className="mb-2 flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
             {spotlightCard.icon}
@@ -221,9 +234,7 @@ export function AboutNetworkSpotlight({
           </div>
         </div>
         {typeof spotlightCard.description === "string" ? (
-          <p className="text-sm text-white/80">
-            {spotlightCard.description}
-          </p>
+          <p className="text-sm text-white/80">{spotlightCard.description}</p>
         ) : (
           spotlightCard.description
         )}
@@ -239,66 +250,88 @@ export function AboutNetworkSpotlight({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-        <div className={cn("grid grid-cols-1 items-center gap-12 lg:grid-cols-2", contentClassName)}>
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
-              <Img
-                src={image.src}
-                alt={image.alt}
-                className={cn("h-full w-full object-cover", imageClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-              <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
-                {renderSpotlightCard()}
-              </div>
+      <div
+        className={cn(
+          "grid grid-cols-1 items-center gap-12 lg:grid-cols-2",
+          contentClassName,
+        )}
+      >
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+            <Img
+              src={image.src}
+              alt={image.alt}
+              className={cn("h-full w-full object-cover", imageClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+            <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              {renderSpotlightCard()}
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-          >
-            {eyebrow && (
-              typeof eyebrow === "string" ? (
-                <p className={cn("text-sm font-semibold uppercase tracking-[0.2em] text-primary", eyebrowClassName)}>
-                  {eyebrow}
-                </p>
-              ) : (
-                <div className={eyebrowClassName}>{eyebrow}</div>
-              )
-            )}
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("mt-2 text-3xl font-bold text-white md:text-4xl", headingClassName)}>
-                  {heading}
-                </h2>
-              ) : (
-                <div className={cn("mt-2", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-4 text-lg text-white/80", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-              )
-            )}
-            {(highlightsSlot || (highlights && highlights.length > 0)) && renderHighlights()}
-            {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
-                {renderActions()}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
+          {eyebrow &&
+            (typeof eyebrow === "string" ? (
+              <p
+                className={cn(
+                  "text-sm font-semibold uppercase tracking-[0.2em] text-primary",
+                  eyebrowClassName,
+                )}
+              >
+                {eyebrow}
+              </p>
+            ) : (
+              <div className={eyebrowClassName}>{eyebrow}</div>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mt-2 text-3xl font-bold text-white md:text-4xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mt-2", headingClassName)}>{heading}</div>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-white/80",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mt-4", descriptionClassName)}>
+                {description}
               </div>
-            )}
-          </motion.div>
-        </div>
+            ))}
+          {(highlightsSlot || (highlights && highlights.length > 0)) &&
+            renderHighlights()}
+          {(actionsSlot || (actions && actions.length > 0)) && (
+            <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
+              {renderActions()}
+            </div>
+          )}
+        </motion.div>
+      </div>
     </Section>
   );
 }

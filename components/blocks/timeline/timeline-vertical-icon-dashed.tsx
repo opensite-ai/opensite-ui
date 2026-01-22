@@ -61,7 +61,7 @@ export interface TimelineVerticalIconDashedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -134,15 +134,32 @@ export function TimelineVerticalIconDashed({
       style={style}
     >
       <div className={containerClassName}>
-        <div className={cn("mx-auto flex flex-col items-center justify-center text-center sm:max-w-xl", stepsClassName)}>
+        <div
+          className={cn(
+            "mx-auto flex flex-col items-center justify-center text-center sm:max-w-xl",
+            stepsClassName,
+          )}
+        >
           {steps.map((step, index) => (
             <React.Fragment key={index}>
               <div className={cn("flex flex-col items-center", stepClassName)}>
-                <span className={cn("flex size-24 items-center justify-center rounded-full border-2 border-foreground", iconClassName)}>
+                <span
+                  className={cn(
+                    "flex size-24 items-center justify-center rounded-full border-2 border-foreground",
+                    iconClassName,
+                  )}
+                >
                   <DynamicIcon name={step.icon} size={32} />
                 </span>
-                <h2 className={cn("my-2 text-3xl font-medium", titleClassName)}>{step.title}</h2>
-                <p className={cn("font-mono text-muted-foreground", descriptionClassName)}>
+                <h2 className={cn("my-2 text-3xl font-medium", titleClassName)}>
+                  {step.title}
+                </h2>
+                <p
+                  className={cn(
+                    "font-mono text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {step.description}
                 </p>
               </div>

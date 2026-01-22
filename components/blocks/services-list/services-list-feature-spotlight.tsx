@@ -112,7 +112,7 @@ export interface ServicesListFeatureSpotlightProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -164,7 +164,8 @@ export function ServicesListFeatureSpotlight({
 }: ServicesListFeatureSpotlightProps): React.JSX.Element {
   const renderFeatureIcon = (feature: ServicesListFeatureSpotlightItem) => {
     if (feature.icon) return feature.icon;
-    if (feature.iconName) return <DynamicIcon name={feature.iconName} size={24} />;
+    if (feature.iconName)
+      return <DynamicIcon name={feature.iconName} size={24} />;
     return null;
   };
 
@@ -179,7 +180,10 @@ export function ServicesListFeatureSpotlight({
           return (
             <motion.div
               key={feature.id || `feature-${idx}`}
-              className={cn("grid grid-cols-1 items-center gap-8 lg:grid-cols-2", feature.className)}
+              className={cn(
+                "grid grid-cols-1 items-center gap-8 lg:grid-cols-2",
+                feature.className,
+              )}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -203,7 +207,7 @@ export function ServicesListFeatureSpotlight({
                 className={cn(
                   "border-border/60 shadow-lg",
                   imageFirst ? "order-2" : "order-1 lg:order-2",
-                  cardClassName
+                  cardClassName,
                 )}
               >
                 <div className="space-y-4">
@@ -212,29 +216,38 @@ export function ServicesListFeatureSpotlight({
                       {renderFeatureIcon(feature)}
                     </div>
                     <div>
-                      {feature.eyebrow && (
-                        typeof feature.eyebrow === "string" ? (
-                          <p className="text-xs uppercase tracking-[0.2em] text-primary">{feature.eyebrow}</p>
+                      {feature.eyebrow &&
+                        (typeof feature.eyebrow === "string" ? (
+                          <p className="text-xs uppercase tracking-[0.2em] text-primary">
+                            {feature.eyebrow}
+                          </p>
                         ) : (
-                          <div className="text-xs uppercase tracking-[0.2em] text-primary">{feature.eyebrow}</div>
-                        )
-                      )}
-                      {feature.title && (
-                        typeof feature.title === "string" ? (
-                          <h3 className="mt-1 text-2xl font-bold text-foreground">{feature.title}</h3>
+                          <div className="text-xs uppercase tracking-[0.2em] text-primary">
+                            {feature.eyebrow}
+                          </div>
+                        ))}
+                      {feature.title &&
+                        (typeof feature.title === "string" ? (
+                          <h3 className="mt-1 text-2xl font-bold text-foreground">
+                            {feature.title}
+                          </h3>
                         ) : (
-                          <div className="mt-1 text-2xl font-bold text-foreground">{feature.title}</div>
-                        )
-                      )}
+                          <div className="mt-1 text-2xl font-bold text-foreground">
+                            {feature.title}
+                          </div>
+                        ))}
                     </div>
                   </div>
-                  {feature.description && (
-                    typeof feature.description === "string" ? (
-                      <p className="text-muted-foreground">{feature.description}</p>
+                  {feature.description &&
+                    (typeof feature.description === "string" ? (
+                      <p className="text-muted-foreground">
+                        {feature.description}
+                      </p>
                     ) : (
-                      <div className="text-muted-foreground">{feature.description}</div>
-                    )
-                  )}
+                      <div className="text-muted-foreground">
+                        {feature.description}
+                      </div>
+                    ))}
                   {feature.badges && (
                     <div className="flex flex-wrap gap-2">
                       <span className="rounded-full bg-muted/60 px-3 py-1 text-xs text-foreground">
@@ -264,24 +277,32 @@ export function ServicesListFeatureSpotlight({
     >
       <div className={containerClassName}>
         <div className={cn("mb-12 text-center", headerClassName)}>
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("text-sm font-semibold uppercase tracking-[0.2em] text-primary", subheadingClassName)}>
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "text-sm font-semibold uppercase tracking-[0.2em] text-primary",
+                  subheadingClassName,
+                )}
+              >
                 {subheading}
               </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mt-3 text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mt-3 text-3xl font-bold text-foreground md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
         </div>
         {renderFeatures()}
       </div>

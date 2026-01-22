@@ -67,7 +67,7 @@ export interface CtaAccentBackgroundProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -116,7 +116,7 @@ export function CtaAccentBackground({
       <div
         className={cn(
           "flex flex-col gap-3 sm:flex-row sm:gap-4",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => (
@@ -151,14 +151,14 @@ export function CtaAccentBackground({
         <div
           className={cn(
             "rounded-lg bg-accent p-8 md:rounded-xl lg:p-12",
-            cardClassName
+            cardClassName,
           )}
         >
           <div className={cn("max-w-4xl", contentClassName)}>
             <h3
               className={cn(
                 "mb-4 text-3xl font-semibold md:text-5xl lg:mb-6 lg:text-6xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -166,7 +166,7 @@ export function CtaAccentBackground({
             <p
               className={cn(
                 "mb-8 text-lg font-medium text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}

@@ -5,8 +5,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectShowcaseAlternatingItem {
   title: string;
@@ -43,7 +43,7 @@ export interface ProjectShowcaseAlternatingProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -102,7 +102,10 @@ export function ProjectShowcaseAlternating({
     return projects.map((project, index) => (
       <div
         key={index}
-        className={cn("grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12", cardClassName)}
+        className={cn(
+          "grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12",
+          cardClassName,
+        )}
       >
         <div className="order-2 lg:order-1 lg:col-span-4">
           <h2 className="mb-4 font-sans text-base font-bold tracking-wider text-foreground uppercase md:text-base">
@@ -136,17 +139,26 @@ export function ProjectShowcaseAlternating({
       className={cn(className)}
     >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mb-16 font-serif text-4xl font-normal tracking-wide text-foreground md:mb-24 md:text-6xl lg:text-7xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mb-16 font-serif text-4xl font-normal tracking-wide text-foreground md:mb-24 md:text-6xl lg:text-7xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
 
-        <div className={cn("space-y-16 md:space-y-24 lg:space-y-32", listClassName)}>
+        <div
+          className={cn(
+            "space-y-16 md:space-y-24 lg:space-y-32",
+            listClassName,
+          )}
+        >
           {renderProjects()}
         </div>
       </div>

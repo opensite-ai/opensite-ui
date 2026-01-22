@@ -5,7 +5,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosInlineTaglinePartnerItem {
   /**
@@ -62,7 +66,7 @@ export interface LogosInlineTaglineProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -116,17 +120,31 @@ export function LogosInlineTagline({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-wrap items-center justify-between gap-12", containerClassName)}>
-        {tagline && (
-          typeof tagline === "string" ? (
-            <p className={cn("text-lg leading-[140%] tracking-[-0.32px] text-primary", taglineClassName)}>
+      <div
+        className={cn(
+          "flex flex-wrap items-center justify-between gap-12",
+          containerClassName,
+        )}
+      >
+        {tagline &&
+          (typeof tagline === "string" ? (
+            <p
+              className={cn(
+                "text-lg leading-[140%] tracking-[-0.32px] text-primary",
+                taglineClassName,
+              )}
+            >
               {tagline}
             </p>
           ) : (
             <div className={taglineClassName}>{tagline}</div>
-          )
-        )}
-        <div className={cn("flex flex-wrap items-center gap-x-8 gap-y-6 opacity-70 grayscale lg:gap-[60px]", partnersClassName)}>
+          ))}
+        <div
+          className={cn(
+            "flex flex-wrap items-center gap-x-8 gap-y-6 opacity-70 grayscale lg:gap-[60px]",
+            partnersClassName,
+          )}
+        >
           {renderPartners()}
         </div>
       </div>

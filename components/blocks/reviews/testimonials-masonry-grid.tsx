@@ -73,7 +73,7 @@ export interface TestimonialsMasonryGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -89,8 +89,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     avatarSrc: blockBrandedIconsAndPlaceholders.avatar1,
   },
   {
-    quote:
-      "Outstanding support and an exceptional product. Highly recommend!",
+    quote: "Outstanding support and an exceptional product. Highly recommend!",
     author: "Michael Torres",
     role: "CEO",
     avatarSrc: blockBrandedIconsAndPlaceholders.avatar2,
@@ -110,8 +109,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     avatarSrc: blockBrandedIconsAndPlaceholders.avatar4,
   },
   {
-    quote:
-      "Simple, elegant, and powerful. A game-changer for our workflow.",
+    quote: "Simple, elegant, and powerful. A game-changer for our workflow.",
     author: "Lisa Park",
     role: "Engineering Manager",
     avatarSrc: blockBrandedIconsAndPlaceholders.avatar5,
@@ -208,7 +206,12 @@ export function TestimonialsMasonryGrid({
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
-      <div className={cn("grid gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-4 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {columns.map((column, columnIndex) => (
           <div key={columnIndex} className="space-y-4">
             {column.map((testimonial, index) => {
@@ -217,44 +220,47 @@ export function TestimonialsMasonryGrid({
               return (
                 <Card key={index} className={cardClassName}>
                   <CardContent className="p-6">
-                    {testimonial.quote && (
-                      typeof testimonial.quote === "string" ? (
-                        <p className={cn("mb-4 text-sm leading-relaxed", quoteClassName)}>
+                    {testimonial.quote &&
+                      (typeof testimonial.quote === "string" ? (
+                        <p
+                          className={cn(
+                            "mb-4 text-sm leading-relaxed",
+                            quoteClassName,
+                          )}
+                        >
                           &ldquo;{testimonial.quote}&rdquo;
                         </p>
                       ) : (
-                        <div className={cn("mb-4", quoteClassName)}>{testimonial.quote}</div>
-                      )
-                    )}
-                    <div className={cn("flex items-center gap-3", authorClassName)}>
+                        <div className={cn("mb-4", quoteClassName)}>
+                          {testimonial.quote}
+                        </div>
+                      ))}
+                    <div
+                      className={cn("flex items-center gap-3", authorClassName)}
+                    >
                       <Avatar className="size-9">
-                        <AvatarImage
-                          src={avatarSrc}
-                          alt={authorName}
-                        />
+                        <AvatarImage src={avatarSrc} alt={authorName} />
                         <AvatarFallback className="text-xs">
                           {getInitials(authorName)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        {testimonial.author && (
-                          typeof testimonial.author === "string" ? (
+                        {testimonial.author &&
+                          (typeof testimonial.author === "string" ? (
                             <p className="text-sm font-medium">
                               {testimonial.author}
                             </p>
                           ) : (
                             testimonial.author
-                          )
-                        )}
-                        {testimonial.role && (
-                          typeof testimonial.role === "string" ? (
+                          ))}
+                        {testimonial.role &&
+                          (typeof testimonial.role === "string" ? (
                             <p className="text-xs text-muted-foreground">
                               {testimonial.role}
                             </p>
                           ) : (
                             testimonial.role
-                          )
-                        )}
+                          ))}
                       </div>
                     </div>
                   </CardContent>
@@ -275,25 +281,37 @@ export function TestimonialsMasonryGrid({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

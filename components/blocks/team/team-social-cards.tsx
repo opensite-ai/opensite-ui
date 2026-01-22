@@ -70,7 +70,7 @@ export interface TeamSocialCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -183,7 +183,7 @@ export function TeamSocialCards({
         key={member.id}
         className={cn(
           "transition-shadow duration-300 hover:shadow-lg",
-          memberCardClassName
+          memberCardClassName,
         )}
       >
         <CardContent className="p-6">
@@ -195,7 +195,7 @@ export function TeamSocialCards({
               height={80}
               className={cn(
                 "size-20 shrink-0 rounded-full object-cover",
-                memberImageClassName
+                memberImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
             />
@@ -203,14 +203,29 @@ export function TeamSocialCards({
               <h3 className={cn("text-lg font-semibold", memberNameClassName)}>
                 {member.name}
               </h3>
-              <p className={cn("text-sm font-medium text-primary", memberRoleClassName)}>
+              <p
+                className={cn(
+                  "text-sm font-medium text-primary",
+                  memberRoleClassName,
+                )}
+              >
                 {member.role}
               </p>
-              <p className={cn("mt-2 text-sm text-muted-foreground", memberBioClassName)}>
+              <p
+                className={cn(
+                  "mt-2 text-sm text-muted-foreground",
+                  memberBioClassName,
+                )}
+              >
                 {member.bio}
               </p>
               {member.social && (
-                <div className={cn("mt-3 flex gap-3 text-muted-foreground", socialLinksClassName)}>
+                <div
+                  className={cn(
+                    "mt-3 flex gap-3 text-muted-foreground",
+                    socialLinksClassName,
+                  )}
+                >
                   {member.social.github && (
                     <Pressable
                       href={member.social.github}
@@ -255,35 +270,38 @@ export function TeamSocialCards({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
       <div className={cn("mt-12 grid gap-6 md:grid-cols-2", gridClassName)}>
         {renderMembers()}

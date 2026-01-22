@@ -76,7 +76,7 @@ export interface TimelineHorizontalPhasesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -123,9 +123,10 @@ export function TimelineHorizontalPhases({
   id,
   style,
 }: TimelineHorizontalPhasesProps) {
-  const safeCurrentPhase = (phases?.length ?? 0) > 0 
-    ? Math.max(0, Math.min(currentPhase, (phases?.length ?? 1) - 1))
-    : 0;
+  const safeCurrentPhase =
+    (phases?.length ?? 0) > 0
+      ? Math.max(0, Math.min(currentPhase, (phases?.length ?? 1) - 1))
+      : 0;
 
   if (!phases || phases.length === 0) {
     return (
@@ -140,7 +141,12 @@ export function TimelineHorizontalPhases({
         style={style}
       >
         <div className={cn("flex flex-col items-center", containerClassName)}>
-          <h1 className={cn("mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl", headingClassName)}>
+          <h1
+            className={cn(
+              "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+              headingClassName,
+            )}
+          >
             {heading}
           </h1>
         </div>
@@ -160,10 +166,20 @@ export function TimelineHorizontalPhases({
       style={style}
     >
       <div className={cn("flex flex-col items-center", containerClassName)}>
-        <h1 className={cn("mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl", headingClassName)}>
+        <h1
+          className={cn(
+            "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+            headingClassName,
+          )}
+        >
           {heading}
         </h1>
-        <Card className={cn("relative w-full border-none shadow-none md:py-16", cardClassName)}>
+        <Card
+          className={cn(
+            "relative w-full border-none shadow-none md:py-16",
+            cardClassName,
+          )}
+        >
           <CardContent className="p-0">
             <div className="relative flex flex-col items-center md:mt-12">
               <Separator className="absolute -top-8 left-0 hidden md:block" />
@@ -175,14 +191,17 @@ export function TimelineHorizontalPhases({
                   }}
                   transition={{ ease: "easeOut", duration: 0.5 }}
                   className={cn(
-                    "absolute -top-8 left-0 hidden h-0.5 bg-foreground md:block"
+                    "absolute -top-8 left-0 hidden h-0.5 bg-foreground md:block",
                   )}
                 />
               )}
 
               <div className={cn("grid gap-6 md:grid-cols-4", phasesClassName)}>
                 {phases.map((phase, index) => (
-                  <div key={phase.id} className={cn("relative space-y-2", phaseClassName)}>
+                  <div
+                    key={phase.id}
+                    className={cn("relative space-y-2", phaseClassName)}
+                  >
                     <Separator
                       orientation="vertical"
                       className="absolute top-6 left-0 block md:hidden"
@@ -195,7 +214,7 @@ export function TimelineHorizontalPhases({
                         }}
                         transition={{ ease: "easeOut", duration: 0.5 }}
                         className={cn(
-                          "absolute left-0 z-10 w-0.5 bg-foreground md:hidden"
+                          "absolute left-0 z-10 w-0.5 bg-foreground md:hidden",
                         )}
                       />
                     )}
@@ -204,13 +223,28 @@ export function TimelineHorizontalPhases({
                     </div>
 
                     <div className="pl-7 md:pl-0">
-                      <p className={cn("text-sm text-muted-foreground", dateClassName)}>
+                      <p
+                        className={cn(
+                          "text-sm text-muted-foreground",
+                          dateClassName,
+                        )}
+                      >
                         {phase.date}
                       </p>
-                      <h2 className={cn("text-xl font-bold tracking-tighter text-foreground", titleClassName)}>
+                      <h2
+                        className={cn(
+                          "text-xl font-bold tracking-tighter text-foreground",
+                          titleClassName,
+                        )}
+                      >
                         {phase.title}
                       </h2>
-                      <p className={cn("text-sm text-muted-foreground", descriptionClassName)}>
+                      <p
+                        className={cn(
+                          "text-sm text-muted-foreground",
+                          descriptionClassName,
+                        )}
+                      >
                         {phase.description}
                       </p>
                     </div>

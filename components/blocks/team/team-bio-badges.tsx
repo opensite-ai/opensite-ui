@@ -71,7 +71,7 @@ export interface TeamBioBadgesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -188,7 +188,7 @@ export function TeamBioBadges({
         key={member.id}
         className={cn(
           "flex flex-col gap-4 rounded-xl border border-border bg-card p-6 sm:flex-row",
-          memberCardClassName
+          memberCardClassName,
         )}
       >
         <Avatar className={cn("size-24 shrink-0 border", avatarClassName)}>
@@ -209,14 +209,29 @@ export function TeamBioBadges({
               {member.department}
             </Badge>
           </div>
-          <p className={cn("text-sm font-medium text-primary", memberRoleClassName)}>
+          <p
+            className={cn(
+              "text-sm font-medium text-primary",
+              memberRoleClassName,
+            )}
+          >
             {member.role}
           </p>
-          <p className={cn("mt-2 text-sm text-muted-foreground", memberBioClassName)}>
+          <p
+            className={cn(
+              "mt-2 text-sm text-muted-foreground",
+              memberBioClassName,
+            )}
+          >
             {member.bio}
           </p>
           {member.social && (
-            <div className={cn("mt-4 flex gap-3 text-muted-foreground", socialLinksClassName)}>
+            <div
+              className={cn(
+                "mt-4 flex gap-3 text-muted-foreground",
+                socialLinksClassName,
+              )}
+            >
               {member.social.github && (
                 <Pressable
                   href={member.social.github}
@@ -259,35 +274,38 @@ export function TeamBioBadges({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
       <div className={cn("mt-16 grid gap-8 md:grid-cols-2", gridClassName)}>
         {renderMembers()}

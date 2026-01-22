@@ -93,7 +93,7 @@ export interface TimelineTabbedPhasesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -158,7 +158,10 @@ export function TimelineTabbedPhases({
           variant={downloadAction.variant || "outline"}
           size={downloadAction.size}
           asButton
-          className={cn("mt-8 flex w-fit items-center gap-2 rounded-full border border-border px-4! py-2", downloadAction.className)}
+          className={cn(
+            "mt-8 flex w-fit items-center gap-2 rounded-full border border-border px-4! py-2",
+            downloadAction.className,
+          )}
           aria-label={downloadAction["aria-label"]}
         >
           <DynamicIcon name="lucide/download" size={16} />
@@ -186,8 +189,18 @@ export function TimelineTabbedPhases({
         patternClassName={patternClassName}
         style={style}
       >
-        <div className={cn("flex flex-col items-center justify-center", containerClassName)}>
-          <h1 className={cn("mb-12 text-5xl font-semibold tracking-tighter lg:mb-25 lg:text-7xl", headingClassName)}>
+        <div
+          className={cn(
+            "flex flex-col items-center justify-center",
+            containerClassName,
+          )}
+        >
+          <h1
+            className={cn(
+              "mb-12 text-5xl font-semibold tracking-tighter lg:mb-25 lg:text-7xl",
+              headingClassName,
+            )}
+          >
             {heading}
           </h1>
         </div>
@@ -206,16 +219,35 @@ export function TimelineTabbedPhases({
       patternClassName={patternClassName}
       style={style}
     >
-      <div className={cn("flex flex-col items-center justify-center", containerClassName)}>
-        <h1 className={cn("mb-12 text-5xl font-semibold tracking-tighter lg:mb-25 lg:text-7xl", headingClassName)}>
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center",
+          containerClassName,
+        )}
+      >
+        <h1
+          className={cn(
+            "mb-12 text-5xl font-semibold tracking-tighter lg:mb-25 lg:text-7xl",
+            headingClassName,
+          )}
+        >
           {heading}
         </h1>
         <Tabs defaultValue={phases[0]?.id || "phase1"} className="w-full">
-          <TabsList className={cn("grid w-full bg-transparent p-0", `grid-cols-${phases.length}`, tabsListClassName)}>
+          <TabsList
+            className={cn(
+              "grid w-full bg-transparent p-0",
+              `grid-cols-${phases.length}`,
+              tabsListClassName,
+            )}
+          >
             {phases.map((phase) => (
               <TabsTrigger
                 key={phase.id}
-                className={cn("text-md rounded-none border-b-2 pb-6 shadow-none! data-[state=active]:border-b-foreground", tabTriggerClassName)}
+                className={cn(
+                  "text-md rounded-none border-b-2 pb-6 shadow-none! data-[state=active]:border-b-foreground",
+                  tabTriggerClassName,
+                )}
                 value={phase.id}
               >
                 <span className="hidden font-mono text-foreground/40 md:inline">
@@ -230,16 +262,34 @@ export function TimelineTabbedPhases({
             <TabsContent
               key={phase.id}
               value={phase.id}
-              className={cn("mt-12 grid items-start gap-12 lg:grid-cols-2", tabContentClassName)}
+              className={cn(
+                "mt-12 grid items-start gap-12 lg:grid-cols-2",
+                tabContentClassName,
+              )}
             >
               <div className="col-span-1 flex flex-col gap-2 lg:max-w-lg lg:gap-4">
-                <p className={cn("font-mono text-sm font-semibold tracking-tight text-muted-foreground", dateClassName)}>
+                <p
+                  className={cn(
+                    "font-mono text-sm font-semibold tracking-tight text-muted-foreground",
+                    dateClassName,
+                  )}
+                >
                   {phase.date}
                 </p>
-                <h2 className={cn("text-3xl font-medium tracking-tighter text-foreground md:text-5xl", phaseHeadingClassName)}>
+                <h2
+                  className={cn(
+                    "text-3xl font-medium tracking-tighter text-foreground md:text-5xl",
+                    phaseHeadingClassName,
+                  )}
+                >
                   {phase.heading}
                 </h2>
-                <p className={cn("text-lg font-normal tracking-tighter text-muted-foreground", descriptionClassName)}>
+                <p
+                  className={cn(
+                    "text-lg font-normal tracking-tighter text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {phase.description}
                 </p>
                 {renderDownloadButton()}
@@ -255,7 +305,10 @@ export function TimelineTabbedPhases({
                     <Img
                       src={phase.imageSrc}
                       alt={phase.imageAlt}
-                      className={cn("size-full transition-all ease-in-out group-hover:scale-95", imageClassName)}
+                      className={cn(
+                        "size-full transition-all ease-in-out group-hover:scale-95",
+                        imageClassName,
+                      )}
                       optixFlowConfig={optixFlowConfig}
                     />
                   </CardContent>

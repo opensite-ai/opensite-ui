@@ -160,7 +160,7 @@ export interface ListFeatureComparisonProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -247,9 +247,21 @@ export function ListFeatureComparison({
     if (!actions || actions.length === 0) return null;
 
     return (
-      <div className={cn("mt-12 flex flex-col justify-center gap-4 sm:flex-row", actionsClassName)}>
+      <div
+        className={cn(
+          "mt-12 flex flex-col justify-center gap-4 sm:flex-row",
+          actionsClassName,
+        )}
+      >
         {actions.map((action, idx) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
 
           return (
             <Pressable
@@ -280,7 +292,12 @@ export function ListFeatureComparison({
       <div className={cn("overflow-x-auto", tableWrapperClassName)}>
         <div className="inline-block min-w-full align-middle">
           <div className="overflow-hidden rounded-lg border">
-            <table className={cn("divide-border min-w-full divide-y", tableClassName)}>
+            <table
+              className={cn(
+                "divide-border min-w-full divide-y",
+                tableClassName,
+              )}
+            >
               <thead className={cn("bg-muted/50", tableHeaderClassName)}>
                 <tr>
                   <th className="text-foreground px-6 py-3 text-left text-sm font-semibold">
@@ -297,7 +314,12 @@ export function ListFeatureComparison({
                   </th>
                 </tr>
               </thead>
-              <tbody className={cn("divide-border bg-background divide-y", tableBodyClassName)}>
+              <tbody
+                className={cn(
+                  "divide-border bg-background divide-y",
+                  tableBodyClassName,
+                )}
+              >
                 {features.map((feature, index) => (
                   <tr key={index} className={tableRowClassName}>
                     <td className="text-foreground px-6 py-4 text-sm whitespace-nowrap">
@@ -355,9 +377,17 @@ export function ListFeatureComparison({
     if (!trustIndicators || trustIndicators.length === 0) return null;
 
     return (
-      <div className={cn("mt-16 grid grid-cols-1 gap-8 md:grid-cols-3", trustIndicatorsClassName)}>
+      <div
+        className={cn(
+          "mt-16 grid grid-cols-1 gap-8 md:grid-cols-3",
+          trustIndicatorsClassName,
+        )}
+      >
         {trustIndicators.map((indicator, index) => (
-          <div key={index} className={cn("text-center", trustIndicatorClassName)}>
+          <div
+            key={index}
+            className={cn("text-center", trustIndicatorClassName)}
+          >
             {indicator.icon && (
               <DynamicIcon
                 name={indicator.icon}
@@ -365,20 +395,22 @@ export function ListFeatureComparison({
                 className="text-primary mx-auto mb-4"
               />
             )}
-            {indicator.title && (
-              typeof indicator.title === "string" ? (
-                <h3 className="mb-2 text-xl font-semibold">{indicator.title}</h3>
+            {indicator.title &&
+              (typeof indicator.title === "string" ? (
+                <h3 className="mb-2 text-xl font-semibold">
+                  {indicator.title}
+                </h3>
               ) : (
                 <div className="mb-2">{indicator.title}</div>
-              )
-            )}
-            {indicator.description && (
-              typeof indicator.description === "string" ? (
+              ))}
+            {indicator.description &&
+              (typeof indicator.description === "string" ? (
                 <p className="text-muted-foreground">{indicator.description}</p>
               ) : (
-                <div className="text-muted-foreground">{indicator.description}</div>
-              )
-            )}
+                <div className="text-muted-foreground">
+                  {indicator.description}
+                </div>
+              ))}
           </div>
         ))}
       </div>
@@ -398,24 +430,36 @@ export function ListFeatureComparison({
       </div>
 
       <div className="mb-6 text-center">
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("text-primary mx-auto mb-4 max-w-4xl text-4xl leading-tight font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "text-primary mx-auto mb-4 max-w-4xl text-4xl leading-tight font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
-            <div className={cn("mx-auto mb-4 max-w-4xl", headingClassName)}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-foreground mx-auto max-w-4xl text-base text-balance sm:text-lg", descriptionClassName)}>
+            <div className={cn("mx-auto mb-4 max-w-4xl", headingClassName)}>
+              {heading}
+            </div>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-foreground mx-auto max-w-4xl text-base text-balance sm:text-lg",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mx-auto max-w-4xl", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mx-auto max-w-4xl", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderFeatures()}

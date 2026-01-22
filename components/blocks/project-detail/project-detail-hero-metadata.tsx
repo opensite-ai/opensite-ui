@@ -6,13 +6,13 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailHeroMetadataProps {
   /** Main title */
@@ -43,7 +43,7 @@ export interface ProjectDetailHeroMetadataProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -77,7 +77,7 @@ const staggerContainer = {
 };
 
 export function ProjectDetailHeroMetadata(
-  props: ProjectDetailHeroMetadataProps
+  props: ProjectDetailHeroMetadataProps,
 ): React.JSX.Element {
   const {
     title,
@@ -107,10 +107,20 @@ export function ProjectDetailHeroMetadata(
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = action;
     return (
       <Pressable
-        className={cn("h-auto p-0 font-medium text-foreground hover:text-primary", actionClassName)}
+        className={cn(
+          "h-auto p-0 font-medium text-foreground hover:text-primary",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -142,7 +152,12 @@ export function ProjectDetailHeroMetadata(
           <div className="flex flex-col gap-y-12 lg:flex-row lg:items-start lg:justify-between">
             <motion.div variants={fadeInUp} className="flex-1">
               {typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               ) : (
@@ -151,11 +166,18 @@ export function ProjectDetailHeroMetadata(
               {description && (
                 <motion.div variants={fadeInUp}>
                   {typeof description === "string" ? (
-                    <p className={cn("mt-6 max-w-xl text-lg leading-relaxed font-medium text-muted-foreground", descriptionClassName)}>
+                    <p
+                      className={cn(
+                        "mt-6 max-w-xl text-lg leading-relaxed font-medium text-muted-foreground",
+                        descriptionClassName,
+                      )}
+                    >
                       {description}
                     </p>
                   ) : (
-                    <div className={cn("mt-6", descriptionClassName)}>{description}</div>
+                    <div className={cn("mt-6", descriptionClassName)}>
+                      {description}
+                    </div>
                   )}
                 </motion.div>
               )}
@@ -166,11 +188,15 @@ export function ProjectDetailHeroMetadata(
               className={cn("w-full max-w-md space-y-4", metadataClassName)}
             >
               <div className="flex items-center justify-between border-b border-border pb-3">
-                <span className="font-medium text-muted-foreground">CATEGORY</span>
+                <span className="font-medium text-muted-foreground">
+                  CATEGORY
+                </span>
                 <span className="font-medium text-foreground">{category}</span>
               </div>
               <div className="flex items-center justify-between border-b border-border pb-3">
-                <span className="font-medium text-muted-foreground">CLIENT</span>
+                <span className="font-medium text-muted-foreground">
+                  CLIENT
+                </span>
                 <span className="font-medium text-foreground">{client}</span>
               </div>
               <div className="flex items-center justify-between border-b border-border pb-3">
@@ -178,7 +204,9 @@ export function ProjectDetailHeroMetadata(
                 <span className="font-medium text-foreground">{year}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-medium text-muted-foreground">{subtitle}</span>
+                <span className="font-medium text-muted-foreground">
+                  {subtitle}
+                </span>
                 {renderAction()}
               </div>
             </motion.div>
@@ -192,10 +220,13 @@ export function ProjectDetailHeroMetadata(
         >
           <motion.div
             variants={fadeInUp}
-            className={cn("relative aspect-video overflow-hidden rounded-lg bg-muted/30", heroImageClassName)}
+            className={cn(
+              "relative aspect-video overflow-hidden rounded-lg bg-muted/30",
+              heroImageClassName,
+            )}
           >
             <Img
-              src={heroImage?.src || imagePlaceholders[0]}
+              src={heroImage?.src}
               alt={heroImage?.alt || "Project hero image"}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}

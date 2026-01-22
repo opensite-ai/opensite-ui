@@ -148,7 +148,7 @@ export interface PricingComparisonHeadersProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -294,17 +294,27 @@ export function PricingComparisonHeaders({
   featureValueClassName,
 }: PricingComparisonHeadersProps): React.JSX.Element {
   const [isYearly, setIsYearly] = useState(false);
-  const resolvedPlanIds = plans.map((plan, index) => plan.id ?? `plan-${index}`);
+  const resolvedPlanIds = plans.map(
+    (plan, index) => plan.id ?? `plan-${index}`,
+  );
 
   const renderFeatureValue = (value: boolean | React.ReactNode | undefined) => {
     if (typeof value === "boolean") {
       return value
-        ? availableIcon ?? (
-          <DynamicIcon name={availableIconName} size={18} className="text-primary" />
-        )
-        : unavailableIcon ?? (
-          <DynamicIcon name={unavailableIconName} size={18} className="text-muted-foreground" />
-        );
+        ? (availableIcon ?? (
+            <DynamicIcon
+              name={availableIconName}
+              size={18}
+              className="text-primary"
+            />
+          ))
+        : (unavailableIcon ?? (
+            <DynamicIcon
+              name={unavailableIconName}
+              size={18}
+              className="text-muted-foreground"
+            />
+          ));
     }
     return value ? <span className="text-sm font-medium">{value}</span> : null;
   };
@@ -313,12 +323,23 @@ export function PricingComparisonHeaders({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("mt-4 w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "mt-4 w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -338,44 +359,59 @@ export function PricingComparisonHeaders({
     return plans.map((plan, index) => {
       const badgeContent = plan.badge ?? (plan.isPopular ? "Popular" : null);
       return (
-        <th key={resolvedPlanIds[index]} className={cn("p-4 text-center", planHeaderClassName, plan.className)}>
+        <th
+          key={resolvedPlanIds[index]}
+          className={cn("p-4 text-center", planHeaderClassName, plan.className)}
+        >
           <div
             className={cn(
               "rounded-lg border p-4",
-              plan.isPopular ? "border-primary bg-primary/5" : "border-border"
+              plan.isPopular ? "border-primary bg-primary/5" : "border-border",
             )}
           >
             {badgeContent && (
               <span
                 className={cn(
                   "mb-2 inline-block rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground",
-                  planBadgeClassName
+                  planBadgeClassName,
                 )}
               >
                 {badgeContent}
               </span>
             )}
-            {plan.name && (
-              typeof plan.name === "string" ? (
-                <h3 className={cn("font-semibold", planTitleClassName)}>{plan.name}</h3>
+            {plan.name &&
+              (typeof plan.name === "string" ? (
+                <h3 className={cn("font-semibold", planTitleClassName)}>
+                  {plan.name}
+                </h3>
               ) : (
                 <div className={planTitleClassName}>{plan.name}</div>
-              )
-            )}
-            {plan.description && (
-              typeof plan.description === "string" ? (
-                <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+              ))}
+            {plan.description &&
+              (typeof plan.description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-1 text-sm text-muted-foreground",
+                    planDescriptionClassName,
+                  )}
+                >
                   {plan.description}
                 </p>
               ) : (
-                <div className={planDescriptionClassName}>{plan.description}</div>
-              )
-            )}
+                <div className={planDescriptionClassName}>
+                  {plan.description}
+                </div>
+              ))}
             <div className="mt-3">
               <span className={cn("text-2xl font-bold", planPriceClassName)}>
                 {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
               </span>
-              <span className={cn("text-sm text-muted-foreground", planPriceIntervalClassName)}>
+              <span
+                className={cn(
+                  "text-sm text-muted-foreground",
+                  planPriceIntervalClassName,
+                )}
+              >
                 {isYearly ? yearlyInterval : monthlyInterval}
               </span>
             </div>
@@ -391,10 +427,18 @@ export function PricingComparisonHeaders({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => (
-      <tr key={index} className={cn("border-b", featureRowClassName, feature.className)}>
-        <td className={cn("p-4 text-sm font-medium", featureNameClassName)}>{feature.name}</td>
+      <tr
+        key={index}
+        className={cn("border-b", featureRowClassName, feature.className)}
+      >
+        <td className={cn("p-4 text-sm font-medium", featureNameClassName)}>
+          {feature.name}
+        </td>
         {resolvedPlanIds.map((planId) => (
-          <td key={planId} className={cn("p-4 text-center", featureValueClassName)}>
+          <td
+            key={planId}
+            className={cn("p-4 text-center", featureValueClassName)}
+          >
             {renderFeatureValue(feature.values?.[planId])}
           </td>
         ))}
@@ -412,30 +456,47 @@ export function PricingComparisonHeaders({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
 
-          <div className={cn("mt-8 flex items-center justify-center gap-3", toggleClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex items-center justify-center gap-3",
+              toggleClassName,
+            )}
+          >
             <span
               className={cn(
                 "text-sm font-medium",
                 !isYearly ? "text-foreground" : "text-muted-foreground",
-                toggleLabelClassName
+                toggleLabelClassName,
               )}
             >
               {monthlyLabel}
@@ -445,12 +506,17 @@ export function PricingComparisonHeaders({
               className={cn(
                 "text-sm font-medium",
                 isYearly ? "text-foreground" : "text-muted-foreground",
-                toggleLabelClassName
+                toggleLabelClassName,
               )}
             >
               {yearlyLabel}
               {yearlyBadge && (
-                <span className={cn("ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary", yearlyBadgeClassName)}>
+                <span
+                  className={cn(
+                    "ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary",
+                    yearlyBadgeClassName,
+                  )}
+                >
                   {yearlyBadge}
                 </span>
               )}

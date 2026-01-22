@@ -12,7 +12,11 @@ import {
 } from "../../ui/accordion";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface FaqItem {
@@ -65,7 +69,7 @@ export interface FaqBadgeSupportProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -165,7 +169,7 @@ export function FaqBadgeSupport({
             <AccordionTrigger
               className={cn(
                 "transition-opacity duration-200 hover:no-underline hover:opacity-60",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
@@ -192,16 +196,15 @@ export function FaqBadgeSupport({
       <div
         className={cn(
           "mx-auto flex max-w-3xl flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left",
-          supportSectionClassName
+          supportSectionClassName,
         )}
       >
-        {supportText && (
-          typeof supportText === "string" ? (
+        {supportText &&
+          (typeof supportText === "string" ? (
             <p className="text-muted-foreground">{supportText}</p>
           ) : (
             supportText
-          )
-        )}
+          ))}
         {supportAction && (
           <Pressable
             href={supportAction.href}
@@ -230,7 +233,7 @@ export function FaqBadgeSupport({
         <div
           className={cn(
             "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-            headerClassName
+            headerClassName,
           )}
         >
           {badge && (
@@ -241,34 +244,32 @@ export function FaqBadgeSupport({
               {badge}
             </Badge>
           )}
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "mt-4 text-3xl font-semibold md:text-4xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
+            ))}
+          {description &&
+            (typeof description === "string" ? (
               <p
                 className={cn(
                   "text-muted-foreground mt-6 text-base md:text-lg",
-                  descriptionClassName
+                  descriptionClassName,
                 )}
               >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderItems()}
         <Separator />

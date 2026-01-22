@@ -57,7 +57,7 @@ export interface ContactHelpCenterProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -178,7 +178,7 @@ export function ContactHelpCenter({
         <div
           className={cn(
             "rounded-3xl bg-linear-to-br from-primary/5 via-background to-background p-8 md:p-12",
-            contentClassName
+            contentClassName,
           )}
         >
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
@@ -188,7 +188,7 @@ export function ContactHelpCenter({
                   <p
                     className={cn(
                       "text-sm font-semibold uppercase tracking-[0.2em] text-primary",
-                      eyebrowClassName
+                      eyebrowClassName,
                     )}
                   >
                     {eyebrow}
@@ -201,7 +201,7 @@ export function ContactHelpCenter({
                   <h2
                     className={cn(
                       "text-3xl font-bold text-foreground md:text-4xl",
-                      headingClassName
+                      headingClassName,
                     )}
                   >
                     {heading}
@@ -214,7 +214,7 @@ export function ContactHelpCenter({
                   <p
                     className={cn(
                       "text-muted-foreground",
-                      descriptionClassName
+                      descriptionClassName,
                     )}
                   >
                     {description}
@@ -227,7 +227,7 @@ export function ContactHelpCenter({
             <div
               className={cn(
                 "rounded-2xl bg-background p-8 shadow-lg",
-                cardPanelClassName
+                cardPanelClassName,
               )}
             >
               {cardTitle ? (
@@ -235,7 +235,7 @@ export function ContactHelpCenter({
                   <h3
                     className={cn(
                       "text-xl font-bold text-foreground",
-                      cardTitleClassName
+                      cardTitleClassName,
                     )}
                   >
                     {cardTitle}

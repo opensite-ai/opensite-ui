@@ -8,6 +8,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * Logo configuration for the footer
@@ -140,7 +141,7 @@ export interface FooterCtaBannerProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Optional background pattern */
-  pattern?: string;
+  pattern?: PatternName;
   /** Pattern opacity (0-1) */
   patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */

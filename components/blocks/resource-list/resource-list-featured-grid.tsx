@@ -12,7 +12,11 @@ import { Tabs, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ResourceListFeaturedGridArticle {
   /**
@@ -179,7 +183,7 @@ export interface ResourceListFeaturedGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -229,10 +233,11 @@ export function ResourceListFeaturedGrid({
 }: ResourceListFeaturedGridProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const filteredArticles = articles?.filter(
-    (article) =>
-      selectedCategory === "All" || article.category === selectedCategory
-  ) ?? [];
+  const filteredArticles =
+    articles?.filter(
+      (article) =>
+        selectedCategory === "All" || article.category === selectedCategory,
+    ) ?? [];
 
   const renderFeaturedArticle = () => {
     if (featuredArticleSlot) return featuredArticleSlot;
@@ -244,12 +249,16 @@ export function ResourceListFeaturedGrid({
         className={cn(
           "group relative isolate overflow-hidden rounded-2xl border border-border transition-transform duration-300 hover:-translate-y-0.5 lg:col-span-7 lg:row-span-2",
           featuredArticleClassName,
-          featuredArticle.className
+          featuredArticle.className,
         )}
       >
         <Img
           src={featuredArticle.imageUrl}
-          alt={typeof featuredArticle.title === "string" ? featuredArticle.title : "Featured article"}
+          alt={
+            typeof featuredArticle.title === "string"
+              ? featuredArticle.title
+              : "Featured article"
+          }
           className="size-full max-h-[550px] object-cover grayscale-100 transition-all duration-300 group-hover:grayscale-50"
           optixFlowConfig={optixFlowConfig}
         />
@@ -305,19 +314,26 @@ export function ResourceListFeaturedGrid({
     if (!secondaryArticles || secondaryArticles.length === 0) return null;
 
     return (
-      <div className={cn("flex flex-col gap-4 lg:col-span-5 lg:row-span-2 lg:flex-col", secondaryArticlesClassName)}>
+      <div
+        className={cn(
+          "flex flex-col gap-4 lg:col-span-5 lg:row-span-2 lg:flex-col",
+          secondaryArticlesClassName,
+        )}
+      >
         {secondaryArticles.map((article, idx) => (
           <Pressable
             key={idx}
             href={article.link}
             className={cn(
               "group relative isolate overflow-hidden rounded-2xl border border-border transition-transform duration-300 hover:-translate-y-0.5",
-              article.className
+              article.className,
             )}
           >
             <Img
               src={article.imageUrl}
-              alt={typeof article.title === "string" ? article.title : "Article"}
+              alt={
+                typeof article.title === "string" ? article.title : "Article"
+              }
               className="size-full max-h-[267px] object-cover grayscale-100 transition-all duration-300 group-hover:grayscale-50"
               optixFlowConfig={optixFlowConfig}
             />
@@ -349,7 +365,10 @@ export function ResourceListFeaturedGrid({
                     </span>
                   )}
                   {article.authors.map((author, authorIdx) => (
-                    <Avatar key={authorIdx} className="size-6 border border-primary">
+                    <Avatar
+                      key={authorIdx}
+                      className="size-6 border border-primary"
+                    >
                       <AvatarImage src={author} />
                     </Avatar>
                   ))}
@@ -374,7 +393,7 @@ export function ResourceListFeaturedGrid({
             href={article.link}
             className={cn(
               "flex flex-col justify-between gap-4 border-b border-border py-6 md:flex-row",
-              article.className
+              article.className,
             )}
           >
             {typeof article.title === "string" ? (
@@ -397,7 +416,10 @@ export function ResourceListFeaturedGrid({
               )}
               <div className="hidden items-center justify-end -space-x-2 md:flex">
                 {article.author.map((author, authorIdx) => (
-                  <Avatar key={authorIdx} className="size-6 border border-border">
+                  <Avatar
+                    key={authorIdx}
+                    className="size-6 border border-border"
+                  >
                     <AvatarImage src={author} />
                   </Avatar>
                 ))}
@@ -417,36 +439,57 @@ export function ResourceListFeaturedGrid({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      {title && (
-        typeof title === "string" ? (
-          <h1 className={cn("text-4xl font-medium sm:text-6xl md:text-7xl", titleClassName)}>
+      {title &&
+        (typeof title === "string" ? (
+          <h1
+            className={cn(
+              "text-4xl font-medium sm:text-6xl md:text-7xl",
+              titleClassName,
+            )}
+          >
             {title}
           </h1>
         ) : (
           <div className={titleClassName}>{title}</div>
-        )
-      )}
-      {description && (
-        typeof description === "string" ? (
-          <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+        ))}
+      {description &&
+        (typeof description === "string" ? (
+          <p
+            className={cn(
+              "mt-4 text-lg text-muted-foreground",
+              descriptionClassName,
+            )}
+          >
+            {description}
+          </p>
         ) : (
           <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-        )
-      )}
-      <div className={cn("mt-10 grid grid-cols-1 gap-4 lg:grid-cols-12", gridClassName)}>
+        ))}
+      <div
+        className={cn(
+          "mt-10 grid grid-cols-1 gap-4 lg:grid-cols-12",
+          gridClassName,
+        )}
+      >
         {renderFeaturedArticle()}
         {renderSecondaryArticles()}
       </div>
       <div className="mt-24">
-        {latestUpdatesTitle && (
-          typeof latestUpdatesTitle === "string" ? (
-            <h2 className={cn("mb-6 text-2xl font-medium md:text-3xl", latestUpdatesTitleClassName)}>
+        {latestUpdatesTitle &&
+          (typeof latestUpdatesTitle === "string" ? (
+            <h2
+              className={cn(
+                "mb-6 text-2xl font-medium md:text-3xl",
+                latestUpdatesTitleClassName,
+              )}
+            >
               {latestUpdatesTitle}
             </h2>
           ) : (
-            <div className={cn("mb-6", latestUpdatesTitleClassName)}>{latestUpdatesTitle}</div>
-          )
-        )}
+            <div className={cn("mb-6", latestUpdatesTitleClassName)}>
+              {latestUpdatesTitle}
+            </div>
+          ))}
         <Tabs
           defaultValue="All"
           className={cn("border-b border-border", categoriesClassName)}

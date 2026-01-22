@@ -67,7 +67,7 @@ export interface TeamAvatarSocialProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -184,7 +184,12 @@ export function TeamAvatarSocial({
           <h3 className={cn("font-medium", memberNameClassName)}>
             {member.name}
           </h3>
-          <p className={cn("text-muted-foreground mt-1 text-sm", memberRoleClassName)}>
+          <p
+            className={cn(
+              "text-muted-foreground mt-1 text-sm",
+              memberRoleClassName,
+            )}
+          >
             {member.role}
           </p>
         </div>
@@ -237,41 +242,44 @@ export function TeamAvatarSocial({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-10 max-w-2xl text-center lg:mb-14", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn(
+          "mx-auto mb-10 max-w-2xl text-center lg:mb-14",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "text-3xl font-bold md:text-4xl md:leading-tight",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "text-muted-foreground mt-1 text-lg",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
       <div
         className={cn(
           "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4",
-          gridClassName
+          gridClassName,
         )}
       >
         {renderMembers()}

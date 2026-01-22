@@ -85,7 +85,7 @@ export interface TestimonialsScrollingColumnsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -206,7 +206,9 @@ export function TestimonialsScrollingColumns({
   patternOpacity,
   optixFlowConfig,
 }: TestimonialsScrollingColumnsProps): React.JSX.Element {
-  const getAuthorName = (testimonial: ScrollingColumnTestimonialItem): string => {
+  const getAuthorName = (
+    testimonial: ScrollingColumnTestimonialItem,
+  ): string => {
     if (typeof testimonial.author === "string") return testimonial.author;
     return "";
   };
@@ -216,7 +218,10 @@ export function TestimonialsScrollingColumns({
 
     return (
       <motion.div
-        className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}
+        className={cn(
+          "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -227,7 +232,10 @@ export function TestimonialsScrollingColumns({
           return (
             <motion.div
               key={index}
-              className={cn("relative overflow-hidden rounded-lg bg-card shadow-sm", cardClassName)}
+              className={cn(
+                "relative overflow-hidden rounded-lg bg-card shadow-sm",
+                cardClassName,
+              )}
               variants={itemVariants}
             >
               <div className="relative">
@@ -248,27 +256,32 @@ export function TestimonialsScrollingColumns({
                   size={32}
                   className="mb-4 text-white/40"
                 />
-                {testimonial.quote && (
-                  typeof testimonial.quote === "string" ? (
-                    <blockquote className={cn("text-base font-medium leading-relaxed", quoteClassName)}>
+                {testimonial.quote &&
+                  (typeof testimonial.quote === "string" ? (
+                    <blockquote
+                      className={cn(
+                        "text-base font-medium leading-relaxed",
+                        quoteClassName,
+                      )}
+                    >
                       {testimonial.quote}
                     </blockquote>
                   ) : (
                     <div className={quoteClassName}>{testimonial.quote}</div>
-                  )
-                )}
+                  ))}
                 <figcaption className={cn("mt-4", authorClassName)}>
                   <p className="font-semibold">
-                    &mdash; {testimonial.author && (
-                      typeof testimonial.author === "string" ? testimonial.author : null
-                    )}
-                    {testimonial.role && (
-                      typeof testimonial.role === "string" ? (
+                    &mdash;{" "}
+                    {testimonial.author &&
+                      (typeof testimonial.author === "string"
+                        ? testimonial.author
+                        : null)}
+                    {testimonial.role &&
+                      (typeof testimonial.role === "string" ? (
                         <span className="ml-1 text-white/60">
                           , {testimonial.role}
                         </span>
-                      ) : null
-                    )}
+                      ) : null)}
                   </p>
                 </figcaption>
               </div>
@@ -287,25 +300,37 @@ export function TestimonialsScrollingColumns({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+      <div
+        className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-4 text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mt-4 text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-4", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-4", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       {renderTestimonials()}

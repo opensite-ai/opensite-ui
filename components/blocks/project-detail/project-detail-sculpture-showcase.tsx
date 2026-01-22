@@ -6,16 +6,14 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   ImageItem,
-  DetailItem,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailSculptureShowcaseProps {
   /** Main title */
@@ -54,7 +52,7 @@ export interface ProjectDetailSculptureShowcaseProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -83,7 +81,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailSculptureShowcase(
-  props: ProjectDetailSculptureShowcaseProps
+  props: ProjectDetailSculptureShowcaseProps,
 ): React.JSX.Element {
   const {
     title,
@@ -118,10 +116,20 @@ export function ProjectDetailSculptureShowcase(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -150,11 +158,18 @@ export function ProjectDetailSculptureShowcase(
           </motion.div>
         )}
 
-        <div className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", gridClassName)}>
+        <div
+          className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", gridClassName)}
+        >
           <motion.div {...fadeInUp}>
-            <div className={cn("relative aspect-4/5 overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
+            <div
+              className={cn(
+                "relative aspect-4/5 overflow-hidden rounded-2xl bg-muted",
+                heroImageClassName,
+              )}
+            >
               <Img
-                src={heroImage?.src || imagePlaceholders[13]}
+                src={heroImage?.src}
                 alt={heroImage?.alt || "Sculpture showcase"}
                 className="h-full w-full object-cover"
                 optixFlowConfig={optixFlowConfig}
@@ -176,32 +191,45 @@ export function ProjectDetailSculptureShowcase(
               </div>
 
               {typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl", titleClassName)}>
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
               )}
 
-              {subtitle && (
-                typeof subtitle === "string" ? (
+              {subtitle &&
+                (typeof subtitle === "string" ? (
                   <p className="text-xl text-muted-foreground">{subtitle}</p>
                 ) : (
                   subtitle
-                )
-              )}
+                ))}
 
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("text-lg leading-relaxed text-muted-foreground", descriptionClassName)}>
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "text-lg leading-relaxed text-muted-foreground",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
 
-              <div className={cn("grid gap-4 border-t border-border pt-6 sm:grid-cols-2", metadataClassName)}>
+              <div
+                className={cn(
+                  "grid gap-4 border-t border-border pt-6 sm:grid-cols-2",
+                  metadataClassName,
+                )}
+              >
                 <div>
                   <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                     Artist
@@ -251,7 +279,7 @@ export function ProjectDetailSculptureShowcase(
                   className="group relative aspect-square overflow-hidden rounded-xl bg-muted"
                 >
                   <Img
-                    src={image.src || imagePlaceholders[10 + index]}
+                    src={image.src}
                     alt={image.alt || "Gallery image"}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     optixFlowConfig={optixFlowConfig}

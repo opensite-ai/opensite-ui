@@ -124,7 +124,7 @@ export interface CarouselBadgeCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -216,7 +216,11 @@ export function CarouselBadgeCards({
       >
         <a
           href={item.href}
-          className={cn("group flex flex-col justify-between rounded-xl bg-muted p-6", item.className, cardClassName)}
+          className={cn(
+            "group flex flex-col justify-between rounded-xl bg-muted p-6",
+            item.className,
+            cardClassName,
+          )}
         >
           <div>
             <div className="flex aspect-3/2 overflow-clip rounded-xl">
@@ -224,8 +228,15 @@ export function CarouselBadgeCards({
                 <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
                   <Img
                     src={item.image}
-                    alt={typeof item.title === "string" ? item.title : (item.imageAlt || "Card image")}
-                    className={cn("h-full w-full object-cover object-center", imageClassName)}
+                    alt={
+                      typeof item.title === "string"
+                        ? item.title
+                        : item.imageAlt || "Card image"
+                    }
+                    className={cn(
+                      "h-full w-full object-cover object-center",
+                      imageClassName,
+                    )}
                     loading="lazy"
                     optixFlowConfig={optixFlowConfig}
                   />
@@ -264,16 +275,25 @@ export function CarouselBadgeCards({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("mb-8 flex items-end justify-between md:mb-14 lg:mb-16", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl", headingClassName)}>
+      <div
+        className={cn(
+          "mb-8 flex items-end justify-between md:mb-14 lg:mb-16",
+          headerClassName,
+        )}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
         <div className={cn("shrink-0 gap-2 md:flex", controlsClassName)}>
           <Pressable
             size="icon"
@@ -311,7 +331,12 @@ export function CarouselBadgeCards({
           }}
           className={carouselClassName}
         >
-          <CarouselContent className={cn("mr-5 ml-5 2xl:mr-[calc(50vw-700px+20px)] 2xl:ml-[calc(50vw-700px+20px)]", carouselContentClassName)}>
+          <CarouselContent
+            className={cn(
+              "mr-5 ml-5 2xl:mr-[calc(50vw-700px+20px)] 2xl:ml-[calc(50vw-700px+20px)]",
+              carouselContentClassName,
+            )}
+          >
             {renderItems()}
           </CarouselContent>
         </Carousel>

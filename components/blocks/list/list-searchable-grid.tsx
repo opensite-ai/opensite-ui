@@ -126,7 +126,7 @@ export interface ListSearchableGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -192,12 +192,11 @@ export function ListSearchableGrid({
 
     return (items ?? []).filter((item) => {
       const titleText = typeof item.title === "string" ? item.title : "";
-      const descText = typeof item.description === "string" ? item.description : "";
+      const descText =
+        typeof item.description === "string" ? item.description : "";
       const searchable =
         item.searchableText ||
-        [titleText, descText, item.tags?.join(" ")]
-          .filter(Boolean)
-          .join(" ");
+        [titleText, descText, item.tags?.join(" ")].filter(Boolean).join(" ");
       return searchable.toLowerCase().includes(normalized);
     });
   }, [items, searchTerm]);
@@ -208,32 +207,52 @@ export function ListSearchableGrid({
 
     return filteredItems.map((item, index) => {
       const cardContent = (
-        <Card className={cn("h-full border-border/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl", cardClassName)}>
+        <Card
+          className={cn(
+            "h-full border-border/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
+            cardClassName,
+          )}
+        >
           <div className="flex items-start gap-3">
             {item.icon ? (
-              <div className={cn("flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary", cardIconClassName)}>
+              <div
+                className={cn(
+                  "flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary",
+                  cardIconClassName,
+                )}
+              >
                 <DynamicIcon name={item.icon} size={22} />
               </div>
             ) : null}
             <div>
-              {item.title && (
-                typeof item.title === "string" ? (
-                  <h3 className={cn("text-lg font-semibold text-foreground", cardTitleClassName)}>
+              {item.title &&
+                (typeof item.title === "string" ? (
+                  <h3
+                    className={cn(
+                      "text-lg font-semibold text-foreground",
+                      cardTitleClassName,
+                    )}
+                  >
                     {item.title}
                   </h3>
                 ) : (
                   <div className={cardTitleClassName}>{item.title}</div>
-                )
-              )}
-              {item.description && (
-                typeof item.description === "string" ? (
-                  <p className={cn("mt-2 text-sm text-muted-foreground", cardDescriptionClassName)}>
+                ))}
+              {item.description &&
+                (typeof item.description === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-2 text-sm text-muted-foreground",
+                      cardDescriptionClassName,
+                    )}
+                  >
                     {item.description}
                   </p>
                 ) : (
-                  <div className={cn("mt-2", cardDescriptionClassName)}>{item.description}</div>
-                )
-              )}
+                  <div className={cn("mt-2", cardDescriptionClassName)}>
+                    {item.description}
+                  </div>
+                ))}
             </div>
           </div>
           {item.tags && item.tags.length > 0 ? (
@@ -241,7 +260,10 @@ export function ListSearchableGrid({
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className={cn("rounded-full bg-muted/60 px-3 py-1 text-xs text-foreground", cardTagClassName)}
+                  className={cn(
+                    "rounded-full bg-muted/60 px-3 py-1 text-xs text-foreground",
+                    cardTagClassName,
+                  )}
                 >
                   {tag}
                 </span>
@@ -280,24 +302,31 @@ export function ListSearchableGrid({
       patternOpacity={patternOpacity}
     >
       <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-bold text-foreground md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mt-3 text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn("mt-3 text-muted-foreground", descriptionClassName)}
+            >
               {description}
             </p>
           ) : (
-            <div className={cn("mt-3", descriptionClassName)}>{description}</div>
-          )
-        )}
+            <div className={cn("mt-3", descriptionClassName)}>
+              {description}
+            </div>
+          ))}
       </div>
 
       <div className={cn("mx-auto mt-8 max-w-2xl", searchContainerClassName)}>
@@ -312,25 +341,39 @@ export function ListSearchableGrid({
             placeholder={searchPlaceholder}
             value={searchTerm}
             onChange={(event) => handleSearchChange(event.target.value)}
-            className={cn("h-12 rounded-xl border-border/60 bg-background pl-12 pr-4", searchInputClassName)}
+            className={cn(
+              "h-12 rounded-xl border-border/60 bg-background pl-12 pr-4",
+              searchInputClassName,
+            )}
             aria-label="Search"
           />
         </div>
       </div>
 
-      <div className={cn("mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3", itemsClassName)}>
+      <div
+        className={cn(
+          "mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3",
+          itemsClassName,
+        )}
+      >
         {renderItems()}
       </div>
 
-      {(filteredItems?.length ?? 0) === 0 && (
-        typeof emptyStateMessage === "string" ? (
-          <p className={cn("mt-10 text-center text-sm text-muted-foreground", emptyStateClassName)}>
+      {(filteredItems?.length ?? 0) === 0 &&
+        (typeof emptyStateMessage === "string" ? (
+          <p
+            className={cn(
+              "mt-10 text-center text-sm text-muted-foreground",
+              emptyStateClassName,
+            )}
+          >
             {emptyStateMessage}
           </p>
         ) : (
-          <div className={cn("mt-10 text-center", emptyStateClassName)}>{emptyStateMessage}</div>
-        )
-      )}
+          <div className={cn("mt-10 text-center", emptyStateClassName)}>
+            {emptyStateMessage}
+          </div>
+        ))}
     </Section>
   );
 }

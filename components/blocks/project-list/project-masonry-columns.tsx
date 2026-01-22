@@ -6,8 +6,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectMasonryColumnsItem {
   src: string;
@@ -38,7 +38,7 @@ export interface ProjectMasonryColumnsProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -102,7 +102,12 @@ export function ProjectMasonryColumns({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: index * 0.05 }}
       >
-        <div className={cn("group relative overflow-hidden border-border transition-all duration-300", imageWrapperClassName)}>
+        <div
+          className={cn(
+            "group relative overflow-hidden border-border transition-all duration-300",
+            imageWrapperClassName,
+          )}
+        >
           <Img
             src={image.src}
             alt={image.alt}
@@ -124,7 +129,12 @@ export function ProjectMasonryColumns({
       className={cn(className)}
     >
       <div className={cn("container", containerClassName)}>
-        <div className={cn("columns-1 gap-4 space-y-4 md:columns-2 md:gap-6 md:space-y-6 lg:columns-3", gridClassName)}>
+        <div
+          className={cn(
+            "columns-1 gap-4 space-y-4 md:columns-2 md:gap-6 md:space-y-6 lg:columns-3",
+            gridClassName,
+          )}
+        >
           {renderImages()}
         </div>
       </div>

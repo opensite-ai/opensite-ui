@@ -3,7 +3,6 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -51,7 +50,7 @@ export interface ServiceDetailImageHeroProps {
   className?: string;
   bodyBackground?: SectionBackground;
   bodySpacing?: SectionSpacing;
-  bodyPattern?: PatternName | string;
+  bodyPattern?: PatternName | undefined;
   bodyPatternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -100,12 +99,14 @@ export function ServiceDetailImageHero({
     if (introSlot) return introSlot;
 
     return (
-      <div className={cn("mx-auto max-w-3xl space-y-8 text-left", introClassName)}>
+      <div
+        className={cn("mx-auto max-w-3xl space-y-8 text-left", introClassName)}
+      >
         {introTitle && (
           <h2
             className={cn(
               "text-3xl font-semibold tracking-tight md:text-4xl",
-              introTitleClassName
+              introTitleClassName,
             )}
           >
             {typeof introTitle === "string" ? introTitle : introTitle}
@@ -115,7 +116,7 @@ export function ServiceDetailImageHero({
           <p
             className={cn(
               "text-xl leading-relaxed text-muted-foreground",
-              introDescriptionClassName
+              introDescriptionClassName,
             )}
           >
             {typeof introDescription === "string"
@@ -151,7 +152,7 @@ export function ServiceDetailImageHero({
                     <p key={paragraphIndex}>{paragraph}</p>
                   ) : (
                     <div key={paragraphIndex}>{paragraph}</div>
-                  )
+                  ),
                 )}
               </>
             )}
@@ -183,7 +184,7 @@ export function ServiceDetailImageHero({
                 <li key={index}>{item}</li>
               ) : (
                 <li key={index}>{item}</li>
-              )
+              ),
             )}
           </ul>
         )}
@@ -196,19 +197,21 @@ export function ServiceDetailImageHero({
       <div
         className={cn(
           "relative flex items-center justify-center py-32",
-          heroClassName
+          heroClassName,
         )}
         style={{ minHeight: heroMinHeight }}
       >
         <div className="absolute inset-0">{renderHeroImage()}</div>
-        <div className={cn("absolute inset-0 bg-black/50", heroOverlayClassName)} />
+        <div
+          className={cn("absolute inset-0 bg-black/50", heroOverlayClassName)}
+        />
 
         <div className="relative z-10 container text-center">
           {title && (
             <h1
               className={cn(
                 "text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl",
-                titleClassName
+                titleClassName,
               )}
             >
               {typeof title === "string" ? title : title}
@@ -235,7 +238,7 @@ export function ServiceDetailImageHero({
         <div
           className={cn(
             "mx-auto prose prose-sm max-w-3xl dark:prose-invert",
-            contentSectionsClassName
+            contentSectionsClassName,
           )}
         >
           {renderContentSections()}

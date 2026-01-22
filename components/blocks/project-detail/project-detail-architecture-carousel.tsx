@@ -18,6 +18,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailArchitectureCarouselSection {
   title: React.ReactNode;
@@ -59,7 +60,7 @@ export interface ProjectDetailArchitectureCarouselProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -100,8 +101,8 @@ const fadeInUp = {
 };
 
 export function ProjectDetailArchitectureCarousel(
-  props: ProjectDetailArchitectureCarouselProps)
-: React.JSX.Element {
+  props: ProjectDetailArchitectureCarouselProps,
+): React.JSX.Element {
   const {
     title,
     subtitle,

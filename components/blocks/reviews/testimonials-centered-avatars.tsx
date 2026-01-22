@@ -77,7 +77,7 @@ export interface TestimonialsCenteredAvatarsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -178,34 +178,40 @@ export function TestimonialsCenteredAvatars({
     return (
       <div className={cn("mt-12 space-y-8", testimonialsClassName)}>
         {testimonials.map((testimonial, index) => (
-          <div key={index} className={cn("space-y-4", testimonialItemClassName)}>
-            {testimonial.quote && (
-              typeof testimonial.quote === "string" ? (
-                <blockquote className={cn("text-lg leading-relaxed text-muted-foreground md:text-xl", quoteClassName)}>
+          <div
+            key={index}
+            className={cn("space-y-4", testimonialItemClassName)}
+          >
+            {testimonial.quote &&
+              (typeof testimonial.quote === "string" ? (
+                <blockquote
+                  className={cn(
+                    "text-lg leading-relaxed text-muted-foreground md:text-xl",
+                    quoteClassName,
+                  )}
+                >
                   &ldquo;{testimonial.quote}&rdquo;
                 </blockquote>
               ) : (
                 <div className={quoteClassName}>{testimonial.quote}</div>
-              )
-            )}
+              ))}
             <div className={authorClassName}>
-              {testimonial.author && (
-                typeof testimonial.author === "string" ? (
+              {testimonial.author &&
+                (typeof testimonial.author === "string" ? (
                   <p className="font-semibold">{testimonial.author}</p>
                 ) : (
                   testimonial.author
-                )
-              )}
+                ))}
               {(testimonial.role || testimonial.company) && (
                 <p className="text-sm text-muted-foreground">
-                  {testimonial.role && (
-                    typeof testimonial.role === "string" ? testimonial.role : testimonial.role
-                  )}
-                  {testimonial.company && (
-                    typeof testimonial.company === "string"
+                  {testimonial.role &&
+                    (typeof testimonial.role === "string"
+                      ? testimonial.role
+                      : testimonial.role)}
+                  {testimonial.company &&
+                    (typeof testimonial.company === "string"
                       ? ` at ${testimonial.company}`
-                      : testimonial.company
-                  )}
+                      : testimonial.company)}
                 </p>
               )}
             </div>
@@ -224,24 +230,27 @@ export function TestimonialsCenteredAvatars({
       className={className}
     >
       <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
-        {badge && (
-          typeof badge === "string" ? (
+        {badge &&
+          (typeof badge === "string" ? (
             <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
               {badge}
             </Badge>
           ) : (
             <div className={cn("mb-4", badgeClassName)}>{badge}</div>
-          )
-        )}
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          ))}
+        {heading &&
+          (typeof heading === "string" ? (
+            <h2
+              className={cn(
+                "text-3xl font-semibold tracking-tight md:text-4xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
 
         <div className={cn("mt-8 flex justify-center", avatarsClassName)}>
           <div className="flex -space-x-4">
@@ -253,10 +262,7 @@ export function TestimonialsCenteredAvatars({
                   key={index}
                   className="size-16 border-4 border-background ring-2 ring-border md:size-20"
                 >
-                  <AvatarImage
-                    src={avatarSrc}
-                    alt={authorName}
-                  />
+                  <AvatarImage src={avatarSrc} alt={authorName} />
                   <AvatarFallback className="text-lg">
                     {getInitials(authorName)}
                   </AvatarFallback>

@@ -6,8 +6,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   SectionItem,
@@ -15,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailSidebarNavigationProps {
   /** Main title */
@@ -45,7 +44,7 @@ export interface ProjectDetailSidebarNavigationProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -69,7 +68,7 @@ export interface ProjectDetailSidebarNavigationProps {
 }
 
 export function ProjectDetailSidebarNavigation(
-  props: ProjectDetailSidebarNavigationProps
+  props: ProjectDetailSidebarNavigationProps,
 ): React.JSX.Element {
   const {
     title,
@@ -98,13 +97,13 @@ export function ProjectDetailSidebarNavigation(
   } = props;
 
   const [activeSection, setActiveSection] = React.useState(
-    sections?.[0]?.id || ""
+    sections?.[0]?.id || "",
   );
 
   React.useEffect(() => {
     const handleScroll = () => {
       const sectionElements = sections?.map((section) =>
-        document.getElementById(section.id)
+        document.getElementById(section.id),
       );
 
       sectionElements?.forEach((element, index) => {
@@ -132,10 +131,20 @@ export function ProjectDetailSidebarNavigation(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -172,7 +181,7 @@ export function ProjectDetailSidebarNavigation(
                       "block w-full text-left px-3 py-2 text-sm font-medium rounded-lg transition-colors",
                       activeSection === section.id
                         ? "bg-muted text-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                     )}
                   >
                     {section.title}
@@ -180,10 +189,17 @@ export function ProjectDetailSidebarNavigation(
                 ))}
               </nav>
 
-              <div className={cn("space-y-3 border-t border-border pt-6", metadataClassName)}>
+              <div
+                className={cn(
+                  "space-y-3 border-t border-border pt-6",
+                  metadataClassName,
+                )}
+              >
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Category</span>
-                  <span className="font-medium text-foreground">{category}</span>
+                  <span className="font-medium text-foreground">
+                    {category}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Client</span>
@@ -205,19 +221,32 @@ export function ProjectDetailSidebarNavigation(
               className="mb-12"
             >
               {typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl", titleClassName)}>
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
               )}
-              {subtitle && (
-                typeof subtitle === "string" ? (
-                  <p className={cn("mt-4 text-xl text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+              {subtitle &&
+                (typeof subtitle === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-4 text-xl text-muted-foreground",
+                      subtitleClassName,
+                    )}
+                  >
+                    {subtitle}
+                  </p>
                 ) : (
-                  <div className={cn("mt-4", subtitleClassName)}>{subtitle}</div>
-                )
-              )}
+                  <div className={cn("mt-4", subtitleClassName)}>
+                    {subtitle}
+                  </div>
+                ))}
             </motion.header>
 
             <motion.div
@@ -226,9 +255,14 @@ export function ProjectDetailSidebarNavigation(
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-16"
             >
-              <div className={cn("relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
+              <div
+                className={cn(
+                  "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+                  heroImageClassName,
+                )}
+              >
                 <Img
-                  src={heroImage?.src || imagePlaceholders[8]}
+                  src={heroImage?.src}
                   alt={heroImage?.alt || "Project hero image"}
                   className="h-full w-full object-cover"
                   optixFlowConfig={optixFlowConfig}

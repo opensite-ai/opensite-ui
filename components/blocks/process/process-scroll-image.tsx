@@ -126,7 +126,7 @@ export interface ProcessScrollImageProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -156,7 +156,12 @@ interface ProcessCardProps {
   itemClassName?: string;
 }
 
-const ProcessCard = ({ step, index, setActive, itemClassName }: ProcessCardProps) => {
+const ProcessCard = ({
+  step,
+  index,
+  setActive,
+  itemClassName,
+}: ProcessCardProps) => {
   const ref = React.useRef<HTMLLIElement>(null);
 
   const itemInView = useInView(ref, {
@@ -176,29 +181,27 @@ const ProcessCard = ({ step, index, setActive, itemClassName }: ProcessCardProps
       className={cn(
         "relative flex flex-col justify-between gap-12 border-b py-8 lg:py-16",
         itemClassName,
-        step.className
+        step.className,
       )}
     >
       <div className="flex w-fit items-center justify-center px-4 py-1 text-9xl tracking-tighter">
         {step.step ?? `0${index + 1}`}
       </div>
       <div>
-        {step.title && (
-          typeof step.title === "string" ? (
+        {step.title &&
+          (typeof step.title === "string" ? (
             <h3 className="mb-4 text-2xl font-semibold tracking-tighter lg:text-3xl">
               {step.title}
             </h3>
           ) : (
             <div className="mb-4">{step.title}</div>
-          )
-        )}
-        {step.description && (
-          typeof step.description === "string" ? (
+          ))}
+        {step.description &&
+          (typeof step.description === "string" ? (
             <p className="text-foreground/50">{step.description}</p>
           ) : (
             <div className="text-foreground/50">{step.description}</div>
-          )
-        )}
+          ))}
       </div>
     </li>
   );
@@ -238,7 +241,24 @@ export function ProcessScrollImage({
 
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
-  const resolvedActions: ActionConfig[] = actions ?? (ctaText && ctaUrl ? [{ label: ctaText, href: ctaUrl, variant: "ghost" as const, icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" /> }] : []);
+  const resolvedActions: ActionConfig[] =
+    actions ??
+    (ctaText && ctaUrl
+      ? [
+          {
+            label: ctaText,
+            href: ctaUrl,
+            variant: "ghost" as const,
+            icon: (
+              <DynamicIcon
+                name="lucide/corner-down-right"
+                size={20}
+                className="text-primary"
+              />
+            ),
+          },
+        ]
+      : []);
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
@@ -247,12 +267,22 @@ export function ProcessScrollImage({
     return (
       <div className={cn("flex flex-col gap-2", actionsClassName)}>
         {resolvedActions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
               asButton
-              className={cn("flex items-center justify-start gap-2", actionClassName)}
+              className={cn(
+                "flex items-center justify-start gap-2",
+                actionClassName,
+              )}
               {...pressableProps}
             >
               {children ?? (
@@ -289,7 +319,9 @@ export function ProcessScrollImage({
   };
 
   const getStepTitle = (step: ProcessScrollImageItem): string => {
-    return typeof step.title === "string" ? step.title : `Step ${steps?.indexOf(step) ?? 0 + 1}`;
+    return typeof step.title === "string"
+      ? step.title
+      : `Step ${steps?.indexOf(step) ?? 0 + 1}`;
   };
 
   return (
@@ -300,37 +332,63 @@ export function ProcessScrollImage({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-20", contentClassName)}>
-        <div className={cn("top-10 h-fit w-fit gap-3 space-y-7 py-8 lg:sticky", sidebarClassName)}>
-          {resolvedHeading && (
-            typeof resolvedHeading === "string" ? (
-              <h1 className={cn("relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl", headingClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-20",
+          contentClassName,
+        )}
+      >
+        <div
+          className={cn(
+            "top-10 h-fit w-fit gap-3 space-y-7 py-8 lg:sticky",
+            sidebarClassName,
+          )}
+        >
+          {resolvedHeading &&
+            (typeof resolvedHeading === "string" ? (
+              <h1
+                className={cn(
+                  "relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl",
+                  headingClassName,
+                )}
+              >
                 {resolvedHeading}
               </h1>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-base text-foreground/50", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-base text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-          <div className={cn("relative h-90 overflow-hidden border", imageContainerClassName)}>
-            {previousActive !== undefined && steps && steps[previousActive] && steps[previousActive].image && (
-              <div className="absolute top-0 h-full w-full">
-                <Img
-                  src={steps[previousActive].image!}
-                  alt={getStepTitle(steps[previousActive])}
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
+            ))}
+          <div
+            className={cn(
+              "relative h-90 overflow-hidden border",
+              imageContainerClassName,
             )}
+          >
+            {previousActive !== undefined &&
+              steps &&
+              steps[previousActive] &&
+              steps[previousActive].image && (
+                <div className="absolute top-0 h-full w-full">
+                  <Img
+                    src={steps[previousActive].image!}
+                    alt={getStepTitle(steps[previousActive])}
+                    className="h-full w-full object-cover"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </div>
+              )}
             {steps && steps[active] && steps[active].image && (
               <motion.div
                 initial={{ clipPath: "inset(100% 100% 0% 0%)" }}

@@ -99,7 +99,7 @@ export interface PricingEnterpriseContactProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -205,7 +205,14 @@ export function PricingEnterpriseContact({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionItemClassName,
+        ...pressableProps
+      } = action;
 
       return (
         <Pressable
@@ -231,9 +238,10 @@ export function PricingEnterpriseContact({
     if (!features || features.length === 0) return null;
 
     return features.map((feature, index) => {
-      const resolvedIcon = feature.icon
-        ?? featureIcon
-        ?? (feature.iconName || featureIconName ? (
+      const resolvedIcon =
+        feature.icon ??
+        featureIcon ??
+        (feature.iconName || featureIconName ? (
           <DynamicIcon
             name={feature.iconName || featureIconName}
             size={16}
@@ -247,29 +255,36 @@ export function PricingEnterpriseContact({
             <div
               className={cn(
                 "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10",
-                feature.iconWrapperClassName
+                feature.iconWrapperClassName,
               )}
             >
               {resolvedIcon}
             </div>
           )}
           <div>
-            {feature.name && (
-              typeof feature.name === "string" ? (
-                <h3 className={cn("font-medium", feature.titleClassName)}>{feature.name}</h3>
+            {feature.name &&
+              (typeof feature.name === "string" ? (
+                <h3 className={cn("font-medium", feature.titleClassName)}>
+                  {feature.name}
+                </h3>
               ) : (
                 <div className={feature.titleClassName}>{feature.name}</div>
-              )
-            )}
-            {feature.description && (
-              typeof feature.description === "string" ? (
-                <p className={cn("text-sm text-muted-foreground", feature.descriptionClassName)}>
+              ))}
+            {feature.description &&
+              (typeof feature.description === "string" ? (
+                <p
+                  className={cn(
+                    "text-sm text-muted-foreground",
+                    feature.descriptionClassName,
+                  )}
+                >
                   {feature.description}
                 </p>
               ) : (
-                <div className={feature.descriptionClassName}>{feature.description}</div>
-              )
-            )}
+                <div className={feature.descriptionClassName}>
+                  {feature.description}
+                </div>
+              ))}
           </div>
         </div>
       );
@@ -286,39 +301,61 @@ export function PricingEnterpriseContact({
       className={className}
     >
       <div className={cn("mx-auto max-w-4xl", containerClassName)}>
-        <div className={cn("rounded-2xl border bg-linear-to-br from-muted/50 to-muted p-8 md:p-12", cardClassName)}>
+        <div
+          className={cn(
+            "rounded-2xl border bg-linear-to-br from-muted/50 to-muted p-8 md:p-12",
+            cardClassName,
+          )}
+        >
           <div className={cn("grid gap-8 md:grid-cols-2", gridClassName)}>
             <div className={contentClassName}>
-              {subtitle && (
-                typeof subtitle === "string" ? (
-                  <p className={cn("text-sm font-medium uppercase tracking-wide text-primary", subtitleClassName)}>
+              {subtitle &&
+                (typeof subtitle === "string" ? (
+                  <p
+                    className={cn(
+                      "text-sm font-medium uppercase tracking-wide text-primary",
+                      subtitleClassName,
+                    )}
+                  >
                     {subtitle}
                   </p>
                 ) : (
                   <div className={subtitleClassName}>{subtitle}</div>
-                )
-              )}
-              {title && (
-                typeof title === "string" ? (
-                  <h2 className={cn("mt-2 text-3xl font-bold tracking-tight", titleClassName)}>
+                ))}
+              {title &&
+                (typeof title === "string" ? (
+                  <h2
+                    className={cn(
+                      "mt-2 text-3xl font-bold tracking-tight",
+                      titleClassName,
+                    )}
+                  >
                     {title}
                   </h2>
                 ) : (
                   <div className={titleClassName}>{title}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mt-4 text-muted-foreground", descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-4 text-muted-foreground",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
 
               {(actionsSlot || (actions && actions.length > 0)) && (
-                <div className={cn("mt-8 flex flex-col gap-3 sm:flex-row", actionsClassName)}>
+                <div
+                  className={cn(
+                    "mt-8 flex flex-col gap-3 sm:flex-row",
+                    actionsClassName,
+                  )}
+                >
                   {renderActions()}
                 </div>
               )}

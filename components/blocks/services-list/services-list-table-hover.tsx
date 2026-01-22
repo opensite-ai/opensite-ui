@@ -8,7 +8,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for table hover display
@@ -103,7 +107,7 @@ export interface ServicesListTableHoverProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -170,14 +174,14 @@ export function ServicesListTableHover({
             className={cn(
               "group flex items-center justify-between border-b border-border py-6 transition-colors hover:bg-muted/50 first:border-t",
               rowClassName,
-              service.className
+              service.className,
             )}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
             <div className="flex items-center gap-6">
-              {service.category && (
-                typeof service.category === "string" ? (
+              {service.category &&
+                (typeof service.category === "string" ? (
                   <span className="w-24 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     {service.category}
                   </span>
@@ -185,23 +189,28 @@ export function ServicesListTableHover({
                   <div className="w-24 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     {service.category}
                   </div>
-                )
-              )}
+                ))}
               <div>
-                {service.title && (
-                  typeof service.title === "string" ? (
-                    <h3 className="text-lg font-semibold group-hover:text-primary">{service.title}</h3>
+                {service.title &&
+                  (typeof service.title === "string" ? (
+                    <h3 className="text-lg font-semibold group-hover:text-primary">
+                      {service.title}
+                    </h3>
                   ) : (
-                    <div className="text-lg font-semibold group-hover:text-primary">{service.title}</div>
-                  )
-                )}
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="text-sm text-muted-foreground">{service.description}</p>
+                    <div className="text-lg font-semibold group-hover:text-primary">
+                      {service.title}
+                    </div>
+                  ))}
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="text-sm text-muted-foreground">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="text-sm text-muted-foreground">{service.description}</div>
-                  )
-                )}
+                    <div className="text-sm text-muted-foreground">
+                      {service.description}
+                    </div>
+                  ))}
               </div>
             </div>
             <DynamicIcon
@@ -243,26 +252,37 @@ export function ServicesListTableHover({
     >
       <div className={cn("mx-auto max-w-4xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
-        <div className={cn("relative", tableClassName)} onMouseMove={handleMouseMove}>
+        <div
+          className={cn("relative", tableClassName)}
+          onMouseMove={handleMouseMove}
+        >
           {renderServices()}
         </div>
       </div>

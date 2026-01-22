@@ -8,6 +8,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectExperienceQuoteItem {
   role: string;
@@ -52,7 +53,7 @@ export interface ProjectExperienceQuoteProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -121,7 +122,10 @@ export function ProjectExperienceQuote({
     return experiences.map((experience, index) => (
       <Card
         key={index}
-        className={cn("flex h-full flex-col overflow-hidden p-0 shadow-sm transition-all hover:shadow-md", cardClassName)}
+        className={cn(
+          "flex h-full flex-col overflow-hidden p-0 shadow-sm transition-all hover:shadow-md",
+          cardClassName,
+        )}
       >
         <CardContent className="flex h-full flex-col p-0">
           <div className="bg-primary text-primary-foreground p-6">
@@ -160,22 +164,17 @@ export function ProjectExperienceQuote({
             </p>
 
             <div className="mb-6">
-              <h4 className="mb-2 text-sm font-semibold">
-                Key Achievements
-              </h4>
+              <h4 className="mb-2 text-sm font-semibold">Key Achievements</h4>
               <ul className="text-muted-foreground space-y-1 text-sm">
                 {experience.achievements.map(
                   (achievement, achievementIndex) => (
-                    <li
-                      key={achievementIndex}
-                      className="flex items-start"
-                    >
+                    <li key={achievementIndex} className="flex items-start">
                       <span className="bg-primary/10 text-primary mr-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs">
                         •
                       </span>
                       <span>{achievement}</span>
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </div>
@@ -217,29 +216,47 @@ export function ProjectExperienceQuote({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+      <div
+        className={cn(
+          "container mx-auto px-4 md:px-6 2xl:max-w-[1400px]",
+          containerClassName,
+        )}
+      >
         <div className={cn("mb-12 text-center md:mb-16", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("text-muted-foreground mx-auto max-w-3xl text-lg", subheadingClassName)}>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground mx-auto max-w-3xl text-lg",
+                  subheadingClassName,
+                )}
+              >
                 {subheading}
               </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
 
-        <div className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        <div
+          className={cn(
+            "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+            gridClassName,
+          )}
+        >
           {renderExperiences()}
         </div>
       </div>

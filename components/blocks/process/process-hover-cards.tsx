@@ -99,7 +99,7 @@ export interface ProcessHoverCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -122,17 +122,24 @@ interface ProcessCardProps {
   hoverImageClassName?: string;
 }
 
-const ProcessCard = ({ step, index, optixFlowConfig, itemClassName, hoverImageClassName }: ProcessCardProps) => {
+const ProcessCard = ({
+  step,
+  index,
+  optixFlowConfig,
+  itemClassName,
+  hoverImageClassName,
+}: ProcessCardProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
-  const titleText = typeof step.title === "string" ? step.title : `Step ${index + 1}`;
+  const titleText =
+    typeof step.title === "string" ? step.title : `Step ${index + 1}`;
 
   return (
     <li
       className={cn(
         "group relative flex flex-col justify-between gap-12 border-b py-8 lg:py-16",
         itemClassName,
-        step.className
+        step.className,
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -146,7 +153,7 @@ const ProcessCard = ({ step, index, optixFlowConfig, itemClassName, hoverImageCl
             transition={{ duration: 0.3 }}
             className={cn(
               "pointer-events-none absolute top-1/2 right-10 z-10 hidden h-60 w-80 -translate-y-1/2 overflow-hidden lg:block",
-              hoverImageClassName
+              hoverImageClassName,
             )}
           >
             <Img
@@ -164,22 +171,24 @@ const ProcessCard = ({ step, index, optixFlowConfig, itemClassName, hoverImageCl
             {step.step ?? `0${index + 1}`}
           </div>
           <div>
-            {step.title && (
-              typeof step.title === "string" ? (
+            {step.title &&
+              (typeof step.title === "string" ? (
                 <h3 className="mb-2 text-2xl font-semibold tracking-tighter transition-colors group-hover:text-primary lg:text-3xl">
                   {step.title}
                 </h3>
               ) : (
                 <div className="mb-2">{step.title}</div>
-              )
-            )}
-            {step.description && (
-              typeof step.description === "string" ? (
-                <p className="max-w-md text-foreground/50">{step.description}</p>
+              ))}
+            {step.description &&
+              (typeof step.description === "string" ? (
+                <p className="max-w-md text-foreground/50">
+                  {step.description}
+                </p>
               ) : (
-                <div className="max-w-md text-foreground/50">{step.description}</div>
-              )
-            )}
+                <div className="max-w-md text-foreground/50">
+                  {step.description}
+                </div>
+              ))}
           </div>
         </div>
       </div>
@@ -244,24 +253,32 @@ export function ProcessHoverCards({
     >
       <div className={contentClassName}>
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
-          {resolvedHeading && (
-            typeof resolvedHeading === "string" ? (
-              <h1 className={cn("mb-4 text-5xl font-semibold tracking-tight lg:text-7xl", headingClassName)}>
+          {resolvedHeading &&
+            (typeof resolvedHeading === "string" ? (
+              <h1
+                className={cn(
+                  "mb-4 text-5xl font-semibold tracking-tight lg:text-7xl",
+                  headingClassName,
+                )}
+              >
                 {resolvedHeading}
               </h1>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg text-foreground/50", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-lg text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderSteps()}
       </div>

@@ -43,7 +43,7 @@ export interface FaqSimpleAccordionProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -114,7 +114,7 @@ export function FaqSimpleAccordion({
             <AccordionTrigger
               className={cn(
                 "font-semibold hover:no-underline",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               {item.question}
@@ -140,20 +140,19 @@ export function FaqSimpleAccordion({
       className={className}
     >
       <div className={cn("mx-auto max-w-3xl", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+        {heading &&
+          (typeof heading === "string" ? (
             <h1
               className={cn(
                 "mb-4 text-3xl font-semibold md:mb-11 md:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
         {renderItems()}
       </div>
     </Section>

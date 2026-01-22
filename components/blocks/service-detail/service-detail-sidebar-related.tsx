@@ -77,7 +77,7 @@ export interface ServiceDetailSidebarRelatedProps {
   sidebarClassName?: string;
   background?: SectionBackground;
   spacing?: SectionSpacing;
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   patternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -155,7 +155,7 @@ export function ServiceDetailSidebarRelated({
                     <p key={paragraphIndex}>{paragraph}</p>
                   ) : (
                     <div key={paragraphIndex}>{paragraph}</div>
-                  )
+                  ),
                 )}
               </>
             )}
@@ -187,7 +187,7 @@ export function ServiceDetailSidebarRelated({
                 <li key={index}>{item}</li>
               ) : (
                 <li key={index}>{item}</li>
-              )
+              ),
             )}
           </ul>
         )}
@@ -208,7 +208,10 @@ export function ServiceDetailSidebarRelated({
         )}
         <div className="space-y-6">
           {stats.map((stat, index) => (
-            <div key={index} className={cn("flex items-center gap-4", stat.className)}>
+            <div
+              key={index}
+              className={cn("flex items-center gap-4", stat.className)}
+            >
               <div className="flex h-8 w-8 shrink-0 items-center justify-center">
                 {stat.iconSlot ? (
                   stat.iconSlot
@@ -247,10 +250,15 @@ export function ServiceDetailSidebarRelated({
     if (!relatedServices || relatedServices.length === 0) return null;
 
     return (
-      <div className={cn("rounded-lg bg-muted/50 p-6", relatedServicesClassName)}>
+      <div
+        className={cn("rounded-lg bg-muted/50 p-6", relatedServicesClassName)}
+      >
         {relatedServicesTitle && (
           <h3
-            className={cn("mb-6 text-lg font-semibold", relatedServicesTitleClassName)}
+            className={cn(
+              "mb-6 text-lg font-semibold",
+              relatedServicesTitleClassName,
+            )}
           >
             {typeof relatedServicesTitle === "string"
               ? relatedServicesTitle
@@ -318,7 +326,7 @@ export function ServiceDetailSidebarRelated({
                   <h1
                     className={cn(
                       "text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
-                      titleClassName
+                      titleClassName,
                     )}
                   >
                     {typeof title === "string" ? title : title}
@@ -328,7 +336,7 @@ export function ServiceDetailSidebarRelated({
                   <p
                     className={cn(
                       "text-xl leading-relaxed text-muted-foreground",
-                      introDescriptionClassName
+                      introDescriptionClassName,
                     )}
                   >
                     {typeof introDescription === "string"
@@ -342,7 +350,7 @@ export function ServiceDetailSidebarRelated({
             <div
               className={cn(
                 "prose prose-sm max-w-none dark:prose-invert",
-                contentSectionsClassName
+                contentSectionsClassName,
               )}
             >
               {renderContentSections()}

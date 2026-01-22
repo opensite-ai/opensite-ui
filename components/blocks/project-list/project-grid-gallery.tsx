@@ -5,8 +5,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectGridGalleryItem {
   src: string;
@@ -39,7 +39,7 @@ export interface ProjectGridGalleryProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -106,21 +106,34 @@ export function ProjectGridGallery({
     return images.map((image, index) => (
       <div
         key={index}
-        className={cn("group relative aspect-square overflow-hidden", cardClassName)}
+        className={cn(
+          "group relative aspect-square overflow-hidden",
+          cardClassName,
+        )}
       >
         <Img
           src={image.src}
           alt={image.alt}
-          className={cn("h-full w-full object-cover transition-transform duration-300 group-hover:scale-105", imageClassName)}
+          className={cn(
+            "h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
+            imageClassName,
+          )}
           optixFlowConfig={optixFlowConfig}
         />
         <div className="absolute inset-0 bg-background/0 transition-all duration-300 group-hover:bg-background/10" />
         <div className="absolute right-0 bottom-0 left-0 translate-y-full transform p-6 transition-transform duration-300 group-hover:translate-y-0">
           <div className="text-center">
-            <h3 className={cn("mb-2 text-xl font-semibold text-muted", titleClassName)}>
+            <h3
+              className={cn(
+                "mb-2 text-xl font-semibold text-muted",
+                titleClassName,
+              )}
+            >
               {image.title}
             </h3>
-            <p className={cn("text-sm text-muted", descriptionClassName)}>{image.description}</p>
+            <p className={cn("text-sm text-muted", descriptionClassName)}>
+              {image.description}
+            </p>
           </div>
         </div>
       </div>

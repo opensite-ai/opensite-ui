@@ -6,8 +6,6 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   DetailItem,
@@ -16,6 +14,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailLargeHeroFeaturedSection {
   title: React.ReactNode;
@@ -49,7 +48,7 @@ export interface ProjectDetailLargeHeroFeaturedProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -78,7 +77,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailLargeHeroFeatured(
-  props: ProjectDetailLargeHeroFeaturedProps
+  props: ProjectDetailLargeHeroFeaturedProps,
 ): React.JSX.Element {
   const {
     title,
@@ -108,10 +107,20 @@ export function ProjectDetailLargeHeroFeatured(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -137,7 +146,7 @@ export function ProjectDetailLargeHeroFeatured(
         <section className={cn("relative min-h-[70vh]", heroImageClassName)}>
           <div className="absolute inset-0">
             <Img
-              src={heroImage?.src || imagePlaceholders[71]}
+              src={heroImage?.src}
               alt={heroImage?.alt || "Project hero image"}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
@@ -164,19 +173,23 @@ export function ProjectDetailLargeHeroFeatured(
               className={cn("max-w-4xl", headerClassName)}
             >
               {typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+                <h1
+                  className={cn(
+                    "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
               )}
-              {subtitle && (
-                typeof subtitle === "string" ? (
+              {subtitle &&
+                (typeof subtitle === "string" ? (
                   <p className="mt-6 text-xl text-foreground/80">{subtitle}</p>
                 ) : (
                   <div className="mt-6">{subtitle}</div>
-                )
-              )}
+                ))}
             </motion.div>
           </div>
         </section>
@@ -186,7 +199,10 @@ export function ProjectDetailLargeHeroFeatured(
             {details && details.length > 0 && (
               <motion.div
                 {...fadeInUp}
-                className={cn("mb-16 grid gap-6 border-b border-border pb-16 sm:grid-cols-2 lg:grid-cols-4", detailsClassName)}
+                className={cn(
+                  "mb-16 grid gap-6 border-b border-border pb-16 sm:grid-cols-2 lg:grid-cols-4",
+                  detailsClassName,
+                )}
               >
                 {details.map((detail, index) => (
                   <div key={index}>
@@ -232,7 +248,10 @@ export function ProjectDetailLargeHeroFeatured(
               <motion.div
                 {...fadeInUp}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className={cn("mt-16 grid gap-6 md:grid-cols-2", galleryClassName)}
+                className={cn(
+                  "mt-16 grid gap-6 md:grid-cols-2",
+                  galleryClassName,
+                )}
               >
                 {galleryImages.map((image, index) => (
                   <motion.div
@@ -244,7 +263,7 @@ export function ProjectDetailLargeHeroFeatured(
                     className="relative aspect-video overflow-hidden rounded-2xl bg-muted"
                   >
                     <Img
-                      src={image.src || imagePlaceholders[69 + index]}
+                      src={image.src}
                       alt={image.alt || "Gallery image"}
                       className="h-full w-full object-cover"
                       optixFlowConfig={optixFlowConfig}

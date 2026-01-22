@@ -9,7 +9,11 @@ import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface ResourceListFeaturedArticlesFeaturedPost {
   /**
@@ -121,7 +125,7 @@ export interface ResourceListFeaturedArticlesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -152,10 +156,18 @@ const FeaturedPostComponent = ({
   optixFlowConfig,
 }: FeaturedPostComponentProps) => {
   return (
-    <div className={cn("flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10 xl:flex-row", className)}>
+    <div
+      className={cn(
+        "flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10 xl:flex-row",
+        className,
+      )}
+    >
       <div className="basis-full lg:basis-1/2">
         <div className="flex flex-col gap-5">
-          <Badge variant="outline" className={cn("w-fit bg-background", badgeClassName)}>
+          <Badge
+            variant="outline"
+            className={cn("w-fit bg-background", badgeClassName)}
+          >
             {badgeText}
           </Badge>
           {typeof title === "string" ? (
@@ -172,7 +184,10 @@ const FeaturedPostComponent = ({
               href={link}
               variant="default"
               asButton
-              className={cn("group relative mt-5 px-6 transition-all hover:pr-8 hover:pl-4", buttonClassName)}
+              className={cn(
+                "group relative mt-5 px-6 transition-all hover:pr-8 hover:pl-4",
+                buttonClassName,
+              )}
             >
               {buttonText}
               <DynamicIcon
@@ -260,17 +275,24 @@ export function ResourceListFeaturedArticles({
           <Pressable
             href={article.link}
             key={index}
-            className={cn("block w-full hover:bg-foreground/10", article.className)}
+            className={cn(
+              "block w-full hover:bg-foreground/10",
+              article.className,
+            )}
           >
             <div className="flex flex-col items-baseline justify-between gap-2 border-t py-6 text-foreground md:flex-row">
               <div className="basis-1/4 font-medium">
                 {typeof article.date === "string" ? article.date : article.date}
               </div>
               <div className="basis-1/4">
-                {typeof article.category === "string" ? article.category : article.category}
+                {typeof article.category === "string"
+                  ? article.category
+                  : article.category}
               </div>
               <div className="basis-1/2 text-muted-foreground">
-                {typeof article.title === "string" ? article.title : article.title}
+                {typeof article.title === "string"
+                  ? article.title
+                  : article.title}
               </div>
             </div>
           </Pressable>
@@ -289,13 +311,21 @@ export function ResourceListFeaturedArticles({
     >
       {renderFeaturedPost()}
       <div className="flex w-full flex-col gap-4">
-        {articlesTitle && (
-          typeof articlesTitle === "string" ? (
-            <h2 className={cn("mt-16 text-xl font-semibold", articlesTitleClassName)}>{articlesTitle}</h2>
+        {articlesTitle &&
+          (typeof articlesTitle === "string" ? (
+            <h2
+              className={cn(
+                "mt-16 text-xl font-semibold",
+                articlesTitleClassName,
+              )}
+            >
+              {articlesTitle}
+            </h2>
           ) : (
-            <div className={cn("mt-16", articlesTitleClassName)}>{articlesTitle}</div>
-          )
-        )}
+            <div className={cn("mt-16", articlesTitleClassName)}>
+              {articlesTitle}
+            </div>
+          ))}
         {renderArticles()}
       </div>
     </Section>

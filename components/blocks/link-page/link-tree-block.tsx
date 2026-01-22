@@ -261,7 +261,7 @@ export interface LinkTreeBlockProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -273,7 +273,7 @@ export interface LinkTreeBlockProps {
   /**
    * Background pattern URL (legacy)
    */
-  backgroundPattern?: string;
+  backgroundPattern?: PatternName | undefined;
   /**
    * Custom accent color CSS value (applied as --accent-color CSS variable)
    */
@@ -372,7 +372,7 @@ export function LinkTreeBlock({
   pattern,
   patternOpacity,
   patternClassName,
-  backgroundPattern = patternSvgs.dots,
+  backgroundPattern = "dotPattern",
   accentColor,
   optixFlowConfig,
 }: LinkTreeBlockProps): React.JSX.Element {
@@ -408,7 +408,7 @@ export function LinkTreeBlock({
 
   const resolveImage = (
     value?: ImageItem | string,
-    fallbackAlt?: string
+    fallbackAlt?: string,
   ): ImageItem | undefined => {
     if (!value) return undefined;
     if (typeof value === "string") {
@@ -429,14 +429,14 @@ export function LinkTreeBlock({
       <div
         className={cn(
           "flex flex-col items-center gap-4 text-center",
-          headerClassName
+          headerClassName,
         )}
       >
         <div className="relative">
           <div
             className={cn(
               "h-24 w-24 overflow-hidden rounded-full border-4 border-background bg-muted shadow-xl",
-              avatarClassName
+              avatarClassName,
             )}
           >
             {resolvedAvatar && (
@@ -452,14 +452,17 @@ export function LinkTreeBlock({
             <div
               className={cn(
                 "absolute -bottom-1 -right-1 rounded-full bg-primary p-1",
-                verifiedBadgeClassName
+                verifiedBadgeClassName,
               )}
             >
               {verifiedIcon ?? (
                 <DynamicIcon
                   name="lucide/check"
                   size={14}
-                  className={cn("text-primary-foreground", verifiedIconClassName)}
+                  className={cn(
+                    "text-primary-foreground",
+                    verifiedIconClassName,
+                  )}
                 />
               )}
             </div>
@@ -473,7 +476,7 @@ export function LinkTreeBlock({
                 className={cn(
                   "text-2xl font-bold tracking-tight",
                   isDark ? "text-white" : "text-foreground",
-                  nameClassName
+                  nameClassName,
                 )}
               >
                 {brandName}
@@ -487,7 +490,7 @@ export function LinkTreeBlock({
                 className={cn(
                   "max-w-xs text-balance text-sm",
                   isDark ? "text-white/70" : "text-muted-foreground",
-                  taglineClassName
+                  taglineClassName,
                 )}
               >
                 {brandTagline}
@@ -541,13 +544,13 @@ export function LinkTreeBlock({
                   isFeatured
                     ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
                     : isDark
-                    ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
-                    : isGlass
-                    ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
-                    : "border border-border bg-card text-card-foreground hover:bg-accent",
+                      ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
+                      : isGlass
+                        ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
+                        : "border border-border bg-card text-card-foreground hover:bg-accent",
                   linkClassName,
                   isFeatured ? featuredLinkClassName : null,
-                  linkItemClassName
+                  linkItemClassName,
                 )}
                 {...pressableProps}
               >
@@ -565,13 +568,13 @@ export function LinkTreeBlock({
                 isFeatured
                   ? "bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
                   : isDark
-                  ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
-                  : isGlass
-                  ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
-                  : "border border-border bg-card text-card-foreground hover:bg-accent",
+                    ? "border border-white/10 bg-white/10 text-white hover:bg-white/20"
+                    : isGlass
+                      ? "border border-white/30 bg-white/60 text-foreground backdrop-blur-sm hover:bg-white/80"
+                      : "border border-border bg-card text-card-foreground hover:bg-accent",
                 linkClassName,
                 isFeatured ? featuredLinkClassName : null,
-                linkItemClassName
+                linkItemClassName,
               )}
               {...pressableProps}
             >
@@ -583,7 +586,7 @@ export function LinkTreeBlock({
                     <span
                       className={cn(
                         "block truncate text-sm font-medium",
-                        linkLabelClassName
+                        linkLabelClassName,
                       )}
                     >
                       {label}
@@ -599,9 +602,9 @@ export function LinkTreeBlock({
                         isFeatured
                           ? "text-primary-foreground/70"
                           : isDark
-                          ? "text-white/60"
-                          : "text-muted-foreground",
-                        linkDescriptionClassName
+                            ? "text-white/60"
+                            : "text-muted-foreground",
+                        linkDescriptionClassName,
                       )}
                     >
                       {description}
@@ -630,9 +633,9 @@ export function LinkTreeBlock({
                   isFeatured
                     ? "text-primary-foreground/70"
                     : isDark
-                    ? "text-white/50"
-                    : "text-muted-foreground",
-                  linkChevronClassName
+                      ? "text-white/50"
+                      : "text-muted-foreground",
+                  linkChevronClassName,
                 )}
               />
             </Pressable>
@@ -656,7 +659,7 @@ export function LinkTreeBlock({
               className={cn(
                 "text-center text-sm font-medium",
                 isDark ? "text-white/70" : "text-muted-foreground",
-                mediaGalleryTitleClassName
+                mediaGalleryTitleClassName,
               )}
             >
               {mediaGalleryTitle}
@@ -668,10 +671,7 @@ export function LinkTreeBlock({
           ))}
 
         <div
-          className={cn(
-            "grid grid-cols-3 gap-2",
-            mediaGalleryGridClassName
-          )}
+          className={cn("grid grid-cols-3 gap-2", mediaGalleryGridClassName)}
         >
           {items.map((item, index) => (
             <div
@@ -681,7 +681,7 @@ export function LinkTreeBlock({
                 "transition-all duration-200 hover:scale-[1.02]",
                 isDark ? "ring-1 ring-white/10" : "ring-1 ring-border",
                 mediaGalleryItemClassName,
-                item.className
+                item.className,
               )}
               onClick={() => handleMediaClick(index)}
               role="button"
@@ -701,7 +701,7 @@ export function LinkTreeBlock({
                   className={cn(
                     "h-full w-full object-cover",
                     mediaGalleryMediaClassName,
-                    item.mediaClassName
+                    item.mediaClassName,
                   )}
                   muted
                   loop
@@ -719,7 +719,7 @@ export function LinkTreeBlock({
                   className={cn(
                     "h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
                     mediaGalleryMediaClassName,
-                    item.mediaClassName
+                    item.mediaClassName,
                   )}
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -728,7 +728,7 @@ export function LinkTreeBlock({
               <div
                 className={cn(
                   "absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-200 group-hover:bg-black/20",
-                  mediaGalleryOverlayClassName
+                  mediaGalleryOverlayClassName,
                 )}
               >
                 {item.type === "video" && (
@@ -737,7 +737,7 @@ export function LinkTreeBlock({
                     size={24}
                     className={cn(
                       "text-white opacity-0 transition-opacity group-hover:opacity-100",
-                      mediaGalleryPlayIconClassName
+                      mediaGalleryPlayIconClassName,
                     )}
                   />
                 )}
@@ -757,7 +757,7 @@ export function LinkTreeBlock({
       <div
         className={cn(
           "flex flex-wrap items-center justify-center gap-2",
-          socialLinksClassName
+          socialLinksClassName,
         )}
       >
         {socialLinks.map((social, index) => {
@@ -786,10 +786,10 @@ export function LinkTreeBlock({
                 isDark
                   ? "bg-white/10 text-white hover:bg-white/20"
                   : isGlass
-                  ? "bg-white/60 backdrop-blur-sm hover:bg-white/80"
-                  : "bg-muted hover:bg-accent",
+                    ? "bg-white/60 backdrop-blur-sm hover:bg-white/80"
+                    : "bg-muted hover:bg-accent",
                 socialLinkClassName,
-                social.className
+                social.className,
               )}
             >
               {icon}
@@ -826,7 +826,7 @@ export function LinkTreeBlock({
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
           isDark ? "text-white/40" : "text-muted-foreground/60",
           footerClassName,
-          actionClassName
+          actionClassName,
         )}
         {...pressableProps}
       >
@@ -849,9 +849,9 @@ export function LinkTreeBlock({
         theme === "dark"
           ? "bg-neutral-950"
           : theme === "glass"
-          ? "bg-linear-to-br from-pink-100 via-purple-50 to-blue-100"
-          : "bg-muted/30",
-        className
+            ? "bg-linear-to-br from-pink-100 via-purple-50 to-blue-100"
+            : "bg-muted/30",
+        className,
       )}
       pattern={resolvedPattern}
       patternOpacity={patternOpacity}
@@ -865,7 +865,7 @@ export function LinkTreeBlock({
       <div
         className={cn(
           "flex min-h-screen w-full items-start justify-center py-12",
-          containerClassName
+          containerClassName,
         )}
       >
         <div className={cn("w-full max-w-md space-y-6", contentClassName)}>

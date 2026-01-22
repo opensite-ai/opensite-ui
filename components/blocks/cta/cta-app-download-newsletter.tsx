@@ -114,7 +114,7 @@ export interface CtaAppDownloadNewsletterProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -268,10 +268,7 @@ export function CtaAppDownloadNewsletter({
           onSuccess?.(result);
         }
       } catch (error) {
-        if (
-          error instanceof PageSpeedFormSubmissionError &&
-          error.formErrors
-        ) {
+        if (error instanceof PageSpeedFormSubmissionError && error.formErrors) {
           helpers.setErrors(error.formErrors);
         }
         onError?.(error as Error);
@@ -338,20 +335,23 @@ export function CtaAppDownloadNewsletter({
           <div
             className={cn(
               "relative overflow-hidden rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 p-8 lg:p-12",
-              appCardClassName
+              appCardClassName,
             )}
           >
             <div className="relative z-10 max-w-sm">
               <h2
                 className={cn(
                   "mb-4 text-2xl font-bold md:text-3xl",
-                  appHeadingClassName
+                  appHeadingClassName,
                 )}
               >
                 {appHeading}
               </h2>
               <p
-                className={cn("mb-8 text-muted-foreground", appDescriptionClassName)}
+                className={cn(
+                  "mb-8 text-muted-foreground",
+                  appDescriptionClassName,
+                )}
               >
                 {appDescription}
               </p>
@@ -370,13 +370,13 @@ export function CtaAppDownloadNewsletter({
           <div
             className={cn(
               "flex flex-col justify-center rounded-2xl border bg-card p-8 lg:p-12",
-              newsletterCardClassName
+              newsletterCardClassName,
             )}
           >
             <h2
               className={cn(
                 "mb-4 text-2xl font-bold md:text-3xl",
-                newsletterHeadingClassName
+                newsletterHeadingClassName,
               )}
             >
               {newsletterHeading}
@@ -384,7 +384,7 @@ export function CtaAppDownloadNewsletter({
             <p
               className={cn(
                 "mb-8 text-muted-foreground",
-                newsletterDescriptionClassName
+                newsletterDescriptionClassName,
               )}
             >
               {newsletterDescription}

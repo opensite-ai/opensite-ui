@@ -132,7 +132,7 @@ export interface ServiceHoverCarouselProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -231,9 +231,21 @@ export function ServiceHoverCarousel({
       <div className="px-4 lg:px-10">
         <div className="mb-6 flex flex-col justify-between md:flex-row md:items-end">
           <div>
-            <h2 className={cn("text-3xl font-semibold md:text-4xl", headingClassName)}>{heading}</h2>
+            <h2
+              className={cn(
+                "text-3xl font-semibold md:text-4xl",
+                headingClassName,
+              )}
+            >
+              {heading}
+            </h2>
           </div>
-          <div className={cn("mt-8 flex shrink-0 items-center justify-start gap-2", controlsClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex shrink-0 items-center justify-start gap-2",
+              controlsClassName,
+            )}
+          >
             <Pressable
               size="icon"
               variant="outline"
@@ -265,7 +277,10 @@ export function ServiceHoverCarousel({
     if (!items || items.length === 0) return null;
 
     return items.map((product) => (
-      <CarouselItem key={product.id} className={cn("min-w-[334px] flex-1", itemClassName, product.className)}>
+      <CarouselItem
+        key={product.id}
+        className={cn("min-w-[334px] flex-1", itemClassName, product.className)}
+      >
         <a
           href={product.href || `/services/${product.id}`}
           className="group relative flex h-full flex-col items-start justify-start gap-2"
@@ -274,23 +289,40 @@ export function ServiceHoverCarousel({
             <div className="group relative z-10 overflow-hidden rounded-2xl">
               <Img
                 src={product.image}
-                alt={typeof product.title === "string" ? product.title : (product.imageAlt || "Service image")}
-                className={cn("h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0", imageClassName)}
+                alt={
+                  typeof product.title === "string"
+                    ? product.title
+                    : product.imageAlt || "Service image"
+                }
+                className={cn(
+                  "h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0",
+                  imageClassName,
+                )}
                 style={{ aspectRatio: "3/4" }}
                 loading="lazy"
                 optixFlowConfig={optixFlowConfig}
               />
               <Img
                 src={product.hoverImage}
-                alt={typeof product.title === "string" ? product.title : (product.hoverImageAlt || "Service hover image")}
-                className={cn("absolute top-0 left-0 z-10 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100", imageClassName)}
+                alt={
+                  typeof product.title === "string"
+                    ? product.title
+                    : product.hoverImageAlt || "Service hover image"
+                }
+                className={cn(
+                  "absolute top-0 left-0 z-10 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+                  imageClassName,
+                )}
                 style={{ aspectRatio: "3/4" }}
                 loading="lazy"
                 optixFlowConfig={optixFlowConfig}
               />
 
               <Badge
-                className={cn("absolute top-4 left-4 bg-background px-4 py-2", badgeClassName)}
+                className={cn(
+                  "absolute top-4 left-4 bg-background px-4 py-2",
+                  badgeClassName,
+                )}
                 variant="outline"
               >
                 {product.tag}
@@ -327,12 +359,19 @@ export function ServiceHoverCarousel({
           }}
           className={carouselClassName}
         >
-          <CarouselContent className={cn("px-4 pb-10 lg:px-10", carouselContentClassName)}>
+          <CarouselContent
+            className={cn("px-4 pb-10 lg:px-10", carouselContentClassName)}
+          >
             {renderItems()}
           </CarouselContent>
         </Carousel>
 
-        <div className={cn("absolute bottom-0 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200", progressClassName)}>
+        <div
+          className={cn(
+            "absolute bottom-0 left-1/2 h-0.5 w-60 -translate-x-1/2 rounded bg-gray-200",
+            progressClassName,
+          )}
+        >
           <div
             className="h-0.5 rounded bg-black transition-transform duration-300 ease-out"
             style={{

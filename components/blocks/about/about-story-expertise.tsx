@@ -3,13 +3,17 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AboutStoryExpertiseArea {
   /**
@@ -142,7 +146,7 @@ export interface AboutStoryExpertiseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -198,13 +202,13 @@ export function AboutStoryExpertise({
 
     return (
       <div className={cn("space-y-4 text-muted-foreground", storyClassName)}>
-        {storyParagraphs.map((paragraph, idx) => (
+        {storyParagraphs.map((paragraph, idx) =>
           typeof paragraph === "string" ? (
             <p key={idx}>{paragraph}</p>
           ) : (
             <div key={idx}>{paragraph}</div>
-          )
-        ))}
+          ),
+        )}
       </div>
     );
   };
@@ -235,37 +239,43 @@ export function AboutStoryExpertise({
     if (!highlight) return null;
 
     return (
-      <div className={cn("rounded-2xl border border-border/60 bg-background/90 p-6 shadow-xl", highlightClassName)}>
+      <div
+        className={cn(
+          "rounded-2xl border border-border/60 bg-background/90 p-6 shadow-xl",
+          highlightClassName,
+        )}
+      >
         <div className="mb-3 flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
             {highlight.icon}
           </div>
           <div>
-            {highlight.label && (
-              typeof highlight.label === "string" ? (
+            {highlight.label &&
+              (typeof highlight.label === "string" ? (
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   {highlight.label}
                 </p>
               ) : (
                 highlight.label
-              )
-            )}
-            {highlight.title && (
-              typeof highlight.title === "string" ? (
-                <h3 className="text-lg font-bold text-foreground">{highlight.title}</h3>
+              ))}
+            {highlight.title &&
+              (typeof highlight.title === "string" ? (
+                <h3 className="text-lg font-bold text-foreground">
+                  {highlight.title}
+                </h3>
               ) : (
                 highlight.title
-              )
-            )}
+              ))}
           </div>
         </div>
-        {highlight.description && (
-          typeof highlight.description === "string" ? (
-            <p className="text-sm text-muted-foreground">{highlight.description}</p>
+        {highlight.description &&
+          (typeof highlight.description === "string" ? (
+            <p className="text-sm text-muted-foreground">
+              {highlight.description}
+            </p>
           ) : (
             highlight.description
-          )
-        )}
+          ))}
       </div>
     );
   };
@@ -275,7 +285,12 @@ export function AboutStoryExpertise({
     if (!expertiseAreas || expertiseAreas.length === 0) return null;
 
     return (
-      <div className={cn("mt-10 grid grid-cols-1 gap-6 md:grid-cols-2", expertiseAreasClassName)}>
+      <div
+        className={cn(
+          "mt-10 grid grid-cols-1 gap-6 md:grid-cols-2",
+          expertiseAreasClassName,
+        )}
+      >
         {expertiseAreas.map((area, idx) => (
           <motion.div
             key={idx}
@@ -289,20 +304,22 @@ export function AboutStoryExpertise({
               {area.icon}
             </div>
             <div>
-              {area.title && (
-                typeof area.title === "string" ? (
-                  <h4 className="text-lg font-bold text-foreground">{area.title}</h4>
+              {area.title &&
+                (typeof area.title === "string" ? (
+                  <h4 className="text-lg font-bold text-foreground">
+                    {area.title}
+                  </h4>
                 ) : (
                   area.title
-                )
-              )}
-              {area.description && (
-                typeof area.description === "string" ? (
-                  <p className="mt-1 text-sm text-muted-foreground">{area.description}</p>
+                ))}
+              {area.description &&
+                (typeof area.description === "string" ? (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {area.description}
+                  </p>
                 ) : (
                   <div className="mt-1">{area.description}</div>
-                )
-              )}
+                ))}
             </div>
           </motion.div>
         ))}
@@ -318,86 +335,121 @@ export function AboutStoryExpertise({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-            className="order-2 space-y-6 lg:order-1"
-          >
-            <div>
-              {eyebrow && (
-                typeof eyebrow === "string" ? (
-                  <p className={cn("text-sm font-semibold uppercase tracking-[0.2em] text-primary", eyebrowClassName)}>
-                    {eyebrow}
-                  </p>
-                ) : (
-                  <div className={eyebrowClassName}>{eyebrow}</div>
-                )
-              )}
-              {heading && (
-                typeof heading === "string" ? (
-                  <h2 className={cn("mt-2 text-3xl font-bold text-foreground md:text-4xl", headingClassName)}>
-                    {heading}
-                  </h2>
-                ) : (
-                  <div className={cn("mt-2", headingClassName)}>{heading}</div>
-                )
-              )}
-            </div>
-            {renderStory()}
-            {renderActions()}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-            className="order-1 lg:order-2"
-          >
-            <div className={cn("relative overflow-hidden rounded-3xl border border-border shadow-2xl", imageClassName)}>
-              <Img
-                src={image.src}
-                alt={image.alt}
-                className="h-full w-full object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <div className="absolute inset-0 bg-linear-to-tr from-foreground/60 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
-                {renderHighlight()}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        <div className={cn("mt-20 rounded-3xl bg-muted/30 p-8 md:p-12", expertiseSectionClassName)}>
-          <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-              Our Expertise
-            </p>
-            {expertiseHeading && (
-              typeof expertiseHeading === "string" ? (
-                <h3 className={cn("mt-2 text-2xl font-bold text-foreground md:text-3xl", expertiseHeadingClassName)}>
-                  {expertiseHeading}
-                </h3>
-              ) : (
-                <div className={cn("mt-2", expertiseHeadingClassName)}>{expertiseHeading}</div>
-              )
-            )}
-            {expertiseDescription && (
-              typeof expertiseDescription === "string" ? (
-                <p className={cn("mx-auto mt-3 max-w-2xl text-muted-foreground", expertiseDescriptionClassName)}>
-                  {expertiseDescription}
+      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="order-2 space-y-6 lg:order-1"
+        >
+          <div>
+            {eyebrow &&
+              (typeof eyebrow === "string" ? (
+                <p
+                  className={cn(
+                    "text-sm font-semibold uppercase tracking-[0.2em] text-primary",
+                    eyebrowClassName,
+                  )}
+                >
+                  {eyebrow}
                 </p>
               ) : (
-                <div className={cn("mx-auto mt-3 max-w-2xl", expertiseDescriptionClassName)}>{expertiseDescription}</div>
-              )
-            )}
+                <div className={eyebrowClassName}>{eyebrow}</div>
+              ))}
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mt-2 text-3xl font-bold text-foreground md:text-4xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mt-2", headingClassName)}>{heading}</div>
+              ))}
           </div>
-          {renderExpertiseAreas()}
+          {renderStory()}
+          {renderActions()}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="order-1 lg:order-2"
+        >
+          <div
+            className={cn(
+              "relative overflow-hidden rounded-3xl border border-border shadow-2xl",
+              imageClassName,
+            )}
+          >
+            <Img
+              src={image.src}
+              alt={image.alt}
+              className="h-full w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+            <div className="absolute inset-0 bg-linear-to-tr from-foreground/60 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              {renderHighlight()}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      <div
+        className={cn(
+          "mt-20 rounded-3xl bg-muted/30 p-8 md:p-12",
+          expertiseSectionClassName,
+        )}
+      >
+        <div className="text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+            Our Expertise
+          </p>
+          {expertiseHeading &&
+            (typeof expertiseHeading === "string" ? (
+              <h3
+                className={cn(
+                  "mt-2 text-2xl font-bold text-foreground md:text-3xl",
+                  expertiseHeadingClassName,
+                )}
+              >
+                {expertiseHeading}
+              </h3>
+            ) : (
+              <div className={cn("mt-2", expertiseHeadingClassName)}>
+                {expertiseHeading}
+              </div>
+            ))}
+          {expertiseDescription &&
+            (typeof expertiseDescription === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto mt-3 max-w-2xl text-muted-foreground",
+                  expertiseDescriptionClassName,
+                )}
+              >
+                {expertiseDescription}
+              </p>
+            ) : (
+              <div
+                className={cn(
+                  "mx-auto mt-3 max-w-2xl",
+                  expertiseDescriptionClassName,
+                )}
+              >
+                {expertiseDescription}
+              </div>
+            ))}
         </div>
+        {renderExpertiseAreas()}
+      </div>
     </Section>
   );
 }

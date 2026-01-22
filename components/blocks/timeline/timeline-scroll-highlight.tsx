@@ -73,7 +73,7 @@ export interface TimelineScrollHighlightProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -123,9 +123,10 @@ export function TimelineScrollHighlight({
   const [activeIndex, setActiveIndex] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const safeActiveIndex = (items?.length ?? 0) > 0 
-    ? Math.max(0, Math.min(activeIndex, (items?.length ?? 1) - 1))
-    : 0;
+  const safeActiveIndex =
+    (items?.length ?? 0) > 0
+      ? Math.max(0, Math.min(activeIndex, (items?.length ?? 1) - 1))
+      : 0;
 
   useEffect(() => {
     if (!items || items.length === 0) return;
@@ -140,7 +141,7 @@ export function TimelineScrollHighlight({
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const index = itemRefs.current.findIndex(
-            (ref) => ref === entry.target
+            (ref) => ref === entry.target,
           );
           if (index !== -1) {
             setActiveIndex(index);
@@ -151,7 +152,7 @@ export function TimelineScrollHighlight({
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
 
     itemRefs.current.forEach((ref) => {
@@ -179,7 +180,12 @@ export function TimelineScrollHighlight({
       >
         <div className={containerClassName}>
           {heading && (
-            <h1 className={cn("max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+            <h1
+              className={cn(
+                "max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           )}
@@ -201,13 +207,23 @@ export function TimelineScrollHighlight({
     >
       <div className={containerClassName}>
         {heading && (
-          <h1 className={cn("max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+          <h1
+            className={cn(
+              "max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
+              headingClassName,
+            )}
+          >
             {heading}
           </h1>
         )}
       </div>
       <div className="relative mt-16 lg:mt-28">
-        <div className={cn("sticky top-0 z-10 border-y bg-background py-3.5", stickyHeaderClassName)}>
+        <div
+          className={cn(
+            "sticky top-0 z-10 border-y bg-background py-3.5",
+            stickyHeaderClassName,
+          )}
+        >
           <div className="mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl">
             <div className="flex justify-between gap-4 text-2xl md:text-4xl">
               <p className="font-mono text-muted-foreground">
@@ -228,20 +244,38 @@ export function TimelineScrollHighlight({
                 className={cn(
                   "flex flex-col items-center gap-7 py-14 opacity-50 transition-opacity duration-300 md:flex-row md:gap-10 md:py-20",
                   index === safeActiveIndex && "opacity-100",
-                  itemClassName
+                  itemClassName,
                 )}
               >
                 <Img
                   src={item.image}
-                  alt={item.imageAlt || (typeof item.title === 'string' ? item.title : `Item ${index + 1}`)}
-                  className={cn("aspect-16/12 rounded-lg border object-cover md:w-1/3 md:max-w-[440px]", imageClassName)}
+                  alt={
+                    item.imageAlt ||
+                    (typeof item.title === "string"
+                      ? item.title
+                      : `Item ${index + 1}`)
+                  }
+                  className={cn(
+                    "aspect-16/12 rounded-lg border object-cover md:w-1/3 md:max-w-[440px]",
+                    imageClassName,
+                  )}
                   optixFlowConfig={optixFlowConfig}
                 />
                 <div>
-                  <h2 className={cn("mb-3 text-2xl font-medium md:mb-4 md:text-4xl", titleClassName)}>
+                  <h2
+                    className={cn(
+                      "mb-3 text-2xl font-medium md:mb-4 md:text-4xl",
+                      titleClassName,
+                    )}
+                  >
                     {item.title}
                   </h2>
-                  <p className={cn("text-muted-foreground md:text-balance", descriptionClassName)}>
+                  <p
+                    className={cn(
+                      "text-muted-foreground md:text-balance",
+                      descriptionClassName,
+                    )}
+                  >
                     {item.description}
                   </p>
                 </div>

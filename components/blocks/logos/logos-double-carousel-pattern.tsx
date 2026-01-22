@@ -7,13 +7,14 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { patternSvgs } from "../../../lib/patternSvgs";
 import { Section } from "../../ui/section";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { PatternName } from "../../ui/pattern-background";
-import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosDoubleCarouselPatternLogoItem {
   /**
@@ -114,7 +115,7 @@ export interface LogosDoubleCarouselPatternProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -189,10 +190,15 @@ export function LogosDoubleCarouselPattern({
               key={index}
               className={cn(
                 "flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6",
-                carouselItemClassName
+                carouselItemClassName,
               )}
             >
-              <div className={cn("mx-6 flex shrink-0 items-center justify-center rounded-lg border border-border bg-background/80 p-4 backdrop-blur-sm", logoWrapperClassName)}>
+              <div
+                className={cn(
+                  "mx-6 flex shrink-0 items-center justify-center rounded-lg border border-border bg-background/80 p-4 backdrop-blur-sm",
+                  logoWrapperClassName,
+                )}
+              >
                 <Img
                   src={logo.logo}
                   alt={`${logo.name} logo`}
@@ -216,7 +222,9 @@ export function LogosDoubleCarouselPattern({
     return (
       <Carousel
         opts={{ loop: true }}
-        plugins={[AutoScroll({ playOnInit: true, speed: 0.6, direction: "backward" })]}
+        plugins={[
+          AutoScroll({ playOnInit: true, speed: 0.6, direction: "backward" }),
+        ]}
       >
         <CarouselContent className="ml-0">
           {[...bottomRowLogos, ...bottomRowLogos].map((logo, index) => (
@@ -224,10 +232,15 @@ export function LogosDoubleCarouselPattern({
               key={index}
               className={cn(
                 "flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6",
-                carouselItemClassName
+                carouselItemClassName,
               )}
             >
-              <div className={cn("mx-6 flex shrink-0 items-center justify-center rounded-lg border border-border bg-background/80 p-4 backdrop-blur-sm", logoWrapperClassName)}>
+              <div
+                className={cn(
+                  "mx-6 flex shrink-0 items-center justify-center rounded-lg border border-border bg-background/80 p-4 backdrop-blur-sm",
+                  logoWrapperClassName,
+                )}
+              >
                 <Img
                   src={logo.logo}
                   alt={`${logo.name} logo`}
@@ -246,7 +259,8 @@ export function LogosDoubleCarouselPattern({
 
   const getBackgroundStyle = () => {
     if (backgroundPattern === "none") return {};
-    const patternUrl = backgroundPattern === "dots" ? patternSvgs.dots : patternSvgs.grid1;
+    const patternUrl =
+      backgroundPattern === "dots" ? patternSvgs.dots : patternSvgs.grid1;
     return {
       backgroundImage: `url("${patternUrl}")`,
       backgroundSize: "30px 30px",
@@ -262,27 +276,50 @@ export function LogosDoubleCarouselPattern({
       className={cn("overflow-hidden", className)}
       style={getBackgroundStyle()}
     >
-      <div className={cn("absolute inset-0 bg-linear-to-b from-background via-transparent to-background", overlayClassName)} />
-      <div className={cn("container relative z-10 mb-16 text-center", headerClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl lg:text-5xl", titleClassName)}>
+      <div
+        className={cn(
+          "absolute inset-0 bg-linear-to-b from-background via-transparent to-background",
+          overlayClassName,
+        )}
+      />
+      <div
+        className={cn(
+          "container relative z-10 mb-16 text-center",
+          headerClassName,
+        )}
+      >
+        {title &&
+          (typeof title === "string" ? (
+            <h2
+              className={cn(
+                "mb-4 text-3xl font-bold md:text-4xl lg:text-5xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h2>
           ) : (
             <div className={titleClassName}>{title}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mx-auto mb-8 max-w-2xl text-lg text-muted-foreground", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "mx-auto mb-8 max-w-2xl text-lg text-muted-foreground",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        <div className={cn("flex flex-wrap items-center justify-center gap-4", actionsClassName)}>
+          ))}
+        <div
+          className={cn(
+            "flex flex-wrap items-center justify-center gap-4",
+            actionsClassName,
+          )}
+        >
           {renderActions()}
         </div>
       </div>

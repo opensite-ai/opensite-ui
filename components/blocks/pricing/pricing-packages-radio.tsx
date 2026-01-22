@@ -139,7 +139,7 @@ export interface PricingPackagesRadioProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -308,30 +308,53 @@ export function PricingPackagesRadio({
     return (
       <ul className={cn("mt-4 grid gap-2 sm:grid-cols-2", featuresClassName)}>
         {pkg.features.map((feature, index) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={16}
-                className={cn("shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={index} className={cn("flex items-center gap-2", featureItemClassName, feature.className)}>
+            <li
+              key={index}
+              className={cn(
+                "flex items-center gap-2",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -347,7 +370,8 @@ export function PricingPackagesRadio({
       <div className={cn("mx-auto max-w-3xl space-y-4", packagesClassName)}>
         {packages.map((pkg) => {
           const isSelected = activeSelection === pkg.id;
-          const badgeContent = pkg.badge ?? (pkg.isPopular ? "Most Popular" : null);
+          const badgeContent =
+            pkg.badge ?? (pkg.isPopular ? "Most Popular" : null);
 
           return (
             <button
@@ -360,14 +384,14 @@ export function PricingPackagesRadio({
                   : "border-border hover:border-primary/50",
                 packageButtonClassName,
                 isSelected ? selectedPackageClassName : null,
-                pkg.className
+                pkg.className,
               )}
             >
               {badgeContent && (
                 <span
                   className={cn(
                     "absolute -top-3 right-6 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground",
-                    badgeClassName
+                    badgeClassName,
                   )}
                 >
                   {badgeContent}
@@ -381,7 +405,7 @@ export function PricingPackagesRadio({
                     isSelected
                       ? "border-primary bg-primary"
                       : "border-muted-foreground",
-                    selectionIndicatorClassName
+                    selectionIndicatorClassName,
                   )}
                 >
                   {isSelected && (
@@ -392,29 +416,50 @@ export function PricingPackagesRadio({
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      {pkg.name && (
-                        typeof pkg.name === "string" ? (
-                          <h3 className={cn("font-semibold", packageNameClassName)}>{pkg.name}</h3>
+                      {pkg.name &&
+                        (typeof pkg.name === "string" ? (
+                          <h3
+                            className={cn(
+                              "font-semibold",
+                              packageNameClassName,
+                            )}
+                          >
+                            {pkg.name}
+                          </h3>
                         ) : (
                           <div className={packageNameClassName}>{pkg.name}</div>
-                        )
-                      )}
-                      {pkg.description && (
-                        typeof pkg.description === "string" ? (
-                          <p className={cn("mt-1 text-sm text-muted-foreground", packageDescriptionClassName)}>
+                        ))}
+                      {pkg.description &&
+                        (typeof pkg.description === "string" ? (
+                          <p
+                            className={cn(
+                              "mt-1 text-sm text-muted-foreground",
+                              packageDescriptionClassName,
+                            )}
+                          >
                             {pkg.description}
                           </p>
                         ) : (
-                          <div className={packageDescriptionClassName}>{pkg.description}</div>
-                        )
-                      )}
+                          <div className={packageDescriptionClassName}>
+                            {pkg.description}
+                          </div>
+                        ))}
                     </div>
                     <div className="text-right">
                       {pkg.price && (
-                        <span className={cn("text-2xl font-bold", priceClassName)}>{pkg.price}</span>
+                        <span
+                          className={cn("text-2xl font-bold", priceClassName)}
+                        >
+                          {pkg.price}
+                        </span>
                       )}
                       {pkg.priceDescription && (
-                        <span className={cn("text-sm text-muted-foreground", priceDescriptionClassName)}>
+                        <span
+                          className={cn(
+                            "text-sm text-muted-foreground",
+                            priceDescriptionClassName,
+                          )}
+                        >
                           {pkg.priceDescription}
                         </span>
                       )}
@@ -435,12 +480,23 @@ export function PricingPackagesRadio({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -464,23 +520,35 @@ export function PricingPackagesRadio({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", titleClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         {renderPackages()}

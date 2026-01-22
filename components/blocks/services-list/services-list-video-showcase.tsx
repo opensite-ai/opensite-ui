@@ -5,10 +5,17 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders, videoPlaceholders } from "../../../lib/mediaPlaceholders";
+import {
+  imagePlaceholders,
+  videoPlaceholders,
+} from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for video showcase display
@@ -115,7 +122,7 @@ export interface ServicesListVideoShowcaseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -179,7 +186,10 @@ export function ServicesListVideoShowcase({
 
   const renderServiceIcon = (service: ServicesListVideoShowcaseService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-5 w-5 text-primary" />;
+    if (service.iconName)
+      return (
+        <DynamicIcon name={service.iconName} className="h-5 w-5 text-primary" />
+      );
     return null;
   };
 
@@ -188,14 +198,19 @@ export function ServicesListVideoShowcase({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+      <div
+        className={cn(
+          "grid gap-8 md:grid-cols-2 lg:grid-cols-3",
+          gridClassName,
+        )}
+      >
         {services.map((service, index) => (
           <div
             key={index}
             className={cn(
               "group overflow-hidden rounded-xl border border-border transition-shadow hover:shadow-lg",
               cardClassName,
-              service.className
+              service.className,
             )}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
@@ -207,7 +222,7 @@ export function ServicesListVideoShowcase({
                   alt={service.posterImage.alt}
                   className={cn(
                     "absolute inset-0 h-full w-full object-cover transition-opacity duration-300",
-                    playingIndex === index ? "opacity-0" : "opacity-100"
+                    playingIndex === index ? "opacity-0" : "opacity-100",
                   )}
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -227,7 +242,9 @@ export function ServicesListVideoShowcase({
               <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90">
                   <DynamicIcon
-                    name={playingIndex === index ? "lucide/pause" : "lucide/play"}
+                    name={
+                      playingIndex === index ? "lucide/pause" : "lucide/play"
+                    }
                     className="h-5 w-5 text-foreground"
                   />
                 </div>
@@ -241,21 +258,23 @@ export function ServicesListVideoShowcase({
                     {renderServiceIcon(service)}
                   </div>
                 )}
-                {service.title && (
-                  typeof service.title === "string" ? (
+                {service.title &&
+                  (typeof service.title === "string" ? (
                     <h3 className="text-lg font-semibold">{service.title}</h3>
                   ) : (
                     <div className="text-lg font-semibold">{service.title}</div>
-                  )
-                )}
+                  ))}
               </div>
-              {service.description && (
-                typeof service.description === "string" ? (
-                  <p className="mt-3 text-sm text-muted-foreground">{service.description}</p>
+              {service.description &&
+                (typeof service.description === "string" ? (
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    {service.description}
+                  </p>
                 ) : (
-                  <div className="mt-3 text-sm text-muted-foreground">{service.description}</div>
-                )
-              )}
+                  <div className="mt-3 text-sm text-muted-foreground">
+                    {service.description}
+                  </div>
+                ))}
               {service.ctaText && (
                 <Pressable
                   href={service.ctaUrl}
@@ -263,7 +282,10 @@ export function ServicesListVideoShowcase({
                   className="mt-4 inline-flex items-center text-sm font-medium text-primary hover:underline"
                 >
                   {service.ctaText}
-                  <DynamicIcon name="lucide/arrow-right" className="ml-1 h-4 w-4" />
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    className="ml-1 h-4 w-4"
+                  />
                 </Pressable>
               )}
             </div>
@@ -283,24 +305,32 @@ export function ServicesListVideoShowcase({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

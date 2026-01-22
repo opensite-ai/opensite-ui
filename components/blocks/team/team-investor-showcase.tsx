@@ -51,7 +51,7 @@ export interface TeamInvestorShowcaseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -161,24 +161,23 @@ export function TeamInvestorShowcase({
       patternOpacity={patternOpacity}
       className={className}
     >
-      {heading && (
-        typeof heading === "string" ? (
+      {heading &&
+        (typeof heading === "string" ? (
           <h2
             className={cn(
               "text-4xl font-medium tracking-wide text-primary",
-              headingClassName
+              headingClassName,
             )}
           >
             {heading}
           </h2>
         ) : (
           <div className={headingClassName}>{heading}</div>
-        )
-      )}
+        ))}
       <div
         className={cn(
           "mt-8 grid grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5",
-          gridClassName
+          gridClassName,
         )}
       >
         {renderInvestors()}

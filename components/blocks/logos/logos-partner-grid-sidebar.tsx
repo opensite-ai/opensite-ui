@@ -5,7 +5,11 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosPartnerGridSidebarYearSection {
   /**
@@ -113,7 +117,7 @@ export interface LogosPartnerGridSidebarProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -162,7 +166,7 @@ export function LogosPartnerGridSidebar({
             className={cn(
               "border-l-2 border-primary pl-4",
               yearSectionItemClassName,
-              section.className
+              section.className,
             )}
           >
             <p className="font-semibold text-primary">{section.year}</p>
@@ -185,7 +189,7 @@ export function LogosPartnerGridSidebar({
         className={cn(
           "flex items-center justify-center rounded-lg border border-border bg-card p-6 transition-colors hover:bg-accent",
           partnerCardClassName,
-          partner.className
+          partner.className,
         )}
       >
         <Img
@@ -195,7 +199,7 @@ export function LogosPartnerGridSidebar({
           height={40}
           className={cn(
             "h-10 w-auto object-contain grayscale transition-all hover:grayscale-0",
-            partner.imgClassName
+            partner.imgClassName,
           )}
           optixFlowConfig={optixFlowConfig}
         />
@@ -211,30 +215,49 @@ export function LogosPartnerGridSidebar({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("grid gap-12 lg:grid-cols-3 lg:gap-16", gridClassName)}>
-        <div className={cn("lg:sticky lg:top-32 lg:self-start", sidebarClassName)}>
-          {sidebarTitle && (
-            typeof sidebarTitle === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", sidebarTitleClassName)}>
+      <div
+        className={cn("grid gap-12 lg:grid-cols-3 lg:gap-16", gridClassName)}
+      >
+        <div
+          className={cn("lg:sticky lg:top-32 lg:self-start", sidebarClassName)}
+        >
+          {sidebarTitle &&
+            (typeof sidebarTitle === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold md:text-4xl",
+                  sidebarTitleClassName,
+                )}
+              >
                 {sidebarTitle}
               </h2>
             ) : (
               <div className={sidebarTitleClassName}>{sidebarTitle}</div>
-            )
-          )}
-          {sidebarDescription && (
-            typeof sidebarDescription === "string" ? (
-              <p className={cn("mb-8 text-lg text-muted-foreground", sidebarDescriptionClassName)}>
+            ))}
+          {sidebarDescription &&
+            (typeof sidebarDescription === "string" ? (
+              <p
+                className={cn(
+                  "mb-8 text-lg text-muted-foreground",
+                  sidebarDescriptionClassName,
+                )}
+              >
                 {sidebarDescription}
               </p>
             ) : (
-              <div className={sidebarDescriptionClassName}>{sidebarDescription}</div>
-            )
-          )}
+              <div className={sidebarDescriptionClassName}>
+                {sidebarDescription}
+              </div>
+            ))}
           {renderYearSections()}
         </div>
         <div className="lg:col-span-2">
-          <div className={cn("grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4", partnersClassName)}>
+          <div
+            className={cn(
+              "grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4",
+              partnersClassName,
+            )}
+          >
             {renderPartners()}
           </div>
         </div>

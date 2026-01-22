@@ -97,9 +97,9 @@ export interface CtaFeatureChecklistProps {
    */
   spacing?: SectionSpacing;
   /**
-   * Optional background pattern name or URL
+   * Optional background pattern name
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName;
   /**
    * Pattern overlay opacity (0-1)
    */

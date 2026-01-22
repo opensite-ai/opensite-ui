@@ -148,7 +148,7 @@ export interface PricingPopularHighlightProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -310,30 +310,53 @@ export function PricingPopularHighlight({
     return (
       <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -345,12 +368,23 @@ export function PricingPopularHighlight({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -369,9 +403,12 @@ export function PricingPopularHighlight({
     if (!plans || plans.length === 0) return null;
 
     return (
-      <div className={cn("grid items-center gap-6 md:grid-cols-3", gridClassName)}>
+      <div
+        className={cn("grid items-center gap-6 md:grid-cols-3", gridClassName)}
+      >
         {plans.map((plan, index) => {
-          const badgeContent = plan.badge ?? (plan.isPopular ? popularBadge : null);
+          const badgeContent =
+            plan.badge ?? (plan.isPopular ? popularBadge : null);
 
           return (
             <div
@@ -383,14 +420,14 @@ export function PricingPopularHighlight({
                   : "border-border",
                 cardClassName,
                 plan.isPopular ? popularCardClassName : null,
-                plan.className
+                plan.className,
               )}
             >
               {badgeContent && (
                 <span
                   className={cn(
                     "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-sm font-medium text-primary-foreground",
-                    badgeClassName
+                    badgeClassName,
                   )}
                 >
                   {badgeContent}
@@ -398,37 +435,53 @@ export function PricingPopularHighlight({
               )}
 
               <div className="mb-4">
-                {plan.name && (
-                  typeof plan.name === "string" ? (
+                {plan.name &&
+                  (typeof plan.name === "string" ? (
                     <h3
                       className={cn(
                         "font-semibold",
                         plan.isPopular ? "text-xl" : "text-lg",
-                        planTitleClassName
+                        planTitleClassName,
                       )}
                     >
                       {plan.name}
                     </h3>
                   ) : (
                     <div className={planTitleClassName}>{plan.name}</div>
-                  )
-                )}
-                {plan.description && (
-                  typeof plan.description === "string" ? (
-                    <p className={cn("mt-1 text-sm text-muted-foreground", planDescriptionClassName)}>
+                  ))}
+                {plan.description &&
+                  (typeof plan.description === "string" ? (
+                    <p
+                      className={cn(
+                        "mt-1 text-sm text-muted-foreground",
+                        planDescriptionClassName,
+                      )}
+                    >
                       {plan.description}
                     </p>
                   ) : (
-                    <div className={planDescriptionClassName}>{plan.description}</div>
-                  )
-                )}
+                    <div className={planDescriptionClassName}>
+                      {plan.description}
+                    </div>
+                  ))}
               </div>
 
               <div className="mb-6">
-                <span className={cn("font-bold", plan.isPopular ? "text-5xl" : "text-4xl", priceClassName)}>
+                <span
+                  className={cn(
+                    "font-bold",
+                    plan.isPopular ? "text-5xl" : "text-4xl",
+                    priceClassName,
+                  )}
+                >
                   {isAnnual ? plan.yearlyPrice : plan.monthlyPrice}
                 </span>
-                <span className={cn("text-muted-foreground", priceIntervalClassName)}>
+                <span
+                  className={cn(
+                    "text-muted-foreground",
+                    priceIntervalClassName,
+                  )}
+                >
                   {isAnnual ? yearlyInterval : monthlyInterval}
                 </span>
               </div>
@@ -452,31 +505,48 @@ export function PricingPopularHighlight({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
 
-          <div className={cn("mt-8 flex items-center justify-center gap-3", toggleClassName)}>
+          <div
+            className={cn(
+              "mt-8 flex items-center justify-center gap-3",
+              toggleClassName,
+            )}
+          >
             {monthlyLabel && (
               <span
                 className={cn(
                   "text-sm font-medium",
                   !isAnnual ? "text-foreground" : "text-muted-foreground",
-                  toggleLabelClassName
+                  toggleLabelClassName,
                 )}
               >
                 {monthlyLabel}
@@ -488,12 +558,17 @@ export function PricingPopularHighlight({
                 className={cn(
                   "text-sm font-medium",
                   isAnnual ? "text-foreground" : "text-muted-foreground",
-                  toggleLabelClassName
+                  toggleLabelClassName,
                 )}
               >
                 {yearlyLabel}
                 {yearlyBadge && (
-                  <span className={cn("ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary", yearlyBadgeClassName)}>
+                  <span
+                    className={cn(
+                      "ml-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary",
+                      yearlyBadgeClassName,
+                    )}
+                  >
                     {yearlyBadge}
                   </span>
                 )}

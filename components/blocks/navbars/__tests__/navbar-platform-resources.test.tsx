@@ -31,131 +31,138 @@ describe("NavbarPlatformResources", () => {
 
   const mockSimpleMenuLinks: IMenuLink[] = [
     {
-      title: "Products",
-      dropdownItems: [
+      label: "Products",
+      links: [
         {
-          title: "Product 1",
+          label: "Product 1",
           description: "First product",
-          href: "/products/1",
-          icon: "lucide/box",
+          url: "/products/1",
+          iconName: "lucide/box",
         },
         {
-          title: "Product 2",
+          label: "Product 2",
           description: "Second product",
-          href: "/products/2",
-          icon: "lucide/package",
+          url: "/products/2",
+          iconName: "lucide/package",
         },
       ],
     },
     {
-      title: "About",
+      label: "About",
       href: "/about",
     },
   ];
 
   const mockFeaturedGridLink: IMenuLink = {
-    title: "Platform",
+    label: "Platform",
     layout: "featured-grid",
-    featuredItem: {
-      title: "Platform Overview",
-      description: "Discover how our platform transforms your workflow.",
-      href: "/platform",
-      imgUrl: "https://example.com/platform.jpg",
-      label: "Solutions",
-    },
-    dropdownItems: [
+    links: [
       {
-        title: "Cloud Infrastructure",
-        description: "Scalable cloud solutions",
-        href: "/cloud",
-        icon: "lucide/cloud",
+        label: "Platform Overview",
+        description: "Discover how our platform transforms your workflow.",
+        url: "/platform",
+        image: "https://example.com/platform.jpg",
       },
       {
-        title: "Security",
+        label: "Cloud Infrastructure",
+        description: "Scalable cloud solutions",
+        url: "/cloud",
+        iconName: "lucide/cloud",
+      },
+      {
+        label: "Security",
         description: "Enterprise-grade security",
-        href: "/security",
-        icon: "lucide/lock",
+        url: "/security",
+        iconName: "lucide/lock",
+      },
+    ],
+    dropdownGroups: [
+      {
+        label: "Solutions",
+        links: [],
       },
     ],
   };
 
   const mockTwoColumnCtaLink: IMenuLink = {
-    title: "Use Cases",
+    label: "Use Cases",
     layout: "two-column-cta",
-    sections: [
+    dropdownGroups: [
       {
         label: "Industries",
-        items: [
-          { title: "Banking", href: "/banking", icon: "lucide/building" },
-          { title: "Healthcare", href: "/healthcare", icon: "lucide/heart-pulse" },
+        links: [
+          { label: "Banking", url: "/banking", iconName: "lucide/building" },
+          { label: "Healthcare", url: "/healthcare", iconName: "lucide/heart-pulse" },
         ],
       },
     ],
-    ctaCard: {
-      title: "Enterprise Solutions",
-      description: "Tailored for your needs",
-      href: "/enterprise",
-      label: "For Enterprises",
-      imgUrl: "https://example.com/enterprise.jpg",
-    },
+    links: [
+      {
+        label: "Enterprise Solutions",
+        description: "Tailored for your needs",
+        url: "/enterprise",
+        background: "For Enterprises",
+        image: "https://example.com/enterprise.jpg",
+      },
+    ],
   };
 
   const mockListShowcaseLink: IMenuLink = {
-    title: "Developers",
+    label: "Developers",
     layout: "list-showcase",
-    sections: [
+    dropdownGroups: [
       {
         label: "Documentation",
-        items: [
-          { title: "API Reference", description: "Complete API docs", href: "/api", icon: "lucide/book" },
+        description: "Complete API docs",
+        links: [
+          { label: "API Reference", url: "/api", iconName: "lucide/arrow-up-right" },
+          { label: "SDK Documentation", url: "/sdk", iconName: "lucide/arrow-up-right" },
         ],
       },
     ],
-    dropdownItems: [
-      { title: "API Reference", href: "/api", icon: "lucide/arrow-up-right" },
-      { title: "SDK Documentation", href: "/sdk", icon: "lucide/arrow-up-right" },
-    ],
-    showcaseItems: [
+    links: [
       {
-        title: "Showcase 1",
+        label: "Showcase 1",
         description: "First showcase",
-        href: "/showcase1",
-        imgUrl: "https://example.com/showcase1.jpg",
+        url: "/showcase1",
+        image: "https://example.com/showcase1.jpg",
       },
       {
-        title: "Showcase 2",
+        label: "Showcase 2",
         description: "Second showcase",
-        href: "/showcase2",
-        imgUrl: "https://example.com/showcase2.jpg",
+        url: "/showcase2",
+        image: "https://example.com/showcase2.jpg",
       },
     ],
   };
 
   const mockMultiSectionLink: IMenuLink = {
-    title: "Resources",
+    label: "Resources",
     layout: "multi-section",
-    sections: [
+    dropdownGroups: [
       {
         label: "Resources",
-        items: [
-          { title: "Blog", description: "Latest insights", href: "/blog" },
-          { title: "News", description: "Product updates", href: "/news" },
+        links: [
+          { label: "Blog", description: "Latest insights", url: "/blog" },
+          { label: "News", description: "Product updates", url: "/news" },
         ],
       },
       {
         label: "Customers",
-        items: [
-          { title: "Case Studies", description: "Success stories", href: "/cases" },
+        links: [
+          { label: "Case Studies", description: "Success stories", url: "/cases" },
         ],
       },
     ],
-    ctaCard: {
-      title: "Customers",
-      description: "See how companies use our platform",
-      href: "/customers",
-      imgUrl: "https://example.com/customers.jpg",
-      badge: "NEW",
-    },
+    links: [
+      {
+        label: "Customers",
+        description: "See how companies use our platform",
+        url: "/customers",
+        image: "https://example.com/customers.jpg",
+        background: "NEW",
+      },
+    ],
   };
 
   it("renders with default props", () => {

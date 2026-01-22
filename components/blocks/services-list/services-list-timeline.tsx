@@ -6,7 +6,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for timeline display
@@ -106,7 +110,7 @@ export interface ServicesListTimelineProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -152,7 +156,10 @@ export function ServicesListTimeline({
 }: ServicesListTimelineProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListTimelineService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-4 w-4 text-primary" />;
+    if (service.iconName)
+      return (
+        <DynamicIcon name={service.iconName} className="h-4 w-4 text-primary" />
+      );
     return null;
   };
 
@@ -190,7 +197,7 @@ export function ServicesListTimeline({
               key={index}
               className={cn(
                 "relative flex flex-col gap-4 md:flex-row md:gap-8",
-                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse",
               )}
             >
               <div className="absolute left-4 top-0 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-primary bg-background md:left-1/2">
@@ -200,7 +207,7 @@ export function ServicesListTimeline({
               <div
                 className={cn(
                   "ml-12 flex-1 md:ml-0",
-                  index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
+                  index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12",
                 )}
               >
                 <div
@@ -208,24 +215,27 @@ export function ServicesListTimeline({
                     "rounded-xl border border-border bg-card p-6 transition-shadow hover:shadow-md",
                     index % 2 === 0 ? "md:mr-4" : "md:ml-4",
                     cardClassName,
-                    service.className
+                    service.className,
                   )}
                 >
                   <div
                     className={cn(
                       "mb-2 flex items-center gap-3",
-                      index % 2 === 0 ? "md:justify-end" : ""
+                      index % 2 === 0 ? "md:justify-end" : "",
                     )}
                   >
-                    {service.title && (
-                      typeof service.title === "string" ? (
-                        <h3 className="text-lg font-semibold">{service.title}</h3>
+                    {service.title &&
+                      (typeof service.title === "string" ? (
+                        <h3 className="text-lg font-semibold">
+                          {service.title}
+                        </h3>
                       ) : (
-                        <div className="text-lg font-semibold">{service.title}</div>
-                      )
-                    )}
-                    {service.duration && (
-                      typeof service.duration === "string" ? (
+                        <div className="text-lg font-semibold">
+                          {service.title}
+                        </div>
+                      ))}
+                    {service.duration &&
+                      (typeof service.duration === "string" ? (
                         <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                           {service.duration}
                         </span>
@@ -233,21 +243,23 @@ export function ServicesListTimeline({
                         <div className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                           {service.duration}
                         </div>
-                      )
-                    )}
+                      ))}
                   </div>
-                  {service.description && (
-                    typeof service.description === "string" ? (
-                      <p className="mb-4 text-sm text-muted-foreground">{service.description}</p>
+                  {service.description &&
+                    (typeof service.description === "string" ? (
+                      <p className="mb-4 text-sm text-muted-foreground">
+                        {service.description}
+                      </p>
                     ) : (
-                      <div className="mb-4 text-sm text-muted-foreground">{service.description}</div>
-                    )
-                  )}
+                      <div className="mb-4 text-sm text-muted-foreground">
+                        {service.description}
+                      </div>
+                    ))}
                   {service.deliverables && service.deliverables.length > 0 && (
                     <div
                       className={cn(
                         "flex flex-wrap gap-2",
-                        index % 2 === 0 ? "md:justify-end" : ""
+                        index % 2 === 0 ? "md:justify-end" : "",
                       )}
                     >
                       {service.deliverables.map((deliverable, delIndex) => (
@@ -255,8 +267,13 @@ export function ServicesListTimeline({
                           key={delIndex}
                           className="inline-flex items-center rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs"
                         >
-                          <DynamicIcon name="lucide/check" className="mr-1 h-3 w-3 text-primary" />
-                          {typeof deliverable === "string" ? deliverable : deliverable}
+                          <DynamicIcon
+                            name="lucide/check"
+                            className="mr-1 h-3 w-3 text-primary"
+                          />
+                          {typeof deliverable === "string"
+                            ? deliverable
+                            : deliverable}
                         </span>
                       ))}
                     </div>
@@ -282,24 +299,32 @@ export function ServicesListTimeline({
     >
       <div className={cn("mx-auto max-w-4xl space-y-16", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
         {renderActions()}

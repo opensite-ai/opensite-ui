@@ -80,7 +80,7 @@ export interface ServiceDetailCompactCardsProps {
   headerClassName?: string;
   background?: SectionBackground;
   spacing?: SectionSpacing;
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   patternOpacity?: number;
   optixFlowConfig?: OptixFlowConfig;
 }
@@ -125,7 +125,9 @@ export function ServiceDetailCompactCards({
     if (!serviceIcon) return null;
 
     return (
-      <div className={cn("shrink-0 rounded-lg bg-muted p-4", serviceIconClassName)}>
+      <div
+        className={cn("shrink-0 rounded-lg bg-muted p-4", serviceIconClassName)}
+      >
         <Img
           src={serviceIcon.src}
           alt={serviceIcon.alt}
@@ -143,7 +145,12 @@ export function ServiceDetailCompactCards({
     return (
       <div className={cn("mb-16", expertiseClassName)}>
         {expertiseTitle && (
-          <h2 className={cn("mb-6 text-xl font-semibold", expertiseTitleClassName)}>
+          <h2
+            className={cn(
+              "mb-6 text-xl font-semibold",
+              expertiseTitleClassName,
+            )}
+          >
             {expertiseTitle}
           </h2>
         )}
@@ -153,7 +160,7 @@ export function ServiceDetailCompactCards({
               key={index}
               className={cn(
                 "flex items-center gap-3 rounded-lg border bg-background px-4 py-3",
-                item.className
+                item.className,
               )}
             >
               {item.iconSlot ? (
@@ -195,7 +202,7 @@ export function ServiceDetailCompactCards({
       <div
         className={cn(
           "prose prose-sm mx-auto max-w-none dark:prose-invert",
-          contentSectionsClassName
+          contentSectionsClassName,
         )}
       >
         {contentSections.map((section, sectionIndex) => (
@@ -216,7 +223,7 @@ export function ServiceDetailCompactCards({
                     <p key={paragraphIndex}>{paragraph}</p>
                   ) : (
                     <div key={paragraphIndex}>{paragraph}</div>
-                  )
+                  ),
                 )}
               </>
             )}
@@ -233,7 +240,9 @@ export function ServiceDetailCompactCards({
     return (
       <div className={cn("mt-16", servicesClassName)}>
         {servicesTitle && (
-          <h2 className={cn("mb-6 text-xl font-semibold", servicesTitleClassName)}>
+          <h2
+            className={cn("mb-6 text-xl font-semibold", servicesTitleClassName)}
+          >
             {servicesTitle}
           </h2>
         )}
@@ -243,7 +252,7 @@ export function ServiceDetailCompactCards({
               key={index}
               className={cn(
                 "flex items-center gap-3 rounded-lg border bg-background p-4",
-                service.className
+                service.className,
               )}
             >
               {service.icon ? (
@@ -277,7 +286,10 @@ export function ServiceDetailCompactCards({
       <div className={cn("mt-16", relatedServicesClassName)}>
         {relatedServicesTitle && (
           <h2
-            className={cn("mb-6 text-xl font-semibold", relatedServicesTitleClassName)}
+            className={cn(
+              "mb-6 text-xl font-semibold",
+              relatedServicesTitleClassName,
+            )}
           >
             {relatedServicesTitle}
           </h2>
@@ -289,7 +301,7 @@ export function ServiceDetailCompactCards({
               href={service.href}
               className={cn(
                 "group block overflow-hidden rounded-lg border bg-background transition-shadow hover:shadow-lg",
-                service.className
+                service.className,
               )}
             >
               {service.image && (
@@ -345,7 +357,7 @@ export function ServiceDetailCompactCards({
                 <h1
                   className={cn(
                     "text-4xl font-medium tracking-tight md:text-5xl",
-                    titleClassName
+                    titleClassName,
                   )}
                 >
                   {typeof title === "string" ? title : title}
@@ -355,7 +367,7 @@ export function ServiceDetailCompactCards({
                 <p
                   className={cn(
                     "text-xl leading-relaxed text-muted-foreground",
-                    introDescriptionClassName
+                    introDescriptionClassName,
                   )}
                 >
                   {typeof introDescription === "string"

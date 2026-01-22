@@ -6,14 +6,13 @@ import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   ActionConfig,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailNumberedSectionsSection {
   number: React.ReactNode;
@@ -54,7 +53,7 @@ export interface ProjectDetailNumberedSectionsProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -79,7 +78,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailNumberedSections(
-  props: ProjectDetailNumberedSectionsProps
+  props: ProjectDetailNumberedSectionsProps,
 ): React.JSX.Element {
   const {
     title,
@@ -108,10 +107,20 @@ export function ProjectDetailNumberedSections(
     if (backActionSlot) return backActionSlot;
     if (!backAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = backAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      ...pressableProps
+    } = backAction;
     return (
       <Pressable
-        className={cn("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground", actionClassName)}
+        className={cn(
+          "inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -149,26 +158,35 @@ export function ProjectDetailNumberedSections(
           </div>
 
           {typeof title === "string" ? (
-            <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", titleClassName)}>
+            <h1
+              className={cn(
+                "text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h1>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}
 
-          {subtitle && (
-            typeof subtitle === "string" ? (
+          {subtitle &&
+            (typeof subtitle === "string" ? (
               <p className="mt-4 text-xl text-muted-foreground">{subtitle}</p>
             ) : (
               <div className="mt-4">{subtitle}</div>
-            )
-          )}
+            ))}
         </motion.header>
 
         <motion.div {...fadeInUp} className="mb-16">
-          <div className={cn("relative aspect-video overflow-hidden rounded-2xl bg-muted", heroImageClassName)}>
+          <div
+            className={cn(
+              "relative aspect-video overflow-hidden rounded-2xl bg-muted",
+              heroImageClassName,
+            )}
+          >
             <Img
-              src={heroImage?.src || imagePlaceholders[80]}
+              src={heroImage?.src}
               alt={heroImage?.alt || "Project hero image"}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
@@ -226,11 +244,11 @@ export function ProjectDetailNumberedSections(
                   <div
                     className={cn(
                       "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted",
-                      index % 2 === 1 && "lg:order-1"
+                      index % 2 === 1 && "lg:order-1",
                     )}
                   >
                     <Img
-                      src={section.image.src || imagePlaceholders[77 + index]}
+                      src={section.image.src}
                       alt={section.image.alt}
                       className="h-full w-full object-cover"
                       optixFlowConfig={optixFlowConfig}

@@ -41,7 +41,7 @@ export interface FaqIconBenefitsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -126,7 +126,7 @@ export function FaqIconBenefits({
       <div
         className={cn(
           "mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3",
-          gridClassName
+          gridClassName,
         )}
       >
         {benefits.map((benefit, index) => (
@@ -134,13 +134,13 @@ export function FaqIconBenefits({
             key={index}
             className={cn(
               "flex flex-col items-center gap-4 rounded-lg border p-6 text-center",
-              benefitCardClassName
+              benefitCardClassName,
             )}
           >
             <div
               className={cn(
                 "flex size-12 items-center justify-center rounded-full bg-primary/10",
-                iconWrapperClassName
+                iconWrapperClassName,
               )}
             >
               <DynamicIcon
@@ -159,7 +159,7 @@ export function FaqIconBenefits({
               <p
                 className={cn(
                   "text-muted-foreground text-sm",
-                  benefitDescriptionClassName
+                  benefitDescriptionClassName,
                 )}
               >
                 {benefit.description}
@@ -188,32 +188,35 @@ export function FaqIconBenefits({
         <div
           className={cn(
             "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-            headerClassName
+            headerClassName,
           )}
         >
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderBenefits()}
       </div>

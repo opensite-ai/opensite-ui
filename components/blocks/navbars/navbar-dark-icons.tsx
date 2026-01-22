@@ -129,7 +129,7 @@ export interface NavbarDarkIconsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -178,7 +178,7 @@ export const NavbarDarkIcons = ({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
+
     const handleResize = () => {
       if (window.innerWidth > MOBILE_BREAKPOINT) {
         setOpen(false);
@@ -211,7 +211,7 @@ export const NavbarDarkIcons = ({
         href={logo.url || "/"}
         className={cn(
           "flex max-h-8 items-center gap-2 text-lg font-semibold tracking-tighter",
-          logoClassName
+          logoClassName,
         )}
       >
         {logo.src && (
@@ -222,15 +222,14 @@ export const NavbarDarkIcons = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="hidden text-foreground md:inline-block">
               {logo.title}
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -240,7 +239,14 @@ export const NavbarDarkIcons = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -292,9 +298,17 @@ export const NavbarDarkIcons = ({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container h-16", containerClassName)}>
-        <div className={cn("flex h-full items-center justify-between", navClassName)}>
+        <div
+          className={cn(
+            "flex h-full items-center justify-between",
+            navClassName,
+          )}
+        >
           {renderLogo()}
-          <NavigationMenu className={cn("hidden lg:flex", navigationMenuClassName)} viewport={false}>
+          <NavigationMenu
+            className={cn("hidden lg:flex", navigationMenuClassName)}
+            viewport={false}
+          >
             {renderNavigation()}
           </NavigationMenu>
           <div className={cn("flex items-center gap-4", actionsClassName)}>
@@ -387,7 +401,11 @@ const MenuSubLink = ({ link }: MenuSubLinkProps) => {
           {link.icon ? (
             link.icon
           ) : link.iconName ? (
-            <DynamicIcon name={link.iconName} size={20} color={link.iconColor} />
+            <DynamicIcon
+              name={link.iconName}
+              size={20}
+              color={link.iconColor}
+            />
           ) : null}
           <div className="flex flex-col gap-1.5">
             <h3 className="text-sm leading-none text-foreground">
@@ -426,7 +444,14 @@ const MobileNavigationMenu = ({
     if (!authActions || authActions.length === 0) return null;
 
     return authActions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -463,7 +488,7 @@ const MobileNavigationMenu = ({
             <div className="flex h-full flex-col justify-between gap-20">
               <Accordion type="multiple" className="w-full">
                 {navigation.map((item, index) =>
-                  renderMobileMenuItem(item, index)
+                  renderMobileMenuItem(item, index),
                 )}
               </Accordion>
               <div className="flex flex-col gap-2 pb-20">

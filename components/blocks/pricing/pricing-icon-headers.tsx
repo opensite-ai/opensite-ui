@@ -126,7 +126,7 @@ export interface PricingIconHeadersProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -259,30 +259,53 @@ export function PricingIconHeaders({
     return (
       <ul className={cn("mb-6 flex-1 space-y-3", featuresClassName)}>
         {plan.features.map((feature, featureIndex) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={18}
-                className={cn("mt-0.5 shrink-0 text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "mt-0.5 shrink-0 text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={featureIndex} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={featureIndex}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-sm text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-sm text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -294,12 +317,23 @@ export function PricingIconHeaders({
     if (plan.actionSlot) return plan.actionSlot;
     if (!plan.action) return null;
 
-    const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = plan.action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionItemClassName,
+      ...pressableProps
+    } = plan.action;
 
     return (
       <Pressable
         asButton
-        className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+        className={cn(
+          "w-full justify-center",
+          actionClassName,
+          actionItemClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -320,13 +354,20 @@ export function PricingIconHeaders({
     return (
       <div className={cn("grid gap-6 md:grid-cols-3", gridClassName)}>
         {plans.map((plan, index) => {
-          const resolvedIcon = plan.icon
-            ?? (plan.iconName ? <DynamicIcon name={plan.iconName} size={24} /> : null);
+          const resolvedIcon =
+            plan.icon ??
+            (plan.iconName ? (
+              <DynamicIcon name={plan.iconName} size={24} />
+            ) : null);
 
           return (
             <div
               key={index}
-              className={cn("flex flex-col rounded-2xl border p-6", cardClassName, plan.className)}
+              className={cn(
+                "flex flex-col rounded-2xl border p-6",
+                cardClassName,
+                plan.className,
+              )}
             >
               <div className="mb-6 flex items-start gap-4">
                 {resolvedIcon && (
@@ -334,38 +375,57 @@ export function PricingIconHeaders({
                     className={cn(
                       "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
                       plan.iconBgClassName || "bg-primary/10 text-primary",
-                      iconWrapperClassName
+                      iconWrapperClassName,
                     )}
                   >
                     {resolvedIcon}
                   </div>
                 )}
                 <div>
-                  {plan.name && (
-                    typeof plan.name === "string" ? (
-                      <h3 className={cn("text-lg font-semibold", planTitleClassName)}>{plan.name}</h3>
+                  {plan.name &&
+                    (typeof plan.name === "string" ? (
+                      <h3
+                        className={cn(
+                          "text-lg font-semibold",
+                          planTitleClassName,
+                        )}
+                      >
+                        {plan.name}
+                      </h3>
                     ) : (
                       <div className={planTitleClassName}>{plan.name}</div>
-                    )
-                  )}
-                  {plan.description && (
-                    typeof plan.description === "string" ? (
-                      <p className={cn("text-sm text-muted-foreground", planDescriptionClassName)}>
+                    ))}
+                  {plan.description &&
+                    (typeof plan.description === "string" ? (
+                      <p
+                        className={cn(
+                          "text-sm text-muted-foreground",
+                          planDescriptionClassName,
+                        )}
+                      >
                         {plan.description}
                       </p>
                     ) : (
-                      <div className={planDescriptionClassName}>{plan.description}</div>
-                    )
-                  )}
+                      <div className={planDescriptionClassName}>
+                        {plan.description}
+                      </div>
+                    ))}
                 </div>
               </div>
 
               <div className="mb-6">
                 {plan.price && (
-                  <span className={cn("text-4xl font-bold", priceClassName)}>{plan.price}</span>
+                  <span className={cn("text-4xl font-bold", priceClassName)}>
+                    {plan.price}
+                  </span>
                 )}
                 {plan.priceDescription && (
-                  <span className={cn("text-muted-foreground", priceDescriptionClassName)}>
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      priceDescriptionClassName,
+                    )}
+                  >
                     {plan.priceDescription}
                   </span>
                 )}
@@ -390,23 +450,35 @@ export function PricingIconHeaders({
       className={className}
     >
       <div className={cn("mx-auto", containerClassName)}>
-        <div className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight sm:text-4xl", headingClassName)}>
+        <div
+          className={cn("mx-auto mb-12 max-w-2xl text-center", headerClassName)}
+        >
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight sm:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("mt-4 text-lg text-muted-foreground", subtitleClassName)}>{subtitle}</p>
+            ))}
+          {subtitle &&
+            (typeof subtitle === "string" ? (
+              <p
+                className={cn(
+                  "mt-4 text-lg text-muted-foreground",
+                  subtitleClassName,
+                )}
+              >
+                {subtitle}
+              </p>
             ) : (
               <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
+            ))}
         </div>
 
         {renderPlans()}

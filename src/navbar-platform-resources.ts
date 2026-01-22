@@ -2,5 +2,8 @@ export { NavbarPlatformResources } from "../components/blocks/navbars/navbar-pla
 export type {
   NavbarPlatformResourcesProps,
   IMenuLink,
-  IDropdownItem,
+  IMenuLinkGroup,
+  ILinkItem,
+  DropdownLayout,
+  LogoConfig,
 } from "../components/blocks/navbars/navbar-platform-resources";

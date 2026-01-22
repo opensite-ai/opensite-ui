@@ -96,7 +96,7 @@ export interface ServicesListExpandableCardsProps {
   /**
    * Optional background pattern
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity
    */
@@ -155,7 +155,7 @@ export function ServicesListExpandableCards({
   };
 
   const openServiceData = services.find(
-    (service) => service.id === openServiceId
+    (service) => service.id === openServiceId,
   );
 
   return (
@@ -169,15 +169,9 @@ export function ServicesListExpandableCards({
       className={cn(className)}
     >
       {/* Card Grid */}
-      <ul
-        className={cn(
-          "flex flex-wrap gap-4 md:gap-5",
-          gridClassName
-        )}
-      >
+      <ul className={cn("flex flex-wrap gap-4 md:gap-5", gridClassName)}>
         {services.map((service, index) => {
-          const isWide =
-            index % 4 === 0 || index % 4 === 3;
+          const isWide = index % 4 === 0 || index % 4 === 3;
 
           return (
             <motion.li
@@ -192,7 +186,7 @@ export function ServicesListExpandableCards({
               className={cn(
                 "relative h-[280px] flex-[0_0_calc(50%-0.5rem)] overflow-hidden rounded-3xl md:h-[420px] md:flex-[0_0_40%]",
                 isWide && "md:flex-[0_0_calc(60%-1.25rem)]",
-                cardClassName
+                cardClassName,
               )}
             >
               <Pressable
@@ -203,7 +197,7 @@ export function ServicesListExpandableCards({
                 <motion.div
                   className={cn(
                     "relative h-full w-full overflow-hidden rounded-3xl bg-gray-900",
-                    service.theme === "dark" ? "bg-gray-100" : "bg-gray-900"
+                    service.theme === "dark" ? "bg-gray-100" : "bg-gray-900",
                   )}
                   layoutId={
                     enableLayoutAnimations
@@ -255,7 +249,7 @@ export function ServicesListExpandableCards({
                         "text-sm font-medium uppercase md:text-base",
                         service.theme === "dark"
                           ? "text-gray-900"
-                          : "text-white"
+                          : "text-white",
                       )}
                     >
                       {service.category}
@@ -265,7 +259,7 @@ export function ServicesListExpandableCards({
                         "mt-2 text-balance font-sans text-xl font-semibold md:text-3xl",
                         service.theme === "dark"
                           ? "text-gray-900"
-                          : "text-white"
+                          : "text-white",
                       )}
                     >
                       {service.title}
@@ -328,7 +322,7 @@ export function ServicesListExpandableCards({
                     "text-sm font-medium uppercase md:text-base",
                     openServiceData.theme === "dark"
                       ? "text-gray-900"
-                      : "text-white"
+                      : "text-white",
                   )}
                 >
                   {openServiceData.category}
@@ -338,7 +332,7 @@ export function ServicesListExpandableCards({
                     "mt-2 text-balance font-sans text-2xl font-semibold md:text-4xl",
                     openServiceData.theme === "dark"
                       ? "text-gray-900"
-                      : "text-white"
+                      : "text-white",
                   )}
                 >
                   {openServiceData.title}

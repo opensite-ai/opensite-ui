@@ -133,7 +133,7 @@ export interface ResourceDetailWhitepaperSidebarProps {
   /**
    * Section pattern
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Section pattern opacity
    */
@@ -214,10 +214,20 @@ export function ResourceDetailWhitepaperSidebar({
 
   const showPdfPreview = sidebar?.showPdfPreview !== false && !!sidebar?.pdfUrl;
 
-  const renderDownloadAction = (action: ActionConfig | undefined, defaultVariant: "default" | "outline") => {
+  const renderDownloadAction = (
+    action: ActionConfig | undefined,
+    defaultVariant: "default" | "outline",
+  ) => {
     if (!action) return null;
 
-    const { icon, iconAfter, children, className: actionClassName, label, ...pressableProps } = action;
+    const {
+      icon,
+      iconAfter,
+      children,
+      className: actionClassName,
+      label,
+      ...pressableProps
+    } = action;
     return (
       <Pressable
         variant={action.variant ?? defaultVariant}
@@ -245,24 +255,20 @@ export function ResourceDetailWhitepaperSidebar({
           <div className="border-b border-border bg-muted/50 px-5 py-4">
             <h3 className="flex items-center text-sm font-semibold">
               {sidebar?.resourceTypeIcon}
-              {sidebar?.resourceType && (
-                typeof sidebar.resourceType === "string" ? (
-                  sidebar.resourceType
-                ) : (
-                  sidebar.resourceType
-                )
-              )}
+              {sidebar?.resourceType &&
+                (typeof sidebar.resourceType === "string"
+                  ? sidebar.resourceType
+                  : sidebar.resourceType)}
             </h3>
           </div>
           <div className="p-5">
             <div className="gap-4 text-lg leading-snug font-semibold text-foreground">
-              {sidebar?.resourceTitle && (
-                typeof sidebar.resourceTitle === "string" ? (
+              {sidebar?.resourceTitle &&
+                (typeof sidebar.resourceTitle === "string" ? (
                   <p>{sidebar.resourceTitle}</p>
                 ) : (
                   sidebar.resourceTitle
-                )
-              )}
+                ))}
             </div>
 
             {showPdfPreview && sidebar?.pdfUrl && (
@@ -299,31 +305,38 @@ export function ResourceDetailWhitepaperSidebar({
           <div className="border-b border-border bg-muted/50 px-5 py-4">
             <h3 className="flex items-center text-sm font-semibold">
               {sidebar?.downloadOptionsIcon}
-              {sidebar?.downloadOptionsTitle && (
-                typeof sidebar.downloadOptionsTitle === "string" ? (
-                  sidebar.downloadOptionsTitle
-                ) : (
-                  sidebar.downloadOptionsTitle
-                )
-              )}
+              {sidebar?.downloadOptionsTitle &&
+                (typeof sidebar.downloadOptionsTitle === "string"
+                  ? sidebar.downloadOptionsTitle
+                  : sidebar.downloadOptionsTitle)}
             </h3>
           </div>
           <div className="p-5">
             <div className="space-y-4">
-              {sidebar?.downloadDescription && (
-                typeof sidebar.downloadDescription === "string" ? (
-                  <p className="text-sm text-muted-foreground">{sidebar.downloadDescription}</p>
+              {sidebar?.downloadDescription &&
+                (typeof sidebar.downloadDescription === "string" ? (
+                  <p className="text-sm text-muted-foreground">
+                    {sidebar.downloadDescription}
+                  </p>
                 ) : (
                   sidebar.downloadDescription
-                )
-              )}
+                ))}
               <div className="flex flex-col space-y-2">
-                {renderDownloadAction(sidebar?.primaryDownloadAction, "default")}
-                {renderDownloadAction(sidebar?.secondaryDownloadAction, "outline")}
+                {renderDownloadAction(
+                  sidebar?.primaryDownloadAction,
+                  "default",
+                )}
+                {renderDownloadAction(
+                  sidebar?.secondaryDownloadAction,
+                  "outline",
+                )}
               </div>
               {sidebar?.readTime && (
                 <p className="mt-4 text-center text-xs text-muted-foreground">
-                  Read time: {typeof sidebar.readTime === "string" ? sidebar.readTime : sidebar.readTime}
+                  Read time:{" "}
+                  {typeof sidebar.readTime === "string"
+                    ? sidebar.readTime
+                    : sidebar.readTime}
                 </p>
               )}
             </div>
@@ -334,26 +347,30 @@ export function ResourceDetailWhitepaperSidebar({
           <div className="border-b border-border bg-muted/50 px-5 py-4">
             <h3 className="flex items-center text-sm font-semibold">
               {sidebar?.shareIcon}
-              {sidebar?.shareTitle && (
-                typeof sidebar.shareTitle === "string" ? (
-                  sidebar.shareTitle
-                ) : (
-                  sidebar.shareTitle
-                )
-              )}
+              {sidebar?.shareTitle &&
+                (typeof sidebar.shareTitle === "string"
+                  ? sidebar.shareTitle
+                  : sidebar.shareTitle)}
             </h3>
           </div>
           <div className="p-5">
             {sidebar?.shareActions && sidebar.shareActions.length > 0 && (
               <ul className="flex items-center gap-2">
                 {sidebar.shareActions.map((action, index) => {
-                  const { icon, iconAfter, children, className: actionClassName, label, ...pressableProps } = action;
+                  const {
+                    icon,
+                    iconAfter,
+                    children,
+                    className: actionClassName,
+                    label,
+                    ...pressableProps
+                  } = action;
                   return (
                     <li key={index}>
                       <Pressable
                         className={cn(
                           "flex size-10 items-center justify-center rounded-full border border-border bg-muted/50 transition-colors hover:bg-muted",
-                          actionClassName
+                          actionClassName,
                         )}
                         {...pressableProps}
                       >
@@ -379,7 +396,9 @@ export function ResourceDetailWhitepaperSidebar({
     if (articleSlot) return articleSlot;
 
     return (
-      <article className={cn("prose prose-sm dark:prose-invert", articleClassName)}>
+      <article
+        className={cn("prose prose-sm dark:prose-invert", articleClassName)}
+      >
         {article?.content}
       </article>
     );
@@ -402,9 +421,12 @@ export function ResourceDetailWhitepaperSidebar({
         </div>
       </div>
 
-      {showFullViewer && sidebar?.pdfUrl && isMounted && typeof document !== "undefined" &&
+      {showFullViewer &&
+        sidebar?.pdfUrl &&
+        isMounted &&
+        typeof document !== "undefined" &&
         createPortal(
-          <div 
+          <div
             className="fixed inset-0 z-[9999] flex flex-col bg-black/90"
             role="dialog"
             aria-modal="true"
@@ -439,7 +461,7 @@ export function ResourceDetailWhitepaperSidebar({
               />
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </Section>
   );

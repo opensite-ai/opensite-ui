@@ -102,7 +102,7 @@ export interface NavbarFullscreenMenuProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -153,7 +153,10 @@ export const NavbarFullscreenMenu = ({
     if (!logo) return null;
 
     return (
-      <Pressable href={logo.url || "/"} className={cn("flex items-center gap-2", logoClassName)}>
+      <Pressable
+        href={logo.url || "/"}
+        className={cn("flex items-center gap-2", logoClassName)}
+      >
         {logo.src && (
           <Img
             src={logo.src}
@@ -162,15 +165,14 @@ export const NavbarFullscreenMenu = ({
             optixFlowConfig={optixFlowConfig}
           />
         )}
-        {logo.title && (
-          typeof logo.title === "string" ? (
+        {logo.title &&
+          (typeof logo.title === "string" ? (
             <span className="text-lg font-semibold tracking-tighter">
               {logo.title}
             </span>
           ) : (
             logo.title
-          )
-        )}
+          ))}
       </Pressable>
     );
   };
@@ -183,12 +185,13 @@ export const NavbarFullscreenMenu = ({
       <div
         key={item.label}
         className="mb-5 animate-in slide-in-from-bottom-4 fade-in"
-        style={{ animationDelay: `${0.2 + index * 0.1}s`, animationFillMode: "both" }}
+        style={{
+          animationDelay: `${0.2 + index * 0.1}s`,
+          animationFillMode: "both",
+        }}
       >
         <Pressable href={item.href} className="group relative inline-block">
-          <span
-            className="relative z-10 text-4xl font-black text-foreground uppercase transition-all duration-300 md:text-6xl group-hover:opacity-80 group-hover:blur-[6px]"
-          >
+          <span className="relative z-10 text-4xl font-black text-foreground uppercase transition-all duration-300 md:text-6xl group-hover:opacity-80 group-hover:blur-[6px]">
             {item.label}
           </span>
           <div className="absolute bottom-0 left-0 h-1 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
@@ -224,10 +227,13 @@ export const NavbarFullscreenMenu = ({
       patternOpacity={patternOpacity}
     >
       <div className={cn(containerClassName)}>
-        <div className={cn("flex items-center justify-between px-6 py-6", headerClassName)}>
-          <div className="z-50">
-            {renderLogo()}
-          </div>
+        <div
+          className={cn(
+            "flex items-center justify-between px-6 py-6",
+            headerClassName,
+          )}
+        >
+          <div className="z-50">{renderLogo()}</div>
 
           <div className="z-50">
             <button
@@ -236,7 +242,9 @@ export const NavbarFullscreenMenu = ({
             >
               <span
                 className={`inline-block transition-all duration-200 ${
-                  isOpen ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"
+                  isOpen
+                    ? "opacity-0 -translate-y-2"
+                    : "opacity-100 translate-y-0"
                 }`}
                 style={{ display: isOpen ? "none" : "inline-block" }}
               >
@@ -244,7 +252,9 @@ export const NavbarFullscreenMenu = ({
               </span>
               <span
                 className={`inline-block transition-all duration-200 ${
-                  isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                  isOpen
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-2"
                 }`}
                 style={{ display: isOpen ? "inline-block" : "none" }}
               >
@@ -258,7 +268,7 @@ export const NavbarFullscreenMenu = ({
           <div
             className={cn(
               "fixed inset-0 z-40 overflow-hidden bg-background animate-in fade-in duration-300",
-              overlayClassName
+              overlayClassName,
             )}
           >
             <div className="flex h-full flex-col items-center justify-center px-6">
@@ -269,7 +279,7 @@ export const NavbarFullscreenMenu = ({
               <div
                 className={cn(
                   "flex flex-col gap-8 sm:flex-row sm:gap-12 animate-in slide-in-from-bottom-4 fade-in",
-                  socialLinksClassName
+                  socialLinksClassName,
                 )}
                 style={{ animationDelay: "0.7s", animationFillMode: "both" }}
               >

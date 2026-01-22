@@ -88,7 +88,7 @@ export interface TeamGridAnimatedProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -201,7 +201,7 @@ export function TeamGridAnimated({
         key={index}
         className={cn(
           "group relative flex flex-col items-center justify-end overflow-hidden rounded-xl p-6 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl",
-          memberCardClassName
+          memberCardClassName,
         )}
         style={{
           backgroundColor: cardColors[index % cardColors.length],
@@ -216,7 +216,7 @@ export function TeamGridAnimated({
         <div
           className={cn(
             "relative z-10 h-36 w-36 overflow-hidden rounded-full border-4 border-transparent bg-background/20 transition-all duration-500 ease-out group-hover:border-primary group-hover:scale-105",
-            memberImageClassName
+            memberImageClassName,
           )}
           style={{ transitionDelay: `${index * 100}ms` }}
         >
@@ -231,7 +231,7 @@ export function TeamGridAnimated({
         <h3
           className={cn(
             "relative z-10 mt-4 text-xl font-semibold text-foreground",
-            memberNameClassName
+            memberNameClassName,
           )}
         >
           {member.name}
@@ -239,7 +239,7 @@ export function TeamGridAnimated({
         <p
           className={cn(
             "relative z-10 text-sm text-muted-foreground",
-            memberDesignationClassName
+            memberDesignationClassName,
           )}
         >
           {member.designation}
@@ -249,7 +249,7 @@ export function TeamGridAnimated({
           <div
             className={cn(
               "relative z-10 mt-4 flex gap-3 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100",
-              socialLinksClassName
+              socialLinksClassName,
             )}
           >
             {member.socialLinks.map((link, linkIndex) => (
@@ -282,9 +282,7 @@ export function TeamGridAnimated({
             <DynamicIcon name={link.icon} size={24} />
           </Pressable>
         ))}
-        <span className="text-muted-foreground text-sm">
-          www.opensite.ai
-        </span>
+        <span className="text-muted-foreground text-sm">www.opensite.ai</span>
       </div>
     );
   };
@@ -308,12 +306,12 @@ export function TeamGridAnimated({
       <div className="relative z-10 grid items-center justify-center gap-8 text-center">
         <div className="flex w-full flex-col items-center justify-between gap-4 md:flex-row md:items-start md:text-left lg:gap-8">
           <div className="grid gap-2 text-center md:text-left">
-            {title && (
-              typeof title === "string" ? (
+            {title &&
+              (typeof title === "string" ? (
                 <h1
                   className={cn(
                     "text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-muted-foreground",
-                    titleClassName
+                    titleClassName,
                   )}
                 >
                   <span className="text-primary block text-xl sm:text-2xl md:text-3xl font-medium">
@@ -323,22 +321,20 @@ export function TeamGridAnimated({
                 </h1>
               ) : (
                 <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
+              ))}
+            {description &&
+              (typeof description === "string" ? (
                 <p
                   className={cn(
                     "max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed",
-                    descriptionClassName
+                    descriptionClassName,
                   )}
                 >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
           <div className="flex flex-col items-center gap-4 md:items-end">
             {logo && <div className="text-2xl font-bold">{logo}</div>}
@@ -360,7 +356,7 @@ export function TeamGridAnimated({
         <div
           className={cn(
             "mx-auto grid w-full max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 lg:gap-12",
-            gridClassName
+            gridClassName,
           )}
         >
           {renderMembers()}

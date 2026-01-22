@@ -73,7 +73,7 @@ export interface TimelineHistoryProseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -131,7 +131,12 @@ export function TimelineHistoryProse({
         style={style}
       >
         <div className={containerClassName}>
-          <h1 className={cn("mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl", headingClassName)}>
+          <h1
+            className={cn(
+              "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+              headingClassName,
+            )}
+          >
             {heading}
           </h1>
         </div>
@@ -151,7 +156,12 @@ export function TimelineHistoryProse({
       style={style}
     >
       <div className={containerClassName}>
-        <h1 className={cn("mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl", headingClassName)}>
+        <h1
+          className={cn(
+            "mb-10 text-center text-3xl font-bold tracking-tighter text-foreground sm:text-6xl",
+            headingClassName,
+          )}
+        >
           {heading}
         </h1>
         <div className={cn("relative mx-auto max-w-4xl", entriesClassName)}>
@@ -160,25 +170,46 @@ export function TimelineHistoryProse({
             className="absolute top-4 left-2 bg-muted"
           />
           {entries.map((entry, index) => (
-            <div key={index} className={cn("relative mb-10 pl-8", entryClassName)}>
+            <div
+              key={index}
+              className={cn("relative mb-10 pl-8", entryClassName)}
+            >
               <div className="absolute top-3.5 left-0 flex size-4 items-center justify-center rounded-full bg-foreground" />
-              <h4 className={cn("rounded-xl py-2 text-xl font-bold tracking-tight xl:mb-4 xl:px-3", titleClassName)}>
+              <h4
+                className={cn(
+                  "rounded-xl py-2 text-xl font-bold tracking-tight xl:mb-4 xl:px-3",
+                  titleClassName,
+                )}
+              >
                 {entry.title}
               </h4>
 
-              <h5 className={cn("text-md top-3 -left-34 rounded-xl tracking-tight text-muted-foreground xl:absolute", dateClassName)}>
+              <h5
+                className={cn(
+                  "text-md top-3 -left-34 rounded-xl tracking-tight text-muted-foreground xl:absolute",
+                  dateClassName,
+                )}
+              >
                 {entry.date}
               </h5>
 
               <Card className="my-5 border-none shadow-none">
                 <CardContent className="px-0 xl:px-2">
                   {entry.content ? (
-                    <div className={cn("prose text-foreground dark:prose-invert", contentClassName)}>
+                    <div
+                      className={cn(
+                        "prose text-foreground dark:prose-invert",
+                        contentClassName,
+                      )}
+                    >
                       {entry.content}
                     </div>
                   ) : entry.contentHtml ? (
                     <div
-                      className={cn("prose text-foreground dark:prose-invert", contentClassName)}
+                      className={cn(
+                        "prose text-foreground dark:prose-invert",
+                        contentClassName,
+                      )}
                       dangerouslySetInnerHTML={{ __html: entry.contentHtml }}
                     />
                   ) : null}

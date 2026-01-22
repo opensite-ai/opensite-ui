@@ -46,7 +46,7 @@ export interface FaqRoundedCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -134,13 +134,13 @@ export function FaqRoundedCards({
             value={item.id}
             className={cn(
               "rounded-lg bg-background px-4 border-none",
-              accordionItemClassName
+              accordionItemClassName,
             )}
           >
             <AccordionTrigger
               className={cn(
                 "font-semibold hover:no-underline",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               {item.question}
@@ -169,37 +169,40 @@ export function FaqRoundedCards({
         <div
           className={cn(
             "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-            headerClassName
+            headerClassName,
           )}
         >
-          {heading && (
-            typeof heading === "string" ? (
+          {heading &&
+            (typeof heading === "string" ? (
               <h2
                 className={cn(
                   "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground lg:text-lg",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         <div
           className={cn(
             "mx-auto mt-10 max-w-3xl rounded-2xl bg-muted/50 p-6 md:p-8",
-            cardsWrapperClassName
+            cardsWrapperClassName,
           )}
         >
           {renderItems()}

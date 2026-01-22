@@ -116,18 +116,18 @@ export interface HeroGradientAvatarsRatingProps {
 }
 
 export function HeroGradientAvatarsRating({
-  topLinkText = "opensiteai.com",
-  topLinkHref = "#",
+  topLinkText,
+  topLinkHref,
   topLinkSlot,
   heading,
-  headingSubtitle = "Made Simple",
+  headingSubtitle,
   description,
   actions,
   actionsSlot,
   avatars,
   avatarsSlot,
-  ratingValue = "5.0",
-  ratingLabel = "1000+ happy developers",
+  ratingValue,
+  ratingLabel,
   starCount = 5,
   images,
   imagesSlot,
@@ -142,6 +142,7 @@ export function HeroGradientAvatarsRating({
 }: HeroGradientAvatarsRatingProps): React.JSX.Element {
   const renderTopLink = () => {
     if (topLinkSlot) return topLinkSlot;
+    if (!topLinkText || !topLinkHref) return null;
 
     return (
       <Pressable
@@ -201,6 +202,8 @@ export function HeroGradientAvatarsRating({
   };
 
   const renderRating = () => {
+    if (!ratingValue && !ratingLabel) return null;
+
     return (
       <div className="flex flex-col items-center sm:items-start">
         <div className="flex items-center gap-1">
@@ -212,12 +215,14 @@ export function HeroGradientAvatarsRating({
               className="fill-primary"
             />
           ))}
-          <span className="font-semibold">{ratingValue}</span>
+          {ratingValue && <span className="font-semibold">{ratingValue}</span>}
         </div>
-        {typeof ratingLabel === "string" ? (
-          <p className="text-sm font-medium text-muted-foreground">{ratingLabel}</p>
-        ) : (
-          ratingLabel
+        {ratingLabel && (
+          typeof ratingLabel === "string" ? (
+            <p className="text-sm font-medium text-muted-foreground">{ratingLabel}</p>
+          ) : (
+            ratingLabel
+          )
         )}
       </div>
     );
@@ -288,10 +293,12 @@ export function HeroGradientAvatarsRating({
 
             {renderActions()}
 
-            <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:items-center">
-              {renderAvatars()}
-              {renderRating()}
-            </div>
+            {(avatars || avatarsSlot || ratingValue || ratingLabel) && (
+              <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:items-center">
+                {renderAvatars()}
+                {renderRating()}
+              </div>
+            )}
           </div>
 
           {renderImages()}

@@ -52,7 +52,7 @@ export interface FaqCardCategoriesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -147,11 +147,14 @@ export function FaqCardCategories({
       <div
         className={cn(
           "mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3",
-          gridClassName
+          gridClassName,
         )}
       >
         {categories.map((category, categoryIndex) => (
-          <Card key={categoryIndex} className={cn("bg-background", cardClassName)}>
+          <Card
+            key={categoryIndex}
+            className={cn("bg-background", cardClassName)}
+          >
             <CardHeader>
               {typeof category.title === "string" ? (
                 <CardTitle className={categoryTitleClassName}>
@@ -176,7 +179,7 @@ export function FaqCardCategories({
                     <AccordionTrigger
                       className={cn(
                         "text-sm transition-opacity duration-200 hover:no-underline hover:opacity-60",
-                        accordionTriggerClassName
+                        accordionTriggerClassName,
                       )}
                     >
                       {item.question}
@@ -184,7 +187,7 @@ export function FaqCardCategories({
                     <AccordionContent
                       className={cn(
                         "text-muted-foreground text-sm",
-                        accordionContentClassName
+                        accordionContentClassName,
                       )}
                     >
                       {item.answer}
@@ -212,7 +215,7 @@ export function FaqCardCategories({
         <div
           className={cn(
             "relative rounded-lg bg-muted/50 p-8 md:p-12 lg:p-16",
-            contentWrapperClassName
+            contentWrapperClassName,
           )}
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -221,32 +224,35 @@ export function FaqCardCategories({
           <div
             className={cn(
               "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-              headerClassName
+              headerClassName,
             )}
           >
-            {heading && (
-              typeof heading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h2
                   className={cn(
                     "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                    headingClassName
+                    headingClassName,
                   )}
                 >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-muted-foreground lg:text-lg",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
           {renderCategories()}
         </div>

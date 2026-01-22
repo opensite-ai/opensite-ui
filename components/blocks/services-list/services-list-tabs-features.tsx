@@ -8,7 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for tabs features display
@@ -103,7 +107,7 @@ export interface ServicesListTabsFeaturesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -157,17 +161,19 @@ export function ServicesListTabsFeatures({
     return (
       <Tabs defaultValue={services[0]?.id} className="w-full">
         <div className="flex justify-center">
-          <TabsList className={cn(
-            "grid h-auto w-full max-w-2xl grid-cols-2 gap-2 bg-transparent p-0 md:grid-cols-4",
-            tabsListClassName
-          )}>
+          <TabsList
+            className={cn(
+              "grid h-auto w-full max-w-2xl grid-cols-2 gap-2 bg-transparent p-0 md:grid-cols-4",
+              tabsListClassName,
+            )}
+          >
             {services.map((service) => (
               <TabsTrigger
                 key={service.id}
                 value={service.id}
                 className={cn(
                   "rounded-lg border border-border bg-background px-4 py-3 data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
-                  tabTriggerClassName
+                  tabTriggerClassName,
                 )}
               >
                 {service.title}
@@ -184,26 +190,31 @@ export function ServicesListTabsFeatures({
           >
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
               <div className="flex flex-col justify-center">
-                {service.title && (
-                  typeof service.title === "string" ? (
+                {service.title &&
+                  (typeof service.title === "string" ? (
                     <h3 className="text-2xl font-bold">{service.title}</h3>
                   ) : (
                     <div className="text-2xl font-bold">{service.title}</div>
-                  )
-                )}
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="mt-4 text-muted-foreground leading-relaxed">{service.description}</p>
+                  ))}
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="mt-4 text-muted-foreground leading-relaxed">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="mt-4 text-muted-foreground leading-relaxed">{service.description}</div>
-                  )
-                )}
+                    <div className="mt-4 text-muted-foreground leading-relaxed">
+                      {service.description}
+                    </div>
+                  ))}
                 {service.features && service.features.length > 0 && (
                   <div className="mt-6 space-y-3">
                     {service.features.map((feature, index) => (
                       <div key={index} className="flex items-center gap-3">
                         <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10">
-                          <DynamicIcon name="lucide/check" className="h-4 w-4 text-primary" />
+                          <DynamicIcon
+                            name="lucide/check"
+                            className="h-4 w-4 text-primary"
+                          />
                         </div>
                         {typeof feature === "string" ? (
                           <span>{feature}</span>
@@ -242,24 +253,32 @@ export function ServicesListTabsFeatures({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

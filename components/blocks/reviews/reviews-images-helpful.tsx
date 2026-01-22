@@ -126,7 +126,7 @@ export interface ReviewsImagesHelpfulProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -212,7 +212,7 @@ function StarRating({ rating, size = 16 }: { rating: number; size?: number }) {
           className={cn(
             star <= rating
               ? "fill-primary text-primary"
-              : "fill-muted text-muted"
+              : "fill-muted text-muted",
           )}
         />
       ))}
@@ -311,31 +311,35 @@ export function ReviewsImagesHelpful({
               {index > 0 && <Separator className="my-6" />}
               <Card className="border-0 p-0 shadow-none">
                 <CardContent className={cn("space-y-4 p-0", contentClassName)}>
-                  <div className={cn("flex items-start justify-between gap-4", authorClassName)}>
+                  <div
+                    className={cn(
+                      "flex items-start justify-between gap-4",
+                      authorClassName,
+                    )}
+                  >
                     <div className="flex items-center gap-3">
                       <Avatar className="size-10">
-                        <AvatarImage
-                          src={review.avatarSrc}
-                          alt={authorName}
-                        />
+                        <AvatarImage src={review.avatarSrc} alt={authorName} />
                         <AvatarFallback>
                           {getInitials(authorName)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
                         <div className="flex items-center gap-2">
-                          {review.author && (
-                            typeof review.author === "string" ? (
+                          {review.author &&
+                            (typeof review.author === "string" ? (
                               <span className="font-medium">
                                 {review.author}
                               </span>
                             ) : (
                               review.author
-                            )
-                          )}
+                            ))}
                           {review.verified && (
                             <span className="flex items-center gap-1 text-emerald-600">
-                              <DynamicIcon name="lucide/badge-check" size={16} />
+                              <DynamicIcon
+                                name="lucide/badge-check"
+                                size={16}
+                              />
                             </span>
                           )}
                         </div>
@@ -354,22 +358,20 @@ export function ReviewsImagesHelpful({
                   </div>
 
                   <div>
-                    {review.title && (
-                      typeof review.title === "string" ? (
+                    {review.title &&
+                      (typeof review.title === "string" ? (
                         <h3 className="font-medium">{review.title}</h3>
                       ) : (
                         review.title
-                      )
-                    )}
-                    {review.content && (
-                      typeof review.content === "string" ? (
+                      ))}
+                    {review.content &&
+                      (typeof review.content === "string" ? (
                         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                           {review.content}
                         </p>
                       ) : (
                         <div className="mt-2">{review.content}</div>
-                      )
-                    )}
+                      ))}
                   </div>
 
                   {review.images && review.images.length > 0 && (
@@ -399,7 +401,7 @@ export function ReviewsImagesHelpful({
                       size="sm"
                       className={cn(
                         "h-8 gap-1.5 text-muted-foreground",
-                        helpfulClicked.has(index) && "text-foreground"
+                        helpfulClicked.has(index) && "text-foreground",
                       )}
                       onClick={() => handleHelpful(index)}
                     >
@@ -407,15 +409,14 @@ export function ReviewsImagesHelpful({
                         name="lucide/thumbs-up"
                         size={16}
                         className={cn(
-                          helpfulClicked.has(index) && "fill-current"
+                          helpfulClicked.has(index) && "fill-current",
                         )}
                       />
                       Helpful
                       {review.helpful !== undefined && (
                         <span>
                           (
-                          {review.helpful +
-                            (helpfulClicked.has(index) ? 1 : 0)}
+                          {review.helpful + (helpfulClicked.has(index) ? 1 : 0)}
                           )
                         </span>
                       )}
@@ -447,17 +448,26 @@ export function ReviewsImagesHelpful({
       className={className}
     >
       <div className="mx-auto max-w-3xl">
-        <div className={cn("mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between", headerClassName)}>
+        <div
+          className={cn(
+            "mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between",
+            headerClassName,
+          )}
+        >
           <div>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-2xl font-semibold tracking-tight md:text-3xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-2xl font-semibold tracking-tight md:text-3xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
+              ))}
             <div className="mt-2 flex items-center gap-2">
               <StarRating rating={Math.round(averageRating)} size={20} />
               <span className="text-lg font-semibold">
@@ -468,11 +478,7 @@ export function ReviewsImagesHelpful({
               </span>
             </div>
           </div>
-          <Pressable
-            asButton
-            variant="outline"
-            onClick={onWriteReview}
-          >
+          <Pressable asButton variant="outline" onClick={onWriteReview}>
             {writeReviewLabel}
           </Pressable>
         </div>

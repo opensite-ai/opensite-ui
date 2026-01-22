@@ -111,7 +111,7 @@ export interface AutoScrollCarouselProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -176,10 +176,21 @@ export function AutoScrollCarousel({
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClass, ...pressableProps } = action;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClass,
+      ...pressableProps
+    } = action;
     return (
       <Pressable
-        className={cn("font-medium hover:underline", actionClass, actionClassName)}
+        className={cn(
+          "font-medium hover:underline",
+          actionClass,
+          actionClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -213,7 +224,7 @@ export function AutoScrollCarousel({
               "mt-7 h-full w-full rounded-md object-cover",
               index % 2 === 0 && "mt-16",
               image.className,
-              imageClassName
+              imageClassName,
             )}
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
@@ -232,25 +243,33 @@ export function AutoScrollCarousel({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("mb-12 grid grid-cols-1 gap-x-12 gap-y-6 md:mb-16 md:grid-cols-2 md:gap-x-24", headerClassName)}>
+      <div
+        className={cn(
+          "mb-12 grid grid-cols-1 gap-x-12 gap-y-6 md:mb-16 md:grid-cols-2 md:gap-x-24",
+          headerClassName,
+        )}
+      >
         <div className="flex flex-col gap-8 md:gap-12">
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-3xl font-bold md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
         </div>
-        {description && (
-          typeof description === "string" ? (
+        {description &&
+          (typeof description === "string" ? (
             <p className={descriptionClassName}>{description}</p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
         {renderAction()}
       </div>
       <div className="w-full -mx-4 sm:-mx-6 lg:-mx-8">

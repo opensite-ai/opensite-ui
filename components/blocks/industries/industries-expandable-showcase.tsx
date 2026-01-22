@@ -106,7 +106,7 @@ export interface IndustriesExpandableShowcaseProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -168,7 +168,7 @@ export function IndustriesExpandableShowcase({
   optixFlowConfig,
 }: IndustriesExpandableShowcaseProps): React.JSX.Element {
   const [activeContractor, setActiveContractor] = React.useState(
-    contractors?.[0]?.id || ""
+    contractors?.[0]?.id || "",
   );
 
   const handleContractorHover = (contractorId: string) => {
@@ -203,7 +203,7 @@ export function IndustriesExpandableShowcase({
               className={cn(
                 "block overflow-hidden rounded-lg border border-border",
                 itemClassName,
-                contractor.className
+                contractor.className,
               )}
             >
               <div className="relative aspect-video w-full">
@@ -238,7 +238,12 @@ export function IndustriesExpandableShowcase({
         </div>
 
         {/* Desktop Contractor Showcase */}
-        <div className={cn("hidden h-128 overflow-hidden border border-border lg:flex", desktopClassName)}>
+        <div
+          className={cn(
+            "hidden h-128 overflow-hidden border border-border lg:flex",
+            desktopClassName,
+          )}
+        >
           {contractors.map((contractor) => (
             <Pressable
               key={contractor.id}
@@ -247,7 +252,7 @@ export function IndustriesExpandableShowcase({
                 "flex h-full cursor-pointer gap-6 overflow-hidden border-l border-border first:border-l-0",
                 activeContractor === contractor.id ? "flex-1" : "w-48",
                 itemClassName,
-                contractor.className
+                contractor.className,
               )}
               onMouseEnter={() => handleContractorHover(contractor.id)}
             >
@@ -295,7 +300,7 @@ export function IndustriesExpandableShowcase({
                       "relative h-full min-w-0",
                       contractor.id === contractors[0]?.id
                         ? "w-96 shrink-0"
-                        : "flex-1"
+                        : "flex-1",
                     )}
                   >
                     <Img

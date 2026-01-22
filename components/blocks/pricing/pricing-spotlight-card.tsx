@@ -99,7 +99,7 @@ export interface PricingSpotlightCardProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -249,34 +249,62 @@ export function PricingSpotlightCard({
     return (
       <ul className={cn("mt-8 space-y-4", featuresClassName)}>
         {features.map((feature, index) => {
-          const resolvedIcon = feature.icon
-            ?? featureIcon
-            ?? (feature.iconName || featureIconName ? (
+          const resolvedIcon =
+            feature.icon ??
+            featureIcon ??
+            (feature.iconName || featureIconName ? (
               <DynamicIcon
                 name={feature.iconName || featureIconName}
                 size={14}
-                className={cn("text-primary", featureIconClassName, feature.iconClassName)}
+                className={cn(
+                  "text-primary",
+                  featureIconClassName,
+                  feature.iconClassName,
+                )}
               />
             ) : null);
 
           return (
-            <li key={index} className={cn("flex items-start gap-3", featureItemClassName, feature.className)}>
+            <li
+              key={index}
+              className={cn(
+                "flex items-start gap-3",
+                featureItemClassName,
+                feature.className,
+              )}
+            >
               {resolvedIcon && (
-                <div className={cn("flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10", featureIconWrapperClassName)}>
+                <div
+                  className={cn(
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10",
+                    featureIconWrapperClassName,
+                  )}
+                >
                   {resolvedIcon}
                 </div>
               )}
-              {feature.text && (
-                typeof feature.text === "string" ? (
-                  <span className={cn("text-muted-foreground", featureTextClassName, feature.textClassName)}>
+              {feature.text &&
+                (typeof feature.text === "string" ? (
+                  <span
+                    className={cn(
+                      "text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </span>
                 ) : (
-                  <div className={cn("text-muted-foreground", featureTextClassName, feature.textClassName)}>
+                  <div
+                    className={cn(
+                      "text-muted-foreground",
+                      featureTextClassName,
+                      feature.textClassName,
+                    )}
+                  >
                     {feature.text}
                   </div>
-                )
-              )}
+                ))}
             </li>
           );
         })}
@@ -289,13 +317,24 @@ export function PricingSpotlightCard({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionItemClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionItemClassName,
+        ...pressableProps
+      } = action;
 
       return (
         <Pressable
           key={index}
           asButton
-          className={cn("w-full justify-center", actionClassName, actionItemClassName)}
+          className={cn(
+            "w-full justify-center",
+            actionClassName,
+            actionItemClassName,
+          )}
           {...pressableProps}
         >
           {children ?? (
@@ -324,45 +363,71 @@ export function PricingSpotlightCard({
           <div
             className={cn(
               "absolute -inset-1 rounded-3xl bg-linear-to-r from-primary/50 via-primary to-primary/50 opacity-75 blur-lg",
-              glowClassName
+              glowClassName,
             )}
           />
 
-          <div className={cn("relative rounded-2xl border bg-card p-8 shadow-2xl md:p-10", cardClassName)}>
+          <div
+            className={cn(
+              "relative rounded-2xl border bg-card p-8 shadow-2xl md:p-10",
+              cardClassName,
+            )}
+          >
             <div className={cn("text-center", headerClassName)}>
-              {subtitle && (
-                typeof subtitle === "string" ? (
-                  <p className={cn("text-sm font-medium uppercase tracking-wide text-primary", subtitleClassName)}>
+              {subtitle &&
+                (typeof subtitle === "string" ? (
+                  <p
+                    className={cn(
+                      "text-sm font-medium uppercase tracking-wide text-primary",
+                      subtitleClassName,
+                    )}
+                  >
                     {subtitle}
                   </p>
                 ) : (
                   <div className={subtitleClassName}>{subtitle}</div>
-                )
-              )}
-              {title && (
-                typeof title === "string" ? (
-                  <h2 className={cn("mt-2 text-3xl font-bold tracking-tight", titleClassName)}>
+                ))}
+              {title &&
+                (typeof title === "string" ? (
+                  <h2
+                    className={cn(
+                      "mt-2 text-3xl font-bold tracking-tight",
+                      titleClassName,
+                    )}
+                  >
                     {title}
                   </h2>
                 ) : (
                   <div className={titleClassName}>{title}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mt-2 text-muted-foreground", descriptionClassName)}>{description}</p>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mt-2 text-muted-foreground",
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
 
               {(price || priceDescription) && (
                 <div className="mt-8">
                   {price && (
-                    <span className={cn("text-6xl font-bold", priceClassName)}>{price}</span>
+                    <span className={cn("text-6xl font-bold", priceClassName)}>
+                      {price}
+                    </span>
                   )}
                   {priceDescription && (
-                    <span className={cn("text-xl text-muted-foreground", priceDescriptionClassName)}>
+                    <span
+                      className={cn(
+                        "text-xl text-muted-foreground",
+                        priceDescriptionClassName,
+                      )}
+                    >
                       {priceDescription}
                     </span>
                   )}
@@ -378,15 +443,19 @@ export function PricingSpotlightCard({
               </div>
             )}
 
-            {finePrint && (
-              typeof finePrint === "string" ? (
-                <p className={cn("mt-6 text-center text-sm text-muted-foreground", finePrintClassName)}>
+            {finePrint &&
+              (typeof finePrint === "string" ? (
+                <p
+                  className={cn(
+                    "mt-6 text-center text-sm text-muted-foreground",
+                    finePrintClassName,
+                  )}
+                >
                   {finePrint}
                 </p>
               ) : (
                 <div className={finePrintClassName}>{finePrint}</div>
-              )
-            )}
+              ))}
           </div>
         </div>
       </div>

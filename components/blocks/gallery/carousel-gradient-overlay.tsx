@@ -131,7 +131,7 @@ export interface CarouselGradientOverlayProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -226,16 +226,31 @@ export function CarouselGradientOverlay({
         key={item.id}
         className={cn("max-w-[320px] pl-5 lg:max-w-[360px]", itemClassName)}
       >
-        <Pressable href={item.href} className={cn("group rounded-xl", item.className, cardClassName)}>
+        <Pressable
+          href={item.href}
+          className={cn("group rounded-xl", item.className, cardClassName)}
+        >
           <div className="group relative h-full min-h-108 max-w-full overflow-hidden rounded-xl md:aspect-5/4 lg:aspect-video">
             <Img
               src={item.image}
-              alt={typeof item.title === "string" ? item.title : (item.imageAlt || "Card image")}
-              className={cn("absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105", imageClassName)}
+              alt={
+                typeof item.title === "string"
+                  ? item.title
+                  : item.imageAlt || "Card image"
+              }
+              className={cn(
+                "absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105",
+                imageClassName,
+              )}
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
             />
-            <div className={cn("absolute inset-0 h-full bg-linear-to-t from-primary from-20% to-transparent mix-blend-multiply", gradientClassName)} />
+            <div
+              className={cn(
+                "absolute inset-0 h-full bg-linear-to-t from-primary from-20% to-transparent mix-blend-multiply",
+                gradientClassName,
+              )}
+            />
             <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-primary-foreground md:p-8">
               <div className="mb-2 pt-4 text-xl font-semibold md:mb-3 md:pt-4 lg:pt-4">
                 {item.title}
@@ -267,24 +282,46 @@ export function CarouselGradientOverlay({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("mb-8 flex items-end justify-between md:mb-14 lg:mb-16", headerClassName)}>
+      <div
+        className={cn(
+          "mb-8 flex items-end justify-between md:mb-14 lg:mb-16",
+          headerClassName,
+        )}
+      >
         <div className="flex flex-col gap-4">
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-medium md:text-4xl lg:text-5xl", titleClassName)}>
+          {title &&
+            (typeof title === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-medium md:text-4xl lg:text-5xl",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h2>
             ) : (
               <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("max-w-lg text-muted-foreground", descriptionClassName)}>{description}</p>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
             ) : (
-              <div className={cn("max-w-lg text-muted-foreground", descriptionClassName)}>{description}</div>
-            )
-          )}
+              <div
+                className={cn(
+                  "max-w-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </div>
+            ))}
         </div>
         <div className={cn("hidden shrink-0 gap-2 md:flex", controlsClassName)}>
           <Pressable
@@ -323,17 +360,24 @@ export function CarouselGradientOverlay({
           }}
           className={carouselClassName}
         >
-          <CarouselContent className={cn("ml-0 2xl:mr-[max(0rem,calc(50vw-700px))] 2xl:ml-[max(8rem,calc(50vw-700px))]", carouselContentClassName)}>
+          <CarouselContent
+            className={cn(
+              "ml-0 2xl:mr-[max(0rem,calc(50vw-700px))] 2xl:ml-[max(8rem,calc(50vw-700px))]",
+              carouselContentClassName,
+            )}
+          >
             {renderItems()}
           </CarouselContent>
         </Carousel>
-        <div className={cn("mt-8 flex justify-center gap-2", indicatorsClassName)}>
+        <div
+          className={cn("mt-8 flex justify-center gap-2", indicatorsClassName)}
+        >
           {items?.map((_, index) => (
             <button
               key={index}
               className={cn(
                 "h-2 w-2 rounded-full transition-colors",
-                currentSlide === index ? "bg-primary" : "bg-primary/20"
+                currentSlide === index ? "bg-primary" : "bg-primary/20",
               )}
               onClick={() => carouselApi?.scrollTo(index)}
               aria-label={`Go to slide ${index + 1}`}

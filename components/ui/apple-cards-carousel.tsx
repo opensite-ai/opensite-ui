@@ -35,6 +35,10 @@ export interface AppleCarouselProps {
 
 export interface AppleCarouselCardData {
   /**
+   * Post index
+   */
+  idx?: number;
+  /**
    * Image source URL
    */
   src: string;
@@ -142,7 +146,7 @@ export const AppleCarousel = ({
         >
           <div
             className={cn(
-              "absolute right-0 z-1000 h-auto w-[5%] overflow-hidden bg-linear-to-l"
+              "absolute right-0 z-1000 h-auto w-[5%] overflow-hidden bg-linear-to-l",
             )}
           ></div>
 
@@ -150,7 +154,7 @@ export const AppleCarousel = ({
             className={cn(
               "flex flex-row justify-start gap-4 pl-4",
               "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
-              containerClassName
+              containerClassName,
             )}
           >
             {items.map((item, index) => (
@@ -288,7 +292,7 @@ export const AppleCarouselCard = ({
         alt={card.title}
         className={cn(
           "absolute inset-0 z-10 h-full w-full object-cover",
-          imageClassName
+          imageClassName,
         )}
         optixFlowConfig={optixFlowConfig}
       />
@@ -297,7 +301,7 @@ export const AppleCarouselCard = ({
 
   const cardClasses = cn(
     "relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-160 md:w-96 dark:bg-neutral-900",
-    className
+    className,
   );
 
   // Render as Pressable (link or button)
@@ -307,7 +311,11 @@ export const AppleCarouselCard = ({
         layoutId={layout ? `card-${card.title}-${index}` : undefined}
         className={cardClasses}
       >
-        <Pressable href={action.href} onClick={handleClick} className="w-full h-full">
+        <Pressable
+          href={action.href}
+          onClick={handleClick}
+          className="w-full h-full"
+        >
           {cardContent}
         </Pressable>
       </motion.div>

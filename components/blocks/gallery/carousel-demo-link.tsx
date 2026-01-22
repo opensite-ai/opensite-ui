@@ -128,7 +128,7 @@ export interface CarouselDemoLinkProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -215,10 +215,21 @@ export function CarouselDemoLink({
     if (demoActionSlot) return demoActionSlot;
     if (!demoAction) return null;
 
-    const { label, icon, iconAfter, children, className: actionClass, ...pressableProps } = demoAction;
+    const {
+      label,
+      icon,
+      iconAfter,
+      children,
+      className: actionClass,
+      ...pressableProps
+    } = demoAction;
     return (
       <Pressable
-        className={cn("group flex items-center gap-1 text-sm font-medium md:text-base lg:text-lg", actionClass, demoLinkClassName)}
+        className={cn(
+          "group flex items-center gap-1 text-sm font-medium md:text-base lg:text-lg",
+          actionClass,
+          demoLinkClassName,
+        )}
         {...pressableProps}
       >
         {children ?? (
@@ -243,10 +254,17 @@ export function CarouselDemoLink({
     if (!items || items.length === 0) return null;
 
     return items.map((item) => (
-      <CarouselItem key={item.id} className={cn("ml-8 md:max-w-[452px]", itemClassName)}>
+      <CarouselItem
+        key={item.id}
+        className={cn("ml-8 md:max-w-[452px]", itemClassName)}
+      >
         <a
           href={item.url}
-          className={cn("group flex flex-col justify-between", item.className, cardClassName)}
+          className={cn(
+            "group flex flex-col justify-between",
+            item.className,
+            cardClassName,
+          )}
         >
           <div>
             <div className="flex aspect-3/2 overflow-clip rounded-xl">
@@ -254,8 +272,15 @@ export function CarouselDemoLink({
                 <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
                   <Img
                     src={item.image}
-                    alt={typeof item.title === "string" ? item.title : (item.imageAlt || "Card image")}
-                    className={cn("h-full w-full object-cover object-center", imageClassName)}
+                    alt={
+                      typeof item.title === "string"
+                        ? item.title
+                        : item.imageAlt || "Card image"
+                    }
+                    className={cn(
+                      "h-full w-full object-cover object-center",
+                      imageClassName,
+                    )}
                     loading="lazy"
                     optixFlowConfig={optixFlowConfig}
                   />
@@ -291,20 +316,36 @@ export function CarouselDemoLink({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("mb-8 flex flex-col justify-between md:mb-14 md:flex-row md:items-end lg:mb-16", headerClassName)}>
+      <div
+        className={cn(
+          "mb-8 flex flex-col justify-between md:mb-14 md:flex-row md:items-end lg:mb-16",
+          headerClassName,
+        )}
+      >
         <div>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-3 text-3xl font-semibold md:mb-4 md:text-4xl lg:mb-6", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-3 text-3xl font-semibold md:mb-4 md:text-4xl lg:mb-6",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
-              <div className={cn("mb-3 md:mb-4 lg:mb-6", headingClassName)}>{heading}</div>
-            )
-          )}
+              <div className={cn("mb-3 md:mb-4 lg:mb-6", headingClassName)}>
+                {heading}
+              </div>
+            ))}
           {renderDemoAction()}
         </div>
-        <div className={cn("mt-8 flex shrink-0 items-center justify-start gap-2", controlsClassName)}>
+        <div
+          className={cn(
+            "mt-8 flex shrink-0 items-center justify-start gap-2",
+            controlsClassName,
+          )}
+        >
           <Pressable
             size="icon"
             variant="outline"
@@ -339,9 +380,17 @@ export function CarouselDemoLink({
               },
             },
           }}
-          className={cn("relative w-full max-w-full md:-left-4", carouselClassName)}
+          className={cn(
+            "relative w-full max-w-full md:-left-4",
+            carouselClassName,
+          )}
         >
-          <CarouselContent className={cn("hide-scrollbar w-full max-w-full md:-mr-4 md:ml-8 2xl:mr-[max(0rem,calc(50vw-700px-1rem))] 2xl:ml-[max(8rem,calc(50vw-700px+1rem))]", carouselContentClassName)}>
+          <CarouselContent
+            className={cn(
+              "hide-scrollbar w-full max-w-full md:-mr-4 md:ml-8 2xl:mr-[max(0rem,calc(50vw-700px-1rem))] 2xl:ml-[max(8rem,calc(50vw-700px+1rem))]",
+              carouselContentClassName,
+            )}
+          >
             {renderItems()}
           </CarouselContent>
         </Carousel>

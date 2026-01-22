@@ -148,7 +148,7 @@ export interface ResourceDetailDocumentSidebarProps {
   /**
    * Section pattern
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Section pattern opacity
    */
@@ -305,15 +305,19 @@ export function ResourceDetailDocumentSidebar({
               <BreadcrumbItem>
                 {crumb.isCurrentPage ? (
                   <BreadcrumbPage>
-                    {typeof crumb.label === "string" ? crumb.label : crumb.label}
+                    {typeof crumb.label === "string"
+                      ? crumb.label
+                      : crumb.label}
                   </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink href={crumb.href || "#"}>
-                    {index === 0 ? (
-                      crumb.icon ?? <DynamicIcon name="lucide/home" size={16} />
-                    ) : (
-                      typeof crumb.label === "string" ? crumb.label : crumb.label
-                    )}
+                    {index === 0
+                      ? (crumb.icon ?? (
+                          <DynamicIcon name="lucide/home" size={16} />
+                        ))
+                      : typeof crumb.label === "string"
+                        ? crumb.label
+                        : crumb.label}
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
@@ -331,7 +335,12 @@ export function ResourceDetailDocumentSidebar({
     if (articleSlot) return articleSlot;
 
     return (
-      <article className={cn("order-2 mx-auto prose md:order-1 dark:prose-invert", articleClassName)}>
+      <article
+        className={cn(
+          "order-2 mx-auto prose md:order-1 dark:prose-invert",
+          articleClassName,
+        )}
+      >
         {article?.featuredImage && (
           <div>
             <Img
@@ -351,21 +360,26 @@ export function ResourceDetailDocumentSidebar({
     if (sidebarSlot) return sidebarSlot;
 
     return (
-      <div className={cn("order-1 h-fit md:sticky md:top-20 md:order-2", sidebarClassName)}>
-        {sidebar?.excerptTitle && (
-          typeof sidebar.excerptTitle === "string" ? (
+      <div
+        className={cn(
+          "order-1 h-fit md:sticky md:top-20 md:order-2",
+          sidebarClassName,
+        )}
+      >
+        {sidebar?.excerptTitle &&
+          (typeof sidebar.excerptTitle === "string" ? (
             <p className="mb-2 text-lg font-semibold">{sidebar.excerptTitle}</p>
           ) : (
             sidebar.excerptTitle
-          )
-        )}
-        {sidebar?.excerptDescription && (
-          typeof sidebar.excerptDescription === "string" ? (
-            <p className="text-muted-foreground">{sidebar.excerptDescription}</p>
+          ))}
+        {sidebar?.excerptDescription &&
+          (typeof sidebar.excerptDescription === "string" ? (
+            <p className="text-muted-foreground">
+              {sidebar.excerptDescription}
+            </p>
           ) : (
             sidebar.excerptDescription
-          )
-        )}
+          ))}
         {sidebar?.downloadAction && (
           <Pressable
             href={sidebar.downloadAction.href}
@@ -393,25 +407,31 @@ export function ResourceDetailDocumentSidebar({
                 {sidebar.reviewer.avatarSrc && (
                   <AvatarImage
                     src={sidebar.reviewer.avatarSrc}
-                    alt={typeof sidebar.reviewer.name === "string" ? sidebar.reviewer.name : ""}
+                    alt={
+                      typeof sidebar.reviewer.name === "string"
+                        ? sidebar.reviewer.name
+                        : ""
+                    }
                   />
                 )}
               </Avatar>
               <div>
-                {sidebar.reviewer.name && (
-                  typeof sidebar.reviewer.name === "string" ? (
-                    <h2 className="text-sm font-medium">{sidebar.reviewer.name}</h2>
+                {sidebar.reviewer.name &&
+                  (typeof sidebar.reviewer.name === "string" ? (
+                    <h2 className="text-sm font-medium">
+                      {sidebar.reviewer.name}
+                    </h2>
                   ) : (
                     sidebar.reviewer.name
-                  )
-                )}
-                {sidebar.reviewer.role && (
-                  typeof sidebar.reviewer.role === "string" ? (
-                    <p className="text-sm text-muted-foreground">{sidebar.reviewer.role}</p>
+                  ))}
+                {sidebar.reviewer.role &&
+                  (typeof sidebar.reviewer.role === "string" ? (
+                    <p className="text-sm text-muted-foreground">
+                      {sidebar.reviewer.role}
+                    </p>
                   ) : (
                     sidebar.reviewer.role
-                  )
-                )}
+                  ))}
               </div>
             </div>
             <Separator className="my-6" />
@@ -419,13 +439,14 @@ export function ResourceDetailDocumentSidebar({
         )}
         {sidebar?.features && sidebar.features.length > 0 && (
           <>
-            {sidebar?.featuresTitle && (
-              typeof sidebar.featuresTitle === "string" ? (
-                <p className="mb-4 text-sm font-medium">{sidebar.featuresTitle}</p>
+            {sidebar?.featuresTitle &&
+              (typeof sidebar.featuresTitle === "string" ? (
+                <p className="mb-4 text-sm font-medium">
+                  {sidebar.featuresTitle}
+                </p>
               ) : (
                 sidebar.featuresTitle
-              )
-            )}
+              ))}
             <ul className="flex flex-col gap-2">
               {sidebar.features.map((feature, index) => (
                 <li key={index} className="flex items-center gap-2">
@@ -436,13 +457,12 @@ export function ResourceDetailDocumentSidebar({
                       className="text-primary"
                     />
                   )}
-                  {feature.text && (
-                    typeof feature.text === "string" ? (
+                  {feature.text &&
+                    (typeof feature.text === "string" ? (
                       <p>{feature.text}</p>
                     ) : (
                       feature.text
-                    )
-                  )}
+                    ))}
                 </li>
               ))}
             </ul>
@@ -450,21 +470,30 @@ export function ResourceDetailDocumentSidebar({
           </>
         )}
         <div className="flex items-center justify-between">
-          {sidebar?.shareTitle && (
-            typeof sidebar.shareTitle === "string" ? (
+          {sidebar?.shareTitle &&
+            (typeof sidebar.shareTitle === "string" ? (
               <p className="text-sm font-medium">{sidebar.shareTitle}</p>
             ) : (
               sidebar.shareTitle
-            )
-          )}
+            ))}
           {sidebar?.shareActions && sidebar.shareActions.length > 0 && (
             <ul className="flex gap-2">
               {sidebar.shareActions.map((action, index) => {
-                const { icon, iconAfter, children, className: actionClassName, label, ...pressableProps } = action;
+                const {
+                  icon,
+                  iconAfter,
+                  children,
+                  className: actionClassName,
+                  label,
+                  ...pressableProps
+                } = action;
                 return (
                   <li key={index}>
                     <Pressable
-                      className={cn("inline-flex rounded-full border p-2 transition-colors hover:bg-muted", actionClassName)}
+                      className={cn(
+                        "inline-flex rounded-full border p-2 transition-colors hover:bg-muted",
+                        actionClassName,
+                      )}
                       {...pressableProps}
                     >
                       {children ?? (
@@ -493,13 +522,19 @@ export function ResourceDetailDocumentSidebar({
       className={className}
     >
       {renderBreadcrumbs()}
-      {title && (
-        typeof title === "string" ? (
-          <h1 className={cn("mt-7 text-3xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
+      {title &&
+        (typeof title === "string" ? (
+          <h1
+            className={cn(
+              "mt-7 text-3xl font-semibold md:text-5xl",
+              titleClassName,
+            )}
+          >
+            {title}
+          </h1>
         ) : (
           <div className={titleClassName}>{title}</div>
-        )
-      )}
+        ))}
       <div className="relative mt-12 grid gap-16 md:grid-cols-2">
         {renderArticle()}
         {renderSidebar()}

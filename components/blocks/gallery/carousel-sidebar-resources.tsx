@@ -120,7 +120,7 @@ export interface CarouselSidebarResourcesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -187,7 +187,12 @@ export function CarouselSidebarResources({
     if (sidebarSlot) return sidebarSlot;
 
     return (
-      <div className={cn("order-3 flex flex-col gap-6 lg:order-0", sidebarClassName)}>
+      <div
+        className={cn(
+          "order-3 flex flex-col gap-6 lg:order-0",
+          sidebarClassName,
+        )}
+      >
         {resources?.slice(0, 3).map((resource, idx) => (
           <Fragment key={idx}>
             <div className="flex flex-col gap-1">
@@ -236,14 +241,18 @@ export function CarouselSidebarResources({
           "w-fit border-y border-l border-border pl-0 transition-colors duration-300 hover:bg-muted/50",
           idx === resources.length - 1 && "border-r",
           item.className,
-          itemClassName
+          itemClassName,
         )}
         key={idx}
       >
         <Pressable href={item.link} className="block h-full">
           <Img
             src={item.image}
-            alt={typeof item.title === "string" ? item.title : (item.imageAlt || "Resource image")}
+            alt={
+              typeof item.title === "string"
+                ? item.title
+                : item.imageAlt || "Resource image"
+            }
             className={cn("aspect-video object-cover", imageClassName)}
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
@@ -276,22 +285,39 @@ export function CarouselSidebarResources({
       patternClassName={patternClassName}
       className={cn("overflow-hidden", className)}
     >
-      {heading && (
-        typeof heading === "string" ? (
-          <h2 className={cn("text-2xl font-bold text-pretty", headingClassName)}>{heading}</h2>
+      {heading &&
+        (typeof heading === "string" ? (
+          <h2
+            className={cn("text-2xl font-bold text-pretty", headingClassName)}
+          >
+            {heading}
+          </h2>
         ) : (
-          <div className={cn("text-2xl font-bold text-pretty", headingClassName)}>{heading}</div>
-        )
-      )}
+          <div
+            className={cn("text-2xl font-bold text-pretty", headingClassName)}
+          >
+            {heading}
+          </div>
+        ))}
       <Carousel className={carouselClassName}>
         <div className="mt-6 grid gap-x-14 gap-y-10 lg:mt-16 lg:grid-cols-3">
           {renderSidebar()}
           <div className="order-1 lg:order-0 lg:col-span-2 [&>div[data-slot=carousel-content]]:overflow-visible [&>div[data-slot=carousel-content]]:[clip-path:inset(-100vw_-100vw_-100vw_0)]">
-            <CarouselContent className={cn("ml-0 max-w-[min(calc(100vw-4rem),24rem)] select-none sm:max-w-96", carouselContentClassName)}>
+            <CarouselContent
+              className={cn(
+                "ml-0 max-w-[min(calc(100vw-4rem),24rem)] select-none sm:max-w-96",
+                carouselContentClassName,
+              )}
+            >
               {renderResources()}
             </CarouselContent>
           </div>
-          <div className={cn("order-2 flex items-center gap-4 lg:order-0 lg:col-start-2", controlsClassName)}>
+          <div
+            className={cn(
+              "order-2 flex items-center gap-4 lg:order-0 lg:col-start-2",
+              controlsClassName,
+            )}
+          >
             <CarouselPrevious className="static size-12 translate-x-0 translate-y-0" />
             <CarouselNext className="static size-12 translate-x-0 translate-y-0" />
           </div>

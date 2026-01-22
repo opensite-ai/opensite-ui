@@ -31,55 +31,31 @@ import type {
 } from "../../../src/types";
 
 /**
- * Base dropdown item interface
+ * SHARED TYPE INTERFACES FOR ALL NAVBAR COMPONENTS
+ * These types provide a consistent interface across all navbar blocks
  */
-export interface IDropdownItem {
-  title: string;
-  description?: string;
-  href: string;
-  icon?: string;
-  imgUrl?: string;
+
+/**
+ * Base link item - used across all navbar components
+ */
+export interface ILinkItem {
+  label: React.ReactNode;
+  description?: React.ReactNode;
+  url: string;
+  icon?: React.ReactNode;
+  iconName?: string;
+  image?: string;
+  background?: string;
 }
 
 /**
- * Featured item with image (used in featured layouts)
+ * Group of links with optional metadata
  */
-export interface IFeaturedItem {
-  title: string;
+export interface IMenuLinkGroup {
+  label: React.ReactNode;
   description?: string;
-  href: string;
-  imgUrl: string;
-  label?: string;
-}
-
-/**
- * Showcase card item (horizontal card with image)
- */
-export interface IShowcaseItem {
-  title: string;
-  description?: string;
-  href: string;
-  imgUrl: string;
-}
-
-/**
- * CTA card item (call-to-action card with optional image)
- */
-export interface ICtaCard {
-  title: string;
-  description?: string;
-  href: string;
-  label?: string;
-  imgUrl?: string;
-  badge?: string;
-}
-
-/**
- * Grouped section of dropdown items
- */
-export interface IDropdownSection {
-  label: string;
-  items: IDropdownItem[];
+  image?: string;
+  links: ILinkItem[];
 }
 
 /**
@@ -134,17 +110,16 @@ export type DropdownLayout =
   | "multi-section"; // Multi-section layout with different groupings
 
 /**
- * Menu link with flexible dropdown configuration
+ * Menu link configuration with layout-based dropdown options
  */
 export interface IMenuLink {
-  title: string;
+  label: React.ReactNode;
   href?: string;
-  dropdownItems?: IDropdownItem[];
   layout?: DropdownLayout;
-  featuredItem?: IFeaturedItem;
-  showcaseItems?: IShowcaseItem[];
-  ctaCard?: ICtaCard;
-  sections?: IDropdownSection[];
+  // Unified links array - used by all layouts
+  links?: ILinkItem[];
+  // Optional grouped links for more complex layouts
+  dropdownGroups?: IMenuLinkGroup[];
 }
 
 /**
@@ -217,7 +192,7 @@ export interface NavbarPlatformResourcesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -288,13 +263,7 @@ export const NavbarPlatformResources = ({
   };
 
   const hasDropdownItems = (link: IMenuLink) =>
-    Boolean(
-      link.dropdownItems?.length ||
-        link.featuredItem ||
-        link.showcaseItems?.length ||
-        link.ctaCard ||
-        link.sections?.length,
-    );
+    Boolean(link.links?.length || link.dropdownGroups?.length);
 
   const renderDropdownContent = (link: IMenuLink) => {
     const layout = link.layout || "simple-list";
@@ -304,30 +273,38 @@ export const NavbarPlatformResources = ({
       return (
         <NavigationMenuContent className="min-w-[640px] p-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {link.dropdownItems?.map((item, itemIndex) => (
+            {link.links?.map((item, itemIndex) => (
               <NavigationMenuLink
-                key={`${item.title}-${itemIndex}`}
-                href={item.href}
+                key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                href={item.url}
                 className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
               >
-                {item.imgUrl && (
+                {item.image && (
                   <div className="h-12 w-12 overflow-hidden rounded-md border border-border">
                     <Img
-                      src={item.imgUrl}
-                      alt={item.title}
+                      src={item.image}
+                      alt={
+                        typeof item.label === "string"
+                          ? item.label
+                          : "Menu item"
+                      }
                       className="h-full w-full object-cover object-center"
                       optixFlowConfig={optixFlowConfig}
                     />
                   </div>
                 )}
-                {!item.imgUrl && item.icon && (
+                {!item.image && (item.icon || item.iconName) && (
                   <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                    <DynamicIcon name={item.icon} size={18} />
+                    {item.icon ? (
+                      item.icon
+                    ) : item.iconName ? (
+                      <DynamicIcon name={item.iconName} size={18} />
+                    ) : null}
                   </div>
                 )}
                 <div>
                   <div className="text-sm font-medium text-foreground">
-                    {item.title}
+                    {item.label}
                   </div>
                   {item.description && (
                     <div className="text-sm font-normal text-muted-foreground">
@@ -343,52 +320,63 @@ export const NavbarPlatformResources = ({
     }
 
     // Featured item + grid layout
-    if (layout === "featured-grid" && link.featuredItem) {
+    if (layout === "featured-grid" && link.links && link.links.length > 0) {
+      const featuredItem = link.links[0];
+      const gridItems = link.links.slice(1);
+
       return (
         <NavigationMenuContent className="min-w-[900px] p-6">
           <div className="flex justify-between gap-8">
             <NavigationMenuLink
-              href={link.featuredItem.href}
+              href={featuredItem.url}
               className="group w-1/3 p-0 hover:bg-transparent"
             >
               <div className="overflow-clip rounded-lg border border-input bg-background">
                 <div>
                   <Img
-                    src={link.featuredItem.imgUrl}
-                    alt={link.featuredItem.title}
+                    src={featuredItem.image || ""}
+                    alt={
+                      typeof featuredItem.label === "string"
+                        ? featuredItem.label
+                        : "Featured item"
+                    }
                     className="aspect-[4/3] object-cover object-center"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
                 <div className="p-5 xl:p-8">
-                  <div className="mb-2 text-base">{link.featuredItem.title}</div>
-                  {link.featuredItem.description && (
+                  <div className="mb-2 text-base">{featuredItem.label}</div>
+                  {featuredItem.description && (
                     <div className="text-sm font-normal text-muted-foreground">
-                      {link.featuredItem.description}
+                      {featuredItem.description}
                     </div>
                   )}
                 </div>
               </div>
             </NavigationMenuLink>
             <div className="max-w-[760px] flex-1">
-              {link.featuredItem.label && (
+              {link.dropdownGroups && link.dropdownGroups[0] && (
                 <div className="mb-6 text-xs tracking-widest text-muted-foreground uppercase">
-                  {link.featuredItem.label}
+                  {link.dropdownGroups[0].label}
                 </div>
               )}
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-                {link.dropdownItems?.map((item, itemIndex) => (
+                {gridItems.map((item, itemIndex) => (
                   <NavigationMenuLink
-                    key={`${item.title}-${itemIndex}`}
-                    href={item.href}
+                    key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                    href={item.url}
                     className="group block p-4"
                   >
-                    {item.icon && (
+                    {(item.icon || item.iconName) && (
                       <div className="mb-5 group-hover:opacity-60">
-                        <DynamicIcon name={item.icon} size={20} />
+                        {item.icon ? (
+                          item.icon
+                        ) : item.iconName ? (
+                          <DynamicIcon name={item.iconName} size={20} />
+                        ) : null}
                       </div>
                     )}
-                    <div className="mb-1 text-base">{item.title}</div>
+                    <div className="mb-1 text-base">{item.label}</div>
                     {item.description && (
                       <div className="text-sm font-normal text-muted-foreground">
                         {item.description}
@@ -404,112 +392,141 @@ export const NavbarPlatformResources = ({
     }
 
     // Two-column grid + CTA card layout
-    if (layout === "two-column-cta" && link.ctaCard) {
+    if (
+      layout === "two-column-cta" &&
+      link.dropdownGroups &&
+      link.dropdownGroups.length > 0
+    ) {
+      const ctaItem =
+        link.links && link.links.length > 0
+          ? link.links[link.links.length - 1]
+          : null;
+
       return (
         <NavigationMenuContent className="min-w-[900px] p-6">
           <div className="flex justify-between gap-4">
             <div className="w-1/2 max-w-[510px]">
-              {link.sections && link.sections[0] && (
+              {link.dropdownGroups[0] && (
                 <>
                   <div className="mb-6 text-xs tracking-widest text-muted-foreground uppercase">
-                    {link.sections[0].label}
+                    {link.dropdownGroups[0].label}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    {link.sections[0].items.map((item, itemIndex) => (
+                    {link.dropdownGroups[0].links.map((item, itemIndex) => (
                       <NavigationMenuLink
-                        key={`${item.title}-${itemIndex}`}
-                        href={item.href}
+                        key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                        href={item.url}
                         className="group flex flex-row items-center gap-5"
                       >
-                        {item.icon && (
+                        {(item.icon || item.iconName) && (
                           <div className="group-hover:opacity-60">
-                            <DynamicIcon name={item.icon} size={16} />
+                            {item.icon ? (
+                              item.icon
+                            ) : item.iconName ? (
+                              <DynamicIcon name={item.iconName} size={16} />
+                            ) : null}
                           </div>
                         )}
-                        <div className="text-base">{item.title}</div>
+                        <div className="text-base">{item.label}</div>
                       </NavigationMenuLink>
                     ))}
                   </div>
                 </>
               )}
             </div>
-            <NavigationMenuLink
-              href={link.ctaCard.href}
-              className="group flex-1 p-0 hover:bg-transparent"
-            >
-              <div className="flex h-full rounded-lg border border-input bg-background p-0 hover:bg-transparent">
-                {link.ctaCard.imgUrl && (
-                  <div className="w-2/5 max-w-[310px] shrink-0 overflow-clip rounded-tl-lg rounded-bl-lg">
-                    <Img
-                      src={link.ctaCard.imgUrl}
-                      alt={link.ctaCard.title}
-                      className="h-full w-full object-cover object-center"
-                      optixFlowConfig={optixFlowConfig}
-                    />
-                  </div>
-                )}
-                <div className="flex flex-col p-5 xl:p-8">
-                  {link.ctaCard.label && (
-                    <div className="mb-8 text-xs tracking-widest text-muted-foreground uppercase">
-                      {link.ctaCard.label}
+            {ctaItem && (
+              <NavigationMenuLink
+                href={ctaItem.url}
+                className="group flex-1 p-0 hover:bg-transparent"
+              >
+                <div className="flex h-full rounded-lg border border-input bg-background p-0 hover:bg-transparent">
+                  {ctaItem.image && (
+                    <div className="w-2/5 max-w-[310px] shrink-0 overflow-clip rounded-tl-lg rounded-bl-lg">
+                      <Img
+                        src={ctaItem.image}
+                        alt={
+                          typeof ctaItem.label === "string"
+                            ? ctaItem.label
+                            : "CTA item"
+                        }
+                        className="h-full w-full object-cover object-center"
+                        optixFlowConfig={optixFlowConfig}
+                      />
                     </div>
                   )}
-                  <div className="mt-auto">
-                    <div className="mb-4 text-xl">{link.ctaCard.title}</div>
-                    {link.ctaCard.description && (
-                      <div className="text-sm font-normal text-muted-foreground">
-                        {link.ctaCard.description}
+                  <div className="flex flex-col p-5 xl:p-8">
+                    {ctaItem.background && (
+                      <div className="mb-8 text-xs tracking-widest text-muted-foreground uppercase">
+                        {ctaItem.background}
                       </div>
                     )}
+                    <div className="mt-auto">
+                      <div className="mb-4 text-xl">{ctaItem.label}</div>
+                      {ctaItem.description && (
+                        <div className="text-sm font-normal text-muted-foreground">
+                          {ctaItem.description}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </NavigationMenuLink>
+              </NavigationMenuLink>
+            )}
           </div>
         </NavigationMenuContent>
       );
     }
 
     // List + showcase cards layout
-    if (layout === "list-showcase" && link.showcaseItems) {
+    if (
+      layout === "list-showcase" &&
+      link.dropdownGroups &&
+      link.dropdownGroups.length > 0
+    ) {
+      const listItems = link.dropdownGroups[0].links;
+      const showcaseItems = link.links || [];
+
       return (
         <NavigationMenuContent className="min-w-[900px] p-6">
           <div className="flex justify-between gap-8">
             <div className="w-1/3 max-w-[404px]">
-              {link.sections && link.sections[0] && (
-                <>
-                  <div className="mb-4 text-xs tracking-widest text-muted-foreground uppercase">
-                    {link.sections[0].label}
+              <>
+                <div className="mb-4 text-xs tracking-widest text-muted-foreground uppercase">
+                  {link.dropdownGroups[0].label}
+                </div>
+                {link.dropdownGroups[0].description && (
+                  <div className="mb-6 text-sm font-normal text-muted-foreground">
+                    {link.dropdownGroups[0].description}
                   </div>
-                  {link.sections[0].items[0]?.description && (
-                    <div className="mb-6 text-sm font-normal text-muted-foreground">
-                      {link.sections[0].items[0].description}
-                    </div>
-                  )}
-                  <div className="-ml-2.5 space-y-2.5">
-                    {link.dropdownItems?.map((item, itemIndex) => (
-                      <NavigationMenuLink
-                        key={`${item.title}-${itemIndex}`}
-                        href={item.href}
-                        className="group flex flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
-                      >
-                        {item.icon && <DynamicIcon name={item.icon} size={16} />}
-                        <div className="text-base">{item.title}</div>
-                      </NavigationMenuLink>
-                    ))}
-                  </div>
-                </>
-              )}
+                )}
+                <div className="-ml-2.5 space-y-2.5">
+                  {listItems.map((item, itemIndex) => (
+                    <NavigationMenuLink
+                      key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                      href={item.url}
+                      className="group flex flex-row items-center gap-2.5 rounded-md p-2.5 focus:text-accent-foreground"
+                    >
+                      {(item.icon || item.iconName) &&
+                        (item.icon ? (
+                          item.icon
+                        ) : item.iconName ? (
+                          <DynamicIcon name={item.iconName} size={16} />
+                        ) : null)}
+                      <div className="text-base">{item.label}</div>
+                    </NavigationMenuLink>
+                  ))}
+                </div>
+              </>
             </div>
             <div className="max-w-[716px] flex-1 space-y-6">
-              {link.showcaseItems.map((showcase, showcaseIndex) => (
+              {showcaseItems.map((showcase, showcaseIndex) => (
                 <NavigationMenuLink
                   key={`showcase-${showcaseIndex}`}
-                  href={showcase.href}
+                  href={showcase.url}
                   className="flex flex-row items-center overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
                   <div className="flex-1 p-5 xl:p-8">
-                    <div className="mb-2 text-base">{showcase.title}</div>
+                    <div className="mb-2 text-base">{showcase.label}</div>
                     {showcase.description && (
                       <div className="text-sm font-normal text-muted-foreground">
                         {showcase.description}
@@ -518,8 +535,12 @@ export const NavbarPlatformResources = ({
                   </div>
                   <div className="h-[154px] max-w-[264px] shrink-0">
                     <Img
-                      src={showcase.imgUrl}
-                      alt={showcase.title}
+                      src={showcase.image || ""}
+                      alt={
+                        typeof showcase.label === "string"
+                          ? showcase.label
+                          : "Showcase item"
+                      }
                       className="h-full w-full object-cover object-center"
                       optixFlowConfig={optixFlowConfig}
                     />
@@ -533,24 +554,32 @@ export const NavbarPlatformResources = ({
     }
 
     // Multi-section layout
-    if (layout === "multi-section" && link.sections) {
+    if (layout === "multi-section" && link.dropdownGroups) {
+      const ctaItem =
+        link.links && link.links.length > 0
+          ? link.links[link.links.length - 1]
+          : null;
+
       return (
         <NavigationMenuContent className="min-w-[900px] p-8">
           <div className="grid grid-cols-2 gap-8">
-            {link.sections.map((section, sectionIndex) => (
-              <div key={`section-${sectionIndex}`} className="flex flex-1 flex-col">
+            {link.dropdownGroups.map((group, groupIndex) => (
+              <div
+                key={`section-${groupIndex}`}
+                className="flex flex-1 flex-col"
+              >
                 <div className="mb-6 text-xs tracking-widest text-muted-foreground uppercase">
-                  {section.label}
+                  {group.label}
                 </div>
                 <div className="grid flex-1 grid-cols-1 gap-6 md:grid-cols-2">
-                  {section.items.map((item, itemIndex) => (
+                  {group.links.map((item, itemIndex) => (
                     <NavigationMenuLink
-                      key={`${item.title}-${itemIndex}`}
-                      href={item.href}
+                      key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                      href={item.url}
                       className="flex h-full flex-col overflow-clip rounded-lg border border-input bg-background p-5 hover:bg-accent hover:text-accent-foreground xl:p-8"
                     >
                       <div className="mt-auto">
-                        <div className="mb-2 text-base">{item.title}</div>
+                        <div className="mb-2 text-base">{item.label}</div>
                         {item.description && (
                           <div className="text-sm font-normal text-muted-foreground">
                             {item.description}
@@ -562,39 +591,43 @@ export const NavbarPlatformResources = ({
                 </div>
               </div>
             ))}
-            {link.ctaCard && (
+            {ctaItem && (
               <div className="col-span-1">
                 <NavigationMenuLink
-                  href={link.ctaCard.href}
+                  href={ctaItem.url}
                   className="mb-6 flex flex-row overflow-clip rounded-lg border border-input bg-background p-0 hover:bg-transparent"
                 >
                   <div className="flex-1 p-5 xl:p-8">
-                    <div className="mb-2 text-base">{link.ctaCard.title}</div>
-                    {link.ctaCard.description && (
+                    <div className="mb-2 text-base">{ctaItem.label}</div>
+                    {ctaItem.description && (
                       <div className="text-sm font-normal text-muted-foreground">
-                        {link.ctaCard.description}
+                        {ctaItem.description}
                       </div>
                     )}
                   </div>
-                  {link.ctaCard.imgUrl && (
+                  {ctaItem.image && (
                     <div className="w-1/3 max-w-[130px] shrink-0">
                       <Img
-                        src={link.ctaCard.imgUrl}
-                        alt={link.ctaCard.title}
+                        src={ctaItem.image}
+                        alt={
+                          typeof ctaItem.label === "string"
+                            ? ctaItem.label
+                            : "CTA item"
+                        }
                         className="h-full w-full object-cover object-center"
                         optixFlowConfig={optixFlowConfig}
                       />
                     </div>
                   )}
                 </NavigationMenuLink>
-                {link.ctaCard.badge && (
+                {ctaItem.background && (
                   <div className="flex flex-row items-center gap-3 rounded-lg bg-secondary/30 p-3 hover:bg-secondary/80 focus:bg-secondary/80">
                     <span className="rounded-md bg-secondary px-2 py-1 text-xs font-semibold text-secondary-foreground">
-                      {link.ctaCard.badge}
+                      {ctaItem.background}
                     </span>
-                    {link.ctaCard.description && (
+                    {ctaItem.description && (
                       <span className="text-sm text-ellipsis text-secondary-foreground">
-                        {link.ctaCard.description}
+                        {ctaItem.description}
                       </span>
                     )}
                   </div>
@@ -610,30 +643,36 @@ export const NavbarPlatformResources = ({
     return (
       <NavigationMenuContent className="min-w-[640px] p-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {link.dropdownItems?.map((item, itemIndex) => (
+          {link.links?.map((item, itemIndex) => (
             <NavigationMenuLink
-              key={`${item.title}-${itemIndex}`}
-              href={item.href}
+              key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+              href={item.url}
               className="flex flex-row items-start gap-4 rounded-lg border border-input bg-background p-4 hover:bg-accent hover:text-accent-foreground"
             >
-              {item.imgUrl && (
+              {item.image && (
                 <div className="h-12 w-12 overflow-hidden rounded-md border border-border">
                   <Img
-                    src={item.imgUrl}
-                    alt={item.title}
+                    src={item.image}
+                    alt={
+                      typeof item.label === "string" ? item.label : "Menu item"
+                    }
                     className="h-full w-full object-cover object-center"
                     optixFlowConfig={optixFlowConfig}
                   />
                 </div>
               )}
-              {!item.imgUrl && item.icon && (
+              {!item.image && (item.icon || item.iconName) && (
                 <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                  <DynamicIcon name={item.icon} size={18} />
+                  {item.icon ? (
+                    item.icon
+                  ) : item.iconName ? (
+                    <DynamicIcon name={item.iconName} size={18} />
+                  ) : null}
                 </div>
               )}
               <div>
                 <div className="text-sm font-medium text-foreground">
-                  {item.title}
+                  {item.label}
                 </div>
                 {item.description && (
                   <div className="text-sm font-normal text-muted-foreground">
@@ -697,9 +736,11 @@ export const NavbarPlatformResources = ({
               {menuLinks?.map((link, index) => {
                 if (hasDropdownItems(link)) {
                   return (
-                    <NavigationMenuItem key={`${link.title}-${index}`}>
-                      <NavigationMenuTrigger className="bg-transparent px-0 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
-                        {link.title}
+                    <NavigationMenuItem
+                      key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
+                    >
+                      <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 font-normal text-foreground/60 hover:bg-transparent hover:text-foreground focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground">
+                        {link.label}
                       </NavigationMenuTrigger>
                       {renderDropdownContent(link)}
                     </NavigationMenuItem>
@@ -711,12 +752,14 @@ export const NavbarPlatformResources = ({
                 }
 
                 return (
-                  <NavigationMenuItem key={`${link.title}-${index}`}>
+                  <NavigationMenuItem
+                    key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
+                  >
                     <NavigationMenuLink
                       href={link.href}
                       className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
                     >
-                      {link.title}
+                      {link.label}
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 );
@@ -757,39 +800,51 @@ export const NavbarPlatformResources = ({
                   if (hasDropdownItems(link)) {
                     return (
                       <AccordionItem
-                        key={`${link.title}-${index}`}
+                        key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
                         value={`menu-${index}`}
                         className="border-b-2 border-dashed"
                       >
                         <AccordionTrigger className="px-2 py-4 text-left hover:no-underline">
-                          {link.title}
+                          {link.label}
                         </AccordionTrigger>
                         <AccordionContent className="px-2 pb-4">
                           <div className="space-y-3">
-                            {link.dropdownItems?.map((item, itemIndex) => (
+                            {link.links?.map((item, itemIndex) => (
                               <Pressable
-                                key={`${item.title}-${itemIndex}`}
-                                href={item.href}
+                                key={`${typeof item.label === "string" ? item.label : "item"}-${itemIndex}`}
+                                href={item.url}
                                 className="group flex items-start gap-4 rounded-lg p-2 hover:bg-muted"
                               >
-                                {item.imgUrl && (
+                                {item.image && (
                                   <div className="h-10 w-10 overflow-hidden rounded-md border border-border">
                                     <Img
-                                      src={item.imgUrl}
-                                      alt={item.title}
+                                      src={item.image}
+                                      alt={
+                                        typeof item.label === "string"
+                                          ? item.label
+                                          : "Menu item"
+                                      }
                                       className="h-full w-full object-cover object-center"
                                       optixFlowConfig={optixFlowConfig}
                                     />
                                   </div>
                                 )}
-                                {!item.imgUrl && item.icon && (
-                                  <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
-                                    <DynamicIcon name={item.icon} size={16} />
-                                  </div>
-                                )}
+                                {!item.image &&
+                                  (item.icon || item.iconName) && (
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted/40 text-muted-foreground">
+                                      {item.icon ? (
+                                        item.icon
+                                      ) : item.iconName ? (
+                                        <DynamicIcon
+                                          name={item.iconName}
+                                          size={16}
+                                        />
+                                      ) : null}
+                                    </div>
+                                  )}
                                 <div className="flex-1">
                                   <div className="text-sm font-medium text-foreground">
-                                    {item.title}
+                                    {item.label}
                                   </div>
                                   {item.description && (
                                     <div className="text-xs text-muted-foreground">
@@ -811,14 +866,14 @@ export const NavbarPlatformResources = ({
 
                   return (
                     <div
-                      key={`${link.title}-${index}`}
+                      key={`${typeof link.label === "string" ? link.label : "menu"}-${index}`}
                       className="border-b-2 border-dashed"
                     >
                       <Pressable
                         href={link.href}
                         className="flex w-full items-center px-2 py-4 text-left text-sm font-medium"
                       >
-                        {link.title}
+                        {link.label}
                       </Pressable>
                     </div>
                   );

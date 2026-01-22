@@ -102,7 +102,7 @@ export interface InteriorCarouselProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -165,12 +165,15 @@ export function InteriorCarousel({
     if (!images || images.length === 0) return [];
     return images.map((image, index) => {
       const src = typeof image === "string" ? image : image.src;
-      const alt = typeof image === "string" ? "Interior design" : (image.alt || "Interior design");
+      const alt =
+        typeof image === "string"
+          ? "Interior design"
+          : image.alt || "Interior design";
       return {
         id: `interior-carousel-${index}-${src.slice(-8)}`,
         src,
         alt,
-        type: "image" as const
+        type: "image" as const,
       };
     });
   }, [images]);
@@ -199,7 +202,10 @@ export function InteriorCarousel({
 
     return images.map((image, index) => {
       const src = typeof image === "string" ? image : image.src;
-      const alt = typeof image === "string" ? "Interior design" : (image.alt || "Interior design");
+      const alt =
+        typeof image === "string"
+          ? "Interior design"
+          : image.alt || "Interior design";
       const itemClass = typeof image === "string" ? undefined : image.className;
 
       return (
@@ -207,7 +213,7 @@ export function InteriorCarousel({
           key={index}
           className={cn(
             "basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4",
-            itemClassName
+            itemClassName,
           )}
         >
           <Img
@@ -216,7 +222,7 @@ export function InteriorCarousel({
             className={cn(
               "aspect-[4/5] w-full rounded-xl object-cover cursor-pointer transition-opacity hover:opacity-90",
               imageClassName,
-              itemClass
+              itemClass,
             )}
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
@@ -236,10 +242,20 @@ export function InteriorCarousel({
       patternClassName={patternClassName}
       className={className}
     >
-      <h2 className={cn("mb-4 text-center text-4xl font-semibold", headingClassName)}>
+      <h2
+        className={cn(
+          "mb-4 text-center text-4xl font-semibold",
+          headingClassName,
+        )}
+      >
         {heading}
       </h2>
-      <p className={cn("text-center text-sm text-muted-foreground", descriptionClassName)}>
+      <p
+        className={cn(
+          "text-center text-sm text-muted-foreground",
+          descriptionClassName,
+        )}
+      >
         {renderDescription()}
       </p>
       <div className="mt-10">
@@ -258,8 +274,18 @@ export function InteriorCarousel({
           >
             {renderImages()}
           </CarouselContent>
-          <CarouselPrevious className={cn("left-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50", controlsClassName)} />
-          <CarouselNext className={cn("right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50", controlsClassName)} />
+          <CarouselPrevious
+            className={cn(
+              "left-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50",
+              controlsClassName,
+            )}
+          />
+          <CarouselNext
+            className={cn(
+              "right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50",
+              controlsClassName,
+            )}
+          />
         </Carousel>
       </div>
       {lightboxOpen && (

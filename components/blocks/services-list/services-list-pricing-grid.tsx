@@ -118,7 +118,7 @@ export interface ServicesListPricingGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -163,7 +163,10 @@ export function ServicesListPricingGrid({
 }: ServicesListPricingGridProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListPricingGridService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6 text-primary" />;
+    if (service.iconName)
+      return (
+        <DynamicIcon name={service.iconName} className="h-6 w-6 text-primary" />
+      );
     return null;
   };
 
@@ -172,63 +175,82 @@ export function ServicesListPricingGrid({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}
+      >
         {services.map((service, index) => (
           <div
             key={index}
             className={cn(
               "flex flex-col rounded-xl border border-border p-8 transition-shadow hover:shadow-md",
               cardClassName,
-              service.className
+              service.className,
             )}
           >
             <div className="flex items-start gap-4">
-              <div className={cn("rounded-lg bg-primary/10 p-3", iconClassName)}>
+              <div
+                className={cn("rounded-lg bg-primary/10 p-3", iconClassName)}
+              >
                 {renderServiceIcon(service)}
               </div>
               <div className="flex-1">
-                {service.title && (
-                  typeof service.title === "string" ? (
+                {service.title &&
+                  (typeof service.title === "string" ? (
                     <h3 className="text-xl font-semibold">{service.title}</h3>
                   ) : (
                     <div className="text-xl font-semibold">{service.title}</div>
-                  )
-                )}
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{service.description}</p>
+                  ))}
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{service.description}</div>
-                  )
-                )}
+                    <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </div>
+                  ))}
               </div>
             </div>
 
             <div className="mt-6 flex items-center gap-4 border-t border-b border-border py-4">
               {service.duration && (
                 <div className="flex items-center gap-2">
-                  <DynamicIcon name="lucide/clock" className="h-4 w-4 text-muted-foreground" />
+                  <DynamicIcon
+                    name="lucide/clock"
+                    className="h-4 w-4 text-muted-foreground"
+                  />
                   {typeof service.duration === "string" ? (
-                    <span className="text-sm font-medium">{service.duration}</span>
+                    <span className="text-sm font-medium">
+                      {service.duration}
+                    </span>
                   ) : (
-                    <div className="text-sm font-medium">{service.duration}</div>
+                    <div className="text-sm font-medium">
+                      {service.duration}
+                    </div>
                   )}
                 </div>
               )}
-              {service.price && (
-                typeof service.price === "string" ? (
-                  <div className="ml-auto text-lg font-bold text-primary">{service.price}</div>
+              {service.price &&
+                (typeof service.price === "string" ? (
+                  <div className="ml-auto text-lg font-bold text-primary">
+                    {service.price}
+                  </div>
                 ) : (
-                  <div className="ml-auto text-lg font-bold text-primary">{service.price}</div>
-                )
-              )}
+                  <div className="ml-auto text-lg font-bold text-primary">
+                    {service.price}
+                  </div>
+                ))}
             </div>
 
             {service.items && service.items.length > 0 && (
               <div className="mt-6 space-y-3">
                 {service.items.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex items-center gap-2">
-                    <DynamicIcon name="lucide/check" className="h-4 w-4 text-primary" />
+                    <DynamicIcon
+                      name="lucide/check"
+                      className="h-4 w-4 text-primary"
+                    />
                     {typeof item === "string" ? (
                       <span className="text-sm">{item}</span>
                     ) : (
@@ -249,7 +271,10 @@ export function ServicesListPricingGrid({
                   asButton
                 >
                   {service.ctaText}
-                  <DynamicIcon name="lucide/arrow-right" className="ml-2 h-4 w-4" />
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    className="ml-2 h-4 w-4"
+                  />
                 </Pressable>
               </div>
             )}
@@ -269,24 +294,32 @@ export function ServicesListPricingGrid({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

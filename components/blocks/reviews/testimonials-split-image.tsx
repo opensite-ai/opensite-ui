@@ -76,7 +76,7 @@ export interface TestimonialsSplitImageProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -166,7 +166,7 @@ export function TestimonialsSplitImage({
         className={cn(
           "space-y-6",
           imagePosition === "right" && "lg:order-1",
-          contentClassName
+          contentClassName,
         )}
       >
         <DynamicIcon
@@ -175,44 +175,42 @@ export function TestimonialsSplitImage({
           className={cn("text-primary/20", quoteIconClassName)}
         />
 
-        {testimonial.quote && (
-          typeof testimonial.quote === "string" ? (
-            <blockquote className={cn("text-xl font-medium leading-relaxed md:text-2xl", quoteClassName)}>
+        {testimonial.quote &&
+          (typeof testimonial.quote === "string" ? (
+            <blockquote
+              className={cn(
+                "text-xl font-medium leading-relaxed md:text-2xl",
+                quoteClassName,
+              )}
+            >
               {testimonial.quote}
             </blockquote>
           ) : (
             <div className={quoteClassName}>{testimonial.quote}</div>
-          )
-        )}
+          ))}
 
         <div className={cn("flex items-center gap-4 pt-4", authorClassName)}>
           <Avatar className="size-12">
-            <AvatarImage
-              src={avatarSrc}
-              alt={authorName}
-            />
-            <AvatarFallback>
-              {getInitials(authorName)}
-            </AvatarFallback>
+            <AvatarImage src={avatarSrc} alt={authorName} />
+            <AvatarFallback>{getInitials(authorName)}</AvatarFallback>
           </Avatar>
           <div>
-            {testimonial.author && (
-              typeof testimonial.author === "string" ? (
+            {testimonial.author &&
+              (typeof testimonial.author === "string" ? (
                 <p className="font-semibold">{testimonial.author}</p>
               ) : (
                 testimonial.author
-              )
-            )}
+              ))}
             {(testimonial.role || testimonial.company) && (
               <p className="text-sm text-muted-foreground">
-                {testimonial.role && (
-                  typeof testimonial.role === "string" ? testimonial.role : testimonial.role
-                )}
-                {testimonial.company && (
-                  typeof testimonial.company === "string"
+                {testimonial.role &&
+                  (typeof testimonial.role === "string"
+                    ? testimonial.role
+                    : testimonial.role)}
+                {testimonial.company &&
+                  (typeof testimonial.company === "string"
                     ? ` at ${testimonial.company}`
-                    : testimonial.company
-                )}
+                    : testimonial.company)}
               </p>
             )}
           </div>
@@ -229,13 +227,15 @@ export function TestimonialsSplitImage({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}
+      >
         {imageSrc && (
           <div
             className={cn(
               "relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-square",
               imagePosition === "right" && "lg:order-2",
-              imageClassName
+              imageClassName,
             )}
           >
             <Img

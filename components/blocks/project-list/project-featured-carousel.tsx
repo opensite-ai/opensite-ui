@@ -14,8 +14,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectFeaturedCarouselItem {
   title: string;
@@ -59,7 +59,7 @@ export interface ProjectFeaturedCarouselProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -126,11 +126,13 @@ export function ProjectFeaturedCarousel({
     if (!projects || projects.length === 0) return null;
 
     return projects.map((project, index) => (
-      <CarouselItem
-        key={index}
-        className="pl-4 md:basis-1/2 lg:basis-1/3"
-      >
-        <div className={cn("group h-full overflow-hidden rounded-xl border bg-card", cardClassName)}>
+      <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+        <div
+          className={cn(
+            "group h-full overflow-hidden rounded-xl border bg-card",
+            cardClassName,
+          )}
+        >
           <div className="relative aspect-square overflow-hidden">
             <Img
               src={project.image}
@@ -176,26 +178,39 @@ export function ProjectFeaturedCarousel({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+      <div
+        className={cn(
+          "container mx-auto px-4 md:px-6 2xl:max-w-[1400px]",
+          containerClassName,
+        )}
+      >
         <div className={cn("mb-12 text-center md:mb-16", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("text-muted-foreground mx-auto max-w-3xl text-lg", subheadingClassName)}>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground mx-auto max-w-3xl text-lg",
+                  subheadingClassName,
+                )}
+              >
                 {subheading}
               </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
 
         <Carousel

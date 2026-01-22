@@ -69,7 +69,7 @@ export interface TeamCarouselExperienceProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -172,7 +172,7 @@ export function TeamCarouselExperience({
         <div
           className={cn(
             "rounded-2xl border border-border bg-background p-7 text-center",
-            memberCardClassName
+            memberCardClassName,
           )}
         >
           <Img
@@ -180,7 +180,7 @@ export function TeamCarouselExperience({
             alt={member.name}
             className={cn(
               "mx-auto size-20 rounded-full border border-border",
-              memberImageClassName
+              memberImageClassName,
             )}
             optixFlowConfig={optixFlowConfig}
           />
@@ -188,7 +188,7 @@ export function TeamCarouselExperience({
             <p
               className={cn(
                 "text-lg font-medium text-primary",
-                memberNameClassName
+                memberNameClassName,
               )}
             >
               {member.name}
@@ -196,7 +196,7 @@ export function TeamCarouselExperience({
             <p
               className={cn(
                 "text-sm text-muted-foreground",
-                memberRoleClassName
+                memberRoleClassName,
               )}
             >
               {member.role}
@@ -219,33 +219,41 @@ export function TeamCarouselExperience({
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
     >
-      {heading && (
-        typeof heading === "string" ? (
-          <h2 className={cn("text-5xl font-medium md:text-6xl", headingClassName)}>
+      {heading &&
+        (typeof heading === "string" ? (
+          <h2
+            className={cn("text-5xl font-medium md:text-6xl", headingClassName)}
+          >
             {heading} <br />
-            {headingHighlight && (
-              typeof headingHighlight === "string" ? (
-                <span className={cn("text-primary/50", headingHighlightClassName)}>
+            {headingHighlight &&
+              (typeof headingHighlight === "string" ? (
+                <span
+                  className={cn("text-primary/50", headingHighlightClassName)}
+                >
                   {headingHighlight}
                 </span>
               ) : (
-                <span className={headingHighlightClassName}>{headingHighlight}</span>
-              )
-            )}
+                <span className={headingHighlightClassName}>
+                  {headingHighlight}
+                </span>
+              ))}
           </h2>
         ) : (
           <div className={headingClassName}>{heading}</div>
-        )
-      )}
-      {description && (
-        typeof description === "string" ? (
-          <p className={cn("mt-6 max-w-md text-muted-foreground", descriptionClassName)}>
+        ))}
+      {description &&
+        (typeof description === "string" ? (
+          <p
+            className={cn(
+              "mt-6 max-w-md text-muted-foreground",
+              descriptionClassName,
+            )}
+          >
             {description}
           </p>
         ) : (
           <div className={descriptionClassName}>{description}</div>
-        )
-      )}
+        ))}
       <Carousel className={carouselClassName}>
         <div className="mt-4 hidden items-center justify-end gap-4 md:flex">
           <CarouselPrevious className="static size-11 translate-x-0 translate-y-0" />

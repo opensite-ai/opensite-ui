@@ -8,7 +8,12 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for image cards display
@@ -119,7 +124,7 @@ export interface ServicesListImageCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -173,7 +178,9 @@ export function ServicesListImageCards({
     if (actionsSlot) return actionsSlot;
 
     return (
-      <div className={cn("mt-8 flex flex-col gap-4 sm:flex-row", actionsClassName)}>
+      <div
+        className={cn("mt-8 flex flex-col gap-4 sm:flex-row", actionsClassName)}
+      >
         {primaryAction && (
           <Pressable
             href={primaryAction.href}
@@ -210,7 +217,11 @@ export function ServicesListImageCards({
         {services.map((service, index) => (
           <div
             key={index}
-            className={cn("group relative overflow-hidden rounded-xl", cardClassName, service.className)}
+            className={cn(
+              "group relative overflow-hidden rounded-xl",
+              cardClassName,
+              service.className,
+            )}
           >
             {service.image && (
               <Img
@@ -222,20 +233,26 @@ export function ServicesListImageCards({
             )}
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6">
-              {service.title && (
-                typeof service.title === "string" ? (
-                  <h3 className="text-xl font-bold text-white">{service.title}</h3>
+              {service.title &&
+                (typeof service.title === "string" ? (
+                  <h3 className="text-xl font-bold text-white">
+                    {service.title}
+                  </h3>
                 ) : (
-                  <div className="text-xl font-bold text-white">{service.title}</div>
-                )
-              )}
-              {service.description && (
-                typeof service.description === "string" ? (
-                  <p className="mt-2 text-sm text-white/80">{service.description}</p>
+                  <div className="text-xl font-bold text-white">
+                    {service.title}
+                  </div>
+                ))}
+              {service.description &&
+                (typeof service.description === "string" ? (
+                  <p className="mt-2 text-sm text-white/80">
+                    {service.description}
+                  </p>
                 ) : (
-                  <div className="mt-2 text-sm text-white/80">{service.description}</div>
-                )
-              )}
+                  <div className="mt-2 text-sm text-white/80">
+                    {service.description}
+                  </div>
+                ))}
               {service.ctaText && (
                 <Pressable
                   href={service.ctaUrl}
@@ -243,7 +260,10 @@ export function ServicesListImageCards({
                   className="mt-4 inline-flex items-center text-sm font-medium text-white hover:underline"
                 >
                   {service.ctaText}
-                  <DynamicIcon name="lucide/arrow-right" className="ml-1 h-4 w-4" />
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    className="ml-1 h-4 w-4"
+                  />
                 </Pressable>
               )}
             </div>
@@ -261,26 +281,39 @@ export function ServicesListImageCards({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", containerClassName)}>
+      <div
+        className={cn(
+          "grid gap-12 lg:grid-cols-2 lg:gap-16",
+          containerClassName,
+        )}
+      >
         <div className={cn("flex flex-col justify-center", contentClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-6 text-lg leading-relaxed text-muted-foreground", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mt-6 text-lg leading-relaxed text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderActions()}
         </div>
         {renderServices()}

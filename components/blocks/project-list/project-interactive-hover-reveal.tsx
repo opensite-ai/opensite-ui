@@ -8,8 +8,8 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectInteractiveHoverRevealItem {
   title: string;
@@ -51,7 +51,7 @@ export interface ProjectInteractiveHoverRevealProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -124,7 +124,10 @@ export function ProjectInteractiveHoverReveal({
       <Pressable
         href={project.link}
         key={index}
-        className={cn("group relative block h-80 overflow-hidden rounded-xl", cardClassName)}
+        className={cn(
+          "group relative block h-80 overflow-hidden rounded-xl",
+          cardClassName,
+        )}
         onMouseEnter={() => setHoveredIndex(index)}
         onMouseLeave={() => setHoveredIndex(null)}
       >
@@ -153,9 +156,7 @@ export function ProjectInteractiveHoverReveal({
 
         <div
           className={`absolute inset-0 flex flex-col justify-end p-6 transition-all duration-300 ease-in-out ${
-            hoveredIndex === index
-              ? "opacity-100"
-              : "translate-y-4 opacity-0"
+            hoveredIndex === index ? "opacity-100" : "translate-y-4 opacity-0"
           }`}
         >
           <div className="text-sm font-medium tracking-wider text-white uppercase">
@@ -169,11 +170,7 @@ export function ProjectInteractiveHoverReveal({
           </p>
           <span className="inline-flex items-center text-sm font-medium text-white drop-shadow">
             View Project{" "}
-            <DynamicIcon
-              name="lucide/arrow-right"
-              size={14}
-              className="ml-1"
-            />
+            <DynamicIcon name="lucide/arrow-right" size={14} className="ml-1" />
           </span>
         </div>
       </Pressable>
@@ -188,29 +185,47 @@ export function ProjectInteractiveHoverReveal({
       patternOpacity={patternOpacity}
       className={cn(className)}
     >
-      <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+      <div
+        className={cn(
+          "container mx-auto px-4 md:px-6 2xl:max-w-[1400px]",
+          containerClassName,
+        )}
+      >
         <div className={cn("mb-12 text-center md:mb-16", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {subheading && (
-            typeof subheading === "string" ? (
-              <p className={cn("text-muted-foreground mx-auto max-w-3xl text-lg", subheadingClassName)}>
+            ))}
+          {subheading &&
+            (typeof subheading === "string" ? (
+              <p
+                className={cn(
+                  "text-muted-foreground mx-auto max-w-3xl text-lg",
+                  subheadingClassName,
+                )}
+              >
                 {subheading}
               </p>
             ) : (
               <div className={subheadingClassName}>{subheading}</div>
-            )
-          )}
+            ))}
         </div>
 
-        <div className={cn("grid gap-6 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        <div
+          className={cn(
+            "grid gap-6 sm:grid-cols-2 lg:grid-cols-3",
+            gridClassName,
+          )}
+        >
           {renderProjects()}
         </div>
       </div>

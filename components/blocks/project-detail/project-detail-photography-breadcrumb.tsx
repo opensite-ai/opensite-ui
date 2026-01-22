@@ -7,7 +7,6 @@ import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type {
   BreadcrumbItem,
   ImageItem,
@@ -15,6 +14,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectDetailPhotographyBreadcrumbProps {
   /** Main title */
@@ -45,7 +45,7 @@ export interface ProjectDetailPhotographyBreadcrumbProps {
   /** Section spacing variant */
   spacing?: SectionSpacing;
   /** Background pattern */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /** Pattern opacity */
   patternOpacity?: number;
   /** Additional CSS classes for the section */
@@ -70,7 +70,7 @@ const fadeInUp = {
 };
 
 export function ProjectDetailPhotographyBreadcrumb(
-  props: ProjectDetailPhotographyBreadcrumbProps
+  props: ProjectDetailPhotographyBreadcrumbProps,
 ): React.JSX.Element {
   const {
     title,
@@ -137,30 +137,41 @@ export function ProjectDetailPhotographyBreadcrumb(
         <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
           <motion.aside
             {...fadeInUp}
-            className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}
+            className={cn(
+              "lg:sticky lg:top-24 lg:self-start",
+              sidebarClassName,
+            )}
           >
             <div className="space-y-6">
               <div>
                 {typeof title === "string" ? (
-                  <h1 className={cn("text-3xl font-bold tracking-tight text-foreground md:text-4xl", titleClassName)}>
+                  <h1
+                    className={cn(
+                      "text-3xl font-bold tracking-tight text-foreground md:text-4xl",
+                      titleClassName,
+                    )}
+                  >
                     {title}
                   </h1>
                 ) : (
                   <div className={titleClassName}>{title}</div>
                 )}
-                {subtitle && (
-                  typeof subtitle === "string" ? (
-                    <p className="mt-2 text-lg text-muted-foreground">{subtitle}</p>
+                {subtitle &&
+                  (typeof subtitle === "string" ? (
+                    <p className="mt-2 text-lg text-muted-foreground">
+                      {subtitle}
+                    </p>
                   ) : (
                     <div className="mt-2">{subtitle}</div>
-                  )
-                )}
+                  ))}
               </div>
 
               <div className="space-y-3 border-t border-border pt-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Category</span>
-                  <span className="font-medium text-foreground">{category}</span>
+                  <span className="font-medium text-foreground">
+                    {category}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Photographer</span>
@@ -174,15 +185,16 @@ export function ProjectDetailPhotographyBreadcrumb(
                 </div>
               </div>
 
-              {description && (
-                typeof description === "string" ? (
+              {description &&
+                (typeof description === "string" ? (
                   <p className="text-sm leading-relaxed text-muted-foreground border-t border-border pt-6">
                     {description}
                   </p>
                 ) : (
-                  <div className="border-t border-border pt-6">{description}</div>
-                )
-              )}
+                  <div className="border-t border-border pt-6">
+                    {description}
+                  </div>
+                ))}
             </div>
           </motion.aside>
 
@@ -191,9 +203,14 @@ export function ProjectDetailPhotographyBreadcrumb(
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-2"
           >
-            <div className={cn("relative aspect-4/3 overflow-hidden rounded-2xl bg-muted mb-6", heroImageClassName)}>
+            <div
+              className={cn(
+                "relative aspect-4/3 overflow-hidden rounded-2xl bg-muted mb-6",
+                heroImageClassName,
+              )}
+            >
               <Img
-                src={heroImage?.src || imagePlaceholders[68]}
+                src={heroImage?.src}
                 alt={heroImage?.alt || "Project hero image"}
                 className="h-full w-full object-cover"
                 optixFlowConfig={optixFlowConfig}
@@ -201,7 +218,12 @@ export function ProjectDetailPhotographyBreadcrumb(
             </div>
 
             {galleryImages && galleryImages.length > 0 && (
-              <div className={cn("grid gap-4 sm:grid-cols-2 md:grid-cols-3", galleryClassName)}>
+              <div
+                className={cn(
+                  "grid gap-4 sm:grid-cols-2 md:grid-cols-3",
+                  galleryClassName,
+                )}
+              >
                 {galleryImages.map((image, index) => (
                   <motion.div
                     key={index}
@@ -212,7 +234,7 @@ export function ProjectDetailPhotographyBreadcrumb(
                     className="relative aspect-square overflow-hidden rounded-xl bg-muted"
                   >
                     <Img
-                      src={image.src || imagePlaceholders[62 + index]}
+                      src={image.src}
                       alt={image.alt || "Gallery image"}
                       className="h-full w-full object-cover"
                       optixFlowConfig={optixFlowConfig}

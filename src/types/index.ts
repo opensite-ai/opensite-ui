@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import type { PatternName } from "../../components/ui/pattern-background";
 
 /**
  * Block Types - Semantic UI Builder Types
@@ -120,11 +121,19 @@ export interface SectionProps extends HTMLAttributes<HTMLElement> {
    */
   className?: string;
   /**
-   * Optional background pattern name or URL
+   * Optional background pattern name from the predefined pattern overlays
+   * Use one of the pattern overlay names for type-safe pattern selection
+   * Examples: "dashedGridBasic", "circuitBoardFadeTop", "gradientGlowBottom"
+   *
+   * Smart default behavior:
+   * - If pattern is provided without patternOpacity, opacity defaults to 1
+   * - If no pattern is provided, opacity defaults to 0
    */
-  pattern?: string;
+  pattern?: PatternName;
   /**
    * Pattern overlay opacity (0-1)
+   * Defaults to 1 if pattern is provided, 0 if not
+   * Can be explicitly set to override the default behavior
    */
   patternOpacity?: number;
   /**

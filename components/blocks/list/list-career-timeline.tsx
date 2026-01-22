@@ -121,7 +121,7 @@ export interface ListCareerTimelineProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -190,28 +190,32 @@ export function ListCareerTimeline({
         {experiences.map((experience, idx) => (
           <React.Fragment key={idx}>
             <Separator />
-            <div className={cn("my-2.5 grid gap-2.5 text-sm sm:grid-cols-3", experienceRowClassName)}>
-              {experience.year && (
-                typeof experience.year === "string" ? (
+            <div
+              className={cn(
+                "my-2.5 grid gap-2.5 text-sm sm:grid-cols-3",
+                experienceRowClassName,
+              )}
+            >
+              {experience.year &&
+                (typeof experience.year === "string" ? (
                   <p className="text-muted-foreground">{experience.year}</p>
                 ) : (
                   <div className="text-muted-foreground">{experience.year}</div>
-                )
-              )}
-              {experience.role && (
-                typeof experience.role === "string" ? (
+                ))}
+              {experience.role &&
+                (typeof experience.role === "string" ? (
                   <p>{experience.role}</p>
                 ) : (
                   <div>{experience.role}</div>
-                )
-              )}
-              {experience.company && (
-                typeof experience.company === "string" ? (
+                ))}
+              {experience.company &&
+                (typeof experience.company === "string" ? (
                   <p className="text-muted-foreground">{experience.company}</p>
                 ) : (
-                  <div className="text-muted-foreground">{experience.company}</div>
-                )
-              )}
+                  <div className="text-muted-foreground">
+                    {experience.company}
+                  </div>
+                ))}
             </div>
           </React.Fragment>
         ))}
@@ -228,28 +232,32 @@ export function ListCareerTimeline({
         {awards.map((award, idx) => (
           <React.Fragment key={idx}>
             <Separator />
-            <div className={cn("my-2.5 grid gap-2.5 text-sm sm:grid-cols-3", awardRowClassName)}>
-              {award.year && (
-                typeof award.year === "string" ? (
+            <div
+              className={cn(
+                "my-2.5 grid gap-2.5 text-sm sm:grid-cols-3",
+                awardRowClassName,
+              )}
+            >
+              {award.year &&
+                (typeof award.year === "string" ? (
                   <p className="text-muted-foreground">{award.year}</p>
                 ) : (
                   <div className="text-muted-foreground">{award.year}</div>
-                )
-              )}
-              {award.title && (
-                typeof award.title === "string" ? (
+                ))}
+              {award.title &&
+                (typeof award.title === "string" ? (
                   <p>{award.title}</p>
                 ) : (
                   <div>{award.title}</div>
-                )
-              )}
-              {award.organization && (
-                typeof award.organization === "string" ? (
+                ))}
+              {award.organization &&
+                (typeof award.organization === "string" ? (
                   <p className="text-muted-foreground">{award.organization}</p>
                 ) : (
-                  <div className="text-muted-foreground">{award.organization}</div>
-                )
-              )}
+                  <div className="text-muted-foreground">
+                    {award.organization}
+                  </div>
+                ))}
             </div>
           </React.Fragment>
         ))}
@@ -267,41 +275,52 @@ export function ListCareerTimeline({
     >
       <div className={cn("flex flex-col gap-12", contentClassName)}>
         <div className="flex flex-col gap-5">
-          {sectionLabel && (
-            typeof sectionLabel === "string" ? (
-              <span className={cn("text-sm text-muted-foreground", sectionLabelClassName)}>
+          {sectionLabel &&
+            (typeof sectionLabel === "string" ? (
+              <span
+                className={cn(
+                  "text-sm text-muted-foreground",
+                  sectionLabelClassName,
+                )}
+              >
                 {sectionLabel}
               </span>
             ) : (
               <div className={sectionLabelClassName}>{sectionLabel}</div>
-            )
-          )}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-4xl md:text-6xl", headingClassName)}>{heading}</h1>
+            ))}
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1 className={cn("text-4xl md:text-6xl", headingClassName)}>
+                {heading}
+              </h1>
             ) : (
-              <div className={cn("text-4xl md:text-6xl", headingClassName)}>{heading}</div>
-            )
-          )}
+              <div className={cn("text-4xl md:text-6xl", headingClassName)}>
+                {heading}
+              </div>
+            ))}
         </div>
         <div className="flex flex-col gap-7">
-          {experienceLabel && (
-            typeof experienceLabel === "string" ? (
-              <h2 className={cn("text-xl", experienceLabelClassName)}>{experienceLabel}</h2>
+          {experienceLabel &&
+            (typeof experienceLabel === "string" ? (
+              <h2 className={cn("text-xl", experienceLabelClassName)}>
+                {experienceLabel}
+              </h2>
             ) : (
               <div className={experienceLabelClassName}>{experienceLabel}</div>
-            )
-          )}
+            ))}
           {renderExperiences()}
         </div>
         <div className="flex flex-col gap-7">
-          {achievementsLabel && (
-            typeof achievementsLabel === "string" ? (
-              <h2 className={cn("text-xl", achievementsLabelClassName)}>{achievementsLabel}</h2>
+          {achievementsLabel &&
+            (typeof achievementsLabel === "string" ? (
+              <h2 className={cn("text-xl", achievementsLabelClassName)}>
+                {achievementsLabel}
+              </h2>
             ) : (
-              <div className={achievementsLabelClassName}>{achievementsLabel}</div>
-            )
-          )}
+              <div className={achievementsLabelClassName}>
+                {achievementsLabel}
+              </div>
+            ))}
           {renderAwards()}
         </div>
       </div>

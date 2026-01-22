@@ -156,7 +156,7 @@ export interface LinkPageMinimalProfileProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -249,14 +249,14 @@ export function LinkPageMinimalProfile({
       <div
         className={cn(
           "flex flex-col items-center space-y-4 text-center",
-          headerClassName
+          headerClassName,
         )}
       >
         {resolvedAvatar && (
           <div
             className={cn(
               "h-20 w-20 overflow-hidden rounded-full bg-muted",
-              avatarClassName
+              avatarClassName,
             )}
           >
             <Img
@@ -275,7 +275,7 @@ export function LinkPageMinimalProfile({
                 className={cn(
                   "text-xl font-semibold",
                   isDark ? "text-white" : "text-foreground",
-                  nameClassName
+                  nameClassName,
                 )}
               >
                 {name}
@@ -289,7 +289,7 @@ export function LinkPageMinimalProfile({
                 className={cn(
                   "text-sm",
                   isDark ? "text-neutral-400" : "text-muted-foreground",
-                  bioClassName
+                  bioClassName,
                 )}
               >
                 {bio}
@@ -336,7 +336,7 @@ export function LinkPageMinimalProfile({
                     ? "bg-neutral-800 text-white hover:bg-neutral-700"
                     : "bg-neutral-100 text-foreground hover:bg-neutral-200",
                   linkClassName,
-                  linkItemClassName
+                  linkItemClassName,
                 )}
                 {...pressableProps}
               >
@@ -354,7 +354,7 @@ export function LinkPageMinimalProfile({
                   ? "bg-neutral-800 text-white hover:bg-neutral-700"
                   : "bg-neutral-100 text-foreground hover:bg-neutral-200",
                 linkClassName,
-                linkItemClassName
+                linkItemClassName,
               )}
               {...pressableProps}
             >
@@ -384,7 +384,7 @@ export function LinkPageMinimalProfile({
       <div
         className={cn(
           "flex items-center justify-center gap-4 pt-4",
-          socialLinksClassName
+          socialLinksClassName,
         )}
       >
         {socialLinks.map((social, index) => {
@@ -413,7 +413,7 @@ export function LinkPageMinimalProfile({
                   ? "text-neutral-400 hover:text-white hover:bg-neutral-800"
                   : "text-muted-foreground hover:text-foreground hover:bg-neutral-100",
                 socialLinkClassName,
-                social.className
+                social.className,
               )}
             >
               {icon}
@@ -450,7 +450,7 @@ export function LinkPageMinimalProfile({
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
           isDark ? "text-neutral-600" : "text-muted-foreground/50",
           footerClassName,
-          actionClassName
+          actionClassName,
         )}
         {...pressableProps}
       >
@@ -469,10 +469,7 @@ export function LinkPageMinimalProfile({
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(
-        isDark ? "bg-neutral-900" : "bg-white",
-        className
-      )}
+      className={cn(isDark ? "bg-neutral-900" : "bg-white", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
@@ -480,7 +477,7 @@ export function LinkPageMinimalProfile({
       <div
         className={cn(
           "flex min-h-screen w-full items-start justify-center py-16",
-          containerClassName
+          containerClassName,
         )}
       >
         <div className={cn("w-full max-w-sm space-y-8", contentClassName)}>

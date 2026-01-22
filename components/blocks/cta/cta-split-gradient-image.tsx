@@ -89,7 +89,7 @@ export interface CtaSplitGradientImageProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -153,7 +153,7 @@ export function CtaSplitGradientImage({
       <div
         className={cn(
           "mt-6 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => (
@@ -188,20 +188,20 @@ export function CtaSplitGradientImage({
         <div
           className={cn(
             "mx-auto flex max-w-7xl flex-col justify-between gap-20 overflow-hidden rounded-2xl border bg-[radial-gradient(ellipse_30%_60%_at_100%_80%,var(--color-gray-200),transparent)] pt-20 sm:pl-16 lg:flex-row lg:bg-[radial-gradient(ellipse_50%_80%_at_40%_120%,var(--color-gray-200),transparent)] lg:pl-20",
-            cardClassName
+            cardClassName,
           )}
         >
           <div
             className={cn(
               "lg:texlf mx-auto max-w-md px-4 text-center md:px-0 lg:mx-0 lg:pb-20 lg:text-left",
-              contentClassName
+              contentClassName,
             )}
           >
             <p className={cn("mb-6 font-medium", labelClassName)}>{label}</p>
             <h2
               className={cn(
                 "mb-6 text-4xl font-bold md:text-5xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
@@ -209,7 +209,7 @@ export function CtaSplitGradientImage({
             <p
               className={cn(
                 "text-lg text-muted-foreground",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}

@@ -205,7 +205,7 @@ export interface LinkPageBentoLayoutProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -347,7 +347,7 @@ export function LinkPageBentoLayout({
                   ? "text-neutral-500 hover:text-white hover:bg-white/10"
                   : "text-muted-foreground hover:text-foreground hover:bg-neutral-100",
                 socialLinkClassName,
-                social.className
+                social.className,
               )}
             >
               {icon}
@@ -396,7 +396,7 @@ export function LinkPageBentoLayout({
                 ? "border border-white/10 bg-white/5"
                 : "border border-neutral-200 bg-neutral-100",
               featuredLinkClassName,
-              linkClassName
+              linkClassName,
             )}
             {...pressableProps}
           >
@@ -415,7 +415,7 @@ export function LinkPageBentoLayout({
               ? "border border-white/10 bg-white/5"
               : "border border-neutral-200 bg-neutral-100",
             featuredLinkClassName,
-            linkClassName
+            linkClassName,
           )}
           {...pressableProps}
         >
@@ -425,7 +425,7 @@ export function LinkPageBentoLayout({
               alt={imageAlt}
               className={cn(
                 "absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
-                featuredLinkImageClassName
+                featuredLinkImageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
             />
@@ -436,9 +436,9 @@ export function LinkPageBentoLayout({
               imageSource
                 ? "bg-linear-to-t from-black/80 via-black/40 to-transparent"
                 : isDark
-                ? "bg-linear-to-t from-white/10 to-transparent"
-                : "bg-linear-to-t from-neutral-200/50 to-transparent",
-              featuredLinkOverlayClassName
+                  ? "bg-linear-to-t from-white/10 to-transparent"
+                  : "bg-linear-to-t from-neutral-200/50 to-transparent",
+              featuredLinkOverlayClassName,
             )}
           />
           <div className="absolute inset-0 flex flex-col justify-end p-4">
@@ -452,9 +452,9 @@ export function LinkPageBentoLayout({
                       imageSource
                         ? "text-white"
                         : isDark
-                        ? "text-white"
-                        : "text-foreground",
-                      featuredLinkLabelClassName
+                          ? "text-white"
+                          : "text-foreground",
+                      featuredLinkLabelClassName,
                     )}
                   >
                     {label}
@@ -471,9 +471,9 @@ export function LinkPageBentoLayout({
                     imageSource
                       ? "text-white/70"
                       : isDark
-                      ? "text-neutral-400"
-                      : "text-muted-foreground",
-                    featuredLinkDescriptionClassName
+                        ? "text-neutral-400"
+                        : "text-muted-foreground",
+                    featuredLinkDescriptionClassName,
                   )}
                 >
                   {description}
@@ -522,7 +522,7 @@ export function LinkPageBentoLayout({
                 ? "border border-white/10 bg-white/5 hover:bg-white/10"
                 : "border border-neutral-200 bg-neutral-50 hover:bg-neutral-100",
               regularLinkClassName,
-              linkClassName
+              linkClassName,
             )}
             {...pressableProps}
           >
@@ -541,7 +541,7 @@ export function LinkPageBentoLayout({
               ? "border border-white/10 bg-white/5 hover:bg-white/10"
               : "border border-neutral-200 bg-neutral-50 hover:bg-neutral-100",
             regularLinkClassName,
-            linkClassName
+            linkClassName,
           )}
           {...pressableProps}
         >
@@ -549,7 +549,7 @@ export function LinkPageBentoLayout({
             className={cn(
               "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
               isDark ? "bg-white/10" : "bg-white",
-              regularLinkIconWrapperClassName
+              regularLinkIconWrapperClassName,
             )}
           >
             {iconElement}
@@ -560,7 +560,7 @@ export function LinkPageBentoLayout({
                 className={cn(
                   "truncate text-sm font-medium",
                   isDark ? "text-white" : "text-foreground",
-                  regularLinkLabelClassName
+                  regularLinkLabelClassName,
                 )}
               >
                 {label}
@@ -603,7 +603,7 @@ export function LinkPageBentoLayout({
       <div
         className={cn(
           "flex flex-col items-center space-y-3 text-center",
-          headerClassName
+          headerClassName,
         )}
       >
         {resolvedAvatar && (
@@ -611,7 +611,7 @@ export function LinkPageBentoLayout({
             className={cn(
               "h-20 w-20 overflow-hidden rounded-full",
               isDark ? "ring-2 ring-white/20" : "ring-2 ring-neutral-200",
-              avatarClassName
+              avatarClassName,
             )}
           >
             <Img
@@ -630,7 +630,7 @@ export function LinkPageBentoLayout({
                 className={cn(
                   "text-xl font-bold",
                   isDark ? "text-white" : "text-foreground",
-                  nameClassName
+                  nameClassName,
                 )}
               >
                 {name}
@@ -644,7 +644,7 @@ export function LinkPageBentoLayout({
                 className={cn(
                   "max-w-xs text-sm",
                   isDark ? "text-neutral-400" : "text-muted-foreground",
-                  bioClassName
+                  bioClassName,
                 )}
               >
                 {bio}
@@ -685,7 +685,7 @@ export function LinkPageBentoLayout({
           "flex items-center justify-center gap-1.5 text-xs transition-opacity hover:opacity-80",
           isDark ? "text-neutral-600" : "text-muted-foreground/50",
           footerClassName,
-          actionClassName
+          actionClassName,
         )}
         {...pressableProps}
       >
@@ -704,10 +704,7 @@ export function LinkPageBentoLayout({
     <Section
       background={resolvedBackground}
       spacing={spacing}
-      className={cn(
-        isDark ? "bg-neutral-950" : "bg-white",
-        className
-      )}
+      className={cn(isDark ? "bg-neutral-950" : "bg-white", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
       patternClassName={patternClassName}
@@ -715,7 +712,7 @@ export function LinkPageBentoLayout({
       <div
         className={cn(
           "flex min-h-screen w-full items-start justify-center py-12",
-          containerClassName
+          containerClassName,
         )}
       >
         <div className={cn("w-full max-w-lg space-y-6", contentClassName)}>

@@ -78,7 +78,7 @@ export interface CtaImageOverlayCenteredProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -124,7 +124,7 @@ export function CtaImageOverlayCentered({
       <div
         className={cn(
           "mt-8 flex flex-col justify-center gap-4 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => (
@@ -158,7 +158,7 @@ export function CtaImageOverlayCentered({
       <div
         className={cn(
           "relative overflow-hidden rounded-3xl border border-border/50",
-          cardClassName
+          cardClassName,
         )}
       >
         <Img
@@ -171,7 +171,7 @@ export function CtaImageOverlayCentered({
         <div
           className={cn(
             "absolute inset-0 bg-linear-to-r from-foreground/90 via-foreground/80 to-foreground/90",
-            overlayClassName
+            overlayClassName,
           )}
         />
         <motion.div
@@ -181,7 +181,7 @@ export function CtaImageOverlayCentered({
           transition={{ duration: 0.35 }}
           className={cn(
             "relative px-6 py-16 text-center text-white md:px-10",
-            contentClassName
+            contentClassName,
           )}
         >
           <h2
@@ -192,7 +192,7 @@ export function CtaImageOverlayCentered({
           <p
             className={cn(
               "mx-auto mt-4 max-w-2xl text-lg text-white/80",
-              descriptionClassName
+              descriptionClassName,
             )}
           >
             {description}

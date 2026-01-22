@@ -1,2 +1,23 @@
 export { NavbarEnterpriseMega } from "../components/blocks/navbars/navbar-enterprise-mega";
-export type { NavbarEnterpriseMegaProps } from "../components/blocks/navbars/navbar-enterprise-mega";
+export type {
+  NavbarEnterpriseMegaProps,
+  ILinkItem,
+  IMenuLinkGroup,
+  IMenuLink,
+  ISolutionCard,
+  ISubpageItem,
+  ITechnologyItem,
+  IProductItem,
+  IProductCategory,
+  IFeatureItem,
+  IFeatureCategory,
+  ILocationItem,
+  IRegionItem,
+  IResourceItem,
+  ITopicItem,
+  ITopicGroup,
+  IFeaturedHeroCard,
+  IPartnerCard,
+  MegaMenuLayout,
+  LogoConfig,
+} from "../components/blocks/navbars/navbar-enterprise-mega";

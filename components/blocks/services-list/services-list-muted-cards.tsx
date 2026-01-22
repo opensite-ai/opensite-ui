@@ -101,7 +101,7 @@ export interface ServicesListMutedCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -146,7 +146,8 @@ export function ServicesListMutedCards({
 }: ServicesListMutedCardsProps): React.JSX.Element {
   const renderServiceIcon = (service: ServicesListMutedCardsService) => {
     if (service.icon) return service.icon;
-    if (service.iconName) return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
+    if (service.iconName)
+      return <DynamicIcon name={service.iconName} className="h-6 w-6" />;
     return null;
   };
 
@@ -155,28 +156,44 @@ export function ServicesListMutedCards({
     if (!services || services.length === 0) return null;
 
     return (
-      <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}>
+      <div
+        className={cn("grid grid-cols-1 gap-8 md:grid-cols-2", gridClassName)}
+      >
         {services.map((service, index) => (
-          <div key={index} className={cn("space-y-6 rounded-xl bg-muted p-8", cardClassName, service.className)}>
+          <div
+            key={index}
+            className={cn(
+              "space-y-6 rounded-xl bg-muted p-8",
+              cardClassName,
+              service.className,
+            )}
+          >
             <div className="flex items-start gap-4">
-              <div className={cn("rounded-lg border border-border bg-background p-2", iconClassName)}>
+              <div
+                className={cn(
+                  "rounded-lg border border-border bg-background p-2",
+                  iconClassName,
+                )}
+              >
                 {renderServiceIcon(service)}
               </div>
               <div className="space-y-2">
-                {service.title && (
-                  typeof service.title === "string" ? (
+                {service.title &&
+                  (typeof service.title === "string" ? (
                     <h3 className="text-xl font-semibold">{service.title}</h3>
                   ) : (
                     <div className="text-xl font-semibold">{service.title}</div>
-                  )
-                )}
-                {service.description && (
-                  typeof service.description === "string" ? (
-                    <p className="text-sm leading-relaxed text-muted-foreground">{service.description}</p>
+                  ))}
+                {service.description &&
+                  (typeof service.description === "string" ? (
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
                   ) : (
-                    <div className="text-sm leading-relaxed text-muted-foreground">{service.description}</div>
-                  )
-                )}
+                    <div className="text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </div>
+                  ))}
               </div>
             </div>
 
@@ -184,12 +201,18 @@ export function ServicesListMutedCards({
               <div className="space-y-3">
                 {service.itemsLabel ? (
                   typeof service.itemsLabel === "string" ? (
-                    <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{service.itemsLabel}</h4>
+                    <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                      {service.itemsLabel}
+                    </h4>
                   ) : (
-                    <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{service.itemsLabel}</div>
+                    <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                      {service.itemsLabel}
+                    </div>
                   )
                 ) : (
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">What&apos;s Included</h4>
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    What&apos;s Included
+                  </h4>
                 )}
                 <div className="grid grid-cols-2 gap-2">
                   {service.items.map((item, itemIndex) => (
@@ -221,24 +244,32 @@ export function ServicesListMutedCards({
     >
       <div className={cn("mx-auto max-w-6xl space-y-16", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderServices()}
       </div>

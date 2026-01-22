@@ -64,6 +64,13 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     },
     ref,
   ) => {
+    // Smart default for patternOpacity:
+    // - If patternOpacity is explicitly provided, use it
+    // - If pattern is provided but patternOpacity is not, default to 1
+    // - If no pattern is provided, default to 0
+    const effectivePatternOpacity =
+      patternOpacity !== undefined ? patternOpacity : pattern ? 1 : 0;
+
     return (
       <section
         ref={ref}
@@ -80,7 +87,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       >
         <PatternBackground
           pattern={pattern}
-          opacity={patternOpacity}
+          opacity={effectivePatternOpacity}
           className={patternClassName}
         />
         <Container className="relative z-10">

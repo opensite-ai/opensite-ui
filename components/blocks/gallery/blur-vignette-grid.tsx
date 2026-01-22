@@ -114,7 +114,7 @@ export interface BlurVignetteGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -283,13 +283,16 @@ export function BlurVignetteGrid({
           image.height,
           "rounded-[2.5rem]",
           image.className,
-          itemClassName
+          itemClassName,
         )}
       >
         <Img
           width={200}
           height={200}
-          className={cn("size-full rounded-[2.5rem] object-cover", imageClassName)}
+          className={cn(
+            "size-full rounded-[2.5rem] object-cover",
+            imageClassName,
+          )}
           src={image.src}
           alt={image.alt}
           loading="lazy"
@@ -308,7 +311,9 @@ export function BlurVignetteGrid({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn(`grid grid-cols-${gridColumns}`, gridGap, gridClassName)}>
+      <div
+        className={cn(`grid grid-cols-${gridColumns}`, gridGap, gridClassName)}
+      >
         {renderImages()}
       </div>
     </Section>

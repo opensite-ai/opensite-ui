@@ -60,7 +60,7 @@ export interface FaqSplitHeroProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -167,13 +167,16 @@ export function FaqSplitHero({
             <AccordionTrigger
               className={cn(
                 "py-4 text-left text-base font-medium text-foreground transition-colors hover:text-primary hover:no-underline lg:text-lg",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               {item.question}
             </AccordionTrigger>
             <AccordionContent
-              className={cn("pb-4 text-muted-foreground", accordionContentClassName)}
+              className={cn(
+                "pb-4 text-muted-foreground",
+                accordionContentClassName,
+              )}
             >
               {item.answer}
             </AccordionContent>
@@ -192,7 +195,7 @@ export function FaqSplitHero({
         alt={imageAlt}
         className={cn(
           "hidden h-screen w-1/2 object-cover lg:block",
-          imageClassName
+          imageClassName,
         )}
         optixFlowConfig={optixFlowConfig}
       />
@@ -212,34 +215,37 @@ export function FaqSplitHero({
         <div
           className={cn(
             "flex w-full items-center justify-center bg-background lg:w-1/2",
-            leftColumnClassName
+            leftColumnClassName,
           )}
         >
           <div className="container my-10 flex w-full max-w-[600px] flex-col gap-8 px-6 lg:px-10">
             <div className={cn("space-y-4", headerClassName)}>
-              {heading && (
-                typeof heading === "string" ? (
+              {heading &&
+                (typeof heading === "string" ? (
                   <h2
                     className={cn(
                       "text-3xl font-bold text-foreground lg:text-4xl",
-                      headingClassName
+                      headingClassName,
                     )}
                   >
                     {heading}
                   </h2>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {subheading && (
-                typeof subheading === "string" ? (
-                  <p className={cn("text-lg text-muted-foreground", subheadingClassName)}>
+                ))}
+              {subheading &&
+                (typeof subheading === "string" ? (
+                  <p
+                    className={cn(
+                      "text-lg text-muted-foreground",
+                      subheadingClassName,
+                    )}
+                  >
                     {subheading}
                   </p>
                 ) : (
                   <div className={subheadingClassName}>{subheading}</div>
-                )
-              )}
+                ))}
             </div>
             {renderItems()}
           </div>

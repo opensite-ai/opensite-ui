@@ -51,7 +51,7 @@ export interface FaqGradientCategoriesProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -141,7 +141,7 @@ export function FaqGradientCategories({
       <div
         className={cn(
           "mx-auto mt-10 grid max-w-7xl gap-10 md:grid-cols-2",
-          gridClassName
+          gridClassName,
         )}
       >
         {categories.map((category, categoryIndex) => (
@@ -150,7 +150,7 @@ export function FaqGradientCategories({
               <h3
                 className={cn(
                   "mb-4 text-xl font-semibold",
-                  categoryTitleClassName
+                  categoryTitleClassName,
                 )}
               >
                 {category.title}
@@ -158,11 +158,7 @@ export function FaqGradientCategories({
             ) : (
               <div className={categoryTitleClassName}>{category.title}</div>
             )}
-            <Accordion
-              type="single"
-              collapsible
-              className={accordionClassName}
-            >
+            <Accordion type="single" collapsible className={accordionClassName}>
               {category.items.map((item) => (
                 <AccordionItem
                   key={item.id}
@@ -172,7 +168,7 @@ export function FaqGradientCategories({
                   <AccordionTrigger
                     className={cn(
                       "transition-opacity duration-200 hover:no-underline hover:opacity-60",
-                      accordionTriggerClassName
+                      accordionTriggerClassName,
                     )}
                   >
                     <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
@@ -208,38 +204,41 @@ export function FaqGradientCategories({
         <div
           className={cn(
             "rounded-lg bg-linear-to-b from-muted/50 to-muted p-8 md:p-12 lg:p-16",
-            gradientWrapperClassName
+            gradientWrapperClassName,
           )}
         >
           <div
             className={cn(
               "mx-auto flex max-w-3xl flex-col text-left md:text-center",
-              headerClassName
+              headerClassName,
             )}
           >
-            {heading && (
-              typeof heading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h2
                   className={cn(
                     "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                    headingClassName
+                    headingClassName,
                   )}
                 >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-muted-foreground lg:text-lg",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
           {renderCategories()}
         </div>

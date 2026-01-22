@@ -10,7 +10,11 @@ import {
 } from "../../ui/accordion";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 export interface FaqItem {
@@ -63,7 +67,7 @@ export interface FaqSplitHelpProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -158,7 +162,7 @@ export function FaqSplitHelp({
             <AccordionTrigger
               className={cn(
                 "transition-opacity duration-200 hover:no-underline hover:opacity-60",
-                accordionTriggerClassName
+                accordionTriggerClassName,
               )}
             >
               <div className="font-medium sm:py-1 lg:py-2 lg:text-lg">
@@ -185,24 +189,22 @@ export function FaqSplitHelp({
       <div
         className={cn(
           "mt-16 flex flex-col items-center gap-4 rounded-lg bg-accent p-6 text-center md:flex-row md:justify-between md:text-left lg:p-8",
-          helpSectionClassName
+          helpSectionClassName,
         )}
       >
         <div>
-          {helpHeading && (
-            typeof helpHeading === "string" ? (
+          {helpHeading &&
+            (typeof helpHeading === "string" ? (
               <h3 className="text-lg font-semibold">{helpHeading}</h3>
             ) : (
               helpHeading
-            )
-          )}
-          {helpDescription && (
-            typeof helpDescription === "string" ? (
+            ))}
+          {helpDescription &&
+            (typeof helpDescription === "string" ? (
               <p className="text-muted-foreground mt-1">{helpDescription}</p>
             ) : (
               helpDescription
-            )
-          )}
+            ))}
         </div>
         {helpAction && (
           <Pressable
@@ -231,29 +233,32 @@ export function FaqSplitHelp({
       <div className={containerClassName}>
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-20">
           <div className={cn("lg:w-1/3", leftColumnClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
+            {heading &&
+              (typeof heading === "string" ? (
                 <h2
                   className={cn(
                     "mb-3 text-3xl font-semibold md:mb-4 lg:mb-6 lg:text-4xl",
-                    headingClassName
+                    headingClassName,
                   )}
                 >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-muted-foreground lg:text-lg",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
                 <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+              ))}
           </div>
           {renderItems()}
         </div>

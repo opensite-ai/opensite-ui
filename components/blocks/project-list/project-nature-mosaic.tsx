@@ -6,8 +6,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectNatureMosaicProps {
   /**
@@ -49,7 +49,7 @@ export interface ProjectNatureMosaicProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -163,28 +163,43 @@ export function ProjectNatureMosaic({
       className={cn(className)}
     >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mb-12 text-xl leading-tight font-medium md:text-3xl whitespace-pre-line", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? (
+            <h1
+              className={cn(
+                "mb-12 text-xl leading-tight font-medium md:text-3xl whitespace-pre-line",
+                headingClassName,
+              )}
+            >
               {heading}
             </h1>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
+          ))}
 
-        <div className={cn("mb-12 grid grid-cols-1 gap-4 md:grid-cols-2", gridClassName)}>
+        <div
+          className={cn(
+            "mb-12 grid grid-cols-1 gap-4 md:grid-cols-2",
+            gridClassName,
+          )}
+        >
           {renderImages()}
         </div>
 
         <div className="max-w-md">
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mb-4 text-muted-foreground", descriptionClassName)}>{description}</p>
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-4 text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           <Pressable
             href={linkHref}
             variant="link"

@@ -81,7 +81,7 @@ export interface CtaBackgroundIconBadgeProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -135,7 +135,7 @@ export function CtaBackgroundIconBadge({
       <div
         className={cn(
           "flex flex-col justify-center gap-2 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -151,7 +151,7 @@ export function CtaBackgroundIconBadge({
               className={cn(
                 isOutlineOnDark &&
                   "border-0 bg-background/20 backdrop-blur-sm hover:bg-background/30 hover:text-primary-foreground",
-                action.className
+                action.className,
               )}
               aria-label={action["aria-label"]}
               asButton
@@ -177,7 +177,7 @@ export function CtaBackgroundIconBadge({
       <div
         className={cn(
           "flex h-[620px] items-center justify-center bg-cover bg-center",
-          cardClassName
+          cardClassName,
         )}
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)), url('${backgroundImage}')`,
@@ -187,22 +187,23 @@ export function CtaBackgroundIconBadge({
           <div
             className={cn(
               "flex flex-col gap-8 p-4 text-center text-primary-foreground",
-              contentClassName
+              contentClassName,
             )}
           >
             <div
               className={cn(
                 "flex items-center justify-center gap-2 text-2xl font-medium",
-                badgeClassName
+                badgeClassName,
               )}
             >
-              {badgeIcon ?? (badgeIconName && (
-                <DynamicIcon
-                  name={badgeIconName}
-                  size={28}
-                  className="h-full"
-                />
-              ))}
+              {badgeIcon ??
+                (badgeIconName && (
+                  <DynamicIcon
+                    name={badgeIconName}
+                    size={28}
+                    className="h-full"
+                  />
+                ))}
               {badgeText}
             </div>
             <h2 className={cn("text-5xl font-bold", headingClassName)}>

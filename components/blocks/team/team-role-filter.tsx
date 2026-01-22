@@ -77,7 +77,7 @@ export interface TeamRoleFilterProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -199,7 +199,12 @@ export function TeamRoleFilter({
     if (rolesSlot) return rolesSlot;
 
     return (
-      <div className={cn("mb-10 flex flex-wrap justify-center gap-2", filtersClassName)}>
+      <div
+        className={cn(
+          "mb-10 flex flex-wrap justify-center gap-2",
+          filtersClassName,
+        )}
+      >
         {roles.map((role) => (
           <Pressable
             key={role}
@@ -219,11 +224,17 @@ export function TeamRoleFilter({
     if (membersSlot) return membersSlot;
 
     return filteredMembers.map((member) => (
-      <Card key={member.name} className={cn("pt-0 text-center", memberCardClassName)}>
+      <Card
+        key={member.name}
+        className={cn("pt-0 text-center", memberCardClassName)}
+      >
         <CardContent className="pt-6">
           <div className="relative inline-block">
             <Img
-              className={cn("size-24 rounded-full object-cover", memberImageClassName)}
+              className={cn(
+                "size-24 rounded-full object-cover",
+                memberImageClassName,
+              )}
               src={member.image}
               alt={member.name}
               width={96}
@@ -232,13 +243,25 @@ export function TeamRoleFilter({
             />
           </div>
           <div className="mt-4">
-            <h3 className={cn("font-medium", memberNameClassName)}>{member.name}</h3>
-            <p className={cn("text-muted-foreground mt-1 text-sm", memberPositionClassName)}>
+            <h3 className={cn("font-medium", memberNameClassName)}>
+              {member.name}
+            </h3>
+            <p
+              className={cn(
+                "text-muted-foreground mt-1 text-sm",
+                memberPositionClassName,
+              )}
+            >
               {member.position}
             </p>
           </div>
           {member.social && (
-            <div className={cn("mt-3 flex justify-center gap-2", socialLinksClassName)}>
+            <div
+              className={cn(
+                "mt-3 flex justify-center gap-2",
+                socialLinksClassName,
+              )}
+            >
               {member.social.twitter && (
                 <Pressable
                   href={member.social.twitter}
@@ -287,35 +310,45 @@ export function TeamRoleFilter({
       patternOpacity={patternOpacity}
       className={className}
     >
-      <div className={cn("mx-auto mb-10 max-w-2xl text-center", headerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
+      <div
+        className={cn("mx-auto mb-10 max-w-2xl text-center", headerClassName)}
+      >
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "text-3xl font-bold md:text-4xl md:leading-tight",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-muted-foreground mt-1 text-lg", descriptionClassName)}>
+          ))}
+        {description &&
+          (typeof description === "string" ? (
+            <p
+              className={cn(
+                "text-muted-foreground mt-1 text-lg",
+                descriptionClassName,
+              )}
+            >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
 
       {renderRoles()}
 
-      <div className={cn("grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4",
+          gridClassName,
+        )}
+      >
         {renderMembers()}
       </div>
     </Section>

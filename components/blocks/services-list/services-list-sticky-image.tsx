@@ -8,7 +8,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, OptixFlowConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  OptixFlowConfig,
+} from "../../../src/types";
 
 /**
  * Service item configuration for sticky image display
@@ -111,7 +115,7 @@ export interface ServicesListStickyImageProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -175,7 +179,7 @@ export function ServicesListStickyImage({
                 ? "border-primary bg-primary/5 shadow-md"
                 : "border-border hover:border-primary/50",
               cardClassName,
-              service.className
+              service.className,
             )}
             onMouseEnter={() => setActiveIndex(index)}
             onClick={() => setActiveIndex(index)}
@@ -190,25 +194,30 @@ export function ServicesListStickyImage({
                 />
               </div>
             )}
-            {service.title && (
-              typeof service.title === "string" ? (
+            {service.title &&
+              (typeof service.title === "string" ? (
                 <h3 className="text-xl font-bold">{service.title}</h3>
               ) : (
                 <div className="text-xl font-bold">{service.title}</div>
-              )
-            )}
-            {service.description && (
-              typeof service.description === "string" ? (
-                <p className="mt-3 text-muted-foreground leading-relaxed">{service.description}</p>
+              ))}
+            {service.description &&
+              (typeof service.description === "string" ? (
+                <p className="mt-3 text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
               ) : (
-                <div className="mt-3 text-muted-foreground leading-relaxed">{service.description}</div>
-              )
-            )}
+                <div className="mt-3 text-muted-foreground leading-relaxed">
+                  {service.description}
+                </div>
+              ))}
             {service.items && service.items.length > 0 && (
               <div className="mt-4 grid grid-cols-2 gap-2">
                 {service.items.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex items-center gap-2">
-                    <DynamicIcon name="lucide/check" className="h-4 w-4 text-primary" />
+                    <DynamicIcon
+                      name="lucide/check"
+                      className="h-4 w-4 text-primary"
+                    />
                     {typeof item === "string" ? (
                       <span className="text-sm">{item}</span>
                     ) : (
@@ -225,7 +234,10 @@ export function ServicesListStickyImage({
                 className="mt-4 inline-flex items-center text-sm font-medium text-primary hover:underline"
               >
                 {service.ctaText}
-                <DynamicIcon name="lucide/arrow-right" className="ml-1 h-4 w-4" />
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  className="ml-1 h-4 w-4"
+                />
               </Pressable>
             )}
           </div>
@@ -244,27 +256,37 @@ export function ServicesListStickyImage({
     >
       <div className={cn("mx-auto max-w-6xl space-y-12", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
 
-        <div className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", gridClassName)}>
+        <div
+          className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", gridClassName)}
+        >
           <div className="hidden lg:block">
             <div className={cn("sticky top-32", imageContainerClassName)}>
               <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
@@ -277,11 +299,11 @@ export function ServicesListStickyImage({
                         alt={service.image.alt}
                         className={cn(
                           "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
-                          activeIndex === index ? "opacity-100" : "opacity-0"
+                          activeIndex === index ? "opacity-100" : "opacity-0",
                         )}
                         optixFlowConfig={optixFlowConfig}
                       />
-                    )
+                    ),
                 )}
               </div>
             </div>

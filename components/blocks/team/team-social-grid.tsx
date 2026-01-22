@@ -68,7 +68,7 @@ export interface TeamSocialGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -176,7 +176,7 @@ export function TeamSocialGrid({
         <Avatar
           className={cn(
             "mb-4 size-20 border md:mb-5 lg:size-24",
-            avatarClassName
+            avatarClassName,
           )}
         >
           <AvatarImage src={member.avatar} alt={member.name} />
@@ -193,7 +193,7 @@ export function TeamSocialGrid({
         <p
           className={cn(
             "text-center text-muted-foreground",
-            memberRoleClassName
+            memberRoleClassName,
           )}
         >
           {member.role}
@@ -202,7 +202,7 @@ export function TeamSocialGrid({
           <div
             className={cn(
               "mt-2 flex gap-2 text-muted-foreground",
-              socialLinksClassName
+              socialLinksClassName,
             )}
           >
             {member.social.github && (
@@ -247,41 +247,42 @@ export function TeamSocialGrid({
       className={className}
     >
       <div
-        className={cn("flex flex-col items-center text-center", headerClassName)}
+        className={cn(
+          "flex flex-col items-center text-center",
+          headerClassName,
+        )}
       >
-        {heading && (
-          typeof heading === "string" ? (
+        {heading &&
+          (typeof heading === "string" ? (
             <h2
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
+          ))}
+        {description &&
+          (typeof description === "string" ? (
             <p
               className={cn(
                 "mb-8 max-w-3xl text-muted-foreground lg:text-xl",
-                descriptionClassName
+                descriptionClassName,
               )}
             >
               {description}
             </p>
           ) : (
             <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+          ))}
       </div>
       <div
         className={cn(
           "mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3",
-          gridClassName
+          gridClassName,
         )}
       >
         {renderMembers()}

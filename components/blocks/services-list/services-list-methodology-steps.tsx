@@ -6,7 +6,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 
 /**
  * Step item configuration for methodology steps display
@@ -102,7 +106,7 @@ export interface ServicesListMethodologyStepsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -175,34 +179,44 @@ export function ServicesListMethodologySteps({
         {steps.map((step, index) => (
           <div
             key={index}
-            className={cn("group relative grid gap-6 md:grid-cols-[100px_1fr] md:gap-8", stepClassName, step.className)}
+            className={cn(
+              "group relative grid gap-6 md:grid-cols-[100px_1fr] md:gap-8",
+              stepClassName,
+              step.className,
+            )}
           >
             <div className="flex items-start">
-              {step.number && (
-                typeof step.number === "string" ? (
-                  <span className={cn("text-5xl font-bold text-primary/20 transition-colors group-hover:text-primary/40 md:text-6xl", numberClassName)}>
+              {step.number &&
+                (typeof step.number === "string" ? (
+                  <span
+                    className={cn(
+                      "text-5xl font-bold text-primary/20 transition-colors group-hover:text-primary/40 md:text-6xl",
+                      numberClassName,
+                    )}
+                  >
                     {step.number}
                   </span>
                 ) : (
                   <div className={numberClassName}>{step.number}</div>
-                )
-              )}
+                ))}
             </div>
             <div className="space-y-4">
-              {step.title && (
-                typeof step.title === "string" ? (
+              {step.title &&
+                (typeof step.title === "string" ? (
                   <h3 className="text-2xl font-bold">{step.title}</h3>
                 ) : (
                   <div className="text-2xl font-bold">{step.title}</div>
-                )
-              )}
-              {step.description && (
-                typeof step.description === "string" ? (
-                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                ))}
+              {step.description &&
+                (typeof step.description === "string" ? (
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
                 ) : (
-                  <div className="text-muted-foreground leading-relaxed">{step.description}</div>
-                )
-              )}
+                  <div className="text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </div>
+                ))}
               {step.options && step.options.length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-2">
                   {step.options.map((option, optionIndex) => (
@@ -210,8 +224,15 @@ export function ServicesListMethodologySteps({
                       key={optionIndex}
                       className="inline-flex items-center rounded-full border border-border bg-muted/50 px-3 py-1 text-sm"
                     >
-                      <DynamicIcon name="lucide/check" className="mr-1.5 h-3.5 w-3.5 text-primary" />
-                      {typeof option === "string" ? option : <span>{option}</span>}
+                      <DynamicIcon
+                        name="lucide/check"
+                        className="mr-1.5 h-3.5 w-3.5 text-primary"
+                      />
+                      {typeof option === "string" ? (
+                        option
+                      ) : (
+                        <span>{option}</span>
+                      )}
                     </span>
                   ))}
                 </div>
@@ -236,24 +257,32 @@ export function ServicesListMethodologySteps({
     >
       <div className={cn("mx-auto max-w-4xl space-y-16", containerClassName)}>
         <div className={cn("space-y-4 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-semibold tracking-tight md:text-4xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "text-3xl font-semibold tracking-tight md:text-4xl",
+                  headingClassName,
+                )}
+              >
                 {heading}
               </h2>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl", descriptionClassName)}>
+            ))}
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto max-w-2xl text-lg tracking-tight text-muted-foreground md:text-xl",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
         </div>
         {renderSteps()}
         {renderActions()}

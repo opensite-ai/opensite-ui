@@ -7,7 +7,6 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Card, CardContent } from "../../ui/card";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 
 export interface ProjectZigzagLayoutItem {
   id: number;
@@ -63,7 +62,7 @@ export function ProjectZigzagLayout({
               className={cn(
                 "group relative",
                 index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse",
-                "flex flex-col gap-8 lg:items-center lg:gap-12"
+                "flex flex-col gap-8 lg:items-center lg:gap-12",
               )}
             >
               <div className="relative w-full overflow-hidden rounded-lg lg:w-1/2">

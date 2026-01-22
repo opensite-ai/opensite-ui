@@ -6,7 +6,11 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface LogosTwoRowGridCompanyItem {
   /**
@@ -75,7 +79,7 @@ export interface LogosTwoRowGridProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -105,17 +109,22 @@ export function LogosTwoRowGrid({
   patternOpacity,
   optixFlowConfig,
 }: LogosTwoRowGridProps): React.JSX.Element {
-  const firstRow = companies?.slice(0, Math.ceil((companies?.length ?? 0) / 2)) ?? [];
-  const secondRow = companies?.slice(Math.ceil((companies?.length ?? 0) / 2)) ?? [];
+  const firstRow =
+    companies?.slice(0, Math.ceil((companies?.length ?? 0) / 2)) ?? [];
+  const secondRow =
+    companies?.slice(Math.ceil((companies?.length ?? 0) / 2)) ?? [];
 
-  const renderCompanyLogo = (company: LogosTwoRowGridCompanyItem, index: number) => (
+  const renderCompanyLogo = (
+    company: LogosTwoRowGridCompanyItem,
+    index: number,
+  ) => (
     <Pressable
       key={index}
       href={company.url}
       className={cn(
         "opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0",
         logoWrapperClassName,
-        company.className
+        company.className,
       )}
     >
       <Img
@@ -135,11 +144,23 @@ export function LogosTwoRowGrid({
 
     return (
       <div className={cn("space-y-8", logosClassName)}>
-        <div className={cn("flex flex-wrap items-center justify-center gap-x-12 gap-y-8", rowClassName)}>
+        <div
+          className={cn(
+            "flex flex-wrap items-center justify-center gap-x-12 gap-y-8",
+            rowClassName,
+          )}
+        >
           {firstRow.map((company, index) => renderCompanyLogo(company, index))}
         </div>
-        <div className={cn("flex flex-wrap items-center justify-center gap-x-12 gap-y-8", rowClassName)}>
-          {secondRow.map((company, index) => renderCompanyLogo(company, index + firstRow.length))}
+        <div
+          className={cn(
+            "flex flex-wrap items-center justify-center gap-x-12 gap-y-8",
+            rowClassName,
+          )}
+        >
+          {secondRow.map((company, index) =>
+            renderCompanyLogo(company, index + firstRow.length),
+          )}
         </div>
       </div>
     );
@@ -153,15 +174,19 @@ export function LogosTwoRowGrid({
       patternOpacity={patternOpacity}
       className={className}
     >
-      {heading && (
-        typeof heading === "string" ? (
-          <p className={cn("mb-12 text-center text-lg text-muted-foreground", headingClassName)}>
+      {heading &&
+        (typeof heading === "string" ? (
+          <p
+            className={cn(
+              "mb-12 text-center text-lg text-muted-foreground",
+              headingClassName,
+            )}
+          >
             {heading}
           </p>
         ) : (
           <div className={headingClassName}>{heading}</div>
-        )
-      )}
+        ))}
       {renderCompanies()}
     </Section>
   );

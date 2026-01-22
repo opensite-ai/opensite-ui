@@ -31,10 +31,6 @@ export interface CtaPatternBackgroundProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Background pattern URL
-   */
-  backgroundPattern?: string;
-  /**
    * Additional CSS classes for the section
    */
   className?: string;
@@ -73,7 +69,7 @@ export interface CtaPatternBackgroundProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -94,7 +90,6 @@ export interface CtaPatternBackgroundProps {
  *     { label: "Get Started", href: "/signup", variant: "default", size: "lg" },
  *     { label: "Learn More", href: "/learn", variant: "outline", size: "lg" }
  *   ]}
- *   backgroundPattern="/pattern.svg"
  * />
  * ```
  */
@@ -103,7 +98,6 @@ export function CtaPatternBackground({
   description,
   actions,
   actionsSlot,
-  backgroundPattern = patternSvgs.grid1,
   className,
   containerClassName,
   innerClassName,
@@ -113,7 +107,7 @@ export function CtaPatternBackground({
   actionsClassName,
   background = "white",
   spacing = "lg",
-  pattern,
+  pattern = "gridBasic",
   patternOpacity,
 }: CtaPatternBackgroundProps): React.JSX.Element {
   const renderActions = () => {
@@ -124,7 +118,7 @@ export function CtaPatternBackground({
       <div
         className={cn(
           "mt-11 flex flex-col justify-center gap-2 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => (
@@ -158,16 +152,15 @@ export function CtaPatternBackground({
       <div
         className={cn(
           "flex items-center justify-center border bg-cover bg-center py-20 text-center md:p-20",
-          innerClassName
+          innerClassName,
         )}
-        style={{ backgroundImage: `url('${backgroundPattern}')` }}
       >
         <div className={cn("container", containerClassName)}>
           <div className={cn("mx-auto max-w-3xl", contentClassName)}>
             <h1
               className={cn(
                 "mb-4 text-3xl font-semibold text-balance md:text-5xl",
-                headingClassName
+                headingClassName,
               )}
             >
               {heading}

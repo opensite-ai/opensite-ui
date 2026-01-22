@@ -99,7 +99,7 @@ export interface ProcessStickyStepsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -181,7 +181,24 @@ export function ProcessStickySteps({
 }: ProcessStickyStepsProps): React.JSX.Element {
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
-  const resolvedActions: ActionConfig[] = actions ?? (ctaText && ctaUrl ? [{ label: ctaText, href: ctaUrl, variant: "ghost" as const, icon: <DynamicIcon name="lucide/corner-down-right" size={20} className="text-primary" /> }] : []);
+  const resolvedActions: ActionConfig[] =
+    actions ??
+    (ctaText && ctaUrl
+      ? [
+          {
+            label: ctaText,
+            href: ctaUrl,
+            variant: "ghost" as const,
+            icon: (
+              <DynamicIcon
+                name="lucide/corner-down-right"
+                size={20}
+                className="text-primary"
+              />
+            ),
+          },
+        ]
+      : []);
 
   const renderActions = () => {
     if (actionsSlot) return actionsSlot;
@@ -190,12 +207,22 @@ export function ProcessStickySteps({
     return (
       <div className={cn("flex flex-col gap-2", actionsClassName)}>
         {resolvedActions.map((action, index) => {
-          const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+          const {
+            label,
+            icon,
+            iconAfter,
+            children,
+            className: actionClassName,
+            ...pressableProps
+          } = action;
           return (
             <Pressable
               key={index}
               asButton
-              className={cn("flex items-center justify-start gap-2", actionClassName)}
+              className={cn(
+                "flex items-center justify-start gap-2",
+                actionClassName,
+              )}
               {...pressableProps}
             >
               {children ?? (
@@ -224,7 +251,7 @@ export function ProcessStickySteps({
             className={cn(
               "relative flex flex-col justify-between gap-10 border-t py-8 md:flex-row lg:py-10",
               stepItemClassName,
-              step.className
+              step.className,
             )}
           >
             <CornerIllustration className="absolute top-4 right-0 text-primary" />
@@ -233,22 +260,20 @@ export function ProcessStickySteps({
               {step.step ?? `0${index + 1}`}
             </div>
             <div>
-              {step.title && (
-                typeof step.title === "string" ? (
+              {step.title &&
+                (typeof step.title === "string" ? (
                   <h3 className="mb-4 text-2xl font-semibold tracking-tighter lg:text-3xl">
                     {step.title}
                   </h3>
                 ) : (
                   <div className="mb-4">{step.title}</div>
-                )
-              )}
-              {step.description && (
-                typeof step.description === "string" ? (
+                ))}
+              {step.description &&
+                (typeof step.description === "string" ? (
                   <p className="text-foreground/50">{step.description}</p>
                 ) : (
                   <div className="text-foreground/50">{step.description}</div>
-                )
-              )}
+                ))}
             </div>
           </li>
         ))}
@@ -264,31 +289,41 @@ export function ProcessStickySteps({
       pattern={pattern}
       patternOpacity={patternOpacity}
     >
-      <div className={cn("grid grid-cols-1 gap-5 lg:grid-cols-6 lg:gap-20", contentClassName)}>
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-5 lg:grid-cols-6 lg:gap-20",
+          contentClassName,
+        )}
+      >
         <div className="top-10 col-span-2 h-fit w-fit gap-3 space-y-7 py-8 lg:sticky">
           <div className="relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl">
-            {resolvedHeading && (
-              typeof resolvedHeading === "string" ? (
-                <h1 className={cn("w-fit", headingClassName)}>{resolvedHeading}</h1>
+            {resolvedHeading &&
+              (typeof resolvedHeading === "string" ? (
+                <h1 className={cn("w-fit", headingClassName)}>
+                  {resolvedHeading}
+                </h1>
               ) : (
                 <div className={headingClassName}>{resolvedHeading}</div>
-              )
-            )}
+              ))}
             <DynamicIcon
               name="lucide/asterisk"
               size={40}
               className="absolute -top-2 -right-2 text-primary md:size-10 lg:-right-14"
             />
           </div>
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-base text-foreground/50", descriptionClassName)}>
+          {description &&
+            (typeof description === "string" ? (
+              <p
+                className={cn(
+                  "text-base text-foreground/50",
+                  descriptionClassName,
+                )}
+              >
                 {description}
               </p>
             ) : (
               <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+            ))}
           {renderActions()}
         </div>
         {renderSteps()}

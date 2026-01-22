@@ -108,7 +108,7 @@ export interface ExpandableCaseStudyCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -178,7 +178,7 @@ export function ExpandableCaseStudyCards({
         className={cn(
           'group max-lg:w-full max-lg:flex-1 max-md:h-[200px] md:max-lg:aspect-1336/420 lg:transform-gpu lg:transition-all lg:data-[state="closed"]:w-[20%] lg:data-[state="closed"]:duration-500 lg:data-[state="open"]:w-[60%] lg:data-[state="open"]:duration-400',
           item.className,
-          cardClassName
+          cardClassName,
         )}
         onMouseEnter={() => {
           setSelection(item.id);
@@ -193,8 +193,15 @@ export function ExpandableCaseStudyCards({
               <div className="h-full w-full overflow-clip rounded-xl">
                 <Img
                   src={item.image}
-                  alt={typeof item.title === "string" ? item.title : (item.imageAlt || "Case study image")}
-                  className={cn("h-full w-full object-cover object-center", imageClassName)}
+                  alt={
+                    typeof item.title === "string"
+                      ? item.title
+                      : item.imageAlt || "Case study image"
+                  }
+                  className={cn(
+                    "h-full w-full object-cover object-center",
+                    imageClassName,
+                  )}
                   loading="lazy"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -219,7 +226,12 @@ export function ExpandableCaseStudyCards({
             <div className="absolute inset-x-0 bottom-0 hidden h-[50%] bg-linear-to-t from-primary from-50% to-transparent lg:block"></div>
           </div>
           <div className="relative flex flex-col justify-between gap-4 md:absolute md:inset-0 md:max-lg:inset-x-[50%] md:max-lg:w-[50%]">
-            <div className={cn('flex h-20 items-center gap-2 p-4 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0', badgesClassName)}>
+            <div
+              className={cn(
+                'flex h-20 items-center gap-2 p-4 transition-opacity delay-200 duration-500 lg:group-data-[state="closed"]:opacity-0',
+                badgesClassName,
+              )}
+            >
               {item.badges?.map((badge, idx) => (
                 <Badge key={idx} variant="secondary" className={badgeClassName}>
                   {badge}
@@ -260,7 +272,12 @@ export function ExpandableCaseStudyCards({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("flex flex-col gap-5 lg:aspect-1336/420 lg:flex-row", containerClassName)}>
+      <div
+        className={cn(
+          "flex flex-col gap-5 lg:aspect-1336/420 lg:flex-row",
+          containerClassName,
+        )}
+      >
         {renderItems()}
       </div>
     </Section>

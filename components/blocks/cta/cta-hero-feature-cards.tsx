@@ -122,7 +122,7 @@ export interface CtaHeroFeatureCardsProps {
   /**
    * Optional background pattern name or URL
    */
-  pattern?: PatternName | string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern overlay opacity (0-1)
    */
@@ -189,7 +189,7 @@ export function CtaHeroFeatureCards({
       <div
         className={cn(
           "flex flex-col justify-center gap-3 sm:flex-row",
-          actionsClassName
+          actionsClassName,
         )}
       >
         {actions.map((action, index) => {
@@ -206,7 +206,7 @@ export function CtaHeroFeatureCards({
               className={cn(
                 isOutlineOnDark &&
                   "border-white/30 bg-white/10 text-white hover:bg-white/20",
-                action.className
+                action.className,
               )}
               aria-label={action["aria-label"]}
               asButton
@@ -240,7 +240,7 @@ export function CtaHeroFeatureCards({
               className={cn(
                 "flex items-start gap-4 p-6 transition-colors hover:bg-accent",
                 cardClassName,
-                card.className
+                card.className,
               )}
             >
               {(card.icon || card.iconName) && (
@@ -285,7 +285,7 @@ export function CtaHeroFeatureCards({
         <div
           className={cn(
             "relative mb-12 overflow-hidden rounded-2xl",
-            heroClassName
+            heroClassName,
           )}
         >
           <Img
@@ -297,14 +297,14 @@ export function CtaHeroFeatureCards({
           <div
             className={cn(
               "absolute inset-0 flex items-center justify-center bg-black/40",
-              overlayClassName
+              overlayClassName,
             )}
           >
             <div className="max-w-2xl p-8 text-center text-white">
               <h2
                 className={cn(
                   "mb-4 text-3xl font-bold md:text-5xl",
-                  headingClassName
+                  headingClassName,
                 )}
               >
                 {heading}

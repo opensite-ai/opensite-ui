@@ -7,8 +7,8 @@ import { Img, type OptixFlowConfig } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "@/components/ui/pattern-background";
 
 export interface ProjectCardOverlayItem {
   id: number;
@@ -50,7 +50,7 @@ export interface ProjectCardOverlayProps {
   /**
    * Background pattern
    */
-  pattern?: string;
+  pattern?: PatternName | undefined;
   /**
    * Pattern opacity (0-1)
    */
@@ -113,13 +113,20 @@ interface ProjectCardProps {
   className?: string;
 }
 
-const ProjectCard = ({ project, optixFlowConfig, className }: ProjectCardProps) => {
+const ProjectCard = ({
+  project,
+  optixFlowConfig,
+  className,
+}: ProjectCardProps) => {
   return (
     <motion.div
       variants={itemVariants}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className={cn("group relative cursor-pointer overflow-hidden rounded-3xl bg-black shadow-2xl", className)}
+      className={cn(
+        "group relative cursor-pointer overflow-hidden rounded-3xl bg-black shadow-2xl",
+        className,
+      )}
     >
       <div className="relative aspect-square overflow-hidden">
         <Img
@@ -217,20 +224,29 @@ export function ProjectCardOverlay({
           className={cn("mb-20 text-center", headerClassName)}
         >
           <div className="mb-6">
-            {subheading && (
-              typeof subheading === "string" ? (
-                <span className={cn("inline-flex items-center gap-2 text-sm font-medium tracking-wide text-muted-foreground", subheadingClassName)}>
+            {subheading &&
+              (typeof subheading === "string" ? (
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-2 text-sm font-medium tracking-wide text-muted-foreground",
+                    subheadingClassName,
+                  )}
+                >
                   <div className="h-2 w-2 rounded-full bg-foreground"></div>
                   {subheading}
                 </span>
               ) : (
                 <div className={subheadingClassName}>{subheading}</div>
-              )
-            )}
+              ))}
           </div>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-6xl leading-none font-black tracking-tight md:text-8xl lg:text-9xl", headingClassName)}>
+          {heading &&
+            (typeof heading === "string" ? (
+              <h1
+                className={cn(
+                  "text-6xl leading-none font-black tracking-tight md:text-8xl lg:text-9xl",
+                  headingClassName,
+                )}
+              >
                 {heading.split(" ").map((word, index) => (
                   <span key={index} className="block">
                     {word}
@@ -239,15 +255,17 @@ export function ProjectCardOverlay({
               </h1>
             ) : (
               <div className={headingClassName}>{heading}</div>
-            )
-          )}
+            ))}
         </motion.div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={cn("mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2", gridClassName)}
+          className={cn(
+            "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2",
+            gridClassName,
+          )}
         >
           {renderProjects()}
         </motion.div>
