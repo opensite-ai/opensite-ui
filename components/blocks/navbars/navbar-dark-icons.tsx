@@ -294,6 +294,8 @@ export const NavbarDarkIcons = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -304,16 +306,18 @@ export const NavbarDarkIcons = ({
       className={cn("dark pointer-events-auto relative z-999", sectionClasses)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={innerContainerClasses}>
-          <nav
-            className={cn(
-              "flex h-16 items-center justify-between",
-              navWrapperClasses,
-              navClassName,
-            )}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex h-16 items-center justify-between",
+                navClassName,
+              )}
+            >
             {renderLogo()}
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
@@ -348,6 +352,7 @@ export const NavbarDarkIcons = ({
               </div>
             </div>
           </nav>
+          </div>
         </div>
       </div>
       <MobileNavigationMenu

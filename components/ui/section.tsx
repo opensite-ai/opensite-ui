@@ -60,6 +60,8 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       pattern,
       patternOpacity,
       patternClassName,
+      containerClassName,
+      containerMaxWidth = "xl",
       ...props
     },
     ref,
@@ -90,7 +92,10 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           opacity={effectivePatternOpacity}
           className={patternClassName}
         />
-        <Container className="relative z-10">
+        <Container
+          maxWidth={containerMaxWidth}
+          className={cn("relative z-10", containerClassName)}
+        >
           {(title || subtitle) && (
             <div className="mb-12 text-center md:mb-16">
               {subtitle && (

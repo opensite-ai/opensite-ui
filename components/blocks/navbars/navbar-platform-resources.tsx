@@ -696,6 +696,8 @@ export const NavbarPlatformResources = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -706,10 +708,15 @@ export const NavbarPlatformResources = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          <NavigationMenu className={cn("min-w-full", navigationMenuClassName)}>
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <NavigationMenu
+              className={cn("min-w-full", navigationMenuClassName)}
+            >
           <div className="flex w-full items-center justify-between gap-12 py-4">
             {renderLogo()}
             <NavigationMenuList
@@ -873,6 +880,7 @@ export const NavbarPlatformResources = ({
             </div>
           )}
         </NavigationMenu>
+          </div>
         </div>
       </div>
     </Section>

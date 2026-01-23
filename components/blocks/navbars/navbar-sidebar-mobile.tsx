@@ -253,6 +253,8 @@ export const NavbarSidebarMobile = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -263,12 +265,18 @@ export const NavbarSidebarMobile = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          <nav
-            className={cn("flex items-center justify-between py-4", navClassName)}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex items-center justify-between py-4",
+                navClassName,
+              )}
+            >
           <div className="flex items-center gap-8">
             {renderLogo()}
 
@@ -428,6 +436,7 @@ export const NavbarSidebarMobile = ({
             </SheetContent>
           </Sheet>
         </nav>
+          </div>
         </div>
       </div>
     </Section>

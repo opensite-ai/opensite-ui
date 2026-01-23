@@ -332,6 +332,8 @@ export const NavbarTransparentOverlay = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -342,18 +344,21 @@ export const NavbarTransparentOverlay = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          <nav
-            className={cn(
-              "fixed top-0 left-0 z-50 w-full transition-all duration-300",
-              isScrolled
-                ? "bg-background/95 shadow-sm backdrop-blur-sm"
-                : "bg-transparent",
-              navClassName,
-            )}
-          >
+        <nav
+          className={cn(
+            "fixed top-0 left-0 z-50 w-full transition-all duration-300",
+            isScrolled
+              ? "bg-background/95 shadow-sm backdrop-blur-sm"
+              : "bg-transparent",
+            navWrapperClasses,
+            navClassName,
+          )}
+        >
+          <div className={innerContainerClasses}>
             <div className="flex h-16 items-center justify-between">
             {renderLogo()}
 
@@ -410,9 +415,9 @@ export const NavbarTransparentOverlay = ({
                 )}
               />
             </button>
+            </div>
           </div>
-          </nav>
-        </div>
+        </nav>
       </div>
 
       <div

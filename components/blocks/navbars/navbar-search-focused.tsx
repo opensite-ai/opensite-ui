@@ -292,6 +292,8 @@ export const NavbarSearchFocused = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -302,12 +304,18 @@ export const NavbarSearchFocused = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          <nav
-            className={cn("flex items-center gap-4 py-3 lg:gap-8", navClassName)}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex items-center gap-4 py-3 lg:gap-8",
+                navClassName,
+              )}
+            >
           {renderLogo()}
 
           <NavigationMenu
@@ -372,6 +380,7 @@ export const NavbarSearchFocused = ({
             </SheetContent>
           </Sheet>
         </nav>
+          </div>
         </div>
       </div>
     </Section>

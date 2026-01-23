@@ -121,6 +121,15 @@ export interface SectionProps extends HTMLAttributes<HTMLElement> {
    */
   className?: string;
   /**
+   * Optional max width for the internal Container wrapper
+   * @default "xl"
+   */
+  containerMaxWidth?: ContainerMaxWidth;
+  /**
+   * Additional CSS classes for the internal Container wrapper
+   */
+  containerClassName?: string;
+  /**
    * Optional background pattern name from the predefined pattern overlays
    * Use one of the pattern overlay names for type-safe pattern selection
    * Examples: "dashedGridBasic", "circuitBoardFadeTop", "gradientGlowBottom"

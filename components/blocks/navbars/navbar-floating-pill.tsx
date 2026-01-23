@@ -227,6 +227,8 @@ export const NavbarFloatingPill = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -237,15 +239,17 @@ export const NavbarFloatingPill = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={innerContainerClasses}>
-          <nav
-            className={cn(
-              "absolute top-5 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-background/70 backdrop-blur-md lg:top-12",
-              navWrapperClasses,
-            )}
-          >
+        <nav
+          className={cn(
+            "absolute top-5 left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-full bg-background/70 backdrop-blur-md lg:top-12",
+            navWrapperClasses,
+          )}
+        >
+          <div className={innerContainerClasses}>
             <div
               className={cn(
                 "flex items-center justify-between px-6 py-3",
@@ -334,6 +338,7 @@ export const NavbarFloatingPill = ({
             </button>
           </div>
         </div>
+          </div>
 
         {/* Mobile Menu Navigation */}
         <div
@@ -415,8 +420,7 @@ export const NavbarFloatingPill = ({
                 )}
           </nav>
         </div>
-          </nav>
-        </div>
+      </nav>
       </div>
     </Section>
   );

@@ -335,6 +335,8 @@ export const NavbarDropdownMenu = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -345,16 +347,19 @@ export const NavbarDropdownMenu = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          {/* Desktop Menu */}
-          <nav
-            className={cn(
-              "hidden items-center justify-between lg:flex",
-              desktopNavClassName,
-            )}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            {/* Desktop Menu */}
+            <nav
+              className={cn(
+                "hidden items-center justify-between lg:flex",
+                desktopNavClassName,
+              )}
+            >
           <div className="flex items-center gap-6">
             {/* Logo */}
             {renderLogo()}
@@ -367,45 +372,46 @@ export const NavbarDropdownMenu = ({
           <div className={cn("flex gap-2", actionsClassName)}>
             {renderAuthActions()}
           </div>
-        </nav>
+          </nav>
 
-        {/* Mobile Menu */}
-        <div className={cn("block lg:hidden", mobileNavClassName)}>
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            {renderLogo()}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Pressable
-                  variant="outline"
-                  size="icon"
-                  asButton
-                  onClick={() => {}}
-                >
-                  <DynamicIcon name="lucide/menu" size={16} />
-                </Pressable>
-              </SheetTrigger>
-              <SheetContent className="overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle>{renderLogo()}</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-6 p-4">
-                  <Accordion
-                    type="single"
-                    collapsible
-                    className="flex w-full flex-col gap-4"
+          {/* Mobile Menu */}
+          <div className={cn("block lg:hidden", mobileNavClassName)}>
+            <div className="flex items-center justify-between">
+              {/* Logo */}
+              {renderLogo()}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Pressable
+                    variant="outline"
+                    size="icon"
+                    asButton
+                    onClick={() => {}}
                   >
-                    {renderMobileMenu()}
-                  </Accordion>
+                    <DynamicIcon name="lucide/menu" size={16} />
+                  </Pressable>
+                </SheetTrigger>
+                <SheetContent className="overflow-y-auto">
+                  <SheetHeader>
+                    <SheetTitle>{renderLogo()}</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-6 p-4">
+                    <Accordion
+                      type="single"
+                      collapsible
+                      className="flex w-full flex-col gap-4"
+                    >
+                      {renderMobileMenu()}
+                    </Accordion>
 
-                  <div className={cn("flex flex-col gap-3", actionsClassName)}>
-                    {renderAuthActions()}
+                    <div className={cn("flex flex-col gap-3", actionsClassName)}>
+                      {renderAuthActions()}
+                    </div>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
-        </div>
+          </div>
         </div>
       </div>
     </Section>

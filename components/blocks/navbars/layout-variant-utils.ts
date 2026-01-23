@@ -32,6 +32,7 @@ export function getNavbarLayoutClasses(
 
     // Outer container wrapper (only for floating bar - this containerizes the entire navbar)
     containerWrapperClasses: cn(
+      "w-full",
       isFloatingBar && "mx-auto w-full px-2 sm:px-4 lg:px-8 max-w-7xl relative z-10"
     ),
 
@@ -44,13 +45,17 @@ export function getNavbarLayoutClasses(
 
     // Navigation wrapper classes (for border and shadow)
     navWrapperClasses: cn(
+      "w-full",
       isFloatingBar
         ? "border border-border/50 shadow-sm rounded-full"
         : "border-b border-border/50 shadow-sm"
     ),
 
+    // Section container configuration for full-width navbars
+    sectionContainerClassName: "px-0 sm:px-0 lg:px-0",
+    sectionContainerMaxWidth: "full" as const,
+
     // Spacing adjustment for Section component
     spacingOverride: isFloatingBar ? "none" as const : undefined,
   };
 }
-

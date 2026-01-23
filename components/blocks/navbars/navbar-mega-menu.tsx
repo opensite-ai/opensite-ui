@@ -506,12 +506,13 @@ export const NavbarMegaMenu = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses: baseNavWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
   const navWrapperClasses = cn(
     "flex w-full items-center justify-between gap-12 py-4",
-    baseNavWrapperClasses,
     layoutVariant === "floatingBar" && "pr-4 pl-8"
   );
 
@@ -522,16 +523,19 @@ export const NavbarMegaMenu = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={innerContainerClasses}>
-          <NavigationMenu
-            className={cn(
-              "min-w-full [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2",
-              navClassName,
-            )}
-          >
-            <div className={navWrapperClasses}>
+        <div className={baseNavWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <NavigationMenu
+              className={cn(
+                "min-w-full [&>div:last-child]:left-1/2 [&>div:last-child]:-translate-x-1/2",
+                navClassName,
+              )}
+            >
+              <div className={navWrapperClasses}>
               {/* Logo */}
               <div>
                 {(!open || submenuIndex === null) && renderLogo()}
@@ -671,6 +675,7 @@ export const NavbarMegaMenu = ({
             />
           )}
         </NavigationMenu>
+          </div>
         </div>
       </div>
     </Section>

@@ -291,6 +291,8 @@ export const NavbarMultiColumnGroups = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -301,15 +303,18 @@ export const NavbarMultiColumnGroups = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          <div
-            className={cn(
-              "flex items-center justify-between gap-8",
-              navClassName,
-            )}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <div
+              className={cn(
+                "flex items-center justify-between gap-8",
+                navClassName,
+              )}
+            >
           <div className="flex items-center gap-8">
             {renderLogo()}
             <NavigationMenu
@@ -349,7 +354,8 @@ export const NavbarMultiColumnGroups = ({
               )}
             </Pressable>
           </div>
-        </div>
+            </div>
+          </div>
         </div>
       </div>
       <MobileNavigationMenu

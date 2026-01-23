@@ -320,6 +320,8 @@ export const NavbarImagePreview = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -330,6 +332,8 @@ export const NavbarImagePreview = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div
         className={cn(
@@ -338,13 +342,14 @@ export const NavbarImagePreview = ({
         )}
         ref={navRef}
       >
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          <div
-            className={cn(
-              "flex items-center justify-between gap-3.5 py-5",
-              navClassName,
-            )}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <div
+              className={cn(
+                "flex items-center justify-between gap-3.5 py-5",
+                navClassName,
+              )}
+            >
             {renderLogo()}
             <NavigationMenu
               className={cn(
@@ -366,6 +371,7 @@ export const NavbarImagePreview = ({
                   <DynamicIcon name="lucide/menu" size={22} />
                 </Pressable>
               </div>
+            </div>
             </div>
           </div>
         </div>

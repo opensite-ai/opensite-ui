@@ -475,6 +475,8 @@ export const NavbarEnterpriseMega = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -489,16 +491,18 @@ export const NavbarEnterpriseMega = ({
         )}
         pattern={pattern}
         patternOpacity={patternOpacity}
+        containerClassName={sectionContainerClassName}
+        containerMaxWidth={sectionContainerMaxWidth}
       >
         <div className={containerWrapperClasses}>
-          <div className={innerContainerClasses}>
-            <nav
-              className={cn(
-                "flex h-16 items-center justify-between gap-8",
-                navWrapperClasses,
-                navClassName,
-              )}
-            >
+          <div className={navWrapperClasses}>
+            <div className={innerContainerClasses}>
+              <nav
+                className={cn(
+                  "flex h-16 items-center justify-between gap-8",
+                  navClassName,
+                )}
+              >
             {renderLogo()}
             <NavigationMenu
               className={cn("hidden lg:flex", navigationMenuClassName)}
@@ -544,6 +548,7 @@ export const NavbarEnterpriseMega = ({
               </div>
             </div>
           </nav>
+            </div>
           </div>
         </div>
       </Section>

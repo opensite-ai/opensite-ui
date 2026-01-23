@@ -328,6 +328,8 @@ export const NavbarStickyCompact = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -342,16 +344,19 @@ export const NavbarStickyCompact = ({
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={cn(innerContainerClasses, navWrapperClasses)}>
-          <nav
-            className={cn(
-              "flex items-center justify-between transition-all duration-300",
-              isScrolled ? "h-14" : "h-16",
-              navClassName,
-            )}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex items-center justify-between transition-all duration-300",
+                isScrolled ? "h-14" : "h-16",
+                navClassName,
+              )}
+            >
           {renderLogo()}
 
           <NavigationMenu className="hidden lg:flex">
@@ -396,6 +401,7 @@ export const NavbarStickyCompact = ({
             </SheetContent>
           </Sheet>
         </nav>
+          </div>
         </div>
       </div>
     </Section>

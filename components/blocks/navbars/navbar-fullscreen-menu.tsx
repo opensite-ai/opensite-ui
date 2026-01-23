@@ -223,6 +223,8 @@ export const NavbarFullscreenMenu = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -233,16 +235,18 @@ export const NavbarFullscreenMenu = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={innerContainerClasses}>
-          <nav
-            className={cn(
-              "flex items-center justify-between px-6 py-6",
-              navWrapperClasses,
-              headerClassName,
-            )}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex items-center justify-between px-6 py-6",
+                headerClassName,
+              )}
+            >
           <div className="z-50">{renderLogo()}</div>
 
           <div className="z-50">
@@ -298,6 +302,7 @@ export const NavbarFullscreenMenu = ({
             </div>
           </div>
         )}
+          </div>
         </div>
       </div>
     </Section>

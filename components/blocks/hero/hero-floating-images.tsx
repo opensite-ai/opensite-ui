@@ -240,7 +240,11 @@ export function HeroFloatingImages({
         )}
       >
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg">
-          <DynamicIcon name={zoomIconName} size={20} className="text-gray-900" />
+          <DynamicIcon
+            name={zoomIconName}
+            size={20}
+            className="text-gray-900"
+          />
         </div>
       </div>
     ),
@@ -369,8 +373,13 @@ export function HeroFloatingImages({
   ]);
 
   // Determine if we have content to render
-  const hasContent = children !== undefined && children !== null;
-  const hasGallery = imagesSlot || (images && images.length > 0);
+  const hasContent = useMemo(() => {
+    return children !== undefined && children !== null;
+  }, [children]);
+
+  const hasGallery = useMemo(() => {
+    return imagesSlot || (images && images.length > 0);
+  }, [imagesSlot, images]);
 
   return (
     <Section
@@ -378,13 +387,10 @@ export function HeroFloatingImages({
       spacing={spacing}
       pattern={pattern}
       patternOpacity={patternOpacity}
-      className={className}
+      className={cn("relative flex items-center justify-center", className)}
     >
       <div
-        className={cn(
-          "grid gap-12 lg:grid-cols-2 lg:gap-16",
-          gridClassName,
-        )}
+        className={cn("grid gap-12 lg:grid-cols-2 lg:gap-16", gridClassName)}
       >
         {/* Content Area */}
         {hasContent ? (

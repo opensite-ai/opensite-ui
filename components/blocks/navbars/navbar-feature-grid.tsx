@@ -214,6 +214,8 @@ export const NavbarFeatureGrid = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -224,10 +226,15 @@ export const NavbarFeatureGrid = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={innerContainerClasses}>
-          <nav className={cn("flex items-center justify-between", navWrapperClasses, navClassName)}>
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn("flex items-center justify-between", navClassName)}
+            >
           {renderLogo()}
           <NavigationMenu
             className={cn("hidden lg:block", navigationMenuClassName)}
@@ -353,6 +360,7 @@ export const NavbarFeatureGrid = ({
             </SheetContent>
           </Sheet>
         </nav>
+          </div>
         </div>
       </div>
     </Section>

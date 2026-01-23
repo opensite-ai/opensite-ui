@@ -384,6 +384,8 @@ export const NavbarSimpleLinks = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -394,10 +396,18 @@ export const NavbarSimpleLinks = ({
       className={sectionClasses}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={innerContainerClasses}>
-          <nav className={cn("flex items-center justify-between", navWrapperClasses, navClassName)}>
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex items-center justify-between",
+                navClassName,
+              )}
+            >
           {renderLogo()}
 
           <NavigationMenu
@@ -437,6 +447,7 @@ export const NavbarSimpleLinks = ({
             {renderActions()}
           </div>
         </nav>
+          </div>
         </div>
       </div>
     </Section>

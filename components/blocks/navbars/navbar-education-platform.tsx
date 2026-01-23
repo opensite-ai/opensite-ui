@@ -242,6 +242,8 @@ export const NavbarEducationPlatform = ({
     containerWrapperClasses,
     innerContainerClasses,
     navWrapperClasses,
+    sectionContainerClassName,
+    sectionContainerMaxWidth,
     spacingOverride,
   } = getNavbarLayoutClasses(layoutVariant, { className, containerClassName });
 
@@ -255,12 +257,18 @@ export const NavbarEducationPlatform = ({
       )}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerClassName={sectionContainerClassName}
+      containerMaxWidth={sectionContainerMaxWidth}
     >
       <div className={containerWrapperClasses}>
-        <div className={innerContainerClasses}>
-          <nav
-            className={cn("flex items-center justify-between py-4", navWrapperClasses, navClassName)}
-          >
+        <div className={navWrapperClasses}>
+          <div className={innerContainerClasses}>
+            <nav
+              className={cn(
+                "flex items-center justify-between py-4",
+                navClassName,
+              )}
+            >
           <div className="flex flex-1 items-center gap-9">
             {renderLogo()}
             <div
@@ -465,6 +473,7 @@ export const NavbarEducationPlatform = ({
             <span className="sr-only">Toggle menu</span>
           </Pressable>
         </nav>
+          </div>
         </div>
       </div>
 
