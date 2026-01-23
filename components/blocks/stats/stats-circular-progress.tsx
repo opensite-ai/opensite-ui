@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
@@ -9,7 +10,8 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A stat with circular progress indicator
+ * A stat with circular progress indicator.
+ * Used to display metrics with visual progress rings.
  */
 export interface CircularStat {
   /**
@@ -35,7 +37,8 @@ export interface CircularStat {
 }
 
 /**
- * A category of stats
+ * A category of stats.
+ * Used to group related stats under a common category tab.
  */
 export interface StatCategory {
   /**
@@ -57,7 +60,8 @@ export interface StatCategory {
 }
 
 /**
- * Props for the StatsCircularProgress component
+ * Props for the StatsCircularProgress component.
+ * A tabbed stats display featuring circular progress indicators organized by category.
  */
 export interface StatsCircularProgressProps {
   /**
@@ -245,7 +249,7 @@ export function StatsCircularProgress({
   description,
   categories,
   categoriesSlot,
-  defaultCategory = "business",
+  defaultCategory,
   background = "white",
   spacing = "lg",
   pattern,
@@ -264,9 +268,12 @@ export function StatsCircularProgress({
   statLabelClassName,
   statInfoClassName,
 }: StatsCircularProgressProps) {
-  const [category, setCategory] = React.useState(defaultCategory);
+  // Use first category as default if not specified
+  const effectiveDefaultCategory = defaultCategory || (categories && categories.length > 0 ? categories[0].id : "");
+  const [category, setCategory] = React.useState(effectiveDefaultCategory);
 
-  const renderBadge = () => {
+  // Memoized badge rendering
+  const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
     return (
@@ -274,9 +281,10 @@ export function StatsCircularProgress({
         {badge}
       </Badge>
     );
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderCategories = () => {
+  // Memoized categories rendering
+  const categoriesContent = useMemo(() => {
     if (categoriesSlot) return categoriesSlot;
     if (!categories || categories.length === 0) return null;
 
@@ -334,12 +342,16 @@ export function StatsCircularProgress({
                         </span>
                       </div>
                     </div>
-                    <h3 className={cn("text-center text-lg font-semibold md:text-xl", statLabelClassName)}>
-                      {stat.label}
-                    </h3>
-                    <p className={cn("mt-1 text-center text-xs text-muted-foreground md:text-sm", statInfoClassName)}>
-                      {stat.info}
-                    </p>
+                    {stat.label && (
+                      <h3 className={cn("text-center text-lg font-semibold md:text-xl", statLabelClassName)}>
+                        {stat.label}
+                      </h3>
+                    )}
+                    {stat.info && (
+                      <p className={cn("mt-1 text-center text-xs text-muted-foreground md:text-sm", statInfoClassName)}>
+                        {stat.info}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -348,7 +360,10 @@ export function StatsCircularProgress({
         </Tabs>
       </>
     );
-  };
+  }, [categoriesSlot, categories, category, tabsClassName, statsClassName, statCardClassName, statValueClassName, statLabelClassName, statInfoClassName]);
+
+  // Check if header has any content
+  const hasHeaderContent = !!(badge || badgeSlot || heading || description);
 
   return (
     <Section
@@ -360,29 +375,31 @@ export function StatsCircularProgress({
       className={className}
     >
       <div className={cn("mx-auto max-w-6xl", containerClassName)}>
-        <div className={cn("mb-12 text-center", headerClassName)}>
-          {renderBadge()}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto mt-3 max-w-2xl text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mx-auto mt-3 max-w-2xl", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
+        {hasHeaderContent && (
+          <div className={cn("mb-12 text-center", headerClassName)}>
+            {badgeContent}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mx-auto mt-3 max-w-2xl text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mx-auto mt-3 max-w-2xl", descriptionClassName)}>{description}</div>
+              )
+            )}
+          </div>
+        )}
 
-        {renderCategories()}
+        {categoriesContent}
       </div>
     </Section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -10,7 +11,8 @@ import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../s
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A milestone in the company timeline
+ * A milestone in a timeline.
+ * Used to display key events or achievements along a timeline.
  */
 export interface Milestone {
   /**
@@ -51,7 +53,8 @@ export interface Milestone {
 }
 
 /**
- * Current stat for the "Where We Are Today" section
+ * A current stat for summary sections.
+ * Used to display current metrics in a summary section.
  */
 export interface CurrentStat {
   /**
@@ -69,7 +72,8 @@ export interface CurrentStat {
 }
 
 /**
- * Props for the StatsGrowthTimeline component
+ * Props for the StatsGrowthTimeline component.
+ * A vertical timeline showcasing milestones and growth journey.
  */
 export interface StatsGrowthTimelineProps {
   /**
@@ -216,9 +220,9 @@ export function StatsGrowthTimeline({
   milestonesSlot,
   currentStats,
   currentStatsSlot,
-  currentStatsHeading = "Where We Are Today",
-  futureHeading = "The Future Is Even Brighter",
-  futureDescription = "We're just getting started. Our roadmap includes expansion to new markets, enhanced product offerings, and continued innovation to serve our growing customer base.",
+  currentStatsHeading,
+  futureHeading,
+  futureDescription,
   futureSlot,
   actions,
   actionsSlot,
@@ -238,13 +242,15 @@ export function StatsGrowthTimeline({
   currentStatsClassName,
   futureClassName,
 }: StatsGrowthTimelineProps) {
-  const renderBadge = () => {
+  // Memoized badge rendering
+  const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
     return <Badge className={cn("mb-4", badgeClassName)}>{badge}</Badge>;
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderMilestoneIcon = (milestone: Milestone) => {
+  // Memoized milestone icon rendering
+  const renderMilestoneIcon = useCallback((milestone: Milestone) => {
     if (milestone.iconSlot) return milestone.iconSlot;
     if (!milestone.icon) return null;
     return (
@@ -256,9 +262,10 @@ export function StatsGrowthTimeline({
         />
       </div>
     );
-  };
+  }, []);
 
-  const renderMilestones = () => {
+  // Memoized milestones rendering
+  const milestonesContent = useMemo(() => {
     if (milestonesSlot) return milestonesSlot;
     if (!milestones || milestones.length === 0) return null;
 
@@ -281,9 +288,11 @@ export function StatsGrowthTimeline({
             >
               {/* Content */}
               <div className="ml-6 flex flex-col items-start md:ml-0 md:w-1/2 md:px-8">
-                <div className="mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full bg-muted text-sm font-semibold">
-                  {milestone.year}
-                </div>
+                {milestone.year && (
+                  <div className="mb-4 inline-flex h-9 w-20 items-center justify-center rounded-full bg-muted text-sm font-semibold">
+                    {milestone.year}
+                  </div>
+                )}
                 {milestone.title && (
                   typeof milestone.title === "string" ? (
                     <h3 className="mb-2 text-xl font-bold">{milestone.title}</h3>
@@ -299,17 +308,21 @@ export function StatsGrowthTimeline({
                   )
                 )}
 
-                <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
-                  {renderMilestoneIcon(milestone)}
-                  <div>
-                    <div className="text-3xl font-bold text-primary">
-                      {milestone.metric.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {milestone.metric.label}
+                {milestone.metric && (
+                  <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
+                    {renderMilestoneIcon(milestone)}
+                    <div>
+                      <div className="text-3xl font-bold text-primary">
+                        {milestone.metric.value}
+                      </div>
+                      {milestone.metric.label && (
+                        <div className="text-sm text-muted-foreground">
+                          {milestone.metric.label}
+                        </div>
+                      )}
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Timeline point */}
@@ -321,9 +334,10 @@ export function StatsGrowthTimeline({
         </div>
       </div>
     );
-  };
+  }, [milestonesSlot, milestones, timelineClassName, milestoneClassName, renderMilestoneIcon]);
 
-  const renderCurrentStats = () => {
+  // Memoized current stats rendering
+  const currentStatsContent = useMemo(() => {
     if (currentStatsSlot) return currentStatsSlot;
     if (!currentStats || currentStats.length === 0) return null;
 
@@ -342,15 +356,18 @@ export function StatsGrowthTimeline({
               <div className="mb-2 text-3xl font-bold text-primary md:text-4xl">
                 {stat.value}
               </div>
-              <p className="font-medium text-muted-foreground">{stat.label}</p>
+              {stat.label && (
+                <p className="font-medium text-muted-foreground">{stat.label}</p>
+              )}
             </div>
           ))}
         </div>
       </div>
     );
-  };
+  }, [currentStatsSlot, currentStats, currentStatsHeading, currentStatsClassName]);
 
-  const renderActions = () => {
+  // Memoized actions rendering
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -366,9 +383,10 @@ export function StatsGrowthTimeline({
         <DynamicIcon name="lucide/arrow-right" size={16} className="ml-2" />
       </Pressable>
     ));
-  };
+  }, [actionsSlot, actions]);
 
-  const renderFuture = () => {
+  // Memoized future section rendering
+  const futureContent = useMemo(() => {
     if (futureSlot) return futureSlot;
     if (!futureHeading && !futureDescription && (!actions || actions.length === 0)) return null;
 
@@ -388,10 +406,13 @@ export function StatsGrowthTimeline({
             <div className="mx-auto mb-8 max-w-2xl">{futureDescription}</div>
           )
         )}
-        {renderActions()}
+        {actionsContent}
       </div>
     );
-  };
+  }, [futureSlot, futureHeading, futureDescription, futureClassName, actionsContent, actions]);
+
+  // Check if header has any content
+  const hasHeaderContent = !!(badge || badgeSlot || heading || description);
 
   return (
     <Section
@@ -403,31 +424,33 @@ export function StatsGrowthTimeline({
       className={className}
     >
       <div className={cn("mx-auto max-w-5xl", containerClassName)}>
-        <div className={cn("mb-16 text-center", headerClassName)}>
-          {renderBadge()}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold md:text-5xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={cn("mb-4", headingClassName)}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-3xl text-lg text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
+        {hasHeaderContent && (
+          <div className={cn("mb-16 text-center", headerClassName)}>
+            {badgeContent}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("mb-4 text-3xl font-bold md:text-5xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mx-auto max-w-3xl text-lg text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>{description}</div>
+              )
+            )}
+          </div>
+        )}
 
-        {renderMilestones()}
-        {renderCurrentStats()}
-        {renderFuture()}
+        {milestonesContent}
+        {currentStatsContent}
+        {futureContent}
       </div>
     </Section>
   );
