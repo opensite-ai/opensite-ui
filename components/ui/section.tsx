@@ -9,7 +9,8 @@ import type { SectionProps } from "../../src/types";
  * Uses standard Tailwind/shadcn CSS variables for theming
  */
 const backgroundStyles = {
-  white: "bg-background text-foreground",
+  default: "bg-background text-foreground",
+  white: "bg-white text-dark",
   gray: "bg-muted/30 text-foreground",
   dark: "bg-foreground text-background",
   transparent: "bg-transparent text-foreground",
@@ -55,7 +56,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       children,
       className,
       style,
-      background = "transparent",
+      background = "default",
       spacing = "lg",
       pattern,
       patternOpacity,

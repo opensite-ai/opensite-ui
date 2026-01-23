@@ -127,7 +127,7 @@ describe("TeamCompactGrid", () => {
       <TeamCompactGrid members={mockMembers} background="white" />
     );
     const section = container.firstChild as HTMLElement;
-    expect(section.className).toContain("bg-background");
+    expect(section.className).toContain("bg-white");
   });
 
   it("applies custom spacing variant", () => {

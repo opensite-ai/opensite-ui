@@ -217,7 +217,7 @@ describe("AlternatingBlocks", () => {
     expect(screen.getByText("Our Journey")).toBeInTheDocument();
     expect(screen.getByText("About")).toBeInTheDocument();
     expect(section.className).toContain("section-custom");
-    expect(section.className).toContain("bg-background");
+    expect(section.className).toContain("bg-white");
     // md spacing applies py-16 md:py-24
     expect(section.className).toContain("py-16");
 

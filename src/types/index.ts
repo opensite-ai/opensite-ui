@@ -43,6 +43,7 @@ export type ContainerMaxWidth =
  * Background variants for Section component
  */
 export type SectionBackground =
+  | "default"
   | "white"
   | "gray"
   | "dark"
@@ -108,7 +109,7 @@ export interface SectionProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   /**
    * Background style variant
-   * @default "white"
+   * @default "default"
    */
   background?: SectionBackground;
   /**
