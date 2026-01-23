@@ -3277,13 +3277,16 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "tsup",
+    "build": "pnpm run generate:exports && pnpm run build:lib && pnpm run export:registry",
+    "build:lib": "tsup",
     "dev": "tsup --watch",
     "test": "vitest",
     "test:ci": "./scripts/test-ci-silent.sh",
     "type-check": "tsc --noEmit",
     "size": "bash -c 'size-limit --silent 2>/dev/null'",
     "generate:exports": "bash scripts/generate-all-exports.sh && node scripts/merge-exports.js && node scripts/create-organized-exports.js",
+    "export:registry": "node scripts/export-registry.js",
+    "generate:registry": "pnpm run build:lib && pnpm run export:registry",
     "prepublishOnly": "pnpm run build && pnpm run test:ci"
   },
   "peerDependencies": {

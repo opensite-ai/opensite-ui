@@ -466,6 +466,14 @@ import * as UI from "@opensite/ui";
 pnpm build
 ```
 
+`pnpm build` also regenerates:
+
+- `package.json` export maps (via `generate:exports`)
+- `registry-export.json` (via `scripts/export-registry.js`)
+
+If you change a block's design/intent, update its registry metadata in
+`src/registry/blocks.ts` before building so the exported JSON stays accurate.
+
 ### Testing
 
 ```bash

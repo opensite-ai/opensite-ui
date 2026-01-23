@@ -48,6 +48,11 @@ comparisonHeading?: React.ReactNode;
 comparisonDescription?: React.ReactNode;
  ```
 
+6. **Registry metadata must be updated when a block changes.**
+   - If you refactor or redesign a block, update its registry entry in
+     `src/registry/blocks.ts` (name/description/semanticTags/exampleUsage)
+     so the JSON registry stays accurate for downstream tools.
+
 
 
 ```tsx

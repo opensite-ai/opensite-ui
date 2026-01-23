@@ -106,6 +106,8 @@ When changing or adding blocks in the registry:
 2. Assign **categories** and **semantic tags** that clearly describe its purpose and layout.
 3. Keep descriptions short but precise so AI agents can pick blocks based on intent.
 4. Avoid reusing IDs/semantics for unrelated designs; prefer adding a new entry.
+5. If a block’s design/intent changes, **update its metadata** in `src/registry/blocks.ts`
+   (name/description/semanticTags/exampleUsage). `pnpm build` regenerates `registry-export.json`.
 
 ---
 
@@ -144,6 +146,7 @@ When changing or adding blocks in the registry:
   1. Add a `src/<entry>.ts` file that re‑exports the component/types.
   2. Add that entry to the `allEntries` map in `tsup.config.ts`.
   3. Run the export‑generation scripts (see `package.json` `generate:exports` chain) instead of hand‑editing `exports`.
+- `pnpm build` regenerates export maps and `registry-export.json` automatically.
 - Keep `sideEffects: false` accurate: if you introduce code with side effects at import time, refactor or mark it explicitly.
 
 ---
