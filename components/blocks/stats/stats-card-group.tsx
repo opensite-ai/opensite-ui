@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -13,7 +14,8 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * Avatar configuration for the avatar stack
+ * Avatar configuration for the avatar stack.
+ * Used to display user avatars in a stacked layout.
  */
 export interface AvatarItem {
   /**
@@ -31,7 +33,8 @@ export interface AvatarItem {
 }
 
 /**
- * A stat with icon, value, label, and optional avatars
+ * A stat with icon, value, label, and optional avatars.
+ * Used to display individual metrics in a card group layout.
  */
 export interface CardGroupStat {
   /**
@@ -61,7 +64,8 @@ export interface CardGroupStat {
 }
 
 /**
- * Props for the StatsCardGroup component
+ * Props for the StatsCardGroup component.
+ * A compact stats display featuring metrics in a bordered card with icons and optional avatar stacks.
  */
 export interface StatsCardGroupProps {
   /**
@@ -175,7 +179,8 @@ export function StatsCardGroup({
   avatarsClassName,
   optixFlowConfig,
 }: StatsCardGroupProps) {
-  const renderIcon = (stat: CardGroupStat) => {
+  // Memoized icon rendering
+  const renderIcon = useCallback((stat: CardGroupStat) => {
     if (stat.iconSlot) return stat.iconSlot;
     if (!stat.icon) return null;
     return (
@@ -188,9 +193,10 @@ export function StatsCardGroup({
         <DynamicIcon name={stat.icon} size={24} className="text-primary" />
       </div>
     );
-  };
+  }, [statIconClassName]);
 
-  const renderAvatars = (stat: CardGroupStat) => {
+  // Memoized avatars rendering
+  const renderAvatars = useCallback((stat: CardGroupStat) => {
     if (!stat.showAvatars) return null;
     if (avatarsSlot) return avatarsSlot;
     if (!avatars || avatars.length === 0) return null;
@@ -216,9 +222,10 @@ export function StatsCardGroup({
         )}
       </div>
     );
-  };
+  }, [avatarsSlot, avatars, avatarsClassName, optixFlowConfig]);
 
-  const renderStats = () => {
+  // Memoized stats rendering
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -242,14 +249,16 @@ export function StatsCardGroup({
           {stat.value}
         </div>
 
-        <div className={cn("mb-4 text-muted-foreground", statLabelClassName)}>
-          {stat.label}
-        </div>
+        {stat.label && (
+          <div className={cn("mb-4 text-muted-foreground", statLabelClassName)}>
+            {stat.label}
+          </div>
+        )}
 
         {renderAvatars(stat)}
       </div>
     ));
-  };
+  }, [statsSlot, stats, statValueClassName, statLabelClassName, renderIcon, renderAvatars]);
 
   return (
     <Section
@@ -261,11 +270,13 @@ export function StatsCardGroup({
       className={className}
     >
       <div className={cn("mx-auto max-w-4xl", containerClassName)}>
-        <div className={cn("rounded-xl border bg-card p-8", cardClassName)}>
-          <div className={cn("grid gap-8 md:grid-cols-3", statsClassName)}>
-            {renderStats()}
+        {(statsSlot || (stats && stats.length > 0)) && (
+          <div className={cn("rounded-xl border bg-card p-8", cardClassName)}>
+            <div className={cn("grid gap-8 md:grid-cols-3", statsClassName)}>
+              {statsContent}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </Section>
   );

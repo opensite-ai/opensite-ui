@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -8,7 +9,8 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A stat with number ticker animation
+ * A stat with number ticker animation.
+ * Used to display metrics with animated counting effects.
  */
 export interface TickerStat {
   /**
@@ -38,7 +40,8 @@ export interface TickerStat {
 }
 
 /**
- * Props for the StatsNumberTicker component
+ * Props for the StatsNumberTicker component.
+ * A stats section featuring smooth number ticker animations that count up when scrolled into view.
  */
 export interface StatsNumberTickerProps {
   /**
@@ -299,13 +302,15 @@ export function StatsNumberTicker({
     return () => observer.disconnect();
   }, []);
 
-  const renderBadge = () => {
+  // Memoized badge rendering
+  const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
     return <Badge className={cn("mb-4", badgeClassName)}>{badge}</Badge>;
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderStats = () => {
+  // Memoized stats rendering
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -325,7 +330,10 @@ export function StatsNumberTicker({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, animationDuration, isVisible, statsGridClassName, statCardClassName, statValueClassName, statLabelClassName, statDescriptionClassName]);
+
+  // Check if header has any content
+  const hasHeaderContent = !!(badge || badgeSlot || heading || description);
 
   return (
     <Section
@@ -337,29 +345,31 @@ export function StatsNumberTicker({
       className={className}
     >
       <div ref={sectionRef} className={cn("mx-auto max-w-5xl", containerClassName)}>
-        <div className={cn("mb-12 text-center", headerClassName)}>
-          {renderBadge()}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={cn("mb-4", headingClassName)}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
+        {hasHeaderContent && (
+          <div className={cn("mb-12 text-center", headerClassName)}>
+            {badgeContent}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
+              )
+            )}
+          </div>
+        )}
 
-        {renderStats()}
+        {statsContent}
       </div>
     </Section>
   );

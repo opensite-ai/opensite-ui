@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -8,7 +9,8 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A stat with animated counter
+ * A stat with animated counter.
+ * Used to display metrics that animate from 0 to their target value.
  */
 export interface AnimatedStat {
   /**
@@ -42,7 +44,8 @@ export interface AnimatedStat {
 }
 
 /**
- * Props for the StatsAnimatedCounter component
+ * Props for the StatsAnimatedCounter component.
+ * A stats section with animated number counters that trigger on scroll.
  */
 export interface StatsAnimatedCounterProps {
   /**
@@ -185,7 +188,8 @@ function AnimatedStatItem({
 }) {
   const count = useAnimatedCounter(stat.value, duration, isVisible);
 
-  const renderIcon = () => {
+  // Memoized icon rendering
+  const iconContent = useMemo(() => {
     if (stat.iconSlot) return stat.iconSlot;
     if (!stat.icon) return null;
     return (
@@ -193,17 +197,19 @@ function AnimatedStatItem({
         <DynamicIcon name={stat.icon} size={28} className="text-primary" />
       </div>
     );
-  };
+  }, [stat.iconSlot, stat.icon, iconClassName]);
 
   return (
     <div className={cn("flex flex-col items-center text-center", stat.className)}>
-      {renderIcon()}
+      {iconContent}
       <div className={cn("mb-2 text-4xl font-bold md:text-5xl", valueClassName)}>
         {stat.prefix}
         {count}
         {stat.suffix}
       </div>
-      <div className={cn("text-muted-foreground", labelClassName)}>{stat.label}</div>
+      {stat.label && (
+        <div className={cn("text-muted-foreground", labelClassName)}>{stat.label}</div>
+      )}
     </div>
   );
 }
@@ -218,10 +224,10 @@ function AnimatedStatItem({
  * @example
  * ```tsx
  * <StatsAnimatedCounter
- *   heading="Our Impact in Numbers"
+ *   heading="Our Impact"
  *   stats={[
  *     { value: 500, suffix: "+", label: "Projects Completed", icon: "lucide/folder-check" },
- *     { value: 98, suffix: "%", label: "Client Satisfaction", icon: "lucide/heart" },
+ *     { value: 98, suffix: "%", label: "Satisfaction Rate", icon: "lucide/heart" },
  *   ]}
  *   animationDuration={2000}
  * />
@@ -269,7 +275,11 @@ export function StatsAnimatedCounter({
     return () => observer.disconnect();
   }, []);
 
-  const renderStats = () => {
+  // Check if header has any content
+  const hasHeaderContent = !!(heading || description);
+
+  // Memoized stats rendering
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -284,7 +294,7 @@ export function StatsAnimatedCounter({
         iconClassName={statIconClassName}
       />
     ));
-  };
+  }, [statsSlot, stats, animationDuration, isVisible, statValueClassName, statLabelClassName, statIconClassName]);
 
   return (
     <Section
@@ -296,30 +306,32 @@ export function StatsAnimatedCounter({
       className={className}
     >
       <div ref={sectionRef} className={cn("mx-auto max-w-5xl", containerClassName)}>
-        <div className={cn("mb-12 text-center", contentClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-        </div>
+        {hasHeaderContent && (
+          <div className={cn("mb-12 text-center", contentClassName)}>
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
+              )
+            )}
+          </div>
+        )}
 
         {(statsSlot || (stats && stats.length > 0)) && (
           <div className={cn("grid gap-8 sm:grid-cols-2 lg:grid-cols-4", statsClassName)}>
-            {renderStats()}
+            {statsContent}
           </div>
         )}
       </div>

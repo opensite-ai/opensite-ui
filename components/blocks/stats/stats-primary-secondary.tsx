@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -9,7 +10,8 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A secondary stat item with value and label
+ * A secondary stat item with value and label.
+ * Used to display supporting metrics alongside a primary stat.
  */
 export interface SecondaryStat {
   /**
@@ -27,7 +29,8 @@ export interface SecondaryStat {
 }
 
 /**
- * Props for the StatsPrimarySecondary component
+ * Props for the StatsPrimarySecondary component.
+ * A two-column stats layout featuring one prominent primary metric with a badge indicator, alongside a row of secondary supporting stats.
  */
 export interface StatsPrimarySecondaryProps {
   /**
@@ -137,10 +140,10 @@ export interface StatsPrimarySecondaryProps {
  * ```
  */
 export function StatsPrimarySecondary({
-  primaryValue = "92%",
-  primaryBadge = "+7% this month",
+  primaryValue,
+  primaryBadge,
   primaryBadgeSlot,
-  primaryDescription = "of U.S. adults have bought from businesses using our platform",
+  primaryDescription,
   primarySlot,
   secondaryStats,
   secondaryStatsSlot,
@@ -159,7 +162,8 @@ export function StatsPrimarySecondary({
   secondaryValueClassName,
   secondaryLabelClassName,
 }: StatsPrimarySecondaryProps) {
-  const renderPrimaryBadge = () => {
+  // Memoized primary badge rendering
+  const renderPrimaryBadge = useCallback(() => {
     if (primaryBadgeSlot) return primaryBadgeSlot;
     if (!primaryBadge) return null;
     return (
@@ -168,10 +172,12 @@ export function StatsPrimarySecondary({
         {primaryBadge}
       </Badge>
     );
-  };
+  }, [primaryBadgeSlot, primaryBadge, primaryBadgeClassName]);
 
-  const renderPrimary = () => {
+  // Memoized primary section rendering
+  const primaryContent = useMemo(() => {
     if (primarySlot) return primarySlot;
+    if (!primaryValue) return null;
 
     return (
       <div className={cn("lg:col-span-4", primaryClassName)}>
@@ -192,19 +198,28 @@ export function StatsPrimarySecondary({
         </div>
       </div>
     );
-  };
+  }, [primarySlot, primaryValue, primaryClassName, primaryValueClassName, primaryDescription, primaryDescriptionClassName, renderPrimaryBadge]);
 
-  const renderSecondaryStats = () => {
+  // Memoized secondary stats rendering
+  const secondaryStatsContent = useMemo(() => {
     if (secondaryStatsSlot) return secondaryStatsSlot;
     if (!secondaryStats || secondaryStats.length === 0) return null;
 
     return secondaryStats.map((stat, index) => (
       <div key={index} className={stat.className}>
-        <p className={cn("text-3xl font-semibold", secondaryValueClassName)}>{stat.value}</p>
-        <p className={cn("mt-1 text-muted-foreground", secondaryLabelClassName)}>{stat.label}</p>
+        {stat.value && (
+          <p className={cn("text-3xl font-semibold", secondaryValueClassName)}>{stat.value}</p>
+        )}
+        {stat.label && (
+          <p className={cn("mt-1 text-muted-foreground", secondaryLabelClassName)}>{stat.label}</p>
+        )}
       </div>
     ));
-  };
+  }, [secondaryStatsSlot, secondaryStats, secondaryValueClassName, secondaryLabelClassName]);
+
+  // Check if there's any content to render
+  const hasPrimaryContent = !!(primarySlot || primaryValue);
+  const hasSecondaryContent = !!(secondaryStatsSlot || (secondaryStats && secondaryStats.length > 0));
 
   return (
     <Section
@@ -216,13 +231,15 @@ export function StatsPrimarySecondary({
       className={className}
     >
       <div className={cn("grid items-center gap-6 lg:grid-cols-12 lg:gap-12", containerClassName)}>
-        {renderPrimary()}
+        {hasPrimaryContent && primaryContent}
 
-        <div className={cn("relative lg:col-span-8 lg:before:absolute lg:before:-start-12 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-border", secondaryClassName)}>
-          <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 lg:grid-cols-3">
-            {renderSecondaryStats()}
+        {hasSecondaryContent && (
+          <div className={cn("relative lg:before:absolute lg:before:-start-12 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-border", hasPrimaryContent ? "lg:col-span-8" : "lg:col-span-12", secondaryClassName)}>
+            <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 lg:grid-cols-3">
+              {secondaryStatsContent}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </Section>
   );

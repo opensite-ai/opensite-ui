@@ -1,13 +1,15 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A milestone item with year and description
+ * A milestone item with year and description.
+ * Used to display key events or achievements in a timeline.
  */
 export interface MilestoneItem {
   /**
@@ -29,7 +31,8 @@ export interface MilestoneItem {
 }
 
 /**
- * Props for the StatsMilestoneSidebar component
+ * Props for the StatsMilestoneSidebar component.
+ * A two-column layout featuring a sticky sidebar with heading and description, alongside a scrollable list of milestones.
  */
 export interface StatsMilestoneSidebarProps {
   /**
@@ -154,8 +157,10 @@ export function StatsMilestoneSidebar({
   milestoneTitleClassName,
   milestoneDescriptionClassName,
 }: StatsMilestoneSidebarProps) {
-  const renderSidebar = () => {
+  // Memoized sidebar rendering
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
+    if (!heading && !description) return null;
 
     return (
       <div className="lg:sticky lg:top-24">
@@ -187,9 +192,10 @@ export function StatsMilestoneSidebar({
           ))}
       </div>
     );
-  };
+  }, [sidebarSlot, heading, description, headingClassName, descriptionClassName]);
 
-  const renderMilestones = () => {
+  // Memoized milestones rendering
+  const milestonesContent = useMemo(() => {
     if (milestonesSlot) return milestonesSlot;
     if (!milestones || milestones.length === 0) return null;
 
@@ -208,14 +214,16 @@ export function StatsMilestoneSidebar({
             <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-primary bg-background" />
 
             {/* Year badge */}
-            <div
-              className={cn(
-                "mb-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary",
-                milestoneYearClassName,
-              )}
-            >
-              {milestone.year}
-            </div>
+            {milestone.year && (
+              <div
+                className={cn(
+                  "mb-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary",
+                  milestoneYearClassName,
+                )}
+              >
+                {milestone.year}
+              </div>
+            )}
 
             {/* Content */}
             {milestone.title &&
@@ -252,7 +260,11 @@ export function StatsMilestoneSidebar({
         ))}
       </div>
     );
-  };
+  }, [milestonesSlot, milestones, milestonesClassName, milestoneItemClassName, milestoneYearClassName, milestoneTitleClassName, milestoneDescriptionClassName]);
+
+  // Check if there's any content to render
+  const hasSidebarContent = !!(sidebarSlot || heading || description);
+  const hasMilestonesContent = !!(milestonesSlot || (milestones && milestones.length > 0));
 
   return (
     <Section
@@ -266,12 +278,18 @@ export function StatsMilestoneSidebar({
       <div className={cn("mx-auto max-w-6xl", containerClassName)}>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Sticky Sidebar */}
-          <div className={cn("lg:col-span-4", sidebarClassName)}>
-            {renderSidebar()}
-          </div>
+          {hasSidebarContent && (
+            <div className={cn("lg:col-span-4", sidebarClassName)}>
+              {sidebarContent}
+            </div>
+          )}
 
           {/* Milestones List */}
-          <div className="lg:col-span-8">{renderMilestones()}</div>
+          {hasMilestonesContent && (
+            <div className={hasSidebarContent ? "lg:col-span-8" : "lg:col-span-12"}>
+              {milestonesContent}
+            </div>
+          )}
         </div>
       </div>
     </Section>

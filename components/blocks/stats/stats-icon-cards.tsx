@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -8,7 +9,8 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A stat item with icon, value, label, and growth indicator
+ * A stat item with icon, value, label, and growth indicator.
+ * Used to display metrics with visual growth trends.
  */
 export interface StatIconItem {
   /**
@@ -43,7 +45,8 @@ export interface StatIconItem {
 }
 
 /**
- * Props for the StatsIconCards component
+ * Props for the StatsIconCards component.
+ * A modern stats grid featuring bordered cards with icons, values, and growth indicators.
  */
 export interface StatsIconCardsProps {
   /**
@@ -169,7 +172,8 @@ export function StatsIconCards({
   statGrowthClassName,
   statIconClassName,
 }: StatsIconCardsProps) {
-  const renderIcon = (stat: StatIconItem) => {
+  // Memoized icon rendering
+  const renderIcon = useCallback((stat: StatIconItem) => {
     if (stat.iconSlot) return stat.iconSlot;
     if (!stat.icon) return null;
     return (
@@ -181,9 +185,10 @@ export function StatsIconCards({
         />
       </div>
     );
-  };
+  }, [statIconClassName]);
 
-  const renderStats = () => {
+  // Memoized stats rendering
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -194,36 +199,45 @@ export function StatsIconCards({
       >
         <div className="flex items-start justify-between">
           <div>
-            <p className={cn("font-medium text-muted-foreground", statLabelClassName)}>
-              {stat.label}
-            </p>
-            <h3 className={cn("mt-4 text-4xl font-bold", statValueClassName)}>{stat.value}</h3>
-            <p
-              className={cn(
-                "mt-1 flex items-center text-sm font-medium",
-                stat.isPositive !== false
-                  ? "text-emerald-500"
-                  : "text-rose-500",
-                statGrowthClassName
-              )}
-            >
-              <DynamicIcon
-                name={
+            {stat.label && (
+              <p className={cn("font-medium text-muted-foreground", statLabelClassName)}>
+                {stat.label}
+              </p>
+            )}
+            {stat.value && (
+              <h3 className={cn("mt-4 text-4xl font-bold", statValueClassName)}>{stat.value}</h3>
+            )}
+            {stat.growth && (
+              <p
+                className={cn(
+                  "mt-1 flex items-center text-sm font-medium",
                   stat.isPositive !== false
-                    ? "lucide/arrow-up-right"
-                    : "lucide/arrow-down-right"
-                }
-                size={16}
-                className="mr-1"
-              />
-              <span>{stat.growth}</span>
-            </p>
+                    ? "text-emerald-500"
+                    : "text-rose-500",
+                  statGrowthClassName
+                )}
+              >
+                <DynamicIcon
+                  name={
+                    stat.isPositive !== false
+                      ? "lucide/arrow-up-right"
+                      : "lucide/arrow-down-right"
+                  }
+                  size={16}
+                  className="mr-1"
+                />
+                <span>{stat.growth}</span>
+              </p>
+            )}
           </div>
           {renderIcon(stat)}
         </div>
       </div>
     ));
-  };
+  }, [statsSlot, stats, statCardClassName, statLabelClassName, statValueClassName, statGrowthClassName, renderIcon]);
+
+  // Check if header has any content
+  const hasHeaderContent = !!(heading || description);
 
   return (
     <Section
@@ -235,30 +249,32 @@ export function StatsIconCards({
       className={className}
     >
       <div className={cn("mx-auto max-w-5xl", containerClassName)}>
-        <div className={cn("mb-10 text-center", contentClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-3 text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mt-3", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
+        {hasHeaderContent && (
+          <div className={cn("mb-10 text-center", contentClassName)}>
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mt-3 text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mt-3", descriptionClassName)}>{description}</div>
+              )
+            )}
+          </div>
+        )}
 
         {(statsSlot || (stats && stats.length > 0)) && (
           <div className={cn("grid gap-8 sm:grid-cols-2 lg:grid-cols-4", statsClassName)}>
-            {renderStats()}
+            {statsContent}
           </div>
         )}
       </div>

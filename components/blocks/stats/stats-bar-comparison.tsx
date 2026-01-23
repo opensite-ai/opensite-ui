@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -8,7 +9,8 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A comparison bar item
+ * A comparison bar item.
+ * Used to display a single bar in a comparison visualization.
  */
 export interface ComparisonBar {
   /**
@@ -34,7 +36,8 @@ export interface ComparisonBar {
 }
 
 /**
- * A comparison group with multiple bars
+ * A comparison group with multiple bars.
+ * Used to group related comparison bars together.
  */
 export interface ComparisonGroup {
   /**
@@ -52,7 +55,8 @@ export interface ComparisonGroup {
 }
 
 /**
- * Props for the StatsBarComparison component
+ * Props for the StatsBarComparison component.
+ * A visual comparison section featuring animated horizontal bar charts.
  */
 export interface StatsBarComparisonProps {
   /**
@@ -227,7 +231,8 @@ export function StatsBarComparison({
     return () => observer.disconnect();
   }, [animate]);
 
-  const renderBadge = () => {
+  // Memoized badge rendering
+  const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
     return (
@@ -235,9 +240,10 @@ export function StatsBarComparison({
         {badge}
       </Badge>
     );
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderComparisons = () => {
+  // Memoized comparisons rendering
+  const comparisonsContent = useMemo(() => {
     if (comparisonsSlot) return comparisonsSlot;
     if (!comparisons || comparisons.length === 0) return null;
 
@@ -274,7 +280,10 @@ export function StatsBarComparison({
         </div>
       </div>
     ));
-  };
+  }, [comparisonsSlot, comparisons, isVisible, groupCardClassName, groupTitleClassName, barLabelClassName, barValueClassName, barTrackClassName]);
+
+  // Check if header has any content
+  const hasHeaderContent = !!(badge || badgeSlot || heading || description);
 
   return (
     <Section
@@ -286,31 +295,35 @@ export function StatsBarComparison({
       className={className}
     >
       <div ref={sectionRef} className={cn("mx-auto max-w-4xl", containerClassName)}>
-        <div className={cn("mb-12 text-center", headerClassName)}>
-          {renderBadge()}
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={cn("mb-4", headingClassName)}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
+        {hasHeaderContent && (
+          <div className={cn("mb-12 text-center", headerClassName)}>
+            {badgeContent}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
+              )
+            )}
+          </div>
+        )}
 
-        <div className={cn("space-y-10", comparisonsClassName)}>
-          {renderComparisons()}
-        </div>
+        {(comparisonsSlot || (comparisons && comparisons.length > 0)) && (
+          <div className={cn("space-y-10", comparisonsClassName)}>
+            {comparisonsContent}
+          </div>
+        )}
       </div>
     </Section>
   );

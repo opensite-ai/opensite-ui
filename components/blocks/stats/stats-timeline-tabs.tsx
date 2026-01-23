@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
@@ -10,7 +11,8 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
- * A single stat entry with value, change, and trend
+ * A single stat entry with value, change, and trend.
+ * Used to display metrics with trend indicators and comparison periods.
  */
 export interface TimelineStat {
   /**
@@ -44,7 +46,8 @@ export interface TimelineStat {
 }
 
 /**
- * A time period with its associated stats
+ * A time period with its associated stats.
+ * Groups metrics by time range for tabbed display.
  */
 export interface TimePeriod {
   /**
@@ -66,7 +69,8 @@ export interface TimePeriod {
 }
 
 /**
- * Props for the StatsTimelineTabs component
+ * Props for the StatsTimelineTabs component.
+ * A tabbed stats display showing metrics across different time periods with color-coded trend indicators.
  */
 export interface StatsTimelineTabsProps {
   /**
@@ -183,7 +187,7 @@ export function StatsTimelineTabs({
   description,
   periods,
   tabsSlot,
-  defaultPeriod = "monthly",
+  defaultPeriod,
   background = "white",
   spacing = "lg",
   pattern,
@@ -200,18 +204,23 @@ export function StatsTimelineTabs({
   statsGridClassName,
   statCardClassName,
 }: StatsTimelineTabsProps) {
-  const renderBadge = () => {
+  // Use first period as default if not specified
+  const effectiveDefaultPeriod = defaultPeriod || (periods && periods.length > 0 ? periods[0].id : "");
+
+  // Memoized badge rendering
+  const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
     return <Badge className={cn("mb-2", badgeClassName)}>{badge}</Badge>;
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderTabs = () => {
+  // Memoized tabs rendering
+  const tabsContent = useMemo(() => {
     if (tabsSlot) return tabsSlot;
     if (!periods || periods.length === 0) return null;
 
     return (
-      <Tabs defaultValue={defaultPeriod} className={cn("mt-8 w-full", tabsClassName)}>
+      <Tabs defaultValue={effectiveDefaultPeriod} className={cn("mt-8 w-full", tabsClassName)}>
         <div className="mb-8 flex justify-center">
           <TabsList className={tabsListClassName}>
             {periods.map((period) => (
@@ -240,7 +249,9 @@ export function StatsTimelineTabs({
                     )}
                   >
                     <div className="flex items-start justify-between">
-                      <p className="text-lg font-medium">{stat.label}</p>
+                      {stat.label && (
+                        <p className="text-lg font-medium">{stat.label}</p>
+                      )}
                       <div className="flex items-center">
                         <DynamicIcon
                           name="lucide/clock"
@@ -253,7 +264,9 @@ export function StatsTimelineTabs({
                       </div>
                     </div>
 
-                    <h3 className="mt-4 text-3xl font-bold">{stat.value}</h3>
+                    {stat.value && (
+                      <h3 className="mt-4 text-3xl font-bold">{stat.value}</h3>
+                    )}
 
                     <div className="mt-2 flex items-center">
                       <div
@@ -275,9 +288,11 @@ export function StatsTimelineTabs({
                         />
                         {Math.abs(stat.change)}%
                       </div>
-                      <p className="ml-2 text-sm text-muted-foreground">
-                        vs {stat.previousLabel}
-                      </p>
+                      {stat.previousLabel && (
+                        <p className="ml-2 text-sm text-muted-foreground">
+                          vs {stat.previousLabel}
+                        </p>
+                      )}
                     </div>
                   </div>
                 );
@@ -287,7 +302,11 @@ export function StatsTimelineTabs({
         ))}
       </Tabs>
     );
-  };
+  }, [tabsSlot, periods, effectiveDefaultPeriod, tabsClassName, tabsListClassName, statsGridClassName, statCardClassName]);
+
+  // Check if header has any content
+  const hasHeaderContent = !!(badge || badgeSlot || heading || description);
+  const hasTabsContent = !!(tabsSlot || (periods && periods.length > 0));
 
   return (
     <Section
@@ -300,29 +319,31 @@ export function StatsTimelineTabs({
     >
       <div className={cn("mx-auto max-w-6xl", containerClassName)}>
         <div className="flex flex-col space-y-6">
-          <div className={cn("space-y-2 text-center", headerClassName)}>
-            {renderBadge()}
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
-                  {heading}
-                </h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
-              )
-            )}
-          </div>
+          {hasHeaderContent && (
+            <div className={cn("space-y-2 text-center", headerClassName)}>
+              {badgeContent}
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+                    {heading}
+                  </h2>
+                ) : (
+                  <div className={headingClassName}>{heading}</div>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                    {description}
+                  </p>
+                ) : (
+                  <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
+                )
+              )}
+            </div>
+          )}
 
-          {renderTabs()}
+          {hasTabsContent && tabsContent}
         </div>
       </div>
     </Section>
