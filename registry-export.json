@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-01-03T03:29:40.921Z",
+    "exportedAt": "2026-01-23T01:05:25.816Z",
     "totalBlocks": 604,
-    "version": "0.3.2",
+    "version": "0.4.9",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -6483,7 +6483,7 @@
       ],
       "category": "navbar",
       "props": "NavbarMegaMenuProps",
-      "exampleUsage": "<NavbarMegaMenu\n  logo={{ src: \"/logo.svg\", alt: \"Company\" }}\n  platformItems={[{ label: \"Analytics\", href: \"/analytics\", icon: \"lucide/bar-chart\", description: \"Track your metrics\" }]}\n  useCaseItems={[{ label: \"Marketing\", href: \"/marketing\", icon: \"lucide/megaphone\" }]}\n  developerItems={[{ label: \"Documentation\", href: \"/docs\", icon: \"lucide/book\" }]}\n  resourceItems={[{ label: \"Blog\", href: \"/blog\", icon: \"lucide/newspaper\" }]}\n/>"
+      "exampleUsage": "<NavbarMegaMenu\n  logo={{ src: \"/logo.svg\", alt: \"Company\" }}\n  menuLinks={[\n    {\n      title: \"Platform\",\n      dropdownItems: [\n        { title: \"Analytics\", href: \"/analytics\", icon: \"lucide/bar-chart\", description: \"Track your metrics\" },\n        { title: \"Automation\", href: \"/automation\", icon: \"lucide/workflow\", description: \"Automate workflows\" }\n      ]\n    },\n    {\n      title: \"Resources\",\n      dropdownItems: [\n        { title: \"Blog\", href: \"/blog\", icon: \"lucide/newspaper\", description: \"Latest updates\" },\n        { title: \"Guides\", href: \"/guides\", icon: \"lucide/book-open\", description: \"How-tos and playbooks\" }\n      ]\n    },\n    { title: \"Pricing\", href: \"/pricing\" }\n  ]}\n  actions={[\n    { label: \"Sign in\", href: \"/login\", variant: \"ghost\" },\n    { label: \"Get started\", href: \"/signup\", variant: \"default\" }\n  ]}\n/>"
     },
     {
       "id": "navbar-enterprise-mega",
@@ -6563,7 +6563,7 @@
       ],
       "category": "navbar",
       "props": "NavbarPlatformResourcesProps",
-      "exampleUsage": "<NavbarPlatformResources\n  logo={{ src: \"/logo.svg\", alt: \"Platform\" }}\n  solutions={[{ label: \"Analytics\", href: \"/analytics\", icon: \"lucide/bar-chart\", description: \"Track metrics\" }]}\n  useCases={[{ label: \"Marketing Teams\", href: \"/marketing\" }]}\n  resources={[{ label: \"Documentation\", href: \"/docs\", icon: \"lucide/book\" }]}\n/>"
+      "exampleUsage": "<NavbarPlatformResources\n  logo={{ src: \"/logo.svg\", alt: \"Platform\" }}\n  menuLinks={[\n    {\n      title: \"Platform\",\n      dropdownItems: [\n        { title: \"Analytics\", href: \"/analytics\", icon: \"lucide/bar-chart\", description: \"Track metrics\" },\n        { title: \"Automation\", href: \"/automation\", icon: \"lucide/workflow\", description: \"Automate workflows\" }\n      ]\n    },\n    {\n      title: \"Resources\",\n      dropdownItems: [\n        { title: \"Documentation\", href: \"/docs\", icon: \"lucide/book\" },\n        { title: \"Guides\", href: \"/guides\", icon: \"lucide/book-open\", description: \"Best practices\" }\n      ]\n    },\n    { title: \"Pricing\", href: \"/pricing\" }\n  ]}\n  actions={[\n    { label: \"Sign in\", href: \"/login\", variant: \"ghost\" },\n    { label: \"Get started\", href: \"/signup\", variant: \"default\" }\n  ]}\n/>"
     },
     {
       "id": "navbar-image-preview",
