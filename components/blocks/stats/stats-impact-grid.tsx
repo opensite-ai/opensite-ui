@@ -247,8 +247,8 @@ export function StatsImpactGrid({
   ctaHeading,
   actions,
   ctaSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -369,11 +369,14 @@ export function StatsImpactGrid({
 
     // Only render progress bars if we have the necessary data
     const hasProgressBars =
-      baselineLabel && targetLabel && baselinePercent !== undefined && targetPercent !== undefined;
+      baselineLabel &&
+      targetLabel &&
+      baselinePercent !== undefined &&
+      targetPercent !== undefined;
 
     return (
       <div className={cn("mb-16 rounded-xl bg-muted p-8", comparisonClassName)}>
-        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
+        <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,240px)] md:items-start md:gap-12">
           <div>
             {comparisonHeading &&
               (typeof comparisonHeading === "string" ? (
@@ -417,38 +420,34 @@ export function StatsImpactGrid({
             )}
           </div>
           {(baselineValue || targetValue) && (
-            <div className="flex flex-col gap-4 text-center md:border-l md:pl-16 md:text-left">
-              {baselineValue && (
-                <div>
-                  {baselineLabel && (
-                    <div className="text-sm uppercase text-muted-foreground">
-                      {baselineLabel}
-                    </div>
-                  )}
-                  <div className="text-3xl font-bold">{baselineValue}</div>
-                </div>
-              )}
-              {baselineValue && targetValue && (
-                <div className="flex h-12 items-center justify-center md:justify-start">
-                  <DynamicIcon
-                    name="lucide/arrow-up-right"
-                    size={32}
-                    className="text-primary"
-                  />
-                </div>
-              )}
-              {targetValue && (
-                <div>
-                  {targetLabel && (
-                    <div className="text-sm font-medium uppercase text-primary">
-                      {targetLabel}
-                    </div>
-                  )}
-                  <div className="text-4xl font-bold text-primary">
-                    {targetValue}
+            <div className="rounded-lg border bg-background/70 p-6 text-center shadow-sm md:text-left">
+              <div className="space-y-4">
+                {baselineValue && (
+                  <div>
+                    {baselineLabel && (
+                      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        {baselineLabel}
+                      </div>
+                    )}
+                    <div className="text-3xl font-bold">{baselineValue}</div>
                   </div>
-                </div>
-              )}
+                )}
+                {baselineValue && targetValue && (
+                  <div className="h-px bg-border" />
+                )}
+                {targetValue && (
+                  <div>
+                    {targetLabel && (
+                      <div className="text-xs font-semibold uppercase tracking-wide text-primary">
+                        {targetLabel}
+                      </div>
+                    )}
+                    <div className="text-4xl font-bold text-primary">
+                      {targetValue}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -539,9 +538,6 @@ export function StatsImpactGrid({
       patternClassName={patternClassName}
       className={cn("relative overflow-hidden", className)}
     >
-      {/* Background gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-primary/5 to-background" />
-
       <div className={cn("relative mx-auto max-w-5xl", containerClassName)}>
         {hasHeaderContent && (
           <div className={cn("mb-12 text-center", headerClassName)}>

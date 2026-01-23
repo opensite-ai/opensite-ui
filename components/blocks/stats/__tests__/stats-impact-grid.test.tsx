@@ -275,15 +275,13 @@ describe("StatsImpactGrid", () => {
       expect(screen.getByTestId("custom-comparison")).toBeInTheDocument();
     });
 
-    it("renders arrow icon between baseline and target values", () => {
-      render(
+    it("renders separator between baseline and target values", () => {
+      const { container } = render(
         <StatsImpactGrid baselineValue="10%" targetValue="50%" />
       );
-      const icons = screen.getAllByTestId("mock-icon");
-      const arrowIcon = icons.find(
-        (icon) => icon.getAttribute("data-icon-name") === "lucide/arrow-up-right"
-      );
-      expect(arrowIcon).toBeInTheDocument();
+      // The separator is a horizontal line (div with h-px class)
+      const separator = container.querySelector(".h-px.bg-border");
+      expect(separator).toBeInTheDocument();
     });
   });
 
