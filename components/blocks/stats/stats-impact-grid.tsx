@@ -315,7 +315,7 @@ export function StatsImpactGrid({
                     {stat.prefix}
                   </span>
                 )}
-                <h3 className="text-4xl font-bold tracking-tight md:text-5xl">
+                <h3 className="text-4xl font-bold tracking-tight leading-tight md:text-5xl">
                   {stat.value}
                 </h3>
                 {stat.suffix && (
