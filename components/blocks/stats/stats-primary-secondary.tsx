@@ -147,8 +147,8 @@ export function StatsPrimarySecondary({
   primarySlot,
   secondaryStats,
   secondaryStatsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -167,7 +167,10 @@ export function StatsPrimarySecondary({
     if (primaryBadgeSlot) return primaryBadgeSlot;
     if (!primaryBadge) return null;
     return (
-      <Badge variant="secondary" className={cn("ml-2 gap-1", primaryBadgeClassName)}>
+      <Badge
+        variant="secondary"
+        className={cn("ml-2 gap-1", primaryBadgeClassName)}
+      >
         <DynamicIcon name="lucide/badge-check" size={16} className="shrink-0" />
         {primaryBadge}
       </Badge>
@@ -182,23 +185,42 @@ export function StatsPrimarySecondary({
     return (
       <div className={cn("lg:col-span-4", primaryClassName)}>
         <div className="lg:pe-6 xl:pe-12">
-          <p className={cn("text-6xl font-bold leading-10", primaryValueClassName)}>
+          <p
+            className={cn(
+              "text-6xl font-bold leading-10",
+              primaryValueClassName,
+            )}
+          >
             {primaryValue}
             {renderPrimaryBadge()}
           </p>
-          {primaryDescription && (
-            typeof primaryDescription === "string" ? (
-              <p className={cn("mt-2 text-muted-foreground sm:mt-3", primaryDescriptionClassName)}>
+          {primaryDescription &&
+            (typeof primaryDescription === "string" ? (
+              <p
+                className={cn(
+                  "mt-2 text-muted-foreground sm:mt-3",
+                  primaryDescriptionClassName,
+                )}
+              >
                 {primaryDescription}
               </p>
             ) : (
-              <div className={cn("mt-2 sm:mt-3", primaryDescriptionClassName)}>{primaryDescription}</div>
-            )
-          )}
+              <div className={cn("mt-2 sm:mt-3", primaryDescriptionClassName)}>
+                {primaryDescription}
+              </div>
+            ))}
         </div>
       </div>
     );
-  }, [primarySlot, primaryValue, primaryClassName, primaryValueClassName, primaryDescription, primaryDescriptionClassName, renderPrimaryBadge]);
+  }, [
+    primarySlot,
+    primaryValue,
+    primaryClassName,
+    primaryValueClassName,
+    primaryDescription,
+    primaryDescriptionClassName,
+    renderPrimaryBadge,
+  ]);
 
   // Memoized secondary stats rendering
   const secondaryStatsContent = useMemo(() => {
@@ -208,18 +230,35 @@ export function StatsPrimarySecondary({
     return secondaryStats.map((stat, index) => (
       <div key={index} className={stat.className}>
         {stat.value && (
-          <p className={cn("text-3xl font-semibold", secondaryValueClassName)}>{stat.value}</p>
+          <p className={cn("text-3xl font-semibold", secondaryValueClassName)}>
+            {stat.value}
+          </p>
         )}
         {stat.label && (
-          <p className={cn("mt-1 text-muted-foreground", secondaryLabelClassName)}>{stat.label}</p>
+          <p
+            className={cn(
+              "mt-1 text-muted-foreground",
+              secondaryLabelClassName,
+            )}
+          >
+            {stat.label}
+          </p>
         )}
       </div>
     ));
-  }, [secondaryStatsSlot, secondaryStats, secondaryValueClassName, secondaryLabelClassName]);
+  }, [
+    secondaryStatsSlot,
+    secondaryStats,
+    secondaryValueClassName,
+    secondaryLabelClassName,
+  ]);
 
   // Check if there's any content to render
   const hasPrimaryContent = !!(primarySlot || primaryValue);
-  const hasSecondaryContent = !!(secondaryStatsSlot || (secondaryStats && secondaryStats.length > 0));
+  const hasSecondaryContent = !!(
+    secondaryStatsSlot ||
+    (secondaryStats && secondaryStats.length > 0)
+  );
 
   return (
     <Section
@@ -230,11 +269,22 @@ export function StatsPrimarySecondary({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("grid items-center gap-6 lg:grid-cols-12 lg:gap-12", containerClassName)}>
+      <div
+        className={cn(
+          "grid items-center gap-6 lg:grid-cols-12 lg:gap-12",
+          containerClassName,
+        )}
+      >
         {hasPrimaryContent && primaryContent}
 
         {hasSecondaryContent && (
-          <div className={cn("relative lg:before:absolute lg:before:-start-12 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-border", hasPrimaryContent ? "lg:col-span-8" : "lg:col-span-12", secondaryClassName)}>
+          <div
+            className={cn(
+              "relative lg:before:absolute lg:before:-start-12 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-border",
+              hasPrimaryContent ? "lg:col-span-8" : "lg:col-span-12",
+              secondaryClassName,
+            )}
+          >
             <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 lg:grid-cols-3">
               {secondaryStatsContent}
             </div>

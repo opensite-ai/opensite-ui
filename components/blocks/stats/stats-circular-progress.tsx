@@ -250,8 +250,8 @@ export function StatsCircularProgress({
   categories,
   categoriesSlot,
   defaultCategory,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -269,7 +269,9 @@ export function StatsCircularProgress({
   statInfoClassName,
 }: StatsCircularProgressProps) {
   // Use first category as default if not specified
-  const effectiveDefaultCategory = defaultCategory || (categories && categories.length > 0 ? categories[0].id : "");
+  const effectiveDefaultCategory =
+    defaultCategory ||
+    (categories && categories.length > 0 ? categories[0].id : "");
   const [category, setCategory] = React.useState(effectiveDefaultCategory);
 
   // Memoized badge rendering
@@ -299,20 +301,28 @@ export function StatsCircularProgress({
           >
             {categories.map((cat) => (
               <option key={`select-${cat.id}`} value={cat.id}>
-                {typeof cat.name === "string" ? `${cat.name} Metrics` : cat.name}
+                {typeof cat.name === "string"
+                  ? `${cat.name} Metrics`
+                  : cat.name}
               </option>
             ))}
           </select>
         </div>
 
         {/* Tabs for desktop */}
-        <Tabs value={category} onValueChange={setCategory} className={cn("w-full", tabsClassName)}>
+        <Tabs
+          value={category}
+          onValueChange={setCategory}
+          className={cn("w-full", tabsClassName)}
+        >
           {/* Desktop Tabs */}
           <div className="mb-12 hidden justify-center md:flex">
             <TabsList>
               {categories.map((cat) => (
                 <TabsTrigger key={cat.id} value={cat.id}>
-                  {typeof cat.name === "string" ? `${cat.name} Metrics` : cat.name}
+                  {typeof cat.name === "string"
+                    ? `${cat.name} Metrics`
+                    : cat.name}
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -321,20 +331,32 @@ export function StatsCircularProgress({
           {/* Tab Content */}
           {categories.map((cat) => (
             <TabsContent key={cat.id} value={cat.id} className={cat.className}>
-              <div className={cn("grid gap-8 sm:grid-cols-2 lg:grid-cols-4", statsClassName)}>
+              <div
+                className={cn(
+                  "grid gap-8 sm:grid-cols-2 lg:grid-cols-4",
+                  statsClassName,
+                )}
+              >
                 {cat.stats.map((stat, index) => (
                   <div
                     key={index}
-                    className={cn("flex flex-col items-center justify-center rounded-xl border bg-card p-6", stat.className, statCardClassName)}
+                    className={cn(
+                      "flex flex-col items-center justify-center rounded-xl border bg-card p-6",
+                      stat.className,
+                      statCardClassName,
+                    )}
                   >
                     <div className="relative mb-4 flex items-center justify-center">
-                      <CircularProgressIndicator value={stat.value} size={120} />
+                      <CircularProgressIndicator
+                        value={stat.value}
+                        size={120}
+                      />
                       <div className="absolute flex flex-col items-center justify-center">
                         <span
                           className={cn(
                             "text-2xl font-bold md:text-3xl",
                             getColorClass(stat.value),
-                            statValueClassName
+                            statValueClassName,
                           )}
                         >
                           {stat.value}
@@ -343,12 +365,22 @@ export function StatsCircularProgress({
                       </div>
                     </div>
                     {stat.label && (
-                      <h3 className={cn("text-center text-lg font-semibold md:text-xl", statLabelClassName)}>
+                      <h3
+                        className={cn(
+                          "text-center text-lg font-semibold md:text-xl",
+                          statLabelClassName,
+                        )}
+                      >
                         {stat.label}
                       </h3>
                     )}
                     {stat.info && (
-                      <p className={cn("mt-1 text-center text-xs text-muted-foreground md:text-sm", statInfoClassName)}>
+                      <p
+                        className={cn(
+                          "mt-1 text-center text-xs text-muted-foreground md:text-sm",
+                          statInfoClassName,
+                        )}
+                      >
                         {stat.info}
                       </p>
                     )}
@@ -360,7 +392,17 @@ export function StatsCircularProgress({
         </Tabs>
       </>
     );
-  }, [categoriesSlot, categories, category, tabsClassName, statsClassName, statCardClassName, statValueClassName, statLabelClassName, statInfoClassName]);
+  }, [
+    categoriesSlot,
+    categories,
+    category,
+    tabsClassName,
+    statsClassName,
+    statCardClassName,
+    statValueClassName,
+    statLabelClassName,
+    statInfoClassName,
+  ]);
 
   // Check if header has any content
   const hasHeaderContent = !!(badge || badgeSlot || heading || description);
@@ -378,24 +420,36 @@ export function StatsCircularProgress({
         {hasHeaderContent && (
           <div className={cn("mb-12 text-center", headerClassName)}>
             {badgeContent}
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-bold md:text-4xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto mt-3 max-w-2xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto mt-3 max-w-2xl text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto mt-3 max-w-2xl", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div
+                  className={cn("mx-auto mt-3 max-w-2xl", descriptionClassName)}
+                >
+                  {description}
+                </div>
+              ))}
           </div>
         )}
 

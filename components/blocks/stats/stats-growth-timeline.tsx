@@ -7,7 +7,11 @@ import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing, ActionConfig } from "../../../src/types";
+import type {
+  SectionBackground,
+  SectionSpacing,
+  ActionConfig,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
@@ -226,8 +230,8 @@ export function StatsGrowthTimeline({
   futureSlot,
   actions,
   actionsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -255,11 +259,7 @@ export function StatsGrowthTimeline({
     if (!milestone.icon) return null;
     return (
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-        <DynamicIcon
-          name={milestone.icon}
-          size={32}
-          className="text-primary"
-        />
+        <DynamicIcon name={milestone.icon} size={32} className="text-primary" />
       </div>
     );
   }, []);
@@ -283,7 +283,7 @@ export function StatsGrowthTimeline({
                 "flex flex-col gap-8 md:flex-row md:gap-0",
                 index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse",
                 milestone.className,
-                milestoneClassName
+                milestoneClassName,
               )}
             >
               {/* Content */}
@@ -293,20 +293,22 @@ export function StatsGrowthTimeline({
                     {milestone.year}
                   </div>
                 )}
-                {milestone.title && (
-                  typeof milestone.title === "string" ? (
-                    <h3 className="mb-2 text-xl font-bold">{milestone.title}</h3>
+                {milestone.title &&
+                  (typeof milestone.title === "string" ? (
+                    <h3 className="mb-2 text-xl font-bold">
+                      {milestone.title}
+                    </h3>
                   ) : (
                     <div className="mb-2">{milestone.title}</div>
-                  )
-                )}
-                {milestone.description && (
-                  typeof milestone.description === "string" ? (
-                    <p className="mb-4 text-muted-foreground">{milestone.description}</p>
+                  ))}
+                {milestone.description &&
+                  (typeof milestone.description === "string" ? (
+                    <p className="mb-4 text-muted-foreground">
+                      {milestone.description}
+                    </p>
                   ) : (
                     <div className="mb-4">{milestone.description}</div>
-                  )
-                )}
+                  ))}
 
                 {milestone.metric && (
                   <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
@@ -334,7 +336,13 @@ export function StatsGrowthTimeline({
         </div>
       </div>
     );
-  }, [milestonesSlot, milestones, timelineClassName, milestoneClassName, renderMilestoneIcon]);
+  }, [
+    milestonesSlot,
+    milestones,
+    timelineClassName,
+    milestoneClassName,
+    renderMilestoneIcon,
+  ]);
 
   // Memoized current stats rendering
   const currentStatsContent = useMemo(() => {
@@ -342,14 +350,17 @@ export function StatsGrowthTimeline({
     if (!currentStats || currentStats.length === 0) return null;
 
     return (
-      <div className={cn("mt-24 rounded-lg bg-muted p-8", currentStatsClassName)}>
-        {currentStatsHeading && (
-          typeof currentStatsHeading === "string" ? (
-            <h3 className="mb-6 text-center text-2xl font-bold">{currentStatsHeading}</h3>
+      <div
+        className={cn("mt-24 rounded-lg bg-muted p-8", currentStatsClassName)}
+      >
+        {currentStatsHeading &&
+          (typeof currentStatsHeading === "string" ? (
+            <h3 className="mb-6 text-center text-2xl font-bold">
+              {currentStatsHeading}
+            </h3>
           ) : (
             <div className="mb-6 text-center">{currentStatsHeading}</div>
-          )
-        )}
+          ))}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {currentStats.map((stat, index) => (
             <div key={index} className={cn("text-center", stat.className)}>
@@ -357,14 +368,21 @@ export function StatsGrowthTimeline({
                 {stat.value}
               </div>
               {stat.label && (
-                <p className="font-medium text-muted-foreground">{stat.label}</p>
+                <p className="font-medium text-muted-foreground">
+                  {stat.label}
+                </p>
               )}
             </div>
           ))}
         </div>
       </div>
     );
-  }, [currentStatsSlot, currentStats, currentStatsHeading, currentStatsClassName]);
+  }, [
+    currentStatsSlot,
+    currentStats,
+    currentStatsHeading,
+    currentStatsClassName,
+  ]);
 
   // Memoized actions rendering
   const actionsContent = useMemo(() => {
@@ -388,28 +406,40 @@ export function StatsGrowthTimeline({
   // Memoized future section rendering
   const futureContent = useMemo(() => {
     if (futureSlot) return futureSlot;
-    if (!futureHeading && !futureDescription && (!actions || actions.length === 0)) return null;
+    if (
+      !futureHeading &&
+      !futureDescription &&
+      (!actions || actions.length === 0)
+    )
+      return null;
 
     return (
       <div className={cn("mt-16 text-center", futureClassName)}>
-        {futureHeading && (
-          typeof futureHeading === "string" ? (
+        {futureHeading &&
+          (typeof futureHeading === "string" ? (
             <h3 className="mb-4 text-2xl font-bold">{futureHeading}</h3>
           ) : (
             <div className="mb-4">{futureHeading}</div>
-          )
-        )}
-        {futureDescription && (
-          typeof futureDescription === "string" ? (
-            <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">{futureDescription}</p>
+          ))}
+        {futureDescription &&
+          (typeof futureDescription === "string" ? (
+            <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
+              {futureDescription}
+            </p>
           ) : (
             <div className="mx-auto mb-8 max-w-2xl">{futureDescription}</div>
-          )
-        )}
+          ))}
         {actionsContent}
       </div>
     );
-  }, [futureSlot, futureHeading, futureDescription, futureClassName, actionsContent, actions]);
+  }, [
+    futureSlot,
+    futureHeading,
+    futureDescription,
+    futureClassName,
+    actionsContent,
+    actions,
+  ]);
 
   // Check if header has any content
   const hasHeaderContent = !!(badge || badgeSlot || heading || description);
@@ -427,24 +457,34 @@ export function StatsGrowthTimeline({
         {hasHeaderContent && (
           <div className={cn("mb-16 text-center", headerClassName)}>
             {badgeContent}
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("mb-4 text-3xl font-bold md:text-5xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-3xl font-bold md:text-5xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={cn("mb-4", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto max-w-3xl text-lg text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto max-w-3xl text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mx-auto max-w-3xl", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
           </div>
         )}
 

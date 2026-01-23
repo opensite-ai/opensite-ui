@@ -133,7 +133,7 @@ export interface StatsAnimatedCounterProps {
 function useAnimatedCounter(
   endValue: number,
   duration: number = 2000,
-  isVisible: boolean
+  isVisible: boolean,
 ): number {
   const [count, setCount] = React.useState(0);
 
@@ -193,22 +193,33 @@ function AnimatedStatItem({
     if (stat.iconSlot) return stat.iconSlot;
     if (!stat.icon) return null;
     return (
-      <div className={cn("mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10", iconClassName)}>
+      <div
+        className={cn(
+          "mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10",
+          iconClassName,
+        )}
+      >
         <DynamicIcon name={stat.icon} size={28} className="text-primary" />
       </div>
     );
   }, [stat.iconSlot, stat.icon, iconClassName]);
 
   return (
-    <div className={cn("flex flex-col items-center text-center", stat.className)}>
+    <div
+      className={cn("flex flex-col items-center text-center", stat.className)}
+    >
       {iconContent}
-      <div className={cn("mb-2 text-4xl font-bold md:text-5xl", valueClassName)}>
+      <div
+        className={cn("mb-2 text-4xl font-bold md:text-5xl", valueClassName)}
+      >
         {stat.prefix}
         {count}
         {stat.suffix}
       </div>
       {stat.label && (
-        <div className={cn("text-muted-foreground", labelClassName)}>{stat.label}</div>
+        <div className={cn("text-muted-foreground", labelClassName)}>
+          {stat.label}
+        </div>
       )}
     </div>
   );
@@ -239,8 +250,8 @@ export function StatsAnimatedCounter({
   stats,
   statsSlot,
   animationDuration = 2000,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -265,7 +276,7 @@ export function StatsAnimatedCounter({
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -294,7 +305,15 @@ export function StatsAnimatedCounter({
         iconClassName={statIconClassName}
       />
     ));
-  }, [statsSlot, stats, animationDuration, isVisible, statValueClassName, statLabelClassName, statIconClassName]);
+  }, [
+    statsSlot,
+    stats,
+    animationDuration,
+    isVisible,
+    statValueClassName,
+    statLabelClassName,
+    statIconClassName,
+  ]);
 
   return (
     <Section
@@ -305,32 +324,50 @@ export function StatsAnimatedCounter({
       patternClassName={patternClassName}
       className={className}
     >
-      <div ref={sectionRef} className={cn("mx-auto max-w-5xl", containerClassName)}>
+      <div
+        ref={sectionRef}
+        className={cn("mx-auto max-w-5xl", containerClassName)}
+      >
         {hasHeaderContent && (
           <div className={cn("mb-12 text-center", contentClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-3xl font-bold md:text-4xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={cn("mb-4", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto max-w-2xl text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
           </div>
         )}
 
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn("grid gap-8 sm:grid-cols-2 lg:grid-cols-4", statsClassName)}>
+          <div
+            className={cn(
+              "grid gap-8 sm:grid-cols-2 lg:grid-cols-4",
+              statsClassName,
+            )}
+          >
             {statsContent}
           </div>
         )}

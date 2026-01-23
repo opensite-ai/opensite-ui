@@ -5,7 +5,12 @@ import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import type { ActionConfig, StatItem, SectionBackground, SectionSpacing } from "../../../src/types";
+import type {
+  ActionConfig,
+  StatItem,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 
 /**
@@ -117,8 +122,8 @@ export function StatsSimpleGrid({
   statsSlot,
   actions,
   actionsSlot,
-  background = "muted",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -138,7 +143,14 @@ export function StatsSimpleGrid({
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -166,21 +178,41 @@ export function StatsSimpleGrid({
     return stats.map((stat, index) => (
       <div key={index} className={cn("w-full", statItemClassName)}>
         {stat.value && (
-          <div className={cn("mb-2 text-4xl font-semibold sm:text-4xl lg:text-5xl", statValueClassName)}>
+          <div
+            className={cn(
+              "mb-2 text-4xl font-semibold sm:text-4xl lg:text-5xl",
+              statValueClassName,
+            )}
+          >
             {stat.value}
           </div>
         )}
         {stat.label && (
-          <div className={cn("text-base leading-6 text-muted-foreground lg:text-lg", statLabelClassName)}>
+          <div
+            className={cn(
+              "text-base leading-6 text-muted-foreground lg:text-lg",
+              statLabelClassName,
+            )}
+          >
             {stat.label}
           </div>
         )}
       </div>
     ));
-  }, [statsSlot, stats, statItemClassName, statValueClassName, statLabelClassName]);
+  }, [
+    statsSlot,
+    stats,
+    statItemClassName,
+    statValueClassName,
+    statLabelClassName,
+  ]);
 
   // Check if there's any content to render
-  const hasHeaderContent = !!(heading || actionsSlot || (actions && actions.length > 0));
+  const hasHeaderContent = !!(
+    heading ||
+    actionsSlot ||
+    (actions && actions.length > 0)
+  );
   const hasStatsContent = !!(statsSlot || (stats && stats.length > 0));
 
   return (
@@ -192,27 +224,46 @@ export function StatsSimpleGrid({
       patternClassName={patternClassName}
       className={className}
     >
-      <div className={cn("flex flex-col items-start text-left", containerClassName)}>
+      <div
+        className={cn(
+          "flex flex-col items-start text-left",
+          containerClassName,
+        )}
+      >
         {hasHeaderContent && (
           <div className={cn("mb-12 w-full md:mb-16", contentClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("mb-8 w-full max-w-[24rem] text-3xl font-bold text-pretty sm:text-4xl md:max-w-[30rem] lg:max-w-[37rem] lg:text-5xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-8 w-full max-w-[24rem] text-3xl font-bold text-pretty sm:text-4xl md:max-w-[30rem] lg:max-w-[37rem] lg:text-5xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
+              ))}
             {(actionsSlot || (actions && actions.length > 0)) && (
-              <div className={cn("flex flex-col justify-start gap-2 sm:flex-row", actionsClassName)}>
+              <div
+                className={cn(
+                  "flex flex-col justify-start gap-2 sm:flex-row",
+                  actionsClassName,
+                )}
+              >
                 {actionsContent}
               </div>
             )}
           </div>
         )}
         {hasStatsContent && (
-          <div className={cn("grid w-full grid-cols-2 gap-12 sm:w-fit sm:grid-cols-4 lg:gap-16", statsClassName)}>
+          <div
+            className={cn(
+              "grid w-full grid-cols-2 gap-12 sm:w-fit sm:grid-cols-4 lg:gap-16",
+              statsClassName,
+            )}
+          >
             {statsContent}
           </div>
         )}

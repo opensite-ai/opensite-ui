@@ -155,8 +155,8 @@ export function StatsIconCards({
   description,
   stats,
   statsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -173,19 +173,23 @@ export function StatsIconCards({
   statIconClassName,
 }: StatsIconCardsProps) {
   // Memoized icon rendering
-  const renderIcon = useCallback((stat: StatIconItem) => {
-    if (stat.iconSlot) return stat.iconSlot;
-    if (!stat.icon) return null;
-    return (
-      <div className={cn("flex h-12 w-12 items-center justify-center rounded-full bg-primary/10", statIconClassName)}>
-        <DynamicIcon
-          name={stat.icon}
-          size={24}
-          className="text-primary"
-        />
-      </div>
-    );
-  }, [statIconClassName]);
+  const renderIcon = useCallback(
+    (stat: StatIconItem) => {
+      if (stat.iconSlot) return stat.iconSlot;
+      if (!stat.icon) return null;
+      return (
+        <div
+          className={cn(
+            "flex h-12 w-12 items-center justify-center rounded-full bg-primary/10",
+            statIconClassName,
+          )}
+        >
+          <DynamicIcon name={stat.icon} size={24} className="text-primary" />
+        </div>
+      );
+    },
+    [statIconClassName],
+  );
 
   // Memoized stats rendering
   const statsContent = useMemo(() => {
@@ -195,17 +199,28 @@ export function StatsIconCards({
     return stats.map((stat, index) => (
       <div
         key={index}
-        className={cn("relative overflow-hidden rounded-xl border bg-background p-6", stat.className, statCardClassName)}
+        className={cn(
+          "relative overflow-hidden rounded-xl border bg-background p-6",
+          stat.className,
+          statCardClassName,
+        )}
       >
         <div className="flex items-start justify-between">
           <div>
             {stat.label && (
-              <p className={cn("font-medium text-muted-foreground", statLabelClassName)}>
+              <p
+                className={cn(
+                  "font-medium text-muted-foreground",
+                  statLabelClassName,
+                )}
+              >
                 {stat.label}
               </p>
             )}
             {stat.value && (
-              <h3 className={cn("mt-4 text-4xl font-bold", statValueClassName)}>{stat.value}</h3>
+              <h3 className={cn("mt-4 text-4xl font-bold", statValueClassName)}>
+                {stat.value}
+              </h3>
             )}
             {stat.growth && (
               <p
@@ -214,7 +229,7 @@ export function StatsIconCards({
                   stat.isPositive !== false
                     ? "text-emerald-500"
                     : "text-rose-500",
-                  statGrowthClassName
+                  statGrowthClassName,
                 )}
               >
                 <DynamicIcon
@@ -234,7 +249,15 @@ export function StatsIconCards({
         </div>
       </div>
     ));
-  }, [statsSlot, stats, statCardClassName, statLabelClassName, statValueClassName, statGrowthClassName, renderIcon]);
+  }, [
+    statsSlot,
+    stats,
+    statCardClassName,
+    statLabelClassName,
+    statValueClassName,
+    statGrowthClassName,
+    renderIcon,
+  ]);
 
   // Check if header has any content
   const hasHeaderContent = !!(heading || description);
@@ -251,29 +274,44 @@ export function StatsIconCards({
       <div className={cn("mx-auto max-w-5xl", containerClassName)}>
         {hasHeaderContent && (
           <div className={cn("mb-10 text-center", contentClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-bold md:text-4xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-3 text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-3 text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mt-3", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mt-3", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
           </div>
         )}
 
         {(statsSlot || (stats && stats.length > 0)) && (
-          <div className={cn("grid gap-8 sm:grid-cols-2 lg:grid-cols-4", statsClassName)}>
+          <div
+            className={cn(
+              "grid gap-8 sm:grid-cols-2 lg:grid-cols-4",
+              statsClassName,
+            )}
+          >
             {statsContent}
           </div>
         )}

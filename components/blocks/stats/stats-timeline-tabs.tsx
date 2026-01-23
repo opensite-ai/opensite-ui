@@ -188,8 +188,8 @@ export function StatsTimelineTabs({
   periods,
   tabsSlot,
   defaultPeriod,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -205,7 +205,8 @@ export function StatsTimelineTabs({
   statCardClassName,
 }: StatsTimelineTabsProps) {
   // Use first period as default if not specified
-  const effectiveDefaultPeriod = defaultPeriod || (periods && periods.length > 0 ? periods[0].id : "");
+  const effectiveDefaultPeriod =
+    defaultPeriod || (periods && periods.length > 0 ? periods[0].id : "");
 
   // Memoized badge rendering
   const badgeContent = useMemo(() => {
@@ -220,7 +221,10 @@ export function StatsTimelineTabs({
     if (!periods || periods.length === 0) return null;
 
     return (
-      <Tabs defaultValue={effectiveDefaultPeriod} className={cn("mt-8 w-full", tabsClassName)}>
+      <Tabs
+        defaultValue={effectiveDefaultPeriod}
+        className={cn("mt-8 w-full", tabsClassName)}
+      >
         <div className="mb-8 flex justify-center">
           <TabsList className={tabsListClassName}>
             {periods.map((period) => (
@@ -232,8 +236,17 @@ export function StatsTimelineTabs({
         </div>
 
         {periods.map((period) => (
-          <TabsContent key={period.id} value={period.id} className={cn("mt-4", period.className)}>
-            <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-4", statsGridClassName)}>
+          <TabsContent
+            key={period.id}
+            value={period.id}
+            className={cn("mt-4", period.className)}
+          >
+            <div
+              className={cn(
+                "grid gap-6 md:grid-cols-2 lg:grid-cols-4",
+                statsGridClassName,
+              )}
+            >
               {period.stats.map((stat, index) => {
                 const isPositive =
                   (stat.trend === "up" && !stat.inversePositive) ||
@@ -245,7 +258,7 @@ export function StatsTimelineTabs({
                     className={cn(
                       "rounded-lg border bg-card p-6 transition-shadow hover:shadow-md",
                       stat.className,
-                      statCardClassName
+                      statCardClassName,
                     )}
                   >
                     <div className="flex items-start justify-between">
@@ -274,7 +287,7 @@ export function StatsTimelineTabs({
                           "flex items-center rounded-full px-2 py-1 text-xs font-medium",
                           isPositive
                             ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400"
-                            : "bg-rose-50 text-rose-600 dark:bg-rose-950 dark:text-rose-400"
+                            : "bg-rose-50 text-rose-600 dark:bg-rose-950 dark:text-rose-400",
                         )}
                       >
                         <DynamicIcon
@@ -302,7 +315,15 @@ export function StatsTimelineTabs({
         ))}
       </Tabs>
     );
-  }, [tabsSlot, periods, effectiveDefaultPeriod, tabsClassName, tabsListClassName, statsGridClassName, statCardClassName]);
+  }, [
+    tabsSlot,
+    periods,
+    effectiveDefaultPeriod,
+    tabsClassName,
+    tabsListClassName,
+    statsGridClassName,
+    statCardClassName,
+  ]);
 
   // Check if header has any content
   const hasHeaderContent = !!(badge || badgeSlot || heading || description);
@@ -322,24 +343,36 @@ export function StatsTimelineTabs({
           {hasHeaderContent && (
             <div className={cn("space-y-2 text-center", headerClassName)}>
               {badgeContent}
-              {heading && (
-                typeof heading === "string" ? (
-                  <h2 className={cn("text-3xl font-bold md:text-4xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-3xl font-bold md:text-4xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h2>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mx-auto max-w-2xl text-muted-foreground",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
-                  <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
-                )
-              )}
+                  <div
+                    className={cn("mx-auto max-w-2xl", descriptionClassName)}
+                  >
+                    {description}
+                  </div>
+                ))}
             </div>
           )}
 

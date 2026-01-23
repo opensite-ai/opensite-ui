@@ -190,8 +190,8 @@ export function StatsBarComparison({
   comparisons,
   comparisonsSlot,
   animate = true,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -221,7 +221,7 @@ export function StatsBarComparison({
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (sectionRef.current) {
@@ -248,26 +248,45 @@ export function StatsBarComparison({
     if (!comparisons || comparisons.length === 0) return null;
 
     return comparisons.map((group, groupIndex) => (
-      <div key={groupIndex} className={cn("rounded-xl border bg-card p-6", group.className, groupCardClassName)}>
-        {group.title && (
-          typeof group.title === "string" ? (
-            <h3 className={cn("mb-6 text-lg font-semibold", groupTitleClassName)}>{group.title}</h3>
+      <div
+        key={groupIndex}
+        className={cn(
+          "rounded-xl border bg-card p-6",
+          group.className,
+          groupCardClassName,
+        )}
+      >
+        {group.title &&
+          (typeof group.title === "string" ? (
+            <h3
+              className={cn("mb-6 text-lg font-semibold", groupTitleClassName)}
+            >
+              {group.title}
+            </h3>
           ) : (
             <div className={cn("mb-6", groupTitleClassName)}>{group.title}</div>
-          )
-        )}
+          ))}
         <div className="space-y-4">
           {group.bars.map((bar, barIndex) => (
             <div key={barIndex} className={bar.className}>
               <div className="mb-2 flex items-center justify-between">
-                <span className={cn("text-sm font-medium", barLabelClassName)}>{bar.label}</span>
-                <span className={cn("text-sm font-bold", barValueClassName)}>{bar.displayValue}</span>
+                <span className={cn("text-sm font-medium", barLabelClassName)}>
+                  {bar.label}
+                </span>
+                <span className={cn("text-sm font-bold", barValueClassName)}>
+                  {bar.displayValue}
+                </span>
               </div>
-              <div className={cn("h-3 w-full overflow-hidden rounded-full bg-muted", barTrackClassName)}>
+              <div
+                className={cn(
+                  "h-3 w-full overflow-hidden rounded-full bg-muted",
+                  barTrackClassName,
+                )}
+              >
                 <div
                   className={cn(
                     "h-full rounded-full transition-all duration-1000 ease-out",
-                    bar.color || "bg-primary"
+                    bar.color || "bg-primary",
                   )}
                   style={{
                     width: isVisible ? `${bar.value}%` : "0%",
@@ -280,7 +299,16 @@ export function StatsBarComparison({
         </div>
       </div>
     ));
-  }, [comparisonsSlot, comparisons, isVisible, groupCardClassName, groupTitleClassName, barLabelClassName, barValueClassName, barTrackClassName]);
+  }, [
+    comparisonsSlot,
+    comparisons,
+    isVisible,
+    groupCardClassName,
+    groupTitleClassName,
+    barLabelClassName,
+    barValueClassName,
+    barTrackClassName,
+  ]);
 
   // Check if header has any content
   const hasHeaderContent = !!(badge || badgeSlot || heading || description);
@@ -294,28 +322,41 @@ export function StatsBarComparison({
       patternClassName={patternClassName}
       className={className}
     >
-      <div ref={sectionRef} className={cn("mx-auto max-w-4xl", containerClassName)}>
+      <div
+        ref={sectionRef}
+        className={cn("mx-auto max-w-4xl", containerClassName)}
+      >
         {hasHeaderContent && (
           <div className={cn("mb-12 text-center", headerClassName)}>
             {badgeContent}
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("mb-4 text-3xl font-bold md:text-4xl", headingClassName)}>
+            {heading &&
+              (typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-3xl font-bold md:text-4xl",
+                    headingClassName,
+                  )}
+                >
                   {heading}
                 </h2>
               ) : (
                 <div className={cn("mb-4", headingClassName)}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mx-auto max-w-2xl text-muted-foreground", descriptionClassName)}>
+              ))}
+            {description &&
+              (typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mx-auto max-w-2xl text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
                   {description}
                 </p>
               ) : (
-                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>{description}</div>
-              )
-            )}
+                <div className={cn("mx-auto max-w-2xl", descriptionClassName)}>
+                  {description}
+                </div>
+              ))}
           </div>
         )}
 

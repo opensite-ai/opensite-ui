@@ -164,8 +164,8 @@ export function StatsCardGroup({
   statsSlot,
   avatars,
   avatarsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -180,49 +180,55 @@ export function StatsCardGroup({
   optixFlowConfig,
 }: StatsCardGroupProps) {
   // Memoized icon rendering
-  const renderIcon = useCallback((stat: CardGroupStat) => {
-    if (stat.iconSlot) return stat.iconSlot;
-    if (!stat.icon) return null;
-    return (
-      <div
-        className={cn(
-          "mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10",
-          statIconClassName,
-        )}
-      >
-        <DynamicIcon name={stat.icon} size={24} className="text-primary" />
-      </div>
-    );
-  }, [statIconClassName]);
+  const renderIcon = useCallback(
+    (stat: CardGroupStat) => {
+      if (stat.iconSlot) return stat.iconSlot;
+      if (!stat.icon) return null;
+      return (
+        <div
+          className={cn(
+            "mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10",
+            statIconClassName,
+          )}
+        >
+          <DynamicIcon name={stat.icon} size={24} className="text-primary" />
+        </div>
+      );
+    },
+    [statIconClassName],
+  );
 
   // Memoized avatars rendering
-  const renderAvatars = useCallback((stat: CardGroupStat) => {
-    if (!stat.showAvatars) return null;
-    if (avatarsSlot) return avatarsSlot;
-    if (!avatars || avatars.length === 0) return null;
+  const renderAvatars = useCallback(
+    (stat: CardGroupStat) => {
+      if (!stat.showAvatars) return null;
+      if (avatarsSlot) return avatarsSlot;
+      if (!avatars || avatars.length === 0) return null;
 
-    return (
-      <div className={cn("flex -space-x-2", avatarsClassName)}>
-        {avatars.slice(0, 4).map((avatar, avatarIndex) => (
-          <Img
-            key={avatarIndex}
-            src={avatar.src}
-            alt={avatar.alt}
-            className={cn(
-              "h-8 w-8 rounded-full border-2 border-background object-cover",
-              avatar.className,
-            )}
-            optixFlowConfig={optixFlowConfig}
-          />
-        ))}
-        {avatars.length > 4 && (
-          <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-muted text-xs font-medium">
-            +{avatars.length - 4}
-          </div>
-        )}
-      </div>
-    );
-  }, [avatarsSlot, avatars, avatarsClassName, optixFlowConfig]);
+      return (
+        <div className={cn("flex -space-x-2", avatarsClassName)}>
+          {avatars.slice(0, 4).map((avatar, avatarIndex) => (
+            <Img
+              key={avatarIndex}
+              src={avatar.src}
+              alt={avatar.alt}
+              className={cn(
+                "h-8 w-8 rounded-full border-2 border-background object-cover",
+                avatar.className,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          ))}
+          {avatars.length > 4 && (
+            <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-muted text-xs font-medium">
+              +{avatars.length - 4}
+            </div>
+          )}
+        </div>
+      );
+    },
+    [avatarsSlot, avatars, avatarsClassName, optixFlowConfig],
+  );
 
   // Memoized stats rendering
   const statsContent = useMemo(() => {
@@ -258,7 +264,14 @@ export function StatsCardGroup({
         {renderAvatars(stat)}
       </div>
     ));
-  }, [statsSlot, stats, statValueClassName, statLabelClassName, renderIcon, renderAvatars]);
+  }, [
+    statsSlot,
+    stats,
+    statValueClassName,
+    statLabelClassName,
+    renderIcon,
+    renderAvatars,
+  ]);
 
   return (
     <Section
