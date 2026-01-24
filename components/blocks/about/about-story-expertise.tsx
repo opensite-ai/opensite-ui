@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -196,7 +197,7 @@ export function AboutStoryExpertise({
   patternOpacity,
   optixFlowConfig,
 }: AboutStoryExpertiseProps): React.JSX.Element {
-  const renderStory = () => {
+  const storyContent = useMemo(() => {
     if (storySlot) return storySlot;
     if (!storyParagraphs || storyParagraphs.length === 0) return null;
 
@@ -211,9 +212,9 @@ export function AboutStoryExpertise({
         )}
       </div>
     );
-  };
+  }, [storySlot, storyParagraphs, storyClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -232,9 +233,9 @@ export function AboutStoryExpertise({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderHighlight = () => {
+  const highlightContent = useMemo(() => {
     if (highlightSlot) return highlightSlot;
     if (!highlight) return null;
 
@@ -278,9 +279,9 @@ export function AboutStoryExpertise({
           ))}
       </div>
     );
-  };
+  }, [highlightSlot, highlight, highlightClassName]);
 
-  const renderExpertiseAreas = () => {
+  const expertiseAreasContent = useMemo(() => {
     if (expertiseAreasSlot) return expertiseAreasSlot;
     if (!expertiseAreas || expertiseAreas.length === 0) return null;
 
@@ -325,7 +326,7 @@ export function AboutStoryExpertise({
         ))}
       </div>
     );
-  };
+  }, [expertiseAreasSlot, expertiseAreas, expertiseAreasClassName]);
 
   return (
     <Section
@@ -371,8 +372,8 @@ export function AboutStoryExpertise({
                 <div className={cn("mt-2", headingClassName)}>{heading}</div>
               ))}
           </div>
-          {renderStory()}
-          {renderActions()}
+          {storyContent}
+          {actionsContent}
         </motion.div>
 
         <motion.div
@@ -396,7 +397,7 @@ export function AboutStoryExpertise({
             />
             <div className="absolute inset-0 bg-linear-to-tr from-foreground/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              {renderHighlight()}
+              {highlightContent}
             </div>
           </div>
         </motion.div>
@@ -448,7 +449,7 @@ export function AboutStoryExpertise({
               </div>
             ))}
         </div>
-        {renderExpertiseAreas()}
+        {expertiseAreasContent}
       </div>
     </Section>
   );

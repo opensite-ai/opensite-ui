@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { OptixFlowConfig } from "../../../src/types";
@@ -85,7 +86,7 @@ export function AboutMinimalStory({
   imageClassName,
   optixFlowConfig,
 }: AboutMinimalStoryProps): React.JSX.Element {
-  const renderAuthor = () => {
+  const authorContent = useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!author) return null;
 
@@ -109,13 +110,13 @@ export function AboutMinimalStory({
         </div>
       </div>
     );
-  };
+  }, [authorSlot, author, authorClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-3xl", contentClassName)}>
-          {(authorSlot || author) && renderAuthor()}
+          {(authorSlot || author) && authorContent}
 
           {title && (
             typeof title === "string" ? (

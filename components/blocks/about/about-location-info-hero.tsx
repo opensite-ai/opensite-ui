@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { patternSvgs } from "../../../lib/patternSvgs";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
@@ -175,7 +175,7 @@ export function AboutLocationInfoHero({
 }: AboutLocationInfoHeroProps): React.JSX.Element {
   const isSingleImage = (images?.length ?? 0) <= 1;
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -193,9 +193,9 @@ export function AboutLocationInfoHero({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderHoursSections = () => {
+  const hoursSectionsContent = useMemo(() => {
     if (hoursSectionsSlot) return hoursSectionsSlot;
     if (!hoursSections || hoursSections.length === 0) return null;
 
@@ -238,9 +238,9 @@ export function AboutLocationInfoHero({
         ))}
       </div>
     );
-  };
+  }, [hoursSectionsSlot, hoursSections, hoursSectionsClassName, accentColor]);
 
-  const renderImages = () => {
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -255,7 +255,7 @@ export function AboutLocationInfoHero({
           >
             <Img
               src={images[0]?.src || imagePlaceholders[5]}
-              alt={images[0]?.alt || "OpenSite AI location"}
+              alt={images[0]?.alt || "Location image"}
               className="h-full w-full object-cover"
               optixFlowConfig={optixFlowConfig}
             />
@@ -274,7 +274,7 @@ export function AboutLocationInfoHero({
         <div className="absolute left-0 top-0 z-10 aspect-[4/3] w-[70%] overflow-hidden rounded-lg shadow-2xl md:w-[65%]">
           <Img
             src={images[0]?.src || imagePlaceholders[5]}
-            alt={images[0]?.alt || "OpenSite AI location"}
+            alt={images[0]?.alt || "Location image"}
             className="h-full w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
@@ -282,14 +282,14 @@ export function AboutLocationInfoHero({
         <div className="absolute bottom-0 right-0 z-20 aspect-[3/4] w-[55%] overflow-hidden rounded-lg shadow-2xl md:w-[50%]">
           <Img
             src={images[1]?.src || imagePlaceholders[6]}
-            alt={images[1]?.alt || "OpenSite AI advisors"}
+            alt={images[1]?.alt || "Secondary location image"}
             className="h-full w-full object-cover"
             optixFlowConfig={optixFlowConfig}
           />
         </div>
       </div>
     );
-  };
+  }, [imagesSlot, images, isSingleImage, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -323,7 +323,7 @@ export function AboutLocationInfoHero({
                 <div className={headlineClassName}>{headline}</div>
               ))}
 
-            {renderActions()}
+            {actionsContent}
 
             {address || phone ? (
               <div className="space-y-2">
@@ -379,10 +379,10 @@ export function AboutLocationInfoHero({
               </div>
             ) : null}
 
-            {renderHoursSections()}
+            {hoursSectionsContent}
           </div>
 
-          <div className="relative flex-1">{renderImages()}</div>
+          <div className="relative flex-1">{imagesContent}</div>
         </div>
       </div>
     </Section>

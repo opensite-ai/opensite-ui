@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -156,7 +157,7 @@ export function AboutNetworkSpotlight({
   patternOpacity,
   optixFlowConfig,
 }: AboutNetworkSpotlightProps): React.JSX.Element {
-  const renderHighlights = () => {
+  const highlightsContent = useMemo(() => {
     if (highlightsSlot) return highlightsSlot;
     if (!highlights || highlights.length === 0) return null;
 
@@ -172,9 +173,9 @@ export function AboutNetworkSpotlight({
         ))}
       </ul>
     );
-  };
+  }, [highlightsSlot, highlights, highlightsClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -199,9 +200,9 @@ export function AboutNetworkSpotlight({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderSpotlightCard = () => {
+  const spotlightCardContent = useMemo(() => {
     if (spotlightCardSlot) return spotlightCardSlot;
     if (!spotlightCard) return null;
 
@@ -240,7 +241,7 @@ export function AboutNetworkSpotlight({
         )}
       </div>
     );
-  };
+  }, [spotlightCardSlot, spotlightCard, spotlightCardClassName]);
 
   return (
     <Section
@@ -271,7 +272,7 @@ export function AboutNetworkSpotlight({
             />
             <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              {renderSpotlightCard()}
+              {spotlightCardContent}
             </div>
           </div>
         </motion.div>
@@ -324,10 +325,10 @@ export function AboutNetworkSpotlight({
               </div>
             ))}
           {(highlightsSlot || (highlights && highlights.length > 0)) &&
-            renderHighlights()}
+            highlightsContent}
           {(actionsSlot || (actions && actions.length > 0)) && (
             <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
-              {renderActions()}
+              {actionsContent}
             </div>
           )}
         </motion.div>

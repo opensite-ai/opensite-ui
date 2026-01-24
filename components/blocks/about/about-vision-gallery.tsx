@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -151,7 +152,7 @@ Our team is made up of talented individuals who are passionate about creating to
   ctaClassName,
   optixFlowConfig,
 }: AboutVisionGalleryProps): React.JSX.Element {
-  const renderImages = () => {
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -168,9 +169,9 @@ Our team is made up of talented individuals who are passionate about creating to
         ))}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
-  const renderCta = () => {
+  const ctaContent = useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
@@ -185,7 +186,7 @@ Our team is made up of talented individuals who are passionate about creating to
         {ctaAction.label}
       </Pressable>
     );
-  };
+  }, [ctaSlot, ctaAction]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -208,7 +209,7 @@ Our team is made up of talented individuals who are passionate about creating to
             )
           )}
         </div>
-        {renderImages()}
+        {imagesContent}
         <div className="mx-auto grid max-w-5xl gap-28 py-28 md:grid-cols-2">
           <div>
             {visionTitle && (
@@ -256,7 +257,7 @@ Our team is made up of talented individuals who are passionate about creating to
               <div className={ctaTitleClassName}>{ctaTitle}</div>
             )
           )}
-          {renderCta()}
+          {ctaContent}
         </div>
       </div>
     </section>

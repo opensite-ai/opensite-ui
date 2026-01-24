@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { OptixFlowConfig } from "../../../src/types";
@@ -70,7 +71,7 @@ Today, we continue to push boundaries, helping teams of all sizes bring their id
   imagesClassName,
   optixFlowConfig,
 }: AboutStoryGalleryProps): React.JSX.Element {
-  const renderImages = () => {
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -90,7 +91,7 @@ Today, we continue to push boundaries, helping teams of all sizes bring their id
         ))}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -116,7 +117,7 @@ Today, we continue to push boundaries, helping teams of all sizes bring their id
           )}
         </div>
 
-        {renderImages()}
+        {imagesContent}
       </div>
     </section>
   );

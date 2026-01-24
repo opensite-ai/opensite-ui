@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { OptixFlowConfig } from "../../../src/types";
@@ -95,7 +96,7 @@ The result is a platform that's powerful enough for professional developers yet 
   imageClassName,
   optixFlowConfig,
 }: AboutStoryHeroProps): React.JSX.Element {
-  const renderTeamInfo = () => {
+  const teamInfoContent = useMemo(() => {
     if (teamInfoSlot) return teamInfoSlot;
     if (!teamInfo) return null;
 
@@ -113,7 +114,7 @@ The result is a platform that's powerful enough for professional developers yet 
         )}
       </div>
     );
-  };
+  }, [teamInfoSlot, teamInfo, teamInfoClassName]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -147,7 +148,7 @@ The result is a platform that's powerful enough for professional developers yet 
                 <div className={cn("mt-6", bodyClassName)}>{content}</div>
               )
             )}
-            {(teamInfoSlot || teamInfo) && renderTeamInfo()}
+            {(teamInfoSlot || teamInfo) && teamInfoContent}
           </div>
           {heroImage && (
             <Img

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { OptixFlowConfig } from "../../../src/types";
@@ -174,7 +175,7 @@ export function AboutStatsShowcase({
   benefitsClassName,
   optixFlowConfig,
 }: AboutStatsShowcaseProps): React.JSX.Element {
-  const renderImages = () => {
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -194,9 +195,9 @@ export function AboutStatsShowcase({
         ))}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
-  const renderStats = () => {
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -222,9 +223,9 @@ export function AboutStatsShowcase({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName]);
 
-  const renderLogos = () => {
+  const logosContent = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -260,9 +261,9 @@ export function AboutStatsShowcase({
         </div>
       </div>
     );
-  };
+  }, [logosSlot, logos, logosTitle, logosTitleClassName, logosClassName, optixFlowConfig]);
 
-  const renderBenefits = () => {
+  const benefitsContent = useMemo(() => {
     if (benefitsSlot) return benefitsSlot;
     if (!benefits || benefits.length === 0) return null;
 
@@ -362,7 +363,7 @@ export function AboutStatsShowcase({
         </div>
       </div>
     );
-  };
+  }, [benefitsSlot, benefits, benefitsTitle, benefitsTitleClassName, benefitsClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -386,7 +387,7 @@ export function AboutStatsShowcase({
               )
             )}
           </div>
-          {renderImages()}
+          {imagesContent}
         </div>
         <div className="container flex flex-col gap-16">
           {statsTitle && (
@@ -398,10 +399,10 @@ export function AboutStatsShowcase({
               <div className={statsTitleClassName}>{statsTitle}</div>
             )
           )}
-          {renderStats()}
+          {statsContent}
         </div>
-        {renderLogos()}
-        {renderBenefits()}
+        {logosContent}
+        {benefitsContent}
       </div>
     </section>
   );

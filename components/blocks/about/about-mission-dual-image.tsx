@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export interface AboutMissionDualImageProps {
@@ -113,7 +113,7 @@ export function AboutMissionDualImage({
   actionsClassName,
   optixFlowConfig,
 }: AboutMissionDualImageProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -136,7 +136,7 @@ export function AboutMissionDualImage({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -185,7 +185,7 @@ export function AboutMissionDualImage({
             </div>
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("mt-8 flex flex-wrap gap-4", actionsClassName)}>
-                {renderActions()}
+                {actionsContent}
               </div>
             )}
           </div>

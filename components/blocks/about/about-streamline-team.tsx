@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -128,7 +129,7 @@ export function AboutStreamlineTeam({
   teamSectionClassName,
   optixFlowConfig,
 }: AboutStreamlineTeamProps): React.JSX.Element {
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -159,9 +160,9 @@ export function AboutStreamlineTeam({
         ))}
       </div>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -182,7 +183,7 @@ export function AboutStreamlineTeam({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -223,7 +224,7 @@ export function AboutStreamlineTeam({
                 <div className={cn("mt-6", descriptionClassName)}>{description}</div>
               )
             )}
-            {renderFeatures()}
+            {featuresContent}
           </div>
         </div>
 
@@ -245,7 +246,7 @@ export function AboutStreamlineTeam({
                 <div className={cn("mt-4", teamDescriptionClassName)}>{teamDescription}</div>
               )
             )}
-            {renderActions()}
+            {actionsContent}
           </div>
         </div>
       </div>

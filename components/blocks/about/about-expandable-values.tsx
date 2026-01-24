@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -166,11 +167,11 @@ export function AboutExpandableValues({
 }: AboutExpandableValuesProps): React.JSX.Element {
   const [expandedValue, setExpandedValue] = React.useState<string | null>(null);
 
-  const toggleExpand = (id: string) => {
-    setExpandedValue(expandedValue === id ? null : id);
-  };
+  const toggleExpand = useCallback((id: string) => {
+    setExpandedValue((prev) => (prev === id ? null : id));
+  }, []);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -190,9 +191,9 @@ export function AboutExpandableValues({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderValues = () => {
+  const valuesContent = useMemo(() => {
     if (valuesSlot) return valuesSlot;
     if (!values || values.length === 0) return null;
 
@@ -289,7 +290,7 @@ export function AboutExpandableValues({
         ))}
       </div>
     );
-  };
+  }, [valuesSlot, values, valuesClassName, expandedValue, toggleExpand]);
 
   return (
     <section className={cn("py-24", className)}>
@@ -320,7 +321,7 @@ export function AboutExpandableValues({
           )}
         </div>
 
-        {renderValues()}
+        {valuesContent}
 
         <div className={cn("relative mt-8 rounded-lg bg-accent/50 p-8", ctaClassName)}>
           <div className="mx-auto max-w-3xl space-y-6 text-center">
@@ -338,7 +339,7 @@ export function AboutExpandableValues({
                 <div className={ctaDescriptionClassName}>{ctaDescription}</div>
               )
             )}
-            {renderActions()}
+            {actionsContent}
           </div>
         </div>
       </div>

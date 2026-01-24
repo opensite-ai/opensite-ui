@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -125,7 +126,7 @@ export function AboutDeveloperStory({
   storyImageClassName,
   optixFlowConfig,
 }: AboutDeveloperStoryProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -146,9 +147,9 @@ export function AboutDeveloperStory({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderLogos = () => {
+  const logosContent = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -168,9 +169,9 @@ export function AboutDeveloperStory({
         })}
       </div>
     );
-  };
+  }, [logosSlot, logos, logosClassName, optixFlowConfig]);
 
-  const renderStats = () => {
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -196,7 +197,7 @@ export function AboutDeveloperStory({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -220,11 +221,11 @@ export function AboutDeveloperStory({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderActions()}
+          {actionsContent}
         </div>
 
-        {renderLogos()}
-        {renderStats()}
+        {logosContent}
+        {statsContent}
 
         <div className="mt-20 grid gap-12 md:grid-cols-2 md:items-center">
           <div>

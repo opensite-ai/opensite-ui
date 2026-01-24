@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -99,7 +100,7 @@ export function AlternatingBlocks({
   sectionContentClassName,
   sectionMediaClassName,
 }: AlternatingBlocksProps): React.JSX.Element {
-  const renderSections = () => {
+  const sectionsContent = useMemo(() => {
     if (sectionsSlot) return sectionsSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -129,7 +130,7 @@ export function AlternatingBlocks({
         ))}
       </div>
     );
-  };
+  }, [sectionsSlot, sections, sectionsClassName, sectionItemClassName, sectionContentClassName, sectionMediaClassName]);
 
   return (
     <Section
@@ -154,7 +155,7 @@ export function AlternatingBlocks({
         </div>
       ) : null}
       <div className={cn("mx-auto w-full max-w-[900px]", contentClassName)}>
-        {renderSections()}
+        {sectionsContent}
       </div>
     </Section>
   );

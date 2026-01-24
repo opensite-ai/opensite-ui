@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { FeatureItem, StatItem } from "../../../src/types";
 
 interface ExtendedStatItem extends StatItem {
@@ -79,7 +79,7 @@ export function AboutStatsSidebar({
   statsClassName,
   featuresClassName,
 }: AboutStatsSidebarProps): React.JSX.Element {
-  const renderStats = () => {
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -109,9 +109,9 @@ export function AboutStatsSidebar({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName]);
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -142,7 +142,7 @@ export function AboutStatsSidebar({
         ))}
       </div>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -168,8 +168,8 @@ export function AboutStatsSidebar({
           </div>
 
           <div className="lg:col-span-2">
-            {(statsSlot || (stats && stats.length > 0)) && renderStats()}
-            {(featuresSlot || (features && features.length > 0)) && renderFeatures()}
+            {(statsSlot || (stats && stats.length > 0)) && statsContent}
+            {(featuresSlot || (features && features.length > 0)) && featuresContent}
           </div>
         </div>
       </div>
