@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -8,7 +9,6 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent } from "../../ui/card";
 import { Badge } from "../../ui/badge";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export interface CommunityMetric {
@@ -214,7 +214,11 @@ export function CommunityInitiatives({
     categories.find((category) => category.id === activeCategory) ||
     categories[0];
 
-  const renderActions = () => {
+  const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setActiveCategory(e.target.value);
+  }, []);
+
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -234,9 +238,9 @@ export function CommunityInitiatives({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderCategories = () => {
+  const categoriesContent = useMemo(() => {
     if (categoriesSlot) return categoriesSlot;
     if (!categories || categories.length === 0) return null;
 
@@ -251,7 +255,7 @@ export function CommunityInitiatives({
           <div className="mb-6 w-full md:hidden">
             <select
               value={activeCategory}
-              onChange={(e) => setActiveCategory(e.target.value)}
+              onChange={handleCategoryChange}
               className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             >
               {categories.map((category) => (
@@ -379,7 +383,7 @@ export function CommunityInitiatives({
         ))}
       </Tabs>
     );
-  };
+  }, [categoriesSlot, categories, activeCategory, setActiveCategory, tabsClassName, handleCategoryChange, currentCategory, optixFlowConfig]);
 
   return (
     <section className={cn("py-24", className)}>
@@ -412,7 +416,7 @@ export function CommunityInitiatives({
           )}
         </div>
 
-        {renderCategories()}
+        {categoriesContent}
 
         <div className={cn("mt-20 text-center", ctaClassName)}>
           {ctaBadgeText && (
@@ -440,7 +444,7 @@ export function CommunityInitiatives({
             )
           )}
 
-          {renderActions()}
+          {actionsContent}
         </div>
       </div>
     </section>

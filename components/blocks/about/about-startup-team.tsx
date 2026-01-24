@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -109,7 +110,7 @@ Founded in 2020, we've grown from a small startup to a platform trusted by thous
   teamMembersClassName,
   optixFlowConfig,
 }: AboutStartupTeamProps): React.JSX.Element {
-  const renderSidebar = () => {
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
     if (!sidebarLinks || sidebarLinks.length === 0) return null;
 
@@ -131,9 +132,9 @@ Founded in 2020, we've grown from a small startup to a platform trusted by thous
         ))}
       </nav>
     );
-  };
+  }, [sidebarSlot, sidebarLinks]);
 
-  const renderTeamMembers = () => {
+  const teamMembersContent = useMemo(() => {
     if (teamMembersSlot) return teamMembersSlot;
     if (!teamMembers || teamMembers.length === 0) return null;
 
@@ -192,14 +193,14 @@ Founded in 2020, we've grown from a small startup to a platform trusted by thous
         ))}
       </div>
     );
-  };
+  }, [teamMembersSlot, teamMembers, teamMembersClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
       <div className={cn("container", containerClassName)}>
         <div className="grid gap-12 lg:grid-cols-4">
           <aside className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}>
-            {renderSidebar()}
+            {sidebarContent}
           </aside>
 
           <div className="lg:col-span-3">
@@ -230,7 +231,7 @@ Founded in 2020, we've grown from a small startup to a platform trusted by thous
                   <div className={teamTitleClassName}>{teamTitle}</div>
                 )
               )}
-              {renderTeamMembers()}
+              {teamMembersContent}
             </div>
           </div>
         </div>

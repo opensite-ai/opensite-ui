@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { ActionConfig, SocialLinkItem, OptixFlowConfig } from "../../../src/types";
 
 export interface AboutDeveloperProfileProps {
@@ -130,7 +130,7 @@ export function AboutDeveloperProfile({
   actionsClassName,
   optixFlowConfig,
 }: AboutDeveloperProfileProps): React.JSX.Element {
-  const renderSocialLinks = () => {
+  const socialLinksContent = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -144,9 +144,9 @@ export function AboutDeveloperProfile({
         {link.icon}
       </Pressable>
     ));
-  };
+  }, [socialLinksSlot, socialLinks]);
 
-  const renderSkills = () => {
+  const skillsContent = useMemo(() => {
     if (skillsSlot) return skillsSlot;
     if (!skills || skills.length === 0) return null;
 
@@ -158,9 +158,9 @@ export function AboutDeveloperProfile({
         {skill}
       </span>
     ));
-  };
+  }, [skillsSlot, skills, skillTagClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -183,7 +183,7 @@ export function AboutDeveloperProfile({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -215,7 +215,7 @@ export function AboutDeveloperProfile({
               )}
               {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
                 <div className={cn("mt-4 flex justify-center gap-4 md:justify-start", socialLinksClassName)}>
-                  {renderSocialLinks()}
+                  {socialLinksContent}
                 </div>
               )}
             </div>
@@ -243,14 +243,14 @@ export function AboutDeveloperProfile({
                 )
               )}
               <div className="mt-4 flex flex-wrap gap-2">
-                {renderSkills()}
+                {skillsContent}
               </div>
             </div>
           )}
 
           {(actionsSlot || (actions && actions.length > 0)) && (
             <div className={cn("mt-12 text-center md:text-left", actionsClassName)}>
-              {renderActions()}
+              {actionsContent}
             </div>
           )}
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -117,7 +118,7 @@ export function AboutSplitHero({
   containerClassName,
   optixFlowConfig,
 }: AboutSplitHeroProps): React.JSX.Element {
-  const renderCta = () => {
+  const ctaContent = useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
@@ -134,7 +135,7 @@ export function AboutSplitHero({
         <DynamicIcon name="lucide/chevron-right" size={20} />
       </Pressable>
     );
-  };
+  }, [ctaSlot, ctaAction, ctaClassName]);
 
   return (
     <section className={cn("dark flex", className)}>
@@ -161,7 +162,7 @@ export function AboutSplitHero({
                 <div className={cn("mt-2.5", descriptionClassName)}>{description}</div>
               )
             )}
-            {renderCta()}
+            {ctaContent}
           </div>
         </div>
       </div>

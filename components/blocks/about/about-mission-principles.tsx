@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -152,7 +153,7 @@ export function AboutMissionPrinciples({
   className,
   containerClassName,
 }: AboutMissionPrinciplesProps): React.JSX.Element {
-  const renderMissionAction = () => {
+  const missionActionContent = useMemo(() => {
     if (missionActionSlot) return missionActionSlot;
     if (!missionAction) return null;
 
@@ -174,9 +175,9 @@ export function AboutMissionPrinciples({
         </Pressable>
       </div>
     );
-  };
+  }, [missionActionSlot, missionAction, missionActionClassName]);
 
-  const renderPrinciples = () => {
+  const principlesContent = useMemo(() => {
     if (principlesSlot) return principlesSlot;
     if (!principles || principles.length === 0) return null;
 
@@ -212,9 +213,9 @@ export function AboutMissionPrinciples({
         ))}
       </div>
     );
-  };
+  }, [principlesSlot, principles, principlesClassName]);
 
-  const renderVisionAction = () => {
+  const visionActionContent = useMemo(() => {
     if (visionActionSlot) return visionActionSlot;
     if (!visionAction) return null;
 
@@ -235,7 +236,7 @@ export function AboutMissionPrinciples({
         />
       </Pressable>
     );
-  };
+  }, [visionActionSlot, visionAction]);
 
   return (
     <section className={cn("py-24", className)}>
@@ -270,10 +271,10 @@ export function AboutMissionPrinciples({
               )
             )}
 
-            {renderMissionAction()}
+            {missionActionContent}
           </div>
 
-          {renderPrinciples()}
+          {principlesContent}
         </div>
 
         <div className={cn("mt-24 rounded-lg bg-accent p-8 lg:p-12", visionClassName)}>
@@ -295,7 +296,7 @@ export function AboutMissionPrinciples({
               )}
             </div>
             <div className="flex justify-center lg:col-span-1 lg:justify-end">
-              {renderVisionAction()}
+              {visionActionContent}
             </div>
           </div>
         </div>

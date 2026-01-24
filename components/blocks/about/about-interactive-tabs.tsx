@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { OptixFlowConfig } from "../../../src/types";
@@ -119,9 +120,15 @@ export function AboutInteractiveTabs({
 }: AboutInteractiveTabsProps): React.JSX.Element {
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id ?? "");
 
-  const activeContent = tabs?.find((tab) => tab.id === activeTab)?.content;
+  const activeContent = useMemo(() => {
+    return tabs?.find((tab) => tab.id === activeTab)?.content;
+  }, [tabs, activeTab]);
 
-  const renderTabs = () => {
+  const handleTabChange = useCallback((id: string) => {
+    setActiveTab(id);
+  }, []);
+
+  const tabsContent = useMemo(() => {
     if (tabsSlot) return tabsSlot;
     if (!tabs || tabs.length === 0) return null;
 
@@ -131,7 +138,7 @@ export function AboutInteractiveTabs({
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleTabChange(tab.id)}
               className={cn(
                 "px-6 py-3 text-sm font-medium transition-colors",
                 activeTab === tab.id
@@ -173,7 +180,7 @@ export function AboutInteractiveTabs({
         )}
       </div>
     );
-  };
+  }, [tabsSlot, tabs, tabsContainerClassName, activeTab, activeTabClassName, tabButtonClassName, handleTabChange, activeContent, tabContentClassName, tabContentTitleClassName, tabContentDescriptionClassName, tabContentImageClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -197,7 +204,7 @@ export function AboutInteractiveTabs({
           )}
         </div>
 
-        {(tabsSlot || (tabs && tabs.length > 0)) && renderTabs()}
+        {(tabsSlot || (tabs && tabs.length > 0)) && tabsContent}
       </div>
     </section>
   );

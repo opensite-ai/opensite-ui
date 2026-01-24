@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent } from "../../ui/card";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
 export interface CultureTestimonial {
@@ -199,7 +199,7 @@ export function AboutCultureTabs({
 }: AboutCultureTabsProps): React.JSX.Element {
   const [activeTab, setActiveTab] = React.useState(aspects[0]?.id || "");
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -222,9 +222,9 @@ export function AboutCultureTabs({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderCtaImages = () => {
+  const ctaImagesContent = useMemo(() => {
     if (ctaImagesSlot) return ctaImagesSlot;
     if (!ctaImages || ctaImages.length === 0) return null;
 
@@ -238,7 +238,7 @@ export function AboutCultureTabs({
         />
       </div>
     ));
-  };
+  }, [ctaImagesSlot, ctaImages, optixFlowConfig]);
 
   return (
     <section className={cn("bg-muted/25 py-24", className)}>
@@ -373,12 +373,12 @@ export function AboutCultureTabs({
               )}
               {(actionsSlot || (actions && actions.length > 0)) && (
                 <div className={cn("flex gap-4", actionsClassName)}>
-                  {renderActions()}
+                  {actionsContent}
                 </div>
               )}
             </div>
             <div className="grid grid-cols-3 gap-2">
-              {renderCtaImages()}
+              {ctaImagesContent}
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -164,7 +165,7 @@ export function AboutCompanyProfile({
   achievementsDescriptionClassName,
   optixFlowConfig,
 }: AboutCompanyProfileProps): React.JSX.Element {
-  const renderBreakout = () => {
+  const breakoutContent = useMemo(() => {
     if (breakoutSlot) return breakoutSlot;
     if (!breakout) return null;
 
@@ -208,9 +209,9 @@ export function AboutCompanyProfile({
         )}
       </div>
     );
-  };
+  }, [breakoutSlot, breakout, breakoutClassName, optixFlowConfig]);
 
-  const renderCompanies = () => {
+  const companiesContent = useMemo(() => {
     if (companiesSlot) return companiesSlot;
     if (!companies || companies.length === 0) return null;
 
@@ -240,9 +241,9 @@ export function AboutCompanyProfile({
         </div>
       </div>
     );
-  };
+  }, [companiesSlot, companies, companiesClassName, companiesTitle, optixFlowConfig]);
 
-  const renderAchievements = () => {
+  const achievementsContent = useMemo(() => {
     if (achievementsSlot) return achievementsSlot;
     if (!achievements || achievements.length === 0) return null;
 
@@ -260,7 +261,7 @@ export function AboutCompanyProfile({
         )}
       </div>
     ));
-  };
+  }, [achievementsSlot, achievements]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -291,7 +292,7 @@ export function AboutCompanyProfile({
             />
           )}
           <div className="flex flex-col gap-7 md:flex-row lg:flex-col">
-            {(breakoutSlot || breakout) && renderBreakout()}
+            {(breakoutSlot || breakout) && breakoutContent}
             {secondaryImage && (
               <Img
                 src={secondaryImage.src}
@@ -302,7 +303,7 @@ export function AboutCompanyProfile({
             )}
           </div>
         </div>
-        {(companiesSlot || (companies && companies.length > 0)) && renderCompanies()}
+        {(companiesSlot || (companies && companies.length > 0)) && companiesContent}
         <div className={cn("relative overflow-hidden rounded-xl bg-muted p-7 md:p-16", achievementsClassName)}>
           <div className="flex flex-col gap-4 text-center md:text-left">
             {achievementsTitle && (
@@ -325,7 +326,7 @@ export function AboutCompanyProfile({
             )}
           </div>
           <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 text-center lg:grid-cols-4">
-            {renderAchievements()}
+            {achievementsContent}
           </div>
         </div>
       </div>

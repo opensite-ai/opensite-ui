@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { FeatureItem, OptixFlowConfig } from "../../../src/types";
 
 export interface AboutMissionFeaturesProps {
@@ -127,7 +127,7 @@ export function AboutMissionFeatures({
   featuresClassName,
   optixFlowConfig,
 }: AboutMissionFeaturesProps): React.JSX.Element {
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -152,7 +152,7 @@ export function AboutMissionFeatures({
         )}
       </div>
     ));
-  };
+  }, [featuresSlot, features]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -234,7 +234,7 @@ export function AboutMissionFeatures({
             )}
           </div>
           <div className={cn("grid gap-10 md:grid-cols-3", featuresClassName)}>
-            {renderFeatures()}
+            {featuresContent}
           </div>
         </div>
       </div>
