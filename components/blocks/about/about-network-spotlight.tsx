@@ -136,10 +136,7 @@ export function AboutNetworkSpotlight({
   highlightsSlot,
   actions,
   actionsSlot,
-  image = {
-    src: imagePlaceholders[24],
-    alt: "OpenSite AI partner network spotlight",
-  },
+  image,
   spotlightCard,
   spotlightCardSlot,
   className,
@@ -257,25 +254,27 @@ export function AboutNetworkSpotlight({
           contentClassName,
         )}
       >
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
-            <Img
-              src={image.src}
-              alt={image.alt}
-              className={cn("h-full w-full object-cover", imageClassName)}
-              optixFlowConfig={optixFlowConfig}
-            />
-            <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              {spotlightCardContent}
+        {image && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+              <Img
+                src={image.src}
+                alt={image.alt}
+                className={cn("h-full w-full object-cover", imageClassName)}
+                optixFlowConfig={optixFlowConfig}
+              />
+              <div className="absolute inset-0 bg-linear-to-tr from-black/70 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                {spotlightCardContent}
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, x: 20 }}

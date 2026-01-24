@@ -174,17 +174,14 @@ export function AboutStoryExpertise({
   actions,
   actionsSlot,
   actionsClassName,
-  image = {
-    src: imagePlaceholders[7],
-    alt: "OpenSite AI team collaboration",
-  },
+  image,
   imageClassName,
   highlight,
   highlightSlot,
   highlightClassName,
-  expertiseHeading = "Why teams choose OpenSite AI",
+  expertiseHeading,
   expertiseHeadingClassName,
-  expertiseDescription = "Experience, independence, and intelligent tooling combine to deliver better outcomes.",
+  expertiseDescription,
   expertiseDescriptionClassName,
   expertiseAreas,
   expertiseAreasSlot,
@@ -376,31 +373,33 @@ export function AboutStoryExpertise({
           {actionsContent}
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="order-1 lg:order-2"
-        >
-          <div
-            className={cn(
-              "relative overflow-hidden rounded-3xl border border-border shadow-2xl",
-              imageClassName,
-            )}
+        {image && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="order-1 lg:order-2"
           >
-            <Img
-              src={image.src}
-              alt={image.alt}
-              className="h-full w-full object-cover"
-              optixFlowConfig={optixFlowConfig}
-            />
-            <div className="absolute inset-0 bg-linear-to-tr from-foreground/60 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              {highlightContent}
+            <div
+              className={cn(
+                "relative overflow-hidden rounded-3xl border border-border shadow-2xl",
+                imageClassName,
+              )}
+            >
+              <Img
+                src={image.src}
+                alt={image.alt}
+                className="h-full w-full object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
+              <div className="absolute inset-0 bg-linear-to-tr from-foreground/60 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                {highlightContent}
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
       </div>
 
       <div

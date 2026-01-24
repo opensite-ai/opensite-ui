@@ -28,8 +28,8 @@ describe("AboutVisionGallery", () => {
       <AboutVisionGallery
         title="Test Title"
         subtitle="Test Subtitle"
-        visionTitle="Test Vision Title"
-        creatorsTitle="Test Creators Title"
+        primarySectionTitle="Test Vision Title"
+        secondarySectionTitle="Test Creators Title"
       />
     );
     expect(screen.getByText("Test Title")).toBeInTheDocument();
@@ -48,14 +48,14 @@ describe("AboutVisionGallery", () => {
     expect(screen.getByText("Custom subtitle text")).toBeInTheDocument();
   });
 
-  it("renders custom vision title and content", () => {
-    render(<AboutVisionGallery visionTitle="Custom Vision" visionContent="Custom vision content" />);
+  it("renders custom primary section title and content", () => {
+    render(<AboutVisionGallery primarySectionTitle="Custom Vision" primarySectionContent="Custom vision content" />);
     expect(screen.getByText("Custom Vision")).toBeInTheDocument();
     expect(screen.getByText("Custom vision content")).toBeInTheDocument();
   });
 
-  it("renders custom creators title", () => {
-    render(<AboutVisionGallery creatorsTitle="Custom Creators" />);
+  it("renders custom secondary section title", () => {
+    render(<AboutVisionGallery secondarySectionTitle="Custom Creators" />);
     expect(screen.getByText("Custom Creators")).toBeInTheDocument();
   });
 

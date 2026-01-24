@@ -100,9 +100,9 @@ export interface AboutSplitHeroProps {
  * ```
  */
 export function AboutSplitHero({
-  brandText = "Business",
+  brandText,
   brandTextClassName,
-  brandHighlight = "PRO",
+  brandHighlight,
   brandHighlightClassName,
   heading,
   headingClassName,
@@ -111,8 +111,8 @@ export function AboutSplitHero({
   ctaAction,
   ctaSlot,
   ctaClassName,
-  imageSrc = blockBrandedIconsAndPlaceholders.placeholderDark1,
-  imageAlt = "Hero image",
+  imageSrc,
+  imageAlt,
   imageClassName,
   className,
   containerClassName,
@@ -141,12 +141,16 @@ export function AboutSplitHero({
     <section className={cn("dark flex", className)}>
       <div className={cn("flex w-full items-center justify-center bg-background lg:w-1/2", containerClassName)}>
         <div className="container my-10 flex w-[500px] flex-col gap-24">
-          <h1 className={cn("text-4xl text-foreground", brandTextClassName)}>
-            {brandText}{" "}
-            <span className={cn("bg-gradient-to-tr from-foreground to-muted bg-clip-text text-transparent", brandHighlightClassName)}>
-              {brandHighlight}
-            </span>
-          </h1>
+          {(brandText || brandHighlight) && (
+            <h1 className={cn("text-4xl text-foreground", brandTextClassName)}>
+              {brandText}{" "}
+              {brandHighlight && (
+                <span className={cn("bg-gradient-to-tr from-foreground to-muted bg-clip-text text-transparent", brandHighlightClassName)}>
+                  {brandHighlight}
+                </span>
+              )}
+            </h1>
+          )}
           <div>
             {heading && (
               typeof heading === "string" ? (
@@ -166,12 +170,14 @@ export function AboutSplitHero({
           </div>
         </div>
       </div>
-      <Img
-        src={imageSrc}
-        alt={imageAlt}
-        className={cn("hidden h-screen w-1/2 object-cover lg:block", imageClassName)}
-        optixFlowConfig={optixFlowConfig}
-      />
+      {imageSrc && (
+        <Img
+          src={imageSrc}
+          alt={imageAlt || ""}
+          className={cn("hidden h-screen w-1/2 object-cover lg:block", imageClassName)}
+          optixFlowConfig={optixFlowConfig}
+        />
+      )}
     </section>
   );
 }

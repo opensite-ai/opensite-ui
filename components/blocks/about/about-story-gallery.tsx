@@ -60,11 +60,7 @@ export function AboutStoryGallery({
   containerClassName,
   title,
   titleClassName,
-  description = `We started with a vision to transform how businesses build software. What began as a small team with big ideas has grown into a platform trusted by thousands of companies worldwide.
-
-Our journey has been defined by a commitment to innovation, user experience, and making powerful tools accessible to everyone. We believe that the best software is built when creativity meets simplicity.
-
-Today, we continue to push boundaries, helping teams of all sizes bring their ideas to life without the traditional barriers of software development.`,
+  description,
   descriptionClassName,
   images,
   imagesSlot,

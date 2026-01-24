@@ -78,11 +78,7 @@ export interface AboutStoryHeroProps {
 export function AboutStoryHero({
   title,
   subtitle,
-  content = `We started with a bold idea: what if anyone could build professional software without years of training? This question drove us to create a platform that bridges the gap between imagination and implementation.
-
-Our team combines decades of experience in software engineering, design, and user experience. We've worked at companies like Google, Meta, and Stripe, and we've brought that expertise to bear on solving one of technology's most persistent challenges.
-
-The result is a platform that's powerful enough for professional developers yet accessible enough for anyone with an idea. We're not just building tools—we're democratizing software development.`,
+  content,
   heroImage,
   teamInfo,
   teamInfoSlot,
