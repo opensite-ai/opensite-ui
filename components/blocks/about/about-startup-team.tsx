@@ -96,14 +96,12 @@ export function AboutStartupTeam({
   containerClassName,
   title,
   titleClassName,
-  description = `We're a team of passionate builders who believe that creating software should be accessible to everyone. Our platform empowers teams to build, deploy, and scale applications without the traditional barriers.
-
-Founded in 2020, we've grown from a small startup to a platform trusted by thousands of companies worldwide. Our mission is simple: democratize software development and help teams bring their ideas to life faster than ever before.`,
+  description,
   descriptionClassName,
   sidebarLinks,
   sidebarSlot,
   sidebarClassName,
-  teamTitle = "Meet Our Leadership",
+  teamTitle,
   teamTitleClassName,
   teamMembers,
   teamMembersSlot,

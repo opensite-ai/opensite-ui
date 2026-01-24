@@ -7,7 +7,7 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
 
-export interface VisionGalleryImageItem {
+export interface GalleryImageItem {
   src: string;
   alt: string;
 }
@@ -40,7 +40,7 @@ export interface AboutVisionGalleryProps {
   /**
    * Array of gallery images
    */
-  images?: VisionGalleryImageItem[];
+  images?: GalleryImageItem[];
   /**
    * Custom slot for rendering images (overrides images array)
    */
@@ -50,47 +50,47 @@ export interface AboutVisionGalleryProps {
    */
   imagesClassName?: string;
   /**
-   * Vision section title
+   * Primary content section title
    */
-  visionTitle?: React.ReactNode;
+  primarySectionTitle?: React.ReactNode;
   /**
-   * Additional CSS classes for the vision title
+   * Additional CSS classes for the primary section title
    */
-  visionTitleClassName?: string;
+  primarySectionTitleClassName?: string;
   /**
-   * Vision section content
+   * Primary content section body
    */
-  visionContent?: React.ReactNode;
+  primarySectionContent?: React.ReactNode;
   /**
-   * Additional CSS classes for the vision content
+   * Additional CSS classes for the primary section content
    */
-  visionContentClassName?: string;
+  primarySectionContentClassName?: string;
   /**
-   * Creators section title
+   * Secondary content section title
    */
-  creatorsTitle?: React.ReactNode;
+  secondarySectionTitle?: React.ReactNode;
   /**
-   * Additional CSS classes for the creators title
+   * Additional CSS classes for the secondary section title
    */
-  creatorsTitleClassName?: string;
+  secondarySectionTitleClassName?: string;
   /**
-   * Creators section content
+   * Secondary content section body
    */
-  creatorsContent?: React.ReactNode;
+  secondarySectionContent?: React.ReactNode;
   /**
-   * Additional CSS classes for the creators content
+   * Additional CSS classes for the secondary section content
    */
-  creatorsContentClassName?: string;
+  secondarySectionContentClassName?: string;
   /**
-   * Creators link text
+   * Secondary section link text
    */
-  creatorsLinkText?: React.ReactNode;
+  secondarySectionLinkText?: React.ReactNode;
   /**
-   * Creators link URL
+   * Secondary section link URL
    */
-  creatorsLinkUrl?: string;
+  secondarySectionLinkUrl?: string;
   /**
-   * CTA section title
+   * Call-to-action section title
    */
   ctaTitle?: React.ReactNode;
   /**
@@ -115,6 +115,26 @@ export interface AboutVisionGalleryProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
+/**
+ * AboutVisionGallery - A two-column about section with image gallery, dual content areas,
+ * and a call-to-action banner. Features a hero area with title/subtitle, responsive image
+ * grid, two side-by-side content sections, and a prominent CTA section.
+ *
+ * @example
+ * ```tsx
+ * <AboutVisionGallery
+ *   title="About Our Company"
+ *   subtitle="Learn more about what we do"
+ *   images={[{ src: "/image1.jpg", alt: "Team photo" }]}
+ *   primarySectionTitle="Our Mission"
+ *   primarySectionContent="We are dedicated to excellence..."
+ *   secondarySectionTitle="Our Story"
+ *   secondarySectionContent="Founded in 2020..."
+ *   ctaTitle="Join Our Team"
+ *   ctaAction={{ label: "View Careers", href: "/careers" }}
+ * />
+ * ```
+ */
 export function AboutVisionGallery({
   className,
   containerClassName,
@@ -125,27 +145,17 @@ export function AboutVisionGallery({
   images,
   imagesSlot,
   imagesClassName,
-  visionTitle = "Our Vision",
-  visionTitleClassName,
-  visionContent = `For years, the process of building custom software has remained challenging. Today, visual builders exist, but tailored solutions still require technical expertise and a lot of time. This is a problem for businesses and individuals alike.
-
-What if you could create custom software without writing a single line of code? What if you could build your own tools.
-
-With our platform, you can! Our tools let you design layouts and create functionality—all without needing to code.
-
-We believe that everyone should be able to build their own solutions, regardless of their technical background.`,
-  visionContentClassName,
-  creatorsTitle = "Our Creators",
-  creatorsTitleClassName,
-  creatorsContent = `has been building web tools for over a decade, focusing on efficiency and user control in every project. We know that the best solutions are the ones that you can create yourself.
-
-We initially developed these solutions for our own team, and now everyone can benefit from them too. We are proud to offer a platform that is accessible to all, regardless of technical expertise.
-
-Our team is made up of talented individuals who are passionate about creating tools that empower users to build their own solutions with ease. We are dedicated to helping you achieve your goals, and we can't wait to see what you create!`,
-  creatorsContentClassName,
-  creatorsLinkText = "Our Company",
-  creatorsLinkUrl = "#",
-  ctaTitle = "Part of Our Global Team",
+  primarySectionTitle,
+  primarySectionTitleClassName,
+  primarySectionContent,
+  primarySectionContentClassName,
+  secondarySectionTitle,
+  secondarySectionTitleClassName,
+  secondarySectionContent,
+  secondarySectionContentClassName,
+  secondarySectionLinkText,
+  secondarySectionLinkUrl,
+  ctaTitle,
   ctaTitleClassName,
   ctaAction,
   ctaSlot,
@@ -188,77 +198,93 @@ Our team is made up of talented individuals who are passionate about creating to
     );
   }, [ctaSlot, ctaAction]);
 
+  const hasPrimarySection = primarySectionTitle || primarySectionContent;
+  const hasSecondarySection = secondarySectionTitle || secondarySectionContent || secondarySectionLinkText;
+  const hasCtaSection = ctaTitle || ctaSlot || ctaAction;
+
   return (
     <section className={cn("py-32", className)}>
       <div className={cn("container", containerClassName)}>
-        <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-28 text-center">
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-4xl font-semibold md:text-7xl", titleClassName)}>{title}</h1>
-            ) : (
-              <div className={titleClassName}>{title}</div>
-            )
-          )}
-          {subtitle && (
-            typeof subtitle === "string" ? (
-              <p className={cn("text-xl font-medium text-muted-foreground", subtitleClassName)}>
-                {subtitle}
-              </p>
-            ) : (
-              <div className={subtitleClassName}>{subtitle}</div>
-            )
-          )}
-        </div>
-        {imagesContent}
-        <div className="mx-auto grid max-w-5xl gap-28 py-28 md:grid-cols-2">
-          <div>
-            {visionTitle && (
-              typeof visionTitle === "string" ? (
-                <h2 className={cn("mb-5 text-4xl font-semibold", visionTitleClassName)}>{visionTitle}</h2>
+        {(title || subtitle) && (
+          <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-28 text-center">
+            {title && (
+              typeof title === "string" ? (
+                <h1 className={cn("text-4xl font-semibold md:text-7xl", titleClassName)}>{title}</h1>
               ) : (
-                <div className={cn("mb-5", visionTitleClassName)}>{visionTitle}</div>
+                <div className={titleClassName}>{title}</div>
               )
             )}
-            {visionContent && (
-              typeof visionContent === "string" ? (
-                <p className={cn("text-xl leading-8 font-medium text-muted-foreground whitespace-pre-line", visionContentClassName)}>
-                  {visionContent}
+            {subtitle && (
+              typeof subtitle === "string" ? (
+                <p className={cn("text-xl font-medium text-muted-foreground", subtitleClassName)}>
+                  {subtitle}
                 </p>
               ) : (
-                <div className={visionContentClassName}>{visionContent}</div>
+                <div className={subtitleClassName}>{subtitle}</div>
               )
             )}
           </div>
-          <div>
-            {creatorsTitle && (
-              typeof creatorsTitle === "string" ? (
-                <h2 className={cn("mb-5 text-4xl font-semibold", creatorsTitleClassName)}>{creatorsTitle}</h2>
+        )}
+        {imagesContent}
+        {(hasPrimarySection || hasSecondarySection) && (
+          <div className="mx-auto grid max-w-5xl gap-28 py-28 md:grid-cols-2">
+            {hasPrimarySection && (
+              <div>
+                {primarySectionTitle && (
+                  typeof primarySectionTitle === "string" ? (
+                    <h2 className={cn("mb-5 text-4xl font-semibold", primarySectionTitleClassName)}>{primarySectionTitle}</h2>
+                  ) : (
+                    <div className={cn("mb-5", primarySectionTitleClassName)}>{primarySectionTitle}</div>
+                  )
+                )}
+                {primarySectionContent && (
+                  typeof primarySectionContent === "string" ? (
+                    <p className={cn("text-xl leading-8 font-medium text-muted-foreground whitespace-pre-line", primarySectionContentClassName)}>
+                      {primarySectionContent}
+                    </p>
+                  ) : (
+                    <div className={primarySectionContentClassName}>{primarySectionContent}</div>
+                  )
+                )}
+              </div>
+            )}
+            {hasSecondarySection && (
+              <div>
+                {secondarySectionTitle && (
+                  typeof secondarySectionTitle === "string" ? (
+                    <h2 className={cn("mb-5 text-4xl font-semibold", secondarySectionTitleClassName)}>{secondarySectionTitle}</h2>
+                  ) : (
+                    <div className={cn("mb-5", secondarySectionTitleClassName)}>{secondarySectionTitle}</div>
+                  )
+                )}
+                {(secondarySectionContent || secondarySectionLinkText) && (
+                  <p className={cn("text-xl leading-8 font-medium text-muted-foreground", secondarySectionContentClassName)}>
+                    {secondarySectionLinkText && secondarySectionLinkUrl && (
+                      <Pressable href={secondarySectionLinkUrl} className="mr-1 underline">
+                        {secondarySectionLinkText}
+                      </Pressable>
+                    )}
+                    {secondarySectionContent}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+        {hasCtaSection && (
+          <div className={cn("mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl bg-muted/50 p-14 text-center md:flex-row md:text-left", ctaClassName)}>
+            {ctaTitle && (
+              typeof ctaTitle === "string" ? (
+                <h3 className={cn("text-3xl font-semibold whitespace-pre-line", ctaTitleClassName)}>
+                  {ctaTitle}
+                </h3>
               ) : (
-                <div className={cn("mb-5", creatorsTitleClassName)}>{creatorsTitle}</div>
+                <div className={ctaTitleClassName}>{ctaTitle}</div>
               )
             )}
-            <p className={cn("text-xl leading-8 font-medium text-muted-foreground", creatorsContentClassName)}>
-              {creatorsLinkText && creatorsLinkUrl && (
-                <Pressable href={creatorsLinkUrl} className="mr-1 underline">
-                  {creatorsLinkText}
-                </Pressable>
-              )}
-              {creatorsContent}
-            </p>
+            {ctaContent}
           </div>
-        </div>
-        <div className={cn("mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 rounded-2xl bg-muted/50 p-14 text-center md:flex-row md:text-left", ctaClassName)}>
-          {ctaTitle && (
-            typeof ctaTitle === "string" ? (
-              <h3 className={cn("text-3xl font-semibold whitespace-pre-line", ctaTitleClassName)}>
-                {ctaTitle}
-              </h3>
-            ) : (
-              <div className={ctaTitleClassName}>{ctaTitle}</div>
-            )
-          )}
-          {ctaContent}
-        </div>
+        )}
       </div>
     </section>
   );

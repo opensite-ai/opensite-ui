@@ -188,7 +188,7 @@ export function CommunityInitiatives({
   description,
   categories,
   categoriesSlot,
-  ctaBadgeText = "Join us in making a difference",
+  ctaBadgeText,
   ctaHeading,
   ctaDescription,
   actions,
@@ -207,12 +207,12 @@ export function CommunityInitiatives({
   optixFlowConfig,
 }: CommunityInitiativesProps): React.JSX.Element {
   const [activeCategory, setActiveCategory] = React.useState(
-    categories[0]?.id || ""
+    categories?.[0]?.id || ""
   );
 
   const currentCategory =
-    categories.find((category) => category.id === activeCategory) ||
-    categories[0];
+    categories?.find((category) => category.id === activeCategory) ||
+    categories?.[0];
 
   const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setActiveCategory(e.target.value);
