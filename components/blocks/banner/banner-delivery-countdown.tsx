@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -25,7 +25,6 @@ export interface BannerDeliveryCountdownProps {
   icon?: React.ReactNode;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
-   * @default "lucide/gift"
    */
   iconName?: string;
   /**
@@ -34,7 +33,6 @@ export interface BannerDeliveryCountdownProps {
   deliveryDate?: React.ReactNode;
   /**
    * Cutoff time for orders
-   * @default 4 hours from now
    */
   cutoffTime?: Date;
   /**
@@ -100,11 +98,11 @@ export interface BannerDeliveryCountdownProps {
  */
 export function BannerDeliveryCountdown({
   icon,
-  iconName = "lucide/gift",
-  deliveryDate = "Dec 24",
+  iconName,
+  deliveryDate,
   cutoffTime,
-  prefixText = "Order within",
-  middleText = "for delivery by",
+  prefixText,
+  middleText,
   timerSlot,
   renderTimer,
   className,
@@ -115,11 +113,7 @@ export function BannerDeliveryCountdown({
   timerClassName,
   deliveryDateClassName,
 }: BannerDeliveryCountdownProps) {
-  const defaultCutoffTime = useMemo(
-    () => new Date(Date.now() + 4 * 60 * 60 * 1000),
-    []
-  );
-  const targetTime = cutoffTime ?? defaultCutoffTime;
+  const targetTime = cutoffTime;
 
   const [timeLeft, setTimeLeft] = useState<DeliveryCountdownTimeLeft>({
     hours: 0,
@@ -128,6 +122,10 @@ export function BannerDeliveryCountdown({
   });
 
   useEffect(() => {
+    if (!targetTime) {
+      return;
+    }
+
     const calculateTimeLeft = (): DeliveryCountdownTimeLeft => {
       const now = new Date().getTime();
       const target = targetTime.getTime();
@@ -152,42 +150,59 @@ export function BannerDeliveryCountdown({
     return () => clearInterval(timer);
   }, [targetTime]);
 
-  const pad = (n: number) => n.toString().padStart(2, "0");
+  const pad = useCallback((n: number) => n.toString().padStart(2, "0"), []);
 
-  const renderIcon = () => {
+  const iconContent = useMemo(() => {
     if (icon) return icon;
+    if (!iconName) return null;
     return <DynamicIcon name={iconName} size={16} className={iconClassName} />;
-  };
+  }, [icon, iconName, iconClassName]);
 
-  const renderDefaultTimer = () => {
+  const timerContent = useMemo(() => {
     if (timerSlot) return timerSlot;
     if (renderTimer) return renderTimer(timeLeft);
+    if (!targetTime) return null;
 
     return (
       <span className={cn("font-mono font-bold", timerClassName)}>
         {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}
       </span>
     );
-  };
+  }, [timerSlot, renderTimer, timeLeft, timerClassName, pad, targetTime]);
+
+  const deliveryDateContent = useMemo(() => {
+    if (!deliveryDate) return null;
+    return typeof deliveryDate === "string" ? (
+      <span className={cn("font-semibold", deliveryDateClassName)}>
+        {deliveryDate}
+      </span>
+    ) : (
+      <span className={deliveryDateClassName}>{deliveryDate}</span>
+    );
+  }, [deliveryDate, deliveryDateClassName]);
+
+  const messageParts = useMemo(() => {
+    return [prefixText, timerContent, middleText, deliveryDateContent].filter(
+      (part) => part !== null && part !== undefined
+    );
+  }, [prefixText, timerContent, middleText, deliveryDateContent]);
 
   return (
     <div className={cn("w-full bg-accent text-accent-foreground", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-3 text-sm", contentClassName)}>
           <div className={cn("flex items-center gap-2", messageClassName)}>
-            {renderIcon()}
-            <span>
-              {prefixText}{" "}
-              {renderDefaultTimer()}{" "}
-              {middleText}{" "}
-              {deliveryDate && (
-                typeof deliveryDate === "string" ? (
-                  <span className={cn("font-semibold", deliveryDateClassName)}>{deliveryDate}</span>
-                ) : (
-                  <span className={deliveryDateClassName}>{deliveryDate}</span>
-                )
-              )}
-            </span>
+            {iconContent}
+            {messageParts.length > 0 && (
+              <span>
+                {messageParts.map((part, index) => (
+                  <React.Fragment key={index}>
+                    {index > 0 ? " " : null}
+                    {part}
+                  </React.Fragment>
+                ))}
+              </span>
+            )}
           </div>
         </div>
       </div>

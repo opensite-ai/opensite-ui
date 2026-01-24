@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -18,7 +18,6 @@ export interface BannerSocialFollowProps {
   icon?: React.ReactNode;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
-   * @default "mynaui/users"
    */
   iconName?: string;
   /**
@@ -43,7 +42,6 @@ export interface BannerSocialFollowProps {
   dismissIcon?: React.ReactNode;
   /**
    * ARIA label for dismiss button
-   * @default "Dismiss banner"
    */
   dismissAriaLabel?: string;
   /**
@@ -90,13 +88,13 @@ export interface BannerSocialFollowProps {
  */
 export function BannerSocialFollow({
   icon,
-  iconName = "mynaui/users",
+  iconName,
   message,
   actions,
   actionsSlot,
   onDismiss,
   dismissIcon,
-  dismissAriaLabel = "Dismiss banner",
+  dismissAriaLabel,
   className,
   containerClassName,
   iconClassName,
@@ -105,23 +103,38 @@ export function BannerSocialFollow({
   dismissButtonClassName,
 }: BannerSocialFollowProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const dismissLabel = dismissAriaLabel ?? "Dismiss banner";
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     setIsVisible(false);
     onDismiss?.();
-  };
+  }, [onDismiss]);
 
-  const renderIcon = () => {
+  const iconContent = useMemo(() => {
     if (icon) return icon;
-    return <DynamicIcon name={iconName} size={20} className={cn("shrink-0", iconClassName)} />;
-  };
+    if (!iconName) return null;
+    return (
+      <DynamicIcon
+        name={iconName}
+        size={20}
+        className={cn("shrink-0", iconClassName)}
+      />
+    );
+  }, [icon, iconName, iconClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -139,12 +152,21 @@ export function BannerSocialFollow({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderDismissIcon = () => {
+  const dismissIconContent = useMemo(() => {
     if (dismissIcon) return dismissIcon;
     return <DynamicIcon name="mynaui/x" size={16} />;
-  };
+  }, [dismissIcon]);
+
+  const messageContent = useMemo(() => {
+    if (!message) return null;
+    return typeof message === "string" ? (
+      <span className={cn("font-medium", messageClassName)}>{message}</span>
+    ) : (
+      <span className={messageClassName}>{message}</span>
+    );
+  }, [message, messageClassName]);
 
   if (!isVisible) {
     return null;
@@ -158,17 +180,11 @@ export function BannerSocialFollow({
       )}
     >
       <div className={cn("max-w-7xl mx-auto px-3 py-3 flex items-center justify-center text-left md:text-center gap-2", containerClassName)}>
-        {renderIcon()}
-        {message && (
-          typeof message === "string" ? (
-            <span className={cn("font-medium", messageClassName)}>{message}</span>
-          ) : (
-            <span className={messageClassName}>{message}</span>
-          )
-        )}
+        {iconContent}
+        {messageContent}
         {(actionsSlot || (actions && actions.length > 0)) && (
           <span className={actionsClassName}>
-            {renderActions()}
+            {actionsContent}
           </span>
         )}
         <Pressable
@@ -178,8 +194,8 @@ export function BannerSocialFollow({
           asButton
           className={cn("size-8", dismissButtonClassName)}
         >
-          {renderDismissIcon()}
-          <span className="sr-only">{dismissAriaLabel}</span>
+          {dismissIconContent}
+          <span className="sr-only">{dismissLabel}</span>
         </Pressable>
       </div>
     </div>

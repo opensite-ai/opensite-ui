@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -38,7 +38,6 @@ export interface BannerFloatingOfferProps {
   open?: boolean;
   /**
    * Default visibility state for uncontrolled mode
-   * @default true
    */
   defaultOpen?: boolean;
   /**
@@ -47,7 +46,6 @@ export interface BannerFloatingOfferProps {
   onOpenChange?: (open: boolean) => void;
   /**
    * Whether the banner can be dismissed
-   * @default false
    */
   dismissible?: boolean;
   /**
@@ -56,7 +54,6 @@ export interface BannerFloatingOfferProps {
   dismissIcon?: React.ReactNode;
   /**
    * ARIA label for dismiss button
-   * @default "Dismiss banner"
    */
   dismissAriaLabel?: string;
   /**
@@ -113,17 +110,17 @@ export interface BannerFloatingOfferProps {
  * ```
  */
 export function BannerFloatingOffer({
-  offerTitle = "Limited time offer",
-  offerDescription = "Get 50% off for your first month",
+  offerTitle,
+  offerDescription,
   separator,
   actions,
   actionsSlot,
   open,
-  defaultOpen = true,
+  defaultOpen,
   onOpenChange,
-  dismissible = false,
+  dismissible,
   dismissIcon,
-  dismissAriaLabel = "Dismiss banner",
+  dismissAriaLabel,
   className,
   containerClassName,
   textClassName,
@@ -134,28 +131,38 @@ export function BannerFloatingOffer({
   dismissButtonClassName,
 }: BannerFloatingOfferProps) {
   const isControlled = open !== undefined;
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const initialOpen = defaultOpen ?? true;
+  const [internalOpen, setInternalOpen] = useState(initialOpen);
   const isVisible = isControlled ? open : internalOpen;
+  const dismissLabel = dismissAriaLabel ?? "Dismiss banner";
+  const isDismissible = dismissible ?? false;
 
   useEffect(() => {
     if (!isControlled && defaultOpen !== internalOpen) {
-      setInternalOpen(defaultOpen);
+      setInternalOpen(initialOpen);
     }
-  }, [defaultOpen, isControlled, internalOpen]);
+  }, [defaultOpen, initialOpen, isControlled, internalOpen]);
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     if (!isControlled) {
       setInternalOpen(false);
     }
     onOpenChange?.(false);
-  };
+  }, [isControlled, onOpenChange]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -173,9 +180,9 @@ export function BannerFloatingOffer({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderSeparator = () => {
+  const separatorContent = useMemo(() => {
     if (separator) return separator;
     return (
       <svg
@@ -186,12 +193,28 @@ export function BannerFloatingOffer({
         <circle cx={1} cy={1} r={1} />
       </svg>
     );
-  };
+  }, [separator, separatorClassName]);
 
-  const renderDismissIcon = () => {
+  const dismissIconContent = useMemo(() => {
     if (dismissIcon) return dismissIcon;
     return <DynamicIcon name="mynaui/x" size={16} />;
-  };
+  }, [dismissIcon]);
+
+  const offerTitleContent = useMemo(() => {
+    if (!offerTitle) return null;
+    return typeof offerTitle === "string" ? (
+      <strong className={cn("font-semibold", offerTitleClassName)}>
+        {offerTitle}
+      </strong>
+    ) : (
+      <span className={offerTitleClassName}>{offerTitle}</span>
+    );
+  }, [offerTitle, offerTitleClassName]);
+
+  const offerDescriptionContent = useMemo(() => {
+    if (!offerDescription) return null;
+    return <span className={offerDescriptionClassName}>{offerDescription}</span>;
+  }, [offerDescription, offerDescriptionClassName]);
 
   if (!isVisible) {
     return null;
@@ -206,25 +229,13 @@ export function BannerFloatingOffer({
     >
       <div className={cn("pointer-events-auto flex items-center justify-between gap-x-6 bg-primary px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5", containerClassName)}>
         <p className={cn("text-sm leading-6 text-primary-foreground", textClassName)}>
-          {offerTitle && (
-            typeof offerTitle === "string" ? (
-              <strong className={cn("font-semibold", offerTitleClassName)}>{offerTitle}</strong>
-            ) : (
-              <span className={offerTitleClassName}>{offerTitle}</span>
-            )
-          )}
-          {renderSeparator()}
-          {offerDescription && (
-            typeof offerDescription === "string" ? (
-              <span className={offerDescriptionClassName}>{offerDescription}</span>
-            ) : (
-              <span className={offerDescriptionClassName}>{offerDescription}</span>
-            )
-          )}
+          {offerTitleContent}
+          {offerTitleContent && offerDescriptionContent && separatorContent}
+          {offerDescriptionContent}
         </p>
         <div className={cn("flex items-center gap-2", actionsClassName)}>
-          {renderActions()}
-          {dismissible && (
+          {actionsContent}
+          {isDismissible && (
             <Pressable
               onClick={handleDismiss}
               variant="ghost"
@@ -232,8 +243,8 @@ export function BannerFloatingOffer({
               asButton
               className={cn("size-8 text-primary-foreground hover:text-primary-foreground/80", dismissButtonClassName)}
             >
-              {renderDismissIcon()}
-              <span className="sr-only">{dismissAriaLabel}</span>
+              {dismissIconContent}
+              <span className="sr-only">{dismissLabel}</span>
             </Pressable>
           )}
         </div>

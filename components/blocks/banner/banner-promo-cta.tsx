@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { ActionConfig } from "../../../src/types";
 
 /**
@@ -79,7 +79,7 @@ export interface BannerPromoCtaProps {
  */
 export function BannerPromoCta({
   message,
-  discount = "Up to 50% off",
+  discount,
   separator,
   actions,
   actionsSlot,
@@ -91,12 +91,19 @@ export function BannerPromoCta({
   discountClassName,
   actionsClassName,
 }: BannerPromoCtaProps) {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -113,12 +120,26 @@ export function BannerPromoCta({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderSeparator = () => {
+  const separatorContent = useMemo(() => {
     if (separator) return separator;
     return <span className={cn("hidden sm:inline", separatorClassName)}>·</span>;
-  };
+  }, [separator, separatorClassName]);
+
+  const messageContent = useMemo(() => {
+    if (!message) return null;
+    return typeof message === "string" ? (
+      <span className={cn("font-semibold", messageClassName)}>{message}</span>
+    ) : (
+      <span className={messageClassName}>{message}</span>
+    );
+  }, [message, messageClassName]);
+
+  const discountContent = useMemo(() => {
+    if (!discount) return null;
+    return <span className={discountClassName}>{discount}</span>;
+  }, [discount, discountClassName]);
 
   return (
     <div
@@ -126,24 +147,12 @@ export function BannerPromoCta({
     >
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm", contentClassName)}>
-          {message && (
-            typeof message === "string" ? (
-              <span className={cn("font-semibold", messageClassName)}>{message}</span>
-            ) : (
-              <span className={messageClassName}>{message}</span>
-            )
-          )}
-          {renderSeparator()}
-          {discount && (
-            typeof discount === "string" ? (
-              <span className={discountClassName}>{discount}</span>
-            ) : (
-              <span className={discountClassName}>{discount}</span>
-            )
-          )}
+          {messageContent}
+          {messageContent && discountContent && separatorContent}
+          {discountContent}
           {(actionsSlot || (actions && actions.length > 0)) && (
             <span className={actionsClassName}>
-              {renderActions()}
+              {actionsContent}
             </span>
           )}
         </div>

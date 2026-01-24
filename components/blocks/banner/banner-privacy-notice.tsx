@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -18,7 +18,6 @@ export interface BannerPrivacyNoticeProps {
   icon?: React.ReactNode;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
-   * @default "mynaui/shield"
    */
   iconName?: string;
   /**
@@ -47,7 +46,6 @@ export interface BannerPrivacyNoticeProps {
   dismissIcon?: React.ReactNode;
   /**
    * ARIA label for dismiss button
-   * @default "Dismiss banner"
    */
   dismissAriaLabel?: string;
   /**
@@ -104,14 +102,14 @@ export interface BannerPrivacyNoticeProps {
  */
 export function BannerPrivacyNotice({
   icon,
-  iconName = "mynaui/shield",
+  iconName,
   title,
   description,
   actions,
   actionsSlot,
   onDismiss,
   dismissIcon,
-  dismissAriaLabel = "Dismiss banner",
+  dismissAriaLabel,
   className,
   containerClassName,
   contentClassName,
@@ -122,14 +120,16 @@ export function BannerPrivacyNotice({
   dismissButtonClassName,
 }: BannerPrivacyNoticeProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const dismissLabel = dismissAriaLabel ?? "Dismiss banner";
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     setIsVisible(false);
     onDismiss?.();
-  };
+  }, [onDismiss]);
 
-  const renderIcon = () => {
+  const iconContent = useMemo(() => {
     if (icon) return icon;
+    if (!iconName) return null;
     return (
       <DynamicIcon
         name={iconName}
@@ -137,14 +137,21 @@ export function BannerPrivacyNotice({
         className={cn("mt-0.5 shrink-0", iconClassName)}
       />
     );
-  };
+  }, [icon, iconName, iconClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -161,12 +168,34 @@ export function BannerPrivacyNotice({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderDismissIcon = () => {
+  const dismissIconContent = useMemo(() => {
     if (dismissIcon) return dismissIcon;
     return <DynamicIcon name="mynaui/x" size={16} />;
-  };
+  }, [dismissIcon]);
+
+  const titleContent = useMemo(() => {
+    if (!title) return null;
+    return typeof title === "string" ? (
+      <h3 className={cn("font-semibold text-sm", titleClassName)}>{title}</h3>
+    ) : (
+      <div className={titleClassName}>{title}</div>
+    );
+  }, [title, titleClassName]);
+
+  const descriptionContent = useMemo(() => {
+    if (!description) return null;
+    return typeof description === "string" ? (
+      <p className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>
+        {description}
+      </p>
+    ) : (
+      <div className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>
+        {description}
+      </div>
+    );
+  }, [description, descriptionClassName]);
 
   if (!isVisible) {
     return null;
@@ -181,25 +210,13 @@ export function BannerPrivacyNotice({
     >
       <div className={cn("flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4", containerClassName)}>
         <div className={cn("flex items-start gap-4", contentClassName)}>
-          {renderIcon()}
+          {iconContent}
           <div>
-            {title && (
-              typeof title === "string" ? (
-                <h3 className={cn("font-semibold text-sm", titleClassName)}>{title}</h3>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>{description}</div>
-              )
-            )}
+            {titleContent}
+            {descriptionContent}
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={actionsClassName}>
-                {renderActions()}
+                {actionsContent}
               </div>
             )}
           </div>
@@ -211,8 +228,8 @@ export function BannerPrivacyNotice({
           asButton
           className={cn("size-8", dismissButtonClassName)}
         >
-          {renderDismissIcon()}
-          <span className="sr-only">{dismissAriaLabel}</span>
+          {dismissIconContent}
+          <span className="sr-only">{dismissLabel}</span>
         </Pressable>
       </div>
     </div>

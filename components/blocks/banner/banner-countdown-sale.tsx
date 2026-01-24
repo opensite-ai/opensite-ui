@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 
@@ -20,7 +20,6 @@ export interface CountdownTimeLeft {
 export interface BannerCountdownSaleProps {
   /**
    * End time for the countdown
-   * @default 24 hours from now
    */
   endTime?: Date;
   /**
@@ -104,11 +103,7 @@ export function BannerCountdownSale({
   timeUnitClassName,
   separatorClassName,
 }: BannerCountdownSaleProps) {
-  const defaultEndTime = useMemo(
-    () => new Date(Date.now() + 24 * 60 * 60 * 1000),
-    []
-  );
-  const targetTime = endTime ?? defaultEndTime;
+  const targetTime = endTime;
 
   const [timeLeft, setTimeLeft] = useState<CountdownTimeLeft>({
     hours: 0,
@@ -117,6 +112,10 @@ export function BannerCountdownSale({
   });
 
   useEffect(() => {
+    if (!targetTime) {
+      return;
+    }
+
     const calculateTimeLeft = (): CountdownTimeLeft => {
       const now = new Date().getTime();
       const target = targetTime.getTime();
@@ -141,11 +140,12 @@ export function BannerCountdownSale({
     return () => clearInterval(timer);
   }, [targetTime]);
 
-  const pad = (n: number) => n.toString().padStart(2, "0");
+  const pad = useCallback((n: number) => n.toString().padStart(2, "0"), []);
 
-  const renderDefaultTimer = () => {
+  const timerContent = useMemo(() => {
     if (timerSlot) return timerSlot;
     if (renderTimer) return renderTimer(timeLeft);
+    if (!targetTime) return null;
 
     return (
       <div className={cn("flex items-center gap-1 font-mono text-lg font-bold", timerClassName)}>
@@ -162,27 +162,35 @@ export function BannerCountdownSale({
         </span>
       </div>
     );
-  };
+  }, [timerSlot, renderTimer, timeLeft, timerClassName, timeUnitClassName, separatorClassName, pad, targetTime]);
+
+  const messageContent = useMemo(() => {
+    if (!message) return null;
+    return typeof message === "string" ? (
+      <span className={cn("font-medium", messageClassName)}>{message}</span>
+    ) : (
+      <div className={messageClassName}>{message}</div>
+    );
+  }, [message, messageClassName]);
+
+  const descriptionContent = useMemo(() => {
+    if (!description) return null;
+    return typeof description === "string" ? (
+      <span className={cn("text-destructive-foreground", descriptionClassName)}>
+        {description}
+      </span>
+    ) : (
+      <div className={descriptionClassName}>{description}</div>
+    );
+  }, [description, descriptionClassName]);
 
   return (
     <div className={cn("w-full bg-destructive text-white", className)}>
       <div className={cn("container py-2.5", containerClassName)}>
         <div className={cn("flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm", contentClassName)}>
-          {message && (
-            typeof message === "string" ? (
-              <span className={cn("font-medium", messageClassName)}>{message}</span>
-            ) : (
-              <div className={messageClassName}>{message}</div>
-            )
-          )}
-          {renderDefaultTimer()}
-          {description && (
-            typeof description === "string" ? (
-              <span className={cn("text-destructive-foreground", descriptionClassName)}>{description}</span>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+          {messageContent}
+          {timerContent}
+          {descriptionContent}
         </div>
       </div>
     </div>

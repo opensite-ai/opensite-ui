@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { ActionConfig } from "../../../src/types";
 
 /**
@@ -83,8 +83,8 @@ export interface BannerEventPromoProps {
  * ```
  */
 export function BannerEventPromo({
-  eventName = "GeneriCon 2024",
-  eventDetails = "Join us in Denver from June 7 - 9 to see what's coming next.",
+  eventName,
+  eventDetails,
   separator,
   actions,
   actionsSlot,
@@ -97,12 +97,19 @@ export function BannerEventPromo({
   eventDetailsClassName,
   actionsClassName,
 }: BannerEventPromoProps) {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -120,9 +127,9 @@ export function BannerEventPromo({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderSeparator = () => {
+  const separatorContent = useMemo(() => {
     if (separator) return separator;
     return (
       <svg
@@ -133,7 +140,21 @@ export function BannerEventPromo({
         <circle cx={1} cy={1} r={1} />
       </svg>
     );
-  };
+  }, [separator, separatorClassName]);
+
+  const eventNameContent = useMemo(() => {
+    if (!eventName) return null;
+    return typeof eventName === "string" ? (
+      <strong className={cn("font-semibold", eventNameClassName)}>{eventName}</strong>
+    ) : (
+      <span className={eventNameClassName}>{eventName}</span>
+    );
+  }, [eventName, eventNameClassName]);
+
+  const eventDetailsContent = useMemo(() => {
+    if (!eventDetails) return null;
+    return <span className={eventDetailsClassName}>{eventDetails}</span>;
+  }, [eventDetails, eventDetailsClassName]);
 
   return (
     <div className={cn("bg-primary text-primary-foreground", className)}>
@@ -141,25 +162,13 @@ export function BannerEventPromo({
         <div className={cn("flex items-center justify-between gap-x-6 p-4", contentClassName)}>
           <div className={cn("flex flex-wrap justify-between w-full items-center gap-x-4 gap-y-2", textClassName)}>
             <p className="text-sm leading-6">
-              {eventName && (
-                typeof eventName === "string" ? (
-                  <strong className={cn("font-semibold", eventNameClassName)}>{eventName}</strong>
-                ) : (
-                  <span className={eventNameClassName}>{eventName}</span>
-                )
-              )}
-              {renderSeparator()}
-              {eventDetails && (
-                typeof eventDetails === "string" ? (
-                  <span className={eventDetailsClassName}>{eventDetails}</span>
-                ) : (
-                  <span className={eventDetailsClassName}>{eventDetails}</span>
-                )
-              )}
+              {eventNameContent}
+              {eventNameContent && eventDetailsContent && separatorContent}
+              {eventDetailsContent}
             </p>
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={actionsClassName}>
-                {renderActions()}
+                {actionsContent}
               </div>
             )}
           </div>

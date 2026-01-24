@@ -14286,8 +14286,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     exampleUsage: `<BannerPromoCta
   message="Summer Sale"
   discount="Up to 70% off"
-  link="/sale"
-  linkText="Shop Now"
+  actions={[{ label: "Shop Now", href: "/sale" }]}
 />`.trim(),
   },
   "banner-countdown-sale": {
@@ -14359,10 +14358,9 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     component: BannerAnnouncementDismissible,
     props: "BannerAnnouncementDismissibleProps",
     exampleUsage: `<BannerAnnouncementDismissible
-  icon="mynaui/rocket"
+  iconName="mynaui/rocket"
   message="New feature: AI-powered analytics is now live!"
-  buttonText="Try It Now"
-  buttonLink="/features/analytics"
+  actions={[{ label: "Try It Now", href: "/features/analytics", variant: "secondary", size: "sm" }]}
   onDismiss={() => console.log('Banner dismissed')}
 />`.trim(),
   },
@@ -14388,8 +14386,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     exampleUsage: `<BannerPrivacyNotice
   title="Privacy Policy Updated"
   description="We've made changes to how we handle your data."
-  linkText="Read More"
-  linkUrl="/privacy"
+  actions={[{ label: "Read More", href: "/privacy", variant: "link" }]}
   onDismiss={() => console.log('Dismissed')}
 />`.trim(),
   },
@@ -14414,8 +14411,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     exampleUsage: `<BannerSurveyIncentive
   title="Share your feedback!"
   description="Complete our quick survey and receive a 15% discount code."
-  buttonText="Start Survey"
-  buttonLink="/survey"
+  actions={[{ label: "Start Survey", href: "/survey", size: "sm" }]}
   onDismiss={() => console.log('Dismissed')}
 />`.trim(),
   },
@@ -14439,8 +14435,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BannerSocialFollowProps",
     exampleUsage: `<BannerSocialFollow
   message="Join our community of 50,000+ developers!"
-  buttonText="Follow Now"
-  buttonLink="https://twitter.com/example"
+  actions={[{ label: "Follow Now", href: "https://twitter.com/example", variant: "secondary", size: "sm" }]}
   onDismiss={() => console.log('Dismissed')}
 />`.trim(),
   },
@@ -14448,7 +14443,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "banner-gdpr-rights",
     name: "Banner GDPR Rights",
     description:
-      "A bottom-positioned GDPR privacy rights notice with globe icon, title, description, and manage data link. Features a fixed bottom position with border-top styling. Includes a dismiss button to close the banner. Ideal for GDPR compliance, data privacy notices, and user rights information.",
+      "A bottom-positioned privacy rights notice with icon, title, description, and manage data link. Features a fixed bottom position with border-top styling. Includes a dismiss button to close the banner. Ideal for privacy notices, data policy updates, and user rights information.",
     semanticTags: [
       "banner",
       "gdpr",
@@ -14467,8 +14462,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     exampleUsage: `<BannerGdprRights
   title="Your Privacy Rights"
   description="You can request access to or deletion of your personal data at any time."
-  linkText="Manage Data"
-  linkUrl="/privacy/manage"
+  actions={[{ label: "Manage Data", href: "/privacy/manage", variant: "link" }]}
   onDismiss={() => console.log('Dismissed')}
 />`.trim(),
   },
@@ -14493,8 +14487,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     exampleUsage: `<BannerEventPromo
   eventName="TechSummit 2024"
   eventDetails="Join us in San Francisco from Sept 15 - 17 for the biggest tech event of the year."
-  buttonText="Get Tickets"
-  buttonLink="/events/techsummit"
+  actions={[{ label: "Get Tickets", href: "/events/techsummit", variant: "ghost", size: "sm" }]}
 />`.trim(),
   },
   "banner-floating-offer": {
@@ -14517,13 +14510,12 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "banner",
     component: BannerFloatingOffer,
     props: "BannerFloatingOfferProps",
-    exampleUsage: `<BannerFloatingOffer
+  exampleUsage: `<BannerFloatingOffer
   offerTitle="Black Friday Special"
   offerDescription="Save 60% on annual plans - ends tonight!"
-  buttonText="Claim Offer"
-  buttonLink="/pricing"
+  actions={[{ label: "Claim Offer", href: "/pricing", variant: "secondary", size: "sm" }]}
   dismissible={true}
-  onDismiss={() => console.log('Dismissed')}
+  onOpenChange={(open) => console.log('Visibility:', open)}
 />`.trim(),
   },
 

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -18,7 +18,6 @@ export interface BannerAnnouncementDismissibleProps {
   icon?: React.ReactNode;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
-   * @default "mynaui/boat"
    */
   iconName?: string;
   /**
@@ -43,7 +42,6 @@ export interface BannerAnnouncementDismissibleProps {
   dismissIcon?: React.ReactNode;
   /**
    * ARIA label for dismiss button
-   * @default "Dismiss banner"
    */
   dismissAriaLabel?: string;
   /**
@@ -95,13 +93,13 @@ export interface BannerAnnouncementDismissibleProps {
  */
 export function BannerAnnouncementDismissible({
   icon,
-  iconName = "mynaui/boat",
+  iconName,
   message,
   actions,
   actionsSlot,
   onDismiss,
   dismissIcon,
-  dismissAriaLabel = "Dismiss banner",
+  dismissAriaLabel,
   className,
   containerClassName,
   contentClassName,
@@ -111,18 +109,26 @@ export function BannerAnnouncementDismissible({
   dismissButtonClassName,
 }: BannerAnnouncementDismissibleProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const dismissLabel = dismissAriaLabel ?? "Dismiss banner";
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     setIsVisible(false);
     onDismiss?.();
-  };
+  }, [onDismiss]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -140,17 +146,35 @@ export function BannerAnnouncementDismissible({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderIcon = () => {
+  const iconContent = useMemo(() => {
     if (icon) return icon;
-    return <DynamicIcon name={iconName} size={20} className={cn("shrink-0", iconClassName)} />;
-  };
+    if (!iconName) return null;
+    return (
+      <DynamicIcon
+        name={iconName}
+        size={20}
+        className={cn("shrink-0", iconClassName)}
+      />
+    );
+  }, [icon, iconName, iconClassName]);
 
-  const renderDismissIcon = () => {
+  const dismissIconContent = useMemo(() => {
     if (dismissIcon) return dismissIcon;
     return <DynamicIcon name="mynaui/x" size={16} />;
-  };
+  }, [dismissIcon]);
+
+  const messageContent = useMemo(() => {
+    if (!message) return null;
+    return typeof message === "string" ? (
+      <span className={cn("font-medium text-sm", messageClassName)}>
+        {message}
+      </span>
+    ) : (
+      <div className={messageClassName}>{message}</div>
+    );
+  }, [message, messageClassName]);
 
   if (!isVisible) {
     return null;
@@ -160,17 +184,11 @@ export function BannerAnnouncementDismissible({
     <div className={cn("bg-background border-b", className)}>
       <div className={cn("max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2", containerClassName)}>
         <div className={cn("flex items-center gap-4", contentClassName)}>
-          {renderIcon()}
-          {message && (
-            typeof message === "string" ? (
-              <span className={cn("font-medium text-sm", messageClassName)}>{message}</span>
-            ) : (
-              <div className={messageClassName}>{message}</div>
-            )
-          )}
+          {iconContent}
+          {messageContent}
           {(actionsSlot || (actions && actions.length > 0)) && (
             <div className={actionsClassName}>
-              {renderActions()}
+              {actionsContent}
             </div>
           )}
         </div>
@@ -181,8 +199,8 @@ export function BannerAnnouncementDismissible({
           asButton
           className={cn("size-8", dismissButtonClassName)}
         >
-          {renderDismissIcon()}
-          <span className="sr-only">{dismissAriaLabel}</span>
+          {dismissIconContent}
+          <span className="sr-only">{dismissLabel}</span>
         </Pressable>
       </div>
     </div>

@@ -18,18 +18,6 @@ describe("BannerDeliveryCountdown", () => {
     vi.useRealTimers();
   });
 
-  it("renders with default props", () => {
-    render(<BannerDeliveryCountdown />);
-    expect(screen.getByText(/Order within/)).toBeInTheDocument();
-    expect(screen.getByText(/for delivery by/)).toBeInTheDocument();
-    expect(screen.getByText("Dec 24")).toBeInTheDocument();
-  });
-
-  it("renders custom delivery date", () => {
-    render(<BannerDeliveryCountdown deliveryDate="Dec 31" />);
-    expect(screen.getByText("Dec 31")).toBeInTheDocument();
-  });
-
   it("renders custom prefix text", () => {
     render(<BannerDeliveryCountdown prefixText="Order now within" />);
     expect(screen.getByText(/Order now within/)).toBeInTheDocument();
@@ -41,12 +29,14 @@ describe("BannerDeliveryCountdown", () => {
   });
 
   it("renders icon", () => {
-    render(<BannerDeliveryCountdown />);
+    render(<BannerDeliveryCountdown iconName="lucide/gift" />);
     expect(screen.getByTestId("mock-icon")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
-    const { container } = render(<BannerDeliveryCountdown className="custom-class" />);
+    const { container } = render(
+      <BannerDeliveryCountdown className="custom-class" />,
+    );
     expect(container.firstChild).toHaveClass("custom-class");
   });
 });

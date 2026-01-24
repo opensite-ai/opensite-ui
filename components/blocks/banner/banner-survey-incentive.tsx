@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -18,7 +18,6 @@ export interface BannerSurveyIncentiveProps {
   icon?: React.ReactNode;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
-   * @default "mynaui/shopping-bag"
    */
   iconName?: string;
   /**
@@ -47,7 +46,6 @@ export interface BannerSurveyIncentiveProps {
   dismissIcon?: React.ReactNode;
   /**
    * ARIA label for dismiss button
-   * @default "Dismiss banner"
    */
   dismissAriaLabel?: string;
   /**
@@ -108,14 +106,14 @@ export interface BannerSurveyIncentiveProps {
  */
 export function BannerSurveyIncentive({
   icon,
-  iconName = "mynaui/shopping-bag",
+  iconName,
   title,
   description,
   actions,
   actionsSlot,
   onDismiss,
   dismissIcon,
-  dismissAriaLabel = "Dismiss banner",
+  dismissAriaLabel,
   className,
   containerClassName,
   contentClassName,
@@ -127,14 +125,16 @@ export function BannerSurveyIncentive({
   dismissButtonClassName,
 }: BannerSurveyIncentiveProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const dismissLabel = dismissAriaLabel ?? "Dismiss banner";
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     setIsVisible(false);
     onDismiss?.();
-  };
+  }, [onDismiss]);
 
-  const renderIcon = () => {
+  const iconContent = useMemo(() => {
     if (icon) return icon;
+    if (!iconName) return null;
     return (
       <DynamicIcon
         name={iconName}
@@ -142,14 +142,21 @@ export function BannerSurveyIncentive({
         className={cn("shrink-0 hidden md:block", iconClassName)}
       />
     );
-  };
+  }, [icon, iconName, iconClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -167,12 +174,32 @@ export function BannerSurveyIncentive({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderDismissIcon = () => {
+  const dismissIconContent = useMemo(() => {
     if (dismissIcon) return dismissIcon;
     return <DynamicIcon name="mynaui/x" size={16} />;
-  };
+  }, [dismissIcon]);
+
+  const titleContent = useMemo(() => {
+    if (!title) return null;
+    return typeof title === "string" ? (
+      <span className={cn("font-medium", titleClassName)}>{title}</span>
+    ) : (
+      <span className={titleClassName}>{title}</span>
+    );
+  }, [title, titleClassName]);
+
+  const descriptionContent = useMemo(() => {
+    if (!description) return null;
+    return typeof description === "string" ? (
+      <span className={cn("text-muted-foreground", descriptionClassName)}>
+        {description}
+      </span>
+    ) : (
+      <span className={descriptionClassName}>{description}</span>
+    );
+  }, [description, descriptionClassName]);
 
   if (!isVisible) {
     return null;
@@ -182,26 +209,14 @@ export function BannerSurveyIncentive({
     <div className={cn("bg-background border-b text-sm", className)}>
       <div className={cn("flex md:items-center justify-between max-w-7xl mx-auto px-4 py-4", containerClassName)}>
         <div className={cn("flex items-center gap-2", contentClassName)}>
-          {renderIcon()}
+          {iconContent}
           <div className={cn("flex flex-col md:flex-row gap-1", textClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <span className={cn("font-medium", titleClassName)}>{title}</span>
-              ) : (
-                <span className={titleClassName}>{title}</span>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <span className={cn("text-muted-foreground", descriptionClassName)}>{description}</span>
-              ) : (
-                <span className={descriptionClassName}>{description}</span>
-              )
-            )}
+            {titleContent}
+            {descriptionContent}
           </div>
         </div>
         <div className={cn("flex gap-2", actionsClassName)}>
-          {renderActions()}
+          {actionsContent}
           <Pressable
             onClick={handleDismiss}
             variant="outline"
@@ -209,8 +224,8 @@ export function BannerSurveyIncentive({
             asButton
             className={cn("size-8", dismissButtonClassName)}
           >
-            {renderDismissIcon()}
-            <span className="sr-only">{dismissAriaLabel}</span>
+            {dismissIconContent}
+            <span className="sr-only">{dismissLabel}</span>
           </Pressable>
         </div>
       </div>

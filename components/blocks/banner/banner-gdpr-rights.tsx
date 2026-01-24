@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -18,7 +18,6 @@ export interface BannerGdprRightsProps {
   icon?: React.ReactNode;
   /**
    * Icon name for DynamicIcon (used if icon prop is not provided)
-   * @default "mynaui/globe"
    */
   iconName?: string;
   /**
@@ -47,7 +46,6 @@ export interface BannerGdprRightsProps {
   dismissIcon?: React.ReactNode;
   /**
    * ARIA label for dismiss button
-   * @default "Dismiss banner"
    */
   dismissAriaLabel?: string;
   /**
@@ -85,11 +83,11 @@ export interface BannerGdprRightsProps {
 }
 
 /**
- * BannerGdprRights - A bottom-positioned GDPR privacy rights notice.
+ * BannerGdprRights - A bottom-positioned privacy rights notice.
  *
- * Features a fixed bottom position with globe icon, title, description, and manage data link.
+ * Features a fixed bottom position with icon, title, description, and optional action link.
  * Includes a dismiss button to close the banner. The banner is positioned at the bottom
- * of the viewport with a border-top styling. Ideal for GDPR compliance, data privacy notices,
+ * of the viewport with a border-top styling. Ideal for privacy notices, data policy updates,
  * and user rights information.
  *
  * @example
@@ -104,14 +102,14 @@ export interface BannerGdprRightsProps {
  */
 export function BannerGdprRights({
   icon,
-  iconName = "mynaui/globe",
+  iconName,
   title,
   description,
   actions,
   actionsSlot,
   onDismiss,
   dismissIcon,
-  dismissAriaLabel = "Dismiss banner",
+  dismissAriaLabel,
   className,
   containerClassName,
   contentClassName,
@@ -122,14 +120,16 @@ export function BannerGdprRights({
   dismissButtonClassName,
 }: BannerGdprRightsProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const dismissLabel = dismissAriaLabel ?? "Dismiss banner";
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     setIsVisible(false);
     onDismiss?.();
-  };
+  }, [onDismiss]);
 
-  const renderIcon = () => {
+  const iconContent = useMemo(() => {
     if (icon) return icon;
+    if (!iconName) return null;
     return (
       <DynamicIcon
         name={iconName}
@@ -137,14 +137,21 @@ export function BannerGdprRights({
         className={cn("text-muted-foreground mt-0.5 shrink-0", iconClassName)}
       />
     );
-  };
+  }, [icon, iconName, iconClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
-      const { label, icon: actionIcon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+      const {
+        label,
+        icon: actionIcon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
       return (
         <Pressable
           key={index}
@@ -161,12 +168,31 @@ export function BannerGdprRights({
         </Pressable>
       );
     });
-  };
+  }, [actions, actionsSlot]);
 
-  const renderDismissIcon = () => {
+  const dismissIconContent = useMemo(() => {
     if (dismissIcon) return dismissIcon;
     return <DynamicIcon name="mynaui/x" size={16} />;
-  };
+  }, [dismissIcon]);
+
+  const titleContent = useMemo(() => {
+    if (!title) return null;
+    return typeof title === "string" ? (
+      <h3 className={cn("font-semibold text-sm", titleClassName)}>{title}</h3>
+    ) : (
+      <div className={titleClassName}>{title}</div>
+    );
+  }, [title, titleClassName]);
+
+  const descriptionContent = useMemo(() => {
+    if (!description && !actionsContent) return null;
+    return (
+      <p className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>
+        {description}
+        {actionsContent && <span className={actionsClassName}>{actionsContent}</span>}
+      </p>
+    );
+  }, [description, actionsContent, descriptionClassName, actionsClassName]);
 
   if (!isVisible) {
     return null;
@@ -181,23 +207,10 @@ export function BannerGdprRights({
     >
       <div className={cn("flex items-start justify-between gap-4 max-w-7xl mx-auto px-4 py-4", containerClassName)}>
         <div className={cn("flex items-start gap-3", contentClassName)}>
-          {renderIcon()}
+          {iconContent}
           <div>
-            {title && (
-              typeof title === "string" ? (
-                <h3 className={cn("font-semibold text-sm", titleClassName)}>{title}</h3>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              )
-            )}
-            <p className={cn("text-sm text-muted-foreground mt-1", descriptionClassName)}>
-              {description}
-              {(actionsSlot || (actions && actions.length > 0)) && (
-                <span className={actionsClassName}>
-                  {renderActions()}
-                </span>
-              )}
-            </p>
+            {titleContent}
+            {descriptionContent}
           </div>
         </div>
         <Pressable
@@ -207,8 +220,8 @@ export function BannerGdprRights({
           asButton
           className={cn("size-8", dismissButtonClassName)}
         >
-          {renderDismissIcon()}
-          <span className="sr-only">{dismissAriaLabel}</span>
+          {dismissIconContent}
+          <span className="sr-only">{dismissLabel}</span>
         </Pressable>
       </div>
     </div>
