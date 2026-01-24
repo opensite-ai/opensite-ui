@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-01-23T21:15:56.237Z",
+    "exportedAt": "2026-01-24T04:10:34.835Z",
     "totalBlocks": 604,
-    "version": "0.5.3",
+    "version": "0.5.4",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -8929,7 +8929,7 @@
       ],
       "category": "banner",
       "props": "BannerPromoCtaProps",
-      "exampleUsage": "<BannerPromoCta\n  message=\"Summer Sale\"\n  discount=\"Up to 70% off\"\n  link=\"/sale\"\n  linkText=\"Shop Now\"\n/>"
+      "exampleUsage": "<BannerPromoCta\n  message=\"Summer Sale\"\n  discount=\"Up to 70% off\"\n  actions={[{ label: \"Shop Now\", href: \"/sale\" }]}\n/>"
     },
     {
       "id": "banner-countdown-sale",
@@ -8986,7 +8986,7 @@
       ],
       "category": "banner",
       "props": "BannerAnnouncementDismissibleProps",
-      "exampleUsage": "<BannerAnnouncementDismissible\n  icon=\"mynaui/rocket\"\n  message=\"New feature: AI-powered analytics is now live!\"\n  buttonText=\"Try It Now\"\n  buttonLink=\"/features/analytics\"\n  onDismiss={() => console.log('Banner dismissed')}\n/>"
+      "exampleUsage": "<BannerAnnouncementDismissible\n  iconName=\"mynaui/rocket\"\n  message=\"New feature: AI-powered analytics is now live!\"\n  actions={[{ label: \"Try It Now\", href: \"/features/analytics\", variant: \"secondary\", size: \"sm\" }]}\n  onDismiss={() => console.log('Banner dismissed')}\n/>"
     },
     {
       "id": "banner-privacy-notice",
@@ -9005,7 +9005,7 @@
       ],
       "category": "banner",
       "props": "BannerPrivacyNoticeProps",
-      "exampleUsage": "<BannerPrivacyNotice\n  title=\"Privacy Policy Updated\"\n  description=\"We've made changes to how we handle your data.\"\n  linkText=\"Read More\"\n  linkUrl=\"/privacy\"\n  onDismiss={() => console.log('Dismissed')}\n/>"
+      "exampleUsage": "<BannerPrivacyNotice\n  title=\"Privacy Policy Updated\"\n  description=\"We've made changes to how we handle your data.\"\n  actions={[{ label: \"Read More\", href: \"/privacy\", variant: \"link\" }]}\n  onDismiss={() => console.log('Dismissed')}\n/>"
     },
     {
       "id": "banner-survey-incentive",
@@ -9023,7 +9023,7 @@
       ],
       "category": "banner",
       "props": "BannerSurveyIncentiveProps",
-      "exampleUsage": "<BannerSurveyIncentive\n  title=\"Share your feedback!\"\n  description=\"Complete our quick survey and receive a 15% discount code.\"\n  buttonText=\"Start Survey\"\n  buttonLink=\"/survey\"\n  onDismiss={() => console.log('Dismissed')}\n/>"
+      "exampleUsage": "<BannerSurveyIncentive\n  title=\"Share your feedback!\"\n  description=\"Complete our quick survey and receive a 15% discount code.\"\n  actions={[{ label: \"Start Survey\", href: \"/survey\", size: \"sm\" }]}\n  onDismiss={() => console.log('Dismissed')}\n/>"
     },
     {
       "id": "banner-social-follow",
@@ -9041,12 +9041,12 @@
       ],
       "category": "banner",
       "props": "BannerSocialFollowProps",
-      "exampleUsage": "<BannerSocialFollow\n  message=\"Join our community of 50,000+ developers!\"\n  buttonText=\"Follow Now\"\n  buttonLink=\"https://twitter.com/example\"\n  onDismiss={() => console.log('Dismissed')}\n/>"
+      "exampleUsage": "<BannerSocialFollow\n  message=\"Join our community of 50,000+ developers!\"\n  actions={[{ label: \"Follow Now\", href: \"https://twitter.com/example\", variant: \"secondary\", size: \"sm\" }]}\n  onDismiss={() => console.log('Dismissed')}\n/>"
     },
     {
       "id": "banner-gdpr-rights",
       "name": "Banner GDPR Rights",
-      "description": "A bottom-positioned GDPR privacy rights notice with globe icon, title, description, and manage data link. Features a fixed bottom position with border-top styling. Includes a dismiss button to close the banner. Ideal for GDPR compliance, data privacy notices, and user rights information.",
+      "description": "A bottom-positioned privacy rights notice with icon, title, description, and manage data link. Features a fixed bottom position with border-top styling. Includes a dismiss button to close the banner. Ideal for privacy notices, data policy updates, and user rights information.",
       "semanticTags": [
         "banner",
         "gdpr",
@@ -9061,7 +9061,7 @@
       ],
       "category": "banner",
       "props": "BannerGdprRightsProps",
-      "exampleUsage": "<BannerGdprRights\n  title=\"Your Privacy Rights\"\n  description=\"You can request access to or deletion of your personal data at any time.\"\n  linkText=\"Manage Data\"\n  linkUrl=\"/privacy/manage\"\n  onDismiss={() => console.log('Dismissed')}\n/>"
+      "exampleUsage": "<BannerGdprRights\n  title=\"Your Privacy Rights\"\n  description=\"You can request access to or deletion of your personal data at any time.\"\n  actions={[{ label: \"Manage Data\", href: \"/privacy/manage\", variant: \"link\" }]}\n  onDismiss={() => console.log('Dismissed')}\n/>"
     },
     {
       "id": "banner-event-promo",
@@ -9079,7 +9079,7 @@
       ],
       "category": "banner",
       "props": "BannerEventPromoProps",
-      "exampleUsage": "<BannerEventPromo\n  eventName=\"TechSummit 2024\"\n  eventDetails=\"Join us in San Francisco from Sept 15 - 17 for the biggest tech event of the year.\"\n  buttonText=\"Get Tickets\"\n  buttonLink=\"/events/techsummit\"\n/>"
+      "exampleUsage": "<BannerEventPromo\n  eventName=\"TechSummit 2024\"\n  eventDetails=\"Join us in San Francisco from Sept 15 - 17 for the biggest tech event of the year.\"\n  actions={[{ label: \"Get Tickets\", href: \"/events/techsummit\", variant: \"ghost\", size: \"sm\" }]}\n/>"
     },
     {
       "id": "banner-floating-offer",
@@ -9099,7 +9099,7 @@
       ],
       "category": "banner",
       "props": "BannerFloatingOfferProps",
-      "exampleUsage": "<BannerFloatingOffer\n  offerTitle=\"Black Friday Special\"\n  offerDescription=\"Save 60% on annual plans - ends tonight!\"\n  buttonText=\"Claim Offer\"\n  buttonLink=\"/pricing\"\n  dismissible={true}\n  onDismiss={() => console.log('Dismissed')}\n/>"
+      "exampleUsage": "<BannerFloatingOffer\n  offerTitle=\"Black Friday Special\"\n  offerDescription=\"Save 60% on annual plans - ends tonight!\"\n  actions={[{ label: \"Claim Offer\", href: \"/pricing\", variant: \"secondary\", size: \"sm\" }]}\n  dismissible={true}\n  onOpenChange={(open) => console.log('Visibility:', open)}\n/>"
     },
     {
       "id": "industries-hover-reveal-grid",
