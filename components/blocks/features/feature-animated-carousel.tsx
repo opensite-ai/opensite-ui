@@ -5,8 +5,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureAnimatedCarouselItem {
   /**
@@ -60,6 +61,26 @@ export interface FeatureAnimatedCarouselProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 interface ControlsProps {
@@ -333,6 +354,11 @@ export function FeatureAnimatedCarousel({
   features,
   className,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureAnimatedCarouselProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [direction, setDirection] = React.useState<1 | -1>(1);
@@ -375,53 +401,58 @@ export function FeatureAnimatedCarousel({
   };
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <div className="relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]">
-          <FeaturesDesktop
-            features={features}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-            activeIndex={activeIndex}
-            handleFeatureClick={handleFeatureClick}
-            isPreviousDisabled={isPreviousDisabled}
-            isNextDisabled={isNextDisabled}
-          />
-          <FeaturesMobile
-            features={features}
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-            activeIndex={activeIndex}
-            direction={direction}
-            isPreviousDisabled={isPreviousDisabled}
-            isNextDisabled={isNextDisabled}
-          />
-          <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeIndex}
-                custom={direction}
-                variants={imageVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="h-full w-full"
-              >
-                  <Img
-                    src={features[activeIndex].image}
-                    alt={features[activeIndex].imageAlt || (typeof features[activeIndex].title === "string" ? features[activeIndex].title : "Feature image")}
-                    className="h-full w-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-              </motion.div>
-            </AnimatePresence>
-          </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className="relative flex min-h-[500px] flex-col-reverse gap-8 overflow-hidden rounded-3xl bg-muted p-6 md:flex-row md:items-center md:p-12 lg:min-h-[600px]">
+        <FeaturesDesktop
+          features={features}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          activeIndex={activeIndex}
+          handleFeatureClick={handleFeatureClick}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
+        />
+        <FeaturesMobile
+          features={features}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          activeIndex={activeIndex}
+          direction={direction}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
+        />
+        <div className="relative flex-1 overflow-hidden rounded-2xl md:absolute md:right-8 md:top-8 md:bottom-8 md:w-1/2">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={activeIndex}
+              custom={direction}
+              variants={imageVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
+              }}
+              className="h-full w-full"
+            >
+                <Img
+                  src={features[activeIndex].image}
+                  alt={features[activeIndex].imageAlt || (typeof features[activeIndex].title === "string" ? features[activeIndex].title : "Feature image")}
+                  className="h-full w-full object-cover"
+                  optixFlowConfig={optixFlowConfig}
+                />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

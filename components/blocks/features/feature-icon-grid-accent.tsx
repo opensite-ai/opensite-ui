@@ -1,9 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { FeatureItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { FeatureItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureIconGridAccentItem {
   /**
@@ -89,6 +92,26 @@ export interface FeatureIconGridAccentProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -125,8 +148,13 @@ export function FeatureIconGridAccent({
   descriptionClassName,
   gridClassName,
   cardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureIconGridAccentProps): React.JSX.Element {
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -172,40 +200,46 @@ export function FeatureIconGridAccent({
         </div>
       );
     });
-  };
+  }, [featuresSlot, features, cardClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("flex w-full flex-col items-center", headerClassName)}>
-          <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
-            {label && (
-              typeof label === "string" ? (
-                <p className={cn("text-sm text-muted-foreground", labelClassName)}>{label}</p>
-              ) : (
-                <div className={labelClassName}>{label}</div>
-              )
-            )}
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-3xl font-medium md:text-5xl", titleClassName)}>{title}</h2>
-              ) : (
-                <div className={titleClassName}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground md:max-w-2xl", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              )
-            )}
-          </div>
-        </div>
-        <div className={cn("mx-auto mt-20 grid max-w-5xl gap-6 md:grid-cols-2", gridClassName)}>
-          {renderFeatures()}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("flex w-full flex-col items-center", headerClassName)}>
+        <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
+          {label && (
+            typeof label === "string" ? (
+              <p className={cn("text-sm text-muted-foreground", labelClassName)}>{label}</p>
+            ) : (
+              <div className={labelClassName}>{label}</div>
+            )
+          )}
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-medium md:text-5xl", titleClassName)}>{title}</h2>
+            ) : (
+              <div className={titleClassName}>{title}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground md:max-w-2xl", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={descriptionClassName}>{description}</div>
+            )
+          )}
         </div>
       </div>
-    </section>
+      <div className={cn("mx-auto mt-20 grid max-w-5xl gap-6 md:grid-cols-2", gridClassName)}>
+        {featuresContent}
+      </div>
+    </Section>
   );
 }

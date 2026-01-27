@@ -1,13 +1,15 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureTabbedContentImageFeatureItem {
   /**
@@ -164,6 +166,26 @@ export interface FeatureTabbedContentImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -210,8 +232,13 @@ export function FeatureTabbedContentImage({
   tabContentClassName,
   contentGridClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureTabbedContentImageProps): React.JSX.Element {
-  const renderFeatures = (slide: FeatureTabbedContentImageSlide) => {
+  const renderFeatures = useMemo(() => (slide: FeatureTabbedContentImageSlide) => {
     if (slide.featuresSlot) return slide.featuresSlot;
     if (!slide.features || slide.features.length === 0) return null;
 
@@ -232,9 +259,9 @@ export function FeatureTabbedContentImage({
         </li>
       );
     });
-  };
+  }, []);
 
-  const renderActions = (slide: FeatureTabbedContentImageSlide) => {
+  const renderActions = useMemo(() => (slide: FeatureTabbedContentImageSlide) => {
     if (slide.actionsSlot) return slide.actionsSlot;
     if (!slide.actions || slide.actions.length === 0) return null;
 
@@ -273,9 +300,9 @@ export function FeatureTabbedContentImage({
         </Pressable>
       );
     });
-  };
+  }, []);
 
-  const renderImage = (slide: FeatureTabbedContentImageSlide) => {
+  const renderImage = useMemo(() => (slide: FeatureTabbedContentImageSlide) => {
     if (slide.imageSlot) return slide.imageSlot;
     if (!slide.image) return null;
 
@@ -290,9 +317,9 @@ export function FeatureTabbedContentImage({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [optixFlowConfig]);
 
-  const renderSlides = () => {
+  const slidesContent = useMemo(() => {
     if (slidesSlot) return slidesSlot;
     if (!slides || slides.length === 0) return null;
 
@@ -352,44 +379,50 @@ export function FeatureTabbedContentImage({
         ))}
       </>
     );
-  };
+  }, [slidesSlot, slides, tabsListClassName, tabTriggerClassName, tabContentClassName, contentGridClassName, renderFeatures, renderActions, renderImage]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-6", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
-                {title}
-              </h2>
-            ) : (
-              <div className={cn("text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
-                {title}
-              </div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-center text-balance text-muted-foreground lg:text-xl", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("text-center text-balance text-muted-foreground lg:text-xl", descriptionClassName)}>
-                {description}
-              </div>
-            )
-          )}
-        </div>
-        <div className={cn("mt-12", tabsWrapperClassName)}>
-          <Tabs
-            defaultValue={defaultTab}
-            className={cn("mx-auto flex w-fit flex-col items-center gap-8 md:gap-12", tabsClassName)}
-          >
-            {renderSlides()}
-          </Tabs>
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-6", headerClassName)}>
+        {title && (
+          typeof title === "string" ? (
+            <h2 className={cn("text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+              {title}
+            </h2>
+          ) : (
+            <div className={cn("text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+              {title}
+            </div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("text-center text-balance text-muted-foreground lg:text-xl", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("text-center text-balance text-muted-foreground lg:text-xl", descriptionClassName)}>
+              {description}
+            </div>
+          )
+        )}
       </div>
-    </section>
+      <div className={cn("mt-12", tabsWrapperClassName)}>
+        <Tabs
+          defaultValue={defaultTab}
+          className={cn("mx-auto flex w-fit flex-col items-center gap-8 md:gap-12", tabsClassName)}
+        >
+          {slidesContent}
+        </Tabs>
+      </div>
+    </Section>
   );
 }

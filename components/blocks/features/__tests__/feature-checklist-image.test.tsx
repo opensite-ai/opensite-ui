@@ -40,7 +40,7 @@ describe("FeatureChecklistImage", () => {
   });
 
   it("renders image with correct alt text", () => {
-    render(<FeatureChecklistImage imageAlt="Custom alt text" />);
+    render(<FeatureChecklistImage imageSrc="test-image.jpg" imageAlt="Custom alt text" />);
     const img = screen.getByTestId("mock-img");
     expect(img).toHaveAttribute("alt", "Custom alt text");
   });

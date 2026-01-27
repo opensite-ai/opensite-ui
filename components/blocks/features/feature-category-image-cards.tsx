@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
@@ -11,8 +12,9 @@ import {
   CardTitle,
 } from "../../ui/card";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureCategoryImageCardsItem {
   /**
@@ -110,6 +112,26 @@ export interface FeatureCategoryImageCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -146,6 +168,11 @@ export function FeatureCategoryImageCards({
   gridClassName,
   cardClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureCategoryImageCardsProps): React.JSX.Element {
   const renderFeatureImage = (feature: FeatureCategoryImageCardsItem) => {
     if (feature.imageSlot) return feature.imageSlot;
@@ -163,7 +190,7 @@ export function FeatureCategoryImageCards({
     return null;
   };
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -198,36 +225,42 @@ export function FeatureCategoryImageCards({
         </CardContent>
       </Card>
     ));
-  };
+  }, [featuresSlot, features, cardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("flex flex-col items-center justify-center gap-4 text-center", headerClassName)}>
-          {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
-          {title && (
-            typeof title === "string" ? (
-              <h1 className={cn("text-3xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
-            ) : (
-              <div className={cn("text-3xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("max-w-2xl text-muted-foreground md:text-lg", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("max-w-2xl text-muted-foreground md:text-lg", descriptionClassName)}>
-                {description}
-              </div>
-            )
-          )}
-        </div>
-        <div className={cn("mx-auto mt-20 grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-          {renderFeatures()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("flex flex-col items-center justify-center gap-4 text-center", headerClassName)}>
+        {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
+        {title && (
+          typeof title === "string" ? (
+            <h1 className={cn("text-3xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
+          ) : (
+            <div className={cn("text-3xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("max-w-2xl text-muted-foreground md:text-lg", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("max-w-2xl text-muted-foreground md:text-lg", descriptionClassName)}>
+              {description}
+            </div>
+          )
+        )}
       </div>
-    </section>
+      <div className={cn("mx-auto mt-20 grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {featuresContent}
+      </div>
+    </Section>
   );
 }

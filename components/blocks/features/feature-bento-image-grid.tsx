@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureBentoImageGridItem {
   /**
@@ -120,6 +122,26 @@ export interface FeatureBentoImageGridProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -163,14 +185,19 @@ export function FeatureBentoImageGrid({
   largeCardClassName,
   smallCardClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureBentoImageGridProps): React.JSX.Element {
-  const renderItemIcon = (item: FeatureBentoImageGridItem) => {
+  const renderItemIcon = useMemo(() => (item: FeatureBentoImageGridItem) => {
     if (item.icon) return item.icon;
     if (item.iconName) return <DynamicIcon name={item.iconName} size={24} />;
     return null;
-  };
+  }, []);
 
-  const renderItemImage = (item: FeatureBentoImageGridItem, imageClassName?: string) => {
+  const renderItemImage = useMemo(() => (item: FeatureBentoImageGridItem, imageClassName?: string) => {
     if (item.imageSlot) return item.imageSlot;
     if (item.imageSrc) {
       return (
@@ -184,9 +211,9 @@ export function FeatureBentoImageGrid({
       );
     }
     return null;
-  };
+  }, [optixFlowConfig]);
 
-  const renderLargeCard = (item: FeatureBentoImageGridItem) => {
+  const renderLargeCard = useMemo(() => (item: FeatureBentoImageGridItem) => {
     const cardContent = (
       <>
         {renderItemImage(item, "h-full max-h-[580px] w-full rounded-xl object-cover object-center")}
@@ -235,9 +262,9 @@ export function FeatureBentoImageGrid({
         {cardContent}
       </div>
     );
-  };
+  }, [largeCardClassName, renderItemImage, renderItemIcon]);
 
-  const renderSmallCard = (item: FeatureBentoImageGridItem, index: number) => {
+  const renderSmallCard = useMemo(() => (item: FeatureBentoImageGridItem, index: number) => {
     const cardContent = (
       <>
         {renderItemImage(item, cn(
@@ -303,9 +330,9 @@ export function FeatureBentoImageGrid({
         {cardContent}
       </div>
     );
-  };
+  }, [smallCardClassName, renderItemImage, renderItemIcon]);
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -320,29 +347,35 @@ export function FeatureBentoImageGrid({
         </div>
       </>
     );
-  };
+  }, [itemsSlot, items, renderLargeCard, renderSmallCard]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h1 className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</h1>
-          ) : (
-            <div className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</p>
-          ) : (
-            <div className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</div>
-          )
-        )}
-        <div className={cn("grid grid-cols-1 gap-y-5 pt-14 xl:grid-cols-3 xl:grid-rows-2 xl:gap-x-5 xl:gap-y-0", gridClassName)}>
-          {renderItems()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      {title && (
+        typeof title === "string" ? (
+          <h1 className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</h1>
+        ) : (
+          <div className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</div>
+        )
+      )}
+      {description && (
+        typeof description === "string" ? (
+          <p className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</p>
+        ) : (
+          <div className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</div>
+        )
+      )}
+      <div className={cn("grid grid-cols-1 gap-y-5 pt-14 xl:grid-cols-3 xl:grid-rows-2 xl:gap-x-5 xl:gap-y-0", gridClassName)}>
+        {itemsContent}
       </div>
-    </section>
+    </Section>
   );
 }

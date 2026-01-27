@@ -1,10 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureCapabilitiesGridItem {
   /**
@@ -90,6 +94,26 @@ export interface FeatureCapabilitiesGridProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -107,6 +131,11 @@ export function FeatureCapabilitiesGrid({
   headingClassName,
   gridClassName,
   cardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureCapabilitiesGridProps): React.JSX.Element {
   const renderItemIcon = (item: FeatureCapabilitiesGridItem) => {
     if (item.icon) return item.icon;
@@ -114,7 +143,7 @@ export function FeatureCapabilitiesGrid({
     return <DynamicIcon name="lucide/star" size={20} />;
   };
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -174,38 +203,44 @@ export function FeatureCapabilitiesGrid({
         />
       </Card>
     ));
-  };
+  }, [itemsSlot, items, cardClassName]);
 
   return (
-    <section className={cn("bg-foreground py-16 text-background", className)}>
-      <div className={cn("container", containerClassName)}>
-        {eyebrow && (
-          typeof eyebrow === "string" ? (
-            <p className={cn("text-xs tracking-widest text-muted-foreground", eyebrowClassName)}>
-              {eyebrow}
-            </p>
-          ) : (
-            <div className={cn("text-xs tracking-widest text-muted-foreground", eyebrowClassName)}>
-              {eyebrow}
-            </div>
-          )
-        )}
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("mt-3 text-4xl font-semibold tracking-tight sm:text-5xl", headingClassName)}>
-              {heading}
-            </h2>
-          ) : (
-            <div className={cn("mt-3 text-4xl font-semibold tracking-tight sm:text-5xl", headingClassName)}>
-              {heading}
-            </div>
-          )
-        )}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("bg-foreground py-16 text-background", className)}
+      containerClassName={containerClassName}
+    >
+      {eyebrow && (
+        typeof eyebrow === "string" ? (
+          <p className={cn("text-xs tracking-widest text-muted-foreground", eyebrowClassName)}>
+            {eyebrow}
+          </p>
+        ) : (
+          <div className={cn("text-xs tracking-widest text-muted-foreground", eyebrowClassName)}>
+            {eyebrow}
+          </div>
+        )
+      )}
+      {heading && (
+        typeof heading === "string" ? (
+          <h2 className={cn("mt-3 text-4xl font-semibold tracking-tight sm:text-5xl", headingClassName)}>
+            {heading}
+          </h2>
+        ) : (
+          <div className={cn("mt-3 text-4xl font-semibold tracking-tight sm:text-5xl", headingClassName)}>
+            {heading}
+          </div>
+        )
+      )}
 
-        <div className={cn("mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-          {renderItems()}
-        </div>
+      <div className={cn("mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {itemsContent}
       </div>
-    </section>
+    </Section>
   );
 }

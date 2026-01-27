@@ -1,11 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureSplitImageProps {
   /**
@@ -72,6 +74,26 @@ export interface FeatureSplitImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -98,8 +120,8 @@ export interface FeatureSplitImageProps {
 export function FeatureSplitImage({
   title,
   description,
-  imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
-  imageAlt = "Feature illustration",
+  imageSrc,
+  imageAlt,
   imageSlot,
   actions,
   actionsSlot,
@@ -112,8 +134,13 @@ export function FeatureSplitImage({
   actionsClassName,
   imageClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureSplitImageProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -152,56 +179,63 @@ export function FeatureSplitImage({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderImage = () => {
+  const imageContent = useMemo(() => {
     if (imageSlot) return imageSlot;
+    if (!imageSrc) return null;
 
     return (
       <Img
         src={imageSrc}
-        alt={imageAlt}
+        alt={imageAlt || "Feature illustration"}
         className={cn("max-h-96 w-full rounded-md object-cover", imageClassName)}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [imageSlot, imageSrc, imageAlt, imageClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("grid items-center gap-8 lg:grid-cols-2", gridClassName)}>
-          <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
-                  {title}
-                </h2>
-              ) : (
-                <div className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
-                  {title}
-                </div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
-                  {description}
-                </div>
-              )
-            )}
-            <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
-              {renderActions()}
-            </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("grid items-center gap-8 lg:grid-cols-2", gridClassName)}>
+        <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={cn("my-6 mt-0 text-4xl font-semibold text-balance lg:text-5xl", titleClassName)}>
+                {title}
+              </div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mb-8 max-w-xl text-muted-foreground lg:text-lg", descriptionClassName)}>
+                {description}
+              </div>
+            )
+          )}
+          <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
+            {actionsContent}
           </div>
-          {renderImage()}
         </div>
+        {imageContent}
       </div>
-    </section>
+    </Section>
   );
 }

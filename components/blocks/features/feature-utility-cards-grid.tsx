@@ -1,14 +1,16 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
 import { Card } from "../../ui/card";
 import { Separator } from "../../ui/separator";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureUtilityCardsGridItem {
   /**
@@ -122,6 +124,26 @@ export interface FeatureUtilityCardsGridProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -162,6 +184,11 @@ export function FeatureUtilityCardsGrid({
   gridClassName,
   cardClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureUtilityCardsGridProps): React.JSX.Element {
   const renderLabelIcon = () => {
     if (labelIcon) return labelIcon;
@@ -169,7 +196,7 @@ export function FeatureUtilityCardsGrid({
     return <DynamicIcon name="lucide/square-dashed-mouse-pointer" size={20} className="text-primary" />;
   };
 
-  const renderLearnMore = () => {
+  const learnMoreContent = useMemo(() => {
     if (learnMoreSlot) return learnMoreSlot;
     if (!learnMoreAction) return null;
 
@@ -198,7 +225,7 @@ export function FeatureUtilityCardsGrid({
         {learnMoreAction.iconAfter}
       </Pressable>
     );
-  };
+  }, [learnMoreSlot, learnMoreAction]);
 
   const renderUtilityImage = (utility: FeatureUtilityCardsGridItem) => {
     if (utility.imageSlot) return utility.imageSlot;
@@ -216,7 +243,7 @@ export function FeatureUtilityCardsGrid({
     return null;
   };
 
-  const renderUtilities = () => {
+  const utilitiesContent = useMemo(() => {
     if (utilitiesSlot) return utilitiesSlot;
     if (!utilities || utilities.length === 0) return null;
 
@@ -241,45 +268,51 @@ export function FeatureUtilityCardsGrid({
         </div>
       </Card>
     ));
-  };
+  }, [utilitiesSlot, utilities, cardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container max-w-7xl", containerClassName)}>
-        <div className={cn("flex items-center justify-between text-sm", headerClassName)}>
-          <div className={cn("flex items-center gap-1 text-muted-foreground", labelClassName)}>
-            {renderLabelIcon()}
-            {label && (
-              typeof label === "string" ? (
-                <p>{label}</p>
-              ) : (
-                <div>{label}</div>
-              )
-            )}
-          </div>
-          {renderLearnMore()}
-        </div>
-        <Separator className="mt-3 mb-8" />
-        <div className="flex flex-col justify-between gap-6 md:flex-row">
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</h2>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={cn("max-w-7xl", containerClassName)}
+    >
+      <div className={cn("flex items-center justify-between text-sm", headerClassName)}>
+        <div className={cn("flex items-center gap-1 text-muted-foreground", labelClassName)}>
+          {renderLabelIcon()}
+          {label && (
+            typeof label === "string" ? (
+              <p>{label}</p>
             ) : (
-              <div className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("md:w-1/2", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={cn("md:w-1/2", descriptionClassName)}>{description}</div>
+              <div>{label}</div>
             )
           )}
         </div>
-        <div className={cn("mt-11 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-          {renderUtilities()}
-        </div>
+        {learnMoreContent}
       </div>
-    </section>
+      <Separator className="mt-3 mb-8" />
+      <div className="flex flex-col justify-between gap-6 md:flex-row">
+        {title && (
+          typeof title === "string" ? (
+            <h2 className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</h2>
+          ) : (
+            <div className={cn("text-3xl font-medium md:w-1/2", titleClassName)}>{title}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("md:w-1/2", descriptionClassName)}>{description}</p>
+          ) : (
+            <div className={cn("md:w-1/2", descriptionClassName)}>{description}</div>
+          )
+        )}
+      </div>
+      <div className={cn("mt-11 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {utilitiesContent}
+      </div>
+    </Section>
   );
 }

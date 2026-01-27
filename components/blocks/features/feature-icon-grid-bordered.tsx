@@ -1,8 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureIconGridBorderedItem {
   /**
@@ -80,6 +84,26 @@ export interface FeatureIconGridBorderedProps {
    * Additional CSS classes for each feature card
    */
   cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -113,8 +137,13 @@ export function FeatureIconGridBordered({
   titleClassName,
   gridClassName,
   cardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureIconGridBorderedProps): React.JSX.Element {
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -164,29 +193,35 @@ export function FeatureIconGridBordered({
         </div>
       );
     });
-  };
+  }, [featuresSlot, features, cardClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        {label && (
-          typeof label === "string" ? (
-            <p className={cn("mb-4 text-xs text-muted-foreground", labelClassName)}>{label}</p>
-          ) : (
-            <div className={cn("mb-4 text-xs text-muted-foreground", labelClassName)}>{label}</div>
-          )
-        )}
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</h2>
-          ) : (
-            <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
-          )
-        )}
-        <div className={cn("mt-14 grid gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4", gridClassName)}>
-          {renderFeatures()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      {label && (
+        typeof label === "string" ? (
+          <p className={cn("mb-4 text-xs text-muted-foreground", labelClassName)}>{label}</p>
+        ) : (
+          <div className={cn("mb-4 text-xs text-muted-foreground", labelClassName)}>{label}</div>
+        )
+      )}
+      {title && (
+        typeof title === "string" ? (
+          <h2 className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</h2>
+        ) : (
+          <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
+        )
+      )}
+      <div className={cn("mt-14 grid gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4", gridClassName)}>
+        {featuresContent}
       </div>
-    </section>
+    </Section>
   );
 }

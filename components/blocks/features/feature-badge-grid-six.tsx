@@ -1,11 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureBadgeGridSixItem {
   /**
@@ -103,6 +106,26 @@ export interface FeatureBadgeGridSixProps {
    * Additional CSS classes for the action container
    */
   actionContainerClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -140,12 +163,17 @@ export function FeatureBadgeGridSix({
   gridClassName,
   cardClassName,
   actionContainerClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureBadgeGridSixProps): React.JSX.Element {
-  const renderBadge = () => {
+  const badgeContent = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!label) return null;
     return <Badge variant="secondary" className={badgeClassName}>{label}</Badge>;
-  };
+  }, [badgeSlot, label, badgeClassName]);
 
   const renderFeatureIcon = (feature: FeatureBadgeGridSixItem) => {
     if (feature.icon) return feature.icon;
@@ -161,7 +189,7 @@ export function FeatureBadgeGridSix({
     return null;
   };
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -199,9 +227,9 @@ export function FeatureBadgeGridSix({
         </div>
       </div>
     ));
-  };
+  }, [featuresSlot, features, cardClassName]);
 
-  const renderAction = () => {
+  const actionContent = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -236,36 +264,42 @@ export function FeatureBadgeGridSix({
         {action.iconAfter}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        {(label || badgeSlot || title) && (
-          <div className={cn("mb-12 flex max-w-3xl flex-col gap-4", headerClassName)}>
-            {renderBadge()}
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-3xl font-medium md:text-4xl lg:text-5xl", titleClassName)}>
-                  {title}
-                </h2>
-              ) : (
-                <div className={cn("text-3xl font-medium md:text-4xl lg:text-5xl", titleClassName)}>
-                  {title}
-                </div>
-              )
-            )}
-          </div>
-        )}
-        <div className={cn("grid gap-12 md:grid-cols-2", gridClassName)}>
-          {renderFeatures()}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      {(label || badgeSlot || title) && (
+        <div className={cn("mb-12 flex max-w-3xl flex-col gap-4", headerClassName)}>
+          {badgeContent}
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-medium md:text-4xl lg:text-5xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={cn("text-3xl font-medium md:text-4xl lg:text-5xl", titleClassName)}>
+                {title}
+              </div>
+            )
+          )}
         </div>
-        {(action || actionSlot) && (
-          <div className={cn("mt-16 flex justify-center", actionContainerClassName)}>
-            {renderAction()}
-          </div>
-        )}
+      )}
+      <div className={cn("grid gap-12 md:grid-cols-2", gridClassName)}>
+        {featuresContent}
       </div>
-    </section>
+      {(action || actionSlot) && (
+        <div className={cn("mt-16 flex justify-center", actionContainerClassName)}>
+          {actionContent}
+        </div>
+      )}
+    </Section>
   );
 }

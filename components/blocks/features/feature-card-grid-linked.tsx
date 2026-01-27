@@ -1,11 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureCardGridLinkedItem {
   /**
@@ -99,6 +101,26 @@ export interface FeatureCardGridLinkedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -137,8 +159,13 @@ export function FeatureCardGridLinked({
   gridClassName,
   cardClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureCardGridLinkedProps): React.JSX.Element {
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -202,28 +229,34 @@ export function FeatureCardGridLinked({
         </div>
       );
     });
-  };
+  }, [featuresSlot, features, cardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        {title && (
-          <div className={cn("mx-auto mb-16 max-w-3xl text-center", titleWrapperClassName)}>
-            {typeof title === "string" ? (
-              <h2 className={cn("text-4xl font-medium text-pretty lg:text-5xl", titleClassName)}>
-                {title}
-              </h2>
-            ) : (
-              <div className={cn("text-4xl font-medium text-pretty lg:text-5xl", titleClassName)}>
-                {title}
-              </div>
-            )}
-          </div>
-        )}
-        <div className={cn("grid gap-8 lg:grid-cols-2", gridClassName)}>
-          {renderFeatures()}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      {title && (
+        <div className={cn("mx-auto mb-16 max-w-3xl text-center", titleWrapperClassName)}>
+          {typeof title === "string" ? (
+            <h2 className={cn("text-4xl font-medium text-pretty lg:text-5xl", titleClassName)}>
+              {title}
+            </h2>
+          ) : (
+            <div className={cn("text-4xl font-medium text-pretty lg:text-5xl", titleClassName)}>
+              {title}
+            </div>
+          )}
         </div>
+      )}
+      <div className={cn("grid gap-8 lg:grid-cols-2", gridClassName)}>
+        {featuresContent}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -1,8 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureIconGridMutedItem {
   /**
@@ -84,6 +88,26 @@ export interface FeatureIconGridMutedProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -117,6 +141,11 @@ export function FeatureIconGridMuted({
   descriptionClassName,
   gridClassName,
   cardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureIconGridMutedProps): React.JSX.Element {
   const renderFeatureIcon = (feature: FeatureIconGridMutedItem) => {
     if (feature.icon) return feature.icon;
@@ -124,7 +153,7 @@ export function FeatureIconGridMuted({
     return null;
   };
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -154,33 +183,39 @@ export function FeatureIconGridMuted({
         )}
       </div>
     ));
-  };
+  }, [featuresSlot, features, cardClassName]);
 
   return (
-    <section className={cn("bg-muted/60 py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className="flex flex-col gap-10">
-          <div className={cn("mx-auto flex max-w-xl flex-col gap-2.5 text-center", headerClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h1 className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
-              ) : (
-                <div className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
-              )
-            )}
-          </div>
-          <div className={cn("mx-auto grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5", gridClassName)}>
-            {renderFeatures()}
-          </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("bg-muted/60", className)}
+      containerClassName={containerClassName}
+    >
+      <div className="flex flex-col gap-10">
+        <div className={cn("mx-auto flex max-w-xl flex-col gap-2.5 text-center", headerClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h1 className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</h1>
+            ) : (
+              <div className={cn("text-4xl font-semibold md:text-5xl", titleClassName)}>{title}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
+            )
+          )}
+        </div>
+        <div className={cn("mx-auto grid max-w-7xl gap-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5", gridClassName)}>
+          {featuresContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -197,7 +197,8 @@ export function AboutCultureTabs({
   actionsClassName,
   optixFlowConfig,
 }: AboutCultureTabsProps): React.JSX.Element {
-  const [activeTab, setActiveTab] = React.useState(aspects[0]?.id || "");
+  const resolvedAspects = aspects ?? [];
+  const [activeTab, setActiveTab] = React.useState(resolvedAspects[0]?.id || "");
 
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -271,16 +272,16 @@ export function AboutCultureTabs({
 
         {aspectsSlot ? (
           aspectsSlot
-        ) : (
+        ) : resolvedAspects.length > 0 ? (
           <Tabs
-            defaultValue={aspects[0]?.id}
+            defaultValue={resolvedAspects[0]?.id}
             value={activeTab}
             onValueChange={setActiveTab}
             className={cn("space-y-8", tabsClassName)}
           >
             <div className="flex justify-center">
               <TabsList className="grid h-auto grid-cols-2 p-1 md:grid-cols-4">
-                {aspects.map((aspect) => (
+                {resolvedAspects.map((aspect) => (
                   <TabsTrigger
                     key={aspect.id}
                     value={aspect.id}
@@ -292,7 +293,7 @@ export function AboutCultureTabs({
               </TabsList>
             </div>
 
-            {aspects.map((aspect) => (
+            {resolvedAspects.map((aspect) => (
               <TabsContent key={aspect.id} value={aspect.id} className="space-y-8">
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-4">
@@ -352,7 +353,7 @@ export function AboutCultureTabs({
               </TabsContent>
             ))}
           </Tabs>
-        )}
+        ) : null}
 
         <div className={cn("relative mt-16 rounded-xl border bg-background p-8 md:p-12", ctaClassName)}>
           <div className="grid items-center gap-8 md:grid-cols-2">

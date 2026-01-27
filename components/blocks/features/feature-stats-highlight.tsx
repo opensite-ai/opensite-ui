@@ -1,11 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureStatsHighlightStat {
   /**
@@ -99,6 +102,26 @@ export interface FeatureStatsHighlightProps {
    * Additional CSS classes for each stat card
    */
   statCardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -141,8 +164,13 @@ export function FeatureStatsHighlight({
   actionsClassName,
   statsGridClassName,
   statCardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureStatsHighlightProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -181,9 +209,9 @@ export function FeatureStatsHighlight({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderStats = () => {
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -198,41 +226,47 @@ export function FeatureStatsHighlight({
         <span className={cn("text-muted-foreground", stat.labelClassName)}>{stat.label}</span>
       </div>
     ));
-  };
+  }, [statsSlot, stats, statCardClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-20", gridClassName)}>
-          <div className={cn("flex flex-col gap-5", contentClassName)}>
-            {badge && (
-              <Badge variant="outline" className={cn("w-fit", badgeClassName)}>
-                {badge}
-              </Badge>
-            )}
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</h2>
-              ) : (
-                <div className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
-              )
-            )}
-            <div className={actionsClassName}>
-              {renderActions()}
-            </div>
-          </div>
-          <div className={cn("grid grid-cols-2 gap-6", statsGridClassName)}>
-            {renderStats()}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-20", gridClassName)}>
+        <div className={cn("flex flex-col gap-5", contentClassName)}>
+          {badge && (
+            <Badge variant="outline" className={cn("w-fit", badgeClassName)}>
+              {badge}
+            </Badge>
+          )}
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</h2>
+            ) : (
+              <div className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
+            )
+          )}
+          <div className={actionsClassName}>
+            {actionsContent}
           </div>
         </div>
+        <div className={cn("grid grid-cols-2 gap-6", statsGridClassName)}>
+          {statsContent}
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

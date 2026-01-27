@@ -46,7 +46,7 @@ describe("FeatureSplitImageReverse", () => {
   });
 
   it("renders image with correct alt text", () => {
-    render(<FeatureSplitImageReverse imageAlt="Custom alt text" />);
+    render(<FeatureSplitImageReverse imageSrc="test-image.jpg" imageAlt="Custom alt text" />);
     const img = screen.getByTestId("mock-img");
     expect(img).toHaveAttribute("alt", "Custom alt text");
   });

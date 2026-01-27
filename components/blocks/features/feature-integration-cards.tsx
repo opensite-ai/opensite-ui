@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureIntegrationCardsItem {
   /**
@@ -112,6 +114,26 @@ export interface FeatureIntegrationCardsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -146,8 +168,13 @@ export function FeatureIntegrationCards({
   gridClassName,
   cardClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureIntegrationCardsProps): React.JSX.Element {
-  const renderIntegrationIcon = (integration: FeatureIntegrationCardsItem) => {
+  const renderIntegrationIcon = useMemo(() => (integration: FeatureIntegrationCardsItem) => {
     if (integration.iconSlot) return integration.iconSlot;
     if (integration.icon) {
       return (
@@ -161,9 +188,9 @@ export function FeatureIntegrationCards({
       );
     }
     return null;
-  };
+  }, [optixFlowConfig]);
 
-  const renderLinkLabel = (integration: FeatureIntegrationCardsItem) => {
+  const renderLinkLabel = useMemo(() => (integration: FeatureIntegrationCardsItem) => {
     if (integration.linkLabelSlot) return integration.linkLabelSlot;
     return (
       <span className={cn("flex items-center gap-1 rounded-full border px-3 py-2.5 text-sm", integration.linkLabelClassName)}>
@@ -171,9 +198,9 @@ export function FeatureIntegrationCards({
         <DynamicIcon name="lucide/arrow-right" size={16} />
       </span>
     );
-  };
+  }, []);
 
-  const renderIntegrations = () => {
+  const integrationsContent = useMemo(() => {
     if (integrationsSlot) return integrationsSlot;
     if (!integrations || integrations.length === 0) return null;
 
@@ -230,31 +257,37 @@ export function FeatureIntegrationCards({
         </div>
       );
     });
-  };
+  }, [integrationsSlot, integrations, cardClassName, renderIntegrationIcon, renderLinkLabel]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("mx-auto mb-12 flex max-w-3xl flex-col items-center gap-4 text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-semibold md:text-4xl", titleClassName)}>{title}</h2>
-            ) : (
-              <div className={cn("text-3xl font-semibold md:text-4xl", titleClassName)}>{title}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
-        <div className={cn("grid gap-6 sm:grid-cols-2 lg:grid-cols-4", gridClassName)}>
-          {renderIntegrations()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("mx-auto mb-12 flex max-w-3xl flex-col items-center gap-4 text-center", headerClassName)}>
+        {title && (
+          typeof title === "string" ? (
+            <h2 className={cn("text-3xl font-semibold md:text-4xl", titleClassName)}>{title}</h2>
+          ) : (
+            <div className={cn("text-3xl font-semibold md:text-4xl", titleClassName)}>{title}</div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+          ) : (
+            <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
+          )
+        )}
       </div>
-    </section>
+      <div className={cn("grid gap-6 sm:grid-cols-2 lg:grid-cols-4", gridClassName)}>
+        {integrationsContent}
+      </div>
+    </Section>
   );
 }

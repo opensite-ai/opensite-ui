@@ -1,8 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureThreeColumnValuesItem {
   /**
@@ -80,6 +84,26 @@ export interface FeatureThreeColumnValuesProps {
    * Additional CSS classes for each value card
    */
   cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -114,6 +138,11 @@ export function FeatureThreeColumnValues({
   titleClassName,
   gridClassName,
   cardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureThreeColumnValuesProps): React.JSX.Element {
   const renderValueIcon = (value: FeatureThreeColumnValuesItem) => {
     if (value.icon) return value.icon;
@@ -121,7 +150,7 @@ export function FeatureThreeColumnValues({
     return <DynamicIcon name="lucide/star" size={24} />;
   };
 
-  const renderValues = () => {
+  const valuesContent = useMemo(() => {
     if (valuesSlot) return valuesSlot;
     if (!values || values.length === 0) return null;
 
@@ -150,33 +179,39 @@ export function FeatureThreeColumnValues({
         )}
       </div>
     ));
-  };
+  }, [valuesSlot, values, cardClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        {label && (
-          typeof label === "string" ? (
-            <p className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
-              {label}
-            </p>
-          ) : (
-            <div className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
-              {label}
-            </div>
-          )
-        )}
-        {title && (
-          typeof title === "string" ? (
-            <h2 className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</h2>
-          ) : (
-            <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
-          )
-        )}
-        <div className={cn("mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3", gridClassName)}>
-          {renderValues()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      {label && (
+        typeof label === "string" ? (
+          <p className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
+            {label}
+          </p>
+        ) : (
+          <div className={cn("mb-4 text-sm text-muted-foreground lg:text-base", labelClassName)}>
+            {label}
+          </div>
+        )
+      )}
+      {title && (
+        typeof title === "string" ? (
+          <h2 className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</h2>
+        ) : (
+          <div className={cn("text-3xl font-medium lg:text-4xl", titleClassName)}>{title}</div>
+        )
+      )}
+      <div className={cn("mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3", gridClassName)}>
+        {valuesContent}
       </div>
-    </section>
+    </Section>
   );
 }

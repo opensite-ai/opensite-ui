@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import {
@@ -9,8 +10,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../ui/accordion";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureAccordionImageItem {
   /**
@@ -108,6 +110,26 @@ export interface FeatureAccordionImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -150,12 +172,17 @@ export function FeatureAccordionImage({
   imageWrapperClassName,
   imageClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureAccordionImageProps): React.JSX.Element {
   const [activeItem, setActiveItem] = React.useState(defaultValue);
   const activeIndex = parseInt(activeItem.replace("item-", ""), 10) || 0;
   const currentImage = items?.[activeIndex] || items?.[0];
 
-  const renderAccordionItems = () => {
+  const accordionItemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -169,9 +196,9 @@ export function FeatureAccordionImage({
         </AccordionContent>
       </AccordionItem>
     ));
-  };
+  }, [itemsSlot, items]);
 
-  const renderImage = () => {
+  const imageContent = useMemo(() => {
     if (currentImage?.imageSlot) return currentImage.imageSlot;
 
     return (
@@ -183,50 +210,56 @@ export function FeatureAccordionImage({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [currentImage, imageClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("mb-12 text-center", headerClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
-                {title}
-              </h2>
-            ) : (
-              <div className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
-                {title}
-              </div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
-                {description}
-              </div>
-            )
-          )}
-        </div>
-        <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-16", gridClassName)}>
-          <Accordion
-            type="single"
-            collapsible
-            value={activeItem}
-            onValueChange={setActiveItem}
-            className={cn("w-full", accordionClassName)}
-          >
-            {renderAccordionItems()}
-          </Accordion>
-          <div className={cn("relative aspect-video overflow-hidden rounded-xl lg:aspect-square", imageWrapperClassName)}>
-            {renderImage()}
-          </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("mb-12 text-center", headerClassName)}>
+        {title && (
+          typeof title === "string" ? (
+            <h2 className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
+              {title}
+            </h2>
+          ) : (
+            <div className={cn("text-3xl font-semibold md:text-4xl lg:text-5xl", titleClassName)}>
+              {title}
+            </div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mt-4 text-muted-foreground lg:text-lg", descriptionClassName)}>
+              {description}
+            </div>
+          )
+        )}
+      </div>
+      <div className={cn("grid gap-10 lg:grid-cols-2 lg:gap-16", gridClassName)}>
+        <Accordion
+          type="single"
+          collapsible
+          value={activeItem}
+          onValueChange={setActiveItem}
+          className={cn("w-full", accordionClassName)}
+        >
+          {accordionItemsContent}
+        </Accordion>
+        <div className={cn("relative aspect-video overflow-hidden rounded-xl lg:aspect-square", imageWrapperClassName)}>
+          {imageContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

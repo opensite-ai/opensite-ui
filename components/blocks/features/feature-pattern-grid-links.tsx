@@ -1,10 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { patternSvgs } from "../../../lib/patternSvgs";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeaturePatternGridLinksItem {
   /**
@@ -86,6 +90,26 @@ export interface FeaturePatternGridLinksProps {
    * Additional CSS classes for each card
    */
   cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -113,6 +137,11 @@ export function FeaturePatternGridLinks({
   containerClassName,
   gridClassName,
   cardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeaturePatternGridLinksProps): React.JSX.Element {
   const renderFeatureIcon = (feature: FeaturePatternGridLinksItem) => {
     if (feature.icon) return feature.icon;
@@ -135,7 +164,7 @@ export function FeaturePatternGridLinks({
     );
   };
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -168,24 +197,25 @@ export function FeaturePatternGridLinks({
         {renderFeatureLink(feature)}
       </div>
     ));
-  };
+  }, [featuresSlot, features, cardClassName]);
 
   return (
-    <section
-      className={cn(
-        "py-32 bg-muted/30",
-        className
-      )}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("bg-muted/30", className)}
+      containerClassName={containerClassName}
       style={{
         backgroundImage: `url(${patternUrl})`,
         backgroundRepeat: "repeat",
       }}
     >
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
-          {renderFeatures()}
-        </div>
+      <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3", gridClassName)}>
+        {featuresContent}
       </div>
-    </section>
+    </Section>
   );
 }

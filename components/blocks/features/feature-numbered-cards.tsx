@@ -1,11 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureNumberedCardsChecklistItem {
   /**
@@ -114,6 +116,26 @@ export interface FeatureNumberedCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -150,6 +172,11 @@ export function FeatureNumberedCards({
   checklistClassName,
   badgeClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureNumberedCardsProps): React.JSX.Element {
   const renderChecklistItems = (feature: FeatureNumberedCardsItem) => {
     if (feature.checklistSlot) return feature.checklistSlot;
@@ -178,7 +205,7 @@ export function FeatureNumberedCards({
     });
   };
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -241,15 +268,21 @@ export function FeatureNumberedCards({
         </div>
       );
     });
-  };
+  }, [featuresSlot, features, cardClassName, titleClassName, descriptionClassName, checklistClassName, badgeClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("space-y-10 rounded-lg border py-10 md:px-4", cardsWrapperClassName)}>
-          {renderFeatures()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("space-y-10 rounded-lg border py-10 md:px-4", cardsWrapperClassName)}>
+        {featuresContent}
       </div>
-    </section>
+    </Section>
   );
 }

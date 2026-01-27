@@ -1,14 +1,16 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureImageOverlayBadgeProps {
   /**
@@ -123,6 +125,26 @@ export interface FeatureImageOverlayBadgeProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -154,14 +176,14 @@ export function FeatureImageOverlayBadge({
   description,
   actions,
   actionsSlot,
-  imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
-  imageAlt = "Feature illustration",
+  imageSrc,
+  imageAlt,
   imageSlot,
-  avatarSrc = blockBrandedIconsAndPlaceholders.avatar1,
+  avatarSrc,
   avatarBadgeText,
   overlayTitle,
   overlayLinkText,
-  overlayLinkUrl = "#",
+  overlayLinkUrl,
   overlayLinkOnClick,
   className,
   containerClassName,
@@ -177,8 +199,13 @@ export function FeatureImageOverlayBadge({
   avatarBadgeClassName,
   overlayTitleClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureImageOverlayBadgeProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -217,15 +244,15 @@ export function FeatureImageOverlayBadge({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderImage = () => {
+  const imageContent = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (imageSrc) {
       return (
         <Img
           src={imageSrc}
-          alt={imageAlt}
+          alt={imageAlt || "Feature illustration"}
           className={cn("rounded-xl object-cover md:aspect-video lg:aspect-auto", imageClassName)}
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
@@ -233,73 +260,79 @@ export function FeatureImageOverlayBadge({
       );
     }
     return null;
-  };
+  }, [imageSlot, imageSrc, imageAlt, imageClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("grid place-items-center gap-10 lg:grid-cols-2", gridClassName)}>
-          <div className={cn("flex flex-col gap-5", contentClassName)}>
-            {badge && (
-              <Badge variant="outline" className={cn("w-fit bg-background", badgeClassName)}>
-                {badge}
-              </Badge>
-            )}
-            {title && (
-              typeof title === "string" ? (
-                <h3 className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</h3>
-              ) : (
-                <div className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
-              )
-            )}
-            <div className={actionsClassName}>
-              {renderActions()}
-            </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("grid place-items-center gap-10 lg:grid-cols-2", gridClassName)}>
+        <div className={cn("flex flex-col gap-5", contentClassName)}>
+          {badge && (
+            <Badge variant="outline" className={cn("w-fit bg-background", badgeClassName)}>
+              {badge}
+            </Badge>
+          )}
+          {title && (
+            typeof title === "string" ? (
+              <h3 className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</h3>
+            ) : (
+              <div className={cn("text-3xl font-semibold lg:text-5xl", titleClassName)}>{title}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("text-muted-foreground lg:text-lg", descriptionClassName)}>{description}</div>
+            )
+          )}
+          <div className={actionsClassName}>
+            {actionsContent}
           </div>
-          <div className={cn("relative rounded-xl", imageWrapperClassName)}>
-            {renderImage()}
-            <div className={cn("absolute top-0 right-0 bottom-0 left-0 rounded-xl bg-linear-to-t from-primary via-transparent to-transparent", overlayClassName)}></div>
-            <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
-              <span className={cn("ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm", avatarBadgeClassName)}>
-                <Avatar className="size-7 rounded-full">
-                  <AvatarImage src={avatarSrc} alt="Avatar" />
-                </Avatar>
-                {avatarBadgeText}
-              </span>
-              <div className="flex flex-col gap-5 text-background">
-                {overlayTitle && (
-                  typeof overlayTitle === "string" ? (
-                    <h4 className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
-                      {overlayTitle}
-                    </h4>
-                  ) : (
-                    <div className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
-                      {overlayTitle}
-                    </div>
-                  )
-                )}
-                {overlayLinkText && (
-                  <Pressable
-                    href={overlayLinkUrl}
-                    onClick={overlayLinkOnClick}
-                    className="flex items-center gap-1 font-medium"
-                  >
-                    {overlayLinkText}
-                    <DynamicIcon name="lucide/chevron-right" size={16} />
-                  </Pressable>
-                )}
-              </div>
+        </div>
+        <div className={cn("relative rounded-xl", imageWrapperClassName)}>
+          {imageContent}
+          <div className={cn("absolute top-0 right-0 bottom-0 left-0 rounded-xl bg-linear-to-t from-primary via-transparent to-transparent", overlayClassName)}></div>
+          <div className="absolute top-0 flex h-full w-full flex-col justify-between p-7">
+            <span className={cn("ml-auto flex w-fit items-center gap-2 rounded-full bg-background/30 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm", avatarBadgeClassName)}>
+              <Avatar className="size-7 rounded-full">
+                <AvatarImage src={avatarSrc} alt="Avatar" />
+              </Avatar>
+              {avatarBadgeText}
+            </span>
+            <div className="flex flex-col gap-5 text-background">
+              {overlayTitle && (
+                typeof overlayTitle === "string" ? (
+                  <h4 className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
+                    {overlayTitle}
+                  </h4>
+                ) : (
+                  <div className={cn("text-lg font-semibold lg:text-3xl", overlayTitleClassName)}>
+                    {overlayTitle}
+                  </div>
+                )
+              )}
+              {overlayLinkText && (
+                <Pressable
+                  href={overlayLinkUrl}
+                  onClick={overlayLinkOnClick}
+                  className="flex items-center gap-1 font-medium"
+                >
+                  {overlayLinkText}
+                  <DynamicIcon name="lucide/chevron-right" size={16} />
+                </Pressable>
+              )}
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

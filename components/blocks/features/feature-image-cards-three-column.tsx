@@ -1,13 +1,15 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureImageCardsThreeColumnItem {
   /**
@@ -117,6 +119,26 @@ export interface FeatureImageCardsThreeColumnProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -158,8 +180,13 @@ export function FeatureImageCardsThreeColumn({
   gridClassName,
   cardClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureImageCardsThreeColumnProps): React.JSX.Element {
-  const renderCards = () => {
+  const cardsContent = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cards || cards.length === 0) return null;
 
@@ -239,29 +266,35 @@ export function FeatureImageCardsThreeColumn({
         </Pressable>
       );
     });
-  };
+  }, [cardsSlot, cards, cardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        {title && (
-          typeof title === "string" ? (
-            <h1 className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</h1>
-          ) : (
-            <div className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</p>
-          ) : (
-            <div className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</div>
-          )
-        )}
-        <div className={cn("grid gap-5 pt-14 xl:grid-cols-3", gridClassName)}>
-          {renderCards()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={containerClassName}
+    >
+      {title && (
+        typeof title === "string" ? (
+          <h1 className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</h1>
+        ) : (
+          <div className={cn("mb-4 text-center text-4xl font-semibold", titleClassName)}>{title}</div>
+        )
+      )}
+      {description && (
+        typeof description === "string" ? (
+          <p className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</p>
+        ) : (
+          <div className={cn("text-center text-muted-foreground", descriptionClassName)}>{description}</div>
+        )
+      )}
+      <div className={cn("grid gap-5 pt-14 xl:grid-cols-3", gridClassName)}>
+        {cardsContent}
       </div>
-    </section>
+    </Section>
   );
 }

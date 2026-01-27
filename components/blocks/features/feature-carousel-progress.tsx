@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
@@ -15,6 +15,9 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import { Progress } from "../../ui/progress";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureCarouselProgressItem {
   /**
@@ -108,6 +111,26 @@ export interface FeatureCarouselProgressProps {
    * Additional CSS classes for each slide card
    */
   cardClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -145,6 +168,11 @@ export function FeatureCarouselProgress({
   controlsClassName,
   progressClassName,
   cardClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureCarouselProgressProps): React.JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
   const slidesLength = slides?.length || 1;
@@ -161,13 +189,13 @@ export function FeatureCarouselProgress({
     });
   }, [api, slidesLength]);
 
-  const renderSlideIcon = (slide: FeatureCarouselProgressItem) => {
+  const renderSlideIcon = useMemo(() => (slide: FeatureCarouselProgressItem) => {
     if (slide.icon) return slide.icon;
     if (slide.iconName) return <DynamicIcon name={slide.iconName} size={16} />;
     return <DynamicIcon name="lucide/star" size={16} />;
-  };
+  }, []);
 
-  const renderSlides = () => {
+  const slidesContent = useMemo(() => {
     if (slidesSlot) return slidesSlot;
     if (!slides || slides.length === 0) return null;
 
@@ -211,49 +239,55 @@ export function FeatureCarouselProgress({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [slidesSlot, slides, cardClassName, renderSlideIcon]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container max-w-7xl", containerClassName)}>
-        <div className={cn("mb-10 flex flex-col items-center gap-6 md:mb-20", headerClassName)}>
-          {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("mb-2 text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
-                {title}
-              </h2>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={cn("max-w-7xl", containerClassName)}
+    >
+      <div className={cn("mb-10 flex flex-col items-center gap-6 md:mb-20", headerClassName)}>
+        {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
+        {title && (
+          typeof title === "string" ? (
+            <h2 className={cn("mb-2 text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+              {title}
+            </h2>
+          ) : (
+            <div className={cn("mb-2 text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
+              {title}
+            </div>
+          )
+        )}
+      </div>
+      <Carousel className={cn("w-full", carouselClassName)} setApi={setApi}>
+        <div className={cn("mb-4 flex justify-between px-1 md:mb-5", controlsClassName)}>
+          {carouselLabel && (
+            typeof carouselLabel === "string" ? (
+              <p className="font-medium">{carouselLabel}</p>
             ) : (
-              <div className={cn("mb-2 text-center text-3xl font-semibold lg:text-5xl", titleClassName)}>
-                {title}
-              </div>
+              <div className="font-medium">{carouselLabel}</div>
             )
           )}
-        </div>
-        <Carousel className={cn("w-full", carouselClassName)} setApi={setApi}>
-          <div className={cn("mb-4 flex justify-between px-1 md:mb-5", controlsClassName)}>
-            {carouselLabel && (
-              typeof carouselLabel === "string" ? (
-                <p className="font-medium">{carouselLabel}</p>
-              ) : (
-                <div className="font-medium">{carouselLabel}</div>
-              )
-            )}
-            <div className="flex items-center space-x-2">
-              <div className="mr-2 hidden items-center gap-3 text-xs text-muted-foreground md:flex">
-                <span>01</span>
-                <Progress value={progress} className={cn("h-0.5 w-52", progressClassName)} />
-                <span>0{slidesLength}</span>
-              </div>
-              <CarouselPrevious className="static translate-y-0" />
-              <CarouselNext className="static translate-y-0" />
+          <div className="flex items-center space-x-2">
+            <div className="mr-2 hidden items-center gap-3 text-xs text-muted-foreground md:flex">
+              <span>01</span>
+              <Progress value={progress} className={cn("h-0.5 w-52", progressClassName)} />
+              <span>0{slidesLength}</span>
             </div>
+            <CarouselPrevious className="static translate-y-0" />
+            <CarouselNext className="static translate-y-0" />
           </div>
-          <CarouselContent>
-            {renderSlides()}
-          </CarouselContent>
-        </Carousel>
-      </div>
-    </section>
+        </div>
+        <CarouselContent>
+          {slidesContent}
+        </CarouselContent>
+      </Carousel>
+    </Section>
   );
 }

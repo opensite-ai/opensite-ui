@@ -1,14 +1,16 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Img } from "@page-speed/img";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureIconTabsContentTabContent {
   /**
@@ -165,6 +167,26 @@ export interface FeatureIconTabsContentProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -216,14 +238,19 @@ export function FeatureIconTabsContent({
   contentWrapperClassName,
   tabContentClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureIconTabsContentProps): React.JSX.Element {
-  const renderTabIcon = (tab: FeatureIconTabsContentTab) => {
+  const renderTabIcon = useMemo(() => (tab: FeatureIconTabsContentTab) => {
     if (tab.icon) return tab.icon;
     if (tab.iconName) return <DynamicIcon name={tab.iconName} size={16} />;
     return <DynamicIcon name="lucide/star" size={16} />;
-  };
+  }, []);
 
-  const renderTabContentActions = (content: FeatureIconTabsContentTabContent) => {
+  const renderTabContentActions = useMemo(() => (content: FeatureIconTabsContentTabContent) => {
     if (content.actionsSlot) return content.actionsSlot;
     if (!content.actions || content.actions.length === 0) return null;
 
@@ -262,9 +289,9 @@ export function FeatureIconTabsContent({
         </Pressable>
       );
     });
-  };
+  }, []);
 
-  const renderTabContentImage = (content: FeatureIconTabsContentTabContent) => {
+  const renderTabContentImage = useMemo(() => (content: FeatureIconTabsContentTabContent) => {
     if (content.imageSlot) return content.imageSlot;
     if (content.imageSrc) {
       return (
@@ -278,9 +305,9 @@ export function FeatureIconTabsContent({
       );
     }
     return null;
-  };
+  }, [optixFlowConfig]);
 
-  const renderTabs = () => {
+  const tabsContent = useMemo(() => {
     if (tabsSlot) return tabsSlot;
     if (!tabs || tabs.length === 0) return null;
 
@@ -360,34 +387,40 @@ export function FeatureIconTabsContent({
         </div>
       </Tabs>
     );
-  };
+  }, [tabsSlot, tabs, defaultTab, tabsListClassName, tabTriggerClassName, contentWrapperClassName, tabContentClassName, renderTabIcon, renderTabContentActions, renderTabContentImage]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container mx-auto", containerClassName)}>
-        <div className={cn("flex flex-col items-center gap-4 text-center", headerClassName)}>
-          {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
-                {heading}
-              </h1>
-            ) : (
-              <div className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
-                {heading}
-              </div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
-            )
-          )}
-        </div>
-        {renderTabs()}
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={cn("mx-auto", containerClassName)}
+    >
+      <div className={cn("flex flex-col items-center gap-4 text-center", headerClassName)}>
+        {badge && <Badge variant="outline" className={badgeClassName}>{badge}</Badge>}
+        {heading && (
+          typeof heading === "string" ? (
+            <h1 className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+              {heading}
+            </h1>
+          ) : (
+            <div className={cn("max-w-2xl text-3xl font-semibold md:text-4xl", headingClassName)}>
+              {heading}
+            </div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p className={cn("text-muted-foreground", descriptionClassName)}>{description}</p>
+          ) : (
+            <div className={cn("text-muted-foreground", descriptionClassName)}>{description}</div>
+          )
+        )}
       </div>
-    </section>
+      {tabsContent}
+    </Section>
   );
 }

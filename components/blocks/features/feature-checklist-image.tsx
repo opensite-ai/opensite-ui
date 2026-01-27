@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureChecklistItem {
   /**
@@ -104,6 +106,26 @@ export interface FeatureChecklistImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -128,8 +150,8 @@ export interface FeatureChecklistImageProps {
 export function FeatureChecklistImage({
   title,
   description,
-  imageSrc = blockBrandedIconsAndPlaceholders.placeholder1,
-  imageAlt = "Feature illustration",
+  imageSrc,
+  imageAlt,
   imageSlot,
   actions,
   actionsSlot,
@@ -145,8 +167,13 @@ export function FeatureChecklistImage({
   actionsClassName,
   checklistClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureChecklistImageProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -185,23 +212,24 @@ export function FeatureChecklistImage({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderImage = () => {
+  const imageContent = useMemo(() => {
     if (imageSlot) return imageSlot;
+    if (!imageSrc) return null;
 
     return (
       <Img
         src={imageSrc}
-        alt={imageAlt}
+        alt={imageAlt || "Feature illustration"}
         className={cn("max-h-96 w-full rounded-lg object-cover md:max-h-[500px] md:w-1/2", imageClassName)}
         loading="lazy"
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [imageSlot, imageSrc, imageAlt, imageClassName, optixFlowConfig]);
 
-  const renderChecklist = () => {
+  const checklistContent = useMemo(() => {
     if (checklistSlot) return checklistSlot;
     if (!checklistItems || checklistItems.length === 0) return null;
 
@@ -222,41 +250,47 @@ export function FeatureChecklistImage({
         </li>
       );
     });
-  };
+  }, [checklistSlot, checklistItems]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container max-w-6xl", containerClassName)}>
-        <div className={cn("flex flex-col gap-12 md:flex-row", contentWrapperClassName)}>
-          {renderImage()}
-          <div className={cn("lg:p-10", contentClassName)}>
-            {title && (
-              typeof title === "string" ? (
-                <h2 className={cn("text-3xl font-medium text-balance md:text-5xl", titleClassName)}>
-                  {title}
-                </h2>
-              ) : (
-                <div className={cn("text-3xl font-medium text-balance md:text-5xl", titleClassName)}>
-                  {title}
-                </div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-1 text-muted-foreground md:mt-6", descriptionClassName)}>{description}</p>
-              ) : (
-                <div className={cn("mt-1 text-muted-foreground md:mt-6", descriptionClassName)}>{description}</div>
-              )
-            )}
-            <div className={actionsClassName}>
-              {renderActions()}
-            </div>
-            <ul className={cn("mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0", checklistClassName)}>
-              {renderChecklist()}
-            </ul>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+      containerClassName={cn("max-w-6xl", containerClassName)}
+    >
+      <div className={cn("flex flex-col gap-12 md:flex-row", contentWrapperClassName)}>
+        {imageContent}
+        <div className={cn("lg:p-10", contentClassName)}>
+          {title && (
+            typeof title === "string" ? (
+              <h2 className={cn("text-3xl font-medium text-balance md:text-5xl", titleClassName)}>
+                {title}
+              </h2>
+            ) : (
+              <div className={cn("text-3xl font-medium text-balance md:text-5xl", titleClassName)}>
+                {title}
+              </div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p className={cn("mt-1 text-muted-foreground md:mt-6", descriptionClassName)}>{description}</p>
+            ) : (
+              <div className={cn("mt-1 text-muted-foreground md:mt-6", descriptionClassName)}>{description}</div>
+            )
+          )}
+          <div className={actionsClassName}>
+            {actionsContent}
           </div>
+          <ul className={cn("mt-10 flex-wrap items-center gap-6 space-y-6 md:flex md:space-y-0", checklistClassName)}>
+            {checklistContent}
+          </ul>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

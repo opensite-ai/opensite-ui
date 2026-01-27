@@ -1,13 +1,15 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FeatureChecklistThreeColumnCheckItem {
   /**
@@ -144,6 +146,26 @@ export interface FeatureChecklistThreeColumnProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -189,18 +211,23 @@ export function FeatureChecklistThreeColumn({
   cardsGridClassName,
   cardClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FeatureChecklistThreeColumnProps): React.JSX.Element {
-  const getCheckItemContent = (item: string | FeatureChecklistThreeColumnCheckItem) => {
+  const getCheckItemContent = useMemo(() => (item: string | FeatureChecklistThreeColumnCheckItem) => {
     if (typeof item === "string") return item;
     return item.content;
-  };
+  }, []);
 
-  const getCheckItemClassName = (item: string | FeatureChecklistThreeColumnCheckItem) => {
+  const getCheckItemClassName = useMemo(() => (item: string | FeatureChecklistThreeColumnCheckItem) => {
     if (typeof item === "string") return undefined;
     return item.className;
-  };
+  }, []);
 
-  const renderChecklistColumn = (
+  const renderChecklistColumn = useMemo(() => (
     items: (string | FeatureChecklistThreeColumnCheckItem)[] | undefined,
     slot: React.ReactNode | undefined,
     gapClass: string
@@ -218,9 +245,9 @@ export function FeatureChecklistThreeColumn({
         ))}
       </ul>
     );
-  };
+  }, [checklistClassName, getCheckItemContent, getCheckItemClassName]);
 
-  const renderCardImage = (card: FeatureChecklistThreeColumnCard) => {
+  const renderCardImage = useMemo(() => (card: FeatureChecklistThreeColumnCard) => {
     if (card.imageSlot) return card.imageSlot;
     if (card.image) {
       return (
@@ -234,9 +261,9 @@ export function FeatureChecklistThreeColumn({
       );
     }
     return null;
-  };
+  }, [optixFlowConfig]);
 
-  const renderCardLink = (card: FeatureChecklistThreeColumnCard) => {
+  const renderCardLink = useMemo(() => (card: FeatureChecklistThreeColumnCard) => {
     if (card.linkSlot) return card.linkSlot;
     if (!card.link) return null;
 
@@ -249,9 +276,9 @@ export function FeatureChecklistThreeColumn({
         <DynamicIcon name="lucide/chevron-right" size={16} className="mt-0.5" />
       </Pressable>
     );
-  };
+  }, []);
 
-  const renderCards = () => {
+  const cardsContent = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cards || cards.length === 0) return null;
 
@@ -308,30 +335,36 @@ export function FeatureChecklistThreeColumn({
         </div>
       </div>
     ));
-  };
+  }, [cardsSlot, cards, cardClassName, renderCardImage, renderCardLink, getCheckItemContent, getCheckItemClassName]);
 
   return (
-    <section className={cn("py-16 sm:py-24 md:py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("grid gap-4 sm:grid-cols-2 sm:gap-8 md:gap-12 lg:grid-cols-3 lg:gap-16", headerGridClassName)}>
-          {title && (
-            typeof title === "string" ? (
-              <h2 className={cn("mb-4 text-3xl font-medium sm:col-span-2 sm:text-4xl md:mb-0 lg:col-span-1", titleClassName)}>
-                {title}
-              </h2>
-            ) : (
-              <div className={cn("mb-4 text-3xl font-medium sm:col-span-2 sm:text-4xl md:mb-0 lg:col-span-1", titleClassName)}>
-                {title}
-              </div>
-            )
-          )}
-          {renderChecklistColumn(checklistColumn1, checklistColumn1Slot, "gap-3 sm:gap-4")}
-          {renderChecklistColumn(checklistColumn2, checklistColumn2Slot, "gap-4")}
-        </div>
-        <div className={cn("mt-10 grid gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3", cardsGridClassName)}>
-          {renderCards()}
-        </div>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={cn("py-16 sm:py-24 md:py-32", className)}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("grid gap-4 sm:grid-cols-2 sm:gap-8 md:gap-12 lg:grid-cols-3 lg:gap-16", headerGridClassName)}>
+        {title && (
+          typeof title === "string" ? (
+            <h2 className={cn("mb-4 text-3xl font-medium sm:col-span-2 sm:text-4xl md:mb-0 lg:col-span-1", titleClassName)}>
+              {title}
+            </h2>
+          ) : (
+            <div className={cn("mb-4 text-3xl font-medium sm:col-span-2 sm:text-4xl md:mb-0 lg:col-span-1", titleClassName)}>
+              {title}
+            </div>
+          )
+        )}
+        {renderChecklistColumn(checklistColumn1, checklistColumn1Slot, "gap-3 sm:gap-4")}
+        {renderChecklistColumn(checklistColumn2, checklistColumn2Slot, "gap-4")}
       </div>
-    </section>
+      <div className={cn("mt-10 grid gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3", cardsGridClassName)}>
+        {cardsContent}
+      </div>
+    </Section>
   );
 }
