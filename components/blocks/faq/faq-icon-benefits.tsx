@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -101,8 +102,8 @@ export function FaqIconBenefits({
   description,
   benefits,
   benefitsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -118,7 +119,7 @@ export function FaqIconBenefits({
   titleClassName,
   benefitDescriptionClassName,
 }: FaqIconBenefitsProps) {
-  const renderBenefits = () => {
+  const benefitsContent = useMemo(() => {
     if (benefitsSlot) return benefitsSlot;
     if (!benefits || benefits.length === 0) return null;
 
@@ -173,7 +174,7 @@ export function FaqIconBenefits({
         ))}
       </div>
     );
-  };
+  }, [benefitsSlot, benefits, gridClassName, benefitCardClassName, iconWrapperClassName, iconClassName, titleClassName, benefitDescriptionClassName]);
 
   return (
     <Section
@@ -218,7 +219,7 @@ export function FaqIconBenefits({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        {renderBenefits()}
+        {benefitsContent}
       </div>
     </Section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import {
   Accordion,
@@ -98,8 +99,8 @@ export function FaqCenteredAccordion({
   description,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -113,7 +114,7 @@ export function FaqCenteredAccordion({
   accordionTriggerClassName,
   accordionContentClassName,
 }: FaqCenteredAccordionProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -150,7 +151,7 @@ export function FaqCenteredAccordion({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
   return (
     <Section
@@ -195,7 +196,7 @@ export function FaqCenteredAccordion({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        {renderItems()}
+        {itemsContent}
       </div>
     </Section>
   );

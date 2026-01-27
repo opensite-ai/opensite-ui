@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -78,8 +79,8 @@ export function FaqStaticList({
   heading,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -91,7 +92,7 @@ export function FaqStaticList({
   questionClassName,
   answerClassName,
 }: FaqStaticListProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -117,7 +118,7 @@ export function FaqStaticList({
         ))}
       </div>
     );
-  };
+  }, [itemsSlot, items, itemsWrapperClassName, itemClassName, questionClassName, answerClassName]);
 
   return (
     <Section
@@ -142,7 +143,7 @@ export function FaqStaticList({
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}
-        {renderItems()}
+        {itemsContent}
       </div>
     </Section>
   );

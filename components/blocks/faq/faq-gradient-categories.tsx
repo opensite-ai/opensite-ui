@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import {
   Accordion,
@@ -115,8 +116,8 @@ export function FaqGradientCategories({
   description,
   categories,
   categoriesSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -133,7 +134,7 @@ export function FaqGradientCategories({
   accordionTriggerClassName,
   accordionContentClassName,
 }: FaqGradientCategoriesProps) {
-  const renderCategories = () => {
+  const categoriesContent = useMemo(() => {
     if (categoriesSlot) return categoriesSlot;
     if (!categories || categories.length === 0) return null;
 
@@ -189,7 +190,7 @@ export function FaqGradientCategories({
         ))}
       </div>
     );
-  };
+  }, [categoriesSlot, categories, gridClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
   return (
     <Section
@@ -240,7 +241,7 @@ export function FaqGradientCategories({
                 <div className={descriptionClassName}>{description}</div>
               ))}
           </div>
-          {renderCategories()}
+          {categoriesContent}
         </div>
       </div>
     </Section>

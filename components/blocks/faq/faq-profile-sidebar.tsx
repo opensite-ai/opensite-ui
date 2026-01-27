@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 import {
@@ -10,7 +11,6 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
@@ -167,14 +167,14 @@ export function FaqProfileSidebar({
   items,
   itemsSlot,
   profileSlot,
-  profileImage = imagePlaceholders[0],
-  profileName = "Sarah Johnson",
-  profileRole = "Customer Success Manager",
-  profileDescription = "I'm here to help you get the most out of our platform. Feel free to reach out with any questions!",
-  contactText = "Still have questions?",
+  profileImage,
+  profileName,
+  profileRole,
+  profileDescription,
+  contactText,
   contactAction,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -197,7 +197,7 @@ export function FaqProfileSidebar({
   accordionContentClassName,
   optixFlowConfig,
 }: FaqProfileSidebarProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -230,32 +230,34 @@ export function FaqProfileSidebar({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
-  const renderProfileSection = () => {
+  const profileSectionContent = useMemo(() => {
     if (profileSlot) return profileSlot;
 
     return (
       <div className={cn("rounded-lg border p-6", profileCardClassName)}>
         <div className="flex items-center gap-4">
-          <Img
-            src={profileImage}
-            alt={typeof profileName === "string" ? profileName : "Profile"}
-            className={cn(
-              "size-16 rounded-full object-cover",
-              profileImageClassName,
-            )}
-            optixFlowConfig={optixFlowConfig}
-          />
+          {profileImage && (
+            <Img
+              src={profileImage}
+              alt={typeof profileName === "string" ? profileName : "Profile"}
+              className={cn(
+                "size-16 rounded-full object-cover",
+                profileImageClassName,
+              )}
+              optixFlowConfig={optixFlowConfig}
+            />
+          )}
           <div>
-            {typeof profileName === "string" ? (
+            {profileName && (typeof profileName === "string" ? (
               <h3 className={cn("font-semibold", profileNameClassName)}>
                 {profileName}
               </h3>
             ) : (
               <div className={profileNameClassName}>{profileName}</div>
-            )}
-            {typeof profileRole === "string" ? (
+            ))}
+            {profileRole && (typeof profileRole === "string" ? (
               <p
                 className={cn(
                   "text-muted-foreground text-sm",
@@ -266,10 +268,10 @@ export function FaqProfileSidebar({
               </p>
             ) : (
               <div className={profileRoleClassName}>{profileRole}</div>
-            )}
+            ))}
           </div>
         </div>
-        {typeof profileDescription === "string" ? (
+        {profileDescription && (typeof profileDescription === "string" ? (
           <p
             className={cn(
               "text-muted-foreground mt-4 text-sm",
@@ -282,14 +284,14 @@ export function FaqProfileSidebar({
           <div className={profileDescriptionClassName}>
             {profileDescription}
           </div>
-        )}
+        ))}
         {contactAction && (
           <div className={cn("mt-6 border-t pt-6", contactSectionClassName)}>
-            {typeof contactText === "string" ? (
+            {contactText && (typeof contactText === "string" ? (
               <p className="text-sm font-medium">{contactText}</p>
             ) : (
               contactText
-            )}
+            ))}
             <Pressable
               href={contactAction.href}
               onClick={contactAction.onClick}
@@ -303,7 +305,7 @@ export function FaqProfileSidebar({
         )}
       </div>
     );
-  };
+  }, [profileSlot, profileImage, profileName, profileRole, profileDescription, contactText, contactAction, profileCardClassName, profileImageClassName, profileNameClassName, profileRoleClassName, profileDescriptionClassName, contactSectionClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -351,11 +353,11 @@ export function FaqProfileSidebar({
                     <div className={descriptionClassName}>{description}</div>
                   ))}
               </div>
-              {renderProfileSection()}
+              {profileSectionContent}
             </div>
           </div>
           <div className={cn("lg:w-2/3", faqColumnClassName)}>
-            {renderItems()}
+            {itemsContent}
           </div>
         </div>
       </div>

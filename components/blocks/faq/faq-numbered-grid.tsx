@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
@@ -95,8 +96,8 @@ export function FaqNumberedGrid({
   description,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -111,7 +112,7 @@ export function FaqNumberedGrid({
   questionClassName,
   answerClassName,
 }: FaqNumberedGridProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -165,7 +166,7 @@ export function FaqNumberedGrid({
         ))}
       </div>
     );
-  };
+  }, [itemsSlot, items, gridClassName, itemClassName, numberClassName, questionClassName, answerClassName]);
 
   return (
     <Section
@@ -210,7 +211,7 @@ export function FaqNumberedGrid({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        {renderItems()}
+        {itemsContent}
       </div>
     </Section>
   );

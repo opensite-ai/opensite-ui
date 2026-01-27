@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import {
   Accordion,
@@ -123,12 +124,12 @@ export function FaqSplitHelp({
   description,
   items,
   itemsSlot,
-  helpHeading = "Still have questions?",
-  helpDescription = "Can't find the answer you're looking for? Our support team is here to help.",
+  helpHeading,
+  helpDescription,
   helpAction,
   helpSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -143,7 +144,7 @@ export function FaqSplitHelp({
   accordionContentClassName,
   helpSectionClassName,
 }: FaqSplitHelpProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -180,9 +181,9 @@ export function FaqSplitHelp({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
-  const renderHelpSection = () => {
+  const helpSectionContent = useMemo(() => {
     if (helpSlot) return helpSlot;
 
     return (
@@ -219,7 +220,7 @@ export function FaqSplitHelp({
         )}
       </div>
     );
-  };
+  }, [helpSlot, helpHeading, helpDescription, helpAction, helpSectionClassName]);
 
   return (
     <Section
@@ -260,9 +261,9 @@ export function FaqSplitHelp({
                 <div className={descriptionClassName}>{description}</div>
               ))}
           </div>
-          {renderItems()}
+          {itemsContent}
         </div>
-        {renderHelpSection()}
+        {helpSectionContent}
       </div>
     </Section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import {
@@ -120,8 +121,8 @@ export function FaqCardCategories({
   description,
   categories,
   categoriesSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -139,7 +140,7 @@ export function FaqCardCategories({
   accordionTriggerClassName,
   accordionContentClassName,
 }: FaqCardCategoriesProps) {
-  const renderCategories = () => {
+  const categoriesContent = useMemo(() => {
     if (categoriesSlot) return categoriesSlot;
     if (!categories || categories.length === 0) return null;
 
@@ -200,7 +201,7 @@ export function FaqCardCategories({
         ))}
       </div>
     );
-  };
+  }, [categoriesSlot, categories, gridClassName, cardClassName, categoryTitleClassName, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
   return (
     <Section
@@ -254,7 +255,7 @@ export function FaqCardCategories({
                 <div className={descriptionClassName}>{description}</div>
               ))}
           </div>
-          {renderCategories()}
+          {categoriesContent}
         </div>
       </div>
     </Section>

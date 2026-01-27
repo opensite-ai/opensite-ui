@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Separator } from "../../ui/separator";
@@ -130,11 +131,11 @@ export function FaqBadgeSupport({
   description,
   items,
   itemsSlot,
-  supportText = "Still have questions?",
+  supportText,
   supportAction,
   supportSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -150,7 +151,7 @@ export function FaqBadgeSupport({
   accordionContentClassName,
   supportSectionClassName,
 }: FaqBadgeSupportProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -187,9 +188,9 @@ export function FaqBadgeSupport({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
-  const renderSupportSection = () => {
+  const supportSectionContent = useMemo(() => {
     if (supportSlot) return supportSlot;
 
     return (
@@ -218,7 +219,7 @@ export function FaqBadgeSupport({
         )}
       </div>
     );
-  };
+  }, [supportSlot, supportText, supportAction, supportSectionClassName]);
 
   return (
     <Section
@@ -271,9 +272,9 @@ export function FaqBadgeSupport({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        {renderItems()}
+        {itemsContent}
         <Separator />
-        {renderSupportSection()}
+        {supportSectionContent}
       </div>
     </Section>
   );

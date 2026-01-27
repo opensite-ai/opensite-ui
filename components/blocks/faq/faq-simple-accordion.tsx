@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import {
   Accordion,
@@ -86,8 +87,8 @@ export function FaqSimpleAccordion({
   heading,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -99,7 +100,7 @@ export function FaqSimpleAccordion({
   accordionTriggerClassName,
   accordionContentClassName,
 }: FaqSimpleAccordionProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -128,7 +129,7 @@ export function FaqSimpleAccordion({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
   return (
     <Section
@@ -153,7 +154,7 @@ export function FaqSimpleAccordion({
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}
-        {renderItems()}
+        {itemsContent}
       </div>
     </Section>
   );

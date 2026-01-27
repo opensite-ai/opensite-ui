@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Section } from "../../ui/section";
@@ -101,8 +102,8 @@ export function FaqNumberedList({
   description,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -117,7 +118,7 @@ export function FaqNumberedList({
   questionClassName,
   answerClassName,
 }: FaqNumberedListProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -171,7 +172,7 @@ export function FaqNumberedList({
         ))}
       </div>
     );
-  };
+  }, [itemsSlot, items, itemsWrapperClassName, itemClassName, numberClassName, questionClassName, answerClassName]);
 
   return (
     <Section
@@ -222,7 +223,7 @@ export function FaqNumberedList({
           ) : (
             <div className={descriptionClassName}>{description}</div>
           ))}
-        {renderItems()}
+        {itemsContent}
       </div>
     </Section>
   );

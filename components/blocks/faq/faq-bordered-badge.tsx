@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import {
@@ -118,8 +119,8 @@ export function FaqBorderedBadge({
   description,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -135,7 +136,7 @@ export function FaqBorderedBadge({
   accordionTriggerClassName,
   accordionContentClassName,
 }: FaqBorderedBadgeProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -168,7 +169,7 @@ export function FaqBorderedBadge({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
   return (
     <Section
@@ -225,7 +226,7 @@ export function FaqBorderedBadge({
         <div
           className={cn("mx-auto mt-10 max-w-3xl", accordionWrapperClassName)}
         >
-          {renderItems()}
+          {itemsContent}
         </div>
       </div>
     </Section>

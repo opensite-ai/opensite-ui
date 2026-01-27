@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import {
   Accordion,
@@ -102,8 +103,8 @@ export function FaqRoundedCards({
   description,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -118,7 +119,7 @@ export function FaqRoundedCards({
   accordionTriggerClassName,
   accordionContentClassName,
 }: FaqRoundedCardsProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -154,7 +155,7 @@ export function FaqRoundedCards({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
   return (
     <Section
@@ -205,7 +206,7 @@ export function FaqRoundedCards({
             cardsWrapperClassName,
           )}
         >
-          {renderItems()}
+          {itemsContent}
         </div>
       </div>
     </Section>

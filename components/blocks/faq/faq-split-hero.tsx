@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import {
@@ -9,7 +10,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../ui/accordion";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
@@ -128,10 +128,10 @@ export function FaqSplitHero({
   items,
   itemsSlot,
   imageSlot,
-  imageSrc = blockBrandedIconsAndPlaceholders.placeholderDark1,
-  imageAlt = "FAQ section image",
-  background = "white",
-  spacing = "none",
+  imageSrc,
+  imageAlt,
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -148,7 +148,7 @@ export function FaqSplitHero({
   imageClassName,
   optixFlowConfig,
 }: FaqSplitHeroProps) {
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -184,15 +184,16 @@ export function FaqSplitHero({
         ))}
       </Accordion>
     );
-  };
+  }, [itemsSlot, items, accordionClassName, accordionItemClassName, accordionTriggerClassName, accordionContentClassName]);
 
-  const renderImage = () => {
+  const imageContent = useMemo(() => {
     if (imageSlot) return imageSlot;
+    if (!imageSrc) return null;
 
     return (
       <Img
         src={imageSrc}
-        alt={imageAlt}
+        alt={imageAlt || "FAQ section image"}
         className={cn(
           "hidden h-screen w-1/2 object-cover lg:block",
           imageClassName,
@@ -200,7 +201,7 @@ export function FaqSplitHero({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [imageSlot, imageSrc, imageAlt, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -247,10 +248,10 @@ export function FaqSplitHero({
                   <div className={subheadingClassName}>{subheading}</div>
                 ))}
             </div>
-            {renderItems()}
+            {itemsContent}
           </div>
         </div>
-        {renderImage()}
+        {imageContent}
       </div>
     </Section>
   );
