@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -18,6 +18,8 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 import type {
   BreadcrumbItem,
   DetailItem,
@@ -25,6 +27,8 @@ import type {
   SectionItem,
   OutcomeItem,
   OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
 } from "../../../src/types";
 
 /**
@@ -87,31 +91,31 @@ export interface CaseStudyTocSocialSidebarProps {
    */
   authorLabel?: React.ReactNode;
   /**
-   * Company logo URL
+   * Logo image URL
    */
   companyLogoSrc?: string;
   /**
-   * Company logo alt text
+   * Logo image alt text
    */
   companyLogoAlt?: string;
   /**
-   * Custom slot for company logo (overrides companyLogoSrc)
+   * Custom slot for logo (overrides companyLogoSrc)
    */
   companyLogoSlot?: React.ReactNode;
   /**
-   * Array of detail items for the sidebar (replaces individual company props)
+   * Array of detail items for the sidebar
    */
   details?: DetailItem[];
   /**
-   * Problem description text
+   * Primary challenge description text
    */
   problem?: React.ReactNode;
   /**
-   * Approach description text
+   * Solution approach description text
    */
   approach?: React.ReactNode;
   /**
-   * Array of outcome items
+   * Array of result items
    */
   outcomes?: OutcomeItem[];
   /**
@@ -150,6 +154,22 @@ export interface CaseStudyTocSocialSidebarProps {
    * Label text for TOC section
    */
   tocLabel?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -221,28 +241,28 @@ export interface CaseStudyTocSocialSidebarProps {
 }
 
 /**
- * CaseStudyTocSocialSidebar displays a comprehensive case study with breadcrumb
- * navigation, featured author, sticky sidebar with company details, table of
+ * CaseStudyTocSocialSidebar displays a detailed content page with breadcrumb
+ * navigation, featured author, sticky sidebar with details, table of
  * contents navigation, and social sharing links.
  *
- * Features a three-column layout on large screens: left sidebar with company info
- * and social links, center content area with problem/approach/outcomes summary
+ * Features a three-column layout on large screens: left sidebar with logo
+ * and social links, center content area with summary sections
  * followed by prose sections, and right sidebar with sticky table of contents.
  * The header includes breadcrumbs, large title, and author attribution with avatar.
  * Each content section is tracked via IntersectionObserver for active TOC highlighting.
  *
- * Ideal for in-depth case studies, customer success stories, or detailed articles
- * that benefit from structured navigation and comprehensive company context.
+ * Ideal for long-form content, detailed articles, or comprehensive pages
+ * that benefit from structured navigation and contextual information.
  *
  * @example
  * ```tsx
  * <CaseStudyTocSocialSidebar
  *   title="How this tool helps teams achieve efficient workflows"
- *   author={{ name: "Jane Doe", role: "Senior Product Manager", avatarSrc: "/avatars/jane.jpg" }}
- *   companyLogoSrc="/logos/company.svg"
+ *   author={{ name: "Jane Doe", role: "Content Author", avatarSrc: "/avatars/jane.jpg" }}
+ *   companyLogoSrc="/logos/logo.svg"
  *   details={[
  *     { label: "Overview", value: "A modern platform designed to simplify workflows" },
- *     { label: "Sector", value: "Technology; Automation" }
+ *     { label: "Category", value: "Technology; Automation" }
  *   ]}
  *   sections={[
  *     { id: "intro", title: "Introduction", content: <p>...</p> }
@@ -276,6 +296,10 @@ export function CaseStudyTocSocialSidebar({
   sidebarSlot,
   tocSlot,
   tocLabel,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headerClassName,
@@ -330,13 +354,13 @@ export function CaseStudyTocSocialSidebar({
     };
   }, [sections]);
 
-  const addSectionRef = (id: string, ref: HTMLElement | null) => {
+  const addSectionRef = useCallback((id: string, ref: HTMLElement | null) => {
     if (ref) {
       sectionRefs.current[id] = ref;
     }
-  };
+  }, []);
 
-  const renderBreadcrumbs = () => {
+  const breadcrumbsContent = useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
@@ -360,10 +384,11 @@ export function CaseStudyTocSocialSidebar({
         </BreadcrumbList>
       </Breadcrumb>
     );
-  };
+  }, [breadcrumbsSlot, breadcrumbs, breadcrumbsClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
+    if (!heroImageSrc) return null;
 
     return (
       <Img
@@ -374,9 +399,9 @@ export function CaseStudyTocSocialSidebar({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
-  const renderAuthor = () => {
+  const authorContent = useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!author) return null;
 
@@ -418,10 +443,11 @@ export function CaseStudyTocSocialSidebar({
         </div>
       </div>
     );
-  };
+  }, [authorSlot, author, authorLabel, authorClassName]);
 
-  const renderCompanyLogo = () => {
+  const logoContent = useMemo(() => {
     if (companyLogoSlot) return companyLogoSlot;
+    if (!companyLogoSrc) return null;
 
     return (
       <Img
@@ -432,9 +458,9 @@ export function CaseStudyTocSocialSidebar({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [companyLogoSlot, companyLogoSrc, companyLogoAlt, companyLogoClassName, optixFlowConfig]);
 
-  const renderDetails = () => {
+  const detailsContent = useMemo(() => {
     if (!details || details.length === 0) return null;
 
     return (
@@ -460,9 +486,9 @@ export function CaseStudyTocSocialSidebar({
         ))}
       </div>
     );
-  };
+  }, [details, detailItemClassName]);
 
-  const renderSocialLinks = () => {
+  const socialLinksContent = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -489,42 +515,47 @@ export function CaseStudyTocSocialSidebar({
         </div>
       </div>
     );
-  };
+  }, [socialLinksSlot, socialLinks, socialLinksLabel, socialLinksClassName]);
 
-  const renderSidebar = () => {
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
 
     return (
       <aside className={cn("mx-auto h-fit max-w-prose lg:sticky lg:top-10 lg:mx-0 lg:w-64 lg:max-w-none", sidebarClassName)}>
-        {renderCompanyLogo()}
-        {renderDetails()}
-        {renderSocialLinks()}
+        {logoContent}
+        {detailsContent}
+        {socialLinksContent}
       </aside>
     );
-  };
+  }, [sidebarSlot, sidebarClassName, logoContent, detailsContent, socialLinksContent]);
 
-  const renderSummary = () => {
+  const summaryContent = useMemo(() => {
     if (summarySlot) return summarySlot;
+    if (!problem && !approach && (!outcomes || outcomes.length === 0)) return null;
 
     return (
       <div className={cn("grid gap-x-10 gap-y-7 rounded-3xl border p-6 lg:grid-cols-2 lg:gap-y-10 lg:border-none lg:p-0", summaryClassName)}>
-        <div>
-          <h2 className="text-xl font-semibold">Problem</h2>
-          {typeof problem === "string" ? (
-            <p className="mt-3 text-muted-foreground">{problem}</p>
-          ) : (
-            <div className="mt-3 text-muted-foreground">{problem}</div>
-          )}
-        </div>
-        <Separator className="w-full lg:hidden" />
-        <div>
-          <h2 className="text-xl font-semibold">Approach</h2>
-          {typeof approach === "string" ? (
-            <p className="mt-3 text-muted-foreground">{approach}</p>
-          ) : (
-            <div className="mt-3 text-muted-foreground">{approach}</div>
-          )}
-        </div>
+        {problem && (
+          <div>
+            <h2 className="text-xl font-semibold">Problem</h2>
+            {typeof problem === "string" ? (
+              <p className="mt-3 text-muted-foreground">{problem}</p>
+            ) : (
+              <div className="mt-3 text-muted-foreground">{problem}</div>
+            )}
+          </div>
+        )}
+        {problem && approach && <Separator className="w-full lg:hidden" />}
+        {approach && (
+          <div>
+            <h2 className="text-xl font-semibold">Approach</h2>
+            {typeof approach === "string" ? (
+              <p className="mt-3 text-muted-foreground">{approach}</p>
+            ) : (
+              <div className="mt-3 text-muted-foreground">{approach}</div>
+            )}
+          </div>
+        )}
         {outcomes && outcomes.length > 0 && (
           <div className="border-t pt-10 lg:col-span-2">
             <h2 className="text-xl font-semibold">Outcomes</h2>
@@ -546,9 +577,9 @@ export function CaseStudyTocSocialSidebar({
         )}
       </div>
     );
-  };
+  }, [summarySlot, problem, approach, outcomes, summaryClassName]);
 
-  const renderContent = () => {
+  const contentSections = useMemo(() => {
     if (contentSlot) return contentSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -567,9 +598,9 @@ export function CaseStudyTocSocialSidebar({
         ))}
       </div>
     );
-  };
+  }, [contentSlot, sections, proseClassName, addSectionRef]);
 
-  const renderToc = () => {
+  const tocContent = useMemo(() => {
     if (tocSlot) return tocSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -600,14 +631,20 @@ export function CaseStudyTocSocialSidebar({
         </nav>
       </div>
     );
-  };
+  }, [tocSlot, sections, tocClassName, tocLabel, activeSection]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto flex max-w-prose flex-col items-center justify-between gap-10 lg:max-w-none lg:flex-row", headerClassName)}>
           <div>
-            {renderBreadcrumbs()}
+            {breadcrumbsContent}
             {title && (
               typeof title === "string" ? (
                 <h1 className={cn("mt-10 text-5xl font-semibold text-balance lg:text-7xl", titleClassName)}>
@@ -617,21 +654,21 @@ export function CaseStudyTocSocialSidebar({
                 <div className={cn("mt-10", titleClassName)}>{title}</div>
               )
             )}
-            {renderAuthor()}
+            {authorContent}
           </div>
-          {renderHeroMedia()}
+          {heroMediaContent}
         </div>
         <div className={cn("relative mt-20 flex flex-col gap-x-6 gap-y-16 lg:flex-row", layoutClassName)}>
-          {renderSidebar()}
+          {sidebarContent}
           <div className={cn("flex", mainClassName)}>
             <div className="mx-auto max-w-prose lg:max-w-4xl lg:px-20">
-              {renderSummary()}
-              {renderContent()}
+              {summaryContent}
+              {contentSections}
             </div>
-            {renderToc()}
+            {tocContent}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

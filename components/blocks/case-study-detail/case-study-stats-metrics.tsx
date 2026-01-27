@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -16,11 +17,15 @@ import {
   BreadcrumbSeparator,
 } from "../../ui/breadcrumb";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 import type {
   BreadcrumbItem,
   StatItem,
   ActionConfig,
   OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
 } from "../../../src/types";
 
 export interface CaseStudyStatsMetricsProps {
@@ -69,15 +74,15 @@ export interface CaseStudyStatsMetricsProps {
    */
   contentSlot?: React.ReactNode;
   /**
-   * Company logo URL
+   * Logo image URL
    */
   companyLogoSrc?: string;
   /**
-   * Company logo alt text
+   * Logo image alt text
    */
   companyLogoAlt?: string;
   /**
-   * Custom slot for company logo (overrides companyLogoSrc)
+   * Custom slot for logo (overrides companyLogoSrc)
    */
   companyLogoSlot?: React.ReactNode;
   /**
@@ -85,23 +90,23 @@ export interface CaseStudyStatsMetricsProps {
    */
   overview?: React.ReactNode;
   /**
-   * Sector/industry text
+   * Category text
    */
   sector?: React.ReactNode;
   /**
-   * Solution badge label
+   * Badge label
    */
   solutionLabel?: React.ReactNode;
   /**
-   * Solution badge icon name
+   * Badge icon name
    */
   solutionIcon?: string;
   /**
-   * Solution badge href
+   * Badge href
    */
   solutionHref?: string;
   /**
-   * Custom slot for solution badge (overrides solution props)
+   * Custom slot for badge (overrides solution props)
    */
   solutionSlot?: React.ReactNode;
   /**
@@ -120,6 +125,22 @@ export interface CaseStudyStatsMetricsProps {
    * Custom slot for entire sidebar (overrides all sidebar props)
    */
   sidebarSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -183,28 +204,28 @@ export interface CaseStudyStatsMetricsProps {
 }
 
 /**
- * CaseStudyStatsMetrics displays a case study with prominent performance metrics,
- * breadcrumb navigation, prose content, and a sticky sidebar with company info and CTA.
+ * CaseStudyStatsMetrics displays content with prominent performance metrics,
+ * breadcrumb navigation, prose content, and a sticky sidebar with contextual information and CTA.
  *
  * Features a two-column layout with the main content area showing breadcrumbs, title,
- * subtitle, hero image, a grid of key statistics (4 metrics), and rich prose content
+ * subtitle, hero image, a grid of key statistics, and rich prose content
  * with headings, paragraphs, blockquotes, lists, tables, and alerts. The sticky sidebar
- * displays company logo, overview text, sector information, a solution badge with icon,
+ * displays logo, overview text, category information, a badge with icon,
  * and a call-to-action button.
  *
- * Ideal for results-focused case studies that emphasize quantifiable outcomes,
- * customer success stories with measurable impact, or ROI-driven content marketing.
+ * Ideal for results-focused pages that emphasize quantifiable outcomes,
+ * success stories with measurable impact, or data-driven content.
  *
  * @example
  * ```tsx
  * <CaseStudyStatsMetrics
- *   title="Boosting System Reliability by 125% with AI Monitoring"
+ *   title="Boosting Performance by 125%"
  *   stats={[
- *     { value: "125%", label: "improvement in system reliability" },
- *     { value: "40%", label: "reduction in downtime" }
+ *     { value: "125%", label: "improvement in performance" },
+ *     { value: "40%", label: "reduction in issues" }
  *   ]}
- *   companyLogoSrc="/logos/client.svg"
- *   overview="Enterprise software company"
+ *   companyLogoSrc="/logos/logo.svg"
+ *   overview="Leading platform"
  *   sector="Technology"
  * />
  * ```
@@ -234,6 +255,10 @@ export function CaseStudyStatsMetrics({
   ctaSlot,
   ctaLabel,
   sidebarSlot,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   contentWrapperClassName,
@@ -250,7 +275,7 @@ export function CaseStudyStatsMetrics({
   companyLogoClassName,
   optixFlowConfig,
 }: CaseStudyStatsMetricsProps): React.JSX.Element {
-  const renderBreadcrumbs = () => {
+  const breadcrumbsContent = useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
@@ -274,10 +299,11 @@ export function CaseStudyStatsMetrics({
         </BreadcrumbList>
       </Breadcrumb>
     );
-  };
+  }, [breadcrumbsSlot, breadcrumbs, breadcrumbsClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
+    if (!heroImageSrc) return null;
 
     return (
       <Img
@@ -288,9 +314,9 @@ export function CaseStudyStatsMetrics({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
-  const renderStats = () => {
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -314,20 +340,22 @@ export function CaseStudyStatsMetrics({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName, statItemClassName]);
 
-  const renderContent = () => {
+  const contentArea = useMemo(() => {
     if (contentSlot) return contentSlot;
+    if (!content) return null;
 
     return (
       <div className={cn("prose mb-8 max-w-full lg:max-w-prose dark:prose-invert", proseClassName)}>
         {content}
       </div>
     );
-  };
+  }, [contentSlot, content, proseClassName]);
 
-  const renderCompanyLogo = () => {
+  const logoContent = useMemo(() => {
     if (companyLogoSlot) return companyLogoSlot;
+    if (!companyLogoSrc) return null;
 
     return (
       <Img
@@ -338,10 +366,11 @@ export function CaseStudyStatsMetrics({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [companyLogoSlot, companyLogoSrc, companyLogoAlt, companyLogoClassName, optixFlowConfig]);
 
-  const renderSolution = () => {
+  const solutionContent = useMemo(() => {
     if (solutionSlot) return solutionSlot;
+    if (!solutionLabel && !solutionHref) return null;
 
     return (
       <Pressable
@@ -355,9 +384,9 @@ export function CaseStudyStatsMetrics({
         {solutionLabel}
       </Pressable>
     );
-  };
+  }, [solutionSlot, solutionLabel, solutionIcon, solutionHref]);
 
-  const renderCta = () => {
+  const ctaContent = useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
@@ -378,46 +407,71 @@ export function CaseStudyStatsMetrics({
         )}
       </Pressable>
     );
-  };
+  }, [ctaSlot, ctaAction]);
 
-  const renderSidebar = () => {
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
+    if (!logoContent && !overview && !sector && !solutionContent && !ctaContent) return null;
 
     return (
       <div className={cn("h-fit lg:sticky lg:top-8 lg:max-w-80", sidebarClassName)}>
-        {renderCompanyLogo()}
-        <p className="mb-1.5 text-sm font-semibold">Overview</p>
-        {typeof overview === "string" ? (
-          <p className="mb-5 text-sm text-muted-foreground">{overview}</p>
-        ) : (
-          <div className="mb-5 text-sm text-muted-foreground">{overview}</div>
+        {logoContent}
+        {overview && (
+          <>
+            <p className="mb-1.5 text-sm font-semibold">Overview</p>
+            {typeof overview === "string" ? (
+              <p className="mb-5 text-sm text-muted-foreground">{overview}</p>
+            ) : (
+              <div className="mb-5 text-sm text-muted-foreground">{overview}</div>
+            )}
+          </>
         )}
-        <p className="mb-1.5 text-sm font-semibold">Sector</p>
-        {typeof sector === "string" ? (
-          <p className="mb-5 text-sm text-muted-foreground">{sector}</p>
-        ) : (
-          <div className="mb-5 text-sm text-muted-foreground">{sector}</div>
+        {sector && (
+          <>
+            <p className="mb-1.5 text-sm font-semibold">Sector</p>
+            {typeof sector === "string" ? (
+              <p className="mb-5 text-sm text-muted-foreground">{sector}</p>
+            ) : (
+              <div className="mb-5 text-sm text-muted-foreground">{sector}</div>
+            )}
+          </>
         )}
-        <p className="mb-1.5 text-sm font-semibold">Solution</p>
-        {renderSolution()}
-        <Separator className="my-5" />
-        {ctaLabel && (
-          typeof ctaLabel === "string" ? (
-            <p className="mb-3 text-sm font-semibold">{ctaLabel}</p>
-          ) : (
-            <div className="mb-3 text-sm font-semibold">{ctaLabel}</div>
-          )
+        {solutionContent && (
+          <>
+            <p className="mb-1.5 text-sm font-semibold">Solution</p>
+            {solutionContent}
+          </>
         )}
-        {renderCta()}
+        {(overview || sector || solutionContent) && ctaContent && (
+          <Separator className="my-5" />
+        )}
+        {ctaContent && (
+          <>
+            {ctaLabel && (
+              typeof ctaLabel === "string" ? (
+                <p className="mb-3 text-sm font-semibold">{ctaLabel}</p>
+              ) : (
+                <div className="mb-3 text-sm font-semibold">{ctaLabel}</div>
+              )
+            )}
+            {ctaContent}
+          </>
+        )}
       </div>
     );
-  };
+  }, [sidebarSlot, logoContent, overview, sector, solutionContent, ctaContent, ctaLabel, sidebarClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-7xl", contentWrapperClassName)}>
-          {renderBreadcrumbs()}
+          {breadcrumbsContent}
           <div className={cn("relative flex-col gap-10 lg:flex lg:flex-row lg:justify-between", layoutClassName)}>
             <div className={cn("lg:max-w-[692px]", mainClassName)}>
               <div className="max lg:col-span-2">
@@ -442,16 +496,16 @@ export function CaseStudyStatsMetrics({
                       </div>
                     )
                   )}
-                  {renderHeroMedia()}
-                  {renderStats()}
+                  {heroMediaContent}
+                  {statsContent}
                 </div>
-                {renderContent()}
+                {contentArea}
               </div>
             </div>
-            {renderSidebar()}
+            {sidebarContent}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

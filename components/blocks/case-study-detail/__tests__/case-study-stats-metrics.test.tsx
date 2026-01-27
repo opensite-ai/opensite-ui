@@ -48,7 +48,12 @@ describe("CaseStudyStatsMetrics", () => {
   });
 
   it("renders learn more link", () => {
-    render(<CaseStudyStatsMetrics ctaLabel="Learn More" />);
+    render(
+      <CaseStudyStatsMetrics
+        ctaLabel="Learn More"
+        ctaAction={{ label: "Get Started", href: "/start" }}
+      />
+    );
     expect(screen.getByText("Learn More")).toBeInTheDocument();
   });
 

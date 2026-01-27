@@ -1,11 +1,19 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { DetailItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  DetailItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CaseStudyProseSidebarProps {
   /**
@@ -29,25 +37,41 @@ export interface CaseStudyProseSidebarProps {
    */
   contentSlot?: React.ReactNode;
   /**
-   * Company logo URL
+   * Logo image URL
    */
   companyLogoSrc?: string;
   /**
-   * Company logo alt text
+   * Logo image alt text
    */
   companyLogoAlt?: string;
   /**
-   * Custom slot for company logo (overrides companyLogoSrc)
+   * Custom slot for logo (overrides companyLogoSrc)
    */
   companyLogoSlot?: React.ReactNode;
   /**
-   * Array of detail items for the sidebar (replaces individual company props)
+   * Array of detail items for the sidebar
    */
   details?: DetailItem[];
   /**
    * Custom slot for entire sidebar (overrides all sidebar props)
    */
   sidebarSlot?: React.ReactNode;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section
    */
@@ -91,27 +115,27 @@ export interface CaseStudyProseSidebarProps {
 }
 
 /**
- * CaseStudyProseSidebar displays a case study article with rich prose content
- * and a sidebar containing company information.
+ * CaseStudyProseSidebar displays an article with rich prose content
+ * and a sidebar containing contextual information.
  *
  * Features a two-column layout with the main article content on the left (including
  * hero image, headings, paragraphs, blockquotes, lists, and tables) and a sticky
- * sidebar on the right with company logo and flexible detail items. The sidebar
+ * sidebar on the right with logo and flexible detail items. The sidebar
  * uses an accent background with organized sections.
  *
- * Ideal for detailed case study pages, customer success stories, or in-depth
- * articles that need supplementary company context alongside the main narrative.
+ * Ideal for long-form content pages, detailed articles, or comprehensive narratives
+ * that need supplementary context alongside the main content.
  *
  * @example
  * ```tsx
  * <CaseStudyProseSidebar
- *   heroImageSrc="/images/case-study-hero.jpg"
- *   companyLogoSrc="/logos/techcorp.svg"
+ *   heroImageSrc="/images/hero.jpg"
+ *   companyLogoSrc="/logos/logo.svg"
  *   details={[
- *     { label: "Company", value: "Leading enterprise software company" },
- *     { label: "Industry", value: "Technology" },
+ *     { label: "Organization", value: "Leading platform" },
+ *     { label: "Category", value: "Technology" },
  *     { label: "Location", value: "San Francisco, CA" },
- *     { label: "Website", value: "techcorp.com", href: "https://techcorp.com" }
+ *     { label: "Website", value: "example.com", href: "https://example.com" }
  *   ]}
  * />
  * ```
@@ -127,6 +151,10 @@ export function CaseStudyProseSidebar({
   companyLogoSlot,
   details,
   sidebarSlot,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   articleClassName,
@@ -138,8 +166,9 @@ export function CaseStudyProseSidebar({
   detailItemClassName,
   optixFlowConfig,
 }: CaseStudyProseSidebarProps): React.JSX.Element {
-  const renderHeroMedia = () => {
+  const heroMediaContent = useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
+    if (!heroImageSrc) return null;
 
     return (
       <Img
@@ -150,20 +179,22 @@ export function CaseStudyProseSidebar({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
-  const renderContent = () => {
+  const contentArea = useMemo(() => {
     if (contentSlot) return contentSlot;
+    if (!content) return null;
 
     return (
       <div className={cn("prose dark:prose-invert", proseClassName)}>
         {content}
       </div>
     );
-  };
+  }, [contentSlot, content, proseClassName]);
 
-  const renderCompanyLogo = () => {
+  const logoContent = useMemo(() => {
     if (companyLogoSlot) return companyLogoSlot;
+    if (!companyLogoSrc) return null;
 
     return (
       <div className="mb-8 px-6">
@@ -176,9 +207,9 @@ export function CaseStudyProseSidebar({
         />
       </div>
     );
-  };
+  }, [companyLogoSlot, companyLogoSrc, companyLogoAlt, companyLogoClassName, optixFlowConfig]);
 
-  const renderDetailItem = (detail: DetailItem, index: number, isFirstAfterBorder: boolean = false) => {
+  const renderDetailItem = useCallback((detail: DetailItem, index: number, isFirstAfterBorder: boolean = false) => {
     const baseClassName = isFirstAfterBorder
       ? "mb-5 w-full border-t border-border px-6 pt-5 last:mb-0"
       : "mb-5 px-6 last:mb-0";
@@ -199,39 +230,46 @@ export function CaseStudyProseSidebar({
         </div>
       </div>
     );
-  };
+  }, [detailItemClassName]);
 
-  const renderDetails = () => {
+  const detailsContent = useMemo(() => {
     if (!details || details.length === 0) return null;
 
     return details.map((detail, index) => {
       const isFirstAfterBorder = index === 2;
       return renderDetailItem(detail, index, isFirstAfterBorder);
     });
-  };
+  }, [details, renderDetailItem]);
 
-  const renderSidebar = () => {
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
+    if (!logoContent && !detailsContent) return null;
 
     return (
       <aside className={cn("lg:max-w-[300px]", sidebarClassName)}>
         <div className={cn("flex flex-col items-start rounded-lg border border-border bg-accent py-6 md:py-8", sidebarCardClassName)}>
-          {renderCompanyLogo()}
-          {renderDetails()}
+          {logoContent}
+          {detailsContent}
         </div>
       </aside>
     );
-  };
+  }, [sidebarSlot, logoContent, detailsContent, sidebarClassName, sidebarCardClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container flex flex-col gap-12 lg:flex-row lg:gap-24", containerClassName)}>
         <article className={cn("mx-auto", articleClassName)}>
-          {renderHeroMedia()}
-          {renderContent()}
+          {heroMediaContent}
+          {contentArea}
         </article>
-        {renderSidebar()}
+        {sidebarContent}
       </div>
-    </section>
+    </Section>
   );
 }
