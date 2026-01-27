@@ -8,7 +8,9 @@ import { Badge } from "../../ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogCardsTaglineCtaProps {
   /**
@@ -83,6 +85,22 @@ export interface BlogCardsTaglineCtaProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogCardsTaglineCta({
@@ -104,6 +122,10 @@ export function BlogCardsTaglineCta({
   postsClassName,
   postCardClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogCardsTaglineCtaProps): React.JSX.Element {
   const ctaActionContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
@@ -189,7 +211,13 @@ export function BlogCardsTaglineCta({
   }, [postsSlot, posts, readMoreText, postCardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container mx-auto flex flex-col items-center gap-16 lg:px-16", containerClassName)}>
         <div className={cn("text-center", headerClassName)}>
           {badge && (
@@ -225,6 +253,6 @@ export function BlogCardsTaglineCta({
           {postsContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

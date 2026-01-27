@@ -7,7 +7,9 @@ import { Pressable } from "../../../lib/Pressable";
 import { Card, CardContent } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogHorizontalTimelineProps {
   /**
@@ -58,6 +60,22 @@ export interface BlogHorizontalTimelineProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogHorizontalTimelineComponent({
@@ -73,6 +91,10 @@ export function BlogHorizontalTimelineComponent({
   postImageClassName,
   postCardClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogHorizontalTimelineProps): React.JSX.Element {
   const renderPosts = React.useMemo(() => {
     if (postsSlot) return postsSlot;
@@ -148,7 +170,13 @@ export function BlogHorizontalTimelineComponent({
   }, [postsSlot, posts, postItemClassName, postImageClassName, postCardClassName, optixFlowConfig, readText]);
 
   return (
-    <section className={cn("bg-background py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         {heading && (
           typeof heading === "string" ? (
@@ -164,7 +192,7 @@ export function BlogHorizontalTimelineComponent({
           {renderPosts}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

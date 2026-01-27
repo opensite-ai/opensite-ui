@@ -6,7 +6,9 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogGridAuthorCardsProps {
   /**
@@ -69,6 +71,22 @@ export interface BlogGridAuthorCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogGridAuthorCardsComponent({
@@ -87,6 +105,10 @@ export function BlogGridAuthorCardsComponent({
   postCardClassName,
   viewAllClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogGridAuthorCardsProps): React.JSX.Element {
   const viewAllActionContent = React.useMemo(() => {
     if (viewAllSlot) return viewAllSlot;
@@ -187,7 +209,13 @@ export function BlogGridAuthorCardsComponent({
   }, [postsSlot, posts, postCardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         {(heading || description) && (
           <div className={cn("mb-8 md:mb-14 lg:mb-16", headerClassName)}>
@@ -222,7 +250,7 @@ export function BlogGridAuthorCardsComponent({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }
 

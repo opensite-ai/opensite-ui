@@ -3,7 +3,9 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogRelatedArticlesProps {
   /**
@@ -58,6 +60,22 @@ export interface BlogRelatedArticlesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogRelatedArticles({
@@ -73,6 +91,10 @@ export function BlogRelatedArticles({
   seeAllClassName,
   articlesClassName,
   articleCardClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogRelatedArticlesProps): React.JSX.Element {
   const renderedSeeAllAction = React.useMemo(() => {
     if (seeAllSlot) return seeAllSlot;
@@ -138,7 +160,13 @@ export function BlogRelatedArticles({
   }, [articlesSlot, articles, articleCardClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mb-8 flex flex-wrap items-center justify-between gap-1", headerClassName)}>
           {heading && (
@@ -154,6 +182,6 @@ export function BlogRelatedArticles({
           {renderedArticles}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

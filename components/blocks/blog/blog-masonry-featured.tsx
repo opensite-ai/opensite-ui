@@ -4,7 +4,9 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import type { BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogMasonryFeaturedProps {
   /**
@@ -55,6 +57,22 @@ export interface BlogMasonryFeaturedProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogMasonryFeaturedComponent({
@@ -70,6 +88,10 @@ export function BlogMasonryFeaturedComponent({
   featuredImageClassName,
   postCardClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogMasonryFeaturedProps): React.JSX.Element {
   const featuredPost = posts?.[0];
   const otherPosts = posts?.slice(1);
@@ -158,7 +180,13 @@ export function BlogMasonryFeaturedComponent({
   }, [postsSlot, otherPosts, postCardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         {heading && (
           typeof heading === "string" ? (
@@ -175,7 +203,7 @@ export function BlogMasonryFeaturedComponent({
           {otherPostsContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

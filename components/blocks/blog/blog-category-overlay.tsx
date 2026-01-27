@@ -7,7 +7,9 @@ import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogCategoryOverlayProps {
   /**
@@ -86,6 +88,22 @@ export interface BlogCategoryOverlayProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogCategoryOverlay({
@@ -108,6 +126,10 @@ export function BlogCategoryOverlay({
   postCardClassName,
   categoryBadgeClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogCategoryOverlayProps): React.JSX.Element {
   const viewAllActionContent = React.useMemo(() => {
     if (viewAllSlot) return viewAllSlot;
@@ -187,7 +209,13 @@ export function BlogCategoryOverlay({
   }, [postsSlot, posts, postCardClassName, categoryBadgeClassName, optixFlowConfig, readMoreText]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-6 text-center", headerClassName)}>
           {badge && (
@@ -219,6 +247,6 @@ export function BlogCategoryOverlay({
           {postsContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

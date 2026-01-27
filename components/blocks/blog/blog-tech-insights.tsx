@@ -6,7 +6,9 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarImage } from "../../ui/avatar";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogTechInsightsProps {
   /**
@@ -89,6 +91,22 @@ export interface BlogTechInsightsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogTechInsights({
@@ -112,6 +130,10 @@ export function BlogTechInsights({
   secondaryPostsClassName,
   secondaryPostItemClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogTechInsightsProps): React.JSX.Element {
   const readMoreActionContent = useMemo(() => {
     if (readMoreSlot) return readMoreSlot;
@@ -222,7 +244,13 @@ export function BlogTechInsights({
   }, [secondaryPostsSlot, secondaryPosts, secondaryPostItemClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("dark relative bg-background py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("dark relative", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mb-8", headerClassName)}>
           {heading && (
@@ -257,6 +285,6 @@ export function BlogTechInsights({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

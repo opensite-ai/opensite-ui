@@ -9,7 +9,9 @@ import { Avatar, AvatarImage } from "../../ui/avatar";
 import { Separator } from "../../ui/separator";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogCardsReadTimeProps {
   /**
@@ -80,6 +82,22 @@ export interface BlogCardsReadTimeProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogCardsReadTime({
@@ -100,6 +118,10 @@ export function BlogCardsReadTime({
   postCardClassName,
   viewAllClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogCardsReadTimeProps): React.JSX.Element {
   const renderedViewAllAction = React.useMemo(() => {
     if (viewAllSlot) return viewAllSlot;
@@ -185,7 +207,13 @@ export function BlogCardsReadTime({
   }, [posts, postsSlot, postCardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto flex max-w-3xl flex-col items-center gap-4 text-center", headerClassName)}>
           {badge && (
@@ -223,6 +251,6 @@ export function BlogCardsReadTime({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

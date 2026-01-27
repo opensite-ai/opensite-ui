@@ -6,7 +6,9 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogGridNinePostsProps {
   /**
@@ -69,6 +71,22 @@ export interface BlogGridNinePostsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogGridNinePosts({
@@ -87,6 +105,10 @@ export function BlogGridNinePosts({
   postCardClassName,
   ctaClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogGridNinePostsProps): React.JSX.Element {
   const renderedCtaAction = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
@@ -179,7 +201,13 @@ export function BlogGridNinePosts({
   }, [posts, postsSlot, postCardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mb-8 md:mb-14 lg:mb-16", headerClassName)}>
           <div className="flex items-start justify-between gap-8">
@@ -212,6 +240,6 @@ export function BlogGridNinePosts({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

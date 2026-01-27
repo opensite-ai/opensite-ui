@@ -18,7 +18,9 @@ import { Checkbox } from "../../ui/checkbox";
 import { Label } from "../../ui/label";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Breadcrumb item configuration
@@ -141,6 +143,22 @@ export interface BlogFilteredResultsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const POSTS_PER_PAGE = 6;
@@ -295,6 +313,10 @@ export function BlogFilteredResultsComponent({
   postCardClassName,
   loadMoreClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogFilteredResultsProps): React.JSX.Element {
   const effectivePostsPerPage = postsPerPage || POSTS_PER_PAGE;
 
@@ -407,7 +429,13 @@ export function BlogFilteredResultsComponent({
   }, [loadMoreSlot, loadMoreAction, hasMore, handleLoadMore]);
 
   return (
-    <section className={cn("pb-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("bg-muted bg-size-[3.125rem_3.125rem] bg-repeat", heroClassName)}>
         <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
@@ -467,7 +495,7 @@ export function BlogFilteredResultsComponent({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

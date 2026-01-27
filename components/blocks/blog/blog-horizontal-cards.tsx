@@ -8,7 +8,9 @@ import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogHorizontalCardsProps {
   /**
@@ -83,6 +85,22 @@ export interface BlogHorizontalCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogHorizontalCards({
@@ -104,6 +122,10 @@ export function BlogHorizontalCards({
   postCardClassName,
   ctaClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogHorizontalCardsProps): React.JSX.Element {
   const ctaContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
@@ -199,7 +221,13 @@ export function BlogHorizontalCards({
   }, [postsSlot, posts, postCardClassName, optixFlowConfig, readMoreText]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container mx-auto", containerClassName)}>
         <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
           {badge && (
@@ -241,6 +269,6 @@ export function BlogHorizontalCards({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

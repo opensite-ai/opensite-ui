@@ -6,7 +6,9 @@ import { Img } from "@page-speed/img";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { BlogPostItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { BlogPostItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BlogFeaturedPopularProps {
   /**
@@ -81,6 +83,22 @@ export interface BlogFeaturedPopularProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function BlogFeaturedPopular({
@@ -102,6 +120,10 @@ export function BlogFeaturedPopular({
   postsClassName,
   postCardClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: BlogFeaturedPopularProps): React.JSX.Element {
   const featuredPost = posts?.[0];
   const popularPosts = posts?.slice(1);
@@ -205,7 +227,13 @@ export function BlogFeaturedPopular({
   }, [postsSlot, popularPosts, postCardClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         {(heading || description) && (
           <div className={cn("mb-16 text-center", headerClassName)}>
@@ -243,6 +271,6 @@ export function BlogFeaturedPopular({
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
