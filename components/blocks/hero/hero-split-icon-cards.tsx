@@ -111,7 +111,7 @@ export function HeroSplitIconCards({
   children,
   cardItems,
   cardsSlot,
-  background = "white",
+  background,
   verticalSpacing = "lg",
   className,
   contentClassName,
