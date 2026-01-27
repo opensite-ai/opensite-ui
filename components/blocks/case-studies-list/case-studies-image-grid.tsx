@@ -4,12 +4,18 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
 import {
   imagePlaceholders,
   logoPlaceholders,
 } from "../../../lib/mediaPlaceholders";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CaseStudyImageGridItem {
   /**
@@ -76,6 +82,22 @@ export interface CaseStudiesImageGridProps {
    */
   titleClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -115,16 +137,20 @@ export function CaseStudiesImageGrid({
   overlayClassName,
   logoClassName,
   titleClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: CaseStudiesImageGridProps): React.JSX.Element {
-  const getGridClass = (index: number) => {
+  const getGridClass = React.useCallback((index: number) => {
     if (index === 0 || index === 4) {
       return "row-span-2 aspect-square lg:aspect-auto";
     }
     return "aspect-3/2 md:aspect-2/1";
-  };
+  }, []);
 
-  const renderItems = () => {
+  const renderedItems = React.useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -163,15 +189,31 @@ export function CaseStudiesImageGrid({
         )}
       </Pressable>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    getGridClass,
+    itemClassName,
+    imageClassName,
+    overlayClassName,
+    logoClassName,
+    titleClassName,
+    optixFlowConfig,
+  ]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto grid max-w-2xl gap-6 lg:max-w-5xl lg:grid-cols-2", gridClassName)}>
-          {renderItems()}
+          {renderedItems}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

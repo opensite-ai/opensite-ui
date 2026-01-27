@@ -5,8 +5,14 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CaseStudyFeaturedItem {
   /**
@@ -117,6 +123,22 @@ export interface CaseStudiesFeaturedBorderProps {
    */
   patternClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -179,9 +201,13 @@ export function CaseStudiesFeaturedBorder({
   subtitleClassName,
   ctaClassName,
   patternClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: CaseStudiesFeaturedBorderProps): React.JSX.Element {
-  const renderFeatured = () => {
+  const renderedFeatured = React.useMemo(() => {
     if (featuredSlot) return featuredSlot;
     if (!featuredCaseStudy) return null;
 
@@ -246,9 +272,21 @@ export function CaseStudiesFeaturedBorder({
         )}
       </Pressable>
     );
-  };
+  }, [
+    featuredSlot,
+    featuredCaseStudy,
+    featuredClassName,
+    featuredContentClassName,
+    logoClassName,
+    tagsClassName,
+    titleClassName,
+    subtitleClassName,
+    ctaClassName,
+    featuredImageClassName,
+    optixFlowConfig,
+  ]);
 
-  const renderCaseStudies = () => {
+  const renderedCaseStudies = React.useMemo(() => {
     if (caseStudiesSlot) return caseStudiesSlot;
     if (!caseStudies || caseStudies.length === 0) return null;
 
@@ -300,22 +338,38 @@ export function CaseStudiesFeaturedBorder({
         </div>
       </Pressable>
     ));
-  };
+  }, [
+    caseStudiesSlot,
+    caseStudies,
+    itemClassName,
+    logoClassName,
+    tagsClassName,
+    titleClassName,
+    subtitleClassName,
+    ctaClassName,
+    optixFlowConfig,
+  ]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("border border-border", borderClassName)}>
-          {renderFeatured()}
+          {renderedFeatured}
           <div className="flex border-t border-border">
             <div className={cn("hidden w-28 shrink-0 bg-[radial-gradient(hsl(var(--muted-foreground))_1px,transparent_1px)] bg-size-[10px_10px] opacity-15 xl:block", patternClassName)}></div>
             <div className={cn("grid lg:grid-cols-2", gridClassName)}>
-              {renderCaseStudies()}
+              {renderedCaseStudies}
             </div>
             <div className={cn("hidden w-28 shrink-0 bg-[radial-gradient(hsl(var(--muted-foreground))_1px,transparent_1px)] bg-size-[10px_10px] opacity-15 xl:block", patternClassName)}></div>
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

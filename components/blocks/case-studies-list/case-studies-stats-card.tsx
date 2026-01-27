@@ -6,8 +6,15 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CaseStudyStatsCardAuthor {
   /**
@@ -121,6 +128,22 @@ export interface CaseStudiesStatsCardProps {
    */
   actionsClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -178,9 +201,13 @@ export function CaseStudiesStatsCard({
   titleClassName,
   summaryClassName,
   actionsClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: CaseStudiesStatsCardProps): React.JSX.Element {
-  const renderStats = () => {
+  const renderedStats = React.useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -196,9 +223,9 @@ export function CaseStudiesStatsCard({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName]);
 
-  const renderAuthor = () => {
+  const renderedAuthor = React.useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!author) return null;
 
@@ -218,9 +245,9 @@ export function CaseStudiesStatsCard({
         </div>
       </div>
     );
-  };
+  }, [authorSlot, author, authorClassName]);
 
-  const renderActions = () => {
+  const renderedActions = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -247,10 +274,16 @@ export function CaseStudiesStatsCard({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("flex w-full flex-col items-stretch justify-between gap-10 rounded-lg bg-muted p-10 lg:flex-row", cardClassName)}>
           <div className={cn("flex w-full max-w-120 flex-col gap-10 rounded-lg bg-background p-5", leftColumnClassName)}>
@@ -263,8 +296,8 @@ export function CaseStudiesStatsCard({
                 optixFlowConfig={optixFlowConfig}
               />
             </div>
-            {renderStats()}
-            {renderAuthor()}
+            {renderedStats}
+            {renderedAuthor}
           </div>
           <div className={cn("flex max-w-lg flex-col gap-5", rightColumnClassName)}>
             {title && (
@@ -285,10 +318,10 @@ export function CaseStudiesStatsCard({
                 <div className={summaryClassName}>{summary}</div>
               )
             )}
-            {renderActions()}
+            {renderedActions}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -4,8 +4,14 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CaseStudyTestimonialStat {
   /**
@@ -115,6 +121,22 @@ export interface CaseStudiesTestimonialStatsProps {
    */
   separatorClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -167,9 +189,13 @@ export function CaseStudiesTestimonialStats({
   authorClassName,
   statsClassName,
   separatorClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: CaseStudiesTestimonialStatsProps): React.JSX.Element {
-  const renderTestimonials = () => {
+  const renderedTestimonials = React.useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
     if (!testimonials || testimonials.length === 0) return null;
 
@@ -245,10 +271,26 @@ export function CaseStudiesTestimonialStats({
         </div>
       </div>
     ));
-  };
+  }, [
+    testimonialsSlot,
+    testimonials,
+    testimonialItemClassName,
+    separatorClassName,
+    imageClassName,
+    quoteClassName,
+    authorClassName,
+    statsClassName,
+    optixFlowConfig,
+  ]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className={cn("flex flex-col gap-6 text-center", headerClassName)}>
           {heading && (
@@ -267,9 +309,9 @@ export function CaseStudiesTestimonialStats({
           )}
         </div>
         <div className={cn("mt-20", testimonialsClassName)}>
-          {renderTestimonials()}
+          {renderedTestimonials}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
