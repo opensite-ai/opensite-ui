@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -139,12 +140,58 @@ export function FooterSimpleCentered({
   copyrightClassName,
   bottomLinksClassName,
   bottomLinkClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: FooterSimpleCenteredProps): React.JSX.Element {
+  const sitemapContent = useMemo(() => {
+    if (!sitemap || sitemap.length === 0) return null;
+
+    return sitemap.map((section) => (
+      <div key={section.title} className={cn(sitemapSectionClassName)}>
+        <h3 className={cn("mb-4 text-sm font-semibold", sitemapTitleClassName)}>
+          {section.title}
+        </h3>
+        <ul className={cn("space-y-2", sitemapLinksClassName)}>
+          {section.links.map((link) => (
+            <li key={link.href}>
+              <Pressable
+                href={link.href}
+                className={cn(
+                  "text-sm text-muted-foreground transition-colors hover:text-foreground",
+                  sitemapLinkClassName
+                )}
+              >
+                {link.label}
+              </Pressable>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
+  }, [sitemap, sitemapSectionClassName, sitemapTitleClassName, sitemapLinksClassName, sitemapLinkClassName]);
+
+  const bottomLinksContent = useMemo(() => {
+    if (!bottomLinks || bottomLinks.length === 0) return null;
+
+    return bottomLinks.map((link, idx) => (
+      <React.Fragment key={link.href}>
+        {idx > 0 && <span className="text-muted-foreground">•</span>}
+        <Pressable
+          href={link.href}
+          className={cn(
+            "text-sm text-muted-foreground transition-colors hover:text-foreground",
+            bottomLinkClassName
+          )}
+        >
+          {link.text}
+        </Pressable>
+      </React.Fragment>
+    ));
+  }, [bottomLinks, bottomLinkClassName]);
+
   return (
     <Section
       background={background}
@@ -161,35 +208,43 @@ export function FooterSimpleCentered({
           )}
         >
           <div className={cn("max-w-96", brandClassName)}>
-            <div
-              className={cn(
-                "mb-6 flex items-center gap-3",
-                logoWrapperClassName
-              )}
-            >
-              <div className="flex size-12 items-center justify-center rounded-lg border border-border bg-accent p-2">
-                <Img
-                  src={logo?.src}
-                  alt={logo?.alt}
-                  className={cn(
-                    "size-12 h-full w-full object-contain object-center",
-                    logoClassName
-                  )}
-                  optixFlowConfig={optixFlowConfig}
-                />
+            {(logo?.src || logo?.title) && (
+              <div
+                className={cn(
+                  "mb-6 flex items-center gap-3",
+                  logoWrapperClassName
+                )}
+              >
+                {logo?.src && (
+                  <div className="flex size-12 items-center justify-center rounded-lg border border-border bg-accent p-2">
+                    <Img
+                      src={logo.src}
+                      alt={logo?.alt}
+                      className={cn(
+                        "size-12 h-full w-full object-contain object-center",
+                        logoClassName
+                      )}
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                )}
+                {logo?.title && (
+                  <h3 className={cn("text-xl font-bold", logoTitleClassName)}>
+                    {logo.title}
+                  </h3>
+                )}
               </div>
-              <h3 className={cn("text-xl font-bold", logoTitleClassName)}>
-                {logo?.title}
-              </h3>
-            </div>
-            <p
-              className={cn(
-                "text-base font-medium text-muted-foreground",
-                taglineClassName
-              )}
-            >
-              {tagline}
-            </p>
+            )}
+            {tagline && (
+              <p
+                className={cn(
+                  "text-base font-medium text-muted-foreground",
+                  taglineClassName
+                )}
+              >
+                {tagline}
+              </p>
+            )}
           </div>
           <div
             className={cn(
@@ -198,41 +253,7 @@ export function FooterSimpleCentered({
             )}
           >
             <div className="inline-grid w-fit grid-cols-1 gap-x-20 gap-y-14 sm:grid-cols-2">
-              {sitemap?.map((section) => (
-                <div
-                  key={section.title}
-                  className={cn("h-fit w-min", sitemapSectionClassName)}
-                >
-                  <h4
-                    className={cn(
-                      "mb-6 text-base font-semibold whitespace-nowrap",
-                      sitemapTitleClassName
-                    )}
-                  >
-                    {section.title}
-                  </h4>
-                  <ul
-                    className={cn(
-                      "space-y-3 text-base font-medium text-muted-foreground",
-                      sitemapLinksClassName
-                    )}
-                  >
-                    {section.links.map((link) => (
-                      <li key={String(link.label)}>
-                        <Pressable
-                          href={link.href}
-                          className={cn(
-                            "text-base whitespace-nowrap hover:text-accent-foreground",
-                            sitemapLinkClassName
-                          )}
-                        >
-                          {link.label}
-                        </Pressable>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              {sitemapContent}
             </div>
           </div>
         </div>
@@ -248,15 +269,17 @@ export function FooterSimpleCentered({
               copyrightClassName
             )}
           >
-            <span>{copyright}</span>
-            <Pressable
-              href={attributionHref}
-              className="hover:text-accent-foreground"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {attributionText}
-            </Pressable>
+            {copyright && <span>{copyright}</span>}
+            {attributionHref && attributionText && (
+              <Pressable
+                href={attributionHref}
+                className="hover:text-accent-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {attributionText}
+              </Pressable>
+            )}
           </div>
           <div
             className={cn(
@@ -264,18 +287,7 @@ export function FooterSimpleCentered({
               bottomLinksClassName
             )}
           >
-            {bottomLinks?.map((link, idx) => (
-              <Pressable
-                key={idx}
-                href={link.href}
-                className={cn(
-                  "hover:text-accent-foreground",
-                  bottomLinkClassName
-                )}
-              >
-                {link.text}
-              </Pressable>
-            ))}
+            {bottomLinksContent}
           </div>
         </div>
       </footer>

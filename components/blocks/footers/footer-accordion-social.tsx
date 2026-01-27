@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -13,13 +14,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../ui/accordion";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import {
   isValidEmail,
   PageSpeedFormSubmissionError,
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FooterAccordionSocialLink {
   /**
@@ -126,6 +129,26 @@ export interface FooterAccordionSocialProps {
    * Optional error callback invoked if submission fails.
    */
   onError?: (error: Error) => void;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Additional CSS classes for the pattern overlay
+   */
+  patternClassName?: string;
 }
 
 /**
@@ -152,11 +175,7 @@ export function FooterAccordionSocial({
   newsletterDescription,
   footerLinks,
   socialLinks,
-  logo = {
-    light: logoPlaceholders.darkHorizontalLogo,
-    dark: logoPlaceholders.lightHorizontalLogo,
-    url: "/",
-  },
+  logo,
   copyright,
   className,
   optixFlowConfig,
@@ -164,6 +183,11 @@ export function FooterAccordionSocial({
   onSubmit,
   onSuccess,
   onError,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  patternClassName,
 }: FooterAccordionSocialProps) {
   const [isDesktop, setIsDesktop] = React.useState(false);
   const [accordionValue, setAccordionValue] = React.useState("");
@@ -226,27 +250,43 @@ export function FooterAccordionSocial({
     return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
-  const allAccordionIds = footerLinks.map(({ id }) => id);
+  const allAccordionIds = useMemo(() => {
+    if (!footerLinks || footerLinks.length === 0) return [];
+    return footerLinks.map(({ id }) => id);
+  }, [footerLinks]);
 
   return (
-    <section className={cn("py-12", className)}>
-      <div className="container space-y-10">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      patternClassName={patternClassName}
+      className={className}
+    >
+      <div className="space-y-10">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
           <div className="space-y-6">
-            <Pressable href={logo.url} className="inline-block max-w-48">
-              <Img
-                src={logo.light}
-                alt="Logo"
-                className="w-full dark:hidden"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <Img
-                src={logo.dark}
-                alt="Logo"
-                className="hidden w-full dark:block"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </Pressable>
+            {logo?.url && (
+              <Pressable href={logo.url} className="inline-block max-w-48">
+                {logo.light && (
+                  <Img
+                    src={logo.light}
+                    alt="Logo"
+                    className="w-full dark:hidden"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                )}
+                {logo.dark && (
+                  <Img
+                    src={logo.dark}
+                    alt="Logo"
+                    className="hidden w-full dark:block"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                )}
+              </Pressable>
+            )}
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold">{newsletterTitle}</h3>
               <p className="text-muted-foreground">{newsletterDescription}</p>
@@ -287,7 +327,7 @@ export function FooterAccordionSocial({
               type="multiple"
               className="grid grid-cols-2 gap-x-16 gap-y-4 lg:grid-cols-3"
             >
-              {footerLinks.map((section) => (
+              {footerLinks && footerLinks.length > 0 && footerLinks.map((section) => (
                 <AccordionItem
                   key={section.id}
                   value={section.id}
@@ -328,7 +368,7 @@ export function FooterAccordionSocial({
               onValueChange={setAccordionValue}
               className="space-y-0"
             >
-              {footerLinks.map((section) => (
+              {footerLinks && footerLinks.length > 0 && footerLinks.map((section) => (
                 <AccordionItem
                   key={section.id}
                   value={section.id}
@@ -367,8 +407,9 @@ export function FooterAccordionSocial({
 
         <div className="flex flex-wrap items-center justify-between gap-6 border-t pt-8">
           <p className="text-sm text-muted-foreground">{copyright}</p>
-          <ul className="flex flex-wrap gap-4">
-            {socialLinks.map((social, idx) => (
+          {socialLinks && socialLinks.length > 0 && (
+            <ul className="flex flex-wrap gap-4">
+              {socialLinks.map((social, idx) => (
               <li key={idx}>
                 <Pressable
                   href={social.link}
@@ -381,10 +422,11 @@ export function FooterAccordionSocial({
                   <DynamicIcon name={social.icon} size={20} />
                 </Pressable>
               </li>
-            ))}
-          </ul>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

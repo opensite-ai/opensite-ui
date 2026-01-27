@@ -1,10 +1,13 @@
 "use client";
 
-import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 /**
  * Social link configuration
@@ -64,6 +67,14 @@ export interface FooterNewsletterGridProps {
   copyright?: string;
   /** Attribution text */
   attribution?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern name */
+  pattern?: PatternName;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: {
     apiKey: string;
@@ -79,117 +90,143 @@ export interface FooterNewsletterGridProps {
  * websites, SaaS products, and businesses that prioritize email marketing and social engagement.
  */
 export function FooterNewsletterGrid({
-  logo = {
-    url: "https://opensite.ai",
-    src: "https://cdn.ing/assets/i/r/285975/eud79qeya11q5w6ueyhklueardyx/os-suircle-black-white.png",
-    alt: "Opensite AI",
-    title: "Opensite AI",
-  },
+  logo,
   className,
   description,
   sections,
   socialLinks,
   newsletterTitle,
-  newsletterPlaceholder = "Email",
+  newsletterPlaceholder,
   newsletterButtonText,
   privacyText,
   privacyLinkText,
-  privacyLinkUrl = "#",
+  privacyLinkUrl,
   copyright,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: FooterNewsletterGridProps): React.JSX.Element {
+  const sectionsContent = useMemo(() => {
+    if (!sections || sections.length === 0) return null;
+
+    return sections.map((section, sectionIdx) => (
+      <div key={sectionIdx} className="col-span-2 md:col-span-1">
+        <h3 className="mb-5 font-medium">{section.title}</h3>
+        <ul className="space-y-4 text-sm text-muted-foreground">
+          {section.links.map((link, linkIdx) => (
+            <li
+              key={linkIdx}
+              className="font-medium hover:text-primary"
+            >
+              <Pressable href={link.href}>{link.name}</Pressable>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
+  }, [sections]);
+
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((social, idx) => (
+      <li
+        key={idx}
+        className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
+      >
+        <Pressable href={social.href} aria-label={social.label}>
+          <DynamicIcon name={social.icon} size={24} />
+        </Pressable>
+      </li>
+    ));
+  }, [socialLinks]);
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div>
         <footer>
           <div className="grid grid-cols-4 justify-between gap-10 lg:grid-cols-6 lg:text-left">
             <div className="col-span-4 flex w-full flex-col gap-6 lg:col-span-2">
-              <div className="flex items-center gap-2 lg:justify-start">
-                <Pressable href={logo.url}>
-                  <Img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="h-8"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </Pressable>
-                <h2 className="text-xl font-semibold">{logo.title}</h2>
-              </div>
-              <p className="text-muted-foreground">{description}</p>
-              <ul className="flex items-center space-x-6">
-                {socialLinks?.map((social, idx) => (
-                  <li
-                    key={idx}
-                    className="font-medium duration-200 hover:scale-110 hover:text-muted-foreground"
-                  >
-                    <Pressable href={social.href} aria-label={social.label}>
-                      <DynamicIcon name={social.icon} size={24} />
-                    </Pressable>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {sections?.map((section, sectionIdx) => (
-              <div key={sectionIdx} className="col-span-2 md:col-span-1">
-                <h3 className="mb-5 font-medium">{section.title}</h3>
-                <ul className="space-y-4 text-sm text-muted-foreground">
-                  {section.links.map((link, linkIdx) => (
-                    <li
-                      key={linkIdx}
-                      className="font-medium hover:text-primary"
-                    >
-                      <Pressable href={link.href}>{link.name}</Pressable>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-            <div className="col-span-4 md:col-span-2">
-              <h3 className="mb-5 font-medium">{newsletterTitle}</h3>
-              <div className="grid gap-1.5">
-                <div className="flex w-full items-center space-x-2">
-                  <input
-                    type="email"
-                    placeholder={newsletterPlaceholder}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                  >
-                    {newsletterButtonText}
-                  </button>
+              {logo && (
+                <div className="flex items-center gap-2 lg:justify-start">
+                  <Pressable href={logo.url}>
+                    {logo.src && (
+                      <Img
+                        src={logo.src}
+                        alt={logo.alt}
+                        className="h-8"
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    )}
+                  </Pressable>
+                  {logo.title && (
+                    <h2 className="text-xl font-semibold">{logo.title}</h2>
+                  )}
                 </div>
+              )}
+              {description && (
+                <p className="text-muted-foreground">{description}</p>
+              )}
+              {socialLinks && socialLinks.length > 0 && (
+                <ul className="flex items-center space-x-6">
+                  {socialLinksContent}
+                </ul>
+              )}
+            </div>
+            {sectionsContent}
+            {(newsletterTitle || newsletterButtonText) && (
+              <div className="col-span-4 md:col-span-2">
+                {newsletterTitle && (
+                  <h3 className="mb-5 font-medium">{newsletterTitle}</h3>
+                )}
+                <div className="grid gap-1.5">
+                  <div className="flex w-full items-center space-x-2">
+                    <input
+                      type="email"
+                      placeholder={newsletterPlaceholder}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    />
+                    {newsletterButtonText && (
+                      <button
+                        type="submit"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+                      >
+                        {newsletterButtonText}
+                      </button>
+                    )}
+                  </div>
+                </div>
+                {(privacyText || privacyLinkText) && (
+                  <p className="mt-1 text-xs font-medium text-muted-foreground">
+                    {privacyText}
+                    {privacyLinkText && privacyLinkUrl && (
+                      <Pressable
+                        href={privacyLinkUrl}
+                        className="ml-1 text-primary hover:underline"
+                      >
+                        {privacyLinkText}
+                      </Pressable>
+                    )}
+                  </p>
+                )}
               </div>
-              <p className="mt-1 text-xs font-medium text-muted-foreground">
-                {privacyText}
-                <Pressable
-                  href={privacyLinkUrl}
-                  className="ml-1 text-primary hover:underline"
-                >
-                  {privacyLinkText}
-                </Pressable>
-              </p>
-            </div>
+            )}
           </div>
-          <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
-            <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
-              <p>
-                <span className="mr-1 font-bold text-primary">Opensite AI</span>
-                {copyright}
-              </p>
+          {copyright && (
+            <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
+              <p>{copyright}</p>
             </div>
-            <Pressable
-              href="https://opensite.ai"
-              className="hover:text-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              AI Website and Automation Platform by Opensite
-            </Pressable>
-          </div>
+          )}
         </footer>
       </div>
-    </section>
+    </Section>
   );
 }

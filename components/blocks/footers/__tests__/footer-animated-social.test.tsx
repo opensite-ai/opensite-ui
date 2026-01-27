@@ -36,7 +36,7 @@ describe("FooterAnimatedSocial", () => {
   });
 
   it("renders CTA button with custom text", () => {
-    render(<FooterAnimatedSocial ctaText="Contact Us" />);
+    render(<FooterAnimatedSocial ctaText="Contact Us" ctaUrl="/contact" />);
     expect(screen.getByText("Contact Us")).toBeInTheDocument();
   });
 

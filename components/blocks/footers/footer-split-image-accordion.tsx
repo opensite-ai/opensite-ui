@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -20,7 +21,9 @@ import {
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
 import { Separator } from "../../ui/separator";
-import { logoPlaceholders, imagePlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 import type { OptixFlowConfig } from "../../../src/types/blocks";
 
 export interface FooterSplitImageAccordionLink {
@@ -119,6 +122,22 @@ export interface FooterSplitImageAccordionProps {
    * Copyright text
    */
   copyright?: React.ReactNode;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the footer wrapper
    */
@@ -238,26 +257,17 @@ export interface FooterSplitImageAccordionProps {
  */
 export function FooterSplitImageAccordion({
   newsletterTitle,
-  emailPlaceholder = "Email Address",
+  emailPlaceholder,
   footerLinks,
   socialLinks,
-  paymentMethods = [],
+  paymentMethods,
   submenuLinks,
-  footerData = {
-    image: {
-      src: imagePlaceholders[0],
-      alt: "Footer hero image",
-    },
-    logo: {
-      light: logoPlaceholders.darkHorizontalLogo,
-      dark: logoPlaceholders.lightHorizontalLogo,
-    },
-    logoUrl: "/",
-    title: "Where Modern Fashion Meets Comfort",
-    description:
-      "We design clothing that empowers women to express their individuality through thoughtful details, flattering fits, and beautifully crafted essentials.",
-  },
+  footerData,
   copyright,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
   className,
   gridClassName,
   imageColumnClassName,
@@ -282,8 +292,6 @@ export function FooterSplitImageAccordion({
   onSuccess,
   onError,
 }: FooterSplitImageAccordionProps) {
-  const currentYear = new Date().getFullYear();
-  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
   const [isDesktop, setIsDesktop] = React.useState(false);
 
   const form = useForm<{ email: string }>({
@@ -344,23 +352,35 @@ export function FooterSplitImageAccordion({
     return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
-  const allAccordionIds = footerLinks.map(({ id }) => id);
+  const allAccordionIds = useMemo(
+    () => footerLinks?.map(({ id }) => id) ?? [],
+    [footerLinks]
+  );
 
   return (
-    <footer className={cn("bg-muted", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("bg-muted", className)}
+    >
       <div className={cn("grid grid-cols-1 lg:grid-cols-2", gridClassName)}>
-        <div className={cn("overflow-hidden max-lg:aspect-square", imageColumnClassName)}>
-          <Img
-            src={footerData.image.src}
-            alt={footerData.image.alt}
-            className={cn("h-full w-full object-cover", imageClassName)}
-            optixFlowConfig={optixFlowConfig}
-          />
-        </div>
+        {footerData?.image?.src && (
+          <div className={cn("overflow-hidden max-lg:aspect-square", imageColumnClassName)}>
+            <Img
+              src={footerData.image.src}
+              alt={footerData.image.alt}
+              className={cn("h-full w-full object-cover", imageClassName)}
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
+        )}
 
         <div className={cn("space-y-10 p-6 lg:p-12", contentColumnClassName)}>
-          <div className={cn("space-y-6", newsletterSectionClassName)}>
-            <h3 className={cn("text-2xl font-semibold lg:text-3xl", newsletterTitleClassName)}>{newsletterTitle}</h3>
+          {newsletterTitle && (
+            <div className={cn("space-y-6", newsletterSectionClassName)}>
+              <h3 className={cn("text-2xl font-semibold lg:text-3xl", newsletterTitleClassName)}>{newsletterTitle}</h3>
             <Form
               form={form}
               action={formConfig?.endpoint}
@@ -389,52 +409,69 @@ export function FooterSplitImageAccordion({
                 <DynamicIcon name="lucide/arrow-right" size={16} />
               </Pressable>
             </Form>
-            <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
-              {socialLinks.map((social, idx) => (
-                <li key={idx}>
-                  <Pressable
-                    href={social.link}
-                    variant="outline"
-                    size="icon"
-                    asButton
-                    className="rounded-full"
-                    aria-label={social.label}
-                  >
-                    <DynamicIcon name={social.icon} size={20} />
-                  </Pressable>
-                </li>
-              ))}
-            </ul>
+            {socialLinks && socialLinks.length > 0 && (
+              <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
+                {socialLinks.map((social, idx) => (
+                  <li key={idx}>
+                    <Pressable
+                      href={social.link}
+                      variant="outline"
+                      size="icon"
+                      asButton
+                      className="rounded-full"
+                      aria-label={social.label}
+                    >
+                      <DynamicIcon name={social.icon} size={20} />
+                    </Pressable>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
+          )}
 
           <Separator />
 
-          <div className={cn("space-y-6", brandSectionClassName)}>
-            <Pressable href={footerData.logoUrl} className={cn("inline-block max-w-60", logoClassName)}>
-              <Img
-                src={footerData.logo.light}
-                alt="Logo"
-                className="w-full dark:hidden"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <Img
-                src={footerData.logo.dark}
-                alt="Logo"
-                className="hidden w-full dark:block"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </Pressable>
-            <h4 className={cn("text-xl font-semibold", brandTitleClassName)}>{footerData.title}</h4>
-            <p className={cn("text-muted-foreground", brandDescriptionClassName)}>{footerData.description}</p>
-          </div>
+          {footerData && (
+            <div className={cn("space-y-6", brandSectionClassName)}>
+              {footerData.logo && (
+                <Pressable href={footerData.logoUrl} className={cn("inline-block max-w-60", logoClassName)}>
+                  {footerData.logo.light && (
+                    <Img
+                      src={footerData.logo.light}
+                      alt="Logo"
+                      className="w-full dark:hidden"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                  {footerData.logo.dark && (
+                    <Img
+                      src={footerData.logo.dark}
+                      alt="Logo"
+                      className="hidden w-full dark:block"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                </Pressable>
+              )}
+              {footerData.title && (
+                <h4 className={cn("text-xl font-semibold", brandTitleClassName)}>{footerData.title}</h4>
+              )}
+              {footerData.description && (
+                <p className={cn("text-muted-foreground", brandDescriptionClassName)}>{footerData.description}</p>
+              )}
+            </div>
+          )}
 
-          {isDesktop ? (
-            <Accordion
-              value={allAccordionIds}
-              type="multiple"
-              className={cn("grid gap-4 lg:grid-cols-3", accordionClassName)}
-            >
-              {footerLinks.map((section) => (
+          {footerLinks && footerLinks.length > 0 && (
+            <>
+              {isDesktop ? (
+                <Accordion
+                  value={allAccordionIds}
+                  type="multiple"
+                  className={cn("grid gap-4 lg:grid-cols-3", accordionClassName)}
+                >
+                  {footerLinks.map((section) => (
                 <AccordionItem
                   key={section.id}
                   value={section.id}
@@ -457,12 +494,12 @@ export function FooterSplitImageAccordion({
                       ))}
                     </ul>
                   </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          ) : (
-            <Accordion type="single" collapsible className={cn("grid gap-4", accordionClassName)}>
-              {footerLinks.map((section) => (
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              ) : (
+                <Accordion type="single" collapsible className={cn("grid gap-4", accordionClassName)}>
+                  {footerLinks.map((section) => (
                 <AccordionItem
                   key={section.id}
                   value={section.id}
@@ -486,12 +523,14 @@ export function FooterSplitImageAccordion({
                       ))}
                     </ul>
                   </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              )}
+            </>
           )}
 
-          {paymentMethods.length > 0 && (
+          {paymentMethods && paymentMethods.length > 0 && (
             <ul className={cn("flex flex-wrap items-center gap-3", paymentMethodsClassName)}>
               {paymentMethods.map((method, idx) => (
                 <li key={idx}>
@@ -509,22 +548,26 @@ export function FooterSplitImageAccordion({
           <Separator />
 
           <div className={cn("flex flex-wrap items-center justify-between gap-4", bottomClassName)}>
-            <p className={cn("text-sm text-muted-foreground", copyrightClassName)}>{copyrightText}</p>
-            <ul className={cn("flex flex-wrap gap-x-6 gap-y-2", submenuLinksClassName)}>
-              {submenuLinks.map((link, idx) => (
-                <li key={idx}>
-                  <Pressable
-                    href={link.link}
-                    className="text-sm font-light hover:underline"
-                  >
-                    {link.text}
-                  </Pressable>
-                </li>
-              ))}
-            </ul>
+            {copyright && (
+              <p className={cn("text-sm text-muted-foreground", copyrightClassName)}>{copyright}</p>
+            )}
+            {submenuLinks && submenuLinks.length > 0 && (
+              <ul className={cn("flex flex-wrap gap-x-6 gap-y-2", submenuLinksClassName)}>
+                {submenuLinks.map((link, idx) => (
+                  <li key={idx}>
+                    <Pressable
+                      href={link.link}
+                      className="text-sm font-light hover:underline"
+                    >
+                      {link.text}
+                    </Pressable>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
-    </footer>
+    </Section>
   );
 }

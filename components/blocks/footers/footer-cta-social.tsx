@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -100,7 +101,7 @@ export function FooterCtaSocial({
   socialLinks,
   copyright,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   className,
   contentClassName,
   containerClassName,
@@ -115,13 +116,28 @@ export function FooterCtaSocial({
   emailClassName,
   bottomClassName,
   copyrightClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: FooterCtaSocialProps): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
-  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((link) => (
+      <Pressable
+        key={link.url}
+        href={link.url}
+        variant="outline"
+        size="icon"
+        asButton
+        className={cn("h-12 w-12 rounded-full", socialLinkClassName)}
+        aria-label={link.label}
+      >
+        <DynamicIcon name={link.icon} size={20} />
+      </Pressable>
+    ));
+  }, [socialLinks, socialLinkClassName]);
 
   return (
     <Section
@@ -159,44 +175,39 @@ export function FooterCtaSocial({
             />
           </Pressable>
 
-          <div className={cn("flex items-center gap-6 pt-8", socialLinksClassName)}>
-            {socialLinks?.map((link, idx) => (
-              <React.Fragment key={idx}>
-                <Pressable
-                  href={link.url}
-                  className={cn("text-muted-foreground transition-colors hover:text-foreground", socialLinkClassName)}
-                  aria-label={link.label}
-                >
-                  <DynamicIcon name={link.icon} size={20} />
-                </Pressable>
-                {idx < (socialLinks?.length ?? 0) - 1 && (
-                  <div className="h-4 w-px bg-border" />
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+          {socialLinks && socialLinks.length > 0 && (
+            <div className={cn("flex items-center gap-6 pt-8", socialLinksClassName)}>
+              {socialLinksContent}
+            </div>
+          )}
 
-          <p className={cn("pt-2 text-sm text-muted-foreground md:text-base", emailClassName)}>
-            <Pressable
-              href={`mailto:${email}`}
-              className="transition-colors hover:text-foreground"
-            >
-              {email}
-            </Pressable>
-          </p>
+          {email && (
+            <p className={cn("pt-2 text-sm text-muted-foreground md:text-base", emailClassName)}>
+              <Pressable
+                href={`mailto:${email}`}
+                className="transition-colors hover:text-foreground"
+              >
+                {email}
+              </Pressable>
+            </p>
+          )}
 
           <div className={cn("mt-8 border-t pt-8 text-sm text-muted-foreground", bottomClassName)}>
-            <p className={cn(copyrightClassName)}>
-              {copyrightText}
-            </p>
-            <Pressable
-              href={attributionHref}
-              className="mt-2 inline-block hover:text-foreground"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {attributionText}
-            </Pressable>
+            {copyright && (
+              <p className={cn(copyrightClassName)}>
+                {copyright}
+              </p>
+            )}
+            {attributionHref && attributionText && (
+              <Pressable
+                href={attributionHref}
+                className="mt-2 inline-block hover:text-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {attributionText}
+              </Pressable>
+            )}
           </div>
         </div>
       </div>

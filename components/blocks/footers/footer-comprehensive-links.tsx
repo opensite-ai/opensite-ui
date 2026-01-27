@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -9,7 +9,6 @@ import {
   PatternBackground,
   type PatternName,
 } from "../../ui/pattern-background";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
 import { Container } from "../../ui/container";
 
 export interface FooterComprehensiveLinksLink {
@@ -125,9 +124,9 @@ const socialIconMap: Record<
  * and a bottom legal bar with links.
  */
 export function FooterComprehensiveLinks({
-  logoSrc = logoPlaceholders.lightHorizontalLogo,
-  logoAlt = "OpenSite AI logo",
-  logoHref = "/",
+  logoSrc,
+  logoAlt,
+  logoHref,
   tagline,
   summary,
   linkColumns,
@@ -139,13 +138,13 @@ export function FooterComprehensiveLinks({
   companyName,
   bottomLinks,
   pattern,
-  patternOpacity = 0.05,
+  patternOpacity,
   className,
   optixFlowConfig,
 }: FooterComprehensiveLinksProps): React.JSX.Element {
-  const year = new Date().getFullYear();
+  const year = useMemo(() => new Date().getFullYear(), []);
   const copyrightText =
-    copyright || `© ${year} ${companyName}. All rights reserved.`;
+    copyright || `© ${year} ${companyName || ""}. All rights reserved.`;
   return (
     <footer
       className={cn(
@@ -158,29 +157,33 @@ export function FooterComprehensiveLinks({
       <Container className="relative z-10 py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-10 lg:gap-12">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-12">
-            <div className="sm:col-span-2 lg:col-span-3">
-              <div className="flex flex-col gap-4">
-                <Pressable href={logoHref} className="inline-flex w-fit">
-                  <Img
-                    src={logoSrc}
-                    alt={logoAlt}
-                    className="h-9 w-auto"
-                    loading="eager"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                </Pressable>
-                {tagline ? (
-                  <p className="text-sm font-medium text-white">{tagline}</p>
-                ) : null}
-                {summary ? (
-                  <p className="text-sm leading-relaxed text-white/70">
-                    {summary}
-                  </p>
-                ) : null}
+            {(logoSrc || tagline || summary) && (
+              <div className="sm:col-span-2 lg:col-span-3">
+                <div className="flex flex-col gap-4">
+                  {logoSrc && (
+                    <Pressable href={logoHref || "/"} className="inline-flex w-fit">
+                      <Img
+                        src={logoSrc}
+                        alt={logoAlt || "Logo"}
+                        className="h-9 w-auto"
+                        loading="eager"
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </Pressable>
+                  )}
+                  {tagline && (
+                    <p className="text-sm font-medium text-white">{tagline}</p>
+                  )}
+                  {summary && (
+                    <p className="text-sm leading-relaxed text-white/70">
+                      {summary}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
-            {linkColumns?.map((column) => (
+            {linkColumns && linkColumns.length > 0 && linkColumns.map((column) => (
               <div key={column.title} className="lg:col-span-2">
                 <div className="flex flex-col gap-4">
                   <h3 className="text-sm font-semibold text-white">

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -107,11 +108,11 @@ export function FooterAnimatedSocial({
   heading,
   description,
   ctaText,
-  ctaUrl = "#",
+  ctaUrl,
   socialLinks,
   copyright,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   className,
   contentClassName,
   layoutClassName,
@@ -125,13 +126,41 @@ export function FooterAnimatedSocial({
   bottomClassName,
   separatorClassName,
   copyrightClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: FooterAnimatedSocialProps): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
-  const copyrightText = copyright ?? `© Copyright ${currentYear}. All rights Reserved.`;
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((link) => (
+      <motion.div
+        key={link.name}
+        variants={itemVariants}
+        whileHover={{ x: 4 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+        }}
+      >
+        <Pressable
+          href={link.href}
+          className={cn("group flex items-center gap-2 py-2 text-foreground transition-colors hover:text-foreground/80", socialLinkClassName)}
+        >
+          <span className="text-xl font-medium">
+            {link.name}
+          </span>
+          <DynamicIcon
+            name="lucide/arrow-up-right"
+            size={24}
+            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          />
+        </Pressable>
+      </motion.div>
+    ));
+  }, [socialLinks, socialLinkClassName]);
 
   return (
     <Section
@@ -161,45 +190,22 @@ export function FooterAnimatedSocial({
                   </p>
                 </motion.div>
 
-                <motion.div variants={itemVariants}>
-                  <Pressable
-                    href={ctaUrl}
-                    className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8", ctaClassName)}
-                  >
-                    {ctaText}
-                  </Pressable>
-                </motion.div>
+                {ctaUrl && ctaText && (
+                  <motion.div variants={itemVariants}>
+                    <Pressable
+                      href={ctaUrl}
+                      className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8", ctaClassName)}
+                    >
+                      {ctaText}
+                    </Pressable>
+                  </motion.div>
+                )}
               </div>
 
               <div className={cn("mt-5 space-y-8 md:mt-0", rightColumnClassName)}>
                 <motion.div variants={itemVariants}>
                   <div className={cn("space-y-6", socialLinksClassName)}>
-                    {socialLinks?.map((link) => (
-                      <motion.div
-                        key={link.name}
-                        variants={itemVariants}
-                        whileHover={{ x: 4 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 20,
-                        }}
-                      >
-                        <Pressable
-                          href={link.href}
-                          className={cn("group flex items-center gap-2 py-2 text-foreground transition-colors hover:text-foreground/80", socialLinkClassName)}
-                        >
-                          <span className="text-xl font-medium">
-                            {link.name}
-                          </span>
-                          <DynamicIcon
-                            name="lucide/arrow-up-right"
-                            size={24}
-                            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                          />
-                        </Pressable>
-                      </motion.div>
-                    ))}
+                    {socialLinksContent}
                   </div>
                 </motion.div>
               </div>
@@ -220,7 +226,9 @@ export function FooterAnimatedSocial({
                 variants={itemVariants}
                 className={cn("flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center", copyrightClassName)}
               >
-                <p className="text-sm text-muted-foreground">{copyrightText}</p>
+                {copyright && (
+                  <p className="text-sm text-muted-foreground">{copyright}</p>
+                )}
 
                 <div className="flex items-center gap-6 text-sm">
                   <span className="text-muted-foreground">

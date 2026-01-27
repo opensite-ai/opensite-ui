@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -144,24 +144,19 @@ export interface FooterBackgroundCardProps {
  * striking footer with a personal touch.
  */
 export function FooterBackgroundCard({
-  logo = {
-    url: "https://opensite.ai",
-    src: "https://cdn.ing/assets/i/r/285975/eud79qeya11q5w6ueyhklueardyx/os-suircle-black-white.png",
-    alt: "Opensite AI",
-    title: "Opensite AI",
-  },
-  backgroundImage = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80",
-  profileImage = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+  logo,
+  backgroundImage,
+  profileImage,
   tagline,
   personalMessage,
   ctaText,
-  ctaUrl = "#",
+  ctaUrl,
   contactTitle,
   contact,
   menuItems,
   copyright,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   bottomLinks,
   className,
   cardClassName,
@@ -180,14 +175,19 @@ export function FooterBackgroundCard({
   bottomClassName,
   copyrightClassName,
   bottomLinksClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: FooterBackgroundCardProps): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
   const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
+
+  const sectionStyle = useMemo(
+    () => backgroundImage ? { backgroundImage: `url('${backgroundImage}')` } : undefined,
+    [backgroundImage]
+  );
 
   return (
     <Section
@@ -196,34 +196,44 @@ export function FooterBackgroundCard({
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn("bg-cover bg-center bg-no-repeat", className)}
-      style={{
-        backgroundImage: `url('${backgroundImage}')`,
-      }}
+      style={sectionStyle}
     >
       <div className={cn("mx-auto max-w-7xl rounded-lg bg-background p-8 shadow-lg md:p-12", cardClassName)}>
         <div className={cn("grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12", gridClassName)}>
-          <div className={cn("lg:col-span-1", profileSectionClassName)}>
-            <div className="mb-4 flex items-center gap-4">
-              <Img
-                src={profileImage}
-                alt="Profile"
-                className={cn("h-16 w-16 rounded-full object-cover", profileImageClassName)}
-                optixFlowConfig={optixFlowConfig}
-              />
-              <h3 className={cn("text-2xl font-medium", taglineClassName)}>{tagline}</h3>
+          {(profileImage || tagline || personalMessage || ctaText) && (
+            <div className={cn("lg:col-span-1", profileSectionClassName)}>
+              {(profileImage || tagline) && (
+                <div className="mb-4 flex items-center gap-4">
+                  {profileImage && (
+                    <Img
+                      src={profileImage}
+                      alt="Profile"
+                      className={cn("h-16 w-16 rounded-full object-cover", profileImageClassName)}
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                  {tagline && (
+                    <h3 className={cn("text-2xl font-medium", taglineClassName)}>{tagline}</h3>
+                  )}
+                </div>
+              )}
+              {personalMessage && (
+                <p className={cn("mb-6 text-sm leading-relaxed text-muted-foreground", messageClassName)}>
+                  {personalMessage}
+                </p>
+              )}
+              {ctaText && (
+                <Pressable
+                  href={ctaUrl || "#"}
+                  className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2", ctaClassName)}
+                >
+                  {ctaText}
+                </Pressable>
+              )}
             </div>
-            <p className={cn("mb-6 text-sm leading-relaxed text-muted-foreground", messageClassName)}>
-              {personalMessage}
-            </p>
-            <Pressable
-              href={ctaUrl}
-              className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2", ctaClassName)}
-            >
-              {ctaText}
-            </Pressable>
-          </div>
+          )}
 
-          {menuItems?.map((menu, idx) => (
+          {menuItems && menuItems.length > 0 && menuItems.map((menu, idx) => (
             <div key={idx} className={cn(menuSectionClassName)}>
               <h3 className={cn("mb-4 text-sm font-medium tracking-wider text-primary uppercase", menuTitleClassName)}>
                 {menu.title}
@@ -243,43 +253,59 @@ export function FooterBackgroundCard({
             </div>
           ))}
 
-          <div className={cn(contactSectionClassName)}>
-            <h3 className={cn("mb-4 text-sm font-medium tracking-wider text-primary uppercase", contactTitleClassName)}>
-              {contactTitle}
-            </h3>
-            <ul className="space-y-3">
-              <li className={cn("text-muted-foreground", contactItemClassName)}>{contact?.phone}</li>
-              <li className={cn("text-muted-foreground", contactItemClassName)}>{contact?.email}</li>
-              <li className={cn("text-muted-foreground", contactItemClassName)}>
-                {contact?.location} • {contact?.timezone}
-              </li>
-            </ul>
-          </div>
+          {(contactTitle || contact) && (
+            <div className={cn(contactSectionClassName)}>
+              {contactTitle && (
+                <h3 className={cn("mb-4 text-sm font-medium tracking-wider text-primary uppercase", contactTitleClassName)}>
+                  {contactTitle}
+                </h3>
+              )}
+              {contact && (
+                <ul className="space-y-3">
+                  {contact.phone && (
+                    <li className={cn("text-muted-foreground", contactItemClassName)}>{contact.phone}</li>
+                  )}
+                  {contact.email && (
+                    <li className={cn("text-muted-foreground", contactItemClassName)}>{contact.email}</li>
+                  )}
+                  {(contact.location || contact.timezone) && (
+                    <li className={cn("text-muted-foreground", contactItemClassName)}>
+                      {contact.location}{contact.location && contact.timezone && " • "}{contact.timezone}
+                    </li>
+                  )}
+                </ul>
+              )}
+            </div>
+          )}
         </div>
 
         <div className={cn("mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row", bottomClassName)}>
           <div className={cn("flex flex-col gap-2 text-sm text-muted-foreground md:flex-row md:items-center md:gap-4", copyrightClassName)}>
             <p>{copyrightText}</p>
-            <Pressable
-              href={attributionHref}
-              className="hover:text-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {attributionText}
-            </Pressable>
-          </div>
-          <div className={cn("flex gap-4", bottomLinksClassName)}>
-            {bottomLinks?.map((link, idx) => (
+            {attributionText && (
               <Pressable
-                key={idx}
-                href={link.url}
-                className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                href={attributionHref || "https://opensite.ai"}
+                className="hover:text-primary"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {link.text}
+                {attributionText}
               </Pressable>
-            ))}
+            )}
           </div>
+          {bottomLinks && bottomLinks.length > 0 && (
+            <div className={cn("flex gap-4", bottomLinksClassName)}>
+              {bottomLinks.map((link, idx) => (
+                <Pressable
+                  key={idx}
+                  href={link.url}
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {link.text}
+                </Pressable>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </Section>

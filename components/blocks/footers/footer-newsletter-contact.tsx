@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -14,7 +15,9 @@ import {
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
 import { Separator } from "../../ui/separator";
-import { logoPlaceholders } from "../../../lib/mediaPlaceholders";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface FooterNewsletterContactLink {
   /**
@@ -117,6 +120,14 @@ export interface FooterNewsletterContactProps {
    * Additional CSS classes
    */
   className?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern name */
+  pattern?: PatternName;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
   /**
    * Optional Optix Flow configuration for image optimization
    */
@@ -167,24 +178,91 @@ export interface FooterNewsletterContactProps {
 export function FooterNewsletterContact({
   newsletterTitle,
   newsletterDescription,
-  newsletterPlaceholder = "Email Address",
+  newsletterPlaceholder,
   newsletterButtonText,
   footerLinks,
   contactDetails,
   socialLinks,
-  logo = {
-    light: logoPlaceholders.darkHorizontalLogo,
-    dark: logoPlaceholders.lightHorizontalLogo,
-    url: "/",
-  },
+  logo,
   copyright,
   className,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
   optixFlowConfig,
   formConfig,
   onSubmit,
   onSuccess,
   onError,
 }: FooterNewsletterContactProps) {
+  const linkSectionsContent = useMemo(() => {
+    if (!footerLinks || footerLinks.length === 0) return null;
+
+    return footerLinks.map((section, idx) => (
+      <div key={idx}>
+        <h2 className="mb-6 text-sm font-medium uppercase leading-tight text-muted-foreground">
+          {section.title}
+        </h2>
+        <ul className="space-y-3">
+          {section.items.map((item, itemIdx) => (
+            <li key={itemIdx}>
+              <Pressable
+                href={item.link}
+                className="underline-offset-4 hover:underline"
+              >
+                {item.text}
+              </Pressable>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
+  }, [footerLinks]);
+
+  const contactDetailsContent = useMemo(() => {
+    if (!contactDetails || contactDetails.length === 0) return null;
+
+    return contactDetails.map((item, idx) => (
+      <li key={idx} className="flex items-center gap-3">
+        <DynamicIcon name={item.icon} size={16} className="shrink-0" />
+        <div className="flex-1">
+          {item.type === "none" ? (
+            <p>{item.text}</p>
+          ) : (
+            <Pressable
+              href={
+                item.type === "email"
+                  ? `mailto:${item.link}`
+                  : `tel:${item.link}`
+              }
+              className="underline-offset-4 hover:underline"
+            >
+              {item.text}
+            </Pressable>
+          )}
+        </div>
+      </li>
+    ));
+  }, [contactDetails]);
+
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((social, idx) => (
+      <li key={idx}>
+        <Pressable
+          href={social.link}
+          variant="outline"
+          size="icon"
+          asButton
+          aria-label={social.label}
+        >
+          <DynamicIcon name={social.icon} size={20} />
+        </Pressable>
+      </li>
+    ));
+  }, [socialLinks]);
   const form = useForm<{ email: string }>({
     initialValues: {
       email: "",
@@ -237,14 +315,25 @@ export function FooterNewsletterContact({
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
   return (
-    <section className={cn("pb-8 pt-8 xl:pt-12", className)}>
-      <div className="container space-y-10">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className="space-y-10">
         <div className="grid grid-cols-1 gap-x-16 gap-y-8 md:grid-cols-2 xl:grid-cols-4">
-          <div className="space-y-6">
-            <h3 className="text-3xl font-medium font-serif leading-none">
-              {newsletterTitle}
-            </h3>
-            <p className="font-light leading-normal">{newsletterDescription}</p>
+          {(newsletterTitle || newsletterDescription || newsletterButtonText) && (
+            <div className="space-y-6">
+              {newsletterTitle && (
+                <h3 className="text-3xl font-medium font-serif leading-none">
+                  {newsletterTitle}
+                </h3>
+              )}
+              {newsletterDescription && (
+                <p className="font-light leading-normal">{newsletterDescription}</p>
+              )}
             <Form
               form={form}
               action={formConfig?.endpoint}
@@ -275,115 +364,75 @@ export function FooterNewsletterContact({
               </Pressable>
             </Form>
           </div>
+          )}
 
-          {footerLinks.map((section, idx) => (
-            <div key={idx}>
+          {linkSectionsContent}
+
+          {(contactDetailsContent || socialLinksContent) && (
+            <div>
               <h2 className="mb-6 text-sm font-medium uppercase leading-tight text-muted-foreground">
-                {section.title}
+                Contact
               </h2>
-              <ul className="space-y-3">
-                {section.items.map((item, itemIdx) => (
-                  <li key={itemIdx}>
-                    <Pressable
-                      href={item.link}
-                      className="underline-offset-4 hover:underline"
-                    >
-                      {item.text}
-                    </Pressable>
-                  </li>
-                ))}
-              </ul>
+              <div className="space-y-6">
+                {contactDetailsContent && (
+                  <ul className="space-y-3">
+                    {contactDetailsContent}
+                  </ul>
+                )}
+                {socialLinksContent && (
+                  <ul className="flex flex-wrap gap-3">
+                    {socialLinksContent}
+                  </ul>
+                )}
+              </div>
             </div>
-          ))}
+          )}
+        </div>
 
+        {logo && (
           <div>
-            <h2 className="mb-6 text-sm font-medium uppercase leading-tight text-muted-foreground">
-              Contact
-            </h2>
-            <div className="space-y-6">
-              <ul className="space-y-3">
-                {contactDetails.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-3">
-                    <DynamicIcon name={item.icon} size={16} className="shrink-0" />
-                    <div className="flex-1">
-                      {item.type === "none" ? (
-                        <p>{item.text}</p>
-                      ) : (
-                        <Pressable
-                          href={
-                            item.type === "email"
-                              ? `mailto:${item.link}`
-                              : `tel:${item.link}`
-                          }
-                          className="underline-offset-4 hover:underline"
-                        >
-                          {item.text}
-                        </Pressable>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <ul className="flex flex-wrap gap-3">
-                {socialLinks.map((social, idx) => (
-                  <li key={idx}>
-                    <Pressable
-                      href={social.link}
-                      variant="outline"
-                      size="icon"
-                      asButton
-                      aria-label={social.label}
-                    >
-                      <DynamicIcon name={social.icon} size={20} />
-                    </Pressable>
-                  </li>
-                ))}
-              </ul>
+            <div className="flex items-center justify-between gap-4 md:gap-12">
+              <Separator className="flex-1" />
+              <div className="basis-30 md:basis-40">
+                <Pressable href={logo.url}>
+                  {logo.light && (
+                    <Img
+                      src={logo.light}
+                      alt="Logo"
+                      className="block dark:hidden"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                  {logo.dark && (
+                    <Img
+                      src={logo.dark}
+                      alt="Logo"
+                      className="hidden dark:block"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                </Pressable>
+              </div>
+              <Separator className="flex-1" />
             </div>
           </div>
-        </div>
+        )}
 
-        <div>
-          <div className="flex items-center justify-between gap-4 md:gap-12">
-            <Separator className="flex-1" />
-            <div className="basis-30 md:basis-40">
-              <Pressable href={logo.url}>
-                <Img
-                  src={logo.light}
-                  alt="Logo"
-                  className="block dark:hidden"
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <Img
-                  src={logo.dark}
-                  alt="Logo"
-                  className="hidden dark:block"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </Pressable>
-            </div>
-            <Separator className="flex-1" />
+        {copyright && (
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <p className="text-muted-foreground max-md:text-xs">{copyright}</p>
+            <Pressable
+              href="#top"
+              variant="outline"
+              size="icon"
+              asButton
+              aria-label="Back to top"
+            >
+              <DynamicIcon name="lucide/chevron-up" size={16} />
+            </Pressable>
           </div>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <p className="text-muted-foreground max-md:text-xs">{copyright}</p>
-          <Separator
-            orientation="vertical"
-            className="h-4 bg-foreground/60 max-sm:hidden"
-          />
-          <p className="max-md:text-xs">Powered by Opensite AI</p>
-          <Pressable
-            href="#top"
-            variant="outline"
-            size="icon"
-            asButton
-            aria-label="Back to top"
-          >
-            <DynamicIcon name="lucide/chevron-up" size={16} />
-          </Pressable>
-        </div>
+        )}
       </div>
-    </section>
+    </Section>
   );
 }

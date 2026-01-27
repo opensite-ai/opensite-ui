@@ -1,10 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
+import { Section } from "../../ui/section";
+import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * Social link configuration
@@ -66,6 +70,14 @@ export interface FooterSocialAppsProps {
   appLabel?: string;
   /** Copyright text */
   copyright?: string;
+  /** Section background variant */
+  background?: SectionBackground;
+  /** Section spacing variant */
+  spacing?: SectionSpacing;
+  /** Optional background pattern */
+  pattern?: PatternName;
+  /** Pattern opacity (0-1) */
+  patternOpacity?: number;
   /** Optional Optix Flow configuration for @page-speed/img */
   optixFlowConfig?: {
     apiKey: string;
@@ -81,12 +93,7 @@ export interface FooterSocialAppsProps {
  * platforms, and businesses that want to highlight their cross-platform presence.
  */
 export function FooterSocialApps({
-  logo = {
-    url: "https://opensite.ai",
-    src: "https://cdn.ing/assets/i/r/285975/eud79qeya11q5w6ueyhklueardyx/os-suircle-black-white.png",
-    alt: "Opensite AI",
-    title: "Opensite AI",
-  },
+  logo,
   className,
   sections,
   socialLinks,
@@ -94,87 +101,127 @@ export function FooterSocialApps({
   socialLabel,
   appLabel,
   copyright,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: FooterSocialAppsProps): React.JSX.Element {
+  const sectionsContent = useMemo(() => {
+    if (!sections || sections.length === 0) return null;
+
+    return sections.map((section, sectionIdx) => (
+      <div key={sectionIdx}>
+        <h3 className="mb-4 font-bold">{section.title}</h3>
+        <ul className="space-y-4 text-muted-foreground">
+          {section.links.map((link, linkIdx) => (
+            <li
+              key={linkIdx}
+              className="font-medium hover:text-primary"
+            >
+              <Pressable href={link.href}>{link.name}</Pressable>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
+  }, [sections]);
+
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((social, idx) => (
+      <li key={idx} className="font-medium">
+        <Pressable href={social.href} aria-label={social.label}>
+          <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
+            <DynamicIcon name={social.icon} size={24} />
+          </span>
+        </Pressable>
+      </li>
+    ));
+  }, [socialLinks]);
+
+  const appLinksContent = useMemo(() => {
+    if (!appLinks || appLinks.length === 0) return null;
+
+    return appLinks.map((app, idx) => (
+      <li key={idx} className="font-medium">
+        <Pressable href={app.href} aria-label={app.label}>
+          <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
+            <DynamicIcon name={app.icon} size={24} />
+          </span>
+        </Pressable>
+      </li>
+    ));
+  }, [appLinks]);
+
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div>
         <footer>
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-20">
-            <div className="flex flex-col gap-6">
-              <Pressable href={logo.url} className="flex items-center gap-2">
-                <Img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="h-10"
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <span className="text-xl font-semibold">{logo.title}</span>
-              </Pressable>
-            </div>
-            <div className="grid flex-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
-              {sections?.map((section, sectionIdx) => (
-                <div key={sectionIdx}>
-                  <h3 className="mb-4 font-bold">{section.title}</h3>
-                  <ul className="space-y-4 text-muted-foreground">
-                    {section.links.map((link, linkIdx) => (
-                      <li
-                        key={linkIdx}
-                        className="font-medium hover:text-primary"
-                      >
-                        <Pressable href={link.href}>{link.name}</Pressable>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-col gap-6">
-              <div>
-                <p className="mb-3 font-bold">{socialLabel}</p>
-                <ul className="flex items-center gap-2 text-muted-foreground">
-                  {socialLinks?.map((social, idx) => (
-                    <li key={idx} className="font-medium">
-                      <Pressable href={social.href} aria-label={social.label}>
-                        <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
-                          <DynamicIcon name={social.icon} size={24} />
-                        </span>
-                      </Pressable>
-                    </li>
-                  ))}
-                </ul>
+            {logo && (
+              <div className="flex flex-col gap-6">
+                <Pressable href={logo.url} className="flex items-center gap-2">
+                  {logo.src && (
+                    <Img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="h-10"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                  {logo.title && (
+                    <span className="text-xl font-semibold">{logo.title}</span>
+                  )}
+                </Pressable>
               </div>
-              <div>
-                <p className="mb-3 font-bold">{appLabel}</p>
-                <ul className="flex items-center gap-2 text-muted-foreground">
-                  {appLinks?.map((app, idx) => (
-                    <li key={idx} className="font-medium">
-                      <Pressable href={app.href} aria-label={app.label}>
-                        <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors hover:text-primary">
-                          <DynamicIcon name={app.icon} size={24} />
-                        </span>
-                      </Pressable>
-                    </li>
-                  ))}
-                </ul>
+            )}
+            {sections && sections.length > 0 && (
+              <div className="grid flex-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+                {sectionsContent}
+              </div>
+            )}
+            {((socialLinks && socialLinks.length > 0) || (appLinks && appLinks.length > 0)) && (
+              <div className="flex flex-col gap-6">
+                {socialLinks && socialLinks.length > 0 && (
+                  <div>
+                    {socialLabel && (
+                      <p className="mb-3 font-bold">{socialLabel}</p>
+                    )}
+                    <ul className="flex items-center gap-2 text-muted-foreground">
+                      {socialLinksContent}
+                    </ul>
+                  </div>
+                )}
+                {appLinks && appLinks.length > 0 && (
+                  <div>
+                    {appLabel && (
+                      <p className="mb-3 font-bold">{appLabel}</p>
+                    )}
+                    <ul className="flex items-center gap-2 text-muted-foreground">
+                      {appLinksContent}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          {copyright && (
+            <div className="mt-24 border-t pt-8">
+              <div className="flex flex-col justify-between gap-4 text-center text-sm font-medium text-muted-foreground md:flex-row md:text-left">
+                <p>{copyright}</p>
               </div>
             </div>
-          </div>
-          <div className="mt-24 border-t pt-8">
-            <div className="flex flex-col justify-between gap-4 text-center text-sm font-medium text-muted-foreground md:flex-row md:text-left">
-              <p>{copyright}</p>
-              <Pressable
-                href="https://opensite.ai"
-                className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                AI Website and Automation Platform by Opensite
-              </Pressable>
-            </div>
-          </div>
+          )}
         </footer>
       </div>
-    </section>
+    </Section>
   );
 }

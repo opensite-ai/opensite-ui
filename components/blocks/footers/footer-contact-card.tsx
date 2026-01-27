@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -134,12 +134,7 @@ export interface FooterContactCardProps {
  * that want to emphasize contact information and make it easy for visitors to get in touch.
  */
 export function FooterContactCard({
-  logo = {
-    url: "https://opensite.ai",
-    src: "https://cdn.ing/assets/i/r/285975/eud79qeya11q5w6ueyhklueardyx/os-suircle-black-white.png",
-    alt: "Opensite AI",
-    title: "Opensite AI",
-  },
+  logo,
   heading,
   email,
   phone,
@@ -151,7 +146,7 @@ export function FooterContactCard({
   locationLabel,
   copyright,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   className,
   contentClassName,
   gridClassName,
@@ -171,13 +166,13 @@ export function FooterContactCard({
   bottomClassName,
   copyrightClassName,
   locationClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: FooterContactCardProps): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
   const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
 
   return (
@@ -193,74 +188,92 @@ export function FooterContactCard({
           <div className={cn("grid gap-12 lg:grid-cols-2", gridClassName)}>
             {/* Left Column - Heading and Contact */}
             <div className={cn(leftColumnClassName)}>
-              <Pressable
-                href={logo.url}
-                className={cn("mb-8 flex items-center gap-2", logoWrapperClassName)}
-              >
-                <Img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className={cn("h-10", logoClassName)}
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
-              </Pressable>
-              <h2 className={cn("mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
-                {heading}
-              </h2>
-              <div className={cn("space-y-4 text-muted-foreground", contactClassName)}>
-                <p>
-                  <Pressable
-                    href={`mailto:${email}`}
-                    className="hover:text-primary"
-                  >
-                    {email}
-                  </Pressable>
-                </p>
-                <p>
-                  <Pressable
-                    href={`tel:${phone}`}
-                    className="hover:text-primary"
-                  >
-                    {phone}
-                  </Pressable>
-                </p>
-                <p>{address}</p>
-              </div>
+              {logo && (
+                <Pressable
+                  href={logo.url}
+                  className={cn("mb-8 flex items-center gap-2", logoWrapperClassName)}
+                >
+                  <Img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className={cn("h-10", logoClassName)}
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                  <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
+                </Pressable>
+              )}
+              {heading && (
+                <h2 className={cn("mb-8 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+                  {heading}
+                </h2>
+              )}
+              {(email || phone || address) && (
+                <div className={cn("space-y-4 text-muted-foreground", contactClassName)}>
+                  {email && (
+                    <p>
+                      <Pressable
+                        href={`mailto:${email}`}
+                        className="hover:text-primary"
+                      >
+                        {email}
+                      </Pressable>
+                    </p>
+                  )}
+                  {phone && (
+                    <p>
+                      <Pressable
+                        href={`tel:${phone}`}
+                        className="hover:text-primary"
+                      >
+                        {phone}
+                      </Pressable>
+                    </p>
+                  )}
+                  {address && <p>{address}</p>}
+                </div>
+              )}
             </div>
 
             {/* Right Column - Social and Navigation */}
             <div className={cn("flex flex-col justify-between", rightColumnClassName)}>
-              <div className={cn(socialSectionClassName)}>
-                <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
-                <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
-                  {socialLinks?.map((social, idx) => (
+              {(socialTitle || (socialLinks && socialLinks.length > 0)) && (
+                <div className={cn(socialSectionClassName)}>
+                  {socialTitle && (
+                    <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
+                  )}
+                  {socialLinks && socialLinks.length > 0 && (
+                    <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
+                      {socialLinks.map((social, idx) => (
                     <li key={idx}>
-                      <Pressable
-                        href={social.href}
-                        aria-label={social.label}
-                        className={cn("flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground", socialLinkClassName)}
-                      >
-                        <DynamicIcon name={social.icon} size={20} />
-                      </Pressable>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <nav className={cn("mt-8", navClassName)}>
-                <ul className="flex flex-wrap gap-6">
-                  {navLinks?.map((link, idx) => (
-                    <li key={idx}>
-                      <Pressable
-                        href={link.href}
-                        className={cn("text-muted-foreground hover:text-primary", navLinkClassName)}
-                      >
-                        {link.name}
-                      </Pressable>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+                        <Pressable
+                          href={social.href}
+                          aria-label={social.label}
+                          className={cn("flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground", socialLinkClassName)}
+                        >
+                          <DynamicIcon name={social.icon} size={20} />
+                        </Pressable>
+                      </li>
+                    ))}
+                    </ul>
+                  )}
+                </div>
+              )}
+              {navLinks && navLinks.length > 0 && (
+                <nav className={cn("mt-8", navClassName)}>
+                  <ul className="flex flex-wrap gap-6">
+                    {navLinks.map((link, idx) => (
+                      <li key={idx}>
+                        <Pressable
+                          href={link.href}
+                          className={cn("text-muted-foreground hover:text-primary", navLinkClassName)}
+                        >
+                          {link.name}
+                        </Pressable>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
             </div>
           </div>
 
@@ -268,18 +281,22 @@ export function FooterContactCard({
           <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
             <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
               <p>{copyrightText}</p>
-              <Pressable
-                href={attributionHref}
-                className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
+              {attributionText && (
+                <Pressable
+                  href={attributionHref || "https://opensite.ai"}
+                  className="hover:text-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {attributionText}
+                </Pressable>
+              )}
             </div>
-            <p className={cn(locationClassName)}>
-              {locationLabel} <strong>{location}</strong>
-            </p>
+            {(locationLabel || location) && (
+              <p className={cn(locationClassName)}>
+                {locationLabel} {location && <strong>{location}</strong>}
+              </p>
+            )}
           </div>
         </footer>
       </div>

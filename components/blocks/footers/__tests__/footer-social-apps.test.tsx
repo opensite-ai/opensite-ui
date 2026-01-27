@@ -20,18 +20,22 @@ describe("FooterSocialApps", () => {
   });
 
   it("renders with provided props", () => {
-    render(<FooterSocialApps socialLabel="Test Social Label" appLabel="Test App Label" />);
+    const socialLinks = [{ icon: "simple-icons/twitter", href: "/twitter", label: "Twitter" }];
+    const appLinks = [{ icon: "simple-icons/android", href: "/android", label: "Android" }];
+    render(<FooterSocialApps socialLabel="Test Social Label" appLabel="Test App Label" socialLinks={socialLinks} appLinks={appLinks} />);
     expect(screen.getByText("Test Social Label")).toBeInTheDocument();
     expect(screen.getByText("Test App Label")).toBeInTheDocument();
   });
 
   it("renders custom social label", () => {
-    render(<FooterSocialApps socialLabel="Connect With Us" />);
+    const socialLinks = [{ icon: "simple-icons/twitter", href: "/twitter", label: "Twitter" }];
+    render(<FooterSocialApps socialLabel="Connect With Us" socialLinks={socialLinks} />);
     expect(screen.getByText("Connect With Us")).toBeInTheDocument();
   });
 
   it("renders custom app label", () => {
-    render(<FooterSocialApps appLabel="Download App" />);
+    const appLinks = [{ icon: "simple-icons/android", href: "/android", label: "Android" }];
+    render(<FooterSocialApps appLabel="Download App" appLinks={appLinks} />);
     expect(screen.getByText("Download App")).toBeInTheDocument();
   });
 

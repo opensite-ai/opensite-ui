@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { motion } from "framer-motion";
@@ -192,11 +193,11 @@ export function FooterNewsletterMinimal({
   socialLinks,
   footerLinks,
   newsletterLabel,
-  newsletterPlaceholder = "Email*",
+  newsletterPlaceholder,
   brandText,
   copyright,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   location,
   className,
   contentClassName,
@@ -219,8 +220,8 @@ export function FooterNewsletterMinimal({
   brandSectionClassName,
   brandTextClassName,
   copyrightClassName,
-  background = "dark",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   formConfig,
@@ -228,6 +229,57 @@ export function FooterNewsletterMinimal({
   onSuccess,
   onError,
 }: FooterNewsletterMinimalProps): React.JSX.Element {
+  const navLinksContent = useMemo(() => {
+    if (!navLinks || navLinks.length === 0) return null;
+
+    return navLinks.map((item, idx) => (
+      <li key={idx}>
+        <Pressable
+          href={item.href}
+          className={cn("tracking-tight text-foreground hover:text-foreground/30", navLinkClassName)}
+        >
+          {item.label}
+        </Pressable>
+      </li>
+    ));
+  }, [navLinks, navLinkClassName]);
+
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((item) => (
+      <li key={item.label}>
+        <Pressable
+          href={item.href}
+          className={cn("group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30", socialLinkClassName)}
+        >
+          {item.label}{" "}
+          <DynamicIcon
+            name="lucide/arrow-up-right"
+            size={14}
+            className="text-foreground group-hover:text-muted-foreground/50"
+          />
+        </Pressable>
+      </li>
+    ));
+  }, [socialLinks, socialLinkClassName]);
+
+  const footerLinksContent = useMemo(() => {
+    if (!footerLinks || footerLinks.length === 0) return null;
+
+    return footerLinks.map((item) => (
+      <li key={item.label}>
+        <Pressable
+          href={item.href}
+          className={cn("group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30", footerLinkClassName)}
+        >
+          {item.label}
+        </Pressable>
+      </li>
+    ));
+  }, [footerLinks, footerLinkClassName]);
+
+
   const form = useForm<{ email: string }>({
     initialValues: {
       email: "",
@@ -278,8 +330,6 @@ export function FooterNewsletterMinimal({
 
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
-  const currentYear = new Date().getFullYear();
-  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
 
   return (
     <Section
@@ -292,52 +342,35 @@ export function FooterNewsletterMinimal({
       <div className={cn(contentClassName)}>
         <div className={cn("flex flex-col justify-between gap-15 lg:flex-row", topSectionClassName)}>
           <div className="flex flex-col gap-10">
-            <p className={cn("relative text-4xl font-medium tracking-tight lg:text-5xl", headingClassName)}>
-              {heading}
-            </p>
-            <div className={cn("space-y-1 text-sm font-light tracking-tight lg:text-base", supportClassName)}>
-              <p>{supportLabel}</p>
-              <Pressable href={`mailto:${supportEmail}`}>
-                {supportEmail}
-              </Pressable>
-            </div>
+            {heading && (
+              <p className={cn("relative text-4xl font-medium tracking-tight lg:text-5xl", headingClassName)}>
+                {heading}
+              </p>
+            )}
+            {(supportLabel || supportEmail) && (
+              <div className={cn("space-y-1 text-sm font-light tracking-tight lg:text-base", supportClassName)}>
+                {supportLabel && <p>{supportLabel}</p>}
+                {supportEmail && (
+                  <Pressable href={`mailto:${supportEmail}`}>
+                    {supportEmail}
+                  </Pressable>
+                )}
+              </div>
+            )}
           </div>
           <div className={cn("grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base", navGridClassName)}>
             <ul className={cn("space-y-1", navLinksClassName)}>
-              {navLinks?.map((item, idx) => (
-                <li key={idx}>
-                  <Pressable
-                    href={item.href}
-                    className={cn("tracking-tight text-foreground hover:text-foreground/30", navLinkClassName)}
-                  >
-                    {item.label}
-                  </Pressable>
-                </li>
-              ))}
+              {navLinksContent}
             </ul>
             <ul className={cn("space-y-1", socialLinksClassName)}>
-              {socialLinks?.map((item) => (
-                <li key={item.label}>
-                  <Pressable
-                    href={item.href}
-                    className={cn("group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30", socialLinkClassName)}
-                  >
-                    {item.label}{" "}
-                    <DynamicIcon
-                      name="lucide/arrow-up-right"
-                      size={14}
-                      className="text-foreground group-hover:text-muted-foreground/50"
-                    />
-                  </Pressable>
-                </li>
-              ))}
+              {socialLinksContent}
             </ul>
           </div>
         </div>
         <div className={cn("mt-20 flex flex-col justify-between gap-15 lg:flex-row", newsletterSectionClassName)}>
           <div className="flex w-full max-w-md flex-col gap-10">
             <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
-              <p>{newsletterLabel}</p>
+              {newsletterLabel && <p>{newsletterLabel}</p>}
               <Form
                 form={form}
                 action={formConfig?.endpoint}
@@ -369,45 +402,44 @@ export function FooterNewsletterMinimal({
             </div>
           </div>
           <div className={cn("grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base", bottomGridClassName)}>
-            <div className={cn("w-32", locationClassName)}>{location}</div>
+            {location && (
+              <div className={cn("w-32", locationClassName)}>{location}</div>
+            )}
             <ul className={cn("space-y-1", footerLinksClassName)}>
-              {footerLinks?.map((item) => (
-                <li key={item.label}>
-                  <Pressable
-                    href={item.href}
-                    className={cn("group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30", footerLinkClassName)}
-                  >
-                    {item.label}
-                  </Pressable>
-                </li>
-              ))}
+              {footerLinksContent}
             </ul>
           </div>
         </div>
-        <div className={cn("mt-20 w-full lg:mt-32", brandSectionClassName)}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <span className={cn("text-6xl font-bold tracking-tighter md:text-8xl lg:text-9xl", brandTextClassName)}>
-              {brandText}
-            </span>
-          </motion.div>
-        </div>
-        <div className={cn("mt-8 text-center text-sm text-muted-foreground", copyrightClassName)}>
-          <p>{copyrightText}</p>
-          <Pressable
-            href={attributionHref}
-            className="mt-2 inline-block hover:text-foreground"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {attributionText}
-          </Pressable>
-        </div>
+        {brandText && (
+          <div className={cn("mt-20 w-full lg:mt-32", brandSectionClassName)}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <span className={cn("text-6xl font-bold tracking-tighter md:text-8xl lg:text-9xl", brandTextClassName)}>
+                {brandText}
+              </span>
+            </motion.div>
+          </div>
+        )}
+        {(copyright || attributionText) && (
+          <div className={cn("mt-8 text-center text-sm text-muted-foreground", copyrightClassName)}>
+            {copyright && <p>{copyright}</p>}
+            {attributionText && attributionHref && (
+              <Pressable
+                href={attributionHref}
+                className="mt-2 inline-block hover:text-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {attributionText}
+              </Pressable>
+            )}
+          </div>
+        )}
       </div>
     </Section>
   );

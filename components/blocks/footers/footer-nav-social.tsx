@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -155,22 +156,17 @@ export interface FooterNavSocialProps {
  * organized in a clean, professional layout.
  */
 export function FooterNavSocial({
-  logo = {
-    url: "https://opensite.ai",
-    src: "https://cdn.ing/assets/i/r/285975/eud79qeya11q5w6ueyhklueardyx/os-suircle-black-white.png",
-    alt: "Opensite AI",
-    title: "Opensite AI",
-  },
+  logo,
   sections,
   socialLinks,
   newsletterHeading,
   newsletterDescription,
-  newsletterPlaceholder = "Enter your email",
+  newsletterPlaceholder,
   newsletterButtonText,
   socialTitle,
   copyright,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   legalLinks,
   className,
   contentClassName,
@@ -197,14 +193,61 @@ export function FooterNavSocial({
   copyrightClassName,
   legalLinksClassName,
   legalLinkClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: FooterNavSocialProps): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
-  const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
+  const sectionsContent = useMemo(() => {
+    if (!sections || sections.length === 0) return null;
+
+    return sections.map((section, sectionIdx) => (
+      <div key={sectionIdx} className={cn(navSectionClassName)}>
+        <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>{section.title}</h3>
+        <ul className={cn("space-y-3 text-sm text-muted-foreground", navLinksClassName)}>
+          {section.links.map((link, linkIdx) => (
+            <li key={linkIdx} className={cn(navLinkClassName)}>
+              <Pressable
+                href={link.href}
+                className="hover:text-primary"
+              >
+                {link.name}
+              </Pressable>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
+  }, [sections, navSectionClassName, navTitleClassName, navLinksClassName, navLinkClassName]);
+
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((social, idx) => (
+      <li key={idx}>
+        <Pressable
+          href={social.href}
+          aria-label={social.label}
+          className={cn("text-muted-foreground transition-colors hover:text-primary", socialLinkClassName)}
+        >
+          <DynamicIcon name={social.icon} size={20} />
+        </Pressable>
+      </li>
+    ));
+  }, [socialLinks, socialLinkClassName]);
+
+  const legalLinksContent = useMemo(() => {
+    if (!legalLinks || legalLinks.length === 0) return null;
+
+    return legalLinks.map((link, idx) => (
+      <li key={idx} className={cn(legalLinkClassName)}>
+        <Pressable href={link.href} className="hover:text-primary">
+          {link.name}
+        </Pressable>
+      </li>
+    ));
+  }, [legalLinks, legalLinkClassName]);
 
   return (
     <Section
@@ -218,101 +261,91 @@ export function FooterNavSocial({
         <footer>
           <div className={cn("grid gap-10 lg:grid-cols-2", gridClassName)}>
             <div className={cn(leftColumnClassName)}>
-              <Pressable
-                href={logo.url}
-                className={cn("mb-8 flex items-center gap-2", logoWrapperClassName)}
-              >
-                <Img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className={cn("h-10", logoClassName)}
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
-              </Pressable>
+              {logo && (
+                <Pressable
+                  href={logo.url}
+                  className={cn("mb-8 flex items-center gap-2", logoWrapperClassName)}
+                >
+                  {logo.src && (
+                    <Img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className={cn("h-10", logoClassName)}
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                  {logo.title && (
+                    <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
+                  )}
+                </Pressable>
+              )}
               <div className={cn("grid gap-8 sm:grid-cols-3", navGridClassName)}>
-                {sections?.map((section, sectionIdx) => (
-                  <div key={sectionIdx} className={cn(navSectionClassName)}>
-                    <h3 className={cn("mb-4 font-semibold", navTitleClassName)}>{section.title}</h3>
-                    <ul className={cn("space-y-3 text-sm text-muted-foreground", navLinksClassName)}>
-                      {section.links.map((link, linkIdx) => (
-                        <li key={linkIdx} className={cn(navLinkClassName)}>
-                          <Pressable
-                            href={link.href}
-                            className="hover:text-primary"
-                          >
-                            {link.name}
-                          </Pressable>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                {sectionsContent}
               </div>
             </div>
 
             <div className={cn("flex flex-col justify-between", rightColumnClassName)}>
-              <div className={cn("mb-8", newsletterClassName)}>
-                <h3 className={cn("mb-2 text-lg font-semibold", newsletterHeadingClassName)}>
-                  {newsletterHeading}
-                </h3>
-                <p className={cn("mb-4 text-sm text-muted-foreground", newsletterDescriptionClassName)}>
-                  {newsletterDescription}
-                </p>
-                <div className={cn("flex max-w-md gap-2", newsletterFormClassName)}>
-                  <input
-                    type="email"
-                    placeholder={newsletterPlaceholder}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                  >
-                    {newsletterButtonText}
-                  </button>
-                </div>
-              </div>
-              <div className={cn(socialSectionClassName)}>
-                <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
-                <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
-                  {socialLinks?.map((social, idx) => (
-                    <li key={idx}>
-                      <Pressable
-                        href={social.href}
-                        aria-label={social.label}
-                        className={cn("text-muted-foreground transition-colors hover:text-primary", socialLinkClassName)}
+              {(newsletterHeading || newsletterDescription) && (
+                <div className={cn("mb-8", newsletterClassName)}>
+                  {newsletterHeading && (
+                    <h3 className={cn("mb-2 text-lg font-semibold", newsletterHeadingClassName)}>
+                      {newsletterHeading}
+                    </h3>
+                  )}
+                  {newsletterDescription && (
+                    <p className={cn("mb-4 text-sm text-muted-foreground", newsletterDescriptionClassName)}>
+                      {newsletterDescription}
+                    </p>
+                  )}
+                  <div className={cn("flex max-w-md gap-2", newsletterFormClassName)}>
+                    <input
+                      type="email"
+                      placeholder={newsletterPlaceholder}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    />
+                    {newsletterButtonText && (
+                      <button
+                        type="submit"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
                       >
-                        <DynamicIcon name={social.icon} size={20} />
-                      </Pressable>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                        {newsletterButtonText}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+              {(socialTitle || socialLinksContent) && (
+                <div className={cn(socialSectionClassName)}>
+                  {socialTitle && (
+                    <p className={cn("mb-4 font-medium", socialTitleClassName)}>{socialTitle}</p>
+                  )}
+                  <ul className={cn("flex items-center gap-4", socialLinksClassName)}>
+                    {socialLinksContent}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
 
           <div className={cn("mt-16 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-center", bottomClassName)}>
             <div className={cn("flex flex-col gap-2 md:flex-row md:items-center md:gap-4", copyrightClassName)}>
-              <p>{copyrightText}</p>
-              <Pressable
-                href={attributionHref}
-                className="hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {attributionText}
-              </Pressable>
+              {copyright && <p>{copyright}</p>}
+              {attributionText && attributionHref && (
+                <Pressable
+                  href={attributionHref}
+                  className="hover:text-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {attributionText}
+                </Pressable>
+              )}
             </div>
-            <ul className={cn("flex gap-4", legalLinksClassName)}>
-              {legalLinks?.map((link, idx) => (
-                <li key={idx} className={cn(legalLinkClassName)}>
-                  <Pressable href={link.href} className="hover:text-primary">
-                    {link.name}
-                  </Pressable>
-                </li>
-              ))}
-            </ul>
+            {legalLinksContent && (
+              <ul className={cn("flex gap-4", legalLinksClassName)}>
+                {legalLinksContent}
+              </ul>
+            )}
           </div>
         </footer>
       </div>

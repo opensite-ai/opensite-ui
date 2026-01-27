@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -297,31 +298,19 @@ export interface FooterInfoCardsAccordionProps {
 export function FooterInfoCardsAccordion({
   newsletterTitle,
   newsletterDescription,
-  emailPlaceholder = "Email Address",
+  emailPlaceholder,
   subscribeText,
   termsText,
   termsLinkText,
-  termsLinkUrl = "#",
+  termsLinkUrl,
   privacyLinkText,
-  privacyLinkUrl = "#",
+  privacyLinkUrl,
   infoItems,
   footerLinks,
   socialLinks,
-  paymentMethods = [],
+  paymentMethods,
   submenuLinks,
-  footerDetails = {
-    image: {
-      src: imagePlaceholders[0],
-      alt: "Footer hero image",
-    },
-    logo: {
-      light: logoPlaceholders.darkHorizontalLogo,
-      dark: logoPlaceholders.lightHorizontalLogo,
-    },
-    logoUrl: "/",
-    description:
-      "We design products that empower people to express their individuality through thoughtful details and beautifully crafted essentials.",
-  },
+  footerDetails,
   copyright,
   className,
   contentClassName,
@@ -344,8 +333,8 @@ export function FooterInfoCardsAccordion({
   bottomClassName,
   copyrightClassName,
   submenuLinksClassName,
-  background = "white",
-  spacing = "md",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -353,9 +342,7 @@ export function FooterInfoCardsAccordion({
   const [email, setEmail] = React.useState("");
   const [isDesktop, setIsDesktop] = React.useState(false);
 
-  const currentYear = new Date().getFullYear();
-  const copyrightText =
-    copyright ?? `© ${currentYear} Made with love by Opensite AI`;
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   React.useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
@@ -370,7 +357,10 @@ export function FooterInfoCardsAccordion({
     setEmail("");
   };
 
-  const allAccordionIds = footerLinks.map(({ id }) => id);
+  const allAccordionIds = useMemo(
+    () => footerLinks?.map(({ id }) => id) ?? [],
+    [footerLinks]
+  );
 
   return (
     <Section
@@ -381,80 +371,102 @@ export function FooterInfoCardsAccordion({
       className={cn(className)}
     >
       <div className={cn("space-y-10", contentClassName)}>
-        <div
-          className={cn(
-            "grid items-center gap-x-20 gap-y-5 lg:grid-cols-2",
-            newsletterGridClassName,
-          )}
-        >
-          <div className={cn(newsletterImageClassName)}>
-            <AspectRatio ratio={2} className="overflow-hidden rounded-2xl">
-              <Img
-                src={footerDetails.image.src}
-                alt={footerDetails.image.alt}
-                className="block h-full w-full object-cover object-center"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </AspectRatio>
-          </div>
-          <div className={cn("space-y-5", newsletterContentClassName)}>
-            <div className="space-y-3">
-              <h3
-                className={cn(
-                  "text-4xl font-semibold leading-snug",
-                  newsletterTitleClassName,
-                )}
-              >
-                {newsletterTitle}
-              </h3>
-              <p
-                className={cn("leading-normal", newsletterDescriptionClassName)}
-              >
-                {newsletterDescription}
-              </p>
+        {footerDetails?.image?.src && (newsletterTitle || newsletterDescription || subscribeText) && (
+          <div
+            className={cn(
+              "grid items-center gap-x-20 gap-y-5 lg:grid-cols-2",
+              newsletterGridClassName,
+            )}
+          >
+            <div className={cn(newsletterImageClassName)}>
+              <AspectRatio ratio={2} className="overflow-hidden rounded-2xl">
+                <Img
+                  src={footerDetails.image.src}
+                  alt={footerDetails.image.alt || ""}
+                  className="block h-full w-full object-cover object-center"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </AspectRatio>
             </div>
-            <form
-              className={cn("flex items-start gap-4", newsletterFormClassName)}
-              onSubmit={handleSubmit}
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={emailPlaceholder}
-                className="flex h-10 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              />
-              <Pressable onClick={() => {}} variant="default" asButton>
-                {subscribeText}
-              </Pressable>
-            </form>
-            <p className="text-sm text-muted-foreground">
-              {termsText}{" "}
-              <Pressable
-                href={termsLinkUrl}
-                className="underline underline-offset-2"
-              >
-                {termsLinkText}
-              </Pressable>{" "}
-              &{" "}
-              <Pressable
-                href={privacyLinkUrl}
-                className="underline underline-offset-2"
-              >
-                {privacyLinkText}
-              </Pressable>
-              .
-            </p>
+            <div className={cn("space-y-5", newsletterContentClassName)}>
+              {(newsletterTitle || newsletterDescription) && (
+                <div className="space-y-3">
+                  {newsletterTitle && (
+                    <h3
+                      className={cn(
+                        "text-4xl font-semibold leading-snug",
+                        newsletterTitleClassName,
+                      )}
+                    >
+                      {newsletterTitle}
+                    </h3>
+                  )}
+                  {newsletterDescription && (
+                    <p
+                      className={cn("leading-normal", newsletterDescriptionClassName)}
+                    >
+                      {newsletterDescription}
+                    </p>
+                  )}
+                </div>
+              )}
+              {subscribeText && (
+                <form
+                  className={cn("flex items-start gap-4", newsletterFormClassName)}
+                  onSubmit={handleSubmit}
+                >
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={emailPlaceholder || "Email Address"}
+                    className="flex h-10 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  />
+                  <Pressable
+                    componentType="button"
+                    type="submit"
+                    variant="default"
+                    asButton
+                  >
+                    {subscribeText}
+                  </Pressable>
+                </form>
+              )}
+              {(termsText || termsLinkText || privacyLinkText) && (
+                <p className="text-sm text-muted-foreground">
+                  {termsText}{" "}
+                  {termsLinkText && (
+                    <Pressable
+                      href={termsLinkUrl || "#"}
+                      className="underline underline-offset-2"
+                    >
+                      {termsLinkText}
+                    </Pressable>
+                  )}{" "}
+                  &{" "}
+                  {privacyLinkText && (
+                    <Pressable
+                      href={privacyLinkUrl || "#"}
+                      className="underline underline-offset-2"
+                    >
+                      {privacyLinkText}
+                    </Pressable>
+                  )}
+                  .
+                </p>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div
-          className={cn(
-            "grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4",
-            infoCardsGridClassName,
-          )}
-        >
-          {infoItems.map((item, idx) => (
+        {infoItems && infoItems.length > 0 && (
+          <div
+            className={cn(
+              "grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4",
+              infoCardsGridClassName,
+            )}
+          >
+            {infoItems.map((item, idx) => (
             <Card
               key={idx}
               className={cn("rounded-lg px-5 py-6", infoCardClassName)}
@@ -483,59 +495,68 @@ export function FooterInfoCardsAccordion({
               </CardContent>
             </Card>
           ))}
-        </div>
+          </div>
+        )}
 
-        <div
-          className={cn(
-            "grid grid-cols-1 gap-8 lg:grid-cols-5 xl:grid-cols-2",
-            brandGridClassName,
-          )}
-        >
+        {(footerDetails?.logo || footerDetails?.description || footerLinks) && (
           <div
             className={cn(
-              "space-y-5 lg:col-span-2 xl:col-span-1",
-              brandColumnClassName,
+              "grid grid-cols-1 gap-8 lg:grid-cols-5 xl:grid-cols-2",
+              brandGridClassName,
             )}
           >
-            <Pressable
-              href={footerDetails.logoUrl}
-              className={cn("inline-block w-full max-w-80", logoClassName)}
-            >
-              <Img
-                src={footerDetails.logo.light}
-                alt="Logo"
-                className="w-full dark:hidden"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <Img
-                src={footerDetails.logo.dark}
-                alt="Logo"
-                className="hidden w-full dark:inline-block"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </Pressable>
-            <p
+            {(footerDetails?.logo || footerDetails?.description) && (
+              <div
+                className={cn(
+                  "space-y-5 lg:col-span-2 xl:col-span-1",
+                  brandColumnClassName,
+                )}
+              >
+                {footerDetails?.logo && (
+                  <Pressable
+                    href={footerDetails.logoUrl || "/"}
+                    className={cn("inline-block w-full max-w-80", logoClassName)}
+                  >
+                    <Img
+                      src={footerDetails.logo.light}
+                      alt="Logo"
+                      className="w-full dark:hidden"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                    <Img
+                      src={footerDetails.logo.dark}
+                      alt="Logo"
+                      className="hidden w-full dark:inline-block"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </Pressable>
+                )}
+                {footerDetails?.description && (
+                  <p
+                    className={cn(
+                      "max-w-md text-sm leading-relaxed text-muted-foreground",
+                      brandDescriptionClassName,
+                    )}
+                  >
+                    {footerDetails.description}
+                  </p>
+                )}
+              </div>
+            )}
+          {footerLinks && footerLinks.length > 0 && (
+            <div
               className={cn(
-                "max-w-md text-sm leading-relaxed text-muted-foreground",
-                brandDescriptionClassName,
+                "lg:col-span-3 xl:col-span-1",
+                accordionColumnClassName,
               )}
             >
-              {footerDetails.description}
-            </p>
-          </div>
-          <div
-            className={cn(
-              "lg:col-span-3 xl:col-span-1",
-              accordionColumnClassName,
-            )}
-          >
-            {isDesktop ? (
-              <Accordion
-                value={allAccordionIds}
-                type="multiple"
-                className="grid grid-cols-3 gap-4"
-              >
-                {footerLinks.map((section) => (
+              {isDesktop ? (
+                <Accordion
+                  value={allAccordionIds}
+                  type="multiple"
+                  className="grid grid-cols-3 gap-4"
+                >
+                  {footerLinks.map((section) => (
                   <AccordionItem
                     key={section.id}
                     value={section.id}
@@ -597,53 +618,59 @@ export function FooterInfoCardsAccordion({
                 ))}
               </Accordion>
             )}
-          </div>
-        </div>
-
-        <div
-          className={cn(
-            "flex flex-wrap justify-between gap-6",
-            paymentSocialRowClassName,
+            </div>
           )}
-        >
-          <div className="space-y-5">
-            {paymentMethods.length > 0 && (
-              <ul
-                className={cn(
-                  "flex flex-wrap items-center gap-3",
-                  paymentMethodsClassName,
-                )}
-              >
-                {paymentMethods.map((method, idx) => (
+          </div>
+        )}
+
+        {((paymentMethods && paymentMethods.length > 0) || (socialLinks && socialLinks.length > 0)) && (
+          <div
+            className={cn(
+              "flex flex-wrap justify-between gap-6",
+              paymentSocialRowClassName,
+            )}
+          >
+            <div className="space-y-5">
+              {paymentMethods && paymentMethods.length > 0 && (
+                <ul
+                  className={cn(
+                    "flex flex-wrap items-center gap-3",
+                    paymentMethodsClassName,
+                  )}
+                >
+                  {paymentMethods.map((method, idx) => (
+                    <li key={idx}>
+                      <Img
+                        src={method}
+                        alt="Payment method"
+                        className="w-10"
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            {socialLinks && socialLinks.length > 0 && (
+              <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
+                {socialLinks.map((social, idx) => (
                   <li key={idx}>
-                    <Img
-                      src={method}
-                      alt="Payment method"
-                      className="w-10"
-                      optixFlowConfig={optixFlowConfig}
-                    />
+                    <Pressable
+                      href={social.link}
+                      variant="default"
+                      size="icon"
+                      asButton
+                      className="rounded-full"
+                      aria-label={social.label}
+                    >
+                      <DynamicIcon name={social.icon} size={20} />
+                    </Pressable>
                   </li>
                 ))}
               </ul>
             )}
           </div>
-          <ul className={cn("flex flex-wrap gap-4", socialLinksClassName)}>
-            {socialLinks.map((social, idx) => (
-              <li key={idx}>
-                <Pressable
-                  href={social.link}
-                  variant="default"
-                  size="icon"
-                  asButton
-                  className="rounded-full"
-                  aria-label={social.label}
-                >
-                  <DynamicIcon name={social.icon} size={20} />
-                </Pressable>
-              </li>
-            ))}
-          </ul>
-        </div>
+        )}
 
         <div
           className={cn(
@@ -651,21 +678,25 @@ export function FooterInfoCardsAccordion({
             bottomClassName,
           )}
         >
-          <p className={cn("text-sm", copyrightClassName)}>{copyrightText}</p>
-          <ul
-            className={cn(
-              "flex flex-wrap gap-x-6 gap-y-4",
-              submenuLinksClassName,
-            )}
-          >
-            {submenuLinks.map((link, idx) => (
-              <li key={idx}>
-                <Pressable href={link.link} className="text-sm font-light">
-                  {link.text}
-                </Pressable>
-              </li>
-            ))}
-          </ul>
+          {copyright && (
+            <p className={cn("text-sm", copyrightClassName)}>{copyright}</p>
+          )}
+          {submenuLinks && submenuLinks.length > 0 && (
+            <ul
+              className={cn(
+                "flex flex-wrap gap-x-6 gap-y-4",
+                submenuLinksClassName,
+              )}
+            >
+              {submenuLinks.map((link, idx) => (
+                <li key={idx}>
+                  <Pressable href={link.link} className="text-sm font-light">
+                    {link.text}
+                  </Pressable>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </Section>

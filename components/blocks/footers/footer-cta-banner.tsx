@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -156,24 +156,19 @@ export interface FooterCtaBannerProps {
  * marketing sites, and businesses that want to drive conversions directly from the footer.
  */
 export function FooterCtaBanner({
-  logo = {
-    url: "https://opensite.ai",
-    src: "https://cdn.ing/assets/i/r/285975/eud79qeya11q5w6ueyhklueardyx/os-suircle-black-white.png",
-    alt: "Opensite AI",
-    title: "Opensite AI",
-  },
+  logo,
   ctaHeading,
   ctaDescription,
   ctaButtonText,
-  ctaButtonUrl = "#",
+  ctaButtonUrl,
   sections,
   socialLinks,
   newsletterLabel,
-  newsletterPlaceholder = "Enter your email",
+  newsletterPlaceholder,
   newsletterButtonText,
   copyright,
   attributionText,
-  attributionHref = "https://opensite.ai",
+  attributionHref,
   legalLinks,
   className,
   contentClassName,
@@ -199,13 +194,13 @@ export function FooterCtaBanner({
   copyrightClassName,
   legalLinksClassName,
   legalLinkClassName,
-  background = "dark",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: FooterCtaBannerProps): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
   const copyrightText = copyright ?? `© ${currentYear} Opensite AI. All rights reserved.`;
 
   return (
@@ -238,18 +233,24 @@ export function FooterCtaBanner({
           <div className={cn("grid gap-10 lg:grid-cols-5", gridClassName)}>
             {/* Brand Section */}
             <div className={cn("lg:col-span-2", brandClassName)}>
-              <Pressable
-                href={logo.url}
-                className={cn("mb-6 flex items-center gap-2", logoWrapperClassName)}
-              >
-                <Img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className={cn("h-8 invert", logoClassName)}
-                  optixFlowConfig={optixFlowConfig}
-                />
-                <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
-              </Pressable>
+              {logo && (
+                <Pressable
+                  href={logo.url}
+                  className={cn("mb-6 flex items-center gap-2", logoWrapperClassName)}
+                >
+                  {logo.src && (
+                    <Img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className={cn("h-8 invert", logoClassName)}
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  )}
+                  {logo.title && (
+                    <span className={cn("text-xl font-semibold", logoTitleClassName)}>{logo.title}</span>
+                  )}
+                </Pressable>
+              )}
               <div className={cn("mb-6", newsletterClassName)}>
                 <p className="mb-2 text-sm font-medium">{newsletterLabel}</p>
                 <div className="flex max-w-sm gap-2">

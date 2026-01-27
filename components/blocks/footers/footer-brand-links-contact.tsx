@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -168,15 +169,77 @@ export function FooterBrandLinksContact({
   bottomBarClassName,
   copyrightClassName,
   legalLinksClassName,
-  background = "dark",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: FooterBrandLinksContactProps): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
-  const copyrightText =
-    copyright ?? `© ${currentYear} OpenSite AI. All rights reserved.`;
+  const linkGroupsContent = useMemo(() => {
+    if (!linkGroups || linkGroups.length === 0) return null;
+
+    return linkGroups.map((group) => (
+      <div key={group.title} className={cn(linkGroupClassName)}>
+        <h3 className={cn("mb-6 text-sm font-semibold uppercase tracking-wider text-foreground", linkGroupTitleClassName)}>
+          {group.title}
+        </h3>
+        <ul className={cn("space-y-3", linkListClassName)}>
+          {group.links.map((link, linkIdx) => (
+            <li key={linkIdx}>
+              <Pressable
+                href={link.href}
+                className={cn("text-sm text-muted-foreground transition-colors hover:text-foreground", linkItemClassName)}
+              >
+                {link.label}
+              </Pressable>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ));
+  }, [linkGroups, linkGroupClassName, linkGroupTitleClassName, linkListClassName, linkItemClassName]);
+
+  const contactItemsContent = useMemo(() => {
+    if (!contactItems || contactItems.length === 0) return null;
+
+    return contactItems.map((item, idx) => (
+      <div key={idx} className={cn("flex items-start gap-4", contactItemClassName)}>
+        <div className="shrink-0">
+          <DynamicIcon name={item.icon} size={20} className="text-primary" />
+        </div>
+        <div className="space-y-1">
+          {item.href ? (
+            <Pressable
+              href={item.href}
+              className="text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
+            >
+              {item.label}
+            </Pressable>
+          ) : (
+            <p className="text-sm font-medium text-foreground">{item.label}</p>
+          )}
+        </div>
+      </div>
+    ));
+  }, [contactItems, contactItemClassName]);
+
+  const socialLinksContent = useMemo(() => {
+    if (!socialLinks || socialLinks.length === 0) return null;
+
+    return socialLinks.map((link) => (
+      <Pressable
+        key={link.label}
+        href={link.href}
+        variant="outline"
+        size="icon"
+        asButton
+        className={cn("rounded-full", socialLinkClassName)}
+        aria-label={link.label}
+      >
+        <DynamicIcon name={link.icon} size={18} />
+      </Pressable>
+    ));
+  }, [socialLinks, socialLinkClassName]);
 
   return (
     <Section
@@ -194,111 +257,63 @@ export function FooterBrandLinksContact({
           )}
         >
           <div className={cn(brandClassName)}>
-            <Img
-              src={logoSrc}
-              alt={logoAlt}
-              className={cn("mb-4 h-10 w-auto", logoClassName)}
-              loading="eager"
-              optixFlowConfig={optixFlowConfig}
-            />
-            <p className={cn("mb-4 text-base text-white/80", taglineClassName)}>
-              {tagline}
-            </p>
-            <p className={cn("text-sm text-white/60", descriptionClassName)}>
-              {description}
-            </p>
+            {logoSrc && (
+              <Img
+                src={logoSrc}
+                alt={logoAlt}
+                className={cn("mb-4 h-10 w-auto", logoClassName)}
+                loading="eager"
+                optixFlowConfig={optixFlowConfig}
+              />
+            )}
+            {tagline && (
+              <p className={cn("mb-4 text-base text-white/80", taglineClassName)}>
+                {tagline}
+              </p>
+            )}
+            {description && (
+              <p className={cn("text-sm text-white/60", descriptionClassName)}>
+                {description}
+              </p>
+            )}
           </div>
 
-          {linkGroups?.map((group) => (
-            <div key={group.title} className={cn(linkGroupClassName)}>
+          {linkGroupsContent}
+
+          <div className={cn(contactColumnClassName)}>
+            {contactTitle && (
               <h3
                 className={cn(
                   "text-lg font-semibold text-white",
                   linkGroupTitleClassName,
                 )}
               >
-                {group.title}
+                {contactTitle}
               </h3>
+            )}
+            {contactItemsContent && (
               <ul
                 className={cn(
-                  "mt-4 space-y-2 text-sm text-white/70",
+                  "mt-4 space-y-3 text-sm text-white/70",
                   linkListClassName,
                 )}
               >
-                {group.links.map((link) => (
-                  <li key={link.href}>
-                    <Pressable
-                      href={link.href}
-                      className={cn(
-                        "transition-colors hover:text-primary",
-                        linkItemClassName,
-                      )}
-                    >
-                      {link.label}
-                    </Pressable>
-                  </li>
-                ))}
+                {contactItemsContent}
               </ul>
-            </div>
-          ))}
+            )}
 
-          <div className={cn(contactColumnClassName)}>
-            <h3
-              className={cn(
-                "text-lg font-semibold text-white",
-                linkGroupTitleClassName,
-              )}
-            >
-              {contactTitle}
-            </h3>
-            <ul
-              className={cn(
-                "mt-4 space-y-3 text-sm text-white/70",
-                linkListClassName,
-              )}
-            >
-              {contactItems?.map((item) => (
-                <li key={item.label}>
-                  <Pressable
-                    href={item.href}
-                    className={cn(
-                      "flex items-start gap-3 transition-colors hover:text-primary",
-                      contactItemClassName,
-                    )}
-                  >
-                    <DynamicIcon
-                      name={item.icon}
-                      size={18}
-                      className="mt-0.5"
-                    />
-                    <span>{item.label}</span>
-                  </Pressable>
-                </li>
-              ))}
-            </ul>
-
-            {(socialLinks?.length ?? 0) > 0 ? (
+            {socialLinks && socialLinks.length > 0 && (
               <div className={cn("mt-8", socialSectionClassName)}>
-                <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
-                  {socialTitle}
-                </h4>
+                {socialTitle && (
+                  <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
+                    {socialTitle}
+                  </h4>
+                )}
                 <div className="mt-3 flex gap-4">
-                  {socialLinks?.map((link) => (
-                    <Pressable
-                      key={link.href}
-                      href={link.href}
-                      aria-label={link.label}
-                      className={cn(
-                        "text-white/70 transition-colors hover:text-primary",
-                        socialLinkClassName,
-                      )}
-                    >
-                      <DynamicIcon name={link.icon} size={20} />
-                    </Pressable>
-                  ))}
+                  {socialLinksContent}
                 </div>
               </div>
-            ) : null}
+            )}
           </div>
         </div>
 
@@ -309,20 +324,22 @@ export function FooterBrandLinksContact({
           )}
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className={cn(copyrightClassName)}>{copyrightText}</p>
+            {copyright && <p className={cn(copyrightClassName)}>{copyright}</p>}
             <div
               className={cn(
                 "flex flex-wrap items-center gap-4",
                 legalLinksClassName,
               )}
             >
-              <Pressable
-                href={attributionHref}
-                className="underline transition-colors hover:text-primary"
-              >
-                {attributionText}
-              </Pressable>
-              {legalLinks?.map((link) => (
+              {attributionHref && attributionText && (
+                <Pressable
+                  href={attributionHref}
+                  className="underline transition-colors hover:text-primary"
+                >
+                  {attributionText}
+                </Pressable>
+              )}
+              {legalLinks && legalLinks.length > 0 && legalLinks.map((link) => (
                 <Pressable
                   key={link.href}
                   href={link.href}
