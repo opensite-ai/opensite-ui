@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -128,7 +128,7 @@ export function CtaSplitGradientImage({
   description,
   actions,
   actionsSlot,
-  imageSrc = imagePlaceholders[4],
+  imageSrc,
   imageAlt,
   className,
   containerClassName,
@@ -139,13 +139,13 @@ export function CtaSplitGradientImage({
   descriptionClassName,
   actionsClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaSplitGradientImageProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -174,7 +174,7 @@ export function CtaSplitGradientImage({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -197,34 +197,54 @@ export function CtaSplitGradientImage({
               contentClassName,
             )}
           >
-            <p className={cn("mb-6 font-medium", labelClassName)}>{label}</p>
-            <h2
-              className={cn(
-                "mb-6 text-4xl font-bold md:text-5xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-            <p
-              className={cn(
-                "text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
+            {label && (
+              typeof label === "string" ? (
+                <p className={cn("mb-6 font-medium", labelClassName)}>{label}</p>
+              ) : (
+                <div className={cn("mb-6", labelClassName)}>{label}</div>
+              )
+            )}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-6 text-4xl font-bold md:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-6", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+            {actionsContent}
           </div>
-          <div className={cn("relative w-full pl-4 sm:pl-0", imageClassName)}>
-            <div className="absolute -bottom-8 -left-8 -z-10 h-4/5 w-4/5 rounded-tl-2xl rounded-br-2xl bg-stone-900/20 blur-2xl"></div>
-            <Img
-              src={imageSrc}
-              alt={imageAlt}
-              className="relative z-10 h-full max-h-[400px] w-full rounded-tl-2xl rounded-br-2xl object-cover"
-              optixFlowConfig={optixFlowConfig}
-            />
-          </div>
+          {imageSrc && (
+            <div className={cn("relative w-full pl-4 sm:pl-0", imageClassName)}>
+              <div className="absolute -bottom-8 -left-8 -z-10 h-4/5 w-4/5 rounded-tl-2xl rounded-br-2xl bg-stone-900/20 blur-2xl"></div>
+              <Img
+                src={imageSrc}
+                alt={imageAlt}
+                className="relative z-10 h-full max-h-[400px] w-full rounded-tl-2xl rounded-br-2xl object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          )}
         </div>
       </div>
     </Section>

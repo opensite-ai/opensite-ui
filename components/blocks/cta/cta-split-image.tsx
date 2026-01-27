@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -118,7 +118,7 @@ export function CtaSplitImage({
   description,
   actions,
   actionsSlot,
-  imageSrc = imagePlaceholders[0],
+  imageSrc,
   imageAlt,
   imageLeft = true,
   className,
@@ -129,13 +129,13 @@ export function CtaSplitImage({
   actionsClassName,
   imageWrapperClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaSplitImageProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -159,56 +159,78 @@ export function CtaSplitImage({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const imageContent = (
-    <div
-      className={cn(
-        "w-full shrink-0 self-stretch lg:w-1/2",
-        imageWrapperClassName
-      )}
-    >
-      <Img
-        src={imageSrc}
-        alt={imageAlt}
-        className={cn(
-          "aspect-3/2 w-full object-cover",
-          imageLeft
-            ? "rounded-t-md md:rounded-t-none md:rounded-l-md"
-            : "rounded-b-md md:rounded-b-none md:rounded-r-md",
-          imageClassName
-        )}
-        optixFlowConfig={optixFlowConfig}
-      />
-    </div>
-  );
+  const imageContent = useMemo(() => {
+    if (!imageSrc) return null;
 
-  const textContent = (
-    <div
-      className={cn(
-        "w-full shrink-0 px-4 py-6 md:p-8 lg:w-1/2 lg:px-16",
-        contentClassName
-      )}
-    >
-      <h3
+    return (
+      <div
         className={cn(
-          "mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6",
-          headingClassName
+          "w-full shrink-0 self-stretch lg:w-1/2",
+          imageWrapperClassName
         )}
       >
-        {heading}
-      </h3>
-      <p
+        <Img
+          src={imageSrc}
+          alt={imageAlt}
+          className={cn(
+            "aspect-3/2 w-full object-cover",
+            imageLeft
+              ? "rounded-t-md md:rounded-t-none md:rounded-l-md"
+              : "rounded-b-md md:rounded-b-none md:rounded-r-md",
+            imageClassName
+          )}
+          optixFlowConfig={optixFlowConfig}
+        />
+      </div>
+    );
+  }, [imageSrc, imageAlt, imageLeft, imageWrapperClassName, imageClassName, optixFlowConfig]);
+
+  const textContent = useMemo(() => {
+    return (
+      <div
         className={cn(
-          "mb-8 text-muted-foreground lg:text-lg",
-          descriptionClassName
+          "w-full shrink-0 px-4 py-6 md:p-8 lg:w-1/2 lg:px-16",
+          contentClassName
         )}
       >
-        {description}
-      </p>
-      {renderActions()}
-    </div>
-  );
+        {heading && (
+          typeof heading === "string" ? (
+            <h3
+              className={cn(
+                "mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6",
+                headingClassName
+              )}
+            >
+              {heading}
+            </h3>
+          ) : (
+            <div className={cn("mb-3 md:mb-4 lg:mb-6", headingClassName)}>
+              {heading}
+            </div>
+          )
+        )}
+        {description && (
+          typeof description === "string" ? (
+            <p
+              className={cn(
+                "mb-8 text-muted-foreground lg:text-lg",
+                descriptionClassName
+              )}
+            >
+              {description}
+            </p>
+          ) : (
+            <div className={cn("mb-8", descriptionClassName)}>
+              {description}
+            </div>
+          )
+        )}
+        {actionsContent}
+      </div>
+    );
+  }, [heading, description, actionsContent, contentClassName, headingClassName, descriptionClassName]);
 
   return (
     <Section

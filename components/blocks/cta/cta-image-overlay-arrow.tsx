@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -92,19 +92,19 @@ export function CtaImageOverlayArrow({
   heading,
   actions,
   actionsSlot,
-  backgroundImage = imagePlaceholders[7],
+  backgroundImage,
   className,
   containerClassName,
   cardClassName,
   contentClassName,
   headingClassName,
   actionsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaImageOverlayArrowProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -130,7 +130,7 @@ export function CtaImageOverlayArrow({
         )}
       </Pressable>
     ));
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -146,9 +146,9 @@ export function CtaImageOverlayArrow({
             "flex h-[500px] items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center",
             cardClassName,
           )}
-          style={{
+          style={backgroundImage ? {
             backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('${backgroundImage}')`,
-          }}
+          } : undefined}
         >
           <div
             className={cn(
@@ -156,15 +156,23 @@ export function CtaImageOverlayArrow({
               contentClassName,
             )}
           >
-            <h2
-              className={cn(
-                "max-w-3xl text-4xl font-bold text-primary-foreground md:text-6xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-            <div className={actionsClassName}>{renderActions()}</div>
+            {heading && (
+              typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "max-w-3xl text-4xl font-bold text-primary-foreground md:text-6xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("max-w-3xl", headingClassName)}>{heading}</div>
+              )
+            )}
+            {actionsContent && (
+              <div className={actionsClassName}>{actionsContent}</div>
+            )}
           </div>
         </div>
       </div>

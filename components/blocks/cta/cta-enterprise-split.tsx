@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -155,12 +156,12 @@ export function CtaEnterpriseSplit({
   actionsClassName,
   linksClassName,
   linkCardClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaEnterpriseSplitProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -194,9 +195,9 @@ export function CtaEnterpriseSplit({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderLinks = () => {
+  const linksContent = useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -238,7 +239,7 @@ export function CtaEnterpriseSplit({
         ))}
       </div>
     );
-  };
+  }, [linksSlot, links, linksClassName, linkCardClassName]);
 
   return (
     <Section
@@ -253,25 +254,37 @@ export function CtaEnterpriseSplit({
           className={cn("grid gap-8 lg:grid-cols-2 lg:gap-16", gridClassName)}
         >
           <div className={cn("flex flex-col justify-center", contentClassName)}>
-            <h2
-              className={cn(
-                "mb-4 text-3xl font-bold md:text-5xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-            <p
-              className={cn(
-                "mb-8 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-3xl font-bold md:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {actionsContent}
           </div>
-          {renderLinks()}
+          {linksContent}
         </div>
       </div>
     </Section>

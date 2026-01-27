@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -106,12 +107,12 @@ export function CtaStackedCards({
   descriptionClassName,
   actionsClassName,
   cardsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaStackedCardsProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -135,7 +136,7 @@ export function CtaStackedCards({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -163,23 +164,39 @@ export function CtaStackedCards({
               contentClassName,
             )}
           >
-            <h3
-              className={cn(
-                "mb-3 text-4xl font-semibold md:mb-4 md:text-5xl lg:mb-6",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h3>
-            <p
-              className={cn(
-                "mb-8 text-muted-foreground lg:text-lg",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h3
+                  className={cn(
+                    "mb-3 text-4xl font-semibold md:mb-4 md:text-5xl lg:mb-6",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h3>
+              ) : (
+                <div className={cn("mb-3 md:mb-4 lg:mb-6", headingClassName)}>
+                  {heading}
+                </div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 text-muted-foreground lg:text-lg",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-8", descriptionClassName)}>
+                  {description}
+                </div>
+              )
+            )}
+            {actionsContent}
           </div>
           <div
             className={cn(

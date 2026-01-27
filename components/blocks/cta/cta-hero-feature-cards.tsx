@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Card } from "../../ui/card";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -162,7 +162,7 @@ export function CtaHeroFeatureCards({
   description,
   actions,
   actionsSlot,
-  heroImage = imagePlaceholders[9],
+  heroImage,
   heroImageAlt,
   featureCards,
   featureCardsSlot,
@@ -175,13 +175,13 @@ export function CtaHeroFeatureCards({
   actionsClassName,
   cardsGridClassName,
   cardClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaHeroFeatureCardsProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -226,9 +226,9 @@ export function CtaHeroFeatureCards({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFeatureCards = () => {
+  const featureCardsContent = useMemo(() => {
     if (featureCardsSlot) return featureCardsSlot;
     if (!featureCards || featureCards.length === 0) return null;
 
@@ -271,7 +271,7 @@ export function CtaHeroFeatureCards({
         ))}
       </div>
     );
-  };
+  }, [featureCardsSlot, featureCards, cardsGridClassName, cardClassName]);
 
   return (
     <Section
@@ -282,43 +282,90 @@ export function CtaHeroFeatureCards({
       patternOpacity={patternOpacity}
     >
       <div className={cn("container", containerClassName)}>
-        <div
-          className={cn(
-            "relative mb-12 overflow-hidden rounded-2xl",
-            heroClassName,
-          )}
-        >
-          <Img
-            src={heroImage}
-            alt={heroImageAlt}
-            className="h-[400px] w-full object-cover"
-            optixFlowConfig={optixFlowConfig}
-          />
+        {heroImage ? (
           <div
             className={cn(
-              "absolute inset-0 flex items-center justify-center bg-black/40",
-              overlayClassName,
+              "relative mb-12 overflow-hidden rounded-2xl",
+              heroClassName,
             )}
           >
-            <div className="max-w-2xl p-8 text-center text-white">
-              <h2
-                className={cn(
-                  "mb-4 text-3xl font-bold md:text-5xl",
-                  headingClassName,
+            <Img
+              src={heroImage}
+              alt={heroImageAlt}
+              className="h-[400px] w-full object-cover"
+              optixFlowConfig={optixFlowConfig}
+            />
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center bg-black/40",
+                overlayClassName,
+              )}
+            >
+              <div className="max-w-2xl p-8 text-center text-white">
+                {heading && (
+                  typeof heading === "string" ? (
+                    <h2
+                      className={cn(
+                        "mb-4 text-3xl font-bold md:text-5xl",
+                        headingClassName,
+                      )}
+                    >
+                      {heading}
+                    </h2>
+                  ) : (
+                    <div className={cn("mb-4", headingClassName)}>{heading}</div>
+                  )
                 )}
-              >
-                {heading}
-              </h2>
-              <p
-                className={cn("mb-8 text-lg opacity-90", descriptionClassName)}
-              >
-                {description}
-              </p>
-              {renderActions()}
+                {description && (
+                  typeof description === "string" ? (
+                    <p
+                      className={cn("mb-8 text-lg opacity-90", descriptionClassName)}
+                    >
+                      {description}
+                    </p>
+                  ) : (
+                    <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+                  )
+                )}
+                {actionsContent}
+              </div>
             </div>
           </div>
-        </div>
-        {renderFeatureCards()}
+        ) : (
+          (heading || description || actionsContent) && (
+            <div className="mb-12 text-center">
+              <div className="mx-auto max-w-2xl">
+                {heading && (
+                  typeof heading === "string" ? (
+                    <h2
+                      className={cn(
+                        "mb-4 text-3xl font-bold md:text-5xl",
+                        headingClassName,
+                      )}
+                    >
+                      {heading}
+                    </h2>
+                  ) : (
+                    <div className={cn("mb-4", headingClassName)}>{heading}</div>
+                  )
+                )}
+                {description && (
+                  typeof description === "string" ? (
+                    <p
+                      className={cn("mb-8 text-lg text-muted-foreground", descriptionClassName)}
+                    >
+                      {description}
+                    </p>
+                  ) : (
+                    <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+                  )
+                )}
+                {actionsContent}
+              </div>
+            </div>
+          )
+        )}
+        {featureCardsContent}
       </div>
     </Section>
   );

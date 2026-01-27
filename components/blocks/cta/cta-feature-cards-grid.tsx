@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -124,12 +125,12 @@ export function CtaFeatureCardsGrid({
   actionsClassName,
   featuresClassName,
   featureCardClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaFeatureCardsGridProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -158,9 +159,9 @@ export function CtaFeatureCardsGrid({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -187,15 +188,17 @@ export function CtaFeatureCardsGrid({
                 )}
               </div>
             )}
-            <h3 className="mb-2 font-semibold">{feature.title}</h3>
-            <p className="text-sm text-muted-foreground">
-              {feature.description}
-            </p>
+            {feature.title && <h3 className="mb-2 font-semibold">{feature.title}</h3>}
+            {feature.description && (
+              <p className="text-sm text-muted-foreground">
+                {feature.description}
+              </p>
+            )}
           </Card>
         ))}
       </div>
     );
-  };
+  }, [featuresSlot, features, featuresClassName, featureCardClassName]);
 
   return (
     <Section
@@ -207,25 +210,39 @@ export function CtaFeatureCardsGrid({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("text-center", contentClassName)}>
-          <h2
-            className={cn(
-              "mb-4 text-3xl font-bold md:text-5xl",
-              headingClassName,
-            )}
-          >
-            {heading}
-          </h2>
-          <p
-            className={cn(
-              "mx-auto mb-8 max-w-2xl text-lg text-muted-foreground",
-              descriptionClassName,
-            )}
-          >
-            {description}
-          </p>
-          {renderActions()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold md:text-5xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto mb-8 max-w-2xl text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mx-auto mb-8 max-w-2xl", descriptionClassName)}>
+                {description}
+              </div>
+            )
+          )}
+          {actionsContent}
         </div>
-        {renderFeatures()}
+        {featuresContent}
       </div>
     </Section>
   );

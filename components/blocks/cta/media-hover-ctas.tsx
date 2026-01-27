@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -122,15 +123,15 @@ export function MediaHoverCtas({
   gridClassName,
   items,
   itemsSlot,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: MediaHoverCtasProps): React.JSX.Element {
   const resolvedItems = items ?? [];
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
 
     return resolvedItems.map((item, index) => {
@@ -191,7 +192,7 @@ export function MediaHoverCtas({
         </CardComponent>
       );
     });
-  };
+  }, [itemsSlot, resolvedItems, optixFlowConfig]);
 
   return (
     <Section
@@ -207,7 +208,7 @@ export function MediaHoverCtas({
           gridClassName
         )}
       >
-        {renderItems()}
+        {itemsContent}
       </div>
     </Section>
   );

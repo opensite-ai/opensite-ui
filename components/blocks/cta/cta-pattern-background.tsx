@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { patternSvgs } from "../../../lib/patternSvgs";
-import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -105,12 +104,12 @@ export function CtaPatternBackground({
   headingClassName,
   descriptionClassName,
   actionsClassName,
-  background = "white",
-  spacing = "lg",
-  pattern = "gridBasic",
+  background,
+  spacing,
+  pattern,
   patternOpacity,
 }: CtaPatternBackgroundProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -139,7 +138,7 @@ export function CtaPatternBackground({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -157,18 +156,30 @@ export function CtaPatternBackground({
       >
         <div className={cn("container", containerClassName)}>
           <div className={cn("mx-auto max-w-3xl", contentClassName)}>
-            <h1
-              className={cn(
-                "mb-4 text-3xl font-semibold text-balance md:text-5xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h1>
-            <p className={cn("md:text-lg", descriptionClassName)}>
-              {description}
-            </p>
-            {renderActions()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "mb-4 text-3xl font-semibold text-balance md:text-5xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("md:text-lg", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+            {actionsContent}
           </div>
         </div>
       </div>

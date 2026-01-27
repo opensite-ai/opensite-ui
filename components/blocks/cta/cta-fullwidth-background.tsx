@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -106,7 +106,7 @@ export function CtaFullwidthBackground({
   description,
   actions,
   actionsSlot,
-  backgroundImage = imagePlaceholders[3],
+  backgroundImage,
   overlayOpacity = 0.4,
   className,
   containerClassName,
@@ -115,12 +115,12 @@ export function CtaFullwidthBackground({
   descriptionClassName,
   actionsClassName,
   backgroundClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaFullwidthBackgroundProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -149,7 +149,7 @@ export function CtaFullwidthBackground({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -165,9 +165,9 @@ export function CtaFullwidthBackground({
             "flex h-[620px] items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center",
             backgroundClassName,
           )}
-          style={{
+          style={backgroundImage ? {
             backgroundImage: `linear-gradient(rgba(0,0,0,${overlayOpacity}),rgba(0,0,0,0)), url('${backgroundImage}')`,
-          }}
+          } : undefined}
         >
           <div
             className={cn(
@@ -175,23 +175,35 @@ export function CtaFullwidthBackground({
               contentClassName,
             )}
           >
-            <h2
-              className={cn(
-                "text-5xl font-bold text-primary-foreground",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-            <p
-              className={cn(
-                "text-lg text-primary-foreground",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-5xl font-bold text-primary-foreground",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "text-lg text-primary-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+            {actionsContent}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Card } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
@@ -157,12 +158,12 @@ export function CtaDocumentationLinks({
   actionsClassName,
   linksClassName,
   linkCardClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaDocumentationLinksProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -201,9 +202,9 @@ export function CtaDocumentationLinks({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderLinks = () => {
+  const linksContent = useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -228,10 +229,12 @@ export function CtaDocumentationLinks({
                     />
                   ))}
                 <div>
-                  <h5 className="mb-2 leading-4 font-medium">{link.title}</h5>
-                  <p className="text-sm text-muted-foreground">
-                    {link.description}
-                  </p>
+                  {link.title && <h5 className="mb-2 leading-4 font-medium">{link.title}</h5>}
+                  {link.description && (
+                    <p className="text-sm text-muted-foreground">
+                      {link.description}
+                    </p>
+                  )}
                 </div>
               </div>
               <DynamicIcon name="lucide/chevron-right" size={24} />
@@ -240,7 +243,7 @@ export function CtaDocumentationLinks({
         ))}
       </div>
     );
-  };
+  }, [linksSlot, links, linksClassName, linkCardClassName]);
 
   return (
     <Section
@@ -258,20 +261,32 @@ export function CtaDocumentationLinks({
           )}
         >
           <div className={contentClassName}>
-            <h4
-              className={cn(
-                "mb-2 text-2xl font-bold lg:text-4xl",
-                headingClassName
-              )}
-            >
-              {heading}
-            </h4>
-            <p className={cn("text-muted-foreground", descriptionClassName)}>
-              {description}
-            </p>
-            {renderActions()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h4
+                  className={cn(
+                    "mb-2 text-2xl font-bold lg:text-4xl",
+                    headingClassName
+                  )}
+                >
+                  {heading}
+                </h4>
+              ) : (
+                <div className={cn("mb-2", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+            {actionsContent}
           </div>
-          {renderLinks()}
+          {linksContent}
         </div>
       </div>
     </Section>

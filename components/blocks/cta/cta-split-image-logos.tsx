@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -137,7 +136,7 @@ export function CtaSplitImageLogos({
   description,
   actions,
   actionsSlot,
-  imageSrc = imagePlaceholders[2],
+  imageSrc,
   imageAlt,
   logos,
   logosSlot,
@@ -151,13 +150,13 @@ export function CtaSplitImageLogos({
   actionsClassName,
   logosClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaSplitImageLogosProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -196,15 +195,15 @@ export function CtaSplitImageLogos({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderLogos = () => {
+  const logosContent = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
     return (
       <div className={cn("mt-10 w-full", logosClassName)}>
-        <p className="mb-4 text-sm text-muted-foreground">{logosLabel}</p>
+        {logosLabel && <p className="mb-4 text-sm text-muted-foreground">{logosLabel}</p>}
         <div className="flex flex-wrap items-center justify-center gap-6 lg:justify-start">
           {logos.map((logo, index) => (
             <Img
@@ -218,7 +217,7 @@ export function CtaSplitImageLogos({
         </div>
       </div>
     );
-  };
+  }, [logosSlot, logos, logosLabel, logosClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -241,33 +240,47 @@ export function CtaSplitImageLogos({
               contentClassName,
             )}
           >
-            <h1
-              className={cn(
-                "my-6 text-pretty text-4xl font-bold lg:text-6xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h1>
-            <p
-              className={cn(
-                "mb-8 max-w-xl text-muted-foreground lg:text-xl",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
-            {renderLogos()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h1
+                  className={cn(
+                    "my-6 text-pretty text-4xl font-bold lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h1>
+              ) : (
+                <div className={cn("my-6", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 max-w-xl text-muted-foreground lg:text-xl",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-8 max-w-xl", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {actionsContent}
+            {logosContent}
           </div>
-          <div className={cn("relative", imageClassName)}>
-            <Img
-              src={imageSrc}
-              alt={imageAlt}
-              className="max-h-96 w-full rounded-md object-cover"
-              optixFlowConfig={optixFlowConfig}
-            />
-          </div>
+          {imageSrc && (
+            <div className={cn("relative", imageClassName)}>
+              <Img
+                src={imageSrc}
+                alt={imageAlt}
+                className="max-h-96 w-full rounded-md object-cover"
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          )}
         </div>
       </div>
     </Section>

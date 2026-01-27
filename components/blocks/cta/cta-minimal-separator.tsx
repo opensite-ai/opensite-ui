@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Separator } from "../../ui/separator";
@@ -92,12 +93,12 @@ export function CtaMinimalSeparator({
   textClassName,
   actionsClassName,
   separatorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaMinimalSeparatorProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -117,7 +118,7 @@ export function CtaMinimalSeparator({
         {action.iconAfter}
       </Pressable>
     ));
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -136,10 +137,18 @@ export function CtaMinimalSeparator({
               contentClassName,
             )}
           >
-            <p className={cn("text-lg text-muted-foreground", textClassName)}>
-              {text}
-            </p>
-            <div className={actionsClassName}>{renderActions()}</div>
+            {text && (
+              typeof text === "string" ? (
+                <p className={cn("text-lg text-muted-foreground", textClassName)}>
+                  {text}
+                </p>
+              ) : (
+                <div className={textClassName}>{text}</div>
+              )
+            )}
+            {actionsContent && (
+              <div className={actionsClassName}>{actionsContent}</div>
+            )}
           </div>
           <Separator className={cn("w-full", separatorClassName)} />
         </div>

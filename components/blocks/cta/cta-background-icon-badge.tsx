@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -114,7 +114,7 @@ export function CtaBackgroundIconBadge({
   heading,
   actions,
   actionsSlot,
-  backgroundImage = imagePlaceholders[5],
+  backgroundImage,
   className,
   containerClassName,
   cardClassName,
@@ -122,12 +122,12 @@ export function CtaBackgroundIconBadge({
   badgeClassName,
   headingClassName,
   actionsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaBackgroundIconBadgeProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -164,7 +164,7 @@ export function CtaBackgroundIconBadge({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -179,9 +179,9 @@ export function CtaBackgroundIconBadge({
           "flex h-[620px] items-center justify-center bg-cover bg-center",
           cardClassName,
         )}
-        style={{
+        style={backgroundImage ? {
           backgroundImage: `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)), url('${backgroundImage}')`,
-        }}
+        } : undefined}
       >
         <div className={cn("container", containerClassName)}>
           <div
@@ -190,26 +190,34 @@ export function CtaBackgroundIconBadge({
               contentClassName,
             )}
           >
-            <div
-              className={cn(
-                "flex items-center justify-center gap-2 text-2xl font-medium",
-                badgeClassName,
-              )}
-            >
-              {badgeIcon ??
-                (badgeIconName && (
-                  <DynamicIcon
-                    name={badgeIconName}
-                    size={28}
-                    className="h-full"
-                  />
-                ))}
-              {badgeText}
-            </div>
-            <h2 className={cn("text-5xl font-bold", headingClassName)}>
-              {heading}
-            </h2>
-            {renderActions()}
+            {(badgeIcon || badgeIconName || badgeText) && (
+              <div
+                className={cn(
+                  "flex items-center justify-center gap-2 text-2xl font-medium",
+                  badgeClassName,
+                )}
+              >
+                {badgeIcon ??
+                  (badgeIconName && (
+                    <DynamicIcon
+                      name={badgeIconName}
+                      size={28}
+                      className="h-full"
+                    />
+                  ))}
+                {badgeText}
+              </div>
+            )}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2 className={cn("text-5xl font-bold", headingClassName)}>
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {actionsContent}
           </div>
         </div>
       </div>

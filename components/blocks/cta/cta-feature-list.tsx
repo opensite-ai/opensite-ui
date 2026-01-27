@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -147,7 +147,7 @@ export function CtaFeatureList({
   actionsSlot,
   features,
   featuresSlot,
-  backgroundImage = imagePlaceholders[1],
+  backgroundImage,
   className,
   containerClassName,
   cardClassName,
@@ -156,13 +156,13 @@ export function CtaFeatureList({
   descriptionClassName,
   featuresClassName,
   actionsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaFeatureListProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -188,9 +188,9 @@ export function CtaFeatureList({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -214,7 +214,7 @@ export function CtaFeatureList({
         ))}
       </ul>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
   return (
     <Section
@@ -231,37 +231,55 @@ export function CtaFeatureList({
             cardClassName
           )}
         >
-          <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-            <Img
-              src={backgroundImage}
-              alt=""
-              className="pointer-events-none absolute -top-1/4 right-0 hidden h-full w-1/2 object-cover opacity-90 2xl:block"
-              style={{
-                maskImage:
-                  "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
-              }}
-              optixFlowConfig={optixFlowConfig}
-            />
-          </div>
+          {backgroundImage && (
+            <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+              <Img
+                src={backgroundImage}
+                alt=""
+                className="pointer-events-none absolute -top-1/4 right-0 hidden h-full w-1/2 object-cover opacity-90 2xl:block"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+                }}
+                optixFlowConfig={optixFlowConfig}
+              />
+            </div>
+          )}
           <div className={cn("relative z-10", contentClassName)}>
-            <h3
-              className={cn(
-                "mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6",
-                headingClassName
-              )}
-            >
-              {heading}
-            </h3>
-            <p
-              className={cn(
-                "mb-6 text-muted-foreground lg:text-lg",
-                descriptionClassName
-              )}
-            >
-              {description}
-            </p>
-            {renderFeatures()}
-            {renderActions()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h3
+                  className={cn(
+                    "mb-3 text-2xl font-semibold md:mb-4 md:text-4xl lg:mb-6",
+                    headingClassName
+                  )}
+                >
+                  {heading}
+                </h3>
+              ) : (
+                <div className={cn("mb-3 md:mb-4 lg:mb-6", headingClassName)}>
+                  {heading}
+                </div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-6 text-muted-foreground lg:text-lg",
+                    descriptionClassName
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-6", descriptionClassName)}>
+                  {description}
+                </div>
+              )
+            )}
+            {featuresContent}
+            {actionsContent}
           </div>
         </div>
       </div>

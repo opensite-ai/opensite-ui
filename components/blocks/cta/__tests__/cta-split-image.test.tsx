@@ -50,7 +50,7 @@ describe("CtaSplitImage", () => {
   });
 
   it("renders image with correct alt text", () => {
-    render(<CtaSplitImage imageAlt="Custom alt text" />);
+    render(<CtaSplitImage imageSrc="/test-image.jpg" imageAlt="Custom alt text" />);
     expect(screen.getByAltText("Custom alt text")).toBeInTheDocument();
   });
 

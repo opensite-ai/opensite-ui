@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -123,8 +122,8 @@ export function CtaPlatformDemo({
   description,
   actions,
   actionsSlot,
-  decorativeImage = blockBrandedIconsAndPlaceholders.placeholder1,
-  productImage = imagePlaceholders[6],
+  decorativeImage,
+  productImage,
   productImageAlt,
   className,
   containerClassName,
@@ -134,13 +133,13 @@ export function CtaPlatformDemo({
   descriptionClassName,
   actionsClassName,
   imageWrapperClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaPlatformDemoProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -174,7 +173,7 @@ export function CtaPlatformDemo({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -194,43 +193,61 @@ export function CtaPlatformDemo({
           <div
             className={cn("max-w-xl self-center p-6 md:p-12", contentClassName)}
           >
-            <h2
-              className={cn(
-                "text-3xl font-semibold md:text-4xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-            <p
-              className={cn(
-                "mt-4 text-muted-foreground md:text-lg",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
-          </div>
-          <div
-            className={cn(
-              "relative ml-6 max-h-96 md:mt-8 md:ml-0",
-              imageWrapperClassName,
+            {heading && (
+              typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "text-3xl font-semibold md:text-4xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
             )}
-          >
-            <Img
-              src={decorativeImage}
-              alt=""
-              className="absolute -bottom-12 left-4 h-48 -translate-x-1/2 -rotate-120"
-              optixFlowConfig={optixFlowConfig}
-            />
-            <Img
-              src={productImage}
-              alt={productImageAlt}
-              className="z-10 aspect-video h-full w-full rounded-tl-xl border-t border-l object-cover pt-3.5 pl-3.5 backdrop-blur-sm"
-              optixFlowConfig={optixFlowConfig}
-            />
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mt-4 text-muted-foreground md:text-lg",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mt-4", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {actionsContent}
           </div>
+          {(decorativeImage || productImage) && (
+            <div
+              className={cn(
+                "relative ml-6 max-h-96 md:mt-8 md:ml-0",
+                imageWrapperClassName,
+              )}
+            >
+              {decorativeImage && (
+                <Img
+                  src={decorativeImage}
+                  alt=""
+                  className="absolute -bottom-12 left-4 h-48 -translate-x-1/2 -rotate-120"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              )}
+              {productImage && (
+                <Img
+                  src={productImage}
+                  alt={productImageAlt}
+                  className="z-10 aspect-video h-full w-full rounded-tl-xl border-t border-l object-cover pt-3.5 pl-3.5 backdrop-blur-sm"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </Section>

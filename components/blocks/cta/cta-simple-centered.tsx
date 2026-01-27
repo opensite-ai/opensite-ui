@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -99,12 +100,12 @@ export function CtaSimpleCentered({
   headingClassName,
   descriptionClassName,
   actionsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaSimpleCenteredProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -140,7 +141,7 @@ export function CtaSimpleCentered({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -152,23 +153,35 @@ export function CtaSimpleCentered({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-2xl text-center", contentClassName)}>
-          <h2
-            className={cn(
-              "mb-4 text-3xl font-bold md:text-4xl lg:text-5xl",
-              headingClassName,
-            )}
-          >
-            {heading}
-          </h2>
-          <p
-            className={cn(
-              "mb-8 text-lg text-muted-foreground",
-              descriptionClassName,
-            )}
-          >
-            {description}
-          </p>
-          {renderActions()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold md:text-4xl lg:text-5xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-8 text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+            )
+          )}
+          {actionsContent}
         </div>
       </div>
     </Section>

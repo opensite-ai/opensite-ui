@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -159,13 +160,13 @@ export function CtaEnterpriseDarkFeatures({
   featuresClassName,
   actionsClassName,
   imagesClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaEnterpriseDarkFeaturesProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -205,9 +206,9 @@ export function CtaEnterpriseDarkFeatures({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -235,7 +236,7 @@ export function CtaEnterpriseDarkFeatures({
         ))}
       </ul>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
   return (
     <Section
@@ -254,51 +255,71 @@ export function CtaEnterpriseDarkFeatures({
         >
           <div className="relative z-10 grid gap-8 lg:grid-cols-2 lg:gap-16">
             <div className={contentClassName}>
-              <h2
-                className={cn(
-                  "mb-6 font-serif text-4xl font-bold md:text-5xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-              <p
-                className={cn(
-                  "mb-8 text-lg text-slate-300",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-              {renderFeatures()}
-              {renderActions()}
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-6 font-serif text-4xl font-bold md:text-5xl",
+                      headingClassName,
+                    )}
+                  >
+                    {heading}
+                  </h2>
+                ) : (
+                  <div className={cn("mb-6", headingClassName)}>{heading}</div>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mb-8 text-lg text-slate-300",
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
+                ) : (
+                  <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+                )
+              )}
+              {featuresContent}
+              {actionsContent}
             </div>
-            <div className={cn("relative hidden lg:block", imagesClassName)}>
-              <div className="absolute -right-8 -top-8 h-64 w-48 rotate-6 overflow-hidden rounded-xl shadow-2xl">
-                <Img
-                  src={decorativeImages?.[0]}
-                  alt=""
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
+            {decorativeImages && decorativeImages.length > 0 && (
+              <div className={cn("relative hidden lg:block", imagesClassName)}>
+                {decorativeImages[0] && (
+                  <div className="absolute -right-8 -top-8 h-64 w-48 rotate-6 overflow-hidden rounded-xl shadow-2xl">
+                    <Img
+                      src={decorativeImages[0]}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                )}
+                {decorativeImages[1] && (
+                  <div className="absolute right-16 top-24 h-48 w-36 -rotate-3 overflow-hidden rounded-xl shadow-2xl">
+                    <Img
+                      src={decorativeImages[1]}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                )}
+                {decorativeImages[2] && (
+                  <div className="absolute -bottom-4 right-8 h-56 w-44 rotate-12 overflow-hidden rounded-xl shadow-2xl">
+                    <Img
+                      src={decorativeImages[2]}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      optixFlowConfig={optixFlowConfig}
+                    />
+                  </div>
+                )}
               </div>
-              <div className="absolute right-16 top-24 h-48 w-36 -rotate-3 overflow-hidden rounded-xl shadow-2xl">
-                <Img
-                  src={decorativeImages?.[1]}
-                  alt=""
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-              <div className="absolute -bottom-4 right-8 h-56 w-44 rotate-12 overflow-hidden rounded-xl shadow-2xl">
-                <Img
-                  src={decorativeImages?.[2]}
-                  alt=""
-                  className="h-full w-full object-cover"
-                  optixFlowConfig={optixFlowConfig}
-                />
-              </div>
-            </div>
+            )}
           </div>
           <div className="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-linear-to-br from-blue-500/20 to-purple-500/20 blur-3xl" />
           <div className="absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-linear-to-br from-purple-500/20 to-pink-500/20 blur-3xl" />

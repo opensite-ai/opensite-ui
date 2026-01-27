@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Form, useForm, Field } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import {
   isValidEmail,
   PageSpeedFormSubmissionError,
@@ -206,7 +206,7 @@ export function CtaAppDownloadNewsletter({
   appDescription,
   appActions,
   appActionsSlot,
-  phoneMockupImage = imagePlaceholders[8],
+  phoneMockupImage,
   newsletterHeading,
   newsletterDescription,
   newsletterButtonText,
@@ -222,8 +222,8 @@ export function CtaAppDownloadNewsletter({
   newsletterHeadingClassName,
   newsletterDescriptionClassName,
   formClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   formConfig,
@@ -280,7 +280,7 @@ export function CtaAppDownloadNewsletter({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const renderAppActions = () => {
+  const appActionsContent = useMemo(() => {
     if (appActionsSlot) return appActionsSlot;
     if (!appActions || appActions.length === 0) return null;
 
@@ -320,7 +320,7 @@ export function CtaAppDownloadNewsletter({
         })}
       </div>
     );
-  };
+  }, [appActionsSlot, appActions, appActionsClassName]);
 
   return (
     <Section
@@ -339,32 +339,46 @@ export function CtaAppDownloadNewsletter({
             )}
           >
             <div className="relative z-10 max-w-sm">
-              <h2
-                className={cn(
-                  "mb-4 text-2xl font-bold md:text-3xl",
-                  appHeadingClassName,
-                )}
-              >
-                {appHeading}
-              </h2>
-              <p
-                className={cn(
-                  "mb-8 text-muted-foreground",
-                  appDescriptionClassName,
-                )}
-              >
-                {appDescription}
-              </p>
-              {renderAppActions()}
+              {appHeading && (
+                typeof appHeading === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-4 text-2xl font-bold md:text-3xl",
+                      appHeadingClassName,
+                    )}
+                  >
+                    {appHeading}
+                  </h2>
+                ) : (
+                  <div className={cn("mb-4", appHeadingClassName)}>{appHeading}</div>
+                )
+              )}
+              {appDescription && (
+                typeof appDescription === "string" ? (
+                  <p
+                    className={cn(
+                      "mb-8 text-muted-foreground",
+                      appDescriptionClassName,
+                    )}
+                  >
+                    {appDescription}
+                  </p>
+                ) : (
+                  <div className={cn("mb-8", appDescriptionClassName)}>{appDescription}</div>
+                )
+              )}
+              {appActionsContent}
             </div>
-            <div className="absolute -right-16 -bottom-16 h-64 w-48 rotate-12 opacity-20 lg:h-80 lg:w-60">
-              <Img
-                src={phoneMockupImage}
-                alt=""
-                className="h-full w-full object-contain"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
+            {phoneMockupImage && (
+              <div className="absolute -right-16 -bottom-16 h-64 w-48 rotate-12 opacity-20 lg:h-80 lg:w-60">
+                <Img
+                  src={phoneMockupImage}
+                  alt=""
+                  className="h-full w-full object-contain"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+            )}
           </div>
 
           <div
@@ -373,22 +387,34 @@ export function CtaAppDownloadNewsletter({
               newsletterCardClassName,
             )}
           >
-            <h2
-              className={cn(
-                "mb-4 text-2xl font-bold md:text-3xl",
-                newsletterHeadingClassName,
-              )}
-            >
-              {newsletterHeading}
-            </h2>
-            <p
-              className={cn(
-                "mb-8 text-muted-foreground",
-                newsletterDescriptionClassName,
-              )}
-            >
-              {newsletterDescription}
-            </p>
+            {newsletterHeading && (
+              typeof newsletterHeading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-2xl font-bold md:text-3xl",
+                    newsletterHeadingClassName,
+                  )}
+                >
+                  {newsletterHeading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", newsletterHeadingClassName)}>{newsletterHeading}</div>
+              )
+            )}
+            {newsletterDescription && (
+              typeof newsletterDescription === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 text-muted-foreground",
+                    newsletterDescriptionClassName,
+                  )}
+                >
+                  {newsletterDescription}
+                </p>
+              ) : (
+                <div className={cn("mb-8", newsletterDescriptionClassName)}>{newsletterDescription}</div>
+              )
+            )}
             <Form
               form={form}
               action={formConfig?.endpoint}

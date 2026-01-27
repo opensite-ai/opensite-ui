@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -130,12 +131,12 @@ export function CtaGradientStatsHero({
   actionsClassName,
   statsClassName,
   statCardClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaGradientStatsHeroProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -178,9 +179,9 @@ export function CtaGradientStatsHero({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderStats = () => {
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -197,17 +198,21 @@ export function CtaGradientStatsHero({
             )}
           >
             {stat.icon && <div className="mb-2">{stat.icon}</div>}
-            <div className="text-2xl font-bold text-primary-foreground md:text-3xl">
-              {stat.value}
-            </div>
-            <div className="text-sm text-primary-foreground/80">
-              {stat.label}
-            </div>
+            {stat.value && (
+              <div className="text-2xl font-bold text-primary-foreground md:text-3xl">
+                {stat.value}
+              </div>
+            )}
+            {stat.label && (
+              <div className="text-sm text-primary-foreground/80">
+                {stat.label}
+              </div>
+            )}
           </Card>
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName, statCardClassName]);
 
   return (
     <Section
@@ -230,24 +235,36 @@ export function CtaGradientStatsHero({
               contentClassName,
             )}
           >
-            <h2
-              className={cn(
-                "mb-6 text-4xl font-bold md:text-5xl lg:text-6xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-            <p
-              className={cn(
-                "mb-8 text-lg opacity-90 md:text-xl",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
-            {renderStats()}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-6 text-4xl font-bold md:text-5xl lg:text-6xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-6", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 text-lg opacity-90 md:text-xl",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {actionsContent}
+            {statsContent}
           </div>
           <div className="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-white/10 blur-3xl" />

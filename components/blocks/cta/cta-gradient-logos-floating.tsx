@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -151,13 +151,13 @@ export function CtaGradientLogosFloating({
   actionsClassName,
   leftLogosClassName,
   rightLogosClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaGradientLogosFloatingProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -196,9 +196,9 @@ export function CtaGradientLogosFloating({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderLeftLogos = () => {
+  const leftLogosContent = useMemo(() => {
     if (leftLogosSlot) return leftLogosSlot;
     if (!leftLogos || leftLogos.length === 0) return null;
 
@@ -227,9 +227,9 @@ export function CtaGradientLogosFloating({
         ))}
       </div>
     );
-  };
+  }, [leftLogosSlot, leftLogos, leftLogosClassName, optixFlowConfig]);
 
-  const renderRightLogos = () => {
+  const rightLogosContent = useMemo(() => {
     if (rightLogosSlot) return rightLogosSlot;
     if (!rightLogos || rightLogos.length === 0) return null;
 
@@ -258,7 +258,7 @@ export function CtaGradientLogosFloating({
         ))}
       </div>
     );
-  };
+  }, [rightLogosSlot, rightLogos, rightLogosClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -270,37 +270,47 @@ export function CtaGradientLogosFloating({
     >
       <div className={cn("container", containerClassName)}>
         <div className="relative">
-          {renderLeftLogos()}
-          {renderRightLogos()}
+          {leftLogosContent}
+          {rightLogosContent}
 
           <div
             className={cn("mx-auto max-w-2xl text-center", contentClassName)}
           >
-            <h2
-              className={cn(
-                "mb-6 text-4xl font-bold md:text-5xl",
-                headingClassName,
-              )}
-            >
-              {heading}{" "}
-              <span
+            {(heading || headingGradient) && (
+              <h2
                 className={cn(
-                  "bg-linear-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent",
-                  gradientClassName,
+                  "mb-6 text-4xl font-bold md:text-5xl",
+                  headingClassName,
                 )}
               >
-                {headingGradient}
-              </span>
-            </h2>
-            <p
-              className={cn(
-                "mb-8 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-            {renderActions()}
+                {heading}{" "}
+                {headingGradient && (
+                  <span
+                    className={cn(
+                      "bg-linear-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent",
+                      gradientClassName,
+                    )}
+                  >
+                    {headingGradient}
+                  </span>
+                )}
+              </h2>
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+              )
+            )}
+            {actionsContent}
           </div>
         </div>
       </div>

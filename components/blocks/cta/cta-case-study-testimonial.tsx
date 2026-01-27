@@ -1,14 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Badge } from "../../ui/badge";
 import { Card } from "../../ui/card";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -222,11 +221,11 @@ export function CtaCaseStudyTestimonial({
   testimonialQuote,
   actions,
   actionsSlot,
-  featuredImage = imagePlaceholders[16],
+  featuredImage,
   featuredImageAlt,
   stats,
   statsSlot,
-  companyLogo = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo7,
+  companyLogo,
   companyName,
   industryBadge,
   companyDetails,
@@ -241,13 +240,13 @@ export function CtaCaseStudyTestimonial({
   testimonialClassName,
   actionsClassName,
   sidebarClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaCaseStudyTestimonialProps): React.JSX.Element {
-  const renderSections = () => {
+  const sectionsContent = useMemo(() => {
     if (sectionsSlot) return sectionsSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -269,16 +268,16 @@ export function CtaCaseStudyTestimonial({
                 ))}
             </div>
             <div>
-              <h3 className="text-lg font-medium">{section.title}</h3>
-              <p className="text-muted-foreground">{section.description}</p>
+              {section.title && <h3 className="text-lg font-medium">{section.title}</h3>}
+              {section.description && <p className="text-muted-foreground">{section.description}</p>}
             </div>
           </div>
         ))}
       </div>
     );
-  };
+  }, [sectionsSlot, sections, sectionsClassName]);
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -320,9 +319,9 @@ export function CtaCaseStudyTestimonial({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderStats = () => {
+  const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -333,13 +332,13 @@ export function CtaCaseStudyTestimonial({
             key={index}
             className={cn("rounded-lg border p-4 text-center", stat.className)}
           >
-            <div className="text-3xl font-bold text-primary">{stat.value}</div>
-            <p className="text-sm text-muted-foreground">{stat.label}</p>
+            {stat.value && <div className="text-3xl font-bold text-primary">{stat.value}</div>}
+            {stat.label && <p className="text-sm text-muted-foreground">{stat.label}</p>}
           </Card>
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats]);
 
   const badgeContent = badge ?? badgeText;
 
@@ -354,83 +353,107 @@ export function CtaCaseStudyTestimonial({
       <div className={cn("container", containerClassName)}>
         <div className={cn("grid gap-12 lg:grid-cols-5", gridClassName)}>
           <div className={cn("lg:col-span-3", contentClassName)}>
-            <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
-              {badgeContent}
-            </Badge>
-            <h2
-              className={cn(
-                "mb-4 text-3xl font-bold md:text-4xl",
-                headingClassName,
-              )}
-            >
-              {heading}
-            </h2>
-            <p
-              className={cn(
-                "mb-8 text-lg text-muted-foreground",
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
+            {badgeContent && (
+              <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
+                {badgeContent}
+              </Badge>
+            )}
+            {heading && (
+              typeof heading === "string" ? (
+                <h2
+                  className={cn(
+                    "mb-4 text-3xl font-bold md:text-4xl",
+                    headingClassName,
+                  )}
+                >
+                  {heading}
+                </h2>
+              ) : (
+                <div className={cn("mb-4", headingClassName)}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p
+                  className={cn(
+                    "mb-8 text-lg text-muted-foreground",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              ) : (
+                <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+              )
+            )}
 
-            {renderSections()}
+            {sectionsContent}
 
-            <div
-              className={cn(
-                "relative mt-8 border-l-4 border-primary/20 pl-6 italic text-muted-foreground",
-                testimonialClassName,
-              )}
-            >
-              <DynamicIcon
-                name="lucide/quote"
-                size={24}
-                className="absolute -left-3 -top-2 rounded-full bg-background text-primary"
-              />
-              <p className="md:text-lg">&ldquo;{testimonialQuote}&rdquo;</p>
-            </div>
+            {testimonialQuote && (
+              <div
+                className={cn(
+                  "relative mt-8 border-l-4 border-primary/20 pl-6 italic text-muted-foreground",
+                  testimonialClassName,
+                )}
+              >
+                <DynamicIcon
+                  name="lucide/quote"
+                  size={24}
+                  className="absolute -left-3 -top-2 rounded-full bg-background text-primary"
+                />
+                <p className="md:text-lg">&ldquo;{testimonialQuote}&rdquo;</p>
+              </div>
+            )}
 
-            {renderActions()}
+            {actionsContent}
           </div>
 
           <div className={cn("lg:col-span-2", sidebarClassName)}>
-            <div className="relative aspect-4/3 overflow-hidden rounded-xl border">
-              <Img
-                src={featuredImage}
-                alt={featuredImageAlt}
-                className="h-full w-full object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="rounded-full border-2 border-white bg-white/20 p-2 backdrop-blur-sm transition-transform hover:scale-110">
-                  <DynamicIcon
-                    name="lucide/play"
-                    size={40}
-                    className="text-white"
-                  />
+            {featuredImage && (
+              <div className="relative aspect-4/3 overflow-hidden rounded-xl border">
+                <Img
+                  src={featuredImage}
+                  alt={featuredImageAlt}
+                  className="h-full w-full object-cover"
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="rounded-full border-2 border-white bg-white/20 p-2 backdrop-blur-sm transition-transform hover:scale-110">
+                    <DynamicIcon
+                      name="lucide/play"
+                      size={40}
+                      className="text-white"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {renderStats()}
+            {statsContent}
 
-            <Card className="mt-6 rounded-lg border bg-muted/40 p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Img
-                    src={companyLogo}
-                    alt={`${companyName} logo`}
-                    className="h-8 w-8 rounded-full object-cover"
-                    optixFlowConfig={optixFlowConfig}
-                  />
-                  <span className="font-medium">{companyName}</span>
+            {(companyLogo || companyName || industryBadge || companyDetails) && (
+              <Card className="mt-6 rounded-lg border bg-muted/40 p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {companyLogo && (
+                      <Img
+                        src={companyLogo}
+                        alt={`${companyName} logo`}
+                        className="h-8 w-8 rounded-full object-cover"
+                        optixFlowConfig={optixFlowConfig}
+                      />
+                    )}
+                    {companyName && <span className="font-medium">{companyName}</span>}
+                  </div>
+                  {industryBadge && <Badge variant="outline">{industryBadge}</Badge>}
                 </div>
-                <Badge variant="outline">{industryBadge}</Badge>
-              </div>
-              <div className="mt-2 text-xs text-muted-foreground">
-                {companyDetails}
-              </div>
-            </Card>
+                {companyDetails && (
+                  <div className="mt-2 text-xs text-muted-foreground">
+                    {companyDetails}
+                  </div>
+                )}
+              </Card>
+            )}
           </div>
         </div>
       </div>

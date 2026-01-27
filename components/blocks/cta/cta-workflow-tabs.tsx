@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -186,8 +186,8 @@ export function CtaWorkflowTabs({
   tabButtonClassName,
   tabContentClassName,
   tabImageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -195,7 +195,7 @@ export function CtaWorkflowTabs({
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id || "");
   const activeTabData = tabs?.find((tab) => tab.id === activeTab) || tabs?.[0];
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -234,9 +234,9 @@ export function CtaWorkflowTabs({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderTabs = () => {
+  const tabsContent = useMemo(() => {
     if (tabsSlot) return tabsSlot;
     if (!tabs || tabs.length === 0) return null;
 
@@ -280,50 +280,68 @@ export function CtaWorkflowTabs({
             )}
           >
             <div>
-              <h3 className="mb-4 text-2xl font-bold md:text-3xl">
-                {activeTabData.heading}
-              </h3>
-              <p className="mb-6 text-lg text-muted-foreground">
-                {activeTabData.description}
-              </p>
+              {activeTabData.heading && (
+                typeof activeTabData.heading === "string" ? (
+                  <h3 className="mb-4 text-2xl font-bold md:text-3xl">
+                    {activeTabData.heading}
+                  </h3>
+                ) : (
+                  <div className="mb-4">{activeTabData.heading}</div>
+                )
+              )}
+              {activeTabData.description && (
+                typeof activeTabData.description === "string" ? (
+                  <p className="mb-6 text-lg text-muted-foreground">
+                    {activeTabData.description}
+                  </p>
+                ) : (
+                  <div className="mb-6">{activeTabData.description}</div>
+                )
+              )}
               {activeTabData.stats && activeTabData.stats.length > 0 && (
                 <div className="flex gap-8">
                   {activeTabData.stats.map((stat, index) => (
                     <div key={index}>
                       {stat.icon && <div className="mb-1">{stat.icon}</div>}
-                      <div className="text-3xl font-bold text-primary">
-                        {stat.value}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {stat.label}
-                      </div>
+                      {stat.value && (
+                        <div className="text-3xl font-bold text-primary">
+                          {stat.value}
+                        </div>
+                      )}
+                      {stat.label && (
+                        <div className="text-sm text-muted-foreground">
+                          {stat.label}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
               )}
             </div>
-            <div
-              className={cn(
-                "overflow-hidden rounded-xl border shadow-lg",
-                tabImageClassName,
-              )}
-            >
-              <Img
-                src={activeTabData.image || imagePlaceholders[0]}
-                alt={
-                  typeof activeTabData.heading === "string"
-                    ? activeTabData.heading
-                    : ""
-                }
-                className="h-full w-full object-cover"
-                optixFlowConfig={optixFlowConfig}
-              />
-            </div>
+            {activeTabData.image && (
+              <div
+                className={cn(
+                  "overflow-hidden rounded-xl border shadow-lg",
+                  tabImageClassName,
+                )}
+              >
+                <Img
+                  src={activeTabData.image}
+                  alt={
+                    typeof activeTabData.heading === "string"
+                      ? activeTabData.heading
+                      : ""
+                  }
+                  className="h-full w-full object-cover"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
     );
-  };
+  }, [tabsSlot, tabs, activeTab, activeTabData, tabsWrapperClassName, tabButtonsClassName, tabButtonClassName, tabContentClassName, tabImageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -335,25 +353,37 @@ export function CtaWorkflowTabs({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
-          <h2
-            className={cn(
-              "mb-4 text-3xl font-bold md:text-5xl",
-              headingClassName,
-            )}
-          >
-            {heading}
-          </h2>
-          <p
-            className={cn(
-              "mb-8 text-lg text-muted-foreground",
-              descriptionClassName,
-            )}
-          >
-            {description}
-          </p>
-          {renderActions()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold md:text-5xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-8 text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+            )
+          )}
+          {actionsContent}
         </div>
-        {renderTabs()}
+        {tabsContent}
       </div>
     </Section>
   );

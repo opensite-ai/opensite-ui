@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -137,12 +138,12 @@ export function CtaFeatureChecklist({
   actionsClassName,
   checklistClassName,
   checklistItemClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaFeatureChecklistProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -172,9 +173,9 @@ export function CtaFeatureChecklist({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderChecklist = () => {
+  const checklistContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -209,7 +210,7 @@ export function CtaFeatureChecklist({
         })}
       </ul>
     );
-  };
+  }, [itemsSlot, items, checklistClassName, checklistItemClassName]);
 
   return (
     <Section
@@ -229,22 +230,34 @@ export function CtaFeatureChecklist({
               )}
             >
               <div className={cn("md:w-1/2", contentClassName)}>
-                <h4
-                  className={cn(
-                    "mb-1 text-2xl font-bold md:text-3xl",
-                    headingClassName
-                  )}
-                >
-                  {heading}
-                </h4>
-                <p
-                  className={cn("text-muted-foreground", descriptionClassName)}
-                >
-                  {description}
-                </p>
-                {renderActions()}
+                {heading && (
+                  typeof heading === "string" ? (
+                    <h4
+                      className={cn(
+                        "mb-1 text-2xl font-bold md:text-3xl",
+                        headingClassName
+                      )}
+                    >
+                      {heading}
+                    </h4>
+                  ) : (
+                    <div className={cn("mb-1", headingClassName)}>{heading}</div>
+                  )
+                )}
+                {description && (
+                  typeof description === "string" ? (
+                    <p
+                      className={cn("text-muted-foreground", descriptionClassName)}
+                    >
+                      {description}
+                    </p>
+                  ) : (
+                    <div className={descriptionClassName}>{description}</div>
+                  )
+                )}
+                {actionsContent}
               </div>
-              <div className="md:w-1/3">{renderChecklist()}</div>
+              <div className="md:w-1/3">{checklistContent}</div>
             </div>
           </div>
         </div>

@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import { videoPlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -123,8 +123,8 @@ export function CtaVideoBackgroundHero({
   description,
   actions,
   actionsSlot,
-  modalVideoUrl = videoPlaceholders[0],
-  backgroundVideoUrl = videoPlaceholders[1],
+  modalVideoUrl,
+  backgroundVideoUrl,
   modalSlot,
   onModalOpen,
   onModalClose,
@@ -136,8 +136,8 @@ export function CtaVideoBackgroundHero({
   headingClassName,
   descriptionClassName,
   actionsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: CtaVideoBackgroundHeroProps): React.JSX.Element {
@@ -153,7 +153,7 @@ export function CtaVideoBackgroundHero({
     onModalClose?.();
   };
 
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -208,9 +208,9 @@ export function CtaVideoBackgroundHero({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderModal = () => {
+  const modalContent = useMemo(() => {
     if (modalSlot) return modalSlot;
     if (!isModalOpen) return null;
 
@@ -229,13 +229,15 @@ export function CtaVideoBackgroundHero({
           >
             <DynamicIcon name="lucide/x" size={20} />
           </button>
-          <video controls autoPlay className="w-full rounded-lg">
-            <source src={modalVideoUrl} type="video/mp4" />
-          </video>
+          {modalVideoUrl && (
+            <video controls autoPlay className="w-full rounded-lg">
+              <source src={modalVideoUrl} type="video/mp4" />
+            </video>
+          )}
         </div>
       </div>
     );
-  };
+  }, [modalSlot, isModalOpen, modalVideoUrl]);
 
   return (
     <Section
@@ -252,15 +254,17 @@ export function CtaVideoBackgroundHero({
             videoWrapperClassName,
           )}
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 h-full w-full object-cover"
-          >
-            <source src={backgroundVideoUrl} type="video/mp4" />
-          </video>
+          {backgroundVideoUrl && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover"
+            >
+              <source src={backgroundVideoUrl} type="video/mp4" />
+            </video>
+          )}
           <div
             className={cn(
               "absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/30",
@@ -274,28 +278,40 @@ export function CtaVideoBackgroundHero({
                 contentClassName,
               )}
             >
-              <h2
-                className={cn(
-                  "mb-6 text-4xl font-bold md:text-5xl lg:text-6xl",
-                  headingClassName,
-                )}
-              >
-                {heading}
-              </h2>
-              <p
-                className={cn(
-                  "mb-8 text-lg opacity-90 md:text-xl",
-                  descriptionClassName,
-                )}
-              >
-                {description}
-              </p>
-              {renderActions()}
+              {heading && (
+                typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "mb-6 text-4xl font-bold md:text-5xl lg:text-6xl",
+                      headingClassName,
+                    )}
+                  >
+                    {heading}
+                  </h2>
+                ) : (
+                  <div className={cn("mb-6", headingClassName)}>{heading}</div>
+                )
+              )}
+              {description && (
+                typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "mb-8 text-lg opacity-90 md:text-xl",
+                      descriptionClassName,
+                    )}
+                  >
+                    {description}
+                  </p>
+                ) : (
+                  <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+                )
+              )}
+              {actionsContent}
             </div>
           </div>
         </div>
       </div>
-      {renderModal()}
+      {modalContent}
     </Section>
   );
 }

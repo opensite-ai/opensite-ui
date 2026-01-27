@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -101,7 +101,7 @@ export function CtaImageOverlayCentered({
   description,
   actions,
   actionsSlot,
-  backgroundImage = imagePlaceholders[20],
+  backgroundImage,
   backgroundAlt,
   className,
   cardClassName,
@@ -110,13 +110,13 @@ export function CtaImageOverlayCentered({
   headingClassName,
   descriptionClassName,
   actionsClassName,
-  background = "white",
-  spacing = "md",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: CtaImageOverlayCenteredProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -145,7 +145,7 @@ export function CtaImageOverlayCentered({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
   return (
     <Section
@@ -161,13 +161,15 @@ export function CtaImageOverlayCentered({
           cardClassName,
         )}
       >
-        <Img
-          src={backgroundImage}
-          alt={backgroundAlt}
-          className="absolute inset-0 h-full w-full object-cover"
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
+        {backgroundImage && (
+          <Img
+            src={backgroundImage}
+            alt={backgroundAlt}
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        )}
         <div
           className={cn(
             "absolute inset-0 bg-linear-to-r from-foreground/90 via-foreground/80 to-foreground/90",
@@ -184,20 +186,34 @@ export function CtaImageOverlayCentered({
             contentClassName,
           )}
         >
-          <h2
-            className={cn("text-3xl font-bold md:text-5xl", headingClassName)}
-          >
-            {heading}
-          </h2>
-          <p
-            className={cn(
-              "mx-auto mt-4 max-w-2xl text-lg text-white/80",
-              descriptionClassName,
-            )}
-          >
-            {description}
-          </p>
-          {renderActions()}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2
+                className={cn("text-3xl font-bold md:text-5xl", headingClassName)}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={headingClassName}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mx-auto mt-4 max-w-2xl text-lg text-white/80",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mx-auto mt-4 max-w-2xl", descriptionClassName)}>
+                {description}
+              </div>
+            )
+          )}
+          {actionsContent}
         </motion.div>
       </div>
     </Section>

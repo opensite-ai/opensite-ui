@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -209,8 +210,8 @@ export function CtaNewsletterFeatures({
   descriptionClassName,
   formClassName,
   featuresClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   formConfig,
@@ -266,7 +267,7 @@ export function CtaNewsletterFeatures({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const renderForm = () => {
+  const formContent = useMemo(() => {
     if (formSlot) return formSlot;
 
     return (
@@ -304,9 +305,9 @@ export function CtaNewsletterFeatures({
         </Pressable>
       </Form>
     );
-  };
+  }, [formSlot, form, formConfig?.endpoint, formMethod, formClassName, emailPlaceholder, buttonText]);
 
-  const renderFeatures = () => {
+  const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -335,7 +336,7 @@ export function CtaNewsletterFeatures({
         ))}
       </ul>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
   return (
     <Section
@@ -347,27 +348,45 @@ export function CtaNewsletterFeatures({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-2xl text-center", contentClassName)}>
-          <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
-            {badge}
-          </Badge>
-          <h2
-            className={cn(
-              "mb-4 text-3xl font-bold md:text-4xl",
-              headingClassName,
-            )}
-          >
-            {heading}
-          </h2>
-          <p
-            className={cn(
-              "mb-8 text-lg text-muted-foreground",
-              descriptionClassName,
-            )}
-          >
-            {description}
-          </p>
-          {renderForm()}
-          {renderFeatures()}
+          {badge && (
+            typeof badge === "string" ? (
+              <Badge variant="secondary" className={cn("mb-4", badgeClassName)}>
+                {badge}
+              </Badge>
+            ) : (
+              <div className={cn("mb-4", badgeClassName)}>{badge}</div>
+            )
+          )}
+          {heading && (
+            typeof heading === "string" ? (
+              <h2
+                className={cn(
+                  "mb-4 text-3xl font-bold md:text-4xl",
+                  headingClassName,
+                )}
+              >
+                {heading}
+              </h2>
+            ) : (
+              <div className={cn("mb-4", headingClassName)}>{heading}</div>
+            )
+          )}
+          {description && (
+            typeof description === "string" ? (
+              <p
+                className={cn(
+                  "mb-8 text-lg text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            ) : (
+              <div className={cn("mb-8", descriptionClassName)}>{description}</div>
+            )
+          )}
+          {formContent}
+          {featuresContent}
         </div>
       </div>
     </Section>
