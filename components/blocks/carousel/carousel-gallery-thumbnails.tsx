@@ -20,7 +20,13 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface GalleryImage {
   /**
@@ -102,6 +108,22 @@ export interface CarouselGalleryThumbnailsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselGalleryThumbnails({
@@ -118,6 +140,10 @@ export function CarouselGalleryThumbnails({
   thumbnailsClassName,
   thumbnailClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselGalleryThumbnailsProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -159,7 +185,13 @@ export function CarouselGalleryThumbnails({
   }, [nextSlide, prevSlide]);
 
   return (
-    <section className={cn("w-full p-4 md:p-6", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       {/* Main carousel */}
       <div className={cn("relative overflow-hidden rounded-lg", containerClassName)}>
         <div className={cn("relative aspect-video w-full overflow-hidden", slideClassName)}>
@@ -246,7 +278,7 @@ export function CarouselGalleryThumbnails({
           ))}
         </div>
       )}
-    </section>
+    </Section>
   );
 }
 

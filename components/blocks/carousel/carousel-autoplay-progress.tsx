@@ -23,7 +23,13 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AutoplaySlide {
   /**
@@ -101,6 +107,22 @@ export interface CarouselAutoplayProgressProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 // Hook for dot button navigation
@@ -245,6 +267,10 @@ export function CarouselAutoplayProgress({
   dotsClassName,
   progressClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselAutoplayProgressProps): React.JSX.Element {
   const progressNode = React.useRef<HTMLDivElement>(null);
 
@@ -259,7 +285,13 @@ export function CarouselAutoplayProgress({
     useDotButton(emblaApi);
 
   return (
-    <section className={cn("w-full", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("overflow-hidden", containerClassName)} ref={emblaRef}>
         <div className={cn("ml-auto mr-3 flex touch-pan-y touch-pinch-zoom", trackClassName)}>
           {slidesSlot ? (
@@ -347,7 +379,7 @@ export function CarouselAutoplayProgress({
           }
         }
       `}</style>
-    </section>
+    </Section>
   );
 }
 

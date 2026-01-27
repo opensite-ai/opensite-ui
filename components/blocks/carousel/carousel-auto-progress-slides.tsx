@@ -27,7 +27,13 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface SlideItem {
   /**
@@ -109,6 +115,22 @@ export interface CarouselAutoProgressSlidesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 const variants: Variants = {
@@ -147,6 +169,10 @@ export function CarouselAutoProgressSlides({
   slideContainerClassName,
   imageClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselAutoProgressSlidesProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const progress = useMotionValue(100);
@@ -201,11 +227,15 @@ export function CarouselAutoProgressSlides({
   };
 
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
       className={cn(
         "relative flex min-h-screen w-full flex-col items-center justify-center gap-12 overflow-hidden font-sans",
         className
       )}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
     >
       <div className={cn("text-center", headerClassName)}>
         {heading && (
@@ -306,7 +336,7 @@ export function CarouselAutoProgressSlides({
           )}
         </AnimatePresence>
       )}
-    </section>
+    </Section>
   );
 }
 

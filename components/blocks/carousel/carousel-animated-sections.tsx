@@ -21,7 +21,14 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface AnimatedSection {
   /**
@@ -131,6 +138,22 @@ export interface CarouselAnimatedSectionsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselAnimatedSections({
@@ -150,6 +173,10 @@ export function CarouselAnimatedSections({
   counterClassName,
   overlayClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselAnimatedSectionsProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
@@ -258,8 +285,12 @@ export function CarouselAnimatedSections({
   };
 
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
       className={cn("relative h-screen w-full overflow-hidden", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
     >
       {/* Background slides */}
       {sectionsSlot ? (
@@ -396,7 +427,7 @@ export function CarouselAnimatedSections({
         {String(currentIndex + 1).padStart(2, "0")} /{" "}
         {String(sections.length).padStart(2, "0")}
       </div>
-    </section>
+    </Section>
   );
 }
 

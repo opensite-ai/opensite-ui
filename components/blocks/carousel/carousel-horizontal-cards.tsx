@@ -21,7 +21,13 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CardItem {
   /**
@@ -107,6 +113,22 @@ export interface CarouselHorizontalCardsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselHorizontalCards({
@@ -123,6 +145,10 @@ export function CarouselHorizontalCards({
   carouselClassName,
   navigationClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselHorizontalCardsProps): React.JSX.Element {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const [isAtStart, setIsAtStart] = React.useState(true);
@@ -218,8 +244,12 @@ export function CarouselHorizontalCards({
   };
 
   return (
-    <section
-      className={cn("w-full py-8", className)}
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       aria-labelledby="carousel-title"
     >
       <div className={cn("container mx-auto px-4 md:px-6", containerClassName)}>
@@ -287,7 +317,7 @@ export function CarouselHorizontalCards({
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

@@ -18,7 +18,13 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FullscreenSlide {
   /**
@@ -100,6 +106,22 @@ export interface CarouselFullscreenScrollFxProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselFullscreenScrollFx({
@@ -114,6 +136,10 @@ export function CarouselFullscreenScrollFx({
   scrollIndicatorClassName,
   counterClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselFullscreenScrollFxProps): React.JSX.Element {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -145,7 +171,14 @@ export function CarouselFullscreenScrollFx({
   }, [slides]);
 
   return (
-    <section ref={containerRef} className={cn("relative", className)}>
+    <Section
+      ref={containerRef}
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       {/* Navigation dots */}
       <div className={cn("fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-3 lg:flex", navigationClassName)}>
         {slides.map((slide, index) => (
@@ -243,7 +276,7 @@ export function CarouselFullscreenScrollFx({
           </div>
         ))
       )}
-    </section>
+    </Section>
   );
 }
 

@@ -25,7 +25,14 @@ import {
 } from "../../ui/carousel";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CarouselFeatureBadgeProps {
   /**
@@ -84,6 +91,22 @@ export interface CarouselFeatureBadgeProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselFeatureBadge({
@@ -101,6 +124,10 @@ export function CarouselFeatureBadge({
   carouselClassName,
   carouselItemClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselFeatureBadgeProps): React.JSX.Element {
   const renderCarouselItems = () => {
     if (itemsSlot) return itemsSlot;
@@ -121,7 +148,13 @@ export function CarouselFeatureBadge({
   };
 
   return (
-    <section className={cn("w-full py-20 lg:py-40", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container mx-auto", containerClassName)}>
         <div className="grid grid-cols-1 items-end justify-end gap-10 lg:grid-cols-2">
           <div className={cn("flex flex-col items-start gap-4", contentClassName)}>
@@ -162,7 +195,7 @@ export function CarouselFeatureBadge({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

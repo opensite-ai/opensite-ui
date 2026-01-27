@@ -21,7 +21,14 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface StepItem {
   /**
@@ -123,6 +130,22 @@ export interface CarouselMultiStepShowcaseProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselMultiStepShowcase({
@@ -143,6 +166,10 @@ export function CarouselMultiStepShowcase({
   imageClassName,
   actionsClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselMultiStepShowcaseProps): React.JSX.Element {
   const [activeStep, setActiveStep] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
@@ -210,7 +237,13 @@ export function CarouselMultiStepShowcase({
   };
 
   return (
-    <section className={cn("w-full py-16 lg:py-24", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container mx-auto px-4", containerClassName)}>
         {/* Header */}
         <div className={cn("mb-12 text-center", headerClassName)}>
@@ -373,7 +406,7 @@ export function CarouselMultiStepShowcase({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

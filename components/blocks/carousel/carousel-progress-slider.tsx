@@ -19,7 +19,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface ProgressSliderContextType {
   active: string;
@@ -191,6 +197,22 @@ export interface CarouselProgressSliderProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselProgressSlider({
@@ -207,6 +229,10 @@ export function CarouselProgressSlider({
   buttonClassName,
   progressBarClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselProgressSliderProps): React.JSX.Element {
   const [active, setActive] = React.useState<string>(slides[0].id);
   const [progress, setProgress] = React.useState<number>(0);
@@ -274,7 +300,13 @@ export function CarouselProgressSlider({
     <ProgressSliderContext.Provider
       value={{ active, progress, handleButtonClick, vertical }}
     >
-      <section className={cn("relative w-full py-12", className)}>
+      <Section
+        background={background}
+        spacing={spacing}
+        className={cn(className)}
+        pattern={pattern}
+        patternOpacity={patternOpacity}
+      >
         <div className={cn("container mx-auto px-4", containerClassName)}>
           <div className={cn("grid gap-8 lg:grid-cols-2", contentClassName)}>
             {/* Content area */}
@@ -331,7 +363,7 @@ export function CarouselProgressSlider({
             </div>
           </div>
         </div>
-      </section>
+      </Section>
     </ProgressSliderContext.Provider>
   );
 }

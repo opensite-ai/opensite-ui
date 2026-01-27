@@ -19,7 +19,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface FeatureItem {
   /**
@@ -105,6 +111,22 @@ export interface CarouselScrollingFeatureShowcaseProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselScrollingFeatureShowcase({
@@ -122,6 +144,10 @@ export function CarouselScrollingFeatureShowcase({
   featuresClassName,
   numberBadgeClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselScrollingFeatureShowcaseProps): React.JSX.Element {
   const [activeFeature, setActiveFeature] = React.useState<string>(
     features?.[0]?.id ?? ""
@@ -165,7 +191,14 @@ export function CarouselScrollingFeatureShowcase({
   const activeFeatureData = features?.find((f) => f.id === activeFeature);
 
   return (
-    <section ref={containerRef} className={cn("relative", className)}>
+    <Section
+      ref={containerRef}
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container mx-auto px-4", containerClassName)}>
         {/* Header */}
         <div className={cn("py-16 text-center", headerClassName)}>
@@ -266,7 +299,7 @@ export function CarouselScrollingFeatureShowcase({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

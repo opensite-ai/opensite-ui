@@ -20,7 +20,14 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface PortfolioSlide {
   /**
@@ -114,6 +121,22 @@ export interface CarouselPortfolioHeroProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselPortfolioHero({
@@ -132,6 +155,10 @@ export function CarouselPortfolioHero({
   navigationClassName,
   counterClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselPortfolioHeroProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -179,8 +206,12 @@ export function CarouselPortfolioHero({
   const currentSlide = slides?.[currentIndex];
 
   return (
-    <section
+    <Section
+      background={background}
+      spacing={spacing}
       className={cn("relative h-screen w-full overflow-hidden", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
     >
       {/* Slide images with animation */}
       {slidesSlot ? (
@@ -274,7 +305,7 @@ export function CarouselPortfolioHero({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

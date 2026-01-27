@@ -20,7 +20,15 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, ImageItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  ImageItem,
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 export interface CarouselImageHeroProps {
   /**
@@ -95,6 +103,22 @@ export interface CarouselImageHeroProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function CarouselImageHero({
@@ -116,6 +140,10 @@ export function CarouselImageHero({
   navigationClassName,
   indicatorsClassName,
   optixFlowConfig,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: CarouselImageHeroProps): React.JSX.Element {
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
 
@@ -163,7 +191,13 @@ export function CarouselImageHero({
   };
 
   return (
-    <section className={cn("relative min-h-[600px] overflow-hidden", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn("relative min-h-[600px] overflow-hidden", className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       {/* Image Carousel */}
       <div className={cn("absolute inset-0", imageClassName)}>
         {images?.map((image, index) => (
@@ -265,7 +299,7 @@ export function CarouselImageHero({
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 
