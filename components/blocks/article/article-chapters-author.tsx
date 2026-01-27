@@ -334,7 +334,7 @@ export function ArticleChaptersAuthorComponent({
     return () => observer.disconnect();
   }, [chapters, enableChapterTracking]);
 
-  const renderBreadcrumbs = () => {
+  const breadcrumbsContent = React.useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
@@ -367,9 +367,9 @@ export function ArticleChaptersAuthorComponent({
         </BreadcrumbList>
       </Breadcrumb>
     );
-  };
+  }, [breadcrumbsSlot, breadcrumbs, currentPage, breadcrumbClassName]);
 
-  const renderChaptersNav = () => {
+  const chaptersNavContent = React.useMemo(() => {
     if (chaptersSlot) return chaptersSlot;
     if (!chapters || chapters.length === 0) return null;
 
@@ -403,61 +403,62 @@ export function ArticleChaptersAuthorComponent({
         </nav>
       </div>
     );
-  };
+  }, [chaptersSlot, chapters, activeChapter, renderChapterLink, chaptersClassName]);
 
-  const renderAuthorCard = () => {
+  const authorCardContent = React.useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!author) return null;
 
-    const renderSocialLinks = () => {
-      if (!author.socialLinks) return null;
-
+    let socialLinksContent = null;
+    if (author.socialLinks) {
       if (Array.isArray(author.socialLinks)) {
-        if (author.socialLinks.length === 0) return null;
-        return (
-          <div className="mt-4 flex gap-2">
-            {author.socialLinks.map((link, index) => (
-              <Pressable
-                key={index}
-                href={link.href}
-                className={cn(
-                  "flex h-8 w-8 items-center justify-center rounded-md border hover:bg-muted",
-                  link.className
-                )}
-                aria-label={link["aria-label"]}
-              >
-                {link.icon ?? <DynamicIcon name={`lucide/${link.platform}`} size={14} />}
-              </Pressable>
-            ))}
-          </div>
-        );
+        if (author.socialLinks.length > 0) {
+          socialLinksContent = (
+            <div className="mt-4 flex gap-2">
+              {author.socialLinks.map((link, index) => (
+                <Pressable
+                  key={index}
+                  href={link.href}
+                  className={cn(
+                    "flex h-8 w-8 items-center justify-center rounded-md border hover:bg-muted",
+                    link.className
+                  )}
+                  aria-label={link["aria-label"]}
+                >
+                  {link.icon ?? <DynamicIcon name={`lucide/${link.platform}`} size={14} />}
+                </Pressable>
+              ))}
+            </div>
+          );
+        }
       } else {
         const links = author.socialLinks;
         const socialEntries = Object.entries(links).filter(([, href]) => href);
-        if (socialEntries.length === 0) return null;
-        const platformLabels: Record<string, string> = {
-          twitter: "Twitter",
-          linkedin: "LinkedIn",
-          github: "GitHub",
-          facebook: "Facebook",
-          instagram: "Instagram",
-        };
-        return (
-          <div className="mt-4 flex gap-2">
-            {socialEntries.map(([platform, href]) => (
-              <Pressable
-                key={platform}
-                href={href}
-                className="flex h-8 w-8 items-center justify-center rounded-md border hover:bg-muted"
-                aria-label={platformLabels[platform] || platform.charAt(0).toUpperCase() + platform.slice(1)}
-              >
-                <DynamicIcon name={`lucide/${platform}`} size={14} />
-              </Pressable>
-            ))}
-          </div>
-        );
+        if (socialEntries.length > 0) {
+          const platformLabels: Record<string, string> = {
+            twitter: "Twitter",
+            linkedin: "LinkedIn",
+            github: "GitHub",
+            facebook: "Facebook",
+            instagram: "Instagram",
+          };
+          socialLinksContent = (
+            <div className="mt-4 flex gap-2">
+              {socialEntries.map(([platform, href]) => (
+                <Pressable
+                  key={platform}
+                  href={href}
+                  className="flex h-8 w-8 items-center justify-center rounded-md border hover:bg-muted"
+                  aria-label={platformLabels[platform] || platform.charAt(0).toUpperCase() + platform.slice(1)}
+                >
+                  <DynamicIcon name={`lucide/${platform}`} size={14} />
+                </Pressable>
+              ))}
+            </div>
+          );
+        }
       }
-    };
+    }
 
     return (
       <div className={cn("rounded-lg border p-4", authorClassName)}>
@@ -481,27 +482,26 @@ export function ArticleChaptersAuthorComponent({
             {author.bio}
           </p>
         )}
-        {renderSocialLinks()}
+        {socialLinksContent}
       </div>
     );
-  };
+  }, [authorSlot, author, authorClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
-    if (heroImageSrc) {
-      return (
-        <Img
-          src={heroImageSrc}
-          alt={heroImageAlt}
-          className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    }
-    return null;
-  };
+    if (!heroImageSrc) return null;
 
-  const renderConclusion = () => {
+    return (
+      <Img
+        src={heroImageSrc}
+        alt={heroImageAlt}
+        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+
+  const conclusionContent = React.useMemo(() => {
     if (conclusionSlot) return conclusionSlot;
     if (!conclusionTitle && !conclusionDescription && (!conclusionActions || conclusionActions.length === 0)) return null;
 
@@ -546,12 +546,12 @@ export function ArticleChaptersAuthorComponent({
         )}
       </div>
     );
-  };
+  }, [conclusionSlot, conclusionTitle, conclusionDescription, conclusionActions, conclusionClassName]);
 
   return (
     <section className={cn("py-32", className)}>
       <div className={cn("container", containerClassName)}>
-        {renderBreadcrumbs()}
+        {breadcrumbsContent}
 
         <div className={cn("mb-12 text-center", headerClassName)}>
           {title && (
@@ -577,17 +577,17 @@ export function ArticleChaptersAuthorComponent({
         <div className="grid gap-10 lg:grid-cols-[280px_minmax(0,1fr)]">
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
-              {renderChaptersNav()}
-              {renderAuthorCard()}
+              {chaptersNavContent}
+              {authorCardContent}
             </div>
           </aside>
 
           <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
-            {renderHeroMedia()}
+            {heroMediaContent}
 
             {children || defaultArticleContent(optixFlowConfig)}
 
-            {renderConclusion()}
+            {conclusionContent}
           </article>
         </div>
       </div>

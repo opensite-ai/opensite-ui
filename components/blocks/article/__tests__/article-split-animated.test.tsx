@@ -45,7 +45,7 @@ describe("ArticleSplitAnimated", () => {
   });
 
   it("renders image with correct alt text", () => {
-    render(<ArticleSplitAnimated title="Test Title" />);
+    render(<ArticleSplitAnimated title="Test Title" image="/test-image.jpg" />);
     const img = screen.getByTestId("mock-img");
     expect(img).toHaveAttribute("alt", "Test Title");
   });

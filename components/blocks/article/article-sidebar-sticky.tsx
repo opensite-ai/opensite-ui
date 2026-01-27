@@ -185,8 +185,9 @@ export function ArticleSidebarStickyComponent({
   children,
   optixFlowConfig,
 }: ArticleSidebarStickyProps) {
-  const renderBackLink = () => {
+  const backLinkContent = React.useMemo(() => {
     if (backLinkSlot) return backLinkSlot;
+    if (!backHref && !backText) return null;
 
     return (
       <Pressable
@@ -197,9 +198,9 @@ export function ArticleSidebarStickyComponent({
         {backText}
       </Pressable>
     );
-  };
+  }, [backLinkSlot, backHref, backText, backIcon, backLinkClassName]);
 
-  const renderAuthor = (isMobile = false) => {
+  const renderAuthor = React.useCallback((isMobile = false) => {
     if (authorSlot) return authorSlot;
     if (!authorName) return null;
 
@@ -225,9 +226,9 @@ export function ArticleSidebarStickyComponent({
         </div>
       </div>
     );
-  };
+  }, [authorSlot, authorName, authorImage, authorHref, publishDate, authorClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
     if (!heroImageSrc) return null;
 
@@ -239,7 +240,7 @@ export function ArticleSidebarStickyComponent({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -247,7 +248,7 @@ export function ArticleSidebarStickyComponent({
         <div className="grid gap-10 lg:grid-cols-[1fr_minmax(0,2fr)]">
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
-              {renderBackLink()}
+              {backLinkContent}
               <div className="space-y-4">
                 {renderAuthor(false)}
               </div>
@@ -255,7 +256,7 @@ export function ArticleSidebarStickyComponent({
           </aside>
           <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
             <div className="mb-8 lg:hidden">
-              {renderBackLink()}
+              {backLinkContent}
             </div>
             {title && (
               typeof title === "string" ? (
@@ -269,7 +270,7 @@ export function ArticleSidebarStickyComponent({
             <div className="mt-4 lg:hidden">
               {renderAuthor(true)}
             </div>
-            {renderHeroMedia()}
+            {heroMediaContent}
             {children || defaultArticleContent(optixFlowConfig)}
           </article>
         </div>

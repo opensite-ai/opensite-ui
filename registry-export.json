@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "exportedAt": "2026-01-27T16:23:46.912Z",
+    "exportedAt": "2026-01-27T17:04:19.558Z",
     "totalBlocks": 604,
     "version": "0.5.4",
     "source": "@opensite/ui"
@@ -4211,7 +4211,7 @@
     {
       "id": "article-hero-prose",
       "name": "Article Hero Prose",
-      "description": "A full-width article layout featuring a prominent hero image, author information with avatar, and rich prose content including alerts, tables, blockquotes, and lists. Ideal for long-form blog posts and articles that need visual hierarchy with a strong opening image and detailed content sections.",
+      "description": "A full-width content layout featuring a prominent hero media, author information with avatar, and rich prose content including alerts, tables, blockquotes, and lists. Ideal for long-form content that needs visual hierarchy with a strong opening media and detailed content sections.",
       "semanticTags": [
         "article",
         "blog-post",

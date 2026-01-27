@@ -170,12 +170,10 @@ export interface ArticleBreadcrumbSocialProps {
   children?: React.ReactNode;
   /**
    * Enable scroll-based TOC tracking
-   * @default true
    */
   enableTocTracking?: boolean;
   /**
    * Enable back to top button
-   * @default true
    */
   enableBackToTop?: boolean;
   /**
@@ -297,8 +295,8 @@ export function ArticleBreadcrumbSocialComponent({
   heroImageAlt,
   heroMediaSlot,
   children,
-  enableTocTracking = true,
-  enableBackToTop = true,
+  enableTocTracking,
+  enableBackToTop,
   optixFlowConfig,
 }: ArticleBreadcrumbSocialProps) {
   const author = authorProp ?? (authorName ? { name: authorName, image: authorImage, role: authorRole } : undefined);
@@ -356,11 +354,11 @@ export function ArticleBreadcrumbSocialComponent({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [enableBackToTop]);
 
-  const scrollToTop = () => {
+  const scrollToTop = React.useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
-  const renderBreadcrumbs = () => {
+  const breadcrumbsContent = React.useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
@@ -384,18 +382,22 @@ export function ArticleBreadcrumbSocialComponent({
               </BreadcrumbItem>
             </React.Fragment>
           ))}
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>
-              {typeof currentPage === "string" ? currentPage : currentPage}
-            </BreadcrumbPage>
-          </BreadcrumbItem>
+          {currentPage && (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>
+                  {typeof currentPage === "string" ? currentPage : currentPage}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </>
+          )}
         </BreadcrumbList>
       </Breadcrumb>
     );
-  };
+  }, [breadcrumbsSlot, breadcrumbs, currentPage, breadcrumbClassName]);
 
-  const renderAuthor = () => {
+  const authorContent = React.useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!author) return null;
 
@@ -406,31 +408,32 @@ export function ArticleBreadcrumbSocialComponent({
           <AvatarFallback>{author.name?.charAt(0) || "A"}</AvatarFallback>
         </Avatar>
         <div>
-          <p className="font-medium">{author.name}</p>
-          <p className="text-sm text-muted-foreground">
-            {author.role} · {publishDate} · {readTime}
-          </p>
+          {author.name && <p className="font-medium">{author.name}</p>}
+          {(author.role || publishDate || readTime) && (
+            <p className="text-sm text-muted-foreground">
+              {[author.role, publishDate, readTime].filter(Boolean).join(" · ")}
+            </p>
+          )}
         </div>
       </div>
     );
-  };
+  }, [authorSlot, author, publishDate, readTime, authorClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
-    if (heroImageSrc) {
-      return (
-        <Img
-          src={heroImageSrc}
-          alt={heroImageAlt}
-          className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
-          optixFlowConfig={optixFlowConfig}
-        />
-      );
-    }
-    return null;
-  };
+    if (!heroImageSrc) return null;
 
-  const renderToc = () => {
+    return (
+      <Img
+        src={heroImageSrc}
+        alt={heroImageAlt}
+        className={cn("my-8 aspect-video w-full rounded-lg object-cover", heroImageClassName)}
+        optixFlowConfig={optixFlowConfig}
+      />
+    );
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
+
+  const tocContent = React.useMemo(() => {
     if (tocSlot) return tocSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -461,9 +464,9 @@ export function ArticleBreadcrumbSocialComponent({
         </nav>
       </div>
     );
-  };
+  }, [tocSlot, sections, activeSection, renderSectionLink, tocClassName]);
 
-  const renderShareButtons = () => {
+  const shareButtonsContent = React.useMemo(() => {
     if (shareSlot) return shareSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -487,12 +490,12 @@ export function ArticleBreadcrumbSocialComponent({
         </div>
       </div>
     );
-  };
+  }, [shareSlot, socialLinks, shareClassName]);
 
   return (
     <section className={cn("py-32", className)}>
       <div className={cn("container", containerClassName)}>
-        {renderBreadcrumbs()}
+        {breadcrumbsContent}
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
@@ -506,19 +509,19 @@ export function ArticleBreadcrumbSocialComponent({
               )
             )}
 
-            {renderAuthor()}
+            {authorContent}
 
             <Separator className="my-8" />
 
-            {renderHeroMedia()}
+            {heroMediaContent}
 
             {children || defaultArticleContent(optixFlowConfig)}
           </article>
 
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
-              {renderToc()}
-              {renderShareButtons()}
+              {tocContent}
+              {shareButtonsContent}
             </div>
           </aside>
         </div>

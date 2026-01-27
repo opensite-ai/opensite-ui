@@ -315,14 +315,14 @@ export function ArticleTocSidebarComponent({
     return () => observer.disconnect();
   }, [sections, enableTocTracking]);
 
-  const renderCategory = () => {
+  const categoryContent = React.useMemo(() => {
     if (categorySlot) return categorySlot;
     if (!category) return null;
 
     return <Badge variant="secondary">{category}</Badge>;
-  };
+  }, [categorySlot, category]);
 
-  const renderAuthor = () => {
+  const authorContent = React.useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!authorName) return null;
 
@@ -346,9 +346,9 @@ export function ArticleTocSidebarComponent({
         </div>
       </div>
     );
-  };
+  }, [authorSlot, authorName, authorImage, authorHref, publishDate, readTime, authorClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
     if (!heroImageSrc) return null;
 
@@ -360,9 +360,9 @@ export function ArticleTocSidebarComponent({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
-  const renderToc = () => {
+  const tocContent = React.useMemo(() => {
     if (tocSlot) return tocSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -393,9 +393,9 @@ export function ArticleTocSidebarComponent({
         </nav>
       </div>
     );
-  };
+  }, [tocSlot, sections, activeSection, renderSectionLink, tocClassName]);
 
-  const renderCta = () => {
+  const ctaContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaTitle && !ctaDescription && (!ctaActions || ctaActions.length === 0)) return null;
 
@@ -440,7 +440,7 @@ export function ArticleTocSidebarComponent({
         )}
       </div>
     );
-  };
+  }, [ctaSlot, ctaTitle, ctaDescription, ctaActions, ctaClassName]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -448,7 +448,7 @@ export function ArticleTocSidebarComponent({
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
           <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
             <div className={cn("mb-8 not-prose", headerClassName)}>
-              {renderCategory()}
+              {categoryContent}
               {title && (
                 typeof title === "string" ? (
                   <h1 className={cn("mt-4 text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
@@ -467,18 +467,18 @@ export function ArticleTocSidebarComponent({
                   <div className={cn("mt-4", descriptionClassName)}>{description}</div>
                 )
               )}
-              {renderAuthor()}
+              {authorContent}
             </div>
 
-            {renderHeroMedia()}
+            {heroMediaContent}
 
             {children || defaultArticleContent(optixFlowConfig)}
           </article>
 
           <aside className={cn("hidden lg:block", sidebarClassName)}>
             <div className="sticky top-8 space-y-6">
-              {renderToc()}
-              {renderCta()}
+              {tocContent}
+              {ctaContent}
             </div>
           </aside>
         </div>

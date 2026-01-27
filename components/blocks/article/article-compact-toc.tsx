@@ -272,8 +272,9 @@ export function ArticleCompactTocComponent({
     return () => observer.disconnect();
   }, [sections, enableTocTracking]);
 
-  const renderBreadcrumbs = () => {
+  const breadcrumbsContent = React.useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
+    if (!breadcrumbs && !currentPage) return null;
 
     return (
       <Breadcrumb className={cn("mb-6", breadcrumbClassName)}>
@@ -302,9 +303,9 @@ export function ArticleCompactTocComponent({
         </BreadcrumbList>
       </Breadcrumb>
     );
-  };
+  }, [breadcrumbsSlot, breadcrumbs, currentPage, breadcrumbClassName]);
 
-  const renderShare = () => {
+  const shareContent = React.useMemo(() => {
     if (shareSlot) return shareSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -323,9 +324,9 @@ export function ArticleCompactTocComponent({
         ))}
       </div>
     );
-  };
+  }, [shareSlot, socialLinks, shareClassName]);
 
-  const renderToc = () => {
+  const tocContent = React.useMemo(() => {
     if (tocSlot) return tocSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -371,9 +372,9 @@ export function ArticleCompactTocComponent({
         )}
       </div>
     );
-  };
+  }, [tocSlot, sections, isTocOpen, activeSection, renderSectionLink, tocClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
     if (!heroImageSrc) return null;
 
@@ -385,12 +386,12 @@ export function ArticleCompactTocComponent({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, heroImageSrc, heroImageAlt, heroImageClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
       <div className={cn("container", containerClassName)}>
-        {renderBreadcrumbs()}
+        {breadcrumbsContent}
 
         <div className={cn("mx-auto max-w-3xl", contentClassName)}>
           {title && (
@@ -421,14 +422,14 @@ export function ArticleCompactTocComponent({
             </div>
           )}
 
-          {renderShare()}
+          {shareContent}
 
           <Separator className="my-8" />
 
-          {renderToc()}
+          {tocContent}
 
           <article className={cn("prose max-w-none dark:prose-invert", articleClassName)}>
-            {renderHeroMedia()}
+            {heroMediaContent}
             {children ?? defaultArticleContent()}
           </article>
         </div>

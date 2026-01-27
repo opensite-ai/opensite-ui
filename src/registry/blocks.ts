@@ -7632,7 +7632,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "article-hero-prose",
     name: "Article Hero Prose",
     description:
-      "A full-width article layout featuring a prominent hero image, author information with avatar, and rich prose content including alerts, tables, blockquotes, and lists. Ideal for long-form blog posts and articles that need visual hierarchy with a strong opening image and detailed content sections.",
+      "A full-width content layout featuring a prominent hero media, author information with avatar, and rich prose content including alerts, tables, blockquotes, and lists. Ideal for long-form content that needs visual hierarchy with a strong opening media and detailed content sections.",
     semanticTags: [
       "article",
       "blog-post",

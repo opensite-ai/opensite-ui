@@ -43,11 +43,11 @@ export interface ArticleHeroProseProps {
    */
   descriptionClassName?: string;
   /**
-   * Additional CSS classes for the author info
+   * Additional CSS classes for the author information
    */
   authorClassName?: string;
   /**
-   * Additional CSS classes for the hero image
+   * Additional CSS classes for the hero media
    */
   heroImageClassName?: string;
   /**
@@ -55,7 +55,7 @@ export interface ArticleHeroProseProps {
    */
   proseClassName?: string;
   /**
-   * Post metadata (title, author, image, etc.)
+   * Content metadata (title, author, media, etc.)
    */
   post?: ArticleHeroProsePost;
   /**
@@ -63,11 +63,11 @@ export interface ArticleHeroProseProps {
    */
   heroMediaSlot?: React.ReactNode;
   /**
-   * Custom slot for author info (overrides post author fields)
+   * Custom slot for author information (overrides post author fields)
    */
   authorSlot?: React.ReactNode;
   /**
-   * Article body content (replaces hardcoded prose)
+   * Main body content
    */
   children?: React.ReactNode;
   /**
@@ -193,14 +193,14 @@ export function ArticleHeroProseComponent({
 }: ArticleHeroProseProps) {
   const { title, authorName, authorHref, image, pubDate, description, authorImage } = post ?? {};
 
-  const renderAuthor = () => {
+  const authorContent = React.useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!authorName) return null;
 
     return (
       <div className={cn("flex items-center gap-3 text-sm md:text-base", authorClassName)}>
         <Avatar className="h-8 w-8 border">
-          <AvatarImage src={authorImage} />
+          {authorImage && <AvatarImage src={authorImage} />}
           <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
         </Avatar>
         <span>
@@ -213,21 +213,21 @@ export function ArticleHeroProseComponent({
         </span>
       </div>
     );
-  };
+  }, [authorSlot, authorName, authorImage, authorHref, pubDate, dateFormat, authorClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
     if (!image) return null;
 
     return (
       <Img
         src={image}
-        alt="Article hero image"
+        alt="Hero media"
         className={cn("mt-4 mb-8 aspect-video w-full rounded-lg border object-cover", heroImageClassName)}
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, image, heroImageClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -243,8 +243,8 @@ export function ArticleHeroProseComponent({
               {description}
             </h3>
           )}
-          {renderAuthor()}
-          {renderHeroMedia()}
+          {authorContent}
+          {heroMediaContent}
         </div>
       </div>
       <div className={cn("container", containerClassName)}>

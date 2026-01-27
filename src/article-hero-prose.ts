@@ -1,10 +1,9 @@
 /**
  * ArticleHeroProse - Individual export for tree-shaking
  *
- * A full-width article layout featuring a prominent hero image, author information with avatar,
+ * A full-width content layout featuring a prominent hero media, author information with avatar,
  * and rich prose content including alerts, tables, blockquotes, and lists. Ideal for long-form
- * blog posts and articles that need visual hierarchy with a strong opening image and detailed
- * content sections.
+ * content that needs visual hierarchy with a strong opening media and detailed content sections.
  *
  * @example
  * ```ts

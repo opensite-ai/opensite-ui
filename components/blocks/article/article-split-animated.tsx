@@ -151,20 +151,20 @@ export function ArticleSplitAnimatedComponent({
   categoryClassName,
   metaClassName,
   ctaClassName,
-  title = "The Evolution of Design Systems in Modern Product Development",
-  description = "Explore how design systems have transformed from simple style guides into comprehensive ecosystems that power the world's most successful digital products. Learn the principles, patterns, and practices that make design systems effective.",
-  image = imagePlaceholders[2],
+  title,
+  description,
+  image,
   imageAlt,
   heroMediaSlot,
-  authorName = "David Park",
-  authorImage = imagePlaceholders[10],
-  authorRole = "Design Lead",
+  authorName,
+  authorImage,
+  authorRole,
   authorHref,
   authorSlot,
-  publishDate = "January 15, 2025",
-  readTime = "8 min read",
-  category = "Design",
-  categoryHref = "#",
+  publishDate,
+  readTime,
+  category,
+  categoryHref,
   categorySlot,
   ctaActions: ctaActionsProp,
   ctaText,
@@ -177,7 +177,7 @@ export function ArticleSplitAnimatedComponent({
 
   const MotionWrapper = enableAnimations ? motion.div : "div";
 
-  const renderCategory = () => {
+  const categoryContent = React.useMemo(() => {
     if (categorySlot) return categorySlot;
     if (!category) return null;
 
@@ -192,9 +192,9 @@ export function ArticleSplitAnimatedComponent({
         {category}
       </Pressable>
     );
-  };
+  }, [categorySlot, category, categoryHref, categoryClassName]);
 
-  const renderHeroMedia = () => {
+  const heroMediaContent = React.useMemo(() => {
     if (heroMediaSlot) return heroMediaSlot;
     if (!image) return null;
 
@@ -206,9 +206,9 @@ export function ArticleSplitAnimatedComponent({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [heroMediaSlot, image, imageAlt, title, optixFlowConfig]);
 
-  const renderAuthor = () => {
+  const authorContent = React.useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!authorName) return null;
 
@@ -232,9 +232,9 @@ export function ArticleSplitAnimatedComponent({
         </div>
       </div>
     );
-  };
+  }, [authorSlot, authorName, authorImage, authorHref, authorRole, authorClassName]);
 
-  const renderCta = () => {
+  const ctaContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaActions || ctaActions.length === 0) return null;
 
@@ -261,7 +261,7 @@ export function ArticleSplitAnimatedComponent({
         })}
       </div>
     );
-  };
+  }, [ctaSlot, ctaActions, ctaClassName]);
 
   const imageAnimationProps = enableAnimations
     ? {
@@ -292,10 +292,10 @@ export function ArticleSplitAnimatedComponent({
               imageContainerClassName
             )}
           >
-            {renderHeroMedia()}
+            {heroMediaContent}
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 p-6">
-              {renderCategory()}
+              {categoryContent}
             </div>
           </MotionWrapper>
 
@@ -331,8 +331,8 @@ export function ArticleSplitAnimatedComponent({
               )
             )}
 
-            {renderAuthor()}
-            {renderCta()}
+            {authorContent}
+            {ctaContent}
           </MotionWrapper>
         </div>
       </div>
