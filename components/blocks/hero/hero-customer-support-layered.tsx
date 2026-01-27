@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -98,7 +99,7 @@ export function HeroCustomerSupportLayered({
   imagesClassName,
   optixFlowConfig,
 }: HeroCustomerSupportLayeredProps): React.JSX.Element {
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -142,7 +143,7 @@ export function HeroCustomerSupportLayered({
         )}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -186,7 +187,7 @@ export function HeroCustomerSupportLayered({
             )}
           </div>
           <div>
-            {renderImages()}
+            {renderImages}
           </div>
         </div>
       </div>

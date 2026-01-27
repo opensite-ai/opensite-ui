@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -102,7 +103,7 @@ export function HeroTaskTimerAnimated({
     },
   ];
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
 
     const actionsToRender = actions || defaultActions;
@@ -112,7 +113,7 @@ export function HeroTaskTimerAnimated({
         {actionsToRender.map((action, index) => {
           const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
           const isPrimaryAction = index === 0 && !actions;
-          
+
           if (isPrimaryAction) {
             return (
               <Pressable
@@ -151,9 +152,9 @@ export function HeroTaskTimerAnimated({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, defaultActions]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length < 2) return null;
 
@@ -185,7 +186,7 @@ export function HeroTaskTimerAnimated({
         </div>
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -206,9 +207,9 @@ export function HeroTaskTimerAnimated({
             </h1>
           )
         )}
-        {renderActions()}
+        {renderActions}
       </div>
-      {renderImages()}
+      {renderImages}
     </Section>
   );
 }

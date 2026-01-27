@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -26,11 +27,11 @@ export interface HeroDigitalAgencyFullscreenProps {
    */
   actionsSlot?: React.ReactNode;
   /**
-   * Footer label (e.g., "Global Headquarters")
+   * Footer label content
    */
   footerLabel?: React.ReactNode;
   /**
-   * Footer sublabel (e.g., location)
+   * Footer sublabel content
    */
   footerSublabel?: React.ReactNode;
   /**
@@ -96,8 +97,8 @@ export function HeroDigitalAgencyFullscreen({
   description,
   actions,
   actionsSlot,
-  footerLabel = "Global Headquarters",
-  footerSublabel = "San Francisco, California",
+  footerLabel,
+  footerSublabel,
   footerAction,
   footerSlot,
   backgroundImage,
@@ -113,7 +114,7 @@ export function HeroDigitalAgencyFullscreen({
   actionsClassName,
   footerClassName,
 }: HeroDigitalAgencyFullscreenProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -140,9 +141,9 @@ export function HeroDigitalAgencyFullscreen({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFooter = () => {
+  const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
     if (!footerAction) return null;
 
@@ -152,15 +153,19 @@ export function HeroDigitalAgencyFullscreen({
         <div className="flex items-center gap-3">
           <div className="h-8 w-1 bg-primary"></div>
           <div className="text-sm font-medium text-muted-foreground">
-            {typeof footerLabel === "string" ? (
-              <p className="text-primary">{footerLabel}</p>
-            ) : (
-              footerLabel
+            {footerLabel && (
+              typeof footerLabel === "string" ? (
+                <p className="text-primary">{footerLabel}</p>
+              ) : (
+                footerLabel
+              )
             )}
-            {typeof footerSublabel === "string" ? (
-              <p>{footerSublabel}</p>
-            ) : (
-              footerSublabel
+            {footerSublabel && (
+              typeof footerSublabel === "string" ? (
+                <p>{footerSublabel}</p>
+              ) : (
+                footerSublabel
+              )
             )}
           </div>
         </div>
@@ -177,7 +182,7 @@ export function HeroDigitalAgencyFullscreen({
         </Pressable>
       </div>
     );
-  };
+  }, [footerSlot, footerAction, footerLabel, footerSublabel, footerClassName]);
 
   return (
     <Section
@@ -214,9 +219,9 @@ export function HeroDigitalAgencyFullscreen({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderActions()}
+            {renderActions}
           </div>
-          {renderFooter()}
+          {renderFooter}
         </div>
       </div>
     </Section>

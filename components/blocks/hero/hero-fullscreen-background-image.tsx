@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -87,7 +88,7 @@ export function HeroFullscreenBackgroundImage({
   descriptionClassName,
   actionsClassName,
 }: HeroFullscreenBackgroundImageProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -110,7 +111,7 @@ export function HeroFullscreenBackgroundImage({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -141,7 +142,7 @@ export function HeroFullscreenBackgroundImage({
         )}
         {(actionsSlot || (actions && actions.length > 0)) && (
           <div className={actionsClassName}>
-            {renderActions()}
+            {renderActions}
           </div>
         )}
       </div>

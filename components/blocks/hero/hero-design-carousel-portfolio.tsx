@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "../../../lib/utils";
@@ -137,7 +138,7 @@ export function HeroDesignCarouselPortfolio({
   carouselClassName,
   optixFlowConfig,
 }: HeroDesignCarouselPortfolioProps): React.JSX.Element {
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -150,9 +151,9 @@ export function HeroDesignCarouselPortfolio({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [logoSlot, logo, optixFlowConfig]);
 
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -166,9 +167,9 @@ export function HeroDesignCarouselPortfolio({
         ))}
       </div>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
-  const renderPrimaryAction = () => {
+  const renderPrimaryAction = useMemo(() => {
     if (actionsSlot) return null;
     if (!primaryAction) return null;
 
@@ -188,9 +189,9 @@ export function HeroDesignCarouselPortfolio({
         <span>{label}</span>
       </Pressable>
     );
-  };
+  }, [actionsSlot, primaryAction, primaryActionAvatar, optixFlowConfig]);
 
-  const renderSecondaryAction = () => {
+  const renderSecondaryAction = useMemo(() => {
     if (actionsSlot) return null;
     if (!secondaryAction) return null;
 
@@ -205,9 +206,9 @@ export function HeroDesignCarouselPortfolio({
         {iconAfter}
       </Pressable>
     );
-  };
+  }, [actionsSlot, secondaryAction]);
 
-  const renderCarousel = () => {
+  const renderCarousel = useMemo(() => {
     if (carouselSlot) return carouselSlot;
     if (!carouselImages || carouselImages.length === 0) return null;
 
@@ -244,7 +245,7 @@ export function HeroDesignCarouselPortfolio({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [carouselSlot, carouselImages, carouselClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -256,10 +257,10 @@ export function HeroDesignCarouselPortfolio({
     >
       <div className={cn("relative z-10 container mx-auto", containerClassName)}>
         <div className="py-8">
-          {renderLogo()}
+          {renderLogo}
         </div>
         <div className={cn("flex flex-col gap-10 py-10 lg:py-28", contentClassName)}>
-          {renderFeatures()}
+          {renderFeatures}
           <div className="flex">
             <div className="flex flex-1 flex-col gap-4">
               {heading && (
@@ -286,13 +287,13 @@ export function HeroDesignCarouselPortfolio({
               )}
             </div>
           </div>
-          {actionsSlot || renderPrimaryAction()}
+          {actionsSlot || renderPrimaryAction}
         </div>
       </div>
       <div className="relative flex flex-col">
-        {renderCarousel()}
+        {renderCarousel}
       </div>
-      {actionsSlot || renderSecondaryAction()}
+      {actionsSlot || renderSecondaryAction}
     </Section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -88,7 +89,7 @@ export function HeroSplitSpiralShapes({
   headingClassName,
   descriptionClassName,
 }: HeroSplitSpiralShapesProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -115,9 +116,9 @@ export function HeroSplitSpiralShapes({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
-  const renderShapes = () => {
+  const renderShapes = useMemo(() => {
     if (shapesSlot) return shapesSlot;
 
     return (
@@ -152,7 +153,7 @@ export function HeroSplitSpiralShapes({
         <div className="absolute right-[24%] bottom-[24%] flex aspect-5/6 w-[38%] justify-center rounded-lg border border-border bg-accent"></div>
       </div>
     );
-  };
+  }, [shapesSlot]);
 
   return (
     <Section
@@ -192,9 +193,9 @@ export function HeroSplitSpiralShapes({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderActions()}
+            {renderActions}
           </div>
-          {renderShapes()}
+          {renderShapes}
         </div>
       </div>
     </Section>

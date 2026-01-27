@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -98,7 +99,7 @@ export function HeroGridPatternEfficiency({
   descriptionClassName,
   actionClassName,
 }: HeroGridPatternEfficiencyProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -114,9 +115,9 @@ export function HeroGridPatternEfficiency({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderHeading = () => {
+  const renderHeading = useMemo(() => {
     if (heading) {
       return typeof heading === "string" ? (
         <h1 className={cn("text-5xl leading-tight font-extrabold lg:text-8xl lg:leading-snug", headingClassName)}>
@@ -137,7 +138,7 @@ export function HeroGridPatternEfficiency({
         </span>
       </h1>
     );
-  };
+  }, [heading, highlightedWord, headingClassName]);
 
   return (
     <Section
@@ -152,7 +153,7 @@ export function HeroGridPatternEfficiency({
           {showGridPattern && (
             <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[64px_64px]"></div>
           )}
-          {renderHeading()}
+          {renderHeading}
           {description && (
             typeof description === "string" ? (
               <p className={cn("mt-7 text-xl font-light lg:text-3xl", descriptionClassName)}>
@@ -163,7 +164,7 @@ export function HeroGridPatternEfficiency({
             )
           )}
           <div className={cn("mt-12 flex w-fit flex-col gap-2.5 text-center", actionClassName)}>
-            {renderAction()}
+            {renderAction}
             {actionSubtext && (
               typeof actionSubtext === "string" ? (
                 <p className="text-sm text-muted-foreground">{actionSubtext}</p>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -109,7 +110,7 @@ export function HeroSimpleCenteredImage({
   imageClassName,
   optixFlowConfig,
 }: HeroSimpleCenteredImageProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -132,7 +133,7 @@ export function HeroSimpleCenteredImage({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -163,7 +164,7 @@ export function HeroSimpleCenteredImage({
         )}
         {(actionsSlot || (actions && actions.length > 0)) && (
           <div className={cn("mb-6 flex gap-2 lg:mb-12", actionsClassName)}>
-            {renderActions()}
+            {renderActions}
           </div>
         )}
       </div>

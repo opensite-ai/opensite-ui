@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -108,7 +109,7 @@ export function HeroHiringAnimatedText({
   descriptionClassName,
   actionsClassName,
 }: HeroHiringAnimatedTextProps): React.JSX.Element {
-  const renderHeading = () => {
+  const renderHeading = useMemo(() => {
     if (headingSlot) return headingSlot;
 
     return (
@@ -137,9 +138,9 @@ export function HeroHiringAnimatedText({
         )}
       </h1>
     );
-  };
+  }, [headingSlot, headingPrefix, animatedTexts, headingClassName]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -166,9 +167,9 @@ export function HeroHiringAnimatedText({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderScrollAction = () => {
+  const renderScrollAction = useMemo(() => {
     if (scrollActionSlot) return scrollActionSlot;
     if (!scrollAction) return null;
 
@@ -184,7 +185,7 @@ export function HeroHiringAnimatedText({
         )}
       </Pressable>
     );
-  };
+  }, [scrollActionSlot, scrollAction]);
 
   return (
     <Section
@@ -196,7 +197,7 @@ export function HeroHiringAnimatedText({
     >
       <div className={cn("relative z-10 container flex size-full max-w-412.5 flex-col justify-between pt-24 pb-14 md:justify-end", containerClassName)}>
         <div className={cn("flex h-full flex-col justify-between gap-6 md:justify-end", contentClassName)}>
-          {renderHeading()}
+          {renderHeading}
           <div className="flex flex-col gap-8">
             {description && (
               typeof description === "string" ? (
@@ -208,8 +209,8 @@ export function HeroHiringAnimatedText({
               )
             )}
             <div className="flex flex-wrap items-center justify-between gap-5">
-              {renderActions()}
-              {renderScrollAction()}
+              {renderActions}
+              {renderScrollAction}
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -94,7 +95,7 @@ export function HeroAnnouncementBadge({
   descriptionClassName,
   actionsClassName,
 }: HeroAnnouncementBadgeProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -117,7 +118,7 @@ export function HeroAnnouncementBadge({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -165,7 +166,7 @@ export function HeroAnnouncementBadge({
         )}
         {(actionsSlot || (actions && actions.length > 0)) && (
           <div className={cn("mt-6 flex flex-col gap-4 sm:flex-row lg:mt-10", actionsClassName)}>
-            {renderActions()}
+            {renderActions}
           </div>
         )}
       </div>

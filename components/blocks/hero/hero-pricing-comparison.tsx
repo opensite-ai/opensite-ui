@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -129,7 +130,7 @@ export function HeroPricingComparison({
   descriptionClassName,
   plansClassName,
 }: HeroPricingComparisonProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badgeText) return null;
 
@@ -138,9 +139,9 @@ export function HeroPricingComparison({
         {badgeText}
       </Badge>
     );
-  };
+  }, [badgeSlot, badgeText]);
 
-  const renderPlans = () => {
+  const renderPlans = useMemo(() => {
     if (plansSlot) return plansSlot;
     if (!plans || plans.length === 0) return null;
 
@@ -195,7 +196,7 @@ export function HeroPricingComparison({
         ))}
       </div>
     );
-  };
+  }, [plansSlot, plans, plansClassName]);
 
   return (
     <Section
@@ -207,7 +208,7 @@ export function HeroPricingComparison({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-4xl text-center", headerClassName)}>
-          {renderBadge()}
+          {renderBadge}
           {heading && (
             typeof heading === "string" ? (
               <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
@@ -229,7 +230,7 @@ export function HeroPricingComparison({
             )
           )}
         </div>
-        {renderPlans()}
+        {renderPlans}
       </div>
     </Section>
   );

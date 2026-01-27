@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -113,7 +114,7 @@ export function HeroMinimalCenteredDark({
   actionsClassName,
   statsClassName,
 }: HeroMinimalCenteredDarkProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -136,9 +137,9 @@ export function HeroMinimalCenteredDark({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderStats = () => {
+  const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -148,7 +149,7 @@ export function HeroMinimalCenteredDark({
         <span>{stat.value}</span>
       </div>
     ));
-  };
+  }, [statsSlot, stats]);
 
   return (
     <Section
@@ -197,12 +198,12 @@ export function HeroMinimalCenteredDark({
         )}
         {(actionsSlot || (actions && actions.length > 0)) && (
           <div className={cn("mt-10 flex flex-col gap-4 sm:flex-row", actionsClassName)}>
-            {renderActions()}
+            {renderActions}
           </div>
         )}
         {(statsSlot || (stats && stats.length > 0)) && (
           <div className={cn("mt-16 flex items-center gap-8 text-sm text-muted-foreground", statsClassName)}>
-            {renderStats()}
+            {renderStats}
           </div>
         )}
       </div>

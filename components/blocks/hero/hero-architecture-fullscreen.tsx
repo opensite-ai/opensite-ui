@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -88,7 +89,7 @@ export function HeroArchitectureFullscreen({
   headingClassName,
   descriptionClassName,
 }: HeroArchitectureFullscreenProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -108,7 +109,7 @@ export function HeroArchitectureFullscreen({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
   return (
     <Section
@@ -155,7 +156,7 @@ export function HeroArchitectureFullscreen({
               )
             )}
             <div className="shrink-0">
-              {renderAction()}
+              {renderAction}
             </div>
           </div>
         </div>

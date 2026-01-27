@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -119,7 +120,7 @@ export function HeroMarketplaceScatteredImages({
   imagesClassName,
   optixFlowConfig,
 }: HeroMarketplaceScatteredImagesProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -135,9 +136,9 @@ export function HeroMarketplaceScatteredImages({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderTagline = () => {
+  const renderTagline = useMemo(() => {
     if (taglineSlot) return taglineSlot;
 
     return (
@@ -146,9 +147,9 @@ export function HeroMarketplaceScatteredImages({
         {tagline}
       </div>
     );
-  };
+  }, [taglineSlot, taglineIcon, tagline]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -167,7 +168,7 @@ export function HeroMarketplaceScatteredImages({
         </div>
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -202,10 +203,10 @@ export function HeroMarketplaceScatteredImages({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderAction()}
-          {renderTagline()}
+          {renderAction}
+          {renderTagline}
         </div>
-        {renderImages()}
+        {renderImages}
       </div>
     </Section>
   );

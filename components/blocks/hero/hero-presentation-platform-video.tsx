@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -92,7 +93,7 @@ export function HeroPresentationPlatformVideo({
   descriptionClassName,
   videoClassName,
 }: HeroPresentationPlatformVideoProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -119,9 +120,9 @@ export function HeroPresentationPlatformVideo({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
-  const renderVideo = () => {
+  const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
 
     return (
@@ -139,7 +140,7 @@ export function HeroPresentationPlatformVideo({
         </video>
       </div>
     );
-  };
+  }, [videoSlot, videoSrc, videoClassName]);
 
   return (
     <Section
@@ -178,9 +179,9 @@ export function HeroPresentationPlatformVideo({
             <div className={descriptionClassName}>{description}</div>
           )
         )}
-        {renderActions()}
+        {renderActions}
       </div>
-      {renderVideo()}
+      {renderVideo}
     </Section>
   );
 }

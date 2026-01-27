@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -99,7 +100,7 @@ export function HeroAgencyAnimatedImages({
   imagesContainerClassName,
   optixFlowConfig,
 }: HeroAgencyAnimatedImagesProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -119,9 +120,9 @@ export function HeroAgencyAnimatedImages({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -156,7 +157,7 @@ export function HeroAgencyAnimatedImages({
         </div>
       </div>
     );
-  };
+  }, [imagesSlot, images, optixFlowConfig]);
 
   return (
     <Section
@@ -187,11 +188,11 @@ export function HeroAgencyAnimatedImages({
                 <div className={subheadingClassName}>{subheading}</div>
               )
             )}
-            {renderAction()}
+            {renderAction}
           </div>
           <div className={cn("mx-auto w-full max-w-211.5 lg:mx-0", imagesContainerClassName)}>
             <AspectRatio ratio={1.049627792 / 1}>
-              {renderImages()}
+              {renderImages}
             </AspectRatio>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -109,7 +110,7 @@ export function HeroConversationIntelligence({
   imageClassName,
   optixFlowConfig,
 }: HeroConversationIntelligenceProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -132,9 +133,9 @@ export function HeroConversationIntelligence({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -170,7 +171,7 @@ export function HeroConversationIntelligence({
         </AspectRatio>
       </div>
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -197,13 +198,13 @@ export function HeroConversationIntelligence({
               )}
               {(actionsSlot || (actions && actions.length > 0)) && (
                 <div className={cn("flex items-center justify-center gap-5", actionsClassName)}>
-                  {renderActions()}
+                  {renderActions}
                 </div>
               )}
             </div>
           </div>
           <div>
-            {renderImage()}
+            {renderImage}
           </div>
         </div>
       </div>

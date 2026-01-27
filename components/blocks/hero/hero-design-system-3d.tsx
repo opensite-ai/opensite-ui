@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -119,7 +120,7 @@ export function HeroDesignSystem3d({
   imagesClassName,
   optixFlowConfig,
 }: HeroDesignSystem3dProps): React.JSX.Element {
-  const renderTrustBadge = () => {
+  const renderTrustBadge = useMemo(() => {
     if (trustBadgeSlot) return trustBadgeSlot;
 
     return (
@@ -136,9 +137,9 @@ export function HeroDesignSystem3d({
         )}
       </div>
     );
-  };
+  }, [trustBadgeSlot, trustBadge]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -146,7 +147,7 @@ export function HeroDesignSystem3d({
       <div className={cn("flex w-full flex-wrap items-center gap-4 md:w-fit", actionsClassName)}>
         {actions.map((action, index) => {
           const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-          
+
           if (index === 0) {
             return (
               <Pressable
@@ -172,7 +173,7 @@ export function HeroDesignSystem3d({
               </Pressable>
             );
           }
-          
+
           return (
             <Pressable
               key={index}
@@ -192,9 +193,9 @@ export function HeroDesignSystem3d({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName, logoMarkSrc, optixFlowConfig]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -238,7 +239,7 @@ export function HeroDesignSystem3d({
         )}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -251,7 +252,7 @@ export function HeroDesignSystem3d({
       <div className={cn("mx-auto max-w-396 px-0 sm:px-8", containerClassName)}>
         <div className="container px-4">
           <div className={cn("mx-auto flex max-w-100 flex-col items-center gap-6 sm:max-w-125 lg:max-w-160", contentClassName)}>
-            {renderTrustBadge()}
+            {renderTrustBadge}
             <div className="mb-2">
               {heading && (
                 typeof heading === "string" ? (
@@ -274,10 +275,10 @@ export function HeroDesignSystem3d({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderActions()}
+            {renderActions}
           </div>
         </div>
-        {renderImages()}
+        {renderImages}
       </div>
     </Section>
   );

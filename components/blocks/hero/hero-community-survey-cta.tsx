@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -139,7 +140,7 @@ export function HeroCommunitySurveyCta({
   imagesClassName,
   optixFlowConfig,
 }: HeroCommunitySurveyCtaProps): React.JSX.Element {
-  const renderAnnouncement = () => {
+  const renderAnnouncement = useMemo(() => {
     if (announcementSlot) return announcementSlot;
 
     return (
@@ -157,9 +158,9 @@ export function HeroCommunitySurveyCta({
         </span>
       </Pressable>
     );
-  };
+  }, [announcementSlot, announcementHref, announcementClassName, announcementPrimary, announcementSecondary, announcementLinkText]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -182,9 +183,9 @@ export function HeroCommunitySurveyCta({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
 
     return (
@@ -215,7 +216,7 @@ export function HeroCommunitySurveyCta({
         )}
       </div>
     );
-  };
+  }, [imagesSlot, imagesClassName, mainImage, leftOverlayImage, rightOverlayImage, optixFlowConfig]);
 
   return (
     <Section
@@ -226,7 +227,7 @@ export function HeroCommunitySurveyCta({
       className={cn(className)}
     >
       <div className={cn("container flex flex-col gap-7 text-center", containerClassName)}>
-        {renderAnnouncement()}
+        {renderAnnouncement}
         {heading && (
           typeof heading === "string" ? (
             <h1 className={cn("mx-auto max-w-4xl text-4xl font-semibold text-balance lg:text-6xl", headingClassName)}>
@@ -247,13 +248,13 @@ export function HeroCommunitySurveyCta({
         )}
         {(actionsSlot || (actions && actions.length > 0)) && (
           <div className={cn("flex flex-col justify-center gap-4 sm:flex-row", actionsClassName)}>
-            {renderActions()}
+            {renderActions}
           </div>
         )}
       </div>
       <div className="relative px-8">
         <div className="absolute inset-0 top-1/2 h-full w-full bg-linear-to-b from-muted to-transparent to-50%"></div>
-        {renderImages()}
+        {renderImages}
       </div>
     </Section>
   );

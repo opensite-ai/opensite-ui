@@ -1,12 +1,18 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
 import { Section } from "../../ui/section";
+import type {
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 /**
  * Configuration for the testimonial section
@@ -88,6 +94,22 @@ export interface HeroTestimonialImageGridProps {
    */
   imagesSlot?: React.ReactNode;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
@@ -128,13 +150,17 @@ export function HeroTestimonialImageGrid({
   testimonialSlot,
   gridImages,
   imagesSlot,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
 }: HeroTestimonialImageGridProps): React.JSX.Element {
-  const renderButton = () => {
+  const renderButton = useMemo(() => {
     if (buttonSlot) return buttonSlot;
     if (!button || !button.url) return null;
 
@@ -143,9 +169,9 @@ export function HeroTestimonialImageGrid({
         {button.text}
       </Pressable>
     );
-  };
+  }, [buttonSlot, button]);
 
-  const renderTestimonial = () => {
+  const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
     if (!testimonial || !testimonial.avatars) return null;
 
@@ -173,9 +199,9 @@ export function HeroTestimonialImageGrid({
         </div>
       </div>
     );
-  };
+  }, [testimonialSlot, testimonial]);
 
-  const renderImagesGrid = () => {
+  const renderImagesGrid = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!gridImages || gridImages.length < 4) return null;
 
@@ -235,10 +261,16 @@ export function HeroTestimonialImageGrid({
         </div>
       </div>
     );
-  };
+  }, [imagesSlot, gridImages, optixFlowConfig]);
 
   return (
-    <Section className={cn("py-12 md:py-20", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("py-12 md:py-20", className)}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col items-center gap-8 md:flex-row">
           <div className="flex-1">
@@ -267,11 +299,11 @@ export function HeroTestimonialImageGrid({
               )}
             </div>
             <div className="my-6 lg:my-10">
-              {renderButton()}
+              {renderButton}
             </div>
-            {renderTestimonial()}
+            {renderTestimonial}
           </div>
-          {renderImagesGrid()}
+          {renderImagesGrid}
         </div>
       </div>
     </Section>

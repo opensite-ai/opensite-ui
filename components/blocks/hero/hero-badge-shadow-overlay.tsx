@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -94,7 +95,7 @@ export function HeroBadgeShadowOverlay({
   headingClassName,
   actionsClassName,
 }: HeroBadgeShadowOverlayProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -117,7 +118,7 @@ export function HeroBadgeShadowOverlay({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -150,7 +151,7 @@ export function HeroBadgeShadowOverlay({
           )}
           {(actionsSlot || (actions && actions.length > 0)) && (
             <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row", actionsClassName)}>
-              {renderActions()}
+              {renderActions}
             </div>
           )}
         </div>

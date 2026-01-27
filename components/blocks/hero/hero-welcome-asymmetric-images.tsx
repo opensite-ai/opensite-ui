@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -98,7 +99,7 @@ export function HeroWelcomeAsymmetricImages({
   descriptionClassName,
   optixFlowConfig,
 }: HeroWelcomeAsymmetricImagesProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -119,9 +120,9 @@ export function HeroWelcomeAsymmetricImages({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length < 4) return null;
 
@@ -159,7 +160,7 @@ export function HeroWelcomeAsymmetricImages({
         </div>
       </div>
     );
-  };
+  }, [imagesSlot, images, optixFlowConfig]);
 
   return (
     <Section
@@ -194,9 +195,9 @@ export function HeroWelcomeAsymmetricImages({
                 </div>
               )
             )}
-            {renderActions()}
+            {renderActions}
           </div>
-          {renderImages()}
+          {renderImages}
         </div>
       </div>
     </Section>

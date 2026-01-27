@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -137,7 +138,7 @@ export function HeroProductivityLauncherVideo({
   headingClassName,
   descriptionClassName,
 }: HeroProductivityLauncherVideoProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -164,9 +165,9 @@ export function HeroProductivityLauncherVideo({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
-  const renderVersionInfo = () => {
+  const renderVersionInfo = useMemo(() => {
     if (versionInfoSlot) return versionInfoSlot;
     if (!versionInfo) return null;
 
@@ -185,9 +186,9 @@ export function HeroProductivityLauncherVideo({
         )}
       </div>
     );
-  };
+  }, [versionInfoSlot, versionInfo]);
 
-  const renderSecondaryCta = () => {
+  const renderSecondaryCta = useMemo(() => {
     if (secondaryCtaSlot) return secondaryCtaSlot;
     if (!secondaryCta) return null;
 
@@ -209,9 +210,9 @@ export function HeroProductivityLauncherVideo({
         )}
       </Pressable>
     );
-  };
+  }, [secondaryCtaSlot, secondaryCta]);
 
-  const renderVideo = () => {
+  const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
 
     return (
@@ -226,7 +227,7 @@ export function HeroProductivityLauncherVideo({
         />
       </div>
     );
-  };
+  }, [videoSlot, videoSrc]);
 
   return (
     <Section
@@ -264,13 +265,13 @@ export function HeroProductivityLauncherVideo({
             </div>
           </div>
           <div className="flex flex-col items-center gap-4">
-            {renderActions()}
-            {renderVersionInfo()}
+            {renderActions}
+            {renderVersionInfo}
           </div>
-          {renderSecondaryCta()}
+          {renderSecondaryCta}
         </div>
       </div>
-      {renderVideo()}
+      {renderVideo}
     </Section>
   );
 }

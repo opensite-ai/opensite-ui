@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -148,7 +149,7 @@ export function HeroStatsSocialProof({
   imageClassName,
   optixFlowConfig,
 }: HeroStatsSocialProofProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -171,9 +172,9 @@ export function HeroStatsSocialProof({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderStats = () => {
+  const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -183,9 +184,9 @@ export function HeroStatsSocialProof({
         {stat.label && <div className="text-sm text-muted-foreground">{stat.label}</div>}
       </div>
     ));
-  };
+  }, [statsSlot, stats]);
 
-  const renderStatusCard = () => {
+  const renderStatusCard = useMemo(() => {
     if (statusCardSlot) return statusCardSlot;
     if (!statusCard) return null;
 
@@ -204,7 +205,7 @@ export function HeroStatsSocialProof({
         </div>
       </div>
     );
-  };
+  }, [statusCardSlot, statusCard]);
 
   return (
     <Section
@@ -243,12 +244,12 @@ export function HeroStatsSocialProof({
             )}
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             )}
             {(statsSlot || (stats && stats.length > 0)) && (
               <div className={cn("grid grid-cols-3 gap-8 pt-8 border-t border-border", statsClassName)}>
-                {renderStats()}
+                {renderStats}
               </div>
             )}
           </div>
@@ -263,7 +264,7 @@ export function HeroStatsSocialProof({
                 />
               </div>
             )}
-            {renderStatusCard()}
+            {renderStatusCard}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import type {ActionConfig, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -87,7 +88,7 @@ export function HeroVideoBackgroundDark({
   headingClassName,
   descriptionClassName,
 }: HeroVideoBackgroundDarkProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -116,9 +117,9 @@ export function HeroVideoBackgroundDark({
         </div>
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
-  const renderVideo = () => {
+  const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
 
     return (
@@ -131,7 +132,7 @@ export function HeroVideoBackgroundDark({
         muted
       />
     );
-  };
+  }, [videoSlot, videoSrc]);
 
   return (
     <Section
@@ -171,9 +172,9 @@ export function HeroVideoBackgroundDark({
             <div className={descriptionClassName}>{description}</div>
           )
         )}
-        {renderActions()}
+        {renderActions}
       </div>
-      {renderVideo()}
+      {renderVideo}
     </Section>
   );
 }

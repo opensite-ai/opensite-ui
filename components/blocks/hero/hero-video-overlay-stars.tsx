@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -114,7 +115,7 @@ export function HeroVideoOverlayStars({
   videoSrc,
   videoSlot,
 }: HeroVideoOverlayStarsProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -129,9 +130,9 @@ export function HeroVideoOverlayStars({
         {action.icon && <DynamicIcon name={action.icon} size={20} />}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderTrust = () => {
+  const renderTrust = useMemo(() => {
     if (trustSlot) return trustSlot;
     if (!trust) return null;
 
@@ -156,9 +157,9 @@ export function HeroVideoOverlayStars({
         )}
       </div>
     );
-  };
+  }, [trustSlot, trust]);
 
-  const renderVideo = () => {
+  const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;
 
     return (
@@ -173,7 +174,7 @@ export function HeroVideoOverlayStars({
         />
       </div>
     );
-  };
+  }, [videoSlot, videoSrc]);
 
   return (
     <Section
@@ -195,11 +196,11 @@ export function HeroVideoOverlayStars({
               </h1>
             )
           )}
-          {renderAction()}
-          {renderTrust()}
+          {renderAction}
+          {renderTrust}
         </div>
       </div>
-      {renderVideo()}
+      {renderVideo}
     </Section>
   );
 }

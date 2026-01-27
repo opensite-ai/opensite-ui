@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -124,7 +125,7 @@ export function HeroGridPatternSolutions({
   imagesClassName,
   optixFlowConfig,
 }: HeroGridPatternSolutionsProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
     return (
@@ -136,9 +137,9 @@ export function HeroGridPatternSolutions({
         <DynamicIcon name="lucide/arrow-right" size={16} />
       </Pressable>
     );
-  };
+  }, [badgeSlot, badgeHref, badgeText]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -165,9 +166,9 @@ export function HeroGridPatternSolutions({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -184,7 +185,7 @@ export function HeroGridPatternSolutions({
         ))}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -200,7 +201,7 @@ export function HeroGridPatternSolutions({
             <div className="absolute inset-0 -top-1 -left-1 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,transparent_60%,#000_100%)] bg-size-[92px_92px] opacity-15"></div>
           )}
           <div className={cn("mx-auto max-w-4xl", contentClassName)}>
-            {renderBadge()}
+            {renderBadge}
             {heading && (
               typeof heading === "string" ? (
                 <h1 className={cn("my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl", headingClassName)}>
@@ -221,10 +222,10 @@ export function HeroGridPatternSolutions({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderActions()}
+            {renderActions}
           </div>
         </div>
-        {renderImages()}
+        {renderImages}
       </div>
     </Section>
   );

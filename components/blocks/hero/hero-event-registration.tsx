@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -56,11 +57,11 @@ export interface HeroEventRegistrationProps {
    */
   imageSlot?: React.ReactNode;
   /**
-   * Location label (e.g., city)
+   * Location label content
    */
   locationLabel?: React.ReactNode;
   /**
-   * Location sublabel (e.g., venue name)
+   * Location sublabel content
    */
   locationSublabel?: React.ReactNode;
   /**
@@ -133,8 +134,8 @@ export function HeroEventRegistration({
   statsSlot,
   image,
   imageSlot,
-  locationLabel = "San Francisco, CA",
-  locationSublabel = "Moscone Center",
+  locationLabel,
+  locationSublabel,
   locationSlot,
   background,
   spacing,
@@ -150,7 +151,7 @@ export function HeroEventRegistration({
   imageClassName,
   optixFlowConfig,
 }: HeroEventRegistrationProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
     return (
@@ -159,9 +160,9 @@ export function HeroEventRegistration({
         {badgeText}
       </Badge>
     );
-  };
+  }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -188,9 +189,9 @@ export function HeroEventRegistration({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderStats = () => {
+  const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -204,9 +205,44 @@ export function HeroEventRegistration({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName]);
 
-  const renderImage = () => {
+  const renderLocation = useMemo(() => {
+    if (locationSlot) return locationSlot;
+    if (!locationLabel && !locationSublabel) return null;
+
+    return (
+      <div className="absolute -bottom-4 -left-4 rounded-xl bg-background p-4 shadow-lg">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+            <DynamicIcon
+              name="lucide/map-pin"
+              size={24}
+              className="text-primary"
+            />
+          </div>
+          <div>
+            {locationLabel && (
+              typeof locationLabel === "string" ? (
+                <div className="font-semibold text-foreground">{locationLabel}</div>
+              ) : (
+                locationLabel
+              )
+            )}
+            {locationSublabel && (
+              typeof locationSublabel === "string" ? (
+                <div className="text-sm text-muted-foreground">{locationSublabel}</div>
+              ) : (
+                locationSublabel
+              )
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }, [locationSlot, locationLabel, locationSublabel]);
+
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -220,40 +256,10 @@ export function HeroEventRegistration({
             optixFlowConfig={optixFlowConfig}
           />
         </div>
-        {renderLocation()}
+        {renderLocation}
       </div>
     );
-  };
-
-  const renderLocation = () => {
-    if (locationSlot) return locationSlot;
-
-    return (
-      <div className="absolute -bottom-4 -left-4 rounded-xl bg-background p-4 shadow-lg">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-            <DynamicIcon
-              name="lucide/map-pin"
-              size={24}
-              className="text-primary"
-            />
-          </div>
-          <div>
-            {typeof locationLabel === "string" ? (
-              <div className="font-semibold text-foreground">{locationLabel}</div>
-            ) : (
-              locationLabel
-            )}
-            {typeof locationSublabel === "string" ? (
-              <div className="text-sm text-muted-foreground">{locationSublabel}</div>
-            ) : (
-              locationSublabel
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig, renderLocation]);
 
   return (
     <Section
@@ -266,7 +272,7 @@ export function HeroEventRegistration({
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
-            {renderBadge()}
+            {renderBadge}
             {heading && (
               typeof heading === "string" ? (
                 <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
@@ -287,10 +293,10 @@ export function HeroEventRegistration({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderActions()}
-            {renderStats()}
+            {renderActions}
+            {renderStats}
           </div>
-          {renderImage()}
+          {renderImage}
         </div>
       </div>
     </Section>

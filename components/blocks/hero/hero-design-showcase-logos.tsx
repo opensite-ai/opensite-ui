@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -124,7 +125,7 @@ export function HeroDesignShowcaseLogos({
   showcaseClassName,
   optixFlowConfig,
 }: HeroDesignShowcaseLogosProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -151,9 +152,9 @@ export function HeroDesignShowcaseLogos({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -184,9 +185,9 @@ export function HeroDesignShowcaseLogos({
         </div>
       </div>
     );
-  };
+  }, [logosSlot, logos, logosLabel, logosClassName, optixFlowConfig]);
 
-  const renderShowcase = () => {
+  const renderShowcase = useMemo(() => {
     if (showcaseSlot) return showcaseSlot;
     if (!showcaseImage) return null;
 
@@ -204,7 +205,7 @@ export function HeroDesignShowcaseLogos({
         </div>
       </div>
     );
-  };
+  }, [showcaseSlot, showcaseImage, showcaseClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -239,14 +240,14 @@ export function HeroDesignShowcaseLogos({
             )}
           </div>
           <div>
-            {renderActions()}
+            {renderActions}
           </div>
           <div>
-            {renderLogos()}
+            {renderLogos}
           </div>
         </div>
       </div>
-      {renderShowcase()}
+      {renderShowcase}
     </Section>
   );
 }

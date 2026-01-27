@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "../../../lib/utils";
@@ -132,13 +133,13 @@ export function HeroBillingPlatformLogos({
   logosClassName,
   optixFlowConfig,
 }: HeroBillingPlatformLogosProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
     return actions.map((action, index) => {
       const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
-      
+
       // Special handling for the second action (guide link)
       if (index === 1) {
         return (
@@ -160,7 +161,7 @@ export function HeroBillingPlatformLogos({
           </Pressable>
         );
       }
-      
+
       return (
         <div key={index} className="shrink-0">
           <Pressable
@@ -179,7 +180,7 @@ export function HeroBillingPlatformLogos({
         </div>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -218,7 +219,7 @@ export function HeroBillingPlatformLogos({
               {(actionsSlot || (actions && actions.length > 0)) && (
                 <div>
                   <div className={cn("flex flex-col items-center gap-4 lg:flex-row", actionsClassName)}>
-                    {renderActions()}
+                    {renderActions}
                   </div>
                 </div>
               )}

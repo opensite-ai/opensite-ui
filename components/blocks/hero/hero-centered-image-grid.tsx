@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -124,7 +125,7 @@ export function HeroCenteredImageGrid({
   logosClassName,
   optixFlowConfig,
 }: HeroCenteredImageGridProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -147,9 +148,9 @@ export function HeroCenteredImageGrid({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderImageOverlayAction = () => {
+  const renderImageOverlayAction = useMemo(() => {
     if (!imageOverlayAction) return null;
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = imageOverlayAction;
     return (
@@ -167,16 +168,16 @@ export function HeroCenteredImageGrid({
         )}
       </Pressable>
     );
-  };
+  }, [imageOverlayAction]);
 
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
     return logos.map((logo, index) => {
       const src = typeof logo.src === "string" ? logo.src : logo.src.light;
       const darkSrc = typeof logo.src === "string" ? logo.src : logo.src.dark;
-      
+
       return (
         <React.Fragment key={index}>
           <Img
@@ -188,7 +189,7 @@ export function HeroCenteredImageGrid({
         </React.Fragment>
       );
     });
-  };
+  }, [logosSlot, logos, optixFlowConfig]);
 
   return (
     <Section
@@ -223,7 +224,7 @@ export function HeroCenteredImageGrid({
             </div>
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             )}
           </div>
@@ -246,14 +247,14 @@ export function HeroCenteredImageGrid({
                   className={cn("h-full max-h-[500px] w-full object-cover dark:invert", gridImages[1].className)}
                   optixFlowConfig={optixFlowConfig}
                 />
-                {renderImageOverlayAction()}
+                {renderImageOverlayAction}
               </div>
             )}
           </div>
         )}
         {(logosSlot || (logos && logos.length > 0)) && (
           <div className={cn("mx-auto mt-12 grid max-w-7xl grid-cols-2 place-items-center gap-6 md:grid-cols-4", logosClassName)}>
-            {renderLogos()}
+            {renderLogos}
           </div>
         )}
       </div>

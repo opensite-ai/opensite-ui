@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -104,7 +105,7 @@ export function HeroSharedInboxLayered({
   imagesClassName,
   optixFlowConfig,
 }: HeroSharedInboxLayeredProps): React.JSX.Element {
-  const renderLayeredImages = () => {
+  const renderLayeredImages = useMemo(() => {
     if (layeredImagesSlot) return layeredImagesSlot;
     if (!layeredImages) return null;
 
@@ -136,7 +137,7 @@ export function HeroSharedInboxLayered({
         )}
       </div>
     );
-  };
+  }, [layeredImagesSlot, layeredImages, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -176,7 +177,7 @@ export function HeroSharedInboxLayered({
             )}
           </div>
           <div>
-            {renderLayeredImages()}
+            {renderLayeredImages}
           </div>
         </div>
       </div>

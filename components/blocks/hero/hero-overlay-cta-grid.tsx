@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -8,6 +9,11 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Container } from "../../ui/container";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
+import type {
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroOverlayCtaGridCard {
   /**
@@ -88,6 +94,22 @@ export interface HeroOverlayCtaGridProps {
    */
   backgroundSlot?: React.ReactNode;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
@@ -123,21 +145,25 @@ export function HeroOverlayCtaGrid({
   badgeSlot,
   heading,
   description,
-  primaryCta = { label: "Get a Free Quote", href: "/quote" },
-  secondaryCta = { label: "Explore Coverage", href: "/coverage" },
+  primaryCta,
+  secondaryCta,
   actionsSlot,
   cards,
   cardsSlot,
   backgroundImage,
   backgroundAlt = "OpenSite AI coverage advisory hero background",
   backgroundSlot,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
   className,
   containerClassName,
   headingClassName,
   descriptionClassName,
   optixFlowConfig,
 }: HeroOverlayCtaGridProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badgeText) return null;
 
@@ -147,24 +173,29 @@ export function HeroOverlayCtaGrid({
         {badgeText}
       </div>
     );
-  };
+  }, [badgeSlot, badgeText, badgeIcon]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
+    if (!primaryCta && !secondaryCta) return null;
 
     return (
       <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <Pressable href={primaryCta.href} size="lg" variant="default">
-          {primaryCta.label}
-        </Pressable>
-        <Pressable href={secondaryCta.href} size="lg" variant="secondary">
-          {secondaryCta.label}
-        </Pressable>
+        {primaryCta && (
+          <Pressable href={primaryCta.href} size="lg" variant="default">
+            {primaryCta.label}
+          </Pressable>
+        )}
+        {secondaryCta && (
+          <Pressable href={secondaryCta.href} size="lg" variant="secondary">
+            {secondaryCta.label}
+          </Pressable>
+        )}
       </div>
     );
-  };
+  }, [actionsSlot, primaryCta, secondaryCta]);
 
-  const renderCards = () => {
+  const renderCards = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cards || cards.length === 0) return null;
 
@@ -196,9 +227,9 @@ export function HeroOverlayCtaGrid({
         </div>
       </div>
     );
-  };
+  }, [cardsSlot, cards]);
 
-  const renderBackground = () => {
+  const renderBackground = useMemo(() => {
     if (backgroundSlot) return backgroundSlot;
 
     return (
@@ -213,16 +244,20 @@ export function HeroOverlayCtaGrid({
         <div className="absolute inset-0 bg-linear-to-r from-foreground/80 via-foreground/65 to-foreground/20" />
       </div>
     );
-  };
+  }, [backgroundSlot, backgroundImage, backgroundAlt, optixFlowConfig]);
 
   return (
     <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
         "relative flex min-h-dvh items-center justify-center overflow-hidden bg-background pb-20 pt-32 md:pt-36",
         className
       )}
     >
-      {renderBackground()}
+      {renderBackground}
 
       <Container
         className={cn("relative flex flex-col gap-12", containerClassName)}
@@ -233,7 +268,7 @@ export function HeroOverlayCtaGrid({
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mx-auto max-w-3xl text-center text-balance text-white"
         >
-          {renderBadge()}
+          {renderBadge}
           {heading &&
             (typeof heading === "string" ? (
               <h1
@@ -274,10 +309,10 @@ export function HeroOverlayCtaGrid({
                 {description}
               </div>
             ))}
-          {renderActions()}
+          {renderActions}
         </motion.div>
 
-        {renderCards()}
+        {renderCards}
       </Container>
     </Section>
   );

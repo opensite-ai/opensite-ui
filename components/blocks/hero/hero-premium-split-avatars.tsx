@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -136,7 +137,7 @@ export function HeroPremiumSplitAvatars({
   imageClassName,
   optixFlowConfig,
 }: HeroPremiumSplitAvatarsProps): React.JSX.Element {
-  const renderBrand = () => {
+  const renderBrand = useMemo(() => {
     if (brandSlot) return brandSlot;
 
     return (
@@ -149,9 +150,9 @@ export function HeroPremiumSplitAvatars({
         )}
       </h1>
     );
-  };
+  }, [brandSlot, brandName, brandSuffix]);
 
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -167,9 +168,9 @@ export function HeroPremiumSplitAvatars({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderAvatars = () => {
+  const renderAvatars = useMemo(() => {
     if (avatarsSlot) return avatarsSlot;
     if (!avatars || avatars.length === 0) return null;
 
@@ -194,9 +195,9 @@ export function HeroPremiumSplitAvatars({
         )}
       </div>
     );
-  };
+  }, [avatarsSlot, avatars, socialProofText]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -208,7 +209,7 @@ export function HeroPremiumSplitAvatars({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -220,7 +221,7 @@ export function HeroPremiumSplitAvatars({
     >
       <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
         <div className={cn("container my-10 flex w-[500px] flex-col gap-24", contentClassName)}>
-          {renderBrand()}
+          {renderBrand}
           <div>
             {heading && (
               typeof heading === "string" ? (
@@ -242,12 +243,12 @@ export function HeroPremiumSplitAvatars({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderAction()}
+            {renderAction}
           </div>
-          {renderAvatars()}
+          {renderAvatars}
         </div>
       </div>
-      {renderImage()}
+      {renderImage}
     </Section>
   );
 }

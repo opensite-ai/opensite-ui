@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -149,7 +150,7 @@ export function HeroConversionVideoPlay({
 }: HeroConversionVideoPlayProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
 
     return (
@@ -194,9 +195,9 @@ export function HeroConversionVideoPlay({
         </Pressable>
       </>
     );
-  };
+  }, [actionsSlot, primaryAction, videoButtonLabel, setIsVideoOpen]);
 
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -212,7 +213,7 @@ export function HeroConversionVideoPlay({
         />
       );
     });
-  };
+  }, [logosSlot, logos, optixFlowConfig]);
 
   return (
     <Fragment>
@@ -249,7 +250,7 @@ export function HeroConversionVideoPlay({
                 </div>
 
                 <div className={cn("flex flex-wrap items-center justify-center gap-8", actionsClassName)}>
-                  {renderActions()}
+                  {renderActions}
                 </div>
               </div>
               <div className="w-full">
@@ -284,7 +285,7 @@ export function HeroConversionVideoPlay({
             )}
             {(logosSlot || (logos && logos.length > 0)) && (
               <div className="flex flex-wrap items-center justify-center gap-20">
-                {renderLogos()}
+                {renderLogos}
               </div>
             )}
           </div>

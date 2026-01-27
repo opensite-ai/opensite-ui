@@ -39,8 +39,8 @@ describe("HeroSplitIconCards", () => {
   });
 
   it("renders actions when provided", () => {
-    const actions = [{ label: "Get Started", href: "/start", variant: "default" as const }];
-    render(<HeroSplitIconCards actions={actions} />);
+    const primaryCta = { label: "Get Started", href: "/start" };
+    render(<HeroSplitIconCards primaryCta={primaryCta} />);
     expect(screen.getByText("Get Started")).toBeInTheDocument();
   });
 

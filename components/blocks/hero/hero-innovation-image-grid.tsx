@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -100,7 +101,7 @@ export function HeroInnovationImageGrid({
   imagesClassName,
   optixFlowConfig,
 }: HeroInnovationImageGridProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -122,9 +123,9 @@ export function HeroInnovationImageGrid({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -166,7 +167,7 @@ export function HeroInnovationImageGrid({
         </AspectRatio>
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -202,10 +203,10 @@ export function HeroInnovationImageGrid({
                   )
                 )}
               </div>
-              {renderAction()}
+              {renderAction}
             </div>
           </div>
-          {renderImages()}
+          {renderImages}
         </div>
       </div>
     </Section>

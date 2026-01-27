@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "../../../lib/utils";
@@ -138,7 +139,7 @@ export function HeroTechCarousel({
     }
   };
 
-  const renderCarousel = () => {
+  const renderCarousel = useMemo(() => {
     if (carouselSlot) return carouselSlot;
     if (!technologies || technologies.length === 0) return null;
 
@@ -179,7 +180,7 @@ export function HeroTechCarousel({
         </CarouselContent>
       </Carousel>
     );
-  };
+  }, [carouselSlot, technologies, setApi, plugin, current, selectTechnology, optixFlowConfig]);
 
   return (
     <Section
@@ -232,7 +233,7 @@ export function HeroTechCarousel({
             </div>
           )}
         </div>
-        {renderCarousel()}
+        {renderCarousel}
       </div>
     </Section>
   );

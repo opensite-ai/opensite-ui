@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -125,7 +126,7 @@ export function HeroDashedBorderFeatures({
   actionsClassName,
   featuresClassName,
 }: HeroDashedBorderFeaturesProps): React.JSX.Element {
-  const renderAnnouncement = () => {
+  const renderAnnouncement = useMemo(() => {
     if (announcementSlot) return announcementSlot;
 
     return (
@@ -138,9 +139,9 @@ export function HeroDashedBorderFeatures({
         <DynamicIcon name="lucide/arrow-right" size={16} />
       </Pressable>
     );
-  };
+  }, [announcementSlot, announcementHref, badgeText, announcementText]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -182,9 +183,9 @@ export function HeroDashedBorderFeatures({
         </Pressable>
       </>
     );
-  };
+  }, [actionsSlot, actions, demoAvatarSrc]);
 
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -202,7 +203,7 @@ export function HeroDashedBorderFeatures({
         {feature.title}
       </div>
     ));
-  };
+  }, [featuresSlot, features]);
 
   return (
     <Section
@@ -215,7 +216,7 @@ export function HeroDashedBorderFeatures({
       <div className={cn("container", containerClassName)}>
         <div className={cn("border-x border-t border-dashed px-4 py-20 md:px-16", contentClassName)}>
           <div className="mx-auto max-w-3xl">
-            {renderAnnouncement()}
+            {renderAnnouncement}
             {heading && (
               typeof heading === "string" ? (
                 <h1 className={cn("my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl", headingClassName)}>
@@ -235,14 +236,14 @@ export function HeroDashedBorderFeatures({
               )
             )}
             <div className={cn("flex flex-col justify-center gap-2 sm:flex-row", actionsClassName)}>
-              {renderActions()}
+              {renderActions}
             </div>
           </div>
         </div>
         <div className={cn("relative grid border-x border-dashed md:grid-cols-3", featuresClassName)}>
           <DynamicIcon name="lucide/sparkle" size={20} className="absolute top-0 right-0 translate-x-2.5 -translate-y-2.5 fill-primary" />
           <DynamicIcon name="lucide/sparkle" size={20} className="absolute top-0 left-0 -translate-x-2.5 -translate-y-2.5 fill-primary" />
-          {renderFeatures()}
+          {renderFeatures}
         </div>
       </div>
     </Section>

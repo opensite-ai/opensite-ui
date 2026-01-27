@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -88,10 +89,10 @@ export function HeroBusinessOperationsMosaic({
   mosaicClassName,
   optixFlowConfig,
 }: HeroBusinessOperationsMosaicProps): React.JSX.Element {
-  const renderMosaic = () => {
+  const renderMosaic = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
-    
+
     return (
       <div className="mx-auto grid h-full w-full grid-cols-[14.7%_47.29%_14.7%_14.7%] grid-rows-[34.7%_26.28%_34.7%] gap-x-[2.85%] gap-y-[2.32%]">
         {images[0] && (
@@ -132,7 +133,7 @@ export function HeroBusinessOperationsMosaic({
         )}
       </div>
     );
-  };
+  }, [imagesSlot, images, optixFlowConfig]);
 
   return (
     <Section
@@ -146,7 +147,7 @@ export function HeroBusinessOperationsMosaic({
         <div className="grid grid-cols-1 items-center justify-between gap-14 lg:grid-cols-2">
           <div className={cn("w-full max-w-166.5", mosaicClassName)}>
             <AspectRatio ratio={0.815177479 / 1}>
-              {renderMosaic()}
+              {renderMosaic}
             </AspectRatio>
           </div>
           <div className={cn("flex w-full max-w-125 flex-col gap-14 lg:max-w-full", contentClassName)}>

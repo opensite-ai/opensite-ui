@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -131,7 +132,7 @@ export function HeroImageLeftContent({
   imageClassName,
   optixFlowConfig,
 }: HeroImageLeftContentProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -154,7 +155,7 @@ export function HeroImageLeftContent({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -203,7 +204,7 @@ export function HeroImageLeftContent({
             )}
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             )}
           </div>

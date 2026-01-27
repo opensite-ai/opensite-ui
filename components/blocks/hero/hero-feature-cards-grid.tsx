@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -98,7 +99,7 @@ export function HeroFeatureCardsGrid({
   actionsClassName,
   featuresClassName,
 }: HeroFeatureCardsGridProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -125,9 +126,9 @@ export function HeroFeatureCardsGrid({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -153,7 +154,7 @@ export function HeroFeatureCardsGrid({
         ))}
       </div>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
   return (
     <Section
@@ -185,9 +186,9 @@ export function HeroFeatureCardsGrid({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderActions()}
+          {renderActions}
         </div>
-        {renderFeatures()}
+        {renderFeatures}
       </div>
     </Section>
   );

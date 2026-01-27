@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -134,7 +135,7 @@ export function HeroEnterpriseSecurity({
   logosClassName,
   optixFlowConfig,
 }: HeroEnterpriseSecurityProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badgeText && !badgeIcon) return null;
 
@@ -144,9 +145,9 @@ export function HeroEnterpriseSecurity({
         <span>{badgeText}</span>
       </div>
     );
-  };
+  }, [badgeSlot, badgeText, badgeIcon]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -173,9 +174,9 @@ export function HeroEnterpriseSecurity({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -198,9 +199,9 @@ export function HeroEnterpriseSecurity({
         ))}
       </div>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -220,7 +221,7 @@ export function HeroEnterpriseSecurity({
         })}
       </div>
     );
-  };
+  }, [logosSlot, logos, logosClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -232,7 +233,7 @@ export function HeroEnterpriseSecurity({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-4xl text-center", contentClassName)}>
-          {renderBadge()}
+          {renderBadge}
           {heading && (
             typeof heading === "string" ? (
               <h1 className={cn("mt-8 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
@@ -253,10 +254,10 @@ export function HeroEnterpriseSecurity({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderActions()}
+          {renderActions}
         </div>
-        {renderFeatures()}
-        {renderLogos()}
+        {renderFeatures}
+        {renderLogos}
       </div>
     </Section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -114,7 +115,7 @@ export function HeroNewsletterMinimal({
   disclaimerClassName,
   statsClassName,
 }: HeroNewsletterMinimalProps): React.JSX.Element {
-  const renderStats = () => {
+  const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -124,9 +125,9 @@ export function HeroNewsletterMinimal({
         <span>{stat.value}</span>
       </div>
     ));
-  };
+  }, [statsSlot, stats]);
 
-  const renderForm = () => {
+  const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
     if (!submitAction) return null;
 
@@ -154,7 +155,7 @@ export function HeroNewsletterMinimal({
         </Pressable>
       </>
     );
-  };
+  }, [formSlot, submitAction, inputPlaceholder, inputClassName]);
 
   return (
     <Section
@@ -183,7 +184,7 @@ export function HeroNewsletterMinimal({
           )
         )}
         <div className={cn("mt-10 flex w-full max-w-md flex-col gap-4 sm:flex-row", formClassName)}>
-          {renderForm()}
+          {renderForm}
         </div>
         {disclaimer && (
           typeof disclaimer === "string" ? (
@@ -196,7 +197,7 @@ export function HeroNewsletterMinimal({
         )}
         {(statsSlot || (stats && stats.length > 0)) && (
           <div className={cn("mt-16 flex flex-wrap items-center justify-center gap-8", statsClassName)}>
-            {renderStats()}
+            {renderStats}
           </div>
         )}
       </div>

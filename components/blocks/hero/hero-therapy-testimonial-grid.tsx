@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -118,7 +119,7 @@ export function HeroTherapyTestimonialGrid({
   descriptionClassName,
   optixFlowConfig,
 }: HeroTherapyTestimonialGridProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -141,9 +142,9 @@ export function HeroTherapyTestimonialGrid({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderTestimonial = () => {
+  const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
     if (!testimonial) return null;
 
@@ -169,9 +170,9 @@ export function HeroTherapyTestimonialGrid({
         </div>
       </div>
     );
-  };
+  }, [testimonialSlot, testimonial, optixFlowConfig]);
 
-  const renderImagesGrid = () => {
+  const renderImagesGrid = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length < 3) return null;
 
@@ -197,7 +198,7 @@ export function HeroTherapyTestimonialGrid({
             />
           </div>
         </div>
-        {renderTestimonial()}
+        {renderTestimonial}
         <div className="row-[4/5] md:col-[2/3] md:row-[2/3]">
           <div className="h-full w-full overflow-hidden rounded-2xl bg-muted">
             <Img
@@ -210,7 +211,7 @@ export function HeroTherapyTestimonialGrid({
         </div>
       </>
     );
-  };
+  }, [imagesSlot, images, optixFlowConfig, renderTestimonial]);
 
   return (
     <Section
@@ -238,10 +239,10 @@ export function HeroTherapyTestimonialGrid({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderActions()}
+          {renderActions}
         </div>
         <div className="grid w-full auto-cols-auto grid-cols-1 grid-rows-[auto_auto_auto] justify-center gap-5 md:grid-cols-2">
-          {renderImagesGrid()}
+          {renderImagesGrid}
         </div>
       </div>
     </Section>

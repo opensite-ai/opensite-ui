@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Badge } from "../../ui/badge";
@@ -144,7 +144,7 @@ export function HeroBusinessCarouselDots({
     };
   }, [api]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -167,7 +167,7 @@ export function HeroBusinessCarouselDots({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -204,7 +204,7 @@ export function HeroBusinessCarouselDots({
           )}
           {(actionsSlot || (actions && actions.length > 0)) && (
             <div className={cn("mt-8 flex justify-center gap-2", actionsClassName)}>
-              {renderActions()}
+              {renderActions}
             </div>
           )}
         </div>

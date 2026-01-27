@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -134,7 +135,7 @@ export function HeroEcommerceProductShowcase({
   imagesClassName,
   optixFlowConfig,
 }: HeroEcommerceProductShowcaseProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
     return (
@@ -143,9 +144,9 @@ export function HeroEcommerceProductShowcase({
         <span>{badgeText}</span>
       </div>
     );
-  };
+  }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -172,9 +173,9 @@ export function HeroEcommerceProductShowcase({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderStats = () => {
+  const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
 
@@ -191,9 +192,9 @@ export function HeroEcommerceProductShowcase({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsClassName]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -245,7 +246,7 @@ export function HeroEcommerceProductShowcase({
         </div>
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -258,10 +259,10 @@ export function HeroEcommerceProductShowcase({
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="order-2 lg:order-1">
-            {renderImages()}
+            {renderImages}
           </div>
           <div className={cn("order-1 flex flex-col gap-8 lg:order-2", contentClassName)}>
-            {renderBadge()}
+            {renderBadge}
             {heading && (
               typeof heading === "string" ? (
                 <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
@@ -282,8 +283,8 @@ export function HeroEcommerceProductShowcase({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderActions()}
-            {renderStats()}
+            {renderActions}
+            {renderStats}
           </div>
         </div>
       </div>

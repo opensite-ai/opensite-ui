@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Card } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroSplitIconCardsItem {
   /**
@@ -79,6 +81,14 @@ export interface HeroSplitIconCardsProps {
    */
   verticalSpacing?: SectionSpacing;
   /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Additional CSS classes for the section wrapper
    */
   className?: string;
@@ -105,39 +115,46 @@ export function HeroSplitIconCards({
   eyebrow,
   heading,
   description,
-  primaryCta = { label: "Get Started", href: "/get-started" },
-  secondaryCta = { label: "Talk to an Advisor", href: "/contact" },
+  primaryCta,
+  secondaryCta,
   actionsSlot,
   children,
   cardItems,
   cardsSlot,
   background,
-  verticalSpacing = "lg",
+  verticalSpacing,
+  pattern,
+  patternOpacity,
   className,
   contentClassName,
   headingClassName,
   descriptionClassName,
 }: HeroSplitIconCardsProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
+    if (!primaryCta && !secondaryCta) return null;
 
     return (
       <div className="flex flex-wrap gap-4">
-        <Pressable href={primaryCta.href} size="lg" variant="default">
-          {primaryCta.label}
-        </Pressable>
-        <Pressable
-          href={secondaryCta.href}
-          size="lg"
-          variant="outline"
-        >
-          {secondaryCta.label}
-        </Pressable>
+        {primaryCta && (
+          <Pressable href={primaryCta.href} size="lg" variant="default">
+            {primaryCta.label}
+          </Pressable>
+        )}
+        {secondaryCta && (
+          <Pressable
+            href={secondaryCta.href}
+            size="lg"
+            variant="outline"
+          >
+            {secondaryCta.label}
+          </Pressable>
+        )}
       </div>
     );
-  };
+  }, [actionsSlot, primaryCta, secondaryCta]);
 
-  const renderCards = () => {
+  const renderCards = useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!cardItems || cardItems.length === 0) return null;
 
@@ -174,12 +191,14 @@ export function HeroSplitIconCards({
         })}
       </div>
     );
-  };
+  }, [cardsSlot, cardItems]);
 
   return (
     <Section
       background={background}
       spacing={verticalSpacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
     >
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
@@ -215,12 +234,12 @@ export function HeroSplitIconCards({
                   <div className={descriptionClassName}>{description}</div>
                 )
               )}
-              {renderActions()}
+              {renderActions}
             </>
           )}
         </div>
 
-        {renderCards()}
+        {renderCards}
       </div>
     </Section>
   );

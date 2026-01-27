@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import { ImageSlider, type ImageSliderImage } from "../../ui/image-slider";
@@ -12,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import type { PatternName } from "../../ui/pattern-background";
 
 export interface HeroImageSliderProps {
   /**
@@ -70,6 +72,14 @@ export interface HeroImageSliderProps {
    * Vertical spacing for the section
    */
   verticalSpacing?: SectionSpacing;
+  /**
+   * Background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
   /**
    * Additional CSS classes for the section wrapper
    */
@@ -131,6 +141,8 @@ export function HeroImageSlider({
   overlaySlot,
   background,
   verticalSpacing,
+  pattern,
+  patternOpacity,
   className,
   sliderClassName,
   contentClassName,
@@ -142,7 +154,7 @@ export function HeroImageSlider({
   overlayClassName,
   optixFlowConfig,
 }: HeroImageSliderProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -174,9 +186,9 @@ export function HeroImageSlider({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderContent = () => {
+  const renderContent = useMemo(() => {
     if (contentSlot) return contentSlot;
 
     return (
@@ -230,17 +242,19 @@ export function HeroImageSlider({
               actionsClassName
             )}
           >
-            {renderActions()}
+            {renderActions}
           </div>
         ) : null}
       </div>
     );
-  };
+  }, [contentSlot, eyebrow, heading, description, actionsSlot, actions, contentClassName, eyebrowClassName, headingClassName, descriptionClassName, actionsClassName, renderActions]);
 
   return (
     <Section
       background={background}
       spacing={verticalSpacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
     >
       <ImageSlider
@@ -255,7 +269,7 @@ export function HeroImageSlider({
         imageClassName={cn("scale-[1.02]", imageClassName)}
         optixFlowConfig={optixFlowConfig}
       >
-        {renderContent()}
+        {renderContent}
       </ImageSlider>
     </Section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -134,7 +135,7 @@ export function HeroMentorshipVideoSplit({
 }: HeroMentorshipVideoSplitProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -150,9 +151,9 @@ export function HeroMentorshipVideoSplit({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderVideoSection = () => {
+  const renderVideoSection = useMemo(() => {
     if (videoSlot) return videoSlot;
     if (!videoThumbnail) return null;
 
@@ -190,9 +191,9 @@ export function HeroMentorshipVideoSplit({
         </Pressable>
       </div>
     );
-  };
+  }, [videoSlot, videoThumbnail, videoLabel, optixFlowConfig, setIsVideoOpen]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -206,7 +207,7 @@ export function HeroMentorshipVideoSplit({
         />
       </div>
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Fragment>
@@ -242,12 +243,12 @@ export function HeroMentorshipVideoSplit({
                       <div className={descriptionClassName}>{description}</div>
                     )
                   )}
-                  {renderAction()}
+                  {renderAction}
                 </div>
-                {renderVideoSection()}
+                {renderVideoSection}
               </div>
             </div>
-            {renderImage()}
+            {renderImage}
           </div>
         </div>
       </Section>

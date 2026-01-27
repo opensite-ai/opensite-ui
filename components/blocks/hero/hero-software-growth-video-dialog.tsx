@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -150,7 +151,7 @@ export function HeroSoftwareGrowthVideoDialog({
     },
   ];
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
 
     const actionsToRender = actions || defaultActions;
@@ -185,9 +186,9 @@ export function HeroSoftwareGrowthVideoDialog({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, defaultActions, handleVideoClick]);
 
-  const renderShowcaseImages = () => {
+  const renderShowcaseImages = useMemo(() => {
     if (showcaseImagesSlot) return showcaseImagesSlot;
     if (!showcaseImages || showcaseImages.length < 4) return null;
 
@@ -216,7 +217,7 @@ export function HeroSoftwareGrowthVideoDialog({
         </div>
       </div>
     );
-  };
+  }, [showcaseImagesSlot, showcaseImages, showcaseClassName, optixFlowConfig]);
 
   return (
     <Fragment>
@@ -246,9 +247,9 @@ export function HeroSoftwareGrowthVideoDialog({
                   <div className={descriptionClassName}>{description}</div>
                 )
               )}
-              {renderActions()}
+              {renderActions}
             </div>
-            {renderShowcaseImages()}
+            {renderShowcaseImages}
           </div>
         </div>
       </Section>

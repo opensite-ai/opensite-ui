@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -109,7 +110,7 @@ export function HeroLogoCenteredScreenshot({
   imageClassName,
   optixFlowConfig,
 }: HeroLogoCenteredScreenshotProps): React.JSX.Element {
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -122,9 +123,9 @@ export function HeroLogoCenteredScreenshot({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [logoSlot, logo, optixFlowConfig]);
 
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -140,9 +141,9 @@ export function HeroLogoCenteredScreenshot({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -154,7 +155,7 @@ export function HeroLogoCenteredScreenshot({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -168,7 +169,7 @@ export function HeroLogoCenteredScreenshot({
         <div className={cn("container max-w-7xl", containerClassName)}>
           <div className="mx-auto flex max-w-5xl flex-col items-center">
             <div className={cn("z-10 flex flex-col items-center gap-6 text-center", contentClassName)}>
-              {renderLogo()}
+              {renderLogo}
               <div>
                 {heading && (
                   typeof heading === "string" ? (
@@ -191,10 +192,10 @@ export function HeroLogoCenteredScreenshot({
                   )
                 )}
               </div>
-              {renderAction()}
+              {renderAction}
             </div>
           </div>
-          {renderImage()}
+          {renderImage}
         </div>
       </div>
     </Section>

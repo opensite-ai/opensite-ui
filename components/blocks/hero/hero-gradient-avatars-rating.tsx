@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -161,7 +162,7 @@ export function HeroGradientAvatarsRating({
   imagesClassName,
   optixFlowConfig,
 }: HeroGradientAvatarsRatingProps): React.JSX.Element {
-  const renderTopLink = () => {
+  const renderTopLink = useMemo(() => {
     if (topLinkSlot) return topLinkSlot;
     if (!topLinkText || !topLinkHref) return null;
 
@@ -173,9 +174,9 @@ export function HeroGradientAvatarsRating({
         {topLinkText}
       </Pressable>
     );
-  };
+  }, [topLinkSlot, topLinkText, topLinkHref]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -202,9 +203,9 @@ export function HeroGradientAvatarsRating({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderAvatars = () => {
+  const renderAvatars = useMemo(() => {
     if (avatarsSlot) return avatarsSlot;
     if (!avatars || avatars.length === 0) return null;
 
@@ -220,9 +221,9 @@ export function HeroGradientAvatarsRating({
         ))}
       </div>
     );
-  };
+  }, [avatarsSlot, avatars]);
 
-  const renderRating = () => {
+  const renderRating = useMemo(() => {
     if (!ratingValue && !ratingLabel) return null;
 
     return (
@@ -247,9 +248,9 @@ export function HeroGradientAvatarsRating({
         )}
       </div>
     );
-  };
+  }, [ratingValue, ratingLabel, starCount]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -277,7 +278,7 @@ export function HeroGradientAvatarsRating({
         )}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -294,7 +295,7 @@ export function HeroGradientAvatarsRating({
       <div className={cn("relative z-10 container mx-auto px-4", containerClassName)}>
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className={cn("flex flex-col items-center text-center lg:items-start lg:text-left", contentClassName)}>
-            {renderTopLink()}
+            {renderTopLink}
 
             {heading && (
               <h1 className={cn("text-4xl font-semibold sm:text-5xl", headingClassName)}>
@@ -318,17 +319,17 @@ export function HeroGradientAvatarsRating({
               )
             )}
 
-            {renderActions()}
+            {renderActions}
 
             {(avatars || avatarsSlot || ratingValue || ratingLabel) && (
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:items-center">
-                {renderAvatars()}
-                {renderRating()}
+                {renderAvatars}
+                {renderRating}
               </div>
             )}
           </div>
 
-          {renderImages()}
+          {renderImages}
         </div>
       </div>
     </Section>

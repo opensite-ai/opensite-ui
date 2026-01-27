@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -99,7 +100,7 @@ export function HeroFullscreenLogoCta({
   descriptionClassName,
   optixFlowConfig,
 }: HeroFullscreenLogoCtaProps): React.JSX.Element {
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -112,9 +113,9 @@ export function HeroFullscreenLogoCta({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [logoSlot, logo, optixFlowConfig]);
 
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -134,7 +135,7 @@ export function HeroFullscreenLogoCta({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
   return (
     <Section
@@ -145,7 +146,7 @@ export function HeroFullscreenLogoCta({
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
       <div className={cn("container flex h-full flex-col justify-between px-5 xl:px-20", containerClassName)}>
-        {renderLogo()}
+        {renderLogo}
         <div className="flex items-end justify-between">
           <div className={cn("flex w-full flex-col gap-8 md:w-2/3", contentClassName)}>
             {heading && (
@@ -169,7 +170,7 @@ export function HeroFullscreenLogoCta({
               )
             )}
           </div>
-          {renderAction()}
+          {renderAction}
         </div>
       </div>
     </Section>

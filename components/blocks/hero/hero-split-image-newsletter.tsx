@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -115,7 +116,7 @@ export function HeroSplitImageNewsletter({
   imageClassName,
   optixFlowConfig,
 }: HeroSplitImageNewsletterProps): React.JSX.Element {
-  const renderNewsletterForm = () => {
+  const renderNewsletterForm = useMemo(() => {
     if (newsletterFormSlot) return newsletterFormSlot;
     if (!newsletterForm) return null;
 
@@ -150,9 +151,9 @@ export function HeroSplitImageNewsletter({
         )}
       </>
     );
-  };
+  }, [newsletterFormSlot, newsletterForm]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -166,7 +167,7 @@ export function HeroSplitImageNewsletter({
         />
       </div>
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -197,9 +198,9 @@ export function HeroSplitImageNewsletter({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderNewsletterForm()}
+          {renderNewsletterForm}
         </div>
-        {renderImage()}
+        {renderImage}
       </div>
     </Section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { Pressable } from "../../../lib/Pressable";
@@ -131,7 +132,7 @@ export function HeroPatternBadgeLogos({
   backgroundClassName,
   optixFlowConfig,
 }: HeroPatternBadgeLogosProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -154,9 +155,9 @@ export function HeroPatternBadgeLogos({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderLogos = () => {
+  const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
 
@@ -204,7 +205,7 @@ export function HeroPatternBadgeLogos({
         </div>
       );
     });
-  };
+  }, [logosSlot, logos, optixFlowConfig]);
 
   return (
     <Section
@@ -259,7 +260,7 @@ export function HeroPatternBadgeLogos({
 
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("mt-6 flex items-center gap-4", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             )}
 
@@ -275,7 +276,7 @@ export function HeroPatternBadgeLogos({
                   )
                 )}
                 <div className="grid grid-cols-2 place-items-center items-center justify-center gap-6 opacity-80 sm:grid-cols-4 sm:gap-4">
-                  {renderLogos()}
+                  {renderLogos}
                 </div>
               </div>
             )}

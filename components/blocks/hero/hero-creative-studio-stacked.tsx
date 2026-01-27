@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -139,12 +140,12 @@ export function HeroCreativeStudioStacked({
 }: HeroCreativeStudioStackedProps): React.JSX.Element {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!primaryAction) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = primaryAction;
-    
+
     return (
       <>
         <Pressable
@@ -176,9 +177,9 @@ export function HeroCreativeStudioStacked({
         </Pressable>
       </>
     );
-  };
+  }, [actionsSlot, primaryAction, videoButtonLabel, setIsVideoOpen]);
 
-  const renderImages = () => {
+  const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -233,7 +234,7 @@ export function HeroCreativeStudioStacked({
         )}
       </div>
     );
-  };
+  }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
     <Fragment>
@@ -277,11 +278,11 @@ export function HeroCreativeStudioStacked({
                 )}
               </div>
               <div className={cn("flex flex-wrap gap-4 py-4", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             </div>
             <div>
-              {renderImages()}
+              {renderImages}
             </div>
           </div>
         </div>

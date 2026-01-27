@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -153,7 +154,7 @@ export function HeroStartupLaunchCta({
   imageClassName,
   optixFlowConfig,
 }: HeroStartupLaunchCtaProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -176,9 +177,9 @@ export function HeroStartupLaunchCta({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderAvatars = () => {
+  const renderAvatars = useMemo(() => {
     if (avatarsSlot) return avatarsSlot;
     if (!avatars || avatars.length === 0) return null;
 
@@ -195,9 +196,9 @@ export function HeroStartupLaunchCta({
         ))}
       </div>
     );
-  };
+  }, [avatarsSlot, avatars, optixFlowConfig]);
 
-  const renderBadgeCard = () => {
+  const renderBadgeCard = useMemo(() => {
     if (badgeCardSlot) return badgeCardSlot;
     if (!badgeCard) return null;
 
@@ -217,7 +218,7 @@ export function HeroStartupLaunchCta({
         </div>
       </div>
     );
-  };
+  }, [badgeCardSlot, badgeCard, optixFlowConfig]);
 
   return (
     <Section
@@ -256,12 +257,12 @@ export function HeroStartupLaunchCta({
             )}
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("flex flex-col gap-4 sm:flex-row", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             )}
             {(avatarsSlot || avatars || socialProofText) && (
               <div className={cn("flex items-center gap-4 pt-4", socialProofClassName)}>
-                {renderAvatars()}
+                {renderAvatars}
                 {socialProofText && (
                   <div className="text-sm">
                     {socialProofText}
@@ -281,7 +282,7 @@ export function HeroStartupLaunchCta({
                 />
               </div>
             )}
-            {renderBadgeCard()}
+            {renderBadgeCard}
           </div>
         </div>
       </div>

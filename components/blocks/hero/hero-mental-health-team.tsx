@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type {ImageItem, OptixFlowConfig, TestimonialItem, SectionBackground, SectionSpacing} from "../../../src/types";
@@ -102,7 +103,7 @@ export function HeroMentalHealthTeam({
   gridClassName,
   optixFlowConfig,
 }: HeroMentalHealthTeamProps): React.JSX.Element {
-  const renderTeamImages = () => {
+  const renderTeamImages = useMemo(() => {
     if (teamImagesSlot) return teamImagesSlot;
     if (!teamImages || teamImages.length === 0) return null;
 
@@ -134,9 +135,9 @@ export function HeroMentalHealthTeam({
         )}
       </>
     );
-  };
+  }, [teamImagesSlot, teamImages, optixFlowConfig]);
 
-  const renderTestimonial = () => {
+  const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
     if (!testimonial) return null;
 
@@ -163,9 +164,9 @@ export function HeroMentalHealthTeam({
         </div>
       </div>
     );
-  };
+  }, [testimonialSlot, testimonial, optixFlowConfig]);
 
-  const renderFeatureImage = () => {
+  const renderFeatureImage = useMemo(() => {
     if (featureImageSlot) return featureImageSlot;
     if (!featureImage) return null;
 
@@ -181,7 +182,7 @@ export function HeroMentalHealthTeam({
         </div>
       </div>
     );
-  };
+  }, [featureImageSlot, featureImage, optixFlowConfig]);
 
   return (
     <Section
@@ -209,9 +210,9 @@ export function HeroMentalHealthTeam({
           )}
         </div>
         <div className={cn("grid w-full max-w-332.5 auto-cols-auto grid-cols-2 grid-rows-[auto_auto] justify-center gap-5 md:grid-cols-[repeat(4,1fr)]", gridClassName)}>
-          {renderTeamImages()}
-          {renderTestimonial()}
-          {renderFeatureImage()}
+          {renderTeamImages}
+          {renderTestimonial}
+          {renderFeatureImage}
         </div>
       </div>
     </Section>

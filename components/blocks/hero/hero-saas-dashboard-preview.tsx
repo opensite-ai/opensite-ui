@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -141,7 +142,7 @@ export function HeroSaasDashboardPreview({
   previewClassName,
   optixFlowConfig,
 }: HeroSaasDashboardPreviewProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
     return (
@@ -156,9 +157,9 @@ export function HeroSaasDashboardPreview({
         {badgeText && <span>{badgeText}</span>}
       </div>
     );
-  };
+  }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderEmailForm = () => {
+  const renderEmailForm = useMemo(() => {
     if (emailFormSlot) return emailFormSlot;
     if (!emailForm) return null;
 
@@ -194,9 +195,9 @@ export function HeroSaasDashboardPreview({
         )}
       </>
     );
-  };
+  }, [emailFormSlot, emailForm]);
 
-  const renderBrowserPreview = () => {
+  const renderBrowserPreview = useMemo(() => {
     if (browserPreviewSlot) return browserPreviewSlot;
     if (!browserPreview) return null;
 
@@ -227,7 +228,7 @@ export function HeroSaasDashboardPreview({
         </div>
       </div>
     );
-  };
+  }, [browserPreviewSlot, browserPreview, previewClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -239,7 +240,7 @@ export function HeroSaasDashboardPreview({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("mx-auto max-w-4xl text-center", headerClassName)}>
-          {renderBadge()}
+          {renderBadge}
           {heading && (
             typeof heading === "string" ? (
               <h1 className={cn("mt-8 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
@@ -260,9 +261,9 @@ export function HeroSaasDashboardPreview({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderEmailForm()}
+          {renderEmailForm}
         </div>
-        {renderBrowserPreview()}
+        {renderBrowserPreview}
       </div>
     </Section>
   );

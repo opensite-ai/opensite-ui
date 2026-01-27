@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Fragment, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -140,7 +141,7 @@ export function HeroVideoDialogGradient({
     },
   ];
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
 
     const actionsToRender = actions || defaultActions;
@@ -169,9 +170,9 @@ export function HeroVideoDialogGradient({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, defaultActions, setIsVideoOpen]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -187,7 +188,7 @@ export function HeroVideoDialogGradient({
         </AspectRatio>
       </div>
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Fragment>
@@ -221,9 +222,9 @@ export function HeroVideoDialogGradient({
                 )
               )}
             </div>
-            {renderActions()}
+            {renderActions}
           </div>
-          {renderImage()}
+          {renderImage}
         </div>
         <div className="absolute top-auto bottom-[32%] left-[31%] z-10 size-full md:top-[-6%] md:bottom-auto md:left-55.5">
           <AspectRatio

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -88,7 +89,7 @@ export function HeroSplitGeometricShapes({
   headingClassName,
   descriptionClassName,
 }: HeroSplitGeometricShapesProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -115,9 +116,9 @@ export function HeroSplitGeometricShapes({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
-  const renderShapes = () => {
+  const renderShapes = useMemo(() => {
     if (shapesSlot) return shapesSlot;
 
     return (
@@ -130,7 +131,7 @@ export function HeroSplitGeometricShapes({
         </div>
       </div>
     );
-  };
+  }, [shapesSlot]);
 
   return (
     <Section
@@ -171,9 +172,9 @@ export function HeroSplitGeometricShapes({
                   <div className={descriptionClassName}>{description}</div>
                 )
               )}
-              {renderActions()}
+              {renderActions}
             </div>
-            {renderShapes()}
+            {renderShapes}
           </div>
         </div>
       </div>

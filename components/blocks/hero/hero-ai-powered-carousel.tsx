@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
@@ -135,7 +136,7 @@ export function HeroAiPoweredCarousel({
   actionsClassName,
   optixFlowConfig,
 }: HeroAiPoweredCarouselProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -158,7 +159,7 @@ export function HeroAiPoweredCarousel({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -197,7 +198,7 @@ export function HeroAiPoweredCarousel({
             )}
             {(actionsSlot || (actions && actions.length > 0)) && (
               <div className={cn("mt-10 flex flex-col gap-2 sm:flex-row", actionsClassName)}>
-                {renderActions()}
+                {renderActions}
               </div>
             )}
           </div>

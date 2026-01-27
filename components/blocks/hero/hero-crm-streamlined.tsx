@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -108,11 +109,11 @@ export function HeroCrmStreamlined({
   imageClassName,
   optixFlowConfig,
 }: HeroCrmStreamlinedProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
-    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = action;
+    const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps} = action;
     return (
       <Pressable
         asButton
@@ -128,7 +129,7 @@ export function HeroCrmStreamlined({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
   return (
     <Section
@@ -169,7 +170,7 @@ export function HeroCrmStreamlined({
                   <div className={descriptionClassName}>{description}</div>
                 )
               )}
-              {renderAction()}
+              {renderAction}
             </div>
           </div>
           <div className={cn("relative basis-[42%] py-9 md:py-16", imageClassName)}>

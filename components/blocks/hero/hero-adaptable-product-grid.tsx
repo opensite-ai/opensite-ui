@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -109,7 +110,7 @@ export function HeroAdaptableProductGrid({
   gridPatternClassName,
   optixFlowConfig,
 }: HeroAdaptableProductGridProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -129,7 +130,7 @@ export function HeroAdaptableProductGrid({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
   return (
     <Section
@@ -160,7 +161,7 @@ export function HeroAdaptableProductGrid({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderAction()}
+            {renderAction}
           </div>
           <div className={cn("relative flex items-center justify-center overflow-hidden", imageContainerClassName)}>
             <div className={cn("absolute inset-0 -top-1 -z-10 mx-auto h-full w-full max-w-3xl bg-[linear-gradient(to_right,hsl(var(--muted-foreground))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted-foreground))_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_100%_at_50%_50%,#000_60%,transparent_100%)] bg-size-[56px_56px] opacity-15", gridPatternClassName)} />

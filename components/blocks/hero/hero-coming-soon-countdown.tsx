@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -137,7 +138,7 @@ export function HeroComingSoonCountdown({
   formClassName,
   socialLinksClassName,
 }: HeroComingSoonCountdownProps): React.JSX.Element {
-  const renderCountdown = () => {
+  const renderCountdown = useMemo(() => {
     if (countdownSlot) return countdownSlot;
     if (!countdownItems || countdownItems.length === 0) return null;
 
@@ -149,14 +150,14 @@ export function HeroComingSoonCountdown({
         <span className="mt-2 text-sm text-muted-foreground">{item.label}</span>
       </div>
     ));
-  };
+  }, [countdownSlot, countdownItems]);
 
-  const renderForm = () => {
+  const renderForm = useMemo(() => {
     if (formSlot) return formSlot;
     if (!submitAction) return null;
 
     const { label, icon, iconAfter, children, className: actionClassName, ...pressableProps } = submitAction;
-    
+
     return (
       <>
         <Input
@@ -179,9 +180,9 @@ export function HeroComingSoonCountdown({
         </Pressable>
       </>
     );
-  };
+  }, [formSlot, submitAction, emailPlaceholder]);
 
-  const renderSocialLinks = () => {
+  const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -194,7 +195,7 @@ export function HeroComingSoonCountdown({
         {link.icon ?? (link.iconName && <DynamicIcon name={link.iconName} size={20} />)}
       </Pressable>
     ));
-  };
+  }, [socialLinksSlot, socialLinks]);
 
   return (
     <Section
@@ -230,15 +231,15 @@ export function HeroComingSoonCountdown({
         )}
         {(countdownSlot || (countdownItems && countdownItems.length > 0)) && (
           <div className={cn("mt-12 grid grid-cols-4 gap-4 md:gap-8", countdownClassName)}>
-            {renderCountdown()}
+            {renderCountdown}
           </div>
         )}
         <div className={cn("mt-12 flex w-full max-w-md flex-col gap-4 sm:flex-row", formClassName)}>
-          {renderForm()}
+          {renderForm}
         </div>
         {(socialLinksSlot || (socialLinks && socialLinks.length > 0)) && (
           <div className={cn("mt-16 flex items-center gap-6", socialLinksClassName)}>
-            {renderSocialLinks()}
+            {renderSocialLinks}
           </div>
         )}
       </div>

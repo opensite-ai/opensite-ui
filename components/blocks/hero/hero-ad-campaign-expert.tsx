@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -109,7 +110,7 @@ export function HeroAdCampaignExpert({
   imageClassName,
   optixFlowConfig,
 }: HeroAdCampaignExpertProps): React.JSX.Element {
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -129,7 +130,7 @@ export function HeroAdCampaignExpert({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
   return (
     <Section
@@ -166,7 +167,7 @@ export function HeroAdCampaignExpert({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderAction()}
+            {renderAction}
           </div>
           <div className={cn("relative flex w-full justify-center lg:w-1/2", imageContainerClassName)}>
             {imageSrc && (

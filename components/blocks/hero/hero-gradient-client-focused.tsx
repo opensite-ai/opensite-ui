@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -98,7 +99,7 @@ export function HeroGradientClientFocused({
   imageClassName,
   optixFlowConfig,
 }: HeroGradientClientFocusedProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -125,9 +126,9 @@ export function HeroGradientClientFocused({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -139,7 +140,7 @@ export function HeroGradientClientFocused({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -169,8 +170,8 @@ export function HeroGradientClientFocused({
             <div className={descriptionClassName}>{description}</div>
           )
         )}
-        {renderActions()}
-        {renderImage()}
+        {renderActions}
+        {renderImage}
       </div>
     </Section>
   );

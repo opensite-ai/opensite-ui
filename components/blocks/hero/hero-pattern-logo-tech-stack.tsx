@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -130,7 +131,7 @@ export function HeroPatternLogoTechStack({
   techLogosClassName,
   optixFlowConfig,
 }: HeroPatternLogoTechStackProps): React.JSX.Element {
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -145,9 +146,9 @@ export function HeroPatternLogoTechStack({
         />
       </div>
     );
-  };
+  }, [logoSlot, logo, optixFlowConfig]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -174,9 +175,9 @@ export function HeroPatternLogoTechStack({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
 
-  const renderTechLogos = () => {
+  const renderTechLogos = useMemo(() => {
     if (techLogosSlot) return techLogosSlot;
     if (!techLogos || techLogos.length === 0) return null;
 
@@ -216,7 +217,7 @@ export function HeroPatternLogoTechStack({
         </div>
       </div>
     );
-  };
+  }, [techLogosSlot, techLogos, techStackLabel, techLogosClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -237,7 +238,7 @@ export function HeroPatternLogoTechStack({
       <div className={cn("relative z-10 container", containerClassName)}>
         <div className="mx-auto flex max-w-5xl flex-col items-center">
           <div className={cn("flex flex-col items-center gap-6 text-center", contentClassName)}>
-            {renderLogo()}
+            {renderLogo}
             <div>
               {heading && (
                 typeof heading === "string" ? (
@@ -261,8 +262,8 @@ export function HeroPatternLogoTechStack({
                 )
               )}
             </div>
-            {renderActions()}
-            {renderTechLogos()}
+            {renderActions}
+            {renderTechLogos}
           </div>
         </div>
       </div>

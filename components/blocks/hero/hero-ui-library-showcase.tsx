@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { Img } from "@page-speed/img";
@@ -104,7 +105,7 @@ export function HeroUiLibraryShowcase({
   imageClassName,
   optixFlowConfig,
 }: HeroUiLibraryShowcaseProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -127,9 +128,9 @@ export function HeroUiLibraryShowcase({
         </Pressable>
       );
     });
-  };
+  }, [actionsSlot, actions]);
 
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -141,9 +142,9 @@ export function HeroUiLibraryShowcase({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [logoSlot, logo, optixFlowConfig]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -159,7 +160,7 @@ export function HeroUiLibraryShowcase({
         </AspectRatio>
       </div>
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -169,7 +170,7 @@ export function HeroUiLibraryShowcase({
       )}
     >
       <div className={cn("flex flex-col gap-10 md:items-center", headerClassName)}>
-        {renderLogo()}
+        {renderLogo}
         <div className="flex max-w-[880px] flex-col items-center gap-6">
           {heading && (
             typeof heading === "string" ? (
@@ -192,9 +193,9 @@ export function HeroUiLibraryShowcase({
             )
           )}
         </div>
-        {renderActions()}
+        {renderActions}
       </div>
-      {renderImage()}
+      {renderImage}
     </Section>
   );
 }

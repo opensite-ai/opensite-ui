@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -182,7 +183,7 @@ export function HeroMobileAppDownload({
   imageClassName,
   optixFlowConfig,
 }: HeroMobileAppDownloadProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
     return (
@@ -191,9 +192,9 @@ export function HeroMobileAppDownload({
         <span>{badgeText}</span>
       </div>
     );
-  };
+  }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderStoreActions = () => {
+  const renderStoreActions = useMemo(() => {
     if (storeActionsSlot) return storeActionsSlot;
     if (!storeActions || storeActions.length === 0) return null;
 
@@ -218,9 +219,9 @@ export function HeroMobileAppDownload({
         })}
       </div>
     );
-  };
+  }, [storeActionsSlot, storeActions]);
 
-  const renderRating = () => {
+  const renderRating = useMemo(() => {
     if (ratingSlot) return ratingSlot;
 
     return (
@@ -235,9 +236,9 @@ export function HeroMobileAppDownload({
         </span>
       </div>
     );
-  };
+  }, [ratingSlot, starCount, ratingValue, ratingLabel]);
 
-  const renderNotification = () => {
+  const renderNotification = useMemo(() => {
     if (notificationSlot) return notificationSlot;
     if (!notification) return null;
 
@@ -256,9 +257,9 @@ export function HeroMobileAppDownload({
         </div>
       </div>
     );
-  };
+  }, [notificationSlot, notification]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
 
@@ -271,11 +272,11 @@ export function HeroMobileAppDownload({
             className={cn("w-64 rounded-3xl shadow-2xl", image.className)}
             optixFlowConfig={optixFlowConfig}
           />
-          {renderNotification()}
+          {renderNotification}
         </div>
       </div>
     );
-  };
+  }, [imageSlot, image, imageClassName, optixFlowConfig, renderNotification]);
 
   return (
     <Section
@@ -288,7 +289,7 @@ export function HeroMobileAppDownload({
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className={cn("flex flex-col gap-8", contentClassName)}>
-            {renderBadge()}
+            {renderBadge}
             {heading && (
               typeof heading === "string" ? (
                 <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
@@ -309,10 +310,10 @@ export function HeroMobileAppDownload({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderStoreActions()}
-            {renderRating()}
+            {renderStoreActions}
+            {renderRating}
           </div>
-          {renderImage()}
+          {renderImage}
         </div>
       </div>
     </Section>

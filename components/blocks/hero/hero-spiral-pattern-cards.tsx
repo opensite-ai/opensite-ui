@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -78,7 +79,7 @@ export function HeroSpiralPatternCards({
   headingClassName,
   descriptionClassName,
 }: HeroSpiralPatternCardsProps): React.JSX.Element {
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -105,7 +106,7 @@ export function HeroSpiralPatternCards({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -143,7 +144,7 @@ export function HeroSpiralPatternCards({
             <div className={descriptionClassName}>{description}</div>
           )
         )}
-        {renderActions()}
+        {renderActions}
       </div>
       <div className="mt-16 flex flex-col items-center justify-center lg:mt-32">
         <div className="b relative mx-auto aspect-square w-[95%] max-w-125 sm:w-full">

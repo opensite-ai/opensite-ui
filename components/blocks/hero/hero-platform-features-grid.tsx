@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -104,7 +105,7 @@ export function HeroPlatformFeaturesGrid({
   featuresClassName,
   optixFlowConfig,
 }: HeroPlatformFeaturesGridProps): React.JSX.Element {
-  const renderLogo = () => {
+  const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
 
@@ -117,9 +118,9 @@ export function HeroPlatformFeaturesGrid({
         optixFlowConfig={optixFlowConfig}
       />
     );
-  };
+  }, [logoSlot, logo, optixFlowConfig]);
 
-  const renderAction = () => {
+  const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -135,9 +136,9 @@ export function HeroPlatformFeaturesGrid({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action]);
 
-  const renderFeatures = () => {
+  const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
 
@@ -162,7 +163,7 @@ export function HeroPlatformFeaturesGrid({
         ))}
       </div>
     );
-  };
+  }, [featuresSlot, features, featuresClassName]);
 
   return (
     <Section
@@ -174,7 +175,7 @@ export function HeroPlatformFeaturesGrid({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("text-center", headerClassName)}>
-          {renderLogo()}
+          {renderLogo}
           {subtitle && (
             typeof subtitle === "string" ? (
               <span className="mb-3 text-sm tracking-widest text-muted-foreground md:text-base">
@@ -195,9 +196,9 @@ export function HeroPlatformFeaturesGrid({
               </h1>
             )
           )}
-          {renderAction()}
+          {renderAction}
         </div>
-        {renderFeatures()}
+        {renderFeatures}
       </div>
     </Section>
   );

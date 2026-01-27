@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -168,7 +169,7 @@ export function HeroProductShowcaseFloating({
   showcaseClassName,
   optixFlowConfig,
 }: HeroProductShowcaseFloatingProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
     return (
@@ -177,9 +178,9 @@ export function HeroProductShowcaseFloating({
         {badgeText && <span>{badgeText}</span>}
       </div>
     );
-  };
+  }, [badgeSlot, badgeIcon, badgeText]);
 
-  const renderActions = () => {
+  const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -206,9 +207,9 @@ export function HeroProductShowcaseFloating({
         })}
       </div>
     );
-  };
+  }, [actionsSlot, actions]);
 
-  const renderFloatingStat = () => {
+  const renderFloatingStat = useMemo(() => {
     if (floatingStatSlot) return floatingStatSlot;
     if (!floatingStat) return null;
 
@@ -233,9 +234,9 @@ export function HeroProductShowcaseFloating({
         </div>
       </div>
     );
-  };
+  }, [floatingStatSlot, floatingStat]);
 
-  const renderUserCount = () => {
+  const renderUserCount = useMemo(() => {
     if (userCountSlot) return userCountSlot;
     if (!userCount) return null;
 
@@ -262,9 +263,9 @@ export function HeroProductShowcaseFloating({
         </div>
       </div>
     );
-  };
+  }, [userCountSlot, userCount, optixFlowConfig]);
 
-  const renderProductShowcase = () => {
+  const renderProductShowcase = useMemo(() => {
     if (productImageSlot) return productImageSlot;
     if (!productImage) return null;
 
@@ -279,12 +280,12 @@ export function HeroProductShowcaseFloating({
               optixFlowConfig={optixFlowConfig}
             />
           </div>
-          {renderFloatingStat()}
-          {renderUserCount()}
+          {renderFloatingStat}
+          {renderUserCount}
         </div>
       </div>
     );
-  };
+  }, [productImageSlot, productImage, showcaseClassName, optixFlowConfig, renderFloatingStat, renderUserCount]);
 
   return (
     <Section
@@ -296,9 +297,9 @@ export function HeroProductShowcaseFloating({
     >
       <div className={cn("container", containerClassName)}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          {renderProductShowcase()}
+          {renderProductShowcase}
           <div className={cn("order-1 flex flex-col gap-8 lg:order-2", contentClassName)}>
-            {renderBadge()}
+            {renderBadge}
             {heading && (
               typeof heading === "string" ? (
                 <h1 className={cn("text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl", headingClassName)}>
@@ -319,7 +320,7 @@ export function HeroProductShowcaseFloating({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderActions()}
+            {renderActions}
           </div>
         </div>
       </div>
