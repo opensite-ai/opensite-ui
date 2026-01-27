@@ -13,6 +13,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "../../ui/tooltip";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Tooltip configuration for table cells
@@ -96,6 +102,22 @@ export interface ComparisonTableTooltipsProps {
    * Additional CSS classes for table body cells
    */
   tableCellClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -112,8 +134,8 @@ export interface ComparisonTableTooltipsProps {
 export function ComparisonTableTooltips({
   heading,
   description,
-  optionALabel = "Our Solution",
-  optionBLabel = "Alternative",
+  optionALabel,
+  optionBLabel,
   rows,
   tableSlot,
   className,
@@ -124,40 +146,44 @@ export function ComparisonTableTooltips({
   tableClassName,
   tableHeaderClassName,
   tableCellClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: ComparisonTableTooltipsProps): React.JSX.Element {
-  const renderCellContent = (
-    cell: string | CellValue,
-    isHighlighted: boolean
-  ) => {
-    if (typeof cell === "string") {
-      return cell;
-    }
+  const renderCellContent = React.useCallback(
+    (cell: string | CellValue, isHighlighted: boolean) => {
+      if (typeof cell === "string") {
+        return cell;
+      }
 
-    if (cell.tooltip) {
-      return (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <span
-              className={cn(
-                "cursor-pointer underline decoration-dotted",
-                !isHighlighted && "text-muted-foreground"
-              )}
-            >
-              {cell.value}
-            </span>
-          </TooltipTrigger>
-          <TooltipContent sideOffset={8} className="max-w-xs">
-            <span className="mb-1 block font-semibold">{cell.tooltip.title}</span>
-            {cell.tooltip.content}
-          </TooltipContent>
-        </Tooltip>
-      );
-    }
+      if (cell.tooltip) {
+        return (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span
+                className={cn(
+                  "cursor-pointer underline decoration-dotted",
+                  !isHighlighted && "text-muted-foreground"
+                )}
+              >
+                {cell.value}
+              </span>
+            </TooltipTrigger>
+            <TooltipContent sideOffset={8} className="max-w-xs">
+              <span className="mb-1 block font-semibold">{cell.tooltip.title}</span>
+              {cell.tooltip.content}
+            </TooltipContent>
+          </Tooltip>
+        );
+      }
 
-    return cell.value;
-  };
+      return cell.value;
+    },
+    []
+  );
 
-  const renderTable = () => {
+  const tableContent = React.useMemo(() => {
     if (tableSlot) return tableSlot;
     if (!rows || rows.length === 0) return null;
 
@@ -166,12 +192,16 @@ export function ComparisonTableTooltips({
         <TableHeader>
           <TableRow>
             <TableHead className={tableHeaderClassName}></TableHead>
-            <TableHead className={cn("bg-muted px-6 py-4 font-semibold", tableHeaderClassName)}>
-              {optionALabel}
-            </TableHead>
-            <TableHead className={cn("px-6 py-4 font-semibold", tableHeaderClassName)}>
-              {optionBLabel}
-            </TableHead>
+            {optionALabel && (
+              <TableHead className={cn("bg-muted px-6 py-4 font-semibold", tableHeaderClassName)}>
+                {optionALabel}
+              </TableHead>
+            )}
+            {optionBLabel && (
+              <TableHead className={cn("px-6 py-4 font-semibold", tableHeaderClassName)}>
+                {optionBLabel}
+              </TableHead>
+            )}
           </TableRow>
         </TableHeader>
         <TableBody className="text-foreground">
@@ -189,33 +219,47 @@ export function ComparisonTableTooltips({
         </TableBody>
       </Table>
     );
-  };
+  }, [tableSlot, rows, tableClassName, tableHeaderClassName, tableCellClassName, optionALabel, optionBLabel, renderCellContent]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading) return null;
+    if (typeof heading === "string") {
+      return (
+        <h2 className={cn("mb-4 text-center text-4xl font-semibold", headingClassName)}>
+          {heading}
+        </h2>
+      );
+    }
+    return <div className={headingClassName}>{heading}</div>;
+  }, [heading, headingClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return (
+        <p className={cn("mb-8 text-center text-muted-foreground", descriptionClassName)}>
+          {description}
+        </p>
+      );
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("mb-4 text-center text-4xl font-semibold", headingClassName)}>
-              {heading}
-            </h2>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mb-8 text-center text-muted-foreground", descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          )
-        )}
+        {headingContent}
+        {descriptionContent}
         <div className={cn("mx-auto max-w-3xl overflow-x-auto", tableWrapperClassName)}>
-          {renderTable()}
+          {tableContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

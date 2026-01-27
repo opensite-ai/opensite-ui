@@ -4,7 +4,13 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Comparison row data for two-column table
@@ -90,6 +96,22 @@ export interface ComparisonTableTwoColumnProps {
    */
   optionBCellClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -98,12 +120,11 @@ export interface ComparisonTableTwoColumnProps {
 /**
  * ComparisonTableTwoColumn - A table-based comparison layout with two columns
  *
- * Displays a side-by-side comparison table with company logos at the top and
- * feature rows below. The first column (Option A) is highlighted in green tones
- * indicating the preferred choice, while the second column (Option B) uses red
- * tones. Rows can optionally display check/x icons for boolean comparisons.
+ * Displays a side-by-side comparison table with logos or labels at the top and
+ * feature rows below. The first column uses highlighted styling to indicate
+ * the preferred choice. Rows can optionally display check/x icons for boolean comparisons.
  *
- * Best for: Product comparisons, service tier comparisons, competitor analysis,
+ * Best for: Option comparisons, tier comparisons, analysis,
  * feature-by-feature breakdowns where one option is clearly preferred.
  */
 export function ComparisonTableTwoColumn({
@@ -112,11 +133,11 @@ export function ComparisonTableTwoColumn({
   rows,
   tableSlot,
   optionALogo,
-  optionALogoAlt = "Option A logo",
-  optionALabel = "Option A",
+  optionALogoAlt,
+  optionALabel,
   optionBLogo,
-  optionBLogoAlt = "Option B logo",
-  optionBLabel = "Option B",
+  optionBLogoAlt,
+  optionBLabel,
   className,
   containerClassName,
   headingClassName,
@@ -125,51 +146,58 @@ export function ComparisonTableTwoColumn({
   tableGridClassName,
   optionACellClassName,
   optionBCellClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: ComparisonTableTwoColumnProps): React.JSX.Element {
-  const renderTable = () => {
+  const tableContent = React.useMemo(() => {
     if (tableSlot) return tableSlot;
     if (!rows || rows.length === 0) return null;
 
     return (
       <div className={cn("-mr-4 overflow-x-auto", tableWrapperClassName)}>
         <div className="min-w-2xl overflow-hidden">
-          <div className={cn("grid grid-cols-3 [&>:last-child_div]:rounded-b-md [&>div:nth-last-child(-n+3)]:rounded-b-md [&>div:nth-last-child(-n+3)]:border-b-0", tableGridClassName)}>
+          <div
+            className={cn(
+              "grid grid-cols-3 [&>:last-child_div]:rounded-b-md [&>div:nth-last-child(-n+3)]:rounded-b-md [&>div:nth-last-child(-n+3)]:border-b-0",
+              tableGridClassName
+            )}
+          >
             <div className="p-4"></div>
             <div className={cn("flex items-center rounded-t-md bg-success/10 p-3 md:p-4", optionACellClassName)}>
               {optionALogo ? (
                 <Img
                   src={optionALogo}
-                  alt={optionALogoAlt}
+                  alt={optionALogoAlt || "Option A"}
                   className="h-7 md:h-8"
                   optixFlowConfig={optixFlowConfig}
                 />
               ) : (
-                typeof optionALabel === "string" ? (
-                  <span className="text-lg font-semibold text-success">
-                    {optionALabel}
-                  </span>
+                optionALabel &&
+                (typeof optionALabel === "string" ? (
+                  <span className="text-lg font-semibold text-success">{optionALabel}</span>
                 ) : (
                   optionALabel
-                )
+                ))
               )}
             </div>
             <div className={cn("flex items-center rounded-t-md bg-destructive/10 p-3 md:p-4", optionBCellClassName)}>
               {optionBLogo ? (
                 <Img
                   src={optionBLogo}
-                  alt={optionBLogoAlt}
+                  alt={optionBLogoAlt || "Option B"}
                   className="h-7 md:h-8"
                   optixFlowConfig={optixFlowConfig}
                 />
               ) : (
-                typeof optionBLabel === "string" ? (
-                  <span className="text-lg font-semibold text-destructive">
-                    {optionBLabel}
-                  </span>
+                optionBLabel &&
+                (typeof optionBLabel === "string" ? (
+                  <span className="text-lg font-semibold text-destructive">{optionBLabel}</span>
                 ) : (
                   optionBLabel
-                )
+                ))
               )}
             </div>
             {rows.map((row, idx) => (
@@ -180,29 +208,15 @@ export function ComparisonTableTwoColumn({
                 <div className={cn("border-b bg-success/5 p-3 md:p-6", optionACellClassName)}>
                   <div className="flex items-center gap-2">
                     {row.hasIcon && (
-                      <DynamicIcon
-                        name="lucide/circle-check-big"
-                        size={20}
-                        className="text-success"
-                      />
+                      <DynamicIcon name="lucide/circle-check-big" size={20} className="text-success" />
                     )}
-                    <span className="text-base md:text-lg">
-                      {row.optionA}
-                    </span>
+                    <span className="text-base md:text-lg">{row.optionA}</span>
                   </div>
                 </div>
                 <div className={cn("border-b bg-destructive/5 p-3 md:p-6", optionBCellClassName)}>
                   <div className="flex items-center gap-2">
-                    {row.hasIcon && (
-                      <DynamicIcon
-                        name="lucide/octagon-x"
-                        size={20}
-                        className="text-destructive"
-                      />
-                    )}
-                    <span className="text-base md:text-lg">
-                      {row.optionB}
-                    </span>
+                    {row.hasIcon && <DynamicIcon name="lucide/octagon-x" size={20} className="text-destructive" />}
+                    <span className="text-base md:text-lg">{row.optionB}</span>
                   </div>
                 </div>
               </React.Fragment>
@@ -211,31 +225,59 @@ export function ComparisonTableTwoColumn({
         </div>
       </div>
     );
-  };
+  }, [
+    tableSlot,
+    rows,
+    tableWrapperClassName,
+    tableGridClassName,
+    optionACellClassName,
+    optionBCellClassName,
+    optionALogo,
+    optionALogoAlt,
+    optionALabel,
+    optionBLogo,
+    optionBLogoAlt,
+    optionBLabel,
+    optixFlowConfig,
+  ]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading) return null;
+    if (typeof heading === "string") {
+      return (
+        <h1 className={cn("mb-8 text-3xl font-bold md:mb-12 md:text-5xl", headingClassName)}>
+          {heading}
+        </h1>
+      );
+    }
+    return <div className={headingClassName}>{heading}</div>;
+  }, [heading, headingClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return (
+        <p className={cn("mb-8 text-muted-foreground md:text-lg", descriptionClassName)}>
+          {description}
+        </p>
+      );
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h1 className={cn("mb-8 text-3xl font-bold md:mb-12 md:text-5xl", headingClassName)}>
-              {heading}
-            </h1>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mb-8 text-muted-foreground md:text-lg", descriptionClassName)}>
-              {description}
-            </p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {renderTable()}
+        {headingContent}
+        {descriptionContent}
+        {tableContent}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -4,7 +4,13 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Metric value with optional unit and description
@@ -93,6 +99,22 @@ export interface ComparisonMetricsRowsProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -109,8 +131,8 @@ export interface ComparisonMetricsRowsProps {
 export function ComparisonMetricsRows({
   heading,
   description,
-  optionALabel = "Traditional",
-  optionBLabel = "Cloud-Native",
+  optionALabel,
+  optionBLabel,
   metrics,
   metricsSlot,
   footnotes,
@@ -124,31 +146,39 @@ export function ComparisonMetricsRows({
   metricRowClassName,
   footnotesClassName,
   actionsClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: ComparisonMetricsRowsProps): React.JSX.Element {
-  const renderMetrics = () => {
+  const metricsContent = React.useMemo(() => {
     if (metricsSlot) return metricsSlot;
     if (!metrics || metrics.length === 0) return null;
 
     return (
-      <div className={cn("col-span-4 rounded-xl bg-background shadow-sm md:col-span-8 lg:col-span-10 lg:col-start-2", metricsClassName)}>
+      <div
+        className={cn(
+          "col-span-4 rounded-xl bg-background shadow-sm md:col-span-8 lg:col-span-10 lg:col-start-2",
+          metricsClassName
+        )}
+      >
         {metrics.map((row, index) => (
           <div
             key={index}
-            className={cn("group border-t px-4 transition-colors first:rounded-t-xl first:border-t-0 last:rounded-b-xl hover:bg-muted/50", metricRowClassName)}
+            className={cn(
+              "group border-t px-4 transition-colors first:rounded-t-xl first:border-t-0 last:rounded-b-xl hover:bg-muted/50",
+              metricRowClassName
+            )}
           >
             <div className="grid grid-cols-4 items-start gap-4 py-6 md:grid-cols-8 md:py-8">
-              <h3 className="col-span-4 mt-2 text-base font-bold md:col-span-2 md:text-lg">
-                {row.title}
-              </h3>
+              <h3 className="col-span-4 mt-2 text-base font-bold md:col-span-2 md:text-lg">{row.title}</h3>
 
               <div className="col-span-2 flex flex-col md:col-span-3">
                 <div className="ml-0 transition-colors group-hover:text-foreground md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
                   <p className="mb-1 flex items-baseline text-2xl font-bold text-foreground md:mb-2 md:text-5xl">
                     {row.optionA.value}
                     {row.optionA.unit && (
-                      <sup className="ml-0.5 text-xs text-foreground md:text-sm">
-                        {row.optionA.unit}
-                      </sup>
+                      <sup className="ml-0.5 text-xs text-foreground md:text-sm">{row.optionA.unit}</sup>
                     )}
                   </p>
                   <p className="text-xs leading-tight text-muted-foreground md:text-sm md:leading-normal">
@@ -162,9 +192,7 @@ export function ComparisonMetricsRows({
                   <p className="mb-1 flex items-baseline text-2xl font-bold text-foreground md:mb-2 md:text-5xl">
                     {row.optionB.value}
                     {row.optionB.unit && (
-                      <sup className="ml-0.5 text-xs text-foreground md:text-sm">
-                        {row.optionB.unit}
-                      </sup>
+                      <sup className="ml-0.5 text-xs text-foreground md:text-sm">{row.optionB.unit}</sup>
                     )}
                   </p>
                   <p className="text-xs leading-tight text-muted-foreground md:text-sm md:leading-normal">
@@ -177,9 +205,9 @@ export function ComparisonMetricsRows({
         ))}
       </div>
     );
-  };
+  }, [metricsSlot, metrics, metricsClassName, metricRowClassName]);
 
-  const renderActions = () => {
+  const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
 
@@ -202,63 +230,85 @@ export function ComparisonMetricsRows({
         ))}
       </div>
     );
-  };
+  }, [actionsSlot, actions, actionsClassName]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading) return null;
+    if (typeof heading === "string") {
+      return (
+        <h2
+          className={cn(
+            "mb-4 text-center text-3xl font-bold sm:text-left md:text-4xl lg:text-6xl",
+            headingClassName
+          )}
+        >
+          {heading}
+        </h2>
+      );
+    }
+    return <div className={headingClassName}>{heading}</div>;
+  }, [heading, headingClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return <p className={cn("text-muted-foreground md:text-lg", descriptionClassName)}>{description}</p>;
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
 
   return (
-    <section className={cn("bg-muted/30 py-32", className)}>
-      <div className={cn("container grid grid-cols-4 gap-x-4 gap-y-8 md:grid-cols-8 lg:grid-cols-12", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
+      <div
+        className={cn(
+          "container grid grid-cols-4 gap-x-4 gap-y-8 md:grid-cols-8 lg:grid-cols-12",
+          containerClassName
+        )}
+      >
         <div className="col-span-4 mb-8 max-w-3xl md:col-span-8 md:mb-12 lg:col-span-10 lg:col-start-2 lg:mb-16">
-          {heading && (
-            typeof heading === "string" ? (
-              <h2 className={cn("mb-4 text-center text-3xl font-bold sm:text-left md:text-4xl lg:text-6xl", headingClassName)}>
-                {heading}
-              </h2>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-muted-foreground md:text-lg", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+          {headingContent}
+          {descriptionContent}
         </div>
 
-        <div className="col-span-4 px-4 md:col-span-8 lg:col-span-10 lg:col-start-2">
-          <div className="grid grid-cols-4 items-center gap-4 md:grid-cols-8">
-            <div className="col-span-4 md:col-span-2"></div>
-            <div className="col-span-2 ml-0 md:col-span-3 md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
-              <h4 className="text-xs font-bold tracking-wider text-muted-foreground uppercase md:text-sm">
-                {optionALabel}
-              </h4>
-            </div>
-            <div className="col-span-2 ml-0 md:col-span-3 md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
-              <h4 className="text-xs font-bold tracking-wider uppercase md:text-sm">
-                {optionBLabel}
-              </h4>
+        {optionALabel && optionBLabel && (
+          <div className="col-span-4 px-4 md:col-span-8 lg:col-span-10 lg:col-start-2">
+            <div className="grid grid-cols-4 items-center gap-4 md:grid-cols-8">
+              <div className="col-span-4 md:col-span-2"></div>
+              <div className="col-span-2 ml-0 md:col-span-3 md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
+                <h4 className="text-xs font-bold tracking-wider text-muted-foreground uppercase md:text-sm">
+                  {optionALabel}
+                </h4>
+              </div>
+              <div className="col-span-2 ml-0 md:col-span-3 md:ml-32 lg:ml-40 xl:ml-48 2xl:ml-56">
+                <h4 className="text-xs font-bold tracking-wider uppercase md:text-sm">{optionBLabel}</h4>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        {renderMetrics()}
+        {metricsContent}
 
         <div className="col-span-4 md:col-span-8 lg:col-span-10 lg:col-start-2">
           <div className="flex flex-col space-y-4">
-            <div className={cn("space-y-2", footnotesClassName)}>
-              {footnotes?.map((note, idx) => (
-                <p key={idx} className="text-xs text-muted-foreground md:text-sm">
-                  {note}
-                </p>
-              ))}
-            </div>
-            {renderActions()}
+            {footnotes && footnotes.length > 0 && (
+              <div className={cn("space-y-2", footnotesClassName)}>
+                {footnotes.map((note, idx) => (
+                  <p key={idx} className="text-xs text-muted-foreground md:text-sm">
+                    {note}
+                  </p>
+                ))}
+              </div>
+            )}
+            {actionsContent}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

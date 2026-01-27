@@ -13,6 +13,12 @@ import {
   TableRow,
 } from "../../ui/table";
 import { Tabs, TabsList, TabsTrigger } from "../../ui/tabs";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Status indicator for comparison values
@@ -88,6 +94,22 @@ export interface ComparisonTableTabsProps {
    * Additional CSS classes for table body cells
    */
   tableCellClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -99,7 +121,7 @@ export interface ComparisonTableTabsProps {
  * colored icons and backgrounds.
  *
  * Best for: Multi-option technical comparisons, storage solutions, hosting
- * options, service tier comparisons with detailed attributes.
+ * options, tier comparisons with detailed attributes.
  */
 export function ComparisonTableTabs({
   heading,
@@ -115,10 +137,14 @@ export function ComparisonTableTabs({
   tableClassName,
   tableHeaderClassName,
   tableCellClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: ComparisonTableTabsProps): React.JSX.Element {
   const [selectedTab, setSelectedTab] = useState(models?.[0]?.name || "");
 
-  const renderStatusIcon = (status: AttributeValue["status"]) => {
+  const renderStatusIcon = React.useCallback((status: AttributeValue["status"]) => {
     if (status === "positive") {
       return (
         <span className="flex size-8 items-center justify-center rounded-full border border-green-200 bg-green-100">
@@ -138,9 +164,9 @@ export function ComparisonTableTabs({
         <DynamicIcon name="lucide/circle-minus" size={16} className="text-amber-700" />
       </span>
     );
-  };
+  }, []);
 
-  const renderTable = () => {
+  const tableContent = React.useMemo(() => {
     if (tableSlot) return tableSlot;
     if (!models || models.length === 0 || !features || features.length === 0) return null;
 
@@ -163,7 +189,12 @@ export function ComparisonTableTabs({
           <Table className={cn("table-fixed [&_td]:border [&_th]:border", tableClassName)}>
             <TableHeader>
               <TableRow>
-                <TableHead className={cn("sticky top-0 mb-24 w-1/4 bg-background p-5 text-base font-medium text-primary after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border", tableHeaderClassName)}>
+                <TableHead
+                  className={cn(
+                    "sticky top-0 mb-24 w-1/4 bg-background p-5 text-base font-medium text-primary after:absolute after:right-0 after:-bottom-px after:left-0 after:h-px after:bg-border",
+                    tableHeaderClassName
+                  )}
+                >
                   Feature
                 </TableHead>
                 {models.map((model, idx) => (
@@ -208,35 +239,49 @@ export function ComparisonTableTabs({
         </div>
       </>
     );
-  };
+  }, [tableSlot, models, features, tabsClassName, tableClassName, tableHeaderClassName, tableCellClassName, selectedTab, renderStatusIcon]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading) return null;
+    if (typeof heading === "string") {
+      return (
+        <h2 className={cn("text-3xl font-bold md:text-4xl lg:text-5xl", headingClassName)}>
+          {heading}
+        </h2>
+      );
+    }
+    return <div className={headingClassName}>{heading}</div>;
+  }, [heading, headingClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return (
+        <p className={cn("mt-4 text-muted-foreground md:text-lg", descriptionClassName)}>
+          {description}
+        </p>
+      );
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         {(heading || description) && (
           <div className="mb-8 text-center">
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-3xl font-bold md:text-4xl lg:text-5xl", headingClassName)}>
-                  {heading}
-                </h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-4 text-muted-foreground md:text-lg", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+            {headingContent}
+            {descriptionContent}
           </div>
         )}
-        {renderTable()}
+        {tableContent}
       </div>
-    </section>
+    </Section>
   );
 }

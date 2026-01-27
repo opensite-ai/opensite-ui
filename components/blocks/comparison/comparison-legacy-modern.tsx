@@ -2,6 +2,12 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Separator } from "../../ui/separator";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Legacy feature item
@@ -83,26 +89,42 @@ export interface ComparisonLegacyModernProps {
    * Additional CSS classes for the modern column
    */
   modernColumnClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
- * ComparisonLegacyModern - Legacy vs Modern features split layout
+ * ComparisonLegacyModern - Two-column feature comparison split layout
  *
- * Displays a two-column comparison between legacy/old approaches and modern/new
- * solutions. The legacy column uses muted styling with X icons for pain points,
- * while the modern column uses a bordered card with emoji indicators for benefits.
+ * Displays a two-column comparison between two approaches or solutions.
+ * The first column uses muted styling with X icons,
+ * while the second column uses a bordered card with emoji indicators.
  * Features are separated by dividers for clear visual hierarchy.
  *
- * Best for: Digital transformation messaging, product modernization pitches,
+ * Best for: Transformation messaging, modernization pitches,
  * before/after comparisons, migration benefits, upgrade justifications.
  */
 export function ComparisonLegacyModern({
   heading,
-  headingHighlight = "Moving to Modern Tools",
+  headingHighlight,
   description,
-  legacyTitle = "Legacy Features",
+  legacyTitle,
   legacyFeatures,
-  modernTitle = "New Features",
+  modernTitle,
   modernFeatures,
   columnsSlot,
   className,
@@ -113,30 +135,30 @@ export function ComparisonLegacyModern({
   columnsGridClassName,
   legacyColumnClassName,
   modernColumnClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: ComparisonLegacyModernProps): React.JSX.Element {
-  const renderColumns = () => {
+  const columnsContent = React.useMemo(() => {
     if (columnsSlot) return columnsSlot;
-    if (!legacyFeatures || legacyFeatures.length === 0 || !modernFeatures || modernFeatures.length === 0) return null;
+    if (!legacyFeatures || legacyFeatures.length === 0 || !modernFeatures || modernFeatures.length === 0)
+      return null;
 
     return (
       <>
         <div className={cn("rounded-3xl bg-muted p-6 lg:rounded-r-none lg:p-12", legacyColumnClassName)}>
-          {legacyTitle && (
-            typeof legacyTitle === "string" ? (
+          {legacyTitle &&
+            (typeof legacyTitle === "string" ? (
               <h3 className="text-2xl font-medium">{legacyTitle}</h3>
             ) : (
               legacyTitle
-            )
-          )}
+            ))}
           <ul className="mt-9 space-y-3">
             {legacyFeatures.map((feature, idx) => (
               <React.Fragment key={idx}>
                 <div className="flex items-center gap-2">
-                  <DynamicIcon
-                    name="lucide/x"
-                    size={16}
-                    className="my-1.5 shrink-0 text-muted-foreground"
-                  />
+                  <DynamicIcon name="lucide/x" size={16} className="my-1.5 shrink-0 text-muted-foreground" />
                   <li className="text-sm">{feature.text}</li>
                 </div>
                 {idx !== legacyFeatures.length - 1 && <Separator />}
@@ -144,14 +166,18 @@ export function ComparisonLegacyModern({
             ))}
           </ul>
         </div>
-        <div className={cn("rounded-3xl border border-y p-6 lg:rounded-l-none lg:border-l-0 lg:p-12", modernColumnClassName)}>
-          {modernTitle && (
-            typeof modernTitle === "string" ? (
+        <div
+          className={cn(
+            "rounded-3xl border border-y p-6 lg:rounded-l-none lg:border-l-0 lg:p-12",
+            modernColumnClassName
+          )}
+        >
+          {modernTitle &&
+            (typeof modernTitle === "string" ? (
               <h3 className="text-2xl font-medium">{modernTitle}</h3>
             ) : (
               modernTitle
-            )
-          )}
+            ))}
           <ul className="mt-9 space-y-3">
             {modernFeatures.map((feature, idx) => (
               <React.Fragment key={idx}>
@@ -166,43 +192,52 @@ export function ComparisonLegacyModern({
         </div>
       </>
     );
-  };
+  }, [columnsSlot, legacyFeatures, modernFeatures, legacyTitle, modernTitle, legacyColumnClassName, modernColumnClassName]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading && !headingHighlight) return null;
+    return (
+      <h2 className={cn("text-4xl font-medium md:text-5xl lg:text-7xl", headingClassName)}>
+        {heading &&
+          (typeof heading === "string" ? <span className="text-muted-foreground">{heading} </span> : heading)}
+        {headingHighlight &&
+          (typeof headingHighlight === "string" ? (
+            <>
+              <br />
+              <span className={headingHighlightClassName}>{headingHighlight}</span>
+            </>
+          ) : (
+            headingHighlight
+          ))}
+      </h2>
+    );
+  }, [heading, headingHighlight, headingClassName, headingHighlightClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return <p className={cn("text-lg", descriptionClassName)}>{description}</p>;
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="flex flex-col gap-6 text-center md:gap-12">
-          <h2 className={cn("text-4xl font-medium md:text-5xl lg:text-7xl", headingClassName)}>
-            {heading && (
-              typeof heading === "string" ? (
-                <span className="text-muted-foreground">{heading} </span>
-              ) : (
-                heading
-              )
-            )}
-            {headingHighlight && (
-              typeof headingHighlight === "string" ? (
-                <>
-                  <br />
-                  <span className={headingHighlightClassName}>{headingHighlight}</span>
-                </>
-              ) : (
-                headingHighlight
-              )
-            )}
-          </h2>
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("text-lg", descriptionClassName)}>{description}</p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+          {headingContent}
+          {descriptionContent}
         </div>
         <div className={cn("mt-20 grid gap-12 lg:grid-cols-2 lg:gap-0", columnsGridClassName)}>
-          {renderColumns()}
+          {columnsContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

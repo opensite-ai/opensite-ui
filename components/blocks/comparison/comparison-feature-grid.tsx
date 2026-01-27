@@ -1,6 +1,12 @@
 import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Feature status type
@@ -71,6 +77,22 @@ export interface ComparisonFeatureGridProps {
    * Additional CSS classes for grid rows
    */
   gridRowClassName?: string;
+  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -87,8 +109,8 @@ export interface ComparisonFeatureGridProps {
 export function ComparisonFeatureGrid({
   heading,
   description,
-  optionALabel = "Our Solution",
-  optionBLabel = "Alternative",
+  optionALabel,
+  optionBLabel,
   features,
   gridSlot,
   className,
@@ -98,8 +120,12 @@ export function ComparisonFeatureGrid({
   gridWrapperClassName,
   gridHeaderClassName,
   gridRowClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
 }: ComparisonFeatureGridProps): React.JSX.Element {
-  const renderStatusIcon = (status: FeatureStatus) => {
+  const renderStatusIcon = React.useCallback((status: FeatureStatus) => {
     if (status === true) {
       return <DynamicIcon name="lucide/check" size={20} className="text-success" />;
     }
@@ -107,20 +133,32 @@ export function ComparisonFeatureGrid({
       return <DynamicIcon name="lucide/check" size={20} className="text-accent" />;
     }
     return <DynamicIcon name="lucide/x" size={20} className="text-destructive" />;
-  };
+  }, []);
 
-  const renderGrid = () => {
+  const gridContent = React.useMemo(() => {
     if (gridSlot) return gridSlot;
     if (!features || features.length === 0) return null;
 
     return (
-      <div className={cn("mx-auto max-w-4xl divide-y divide-border overflow-x-auto rounded-lg border-border bg-background shadow", gridWrapperClassName)}>
-        <div className={cn("hidden rounded-t-lg bg-muted text-left text-base font-semibold text-foreground sm:flex", gridHeaderClassName)}>
-          <div className="w-16 px-6 py-4"></div>
-          <div className="flex-1 px-6 py-4">Feature</div>
-          <div className="w-40 px-6 py-4">{optionALabel}</div>
-          <div className="w-40 px-6 py-4">{optionBLabel}</div>
-        </div>
+      <div
+        className={cn(
+          "mx-auto max-w-4xl divide-y divide-border overflow-x-auto rounded-lg border-border bg-background shadow",
+          gridWrapperClassName
+        )}
+      >
+        {(optionALabel || optionBLabel) && (
+          <div
+            className={cn(
+              "hidden rounded-t-lg bg-muted text-left text-base font-semibold text-foreground sm:flex",
+              gridHeaderClassName
+            )}
+          >
+            <div className="w-16 px-6 py-4"></div>
+            <div className="flex-1 px-6 py-4">Feature</div>
+            {optionALabel && <div className="w-40 px-6 py-4">{optionALabel}</div>}
+            {optionBLabel && <div className="w-40 px-6 py-4">{optionBLabel}</div>}
+          </div>
+        )}
         {features.map((row, idx) => (
           <div
             key={idx}
@@ -128,53 +166,76 @@ export function ComparisonFeatureGrid({
           >
             <div className="flex w-full items-center justify-start px-6 pt-4 sm:w-16 sm:justify-center sm:py-4">
               <DynamicIcon name={row.icon} size={20} className="text-gray-500" />
-              <span className="ml-3 text-base font-medium sm:hidden">
-                {row.label}
-              </span>
+              <span className="ml-3 text-base font-medium sm:hidden">{row.label}</span>
             </div>
             <div className="w-full flex-1 px-6 pb-2 sm:py-4">
               <div className="hidden font-medium sm:block">{row.label}</div>
-              <div className="mt-2 mb-2 text-sm text-muted-foreground sm:mb-0">
-                {row.description}
-              </div>
+              <div className="mt-2 mb-2 text-sm text-muted-foreground sm:mb-0">{row.description}</div>
             </div>
             <div className="flex w-full items-center justify-start px-6 pb-2 sm:w-40 sm:justify-center sm:py-4">
               {renderStatusIcon(row.optionA)}
-              <span className="ml-2 text-xs font-medium text-muted-foreground sm:hidden">
-                {optionALabel}
-              </span>
+              {optionALabel && (
+                <span className="ml-2 text-xs font-medium text-muted-foreground sm:hidden">{optionALabel}</span>
+              )}
             </div>
             <div className="flex w-full items-center justify-start border-border px-6 pb-4 sm:w-40 sm:justify-center sm:border-0 sm:py-4">
               {renderStatusIcon(row.optionB)}
-              <span className="ml-2 text-xs font-medium text-muted-foreground sm:hidden">
-                {optionBLabel}
-              </span>
+              {optionBLabel && (
+                <span className="ml-2 text-xs font-medium text-muted-foreground sm:hidden">{optionBLabel}</span>
+              )}
             </div>
           </div>
         ))}
       </div>
     );
-  };
+  }, [
+    gridSlot,
+    features,
+    gridWrapperClassName,
+    gridHeaderClassName,
+    gridRowClassName,
+    optionALabel,
+    optionBLabel,
+    renderStatusIcon,
+  ]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading) return null;
+    if (typeof heading === "string") {
+      return (
+        <h2 className={cn("mb-4 text-center text-4xl font-semibold", headingClassName)}>
+          {heading}
+        </h2>
+      );
+    }
+    return <div className={headingClassName}>{heading}</div>;
+  }, [heading, headingClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return (
+        <p className={cn("mb-8 text-center text-muted-foreground", descriptionClassName)}>
+          {description}
+        </p>
+      );
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
-        {heading && (
-          typeof heading === "string" ? (
-            <h2 className={cn("mb-4 text-center text-4xl font-semibold", headingClassName)}>{heading}</h2>
-          ) : (
-            <div className={headingClassName}>{heading}</div>
-          )
-        )}
-        {description && (
-          typeof description === "string" ? (
-            <p className={cn("mb-8 text-center text-muted-foreground", descriptionClassName)}>{description}</p>
-          ) : (
-            <div className={descriptionClassName}>{description}</div>
-          )
-        )}
-        {renderGrid()}
+        {headingContent}
+        {descriptionContent}
+        {gridContent}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -14,7 +14,13 @@ import {
   TableRow,
 } from "../../ui/table";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Status type for metric values
@@ -113,21 +119,36 @@ export interface ComparisonAiModelsProps {
    */
   analysisClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
 }
 
 /**
- * ComparisonAiModels - AI model comparison table with hover effects
+ * ComparisonAiModels - Multi-option comparison table with hover effects
  *
- * Displays a detailed comparison table for AI models with interactive hover
- * effects. Each column represents a model with its icon, and cells are
+ * Displays a detailed comparison table with interactive hover
+ * effects. Each column represents an option with its icon, and cells are
  * color-coded based on performance (best/worst/neutral). Includes a technical
- * analysis section below that highlights on hover. Designed for comparing
- * LLM capabilities, pricing, and performance metrics.
+ * analysis section below that highlights on hover.
  *
- * Best for: AI/ML model comparisons, API pricing comparisons, technical
+ * Best for: Model comparisons, API pricing comparisons, technical
  * specification matrices, performance benchmarks.
  */
 export function ComparisonAiModels({
@@ -144,11 +165,15 @@ export function ComparisonAiModels({
   tableWrapperClassName,
   tableClassName,
   analysisClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: ComparisonAiModelsProps): React.JSX.Element {
   const [hoveredModel, setHoveredModel] = useState<string | null>(null);
 
-  const renderStatusIcon = (status: MetricValue["status"]) => {
+  const renderStatusIcon = React.useCallback((status: MetricValue["status"]) => {
     if (status === "best") {
       return <DynamicIcon name="lucide/circle-check" size={16} className="text-success" />;
     }
@@ -156,54 +181,66 @@ export function ComparisonAiModels({
       return <DynamicIcon name="lucide/circle-x" size={16} className="text-destructive" />;
     }
     return <DynamicIcon name="lucide/minus" size={16} className="text-muted-foreground" />;
-  };
+  }, []);
 
-  const getCellClassName = (status: MetricValue["status"], modelKey: string) => {
-    const baseClass = "cursor-pointer py-4 text-center font-medium transition-all duration-300";
-    let statusClass = "";
-    
-    if (status === "best") {
-      statusClass = "bg-green-50 text-success dark:bg-green-950/20";
-    } else if (status === "worst") {
-      statusClass = "bg-red-50 text-destructive dark:bg-red-950/20";
-    } else {
-      statusClass = "bg-muted/50 text-foreground";
-    }
+  const getCellClassName = React.useCallback(
+    (status: MetricValue["status"], modelKey: string) => {
+      const baseClass = "cursor-pointer py-4 text-center font-medium transition-all duration-300";
+      let statusClass = "";
 
-    let hoverClass = "";
-    if (hoveredModel === modelKey) {
-      if (modelKey === "modelA") hoverClass = "bg-red-50/80 dark:bg-red-950/30";
-      else if (modelKey === "modelB") hoverClass = "bg-blue-50/80 dark:bg-blue-950/30";
-      else if (modelKey === "modelC") hoverClass = "bg-green-50/80 dark:bg-green-950/30";
-    }
+      if (status === "best") {
+        statusClass = "bg-green-50 text-success dark:bg-green-950/20";
+      } else if (status === "worst") {
+        statusClass = "bg-red-50 text-destructive dark:bg-red-950/20";
+      } else {
+        statusClass = "bg-muted/50 text-foreground";
+      }
 
-    return cn(baseClass, statusClass, hoverClass);
-  };
+      let hoverClass = "";
+      if (hoveredModel === modelKey) {
+        if (modelKey === "modelA") hoverClass = "bg-red-50/80 dark:bg-red-950/30";
+        else if (modelKey === "modelB") hoverClass = "bg-blue-50/80 dark:bg-blue-950/30";
+        else if (modelKey === "modelC") hoverClass = "bg-green-50/80 dark:bg-green-950/30";
+      }
 
-  const getSummaryCardClassName = (modelKey: string) => {
-    const baseClass = "rounded border border-border/30 bg-background/50 p-3 transition-all duration-300";
-    
-    if (hoveredModel === modelKey) {
-      if (modelKey === "modelA") return cn(baseClass, "bg-red-50/20 shadow-lg ring-2 ring-red-500/50 dark:bg-red-950/10");
-      if (modelKey === "modelB") return cn(baseClass, "bg-blue-50/20 shadow-lg ring-2 ring-blue-500/50 dark:bg-blue-950/10");
-      if (modelKey === "modelC") return cn(baseClass, "bg-green-50/20 shadow-lg ring-2 ring-green-500/50 dark:bg-green-950/10");
-    }
-    
-    return baseClass;
-  };
+      return cn(baseClass, statusClass, hoverClass);
+    },
+    [hoveredModel]
+  );
 
-  const renderTable = () => {
+  const getSummaryCardClassName = React.useCallback(
+    (modelKey: string) => {
+      const baseClass = "rounded border border-border/30 bg-background/50 p-3 transition-all duration-300";
+
+      if (hoveredModel === modelKey) {
+        if (modelKey === "modelA")
+          return cn(baseClass, "bg-red-50/20 shadow-lg ring-2 ring-red-500/50 dark:bg-red-950/10");
+        if (modelKey === "modelB")
+          return cn(baseClass, "bg-blue-50/20 shadow-lg ring-2 ring-blue-500/50 dark:bg-blue-950/10");
+        if (modelKey === "modelC")
+          return cn(baseClass, "bg-green-50/20 shadow-lg ring-2 ring-green-500/50 dark:bg-green-950/10");
+      }
+
+      return baseClass;
+    },
+    [hoveredModel]
+  );
+
+  const tableContent = React.useMemo(() => {
     if (tableSlot) return tableSlot;
     if (!models || !comparisonData || comparisonData.length === 0) return null;
 
     return (
-      <div className={cn("relative overflow-hidden border border-border/50 bg-background/50 backdrop-blur-sm", tableWrapperClassName)}>
+      <div
+        className={cn(
+          "relative overflow-hidden border border-border/50 bg-background/50 backdrop-blur-sm",
+          tableWrapperClassName
+        )}
+      >
         <Table className={tableClassName}>
           <TableHeader>
             <TableRow className="border-border/50">
-              <TableHead className="font-semibold text-foreground">
-                Metric
-              </TableHead>
+              <TableHead className="font-semibold text-foreground">Metric</TableHead>
               {Object.entries(models).map(([key, model]) => (
                 <TableHead key={key} className="text-center font-semibold text-foreground">
                   <div className="flex items-center justify-center gap-2">
@@ -223,13 +260,8 @@ export function ComparisonAiModels({
           </TableHeader>
           <TableBody>
             {comparisonData.map((row, index) => (
-              <TableRow
-                key={index}
-                className="border-border/30 transition-colors hover:bg-muted/30"
-              >
-                <TableCell className="py-4 font-medium text-foreground">
-                  {row.metric}
-                </TableCell>
+              <TableRow key={index} className="border-border/30 transition-colors hover:bg-muted/30">
+                <TableCell className="py-4 font-medium text-foreground">{row.metric}</TableCell>
                 <TableCell
                   className={getCellClassName(row.modelA.status, "modelA")}
                   onMouseEnter={() => setHoveredModel("modelA")}
@@ -266,9 +298,18 @@ export function ComparisonAiModels({
         </Table>
       </div>
     );
-  };
+  }, [
+    tableSlot,
+    models,
+    comparisonData,
+    tableWrapperClassName,
+    tableClassName,
+    optixFlowConfig,
+    getCellClassName,
+    renderStatusIcon,
+  ]);
 
-  const renderAnalysis = () => {
+  const analysisContent = React.useMemo(() => {
     if (analysisSlot) return analysisSlot;
     if (!models) return null;
 
@@ -282,9 +323,7 @@ export function ComparisonAiModels({
             <div className="grid gap-2 md:grid-cols-3">
               {Object.entries(models).map(([key, model]) => (
                 <div key={key} className={getSummaryCardClassName(key)}>
-                  <div className="mb-1 font-medium text-foreground">
-                    {model.name}
-                  </div>
+                  <div className="mb-1 font-medium text-foreground">{model.name}</div>
                   <div className="space-y-1">
                     {model.summary.map((item: string, idx: number) => (
                       <div key={idx}>• {item}</div>
@@ -294,9 +333,7 @@ export function ComparisonAiModels({
               ))}
             </div>
             <div className="mt-4 rounded border border-border/30 bg-background/50 p-3">
-              <div className="mb-2 font-medium text-foreground">
-                Performance Summary
-              </div>
+              <div className="mb-2 font-medium text-foreground">Performance Summary</div>
               <div className="space-y-1">
                 <div>• {models.modelA.name}: Fastest response times with strong code generation</div>
                 <div>• {models.modelB.name}: Excellent reasoning capabilities and balanced performance</div>
@@ -307,38 +344,52 @@ export function ComparisonAiModels({
         </div>
       </div>
     );
-  };
+  }, [analysisSlot, models, analysisClassName, getSummaryCardClassName]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading) return null;
+    if (typeof heading === "string") {
+      return (
+        <h2 className={cn("text-3xl font-bold md:text-4xl lg:text-5xl", headingClassName)}>
+          {heading}
+        </h2>
+      );
+    }
+    return <div className={headingClassName}>{heading}</div>;
+  }, [heading, headingClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return (
+        <p className={cn("mt-4 text-muted-foreground md:text-lg", descriptionClassName)}>
+          {description}
+        </p>
+      );
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container mx-auto", containerClassName)}>
         {(heading || description) && (
           <div className="mb-8 text-center">
-            {heading && (
-              typeof heading === "string" ? (
-                <h2 className={cn("text-3xl font-bold md:text-4xl lg:text-5xl", headingClassName)}>
-                  {heading}
-                </h2>
-              ) : (
-                <div className={headingClassName}>{heading}</div>
-              )
-            )}
-            {description && (
-              typeof description === "string" ? (
-                <p className={cn("mt-4 text-muted-foreground md:text-lg", descriptionClassName)}>
-                  {description}
-                </p>
-              ) : (
-                <div className={descriptionClassName}>{description}</div>
-              )
-            )}
+            {headingContent}
+            {descriptionContent}
           </div>
         )}
         <div className="relative overflow-hidden p-8">
-          {renderTable()}
-          {renderAnalysis()}
+          {tableContent}
+          {analysisContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

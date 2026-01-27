@@ -3,7 +3,13 @@ import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
 import { Separator } from "../../ui/separator";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  OptixFlowConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 /**
  * Feature item with inclusion status
@@ -34,11 +40,11 @@ export interface ComparisonFeatureCardsProps {
    */
   description?: React.ReactNode;
   /**
-   * First product card configuration
+   * First option card configuration
    */
   productA?: ProductCard;
   /**
-   * Second product card configuration
+   * Second option card configuration
    */
   productB?: ProductCard;
   /**
@@ -94,6 +100,22 @@ export interface ComparisonFeatureCardsProps {
    */
   differencesClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
@@ -102,14 +124,14 @@ export interface ComparisonFeatureCardsProps {
 /**
  * ComparisonFeatureCards - Side-by-side feature comparison cards
  *
- * Displays two product/service cards side by side with feature checklists.
+ * Displays two option cards side by side with feature checklists.
  * The highlighted card uses a bordered, shadowed style while the other uses
  * a muted background. Features show check icons for included items and
  * strikethrough with minus icons for excluded items. Includes optional
  * explanatory text sections below the cards.
  *
- * Best for: Product tier comparisons, subscription plan comparisons,
- * competitor feature analysis, service package breakdowns.
+ * Best for: Tier comparisons, subscription plan comparisons,
+ * feature analysis, package breakdowns.
  */
 export function ComparisonFeatureCards({
   heading,
@@ -117,10 +139,10 @@ export function ComparisonFeatureCards({
   productA,
   productB,
   cardsSlot,
-  suitabilityTitle = "Who is Product B suitable for?",
-  suitabilityDescription = "Product B is a reliable solution designed for basic needs and smaller teams. It provides essential functionality for those getting started or requiring fundamental features. While it offers a straightforward interface, it may lack some of the advanced capabilities needed for scaling operations or handling complex workflows.",
-  differencesTitle = "Key Differences and Considerations",
-  differencesDescription = "When choosing between Product A and Product B, consider your long-term needs and growth plans. Product A offers more advanced features, better scalability, and premium support options. While Product B might be suitable for basic use cases, Product A provides a more comprehensive solution for teams looking to expand and optimize their workflows.",
+  suitabilityTitle,
+  suitabilityDescription,
+  differencesTitle,
+  differencesDescription,
   className,
   containerClassName,
   headingClassName,
@@ -129,60 +151,65 @@ export function ComparisonFeatureCards({
   cardClassName,
   suitabilityClassName,
   differencesClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity,
   optixFlowConfig,
 }: ComparisonFeatureCardsProps): React.JSX.Element {
-  const renderCard = (product: ProductCard, isHighlighted: boolean) => (
-    <div
-      className={cn(
-        "rounded-xl p-6",
-        isHighlighted
-          ? "border bg-background shadow"
-          : "bg-border/40",
-        cardClassName
-      )}
-    >
-      <span className="flex items-center justify-center gap-2 font-medium">
-        {product.logo ? (
-          <Img
-            src={product.logo}
-            alt={product.logoAlt || `${product.name} logo`}
-            className="h-7"
-            optixFlowConfig={optixFlowConfig}
-          />
-        ) : null}
-        {product.name}
-      </span>
-      <Separator className="my-6" />
-      <ul className="space-y-2">
-        {product.features.map((feature, idx) => (
-          <li
-            key={idx}
-            className={cn(
-              "flex items-center gap-2",
-              !feature.included && "text-muted-foreground line-through"
-            )}
-          >
-            {feature.included ? (
-              <DynamicIcon
-                name="lucide/circle-check-big"
-                size={20}
-                className="shrink-0 text-emerald-700"
-              />
-            ) : (
-              <DynamicIcon
-                name="lucide/circle-minus"
-                size={20}
-                className="shrink-0 opacity-50"
-              />
-            )}
-            {feature.text}
-          </li>
-        ))}
-      </ul>
-    </div>
+  const renderCard = React.useCallback(
+    (product: ProductCard, isHighlighted: boolean) => (
+      <div
+        className={cn(
+          "rounded-xl p-6",
+          isHighlighted ? "border bg-background shadow" : "bg-border/40",
+          cardClassName
+        )}
+      >
+        <span className="flex items-center justify-center gap-2 font-medium">
+          {product.logo ? (
+            <Img
+              src={product.logo}
+              alt={product.logoAlt || `${product.name} logo`}
+              className="h-7"
+              optixFlowConfig={optixFlowConfig}
+            />
+          ) : null}
+          {product.name}
+        </span>
+        <Separator className="my-6" />
+        <ul className="space-y-2">
+          {product.features.map((feature, idx) => (
+            <li
+              key={idx}
+              className={cn(
+                "flex items-center gap-2",
+                !feature.included && "text-muted-foreground line-through"
+              )}
+            >
+              {feature.included ? (
+                <DynamicIcon
+                  name="lucide/circle-check-big"
+                  size={20}
+                  className="shrink-0 text-emerald-700"
+                />
+              ) : (
+                <DynamicIcon
+                  name="lucide/circle-minus"
+                  size={20}
+                  className="shrink-0 opacity-50"
+                />
+              )}
+              {feature.text}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ),
+    [cardClassName, optixFlowConfig]
   );
 
-  const renderCards = () => {
+  const cardsContent = React.useMemo(() => {
     if (cardsSlot) return cardsSlot;
     if (!productA || !productB) return null;
 
@@ -192,79 +219,99 @@ export function ComparisonFeatureCards({
         {renderCard(productB, productB.highlighted ?? false)}
       </>
     );
-  };
+  }, [cardsSlot, productA, productB, renderCard]);
+
+  const headingContent = React.useMemo(() => {
+    if (!heading) return null;
+    if (typeof heading === "string") {
+      return (
+        <h1 className={cn("mb-6 text-4xl font-semibold md:text-7xl", headingClassName)}>
+          {heading}
+        </h1>
+      );
+    }
+    return <div className={headingClassName}>{heading}</div>;
+  }, [heading, headingClassName]);
+
+  const descriptionContent = React.useMemo(() => {
+    if (!description) return null;
+    if (typeof description === "string") {
+      return (
+        <p className={cn("mx-auto max-w-4xl text-muted-foreground md:text-xl", descriptionClassName)}>
+          {description}
+        </p>
+      );
+    }
+    return <div className={descriptionClassName}>{description}</div>;
+  }, [description, descriptionClassName]);
+
+  const suitabilityContent = React.useMemo(() => {
+    if (!suitabilityTitle && !suitabilityDescription) return null;
+    return (
+      <div className={suitabilityClassName}>
+        {suitabilityTitle &&
+          (typeof suitabilityTitle === "string" ? (
+            <h2 className="mb-4 text-3xl font-semibold">{suitabilityTitle}</h2>
+          ) : (
+            suitabilityTitle
+          ))}
+        {suitabilityDescription &&
+          (typeof suitabilityDescription === "string" ? (
+            <p className="leading-6 text-muted-foreground md:text-lg">
+              {suitabilityDescription}
+            </p>
+          ) : (
+            suitabilityDescription
+          ))}
+      </div>
+    );
+  }, [suitabilityTitle, suitabilityDescription, suitabilityClassName]);
+
+  const differencesContent = React.useMemo(() => {
+    if (!differencesTitle && !differencesDescription) return null;
+    return (
+      <div className={cn("mt-16", differencesClassName)}>
+        {differencesTitle &&
+          (typeof differencesTitle === "string" ? (
+            <h2 className="mb-4 text-3xl font-semibold">{differencesTitle}</h2>
+          ) : (
+            differencesTitle
+          ))}
+        {differencesDescription &&
+          (typeof differencesDescription === "string" ? (
+            <p className="leading-6 text-muted-foreground md:text-lg">
+              {differencesDescription}
+            </p>
+          ) : (
+            differencesDescription
+          ))}
+      </div>
+    );
+  }, [differencesTitle, differencesDescription, differencesClassName]);
 
   return (
-    <section className={cn("bg-muted/50 py-32", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      className={cn(className)}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+    >
       <div className={cn("container", containerClassName)}>
         <div className="text-center">
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("mb-6 text-4xl font-semibold md:text-7xl", headingClassName)}>
-                {heading}
-              </h1>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto max-w-4xl text-muted-foreground md:text-xl", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
+          {headingContent}
+          {descriptionContent}
         </div>
         <div className="mt-28">
           <div className={cn("mx-auto grid max-w-3xl gap-6 md:grid-cols-2", cardsGridClassName)}>
-            {renderCards()}
+            {cardsContent}
           </div>
         </div>
         <div className="mx-auto mt-16 max-w-3xl">
-          {(suitabilityTitle || suitabilityDescription) && (
-            <div className={suitabilityClassName}>
-              {suitabilityTitle && (
-                typeof suitabilityTitle === "string" ? (
-                  <h2 className="mb-4 text-3xl font-semibold">{suitabilityTitle}</h2>
-                ) : (
-                  suitabilityTitle
-                )
-              )}
-              {suitabilityDescription && (
-                typeof suitabilityDescription === "string" ? (
-                  <p className="leading-6 text-muted-foreground md:text-lg">
-                    {suitabilityDescription}
-                  </p>
-                ) : (
-                  suitabilityDescription
-                )
-              )}
-            </div>
-          )}
-          {(differencesTitle || differencesDescription) && (
-            <div className={cn("mt-16", differencesClassName)}>
-              {differencesTitle && (
-                typeof differencesTitle === "string" ? (
-                  <h2 className="mb-4 text-3xl font-semibold">{differencesTitle}</h2>
-                ) : (
-                  differencesTitle
-                )
-              )}
-              {differencesDescription && (
-                typeof differencesDescription === "string" ? (
-                  <p className="leading-6 text-muted-foreground md:text-lg">
-                    {differencesDescription}
-                  </p>
-                ) : (
-                  differencesDescription
-                )
-              )}
-            </div>
-          )}
+          {suitabilityContent}
+          {differencesContent}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
