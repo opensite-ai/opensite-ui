@@ -46,9 +46,9 @@ export interface BlogFilteredResultsProps {
    */
   description?: React.ReactNode;
   /**
-   * Title for the "All Blogs" section
+   * Title for the secondary content section
    */
-  allBlogsHeading?: React.ReactNode;
+  allContentHeading?: React.ReactNode;
   /**
    * Breadcrumb navigation items
    */
@@ -58,19 +58,19 @@ export interface BlogFilteredResultsProps {
    */
   breadcrumbSlot?: React.ReactNode;
   /**
-   * Primary/featured post configuration
+   * Primary/featured item configuration
    */
   primaryPost?: BlogPostItem;
   /**
-   * Custom slot for rendering primary post (overrides primaryPost)
+   * Custom slot for rendering primary item (overrides primaryPost)
    */
   primaryPostSlot?: React.ReactNode;
   /**
-   * Array of blog post configurations
+   * Array of content item configurations
    */
   posts?: BlogPostItem[];
   /**
-   * Custom slot for rendering posts (overrides posts array)
+   * Custom slot for rendering content items (overrides posts array)
    */
   postsSlot?: React.ReactNode;
   /**
@@ -82,15 +82,15 @@ export interface BlogFilteredResultsProps {
    */
   categoriesSlot?: React.ReactNode;
   /**
-   * Number of posts to show per page
+   * Number of items to show per page
    */
   postsPerPage?: number;
   /**
-   * Action configuration for the "Load More" button
+   * Action configuration for the pagination button
    */
   loadMoreAction?: ActionConfig;
   /**
-   * Custom slot for rendering the load more action (overrides loadMoreAction)
+   * Custom slot for rendering the pagination action (overrides loadMoreAction)
    */
   loadMoreSlot?: React.ReactNode;
   /**
@@ -110,31 +110,31 @@ export interface BlogFilteredResultsProps {
    */
   descriptionClassName?: string;
   /**
-   * Additional CSS classes for the primary post container
+   * Additional CSS classes for the primary item container
    */
   primaryPostClassName?: string;
   /**
-   * Additional CSS classes for the all blogs section
+   * Additional CSS classes for the secondary content section
    */
-  allBlogsClassName?: string;
+  allContentClassName?: string;
   /**
-   * Additional CSS classes for the all blogs heading
+   * Additional CSS classes for the secondary content heading
    */
-  allBlogsHeadingClassName?: string;
+  allContentHeadingClassName?: string;
   /**
    * Additional CSS classes for the categories filter
    */
   categoriesClassName?: string;
   /**
-   * Additional CSS classes for the posts grid
+   * Additional CSS classes for the content grid
    */
   postsClassName?: string;
   /**
-   * Additional CSS classes for individual post cards
+   * Additional CSS classes for individual item cards
    */
   postCardClassName?: string;
   /**
-   * Additional CSS classes for the load more container
+   * Additional CSS classes for the pagination container
    */
   loadMoreClassName?: string;
   /**
@@ -151,10 +151,10 @@ interface BlogCardProps {
   className?: string;
 }
 
-function BlogCard({ post, optixFlowConfig, className }: BlogCardProps) {
+const BlogCard = React.memo(function BlogCard({ post, optixFlowConfig, className }: BlogCardProps) {
   const postHref = post.href || post.url || post.link || "#";
   const postImage = post.thumbnail || post.image;
-  const postTitle = typeof post.title === "string" ? post.title : "Blog post";
+  const postTitle = typeof post.title === "string" ? post.title : "Content item";
   const postCategory = post.category || post.label;
   const postSummary = post.summary || post.description;
   const postCta = post.cta || "Read more";
@@ -202,7 +202,7 @@ function BlogCard({ post, optixFlowConfig, className }: BlogCardProps) {
       </Card>
     </Pressable>
   );
-}
+});
 
 interface FilterFormProps {
   categories: CategoryFilter[];
@@ -211,7 +211,7 @@ interface FilterFormProps {
   className?: string;
 }
 
-function FilterForm({
+const FilterForm = React.memo(function FilterForm({
   categories,
   selectedCategories,
   onCategoryChange,
@@ -238,13 +238,13 @@ function FilterForm({
       })}
     </div>
   );
-}
+});
 
 interface BreadcrumbBlogProps {
   breadcrumb: BreadcrumbItemType[];
 }
 
-function BreadcrumbBlog({ breadcrumb }: BreadcrumbBlogProps) {
+const BreadcrumbBlog = React.memo(function BreadcrumbBlog({ breadcrumb }: BreadcrumbBlogProps) {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -266,12 +266,12 @@ function BreadcrumbBlog({ breadcrumb }: BreadcrumbBlogProps) {
       </BreadcrumbList>
     </Breadcrumb>
   );
-}
+});
 
-export function BlogFilteredResults({
+export function BlogFilteredResultsComponent({
   heading,
   description,
-  allBlogsHeading = "All Blogs",
+  allContentHeading,
   breadcrumb,
   breadcrumbSlot,
   primaryPost,
@@ -280,7 +280,7 @@ export function BlogFilteredResults({
   postsSlot,
   categories,
   categoriesSlot,
-  postsPerPage = POSTS_PER_PAGE,
+  postsPerPage,
   loadMoreAction,
   loadMoreSlot,
   className,
@@ -288,17 +288,17 @@ export function BlogFilteredResults({
   headingClassName,
   descriptionClassName,
   primaryPostClassName,
-  allBlogsClassName,
-  allBlogsHeadingClassName,
+  allContentClassName,
+  allContentHeadingClassName,
   categoriesClassName,
   postsClassName,
   postCardClassName,
   loadMoreClassName,
   optixFlowConfig,
 }: BlogFilteredResultsProps): React.JSX.Element {
-  const [visibleCount, setVisibleCount] = useState(
-    postsPerPage || POSTS_PER_PAGE
-  );
+  const effectivePostsPerPage = postsPerPage || POSTS_PER_PAGE;
+
+  const [visibleCount, setVisibleCount] = useState(effectivePostsPerPage);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     "all",
   ]);
@@ -323,14 +323,14 @@ export function BlogFilteredResults({
 
         return updated;
       });
-      setVisibleCount(postsPerPage || POSTS_PER_PAGE);
+      setVisibleCount(effectivePostsPerPage);
     },
-    [postsPerPage]
+    [effectivePostsPerPage]
   );
 
   const handleLoadMore = useCallback(() => {
-    setVisibleCount((prev) => prev + (postsPerPage || POSTS_PER_PAGE));
-  }, [postsPerPage]);
+    setVisibleCount((prev) => prev + effectivePostsPerPage);
+  }, [effectivePostsPerPage]);
 
   const filteredPosts = useMemo(() => {
     if (!posts) return [];
@@ -343,19 +343,19 @@ export function BlogFilteredResults({
   const postsToDisplay = filteredPosts.length > 0 ? filteredPosts : posts || [];
   const hasMore = visibleCount < postsToDisplay.length;
 
-  const renderBreadcrumb = () => {
+  const breadcrumbContent = React.useMemo(() => {
     if (breadcrumbSlot) return breadcrumbSlot;
     if (!breadcrumb || breadcrumb.length === 0) return null;
     return <BreadcrumbBlog breadcrumb={breadcrumb} />;
-  };
+  }, [breadcrumbSlot, breadcrumb]);
 
-  const renderPrimaryPost = () => {
+  const primaryPostContent = React.useMemo(() => {
     if (primaryPostSlot) return primaryPostSlot;
     if (!primaryPost) return null;
     return <BlogCard post={primaryPost} optixFlowConfig={optixFlowConfig} className={postCardClassName} />;
-  };
+  }, [primaryPostSlot, primaryPost, optixFlowConfig, postCardClassName]);
 
-  const renderCategories = () => {
+  const categoriesContent = React.useMemo(() => {
     if (categoriesSlot) return categoriesSlot;
     if (!categories || categories.length === 0) return null;
     return (
@@ -366,9 +366,9 @@ export function BlogFilteredResults({
         className={categoriesClassName}
       />
     );
-  };
+  }, [categoriesSlot, categories, selectedCategories, handleCategoryChange, categoriesClassName]);
 
-  const renderPosts = () => {
+  const postsContent = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     return postsToDisplay.slice(0, visibleCount).map((post) => {
       const postKey = post.id || String(post.title) || Math.random().toString();
@@ -381,9 +381,9 @@ export function BlogFilteredResults({
         />
       );
     });
-  };
+  }, [postsSlot, postsToDisplay, visibleCount, optixFlowConfig, postCardClassName]);
 
-  const renderLoadMoreAction = () => {
+  const loadMoreContent = React.useMemo(() => {
     if (loadMoreSlot) return loadMoreSlot;
     if (!loadMoreAction || !hasMore) return null;
 
@@ -404,7 +404,7 @@ export function BlogFilteredResults({
         )}
       </Pressable>
     );
-  };
+  }, [loadMoreSlot, loadMoreAction, hasMore, handleLoadMore]);
 
   return (
     <section className={cn("pb-32", className)}>
@@ -412,7 +412,7 @@ export function BlogFilteredResults({
         <div className="container flex flex-col items-start justify-start gap-16 py-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
             <div className="flex w-full max-w-xl flex-col gap-8">
-              {renderBreadcrumb()}
+              {breadcrumbContent}
               <div className="flex w-full flex-col gap-5">
                 {heading && (
                   typeof heading === "string" ? (
@@ -438,30 +438,30 @@ export function BlogFilteredResults({
 
           {(primaryPostSlot || primaryPost) && (
             <div className={cn("w-full max-w-110", primaryPostClassName)}>
-              {renderPrimaryPost()}
+              {primaryPostContent}
             </div>
           )}
         </div>
       </div>
-      <div className={cn("py-20", allBlogsClassName)}>
+      <div className={cn("py-20", allContentClassName)}>
         <div className="container flex flex-col gap-8">
-          {allBlogsHeading && (
-            typeof allBlogsHeading === "string" ? (
-              <h2 className={cn("text-[1.75rem] leading-none font-medium md:text-[2.25rem] lg:text-[2rem]", allBlogsHeadingClassName)}>
-                {allBlogsHeading}
+          {allContentHeading && (
+            typeof allContentHeading === "string" ? (
+              <h2 className={cn("text-[1.75rem] leading-none font-medium md:text-[2.25rem] lg:text-[2rem]", allContentHeadingClassName)}>
+                {allContentHeading}
               </h2>
             ) : (
-              <div className={allBlogsHeadingClassName}>{allBlogsHeading}</div>
+              <div className={allContentHeadingClassName}>{allContentHeading}</div>
             )
           )}
           <div>
-            {renderCategories()}
+            {categoriesContent}
             <div className="flex w-full flex-col gap-4 py-8 lg:gap-8">
               <div className={cn("grid gap-10 md:grid-cols-2 lg:grid-cols-3", postsClassName)}>
-                {renderPosts()}
+                {postsContent}
               </div>
               <div className={cn("flex justify-center", loadMoreClassName)}>
-                {renderLoadMoreAction()}
+                {loadMoreContent}
               </div>
             </div>
           </div>
@@ -470,3 +470,5 @@ export function BlogFilteredResults({
     </section>
   );
 }
+
+export { BlogFilteredResultsComponent as BlogFilteredResults };

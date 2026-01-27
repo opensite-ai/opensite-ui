@@ -284,6 +284,7 @@ import { BlogFilteredResults } from "../../components/blocks/blog/blog-filtered-
 import { BlogMasonryFeatured } from "../../components/blocks/blog/blog-masonry-featured";
 import { BlogHorizontalTimeline } from "../../components/blocks/blog/blog-horizontal-timeline";
 import { BlogGridNinePosts } from "../../components/blocks/blog/blog-grid-nine-posts";
+import { BlogCarouselApple } from "../../components/blocks/blog/blog-carousel-apple";
 
 // Article components
 import { ArticleHeroProse } from "../../components/blocks/article/article-hero-prose";
@@ -7275,7 +7276,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-grid-author-cards",
     name: "Blog Grid Author Cards",
     description:
-      "A responsive blog grid layout displaying posts with author avatars, category badges, and publication dates. Features a 3-column grid on large screens with hover effects on images. Ideal for blog listing pages that emphasize author attribution and content categorization.",
+      "A responsive grid layout displaying content items with author attribution, category badges, and metadata. Features a 3-column grid on large screens with hover effects on images. Ideal for content listing pages that emphasize author information and categorization.",
     semanticTags: [
       "blog",
       "posts",
@@ -7293,18 +7294,18 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogGridAuthorCardsProps",
     exampleUsage: `
 <BlogGridAuthorCards
-  title="Blog"
-  description="Insights, tutorials, and thoughts on modern software development"
+  heading="Content Hub"
+  description="Browse our latest content and insights"
   posts={[
     {
-      id: "post-1",
-      title: "The Future of Web Development",
-      summary: "Explore the latest trends...",
-      label: "Web Development",
-      author: "Sarah Chen",
-      published: "15 Jan 2024",
+      id: "item-1",
+      title: "Content Title",
+      summary: "Brief description of the content...",
+      label: "Category",
+      author: "Author Name",
+      published: "Date",
       href: "#",
-      image: "/images/post1.jpg"
+      image: "/images/item.jpg"
     }
   ]}
 />
@@ -7314,7 +7315,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-cards-tagline-cta",
     name: "Blog Cards Tagline CTA",
     description:
-      "A centered blog section with tagline badge, heading, description, and CTA button above a 3-column card grid. Each card features an image, title, summary, and 'Read more' link. Perfect for marketing-focused blog sections that need a strong call-to-action alongside content previews.",
+      "A centered content section with tagline badge, heading, description, and CTA button above a 3-column card grid. Each card features an image, title, summary, and action link. Perfect for marketing-focused content sections that need a strong call-to-action alongside item previews.",
     semanticTags: [
       "blog",
       "posts",
@@ -7331,11 +7332,23 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogCardsTaglineCtaProps",
     exampleUsage: `
 <BlogCardsTaglineCta
-  tagline="Our Blog"
-  title="Latest Articles"
-  description="Stay updated with our latest insights"
-  ctaText="View All Posts"
-  ctaHref="/blog"
+  badge="Latest Updates"
+  heading="Discover Our Content"
+  description="Explore our latest insights and updates"
+  ctaAction={{
+    label: "View All",
+    href: "/content"
+  }}
+  posts={[
+    {
+      id: "1",
+      title: "Content Item Title",
+      summary: "Brief description of the content item",
+      image: "/images/content-1.jpg",
+      href: "/content/item-1"
+    }
+  ]}
+  readMoreText="Read more"
 />
     `.trim(),
   },
@@ -7371,7 +7384,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-category-overlay",
     name: "Blog Category Overlay",
     description:
-      "A blog grid with category badges overlaid on images using a glassmorphism effect. Features a centered header section with tagline, title, description, and 'View All' link. Each card shows the post image, category overlay, title, date with calendar icon, and 'Read more' link. Great for visually categorized content with modern styling.",
+      "A content grid with category badges overlaid on images using a glassmorphism effect. Features a centered header section with badge, heading, description, and optional action link. Each card shows the item image, category overlay, title, date with icon, and optional action link. Great for visually categorized content with modern styling.",
     semanticTags: [
       "blog",
       "posts",
@@ -7388,11 +7401,24 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogCategoryOverlayProps",
     exampleUsage: `
 <BlogCategoryOverlay
-  tagline="Blog"
-  title="Latest News"
+  badge="Content"
+  heading="Latest Updates"
   description="Stay informed with our updates"
-  viewAllText="View All"
-  viewAllHref="/blog"
+  readMoreText="Learn more"
+  viewAllAction={{
+    label: "View All",
+    href: "/content"
+  }}
+  posts={[
+    {
+      id: "1",
+      title: "Content Item Title",
+      image: "/image.jpg",
+      category: "Category",
+      date: "January 1, 2024",
+      href: "/content/1"
+    }
+  ]}
 />
     `.trim(),
   },
@@ -7400,7 +7426,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-featured-popular",
     name: "Blog Featured Popular",
     description:
-      "A two-tier blog layout with a large featured post at the top and a 'Popular Posts' grid below. The featured post displays side-by-side image and content on desktop. Popular posts show in a 3-column grid with images, category badges, titles, and descriptions. Perfect for highlighting editorial picks alongside trending content.",
+      "A two-tier content layout with a large featured item at the top and an additional content grid below. The featured item displays side-by-side image and content on desktop. Additional items show in a 3-column grid with images, category badges, titles, and descriptions. Renders only provided content without any defaults. Perfect for highlighting primary content alongside secondary content collections.",
     semanticTags: [
       "blog",
       "posts",
@@ -7411,21 +7437,35 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       "editorial",
       "grid",
       "two-tier",
+      "content",
+      "layout",
+      "collection",
     ],
     category: "blog",
     component: BlogFeaturedPopular,
     props: "BlogFeaturedPopularProps",
     exampleUsage: `
 <BlogFeaturedPopular
-  title="Featured Article"
-  popularTitle="Popular Posts"
-  featuredPost={{
-    title: "The Future of AI",
-    description: "Exploring what's next...",
-    category: "Technology",
-    href: "#",
-    image: "/images/featured.jpg"
-  }}
+  heading="Content Hub"
+  popularHeading="More Content"
+  posts={[
+    {
+      id: "1",
+      title: "Featured Content Title",
+      description: "Description of featured content...",
+      category: "Category",
+      href: "/content/1",
+      image: "/images/featured.jpg"
+    },
+    {
+      id: "2",
+      title: "Additional Content Title",
+      description: "Description...",
+      category: "Category",
+      href: "/content/2",
+      image: "/images/item-2.jpg"
+    }
+  ]}
 />
     `.trim(),
   },
@@ -7433,7 +7473,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-related-articles",
     name: "Blog Related Articles",
     description:
-      "A compact related articles section with a 4-column grid layout. Each article displays category, title, description, and date in a text-only format without images. Features a header with title and 'See all articles' button. Ideal for sidebar widgets or end-of-article related content suggestions.",
+      "A compact related articles section with a 4-column grid layout. Each article displays category, title, description, and date in a text-only format without images. Features a header with title and 'See all' button. Ideal for sidebar widgets or end-of-article related content suggestions.",
     semanticTags: [
       "blog",
       "posts",
@@ -7450,9 +7490,8 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogRelatedArticlesProps",
     exampleUsage: `
 <BlogRelatedArticles
-  title="Related Articles"
-  ctaText="See all articles"
-  ctaHref="/blog"
+  heading="Related Articles"
+  seeAllAction={{ label: "See all", href: "/articles" }}
 />
     `.trim(),
   },
@@ -7460,12 +7499,12 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-tech-insights",
     name: "Blog Tech Insights",
     description:
-      "A dark-themed tech blog section with a featured post and secondary posts list. The featured post displays a large image with title and author info. Secondary posts appear in a bordered list with thumbnails and content snippets. Includes a header with title, description, and 'Read More' CTA button. Perfect for technology-focused blogs with a modern, professional aesthetic.",
+      "A dark-themed content section with a featured item and secondary items list. The featured item displays a large image with title and author info. Secondary items appear in a bordered list with thumbnails and content snippets. Includes a header with title, description, and primary CTA button. Perfect for content-focused layouts with a modern, professional aesthetic.",
     semanticTags: [
       "blog",
       "posts",
       "articles",
-      "tech",
+      "content",
       "dark-theme",
       "featured",
       "list",
@@ -7477,10 +7516,8 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogTechInsightsProps",
     exampleUsage: `
 <BlogTechInsights
-  title="Tech Insights"
-  description="Latest technology news and analysis"
-  ctaText="Read More"
-  ctaHref="/blog"
+  heading="Latest Insights"
+  description="Discover our latest content and updates"
 />
     `.trim(),
   },
@@ -7488,7 +7525,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-horizontal-cards",
     name: "Blog Horizontal Cards",
     description:
-      "A blog layout with horizontal card orientation featuring side-by-side image and content. Each card displays a thumbnail, category badge, author, date, title, summary, and 'Read more' link. Includes a centered header with tagline badge, heading, and description, plus a bottom CTA button. Ideal for content-rich blogs that need more space for article summaries.",
+      "A content layout with horizontal card orientation featuring side-by-side image and content. Each card displays a thumbnail, category badge, author, date, title, summary, and 'Read more' link. Includes a centered header with optional badge, heading, and description, plus a bottom CTA button. Ideal for content-rich layouts that need more space for item summaries.",
     semanticTags: [
       "blog",
       "posts",
@@ -7504,19 +7541,31 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogHorizontalCardsProps",
     exampleUsage: `
 <BlogHorizontalCards
-  tagline="Our Blog"
-  title="Latest Articles"
+  badge="Updates"
+  heading="Latest Content"
   description="Explore our content"
-  ctaText="View All"
-  ctaHref="/blog"
+  posts={[
+    {
+      id: "1",
+      title: "Content Title",
+      image: "/image.jpg",
+      summary: "Brief description",
+      href: "/content/1"
+    }
+  ]}
+  readMoreText="Read more"
+  ctaAction={{
+    label: "View All",
+    href: "/content"
+  }}
 />
     `.trim(),
   },
   "blog-filtered-results": {
     id: "blog-filtered-results",
-    name: "Blog Filtered Results",
+    name: "Filtered Content Results",
     description:
-      "A comprehensive blog page with breadcrumb navigation, featured primary post, category filtering, and paginated results. Features a muted background header section with title, description, and primary post card. The main section includes checkbox-based category filters and a 'Load More' button for pagination. Perfect for full blog listing pages with advanced filtering capabilities.",
+      "A comprehensive content listing page with breadcrumb navigation, featured primary item, category filtering, and paginated results. Features a muted background header section with title, description, and primary item card. The main section includes checkbox-based category filters and a pagination button. Perfect for full content listing pages with advanced filtering capabilities.",
     semanticTags: [
       "blog",
       "posts",
@@ -7527,18 +7576,29 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
       "breadcrumb",
       "featured",
       "listing",
+      "content",
     ],
     category: "blog",
     component: BlogFilteredResults,
     props: "BlogFilteredResultsProps",
     exampleUsage: `
 <BlogFilteredResults
-  title="Best Blog Articles"
-  description="The best blog content"
-  allBlogsTitle="All Blogs"
+  heading="Featured Content"
+  description="Discover our latest content"
+  allContentHeading="All Items"
   categories={[
     { label: "All", value: "all" },
-    { label: "Technology", value: "technology" }
+    { label: "Category A", value: "category-a" },
+    { label: "Category B", value: "category-b" }
+  ]}
+  posts={[
+    {
+      id: "1",
+      title: "Sample Item",
+      summary: "Item description",
+      category: "category-a",
+      href: "/item-1"
+    }
   ]}
 />
     `.trim(),
@@ -7547,7 +7607,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-masonry-featured",
     name: "Blog Masonry Featured",
     description:
-      "A masonry-style blog grid with a large featured post spanning two columns and rows, surrounded by smaller post cards. The featured post includes a full description while secondary posts show only title and metadata. Features a centered title heading and hover effects on images. Ideal for visually dynamic blog layouts that highlight a primary article.",
+      "A masonry-style grid with a large featured item spanning two columns and rows, surrounded by smaller item cards. The featured item includes a full description while secondary items show only title and metadata. Features a centered heading and hover effects on media. Ideal for visually dynamic layouts that highlight a primary content piece.",
     semanticTags: [
       "blog",
       "posts",
@@ -7564,7 +7624,24 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogMasonryFeaturedProps",
     exampleUsage: `
 <BlogMasonryFeatured
-  title="Latest Articles"
+  heading="Latest Content"
+  posts={[
+    {
+      title: "Featured Item",
+      description: "Detailed description for the featured content",
+      image: "/path/to/image.jpg",
+      date: "2024-01-01",
+      author: "Author Name",
+      href: "/featured-item"
+    },
+    {
+      title: "Secondary Item",
+      image: "/path/to/image2.jpg",
+      date: "2024-01-02",
+      author: "Author Name",
+      href: "/secondary-item"
+    }
+  ]}
 />
     `.trim(),
   },
@@ -7572,7 +7649,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-horizontal-timeline",
     name: "Blog Horizontal Timeline",
     description:
-      "A timeline-style blog layout with large images alongside content cards in a horizontal arrangement. Each post features a rounded image, title, uppercase date, description, and animated 'Read' button with arrow icon. Posts are separated by borders creating a timeline effect. Perfect for chronological content presentation or editorial storytelling.",
+      "A timeline-style layout with large images alongside content cards in a horizontal arrangement. Each item features a rounded image, title, uppercase date, description, and animated action button with arrow icon. Items are separated by borders creating a timeline effect. Perfect for chronological content presentation or editorial storytelling.",
     semanticTags: [
       "blog",
       "posts",
@@ -7588,13 +7665,15 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogHorizontalTimelineProps",
     exampleUsage: `
 <BlogHorizontalTimeline
+  heading="Timeline"
+  readText="Read More"
   posts={[
     {
-      title: "Our Journey Begins",
+      title: "Content Title",
       date: "January 2024",
-      description: "The story of how we started...",
+      description: "Content description...",
       href: "#",
-      image: "/images/post1.jpg"
+      image: "/images/item1.jpg"
     }
   ]}
 />
@@ -7604,7 +7683,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     id: "blog-grid-nine-posts",
     name: "Blog Grid Nine Posts",
     description:
-      "A comprehensive blog grid layout displaying 9 posts with author avatars, category badges, and publication dates. Features a 3-column grid on large screens with hover effects on images. Includes a mobile-only CTA button at the bottom. Ideal for blog archive pages that need to display many articles at once with full author attribution and content categorization.",
+      "A comprehensive content grid layout displaying multiple items with author avatars, category badges, and publication dates. Features a 3-column grid on large screens with hover effects on images. Includes a mobile-only CTA button at the bottom. Ideal for content archive pages that need to display many items at once with full author attribution and content categorization.",
     semanticTags: [
       "blog",
       "posts",
@@ -7621,10 +7700,62 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     props: "BlogGridNinePostsProps",
     exampleUsage: `
 <BlogGridNinePosts
-  title="Blog Archive"
-  description="Browse all our articles"
-  ctaText="View all posts"
-  ctaHref="/blog"
+  heading="Content Archive"
+  description="Browse all our content"
+  posts={[
+    {
+      id: "1",
+      title: "Content title",
+      summary: "Content description",
+      image: "/path/to/image.jpg",
+      author: "Author Name",
+      authorAvatar: "/path/to/avatar.jpg",
+      published: "Jan 1, 2024",
+      category: "Category",
+      href: "/content/item-1"
+    }
+  ]}
+  ctaAction={{
+    label: "View all items",
+    href: "/content"
+  }}
+/>
+    `.trim(),
+  },
+  "blog-carousel-apple": {
+    id: "blog-carousel-apple",
+    name: "Blog Carousel Apple",
+    description:
+      "An eye-catching horizontal carousel featuring Apple-style cards with gradient overlays and smooth animations. Each card displays a featured image, category tag, and title with configurable action types (link, dialog, lightbox). Features optional layout animations and supports custom click handlers. Perfect for showcasing featured content items, latest updates, or curated content collections with a premium, polished aesthetic.",
+    semanticTags: [
+      "blog",
+      "carousel",
+      "apple-style",
+      "horizontal-scroll",
+      "cards",
+      "gradient-overlay",
+      "animated",
+      "featured",
+      "premium",
+    ],
+    category: "blog",
+    component: BlogCarouselApple,
+    props: "BlogCarouselAppleProps",
+    exampleUsage: `
+<BlogCarouselApple
+  title="Latest Insights"
+  subtitle="Featured Content"
+  posts={[
+    {
+      image: "/images/content-1.jpg",
+      title: "Content Title",
+      category: "Category",
+      url: "/content/item-1",
+      excerpt: "Brief description..."
+    }
+  ]}
+  actionType="link"
+  background="gray"
 />
     `.trim(),
   },

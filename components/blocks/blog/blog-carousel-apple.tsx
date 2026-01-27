@@ -18,23 +18,23 @@ import type {
 
 export interface BlogCarouselApplePost {
   /**
-   * Blog post image URL
+   * Content item image URL
    */
-  image: string;
+  image?: string;
   /**
-   * Blog post title
+   * Content item title
    */
-  title: string;
+  title?: string;
   /**
-   * Blog post category/tag
+   * Content item category/tag
    */
-  category: string;
+  category?: string;
   /**
-   * Blog post URL (internal or external)
+   * Content item URL (internal or external)
    */
-  url: string;
+  url?: string;
   /**
-   * Optional blog post excerpt/description (for dialog/lightbox views)
+   * Optional content item excerpt/description (for dialog/lightbox views)
    */
   excerpt?: React.ReactNode;
 }
@@ -49,12 +49,11 @@ export interface BlogCarouselAppleProps {
    */
   subtitle?: string;
   /**
-   * Array of blog posts to display in the carousel
+   * Array of content items to display in the carousel
    */
   posts?: BlogCarouselApplePost[];
   /**
    * Card action type - determines behavior when cards are clicked
-   * @default "link"
    */
   actionType?: "link" | "dialog" | "lightbox" | "none";
   /**
@@ -63,7 +62,6 @@ export interface BlogCarouselAppleProps {
   onCardClick?: (post: BlogCarouselApplePost, index: number) => void;
   /**
    * Enable layout animations for cards
-   * @default false
    */
   enableLayoutAnimations?: boolean;
   /**
@@ -72,12 +70,10 @@ export interface BlogCarouselAppleProps {
   optixFlowConfig?: OptixFlowConfig;
   /**
    * Background style for the section
-   * @default "white"
    */
   background?: SectionBackground;
   /**
    * Vertical spacing for the section
-   * @default "lg"
    */
   spacing?: SectionSpacing;
   /**
@@ -107,32 +103,32 @@ export interface BlogCarouselAppleProps {
 }
 
 /**
- * BlogCarouselApple - An eye-catching horizontal blog post carousel featuring
+ * BlogCarouselApple - An eye-catching horizontal carousel featuring
  * Apple-style cards with gradient overlays and smooth animations. Each card
  * displays a featured image, category tag, and title. Perfect for showcasing
- * featured blog posts, latest articles, or curated content collections.
+ * featured content items, latest updates, or curated content collections.
  *
  * @example
  * ```tsx
  * <BlogCarouselApple
  *   title="Latest Insights"
- *   subtitle="From Our Blog"
- *   posts={blogPosts}
+ *   subtitle="Featured Content"
+ *   posts={contentItems}
  *   actionType="link"
  *   background="gray"
  * />
  * ```
  */
-export function BlogCarouselApple({
+export function BlogCarouselAppleComponent({
   title,
   subtitle,
   posts,
-  actionType = "link",
+  actionType,
   onCardClick,
-  enableLayoutAnimations = false,
+  enableLayoutAnimations,
   optixFlowConfig,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   className,
@@ -140,16 +136,16 @@ export function BlogCarouselApple({
   containerClassName,
   cardClassName,
 }: BlogCarouselAppleProps): React.JSX.Element {
-  // Convert blog posts to carousel card data
+  // Convert content items to carousel card data
   const carouselCards = React.useMemo(() => {
-    if (!posts) return [];
+    if (!posts || posts.length === 0) return [];
 
-    return posts?.map(
+    return posts.map(
       (post, idx): AppleCarouselCardData => ({
         idx: idx,
-        src: post.image,
-        title: post.title,
-        category: post.category,
+        src: post.image || "",
+        title: post.title || "",
+        category: post.category || "",
         content: post.excerpt,
       }),
     );
@@ -157,28 +153,30 @@ export function BlogCarouselApple({
 
   // Generate card elements
   const cardElements = React.useMemo(() => {
+    if (!posts || posts.length === 0) return [];
+
     return carouselCards.map((card, index) => {
+      const post = posts[index];
+      if (!post) return null;
+
       const action: AppleCarouselCardAction = {
-        type: actionType,
-        href: actionType === "link" ? posts && posts[index].url : undefined,
-        onClick:
-          onCardClick && posts
-            ? () => onCardClick(posts[index], index)
-            : undefined,
+        type: actionType || "link",
+        href: actionType === "link" && post.url ? post.url : undefined,
+        onClick: onCardClick ? () => onCardClick(post, index) : undefined,
       };
 
       return (
         <AppleCarouselCard
-          key={`blog-card-${index}`}
+          key={`carousel-card-${index}`}
           card={card}
           index={index}
           action={action}
-          layout={enableLayoutAnimations}
+          layout={enableLayoutAnimations || false}
           optixFlowConfig={optixFlowConfig}
           className={cardClassName}
         />
       );
-    });
+    }).filter(Boolean);
   }, [
     carouselCards,
     posts,
@@ -189,12 +187,16 @@ export function BlogCarouselApple({
     cardClassName,
   ]);
 
+  if (!posts || posts.length === 0) {
+    return <></>;
+  }
+
   return (
     <Section
       title={title}
       subtitle={subtitle}
-      background={background}
-      spacing={spacing}
+      background={background || "white"}
+      spacing={spacing || "lg"}
       pattern={pattern}
       patternOpacity={patternOpacity}
       className={cn(className)}
@@ -207,3 +209,5 @@ export function BlogCarouselApple({
     </Section>
   );
 }
+
+export { BlogCarouselAppleComponent as BlogCarouselApple };

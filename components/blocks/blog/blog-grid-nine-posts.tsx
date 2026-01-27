@@ -6,7 +6,6 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
 
 export interface BlogGridNinePostsProps {
@@ -19,11 +18,11 @@ export interface BlogGridNinePostsProps {
    */
   description?: React.ReactNode;
   /**
-   * Array of blog post configurations
+   * Array of content item configurations
    */
   posts?: BlogPostItem[];
   /**
-   * Custom slot for rendering posts (overrides posts array)
+   * Custom slot for rendering content items (overrides posts array)
    */
   postsSlot?: React.ReactNode;
   /**
@@ -55,11 +54,11 @@ export interface BlogGridNinePostsProps {
    */
   descriptionClassName?: string;
   /**
-   * Additional CSS classes for the posts grid
+   * Additional CSS classes for the content items grid
    */
   postsClassName?: string;
   /**
-   * Additional CSS classes for individual post cards
+   * Additional CSS classes for individual content cards
    */
   postCardClassName?: string;
   /**
@@ -89,7 +88,7 @@ export function BlogGridNinePosts({
   ctaClassName,
   optixFlowConfig,
 }: BlogGridNinePostsProps): React.JSX.Element {
-  const renderCtaAction = () => {
+  const renderedCtaAction = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
@@ -109,9 +108,9 @@ export function BlogGridNinePosts({
         )}
       </Pressable>
     );
-  };
+  }, [ctaSlot, ctaAction]);
 
-  const renderPosts = () => {
+  const renderedPosts = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
 
@@ -131,7 +130,7 @@ export function BlogGridNinePosts({
               {post.image && (
                 <Img
                   src={post.image}
-                  alt={typeof post.title === "string" ? post.title : "Blog post"}
+                  alt={typeof post.title === "string" ? post.title : "Content item"}
                   className="aspect-3/2 h-full w-full object-cover object-center"
                   optixFlowConfig={optixFlowConfig}
                 />
@@ -177,7 +176,7 @@ export function BlogGridNinePosts({
         </Pressable>
       );
     });
-  };
+  }, [posts, postsSlot, postCardClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -205,11 +204,11 @@ export function BlogGridNinePosts({
           )}
         </div>
         <div className={cn("grid gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-6 lg:gap-y-12 2xl:grid-cols-3", postsClassName)}>
-          {renderPosts()}
+          {renderedPosts}
         </div>
         {(ctaSlot || ctaAction) && (
           <div className={cn("mt-8 flex flex-col items-center py-2 md:hidden", ctaClassName)}>
-            {renderCtaAction()}
+            {renderedCtaAction}
           </div>
         )}
       </div>

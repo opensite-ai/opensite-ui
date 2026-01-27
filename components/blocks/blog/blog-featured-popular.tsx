@@ -106,7 +106,7 @@ export function BlogFeaturedPopular({
   const featuredPost = posts?.[0];
   const popularPosts = posts?.slice(1);
 
-  const renderFeaturedPost = () => {
+  const renderedFeaturedPost = React.useMemo(() => {
     if (featuredSlot) return featuredSlot;
     if (!featuredPost) return null;
 
@@ -152,9 +152,9 @@ export function BlogFeaturedPopular({
         </div>
       </PostWrapper>
     );
-  };
+  }, [featuredSlot, featuredPost, featuredClassName, featuredImageClassName, featuredContentClassName, optixFlowConfig]);
 
-  const renderPopularPosts = () => {
+  const renderedPopularPosts = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!popularPosts || popularPosts.length === 0) return null;
 
@@ -173,7 +173,7 @@ export function BlogFeaturedPopular({
           {post.image && (
             <Img
               src={post.image}
-              alt={typeof post.title === "string" ? post.title : "Blog post"}
+              alt={typeof post.title === "string" ? post.title : "Content item"}
               className="aspect-video rounded-lg object-cover"
               optixFlowConfig={optixFlowConfig}
             />
@@ -202,31 +202,33 @@ export function BlogFeaturedPopular({
         </PostWrapper>
       );
     });
-  };
+  }, [postsSlot, popularPosts, postCardClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
       <div className={cn("container", containerClassName)}>
-        <div className={cn("mb-16 text-center", headerClassName)}>
-          {heading && (
-            typeof heading === "string" ? (
-              <h1 className={cn("text-5xl font-medium md:text-6xl", headingClassName)}>{heading}</h1>
-            ) : (
-              <div className={headingClassName}>{heading}</div>
-            )
-          )}
-          {description && (
-            typeof description === "string" ? (
-              <p className={cn("mx-auto mt-4 max-w-xl text-lg text-muted-foreground", descriptionClassName)}>
-                {description}
-              </p>
-            ) : (
-              <div className={descriptionClassName}>{description}</div>
-            )
-          )}
-        </div>
+        {(heading || description) && (
+          <div className={cn("mb-16 text-center", headerClassName)}>
+            {heading && (
+              typeof heading === "string" ? (
+                <h1 className={cn("text-5xl font-medium md:text-6xl", headingClassName)}>{heading}</h1>
+              ) : (
+                <div className={headingClassName}>{heading}</div>
+              )
+            )}
+            {description && (
+              typeof description === "string" ? (
+                <p className={cn("mx-auto mt-4 max-w-xl text-lg text-muted-foreground", descriptionClassName)}>
+                  {description}
+                </p>
+              ) : (
+                <div className={descriptionClassName}>{description}</div>
+              )
+            )}
+          </div>
+        )}
         <div className="mx-auto max-w-7xl">
-          {renderFeaturedPost()}
+          {renderedFeaturedPost}
           {popularHeading && (
             typeof popularHeading === "string" ? (
               <p className={cn("text-2xl font-medium md:text-3xl", popularHeadingClassName)}>{popularHeading}</p>
@@ -234,9 +236,11 @@ export function BlogFeaturedPopular({
               <div className={popularHeadingClassName}>{popularHeading}</div>
             )
           )}
-          <div className={cn("mt-8 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-6", postsClassName)}>
-            {renderPopularPosts()}
-          </div>
+          {renderedPopularPosts && (
+            <div className={cn("mt-8 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-6", postsClassName)}>
+              {renderedPopularPosts}
+            </div>
+          )}
         </div>
       </div>
     </section>

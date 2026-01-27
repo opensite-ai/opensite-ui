@@ -4,7 +4,6 @@ import * as React from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { BlogPostItem, OptixFlowConfig } from "../../../src/types";
 
 export interface BlogMasonryFeaturedProps {
@@ -13,15 +12,15 @@ export interface BlogMasonryFeaturedProps {
    */
   heading?: React.ReactNode;
   /**
-   * Array of blog post configurations (first post is featured)
+   * Array of content items (first item is featured)
    */
   posts?: BlogPostItem[];
   /**
-   * Custom slot for rendering the featured post (overrides first post)
+   * Custom slot for rendering the featured item (overrides first item)
    */
   featuredSlot?: React.ReactNode;
   /**
-   * Custom slot for rendering other posts (overrides posts array)
+   * Custom slot for rendering additional items (overrides items array)
    */
   postsSlot?: React.ReactNode;
   /**
@@ -37,19 +36,19 @@ export interface BlogMasonryFeaturedProps {
    */
   headingClassName?: string;
   /**
-   * Additional CSS classes for the posts grid
+   * Additional CSS classes for the items grid
    */
   postsClassName?: string;
   /**
-   * Additional CSS classes for the featured post wrapper
+   * Additional CSS classes for the featured item wrapper
    */
   featuredClassName?: string;
   /**
-   * Additional CSS classes for the featured post image
+   * Additional CSS classes for the featured item media
    */
   featuredImageClassName?: string;
   /**
-   * Additional CSS classes for individual post cards
+   * Additional CSS classes for individual item cards
    */
   postCardClassName?: string;
   /**
@@ -58,7 +57,7 @@ export interface BlogMasonryFeaturedProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-export function BlogMasonryFeatured({
+export function BlogMasonryFeaturedComponent({
   heading,
   posts,
   featuredSlot,
@@ -75,7 +74,7 @@ export function BlogMasonryFeatured({
   const featuredPost = posts?.[0];
   const otherPosts = posts?.slice(1);
 
-  const renderFeaturedPost = () => {
+  const featuredPostContent = React.useMemo(() => {
     if (featuredSlot) return featuredSlot;
     if (!featuredPost) return null;
 
@@ -90,7 +89,7 @@ export function BlogMasonryFeatured({
           {featuredPost.image && (
             <Img
               src={featuredPost.image}
-              alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured post"}
+              alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured content"}
               className={cn("h-48 w-full rounded-lg object-cover hover:opacity-80 md:h-80 lg:h-96", featuredImageClassName)}
               optixFlowConfig={optixFlowConfig}
             />
@@ -119,9 +118,9 @@ export function BlogMasonryFeatured({
         </Pressable>
       </div>
     );
-  };
+  }, [featuredSlot, featuredPost, featuredClassName, featuredImageClassName, optixFlowConfig]);
 
-  const renderOtherPosts = () => {
+  const otherPostsContent = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!otherPosts || otherPosts.length === 0) return null;
 
@@ -134,7 +133,7 @@ export function BlogMasonryFeatured({
           {post.image && (
             <Img
               src={post.image}
-              alt={typeof post.title === "string" ? post.title : "Blog post"}
+              alt={typeof post.title === "string" ? post.title : "Content item"}
               className="h-48 w-full rounded-lg object-cover hover:opacity-80"
               optixFlowConfig={optixFlowConfig}
             />
@@ -156,7 +155,7 @@ export function BlogMasonryFeatured({
         </Pressable>
       );
     });
-  };
+  }, [postsSlot, otherPosts, postCardClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -172,10 +171,12 @@ export function BlogMasonryFeatured({
         )}
 
         <div className={cn("xs:grid-cols-1 mt-24 grid gap-4 sm:grid-cols-2 lg:grid-cols-4", postsClassName)}>
-          {renderFeaturedPost()}
-          {renderOtherPosts()}
+          {featuredPostContent}
+          {otherPostsContent}
         </div>
       </div>
     </section>
   );
 }
+
+export { BlogMasonryFeaturedComponent as BlogMasonryFeatured };

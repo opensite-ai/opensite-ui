@@ -83,11 +83,7 @@ export interface BlogCardsReadTimeProps {
 }
 
 export function BlogCardsReadTime({
-  badge = (
-    <Badge variant="outline" className="gap-1 py-1">
-      <DynamicIcon name="lucide/file-text" size={16} className="h-full w-4" /> Our Blogs
-    </Badge>
-  ),
+  badge,
   heading,
   description,
   posts,
@@ -105,7 +101,7 @@ export function BlogCardsReadTime({
   viewAllClassName,
   optixFlowConfig,
 }: BlogCardsReadTimeProps): React.JSX.Element {
-  const renderViewAllAction = () => {
+  const renderedViewAllAction = React.useMemo(() => {
     if (viewAllSlot) return viewAllSlot;
     if (!viewAllAction) return null;
 
@@ -125,20 +121,20 @@ export function BlogCardsReadTime({
         )}
       </Pressable>
     );
-  };
+  }, [viewAllSlot, viewAllAction]);
 
-  const renderPosts = () => {
+  const renderedPosts = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
 
     return posts.map((post) => {
       const postHref = post.href || post.url || post.link || "#";
       const postId = post.id || String(post.title) || Math.random().toString();
-      
+
       return (
-        <Pressable 
-          key={postId} 
-          className={cn("rounded-xl border", postCardClassName)} 
+        <Pressable
+          key={postId}
+          className={cn("rounded-xl border", postCardClassName)}
           href={postHref}
         >
           <div className="p-2">
@@ -186,7 +182,7 @@ export function BlogCardsReadTime({
         </Pressable>
       );
     });
-  };
+  }, [posts, postsSlot, postCardClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -219,11 +215,11 @@ export function BlogCardsReadTime({
           )}
         </div>
         <div className={cn("mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-3", postsClassName)}>
-          {renderPosts()}
+          {renderedPosts}
         </div>
         {(viewAllSlot || viewAllAction) && (
           <div className={cn("mt-10 flex justify-center", viewAllClassName)}>
-            {renderViewAllAction()}
+            {renderedViewAllAction}
           </div>
         )}
       </div>

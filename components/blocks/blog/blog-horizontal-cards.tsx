@@ -32,7 +32,7 @@ export interface BlogHorizontalCardsProps {
    */
   ctaSlot?: React.ReactNode;
   /**
-   * Array of blog post configurations
+   * Array of content item configurations
    */
   posts?: BlogPostItem[];
   /**
@@ -86,14 +86,14 @@ export interface BlogHorizontalCardsProps {
 }
 
 export function BlogHorizontalCards({
-  badge = "Latest Updates",
+  badge,
   heading,
   description,
   ctaAction,
   ctaSlot,
   posts,
   postsSlot,
-  readMoreText = "Read more",
+  readMoreText,
   className,
   containerClassName,
   headerClassName,
@@ -105,7 +105,7 @@ export function BlogHorizontalCards({
   ctaClassName,
   optixFlowConfig,
 }: BlogHorizontalCardsProps): React.JSX.Element {
-  const renderCtaAction = () => {
+  const ctaContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
@@ -125,16 +125,16 @@ export function BlogHorizontalCards({
         )}
       </Pressable>
     );
-  };
+  }, [ctaSlot, ctaAction]);
 
-  const renderPosts = () => {
+  const postsContent = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
 
     return posts.map((post) => {
       const postHref = post.href || post.url || post.link || "#";
       const postId = post.id || String(post.title) || Math.random().toString();
-      const postTitle = typeof post.title === "string" ? post.title : "Blog post";
+      const postTitle = typeof post.title === "string" ? post.title : "Content item";
       const postLabel = post.label || post.category;
       const postSummary = post.summary || post.description;
       const postDate = post.published || post.date;
@@ -178,23 +178,25 @@ export function BlogHorizontalCards({
                   {postSummary}
                 </p>
               )}
-              <Pressable
-                href={postHref}
-                className="inline-flex items-center text-primary hover:underline"
-              >
-                {readMoreText}
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={16}
-                  className="ml-2 size-4"
-                />
-              </Pressable>
+              {readMoreText && (
+                <Pressable
+                  href={postHref}
+                  className="inline-flex items-center text-primary hover:underline"
+                >
+                  {readMoreText}
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={16}
+                    className="ml-2 size-4"
+                  />
+                </Pressable>
+              )}
             </div>
           </div>
         </Card>
       );
     });
-  };
+  }, [postsSlot, posts, postCardClassName, optixFlowConfig, readMoreText]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -230,12 +232,12 @@ export function BlogHorizontalCards({
         </div>
 
         <div className={cn("mx-auto max-w-5xl space-y-12", postsClassName)}>
-          {renderPosts()}
+          {postsContent}
         </div>
 
         {(ctaSlot || ctaAction) && (
           <div className={cn("mt-16 text-center", ctaClassName)}>
-            {renderCtaAction()}
+            {ctaContent}
           </div>
         )}
       </div>

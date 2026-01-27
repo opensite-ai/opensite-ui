@@ -1,10 +1,10 @@
 /**
  * BlogGridAuthorCards - Individual export for tree-shaking
  *
- * A responsive blog grid layout displaying posts with author avatars, category badges,
- * and publication dates. Features a 3-column grid on large screens with hover effects
- * on images. Ideal for blog listing pages that emphasize author attribution and
- * content categorization.
+ * A responsive grid layout displaying content items with author attribution, category badges,
+ * and metadata. Features a 3-column grid on large screens with hover effects
+ * on images. Ideal for content listing pages that emphasize author information and
+ * categorization.
  *
  * @example
  * ```ts

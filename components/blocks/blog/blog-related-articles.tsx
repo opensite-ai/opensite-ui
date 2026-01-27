@@ -74,7 +74,7 @@ export function BlogRelatedArticles({
   articlesClassName,
   articleCardClassName,
 }: BlogRelatedArticlesProps): React.JSX.Element {
-  const renderSeeAllAction = () => {
+  const renderedSeeAllAction = React.useMemo(() => {
     if (seeAllSlot) return seeAllSlot;
     if (!seeAllAction) return null;
 
@@ -94,9 +94,9 @@ export function BlogRelatedArticles({
         )}
       </Pressable>
     );
-  };
+  }, [seeAllSlot, seeAllAction, seeAllClassName]);
 
-  const renderArticles = () => {
+  const renderedArticles = React.useMemo(() => {
     if (articlesSlot) return articlesSlot;
     if (!articles || articles.length === 0) return null;
 
@@ -135,7 +135,7 @@ export function BlogRelatedArticles({
         </Pressable>
       );
     });
-  };
+  }, [articlesSlot, articles, articleCardClassName]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -148,10 +148,10 @@ export function BlogRelatedArticles({
               <div className={headingClassName}>{heading}</div>
             )
           )}
-          {renderSeeAllAction()}
+          {renderedSeeAllAction}
         </div>
         <div className={cn("grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-10", articlesClassName)}>
-          {renderArticles()}
+          {renderedArticles}
         </div>
       </div>
     </section>

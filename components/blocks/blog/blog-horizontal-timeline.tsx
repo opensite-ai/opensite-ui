@@ -15,15 +15,15 @@ export interface BlogHorizontalTimelineProps {
    */
   heading?: React.ReactNode;
   /**
-   * Array of blog post configurations
+   * Array of content item configurations
    */
   posts?: BlogPostItem[];
   /**
-   * Custom slot for rendering posts (overrides posts array)
+   * Custom slot for rendering content items (overrides posts array)
    */
   postsSlot?: React.ReactNode;
   /**
-   * Text for "Read" links on each post
+   * Text for action links on each content item
    */
   readText?: React.ReactNode;
   /**
@@ -39,19 +39,19 @@ export interface BlogHorizontalTimelineProps {
    */
   headingClassName?: string;
   /**
-   * Additional CSS classes for the posts container
+   * Additional CSS classes for the content items container
    */
   postsClassName?: string;
   /**
-   * Additional CSS classes for individual post items
+   * Additional CSS classes for individual content items
    */
   postItemClassName?: string;
   /**
-   * Additional CSS classes for post images
+   * Additional CSS classes for content item images
    */
   postImageClassName?: string;
   /**
-   * Additional CSS classes for post content cards
+   * Additional CSS classes for content item cards
    */
   postCardClassName?: string;
   /**
@@ -60,11 +60,11 @@ export interface BlogHorizontalTimelineProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-export function BlogHorizontalTimeline({
+export function BlogHorizontalTimelineComponent({
   heading,
   posts,
   postsSlot,
-  readText = "Read",
+  readText,
   className,
   containerClassName,
   headingClassName,
@@ -74,7 +74,7 @@ export function BlogHorizontalTimeline({
   postCardClassName,
   optixFlowConfig,
 }: BlogHorizontalTimelineProps): React.JSX.Element {
-  const renderPosts = () => {
+  const renderPosts = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
 
@@ -83,7 +83,7 @@ export function BlogHorizontalTimeline({
       const postId = post.id || String(post.title) || Math.random().toString();
       const postDate = post.date || post.published;
       const postDescription = post.description || post.summary;
-      const postImageAlt = post.imageAlt || (typeof post.title === "string" ? post.title : "Blog post");
+      const postImageAlt = post.imageAlt || (typeof post.title === "string" ? post.title : "Content item");
 
       return (
         <div
@@ -126,16 +126,18 @@ export function BlogHorizontalTimeline({
                       {postDescription}
                     </p>
                   )}
-                  <Pressable
-                    href={postHref}
-                    variant="ghost"
-                    className="inline-flex items-center justify-center gap-4 px-0 text-primary transition-all ease-in-out hover:gap-6 hover:text-accent-foreground"
-                  >
-                    <span className="text-lg font-semibold tracking-tight">
-                      {readText}
-                    </span>
-                    <DynamicIcon name="lucide/arrow-right" size={20} />
-                  </Pressable>
+                  {readText && (
+                    <Pressable
+                      href={postHref}
+                      variant="ghost"
+                      className="inline-flex items-center justify-center gap-4 px-0 text-primary transition-all ease-in-out hover:gap-6 hover:text-accent-foreground"
+                    >
+                      <span className="text-lg font-semibold tracking-tight">
+                        {readText}
+                      </span>
+                      <DynamicIcon name="lucide/arrow-right" size={20} />
+                    </Pressable>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -143,7 +145,7 @@ export function BlogHorizontalTimeline({
         </div>
       );
     });
-  };
+  }, [postsSlot, posts, postItemClassName, postImageClassName, postCardClassName, optixFlowConfig, readText]);
 
   return (
     <section className={cn("bg-background py-32", className)}>
@@ -159,9 +161,11 @@ export function BlogHorizontalTimeline({
         )}
 
         <div className={cn("flex flex-col", postsClassName)}>
-          {renderPosts()}
+          {renderPosts}
         </div>
       </div>
     </section>
   );
 }
+
+export { BlogHorizontalTimelineComponent as BlogHorizontalTimeline };

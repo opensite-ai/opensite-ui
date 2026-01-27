@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { Avatar, AvatarImage } from "../../ui/avatar";
-import { DynamicIcon } from "../../ui/dynamic-icon";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import type { ActionConfig, BlogPostItem, OptixFlowConfig } from "../../../src/types";
 
 export interface BlogTechInsightsProps {
@@ -19,27 +18,27 @@ export interface BlogTechInsightsProps {
    */
   description?: React.ReactNode;
   /**
-   * Action configuration for the "Read More" button
+   * Action configuration for the primary call-to-action
    */
   readMoreAction?: ActionConfig;
   /**
-   * Custom slot for rendering the read more action (overrides readMoreAction)
+   * Custom slot for rendering the primary action (overrides readMoreAction)
    */
   readMoreSlot?: React.ReactNode;
   /**
-   * Featured post configuration
+   * Featured item configuration
    */
   featuredPost?: BlogPostItem;
   /**
-   * Custom slot for rendering the featured post (overrides featuredPost)
+   * Custom slot for rendering the featured item (overrides featuredPost)
    */
   featuredSlot?: React.ReactNode;
   /**
-   * Array of secondary post configurations
+   * Array of secondary item configurations
    */
   secondaryPosts?: BlogPostItem[];
   /**
-   * Custom slot for rendering secondary posts (overrides secondaryPosts array)
+   * Custom slot for rendering secondary items (overrides secondaryPosts array)
    */
   secondaryPostsSlot?: React.ReactNode;
   /**
@@ -63,7 +62,7 @@ export interface BlogTechInsightsProps {
    */
   descriptionClassName?: string;
   /**
-   * Additional CSS classes for the read more action
+   * Additional CSS classes for the primary action
    */
   readMoreClassName?: string;
   /**
@@ -71,19 +70,19 @@ export interface BlogTechInsightsProps {
    */
   contentClassName?: string;
   /**
-   * Additional CSS classes for the featured post wrapper
+   * Additional CSS classes for the featured item wrapper
    */
   featuredClassName?: string;
   /**
-   * Additional CSS classes for the featured post image
+   * Additional CSS classes for the featured item image
    */
   featuredImageClassName?: string;
   /**
-   * Additional CSS classes for the secondary posts container
+   * Additional CSS classes for the secondary items container
    */
   secondaryPostsClassName?: string;
   /**
-   * Additional CSS classes for individual secondary post items
+   * Additional CSS classes for individual secondary item entries
    */
   secondaryPostItemClassName?: string;
   /**
@@ -114,7 +113,7 @@ export function BlogTechInsights({
   secondaryPostItemClassName,
   optixFlowConfig,
 }: BlogTechInsightsProps): React.JSX.Element {
-  const renderReadMoreAction = () => {
+  const readMoreActionContent = useMemo(() => {
     if (readMoreSlot) return readMoreSlot;
     if (!readMoreAction) return null;
 
@@ -134,9 +133,9 @@ export function BlogTechInsights({
         )}
       </Pressable>
     );
-  };
+  }, [readMoreSlot, readMoreAction, readMoreClassName]);
 
-  const renderFeaturedPost = () => {
+  const featuredPostContent = useMemo(() => {
     if (featuredSlot) return featuredSlot;
     if (!featuredPost) return null;
 
@@ -146,7 +145,7 @@ export function BlogTechInsights({
           <Img
             className={cn("w-full rounded-lg object-cover", featuredImageClassName)}
             src={featuredPost.image}
-            alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured post"}
+            alt={typeof featuredPost.title === "string" ? featuredPost.title : "Featured item"}
             optixFlowConfig={optixFlowConfig}
           />
         )}
@@ -186,9 +185,9 @@ export function BlogTechInsights({
         )}
       </div>
     );
-  };
+  }, [featuredSlot, featuredPost, featuredClassName, featuredImageClassName, optixFlowConfig]);
 
-  const renderSecondaryPosts = () => {
+  const secondaryPostsContent = useMemo(() => {
     if (secondaryPostsSlot) return secondaryPostsSlot;
     if (!secondaryPosts || secondaryPosts.length === 0) return null;
 
@@ -205,7 +204,7 @@ export function BlogTechInsights({
               <Img
                 className="rounded-md"
                 src={post.image}
-                alt={typeof post.title === "string" ? post.title : "Blog post"}
+                alt={typeof post.title === "string" ? post.title : "Content item"}
                 optixFlowConfig={optixFlowConfig}
               />
             )}
@@ -220,7 +219,7 @@ export function BlogTechInsights({
         </div>
       );
     });
-  };
+  }, [secondaryPostsSlot, secondaryPosts, secondaryPostItemClassName, optixFlowConfig]);
 
   return (
     <section className={cn("dark relative bg-background py-32", className)}>
@@ -246,15 +245,15 @@ export function BlogTechInsights({
                 <div className={descriptionClassName}>{description}</div>
               )
             )}
-            {renderReadMoreAction()}
+            {readMoreActionContent}
           </div>
         </div>
 
         <div className={cn("mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12", contentClassName)}>
-          {renderFeaturedPost()}
+          {featuredPostContent}
 
           <div className={cn("space-y-6 text-foreground md:space-y-8", secondaryPostsClassName)}>
-            {renderSecondaryPosts()}
+            {secondaryPostsContent}
           </div>
         </div>
       </div>

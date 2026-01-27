@@ -23,23 +23,23 @@ export interface BlogCategoryOverlayProps {
    */
   description?: React.ReactNode;
   /**
-   * Array of blog post configurations
+   * Array of content item configurations
    */
   posts?: BlogPostItem[];
   /**
-   * Custom slot for rendering posts (overrides posts array)
+   * Custom slot for rendering content items (overrides posts array)
    */
   postsSlot?: React.ReactNode;
   /**
-   * Action configuration for the "View All" link
+   * Action configuration for the primary action link
    */
   viewAllAction?: ActionConfig;
   /**
-   * Custom slot for rendering the view all action (overrides viewAllAction)
+   * Custom slot for rendering the primary action (overrides viewAllAction)
    */
   viewAllSlot?: React.ReactNode;
   /**
-   * Read more link text for individual posts
+   * Action link text for individual items
    */
   readMoreText?: React.ReactNode;
   /**
@@ -71,11 +71,11 @@ export interface BlogCategoryOverlayProps {
    */
   viewAllClassName?: string;
   /**
-   * Additional CSS classes for the posts grid
+   * Additional CSS classes for the content grid
    */
   postsClassName?: string;
   /**
-   * Additional CSS classes for individual post cards
+   * Additional CSS classes for individual content cards
    */
   postCardClassName?: string;
   /**
@@ -89,14 +89,14 @@ export interface BlogCategoryOverlayProps {
 }
 
 export function BlogCategoryOverlay({
-  badge = <Badge variant="outline">Articles</Badge>,
+  badge,
   heading,
   description,
   posts,
   postsSlot,
   viewAllAction,
   viewAllSlot,
-  readMoreText = "Read more",
+  readMoreText,
   className,
   containerClassName,
   headerClassName,
@@ -109,7 +109,7 @@ export function BlogCategoryOverlay({
   categoryBadgeClassName,
   optixFlowConfig,
 }: BlogCategoryOverlayProps): React.JSX.Element {
-  const renderViewAllAction = () => {
+  const viewAllActionContent = React.useMemo(() => {
     if (viewAllSlot) return viewAllSlot;
     if (!viewAllAction) return null;
 
@@ -128,9 +128,9 @@ export function BlogCategoryOverlay({
         )}
       </Pressable>
     );
-  };
+  }, [viewAllSlot, viewAllAction, viewAllClassName]);
 
-  const renderPosts = () => {
+  const postsContent = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
 
@@ -144,7 +144,7 @@ export function BlogCategoryOverlay({
             {post.image && (
               <Img
                 src={post.image}
-                alt={typeof post.title === "string" ? post.title : "Blog post"}
+                alt={typeof post.title === "string" ? post.title : "Content item"}
                 className="aspect-video w-full rounded-lg object-cover"
                 optixFlowConfig={optixFlowConfig}
               />
@@ -173,16 +173,18 @@ export function BlogCategoryOverlay({
                   {post.date || post.published}
                 </span>
               )}
-              <Pressable href={postHref} className="flex items-center gap-1">
-                {readMoreText}
-                <DynamicIcon name="lucide/chevron-right" size={12} className="h-full w-3" />
-              </Pressable>
+              {readMoreText && (
+                <Pressable href={postHref} className="flex items-center gap-1">
+                  {readMoreText}
+                  <DynamicIcon name="lucide/chevron-right" size={12} className="h-full w-3" />
+                </Pressable>
+              )}
             </div>
           </div>
         </div>
       );
     });
-  };
+  }, [postsSlot, posts, postCardClassName, categoryBadgeClassName, optixFlowConfig, readMoreText]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -211,10 +213,10 @@ export function BlogCategoryOverlay({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderViewAllAction()}
+          {viewAllActionContent}
         </div>
         <div className={cn("mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3", postsClassName)}>
-          {renderPosts()}
+          {postsContent}
         </div>
       </div>
     </section>

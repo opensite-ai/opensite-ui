@@ -86,14 +86,14 @@ export interface BlogCardsTaglineCtaProps {
 }
 
 export function BlogCardsTaglineCta({
-  badge = "Latest Updates",
+  badge,
   heading,
   description,
   ctaAction,
   ctaSlot,
   posts,
   postsSlot,
-  readMoreText = "Read more",
+  readMoreText,
   className,
   containerClassName,
   headerClassName,
@@ -105,7 +105,7 @@ export function BlogCardsTaglineCta({
   postCardClassName,
   optixFlowConfig,
 }: BlogCardsTaglineCtaProps): React.JSX.Element {
-  const renderCtaAction = () => {
+  const ctaActionContent = React.useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
 
@@ -124,9 +124,9 @@ export function BlogCardsTaglineCta({
         )}
       </Pressable>
     );
-  };
+  }, [ctaSlot, ctaAction, ctaClassName]);
 
-  const renderPosts = () => {
+  const postsContent = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
 
@@ -169,22 +169,24 @@ export function BlogCardsTaglineCta({
             )}
           </CardContent>
           <CardFooter>
-            <Pressable
-              href={postHref}
-              className="flex items-center text-foreground hover:underline"
-            >
-              {readMoreText}
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={16}
-                className="ml-2"
-              />
-            </Pressable>
+            {readMoreText && (
+              <Pressable
+                href={postHref}
+                className="flex items-center text-foreground hover:underline"
+              >
+                {readMoreText}
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={16}
+                  className="ml-2"
+                />
+              </Pressable>
+            )}
           </CardFooter>
         </Card>
       );
     });
-  };
+  }, [postsSlot, posts, readMoreText, postCardClassName, optixFlowConfig]);
 
   return (
     <section className={cn("py-32", className)}>
@@ -217,10 +219,10 @@ export function BlogCardsTaglineCta({
               <div className={descriptionClassName}>{description}</div>
             )
           )}
-          {renderCtaAction()}
+          {ctaActionContent}
         </div>
         <div className={cn("grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8", postsClassName)}>
-          {renderPosts()}
+          {postsContent}
         </div>
       </div>
     </section>
