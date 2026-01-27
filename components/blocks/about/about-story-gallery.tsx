@@ -4,7 +4,9 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface GalleryImageItem {
   src: string;
@@ -53,6 +55,22 @@ export interface AboutStoryGalleryProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutStoryGallery({
@@ -66,6 +84,10 @@ export function AboutStoryGallery({
   imagesSlot,
   imagesClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutStoryGalleryProps): React.JSX.Element {
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -90,9 +112,15 @@ export function AboutStoryGallery({
   }, [imagesSlot, images, imagesClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className="mx-auto max-w-3xl text-center">
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
+      <div className="mx-auto max-w-3xl text-center">
           {title && (
             typeof title === "string" ? (
               <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl", titleClassName)}>
@@ -113,8 +141,7 @@ export function AboutStoryGallery({
           )}
         </div>
 
-        {imagesContent}
-      </div>
-    </section>
+      {imagesContent}
+    </Section>
   );
 }

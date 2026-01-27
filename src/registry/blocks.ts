@@ -316,10 +316,15 @@ import { FaqSplitHero } from "../../components/blocks/faq/faq-split-hero";
 
 // New About components
 import { AboutSplitHero } from "../../components/blocks/about/about-split-hero";
+import type { AboutSplitHeroProps } from "../../components/blocks/about/about-split-hero";
 import { AboutMissionPrinciples } from "../../components/blocks/about/about-mission-principles";
+import type { AboutMissionPrinciplesProps } from "../../components/blocks/about/about-mission-principles";
 import { AboutExpandableValues } from "../../components/blocks/about/about-expandable-values";
+import type { AboutExpandableValuesProps } from "../../components/blocks/about/about-expandable-values";
 import { AboutCultureTabs } from "../../components/blocks/about/about-culture-tabs";
+import type { AboutCultureTabsProps } from "../../components/blocks/about/about-culture-tabs";
 import { CommunityInitiatives } from "../../components/blocks/about/community-initiatives";
+import type { CommunityInitiativesProps } from "../../components/blocks/about/community-initiatives";
 
 // New Feature components
 import { FeatureAnimatedCarousel } from "../../components/blocks/features/feature-animated-carousel";

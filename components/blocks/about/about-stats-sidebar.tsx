@@ -3,7 +3,9 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
-import type { FeatureItem, StatItem } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { FeatureItem, StatItem, SectionBackground, SectionSpacing } from "../../../src/types";
 
 interface ExtendedStatItem extends StatItem {
   description?: React.ReactNode;
@@ -62,6 +64,22 @@ export interface AboutStatsSidebarProps {
    * Additional CSS classes for the features container
    */
   featuresClassName?: string;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutStatsSidebar({
@@ -78,6 +96,10 @@ export function AboutStatsSidebar({
   descriptionClassName,
   statsClassName,
   featuresClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutStatsSidebarProps): React.JSX.Element {
   const statsContent = useMemo(() => {
     if (statsSlot) return statsSlot;
@@ -145,8 +167,14 @@ export function AboutStatsSidebar({
   }, [featuresSlot, features, featuresClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className="grid gap-12 lg:grid-cols-3">
           <div className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}>
             {title && (
@@ -172,7 +200,6 @@ export function AboutStatsSidebar({
             {(featuresSlot || (features && features.length > 0)) && featuresContent}
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

@@ -4,7 +4,9 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutStoryHeroProps {
   /**
@@ -73,6 +75,22 @@ export interface AboutStoryHeroProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutStoryHero({
@@ -91,6 +109,10 @@ export function AboutStoryHero({
   teamInfoClassName,
   imageClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutStoryHeroProps): React.JSX.Element {
   const teamInfoContent = useMemo(() => {
     if (teamInfoSlot) return teamInfoSlot;
@@ -113,9 +135,15 @@ export function AboutStoryHero({
   }, [teamInfoSlot, teamInfo, teamInfoClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
-        <div className={cn("grid gap-12 lg:grid-cols-2 lg:items-center", contentClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
+      <div className={cn("grid gap-12 lg:grid-cols-2 lg:items-center", contentClassName)}>
           <div>
             {subtitle && (
               typeof subtitle === "string" ? (
@@ -154,8 +182,7 @@ export function AboutStoryHero({
               optixFlowConfig={optixFlowConfig}
             />
           )}
-        </div>
       </div>
-    </section>
+    </Section>
   );
 }

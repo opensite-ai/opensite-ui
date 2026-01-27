@@ -4,7 +4,9 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutMinimalStoryProps {
   /**
@@ -69,6 +71,22 @@ export interface AboutMinimalStoryProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutMinimalStory({
@@ -85,6 +103,10 @@ export function AboutMinimalStory({
   authorClassName,
   imageClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutMinimalStoryProps): React.JSX.Element {
   const authorContent = useMemo(() => {
     if (authorSlot) return authorSlot;
@@ -113,8 +135,14 @@ export function AboutMinimalStory({
   }, [authorSlot, author, authorClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className={cn("mx-auto max-w-3xl", contentClassName)}>
           {(authorSlot || author) && authorContent}
 
@@ -147,7 +175,6 @@ export function AboutMinimalStory({
             />
           )}
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

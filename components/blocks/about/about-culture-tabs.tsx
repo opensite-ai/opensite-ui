@@ -8,7 +8,9 @@ import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent } from "../../ui/card";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface CultureTestimonial {
   /**
@@ -145,6 +147,22 @@ export interface AboutCultureTabsProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -196,6 +214,10 @@ export function AboutCultureTabs({
   ctaDescriptionClassName,
   actionsClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutCultureTabsProps): React.JSX.Element {
   const resolvedAspects = aspects ?? [];
   const [activeTab, setActiveTab] = React.useState(resolvedAspects[0]?.id || "");
@@ -242,8 +264,14 @@ export function AboutCultureTabs({
   }, [ctaImagesSlot, ctaImages, optixFlowConfig]);
 
   return (
-    <section className={cn("bg-muted/25 py-24", className)}>
-      <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className={cn("mx-auto mb-12 max-w-3xl space-y-4 text-center", headerClassName)}>
           {badgeText && (
             typeof badgeText === "string" ? (
@@ -386,7 +414,6 @@ export function AboutCultureTabs({
           <div className="absolute -left-5 -top-5 h-10 w-10 rounded-full bg-primary/10" />
           <div className="absolute -bottom-5 -right-5 h-10 w-10 rounded-full bg-primary/10" />
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

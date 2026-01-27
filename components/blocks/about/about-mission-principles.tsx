@@ -5,7 +5,9 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutMissionPrincipleItem {
   /**
@@ -107,6 +109,22 @@ export interface AboutMissionPrinciplesProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -152,6 +170,10 @@ export function AboutMissionPrinciples({
   visionClassName,
   className,
   containerClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutMissionPrinciplesProps): React.JSX.Element {
   const missionActionContent = useMemo(() => {
     if (missionActionSlot) return missionActionSlot;
@@ -239,8 +261,14 @@ export function AboutMissionPrinciples({
   }, [visionActionSlot, visionAction]);
 
   return (
-    <section className={cn("py-24", className)}>
-      <div className={cn("container mx-auto px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
           <div className="space-y-8">
             {badgeText && (
@@ -300,7 +328,6 @@ export function AboutMissionPrinciples({
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

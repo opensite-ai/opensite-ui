@@ -427,3 +427,12 @@ export interface MediaHoverCtasProps {
     compression?: number;
   };
 }
+
+/**
+ * About Block Prop Types - Re-exported from component files
+ */
+export type { AboutSplitHeroProps } from "../../components/blocks/about/about-split-hero";
+export type { AboutMissionPrinciplesProps } from "../../components/blocks/about/about-mission-principles";
+export type { AboutExpandableValuesProps } from "../../components/blocks/about/about-expandable-values";
+export type { CommunityInitiativesProps } from "../../components/blocks/about/community-initiatives";
+export type { AboutCultureTabsProps } from "../../components/blocks/about/about-culture-tabs";

@@ -148,8 +148,8 @@ export function AboutNetworkSpotlight({
   actionsClassName,
   imageClassName,
   spotlightCardClassName,
-  background = "dark",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -186,7 +186,7 @@ export function AboutNetworkSpotlight({
         ...pressableProps
       } = action;
       return (
-        <Pressable key={index} className={actionClassName} {...pressableProps}>
+        <Pressable key={index} className={actionClassName} asButton {...pressableProps}>
           {children ?? (
             <>
               {icon}

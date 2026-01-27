@@ -4,6 +4,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AlternatingBlockSection {
@@ -63,6 +64,14 @@ export interface AlternatingBlocksProps {
    * Additional CSS classes for the media column
    */
   sectionMediaClassName?: string;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -91,14 +100,16 @@ export function AlternatingBlocks({
   sectionsSlot,
   title,
   subtitle,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   className,
   contentClassName,
   sectionsClassName,
   sectionItemClassName,
   sectionContentClassName,
   sectionMediaClassName,
+  pattern,
+  patternOpacity,
 }: AlternatingBlocksProps): React.JSX.Element {
   const sectionsContent = useMemo(() => {
     if (sectionsSlot) return sectionsSlot;
@@ -138,6 +149,8 @@ export function AlternatingBlocks({
       subtitle={typeof subtitle === "string" ? subtitle : undefined}
       background={background}
       spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={className}
     >
       {(title && typeof title !== "string") || (subtitle && typeof subtitle !== "string") ? (

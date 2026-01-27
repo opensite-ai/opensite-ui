@@ -5,7 +5,9 @@ import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutExpandableValueItem {
   /**
@@ -115,6 +117,22 @@ export interface AboutExpandableValuesProps {
    * Additional CSS classes for the actions container
    */
   actionsClassName?: string;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -164,6 +182,10 @@ export function AboutExpandableValues({
   ctaHeadingClassName,
   ctaDescriptionClassName,
   actionsClassName,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutExpandableValuesProps): React.JSX.Element {
   const [expandedValue, setExpandedValue] = React.useState<string | null>(null);
 
@@ -293,8 +315,14 @@ export function AboutExpandableValues({
   }, [valuesSlot, values, valuesClassName, expandedValue, toggleExpand]);
 
   return (
-    <section className={cn("py-24", className)}>
-      <div className={cn("container mx-auto space-y-12 px-4 md:px-6 2xl:max-w-[1400px]", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className={cn("mx-auto max-w-3xl space-y-4 text-center", headerClassName)}>
           {badgeText && (
             typeof badgeText === "string" ? (
@@ -342,7 +370,6 @@ export function AboutExpandableValues({
             {actionsContent}
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

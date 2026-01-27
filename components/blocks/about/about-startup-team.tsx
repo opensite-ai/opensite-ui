@@ -1,17 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface SidebarLinkItem {
   label: React.ReactNode;
-  href: string;
-  isActive?: boolean;
+  value: string;
 }
 
 export interface TeamMemberItem {
@@ -89,6 +90,30 @@ export interface AboutStartupTeamProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
+   * Default active tab value
+   */
+  defaultActiveTab?: string;
+  /**
+   * Callback when tab changes
+   */
+  onTabChange?: (value: string) => void;
 }
 
 export function AboutStartupTeam({
@@ -107,7 +132,22 @@ export function AboutStartupTeam({
   teamMembersSlot,
   teamMembersClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
+  defaultActiveTab,
+  onTabChange,
 }: AboutStartupTeamProps): React.JSX.Element {
+  const [activeTab, setActiveTab] = useState<string>(
+    defaultActiveTab || (sidebarLinks && sidebarLinks.length > 0 ? sidebarLinks[0].value : "")
+  );
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    onTabChange?.(value);
+  };
+
   const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
     if (!sidebarLinks || sidebarLinks.length === 0) return null;
@@ -117,10 +157,11 @@ export function AboutStartupTeam({
         {sidebarLinks.map((link, idx) => (
           <Pressable
             key={idx}
-            href={link.href}
+            componentType="button"
+            onClick={() => handleTabChange(link.value)}
             className={cn(
-              "block rounded-lg px-4 py-2 text-sm font-medium transition-colors",
-              link.isActive
+              "block w-full text-left rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+              activeTab === link.value
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
@@ -130,7 +171,7 @@ export function AboutStartupTeam({
         ))}
       </nav>
     );
-  }, [sidebarSlot, sidebarLinks]);
+  }, [sidebarSlot, sidebarLinks, activeTab]);
 
   const teamMembersContent = useMemo(() => {
     if (teamMembersSlot) return teamMembersSlot;
@@ -194,8 +235,14 @@ export function AboutStartupTeam({
   }, [teamMembersSlot, teamMembers, teamMembersClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn(containerClassName)}>
         <div className="grid gap-12 lg:grid-cols-4">
           <aside className={cn("lg:sticky lg:top-24 lg:self-start", sidebarClassName)}>
             {sidebarContent}
@@ -234,6 +281,6 @@ export function AboutStartupTeam({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

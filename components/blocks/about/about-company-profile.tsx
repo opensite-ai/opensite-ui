@@ -5,7 +5,9 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig, LogoItem, StatItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, LogoItem, StatItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface BreakoutConfig {
   /**
@@ -136,6 +138,22 @@ export interface AboutCompanyProfileProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutCompanyProfile({
@@ -164,6 +182,10 @@ export function AboutCompanyProfile({
   achievementsTitleClassName,
   achievementsDescriptionClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutCompanyProfileProps): React.JSX.Element {
   const breakoutContent = useMemo(() => {
     if (breakoutSlot) return breakoutSlot;
@@ -226,15 +248,34 @@ export function AboutCompanyProfile({
         )}
         <div className="mt-8 flex flex-wrap justify-center gap-8">
           {companies.map((company, idx) => {
-            const logoSrc = typeof company.src === "string" ? company.src : company.src.light;
+            if (typeof company.src === "string") {
+              return (
+                <div className="flex items-center gap-3" key={idx}>
+                  <Img
+                    src={company.src}
+                    alt={company.alt}
+                    className="h-6 w-auto md:h-8"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                </div>
+              );
+            }
             return (
               <div className="flex items-center gap-3" key={idx}>
                 <Img
-                  src={logoSrc}
+                  src={company.src.light}
                   alt={company.alt}
-                  className="h-6 w-auto md:h-8 dark:invert"
+                  className="h-6 w-auto dark:hidden md:h-8"
                   optixFlowConfig={optixFlowConfig}
                 />
+                {company.src.dark && (
+                  <Img
+                    src={company.src.dark}
+                    alt={company.alt}
+                    className="hidden h-6 w-auto dark:block md:h-8"
+                    optixFlowConfig={optixFlowConfig}
+                  />
+                )}
               </div>
             );
           })}
@@ -264,8 +305,14 @@ export function AboutCompanyProfile({
   }, [achievementsSlot, achievements]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className="mb-14 grid gap-5 text-center md:grid-cols-2 md:text-left">
           {title && (
             typeof title === "string" ? (
@@ -329,7 +376,6 @@ export function AboutCompanyProfile({
             {achievementsContent}
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

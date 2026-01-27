@@ -4,7 +4,9 @@ import * as React from "react";
 import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface TabItem {
   /**
@@ -97,6 +99,22 @@ export interface AboutInteractiveTabsProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutInteractiveTabs({
@@ -117,6 +135,10 @@ export function AboutInteractiveTabs({
   tabContentDescriptionClassName,
   tabContentImageClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutInteractiveTabsProps): React.JSX.Element {
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id ?? "");
 
@@ -183,8 +205,14 @@ export function AboutInteractiveTabs({
   }, [tabsSlot, tabs, tabsContainerClassName, activeTab, activeTabClassName, tabButtonClassName, handleTabChange, activeContent, tabContentClassName, tabContentTitleClassName, tabContentDescriptionClassName, tabContentImageClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
           {title && (
             typeof title === "string" ? (
@@ -205,7 +233,6 @@ export function AboutInteractiveTabs({
         </div>
 
         {(tabsSlot || (tabs && tabs.length > 0)) && tabsContent}
-      </div>
-    </section>
+    </Section>
   );
 }

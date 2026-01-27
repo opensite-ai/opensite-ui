@@ -7,9 +7,9 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
-import { PatternName } from "@/components/ui/pattern-background";
-import { Section } from "@/src";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
+import { PatternName } from "../../ui/pattern-background";
+import { Section } from "../../ui/section";
 
 export interface AboutLocationInfoHeroHours {
   /**
@@ -111,13 +111,17 @@ export interface AboutLocationInfoHeroProps {
    */
   mobileStackOrder?: "content-first" | "images-first";
   /**
-   * Section background color
-   */
-  backgroundColor?: string;
-  /**
    * Accent color for section labels
    */
   accentColor?: string;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
   /**
    * Pattern background key or URL
    */
@@ -165,10 +169,11 @@ export function AboutLocationInfoHero({
   imagesClassName,
   contentPosition = "left",
   mobileStackOrder = "content-first",
-  backgroundColor = "hsl(var(--foreground))",
   accentColor = "hsl(var(--primary))",
+  background,
+  spacing,
   pattern,
-  patternOpacity = 0.12,
+  patternOpacity,
   className,
   containerClassName,
   optixFlowConfig,
@@ -293,12 +298,14 @@ export function AboutLocationInfoHero({
 
   return (
     <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
       className={cn(
-        "relative w-full overflow-hidden py-12 md:py-16 lg:py-20",
+        "relative w-full overflow-hidden",
         className,
       )}
-      style={{ backgroundColor }}
-      pattern={pattern}
     >
       <div className={cn("container relative", containerClassName)}>
         <div

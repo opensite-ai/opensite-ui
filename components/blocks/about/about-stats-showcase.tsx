@@ -4,7 +4,9 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type { OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface ShowcaseImageItem {
   src: string;
@@ -146,6 +148,22 @@ export interface AboutStatsShowcaseProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutStatsShowcase({
@@ -174,6 +192,10 @@ export function AboutStatsShowcase({
   benefitsSlot,
   benefitsClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutStatsShowcaseProps): React.JSX.Element {
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -366,8 +388,14 @@ export function AboutStatsShowcase({
   }, [benefitsSlot, benefits, benefitsTitle, benefitsTitleClassName, benefitsClassName, optixFlowConfig]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("flex flex-col gap-28", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className="container flex flex-col gap-10 text-center md:gap-24">
           <div className="mx-auto flex max-w-3xl flex-col gap-6">
             {title && (
@@ -403,7 +431,6 @@ export function AboutStatsShowcase({
         </div>
         {logosContent}
         {benefitsContent}
-      </div>
-    </section>
+    </Section>
   );
 }

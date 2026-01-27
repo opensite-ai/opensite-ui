@@ -5,7 +5,9 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig, SocialLinkItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, SocialLinkItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutDeveloperProfileProps {
   /**
@@ -103,6 +105,22 @@ export interface AboutDeveloperProfileProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutDeveloperProfile({
@@ -129,6 +147,10 @@ export function AboutDeveloperProfile({
   socialLinksClassName,
   actionsClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutDeveloperProfileProps): React.JSX.Element {
   const socialLinksContent = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
@@ -186,8 +208,14 @@ export function AboutDeveloperProfile({
   }, [actionsSlot, actions]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className={cn("mx-auto max-w-4xl", contentClassName)}>
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
             {avatar && (
@@ -254,7 +282,6 @@ export function AboutDeveloperProfile({
             </div>
           )}
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

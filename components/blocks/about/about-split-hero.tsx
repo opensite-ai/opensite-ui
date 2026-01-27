@@ -7,7 +7,9 @@ import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutSplitHeroProps {
   /**
@@ -78,6 +80,22 @@ export interface AboutSplitHeroProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -117,6 +135,10 @@ export function AboutSplitHero({
   className,
   containerClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutSplitHeroProps): React.JSX.Element {
   const ctaContent = useMemo(() => {
     if (ctaSlot) return ctaSlot;
@@ -138,8 +160,14 @@ export function AboutSplitHero({
   }, [ctaSlot, ctaAction, ctaClassName]);
 
   return (
-    <section className={cn("dark flex", className)}>
-      <div className={cn("flex w-full items-center justify-center bg-background lg:w-1/2", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className="container my-10 flex w-[500px] flex-col gap-24">
           {(brandText || brandHighlight) && (
             <h1 className={cn("text-4xl text-foreground", brandTextClassName)}>
@@ -169,7 +197,6 @@ export function AboutSplitHero({
             {ctaContent}
           </div>
         </div>
-      </div>
       {imageSrc && (
         <Img
           src={imageSrc}
@@ -178,6 +205,6 @@ export function AboutSplitHero({
           optixFlowConfig={optixFlowConfig}
         />
       )}
-    </section>
+    </Section>
   );
 }

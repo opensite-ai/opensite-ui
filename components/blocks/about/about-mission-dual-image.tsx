@@ -5,7 +5,9 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutMissionDualImageProps {
   /**
@@ -90,6 +92,22 @@ export interface AboutMissionDualImageProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutMissionDualImage({
@@ -112,6 +130,10 @@ export function AboutMissionDualImage({
   secondaryImageClassName,
   actionsClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutMissionDualImageProps): React.JSX.Element {
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -139,8 +161,14 @@ export function AboutMissionDualImage({
   }, [actionsSlot, actions]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className={cn("grid gap-16 lg:grid-cols-2", contentClassName)}>
           <div className="flex flex-col justify-center">
             <div className="mb-12">
@@ -209,7 +237,6 @@ export function AboutMissionDualImage({
             )}
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

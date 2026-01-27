@@ -48,6 +48,11 @@ export type { PressableProps } from "../lib/Pressable";
 
 // Content-specific blocks
 export { AlternatingBlocks } from "../components/blocks/about/alternating-blocks";
+export { AboutSplitHero } from "../components/blocks/about/about-split-hero";
+export { AboutMissionPrinciples } from "../components/blocks/about/about-mission-principles";
+export { AboutExpandableValues } from "../components/blocks/about/about-expandable-values";
+export { CommunityInitiatives } from "../components/blocks/about/community-initiatives";
+export { AboutCultureTabs } from "../components/blocks/about/about-culture-tabs";
 export { MediaHoverCtas } from "../components/blocks/cta/media-hover-ctas";
 
 // Footer blocks
@@ -77,6 +82,11 @@ export type {
   PageHeroBannerProps,
   AlternatingBlocksProps,
   AlternatingBlockSection,
+  AboutSplitHeroProps,
+  AboutMissionPrinciplesProps,
+  AboutExpandableValuesProps,
+  CommunityInitiativesProps,
+  AboutCultureTabsProps,
   MediaHoverCtasProps,
   MediaHoverCtaItem,
   MediaHoverCtaType,

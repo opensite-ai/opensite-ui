@@ -5,7 +5,9 @@ import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
-import type { ActionConfig, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface GalleryImageItem {
   src: string;
@@ -113,6 +115,22 @@ export interface AboutVisionGalleryProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 /**
@@ -161,6 +179,10 @@ export function AboutVisionGallery({
   ctaSlot,
   ctaClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutVisionGalleryProps): React.JSX.Element {
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
@@ -203,8 +225,14 @@ export function AboutVisionGallery({
   const hasCtaSection = ctaTitle || ctaSlot || ctaAction;
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         {(title || subtitle) && (
           <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-28 text-center">
             {title && (
@@ -285,7 +313,6 @@ export function AboutVisionGallery({
             {ctaContent}
           </div>
         )}
-      </div>
-    </section>
+    </Section>
   );
 }

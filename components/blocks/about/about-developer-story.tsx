@@ -6,7 +6,9 @@ import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
-import type { ActionConfig, StatItem, LogoItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { ActionConfig, StatItem, LogoItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutDeveloperStoryProps {
   /**
@@ -100,6 +102,22 @@ export interface AboutDeveloperStoryProps {
    * Optional Optix Flow configuration for image optimization
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Pattern background key or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutDeveloperStory({
@@ -125,6 +143,10 @@ export function AboutDeveloperStory({
   storyImage,
   storyImageClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutDeveloperStoryProps): React.JSX.Element {
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
@@ -156,15 +178,34 @@ export function AboutDeveloperStory({
     return (
       <div className={cn("mt-20 flex flex-wrap items-center justify-center gap-8 opacity-60", logosClassName)}>
         {logos.map((logo, idx) => {
-          const logoSrc = typeof logo.src === "string" ? logo.src : logo.src.light;
+          if (typeof logo.src === "string") {
+            return (
+              <Img
+                key={idx}
+                src={logo.src}
+                alt={logo.alt}
+                className="h-8 w-auto grayscale"
+                optixFlowConfig={optixFlowConfig}
+              />
+            );
+          }
           return (
-            <Img
-              key={idx}
-              src={logoSrc}
-              alt={logo.alt}
-              className="h-8 w-auto grayscale"
-              optixFlowConfig={optixFlowConfig}
-            />
+            <div key={idx} className="h-8">
+              <Img
+                src={logo.src.light}
+                alt={logo.alt}
+                className="h-8 w-auto grayscale dark:hidden"
+                optixFlowConfig={optixFlowConfig}
+              />
+              {logo.src.dark && (
+                <Img
+                  src={logo.src.dark}
+                  alt={logo.alt}
+                  className="hidden h-8 w-auto grayscale dark:block"
+                  optixFlowConfig={optixFlowConfig}
+                />
+              )}
+            </div>
           );
         })}
       </div>
@@ -200,8 +241,14 @@ export function AboutDeveloperStory({
   }, [statsSlot, stats, statsClassName]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+      containerClassName={containerClassName}
+    >
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 text-center">
           {title && (
             typeof title === "string" ? (
@@ -255,7 +302,6 @@ export function AboutDeveloperStory({
             />
           )}
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

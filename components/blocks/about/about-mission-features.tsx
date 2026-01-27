@@ -4,7 +4,9 @@ import * as React from "react";
 import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
-import type { FeatureItem, OptixFlowConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type { FeatureItem, OptixFlowConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 
 export interface AboutMissionFeaturesProps {
   /**
@@ -101,6 +103,22 @@ export interface AboutMissionFeaturesProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Section background variant
+   */
+  background?: SectionBackground;
+  /**
+   * Section spacing variant
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern
+   */
+  pattern?: PatternName;
+  /**
+   * Pattern opacity (0-1)
+   */
+  patternOpacity?: number;
 }
 
 export function AboutMissionFeatures({
@@ -126,6 +144,10 @@ export function AboutMissionFeatures({
   featuresDescriptionClassName,
   featuresClassName,
   optixFlowConfig,
+  background,
+  spacing,
+  pattern,
+  patternOpacity,
 }: AboutMissionFeaturesProps): React.JSX.Element {
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
@@ -133,7 +155,7 @@ export function AboutMissionFeatures({
 
     return features.map((feature, idx) => (
       <div className="flex flex-col" key={idx}>
-        <div className={cn("mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent", feature.iconBgClass)}>
+        <div className={cn("mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground", feature.iconBgClass)}>
           {feature.icon}
         </div>
         {feature.title && (
@@ -155,8 +177,14 @@ export function AboutMissionFeatures({
   }, [featuresSlot, features]);
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className={cn("container flex flex-col gap-16 lg:gap-28", containerClassName)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn(className)}
+    >
+      <div className={cn("flex flex-col gap-16 lg:gap-28", containerClassName)}>
         <div className="flex flex-col gap-4 lg:gap-8">
           {title && (
             typeof title === "string" ? (
@@ -185,31 +213,37 @@ export function AboutMissionFeatures({
             />
           )}
           <div
-            className={cn("flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10", missionSectionClassName)}
-            style={
-              missionBackgroundImage
-                ? {
-                    backgroundImage: `url(${missionBackgroundImage.src})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }
-                : undefined
-            }
+            className={cn("relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl bg-muted p-10", missionSectionClassName)}
           >
-            {missionLabel && (
-              typeof missionLabel === "string" ? (
-                <p className={cn("text-sm font-semibold text-white", missionLabelClassName)}>{missionLabel}</p>
-              ) : (
-                <div className={missionLabelClassName}>{missionLabel}</div>
-              )
+            {missionBackgroundImage && (
+              <>
+                <Img
+                  src={missionBackgroundImage.src}
+                  alt={missionBackgroundImage.alt}
+                  className="absolute inset-0 size-full object-cover"
+                  optixFlowConfig={optixFlowConfig}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+              </>
             )}
-            {missionText && (
-              typeof missionText === "string" ? (
-                <p className={cn("text-lg font-medium text-white", missionTextClassName)}>{missionText}</p>
-              ) : (
-                <div className={missionTextClassName}>{missionText}</div>
-              )
-            )}
+            <div className="relative z-10">
+              {missionLabel && (
+                typeof missionLabel === "string" ? (
+                  <p className={cn("text-sm font-semibold text-white", missionLabelClassName)}>{missionLabel}</p>
+                ) : (
+                  <div className={missionLabelClassName}>{missionLabel}</div>
+                )
+              )}
+            </div>
+            <div className="relative z-10">
+              {missionText && (
+                typeof missionText === "string" ? (
+                  <p className={cn("text-lg font-medium text-white", missionTextClassName)}>{missionText}</p>
+                ) : (
+                  <div className={missionTextClassName}>{missionText}</div>
+                )
+              )}
+            </div>
           </div>
         </div>
         <div className="flex flex-col gap-6 md:gap-20">
@@ -238,6 +272,6 @@ export function AboutMissionFeatures({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
