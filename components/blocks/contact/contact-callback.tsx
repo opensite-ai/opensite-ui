@@ -13,7 +13,13 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 const TIME_SLOTS = [
   "9:00 AM",
@@ -128,6 +134,22 @@ export interface ContactCallbackProps {
    */
   footerClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Optional form submission configuration.
    *
    * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
@@ -198,22 +220,6 @@ export interface ContactCallbackProps {
  * />
  * ```
  */
-const defaultFooter = (
-  <>
-    Need immediate assistance?{" "}
-    <Pressable href="#" className="text-primary hover:underline">
-      Start a live chat
-    </Pressable>{" "}
-    or call us at{" "}
-    <Pressable
-      href="tel:+15551234567"
-      className="text-primary hover:underline"
-    >
-      +1 (555) 123-4567
-    </Pressable>
-  </>
-);
-
 export function ContactCallback({
   heading,
   description,
@@ -233,6 +239,10 @@ export function ContactCallback({
   formClassName,
   submitClassName,
   footerClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity = 0.1,
   formConfig,
   onSubmit,
   onSuccess,
@@ -303,7 +313,7 @@ export function ContactCallback({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const renderActions = () => {
+  const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -327,9 +337,9 @@ export function ContactCallback({
       });
     }
     return null;
-  };
+  }, [actionsSlot, actions]);
 
-  const renderFooter = () => {
+  const footerContent = React.useMemo(() => {
     if (footerSlot) return footerSlot;
     if (footer) {
       return typeof footer === "string" ? (
@@ -343,10 +353,16 @@ export function ContactCallback({
       );
     }
     return null;
-  };
+  }, [footerSlot, footer, footerClassName]);
 
   return (
-    <section className={cn("pb-12", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("pb-12", className)}
+    >
       <div className={cn("mx-auto max-w-4xl px-4", containerClassName)}>
         <div className={cn("mb-10 text-center", headerClassName)}>
           {heading && (
@@ -584,7 +600,7 @@ export function ContactCallback({
               </div>
 
               {actionsSlot || (actions && actions.length > 0) ? (
-                renderActions()
+                actionsContent
               ) : (
                 <Pressable
                   componentType="button"
@@ -602,9 +618,9 @@ export function ContactCallback({
           </CardContent>
         </Card>
 
-        {renderFooter()}
+        {footerContent}
       </div>
-    </section>
+    </Section>
   );
 }
 

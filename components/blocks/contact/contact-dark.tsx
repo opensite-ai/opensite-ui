@@ -13,7 +13,13 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface ContactDarkFormValues {
   firstName: string;
@@ -148,7 +154,23 @@ export interface ContactDarkProps {
   /**
    * Additional CSS classes for the social links container
    */
-  socialLinksClassName?: string;
+  socialLinksClassName?: string;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /**
    * Optional form submission configuration.
    *
@@ -245,6 +267,11 @@ export function ContactDark({
   infoPanelClassName,
   contactOptionsClassName,
   socialLinksClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity = 0.1,
+
   formConfig,
   onSubmit,
   onSuccess,
@@ -308,7 +335,7 @@ export function ContactDark({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const renderActions = () => {
+  const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -332,9 +359,9 @@ export function ContactDark({
       });
     }
     return null;
-  };
+  }, [actionsSlot, actions]);
 
-  const renderContactOptions = () => {
+  const contactOptionsContent = React.useMemo(() => {
     if (contactOptionsSlot) return contactOptionsSlot;
     if (contactOptions && contactOptions.length > 0) {
       return contactOptions.map((option, key) => (
@@ -358,9 +385,9 @@ export function ContactDark({
       ));
     }
     return null;
-  };
+  }, [contactOptionsSlot, contactOptions]);
 
-  const renderSocialLinks = () => {
+  const socialLinksContent = React.useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (socialLinks && socialLinks.length > 0) {
       return socialLinks.map((social, key) => (
@@ -375,10 +402,16 @@ export function ContactDark({
       ));
     }
     return null;
-  };
+  }, [socialLinksSlot, socialLinks]);
 
   return (
-    <section className={cn("py-12", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("py-12", className)}
+    >
       <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
         <div className={cn("mb-10 text-center", headerClassName)}>
           {heading && (
@@ -470,7 +503,7 @@ export function ContactDark({
                 )}
               </Field>
               {actionsSlot || (actions && actions.length > 0) ? (
-                renderActions()
+                actionsContent
               ) : (
                 <Pressable
                   componentType="button"
@@ -505,16 +538,16 @@ export function ContactDark({
                 )
               )}
               <div className={cn("space-y-4", contactOptionsClassName)}>
-                {renderContactOptions()}
+                {contactOptionsContent}
               </div>
             </div>
             <div className={cn("mt-8 flex items-center gap-4", socialLinksClassName)}>
-              {renderSocialLinks()}
+              {socialLinksContent}
             </div>
           </div>
         </Card>
       </div>
-    </section>
+    </Section>
   );
 }
 

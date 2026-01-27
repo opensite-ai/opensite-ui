@@ -12,7 +12,13 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface ContactMinimalFormValues {
   name: string;
@@ -86,6 +92,22 @@ export interface ContactMinimalProps {
    */
   footerClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Form submission configuration
    */
   formConfig?: PageSpeedFormConfig;
@@ -115,15 +137,6 @@ export interface ContactMinimalProps {
  * />
  * ```
  */
-const defaultFooter = (
-  <>
-    By submitting this form, you agree to our{" "}
-    <a href="#" className="text-primary hover:underline">
-      Privacy Policy
-    </a>
-  </>
-);
-
 export function ContactMinimal({
   heading,
   description,
@@ -141,6 +154,11 @@ export function ContactMinimal({
   formClassName,
   submitClassName,
   footerClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity = 0.1,
+
   formConfig,
   onSubmit,
   onSuccess,
@@ -202,7 +220,7 @@ export function ContactMinimal({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const renderActions = () => {
+  const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -226,9 +244,9 @@ export function ContactMinimal({
       });
     }
     return null;
-  };
+  }, [actionsSlot, actions]);
 
-  const renderFooter = () => {
+  const footerContent = React.useMemo(() => {
     if (footerSlot) return footerSlot;
     if (footer) {
       return typeof footer === "string" ? (
@@ -242,10 +260,16 @@ export function ContactMinimal({
       );
     }
     return null;
-  };
+  }, [footerSlot, footer, footerClassName]);
 
   return (
-    <section className={cn("py-12", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("py-12", className)}
+    >
       <div className={cn("mx-auto w-full max-w-md px-4", containerClassName)}>
         <div className={cn("mb-10 text-center", headerClassName)}>
           {heading && (
@@ -322,7 +346,7 @@ export function ContactMinimal({
           </Field>
 
           {actionsSlot || (actions && actions.length > 0) ? (
-            renderActions()
+            actionsContent
           ) : (
             <Pressable
               componentType="button"
@@ -338,9 +362,9 @@ export function ContactMinimal({
           )}
         </Form>
 
-        {renderFooter()}
+        {footerContent}
       </div>
-    </section>
+    </Section>
   );
 }
 

@@ -12,7 +12,13 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import { type ActionConfig } from "../../../src/types/blocks";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface ContactVolunteerFormValues {
   first_name: string;
@@ -52,7 +58,23 @@ export interface ContactVolunteerProps {
   /** Additional CSS classes for the form */
   formClassName?: string;
   /** Additional CSS classes for the submit button */
-  submitClassName?: string;
+  submitClassName?: string;  /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+
   /** Form configuration for PageSpeed forms */
   formConfig?: PageSpeedFormConfig;
   /** Custom submit handler */
@@ -90,6 +112,11 @@ export function ContactVolunteer({
   cardContentClassName,
   formClassName,
   submitClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity = 0.1,
+
   formConfig,
   onSubmit,
   onSuccess,
@@ -155,7 +182,7 @@ export function ContactVolunteer({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const renderActions = () => {
+  const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -168,10 +195,16 @@ export function ContactVolunteer({
       });
     }
     return null;
-  };
+  }, [actionsSlot, actions]);
 
   return (
-    <section className={cn("py-12", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("py-12", className)}
+    >
       <div className={cn("mx-auto max-w-4xl px-4", containerClassName)}>
         <div className={cn("mb-10 text-center", headerClassName)}>
           <h2 className={cn("mb-3 text-3xl font-bold tracking-tight", headingClassName)}>{heading}</h2>
@@ -267,7 +300,7 @@ export function ContactVolunteer({
               </Field>
 
               {actionsSlot || (actions && actions.length > 0) ? (
-                renderActions()
+                actionsContent
               ) : (
                 <Pressable
                   componentType="button"
@@ -285,7 +318,7 @@ export function ContactVolunteer({
           </CardContent>
         </Card>
       </div>
-    </section>
+    </Section>
   );
 }
 

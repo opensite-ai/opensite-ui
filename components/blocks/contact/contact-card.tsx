@@ -14,7 +14,13 @@ import {
   submitPageSpeedForm,
   type PageSpeedFormConfig,
 } from "../../../lib/forms";
-import type { ActionConfig } from "../../../src/types";
+import { Section } from "../../ui/section";
+import type { PatternName } from "../../ui/pattern-background";
+import type {
+  ActionConfig,
+  SectionBackground,
+  SectionSpacing,
+} from "../../../src/types";
 
 interface ContactCardFormValues {
   firstName: string;
@@ -117,6 +123,22 @@ export interface ContactCardProps {
    */
   contactOptionsClassName?: string;
   /**
+   * Background style for the section
+   */
+  background?: SectionBackground;
+  /**
+   * Vertical spacing for the section
+   */
+  spacing?: SectionSpacing;
+  /**
+   * Optional background pattern name or URL
+   */
+  pattern?: PatternName | undefined;
+  /**
+   * Pattern overlay opacity (0-1)
+   */
+  patternOpacity?: number;
+  /**
    * Optional form submission configuration.
    *
    * **Universal Usage**: Works with ANY REST API endpoint. Simply provide an `endpoint` URL
@@ -207,6 +229,10 @@ export function ContactCard({
   headingClassName,
   descriptionClassName,
   contactOptionsClassName,
+  background = "white",
+  spacing = "xl",
+  pattern,
+  patternOpacity = 0.1,
   formConfig,
   onSubmit,
   onSuccess,
@@ -273,7 +299,7 @@ export function ContactCard({
   const formMethod =
     formConfig?.method?.toLowerCase() === "get" ? "get" : "post";
 
-  const renderActions = () => {
+  const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -297,9 +323,9 @@ export function ContactCard({
       });
     }
     return null;
-  };
+  }, [actionsSlot, actions]);
 
-  const renderContactOptions = () => {
+  const contactOptionsContent = React.useMemo(() => {
     if (contactOptionsSlot) return contactOptionsSlot;
     if (contactOptions && contactOptions.length > 0) {
       return contactOptions.map((option, key) => (
@@ -318,10 +344,16 @@ export function ContactCard({
       ));
     }
     return null;
-  };
+  }, [contactOptionsSlot, contactOptions]);
 
   return (
-    <section className={cn("py-12", className)}>
+    <Section
+      background={background}
+      spacing={spacing}
+      pattern={pattern}
+      patternOpacity={patternOpacity}
+      className={cn("py-12", className)}
+    >
       <div className={cn("mx-auto w-full max-w-4xl px-4", containerClassName)}>
         <div className="grid items-start gap-10 lg:grid-cols-2">
           <Card className={cn("p-6 lg:p-8", cardClassName)}>
@@ -423,7 +455,7 @@ export function ContactCard({
                 )}
               </Field>
               {actionsSlot || (actions && actions.length > 0) ? (
-                renderActions()
+                actionsContent
               ) : (
                 <Pressable
                   componentType="button"
@@ -459,12 +491,12 @@ export function ContactCard({
               )
             )}
             <div className={cn("mt-10 space-y-4", contactOptionsClassName)}>
-              {renderContactOptions()}
+              {contactOptionsContent}
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

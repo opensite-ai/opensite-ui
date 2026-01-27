@@ -87,7 +87,7 @@ export function ContactFloatingBanner({
   messageClassName,
   badgeClassName,
 }: ContactFloatingBannerProps): React.JSX.Element {
-  const renderActions = () => {
+  const actionsContent = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => {
@@ -111,7 +111,7 @@ export function ContactFloatingBanner({
       });
     }
     return null;
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <div className={cn("container relative mx-auto py-24 lg:py-32", className)}>
@@ -130,7 +130,7 @@ export function ContactFloatingBanner({
             {message}
           </p>
           {actionsSlot || actions ? (
-            renderActions()
+            actionsContent
           ) : (
             <Pressable
               href={buttonHref}
