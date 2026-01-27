@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -293,7 +294,7 @@ export function LinkPageBentoLayout({
   footerClassName,
   theme = "light",
   background,
-  spacing = "none",
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -314,7 +315,7 @@ export function LinkPageBentoLayout({
   const featuredLinks = (links ?? []).filter((link) => link.featured);
   const regularLinks = (links ?? []).filter((link) => !link.featured);
 
-  const renderSocialLinks = () => {
+  const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -356,9 +357,9 @@ export function LinkPageBentoLayout({
         })}
       </div>
     );
-  };
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
 
-  const renderFeaturedLinks = () => {
+  const renderFeaturedLinks = useMemo(() => {
     if (featuredLinksSlot) return featuredLinksSlot;
     if (!featuredLinks || featuredLinks.length === 0) return null;
 
@@ -487,9 +488,9 @@ export function LinkPageBentoLayout({
         </Pressable>
       );
     });
-  };
+  }, [featuredLinksSlot, featuredLinks, isDark, featuredLinkClassName, featuredLinkImageClassName, optixFlowConfig, featuredLinkOverlayClassName, featuredLinkIconClassName, featuredLinkLabelClassName, featuredLinkDescriptionClassName]);
 
-  const renderRegularLinks = () => {
+  const renderRegularLinks = useMemo(() => {
     if (regularLinksSlot) return regularLinksSlot;
     if (!regularLinks || regularLinks.length === 0) return null;
 
@@ -571,9 +572,9 @@ export function LinkPageBentoLayout({
         </Pressable>
       );
     });
-  };
+  }, [regularLinksSlot, regularLinks, isDark, regularLinkClassName, regularLinkIconWrapperClassName, regularLinkIconClassName, regularLinkLabelClassName]);
 
-  const renderLinks = () => {
+  const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -584,19 +585,19 @@ export function LinkPageBentoLayout({
       <div className={cn("space-y-3", linksClassName)}>
         {hasFeatured && (
           <div className={cn("grid grid-cols-2 gap-3", featuredLinksClassName)}>
-            {renderFeaturedLinks()}
+            {renderFeaturedLinks}
           </div>
         )}
         {hasRegular && (
           <div className={cn("grid grid-cols-2 gap-3", regularLinksClassName)}>
-            {renderRegularLinks()}
+            {renderRegularLinks}
           </div>
         )}
       </div>
     );
-  };
+  }, [linksSlot, links, linksClassName, featuredLinksSlot, featuredLinks, featuredLinksClassName, renderFeaturedLinks, regularLinksSlot, regularLinks, regularLinksClassName, renderRegularLinks]);
 
-  const renderProfile = () => {
+  const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
 
     return (
@@ -654,12 +655,12 @@ export function LinkPageBentoLayout({
             ))}
         </div>
 
-        {renderSocialLinks()}
+        {renderSocialLinks}
       </div>
     );
-  };
+  }, [profileSlot, resolvedAvatar, isDark, avatarClassName, optixFlowConfig, name, nameClassName, bio, bioClassName, renderSocialLinks, headerClassName]);
 
-  const renderFooter = () => {
+  const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
 
     if (!footerAction) return null;
@@ -698,7 +699,7 @@ export function LinkPageBentoLayout({
         )}
       </Pressable>
     );
-  };
+  }, [footerSlot, footerAction, isDark, footerClassName]);
 
   return (
     <Section
@@ -716,9 +717,9 @@ export function LinkPageBentoLayout({
         )}
       >
         <div className={cn("w-full max-w-lg space-y-6", contentClassName)}>
-          {renderProfile()}
-          {renderLinks()}
-          <div className="pt-4">{renderFooter()}</div>
+          {renderProfile}
+          {renderLinks}
+          <div className="pt-4">{renderFooter}</div>
         </div>
       </div>
     </Section>

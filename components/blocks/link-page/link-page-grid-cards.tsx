@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -242,7 +243,7 @@ export function LinkPageGridCards({
   footerClassName,
   theme = "light",
   background,
-  spacing = "none",
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -260,7 +261,7 @@ export function LinkPageGridCards({
         }
       : undefined);
 
-  const renderProfile = () => {
+  const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
 
     return (
@@ -319,9 +320,9 @@ export function LinkPageGridCards({
         </div>
       </div>
     );
-  };
+  }, [profileSlot, resolvedAvatar, isDark, avatarClassName, optixFlowConfig, name, nameClassName, bio, bioClassName, headerClassName]);
 
-  const renderSocialLinks = () => {
+  const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -368,9 +369,9 @@ export function LinkPageGridCards({
         })}
       </div>
     );
-  };
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
 
-  const renderLinks = () => {
+  const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -483,9 +484,9 @@ export function LinkPageGridCards({
         })}
       </div>
     );
-  };
+  }, [linksSlot, links, columns, gridClassName, cardIconClassName, isDark, cardClassName, cardIconWrapperClassName, cardLabelClassName, cardDescriptionClassName]);
 
-  const renderFooter = () => {
+  const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
 
     if (!footerAction) return null;
@@ -524,7 +525,7 @@ export function LinkPageGridCards({
         )}
       </Pressable>
     );
-  };
+  }, [footerSlot, footerAction, isDark, footerClassName]);
 
   return (
     <Section
@@ -542,10 +543,10 @@ export function LinkPageGridCards({
         )}
       >
         <div className={cn("w-full max-w-lg space-y-8", contentClassName)}>
-          {renderProfile()}
-          {renderSocialLinks()}
-          {renderLinks()}
-          <div className="pt-4">{renderFooter()}</div>
+          {renderProfile}
+          {renderSocialLinks}
+          {renderLinks}
+          <div className="pt-4">{renderFooter}</div>
         </div>
       </div>
     </Section>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Field, Form, useForm } from "@page-speed/forms";
 import { TextInput } from "../../ui/form-inputs";
 import { cn } from "../../../lib/utils";
@@ -344,14 +345,14 @@ export function LinkPageNewsletterSocial({
   avatar,
   avatarUrl = blockBrandedIconsAndPlaceholders.avatar3,
   profileSlot,
-  newsletterHeading = "Join my newsletter",
-  newsletterDescription = "Get exclusive content, tips, and updates delivered to your inbox.",
-  emailPlaceholder = "Enter your email",
-  buttonText = "Subscribe",
+  newsletterHeading,
+  newsletterDescription,
+  emailPlaceholder,
+  buttonText,
   submitAction,
   newsletterSlot,
   formSlot,
-  submittingLabel = "Subscribing...",
+  submittingLabel,
   submittingIcon = (
     <DynamicIcon name="lucide/loader-2" size={16} className="animate-spin" />
   ),
@@ -386,7 +387,7 @@ export function LinkPageNewsletterSocial({
   footerClassName,
   theme = "light",
   background,
-  spacing = "none",
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -466,7 +467,7 @@ export function LinkPageNewsletterSocial({
     <DynamicIcon name="lucide/chevron-right" size={16} />
   );
 
-  const renderProfile = () => {
+  const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
 
     return (
@@ -524,9 +525,9 @@ export function LinkPageNewsletterSocial({
         </div>
       </div>
     );
-  };
+  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, isDark, nameClassName, bio, bioClassName, headerClassName]);
 
-  const renderSocialLinks = () => {
+  const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -573,9 +574,9 @@ export function LinkPageNewsletterSocial({
         })}
       </div>
     );
-  };
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
 
-  const renderFormFields = () => {
+  const renderFormFields = useMemo(() => {
     if (formSlot) return formSlot;
 
     const {
@@ -633,9 +634,9 @@ export function LinkPageNewsletterSocial({
         </Pressable>
       </>
     );
-  };
+  }, [formSlot, resolvedSubmitAction, emailPlaceholder, isDark, inputClassName, submitButtonClassName, form.isSubmitting, submittingIcon, submittingLabel]);
 
-  const renderNewsletter = () => {
+  const renderNewsletter = useMemo(() => {
     if (newsletterSlot) return newsletterSlot;
 
     return (
@@ -689,13 +690,13 @@ export function LinkPageNewsletterSocial({
           method={formMethod}
           className={cn("space-y-3", formClassName)}
         >
-          {renderFormFields()}
+          {renderFormFields}
         </Form>
       </div>
     );
-  };
+  }, [newsletterSlot, isDark, newsletterCardClassName, newsletterHeading, newsletterHeadingClassName, newsletterDescription, newsletterDescriptionClassName, form, formConfig?.endpoint, formMethod, formClassName, renderFormFields]);
 
-  const renderLinks = () => {
+  const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -782,9 +783,9 @@ export function LinkPageNewsletterSocial({
         })}
       </div>
     );
-  };
+  }, [linksSlot, links, linksClassName, linkIconClassName, isDark, linkClassName, linkLabelClassName, linkChevronClassName, resolvedChevronIcon]);
 
-  const renderFooter = () => {
+  const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
 
     if (!footerAction) return null;
@@ -823,7 +824,7 @@ export function LinkPageNewsletterSocial({
         )}
       </Pressable>
     );
-  };
+  }, [footerSlot, footerAction, isDark, footerClassName]);
 
   return (
     <Section
@@ -844,11 +845,11 @@ export function LinkPageNewsletterSocial({
         )}
       >
         <div className={cn("w-full max-w-md space-y-8", contentClassName)}>
-          {renderProfile()}
-          {renderSocialLinks()}
-          {renderNewsletter()}
-          {renderLinks()}
-          <div className="pt-4">{renderFooter()}</div>
+          {renderProfile}
+          {renderSocialLinks}
+          {renderNewsletter}
+          {renderLinks}
+          <div className="pt-4">{renderFooter}</div>
         </div>
       </div>
     </Section>

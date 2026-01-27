@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -224,7 +225,7 @@ export function LinkPageMinimalProfile({
   footerClassName,
   theme = "light",
   background,
-  spacing = "none",
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -242,7 +243,7 @@ export function LinkPageMinimalProfile({
         }
       : undefined);
 
-  const renderProfile = () => {
+  const renderProfile = useMemo(() => {
     if (profileSlot) return profileSlot;
 
     return (
@@ -300,9 +301,9 @@ export function LinkPageMinimalProfile({
         </div>
       </div>
     );
-  };
+  }, [profileSlot, resolvedAvatar, avatarClassName, optixFlowConfig, name, isDark, nameClassName, bio, bioClassName, headerClassName]);
 
-  const renderLinks = () => {
+  const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -374,9 +375,9 @@ export function LinkPageMinimalProfile({
         })}
       </div>
     );
-  };
+  }, [linksSlot, links, linksClassName, linkIconClassName, isDark, linkClassName, linkLabelClassName]);
 
-  const renderSocialLinks = () => {
+  const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -422,9 +423,9 @@ export function LinkPageMinimalProfile({
         })}
       </div>
     );
-  };
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, socialLinkClassName]);
 
-  const renderFooter = () => {
+  const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
 
     if (!footerAction) return null;
@@ -463,7 +464,7 @@ export function LinkPageMinimalProfile({
         )}
       </Pressable>
     );
-  };
+  }, [footerSlot, footerAction, isDark, footerClassName]);
 
   return (
     <Section
@@ -481,10 +482,10 @@ export function LinkPageMinimalProfile({
         )}
       >
         <div className={cn("w-full max-w-sm space-y-8", contentClassName)}>
-          {renderProfile()}
-          {renderLinks()}
-          {renderSocialLinks()}
-          <div className="pt-8">{renderFooter()}</div>
+          {renderProfile}
+          {renderLinks}
+          {renderSocialLinks}
+          <div className="pt-8">{renderFooter}</div>
         </div>
       </div>
     </Section>

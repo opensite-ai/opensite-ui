@@ -6,11 +6,6 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Badge } from "../../ui/badge";
-import { patternSvgs } from "../../../lib/patternSvgs";
-import {
-  imagePlaceholders,
-  videoPlaceholders,
-} from "../../../lib/mediaPlaceholders";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
@@ -321,8 +316,8 @@ export interface LinkTreeBlockProps {
  * ```
  */
 export function LinkTreeBlock({
-  brandName = "Sarah Chen",
-  brandTagline = "Digital creator, photographer & coffee enthusiast",
+  brandName,
+  brandTagline,
   brandLogo,
   brandAvatar = blockBrandedIconsAndPlaceholders.avatar1,
   brandVerified = true,
@@ -334,7 +329,7 @@ export function LinkTreeBlock({
   socialLinksSlot,
   mediaGallery,
   mediaGallerySlot,
-  mediaGalleryTitle = "Latest Content",
+  mediaGalleryTitle,
   mediaGalleryLimit = 6,
   footerAction,
   footerSlot,
@@ -368,7 +363,7 @@ export function LinkTreeBlock({
   footerClassName,
   theme = "light",
   background,
-  spacing = "none",
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -422,7 +417,7 @@ export function LinkTreeBlock({
     resolveImage(brandAvatar || brandLogo, nameForAlt) ||
     resolveImage(blockBrandedIconsAndPlaceholders.avatar1, nameForAlt);
 
-  const renderBrandHeader = () => {
+  const renderBrandHeader = useMemo(() => {
     if (brandSlot) return brandSlot;
 
     return (
@@ -501,9 +496,9 @@ export function LinkTreeBlock({
         </div>
       </div>
     );
-  };
+  }, [brandSlot, headerClassName, avatarClassName, resolvedAvatar, optixFlowConfig, brandVerified, verifiedBadgeClassName, verifiedIcon, verifiedIconClassName, brandName, isDark, nameClassName, brandTagline, taglineClassName]);
 
-  const renderLinks = () => {
+  const renderLinks = useMemo(() => {
     if (linksSlot) return linksSlot;
     if (!links || links.length === 0) return null;
 
@@ -643,9 +638,9 @@ export function LinkTreeBlock({
         })}
       </div>
     );
-  };
+  }, [linksSlot, links, linksClassName, linkIconClassName, isDark, isGlass, linkClassName, featuredLinkClassName, linkLabelClassName, linkDescriptionClassName, linkBadgeClassName, linkChevronClassName]);
 
-  const renderMediaGallery = () => {
+  const renderMediaGallery = useMemo(() => {
     if (mediaGallerySlot) return mediaGallerySlot;
     if (!mediaGallery || mediaGallery.length === 0) return null;
 
@@ -747,9 +742,9 @@ export function LinkTreeBlock({
         </div>
       </div>
     );
-  };
+  }, [mediaGallerySlot, mediaGallery, mediaGalleryLimit, mediaGalleryClassName, mediaGalleryTitle, isDark, mediaGalleryTitleClassName, mediaGalleryGridClassName, mediaGalleryItemClassName, handleMediaClick, mediaGalleryMediaClassName, optixFlowConfig, mediaGalleryOverlayClassName, mediaGalleryPlayIconClassName]);
 
-  const renderSocialLinks = () => {
+  const renderSocialLinks = useMemo(() => {
     if (socialLinksSlot) return socialLinksSlot;
     if (!socialLinks || socialLinks.length === 0) return null;
 
@@ -798,9 +793,9 @@ export function LinkTreeBlock({
         })}
       </div>
     );
-  };
+  }, [socialLinksSlot, socialLinks, socialLinksClassName, socialIconClassName, isDark, isGlass, socialLinkClassName]);
 
-  const renderFooter = () => {
+  const renderFooter = useMemo(() => {
     if (footerSlot) return footerSlot;
 
     if (!footerAction) return null;
@@ -839,7 +834,7 @@ export function LinkTreeBlock({
         )}
       </Pressable>
     );
-  };
+  }, [footerSlot, footerAction, isDark, footerClassName]);
 
   return (
     <Section
@@ -869,11 +864,11 @@ export function LinkTreeBlock({
         )}
       >
         <div className={cn("w-full max-w-md space-y-6", contentClassName)}>
-          {renderBrandHeader()}
-          {renderLinks()}
-          {renderMediaGallery()}
-          {renderSocialLinks()}
-          <div className="pt-4">{renderFooter()}</div>
+          {renderBrandHeader}
+          {renderLinks}
+          {renderMediaGallery}
+          {renderSocialLinks}
+          <div className="pt-4">{renderFooter}</div>
         </div>
       </div>
 
