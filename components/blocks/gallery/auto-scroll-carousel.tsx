@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -165,14 +166,14 @@ export function AutoScrollCarousel({
   carouselContentClassName,
   itemClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: AutoScrollCarouselProps): React.JSX.Element {
-  const renderAction = () => {
+  const actionContent = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
 
@@ -208,9 +209,9 @@ export function AutoScrollCarousel({
         )}
       </Pressable>
     );
-  };
+  }, [actionSlot, action, actionClassName]);
 
-  const renderImages = () => {
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -232,7 +233,7 @@ export function AutoScrollCarousel({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [imagesSlot, images, itemClassName, imageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -270,7 +271,7 @@ export function AutoScrollCarousel({
           ) : (
             <div className={descriptionClassName}>{description}</div>
           ))}
-        {renderAction()}
+        {actionContent}
       </div>
       <div className="w-full -mx-4 sm:-mx-6 lg:-mx-8">
         <div className="max-w-screen overflow-x-hidden">
@@ -286,7 +287,7 @@ export function AutoScrollCarousel({
             className={cn("pointer-events-none", carouselClassName)}
           >
             <CarouselContent className={carouselContentClassName}>
-              {renderImages()}
+              {imagesContent}
             </CarouselContent>
           </Carousel>
         </div>

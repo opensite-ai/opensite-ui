@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import type { CarouselApi } from "../../ui/carousel";
@@ -57,7 +57,6 @@ export interface CarouselGradientTextProps {
   subheading?: React.ReactNode;
   /**
    * Tagline text below heading
-   * @default "Start with our templates, customize to your needs."
    */
   tagline?: React.ReactNode;
   /**
@@ -189,8 +188,8 @@ export function CarouselGradientText({
   imageClassName,
   gradientClassName,
   indicatorsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -215,7 +214,7 @@ export function CarouselGradientText({
     });
   }, [api]);
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -259,7 +258,15 @@ export function CarouselGradientText({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    itemClassName,
+    cardClassName,
+    gradientClassName,
+    imageClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -291,8 +298,8 @@ export function CarouselGradientText({
                 </span>
               </h2>
             )}
-            {tagline &&
-              (typeof tagline === "string" ? (
+            {tagline ? (
+              typeof tagline === "string" ? (
                 <p
                   className={cn("mt-8 text-xl text-primary", taglineClassName)}
                 >
@@ -304,7 +311,8 @@ export function CarouselGradientText({
                 >
                   {tagline}
                 </div>
-              ))}
+              )
+            ) : null}
             <div
               className={cn(
                 "mt-8 hidden items-center gap-4 md:flex",
@@ -322,7 +330,7 @@ export function CarouselGradientText({
               carouselContentClassName,
             )}
           >
-            {renderItems()}
+            {itemsContent}
           </CarouselContent>
         </div>
       </Carousel>

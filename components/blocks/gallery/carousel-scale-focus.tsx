@@ -1,9 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { startTransition, useEffect, useState } from "react";
+import {
+  startTransition,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { CarouselApi } from "../../ui/carousel";
 import {
   Carousel,
@@ -142,8 +149,8 @@ export function CarouselScaleFocus({
   indicatorsClassName,
   indicatorClassName,
   startIndex = 1,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -152,6 +159,8 @@ export function CarouselScaleFocus({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!api) {
@@ -170,7 +179,28 @@ export function CarouselScaleFocus({
     });
   }, [api]);
 
-  const renderImages = () => {
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    if (!images || images.length === 0) return [];
+    return images.map((img, idx) => ({
+      id: `carousel-scale-${idx}`,
+      type: "image" as const,
+      src: img.src,
+      alt: img.alt,
+      download: true,
+      share: true,
+    }));
+  }, [images]);
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -178,12 +208,21 @@ export function CarouselScaleFocus({
       <CarouselItem key={`carousel-img-${index}`} className={itemClassName}>
         <div
           className={cn(
-            "aspect-4/3 max-w-200 overflow-hidden rounded-[0.75rem] transition-all duration-300",
+            "aspect-4/3 max-w-200 overflow-hidden rounded-[0.75rem] transition-all duration-300 cursor-pointer",
             current === index + 1
               ? "scale-100 opacity-100"
               : "scale-70 opacity-40",
             img.className,
           )}
+          onClick={() => handleImageClick(index)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleImageClick(index);
+            }
+          }}
         >
           <Img
             className={cn(
@@ -198,7 +237,15 @@ export function CarouselScaleFocus({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [
+    imagesSlot,
+    images,
+    itemClassName,
+    current,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -221,7 +268,7 @@ export function CarouselScaleFocus({
           }}
         >
           <CarouselContent className={carouselContentClassName}>
-            {renderImages()}
+            {imagesContent}
           </CarouselContent>
           <div className={cn("mt-4 hidden md:block", controlsClassName)}>
             <CarouselPrevious
@@ -260,6 +307,26 @@ export function CarouselScaleFocus({
           ))}
         </div>
       </div>
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -195,8 +195,8 @@ export function TestimonialCarouselCards({
   quotePanelClassName,
   badgeClassName,
   progressClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -231,7 +231,7 @@ export function TestimonialCarouselCards({
   const progressIndicatorWidth = progressWidth / itemsLength;
   const progressOffset = currentIndex * progressIndicatorWidth;
 
-  const renderSidebar = () => {
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
 
     return (
@@ -289,9 +289,20 @@ export function TestimonialCarouselCards({
         </div>
       </div>
     );
-  };
+  }, [
+    sidebarSlot,
+    sidebarClassName,
+    heading,
+    headingClassName,
+    description,
+    descriptionClassName,
+    controlsClassName,
+    carouselApi,
+    canScrollPrev,
+    canScrollNext,
+  ]);
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -344,7 +355,15 @@ export function TestimonialCarouselCards({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    itemClassName,
+    imageClassName,
+    quotePanelClassName,
+    badgeClassName,
+    optixFlowConfig,
+  ]);
 
   return (
     <Section
@@ -356,7 +375,7 @@ export function TestimonialCarouselCards({
       className={className}
     >
       <div className="flex flex-col items-start justify-between gap-6 px-4 lg:flex-row lg:px-10">
-        {renderSidebar()}
+        {sidebarContent}
 
         <div className="relative w-full overflow-hidden pb-12 lg:flex-1">
           <Carousel
@@ -368,7 +387,7 @@ export function TestimonialCarouselCards({
             className={carouselClassName}
           >
             <CarouselContent className={carouselContentClassName}>
-              {renderItems()}
+              {itemsContent}
             </CarouselContent>
           </Carousel>
 

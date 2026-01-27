@@ -32,7 +32,7 @@ describe("CarouselSidebarResources", () => {
   });
 
   it("renders with required props", () => {
-    render(<CarouselSidebarResources heading="Test Heading" />);
+    render(<CarouselSidebarResources heading="Test Heading" viewAllText="View all resources" />);
     expect(screen.getByText("Test Heading")).toBeInTheDocument();
     expect(screen.getByText("View all resources")).toBeInTheDocument();
   });

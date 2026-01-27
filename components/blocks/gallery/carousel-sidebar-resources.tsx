@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { Fragment } from "react";
+import { Fragment, useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import { Pressable } from "../../../lib/Pressable";
 import {
   Carousel,
@@ -70,7 +71,6 @@ export interface CarouselSidebarResourcesProps {
   sidebarSlot?: React.ReactNode;
   /**
    * Text for the "View all resources" link
-   * @default "View all resources"
    */
   viewAllText?: React.ReactNode;
   /**
@@ -166,7 +166,7 @@ export function CarouselSidebarResources({
   resources,
   resourcesSlot,
   sidebarSlot,
-  viewAllText = "View all resources",
+  viewAllText,
   viewAllHref = "#",
   className,
   headingClassName,
@@ -176,14 +176,41 @@ export function CarouselSidebarResources({
   itemClassName,
   imageClassName,
   controlsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: CarouselSidebarResourcesProps): React.JSX.Element {
-  const renderSidebar = () => {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    if (!resources || resources.length === 0) return [];
+    return resources.map((item, idx) => ({
+      id: `sidebar-resource-${idx}`,
+      type: "image" as const,
+      src: item.image,
+      alt:
+        typeof item.title === "string"
+          ? item.title
+          : item.imageAlt || "Resource image",
+      download: true,
+      share: true,
+    }));
+  }, [resources]);
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
 
     return (
@@ -214,7 +241,7 @@ export function CarouselSidebarResources({
             <div className="h-px w-full bg-border" />
           </Fragment>
         ))}
-        {viewAllHref && (
+        {viewAllHref && viewAllText && (
           <Pressable
             href={viewAllHref}
             className="group flex items-center gap-2 font-semibold"
@@ -229,9 +256,9 @@ export function CarouselSidebarResources({
         )}
       </div>
     );
-  };
+  }, [sidebarSlot, sidebarClassName, resources, viewAllHref, viewAllText]);
 
-  const renderResources = () => {
+  const resourcesContent = useMemo(() => {
     if (resourcesSlot) return resourcesSlot;
     if (!resources || resources.length === 0) return null;
 
@@ -245,36 +272,58 @@ export function CarouselSidebarResources({
         )}
         key={idx}
       >
-        <Pressable href={item.link} className="block h-full">
-          <Img
-            src={item.image}
-            alt={
-              typeof item.title === "string"
-                ? item.title
-                : item.imageAlt || "Resource image"
-            }
-            className={cn("aspect-video object-cover", imageClassName)}
-            loading="lazy"
-            optixFlowConfig={optixFlowConfig}
-          />
-          <div className="px-6 py-8">
-            <div className="text-sm text-muted-foreground uppercase">
-              {item.category}
-            </div>
-            {typeof item.title === "string" ? (
-              <h3 className="mt-2 text-xl font-semibold lg:text-2xl">
-                {item.title}
-              </h3>
-            ) : (
-              <div className="mt-2 text-xl font-semibold lg:text-2xl">
-                {item.title}
-              </div>
-            )}
+        <div className="block h-full">
+          <div
+            className="cursor-pointer"
+            onClick={() => handleImageClick(idx)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleImageClick(idx);
+              }
+            }}
+          >
+            <Img
+              src={item.image}
+              alt={
+                typeof item.title === "string"
+                  ? item.title
+                  : item.imageAlt || "Resource image"
+              }
+              className={cn("aspect-video object-cover", imageClassName)}
+              loading="lazy"
+              optixFlowConfig={optixFlowConfig}
+            />
           </div>
-        </Pressable>
+          <Pressable href={item.link} className="block">
+            <div className="px-6 py-8">
+              <div className="text-sm text-muted-foreground uppercase">
+                {item.category}
+              </div>
+              {typeof item.title === "string" ? (
+                <h3 className="mt-2 text-xl font-semibold lg:text-2xl">
+                  {item.title}
+                </h3>
+              ) : (
+                <div className="mt-2 text-xl font-semibold lg:text-2xl">
+                  {item.title}
+                </div>
+              )}
+            </div>
+          </Pressable>
+        </div>
       </CarouselItem>
     ));
-  };
+  }, [
+    resourcesSlot,
+    resources,
+    itemClassName,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -301,7 +350,7 @@ export function CarouselSidebarResources({
         ))}
       <Carousel className={carouselClassName}>
         <div className="mt-6 grid gap-x-14 gap-y-10 lg:mt-16 lg:grid-cols-3">
-          {renderSidebar()}
+          {sidebarContent}
           <div className="order-1 lg:order-0 lg:col-span-2 [&>div[data-slot=carousel-content]]:overflow-visible [&>div[data-slot=carousel-content]]:[clip-path:inset(-100vw_-100vw_-100vw_0)]">
             <CarouselContent
               className={cn(
@@ -309,7 +358,7 @@ export function CarouselSidebarResources({
                 carouselContentClassName,
               )}
             >
-              {renderResources()}
+              {resourcesContent}
             </CarouselContent>
           </div>
           <div
@@ -323,6 +372,26 @@ export function CarouselSidebarResources({
           </div>
         </div>
       </Carousel>
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

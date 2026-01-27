@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -10,6 +10,7 @@ import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -70,7 +71,6 @@ export interface CarouselBadgeCardsProps {
   itemsSlot?: React.ReactNode;
   /**
    * Text for the "Read more" link
-   * @default "Read more"
    */
   readMoreText?: React.ReactNode;
   /**
@@ -168,7 +168,7 @@ export function CarouselBadgeCards({
   heading,
   items,
   itemsSlot,
-  readMoreText = "Read more",
+  readMoreText,
   className,
   headerClassName,
   headingClassName,
@@ -179,8 +179,8 @@ export function CarouselBadgeCards({
   cardClassName,
   imageClassName,
   badgeClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -189,6 +189,8 @@ export function CarouselBadgeCards({
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!carouselApi) {
@@ -205,11 +207,35 @@ export function CarouselBadgeCards({
     };
   }, [carouselApi]);
 
-  const renderItems = () => {
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      (items ?? []).map((item, index) => ({
+        id: `badge-card-${index}`,
+        type: "image" as const,
+        src: item.image,
+        alt: typeof item.title === "string" ? item.title : item.imageAlt || "Card image",
+        download: true,
+        share: true,
+      })),
+    [items],
+  );
+
+  const handleImageClick = useCallback((index: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
-    return items.map((item) => (
+    return items.map((item, index) => (
       <CarouselItem
         key={item.id}
         className={cn("max-w-[320px] pl-5 lg:max-w-[360px]", itemClassName)}
@@ -225,7 +251,19 @@ export function CarouselBadgeCards({
           <div>
             <div className="flex aspect-3/2 overflow-clip rounded-xl">
               <div className="flex-1">
-                <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
+                <div
+                  className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105 cursor-pointer"
+                  onClick={(e) => handleImageClick(index, e)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleImageClick(index, e as any);
+                    }
+                  }}
+                  aria-label={`View ${typeof item.title === "string" ? item.title : "image"} in lightbox`}
+                >
                   <Img
                     src={item.image}
                     alt={
@@ -253,18 +291,30 @@ export function CarouselBadgeCards({
           <div className="mb-8 line-clamp-2 text-sm text-muted-foreground md:mb-12 md:text-base lg:mb-9">
             {item.description}
           </div>
-          <div className="flex items-center text-sm">
-            {readMoreText}{" "}
-            <DynamicIcon
-              name="lucide/arrow-right"
-              size={20}
-              className="ml-2 transition-transform group-hover:translate-x-1"
-            />
-          </div>
+          {readMoreText && (
+            <div className="flex items-center text-sm">
+              {readMoreText}{" "}
+              <DynamicIcon
+                name="lucide/arrow-right"
+                size={20}
+                className="ml-2 transition-transform group-hover:translate-x-1"
+              />
+            </div>
+          )}
         </a>
       </CarouselItem>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    itemClassName,
+    cardClassName,
+    badgeClassName,
+    imageClassName,
+    optixFlowConfig,
+    readMoreText,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -337,10 +387,31 @@ export function CarouselBadgeCards({
               carouselContentClassName,
             )}
           >
-            {renderItems()}
+            {itemsContent}
           </CarouselContent>
         </Carousel>
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

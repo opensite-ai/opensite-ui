@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -14,6 +14,7 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -167,8 +168,8 @@ export function CarouselIconSidebar({
   carouselContentClassName,
   itemClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -176,6 +177,8 @@ export function CarouselIconSidebar({
 }: CarouselIconSidebarProps): React.JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!api) {
@@ -193,7 +196,32 @@ export function CarouselIconSidebar({
 
   const activeItem = items?.[activeIndex];
 
-  const renderSidebar = () => {
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      (items ?? []).map((item, idx) => ({
+        id: `carousel-sidebar-image-${idx}`,
+        type: "image" as const,
+        src: item.src,
+        alt:
+          typeof item.title === "string"
+            ? item.title
+            : item.alt || "Carousel image",
+        download: true,
+        share: true,
+      })),
+    [items],
+  );
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const sidebarContent = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
     if (!activeItem) return null;
 
@@ -248,9 +276,17 @@ export function CarouselIconSidebar({
         </div>
       </div>
     );
-  };
+  }, [
+    sidebarSlot,
+    activeItem,
+    sidebarClassName,
+    iconClassName,
+    titleClassName,
+    descriptionClassName,
+    controlsClassName,
+  ]);
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -265,16 +301,25 @@ export function CarouselIconSidebar({
                 : image.alt || "Carousel image"
             }
             className={cn(
-              "h-full w-full rounded-lg object-cover",
+              "h-full w-full rounded-lg object-cover cursor-pointer transition-transform hover:scale-[1.02]",
               imageClassName,
             )}
             loading="lazy"
             optixFlowConfig={optixFlowConfig}
+            onClick={() => handleImageClick(index)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleImageClick(index);
+              }
+            }}
           />
         </div>
       </CarouselItem>
     ));
-  };
+  }, [itemsSlot, items, itemClassName, imageClassName, optixFlowConfig, handleImageClick]);
 
   return (
     <Section
@@ -287,15 +332,36 @@ export function CarouselIconSidebar({
     >
       <Carousel setApi={setApi} className={cn("w-full", carouselClassName)}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-          <div className="md:col-span-2">{renderSidebar()}</div>
+          <div className="md:col-span-2">{sidebarContent}</div>
 
           <div className="h-full md:col-span-3">
             <CarouselContent className={carouselContentClassName}>
-              {renderItems()}
+              {itemsContent}
             </CarouselContent>
           </div>
         </div>
       </Carousel>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

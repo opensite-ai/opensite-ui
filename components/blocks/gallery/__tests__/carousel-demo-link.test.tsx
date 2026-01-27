@@ -57,7 +57,7 @@ describe("CarouselDemoLink", () => {
         image: "https://example.com/image.jpg",
       },
     ];
-    render(<CarouselDemoLink items={items} />);
+    render(<CarouselDemoLink items={items} readMoreText="Read more" />);
     expect(screen.getByText("AI Analytics")).toBeInTheDocument();
     expect(screen.getByText("Transform your data into insights")).toBeInTheDocument();
     expect(screen.getByText("Read more")).toBeInTheDocument();

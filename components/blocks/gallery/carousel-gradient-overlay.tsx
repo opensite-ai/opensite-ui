@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -9,6 +9,7 @@ import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -69,7 +70,6 @@ export interface CarouselGradientOverlayProps {
   itemsSlot?: React.ReactNode;
   /**
    * Text for the "Read more" link
-   * @default "Read more"
    */
   readMoreText?: React.ReactNode;
   /**
@@ -176,7 +176,7 @@ export function CarouselGradientOverlay({
   description,
   items,
   itemsSlot,
-  readMoreText = "Read more",
+  readMoreText,
   className,
   headerClassName,
   titleClassName,
@@ -189,8 +189,8 @@ export function CarouselGradientOverlay({
   imageClassName,
   gradientClassName,
   indicatorsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -200,6 +200,8 @@ export function CarouselGradientOverlay({
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!carouselApi) {
@@ -217,11 +219,36 @@ export function CarouselGradientOverlay({
     };
   }, [carouselApi]);
 
-  const renderItems = () => {
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      (items ?? []).map((item, idx) => ({
+        id: `carousel-image-${idx}`,
+        type: "image" as const,
+        src: item.image,
+        alt:
+          typeof item.title === "string"
+            ? item.title
+            : item.imageAlt || "Card image",
+        download: true,
+        share: true,
+      })),
+    [items],
+  );
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
-    return items.map((item) => (
+    return items.map((item, index) => (
       <CarouselItem
         key={item.id}
         className={cn("max-w-[320px] pl-5 lg:max-w-[360px]", itemClassName)}
@@ -239,11 +266,23 @@ export function CarouselGradientOverlay({
                   : item.imageAlt || "Card image"
               }
               className={cn(
-                "absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105",
+                "absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105 cursor-pointer",
                 imageClassName,
               )}
               loading="lazy"
               optixFlowConfig={optixFlowConfig}
+              onClick={(e) => {
+                e.preventDefault();
+                handleImageClick(index);
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleImageClick(index);
+                }
+              }}
             />
             <div
               className={cn(
@@ -258,20 +297,32 @@ export function CarouselGradientOverlay({
               <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9">
                 {item.description}
               </div>
-              <div className="flex items-center text-sm">
-                {readMoreText}{" "}
-                <DynamicIcon
-                  name="lucide/arrow-right"
-                  size={20}
-                  className="ml-2 transition-transform group-hover:translate-x-1"
-                />
-              </div>
+              {readMoreText && (
+                <div className="flex items-center text-sm">
+                  {readMoreText}{" "}
+                  <DynamicIcon
+                    name="lucide/arrow-right"
+                    size={20}
+                    className="ml-2 transition-transform group-hover:translate-x-1"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </Pressable>
       </CarouselItem>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    itemClassName,
+    cardClassName,
+    imageClassName,
+    gradientClassName,
+    optixFlowConfig,
+    handleImageClick,
+    readMoreText,
+  ]);
 
   return (
     <Section
@@ -366,7 +417,7 @@ export function CarouselGradientOverlay({
               carouselContentClassName,
             )}
           >
-            {renderItems()}
+            {itemsContent}
           </CarouselContent>
         </Carousel>
         <div
@@ -385,6 +436,27 @@ export function CarouselGradientOverlay({
           ))}
         </div>
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

@@ -52,7 +52,7 @@ describe("CarouselBadgeCards", () => {
         image: "https://example.com/image.jpg",
       },
     ];
-    render(<CarouselBadgeCards items={items} />);
+    render(<CarouselBadgeCards items={items} readMoreText="Read more" />);
     expect(screen.getByText("Case Study 1")).toBeInTheDocument();
     expect(screen.getByText("Analytics")).toBeInTheDocument();
     expect(screen.getByText("Read more")).toBeInTheDocument();

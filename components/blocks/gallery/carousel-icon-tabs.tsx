@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -15,6 +15,7 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -185,8 +186,8 @@ export function CarouselIconTabs({
   tabsClassName,
   tabClassName,
   controlsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -194,6 +195,8 @@ export function CarouselIconTabs({
 }: CarouselIconTabsProps): React.JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!api) return;
@@ -215,7 +218,32 @@ export function CarouselIconTabs({
     };
   }, [api]);
 
-  const renderHeader = () => {
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      (sections ?? []).map((section, idx) => ({
+        id: `carousel-tab-image-${idx}`,
+        type: "image" as const,
+        src: section.img,
+        alt:
+          typeof section.title === "string"
+            ? section.title
+            : section.alt || "Tab image",
+        download: true,
+        share: true,
+      })),
+    [sections],
+  );
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const headerContent = useMemo(() => {
     if (headerSlot) return headerSlot;
 
     return (
@@ -241,9 +269,9 @@ export function CarouselIconTabs({
         )}
       </div>
     );
-  };
+  }, [headerSlot, headerClassName, heading, headingClassName, badge, badgeClassName]);
 
-  const renderSections = () => {
+  const sectionsContent = useMemo(() => {
     if (sectionsSlot) return sectionsSlot;
     if (!sections || sections.length === 0) return null;
 
@@ -260,11 +288,20 @@ export function CarouselIconTabs({
               : item.alt || "Tab image"
           }
           className={cn(
-            "aspect-square h-full w-full object-cover md:aspect-2/1",
+            "aspect-square h-full w-full object-cover md:aspect-2/1 cursor-pointer transition-transform hover:scale-[1.02]",
             imageClassName,
           )}
           loading="lazy"
           optixFlowConfig={optixFlowConfig}
+          onClick={() => handleImageClick(index)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleImageClick(index);
+            }
+          }}
         />
         <div className="mt-8 flex cursor-pointer flex-col gap-2 md:hidden">
           <div>
@@ -275,9 +312,9 @@ export function CarouselIconTabs({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [sectionsSlot, sections, itemClassName, imageClassName, optixFlowConfig, handleImageClick]);
 
-  const renderTabs = () => {
+  const tabsContent = useMemo(() => {
     if (!sections || sections.length === 0) return null;
 
     return (
@@ -311,7 +348,7 @@ export function CarouselIconTabs({
         ))}
       </div>
     );
-  };
+  }, [sections, tabsClassName, tabClassName, api, current]);
 
   return (
     <Section
@@ -322,15 +359,15 @@ export function CarouselIconTabs({
       patternClassName={patternClassName}
       className={className}
     >
-      {renderHeader()}
+      {headerContent}
       <Carousel
         setApi={setApi}
         className={cn("flex flex-col gap-10", carouselClassName)}
       >
         <CarouselContent className={carouselContentClassName}>
-          {renderSections()}
+          {sectionsContent}
         </CarouselContent>
-        {renderTabs()}
+        {tabsContent}
         <div className={cn("flex items-center gap-8", controlsClassName)}>
           <div>
             {current} / {sections?.length ?? 0}
@@ -344,6 +381,27 @@ export function CarouselIconTabs({
           </div>
         </div>
       </Carousel>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

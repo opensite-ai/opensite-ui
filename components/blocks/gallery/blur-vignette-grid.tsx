@@ -1,10 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Section } from "../../ui/section";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   SectionBackground,
@@ -253,13 +255,16 @@ export function BlurVignetteGrid({
   gridClassName,
   itemClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: BlurVignetteGridProps): React.JSX.Element {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
   const {
     radius = "24px",
     inset = "10px",
@@ -267,7 +272,29 @@ export function BlurVignetteGrid({
     blur = "15px",
   } = vignetteConfig || {};
 
-  const renderImages = () => {
+  const lightboxItems: LightboxItem[] = useMemo(
+    () =>
+      (images ?? []).map((img, index) => ({
+        id: `vignette-image-${index}`,
+        type: "image" as const,
+        src: img.src,
+        alt: img.alt,
+        download: true,
+        share: true,
+      })),
+    [images],
+  );
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -281,26 +308,50 @@ export function BlurVignetteGrid({
         className={cn(
           `col-span-${image.colSpan}`,
           image.height,
-          "rounded-[2.5rem]",
+          "rounded-[2.5rem] cursor-pointer",
           image.className,
           itemClassName,
         )}
       >
-        <Img
-          width={200}
-          height={200}
-          className={cn(
-            "size-full rounded-[2.5rem] object-cover",
-            imageClassName,
-          )}
-          src={image.src}
-          alt={image.alt}
-          loading="lazy"
-          optixFlowConfig={optixFlowConfig}
-        />
+        <div
+          onClick={() => handleImageClick(index)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleImageClick(index);
+            }
+          }}
+          aria-label={`View ${image.alt} in lightbox`}
+        >
+          <Img
+            width={200}
+            height={200}
+            className={cn(
+              "size-full rounded-[2.5rem] object-cover",
+              imageClassName,
+            )}
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            optixFlowConfig={optixFlowConfig}
+          />
+        </div>
       </BlurVignette>
     ));
-  };
+  }, [
+    imagesSlot,
+    images,
+    radius,
+    inset,
+    transitionLength,
+    blur,
+    itemClassName,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -314,8 +365,29 @@ export function BlurVignetteGrid({
       <div
         className={cn(`grid grid-cols-${gridColumns}`, gridGap, gridClassName)}
       >
-        {renderImages()}
+        {imagesContent}
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

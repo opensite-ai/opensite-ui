@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
@@ -158,20 +159,56 @@ export function ExpandableCaseStudyCards({
   logoClassName,
   badgesClassName,
   badgeClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: ExpandableCaseStudyCardsProps): React.JSX.Element {
   const [selection, setSelection] = useState(items?.[0]?.id);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const renderItems = () => {
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    if (!items) return [];
+    return items.flatMap((item) => [
+      {
+        id: `image-${item.id}`,
+        type: "image" as const,
+        src: item.image,
+        alt:
+          typeof item.title === "string"
+            ? item.title
+            : item.imageAlt || "Case study image",
+        download: true,
+        share: true,
+      },
+      {
+        id: `logo-${item.id}`,
+        type: "image" as const,
+        src: item.logo,
+        alt: item.logoAlt || item.company,
+        download: true,
+        share: true,
+      },
+    ]);
+  }, [items]);
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
-    return items.map((item) => (
+    return items.map((item, itemIndex) => (
       <div
         key={item.id}
         data-state={selection === item.id ? "open" : "closed"}
@@ -190,7 +227,21 @@ export function ExpandableCaseStudyCards({
         >
           <div className='absolute -inset-[50%] hidden h-[200%] w-[200%] md:block lg:group-data-[state="closed"]:blur-sm'>
             <div className="absolute top-[calc(25%+40px)] aspect-square h-[calc(50%+40px)] max-lg:right-[calc(50%+40px)] lg:right-[50%]">
-              <div className="h-full w-full overflow-clip rounded-xl">
+              <div
+                className="h-full w-full overflow-clip rounded-xl cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleImageClick(itemIndex * 2);
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleImageClick(itemIndex * 2);
+                  }
+                }}
+              >
                 <Img
                   src={item.image}
                   alt={
@@ -207,7 +258,21 @@ export function ExpandableCaseStudyCards({
                 />
               </div>
             </div>
-            <div className="absolute inset-y-[25%] left-[50%] flex aspect-389/420 h-[50%] items-center justify-center max-lg:hidden">
+            <div
+              className="absolute inset-y-[25%] left-[50%] flex aspect-389/420 h-[50%] items-center justify-center max-lg:hidden cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                handleImageClick(itemIndex * 2 + 1);
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleImageClick(itemIndex * 2 + 1);
+                }
+              }}
+            >
               <Img
                 src={item.logo}
                 alt={item.logoAlt || item.company}
@@ -239,7 +304,21 @@ export function ExpandableCaseStudyCards({
               ))}
             </div>
             <div className='flex flex-col gap-2 p-4 transition-all delay-200 duration-500 lg:group-data-[state="closed"]:translate-y-4 lg:group-data-[state="closed"]:opacity-0'>
-              <div className="lg:hidden">
+              <div
+                className="lg:hidden cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleImageClick(itemIndex * 2 + 1);
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleImageClick(itemIndex * 2 + 1);
+                  }
+                }}
+              >
                 <Img
                   src={item.logo}
                   alt={item.logoAlt || item.company}
@@ -261,7 +340,18 @@ export function ExpandableCaseStudyCards({
         </a>
       </div>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    selection,
+    cardClassName,
+    imageClassName,
+    logoClassName,
+    badgesClassName,
+    badgeClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -278,8 +368,29 @@ export function ExpandableCaseStudyCards({
           containerClassName,
         )}
       >
-        {renderItems()}
+        {itemsContent}
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

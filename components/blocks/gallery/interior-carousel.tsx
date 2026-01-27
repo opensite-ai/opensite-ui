@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useState, useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
@@ -150,18 +151,17 @@ export function InteriorCarousel({
   imageClassName,
   controlsClassName,
   loop = true,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: InteriorCarouselProps): React.JSX.Element {
-  const [lightboxOpen, setLightboxOpen] = React.useState(false);
-  const [lightboxIndex, setLightboxIndex] = React.useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  // Convert images to lightbox items
-  const lightboxItems: LightboxItem[] = React.useMemo(() => {
+  const lightboxItems: LightboxItem[] = useMemo(() => {
     if (!images || images.length === 0) return [];
     return images.map((image, index) => {
       const src = typeof image === "string" ? image : image.src;
@@ -178,12 +178,16 @@ export function InteriorCarousel({
     });
   }, [images]);
 
-  const handleImageClick = (index: number) => {
+  const handleImageClick = useCallback((index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
-  };
+  }, []);
 
-  const renderDescription = () => {
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const descriptionContent = useMemo(() => {
     if (typeof description === "string") {
       const descriptionLines = description.split("\n");
       return descriptionLines.map((line, index) => (
@@ -194,9 +198,9 @@ export function InteriorCarousel({
       ));
     }
     return description;
-  };
+  }, [description]);
 
-  const renderImages = () => {
+  const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -216,22 +220,41 @@ export function InteriorCarousel({
             itemClassName,
           )}
         >
-          <Img
-            src={src}
-            alt={alt}
-            className={cn(
-              "aspect-[4/5] w-full rounded-xl object-cover cursor-pointer transition-opacity hover:opacity-90",
-              imageClassName,
-              itemClass,
-            )}
-            loading="lazy"
-            optixFlowConfig={optixFlowConfig}
+          <div
+            className="cursor-pointer"
             onClick={() => handleImageClick(index)}
-          />
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleImageClick(index);
+              }
+            }}
+          >
+            <Img
+              src={src}
+              alt={alt}
+              className={cn(
+                "aspect-[4/5] w-full rounded-xl object-cover transition-opacity hover:opacity-90",
+                imageClassName,
+                itemClass,
+              )}
+              loading="lazy"
+              optixFlowConfig={optixFlowConfig}
+            />
+          </div>
         </CarouselItem>
       );
     });
-  };
+  }, [
+    imagesSlot,
+    images,
+    itemClassName,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -256,7 +279,7 @@ export function InteriorCarousel({
           descriptionClassName,
         )}
       >
-        {renderDescription()}
+        {descriptionContent}
       </p>
       <div className="mt-10">
         <Carousel
@@ -272,7 +295,7 @@ export function InteriorCarousel({
             }}
             className={carouselContentClassName}
           >
-            {renderImages()}
+            {imagesContent}
           </CarouselContent>
           <CarouselPrevious
             className={cn(
@@ -292,14 +315,20 @@ export function InteriorCarousel({
         <Lightbox
           items={lightboxItems}
           initialIndex={lightboxIndex}
-          onClose={() => setLightboxOpen(false)}
           layout="horizontal"
           controls={{
             navigation: true,
-            counter: true,
-            closeButton: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
             captions: true,
+            counter: true,
           }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
         />
       )}
     </Section>

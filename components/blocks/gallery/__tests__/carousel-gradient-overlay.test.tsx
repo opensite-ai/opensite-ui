@@ -51,7 +51,7 @@ describe("CarouselGradientOverlay", () => {
         image: "https://example.com/image.jpg",
       },
     ];
-    render(<CarouselGradientOverlay items={items} />);
+    render(<CarouselGradientOverlay items={items} readMoreText="Read more" />);
     expect(screen.getByText("E-commerce Platform")).toBeInTheDocument();
     expect(screen.getByText("A complete redesign")).toBeInTheDocument();
     expect(screen.getByText("Read more")).toBeInTheDocument();

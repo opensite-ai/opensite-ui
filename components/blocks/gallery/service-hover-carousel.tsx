@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import { Pressable } from "../../../lib/Pressable";
 import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
@@ -82,7 +83,6 @@ export interface ServiceHoverCarouselProps {
   headerSlot?: React.ReactNode;
   /**
    * Text displayed before the price
-   * @default "Starting at"
    */
   pricePrefix?: React.ReactNode;
   /**
@@ -178,7 +178,7 @@ export function ServiceHoverCarousel({
   items,
   itemsSlot,
   headerSlot,
-  pricePrefix = "Starting at",
+  pricePrefix,
   className,
   headingClassName,
   controlsClassName,
@@ -188,8 +188,8 @@ export function ServiceHoverCarousel({
   imageClassName,
   badgeClassName,
   progressClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -199,6 +199,8 @@ export function ServiceHoverCarousel({
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     if (!carouselApi) {
@@ -224,7 +226,44 @@ export function ServiceHoverCarousel({
   const progressIndicatorWidth = progressWidth / itemsLength;
   const progressOffset = currentIndex * progressIndicatorWidth;
 
-  const renderHeader = () => {
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    if (!items) return [];
+    return items.flatMap((item) => [
+      {
+        id: `image-${item.id}`,
+        type: "image" as const,
+        src: item.image,
+        alt:
+          typeof item.title === "string"
+            ? item.title
+            : item.imageAlt || "Service image",
+        download: true,
+        share: true,
+      },
+      {
+        id: `hover-${item.id}`,
+        type: "image" as const,
+        src: item.hoverImage,
+        alt:
+          typeof item.title === "string"
+            ? item.title
+            : item.hoverImageAlt || "Service hover image",
+        download: true,
+        share: true,
+      },
+    ]);
+  }, [items]);
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const headerContent = useMemo(() => {
     if (headerSlot) return headerSlot;
 
     return (
@@ -270,13 +309,13 @@ export function ServiceHoverCarousel({
         </div>
       </div>
     );
-  };
+  }, [headerSlot, heading, headingClassName, controlsClassName, carouselApi, canScrollPrev, canScrollNext]);
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
-    return items.map((product) => (
+    return items.map((product, productIndex) => (
       <CarouselItem
         key={product.id}
         className={cn("min-w-[334px] flex-1", itemClassName, product.className)}
@@ -286,7 +325,21 @@ export function ServiceHoverCarousel({
           className="group relative flex h-full flex-col items-start justify-start gap-2"
         >
           <div className="w-full">
-            <div className="group relative z-10 overflow-hidden rounded-2xl">
+            <div
+              className="group relative z-10 overflow-hidden rounded-2xl cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                handleImageClick(productIndex * 2);
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleImageClick(productIndex * 2);
+                }
+              }}
+            >
               <Img
                 src={product.image}
                 alt={
@@ -331,14 +384,26 @@ export function ServiceHoverCarousel({
           </div>
           <div className="flex flex-col gap-1">
             <h3>{product.title}</h3>
-            <span>
-              {pricePrefix} <span>{product.price}</span>
-            </span>
+            {pricePrefix && (
+              <span>
+                {pricePrefix} <span>{product.price}</span>
+              </span>
+            )}
+            {!pricePrefix && <span>{product.price}</span>}
           </div>
         </a>
       </CarouselItem>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    itemClassName,
+    imageClassName,
+    badgeClassName,
+    pricePrefix,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -349,7 +414,7 @@ export function ServiceHoverCarousel({
       patternClassName={patternClassName}
       className={className}
     >
-      {renderHeader()}
+      {headerContent}
 
       <div className="relative w-full overflow-hidden">
         <Carousel
@@ -362,7 +427,7 @@ export function ServiceHoverCarousel({
           <CarouselContent
             className={cn("px-4 pb-10 lg:px-10", carouselContentClassName)}
           >
-            {renderItems()}
+            {itemsContent}
           </CarouselContent>
         </Carousel>
 
@@ -381,6 +446,27 @@ export function ServiceHoverCarousel({
           />
         </div>
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }

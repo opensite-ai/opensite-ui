@@ -1,9 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
+import { Lightbox, type LightboxItem } from "@page-speed/lightbox";
 import type { CarouselApi } from "../../ui/carousel";
 import {
   Carousel,
@@ -171,8 +178,8 @@ export function CarouselTabsContent({
   itemClassName,
   cardClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -185,6 +192,8 @@ export function CarouselTabsContent({
     width: 0,
     left: 0,
   });
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     const currentIndex =
@@ -220,7 +229,28 @@ export function CarouselTabsContent({
     };
   }, [api, current, items]);
 
-  const renderTabs = () => {
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    if (!items || items.length === 0) return [];
+    return items.map((item, idx) => ({
+      id: `tabs-content-${idx}`,
+      type: "image" as const,
+      src: item.image,
+      alt: item.imageAlt || "Content image",
+      download: true,
+      share: true,
+    }));
+  }, [items]);
+
+  const handleImageClick = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
+
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const tabsContent = useMemo(() => {
     if (tabsSlot) return tabsSlot;
 
     return (
@@ -257,9 +287,9 @@ export function CarouselTabsContent({
         </div>
       </div>
     );
-  };
+  }, [tabsSlot, tabsClassName, items, current, tabClassName, indicatorClassName, indicatorStyle]);
 
-  const renderItems = () => {
+  const itemsContent = useMemo(() => {
     if (itemsSlot) return itemsSlot;
     if (!items || items.length === 0) return null;
 
@@ -291,7 +321,18 @@ export function CarouselTabsContent({
               </div>
             )}
           </div>
-          <div className="rounded-xl border border-border p-2">
+          <div
+            className="rounded-xl border border-border p-2 cursor-pointer"
+            onClick={() => handleImageClick(idx)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleImageClick(idx);
+              }
+            }}
+          >
             <Img
               src={item.image}
               alt={item.imageAlt || "Content image"}
@@ -306,7 +347,15 @@ export function CarouselTabsContent({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [
+    itemsSlot,
+    items,
+    itemClassName,
+    cardClassName,
+    imageClassName,
+    optixFlowConfig,
+    handleImageClick,
+  ]);
 
   return (
     <Section
@@ -325,7 +374,7 @@ export function CarouselTabsContent({
         )}
       >
         <div className="flex items-center justify-between">
-          {renderTabs()}
+          {tabsContent}
           <div
             className={cn(
               "hidden items-center gap-4 sm:flex",
@@ -337,9 +386,29 @@ export function CarouselTabsContent({
           </div>
         </div>
         <CarouselContent className={cn("max-w-4xl", carouselContentClassName)}>
-          {renderItems()}
+          {itemsContent}
         </CarouselContent>
       </Carousel>
+      {lightboxOpen && (
+        <Lightbox
+          items={lightboxItems}
+          initialIndex={lightboxIndex}
+          layout="horizontal"
+          controls={{
+            navigation: true,
+            thumbnails: true,
+            download: true,
+            share: true,
+            fullscreen: true,
+            captions: true,
+            counter: true,
+          }}
+          onClose={handleLightboxClose}
+          enableKeyboardShortcuts={true}
+          closeOnEscape={true}
+          closeOnBackdropClick={true}
+        />
+      )}
     </Section>
   );
 }
