@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion, type Easing } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -133,15 +134,13 @@ export interface IndustriesHoverRevealGridProps {
  *       url: "/industries/healthcare"
  *     }
  *   ]}
- *   background="white"
- *   spacing="lg"
  * />
  * ```
  */
 export function IndustriesHoverRevealGrid({
   heading,
   headingSlot,
-  industryLabel = "Overview",
+  industryLabel,
   industries,
   industriesSlot,
   className,
@@ -149,14 +148,14 @@ export function IndustriesHoverRevealGrid({
   headingClassName,
   gridClassName,
   itemClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: IndustriesHoverRevealGridProps): React.JSX.Element {
-  const renderHeading = () => {
+  const renderHeading = useMemo(() => {
     if (headingSlot) return headingSlot;
     if (!heading) return null;
 
@@ -172,9 +171,9 @@ export function IndustriesHoverRevealGrid({
     ) : (
       <div className={cn("mb-8", headingClassName)}>{heading}</div>
     );
-  };
+  }, [headingSlot, heading, headingClassName]);
 
-  const renderIndustries = () => {
+  const renderIndustries = useMemo(() => {
     if (industriesSlot) return industriesSlot;
     if (!industries || industries.length === 0) return null;
 
@@ -243,7 +242,9 @@ export function IndustriesHoverRevealGrid({
                 className="absolute inset-0 z-20 flex min-h-120 items-center justify-center p-8 text-white lg:min-h-144 xl:min-h-112"
               >
                 <div className="space-y-3">
-                  <p className="font-medium opacity-90">{industryLabel}:</p>
+                  {industryLabel && (
+                    <p className="font-medium opacity-90">{industryLabel}:</p>
+                  )}
                   <p>{industry.description}</p>
                 </div>
               </motion.div>
@@ -277,7 +278,7 @@ export function IndustriesHoverRevealGrid({
         ))}
       </div>
     );
-  };
+  }, [industriesSlot, industries, industryLabel, gridClassName, itemClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -289,8 +290,8 @@ export function IndustriesHoverRevealGrid({
       patternClassName={patternClassName}
     >
       <div className={containerClassName}>
-        {renderHeading()}
-        {renderIndustries()}
+        {renderHeading}
+        {renderIndustries}
       </div>
     </Section>
   );

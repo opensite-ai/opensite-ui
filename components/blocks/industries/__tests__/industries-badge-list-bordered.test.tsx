@@ -94,7 +94,7 @@ describe("IndustriesBadgeListBordered", () => {
 
   it("renders section with xl spacing", () => {
     const { container } = render(
-      <IndustriesBadgeListBordered services={mockServices} />
+      <IndustriesBadgeListBordered services={mockServices} spacing="xl" />
     );
     const section = container.querySelector("section");
     expect(section?.className).toContain("py-24");

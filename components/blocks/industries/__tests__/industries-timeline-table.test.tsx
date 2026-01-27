@@ -182,12 +182,12 @@ describe("IndustriesTimelineTable", () => {
     expect(textElements.length).toBeGreaterThan(0);
   });
 
-  it("renders muted foreground text for descriptions", () => {
+  it("renders secondary text for descriptions", () => {
     const { container } = render(
       <IndustriesTimelineTable projects={mockProjects} />
     );
-    const mutedText = container.querySelectorAll(".text-muted-foreground");
-    expect(mutedText.length).toBeGreaterThan(0);
+    const secondaryText = container.querySelectorAll(".text-secondary");
+    expect(secondaryText.length).toBeGreaterThan(0);
   });
 
   it("renders relative positioning for background images", () => {

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
@@ -143,8 +144,6 @@ export interface IndustriesExpandableShowcaseProps {
  *       learnMoreUrl: "/industries/hydro"
  *     }
  *   ]}
- *   background="white"
- *   spacing="lg"
  * />
  * ```
  */
@@ -160,8 +159,8 @@ export function IndustriesExpandableShowcase({
   mobileClassName,
   desktopClassName,
   itemClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
@@ -175,7 +174,7 @@ export function IndustriesExpandableShowcase({
     setActiveContractor(contractorId);
   };
 
-  const renderHeading = () => {
+  const renderHeading = useMemo(() => {
     if (headingSlot) return headingSlot;
     if (!heading) return null;
 
@@ -186,9 +185,9 @@ export function IndustriesExpandableShowcase({
     ) : (
       <div className={headingClassName}>{heading}</div>
     );
-  };
+  }, [headingSlot, heading, headingClassName]);
 
-  const renderContractors = () => {
+  const renderContractors = useMemo(() => {
     if (contractorsSlot) return contractorsSlot;
     if (!contractors || contractors.length === 0) return null;
 
@@ -318,7 +317,7 @@ export function IndustriesExpandableShowcase({
         </div>
       </>
     );
-  };
+  }, [contractorsSlot, contractors, mobileClassName, desktopClassName, itemClassName, activeContractor, optixFlowConfig]);
 
   return (
     <Section
@@ -332,10 +331,10 @@ export function IndustriesExpandableShowcase({
       <div className={containerClassName}>
         {(headingSlot || heading) && (
           <div className={cn("mb-12", headingWrapperClassName)}>
-            {renderHeading()}
+            {renderHeading}
           </div>
         )}
-        {renderContractors()}
+        {renderContractors}
       </div>
     </Section>
   );

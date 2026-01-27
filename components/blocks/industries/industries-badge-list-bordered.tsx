@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Badge } from "../../ui/badge";
@@ -136,8 +137,6 @@ export interface IndustriesBadgeListBorderedProps {
  *       imageAlt: "Mining industry icon"
  *     }
  *   ]}
- *   background="white"
- *   spacing="xl"
  * />
  * ```
  */
@@ -155,14 +154,14 @@ export function IndustriesBadgeListBordered({
   headingClassName,
   servicesClassName,
   itemClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: IndustriesBadgeListBorderedProps): React.JSX.Element {
-  const renderBadge = () => {
+  const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
 
@@ -179,9 +178,9 @@ export function IndustriesBadgeListBordered({
     ) : (
       <div className={badgeClassName}>{badge}</div>
     );
-  };
+  }, [badgeSlot, badge, badgeClassName]);
 
-  const renderHeading = () => {
+  const renderHeading = useMemo(() => {
     if (headingSlot) return headingSlot;
     if (!heading) return null;
 
@@ -197,9 +196,9 @@ export function IndustriesBadgeListBordered({
     ) : (
       <div className={headingClassName}>{heading}</div>
     );
-  };
+  }, [headingSlot, heading, headingClassName]);
 
-  const renderServices = () => {
+  const renderServices = useMemo(() => {
     if (servicesSlot) return servicesSlot;
     if (!services || services.length === 0) return null;
 
@@ -239,7 +238,7 @@ export function IndustriesBadgeListBordered({
         ))}
       </div>
     );
-  };
+  }, [servicesSlot, services, servicesClassName, itemClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -253,11 +252,11 @@ export function IndustriesBadgeListBordered({
       <div className={containerClassName}>
         {(badgeSlot || badge || headingSlot || heading) && (
           <div className={cn("mb-16", headerClassName)}>
-            {renderBadge()}
-            {renderHeading()}
+            {renderBadge}
+            {renderHeading}
           </div>
         )}
-        {renderServices()}
+        {renderServices}
       </div>
     </Section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img } from "@page-speed/img";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -143,15 +144,13 @@ export interface IndustriesTimelineTableProps {
  *       url: "/projects/consumer-tech"
  *     }
  *   ]}
- *   background="muted"
- *   spacing="lg"
  * />
  * ```
  */
 export function IndustriesTimelineTable({
   heading,
   headingSlot,
-  labels = ["Year", "Industry", "Description"],
+  labels,
   labelsSlot,
   projects,
   projectsSlot,
@@ -161,14 +160,14 @@ export function IndustriesTimelineTable({
   headerClassName,
   projectsClassName,
   itemClassName,
-  background = "muted",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   patternClassName,
   optixFlowConfig,
 }: IndustriesTimelineTableProps): React.JSX.Element {
-  const renderHeading = () => {
+  const renderHeading = useMemo(() => {
     if (headingSlot) return headingSlot;
     if (!heading) return null;
 
@@ -184,9 +183,9 @@ export function IndustriesTimelineTable({
     ) : (
       <div className={cn("mb-8", headingClassName)}>{heading}</div>
     );
-  };
+  }, [headingSlot, heading, headingClassName]);
 
-  const renderLabels = () => {
+  const renderLabels = useMemo(() => {
     if (labelsSlot) return labelsSlot;
     if (!labels || labels.length === 0) return null;
 
@@ -206,9 +205,9 @@ export function IndustriesTimelineTable({
         <div className="hidden text-sm md:order-3 lg:block">{labels[2]}</div>
       </div>
     );
-  };
+  }, [labelsSlot, labels, headerClassName]);
 
-  const renderProjects = () => {
+  const renderProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -256,7 +255,7 @@ export function IndustriesTimelineTable({
         ))}
       </div>
     );
-  };
+  }, [projectsSlot, projects, projectsClassName, itemClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -268,9 +267,9 @@ export function IndustriesTimelineTable({
       patternClassName={patternClassName}
     >
       <div className={cn("flex flex-col gap-8", containerClassName)}>
-        {renderHeading()}
-        {renderLabels()}
-        {renderProjects()}
+        {renderHeading}
+        {renderLabels}
+        {renderProjects}
       </div>
     </Section>
   );
