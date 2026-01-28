@@ -25,33 +25,33 @@ describe("TestimonialsSplitImage", () => {
 
   it("renders with explicit testimonial", () => {
     const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
-    render(<TestimonialsSplitImage testimonial={testimonial} imageAlt="Test Image" />);
+    render(<TestimonialsSplitImage testimonial={testimonial} imageSrc="https://placeholder.com/image.jpg" imageAlt="Test Image" />);
     expect(screen.getByText("Test quote")).toBeInTheDocument();
     expect(screen.getByText("Test Author")).toBeInTheDocument();
   });
 
   it("renders custom testimonial quote", () => {
-    render(<TestimonialsSplitImage testimonial={{ quote: "Custom quote", author: "John Doe", role: "CEO" }} imageAlt="Test Image" />);
+    render(<TestimonialsSplitImage testimonial={{ quote: "Custom quote", author: "John Doe", role: "CEO" }} imageSrc="https://placeholder.com/image.jpg" imageAlt="Test Image" />);
     expect(screen.getByText("Custom quote")).toBeInTheDocument();
     expect(screen.getByText("John Doe")).toBeInTheDocument();
   });
 
   it("renders author role and company", () => {
     const testimonial = { quote: "Test quote", author: "Test Author", role: "CEO", company: "Test Company" };
-    render(<TestimonialsSplitImage testimonial={testimonial} imageAlt="Test Image" />);
+    render(<TestimonialsSplitImage testimonial={testimonial} imageSrc="https://placeholder.com/image.jpg" imageAlt="Test Image" />);
     expect(screen.getByText(/CEO/)).toBeInTheDocument();
     expect(screen.getByText(/Test Company/)).toBeInTheDocument();
   });
 
   it("renders custom image alt text", () => {
     const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
-    render(<TestimonialsSplitImage testimonial={testimonial} imageAlt="Custom Image" />);
+    render(<TestimonialsSplitImage testimonial={testimonial} imageSrc="https://placeholder.com/image.jpg" imageAlt="Custom Image" />);
     expect(screen.getByAltText("Custom Image")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
     const testimonial = { quote: "Test quote", author: "Test Author", role: "Test Role" };
-    const { container } = render(<TestimonialsSplitImage testimonial={testimonial} imageAlt="Test Image" className="custom-class" />);
+    const { container } = render(<TestimonialsSplitImage testimonial={testimonial} imageSrc="https://placeholder.com/image.jpg" imageAlt="Test Image" className="custom-class" />);
     expect(container.querySelector("section")).toHaveClass("custom-class");
   });
 });

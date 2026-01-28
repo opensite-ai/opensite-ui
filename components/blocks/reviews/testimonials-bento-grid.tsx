@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -180,8 +181,8 @@ export function TestimonialsBentoGrid({
   cardClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsBentoGridProps): React.JSX.Element {
@@ -206,7 +207,7 @@ export function TestimonialsBentoGrid({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     const featuredAuthorName = getAuthorName(featured);
@@ -322,7 +323,7 @@ export function TestimonialsBentoGrid({
         })}
       </div>
     );
-  };
+  }, [testimonialsSlot, gridClassName, featuredCardClassName, quoteClassName, authorClassName, cardClassName, featured, others]);
 
   return (
     <Section
@@ -365,7 +366,7 @@ export function TestimonialsBentoGrid({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

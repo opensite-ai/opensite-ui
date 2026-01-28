@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -104,8 +105,8 @@ export function TestimonialsLargeQuote({
   quoteClassName,
   authorClassName,
   avatarClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsLargeQuoteProps): React.JSX.Element {
@@ -125,7 +126,7 @@ export function TestimonialsLargeQuote({
       .join("");
   };
 
-  const renderTestimonial = () => {
+  const renderedTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
 
     const authorName = getAuthorName();
@@ -188,7 +189,7 @@ export function TestimonialsLargeQuote({
         </div>
       </div>
     );
-  };
+  }, [testimonialSlot, contentClassName, quoteIconClassName, testimonial.quote, quoteClassName, authorClassName, avatarClassName, testimonial.author, testimonial.role, testimonial.company]);
 
   return (
     <Section
@@ -198,7 +199,7 @@ export function TestimonialsLargeQuote({
       patternOpacity={patternOpacity}
       className={className}
     >
-      {renderTestimonial()}
+      {renderedTestimonial}
     </Section>
   );
 }

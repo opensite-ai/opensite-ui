@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -111,12 +112,6 @@ export interface TestimonialsStatsHeaderProps {
   patternOpacity?: number;
 }
 
-const DEFAULT_STATS: StatItem[] = [
-  { value: "10K+", label: "Happy Customers" },
-  { value: "4.9", label: "Average Rating" },
-  { value: "99%", label: "Satisfaction Rate" },
-  { value: "24/7", label: "Support Available" },
-];
 
 const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
@@ -172,7 +167,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
  * ```
  */
 export function TestimonialsStatsHeader({
-  stats = DEFAULT_STATS,
+  stats,
   statsSlot,
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
@@ -188,8 +183,8 @@ export function TestimonialsStatsHeader({
   cardClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsStatsHeaderProps): React.JSX.Element {
@@ -209,8 +204,9 @@ export function TestimonialsStatsHeader({
       .join("");
   };
 
-  const renderStats = () => {
+  const renderedStats = useMemo(() => {
     if (statsSlot) return statsSlot;
+    if (!stats) return null;
 
     return (
       <div
@@ -243,9 +239,9 @@ export function TestimonialsStatsHeader({
         ))}
       </div>
     );
-  };
+  }, [statsSlot, stats, statsGridClassName, statItemClassName]);
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -313,7 +309,7 @@ export function TestimonialsStatsHeader({
         })}
       </div>
     );
-  };
+  }, [testimonialsSlot, testimonialsGridClassName, testimonials, cardClassName, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -356,8 +352,8 @@ export function TestimonialsStatsHeader({
           ))}
       </div>
 
-      {renderStats()}
-      {renderTestimonials()}
+      {renderedStats}
+      {renderedTestimonials}
     </Section>
   );
 }

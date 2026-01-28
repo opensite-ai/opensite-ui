@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { AspectRatio } from "../../ui/aspect-ratio";
@@ -83,6 +83,10 @@ export interface ReviewsImagesHelpfulProps {
    * Write review button text
    */
   writeReviewLabel?: React.ReactNode;
+  /**
+   * Label for the report button
+   */
+  reportButtonLabel?: React.ReactNode;
   /**
    * Additional CSS classes for the section wrapper
    */
@@ -254,7 +258,8 @@ export function ReviewsImagesHelpful({
   reviews = DEFAULT_REVIEWS,
   reviewsSlot,
   heading,
-  writeReviewLabel = "Write a Review",
+  writeReviewLabel,
+  reportButtonLabel,
   className,
   headerClassName,
   headingClassName,
@@ -263,8 +268,8 @@ export function ReviewsImagesHelpful({
   authorClassName,
   imagesClassName,
   onWriteReview,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -299,7 +304,7 @@ export function ReviewsImagesHelpful({
       .join("");
   };
 
-  const renderReviews = () => {
+  const renderedReviews = useMemo(() => {
     if (reviewsSlot) return reviewsSlot;
 
     return (
@@ -427,7 +432,7 @@ export function ReviewsImagesHelpful({
                       size="sm"
                       className="h-8 text-muted-foreground"
                     >
-                      Report
+                      {reportButtonLabel ?? "Report"}
                     </Pressable>
                   </div>
                 </CardContent>
@@ -437,7 +442,7 @@ export function ReviewsImagesHelpful({
         })}
       </div>
     );
-  };
+  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, imagesClassName, helpfulClicked, optixFlowConfig, reportButtonLabel]);
 
   return (
     <Section
@@ -483,7 +488,7 @@ export function ReviewsImagesHelpful({
           </Pressable>
         </div>
 
-        {renderReviews()}
+        {renderedReviews}
       </div>
     </Section>
   );

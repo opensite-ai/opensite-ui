@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -123,8 +124,8 @@ const DEFAULT_TESTIMONIAL: TestimonialItem = {
 export function TestimonialsSplitImage({
   testimonial = DEFAULT_TESTIMONIAL,
   testimonialSlot,
-  imageSrc = imagePlaceholders[25],
-  imageAlt = "Testimonial",
+  imageSrc,
+  imageAlt,
   imagePosition = "left",
   className,
   gridClassName,
@@ -133,8 +134,8 @@ export function TestimonialsSplitImage({
   quoteIconClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -155,7 +156,7 @@ export function TestimonialsSplitImage({
       .join("");
   };
 
-  const renderTestimonial = () => {
+  const renderedTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
 
     const authorName = getAuthorName();
@@ -217,7 +218,7 @@ export function TestimonialsSplitImage({
         </div>
       </div>
     );
-  };
+  }, [testimonialSlot, imagePosition, contentClassName, quoteIconClassName, testimonial.quote, quoteClassName, authorClassName, testimonial.author, testimonial.role, testimonial.company]);
 
   return (
     <Section
@@ -247,7 +248,7 @@ export function TestimonialsSplitImage({
           </div>
         )}
 
-        {renderTestimonial()}
+        {renderedTestimonial}
       </div>
     </Section>
   );

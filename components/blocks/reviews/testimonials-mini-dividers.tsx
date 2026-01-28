@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -198,8 +199,8 @@ export function TestimonialsMiniDividers({
   itemClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsMiniDividersProps): React.JSX.Element {
@@ -221,7 +222,7 @@ export function TestimonialsMiniDividers({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -293,7 +294,7 @@ export function TestimonialsMiniDividers({
         })}
       </div>
     );
-  };
+  }, [testimonialsSlot, gridClassName, testimonials, itemClassName, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -336,7 +337,7 @@ export function TestimonialsMiniDividers({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -194,8 +195,8 @@ export function TestimonialsTwitterCards({
   cardClassName,
   cardContentClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsTwitterCardsProps): React.JSX.Element {
@@ -211,7 +212,7 @@ export function TestimonialsTwitterCards({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -280,7 +281,7 @@ export function TestimonialsTwitterCards({
         })}
       </div>
     );
-  };
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, cardContentClassName, authorClassName]);
 
   return (
     <Section
@@ -323,7 +324,7 @@ export function TestimonialsTwitterCards({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -57,6 +58,10 @@ export interface ReviewsListVerifiedProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Label for the verified purchase badge
+   */
+  verifiedPurchaseLabel?: React.ReactNode;
   /**
    * Additional CSS classes for the section wrapper
    */
@@ -200,14 +205,15 @@ export function ReviewsListVerified({
   reviews = DEFAULT_REVIEWS,
   reviewsSlot,
   heading,
+  verifiedPurchaseLabel,
   className,
   headerClassName,
   headingClassName,
   reviewClassName,
   contentClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: ReviewsListVerifiedProps): React.JSX.Element {
@@ -226,7 +232,7 @@ export function ReviewsListVerified({
       .join("");
   };
 
-  const renderReviews = () => {
+  const renderedReviews = useMemo(() => {
     if (reviewsSlot) return reviewsSlot;
 
     return (
@@ -273,7 +279,16 @@ export function ReviewsListVerified({
                     {review.verified && (
                       <span className="flex items-center gap-1 text-emerald-600">
                         <DynamicIcon name="lucide/badge-check" size={16} />
-                        <span className="text-xs">Verified Purchase</span>
+                        {verifiedPurchaseLabel && (
+                          typeof verifiedPurchaseLabel === "string" ? (
+                            <span className="text-xs">{verifiedPurchaseLabel}</span>
+                          ) : (
+                            verifiedPurchaseLabel
+                          )
+                        )}
+                        {!verifiedPurchaseLabel && (
+                          <span className="text-xs">Verified Purchase</span>
+                        )}
                       </span>
                     )}
                     {review.date && (
@@ -292,7 +307,7 @@ export function ReviewsListVerified({
         })}
       </div>
     );
-  };
+  }, [reviewsSlot, reviews, reviewClassName, contentClassName, authorClassName, verifiedPurchaseLabel]);
 
   return (
     <Section
@@ -325,7 +340,7 @@ export function ReviewsListVerified({
           </div>
         </div>
 
-        {renderReviews()}
+        {renderedReviews}
       </div>
     </Section>
   );

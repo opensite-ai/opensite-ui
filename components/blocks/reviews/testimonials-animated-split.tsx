@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -153,8 +153,8 @@ export function TestimonialsAnimatedSplit({
   quoteClassName,
   authorClassName,
   navigationClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -198,7 +198,7 @@ export function TestimonialsAnimatedSplit({
       .join("");
   };
 
-  const renderTestimonial = () => {
+  const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     const authorName = getAuthorName(current);
@@ -324,7 +324,7 @@ export function TestimonialsAnimatedSplit({
         </div>
       </div>
     );
-  };
+  }, [testimonialsSlot, imageClassName, currentIndex, current, optixFlowConfig, contentClassName, quoteClassName, authorClassName, navigationClassName, testimonials, goToPrev, goToNext]);
 
   return (
     <Section
@@ -334,7 +334,7 @@ export function TestimonialsAnimatedSplit({
       patternOpacity={patternOpacity}
       className={cn("overflow-hidden", className)}
     >
-      {renderTestimonial()}
+      {renderedTestimonial}
     </Section>
   );
 }

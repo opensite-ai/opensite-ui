@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
@@ -123,9 +124,9 @@ const DEFAULT_TESTIMONIAL: TestimonialItem = {
 export function TestimonialsCompanyLogo({
   testimonial = DEFAULT_TESTIMONIAL,
   testimonialSlot,
-  companyLogo = blockBrandedIconsAndPlaceholders.fictionalCompanyLogo1,
-  companyLogoAlt = "Company Logo",
-  imageSrc = imagePlaceholders[20],
+  companyLogo,
+  companyLogoAlt,
+  imageSrc,
   imageAlt = "Testimonial",
   className,
   gridClassName,
@@ -134,13 +135,13 @@ export function TestimonialsCompanyLogo({
   quoteClassName,
   authorClassName,
   imageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: TestimonialsCompanyLogoProps): React.JSX.Element {
-  const renderTestimonial = () => {
+  const renderedTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
 
     return (
@@ -196,7 +197,7 @@ export function TestimonialsCompanyLogo({
         </div>
       </div>
     );
-  };
+  }, [testimonialSlot, contentClassName, companyLogo, companyLogoAlt, logoClassName, optixFlowConfig, testimonial.quote, quoteClassName, authorClassName, testimonial.author, testimonial.role]);
 
   return (
     <Section
@@ -209,7 +210,7 @@ export function TestimonialsCompanyLogo({
       <div
         className={cn("grid items-center gap-12 lg:grid-cols-2", gridClassName)}
       >
-        {renderTestimonial()}
+        {renderedTestimonial}
 
         {imageSrc && (
           <div

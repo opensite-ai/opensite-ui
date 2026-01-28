@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -175,8 +176,8 @@ export function TestimonialsMasonryGrid({
   cardClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsMasonryGridProps): React.JSX.Element {
@@ -202,7 +203,7 @@ export function TestimonialsMasonryGrid({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -271,7 +272,7 @@ export function TestimonialsMasonryGrid({
         ))}
       </div>
     );
-  };
+  }, [testimonialsSlot, gridClassName, columns, cardClassName, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -314,7 +315,7 @@ export function TestimonialsMasonryGrid({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

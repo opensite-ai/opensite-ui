@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -200,8 +201,8 @@ export function TestimonialsScrollingColumns({
   cardClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -213,7 +214,7 @@ export function TestimonialsScrollingColumns({
     return "";
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -290,7 +291,7 @@ export function TestimonialsScrollingColumns({
         })}
       </motion.div>
     );
-  };
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, optixFlowConfig, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -333,7 +334,7 @@ export function TestimonialsScrollingColumns({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

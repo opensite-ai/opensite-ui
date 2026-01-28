@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import {
@@ -167,8 +168,8 @@ export function TestimonialsQuoteCarousel({
   quoteClassName,
   authorClassName,
   navigationClassName,
-  background = "gray",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsQuoteCarouselProps): React.JSX.Element {
@@ -188,7 +189,7 @@ export function TestimonialsQuoteCarousel({
       .join("");
   };
 
-  const renderHeading = () => {
+  const renderedHeading = useMemo(() => {
     if (typeof heading === "string") {
       return heading.split(" ").map((word, i) =>
         i === 1 ? (
@@ -201,9 +202,9 @@ export function TestimonialsQuoteCarousel({
       );
     }
     return heading;
-  };
+  }, [heading]);
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -298,7 +299,7 @@ export function TestimonialsQuoteCarousel({
         </Carousel>
       </div>
     );
-  };
+  }, [testimonialsSlot, carouselClassName, testimonials, cardClassName, quoteClassName, authorClassName, navigationClassName]);
 
   return (
     <Section
@@ -319,7 +320,7 @@ export function TestimonialsQuoteCarousel({
                 headingClassName,
               )}
             >
-              {renderHeading()}
+              {renderedHeading}
             </h2>
           ) : (
             <div className={headingClassName}>{heading}</div>
@@ -341,7 +342,7 @@ export function TestimonialsQuoteCarousel({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

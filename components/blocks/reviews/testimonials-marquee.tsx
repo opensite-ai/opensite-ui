@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -181,8 +182,8 @@ export function TestimonialsMarquee({
   cardClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsMarqueeProps): React.JSX.Element {
@@ -204,7 +205,7 @@ export function TestimonialsMarquee({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -284,7 +285,7 @@ export function TestimonialsMarquee({
         </div>
       </div>
     );
-  };
+  }, [testimonialsSlot, marqueeClassName, pauseOnHover, speed, duplicatedTestimonials, cardClassName, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -327,7 +328,7 @@ export function TestimonialsMarquee({
         </div>
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
 
       <style>{`
         @keyframes marquee {

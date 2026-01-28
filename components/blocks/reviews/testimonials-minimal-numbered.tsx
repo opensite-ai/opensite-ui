@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -131,8 +131,8 @@ export function TestimonialsMinimalNumbered({
   quoteClassName,
   authorClassName,
   navigationClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsMinimalNumberedProps): React.JSX.Element {
@@ -186,7 +186,7 @@ export function TestimonialsMinimalNumbered({
       .join("");
   };
 
-  const renderTestimonial = () => {
+  const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     const authorName = getAuthorName(current);
@@ -268,7 +268,7 @@ export function TestimonialsMinimalNumbered({
         </div>
       </div>
     );
-  };
+  }, [testimonialsSlot, contentClassName, numberClassName, active, current, isTransitioning, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -279,7 +279,7 @@ export function TestimonialsMinimalNumbered({
       className={className}
     >
       <div className="max-w-4xl mx-auto">
-        {renderTestimonial()}
+        {renderedTestimonial}
 
         <div
           className={cn(

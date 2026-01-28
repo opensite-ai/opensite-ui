@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Card, CardContent } from "../../ui/card";
@@ -176,8 +177,8 @@ export function TestimonialsSimpleGrid({
   cardClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsSimpleGridProps): React.JSX.Element {
@@ -203,7 +204,7 @@ export function TestimonialsSimpleGrid({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -261,7 +262,7 @@ export function TestimonialsSimpleGrid({
         })}
       </div>
     );
-  };
+  }, [testimonialsSlot, gridCols, columns, gridClassName, testimonials, cardClassName, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -304,7 +305,7 @@ export function TestimonialsSimpleGrid({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

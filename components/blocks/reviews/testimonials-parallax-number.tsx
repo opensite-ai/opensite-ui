@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import {
   motion,
   AnimatePresence,
@@ -31,6 +31,10 @@ export interface TestimonialsParallaxNumberProps {
    * Auto-play interval in milliseconds (0 to disable)
    */
   autoPlayInterval?: number;
+  /**
+   * Vertical text label displayed on the side
+   */
+  verticalLabel?: React.ReactNode;
   /**
    * Additional CSS classes for the section wrapper
    */
@@ -123,14 +127,15 @@ export function TestimonialsParallaxNumber({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
   autoPlayInterval = 6000,
+  verticalLabel,
   className,
   contentClassName,
   numberClassName,
   quoteClassName,
   authorClassName,
   navigationClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsParallaxNumberProps): React.JSX.Element {
@@ -191,7 +196,7 @@ export function TestimonialsParallaxNumber({
     return "";
   };
 
-  const renderTestimonial = () => {
+  const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     const authorName = getAuthorName(current);
@@ -234,7 +239,10 @@ export function TestimonialsParallaxNumber({
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              Testimonials
+              {verticalLabel && (
+                typeof verticalLabel === "string" ? verticalLabel : verticalLabel
+              )}
+              {!verticalLabel && "Testimonials"}
             </motion.span>
 
             <div className="relative mt-8 h-32 w-px bg-border">
@@ -415,7 +423,7 @@ export function TestimonialsParallaxNumber({
         </div>
       </div>
     );
-  };
+  }, [testimonialsSlot, contentClassName, numberX, numberY, numberClassName, activeIndex, testimonials, verticalLabel, quoteClassName, authorClassName, current, navigationClassName, containerRef, handleMouseMove, goPrev, goNext]);
 
   return (
     <Section
@@ -426,7 +434,7 @@ export function TestimonialsParallaxNumber({
       className={cn("overflow-hidden", className)}
     >
       <div className="flex min-h-[500px] items-center justify-center">
-        {renderTestimonial()}
+        {renderedTestimonial}
       </div>
     </Section>
   );

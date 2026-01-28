@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -199,8 +200,8 @@ export function TestimonialsGridAddReview({
   reviewsSlot,
   heading,
   description,
-  addReviewText = "Share Your Experience",
-  addReviewSubtext = "Help others by sharing your thoughts",
+  addReviewText,
+  addReviewSubtext,
   onAddReview,
   className,
   headerClassName,
@@ -210,8 +211,8 @@ export function TestimonialsGridAddReview({
   cardClassName,
   addReviewCardClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsGridAddReviewProps): React.JSX.Element {
@@ -227,7 +228,7 @@ export function TestimonialsGridAddReview({
       .join("");
   };
 
-  const renderReviews = () => {
+  const renderedReviews = useMemo(() => {
     if (reviewsSlot) return reviewsSlot;
 
     return (
@@ -303,7 +304,7 @@ export function TestimonialsGridAddReview({
         })}
       </div>
     );
-  };
+  }, [reviewsSlot, gridClassName, addReviewCardClassName, onAddReview, addReviewText, addReviewSubtext, reviews, cardClassName, authorClassName]);
 
   return (
     <Section
@@ -346,7 +347,7 @@ export function TestimonialsGridAddReview({
           ))}
       </div>
 
-      {renderReviews()}
+      {renderedReviews}
     </Section>
   );
 }

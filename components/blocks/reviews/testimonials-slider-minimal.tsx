@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
@@ -126,8 +126,8 @@ export function TestimonialsSliderMinimal({
   authorClassName,
   avatarClassName,
   dotsClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsSliderMinimalProps): React.JSX.Element {
@@ -175,7 +175,7 @@ export function TestimonialsSliderMinimal({
       .join("");
   };
 
-  const renderTestimonial = () => {
+  const renderedTestimonial = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     const authorName = getAuthorName(current);
@@ -229,7 +229,7 @@ export function TestimonialsSliderMinimal({
         </div>
       </div>
     );
-  };
+  }, [testimonialsSlot, isTransitioning, current.quote, quoteClassName, authorClassName, avatarClassName, current.author, current.role]);
 
   return (
     <Section
@@ -240,7 +240,7 @@ export function TestimonialsSliderMinimal({
       className={className}
     >
       <div className={cn("mx-auto max-w-3xl text-center", contentClassName)}>
-        {renderTestimonial()}
+        {renderedTestimonial}
 
         <div className={cn("mt-8 flex justify-center gap-2", dotsClassName)}>
           {testimonials.map((_, index) => (

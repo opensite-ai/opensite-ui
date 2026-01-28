@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
@@ -189,8 +190,8 @@ export function TestimonialsLogoCards({
   cardContentClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -213,7 +214,7 @@ export function TestimonialsLogoCards({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -295,7 +296,7 @@ export function TestimonialsLogoCards({
         })}
       </div>
     );
-  };
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, cardHeaderClassName, optixFlowConfig, cardContentClassName, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -338,7 +339,7 @@ export function TestimonialsLogoCards({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }

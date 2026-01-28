@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
@@ -39,6 +39,14 @@ export interface TestimonialsCarouselImageProps {
    * Overlay opacity (0-1)
    */
   overlayOpacity?: number;
+  /**
+   * Aria label for the previous button
+   */
+  previousButtonAriaLabel?: string;
+  /**
+   * Aria label for the next button
+   */
+  nextButtonAriaLabel?: string;
   /**
    * Additional CSS classes for the section wrapper
    */
@@ -131,8 +139,10 @@ const DEFAULT_TESTIMONIALS: CarouselTestimonialItem[] = [
 export function TestimonialsCarouselImage({
   testimonials = DEFAULT_TESTIMONIALS,
   testimonialsSlot,
-  height = "h-[600px] md:h-[700px]",
-  overlayOpacity = 0.6,
+  height,
+  overlayOpacity,
+  previousButtonAriaLabel,
+  nextButtonAriaLabel,
   className,
   contentClassName,
   quoteIconClassName,
@@ -159,7 +169,7 @@ export function TestimonialsCarouselImage({
 
   const current = testimonials[currentIndex];
 
-  const renderTestimonialContent = () => {
+  const renderedTestimonialContent = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -201,7 +211,7 @@ export function TestimonialsCarouselImage({
         </div>
       </div>
     );
-  };
+  }, [testimonialsSlot, contentClassName, quoteIconClassName, current.quote, quoteClassName, authorClassName, current.author, current.role, current.company]);
 
   return (
     <section className={cn("relative", height, className)}>
@@ -221,7 +231,7 @@ export function TestimonialsCarouselImage({
       </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4">
-        {renderTestimonialContent()}
+        {renderedTestimonialContent}
 
         <div className={cn("absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4", navigationClassName)}>
           <Pressable
@@ -230,7 +240,7 @@ export function TestimonialsCarouselImage({
             size="icon"
             className={cn("size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20", navButtonClassName)}
             onClick={goToPrevious}
-            aria-label="Previous testimonial"
+            aria-label={previousButtonAriaLabel ?? "Previous testimonial"}
           >
             <DynamicIcon name="lucide/chevron-left" size={24} />
           </Pressable>
@@ -257,7 +267,7 @@ export function TestimonialsCarouselImage({
             size="icon"
             className={cn("size-10 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20", navButtonClassName)}
             onClick={goToNext}
-            aria-label="Next testimonial"
+            aria-label={nextButtonAriaLabel ?? "Next testimonial"}
           >
             <DynamicIcon name="lucide/chevron-right" size={24} />
           </Pressable>

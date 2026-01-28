@@ -58,7 +58,7 @@ describe("ReviewsImagesHelpful", () => {
   });
 
   it("renders with explicit heading", () => {
-    render(<ReviewsImagesHelpful heading="Test Reviews" />);
+    render(<ReviewsImagesHelpful heading="Test Reviews" writeReviewLabel="Write a Review" />);
     expect(screen.getByText("Test Reviews")).toBeInTheDocument();
     expect(screen.getByText("Write a Review")).toBeInTheDocument();
   });
@@ -69,7 +69,7 @@ describe("ReviewsImagesHelpful", () => {
   });
 
   it("renders write review button", () => {
-    render(<ReviewsImagesHelpful heading="Test Reviews" />);
+    render(<ReviewsImagesHelpful heading="Test Reviews" writeReviewLabel="Write a Review" />);
     expect(screen.getByText("Write a Review")).toBeInTheDocument();
   });
 

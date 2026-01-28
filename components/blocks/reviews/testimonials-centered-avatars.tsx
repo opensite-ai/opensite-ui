@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -151,8 +152,8 @@ export function TestimonialsCenteredAvatars({
   testimonialItemClassName,
   quoteClassName,
   authorClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsCenteredAvatarsProps): React.JSX.Element {
@@ -172,7 +173,7 @@ export function TestimonialsCenteredAvatars({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -219,7 +220,7 @@ export function TestimonialsCenteredAvatars({
         ))}
       </div>
     );
-  };
+  }, [testimonialsSlot, testimonialsClassName, testimonials, testimonialItemClassName, quoteClassName, authorClassName]);
 
   return (
     <Section
@@ -272,7 +273,7 @@ export function TestimonialsCenteredAvatars({
           </div>
         </div>
 
-        {renderTestimonials()}
+        {renderedTestimonials}
       </div>
     </Section>
   );

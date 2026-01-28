@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Badge } from "../../ui/badge";
@@ -209,8 +210,8 @@ export function TestimonialsWallCompact({
   cardClassName,
   authorClassName,
   quoteClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
 }: TestimonialsWallCompactProps): React.JSX.Element {
@@ -232,7 +233,7 @@ export function TestimonialsWallCompact({
       .join("");
   };
 
-  const renderTestimonials = () => {
+  const renderedTestimonials = useMemo(() => {
     if (testimonialsSlot) return testimonialsSlot;
 
     return (
@@ -304,7 +305,7 @@ export function TestimonialsWallCompact({
         })}
       </div>
     );
-  };
+  }, [testimonialsSlot, gridClassName, testimonials, cardClassName, authorClassName, quoteClassName]);
 
   return (
     <Section
@@ -347,7 +348,7 @@ export function TestimonialsWallCompact({
           ))}
       </div>
 
-      {renderTestimonials()}
+      {renderedTestimonials}
     </Section>
   );
 }
