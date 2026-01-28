@@ -270,10 +270,10 @@ export function BlogTechInsights({
             secondaryPostItemClassName,
           )}
         >
-          <div className="w-1/4 shrink-0 md:w-1/5">
+          <div className="w-24 shrink-0 sm:w-28 md:w-32">
             {post.image && (
               <Img
-                className="rounded-md"
+                className="aspect-4/3 w-full rounded-md object-cover"
                 src={post.image}
                 alt={
                   typeof post.title === "string" ? post.title : "Content item"
@@ -282,14 +282,14 @@ export function BlogTechInsights({
               />
             )}
           </div>
-          <div className="w-3/4 md:w-4/5">
+          <div className="flex-1">
             {post.title && (
-              <h3 className="font-semibold text-foreground md:text-lg">
+              <h3 className="font-semibold text-foreground text-md line-clamp-2">
                 {post.title}
               </h3>
             )}
             {truncatedDescription && (
-              <p className="mt-1 text-sm leading-relaxed text-muted-foreground md:text-base">
+              <p className="mt-1 text-sm leading-snug text-muted-foreground md:text-base line-clamp-2">
                 {truncatedDescription}
               </p>
             )}

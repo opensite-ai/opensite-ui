@@ -117,7 +117,7 @@ export function BlogHorizontalTimelineComponent({
         <div
           key={postId}
           className={cn(
-            "flex flex-col items-center gap-6 md:flex-row md:gap-16",
+            "flex flex-col items-center gap-2 md:flex-row md:gap-16",
             postItemClassName,
           )}
         >
@@ -142,13 +142,13 @@ export function BlogHorizontalTimelineComponent({
             <CardContent className="p-0">
               <div
                 className={cn(
-                  "flex flex-col gap-4 border-b py-4 md:h-90 md:flex-row md:items-start md:gap-0 md:py-10 lg:gap-32",
+                  "flex flex-col gap-4 border-b h-full justify-between md:items-start md:gap-0 md:border-t py-6 mb-6 md:mb-0",
                   index === 0 && "md:border-t",
                 )}
               >
                 <div className="flex w-full flex-col items-start gap-2 md:h-full md:justify-between md:pr-8">
                   {post.title && (
-                    <h2 className="text-xl font-bold tracking-tight text-foreground md:text-3xl">
+                    <h2 className="text-lg font-bold tracking-tight text-foreground line-clamp-2">
                       {post.title}
                     </h2>
                   )}
@@ -160,19 +160,13 @@ export function BlogHorizontalTimelineComponent({
                 </div>
                 <div className="flex w-full flex-col items-start gap-4 md:h-full md:justify-between md:gap-6">
                   {postDescription && (
-                    <p className="text-base leading-relaxed font-normal tracking-tight text-muted-foreground md:text-xl">
+                    <p className="text-base leading-relaxed font-normal tracking-tight text-muted-foreground md:text-xl line-clamp-3">
                       {postDescription}
                     </p>
                   )}
                   {readText && (
-                    <Pressable
-                      href={postHref}
-                      variant="ghost"
-                      className="inline-flex items-center justify-center gap-4 px-0 text-primary transition-all ease-in-out hover:gap-6 hover:text-accent-foreground"
-                    >
-                      <span className="text-base font-semibold tracking-tight md:text-lg">
-                        {readText}
-                      </span>
+                    <Pressable href={postHref} asButton variant="link">
+                      {readText}
                       <DynamicIcon name="lucide/arrow-right" size={20} />
                     </Pressable>
                   )}

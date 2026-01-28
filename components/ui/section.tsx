@@ -33,6 +33,19 @@ const spacingStyles = {
 };
 
 /**
+ * Predefined spacing keys for type checking
+ */
+const predefinedSpacings = ["none", "sm", "md", "lg", "xl"] as const;
+
+/**
+ * Check if a spacing value is a predefined variant
+ */
+const isPredefinedSpacing = (
+  spacing: string,
+): spacing is keyof typeof spacingStyles =>
+  predefinedSpacings.includes(spacing as (typeof predefinedSpacings)[number]);
+
+/**
  * Section component for consistent page sections with optional title, subtitle, and background
  *
  * @example
@@ -82,7 +95,9 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           "relative",
           pattern ? "overflow-hidden" : null,
           backgroundStyles[background],
-          spacingStyles[spacing],
+          isPredefinedSpacing(spacing)
+            ? spacingStyles[spacing]
+            : spacing,
           className,
         )}
         style={style}

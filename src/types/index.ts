@@ -55,8 +55,12 @@ export type SectionBackground =
 
 /**
  * Spacing variants for Section component
+ * Can be a predefined variant or a custom Tailwind spacing class string
+ * @example "lg" // predefined variant
+ * @example "py-8 md:py-16" // custom spacing classes
+ * @example "pt-4 pb-12 lg:pt-8 lg:pb-24" // asymmetric top/bottom spacing
  */
-export type SectionSpacing = "none" | "sm" | "md" | "lg" | "xl";
+export type SectionSpacing = "none" | "sm" | "md" | "lg" | "xl" | (string & {});
 
 /**
  * Size variants for AnimatedDialog component

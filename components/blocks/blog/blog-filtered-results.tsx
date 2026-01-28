@@ -189,15 +189,18 @@ const BlogCard = React.memo(function BlogCard({
   const postCta = post.cta || "Read more";
 
   return (
-    <Pressable href={postHref} className={cn("block h-full w-full", className)}>
-      <Card className="size-full rounded-lg border py-0">
-        <CardContent className="p-0">
-          {postCategory && (
-            <div className="border-b p-2.5 text-xs leading-[1.2] font-bold text-muted-foreground/70 uppercase">
-              {postCategory}
-            </div>
-          )}
-          {postImage && (
+    <Card className={cn("size-full rounded-lg border py-0", className)}>
+      <CardContent className="p-0">
+        {postCategory && (
+          <div className="border-b p-2.5 text-xs leading-[1.2] font-bold text-muted-foreground/70 uppercase">
+            {postCategory}
+          </div>
+        )}
+        {postImage && (
+          <Pressable
+            href={postHref}
+            className="block transition-opacity duration-200 hover:opacity-80"
+          >
             <AspectRatio ratio={1.520833333} className="overflow-hidden">
               <Img
                 src={postImage}
@@ -206,30 +209,30 @@ const BlogCard = React.memo(function BlogCard({
                 optixFlowConfig={optixFlowConfig}
               />
             </AspectRatio>
+          </Pressable>
+        )}
+        <div className="flex w-full flex-col gap-5 p-5">
+          {post.title && (
+            <h2 className="text-lg leading-tight font-medium md:text-xl hover:underline">
+              <Pressable href={postHref}>{post.title}</Pressable>
+            </h2>
           )}
-          <div className="flex w-full flex-col gap-5 p-5">
-            {post.title && (
-              <h2 className="text-lg leading-tight font-medium md:text-xl">
-                {post.title}
-              </h2>
-            )}
-            {postSummary && (
-              <div className="w-full max-w-[20rem]">
-                <p className="text-sm leading-[1.4] font-medium text-muted-foreground">
-                  {postSummary}
-                </p>
-              </div>
-            )}
-            <div>
-              <Pressable href={postHref} asButton size="sm" variant="outline">
-                {postCta}
-                <DynamicIcon name="lucide/arrow-right" size={16} />
-              </Pressable>
+          {postSummary && (
+            <div className="w-full max-w-[20rem]">
+              <p className="text-sm leading-[1.4] font-medium text-muted-foreground">
+                {postSummary}
+              </p>
             </div>
+          )}
+          <div>
+            <Pressable href={postHref} asButton size="sm" variant="outline">
+              {postCta}
+              <DynamicIcon name="lucide/arrow-right" size={16} />
+            </Pressable>
           </div>
-        </CardContent>
-      </Card>
-    </Pressable>
+        </div>
+      </CardContent>
+    </Card>
   );
 });
 
@@ -330,7 +333,7 @@ export function BlogFilteredResultsComponent({
   loadMoreClassName,
   optixFlowConfig,
   background,
-  spacing,
+  spacing = "pt-6 pb-16 lg:pt-12 lg:pb-32",
   pattern,
   patternOpacity,
 }: BlogFilteredResultsProps): React.JSX.Element {
@@ -487,7 +490,7 @@ export function BlogFilteredResultsComponent({
           heroClassName,
         )}
       >
-        <div className="w-full flex flex-col items-start justify-start gap-6 md:gap-16 p-12 md:p-20 lg:flex-row lg:items-center lg:justify-between">
+        <div className="w-full flex flex-col items-start justify-start gap-6 md:gap-16 p-6 md:p-20 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex w-full flex-col justify-between gap-12">
             <div className="flex w-full max-w-xl flex-col gap-8">
               {breadcrumbContent}

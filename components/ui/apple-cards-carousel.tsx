@@ -180,7 +180,7 @@ export const AppleCarousel = ({
             ))}
           </div>
         </div>
-        <div className="mr-10 flex justify-end gap-2">
+        <div className="mr-0 md:mr-10 flex justify-end gap-2">
           <Pressable
             className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full disabled:opacity-50"
             onClick={scrollLeftHandler}
@@ -266,8 +266,12 @@ export const AppleCarouselCard = ({
 
   const cardContent = (
     <>
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-linear-to-b from-black/50 via-transparent to-transparent" />
-      <div className={cn("relative z-40 p-8", contentClassName)}>
+      <div
+        className={cn(
+          "relative z-40 p-4 md:p-8 text-shadow-lg",
+          contentClassName,
+        )}
+      >
         <motion.p
           layoutId={layout ? `category-${card.category}-${index}` : undefined}
           className="text-left font-sans text-sm font-medium text-white md:text-base"
@@ -276,7 +280,7 @@ export const AppleCarouselCard = ({
         </motion.p>
         <motion.p
           layoutId={layout ? `title-${card.title}-${index}` : undefined}
-          className="mt-2 max-w-xs text-left font-sans text-xl font-semibold text-balance text-white md:text-3xl"
+          className="mt-2 max-w-xs text-left font-sans text-lg font-semibold text-balance text-white md:text-2xl"
         >
           {card.title}
         </motion.p>
@@ -285,7 +289,7 @@ export const AppleCarouselCard = ({
         src={card.src}
         alt={card.title}
         className={cn(
-          "absolute inset-0 z-10 h-full w-full object-cover",
+          "absolute inset-0 z-10 h-full w-full object-cover brightness-50",
           imageClassName,
         )}
         optixFlowConfig={optixFlowConfig}
