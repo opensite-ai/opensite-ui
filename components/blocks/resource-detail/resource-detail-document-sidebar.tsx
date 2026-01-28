@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -159,91 +160,6 @@ export interface ResourceDetailDocumentSidebarProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultArticleContent = (
-  <>
-    <h1>The Joke Tax Chronicles</h1>
-    <p>
-      Once upon a time, in a far-off land, there was a very lazy king who spent
-      all day lounging on his throne. One day, his advisors came to him with a
-      problem: the kingdom was running out of money.
-    </p>
-    <h2>The King&apos;s Plan</h2>
-    <p>
-      The king thought long and hard, and finally came up with{" "}
-      <a href="#">a brilliant plan</a>: he would tax the jokes in the kingdom.
-    </p>
-    <blockquote>
-      &ldquo;After all,&rdquo; he said, &ldquo;everyone enjoys a good joke, so
-      it&apos;s only fair that they should pay for the privilege.&rdquo;
-    </blockquote>
-    <h3>The Joke Tax</h3>
-    <p>
-      The king&apos;s subjects were not amused. They grumbled and complained,
-      but the king was firm:
-    </p>
-    <ul>
-      <li>1st level of puns: 5 gold coins</li>
-      <li>2nd level of jokes: 10 gold coins</li>
-      <li>3rd level of one-liners : 20 gold coins</li>
-    </ul>
-    <p>
-      As a result, people stopped telling jokes, and the kingdom fell into a
-      gloom. But there was one person who refused to let the king&apos;s
-      foolishness get him down: a court jester named Jokester.
-    </p>
-    <h3>Jokester&apos;s Revolt</h3>
-    <p>
-      Jokester began sneaking into the castle in the middle of the night and
-      leaving jokes all over the place: under the king&apos;s pillow, in his
-      soup, even in the royal toilet. The king was furious, but he couldn&apos;t
-      seem to stop Jokester.
-    </p>
-    <p>
-      And then, one day, the people of the kingdom discovered that the jokes
-      left by Jokester were so funny that they couldn&apos;t help but laugh. And
-      once they started laughing, they couldn&apos;t stop.
-    </p>
-    <h3>The People&apos;s Rebellion</h3>
-    <p>
-      The people of the kingdom, feeling uplifted by the laughter, started to
-      tell jokes and puns again, and soon the entire kingdom was in on the joke.
-    </p>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>King&apos;s Treasury</th>
-            <th>People&apos;s happiness</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Empty</td>
-            <td>Overflowing</td>
-          </tr>
-          <tr className="m-0 border-t p-0 even:bg-muted">
-            <td>Modest</td>
-            <td>Satisfied</td>
-          </tr>
-          <tr className="m-0 border-t p-0 even:bg-muted">
-            <td>Full</td>
-            <td>Ecstatic</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p>
-      The king, seeing how much happier his subjects were, realized the error of
-      his ways and repealed the joke tax. Jokester was declared a hero, and the
-      kingdom lived happily ever after.
-    </p>
-    <p>
-      The moral of the story is: never underestimate the power of a good laugh
-      and always be careful of bad ideas.
-    </p>
-  </>
-);
-
 /**
  * ResourceDetailDocumentSidebar - A document detail page with breadcrumb navigation,
  * title, two-column layout with article content and sticky sidebar containing excerpt,
@@ -288,13 +204,13 @@ export function ResourceDetailDocumentSidebar({
   sidebar,
   sidebarSlot,
   sidebarClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
 }: ResourceDetailDocumentSidebarProps) {
-  const renderBreadcrumbs = () => {
+  const renderedBreadcrumbs = useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
 
     return (
@@ -329,9 +245,9 @@ export function ResourceDetailDocumentSidebar({
         </BreadcrumbList>
       </Breadcrumb>
     );
-  };
+  }, [breadcrumbsSlot, breadcrumbsClassName, breadcrumbs]);
 
-  const renderArticle = () => {
+  const renderedArticle = useMemo(() => {
     if (articleSlot) return articleSlot;
 
     return (
@@ -354,9 +270,9 @@ export function ResourceDetailDocumentSidebar({
         {article?.content}
       </article>
     );
-  };
+  }, [articleSlot, articleClassName, article?.featuredImage, article?.content, optixFlowConfig]);
 
-  const renderSidebar = () => {
+  const renderedSidebar = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
 
     return (
@@ -511,7 +427,18 @@ export function ResourceDetailDocumentSidebar({
         </div>
       </div>
     );
-  };
+  }, [
+    sidebarSlot,
+    sidebarClassName,
+    sidebar?.excerptTitle,
+    sidebar?.excerptDescription,
+    sidebar?.downloadAction,
+    sidebar?.reviewer,
+    sidebar?.features,
+    sidebar?.featuresTitle,
+    sidebar?.shareTitle,
+    sidebar?.shareActions,
+  ]);
 
   return (
     <Section
@@ -521,7 +448,7 @@ export function ResourceDetailDocumentSidebar({
       patternOpacity={patternOpacity}
       className={className}
     >
-      {renderBreadcrumbs()}
+      {renderedBreadcrumbs}
       {title &&
         (typeof title === "string" ? (
           <h1
@@ -536,8 +463,8 @@ export function ResourceDetailDocumentSidebar({
           <div className={titleClassName}>{title}</div>
         ))}
       <div className="relative mt-12 grid gap-16 md:grid-cols-2">
-        {renderArticle()}
-        {renderSidebar()}
+        {renderedArticle}
+        {renderedSidebar}
       </div>
     </Section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
@@ -142,6 +142,18 @@ export interface ResourceDetailWhitepaperSidebarProps {
    * OptixFlow image optimization configuration
    */
   optixFlowConfig?: OptixFlowConfig;
+  /**
+   * Label for the view full document button
+   */
+  viewFullDocumentLabel?: React.ReactNode;
+  /**
+   * Fallback label for the document viewer heading
+   */
+  documentViewerLabel?: React.ReactNode;
+  /**
+   * Aria label for the close viewer button
+   */
+  closeViewerAriaLabel?: string;
 }
 
 /**
@@ -178,10 +190,13 @@ export function ResourceDetailWhitepaperSidebar({
   article,
   articleSlot,
   articleClassName,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
+  viewFullDocumentLabel,
+  documentViewerLabel,
+  closeViewerAriaLabel,
 }: ResourceDetailWhitepaperSidebarProps) {
   const [showFullViewer, setShowFullViewer] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -214,7 +229,7 @@ export function ResourceDetailWhitepaperSidebar({
 
   const showPdfPreview = sidebar?.showPdfPreview !== false && !!sidebar?.pdfUrl;
 
-  const renderDownloadAction = (
+  const renderDownloadAction = useCallback((
     action: ActionConfig | undefined,
     defaultVariant: "default" | "outline",
   ) => {
@@ -244,9 +259,9 @@ export function ResourceDetailWhitepaperSidebar({
         {iconAfter}
       </Pressable>
     );
-  };
+  }, []);
 
-  const renderSidebar = () => {
+  const renderedSidebar = useMemo(() => {
     if (sidebarSlot) return sidebarSlot;
 
     return (
@@ -293,7 +308,7 @@ export function ResourceDetailWhitepaperSidebar({
                     className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                   >
                     <DynamicIcon name="lucide/maximize-2" size={16} />
-                    View Full Document
+                    {viewFullDocumentLabel ?? "View Full Document"}
                   </button>
                 </div>
               </div>
@@ -390,9 +405,30 @@ export function ResourceDetailWhitepaperSidebar({
         </div>
       </aside>
     );
-  };
+  }, [
+    sidebarSlot,
+    sidebarClassName,
+    sidebar?.resourceTypeIcon,
+    sidebar?.resourceType,
+    sidebar?.resourceTitle,
+    sidebar?.pdfUrl,
+    sidebar?.pdfPreviewHeight,
+    sidebar?.downloadOptionsIcon,
+    sidebar?.downloadOptionsTitle,
+    sidebar?.downloadDescription,
+    sidebar?.primaryDownloadAction,
+    sidebar?.secondaryDownloadAction,
+    sidebar?.readTime,
+    sidebar?.shareIcon,
+    sidebar?.shareTitle,
+    sidebar?.shareActions,
+    showPdfPreview,
+    handleOpenFullViewer,
+    viewFullDocumentLabel,
+    renderDownloadAction,
+  ]);
 
-  const renderArticle = () => {
+  const renderedArticle = useMemo(() => {
     if (articleSlot) return articleSlot;
 
     return (
@@ -402,7 +438,7 @@ export function ResourceDetailWhitepaperSidebar({
         {article?.content}
       </article>
     );
-  };
+  }, [articleSlot, articleClassName, article?.content]);
 
   return (
     <Section
@@ -414,10 +450,10 @@ export function ResourceDetailWhitepaperSidebar({
     >
       <div className="grid gap-12 md:grid-cols-12 md:gap-8">
         <div className="order-last md:order-0 md:col-span-4 lg:col-span-3">
-          {renderSidebar()}
+          {renderedSidebar}
         </div>
         <div className="md:col-span-7 md:col-start-5 lg:col-start-6">
-          {renderArticle()}
+          {renderedArticle}
         </div>
       </div>
 
@@ -433,15 +469,13 @@ export function ResourceDetailWhitepaperSidebar({
           >
             <div className="flex items-center justify-between border-b border-border bg-background px-6 py-4">
               <h2 className="text-lg font-semibold">
-                {typeof sidebar.resourceTitle === "string"
-                  ? sidebar.resourceTitle
-                  : "Document Viewer"}
+                {typeof sidebar.resourceTitle === "string" ? sidebar.resourceTitle : (documentViewerLabel ?? "Document Viewer")}
               </h2>
               <button
                 type="button"
                 onClick={handleCloseFullViewer}
                 className="flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-muted"
-                aria-label="Close viewer"
+                aria-label={closeViewerAriaLabel ?? "Close viewer"}
               >
                 <DynamicIcon name="lucide/x" size={20} />
               </button>

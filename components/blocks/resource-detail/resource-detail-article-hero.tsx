@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo, useCallback } from "react";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
 import { Pressable } from "../../../lib/Pressable";
@@ -201,111 +202,6 @@ export interface ResourceDetailArticleHeroProps {
   optixFlowConfig?: OptixFlowConfig;
 }
 
-const defaultBlogContent = (
-  <>
-    <p>
-      The digital world consumes more energy than the entire aviation industry.
-      As developers, we have a responsibility to build applications that are not
-      only functional and beautiful, but also sustainable for our planet.
-    </p>
-
-    <h2>The Carbon Footprint of Code</h2>
-    <p>
-      Every line of code we write has an environmental impact. From the energy
-      consumed by servers to the resources used in manufacturing devices, our
-      digital choices matter more than we think.
-    </p>
-
-    <h3>Understanding the Impact</h3>
-    <p>
-      Modern web applications are incredibly resource-intensive. Consider these
-      staggering facts:
-    </p>
-    <ul>
-      <li>
-        <strong>Data centers</strong> consume 1% of global electricity
-      </li>
-      <li>
-        <strong>Video streaming</strong> accounts for 3% of global carbon
-        emissions
-      </li>
-      <li>
-        <strong>Email spam</strong> generates 17 million tons of CO2 annually
-      </li>
-    </ul>
-
-    <blockquote>
-      <p>
-        &ldquo;The most sustainable code is the code you don&apos;t write. The
-        second most sustainable is the code that runs efficiently.&rdquo;
-      </p>
-    </blockquote>
-
-    <h2>Green Coding Principles</h2>
-    <p>Here are the fundamental principles every developer should follow:</p>
-    <ol>
-      <li>
-        <strong>Optimize for performance:</strong> Faster code uses less energy
-      </li>
-      <li>
-        <strong>Minimize dependencies:</strong> Every package adds to the bundle
-        size
-      </li>
-      <li>
-        <strong>Use efficient algorithms:</strong> Better complexity means less
-        computation
-      </li>
-      <li>
-        <strong>Implement caching strategies:</strong> Reduce redundant
-        operations
-      </li>
-      <li>
-        <strong>Choose green hosting:</strong> Renewable energy-powered servers
-      </li>
-    </ol>
-
-    <h3>Practical Implementation</h3>
-    <p>
-      Let&apos;s look at some concrete examples of how to implement these
-      principles:
-    </p>
-
-    <h4>1. Image Optimization</h4>
-    <p>
-      Images often account for 60-80% of a webpage&apos;s size. Use modern
-      formats like WebP or AVIF, implement lazy loading, and serve appropriately
-      sized images.
-    </p>
-
-    <h4>2. Code Splitting</h4>
-    <p>
-      Load only the JavaScript that users actually need. This reduces initial
-      bundle size and improves performance.
-    </p>
-
-    <h4>3. Database Optimization</h4>
-    <p>
-      Write efficient queries, use proper indexing, and implement connection
-      pooling to reduce database load.
-    </p>
-
-    <h2>The Future of Sustainable Development</h2>
-    <p>
-      As we move forward, sustainability must become a core consideration in
-      every development decision. Tools like <strong>WebPageTest</strong> and{" "}
-      <strong>Lighthouse</strong> can help measure the environmental impact of
-      our applications.
-    </p>
-
-    <p>
-      The journey to sustainable web development is ongoing, but every small
-      optimization contributes to a greener digital future. Start with one
-      principle, measure the impact, and gradually incorporate more sustainable
-      practices into your development workflow.
-    </p>
-  </>
-);
-
 /**
  * ResourceDetailArticleHero - A full-width article hero with dark background,
  * navigation back link, title, author info, social sharing, and featured image.
@@ -358,19 +254,19 @@ export function ResourceDetailArticleHero({
   authorClassName,
   contentClassName,
   contentSlot,
-  heroBackground = "primary",
-  heroSpacing = "lg",
+  heroBackground,
+  heroSpacing,
   heroPattern,
   heroPatternOpacity,
   heroClassName,
-  contentBackground = "white",
-  contentSpacing = "lg",
+  contentBackground,
+  contentSpacing,
   contentPattern,
   contentPatternOpacity,
   contentSectionClassName,
   optixFlowConfig,
 }: ResourceDetailArticleHeroProps) {
-  const renderNavigation = () => {
+  const renderedNavigation = useMemo(() => {
     if (navigationSlot) return navigationSlot;
 
     return (
@@ -398,9 +294,9 @@ export function ResourceDetailArticleHero({
         </Pressable>
       </div>
     );
-  };
+  }, [navigationSlot, navigationClassName, navigation?.backHref, navigation?.backIcon, navigation?.backText]);
 
-  const renderBlogMeta = () => {
+  const renderedBlogMeta = useMemo(() => {
     if (blogMetaSlot) return blogMetaSlot;
 
     return (
@@ -420,9 +316,9 @@ export function ResourceDetailArticleHero({
         </p>
       </div>
     );
-  };
+  }, [blogMetaSlot, blogMetaClassName, blog?.author, blog?.date, blog?.readTime]);
 
-  const renderShareActions = (variant: "hero" | "content") => {
+  const renderShareActions = useCallback((variant: "hero" | "content") => {
     if (shareActionsSlot) return shareActionsSlot;
     if (!shareActions || shareActions.length === 0) return null;
 
@@ -460,9 +356,9 @@ export function ResourceDetailArticleHero({
         })}
       </div>
     );
-  };
+  }, [shareActionsSlot, shareActions, shareActionsClassName]);
 
-  const renderIllustration = () => {
+  const renderedIllustration = useMemo(() => {
     if (illustrationSlot) return illustrationSlot;
 
     return (
@@ -479,9 +375,9 @@ export function ResourceDetailArticleHero({
         )}
       </div>
     );
-  };
+  }, [illustrationSlot, illustrationClassName, illustration?.imageSrc, illustration?.imageAlt, optixFlowConfig]);
 
-  const renderAuthor = () => {
+  const renderedAuthor = useMemo(() => {
     if (authorSlot) return authorSlot;
 
     return (
@@ -508,12 +404,12 @@ export function ResourceDetailArticleHero({
         </div>
       </div>
     );
-  };
+  }, [authorSlot, authorClassName, author?.avatarSrc, author?.name, author?.role]);
 
-  const renderContent = () => {
+  const renderedContent = useMemo(() => {
     if (contentSlot) return contentSlot;
     return blog?.content;
-  };
+  }, [contentSlot, blog?.content]);
 
   return (
     <div className={cn(className)}>
@@ -527,7 +423,7 @@ export function ResourceDetailArticleHero({
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
           <div className="flex h-full max-w-md flex-col justify-between gap-8">
             <div className="space-y-6">
-              {renderNavigation()}
+              {renderedNavigation}
               {blog?.title &&
                 (typeof blog.title === "string" ? (
                   <h1
@@ -543,7 +439,7 @@ export function ResourceDetailArticleHero({
                 ))}
             </div>
             <div className="flex flex-col gap-8">
-              {renderBlogMeta()}
+              {renderedBlogMeta}
               <div className="space-y-4">
                 {shareHeading &&
                   (typeof shareHeading === "string" ? (
@@ -556,7 +452,7 @@ export function ResourceDetailArticleHero({
             </div>
           </div>
 
-          <div className="col-span-2 h-full w-full">{renderIllustration()}</div>
+          <div className="col-span-2 h-full w-full">{renderedIllustration}</div>
         </div>
       </Section>
 
@@ -574,10 +470,10 @@ export function ResourceDetailArticleHero({
               contentClassName,
             )}
           >
-            {renderContent()}
+            {renderedContent}
           </div>
           <div className="flex flex-col justify-between gap-8 border-t border-border py-8 md:flex-row">
-            {renderAuthor()}
+            {renderedAuthor}
             <div className="space-y-4">
               {shareHeading &&
                 (typeof shareHeading === "string" ? (
