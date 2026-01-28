@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "exportedAt": "2026-01-28T17:26:49.674Z",
+    "exportedAt": "2026-01-28T19:09:09.791Z",
     "totalBlocks": 605,
-    "version": "0.7.1",
+    "version": "0.7.2",
     "source": "@opensite/ui"
   },
   "blocks": [
@@ -1558,7 +1558,7 @@
       ],
       "category": "carousel",
       "props": "CarouselAutoProgressSlidesProps",
-      "exampleUsage": "<CarouselAutoProgressSlides\n  heading=\"Featured Products\"\n  subheading=\"Discover our latest collection\"\n  slideLabel=\"Explore\"\n  items={[\n    { src: \"/images/product-1.jpg\", label: \"Product 1\" },\n    { src: \"/images/product-2.jpg\", label: \"Product 2\" }\n  ]}\n  autoAdvanceInterval={5000}\n/>"
+      "exampleUsage": "<CarouselAutoProgressSlides\n  heading=\"Featured Products\"\n  subheading=\"Discover our latest collection\"\n  items={[\n    { src: \"/images/product-1.jpg\", label: \"Product 1\" },\n    { src: \"/images/product-2.jpg\", label: \"Product 2\" }\n  ]}\n  autoAdvanceInterval={5000}\n/>"
     },
     {
       "id": "carousel-autoplay-progress",

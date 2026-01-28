@@ -3269,7 +3269,6 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
 <CarouselAutoProgressSlides
   heading="Featured Products"
   subheading="Discover our latest collection"
-  slideLabel="Explore"
   items={[
     { src: "/images/product-1.jpg", label: "Product 1" },
     { src: "/images/product-2.jpg", label: "Product 2" }
@@ -14646,7 +14645,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
     category: "banner",
     component: BannerFloatingOffer,
     props: "BannerFloatingOfferProps",
-  exampleUsage: `<BannerFloatingOffer
+    exampleUsage: `<BannerFloatingOffer
   offerTitle="Black Friday Special"
   offerDescription="Save 60% on annual plans - ends tonight!"
   actions={[{ label: "Claim Offer", href: "/pricing", variant: "secondary", size: "sm" }]}
@@ -18291,7 +18290,7 @@ export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = {
  */
 export function getBlocksBySemanticTag(tag: string): BlockRegistryEntry[] {
   return Object.values(BLOCK_REGISTRY).filter((block) =>
-    block.semanticTags.includes(tag)
+    block.semanticTags.includes(tag),
   );
 }
 
@@ -18299,10 +18298,10 @@ export function getBlocksBySemanticTag(tag: string): BlockRegistryEntry[] {
  * Get blocks by category
  */
 export function getBlocksByCategory(
-  category: BlockCategory
+  category: BlockCategory,
 ): BlockRegistryEntry[] {
   return Object.values(BLOCK_REGISTRY).filter(
-    (block) => block.category === category
+    (block) => block.category === category,
   );
 }
 
@@ -18325,7 +18324,7 @@ export function getAllBlocks(): BlockRegistryEntry[] {
  */
 export function getAllCategories(): BlockCategory[] {
   return Array.from(
-    new Set(Object.values(BLOCK_REGISTRY).map((block) => block.category))
+    new Set(Object.values(BLOCK_REGISTRY).map((block) => block.category)),
   );
 }
 
@@ -18339,7 +18338,7 @@ export function searchBlocks(query: string): BlockRegistryEntry[] {
       block.name.toLowerCase().includes(lowercaseQuery) ||
       block.description.toLowerCase().includes(lowercaseQuery) ||
       block.semanticTags.some((tag) =>
-        tag.toLowerCase().includes(lowercaseQuery)
-      )
+        tag.toLowerCase().includes(lowercaseQuery),
+      ),
   );
 }

@@ -20,11 +20,11 @@ import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
   ActionConfig,
+  ContainerMaxWidth,
   OptixFlowConfig,
   SectionBackground,
   SectionSpacing,
@@ -154,6 +154,10 @@ export interface CarouselAnimatedSectionsProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Optional max width for the content container
+   */
+  containerMaxWidth?: ContainerMaxWidth;
 }
 
 export function CarouselAnimatedSections({
@@ -162,7 +166,7 @@ export function CarouselAnimatedSections({
   actionsSlot,
   actions,
   className,
-  containerClassName,
+  containerClassName = "h-full",
   contentClassName,
   subtitleClassName,
   titleClassName,
@@ -173,10 +177,11 @@ export function CarouselAnimatedSections({
   counterClassName,
   overlayClassName,
   optixFlowConfig,
-  background,
-  spacing,
-  pattern,
-  patternOpacity,
+  background = "dark",
+  spacing = "py-0",
+  containerMaxWidth = "full",
+  pattern = "diagonalCrossBasic",
+  patternOpacity = 0.033,
 }: CarouselAnimatedSectionsProps): React.JSX.Element {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
@@ -215,30 +220,6 @@ export function CarouselAnimatedSections({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [goToNext, goToPrev]);
-
-  // Wheel navigation with debounce
-  React.useEffect(() => {
-    let timeout: NodeJS.Timeout;
-
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      clearTimeout(timeout);
-
-      timeout = setTimeout(() => {
-        if (e.deltaY > 0) {
-          goToNext();
-        } else if (e.deltaY < 0) {
-          goToPrev();
-        }
-      }, 50);
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      clearTimeout(timeout);
-    };
   }, [goToNext, goToPrev]);
 
   const slideVariants = {
@@ -290,6 +271,8 @@ export function CarouselAnimatedSections({
       className={cn("relative h-screen w-full overflow-hidden", className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerMaxWidth={containerMaxWidth}
+      containerClassName={containerClassName}
     >
       {/* Background slides */}
       {sectionsSlot ? (
@@ -378,7 +361,7 @@ export function CarouselAnimatedSections({
                 (typeof currentSection?.description === "string" ? (
                   <p
                     className={cn(
-                      "mb-8 text-lg text-white/80",
+                      "mb-8 text-lg text-white/80 text-balance",
                       descriptionClassName,
                     )}
                   >
