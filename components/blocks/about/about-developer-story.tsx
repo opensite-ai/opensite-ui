@@ -340,7 +340,10 @@ export function AboutDeveloperStory({
           <Img
             src={storyImage.src}
             alt={storyImage.alt}
-            className={cn("rounded-2xl object-cover", storyImageClassName)}
+            className={cn(
+              "rounded-2xl object-cover rounded-2xl object-cover w-full h-auto",
+              storyImageClassName,
+            )}
             optixFlowConfig={optixFlowConfig}
           />
         )}

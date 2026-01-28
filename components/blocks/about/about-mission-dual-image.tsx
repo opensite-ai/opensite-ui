@@ -218,7 +218,7 @@ export function AboutMissionDualImage({
             )}
           </div>
 
-          <div className="relative grid grid-cols-2 gap-4">
+          <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2">
             {primaryImage && (
               <Img
                 src={primaryImage.src}
@@ -231,7 +231,7 @@ export function AboutMissionDualImage({
               <Img
                 src={secondaryImage.src}
                 alt={secondaryImage.alt}
-                className={cn("mt-12 h-full rounded-2xl object-cover", secondaryImageClassName)}
+                className={cn("h-full rounded-2xl object-cover sm:mt-12", secondaryImageClassName)}
                 optixFlowConfig={optixFlowConfig}
               />
             )}

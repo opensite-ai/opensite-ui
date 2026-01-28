@@ -378,8 +378,7 @@ export function AboutCompanyProfile({
           )}
         </div>
       </div>
-      {(companiesSlot || (companies && companies.length > 0)) &&
-        companiesContent}
+      {companiesContent}
       <div
         className={cn(
           "relative overflow-hidden rounded-xl bg-muted p-7 md:p-16",

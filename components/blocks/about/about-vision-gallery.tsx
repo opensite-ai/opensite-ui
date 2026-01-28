@@ -247,7 +247,7 @@ export function AboutVisionGallery({
       containerClassName={containerClassName}
     >
       {(title || subtitle) && (
-        <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-28 text-center">
+        <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-6 md:pb-18 text-center">
           {title &&
             (typeof title === "string" ? (
               <h1
@@ -278,7 +278,7 @@ export function AboutVisionGallery({
       )}
       {imagesContent}
       {(hasPrimarySection || hasSecondarySection) && (
-        <div className="mx-auto grid max-w-5xl gap-28 py-6 md:py-16 md:grid-cols-2">
+        <div className="mx-auto grid max-w-5xl gap:7 md:gap-28 py-6 md:py-16 md:grid-cols-2">
           {hasPrimarySection && (
             <div>
               {primarySectionTitle &&
@@ -300,7 +300,7 @@ export function AboutVisionGallery({
                 (typeof primarySectionContent === "string" ? (
                   <p
                     className={cn(
-                      "text-xl leading-8 font-medium text-muted-foreground whitespace-pre-line",
+                      "text-normal md:text-xl leading-8 font-medium text-muted-foreground whitespace-pre-line",
                       primarySectionContentClassName,
                     )}
                   >
@@ -333,7 +333,7 @@ export function AboutVisionGallery({
               {(secondarySectionContent || secondarySectionLinkText) && (
                 <p
                   className={cn(
-                    "text-xl leading-8 font-medium text-muted-foreground",
+                    "text-normal md:text-xl leading-8 font-medium text-muted-foreground",
                     secondarySectionContentClassName,
                   )}
                 >
