@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -128,8 +129,8 @@ export function ProcessStepsGrid({
   stepsGridClassName,
   stepCardClassName,
   stepIconClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   // Backwards compatibility
@@ -138,7 +139,7 @@ export function ProcessStepsGrid({
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
 
-  const renderSteps = () => {
+  const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
     if (!steps || steps.length === 0) return null;
 
@@ -199,7 +200,7 @@ export function ProcessStepsGrid({
         ))}
       </div>
     );
-  };
+  }, [stepsSlot, steps, stepsGridClassName, stepCardClassName, stepIconClassName]);
 
   return (
     <Section
@@ -238,7 +239,7 @@ export function ProcessStepsGrid({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        {renderSteps()}
+        {renderSteps}
       </div>
     </Section>
   );

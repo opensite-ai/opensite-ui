@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -226,8 +227,8 @@ export function ProcessScrollImage({
   actionsClassName,
   stepsClassName,
   stepItemClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -260,48 +261,50 @@ export function ProcessScrollImage({
         ]
       : []);
 
-  const renderActions = () => {
-    if (actionsSlot) return actionsSlot;
-    if (!resolvedActions || resolvedActions.length === 0) return null;
+  const renderActions = useMemo(() => {
+    return () => {
+      if (actionsSlot) return actionsSlot;
+      if (!resolvedActions?.length) return null;
 
-    return (
-      <div className={cn("flex flex-col gap-2", actionsClassName)}>
-        {resolvedActions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={cn(
-                "flex items-center justify-start gap-2",
-                actionClassName,
-              )}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  };
+      return (
+        <div className={cn("flex flex-col gap-2", actionsClassName)}>
+          {resolvedActions.map((action, index) => {
+            const {
+              label,
+              icon,
+              iconAfter,
+              children,
+              className: actionClassName,
+              ...pressableProps
+            } = action;
+            return (
+              <Pressable
+                key={index}
+                asButton
+                className={cn(
+                  "flex items-center justify-start gap-2",
+                  actionClassName,
+                )}
+                {...pressableProps}
+              >
+                {children ?? (
+                  <>
+                    {icon}
+                    {label}
+                    {iconAfter}
+                  </>
+                )}
+              </Pressable>
+            );
+          })}
+        </div>
+      );
+    };
+  }, [actionsSlot, resolvedActions, actionsClassName]);
 
-  const renderSteps = () => {
+  const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
-    if (!steps || steps.length === 0) return null;
+    if (!steps?.length) return null;
 
     return (
       <ul className={cn("relative w-full lg:pl-22", stepsClassName)}>
@@ -316,12 +319,12 @@ export function ProcessScrollImage({
         ))}
       </ul>
     );
-  };
+  }, [stepsSlot, steps, stepsClassName, stepItemClassName, setActive]);
 
   const getStepTitle = (step: ProcessScrollImageItem): string => {
-    return typeof step.title === "string"
-      ? step.title
-      : `Step ${steps?.indexOf(step) ?? 0 + 1}`;
+    if (typeof step.title === "string") return step.title;
+    const stepIndex = steps?.indexOf(step) ?? 0;
+    return `Step ${stepIndex + 1}`;
   };
 
   return (
@@ -377,9 +380,7 @@ export function ProcessScrollImage({
             )}
           >
             {previousActive !== undefined &&
-              steps &&
-              steps[previousActive] &&
-              steps[previousActive].image && (
+              steps?.[previousActive]?.image && (
                 <div className="absolute top-0 h-full w-full">
                   <Img
                     src={steps[previousActive].image!}
@@ -389,7 +390,7 @@ export function ProcessScrollImage({
                   />
                 </div>
               )}
-            {steps && steps[active] && steps[active].image && (
+            {steps?.[active]?.image && (
               <motion.div
                 initial={{ clipPath: "inset(100% 100% 0% 0%)" }}
                 animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
@@ -412,7 +413,7 @@ export function ProcessScrollImage({
           </div>
           {renderActions()}
         </div>
-        {renderSteps()}
+        {renderSteps}
       </div>
     </Section>
   );

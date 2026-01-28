@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -141,8 +142,8 @@ export function ProcessIconTimeline({
   timelineLineClassName,
   stepCardClassName,
   stepBadgeClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   // Backwards compatibility
@@ -151,9 +152,9 @@ export function ProcessIconTimeline({
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
 
-  const renderSteps = () => {
+  const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
-    if (!steps || steps.length === 0) return null;
+    if (!steps?.length) return null;
 
     return (
       <div className="space-y-12">
@@ -210,7 +211,7 @@ export function ProcessIconTimeline({
                       {step.description}
                     </div>
                   ))}
-                {step.highlights && step.highlights.length > 0 && (
+                {step.highlights?.length ? (
                   <div
                     className={cn(
                       "flex flex-wrap gap-2",
@@ -226,7 +227,7 @@ export function ProcessIconTimeline({
                       </span>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
 
@@ -235,7 +236,7 @@ export function ProcessIconTimeline({
         ))}
       </div>
     );
-  };
+  }, [stepsSlot, steps, stepBadgeClassName, stepCardClassName]);
 
   return (
     <Section
@@ -282,7 +283,7 @@ export function ProcessIconTimeline({
               timelineLineClassName,
             )}
           />
-          {renderSteps()}
+          {renderSteps}
         </div>
       </div>
     </Section>

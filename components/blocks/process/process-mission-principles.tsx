@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
@@ -131,10 +132,10 @@ export interface ProcessMissionPrinciplesProps {
  * ProcessMissionPrinciples - A mission statement and principles section.
  */
 export function ProcessMissionPrinciples({
-  missionLabel = "OUR MISSION",
-  missionHeading = "Building the Future Together",
-  missionDescription = "We're on a mission to transform how businesses operate by providing innovative solutions that drive growth, efficiency, and success. Our commitment to excellence guides everything we do.",
-  principlesLabel = "OUR PRINCIPLES",
+  missionLabel,
+  missionHeading,
+  missionDescription,
+  principlesLabel,
   principles,
   principlesSlot,
   className,
@@ -148,8 +149,8 @@ export function ProcessMissionPrinciples({
   principlesGridClassName,
   principleCardClassName,
   principleBadgeClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   // Backwards compatibility
@@ -158,9 +159,9 @@ export function ProcessMissionPrinciples({
   // Handle backwards compatibility
   const resolvedMissionHeading = missionTitle ?? missionHeading;
 
-  const renderPrinciples = () => {
+  const renderPrinciples = useMemo(() => {
     if (principlesSlot) return principlesSlot;
-    if (!principles || principles.length === 0) return null;
+    if (!principles?.length) return null;
 
     return (
       <div
@@ -212,7 +213,7 @@ export function ProcessMissionPrinciples({
         ))}
       </div>
     );
-  };
+  }, [principlesSlot, principles, principlesGridClassName, principleCardClassName, principleBadgeClassName]);
 
   return (
     <Section
@@ -283,7 +284,7 @@ export function ProcessMissionPrinciples({
             ) : (
               <div className={principlesLabelClassName}>{principlesLabel}</div>
             ))}
-          {renderPrinciples()}
+          {renderPrinciples}
         </div>
       </div>
     </Section>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { Img } from "@page-speed/img";
@@ -212,8 +213,8 @@ export function ProcessHoverCards({
   stepsClassName,
   stepItemClassName,
   hoverImageClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   optixFlowConfig,
@@ -223,9 +224,9 @@ export function ProcessHoverCards({
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
 
-  const renderSteps = () => {
+  const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
-    if (!steps || steps.length === 0) return null;
+    if (!steps?.length) return null;
 
     return (
       <ul className={cn("relative w-full", stepsClassName)}>
@@ -241,7 +242,7 @@ export function ProcessHoverCards({
         ))}
       </ul>
     );
-  };
+  }, [stepsSlot, steps, stepsClassName, stepItemClassName, hoverImageClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -280,7 +281,7 @@ export function ProcessHoverCards({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        {renderSteps()}
+        {renderSteps}
       </div>
     </Section>
   );

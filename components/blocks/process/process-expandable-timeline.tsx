@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -163,8 +164,8 @@ export function ProcessExpandableTimeline({
   stepItemClassName,
   stepBadgeClassName,
   expandedContentClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   // Backwards compatibility
@@ -179,9 +180,9 @@ export function ProcessExpandableTimeline({
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  const renderSteps = () => {
+  const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
-    if (!steps || steps.length === 0) return null;
+    if (!steps?.length) return null;
 
     return (
       <div className="space-y-0">
@@ -277,7 +278,7 @@ export function ProcessExpandableTimeline({
         ))}
       </div>
     );
-  };
+  }, [stepsSlot, steps, stepItemClassName, stepBadgeClassName, expandedContentClassName, expandedIndex, toggleExpand]);
 
   return (
     <Section
@@ -324,7 +325,7 @@ export function ProcessExpandableTimeline({
               timelineLineClassName,
             )}
           />
-          {renderSteps()}
+          {renderSteps}
         </div>
       </div>
     </Section>

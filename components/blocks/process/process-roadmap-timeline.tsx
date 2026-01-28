@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
@@ -186,8 +187,8 @@ export function ProcessRoadmapTimeline({
   timelineLineClassName,
   milestoneCardClassName,
   milestoneNodeClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   // Backwards compatibility
@@ -196,7 +197,7 @@ export function ProcessRoadmapTimeline({
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
 
-  const renderMilestones = () => {
+  const renderMilestones = useMemo(() => {
     if (milestonesSlot) return milestonesSlot;
     if (!milestones || milestones.length === 0) return null;
 
@@ -262,7 +263,7 @@ export function ProcessRoadmapTimeline({
                       {milestone.description}
                     </div>
                   ))}
-                {milestone.features && milestone.features.length > 0 && (
+                {milestone.features?.length ? (
                   <div
                     className={cn(
                       "flex flex-wrap gap-2",
@@ -278,7 +279,7 @@ export function ProcessRoadmapTimeline({
                       </span>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
 
@@ -305,7 +306,7 @@ export function ProcessRoadmapTimeline({
         ))}
       </div>
     );
-  };
+  }, [milestonesSlot, milestones, milestoneCardClassName, milestoneNodeClassName]);
 
   return (
     <Section
@@ -352,7 +353,7 @@ export function ProcessRoadmapTimeline({
               timelineLineClassName,
             )}
           />
-          {renderMilestones()}
+          {renderMilestones}
         </div>
       </div>
     </Section>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -170,8 +171,8 @@ export function ProcessStickySteps({
   actionsClassName,
   stepsClassName,
   stepItemClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   // Backwards compatibility
@@ -200,48 +201,50 @@ export function ProcessStickySteps({
         ]
       : []);
 
-  const renderActions = () => {
-    if (actionsSlot) return actionsSlot;
-    if (!resolvedActions || resolvedActions.length === 0) return null;
+  const renderActions = useMemo(() => {
+    return () => {
+      if (actionsSlot) return actionsSlot;
+      if (!resolvedActions?.length) return null;
 
-    return (
-      <div className={cn("flex flex-col gap-2", actionsClassName)}>
-        {resolvedActions.map((action, index) => {
-          const {
-            label,
-            icon,
-            iconAfter,
-            children,
-            className: actionClassName,
-            ...pressableProps
-          } = action;
-          return (
-            <Pressable
-              key={index}
-              asButton
-              className={cn(
-                "flex items-center justify-start gap-2",
-                actionClassName,
-              )}
-              {...pressableProps}
-            >
-              {children ?? (
-                <>
-                  {icon}
-                  {label}
-                  {iconAfter}
-                </>
-              )}
-            </Pressable>
-          );
-        })}
-      </div>
-    );
-  };
+      return (
+        <div className={cn("flex flex-col gap-2", actionsClassName)}>
+          {resolvedActions.map((action, index) => {
+            const {
+              label,
+              icon,
+              iconAfter,
+              children,
+              className: actionClassName,
+              ...pressableProps
+            } = action;
+            return (
+              <Pressable
+                key={index}
+                asButton
+                className={cn(
+                  "flex items-center justify-start gap-2",
+                  actionClassName,
+                )}
+                {...pressableProps}
+              >
+                {children ?? (
+                  <>
+                    {icon}
+                    {label}
+                    {iconAfter}
+                  </>
+                )}
+              </Pressable>
+            );
+          })}
+        </div>
+      );
+    };
+  }, [actionsSlot, resolvedActions, actionsClassName]);
 
-  const renderSteps = () => {
+  const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
-    if (!steps || steps.length === 0) return null;
+    if (!steps?.length) return null;
 
     return (
       <ul className={cn("relative col-span-4 w-full lg:pl-22", stepsClassName)}>
@@ -279,7 +282,7 @@ export function ProcessStickySteps({
         ))}
       </ul>
     );
-  };
+  }, [stepsSlot, steps, stepsClassName, stepItemClassName]);
 
   return (
     <Section
@@ -326,7 +329,7 @@ export function ProcessStickySteps({
             ))}
           {renderActions()}
         </div>
-        {renderSteps()}
+        {renderSteps}
       </div>
     </Section>
   );

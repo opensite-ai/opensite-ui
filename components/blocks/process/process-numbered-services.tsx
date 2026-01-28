@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { cn } from "../../../lib/utils";
 import { Pressable } from "../../../lib/Pressable";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -151,8 +152,8 @@ export function ProcessNumberedServices({
   serviceItemClassName,
   serviceBadgeClassName,
   capabilitiesClassName,
-  background = "white",
-  spacing = "lg",
+  background,
+  spacing,
   pattern,
   patternOpacity,
   // Backwards compatibility
@@ -161,54 +162,56 @@ export function ProcessNumberedServices({
   // Handle backwards compatibility
   const resolvedHeading = title ?? heading;
 
-  const renderServiceAction = (service: ProcessNumberedServiceItem) => {
-    if (service.actionSlot) return service.actionSlot;
+  const renderServiceAction = useMemo(() => {
+    return (service: ProcessNumberedServiceItem) => {
+      if (service.actionSlot) return service.actionSlot;
 
-    // Handle backwards compatibility
-    const action =
-      service.action ??
-      (service.ctaText && service.ctaUrl
-        ? {
-            label: service.ctaText,
-            href: service.ctaUrl,
-            variant: "ghost" as const,
-          }
-        : null);
+      // Handle backwards compatibility
+      const action =
+        service.action ??
+        (service.ctaText && service.ctaUrl
+          ? {
+              label: service.ctaText,
+              href: service.ctaUrl,
+              variant: "ghost" as const,
+            }
+          : null);
 
-    if (!action) return null;
+      if (!action) return null;
 
-    const {
-      label,
-      icon,
-      iconAfter,
-      children,
-      className: actionClassName,
-      ...pressableProps
-    } = action;
+      const {
+        label,
+        icon,
+        iconAfter,
+        children,
+        className: actionClassName,
+        ...pressableProps
+      } = action;
 
-    return (
-      <Pressable
-        asButton
-        className={cn(
-          "mt-4 inline-flex items-center gap-2 p-0 text-primary hover:text-primary/80",
-          actionClassName,
-        )}
-        {...pressableProps}
-      >
-        {children ?? (
-          <>
-            {icon}
-            {label}
-            {iconAfter ?? <DynamicIcon name="lucide/arrow-right" size={16} />}
-          </>
-        )}
-      </Pressable>
-    );
-  };
+      return (
+        <Pressable
+          asButton
+          className={cn(
+            "mt-4 inline-flex items-center gap-2 p-0 text-primary hover:text-primary/80",
+            actionClassName,
+          )}
+          {...pressableProps}
+        >
+          {children ?? (
+            <>
+              {icon}
+              {label}
+              {iconAfter ?? <DynamicIcon name="lucide/arrow-right" size={16} />}
+            </>
+          )}
+        </Pressable>
+      );
+    };
+  }, []);
 
-  const renderServices = () => {
+  const renderServices = useMemo(() => {
     if (servicesSlot) return servicesSlot;
-    if (!services || services.length === 0) return null;
+    if (!services?.length) return null;
 
     return (
       <div className={cn("space-y-0", servicesClassName)}>
@@ -257,7 +260,7 @@ export function ProcessNumberedServices({
             </div>
 
             <div className="lg:col-span-7">
-              {service.capabilities && service.capabilities.length > 0 && (
+              {service.capabilities?.length ? (
                 <div
                   className={cn(
                     "grid gap-3 sm:grid-cols-2",
@@ -278,13 +281,13 @@ export function ProcessNumberedServices({
                     </div>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         ))}
       </div>
     );
-  };
+  }, [servicesSlot, services, servicesClassName, serviceItemClassName, serviceBadgeClassName, capabilitiesClassName, renderServiceAction]);
 
   return (
     <Section
@@ -323,7 +326,7 @@ export function ProcessNumberedServices({
               <div className={descriptionClassName}>{description}</div>
             ))}
         </div>
-        {renderServices()}
+        {renderServices}
       </div>
     </Section>
   );
