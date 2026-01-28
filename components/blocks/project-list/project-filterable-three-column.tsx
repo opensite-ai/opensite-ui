@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -122,7 +122,7 @@ export function ProjectFilterableThreeColumn({
     }
   };
 
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!filteredItems || filteredItems.length === 0) return null;
 
@@ -166,7 +166,7 @@ export function ProjectFilterableThreeColumn({
         </div>
       </motion.div>
     ));
-  };
+  }, [projectsSlot, filteredItems, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -208,7 +208,7 @@ export function ProjectFilterableThreeColumn({
               gridClassName,
             )}
           >
-            <AnimatePresence mode="wait">{renderProjects()}</AnimatePresence>
+            <AnimatePresence mode="wait">{renderedProjects}</AnimatePresence>
           </motion.div>
 
           {(filteredItems?.length ?? 0) === 0 && (

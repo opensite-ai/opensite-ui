@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -133,7 +134,7 @@ export function ProjectBackgroundReveal({
   listClassName,
   cardClassName,
 }: ProjectBackgroundRevealProps) {
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -183,7 +184,7 @@ export function ProjectBackgroundReveal({
         <div className="absolute inset-0 z-0 bg-black/80 backdrop-blur-sm transition-all duration-300 ease-out group-hover:bg-black/50 group-hover:backdrop-blur-none" />
       </Pressable>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName]);
 
   return (
     <Section
@@ -247,7 +248,7 @@ export function ProjectBackgroundReveal({
         <div
           className={cn("mt-24 flex flex-col gap-5 md:mt-36", listClassName)}
         >
-          {renderProjects()}
+          {renderedProjects}
         </div>
       </div>
     </Section>

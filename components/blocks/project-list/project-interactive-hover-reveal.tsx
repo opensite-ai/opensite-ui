@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -36,6 +36,18 @@ export interface ProjectInteractiveHoverRevealProps {
    * Custom slot for rendering projects (overrides projects array)
    */
   projectsSlot?: React.ReactNode;
+  /**
+   * Label for project link
+   */
+  projectLinkLabel?: React.ReactNode;
+  /**
+   * Custom icon element for project link
+   */
+  projectLinkIcon?: React.ReactNode;
+  /**
+   * Icon name for project link (e.g., "lucide/arrow-right")
+   */
+  projectLinkIconName?: string;
   /**
    * OptixFlow image optimization configuration
    */
@@ -101,6 +113,9 @@ export function ProjectInteractiveHoverReveal({
   subheading,
   projects,
   projectsSlot,
+  projectLinkLabel,
+  projectLinkIcon,
+  projectLinkIconName,
   optixFlowConfig,
   background,
   spacing,
@@ -116,7 +131,7 @@ export function ProjectInteractiveHoverReveal({
 }: ProjectInteractiveHoverRevealProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -169,13 +184,17 @@ export function ProjectInteractiveHoverReveal({
             {project.description}
           </p>
           <span className="inline-flex items-center text-sm font-medium text-white drop-shadow">
-            View Project{" "}
-            <DynamicIcon name="lucide/arrow-right" size={14} className="ml-1" />
+            {projectLinkLabel ?? "View Project"}{" "}
+            {projectLinkIcon ?? (projectLinkIconName ? (
+              <DynamicIcon name={projectLinkIconName} size={14} className="ml-1" />
+            ) : (
+              <DynamicIcon name="lucide/arrow-right" size={14} className="ml-1" />
+            ))}
           </span>
         </div>
       </Pressable>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, optixFlowConfig, projectLinkLabel, projectLinkIcon, projectLinkIconName, hoveredIndex]);
 
   return (
     <Section
@@ -226,7 +245,7 @@ export function ProjectInteractiveHoverReveal({
             gridClassName,
           )}
         >
-          {renderProjects()}
+          {renderedProjects}
         </div>
       </div>
     </Section>

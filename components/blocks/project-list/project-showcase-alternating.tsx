@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -95,7 +96,7 @@ export function ProjectShowcaseAlternating({
   listClassName,
   cardClassName,
 }: ProjectShowcaseAlternatingProps) {
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -128,7 +129,7 @@ export function ProjectShowcaseAlternating({
         </div>
       </div>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -159,7 +160,7 @@ export function ProjectShowcaseAlternating({
             listClassName,
           )}
         >
-          {renderProjects()}
+          {renderedProjects}
         </div>
       </div>
     </Section>

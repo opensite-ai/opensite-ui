@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -111,7 +112,7 @@ export function ProjectAlternatingMotion({
   contentClassName,
   imageContainerClassName,
 }: ProjectAlternatingMotionProps) {
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -160,7 +161,7 @@ export function ProjectAlternatingMotion({
         </motion.div>
       </motion.div>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, contentClassName, imageContainerClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -192,7 +193,7 @@ export function ProjectAlternatingMotion({
             ))}
         </div>
         <div className={cn("space-y-12", listClassName)}>
-          {renderProjects()}
+          {renderedProjects}
         </div>
       </div>
     </Section>

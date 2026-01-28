@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -135,7 +135,7 @@ export function ProjectCarouselDetailCards({
     };
   }, [carouselApi]);
 
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -186,7 +186,7 @@ export function ProjectCarouselDetailCards({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -239,7 +239,7 @@ export function ProjectCarouselDetailCards({
             }}
             className={cn("w-full", carouselClassName)}
           >
-            <CarouselContent>{renderProjects()}</CarouselContent>
+            <CarouselContent>{renderedProjects}</CarouselContent>
           </Carousel>
           <div className="pointer-events-none absolute inset-y-0 top-64 right-4 left-4 z-10 flex justify-between">
             <Pressable

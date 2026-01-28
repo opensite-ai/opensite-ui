@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -109,7 +110,7 @@ export function ProjectNatureMosaic({
   descriptionClassName,
   linkClassName,
 }: ProjectNatureMosaicProps) {
-  const renderImages = () => {
+  const renderedImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -152,7 +153,7 @@ export function ProjectNatureMosaic({
         </div>
       </>
     );
-  };
+  }, [imagesSlot, images, gridClassName, descriptionClassName, linkClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -183,7 +184,7 @@ export function ProjectNatureMosaic({
             gridClassName,
           )}
         >
-          {renderImages()}
+          {renderedImages}
         </div>
 
         <div className="max-w-md">

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -84,7 +85,7 @@ export function ProjectHoverRevealGrid({
   gridClassName,
   cardClassName,
 }: ProjectHoverRevealGridProps) {
-  const renderImages = () => {
+  const renderedImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -113,7 +114,7 @@ export function ProjectHoverRevealGrid({
         </div>
       </div>
     ));
-  };
+  }, [imagesSlot, images, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -125,7 +126,7 @@ export function ProjectHoverRevealGrid({
     >
       <div className={cn("container", containerClassName)}>
         <div className={cn("grid grid-cols-1 md:grid-cols-2", gridClassName)}>
-          {renderImages()}
+          {renderedImages}
         </div>
       </div>
     </Section>

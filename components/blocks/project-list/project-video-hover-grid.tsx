@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -201,7 +202,7 @@ export function ProjectVideoHoverGrid({
   gridClassName,
   cardClassName,
 }: ProjectVideoHoverGridProps) {
-  const renderVideoSections = () => {
+  const renderedVideoSections = useMemo(() => {
     if (videoSectionsSlot) return videoSectionsSlot;
     if (!videoSections || videoSections.length === 0) return null;
 
@@ -216,7 +217,7 @@ export function ProjectVideoHoverGrid({
         />
       </div>
     ));
-  };
+  }, [videoSectionsSlot, videoSections, gridClassName, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -273,7 +274,7 @@ export function ProjectVideoHoverGrid({
       <div
         className={cn("grid w-full grid-cols-1 md:grid-cols-2", gridClassName)}
       >
-        {renderVideoSections()}
+        {renderedVideoSections}
       </div>
     </Section>
   );

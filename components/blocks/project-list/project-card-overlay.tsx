@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -194,7 +195,7 @@ export function ProjectCardOverlay({
   gridClassName,
   cardClassName,
 }: ProjectCardOverlayProps) {
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -206,7 +207,7 @@ export function ProjectCardOverlay({
         className={cardClassName}
       />
     ));
-  };
+  }, [projectsSlot, projects, optixFlowConfig, cardClassName]);
 
   return (
     <Section
@@ -267,7 +268,7 @@ export function ProjectCardOverlay({
             gridClassName,
           )}
         >
-          {renderProjects()}
+          {renderedProjects}
         </motion.div>
       </div>
     </Section>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -25,6 +26,18 @@ export interface ProjectTableListProps {
    * Custom slot for rendering projects (overrides projects array)
    */
   projectsSlot?: React.ReactNode;
+  /**
+   * Label for "PROJECTS" header column
+   */
+  projectsHeaderLabel?: React.ReactNode;
+  /**
+   * Label for "DESCRIPTION" header column
+   */
+  descriptionHeaderLabel?: React.ReactNode;
+  /**
+   * Label for "GALLERY" header column
+   */
+  galleryHeaderLabel?: React.ReactNode;
   /**
    * OptixFlow image optimization configuration
    */
@@ -92,6 +105,9 @@ export interface ProjectTableListProps {
 export function ProjectTableList({
   projects,
   projectsSlot,
+  projectsHeaderLabel,
+  descriptionHeaderLabel,
+  galleryHeaderLabel,
   optixFlowConfig,
   background,
   spacing,
@@ -106,7 +122,7 @@ export function ProjectTableList({
   descriptionColumnClassName,
   galleryColumnClassName,
 }: ProjectTableListProps) {
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -153,7 +169,7 @@ export function ProjectTableList({
         </div>
       </li>
     ));
-  };
+  }, [projectsSlot, projects, rowClassName, infoColumnClassName, descriptionColumnClassName, galleryColumnClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -171,11 +187,11 @@ export function ProjectTableList({
               headerClassName,
             )}
           >
-            <p className="w-1/4">PROJECTS</p>
-            <p className="w-2/4">DESCRIPTION</p>
-            <p className="w-1/4 text-right">GALLERY</p>
+            <p className="w-1/4">{projectsHeaderLabel ?? "PROJECTS"}</p>
+            <p className="w-2/4">{descriptionHeaderLabel ?? "DESCRIPTION"}</p>
+            <p className="w-1/4 text-right">{galleryHeaderLabel ?? "GALLERY"}</p>
           </li>
-          {renderProjects()}
+          {renderedProjects}
         </ul>
       </div>
     </Section>

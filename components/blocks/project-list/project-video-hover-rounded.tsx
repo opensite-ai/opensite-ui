@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -201,7 +202,7 @@ export function ProjectVideoHoverRounded({
   listClassName,
   cardClassName,
 }: ProjectVideoHoverRoundedProps) {
-  const renderVideoSections = () => {
+  const renderedVideoSections = useMemo(() => {
     if (videoSectionsSlot) return videoSectionsSlot;
     if (!videoSections || videoSections.length === 0) return null;
 
@@ -216,7 +217,7 @@ export function ProjectVideoHoverRounded({
         />
       </div>
     ));
-  };
+  }, [videoSectionsSlot, videoSections, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -263,7 +264,7 @@ export function ProjectVideoHoverRounded({
         </div>
 
         <div className={cn("space-y-8 md:space-y-12", listClassName)}>
-          {renderVideoSections()}
+          {renderedVideoSections}
         </div>
       </div>
     </Section>

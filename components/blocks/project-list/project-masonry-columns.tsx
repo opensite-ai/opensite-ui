@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -89,7 +90,7 @@ export function ProjectMasonryColumns({
   cardClassName,
   imageWrapperClassName,
 }: ProjectMasonryColumnsProps) {
-  const renderImages = () => {
+  const renderedImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
 
@@ -118,7 +119,7 @@ export function ProjectMasonryColumns({
         </div>
       </motion.div>
     ));
-  };
+  }, [imagesSlot, images, cardClassName, imageWrapperClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -135,7 +136,7 @@ export function ProjectMasonryColumns({
             gridClassName,
           )}
         >
-          {renderImages()}
+          {renderedImages}
         </div>
       </div>
     </Section>

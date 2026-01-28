@@ -7,7 +7,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -35,6 +35,10 @@ export interface ProjectStudioHoverPreviewProps {
    * Custom slot for rendering projects (overrides projects array)
    */
   projectsSlot?: React.ReactNode;
+  /**
+   * Label for the floating tooltip (defaults to "Explore")
+   */
+  tooltipLabel?: React.ReactNode;
   /**
    * OptixFlow image optimization configuration
    */
@@ -96,6 +100,7 @@ export function ProjectStudioHoverPreview({
   heading,
   projects,
   projectsSlot,
+  tooltipLabel,
   optixFlowConfig,
   background,
   spacing,
@@ -150,7 +155,7 @@ export function ProjectStudioHoverPreview({
     setIsHovering(false);
   }, []);
 
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -181,7 +186,7 @@ export function ProjectStudioHoverPreview({
         </div>
       </div>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, optixFlowConfig, hoveredIndex]);
 
   return (
     <Section
@@ -217,7 +222,7 @@ export function ProjectStudioHoverPreview({
           onMouseMove={handleContainerMouseMove}
           onMouseLeave={handleContainerMouseLeave}
         >
-          {renderProjects()}
+          {renderedProjects}
 
           <AnimatePresence>
             {isHovering && hoveredIndex !== null && (
@@ -250,7 +255,7 @@ export function ProjectStudioHoverPreview({
                   <div className="absolute inset-0 rounded-xl border border-white/10 bg-black/95 shadow-2xl shadow-black/30 backdrop-blur-md" />
 
                   <div className="relative flex items-center gap-3 px-3 py-3 text-sm font-medium whitespace-nowrap text-white">
-                    <span className="text-base">Explore</span>
+                    <span className="text-base">{tooltipLabel ?? "Explore"}</span>
                     <div className="flex h-6 w-6 items-center justify-center rounded-full border border-white/30 bg-white/10">
                       <motion.span
                         animate={{ x: [0, 2, 0] }}

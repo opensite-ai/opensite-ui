@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 
 import { cn } from "../../../lib/utils";
 import { DynamicIcon } from "../../ui/dynamic-icon";
@@ -115,7 +116,7 @@ export function ProjectExperienceQuote({
   gridClassName,
   cardClassName,
 }: ProjectExperienceQuoteProps) {
-  const renderExperiences = () => {
+  const renderedExperiences = useMemo(() => {
     if (experiencesSlot) return experiencesSlot;
     if (!experiences || experiences.length === 0) return null;
 
@@ -206,7 +207,7 @@ export function ProjectExperienceQuote({
         </CardContent>
       </Card>
     ));
-  };
+  }, [experiencesSlot, experiences, cardClassName]);
 
   return (
     <Section
@@ -257,7 +258,7 @@ export function ProjectExperienceQuote({
             gridClassName,
           )}
         >
-          {renderExperiences()}
+          {renderedExperiences}
         </div>
       </div>
     </Section>

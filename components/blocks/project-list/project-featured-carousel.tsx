@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -121,7 +122,7 @@ export function ProjectFeaturedCarousel({
   carouselClassName,
   cardClassName,
 }: ProjectFeaturedCarouselProps) {
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -168,7 +169,7 @@ export function ProjectFeaturedCarousel({
         </div>
       </CarouselItem>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -221,7 +222,7 @@ export function ProjectFeaturedCarousel({
           className={cn("w-full", carouselClassName)}
         >
           <CarouselContent className="-ml-4">
-            {renderProjects()}
+            {renderedProjects}
           </CarouselContent>
           <CarouselPrevious className="-left-4 md:-left-6" />
           <CarouselNext className="-right-4 md:-right-6" />

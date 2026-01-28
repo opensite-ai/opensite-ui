@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -208,7 +209,7 @@ export function ProjectVideoCarousel({
   carouselClassName,
   cardClassName,
 }: ProjectVideoCarouselProps) {
-  const renderVideoSections = () => {
+  const renderedVideoSections = useMemo(() => {
     if (videoSectionsSlot) return videoSectionsSlot;
     if (!videoSections || videoSections.length === 0) return null;
 
@@ -229,7 +230,7 @@ export function ProjectVideoCarousel({
         />
       </CarouselItem>
     ));
-  };
+  }, [videoSectionsSlot, videoSections, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -285,7 +286,7 @@ export function ProjectVideoCarousel({
           className={cn("w-full", carouselClassName)}
         >
           <CarouselContent className="-ml-2 md:-ml-4">
-            {renderVideoSections()}
+            {renderedVideoSections}
           </CarouselContent>
           <CarouselPrevious className="left-4 md:left-8" />
           <CarouselNext className="right-4 md:right-8" />

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -195,7 +196,7 @@ export function ProjectVideoHoverStack({
   videoContainerClassName,
   cardClassName,
 }: ProjectVideoHoverStackProps) {
-  const renderVideoSections = () => {
+  const renderedVideoSections = useMemo(() => {
     if (videoSectionsSlot) return videoSectionsSlot;
     if (!videoSections || videoSections.length === 0) return null;
 
@@ -210,7 +211,7 @@ export function ProjectVideoHoverStack({
         />
       </div>
     ));
-  };
+  }, [videoSectionsSlot, videoSections, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -260,7 +261,7 @@ export function ProjectVideoHoverStack({
       </div>
 
       <div className={cn("w-full", videoContainerClassName)}>
-        {renderVideoSections()}
+        {renderedVideoSections}
       </div>
     </Section>
   );

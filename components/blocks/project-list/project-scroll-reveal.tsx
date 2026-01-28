@@ -8,7 +8,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -275,7 +275,7 @@ export function ProjectScrollReveal({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -292,7 +292,7 @@ export function ProjectScrollReveal({
         optixFlowConfig={optixFlowConfig}
       />
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, optixFlowConfig, hoveredIndex]);
 
   return (
     <Section
@@ -336,7 +336,7 @@ export function ProjectScrollReveal({
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {renderProjects()}
+          {renderedProjects}
         </motion.div>
       </div>
     </Section>

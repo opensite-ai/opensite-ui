@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll, motion } from "framer-motion";
 
@@ -133,7 +134,7 @@ export function ProjectStickyScroll({
     );
   }, [activeCard, linearGradients]);
 
-  const renderContent = () => {
+  const renderedContent = useMemo(() => {
     if (contentSlot) return contentSlot;
 
     return content.map((item, index) => (
@@ -165,7 +166,7 @@ export function ProjectStickyScroll({
         </motion.p>
       </div>
     ));
-  };
+  }, [contentSlot, content, contentClassName, titleClassName, descriptionClassName]);
 
   return (
     <Section
@@ -189,7 +190,7 @@ export function ProjectStickyScroll({
       >
         <div className="div relative flex items-start px-4">
           <div className={cn("max-w-2xl", textContentClassName)}>
-            {renderContent()}
+            {renderedContent}
             <div className="h-40" />
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -39,6 +40,18 @@ export interface ProjectHorizontalCardsProps {
    * Custom slot for rendering projects (overrides projects array)
    */
   projectsSlot?: React.ReactNode;
+  /**
+   * Label for project link button
+   */
+  projectLinkLabel?: React.ReactNode;
+  /**
+   * Custom icon element for project link button
+   */
+  projectLinkIcon?: React.ReactNode;
+  /**
+   * Icon name for project link button (e.g., "lucide/arrow-right")
+   */
+  projectLinkIconName?: string;
   /**
    * OptixFlow image optimization configuration
    */
@@ -103,6 +116,9 @@ export function ProjectHorizontalCards({
   subheading,
   projects,
   projectsSlot,
+  projectLinkLabel,
+  projectLinkIcon,
+  projectLinkIconName,
   optixFlowConfig,
   background,
   spacing,
@@ -116,7 +132,7 @@ export function ProjectHorizontalCards({
   listClassName,
   cardClassName,
 }: ProjectHorizontalCardsProps) {
-  const renderProjects = () => {
+  const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
 
@@ -162,18 +178,26 @@ export function ProjectHorizontalCards({
             <p className="text-muted-foreground mb-6">{project.description}</p>
 
             <Pressable href={project.link} variant="outline" size="sm">
-              View Project{" "}
-              <DynamicIcon
-                name="lucide/arrow-right"
-                size={14}
-                className="ml-1"
-              />
+              {projectLinkLabel ?? "View Project"}{" "}
+              {projectLinkIcon ?? (projectLinkIconName ? (
+                <DynamicIcon
+                  name={projectLinkIconName}
+                  size={14}
+                  className="ml-1"
+                />
+              ) : (
+                <DynamicIcon
+                  name="lucide/arrow-right"
+                  size={14}
+                  className="ml-1"
+                />
+              ))}
             </Pressable>
           </div>
         </div>
       </div>
     ));
-  };
+  }, [projectsSlot, projects, cardClassName, optixFlowConfig, projectLinkLabel, projectLinkIcon, projectLinkIconName]);
 
   return (
     <Section
@@ -219,7 +243,7 @@ export function ProjectHorizontalCards({
         </div>
 
         <div className={cn("space-y-10", listClassName)}>
-          {renderProjects()}
+          {renderedProjects}
         </div>
       </div>
     </Section>

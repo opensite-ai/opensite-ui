@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
 import { cn } from "../../../lib/utils";
@@ -45,6 +46,10 @@ export interface ProjectWorkShowcaseProps {
    * Custom slot for rendering experiences (overrides experiences array)
    */
   experiencesSlot?: React.ReactNode;
+  /**
+   * Label for the projects section heading (defaults to "Key Projects")
+   */
+  projectsSectionLabel?: React.ReactNode;
   /**
    * OptixFlow image optimization configuration
    */
@@ -110,6 +115,7 @@ export function ProjectWorkShowcase({
   subheading,
   experiences,
   experiencesSlot,
+  projectsSectionLabel,
   optixFlowConfig,
   background,
   spacing,
@@ -123,7 +129,7 @@ export function ProjectWorkShowcase({
   listClassName,
   cardClassName,
 }: ProjectWorkShowcaseProps) {
-  const renderExperiences = () => {
+  const renderedExperiences = useMemo(() => {
     if (experiencesSlot) return experiencesSlot;
     if (!experiences || experiences.length === 0) return null;
 
@@ -155,7 +161,7 @@ export function ProjectWorkShowcase({
           </div>
 
           <div className="p-6 md:p-8">
-            <h4 className="mb-4 font-semibold">Key Projects</h4>
+            <h4 className="mb-4 font-semibold">{projectsSectionLabel ?? "Key Projects"}</h4>
 
             <div className="grid gap-6 sm:grid-cols-2">
               {experience.projects.map((project, projectIndex) => (
@@ -197,7 +203,7 @@ export function ProjectWorkShowcase({
         </CardContent>
       </Card>
     ));
-  };
+  }, [experiencesSlot, experiences, cardClassName]);
 
   return (
     <Section
@@ -243,7 +249,7 @@ export function ProjectWorkShowcase({
         </div>
 
         <div className={cn("space-y-10", listClassName)}>
-          {renderExperiences()}
+          {renderedExperiences}
         </div>
       </div>
     </Section>

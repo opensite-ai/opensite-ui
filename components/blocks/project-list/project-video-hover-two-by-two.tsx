@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Img, type OptixFlowConfig } from "@page-speed/img";
 
@@ -203,7 +204,7 @@ export function ProjectVideoHoverTwoByTwo({
   gridClassName,
   cardClassName,
 }: ProjectVideoHoverTwoByTwoProps) {
-  const renderVideoSections = () => {
+  const renderedVideoSections = useMemo(() => {
     if (videoSectionsSlot) return videoSectionsSlot;
     if (!videoSections || videoSections.length === 0) return null;
 
@@ -218,7 +219,7 @@ export function ProjectVideoHoverTwoByTwo({
         optixFlowConfig={optixFlowConfig}
       />
     ));
-  };
+  }, [videoSectionsSlot, videoSections, gridClassName, cardClassName, optixFlowConfig]);
 
   return (
     <Section
@@ -270,7 +271,7 @@ export function ProjectVideoHoverTwoByTwo({
             gridClassName,
           )}
         >
-          {renderVideoSections()}
+          {renderedVideoSections}
         </div>
       </div>
     </Section>
