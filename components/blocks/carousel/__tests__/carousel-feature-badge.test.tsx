@@ -16,7 +16,6 @@ vi.mock("@page-speed/img", () => ({
 }));
 
 describe("CarouselFeatureBadge", () => {
-
   it("renders custom badge", () => {
     render(<CarouselFeatureBadge badge="Custom Badge" />);
     expect(screen.getByText("Custom Badge")).toBeInTheDocument();
@@ -48,17 +47,15 @@ describe("CarouselFeatureBadge", () => {
     expect(heading.tagName).toBe("H2");
   });
 
-  it("renders description with muted foreground styling", () => {
-    const { container } = render(
-      <CarouselFeatureBadge description="Test description" />
-    );
-    const description = container.querySelector(".text-muted-foreground");
-    expect(description).toBeInTheDocument();
-  });
-
   it("renders with empty items array", () => {
-    render(<CarouselFeatureBadge badge="Test badge" heading="Test heading" description="Test description" items={[]} />);
+    render(
+      <CarouselFeatureBadge
+        badge="Test badge"
+        heading="Test heading"
+        description="Test description"
+        items={[]}
+      />,
+    );
     expect(screen.getByText("Test heading")).toBeInTheDocument();
   });
 });
-

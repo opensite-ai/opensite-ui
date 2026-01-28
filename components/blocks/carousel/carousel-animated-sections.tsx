@@ -131,9 +131,10 @@ export interface CarouselAnimatedSectionsProps {
    */
   counterClassName?: string;
   /**
-   * Additional CSS classes for the overlay
+   * Granular control of brightness for slide media
+   * Values 10-40 use arbitrary Tailwind values for finer control on bright images
    */
-  overlayClassName?: string;
+  slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
   /**
    * OptixFlow image optimization configuration
    */
@@ -160,13 +161,28 @@ export interface CarouselAnimatedSectionsProps {
   containerMaxWidth?: ContainerMaxWidth;
 }
 
+/**
+ * Maps brightness prop values to Tailwind classes
+ * Values 10-40 use arbitrary values for finer control on bright images
+ */
+const BRIGHTNESS_CLASS_MAP: Record<string, string> = {
+  "10": "brightness-[.1]",
+  "20": "brightness-[.2]",
+  "25": "brightness-[.25]",
+  "30": "brightness-[.3]",
+  "40": "brightness-[.4]",
+  "50": "brightness-50",
+  "75": "brightness-75",
+  "100": "brightness-100",
+};
+
 export function CarouselAnimatedSections({
   sections,
   sectionsSlot,
   actionsSlot,
   actions,
   className,
-  containerClassName = "h-full",
+  containerClassName = "h-full flex flex-col justify-center",
   contentClassName,
   subtitleClassName,
   titleClassName,
@@ -175,7 +191,7 @@ export function CarouselAnimatedSections({
   navigationClassName,
   arrowsClassName,
   counterClassName,
-  overlayClassName,
+  slideMediaBrightness = "50",
   optixFlowConfig,
   background = "dark",
   spacing = "py-0",
@@ -239,7 +255,7 @@ export function CarouselAnimatedSections({
 
   const currentSection = sections?.[currentIndex];
 
-  const renderActions = () => {
+  const actionElements = React.useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (actions && actions.length > 0) {
       return actions.map((action, index) => (
@@ -249,11 +265,8 @@ export function CarouselAnimatedSections({
           onClick={action.onClick}
           asButton
           variant={action.variant}
-          size={action.size || "lg"}
-          className={cn(
-            "bg-white text-black hover:bg-white/90",
-            action.className,
-          )}
+          size={action.size}
+          className={cn(action.className)}
         >
           {action.label}
           {action.icon && <span className="ml-2">{action.icon}</span>}
@@ -262,7 +275,7 @@ export function CarouselAnimatedSections({
       ));
     }
     return null;
-  };
+  }, [actionsSlot, actions]);
 
   return (
     <Section
@@ -299,12 +312,10 @@ export function CarouselAnimatedSections({
               }
               className={cn(
                 "h-full w-full object-cover",
+                BRIGHTNESS_CLASS_MAP[slideMediaBrightness],
                 currentSection?.imageClassName,
               )}
               optixFlowConfig={optixFlowConfig}
-            />
-            <div
-              className={cn("absolute inset-0 bg-black/50", overlayClassName)}
             />
           </motion.div>
         </AnimatePresence>
@@ -325,7 +336,7 @@ export function CarouselAnimatedSections({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -40 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="max-w-2xl text-white"
+              className="max-w-2xl text-white text-shadow"
             >
               {currentSection?.subtitle &&
                 (typeof currentSection?.subtitle === "string" ? (
@@ -373,7 +384,7 @@ export function CarouselAnimatedSections({
                   </div>
                 ))}
               <div className={actionsClassName}>
-                {renderActions() ||
+                {actionElements ||
                   (currentSection?.ctaText && (
                     <Pressable
                       href={currentSection?.ctaHref}

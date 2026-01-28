@@ -24,10 +24,10 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import { Img } from "@page-speed/img";
-import { imagePlaceholders } from "../../../lib/mediaPlaceholders";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ContainerMaxWidth,
   ImageItem,
   OptixFlowConfig,
   SectionBackground,
@@ -35,6 +35,10 @@ import type {
 } from "../../../src/types";
 
 export interface CarouselFeatureBadgeProps {
+  /**
+   * Variant of the slide layout
+   */
+  slideLayoutVariant?: "horizontal" | "vertical" | "square";
   /**
    * Badge/eyebrow content above heading
    */
@@ -107,7 +111,23 @@ export interface CarouselFeatureBadgeProps {
    * Pattern overlay opacity (0-1)
    */
   patternOpacity?: number;
+  /**
+   * Optional max width for the content container
+   */
+  containerMaxWidth?: ContainerMaxWidth;
 }
+
+/**
+ * Maps slide layout variants to Tailwind aspect ratio classes
+ */
+const SLIDE_LAYOUT_ASPECT_MAP: Record<
+  NonNullable<CarouselFeatureBadgeProps["slideLayoutVariant"]>,
+  string
+> = {
+  horizontal: "aspect-video",
+  vertical: "aspect-[9/16]",
+  square: "aspect-square",
+};
 
 export function CarouselFeatureBadge({
   badge,
@@ -124,10 +144,12 @@ export function CarouselFeatureBadge({
   carouselClassName,
   carouselItemClassName,
   optixFlowConfig,
-  background = "white",
-  spacing = "xl",
+  background,
+  spacing,
   pattern,
   patternOpacity,
+  slideLayoutVariant = "square",
+  containerMaxWidth = "2xl",
 }: CarouselFeatureBadgeProps): React.JSX.Element {
   const renderCarouselItems = () => {
     if (itemsSlot) return itemsSlot;
@@ -135,7 +157,12 @@ export function CarouselFeatureBadge({
 
     return items.map((item, index) => (
       <CarouselItem key={index} className={carouselItemClassName}>
-        <div className="flex aspect-video items-center justify-center overflow-hidden rounded-md bg-muted p-6">
+        <div
+          className={cn(
+            "flex items-center justify-center overflow-hidden rounded-2xl",
+            SLIDE_LAYOUT_ASPECT_MAP[slideLayoutVariant],
+          )}
+        >
           <Img
             src={item.src}
             alt={item.alt}
@@ -154,41 +181,50 @@ export function CarouselFeatureBadge({
       className={cn(className)}
       pattern={pattern}
       patternOpacity={patternOpacity}
+      containerMaxWidth={containerMaxWidth}
     >
-      <div className={cn("container mx-auto", containerClassName)}>
-        <div className="grid grid-cols-1 items-end justify-end gap-10 lg:grid-cols-2">
-          <div className={cn("flex flex-col items-start gap-4", contentClassName)}>
+      <div className={cn("mx-auto", containerClassName)}>
+        <div className="grid grid-cols-1 items-end justify-end gap-6 md:gap-20 lg:grid-cols-2">
+          <div
+            className={cn("flex flex-col items-start gap-4", contentClassName)}
+          >
             {badge && (
               <div className={badgeClassName}>
                 {typeof badge === "string" ? <Badge>{badge}</Badge> : badge}
               </div>
             )}
             <div className="flex flex-col gap-2">
-              {heading && (
-                typeof heading === "string" ? (
-                  <h2 className={cn("text-left text-xl font-normal tracking-tighter md:text-3xl lg:max-w-xl lg:text-5xl", headingClassName)}>
+              {heading &&
+                (typeof heading === "string" ? (
+                  <h2
+                    className={cn(
+                      "text-left text-xl font-semibold md:text-3xl lg:max-w-xl lg:text-4xl",
+                      headingClassName,
+                    )}
+                  >
                     {heading}
                   </h2>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
-                )
-              )}
-              {description && (
-                typeof description === "string" ? (
-                  <p className={cn("max-w-xl text-left text-lg leading-relaxed tracking-tight text-muted-foreground lg:max-w-sm", descriptionClassName)}>
+                ))}
+              {description &&
+                (typeof description === "string" ? (
+                  <p
+                    className={cn(
+                      "max-w-xl text-left text-lg leading-snug lg:max-w-sm",
+                      descriptionClassName,
+                    )}
+                  >
                     {description}
                   </p>
                 ) : (
                   <div className={descriptionClassName}>{description}</div>
-                )
-              )}
+                ))}
             </div>
           </div>
           <div className={cn("w-full max-w-full px-6", carouselClassName)}>
             <Carousel>
-              <CarouselContent>
-                {renderCarouselItems()}
-              </CarouselContent>
+              <CarouselContent>{renderCarouselItems()}</CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
             </Carousel>
@@ -198,4 +234,3 @@ export function CarouselFeatureBadge({
     </Section>
   );
 }
-
